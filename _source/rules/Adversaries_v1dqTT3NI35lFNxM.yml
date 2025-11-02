@@ -115,17 +115,25 @@ pages:
       format: 1
       content: >-
         <p><strong>Taxonomy</strong> classifies the biology of an
-        <strong>Adversary</strong> in Crucible. Each Taxonomy defines base
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}
-        which determine baseline attributes and
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.XDx0e2rZWcHLcfBt]{Resistances}
-        which define how damage resistances scale with threat level.</p><section
-        class="gameplay"><h4>Example: Hobgoblin Taxonomy</h4><p>Hobgoblins are
-        humanoids which typically congregate in martial societies which are
-        orderly and disciplined. Hobgoblins are both cunning and uncompromising,
-        making dangerous foes or powerful allies.</p><p>The Hobgoblin Taxonomy
-        defines scaling weights such that Strength, Intellect, and Toughness
-        evolve more frequently while Wisdom, Presence, and Dexterity evolve more
+        <strong>Adversary</strong> in Crucible. Each Taxonomy defines a variety
+        of basic properties:</p><ul><li><p>Category (such as whether a creature
+        is an Beast, Celestial, Humanoid, etc.)</p></li><li><p>Base size of an
+        adversary (in grid spaces)</p></li><li><p>Stride (movement speed in
+        feet)</p></li><li><p>Whether the creature can wear typical humanoid
+        equipment or cast
+        spells</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}
+        which determine baseline
+        attributes</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]{Resistances}
+        and Immunities which define how damage resistances scale with threat
+        level and whether the creature is immune to any specific types of
+        damage.</p></li><li><p>Any talents that all creatures with this taxonomy
+        should start with</p></li></ul><section class="gameplay"><h4>Example:
+        Hobgoblin Taxonomy</h4><p>Hobgoblins are humanoids which typically
+        congregate in martial societies which are orderly and disciplined.
+        Hobgoblins are both cunning and uncompromising, making dangerous foes or
+        powerful allies.</p><p>The Hobgoblin Taxonomy defines scaling weights
+        such that Strength, Intellect, and Toughness evolve more frequently
+        while Wisdom, Presence, and Dexterity evolve more
         slowly.</p></section><p>Many different Adversaries will use the same
         Taxonomy, for example a Level 3 <strong>Hobgoblin Archer</strong>, Level
         4 <strong>Hobgoblin Fighter</strong>, and a Level 6 <strong>Hobgoblin
@@ -146,10 +154,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375066136
-      modifiedTime: 1684895944722
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762045020226
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -167,27 +175,27 @@ pages:
       format: 1
       content: >-
         <p><strong>Archetype</strong> defines the skills and combat style of an
-        <strong>Adversary</strong> in Crucible. Each Archetype defines scaling
-        weights for
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}
-        and provides a set of
-        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok.JournalEntryPage.OmJNyYrgeaTwYE7L]{Talents}
-        which are automatically applied to Adversaries of that
-        Archetype.</p><section class="gameplay"><h4>Example: Fighter
-        Archetype</h4><p>Hardened melee combatants expert at weilding one-handed
-        weaponry, shield, and heavy armor.</p><p>The Fighter Archetype defines
-        scaling weights such that emphasize faster progression of Strength and
-        Toughness, normal progression of Presence and Dexterity, and slower
-        progression of Wisdom and Intellect.</p><p>Furthermore, the Fighter
-        Archetype provides the <strong>Martial Weapon Training</strong>,
-        <strong>Bulwark</strong>, and <strong>Armored Efficiency</strong>
-        talents.</p></section><p>Many different Adversaries will use the same
-        Archetype. For example a Level 2 <strong>Bandit Fighter</strong>, a
-        Level 4 <strong>Hobgoblin Fighter</strong>, and a Level 7
-        <strong>Hellguard</strong> all share the Fighter Archetype, but they
-        each have different Taxonomies and therefore have different attributes
-        and talents, but all share a common aspect of progression due to the
-        Fighter Archetype.</p>
+        <strong>Adversary</strong> in Crucible. Each Archetype further defines a
+        taxonomy to:</p><ul><li><p>Refine scaling weights for
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}
+        (above and beyond those defined by the Taxonomy), </p></li><li><p>Define
+        skill progression</p></li><li><p>Configure any automatic equipment
+        </p></li><li><p>Provides a set of automatically attained
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}</p></li></ul><section
+        class="gameplay"><h4>Example: Fighter Archetype</h4><p>Hardened melee
+        combatants expert at wielding one-handed weaponry, shield, and heavy
+        armor.</p><p>The Fighter Archetype defines scaling weights such that
+        emphasize faster progression of Strength and Toughness, normal
+        progression of Presence and Dexterity, and slower progression of Wisdom
+        and Intellect.</p><p>Furthermore, the Fighter Archetype provides the
+        <strong>Martial Weapon Training</strong>, <strong>Bulwark</strong>, and
+        <strong>Armored Efficiency</strong> talents.</p></section><p>Many
+        different Adversaries will use the same Archetype. For example a Level 2
+        <strong>Bandit Fighter</strong>, a Level 4 <strong>Hobgoblin
+        Fighter</strong>, and a Level 7 <strong>Hellguard</strong> all share the
+        Fighter Archetype, but they each have different Taxonomies and therefore
+        have different attributes and talents, but all share a common aspect of
+        progression due to the Fighter Archetype.</p>
     video:
       controls: true
       volume: 0.5
@@ -200,10 +208,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375072170
-      modifiedTime: 1684895957472
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762045154975
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null
