@@ -6,11 +6,15 @@ system:
   training:
     rank: 1
     type: tailoring
-  description: ''
+  description: >-
+    <p>You have received training in the fundamentals of Tailoring and are
+    capable of working with most common cloth and patterns.</p><p>You still need
+    to reference recipes and books to identify fabrics, leathers, and their
+    properties.</p>
   actions: []
   iconicSpells: 0
   actorHooks: []
-img: icons/svg/item-bag.svg
+img: icons/commodities/cloth/thread-spindle-white.webp
 effects: []
 sort: 0
 ownership:
@@ -21,11 +25,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.0
   createdTime: 1742954523726
-  modifiedTime: 1742954523726
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762043690173
+  lastModifiedBy: vke929uLgNzbrY41
 _id: tailoringNovice0
 _key: '!items!tailoringNovice0'

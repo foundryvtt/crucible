@@ -6,11 +6,16 @@ system:
   training:
     rank: 2
     type: smithing
-  description: ''
+  description: >-
+    <p>You have a professional degree of experience with the skill of Smithing
+    and can work through some of the more advanced techniques and schematics
+    given time.</p><p>The basic properties of most common metals are easy for
+    you to remember without reference material, but you still need books for
+    rarer schematics and alloys.</p>
   actions: []
   iconicSpells: 0
   actorHooks: []
-img: icons/svg/item-bag.svg
+img: icons/skills/trades/smithing-anvil-silver-red.webp
 effects: []
 sort: 0
 ownership:
@@ -21,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.0
   createdTime: 1742954600515
-  modifiedTime: 1742954677251
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762039353102
+  lastModifiedBy: vke929uLgNzbrY41
 _id: smithingJourneym
 _key: '!items!smithingJourneym'

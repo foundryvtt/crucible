@@ -6,11 +6,15 @@ system:
   training:
     rank: 1
     type: fletching
-  description: ''
+  description: >-
+    <p>You have received training in the fundamentals of Fletchery and are
+    capable of working with most common types of bow and their
+    ammunition.</p><p>You still need to reference schematics and books to
+    identify useful materials and their properties.</p>
   actions: []
   iconicSpells: 0
   actorHooks: []
-img: icons/svg/item-bag.svg
+img: icons/weapons/ammunition/arrows-fletching.webp
 effects: []
 sort: 0
 ownership:
@@ -21,11 +25,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.0
   createdTime: 1742954523726
-  modifiedTime: 1742954523726
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762038689916
+  lastModifiedBy: vke929uLgNzbrY41
 _id: fletchingNovice0
 _key: '!items!fletchingNovice0'
