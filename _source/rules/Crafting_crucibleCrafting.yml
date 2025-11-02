@@ -434,7 +434,7 @@ pages:
         <strong>Tradeskills</strong> which, similar to adventuring
         @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills},
         are invested aspects of your character's identity obtained through
-        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok]{Talent}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
         class="gameplay"><p>It is not required for any character to invest into

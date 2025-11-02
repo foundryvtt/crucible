@@ -1259,7 +1259,7 @@ pages:
         Check</strong>- a simple roll to test whether you have sufficient skill
         to perform an action or recall some piece of information. Each skill is
         associated with two
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}.</p><h2
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}.</p><h2
         class="divider">Standard Skill Checks</h2><section
         class="foundryvtt"><p>You can roll a skill check at any time from the
         skill tab of your character sheet, simply by clicking on the skill
@@ -1298,12 +1298,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.348'
+      coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1757002143243
-      modifiedTime: 1757002317199
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1762035179981
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!CrucibleSkills00.skillChecks00000'
 flags:
   crucible:
