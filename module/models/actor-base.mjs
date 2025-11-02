@@ -96,8 +96,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Resource Pools
     schema.resources = new fields.SchemaField(Object.values(SYSTEM.RESOURCES).reduce((obj, resource) => {
+      const initial = resource.type === "active" ? 1 : 0; // Avoid starting as weakened, broken, etc...
       obj[resource.id] = new fields.SchemaField({
-        value: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: resource.max})
+        value: new fields.NumberField({...requiredInteger, initial, min: 0, max: resource.max})
       }, {label: resource.label});
       return obj
     }, {}));

@@ -2075,6 +2075,9 @@ export default class CrucibleActor extends Actor {
     await super._preCreate(data, options, user);
     const updates = {};
 
+    // Populate initial resource data
+    if ( this.system.schema.has("resources") ) this.updateSource(this.#getRecoveryData());
+
     // Begin Character Creation
     if ( !this.pack && (this.type === "hero") && (this.level === 0) ) {
       foundry.utils.setProperty(updates, "flags.core.sheetClass", `crucible.${crucible.CONFIG.heroCreationSheet.name}`);
@@ -2110,13 +2113,17 @@ export default class CrucibleActor extends Actor {
     const abl1 = data.system?.abilities;
     const abilityChange = !!abl1 && Object.keys(SYSTEM.ABILITIES).some(k => !foundry.utils.isEmpty(abl1[k]));
 
-    // Pre-simulate the changes
-    if ( (options.recursive !== false) && (levelChange || abilityChange) ) {
+    // Simulate changes on a cloned actor?
+    const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
+    if ( simulate ) {
       const clone = this.clone();
       clone.updateSource(data);
 
       // Replenish resources
-      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone.#getRecoveryData());
+      if ( !this.inCombat ) {
+        clone.updateSource({system: {resources: {health: {value: 1}, morale: {value: 1}}}}); // Clear weakened + broken
+        foundry.utils.mergeObject(data, clone.#getRecoveryData());
+      }
 
       // Constrain milestones
       if ( levelChange && (this.type === "hero") ) {

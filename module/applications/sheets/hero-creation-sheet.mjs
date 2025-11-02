@@ -825,7 +825,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const creationData = this._clone.toObject();
-    const creationOptions = {recursive: false, diff: false, noHook: true, render: false};
+    const creationOptions = {recursive: false, diff: false, noHook: true, render: false, characterCreation: true};
     await this._finalizeCreationData(creationData, creationOptions);
 
     // Update the actor and render the regular sheet
