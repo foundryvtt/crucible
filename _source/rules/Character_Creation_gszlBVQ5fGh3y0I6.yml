@@ -8,7 +8,7 @@ flags:
     viewMode: 2
     sheetClass: crucible.CrucibleJournalEntrySheet
 pages:
-  - name: Step I - Ancestry
+  - name: Ancestry
     type: text
     title:
       show: true
@@ -40,10 +40,12 @@ pages:
         have neither Resistance nor Vulnerability to any damage type.</p><p>For
         more information see:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]</p></dd></dl><section
-        class="foundryvtt"><p>While Crucible includes a number of example
-        Ancestries, future versions will include a convenient way for
-        Gamemasters to create and use their own custom Ancestries as part of the
-        basic character creation workflow.</p><p></p></section>
+        class="foundryvtt"><p>While Crucible provides a number of example
+        ancestries, it also allows use of custom ancestries by providing a way
+        for GMs to configure their own compendium packs to use as a source
+        during character creation. To add your compendium as a source, go to
+        <strong>Configure Settings ➤ Crucible ➤ Configure Compendium
+        Sources</strong>.</p></section>
       markdown: ''
     _id: ovqgeiXHPrdiUXci
     image: {}
@@ -62,14 +64,14 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1761773847103
+      modifiedTime: 1762045518476
       lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: JournalEntry.ufNQdK2ZfNU6R05g.JournalEntryPage.ovqgeiXHPrdiUXci
       duplicateSource: null
       exportSource: null
     category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.ovqgeiXHPrdiUXci'
-  - name: Step II - Background and Ability Points
+  - name: Background and Ability Points
     type: text
     title:
       show: true
@@ -87,14 +89,16 @@ pages:
         talent and one additional talent)</p></li></ul><p>For more information
         see:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]</p><section
-        class="foundryvtt"><p>While Crucible includes a number of example
-        Backgrounds, future versions will include a convenient way for
-        Gamemasters to create and use their own custom backgrounds as part of
-        the basic character creation workflow.</p></section><h2>Ability
-        Scores</h2><p>After you have selected your background, it is time to
-        spend Ability Points!</p><p>Each Ancestry provides a Primary Ability
-        Score which begins at <strong>3</strong>, and a Secondary Ability Score
-        which begins at <strong>2</strong>. All other ability scores begin at
+        class="foundryvtt"><p>While Crucible provides a number of example
+        backgrounds, it also allows use of custom backgrounds by providing a way
+        for GMs to configure their own compendium packs to use as a source
+        during character creation. To add your compendium as a source, go to
+        <strong>Configure Settings ➤ Crucible ➤ Configure Compendium
+        Sources</strong>.</p></section><h2>Ability Scores</h2><p>After you have
+        selected your background, it is time to spend Ability Points!</p><p>Each
+        Ancestry provides a Primary Ability Score which begins at
+        <strong>3</strong>, and a Secondary Ability Score which begins at
+        <strong>2</strong>. All other ability scores begin at
         <strong>1</strong>. The values of each Ability Score range from
         <strong>1</strong> to <strong>12</strong>, where the typical value of
         this attribute for a non-remarkable Human is
@@ -109,7 +113,7 @@ pages:
         advanced your character to <strong>Level 1</strong> the starting Ability
         Scores which you purchased can no longer be changed, but these ability
         scores may still be increased over time as you continue to level
-        up.</p><p>For more information see: </p>
+        up.</p><p>For more information see:</p>
     _id: uCwStnXHoUCV2TrK
     image: {}
     video:
@@ -127,7 +131,7 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1761775116050
+      modifiedTime: 1762045662805
       lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
       duplicateSource: null
@@ -162,21 +166,15 @@ pages:
         that their character has unlocked prior to the start of the game. This
         process helps to solidify their character backstory through past events
         that explain their heroic capabilities.</p></blockquote><p>Character
-        creation is an easy three-step process described below. During creation,
-        a character is considered to be "Level Zero" when they are allowed to
-        make initial choices about their hero. Once the creation process is
-        completed, the hero advances to Level 1. You may reset the character
-        creation process at any time by clicking the "restart" button located at
-        the top right of the character creation screen.</p><p></p><h2>Character
-        Creation
-        Steps</h2><ul><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.ovqgeiXHPrdiUXci]{Step
-        I -
-        Ancestry}</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Step
-        II - Background and Ability
-        Points}</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.creationTalents0]{Step
-        III -
-        Talents}</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FinishingTouches]{Finishing
-        Touches}</p></li></ul>
+        creation is an easy process described below, though additional games
+        using the Crucible system may add their own additional steps. During
+        creation, a character is considered to be "Level Zero" when they are
+        allowed to make initial choices about their hero. Once the creation
+        process is completed, the hero advances to Level 1. You may reset the
+        character creation process at any time by clicking the "restart" button
+        located at the top right of the character creation
+        screen.</p><p></p><h2>Character Creation
+        Steps</h2><ul><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.ovqgeiXHPrdiUXci]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.creationTalents0]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FinishingTouches]</p></li></ul>
       markdown: ''
     _id: DjePpoV2oJenlyTf
     image: {}
@@ -216,50 +214,27 @@ pages:
         <p>Each time you gain a character level after level 1 you can further
         advance your character's powers and capabilities. Each level grants
         you:</p><ul><li>1 Ability Point which can increase one of your Ability
-        scores by one.</li><li>2 Skill Points which can be used to purchase
-        additional ranks in Skills.</li><li>2 Talent Points which can be used to
-        purchase new character Talents.</li></ul><p>After gaining a level you
-        should take a moment to invest these points so that you are prepared to
-        face more challenging and heroic tasks. There are two recommended
-        options for gamemasters in Crucible to award additional levels of
-        experience to player characters.</p><h4>Encounter-Based
-        Progression</h4><p>For a structured gameplay experience, Crucible
-        assumes an encounter-based progression system where each character
-        requires a certain number of successful encounter completions in order
-        to advance to the next level.</p><p>The number of completed encounters
-        required in order to advance to the next character level is equal to two
-        times the next character level. To advance from level 1 to level 2
-        requires the completion of 4 encounters. To advance to level 3 requires
-        6 encounters, and so on.</p><section class="formula"><p
-        class="value">Encounters To Level</p><p class="equals">=</p><p
-        class="equation">(Level + 1) × 2</p></section><p>Encounter completion is
-        not reserved only for combat encounters, navigating social challenges,
-        completing significant quests, exploration of uncharted territory, or
-        solving a mystery are all examples of actions which at the gamemaster's
-        discretion can be awarded to players as a completed encounter.</p><p>In
-        the case of combat encounters, specifically, such encounters only count
-        towards a character's progression if the <strong>Encounter
-        Level</strong> (EL) of the combat exceeds that character's current
-        level. Adventurers must tackle increasingly difficult challenges if they
-        wish to progress.</p><p>Not all encounters qualify for progression. If
-        an encounter has too low an encounter level - in other words if it is
-        too easy to overcome - it does not count towards character
-        progression.</p><section class="construction"><p>The rules for computing
-        Encounter Level are still a work in progress and are not included in
-        Playtest 1.</p></section><h4>Milestone-Based
-        Progression</h4><p>Milestone-based progression can be utilized as a more
-        lightweight alternative to encounter-based progression in which it is
-        left to the gamemaster to determine when a character has accomplished a
-        significant feat that is deserving of advancement. This can be
-        structured around the completion of quest objectives, the arrival of
-        significant plot moments, or the vanquishing of notable foes.</p><p>When
-        using Milestone based progression it is left to the Gamemaster to decide
-        when the characters' deeds are deserving of level
-        advancement.</p><blockquote><p>You can apply the concept of Milestone
-        progression while still using the rules for Encounter-based advancement
-        by ignoring Encounter Level and instead awarding a number of advancement
-        points that you feel are appropriate upon the completion of any
-        meaningful challenge.</p></blockquote>
+        scores by one.</li><li>2 Talent Points which can be used to purchase new
+        character Talents.</li></ul><p>After gaining a level you should take a
+        moment to invest these points so that you are prepared to face more
+        challenging and heroic tasks. There are two recommended options for
+        gamemasters in Crucible to award additional levels of experience to
+        player characters.</p><h4>Milestone-Based
+        Progression</h4><p>Milestone-based progression leaves it to the
+        gamemaster to determine when characters have accomplished a significant
+        feat that is deserving of advancement. This can be structured around the
+        completion of quest objectives, the arrival of significant plot moments,
+        or the vanquishing of notable foes. Awarding progression based on
+        milestones allows the GM to specifically grant levels as milestones are
+        accomplished.</p><p>Crucible facilitates the convenient marking of
+        milestones through the Group Actor sheet, which allows the GM to add
+        group members to the sheet by dragging them from the Actor sidebar.
+        After a group has been formed, clicking the center of the hex for
+        Milestones Earned raises an award prompt, allowing the GM to quickly add
+        an identified milestone, amount of award, and reason for the milestone
+        being awarded. When awarding a milestone through this method, the GM may
+        also selectively grant the milestone only to particular group
+        members.</p>
     video:
       controls: true
       volume: 0.5
@@ -274,7 +249,7 @@ pages:
       systemVersion: 0.6.2
       coreVersion: '13.350'
       createdTime: 1684372703418
-      modifiedTime: 1761693856545
+      modifiedTime: 1762044616733
       lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
@@ -282,7 +257,7 @@ pages:
     category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.9p9MYP9Y0MEWEpSv'
   - _id: creationTalents0
-    name: Step III - Talents
+    name: Talents
     type: text
     system: {}
     title:
@@ -294,7 +269,7 @@ pages:
       content: >-
         <p><strong>Talents</strong> are unique abilities or skills that your
         character has gained over the course of their life, and as the game
-        progresses are expanded upon as you gain levels. </p><p>In addition to
+        progresses are expanded upon as you gain levels.</p><p>In addition to
         the talents you gained when you selected an Ancestry and Background,
         each new character has 3 initial Talent points which can be used to
         select unique Skills and Abilities. Talents are a roadmap for your
@@ -325,7 +300,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761693852797
-      modifiedTime: 1761779207317
+      modifiedTime: 1762036234639
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.creationTalents0'
   - _id: FinishingTouches

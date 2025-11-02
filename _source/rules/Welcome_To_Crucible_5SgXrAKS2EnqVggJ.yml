@@ -229,13 +229,11 @@ pages:
         following community members for their contributions to the
         system:</p><ul><li>Maalvi - UI design and interface
         elements.</li><li>RedReign - Brainstorming and design
-        discussions.</li><li>JDW - Assistance with
-        @UUID[Compendium.crucible.rules.JournalEntry.j9Nus4RQXHAd0NqQ.JournalEntryPage.POsbUPz2axlketya]{Dice
-        So Nice} animation integration.</li><li>Wasp - Assistance with
-        @UUID[Compendium.crucible.rules.JournalEntry.j9Nus4RQXHAd0NqQ.JournalEntryPage.xxV2qdt25nm8mBXt]{Sequencer
-        and JB2A} animation integration.</li><li>Alex (TheMADCartographer) -
-        Permission for us to make use of the <strong>Crucible</strong> name for
-        this game system.</li></ul>
+        discussions.</li><li>JDW - Assistance with <a
+        href="https://foundryvtt.com/packages/dice-so-nice/"
+        target="_blank">Dice So Nice</a> animation integration.</li><li>Alex
+        (TheMADCartographer) - Permission for us to make use of the
+        <strong>Crucible</strong> name for this game system.</li></ul>
     video:
       controls: true
       volume: 0.5
@@ -248,10 +246,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375157534
-      modifiedTime: 1727360803282
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762035036798
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -341,12 +339,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1743873856457
-      modifiedTime: 1743873922814
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762035716949
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.4qUKqJIWIdJNHdjb'
 folder: z0IT31iKpgcA3QYr
 flags:

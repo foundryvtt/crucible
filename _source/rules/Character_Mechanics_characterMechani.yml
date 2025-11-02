@@ -191,7 +191,7 @@ pages:
       volume: 0.5
     src: null
     category: null
-    sort: 300000
+    sort: -50000
     ownership:
       default: -1
       vke929uLgNzbrY41: 3
@@ -204,7 +204,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761697210522
-      modifiedTime: 1761780050924
+      modifiedTime: 1762036065810
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.Resources0000000'
   - _id: Resistances00000
@@ -262,7 +262,7 @@ pages:
       volume: 0.5
     src: null
     category: null
-    sort: 400000
+    sort: 200000
     ownership:
       default: -1
       vke929uLgNzbrY41: 3
@@ -275,7 +275,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761697235112
-      modifiedTime: 1761780090967
+      modifiedTime: 1762036062159
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.Resistances00000'
   - _id: abilityScores000
@@ -304,22 +304,26 @@ pages:
         ability score. This convention is used when a particular ability is not
         applicable for that particular creature.</p><p>The ability scores used
         in the Crucible system
-        are:</p><dl><dt><p>Strength</p></dt><dd><p>Describes physical potency,
-        brawn and might. Strength affects Health, use of melee weaponry,
-        Fortitude defense, and carrying
-        capacity.</p></dd><dt><p>Dexterity</p></dt><dd><p>Describes physical
-        agility and precision. Dexterity affects the use of precision weapons,
-        Dodge defense, Initiative in taking action, and Reflex
-        defense.</p></dd><dt><p>Toughness</p></dt><dd><p>Describes physical
-        hardiness and resilience. Toughness affects Health and Fortitude
-        defense.</p></dd><dt><p>Wisdom</p></dt><dd><p>Describes mental potency,
-        depth and breadth of knowledge. Wisdom influences Morale, Focus Points,
-        and Willpower Defense.</p></dd><dt><p>Intellect</p></dt><dd><p>Describes
-        mental flexibility, swiftness, and precision of thought. Intellect
-        influences Initiative in taking action and Reflex
-        defense.</p></dd><dt><p>Presence</p></dt><dd><p>Describes mental
-        hardiness, emotional hardiness, charm, and personality. Presence
-        influences Morale, Willpower defense, and Focus Points.</p></dd></dl>
+        are:</p><dl><dt><p>Strength</p></dt><dd><p><strong>Strength</strong> is
+        a hero's physical potency, brawn and might. Strength affects Health, use
+        of melee weaponry, Fortitude defense, and carrying
+        capacity.</p></dd><dt><p>Dexterity</p></dt><dd><p><strong>Dexterity</strong>
+        refers to both agility and precision. Dexterity affects the use of
+        precision weapons, Initiative in taking action, as well as the Dodge and
+        Reflex
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defenses}.</p></dd><dt><p>Toughness</p></dt><dd><p><strong>Toughness</strong>
+        defines physical hardiness and resilience. Toughness affects Health and
+        contributes to the Fortitude
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Wisdom</p></dt><dd><p><strong>Wisdom</strong>
+        is a hero's mental potency, depth and breadth of knowledge. Wisdom
+        influences Morale, maximum Focus Points, and the Willpower
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Intellect</p></dt><dd><p><strong>Intellect</strong>
+        refers to mental flexibility, swiftness, and precision of thought.
+        Intellect influences Initiative in taking action and the Reflex
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Presence</p></dt><dd><p>Presence
+        is a hero's mental and emotional hardiness, charm, and personality.
+        Presence influences Morale, Focus Points, and the Willpower
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd></dl>
     video:
       controls: true
       volume: 0.5
@@ -338,7 +342,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761771265716
-      modifiedTime: 1761779542040
+      modifiedTime: 1762036034593
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.abilityScores000'
   - _id: talents000000000
@@ -469,30 +473,32 @@ pages:
         Resistance</th><th>Damage
         Vulnerability</th><td>Size</td><td>Stride</td></tr></thead><tbody><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.human00000000000]{Human}</p></td><td><p>Presence</p></td><td><p>Toughness</p></td><td><p>None</p></td><td><p>None</p></td><td>4</td><td>10</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.elvish0000000000]{Elvish}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Radiant</p></td><td><p>Corruption</p></td><td>4</td><td>10</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.dwarven000000000]{Dwarven}</p></td><td><p>Toughness</p></td><td><p>Wisdom</p></td><td><p>Acid</p></td><td><p>Psychic</p></td><td>4</td><td>8</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.orcish0000000000]{Orcish}</p></td><td><p>Strength</p></td><td><p>Toughness</p></td><td><p>Cold</p></td><td><p>Fire</p></td><td>4</td><td>10</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.giantkin00000000]{Giantkin}</p></td><td><p>Wisdom</p></td><td><p>Toughness</p></td><td><p>Acid</p></td><td><p>Electricity</p></td><td>5</td><td>10</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.gnome00000000000]{Gnome}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Electricity</p></td><td><p>Acid</p></td><td>3</td><td>8</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.halfling00000000]{Halfling}</p></td><td><p>Dexterity</p></td><td><p>Wisdom</p></td><td><p>Psychic</p></td><td><p>Cold</p></td><td>3</td><td>8</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.devilkin00000000]{Devilkin}</p></td><td><p>Strength</p></td><td><p>Presence</p></td><td><p>Fire</p></td><td><p>Radiant</p></td><td>4</td><td>10</td></tr></tbody></table><h2
         class="divider">Flexible Ancestry</h2><section
-        class="foundryvtt"><p>While Crucible will allow use of custom ancestries
-        in a future version, there is no convenient way to modify an ancestry
-        for this purpose at this as part of the character creation workflow at
-        this time.</p></section><p>Role-playing games inspire and thrill us with
-        tales of heroes who are exceptional and unique. Biological traits do not
-        guarantee physical attributes, nor are species meant to be homogenous or
-        monolithic (unless narratively intended). Gamemasters are empowered and
-        encouraged to modify or customize Ancestries to suit the stories they
-        and their players wish to tell. Consider Ancestral traits as suggestions
-        rather than requirements.</p><section class="gameplay"><p>Alex (a
-        player) intends to roleplay as an Orc who, at the beginning of their
-        journey, is not particularly tough but instead unusually wise. In such
-        cases the initial Ability Scores of <strong>3 Strength</strong> and
-        <strong>2 Toughness</strong> that the example Orcish Ancestry provides
-        are at odds with the character development Alex desires. The Gamemaster
-        can work with Alex to create a variation of the Orcish ancestry which
-        offers different starting Ability Scores, for example by swapping the
-        Primary Ability from Strength to Wisdom.</p></section>
+        class="foundryvtt"><p>Crucible allows use of custom ancestries by
+        providing a way for GMs to configure their own compendium packs to use
+        as a source during character creation. To add your compendium as a
+        source, go to <strong>Configure Settings ➤ Crucible ➤ Configure
+        Compendium Sources</strong>.</p></section><p>Role-playing games inspire
+        and thrill us with tales of heroes who are exceptional and unique.
+        Biological traits do not guarantee physical attributes, nor are species
+        meant to be homogenous or monolithic (unless narratively intended).
+        Gamemasters are empowered and encouraged to modify or customize
+        Ancestries to suit the stories they and their players wish to tell.
+        Consider Ancestral traits as suggestions rather than
+        requirements.</p><section class="gameplay"><p>Alex (a player) intends to
+        roleplay as an Orc who, at the beginning of their journey, is not
+        particularly tough but instead unusually wise. In such cases the initial
+        Ability Scores of <strong>3 Strength</strong> and <strong>2
+        Toughness</strong> that the example Orcish Ancestry provides are at odds
+        with the character development Alex desires. The Gamemaster can work
+        with Alex to create a variation of the Orcish ancestry which offers
+        different starting Ability Scores, for example by swapping the Primary
+        Ability from Strength to Wisdom.</p></section>
     video:
       controls: true
       volume: 0.5
     src: null
     category: null
-    sort: -100000
+    sort: -300000
     ownership:
       default: -1
       vke929uLgNzbrY41: 3
@@ -505,7 +511,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761772960409
-      modifiedTime: 1761773700071
+      modifiedTime: 1762045349484
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.ancestry00000000'
   - _id: backgrounds00000
@@ -587,7 +593,7 @@ pages:
       volume: 0.5
     src: null
     category: null
-    sort: 0
+    sort: -250000
     ownership:
       default: -1
       vke929uLgNzbrY41: 3
@@ -600,7 +606,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761773899846
-      modifiedTime: 1761777695482
+      modifiedTime: 1762036056806
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.backgrounds00000'
   - _id: knowledges000000
@@ -701,7 +707,7 @@ pages:
       volume: 0.5
     src: null
     category: null
-    sort: 0
+    sort: 500000
     ownership:
       default: -1
       vke929uLgNzbrY41: 3
@@ -714,7 +720,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761937467527
-      modifiedTime: 1761939424177
+      modifiedTime: 1762036059404
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.knowledges000000'
 folder: MMeWpMmsLOblp07U

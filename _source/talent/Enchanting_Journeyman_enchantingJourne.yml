@@ -6,11 +6,16 @@ system:
   training:
     rank: 2
     type: enchanting
-  description: ''
+  description: >-
+    <p>You have a professional degree of experience with the Enchanting arts and
+    can work through some of the more advanced Enchantment rituals given
+    sufficient time.</p><p>The basic properties of most common glyph-infused
+    components are easy for you to remember without reference material, but you
+    still need books for rare ritae and sympathetic materials.</p>
   actions: []
   iconicSpells: 0
   actorHooks: []
-img: icons/svg/item-bag.svg
+img: icons/magic/symbols/runes-triangle-blue.webp
 effects: []
 sort: 0
 ownership:
@@ -21,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.0
   createdTime: 1742954600515
-  modifiedTime: 1742954635718
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762041582648
+  lastModifiedBy: vke929uLgNzbrY41
 _id: enchantingJourne
 _key: '!items!enchantingJourne'

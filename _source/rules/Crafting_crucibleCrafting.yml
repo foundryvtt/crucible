@@ -13,7 +13,22 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Alchemy</strong> is the scientific practice of combining
+        ingredients such as botanicals and minerals in order to produce
+        consumable medicines, poisons, and explosives through zymurgy,
+        distillation, or homogenization.</p><p>An alchemist can combine commonly
+        available ingredients to produce consumable potions such
+        as@UUID[Compendium.crucible.equipment.Item.healingTonic0000]{Healing
+        Tonic} or
+        @UUID[Compendium.crucible.equipment.Item.poisonVial000000]{Poison Vial},
+        as well as throwable weapons such as
+        @UUID[Compendium.crucible.equipment.Item.KdlUUFhAnpv6YIHT]{Blast
+        Flask}.</p><h2>Talents</h2><p>The following talents are available to
+        represent Alchemical
+        training:</p><p></p><p>@UUID[Compendium.crucible.talent.Item.alchemyNovice000]{Alchemy
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.alchemyJourneyma]{Alchemy
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -30,8 +45,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019612404
-      modifiedTime: 1760019615892
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762045173067
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.alchemy000000000'
   - sort: 200000
     name: Cooking
@@ -45,7 +60,16 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Cooking</strong> is the tradecraft of combining commonly
+        available ingredients in order to prepare a consumable meal for
+        sustenance. Well trained cooks can prepare hearty meals that bolster
+        party performance and aid in the recovery of
+        morale.</p><h2>Talents</h2><p>The following talents are available to
+        represent training in the art of
+        Cooking:</p><p>@UUID[Compendium.crucible.talent.Item.cookingNovice000]{Cooking
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.cookingJourneyma]{Cooking
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -62,8 +86,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019624267
-      modifiedTime: 1760023497873
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762042294802
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.cooking000000000'
   - sort: 300000
     name: Enchanting
@@ -77,7 +101,24 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Enchanting</strong> is the art of combining existing Glyphs
+        (created by
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.runeweaving00000]{Runeweavers})
+        with equipment created by other crafters (such as
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smiths},
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailors},
+        and
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcrafters})
+        in order to imbue those items with permanent magical properties. The
+        process of enchanting an item typically involves some additional
+        sympathetic material components which are used in a ritual to bind the
+        magical effect to a non-magical item, typically one of at least Fine
+        quality.</p><h2>Talents</h2><p>The following talents are available to
+        represent training in the art of
+        Enchanting:</p><p>@UUID[Compendium.crucible.talent.Item.enchantingNovice]{Enchanting
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.enchantingJourne]{Enchanting
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -94,8 +135,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019631366
-      modifiedTime: 1760023501545
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762042663876
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.enchanting000000'
   - sort: 400000
     name: Fletching
@@ -109,7 +150,16 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Fletching</strong> is the skill of combining commonly
+        available components such as wood, leather, plant fibers and feathers to
+        create bows and ammunition. A Fletcher is capable of crafting and
+        repairing bows, and ensuring that they don't run out of suitable supply
+        of arrows.</p><h2>Talents</h2><p>The following talents are available to
+        represent Fletcher
+        training:</p><p>@UUID[Compendium.crucible.talent.Item.fletchingNovice0]{Fletching
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.fletchingJourney]{Fletching
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -126,8 +176,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019636916
-      modifiedTime: 1760023504407
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043455282
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.fletching0000000'
   - sort: 500000
     name: Jewelcraft
@@ -141,7 +191,16 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Jewelcrafting</strong> is the art of combining decorative
+        metals and rare crystalized minerals to compose rings, bracelets, and
+        necklaces as well as the insetting of decorative (and potentially
+        magical) gems into these and other pieces of
+        equipment.</p><h2>Talents</h2><p>The following talents are available to
+        represent Jewelcraft
+        training:</p><p></p><p>@UUID[Compendium.crucible.talent.Item.jewelcraftNovice]{Jewelcraft
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.jewelcraftJourne]{Jewelcraft
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -158,8 +217,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019645799
-      modifiedTime: 1760023507064
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043017588
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.jewelcraft000000'
   - sort: 600000
     name: Runeweaving
@@ -173,7 +232,17 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Runeweaving</strong> is the arcane science of inscribing
+        physical manifestations of metaphysical
+        @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes}
+        to create Glyphs. Glyphs can be used to imbue magical properties into
+        non-magical materials or as a component to aid ritual
+        magic.</p><h2>Talents</h2><p>The following talents are available to
+        represent Runeweaver
+        training:</p><p>@UUID[Compendium.crucible.talent.Item.runeweavingNovic]{Runeweaving
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.runeweavingJourn]{Runeweaving
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -190,8 +259,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019652880
-      modifiedTime: 1760023510388
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043223896
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.runeweaving00000'
   - sort: 700000
     name: Smithing
@@ -205,7 +274,15 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p>Smithing is the skill of working to combine base metals and alloys in
+        the production of tools, armor, and weapons as well as the repair and
+        maintenance of metal-crafted items and
+        equipment.</p><h2>Talents</h2><p>The following talents are available to
+        represent Smith
+        training:</p><p>@UUID[Compendium.crucible.talent.Item.smithingNovice00]{Smithing
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.smithingJourneym]{Smithing
+        Journeyman}</p><p></p>
     video:
       controls: true
       volume: 0.5
@@ -222,8 +299,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019659133
-      modifiedTime: 1760023513210
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043510621
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.smithing00000000'
   - sort: 800000
     name: Tailoring
@@ -237,7 +314,15 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p>Tailoring is the art of working to combine fabrics, furs and leathers
+        in the production of clothing and armor as well as the repair and
+        maintenance of items and equipment crafted from natural fibers and
+        skins.</p><h2>Talents</h2><p>The following talents are available to
+        represent Tailor
+        training:</p><p>@UUID[Compendium.crucible.talent.Item.tailoringNovice0]{Tailoring
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.tailoringJourney]{Tailoring
+        Journeyman}</p>
     video:
       controls: true
       volume: 0.5
@@ -254,8 +339,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019666038
-      modifiedTime: 1760023516113
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043630273
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.tailoring0000000'
   - sort: 900000
     name: Schematics
@@ -321,19 +406,18 @@ pages:
         the <strong>Crucible ➤ Items ➤ Schematics</strong> compendium
         pack.</p><p>Gamemasters can define their own schematics which can be
         awarded to characters directly or placed into an ancillary compendium
-        pack which makes them available for use in
-        crafting.</p></section><section class="construction"><p>Custom
-        compendium packs of schematics will eventually be able to be assigned
-        under <strong>Configure Settings ➤ Crucible ➤ Compendium
-        Configuration</strong> but this layer of game settings configuration has
-        not yet been implemented.</p></section><h2 class="divider">Learning
+        pack which makes them available for use in crafting.</p><p>Custom
+        compendium packs of schematics can be assigned under <strong>Configure
+        Settings ➤ Crucible ➤ Configure Compendium
+        Sources</strong>.</p><p></p></section><h2 class="divider">Learning
         Schematics</h2><p>Schematics provide detailed instructions for the
         creation process of their outputs. Manufacturing an item requires the
         crafter to either physically possess the schematic, have mastered it, or
-        for the schematic to be classified as "common knowledge".
-        </p><p>Schematics are mastered by completing their crafting process with
-        a result of a critical success. Once a schematic has been mastered it is
-        no longer physically required in order to repeat its process.</p>
+        for the schematic to be classified as "common
+        knowledge".</p><p>Schematics are mastered by completing their crafting
+        process with a result of a critical success. Once a schematic has been
+        mastered it is no longer physically required in order to repeat its
+        process.</p>
     video:
       controls: true
       volume: 0.5
@@ -350,8 +434,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019713826
-      modifiedTime: 1760025703441
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762043903514
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.schematicDefinit'
   - sort: 1000000
     name: The Crafting Process
@@ -365,7 +449,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <section class="foundryvtt"><p>Crucible's crafting system is currently
+        in early development, rules written here are subject to change and many
+        details may not yet be finished. Please consider these details a preview
+        of things to come.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -382,8 +470,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019729031
-      modifiedTime: 1760025428288
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762044107422
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.usingSchematics0'
   - sort: 950000
     name: Ingredients
@@ -397,7 +485,13 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>TO DO.</p>
+      content: >-
+        <p><strong>Ingredients</strong> are the components required by
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}
+        in order to produce a physical output. Ingredients can differ in terms
+        of quality and enchantment tier, and each ingredient can have a variety
+        of properties that contribute to the overall quality of the crafted
+        output.</p><p></p>
     video:
       controls: true
       volume: 0.5
@@ -414,8 +508,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019753021
-      modifiedTime: 1760025419090
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762044030322
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.obtainingIngredi'
   - sort: 0
     name: Tradeskills Overview
@@ -430,21 +524,25 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Crafting</strong> in Crucible is performed using a set of
-        <strong>Tradeskills</strong> which, similar to adventuring
+        <p></p><p><strong>Crafting</strong> in Crucible is performed using a set
+        of <strong>Tradeskills</strong> which, similar to adventuring
         @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills},
         are invested aspects of your character's identity obtained through
-        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok]{Talent}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
-        class="gameplay"><p>It is not required for any character to invest into
-        mastery of a tradeskill, however it is generally recommended to select
-        at least one tradeskill to pursue in order to enjoy a well-rounded
-        experience playing Crucible, particularly if your game is a long-form
-        campaign.</p></section><p>The information in this journal describes each
-        of the tradeskills, how schematics are defined and obtained, and how the
-        crafting process functions when using a schematic to turn input
-        ingredients into produced items.</p><h2 class="divider">Tradeskills
+        class="foundryvtt"><p>Crucible's crafting system is currently in early
+        development, rules written here are subject to change and many details
+        may not yet be finished. Please consider these details a preview of
+        things to come.</p></section><section class="gameplay"><p>It is not
+        required for any character to invest into mastery of a tradeskill,
+        however it is generally recommended to select at least one tradeskill to
+        pursue in order to enjoy a well-rounded experience playing Crucible,
+        particularly if your game is a long-form campaign.</p></section><p>The
+        information in this journal describes each of the tradeskills, how
+        schematics are defined and obtained, and how the crafting process
+        functions when using a schematic to turn input ingredients into produced
+        items.</p><h2 class="divider">Tradeskills
         Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
         Ability</p></th><th><p>Secondary Ability</p></th><th><p>General
         Usage</p></th></tr><tr><td><p>@UUID[.alchemy000000000]</p></td><td><p>Intellect</p></td><td><p>Toughness</p></td><td><p>Potions,
@@ -479,8 +577,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019765630
-      modifiedTime: 1760023425577
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1762037303063
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
 folder: MMeWpMmsLOblp07U
 categories:
