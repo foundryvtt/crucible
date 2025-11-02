@@ -17,35 +17,33 @@ pages:
       format: 1
       content: >-
         <p>The first step in character creation is selecting an
-        <strong>Ancestry</strong>, which classifies the biology and physiology
-        of a character in Crucible, and grants the newly created hero specific
-        starting traits.</p><p>You can change your character's Ancestry at any
-        point during the character creation, but be aware that doing so may
-        impact your currently assigned Ability Scores if you have already chosen
-        them and that may require re-selecting them before completing your
-        character creation.</p><p>For more information see:
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.ancestry00000000]</p><p>Each
-        Ancestry includes:</p><ul><li><p>A <strong>Primary Ability</strong>
-        Score (which begins at 3)</p></li><li><p>A <strong>Secondary
-        Ability</strong> Score (which begins at 2)</p></li><li><p>A
-        <strong>Size</strong> value in grid spaces (typically
-        4)</p></li><li><p>A <strong>Stride</strong> value in grid spaces that
-        determines the starting movement speed (typically 10)</p></li><li><p>An
-        <strong>Ancestral Talent </strong>which grants a specific special
-        ability or knowledge to a character of that
-        ancestry.</p></li></ul><dl><dt><p>Damage Resistance and
-        Vulnerability</p></dt><dd><p>Ancestries may optionally add both a Damage
-        Resistance (<strong>+3</strong>) and a Damage Vulnerability
-        (<strong>-3</strong>) to two different damage types. Some Ancestries
-        have neither Resistance nor Vulnerability to any damage type.</p><p>For
-        more information see:
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]</p></dd></dl><section
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.ancestry00000000],
+        which classifies the biology and physiology of a character in Crucible,
+        and grants the newly created hero specific starting traits.</p><p>You
+        can change your character's Ancestry at any point during the character
+        creation, but be aware that doing so may impact your currently assigned
+        Ability Scores if you have already chosen them and that may require
+        re-selecting them before completing your character creation.</p><section
         class="foundryvtt"><p>While Crucible provides a number of example
         ancestries, it also allows use of custom ancestries by providing a way
         for GMs to configure their own compendium packs to use as a source
         during character creation. To add your compendium as a source, go to
         <strong>Configure Settings ➤ Crucible ➤ Configure Compendium
-        Sources</strong>.</p></section>
+        Sources</strong>.</p></section><h2 class="divider">Ancestry
+        Features</h2><p>Each Ancestry includes:</p><ul><li><p>A <strong>Primary
+        Ability</strong> Score (which begins at 3)</p></li><li><p>A
+        <strong>Secondary Ability</strong> Score (which begins at
+        2)</p></li><li><p>Optionally, a <strong>Damage Resistance</strong> (+3)
+        and a <strong>Damage Vulnerability</strong> (-3).</p></li><li><p>A
+        <strong>Size</strong> value in grid spaces (typically
+        4)</p></li><li><p>A <strong>Stride</strong> value in grid spaces that
+        determines the starting movement speed (typically 10)</p></li><li><p>An
+        <strong>Ancestral Talent </strong>which grants a specific special
+        ability or knowledge to a character of that
+        ancestry.</p></li></ul><section class="construction"><p>Currently, the
+        built-in Ancestries which are provided with the Crucible system do not
+        have unique starting talents. Unique talents for these built-in
+        ancestries will be added in a future update.</p></section>
       markdown: ''
     _id: ovqgeiXHPrdiUXci
     image: {}
@@ -64,14 +62,14 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1762045518476
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762096004363
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: JournalEntry.ufNQdK2ZfNU6R05g.JournalEntryPage.ovqgeiXHPrdiUXci
       duplicateSource: null
       exportSource: null
     category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.ovqgeiXHPrdiUXci'
-  - name: Background and Ability Points
+  - name: Background and Ability Scores
     type: text
     title:
       show: true
@@ -79,26 +77,28 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Background</strong> reflects a hero's cultural upbringing,
-        professional training, career to date, or other aspects of their past
-        before the advent of the campaign's storyline. Your choice of Background
-        further augments your character.</p><p>Each Background
-        includes:</p><ul><li><p>Novice Skills (typically
+        <p>Each character chooses a
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
+        which reflects a hero's cultural upbringing, professional training,
+        career to date, or other aspects of their past before the advent of the
+        campaign's storyline. Your choice of Background further augments your
+        character.</p><h2 class="divider">Background Features</h2><p>Each
+        Background includes:</p><ul><li><p>Novice Skills (typically
         2)</p></li><li><p>Knowledge Areas (typically 2)</p></li><li><p>Known
-        Languages</p></li><li><p>Talents (typically at least one weapon training
-        talent and one additional talent)</p></li></ul><p>For more information
-        see:
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]</p><section
-        class="foundryvtt"><p>While Crucible provides a number of example
-        backgrounds, it also allows use of custom backgrounds by providing a way
-        for GMs to configure their own compendium packs to use as a source
-        during character creation. To add your compendium as a source, go to
-        <strong>Configure Settings ➤ Crucible ➤ Configure Compendium
-        Sources</strong>.</p></section><h2>Ability Scores</h2><p>After you have
-        selected your background, it is time to spend Ability Points!</p><p>Each
-        Ancestry provides a Primary Ability Score which begins at
-        <strong>3</strong>, and a Secondary Ability Score which begins at
-        <strong>2</strong>. All other ability scores begin at
+        Languages</p></li><li><p>Starting Talents (typically 2, one of which is
+        training talent)</p></li></ul><section class="foundryvtt"><p>While
+        Crucible provides a number of example backgrounds, it also allows use of
+        custom backgrounds by providing a way for GMs to configure their own
+        compendium packs to use as a source during character creation. To add
+        your compendium as a source, go to <strong>Configure Settings ➤ Crucible
+        ➤ Configure Compendium Sources</strong>.</p></section><h2
+        class="divider">Ability Scores</h2><p>After you have selected your
+        background, it is time to allocate Ability Points to determine your
+        character's starting
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
+        Scores}.</p><p>Each Ancestry provides a Primary Ability Score which
+        begins at <strong>3</strong>, and a Secondary Ability Score which begins
+        at <strong>2</strong>. All other ability scores begin at
         <strong>1</strong>. The values of each Ability Score range from
         <strong>1</strong> to <strong>12</strong>, where the typical value of
         this attribute for a non-remarkable Human is
@@ -112,8 +112,7 @@ pages:
         remaining to spend.</p><p>Once you have completed character creation and
         advanced your character to <strong>Level 1</strong> the starting Ability
         Scores which you purchased can no longer be changed, but these ability
-        scores may still be increased over time as you continue to level
-        up.</p><p>For more information see:</p>
+        scores may still be increased over time as you continue to level up.</p>
     _id: uCwStnXHoUCV2TrK
     image: {}
     video:
@@ -131,8 +130,8 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1762045662805
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762096150117
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
       duplicateSource: null
       exportSource: null
@@ -146,35 +145,48 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Heroes</strong> are the characters in Crucible which are
-        controlled and portrayed by players, also known as "player characters".
-        All Heroes, even those at Level 1, are capable adventurers. They are
-        smart, charismatic, athletic, and skillful - but not yet to a degree
-        that is wondrous. As characters advance in level they attain tiers of
-        power where their physical, mental, and social capabilities are truly
-        legendary. Character advancement in Crucible is level-based. Increases
-        in level grant additional Ability, Skill, and Talent points to spend
-        which increase a character's power and capabilities. The maximum
+        <p>This chapter of the rules guides Gamemasters and Players through the
+        process of creating their characters and preparing for play.</p><h2
+        class="divider">Creating a Party</h2><p>Begin setting up a game in
+        Crucible by creating a <strong>Party</strong> which the player
+        characters can all belong to by creating an Actor with the
+        <strong>Group</strong> type. As players create their heroes, add them to
+        the Party by dragging-and-dropping them onto the Party
+        sheet.</p><section class="foundryvtt"><p>Once you have created a Party,
+        you should also configure this group as the "Primary Adventuring Party"
+        under <strong>Game Settings ➤ Crucible ➤ Primary Adventuring
+        Party</strong>. Taking this step allows a large number of mechanics to
+        be automated which depend on knowing which group is the party of active
+        Heroes.</p></section><h2 class="divider">Creating
+        Heroes</h2><p><strong>Heroes</strong> are the characters in Crucible
+        which are controlled and portrayed by players, also known as "player
+        characters". All Heroes, even those at Level 1, are capable adventurers.
+        They are smart, charismatic, athletic, and skillful - but not yet to a
+        degree that is wondrous. As characters advance in level they attain
+        tiers of power where their physical, mental, and social capabilities are
+        truly legendary. Character advancement in Crucible is level-based.
+        Increases in level grant additional Ability, Skill, and Talent points to
+        spend which increase a character's power and capabilities. The maximum
         character level in Crucible is anticipated to be
-        <strong>18</strong>.</p><p>If organizing a gameplay experience that
-        seeks to tell the origin story of heroes, starting your game at Level 1
-        is the recommended choice. If, however, you want to jump into an
-        adventure with characters who are already established champions,
+        <strong>18</strong>.</p><section class="foundryvtt"><p>Character
+        creation is an easy process which begins by creating a <strong>New
+        Actor</strong> of the <strong>Hero</strong> type. Creating a character
+        is a guided process with a unique interface that walks you through the
+        process step-by-step. You may reset the character creation process at
+        any time by clicking the "restart" button located at the top right of
+        the character creation screen.</p></section><p></p><h2
+        class="divider">Starting Level</h2><p>If organizing a gameplay
+        experience that seeks to tell the origin story of heroes, starting your
+        game at Level 1 is the recommended choice. If, however, you want to jump
+        into an adventure with characters who are already established champions,
         beginning at a higher level may be more suitable.</p><blockquote><p>If
         starting at a higher level than 1, we recommend each player prepare a
         set of short anecdotes which explain the skill and talent advancements
         that their character has unlocked prior to the start of the game. This
         process helps to solidify their character backstory through past events
-        that explain their heroic capabilities.</p></blockquote><p>Character
-        creation is an easy process described below, though additional games
-        using the Crucible system may add their own additional steps. During
-        creation, a character is considered to be "Level Zero" when they are
-        allowed to make initial choices about their hero. Once the creation
-        process is completed, the hero advances to Level 1. You may reset the
-        character creation process at any time by clicking the "restart" button
-        located at the top right of the character creation
-        screen.</p><p></p><h2>Character Creation
-        Steps</h2><ul><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.ovqgeiXHPrdiUXci]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.creationTalents0]</p></li><li><p>@UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FinishingTouches]</p></li></ul>
+        that explain their heroic capabilities.</p></blockquote><p>Review the
+        pages in this journal entry to understand the steps of character
+        creation and the choices you will make during that process.</p>
       markdown: ''
     _id: DjePpoV2oJenlyTf
     image: {}
@@ -193,8 +205,8 @@ pages:
       systemVersion: 0.5.6
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1761696987138
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098872799
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: JournalEntry.ZlemzCIzl2XrKHBT.JournalEntryPage.DjePpoV2oJenlyTf
       duplicateSource: null
       exportSource: null
@@ -211,30 +223,43 @@ pages:
     text:
       format: 1
       content: >-
-        <p>Each time you gain a character level after level 1 you can further
-        advance your character's powers and capabilities. Each level grants
-        you:</p><ul><li>1 Ability Point which can increase one of your Ability
-        scores by one.</li><li>2 Talent Points which can be used to purchase new
-        character Talents.</li></ul><p>After gaining a level you should take a
-        moment to invest these points so that you are prepared to face more
-        challenging and heroic tasks. There are two recommended options for
-        gamemasters in Crucible to award additional levels of experience to
-        player characters.</p><h4>Milestone-Based
-        Progression</h4><p>Milestone-based progression leaves it to the
-        gamemaster to determine when characters have accomplished a significant
-        feat that is deserving of advancement. This can be structured around the
-        completion of quest objectives, the arrival of significant plot moments,
-        or the vanquishing of notable foes. Awarding progression based on
-        milestones allows the GM to specifically grant levels as milestones are
-        accomplished.</p><p>Crucible facilitates the convenient marking of
-        milestones through the Group Actor sheet, which allows the GM to add
-        group members to the sheet by dragging them from the Actor sidebar.
-        After a group has been formed, clicking the center of the hex for
-        Milestones Earned raises an award prompt, allowing the GM to quickly add
-        an identified milestone, amount of award, and reason for the milestone
-        being awarded. When awarding a milestone through this method, the GM may
-        also selectively grant the milestone only to particular group
-        members.</p>
+        <p>Each time you gain a character <strong>Level</strong> beyond 1 you
+        can further advance your character's powers and capabilities. Each
+        additional level grants you:</p><ul><li>1 Ability Point which can
+        increase one of your Ability scores by one.</li><li>2 Talent Points
+        which can be used to purchase new character Talents.</li></ul><p>After
+        gaining a level you should take a moment to invest these points so that
+        you are prepared to face more challenging and heroic
+        tasks.</p><p>Leveling up occurs when your party has accomplished a
+        certain number of <strong>Milestones</strong>. Milestones are structured
+        around the completion of strategic objectives, the arrival of
+        significant plot moments, or the vanquishing of notable
+        foes.</p><section class="foundryvtt"><p>Crucible facilitates the
+        convenient marking of milestones through the Group Actor sheet, which
+        allows the GM to add group members to the sheet by dragging them from
+        the Actor sidebar. After a group has been formed, clicking the center of
+        the hex for Milestones Earned raises an award prompt, allowing the GM to
+        quickly add an identified milestone, amount of award, and reason for the
+        milestone being awarded. When awarding a milestone through this method,
+        the GM may also selectively grant the milestone only to particular group
+        members.</p></section><h2 class="divider">Milestone
+        Progression</h2><p>The number of milestone points required to advance in
+        level is described in the following
+        table:</p><table><thead><tr><td><p>Character
+        Level</p></td><td><p>Milestones Required</p></td><td><p>Cumulative
+        Milestones</p></td></tr></thead><tbody><tr><td><p>1</p></td><td><p>-</p></td><td><p>-</p></td></tr><tr><td><p>2</p></td><td><p>2</p></td><td><p>2</p></td></tr><tr><td><p>3</p></td><td><p>3</p></td><td><p>5</p></td></tr><tr><td><p>4</p></td><td><p>4</p></td><td><p>9</p></td></tr><tr><td><p>5</p></td><td><p>4</p></td><td><p>13</p></td></tr><tr><td><p>6</p></td><td><p>5</p></td><td><p>18</p></td></tr><tr><td><p>7</p></td><td><p>5</p></td><td><p>23</p></td></tr><tr><td><p>8</p></td><td><p>5</p></td><td><p>28</p></td></tr><tr><td><p>9</p></td><td><p>6</p></td><td><p>34</p></td></tr><tr><td><p>10</p></td><td><p>6</p></td><td><p>40</p></td></tr><tr><td><p>11</p></td><td><p>6</p></td><td><p>46</p></td></tr><tr><td><p>12</p></td><td><p>6</p></td><td><p>52</p></td></tr></tbody></table><h2
+        class="divider">Leveling Up</h2><p>Milestones earned apply to the entire
+        party, even if certain characters or players were not present when the
+        milestone was achieved. When reaching the number of milestones required
+        to level-up, the entire party has the capability to advance in
+        <strong>Level</strong>.</p><p>Advancing your Level happens during a
+        <strong>Rest</strong> action, at which point each member of the party
+        may increase their level by one, invest their granted ability point to
+        progress their
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
+        Scores}, and spend additional
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
+        points.</p>
     video:
       controls: true
       volume: 0.5
@@ -249,8 +274,8 @@ pages:
       systemVersion: 0.6.2
       coreVersion: '13.350'
       createdTime: 1684372703418
-      modifiedTime: 1762044616733
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762097639745
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -267,21 +292,18 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Talents</strong> are unique abilities or skills that your
-        character has gained over the course of their life, and as the game
-        progresses are expanded upon as you gain levels.</p><p>In addition to
-        the talents you gained when you selected an Ancestry and Background,
-        each new character has 3 initial Talent points which can be used to
-        select unique Skills and Abilities. Talents are a roadmap for your
-        character's development, allowing you to invest into unique paths that
-        provide powerful abilities.</p><p>For more information see:
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]</p><p>After
+        <p>@UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]
+        are unique abilities or skills that your character has gained over the
+        course of their life, and as the game progresses are expanded upon as
+        you gain levels.</p><p>In addition to the talents you gained when you
+        selected an Ancestry and Background, each new character has 3 initial
+        Talent points which can be used to select unique Skills and Abilities.
+        Talents are a roadmap for your character's development, allowing you to
+        invest into unique paths that provide powerful abilities.</p><p>After
         you have chosen your talents, the "Complete" button will appear in the
         top right of the character creation window. After you have completed
         creation, your character is complete and your selections are final, and
-        your newly created Actor Sheet will open. It can be accessed at any time
-        from the Actors tab or by pressing the C key on your keyboard (if you
-        have assigned the character to yourself via Player Configuration)</p>
+        your newly created Actor Sheet will open.</p>
     video:
       controls: true
       volume: 0.5
@@ -300,8 +322,8 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761693852797
-      modifiedTime: 1762036234639
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762096569764
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.creationTalents0'
   - _id: FinishingTouches
     name: Finishing Touches
@@ -316,36 +338,49 @@ pages:
       content: >-
         <p>While character creation is technically finished once the "Complete"
         button has been pressed, there are a few details you may wish to add to
-        your character:</p><h3>Starting Equipment</h3><p>Choosing starting
-        equipment is an important part of beginning any adventure. We advise
-        Gamemasters to work closely with their players to determine what basic
-        equipment they feel is appropriate for each character by browsing the
-        existing Equipment compendium (found on the compendium tab in the Items
-        folder). Dragging items from this compendium onto your newly created
-        Actor Sheet will assign the item to that Actor's Inventory.</p><p>A
-        level 1 character should not have more than <strong>35pp
-        (350gp)</strong> worth of items and equipment.</p><p>A level 1 character
-        should not start with any enchanted items.</p><p>It is important that
-        when adding character equipment you mark anything that the character is
-        wearing as equipped by clicking on the Equip button on the right hand
-        side of the sheet next to the edit and delete buttons.</p><section
-        class="foundryvtt"><p>While Crucible includes a number of example Items,
-        Gamemasters can create and use their own custom Items either through the
-        sidebar tab (for items that will be used by many characters) or by
-        clicking the + icon on the bottom right corner of any Actor's inventory
-        tab for more unique, character-specific
-        items.</p></section><h3>Appearance and Details</h3><p>With character
-        creation finished, it's a good idea to choose a picture to represent
-        your character by clicking on the icon of the hooded figure on the upper
-        left corner of the actor sheet. In addition, on the Biography tab, you
-        can fill in some important details such as Pronouns, Age, Height,
-        Weight, and provide a physical description to accompany your
-        hero.</p><h3>Biographies</h3><p>As a final piece of character creation,
-        you might wish to provide a Public Biography that other players in your
-        game will be able to see, containing some facts about your hero's
-        reputation and history. Any details in the Private Biography section
-        will only be shown to you and your gamemaster, making it a useful place
-        to write your hero's complete backstory.</p>
+        your character.</p><section class="foundryvtt"><p>In the <strong>User
+        Configuration</strong> menu you can set your configure your newly
+        created Hero as your <strong>Player Character</strong>, which will allow
+        the game to automatically choose that character for certain aspects of
+        automation. For example, you can press the <strong>C </strong>key to
+        quickly open your character sheet!</p></section><p></p><h2
+        class="divider">Starting Equipment</h2><p>Choosing starting equipment is
+        an important part of beginning any adventure. We advise Gamemasters to
+        work closely with their players to determine what basic equipment they
+        feel is appropriate for each character by browsing the existing
+        Equipment compendium (found on the compendium tab in the Items folder).
+        Dragging items from this compendium onto your newly created Actor Sheet
+        will assign the item to that Actor's Inventory.</p><p>A newly created
+        character begins their journey with [[/award 250gp]] which is
+        automatically added to their inventory. You may spend this initial
+        budget on starting equipment. As you purchase initial equipment, deduct
+        the full <strong>Scaled Price</strong> of each item from your initial
+        gold allowance.</p><section class="construction"><p>We anticipate that a
+        guided experience to spending your starting gold budget on initial items
+        may be added as a Character Creation step in the
+        future!</p></section><p>It is important that when adding character
+        equipment you mark anything that the character is wearing as equipped by
+        clicking on the Equip button on the right hand side of the sheet next to
+        the edit and delete buttons.</p><section
+        class="foundryvtt"><p>Gamemasters can create and use their own custom
+        Items either through the sidebar tab (for items that will be used by
+        many characters) or by clicking the + icon on the bottom right corner of
+        any Actor's inventory tab for more unique, character-specific
+        items.</p></section><h2 class="divider">Appearance and
+        Details</h2><p>With character creation finished, it's a good idea to
+        choose a picture to represent your character by clicking on the icon of
+        the hooded figure on the upper left corner of the actor sheet. In
+        addition, on the Biography tab, you can fill in some important details
+        such as <strong>Pronouns</strong>, <strong>Age</strong>,
+        <strong>Height</strong>, <strong>Weight</strong>, and provide a physical
+        description to accompany your hero.</p><h2
+        class="divider">Biographies</h2><p>As a final piece of character
+        creation, you might wish to provide a <strong>Public Biography</strong>
+        that other players in your game will be able to see, containing some
+        facts about your hero's reputation and history. Any details in the
+        <strong>Private Biography</strong> section will only be shown to you and
+        your gamemaster, making it a useful place to write your hero's complete
+        backstory.</p>
     video:
       controls: true
       volume: 0.5
@@ -364,8 +399,8 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761696727244
-      modifiedTime: 1761696968583
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098741413
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.FinishingTouches'
 _stats:
   systemId: crucible

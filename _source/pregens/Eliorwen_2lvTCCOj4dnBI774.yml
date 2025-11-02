@@ -112,28 +112,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 58
@@ -277,7 +289,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: OV3LkO27yo
+      identifier: ue15t9CSe2
       invested: false
       actorHooks: []
       dropped: false
@@ -287,7 +299,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -317,7 +329,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: fgeQ4QwyQr
+      identifier: BCW143rj0G
       invested: false
       actorHooks: []
       dropped: false
@@ -327,7 +339,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -357,7 +369,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: njHntGdLvD
+      identifier: 1DhpPE3OO1
       invested: false
       actorHooks: []
     _stats:
@@ -366,7 +378,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -402,7 +414,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -467,7 +479,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
@@ -530,7 +542,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: combatmedicine00
     folder: qrB8E2SHs322zTil
@@ -571,7 +583,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: arcanearcher0000
     folder: fOYHlZJEWUukD7yr
@@ -608,7 +620,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: F5y85kE9ocaa5R4R
     sort: 0
@@ -675,7 +687,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     _id: markprey00000000
@@ -711,7 +723,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 150000
@@ -725,11 +737,10 @@ items:
       description: >-
         <p>Hurl a projectile of magical power at a distant target. This might
         use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p>
-
-        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
-        a <strong>single</strong> creature up to a distance of 10 spaces,
-        dealing 10 base damage on a successful attack.</p>
+        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a <strong>single</strong>
+        creature up to a distance of 60 feet, dealing 8 base damage on a
+        successful attack.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -750,7 +761,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -790,7 +801,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -849,7 +860,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -888,7 +899,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runemind00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -932,7 +943,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -973,7 +984,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1007,7 +1018,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -1049,7 +1060,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1110,7 +1121,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1171,7 +1182,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1206,7 +1217,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: projectileProfic
     folder: null
@@ -1244,7 +1255,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturestep00000
     folder: null
@@ -1280,7 +1291,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1352,7 +1363,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1400,7 +1411,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: surgeweaver00000
     folder: null
@@ -1442,7 +1453,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1587,9 +1598,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 ownership:

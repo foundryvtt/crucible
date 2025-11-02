@@ -109,28 +109,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 20
@@ -262,7 +274,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: 3iuHOGbUOh
+      identifier: DVQG0JFa6t
       invested: false
       actorHooks: []
     _stats:
@@ -271,7 +283,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -299,7 +311,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: nSBPQXijXE
+      identifier: TdTFbiEIt8
       invested: false
       actorHooks: []
       dropped: false
@@ -312,7 +324,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -337,7 +349,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: STn8tYTEFR
+      identifier: 9ghisfx57c
       invested: false
       actorHooks: []
       dropped: false
@@ -351,7 +363,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 200000
@@ -390,7 +402,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -405,11 +417,10 @@ items:
       description: >-
         <p>Hurl a projectile of magical power at a distant target. This might
         use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p>
-
-        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
-        a <strong>single</strong> creature up to a distance of 10 spaces,
-        dealing 10 base damage on a successful attack.</p>
+        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a <strong>single</strong>
+        creature up to a distance of 60 feet, dealing 8 base damage on a
+        successful attack.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -430,7 +441,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -480,7 +491,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -524,7 +535,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -559,7 +570,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: mechanicalTraini
     ownership:
@@ -598,7 +609,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -638,7 +649,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runefrost0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -652,16 +663,12 @@ items:
     system:
       description: >-
         <p>Coalesce arcane power into tangible form, conjuring a
-        <strong>Creation</strong> which appears in an adjacent space and joins
-        Combat at Initiative 1.</p>
-
-        <p>Your Creation is a Minion of half your own Level chosen from the
-        Summoned Creatures compendium pack corresponding to the Rune used in the
-        spell.</p>
-
-        <p>The Creation lasts for <strong>10 Rounds</strong>. You may only have
-        one active Creation, casting another spell using the Create gesture
-        replaces your previous Creation.</p>
+        <strong>Creation</strong> which appears within 10 feet and joins Combat
+        at Initiative 1.</p><p>Your Creation is a Minion of half your own Level
+        chosen from the Summoned Creatures compendium pack corresponding to the
+        Rune used in the spell.</p><p>The Creation lasts for <strong>10
+        Rounds</strong>. You may only have one active Creation, casting another
+        spell using the Create gesture replaces your previous Creation.</p>
       actions: []
       gesture: create
       actorHooks: []
@@ -682,7 +689,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -701,9 +708,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 ownership:

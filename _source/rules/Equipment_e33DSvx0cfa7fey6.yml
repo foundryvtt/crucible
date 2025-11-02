@@ -150,36 +150,32 @@ pages:
       content: >-
         <p><strong>Equipment</strong> refers to the belongings, weaponry, armor,
         potions, adventuring equipment, and other types of items which could be
-        carried by a character or found somewhere within the world.</p><section
-        class="construction"><p>The Crucible system will eventually support a
-        number of different item types, but at the moment for initial
-        playtesting only <strong>Armor</strong> and <strong>Weapon</strong>
-        types are implemented.</p></section><p>Equipment types share a few
-        properties in common across all types:</p><h4>Weight</h4><p>Each item
-        has a per-unit weight, expressed in pounds.</p><h4>Base Cost</h4><p>The
-        base cost of an item establishes the basis for any cost scaling which
-        later applies. For some items the base cost and scaled cost are always
-        the same, but some items can have a true value many times greater than
-        the item's base cost.</p><h4>Physical Quality</h4><p>Many items may be
-        assigned a quality tier which reflects the manufacturing quality or
-        natural rarity of a certain commodity.</p><h4>Enchantment
-        Tier</h4><p>Items which can be augmented with magic have an enchantment
-        tier which reflects the potency of magic that is imbued into the
-        item.</p><h4>Rarity</h4><p>Item rarity quantifies the uniqueness of the
-        item relative to it's most common form. Items with higher manufactured
-        quality, stronger magical enchantment, or rare properties will have a
-        higher rarity value and therefore a greater value.</p><h2
-        class="divider">Item Value Scaling</h2><p>The base cost of a weapon is
-        defined by its Standard quality, Mundane enchantment variety. The
-        currency cost of the weapon scales with its Rarity score according to
-        the following formula:</p><section class="formula"><p class="value">Item
-        Value</p><p class="equals">=</p><p class="equation">(1 + (Rarity^3) ×
-        Base Cost</p></section><section class="gameplay"><p>Suppose a
-        <strong>Standard</strong> quality and unenchanted
-        <strong>Mundane</strong> Longsword has a base cost of 50. The same type
-        of weapon crafted at <strong>Masterwork</strong> quality would cost
-        3200. If a <strong>Legendary</strong> enchantment were added to the
-        weapon, it would then cost 25,650. A true fortune!</p></section>
+        carried by a character or found somewhere within the
+        world.</p><p>Equipment types share a few properties in common across all
+        types:</p><h4>Weight</h4><p>Each item has a per-unit weight, expressed
+        in pounds.</p><h4>Base Cost</h4><p>The base cost of an item establishes
+        the basis for any cost scaling which later applies. For some items the
+        base cost and scaled cost are always the same, but some items can have a
+        true value many times greater than the item's base cost.</p><h4>Physical
+        Quality</h4><p>Many items may be assigned a quality tier which reflects
+        the manufacturing quality or natural rarity of a certain
+        commodity.</p><h4>Enchantment Tier</h4><p>Items which can be augmented
+        with magic have an enchantment tier which reflects the potency of magic
+        that is imbued into the item.</p><h4>Rarity</h4><p>Item rarity
+        quantifies the uniqueness of the item relative to it's most common form.
+        Items with higher manufactured quality, stronger magical enchantment, or
+        rare properties will have a higher rarity value and therefore a greater
+        value.</p><h2 class="divider">Item Value Scaling</h2><p>The base cost of
+        a weapon is defined by its Standard quality, Mundane enchantment
+        variety. The currency cost of the weapon scales with its Rarity score
+        according to the following formula:</p><section class="formula"><p
+        class="value">Item Value</p><p class="equals">=</p><p
+        class="equation">(1 + (Rarity^3) × Base Cost</p></section><section
+        class="gameplay"><p>Suppose a <strong>Standard</strong> quality and
+        unenchanted <strong>Mundane</strong> Longsword has a base cost of 50.
+        The same type of weapon crafted at <strong>Masterwork</strong> quality
+        would cost 3200. If a <strong>Legendary</strong> enchantment were added
+        to the weapon, it would then cost 25,650. A true fortune!</p></section>
     video:
       controls: true
       volume: 0.5
@@ -192,9 +188,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684891238587
-      modifiedTime: 1685634046609
+      modifiedTime: 1762098944262
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -213,7 +209,7 @@ pages:
       format: 1
       content: >-
         <p><strong>Armor</strong> are items which can be worn to provide
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.alkVSDmt0ec5HBfE#physical-defense]{Physical
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Physical
         Defense} against attacks or environmental hazards. The Crucible system
         provides a framework and rules for creating and classifying Armor, and
         also provides an assortment of predefined Armor types which are typical
@@ -311,9 +307,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1685633109339
-      modifiedTime: 1743873822439
+      modifiedTime: 1762098970414
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

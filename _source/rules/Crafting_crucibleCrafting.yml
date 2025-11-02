@@ -450,7 +450,7 @@ pages:
     text:
       format: 1
       content: >-
-        <section class="foundryvtt"><p>Crucible's crafting system is currently
+        <section class="construction"><p>Crucible's crafting system is currently
         in early development, rules written here are subject to change and many
         details may not yet be finished. Please consider these details a preview
         of things to come.</p></section>
@@ -470,8 +470,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019729031
-      modifiedTime: 1762044107422
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098911561
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleCrafting.usingSchematics0'
   - sort: 950000
     name: Ingredients
@@ -531,7 +531,7 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
-        class="foundryvtt"><p>Crucible's crafting system is currently in early
+        class="construction"><p>Crucible's crafting system is currently in early
         development, rules written here are subject to change and many details
         may not yet be finished. Please consider these details a preview of
         things to come.</p></section><section class="gameplay"><p>It is not
@@ -577,8 +577,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019765630
-      modifiedTime: 1762037303063
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098928574
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
 folder: MMeWpMmsLOblp07U
 categories:

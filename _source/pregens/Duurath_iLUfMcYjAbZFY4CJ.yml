@@ -109,28 +109,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 64
@@ -270,7 +282,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: AjfPDgCvrE
+      identifier: qA4kxfa55Q
       invested: false
       actorHooks: []
       dropped: false
@@ -280,7 +292,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -311,7 +323,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: h74aXnP8p9
+      identifier: aiZ7WS9Tp7
       invested: false
       actorHooks: []
       dropped: false
@@ -321,7 +333,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -350,7 +362,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 2YHka6all5
+      identifier: H5HdnKceOE
       invested: false
       actorHooks: []
     _stats:
@@ -359,7 +371,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -378,13 +390,14 @@ items:
         - id: intimidate
           name: Intimidate
           description: >-
-            You physically intimidate an enemy that is within your engagement
+            <p>You physically intimidate an enemy that is within your engagement
             range, performing an Intimidation skill attack against your target.
-            On a success they sustain Void damage to Morale.
+            On a success they sustain Void damage to Morale.</p>
           tags:
-            - intimidation
             - void
             - morale
+            - skill
+            - intimidation
           cost:
             action: 1
             focus: 1
@@ -396,7 +409,8 @@ items:
             scope: 0
             self: false
           effects: []
-          img: null
+          img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+          condition: ''
           range:
             minimum: null
             maximum: null
@@ -422,7 +436,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -489,7 +503,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -554,7 +568,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -598,7 +612,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
@@ -684,7 +698,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: 100000
@@ -747,7 +761,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: counterstrike000
     folder: 8Vb0F5R7DMUrvhfw
@@ -795,7 +809,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -815,15 +829,16 @@ items:
         - id: formidablePresence
           name: Formidable Presence
           description: >-
-            You make an Intimidation skill attack against the Willpower defense
-            of enemies within 3 spaces, dealing Void damage to Morale and
+            <p>You make an Intimidation skill attack against the Willpower
+            defense of enemies within 12 feet, dealing Void damage to Morale and
             causing the Frightened condition for 1 Round to those whose defense
-            you overcome.
+            you overcome.</p>
           tags:
-            - intimidation
             - willpower
             - void
             - morale
+            - skill
+            - intimidation
           cost:
             action: 1
             focus: 2
@@ -834,13 +849,17 @@ items:
             number: 1
             scope: 3
             self: false
+            size: 12
           effects:
-            - duration:
-                rounds: 1
+            - name: Formidable Presence
               scope: 3
               statuses:
                 - frightened
-          img: null
+              duration:
+                turns: null
+                rounds: 1
+          img: icons/magic/death/skull-horned-worn-fire-blue.webp
+          condition: ''
           range:
             minimum: null
             maximum: null
@@ -866,7 +885,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
@@ -907,7 +926,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -925,14 +944,16 @@ items:
       actions:
         - id: rallyingCry
           description: >-
-            You emit a courageous bellow that inspires Allies within 3 spaces of
-            you to remain stalwart in the face of danger. You perform an
+            <p>You emit a courageous bellow that inspires Allies within 12 feet
+            of you to remain stalwart in the face of danger. You perform an
             Intimidation skill test against the Madness threshold of your
-            allies. On a success, affected allies become Resolute for one Round.
+            allies. On a success, affected allies become Resolute for one
+            Round.</p>
           tags:
-            - intimidation
-            - rallying
             - harmless
+            - rallying
+            - skill
+            - intimidation
           cost:
             action: 1
             focus: 1
@@ -943,12 +964,18 @@ items:
             number: 1
             scope: 2
             self: false
+            size: 12
           effects:
-            - duration:
-                rounds: 1
+            - name: Rallying Cry
+              scope: 0
               statuses:
                 - resolute
-          img: null
+              duration:
+                turns: null
+                rounds: 1
+          name: Rallying Cry
+          img: icons/creatures/abilities/mouth-teeth-human.webp
+          condition: ''
           range:
             minimum: null
             maximum: null
@@ -973,7 +1000,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: rallyingcry00000
     folder: 2MFixpDJ379KOogE
@@ -1016,7 +1043,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -1024,6 +1051,41 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.bulwark000000000'
+  - name: Testudo
+    type: talent
+    _id: testudo000000000
+    img: icons/skills/melee/shield-block-gray-yellow.webp
+    system:
+      description: >-
+        You are highly skilled in using shields to adopt a defensive posture.
+        You gain double the benefit of the <strong>Guarded</strong> condition
+        against <strong>Weapon Attacks</strong> while wielding a shield.
+      actions: []
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - tou0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      lastModifiedBy: null
+    folder: 8Vb0F5R7DMUrvhfw
+    sort: -25000
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.testudo000000000'
   - name: Hold Fast
     type: talent
     _id: holdfast00000000
@@ -1056,7 +1118,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1085,7 +1147,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: ft73ULt9ba
+      identifier: 4WgokbEDmb
       invested: false
       actorHooks: []
       dropped: false
@@ -1095,7 +1157,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -1161,7 +1223,7 @@ items:
             - melee
           actionHooks: []
       dropped: false
-      identifier: 1nI6glDTdm
+      identifier: l22xmPfKQU
       invested: false
       actorHooks: []
     _stats:
@@ -1170,7 +1232,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -1212,7 +1274,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1252,7 +1314,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1286,7 +1348,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1354,7 +1416,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1391,7 +1453,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1425,7 +1487,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1467,7 +1529,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1505,7 +1567,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1539,7 +1601,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: shieldCombatTrai
     folder: null
@@ -1574,7 +1636,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: shieldCombatProf
     folder: null
@@ -1582,44 +1644,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldCombatProf'
-  - name: Testudo
-    type: talent
-    _id: testudo000000000
-    img: icons/skills/melee/shield-block-gray-yellow.webp
-    system:
-      description: >-
-        You are highly skilled in using shields to adopt a defensive posture.
-        You gain double the benefit of the <strong>Guarded</strong> condition
-        against <strong>Weapon Attacks</strong> while wielding a shield.
-      actions: []
-      actorHooks: []
-      nodes:
-        - tou0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: Compendium.crucible.talent.Item.testudo000000000
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      createdTime: 1761595030572
-      modifiedTime: 1761595030572
-      lastModifiedBy: p3lgSv60AK7ndmAK
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-      p3lgSv60AK7ndmAK: 3
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.testudo000000000'
 effects: []
 flags:
   core: {}
@@ -1759,9 +1783,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 ownership:

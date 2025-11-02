@@ -110,28 +110,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 32
@@ -264,7 +276,7 @@ items:
       broken: false
       actions: []
       slot: 3
-      identifier: dlhjAZ4Fmw
+      identifier: 3AlrvHHOQf
       invested: false
       actorHooks: []
       dropped: false
@@ -274,7 +286,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -305,7 +317,7 @@ items:
         base: 17
       broken: false
       actions: []
-      identifier: iMKc9D2dJv
+      identifier: gEoBbwm3bn
       invested: false
       actorHooks: []
     _stats:
@@ -314,7 +326,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -352,7 +364,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runedeath0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -395,7 +407,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -458,7 +470,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: heavystrike00000
     folder: tRHknqOEBLR808Cb
@@ -502,7 +514,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -542,7 +554,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -576,7 +588,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -589,11 +601,10 @@ items:
       description: >-
         <p>Hurl a projectile of magical power at a distant target. This might
         use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p>
-
-        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
-        a <strong>single</strong> creature up to a distance of 10 spaces,
-        dealing 10 base damage on a successful attack.</p>
+        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a <strong>single</strong>
+        creature up to a distance of 60 feet, dealing 8 base damage on a
+        successful attack.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -614,7 +625,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: null
@@ -633,9 +644,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iPMperuo6ZvBLnp9
 ownership:

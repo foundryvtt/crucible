@@ -30,7 +30,7 @@ pages:
         applied with consistency and automation. The system is built
         intentionally to eliminate the cumbersome bookkeeping that is prevalent
         in high-crunch pen-and-paper systems.</p><h2 class="divider">Development
-        Status</h2><p>Crucible is now available for an initial <strong>Alpha
+        Status</h2><p>Crucible is now available for its <strong>Alpha
         Playtest</strong> which provides the community with a first look at the
         system, design pillars, and intended direction. The system is moderately
         functional, but still early in development. All areas of the system are
@@ -65,7 +65,12 @@ pages:
         class="construction"><p>Please note that the rules and mechanics
         featured in this playtest are not final. Most talents, skills, and rules
         will be further refined during later phases of
-        development.</p></section>
+        development.</p></section><h2 class="divider">Ember</h2><p>There is far
+        more Crucible content available as part of our original setting and epic
+        adventure <a href="https://foundryvtt.com/ember">Ember</a>, which is now
+        in Kickstarter Beta testing phase. Ember is available for pre-order, and
+        will contain an immense campaign for Crucible spanning several years of
+        gameplay taking your party from character level 1 to 12 (or beyond).</p>
     video:
       controls: true
       volume: 0.5
@@ -78,9 +83,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684020732888
-      modifiedTime: 1743882693479
+      modifiedTime: 1762095478911
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -99,41 +104,42 @@ pages:
       format: 1
       content: >-
         <p>Crucible is built with the following cornerstones and design
-        principles in mind.</p><h2>Consequential Character Progression</h2><p>A
-        primary goal for Crucible is to provide systems for meaningful,
-        exciting, and impactful character progression. Creating and advancing a
-        character in Crucible should be enjoyable and impactful as you gain
-        access to new capabilities that tangibly evolve your playstyle and
-        character persona.</p><h2>Strategic Grid-Based Combat</h2><p>Game
-        mechanics in Crucible are designed for application to encounter or area
-        maps with a structured grid which defines distances and positions of
-        characters to create tactical choices about movement during combat.
-        Movement actions and costs, engagement, flanking, cover, area-of-effect
-        abilities, and more are all ways to add tactical nuance and dynamism to
-        combat.</p><h2>Consistently Automated Mechanics</h2><p>A key goal for
-        Crucible is to design and implement mechanics which are seamlessly
-        automated or theoretically capable of seamless automation. We don't want
-        automation that distracts from gameplay with the need for bookkeeping -
-        but we also want the underlying game mechanics which are automated to be
-        understandable to players at the table. We don't want mechanics which
-        are inscrutable simply because we have a layer of automation in front of
-        them. In Crucible you will find game mechanics which are elegantly and
-        intuitively designed, but our approach to full automation of those
-        mechanics means you can stay focused on the fun of
-        roleplaying.</p><h2>Bring Your Own Story</h2><p>Crucible is optimized
-        and designed with extended-form narrative in mind. While it can be used
-        for one-shot adventures, the system's mechanics are intended to play out
-        over months or years of game sessions.</p><p>Crucible provides
-        relatively little rule-based guidance around narrative, personal
-        character story, or the development of intrapersonal relationships -
-        deliberately leaving these narrative pillars for the Game Master and
-        players to explore using whatever setting or storytelling style they
-        most prefer.</p><p>Crucible intentionally does not define a canonical
-        setting. The system provides Gamemasters with tools to apply the system
-        to a variety of settings. As a general rule of thumb, Crucible will work
-        best in a gritty fantasy setting but it can be adapted for other genres
-        and tones.</p><h2>Ease of Powerful Use</h2><p>Crucible is designed to be
-        a system which is easy to learn and easy to use. Gamemasters should feel
+        principles in mind.</p><h2 class="divider">Consequential Character
+        Progression</h2><p>A primary goal for Crucible is to provide systems for
+        meaningful, exciting, and impactful character progression. Creating and
+        advancing a character in Crucible should be enjoyable and impactful as
+        you gain access to new capabilities that tangibly evolve your playstyle
+        and character persona.</p><h2 class="divider">Strategic Grid-Based
+        Combat</h2><p>Game mechanics in Crucible are designed for application to
+        encounter or area maps with a structured grid which defines distances
+        and positions of characters to create tactical choices about movement
+        during combat. Movement actions and costs, engagement, flanking, cover,
+        area-of-effect abilities, and more are all ways to add tactical nuance
+        and dynamism to combat.</p><h2 class="divider">Consistently Automated
+        Mechanics</h2><p>A key goal for Crucible is to design and implement
+        mechanics which are seamlessly automated or theoretically capable of
+        seamless automation. We don't want automation that distracts from
+        gameplay with the need for bookkeeping - but we also want the underlying
+        game mechanics which are automated to be understandable to players at
+        the table. We don't want mechanics which are inscrutable simply because
+        we have a layer of automation in front of them. In Crucible you will
+        find game mechanics which are elegantly and intuitively designed, but
+        our approach to full automation of those mechanics means you can stay
+        focused on the fun of roleplaying.</p><h2 class="divider">Bring Your Own
+        Story</h2><p>Crucible is optimized and designed with extended-form
+        narrative in mind. While it can be used for one-shot adventures, the
+        system's mechanics are intended to play out over months or years of game
+        sessions.</p><p>Crucible provides relatively little rule-based guidance
+        around narrative, personal character story, or the development of
+        intrapersonal relationships - deliberately leaving these narrative
+        pillars for the Game Master and players to explore using whatever
+        setting or storytelling style they most prefer.</p><p>Crucible
+        intentionally does not define a canonical setting. The system provides
+        Gamemasters with tools to apply the system to a variety of settings. As
+        a general rule of thumb, Crucible will work best in a gritty fantasy
+        setting but it can be adapted for other genres and tones.</p><h2
+        class="divider">Ease of Powerful Use</h2><p>Crucible is designed to be a
+        system which is easy to learn and easy to use. Gamemasters should feel
         empowered to tell the stories they want to tell, and players to play the
         characters they want to play. We want game mechanics in Crucible to be
         crunchy and strategic while being presented to players in a way that is
@@ -151,10 +157,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684020740713
-      modifiedTime: 1686269235920
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1762095129173
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -175,17 +181,18 @@ pages:
         their experience with Crucible. This data will be collected and collated
         to help us identify areas of the game which need improvement, collect
         bugs that need to be fixed, and help us prioritize the development of
-        new features. </p><h3>Formal Feedback via Google Forms</h3><section
-        class="construction"><p>We are not collecting feedback form responses
-        <em>at this time</em> but will be re-opening the feedback form as part
-        of a subsequent playtest update.</p></section><h3>General Feedback via
-        Discord</h3><p>The Foundry Virtual Tabletop community <a
-        href="https://discord.gg/foundryvtt">Discord</a> server is a primary hub
-        for discussion and feedback for Foundry Virtual Tabletop, and we've
-        configured a dedicated channel for playtest feedback. We have a
-        dedicated channel for playtest feedback, and we encourage users to join
-        the server and participate in the discussion. Please join the discussion
-        in the <strong>#crucible</strong> channel of our Discord server.</p>
+        new features.</p><h3 class="divider">Formal Feedback via Google
+        Forms</h3><section class="construction"><p>We are not collecting
+        feedback form responses <em>at this time</em> but will be re-opening the
+        feedback form as part of a subsequent playtest update.</p></section><h3
+        class="divider">General Feedback via Discord</h3><p>The Foundry Virtual
+        Tabletop community <a href="https://discord.gg/foundryvtt">Discord</a>
+        server is a primary hub for discussion and feedback for Foundry Virtual
+        Tabletop, and we've configured a dedicated channel for playtest
+        feedback. We have a dedicated channel for playtest feedback, and we
+        encourage users to join the server and participate in the discussion.
+        Please join the discussion in the <strong>#crucible</strong> channel of
+        our Discord server.</p>
     video:
       controls: true
       volume: 0.5
@@ -198,9 +205,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684020793428
-      modifiedTime: 1727360755310
+      modifiedTime: 1762095140052
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -219,16 +226,20 @@ pages:
       format: 1
       content: >-
         <p>Crucible is created by the <strong>Foundry Virtual Tabletop
-        </strong>team. In particular:</p><ul><li>Andrew (Atropos) - System lead,
-        game design, and software development.</li><li>Caeora - Artwork, Tokens,
-        and UI/UX design. Find more at <a
-        href="https://www.patreon.com/caeora/">https://www.patreon.com/caeora/</a></li><li>Shane
-        (Anathema) - Writing, editing, and playtest scenario
-        development.</li><li>Drew (Drewzelle) - Talent icons.</li></ul><h2
+        </strong>team. In particular:</p><dl><dt><p>Andrew Clayton
+        (Atropos)</p></dt><dd><p>System lead, game design, and software
+        development.</p></dd><dt><p>Shane Martland
+        (Anathema)</p></dt><dd><p>Writing, editing, and playtest scenario
+        development.</p></dd><dt><p>Caeora</p></dt><dd><p>Artwork, Tokens, and
+        UI/UX design.</p></dd><dt><p>Marlene Robinson
+        (Taarie)</p></dt><dd><p>Talent tree design</p></dd><dt><p>Drew Smith
+        (Drewzelle)</p></dt><dd><p>Talent tree design</p></dd></dl><h2
         class="divider">Community Contributions</h2><p>We are grateful to the
         following community members for their contributions to the
-        system:</p><ul><li>Maalvi - UI design and interface
-        elements.</li><li>RedReign - Brainstorming and design
+        system:</p><ul><li>Various community software contributors to the <a
+        href="https://github.com/foundryvtt/crucible">Crucible game system</a>
+        repository.</li><li>Maalvi - UI design and interface
+        elements.</li><li>RedReign - Early brainstorming and design
         discussions.</li><li>JDW - Assistance with <a
         href="https://foundryvtt.com/packages/dice-so-nice/"
         target="_blank">Dice So Nice</a> animation integration.</li><li>Alex
@@ -248,8 +259,8 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: 1684375157534
-      modifiedTime: 1762035036798
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762095456907
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -318,14 +329,25 @@ pages:
         experience and your feedback is appropriate and specific to the
         functionality of the Crucible system. Your playtest feedback will be
         more useful to us if you have fewer modules installed.</p><h2
+        class="divider">Ember</h2><p>There is far more Crucible content
+        available as part of our original setting and epic adventure <a
+        href="https://foundryvtt.com/ember">Ember</a>, which is now in
+        Kickstarter Beta testing phase. Ember is available for pre-order, and
+        will contain an immense campaign for Crucible spanning several years of
+        gameplay taking your party from character level 1 to 12 (or
+        beyond).</p><figure><img class="noborder"
+        src="systems/crucible/assets/banners/ember-banner.webp"
+        /><figcaption>Ember, currently in Beta testing, will be the definite way
+        to experience the Crucible game system.</figcaption></figure><h2
         class="divider">Dice So Nice</h2><p>The Crucible game system is designed
         with use of the <a href="https://foundryvtt.com/packages/dice-so-nice/"
         target="_blank">Dice So Nice</a> module in mind. When rolling, Crucible
         leverages the features of Dice So Nice to give a positive glow effect to
         any roll which contain Boons, and similarly a negative glow effect to
         any rolls which have Banes.</p><figure><img class="noborder"
-        src="systems/crucible/assets/banners/dsn-banner.webp" /></figure><p>We
-        strongly recommend the use of Dice So Nice when playing Crucible.</p>
+        src="systems/crucible/assets/banners/dsn-banner.webp" /><figcaption>We
+        strongly recommend the use of Dice So Nice when playing
+        Crucible.</figcaption></figure>
     video:
       controls: true
       volume: 0.5
@@ -343,8 +365,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1743873856457
-      modifiedTime: 1762035716949
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762095274739
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.4qUKqJIWIdJNHdjb'
 folder: z0IT31iKpgcA3QYr
 flags:

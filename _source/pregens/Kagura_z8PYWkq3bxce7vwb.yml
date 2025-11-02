@@ -109,28 +109,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 26
@@ -261,7 +273,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: J9foLoRYll
+      identifier: 5zYCBj5zBk
       invested: false
       actorHooks: []
       dropped: false
@@ -274,7 +286,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -303,7 +315,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: xJFmXZZeoo
+      identifier: UEupDX27wt
       invested: false
       actorHooks: []
     _stats:
@@ -312,7 +324,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -350,7 +362,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runelife00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -401,7 +413,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runecourage00000
     folder: Dy9HnwadNE3kSZ4f
@@ -416,13 +428,10 @@ items:
       description: >-
         <p>Intensify an arcane phenomenon at close range. Influence could be
         used with the Flame rune to set a target ablaze or with the Stasis rune
-        to sap their Morale.</p>
-
-        <p>The Influence gesture is a more powerful evolution of the basic Touch
-        gesture that is learned with any Rune.</p>
-
-        <p>The Influence gesture scales using <strong>Presence</strong> and
-        targets a <strong>single</strong> adjacent creature, dealing 12 base
+        to sap their Morale.</p><p>The Influence gesture is a more powerful
+        evolution of the basic Touch gesture that is learned with any
+        Rune.</p><p>The Influence gesture scales using <strong>Presence</strong>
+        and targets a <strong>single</strong> adjacent creature, dealing 10 base
         damage on a successful attack.</p>
       actions: []
       gesture: influence
@@ -444,7 +453,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -484,7 +493,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runeearth0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -529,7 +538,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -573,7 +582,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -608,7 +617,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -623,11 +632,9 @@ items:
         into a ranged beam which rapidly travels a short distance to a targeted
         area. If used with Life this might restore the HP of a distant ally
         steadily over time, while Frost might emit a beam that freezes a target
-        in place.</p>
-
-        <p>The Ray gesture scales using <strong>Wisdom</strong> and targets a
-        line emanating from the caster at distance 6, dealing 6 base damage on a
-        successful attack.</p>
+        in place.</p><p>The Ray gesture scales using <strong>Wisdom</strong> and
+        targets a 30 foot line emanating from the caster, dealing 6 base damage
+        on a successful attack.</p>
       actions: []
       gesture: ray
       actorHooks: []
@@ -648,7 +655,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -667,9 +674,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: z8PYWkq3bxce7vwb
 ownership:

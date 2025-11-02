@@ -110,28 +110,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 70
@@ -269,7 +281,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: r4Y5aixJII
+      identifier: oF4aJsv8ex
       invested: false
       actorHooks: []
     _stats:
@@ -278,7 +290,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -309,7 +321,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: fdOJ4iWIWT
+      identifier: ddDiEDjEFz
       invested: false
       actorHooks: []
       dropped: false
@@ -319,7 +331,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -337,13 +349,14 @@ items:
         - id: intimidate
           name: Intimidate
           description: >-
-            You physically intimidate an enemy that is within your engagement
+            <p>You physically intimidate an enemy that is within your engagement
             range, performing an Intimidation skill attack against your target.
-            On a success they sustain Void damage to Morale.
+            On a success they sustain Void damage to Morale.</p>
           tags:
-            - intimidation
             - void
             - morale
+            - skill
+            - intimidation
           cost:
             action: 1
             focus: 1
@@ -355,7 +368,8 @@ items:
             scope: 0
             self: false
           effects: []
-          img: null
+          img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+          condition: ''
           range:
             minimum: null
             maximum: null
@@ -381,7 +395,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -441,7 +455,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -504,7 +518,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -545,7 +559,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -615,7 +629,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: berserker0000000
     folder: fOYHlZJEWUukD7yr
@@ -651,7 +665,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -727,7 +741,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -250000
@@ -776,7 +790,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: bloodfrenzy00000
     sort: 100000
@@ -850,7 +864,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 0
@@ -885,7 +899,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: unshakeablestanc
     folder: SMe30RkoLutLr4ef
@@ -948,7 +962,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -1012,7 +1026,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -1082,7 +1096,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1126,7 +1140,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1166,7 +1180,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1200,7 +1214,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1268,7 +1282,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1303,7 +1317,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1339,7 +1353,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1379,7 +1393,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: thickskin0000000
     folder: null
@@ -1415,7 +1429,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: armoredefficienc
     folder: null
@@ -1474,7 +1488,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: penetratingThrow
     folder: null
@@ -1573,9 +1587,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 ownership:

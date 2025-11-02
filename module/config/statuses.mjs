@@ -228,7 +228,7 @@ export const statusEffects = [
   },
   {
     id: "decaying",
-    name: "Corroding",
+    name: "Decaying",
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.decaying00000000"

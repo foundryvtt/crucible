@@ -226,9 +226,9 @@ pages:
         which are resistant to a certain damage type are vulnerable to some
         other damage type - if you encounter a creature which is overly
         effective at withstanding your blows - switch
-        tactics!</p></blockquote><h2>Damage Types</h2><p>The Crucible system
-        uses the following 12 <strong>Damage Types</strong>, each of which has a
-        corresponding <strong>Resistance</strong> or
+        tactics!</p></blockquote><h2 class="divider">Damage Types</h2><p>The
+        Crucible system uses the following 12 <strong>Damage Types</strong>,
+        each of which has a corresponding <strong>Resistance</strong> or
         <strong>Vulnerability</strong>. Additionally, each damage type has an
         associated
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.conditionsOvervi]{Condition}
@@ -236,27 +236,34 @@ pages:
         result of a <strong>Critical
         Hit</strong>.</p><table><thead><tr><th><p>Physical Damage
         Types</p></th><th><p>Related
-        Conditions</p></th></tr></thead><tbody><tr><td><p>Bludgeoning</p></td><td><p>Concussed</p></td></tr><tr><td><p>Piercing</p></td><td><p>Bleeding</p></td></tr><tr><td><p>Slashing</p></td><td><p>Bleeding</p></td></tr><tr><td><p>Poison</p></td><td><p>Poisoned</p></td></tr><tr><th><p>Elemental
+        Conditions</p></th></tr></thead><tbody><tr><td><p>Bludgeoning</p></td><td><p>@Condition[staggered]</p></td></tr><tr><td><p>Piercing</p></td><td><p>@Condition[bleeding]</p></td></tr><tr><td><p>Slashing</p></td><td><p>@Condition[bleeding]</p></td></tr><tr><td><p>Poison</p></td><td><p>@Condition[poisoned]</p></td></tr><tr><th><p>Elemental
         Damage Types</p></th><th><p>Related
-        Conditions</p></th></tr><tr><td><p>Acid</p></td><td><p>Corroding</p></td></tr><tr><td><p>Fire</p></td><td><p>Burning</p></td></tr><tr><td><p>Cold</p></td><td><p>Chilled</p></td></tr><tr><td><p>Electricity</p></td><td><p>Shocked</p></td></tr><tr><th><p>Spiritual
+        Conditions</p></th></tr><tr><td><p>Acid</p></td><td><p>@Condition[corroding]</p></td></tr><tr><td><p>Fire</p></td><td><p>@Condition[burning]</p></td></tr><tr><td><p>Cold</p></td><td><p>@Condition[freezing]</p></td></tr><tr><td><p>Electricity</p></td><td><p>@Condition[shocked]</p></td></tr><tr><th><p>Spiritual
         Damage Types</p></th><th><p>Related
-        Conditions</p></th></tr><tr><td><p>Corruption</p></td><td><p>Decaying</p></td></tr><tr><td><p>Psychic</p></td><td><p>Shaken</p></td></tr><tr><td><p>Radiant</p></td><td><p>Irradiated</p></td></tr><tr><td><p>Void</p></td><td><p>Entropy</p></td></tr></tbody></table><h2>Minimum
-        and Maximum Damage</h2><p>When an Action deals damage as an immediate
-        consequence (called "direct damage") the minimum amount of damage that
-        can be dealt is 1, even if the creature has Resistance that exceeds the
-        amount of damage dealt.</p><p>Some actions cause a downstream effect
-        which deals damage upon a later Turn of combat (called "damage over
-        time"). Damage over time can be completely negated by resistance; the
-        minimum damage in such cases is zero.</p><p>When a creature is
-        vulnerable to a type of damage dealt, the amount of damage dealt is
-        increased by the amount of the vulnerability. This increase in damage is
-        limited by the base amount of damage dealt; maximum damage against a
-        vulnerable target is two times the amount of damage dealt.</p><section
-        class="gameplay"><h4>Example: Damage Vulnerability</h4><p>Suppose a
-        volatile Fire Elemental has vulnerability of <strong>-20</strong> to
-        Cold damage. If the elemental is dealt <strong>7</strong> Cold damage
-        before vulnerability is applied, the total result will be
-        <strong>14</strong> Cold damage.</p></section>
+        Conditions</p></th></tr><tr><td><p>Corruption</p></td><td><p>@Condition[decaying]</p></td></tr><tr><td><p>Psychic</p></td><td><p>@Condition[confused]</p></td></tr><tr><td><p>Radiant</p></td><td><p>@Condition[irradiated]</p></td></tr><tr><td><p>Void</p></td><td><p>@Condition[entropy]</p></td></tr></tbody></table><h2
+        class="divider">Damage Resistance</h2><p>When an Action deals damage,
+        that damage may be reduced by an amount of Resistance that the target
+        creature has. This amount of resistance may even reduce the damage
+        caused by the Action to be zero!</p><section
+        class="gameplay"><h4>Example: Damage Resistance</h4><p>Suppose a
+        mechanical automaton, a Brass Sentinel, has resistance of
+        <strong>+5</strong> to <strong>Slashing</strong> damage. If the Brass
+        Sentinel receives an attack that deals <strong>13 Slashing
+        damage</strong>, the effective damage dealt is reduced to <strong>8
+        Slashing Damage</strong>.</p></section><h2 class="divider">Damage
+        Vulnerability</h2><p>When a creature is vulnerable to a type of damage
+        dealt, the amount of damage dealt is increased by the amount of the
+        vulnerability. This increase in damage is limited by the base amount of
+        damage dealt; maximum damage against a vulnerable target is two times
+        the amount of damage dealt.</p><section class="gameplay"><h4>Example:
+        Damage Vulnerability</h4><p>Suppose a volatile Fire Elemental has
+        vulnerability of <strong>-20</strong> to <strong>Cold</strong> damage.
+        If the elemental is dealt <strong>7 Cold damage</strong> before
+        vulnerability is applied, the total result will be <strong>14 Cold
+        damage</strong>.</p></section><h2 class="divider">Damage
+        Immunity</h2><p>In exceptional cases, a creature may be entirely
+        <strong>Immune</strong> to a certain damage type. In this case, the
+        creature never takes damage of that type no matter its magnitude.</p>
     video:
       controls: true
       volume: 0.5
@@ -275,8 +282,8 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761697235112
-      modifiedTime: 1762036062159
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098125781
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.Resistances00000'
   - _id: abilityScores000
     name: Ability Scores
@@ -441,20 +448,21 @@ pages:
         character in Crucible. Fantasy settings may feature a spectrum of
         species which are playable as characters. Crucible supports defining
         Ancestries for each of these options which are narratively and
-        mechanically appropriate for your own game.</p><h2>Creating
-        Ancestries</h2><p>Crucible is not designed for a specific game setting.
-        Gamemasters are encouraged to create or modify Ancestries to fit the
-        lore of their own worlds. To configure an Ancestry in Crucible, create a
-        new <strong>Item</strong> with the <strong>Ancestry</strong> type. Fill
-        out the Ancestry configuration sheet to select a primary Ability score,
-        a secondary Ability score, and optionally Resistance and Vulnerability
-        to two different damage types. Every Ancestry may either have both a
-        Resistance and a Vulnerability, or neither.</p><p>Each Ancestry
-        includes:</p><ul><li><p>A <strong>Primary Ability</strong> Score (which
-        begins at 3)</p></li><li><p>A <strong>Secondary Ability</strong> Score
-        (which begins at 2)</p></li><li><p>A <strong>Size</strong> value in grid
-        spaces (typically 4)</p></li><li><p>A <strong>Stride</strong> value in
-        grid spaces that determines the starting movement speed (typically
+        mechanically appropriate for your own game.</p><h2
+        class="divider">Creating Ancestries</h2><p>Crucible is not designed for
+        a specific game setting. Gamemasters are encouraged to create or modify
+        Ancestries to fit the lore of their own worlds. To configure an Ancestry
+        in Crucible, create a new <strong>Item</strong> with the
+        <strong>Ancestry</strong> type. Fill out the Ancestry configuration
+        sheet to select a primary Ability score, a secondary Ability score, and
+        optionally Resistance and Vulnerability to two different damage types.
+        Every Ancestry may either have both a Resistance and a Vulnerability, or
+        neither.</p><p>Each Ancestry includes:</p><ul><li><p>A <strong>Primary
+        Ability</strong> Score (which begins at 3)</p></li><li><p>A
+        <strong>Secondary Ability</strong> Score (which begins at
+        2)</p></li><li><p>A <strong>Size</strong> value in grid spaces
+        (typically 4)</p></li><li><p>A <strong>Stride</strong> value in grid
+        spaces that determines the starting movement speed (typically
         10)</p></li><li><p>Optional: A <strong>Damage Resistance</strong> to a
         certain type of damage (+3 resistance) — If a Damage Resistance is
         selected, a Damage Vulnerability MUST be
@@ -463,11 +471,11 @@ pages:
         If a Damage Vulnerability is selected, a Damage Resistance MUST be
         selected.</p></li><li><p>An <strong>Ancestral Talent </strong>which
         grants a specific special ability or knowledge to a character of that
-        ancestry.</p></li></ul><h2>Example Ancestries</h2><p>Crucible provides
-        the following Ancestries for the purposes of playtesting which are
-        familiar to typical fantasy role-playing settings. A collection of
-        sample ancestries which are provided for the initial playtest are
-        presented in the following
+        ancestry.</p></li></ul><h2 class="divider">Included
+        Ancestries</h2><p>Crucible provides the following Ancestries for the
+        purposes of playtesting which are familiar to typical fantasy
+        role-playing settings. A collection of sample ancestries which are
+        provided for the initial playtest are presented in the following
         table:</p><p></p><table><thead><tr><th>Ancestry</th><th>Primary Ability
         (+3)</th><th>Secondary Ability (+2)</th><th>Damage
         Resistance</th><th>Damage
@@ -511,11 +519,11 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761772960409
-      modifiedTime: 1762045349484
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762095883789
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.ancestry00000000'
   - _id: backgrounds00000
-    name: Backgrounds
+    name: Background
     type: text
     system: {}
     title:
@@ -529,19 +537,20 @@ pages:
         professional training, career to date, and other aspects of a hero's
         past before the events of the game's story. These are intended to give
         depth to a character and some measure of explanation to the origins of
-        their particular skillset and capabilities.</p><h2>Creating a
-        Background</h2><p>Crucible is not designed for a specific game setting.
-        Gamemasters are encouraged to create or modify Backgrounds to fit the
-        lore of their own worlds. To configure a Background in Crucible, create
-        a new <strong>Item</strong> with the <strong>Background </strong>type.
-        Fill out the Background configuration sheet to select four acquired
-        Skills which begin at Novice tier and one acquired Talent.</p><p>Each
-        Background includes:</p><ul><li><p>Novice Skills (typically
-        2)</p></li><li><p>Knowledge Areas (typically 2)</p></li><li><p>Known
-        Languages</p></li><li><p>Talents (typically at least one weapon training
-        talent and one additional talent)</p></li></ul><h2>Example
-        Backgrounds</h2><p>The table below presents some example Backgrounds
-        which will be familiar for many fantasy RPG
+        their particular skillset and capabilities.</p><h2
+        class="divider">Creating a Background</h2><p>Crucible is not designed
+        for a specific game setting. Gamemasters are encouraged to create or
+        modify Backgrounds to fit the lore of their own worlds. To configure a
+        Background in Crucible, create a new <strong>Item</strong> with the
+        <strong>Background </strong>type. Fill out the Background configuration
+        sheet to select four acquired Skills which begin at Novice tier and one
+        acquired Talent.</p><p>Each Background includes:</p><ul><li><p>Novice
+        Skills (typically 2)</p></li><li><p>Knowledge Areas (typically
+        2)</p></li><li><p>Known Languages</p></li><li><p>Talents (typically at
+        least one weapon training talent and one additional
+        talent)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The
+        table below presents some example Backgrounds which will be familiar for
+        many fantasy RPG
         settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Novice
         Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
         Souls</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.1XkdTDKQiY8hQjb9]{Arcana},
@@ -606,11 +615,11 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761773899846
-      modifiedTime: 1762036056806
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762097674864
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.backgrounds00000'
   - _id: knowledges000000
-    name: Knowledges
+    name: Knowledge Areas
     type: text
     system: {}
     title:
@@ -620,25 +629,28 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Knowledge </strong>areas are specific enhancements that
-        reflect notable areas of a hero's understanding of some specialized
-        training. While most knowledge areas come as a result of a
+        <p><strong>Knowledge Areas</strong> (or sometimes just called
+        "Knowledges") are specific enhancements that reflect notable areas of a
+        hero's understanding of some specialized training. While most knowledge
+        areas come as a result of a
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
         selected during
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
         Creation}, it is possible to attain knowledge areas in other ways during
-        character progression.</p><section class="foundryvtt"><p>Knowledge areas
-        are still being implemented and developed as a mechanical aspect of
-        Crucible and may change over the course of the next several
+        character progression.</p><section class="construction"><p>Knowledge
+        areas are still being implemented and developed as a mechanical aspect
+        of Crucible and may change over the course of the next several
         iterations.</p></section><p>While knowledge areas do not grant a
         specific mechanical bonus, they are often used in combination with skill
-        checks. Certain checks might require a specific knowledge to allow a
-        roll to be made, or, in some cases, a knowledge area may be used as a
-        substitute to the skill check that can provide an automatic success. In
-        some cases a GM may wish to allow a knowledge area to provide
-        @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.Qme1mM71Jn950Zsf]{Boons}
-        to specific checks.</p><p>The knowledge areas currently supported by
-        Crucible are:</p><table><tbody><tr><th data-colwidth="185"><p>Knowledge
+        checks:</p><ul><li><p>Sometimes, a <strong>Knowledge</strong> will
+        substitute for a <strong>Skill Check</strong> that would otherwise be
+        required.</p></li><li><p>Sometimes, a <strong>Knowledge</strong> will
+        provide certain <strong>Boons</strong> towards the attempted
+        <strong>Skill Check</strong>.</p></li><li><p>Sometimes, a
+        <strong>Knowledge</strong> may be a prerequisite condition for even
+        attempting a <strong>Skill Check</strong>.</p></li></ul><p></p><p>The
+        knowledge areas currently supported by Crucible
+        are:</p><table><tbody><tr><th data-colwidth="185"><p>Knowledge
         Area</p></th><th><p>Skill</p></th></tr><tr><td
         data-colwidth="185"><p>[[/knowledge
         alchemy]]</p></td><td><p>Arcana</p></td></tr><tr><td
@@ -720,8 +732,8 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761937467527
-      modifiedTime: 1762036059404
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1762098434685
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.knowledges000000'
 folder: MMeWpMmsLOblp07U
 categories: []

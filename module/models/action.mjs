@@ -1088,13 +1088,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Compute damage before any mitigation
     if ( overflow < 0 ) multiplier = Math.max(multiplier, 1); // You cannot have an increased multiplier on misses
     const preMitigation = (overflow * multiplier) + base + bonus;
-    if ( preMitigation <= 1 ) return 1; // Never do less than 1 damage
+    if ( preMitigation <= 0 ) return 0; // If the pre-mitigation amount did no damage, not increased by vulnerability
 
     // Resistance and Vulnerability does not apply to Restoration
     const postMitigation = restoration ? preMitigation : preMitigation - resistance;
 
-    // Constrain total damage between 1 and 2x the pre-mitigation value
-    return Math.clamp(postMitigation, 1, 2 * preMitigation);
+    // Constrain total damage between 0 and 2x the pre-mitigation value
+    return Math.clamp(postMitigation, 0, 2 * preMitigation);
   }
 
   /* -------------------------------------------- */

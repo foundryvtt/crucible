@@ -110,28 +110,40 @@ system:
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 54
@@ -263,7 +275,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: fakuwQBr8T
+      identifier: F2ovTAcuou
       invested: false
       actorHooks: []
       dropped: false
@@ -276,7 +288,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -305,7 +317,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: dP0IBlIrYg
+      identifier: UTxwDKaE0x
       invested: false
       actorHooks: []
     _stats:
@@ -314,7 +326,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -380,7 +392,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
@@ -418,7 +430,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runeflame0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -433,13 +445,10 @@ items:
       description: >-
         <p>Intensify an arcane phenomenon at close range. Influence could be
         used with the Flame rune to set a target ablaze or with the Stasis rune
-        to sap their Morale.</p>
-
-        <p>The Influence gesture is a more powerful evolution of the basic Touch
-        gesture that is learned with any Rune.</p>
-
-        <p>The Influence gesture scales using <strong>Presence</strong> and
-        targets a <strong>single</strong> adjacent creature, dealing 12 base
+        to sap their Morale.</p><p>The Influence gesture is a more powerful
+        evolution of the basic Touch gesture that is learned with any
+        Rune.</p><p>The Influence gesture scales using <strong>Presence</strong>
+        and targets a <strong>single</strong> adjacent creature, dealing 10 base
         damage on a successful attack.</p>
       actions: []
       gesture: influence
@@ -461,7 +470,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -498,7 +507,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -532,7 +541,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: warmage000000000
     folder: fOYHlZJEWUukD7yr
@@ -547,11 +556,10 @@ items:
       description: >-
         <p>Hurl a projectile of magical power at a distant target. This might
         use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p>
-
-        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
-        a <strong>single</strong> creature up to a distance of 10 spaces,
-        dealing 10 base damage on a successful attack.</p>
+        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a <strong>single</strong>
+        creature up to a distance of 60 feet, dealing 8 base damage on a
+        successful attack.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -572,7 +580,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -610,7 +618,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -657,7 +665,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -692,7 +700,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -738,7 +746,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: pyromancer000000
     folder: c0nl6X8tp4Of0Y4O
@@ -755,11 +763,9 @@ items:
         <p>Emit a burst of Runic power in a circular wave that travels outward,
         with you at its center. A Pulse of Spirit might be used to bolster
         Morale for your allies, while a Death pulse might be used to deal
-        Corruption damage to a group of enemies gathered around you.</p>
-
-        <p>The Pulse gesture scales using <strong>Presence</strong> and targets
-        a 360 degree radius with distance 1, dealing 6 base damage on a
-        successful attack.</p>
+        Corruption damage to a group of enemies gathered around you.</p><p>The
+        Pulse gesture scales using <strong>Presence</strong> and targets a 360
+        degree, 6 foot radius, dealing 6 base damage on a successful attack.</p>
       actions: []
       gesture: pulse
       actorHooks: []
@@ -781,7 +787,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -819,7 +825,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -859,7 +865,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runeradiance0000
     folder: Dy9HnwadNE3kSZ4f
@@ -899,7 +905,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: runevoid00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -943,7 +949,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -984,7 +990,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1018,7 +1024,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
@@ -1064,7 +1070,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1101,7 +1107,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: strategicreposit
     folder: null
@@ -1151,7 +1157,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: lightbringer0000
     folder: null
@@ -1193,7 +1199,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1233,7 +1239,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.9
+      systemVersion: 0.8.0
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1259,9 +1265,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  createdTime: 1761424864827
-  modifiedTime: 1761424864827
+  systemVersion: 0.8.0
+  createdTime: 1762099442645
+  modifiedTime: 1762099442645
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 ownership:
