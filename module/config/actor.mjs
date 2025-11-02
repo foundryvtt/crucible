@@ -236,7 +236,11 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "target", "rolls"]
   },
-  confirmActionOutcome: {
+  finalizeAction: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "outcome"]
+  },
+  confirmAction: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "outcome", "options"]
   },

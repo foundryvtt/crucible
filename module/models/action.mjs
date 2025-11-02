@@ -1073,6 +1073,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( roll.isCriticalSuccess ) outcome.criticalSuccess = true;
       else if ( roll.isCriticalFailure) outcome.criticalFailure = true;
     }
+    this.actor.callActorHooks("finalizeAction", this, outcome);
   }
 
   /* -------------------------------------------- */

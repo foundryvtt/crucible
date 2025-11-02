@@ -1037,7 +1037,7 @@ export default class CrucibleActor extends Actor {
     if ( !reverse && outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) outcome.effects.length = 0;
 
     // Call outcome confirmation actor hooks
-    this.callActorHooks("confirmActionOutcome", action, outcome, {reverse});
+    this.callActorHooks("confirmAction", action, outcome, {reverse});
 
     // Apply changes to the Actor
     await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse, statusText: outcome.statusText});

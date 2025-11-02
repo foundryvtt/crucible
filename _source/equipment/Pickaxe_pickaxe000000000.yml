@@ -5,15 +5,14 @@ system:
   identifier: pickaxe
   category: simple1
   quantity: 1
-  weight: 6
-  price: 3600
+  weight: 5
+  price: 3000
   quality: standard
   broken: false
   enchantment: mundane
   equipped: false
   invested: false
-  properties:
-    - keen
+  properties: []
   description:
     public: >-
       <p>A crescent spike mounted atop a sturdy haft, the pickaxe is
@@ -37,9 +36,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
+  systemVersion: 0.8.0
   createdTime: 1760798444194
-  modifiedTime: 1760798444194
+  modifiedTime: 1762043903603
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: pickaxe000000000
 sort: 0

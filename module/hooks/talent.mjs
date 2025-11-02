@@ -50,8 +50,8 @@ HOOKS.bloodmagic000000 = {
     action.cost.health = action.cost.focus * 10;
     action.cost.focus = 0;
   },
-  confirmActionOutcome(item, action, outcome, _options) {
-    if ( action.target !== this ) return;
+  finalizeAction(item, action, outcome) {
+    if ( !outcome.self ) return;
     outcome.resources.health = Math.min(outcome.resources.health, -action.cost.health);
   }
 };
