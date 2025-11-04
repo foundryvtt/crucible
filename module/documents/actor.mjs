@@ -2087,10 +2087,10 @@ export default class CrucibleActor extends Actor {
     updates.prototypeToken = {bar1: {attribute: "resources.health"}, bar2: {attribute: "resources.morale"}};
     switch ( data.type ) {
       case "hero":
-        Object.assign(updates.prototypeToken, {vision: true, actorLink: true, disposition: 1});
+        Object.assign(updates.prototypeToken, {sight: {enabled: true}, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        Object.assign(updates.prototypeToken, {vision: false, actorLink: false, disposition: -1});
+        Object.assign(updates.prototypeToken, {sight: {enabled: false}, actorLink: false, disposition: -1});
         break;
     }
     this.updateSource(updates);
