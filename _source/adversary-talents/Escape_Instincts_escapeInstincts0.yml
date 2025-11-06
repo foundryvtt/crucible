@@ -1,0 +1,39 @@
+name: Escape Instincts
+type: talent
+img: icons/environment/wilderness/mine-exterior-entrance.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} has honed survival instincts and is
+    constantly plotting escape routes. If it is @Condition{broken} or
+    @Condition{frightened} it gains +5 to <strong>Stride</strong> and can fit
+    through holes or cracks as small as 10% of its size without slowing
+    down.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762395538662
+  modifiedTime: 1762395538662
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: escapeInstincts0
+sort: 0
+_key: '!items!escapeInstincts0'

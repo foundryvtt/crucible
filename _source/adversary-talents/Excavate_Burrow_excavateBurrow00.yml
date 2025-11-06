@@ -1,0 +1,64 @@
+name: Excavate Burrow
+type: talent
+img: icons/magic/earth/projectile-stone-landslide.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to swiftly create a hole in the
+    ground within which it can disappear.</p>
+  actions:
+    - id: excavateBurrow
+      name: Excavate Burrow
+      img: icons/magic/earth/projectile-stone-landslide.webp
+      condition: ''
+      description: >-
+        <p>If the creature is standing on ground that is not entirely
+        impermeable, it can excavate a burrow in the ground directly underneath
+        its current location large enough for it to squeeze into.</p><p>This
+        action only creates the burrow, the @ref[actor.name] must still enter it
+        by performing the <strong>Move </strong>action. While
+        @Condition[burrowing], the creature is invisible from view.</p>
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762396265195
+  modifiedTime: 1762396265195
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: excavateBurrow00
+sort: 0
+_key: '!items!excavateBurrow00'
