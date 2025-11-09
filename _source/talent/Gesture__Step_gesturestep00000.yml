@@ -18,10 +18,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.8
-  coreVersion: '13.348'
+  coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1757524435645
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1762718942544
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturestep00000
   duplicateSource: null
   exportSource: null
@@ -29,6 +29,6 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: gesturestep00000
-folder: D14x9AJ0TgXKtnzu
-sort: 700000
+folder: hKkLXAoC3ygmEtEf
+sort: -175000
 _key: '!items!gesturestep00000'

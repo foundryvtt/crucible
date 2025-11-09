@@ -191,6 +191,14 @@ export default class CrucibleSpellAction extends CrucibleAction {
     CrucibleSpellAction.#prepareGesture.call(this);
     super._prepare();
 
+    // Call Spellcraft Hooks
+    const hooks = crucible.api.hooks.spellcraft;
+    const fns = [hooks[this.gesture.id]?.prepare, hooks[this.rune.id]?.prepare, hooks[this.inflection?.id]?.prepare];
+    for ( const fn of fns ) {
+      if ( !(typeof fn === "function") ) continue;
+      fn.call(this);
+    }
+
     // Add Weapon cost
     if ( this.cost.weapon ) {
       const w = this.actor.equipment.weapons.mainhand;
@@ -234,7 +242,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
         this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
 
         // Configure summon data
-        const summonUUIDs = SYSTEM.SPELL.CREATION_SUMMONS;
+        const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS.create;
         const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
         const tokenData = {
           delta: {

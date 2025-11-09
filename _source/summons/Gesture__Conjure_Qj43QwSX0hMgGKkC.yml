@@ -1,0 +1,20 @@
+type: Actor
+folder: null
+name: 'Gesture: Conjure'
+color: null
+sorting: a
+_id: Qj43QwSX0hMgGKkC
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762720144464
+  modifiedTime: 1762720144464
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!Qj43QwSX0hMgGKkC'

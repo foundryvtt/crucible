@@ -203,6 +203,23 @@ export const GESTURES = Object.seal({
       type: "summon"
     }
   },
+  conjure: {
+    id: "conjure",
+    name: "SPELL.GESTURES.Conjure",
+    cost: {
+      action: 6,
+      focus: 2
+    },
+    hands: 2,
+    range: {
+      maximum: 30
+    },
+    nameFormat: NAME_FORMATS.NOUN,
+    scaling: "wisdom",
+    target: {
+      type: "summon"
+    }
+  },
   fan: {
     id: "fan",
     name: "SPELL.GESTURES.Fan",
@@ -443,12 +460,20 @@ export const INFLECTIONS = {
   }
 };
 
-
-export const CREATION_SUMMONS =  {
-  death: "Compendium.crucible.summons.Actor.56puGK932Qc0cowe",
-  earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
-  flame: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI",
-  frost: "Compendium.crucible.summons.Actor.me5glbOshiijlVUH",
-  lightning: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
-  fallback: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI" // FIXME temporary
+export const GESTURE_SUMMONS =  {
+  create: {
+    death: "Compendium.crucible.summons.Actor.56puGK932Qc0cowe",
+    earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
+    flame: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI",
+    frost: "Compendium.crucible.summons.Actor.me5glbOshiijlVUH",
+    lightning: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
+    fallback: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI" // FIXME flame
+  },
+  conjure: {
+    earth: "Compendium.crucible.summons.Actor.ugQYiiEmj9idwvqW",
+    flame: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd",
+    frost: "Compendium.crucible.summons.Actor.mMBMYzpipJdqVf7k",
+    lightning: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
+    fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
+  }
 }

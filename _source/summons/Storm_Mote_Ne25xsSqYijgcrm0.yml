@@ -1,7 +1,7 @@
 folder: 5oBBNdq95OvvXx3e
-name: Creation of Earth
+name: Storm Mote
 type: adversary
-img: systems/crucible/assets/tokens/creations/Earth.webp
+img: systems/crucible/assets/tokens/creations/Storm.webp
 system:
   abilities:
     strength:
@@ -39,30 +39,35 @@ system:
     level: -1
     archetype:
       description: >-
-        <p>A magically fashioned and conjured creation corresponding to a
-        particular arcane essence.</p>
-      abilities:
-        wisdom: 2
-        presence: 2
-        intellect: 2
-        strength: 2
-        toughness: 2
-        dexterity: 2
-      talents: []
-      identifier: creation
-      skills: []
-      equipment: []
-      name: Creation
-      img: icons/magic/symbols/elements-air-earth-fire-water.webp
-    taxonomy:
-      description: <p>Elemental creatures corresponding to the element of Earth.</p>
-      category: elemental
+        <p>Motes are the smallest elemental embodiments that still take physical
+        form. They are generally unintelligent and act according to
+        environmental stimuli or following the instinctual direction of a nearby
+        greater elemental.</p>
+      identifier: elementalMote
       abilities:
         wisdom: 1
-        presence: 1
-        intellect: 1
-        strength: 3
-        toughness: 5
+        presence: 3
+        intellect: 0
+        strength: 1
+        toughness: 2
+        dexterity: 5
+      talents:
+        - Compendium.crucible.adversary-talents.Item.falseAppearance0
+      skills:
+        - stealth
+        - performance
+      equipment: []
+      name: Elemental Mote
+      img: icons/magic/symbols/elements-air-earth-fire-water.webp
+    taxonomy:
+      description: <p>Elemental creatures corresponding to the element of Lightning.</p>
+      category: elemental
+      abilities:
+        wisdom: 3
+        presence: 3
+        intellect: 3
+        strength: 1
+        toughness: 1
         dexterity: 1
       resistances:
         bludgeoning:
@@ -72,34 +77,34 @@ system:
           value: 0
           immune: false
         piercing:
-          value: -2
-          immune: false
-        slashing:
           value: 0
           immune: false
+        slashing:
+          value: -1
+          immune: false
         poison:
-          value: 1
+          value: 0
           immune: false
         acid:
           value: 0
-          immune: true
+          immune: false
         fire:
-          value: 1
+          value: 0
           immune: false
         cold:
-          value: -2
+          value: 2
           immune: false
         electricity:
           value: 0
-          immune: false
+          immune: true
         psychic:
-          value: 0
+          value: -2
           immune: false
         radiant:
-          value: 0
+          value: -2
           immune: false
         void:
-          value: -2
+          value: -1
           immune: false
       characteristics:
         spells: true
@@ -108,11 +113,11 @@ system:
         size: 4
         stride: 10
       talents:
-        - Compendium.crucible.talent.Item.runeearth0000000
-        - Compendium.crucible.adversary-talents.Item.acidAbsorption00
-      identifier: earthElemental
-      name: Earth Elemental
-      img: icons/magic/earth/construct-stone-long-arms.webp
+        - Compendium.crucible.talent.Item.runelightning000
+        - Compendium.crucible.adversary-talents.Item.electricityAbsor
+      identifier: stormElemental
+      name: Storm Elemental
+      img: icons/magic/lightning/bolt-strike-clouds-blue.webp
     threat: minion
     biography:
       public: ''
@@ -145,13 +150,15 @@ system:
       bonus: 0
   resources:
     health:
-      value: 19
+      value: 3
     morale:
-      value: 8
+      value: 7
     action:
       value: 4
     focus:
-      value: 3
+      value: 5
+    heroism:
+      value: 0
   skills:
     acrobatics:
       rank: 0
@@ -186,24 +193,24 @@ system:
     performance:
       rank: 0
   status: null
+  advancement:
+    level: -1
+    threat: minion
   movement:
     sizeBonus: -1
-  advancement:
-    level: 1
-    threat: minion
   favorites:
     - cast
     - reactiveStrike
     - strike
     - defend
 prototypeToken:
-  name: Creation of Earth
+  name: Creation of Storm
   displayName: 30
   actorLink: false
   appendNumber: false
   prependAdjective: false
   texture:
-    src: systems/crucible/assets/tokens/creations/Earth.webp
+    src: systems/crucible/assets/tokens/creations/Storm.webp
     scaleX: 1
     scaleY: 1
     offsetX: 0
@@ -309,17 +316,17 @@ items:
       systemVersion: 0.6.2
       coreVersion: '13.342'
       createdTime: 1677965383866
-      modifiedTime: 1677965883327
+      modifiedTime: 1677966347928
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.livingflame00000
       duplicateSource: null
       exportSource: null
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.kxuUSxeLhkQ5J1Nn'
+    _key: '!actors.items!Ne25xsSqYijgcrm0.kxuUSxeLhkQ5J1Nn'
   - folder: MXhSyruFpcxbRhgJ
-    name: Earthen Claw
+    name: Voltaic Claw
     type: weapon
     _id: Qu8kL7eiBNkcOXpn
-    img: icons/skills/melee/strike-slashes-orange.webp
+    img: icons/magic/lightning/projectile-orb-blue.webp
     system:
       category: natural
       quantity: 1
@@ -330,7 +337,7 @@ items:
       enchantment: mundane
       equipped: true
       properties: []
-      damageType: acid
+      damageType: electricity
     effects: []
     sort: 0
     ownership:
@@ -343,23 +350,57 @@ items:
       systemVersion: 0.6.2
       coreVersion: '13.342'
       createdTime: 1677965044710
-      modifiedTime: 1677966182273
+      modifiedTime: 1682175456965
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.flametouch000000
       duplicateSource: null
       exportSource: null
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.Qu8kL7eiBNkcOXpn'
-  - name: 'Rune: Earth'
+    _key: '!actors.items!Ne25xsSqYijgcrm0.Qu8kL7eiBNkcOXpn'
+  - name: 'Gesture: Arrow'
     type: talent
-    img: icons/magic/earth/projectile-boulder-debris.webp
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      node: int1b
+      description: >-
+        <p>You learn the Arrow gesture, allowing you to hurl a directed bolt of
+        arcane power towards a distant target.</p>
+
+        <p>The Arrow gesture deals damage corresponding to the Rune used to a
+        single enemy target at range.</p>
+      actions: []
+      requirements: {}
+      gesture: arrow
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '13.342'
+      createdTime: 1674842056708
+      modifiedTime: 1677966374363
+      lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.gesturearrow0000
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturearrow0000
+    folder: null
+    sort: 6100000
+    _key: '!actors.items!Ne25xsSqYijgcrm0.gesturearrow0000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       node: int0
       description: >-
-        You learn Rune of Earth, allowing you to control tectonic and corrosive
-        forces.
+        You learn Rune of Lightning, allowing you to control volatile arcane
+        surges of electricity.
       actions: []
       requirements: {}
-      rune: earth
+      rune: lightning
     effects: []
     flags:
       core: {}
@@ -368,59 +409,28 @@ items:
       systemVersion: 0.6.2
       coreVersion: '13.342'
       createdTime: 1674698661050
-      modifiedTime: 1677966243922
+      modifiedTime: 1677966377392
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Compendium.crucible.talent.runeearth0000000
+      compendiumSource: Compendium.crucible.talent.runelightning000
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
-    _id: runeearth0000000
+    _id: runelightning000
     folder: null
-    sort: 10200000
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.runeearth0000000'
-  - name: 'Gesture: Ray'
+    sort: 10700000
+    _key: '!actors.items!Ne25xsSqYijgcrm0.runelightning000'
+  - name: Electricity Absorption
     type: talent
-    img: icons/magic/light/beam-rays-orange.webp
-    system:
-      node: wis1a
-      description: >-
-        You learn the Ray gesture, allowing you to manifest arcane energy in a
-        concentrated line.
-      actions: []
-      requirements: {}
-      gesture: ray
-    effects: []
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    flags:
-      core: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '13.342'
-      createdTime: 1675608839856
-      modifiedTime: 1677966251264
-      lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Item.gestureray000000
-      duplicateSource: null
-      exportSource: null
-    _id: gestureray000000
-    folder: null
-    sort: 6600000
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.gestureray000000'
-  - name: Acid Absorption
-    type: talent
-    _id: acidAbsorption00
-    img: icons/magic/acid/dissolve-drip-droplet-smoke.webp
+    _id: electricityAbsor
+    img: icons/magic/lightning/bolt-strike-explosion-blue.webp
     system:
       nodes: []
       description: >-
-        <p>The @ref[actor.name]{creature} has an exceptional ability to thrive
-        within acidic environments. Its <strong>Acid</strong> resistance is
-        doubled and if that resistance would reduce an amount of damage below
+        <p>The @ref[actor.name]{creature} has an exceptional ability to take
+        lightning blasts in stride. Its <strong>Electricity</strong> resistance
+        is doubled and if that resistance would reduce an amount of damage below
         zero, the negative amount is received as <strong>Healing</strong>
         instead.</p>
       actions: []
@@ -435,7 +445,7 @@ items:
     effects: []
     flags: {}
     _stats:
-      compendiumSource: Compendium.crucible.adversary-talents.Item.acidAbsorption00
+      compendiumSource: Compendium.crucible.adversary-talents.Item.electricityAbsor
       duplicateSource: null
       exportSource: null
       coreVersion: '13.350'
@@ -446,7 +456,40 @@ items:
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.acidAbsorption00'
+    _key: '!actors.items!Ne25xsSqYijgcrm0.electricityAbsor'
+  - name: False Appearance
+    type: talent
+    _id: falseAppearance0
+    img: icons/magic/perception/silhouette-stealth-shadow.webp
+    system:
+      nodes: []
+      description: >-
+        <p>While it remains motionless, the @ref[actor.name]{creature} is
+        indistinguishable from some other object or material.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Ne25xsSqYijgcrm0.falseAppearance0'
 effects: []
 flags:
   core: {}
@@ -455,14 +498,14 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1677963742821
-  modifiedTime: 1762713979008
+  modifiedTime: 1762720529758
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: xTFgTg5Rh2s0s5gZ
-sort: 100000
+_id: Ne25xsSqYijgcrm0
+sort: 125000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!actors!xTFgTg5Rh2s0s5gZ'
+_key: '!actors!Ne25xsSqYijgcrm0'

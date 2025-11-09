@@ -1,20 +1,19 @@
-folder: 5oBBNdq95OvvXx3e
-name: Creation of Storm
+name: Death Mote
 type: adversary
-img: systems/crucible/assets/tokens/creations/Storm.webp
+img: systems/crucible/assets/tokens/creations/Death.webp
 system:
   abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
     strength:
       bonus: 0
     toughness:
       bonus: 0
     dexterity:
-      bonus: 0
-    intellect:
-      bonus: 0
-    presence:
-      bonus: 0
-    wisdom:
       bonus: 0
   defenses:
     armor:
@@ -27,9 +26,9 @@ system:
       bonus: 0
     fortitude:
       bonus: 0
-    reflex:
-      bonus: 0
     willpower:
+      bonus: 0
+    reflex:
       bonus: 0
     wounds:
       bonus: 0
@@ -39,87 +38,67 @@ system:
     level: -1
     archetype:
       description: >-
-        <p>A magically fashioned and conjured creation corresponding to a
-        particular arcane essence.</p>
+        <p>Motes are the smallest elemental embodiments that still take physical
+        form. They are generally unintelligent and act according to
+        environmental stimuli or following the instinctual direction of a nearby
+        greater elemental.</p>
+      identifier: elementalMote
       abilities:
-        wisdom: 2
-        presence: 2
-        intellect: 2
-        strength: 2
-        toughness: 2
-        dexterity: 2
-      talents: []
-      identifier: creation
-      skills: []
-      equipment: []
-      name: Creation
-      img: icons/magic/symbols/elements-air-earth-fire-water.webp
-    taxonomy:
-      description: <p>Elemental creatures corresponding to the element of Lightning.</p>
-      category: elemental
-      abilities:
-        wisdom: 3
+        wisdom: 1
         presence: 3
-        intellect: 3
+        intellect: 0
         strength: 1
-        toughness: 1
-        dexterity: 1
+        toughness: 2
+        dexterity: 5
+      talents:
+        - Compendium.crucible.adversary-talents.Item.falseAppearance0
+      skills:
+        - stealth
+        - performance
+      equipment: []
+      name: Elemental Mote
+      img: icons/magic/symbols/elements-air-earth-fire-water.webp
+    stature: small
+    taxonomy:
+      description: <p>Undeathly denizens fashioned of bone and sinew.</p>
+      category: undead
+      abilities:
+        wisdom: 1
+        presence: 0
+        intellect: 1
+        strength: 4
+        toughness: 4
+        dexterity: 2
       resistances:
-        bludgeoning:
-          value: 0
-          immune: false
-        corruption:
-          value: 0
-          immune: false
-        piercing:
-          value: 0
-          immune: false
-        slashing:
-          value: -1
-          immune: false
-        poison:
-          value: 0
-          immune: false
-        acid:
-          value: 0
-          immune: false
-        fire:
-          value: 0
-          immune: false
-        cold:
-          value: 2
-          immune: false
-        electricity:
-          value: 0
-          immune: true
-        psychic:
-          value: -2
-          immune: false
-        radiant:
-          value: -2
-          immune: false
-        void:
-          value: -1
-          immune: false
+        bludgeoning: -2
+        corruption: 0
+        piercing: 1
+        slashing: 1
+        poison: 2
+        acid: 0
+        fire: 0
+        cold: 0
+        electricity: 0
+        psychic: 0
+        radiant: -2
+        void: 0
       characteristics:
+        equipment: true
         spells: true
-        equipment: false
       movement:
         size: 4
-        stride: 10
-      talents:
-        - Compendium.crucible.talent.Item.runelightning000
-        - Compendium.crucible.adversary-talents.Item.electricityAbsor
-      identifier: stormElemental
-      name: Storm Elemental
-      img: icons/magic/lightning/bolt-strike-clouds-blue.webp
+        stride: 8
+      talents: []
+      name: Skeleton
+      img: icons/magic/death/undead-skeleton-worn-blue.webp
     threat: minion
     biography:
       public: ''
       private: ''
-    stature: small
   resistances:
     bludgeoning:
+      bonus: 0
+    corruption:
       bonus: 0
     piercing:
       bonus: 0
@@ -131,31 +110,31 @@ system:
       bonus: 0
     fire:
       bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
     psychic:
       bonus: 0
     radiant:
       bonus: 0
     void:
       bonus: 0
-    corruption:
-      bonus: 0
-    cold:
-      bonus: 0
-    electricity:
-      bonus: 0
   resources:
     health:
-      value: 9
+      value: 8
     morale:
-      value: 15
+      value: 2
     action:
       value: 4
     focus:
-      value: 6
+      value: 1
+    heroism:
+      value: 0
   skills:
-    acrobatics:
+    awareness:
       rank: 0
-    perception:
+    pathfinding:
       rank: 0
     stealth:
       rank: 0
@@ -163,13 +142,11 @@ system:
       rank: 0
     arcana:
       rank: 0
-    investigation:
-      rank: 0
-    lore:
-      rank: 0
     religion:
       rank: 0
-    bartering:
+    naturalism:
+      rank: 0
+    society:
       rank: 0
     deception:
       rank: 0
@@ -177,33 +154,37 @@ system:
       rank: 0
     intimidation:
       rank: 0
-    animal:
+    mercantilism:
       rank: 0
-    craftsmanship:
+    beastcraft:
+      rank: 0
+    tradecraft:
       rank: 0
     medicine:
       rank: 0
     performance:
       rank: 0
+  movement:
+    stride: 4
+    engagement: 1
+    sizeBonus: -1
   status: null
   advancement:
-    level: 1
+    level: -1
     threat: minion
-  movement:
-    sizeBonus: -1
   favorites:
     - cast
     - reactiveStrike
     - strike
     - defend
 prototypeToken:
-  name: Creation of Storm
+  name: Creation of Death
   displayName: 30
   actorLink: false
   appendNumber: false
   prependAdjective: false
   texture:
-    src: systems/crucible/assets/tokens/creations/Storm.webp
+    src: systems/crucible/assets/tokens/creations/Death.webp
     scaleX: 1
     scaleY: 1
     offsetX: 0
@@ -267,7 +248,7 @@ prototypeToken:
     colors:
       ring: null
       background: null
-    effects: 0
+    effects: 1
     subject:
       scale: 1
       texture: null
@@ -279,10 +260,10 @@ prototypeToken:
   movementAction: null
 items:
   - folder: 3KAfetslMjSVGaqx
-    name: Elemental Armor
+    name: Deathly Armor
     type: armor
-    _id: kxuUSxeLhkQ5J1Nn
-    img: icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp
+    _id: mRRdlP89QJPwBeHp
+    img: icons/magic/defensive/shield-barrier-flaming-diamond-teal.webp
     system:
       category: natural
       quantity: 1
@@ -294,7 +275,7 @@ items:
       equipped: true
       properties: []
       armor:
-        base: 3
+        base: 4
       dodge:
         base: 10
     effects: []
@@ -306,20 +287,20 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.5.0
       coreVersion: '13.342'
       createdTime: 1677965383866
-      modifiedTime: 1677966347928
+      modifiedTime: 1686181459865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.livingflame00000
       duplicateSource: null
       exportSource: null
-    _key: '!actors.items!Ne25xsSqYijgcrm0.kxuUSxeLhkQ5J1Nn'
+    _key: '!actors.items!56puGK932Qc0cowe.mRRdlP89QJPwBeHp'
   - folder: MXhSyruFpcxbRhgJ
-    name: Voltaic Claw
+    name: Bony Claws
     type: weapon
-    _id: Qu8kL7eiBNkcOXpn
-    img: icons/magic/lightning/projectile-orb-blue.webp
+    _id: EBS39VwHFZ4jvcMK
+    img: icons/magic/death/hand-undead-skeleton-fire-green.webp
     system:
       category: natural
       quantity: 1
@@ -330,7 +311,7 @@ items:
       enchantment: mundane
       equipped: true
       properties: []
-      damageType: electricity
+      damageType: slashing
     effects: []
     sort: 0
     ownership:
@@ -340,92 +321,84 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.5.0
       coreVersion: '13.342'
       createdTime: 1677965044710
-      modifiedTime: 1682175456965
+      modifiedTime: 1686181629480
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.flametouch000000
       duplicateSource: null
       exportSource: null
-    _key: '!actors.items!Ne25xsSqYijgcrm0.Qu8kL7eiBNkcOXpn'
-  - name: 'Gesture: Arrow'
+    _key: '!actors.items!56puGK932Qc0cowe.EBS39VwHFZ4jvcMK'
+  - name: 'Rune: Death'
     type: talent
-    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
-    system:
-      node: int1b
-      description: >-
-        <p>You learn the Arrow gesture, allowing you to hurl a directed bolt of
-        arcane power towards a distant target.</p>
-
-        <p>The Arrow gesture deals damage corresponding to the Rune used to a
-        single enemy target at range.</p>
-      actions: []
-      requirements: {}
-      gesture: arrow
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '13.342'
-      createdTime: 1674842056708
-      modifiedTime: 1677966374363
-      lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Compendium.crucible.talent.gesturearrow0000
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    _id: gesturearrow0000
-    folder: null
-    sort: 6100000
-    _key: '!actors.items!Ne25xsSqYijgcrm0.gesturearrow0000'
-  - name: 'Rune: Lightning'
-    type: talent
-    img: icons/magic/lightning/bolt-strike-blue.webp
+    img: icons/magic/unholy/hand-claw-fire-blue.webp
     system:
       node: int0
-      description: >-
-        You learn Rune of Lightning, allowing you to control volatile arcane
-        surges of electricity.
+      description: You learn Rune of Death, allowing you to manipulate unholy power.
       actions: []
-      requirements: {}
-      rune: lightning
+      rune: death
+      actorHooks: []
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.5.0
       coreVersion: '13.342'
       createdTime: 1674698661050
-      modifiedTime: 1677966377392
+      modifiedTime: 1686181711374
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Compendium.crucible.talent.runelightning000
+      compendiumSource: Compendium.crucible.talent.runedeath0000000
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
-    _id: runelightning000
-    folder: null
-    sort: 10700000
-    _key: '!actors.items!Ne25xsSqYijgcrm0.runelightning000'
-  - name: Electricity Absorption
+    _id: runedeath0000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 200000
+    _key: '!actors.items!56puGK932Qc0cowe.runedeath0000000'
+  - name: 'Gesture: Fan'
     type: talent
-    _id: electricityAbsor
-    img: icons/magic/lightning/bolt-strike-explosion-blue.webp
+    img: icons/magic/water/projectile-bolts-salvo-blue.webp
+    system:
+      node: int1a
+      description: >-
+        You learn the Fan gesture, allowing you to cast arcane power in a
+        limited arc.
+      actions: []
+      gesture: fan
+      actorHooks: []
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '13.342'
+      createdTime: 1674842056708
+      modifiedTime: 1686181719057
+      lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.gesturefan000000
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturefan000000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 400000
+    _key: '!actors.items!56puGK932Qc0cowe.gesturefan000000'
+  - name: False Appearance
+    type: talent
+    _id: falseAppearance0
+    img: icons/magic/perception/silhouette-stealth-shadow.webp
     system:
       nodes: []
       description: >-
-        <p>The @ref[actor.name]{creature} has an exceptional ability to take
-        lightning blasts in stride. Its <strong>Electricity</strong> resistance
-        is doubled and if that resistance would reduce an amount of damage below
-        zero, the negative amount is received as <strong>Healing</strong>
-        instead.</p>
+        <p>While it remains motionless, the @ref[actor.name]{creature} is
+        indistinguishable from some other object or material.</p>
       actions: []
       rune: ''
       gesture: ''
@@ -438,7 +411,7 @@ items:
     effects: []
     flags: {}
     _stats:
-      compendiumSource: Compendium.crucible.adversary-talents.Item.electricityAbsor
+      compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
       coreVersion: '13.350'
@@ -449,23 +422,24 @@ items:
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Ne25xsSqYijgcrm0.electricityAbsor'
+    _key: '!actors.items!56puGK932Qc0cowe.falseAppearance0'
 effects: []
+folder: 5oBBNdq95OvvXx3e
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
   coreVersion: '13.350'
-  createdTime: 1677963742821
-  modifiedTime: 1762714010778
+  createdTime: 1686181185927
+  modifiedTime: 1762720549708
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: Ne25xsSqYijgcrm0
-sort: 125000
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
-_key: '!actors!Ne25xsSqYijgcrm0'
+_id: 56puGK932Qc0cowe
+sort: 112500
+_key: '!actors!56puGK932Qc0cowe'

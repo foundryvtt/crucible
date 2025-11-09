@@ -5,12 +5,15 @@ system:
   node: wis1b
   description: >-
     <p>Coalesce arcane power into tangible form, conjuring a
-    <strong>Creation</strong> which appears within 10 feet and joins Combat at
-    Initiative 1.</p><p>Your Creation is a Minion of half your own Level chosen
-    from the Summoned Creatures compendium pack corresponding to the Rune used
-    in the spell.</p><p>The Creation lasts for <strong>10 Rounds</strong>. You
-    may only have one active Creation, casting another spell using the Create
-    gesture replaces your previous Creation.</p>
+    <strong>Mote</strong> which appears within 10 feet and joins Combat at
+    Initiative 1.</p><p>Your Mote is a Minion of half your own Level chosen from
+    the Summoned Creatures compendium pack corresponding to the Rune used in the
+    spell.</p><p>The Mote lasts for <strong>10 Rounds</strong>. You may only
+    have one active Mote, casting another spell using the Create gesture
+    replaces your previous Mote.</p><h3 class="divider">Important
+    Note</h3><p>Not all Runes have a Mote actor defined yet. Runes that do not
+    yet have a defined Creation will — for now — manifest a <strong>Flame
+    Mote</strong>.</p>
   actions: []
   gesture: create
   actorHooks: []
@@ -19,11 +22,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.348'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1757523775093
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1762720720308
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturecreate000
   duplicateSource: null
   exportSource: null
@@ -31,6 +34,6 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: gesturecreate000
-folder: D14x9AJ0TgXKtnzu
-sort: 300000
+folder: hKkLXAoC3ygmEtEf
+sort: -100000
 _key: '!items!gesturecreate000'

@@ -1,0 +1,47 @@
+folder: rL8CBb8MbQi6PDS6
+name: 'Gesture: Conjure'
+type: talent
+_id: gestureConjure00
+img: icons/magic/nature/plant-sprout-hands-vines.webp
+system:
+  nodes:
+    - wis4d
+  description: >-
+    <p>You coalesce arcane power into a superior form, manifesting a
+    <strong>Sprite </strong>which appears within 30 feet and joins Combat at
+    <strong>Initiative</strong> 1. Your Sprite is a Minion equal to your own
+    Level.</p><p>The Sprite survives for <strong>12 Rounds</strong>. You may
+    only have one active Sprite. Casting another spell using the Conjure gesture
+    replaces your previous Sprite.</p><h3 class="divider">Important
+    Note</h3><p>This talent is currently placed at a <strong>Tier 4</strong>
+    node. It will eventually only be attainable at a higher level (probably
+    Level 6 required). It is currently available "early" for testing.</p><p>Not
+    all Runes have a Sprite actor defined yet. Runes that do not yet have a
+    defined Conjuration will — for now — manifest a <strong>Flame
+    Sprite</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: conjure
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762718477065
+  modifiedTime: 1762720696097
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!gestureConjure00'

@@ -20,10 +20,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.8
-  coreVersion: '13.348'
+  coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1757524093675
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1762718939401
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gestureinfluence
   duplicateSource: null
   exportSource: null
@@ -31,6 +31,6 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: gestureinfluence
-folder: D14x9AJ0TgXKtnzu
-sort: 500000
+folder: hKkLXAoC3ygmEtEf
+sort: -200000
 _key: '!items!gestureinfluence'

@@ -118,7 +118,7 @@ const TIER_4A = [
   {id: "wis4a", abilities: ["wisdom"], type: "attack", connected: ["sig3.strength.wisdom", "wis3a"]},
   {id: "wis4b", abilities: ["wisdom"], type: "training", connected: ["wis3a", "sig3.wisdom", "wis4a"]},
   {id: "wis4c", abilities: ["wisdom"], type: "utility", connected: ["sig3.wisdom", "wis3b", "wis4b"]},
-  {id: "wis4d", abilities: ["wisdom"], type: "attack", connected: ["wis3b", "sig3.wisdom.presence", "wis4c"]},
+  {id: "wis4d", abilities: ["wisdom"], type: "spell", connected: ["wis3b", "sig3.wisdom.presence", "wis4c"]},
   {id: "pre4a", abilities: ["presence"], type: "attack", connected: ["sig3.wisdom.presence", "pre3a"]},
   {id: "pre4b", abilities: ["presence"], type: "training", connected: ["pre3a", "sig3.presence", "pre4a"]},
   {id: "pre4c", abilities: ["presence"], type: "attack", connected: ["sig3.presence", "pre3b", "pre4b"]},

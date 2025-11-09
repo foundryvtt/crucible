@@ -209,12 +209,6 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  async _submitRequest() {
-    debugger;
-  }
-
-  /* -------------------------------------------- */
-
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
     // Difficulty Tier

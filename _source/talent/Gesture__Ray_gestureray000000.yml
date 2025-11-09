@@ -23,14 +23,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.8
-  coreVersion: '13.348'
+  coreVersion: '13.350'
   createdTime: 1675608839856
-  modifiedTime: 1757524355911
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1762718941279
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureray000000
   duplicateSource: null
   exportSource: null
 _id: gestureray000000
-folder: D14x9AJ0TgXKtnzu
-sort: 600000
+folder: hKkLXAoC3ygmEtEf
+sort: -75000
 _key: '!items!gestureray000000'

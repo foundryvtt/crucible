@@ -1,4 +1,4 @@
-name: 'Spellcraft: Gestures'
+name: Gestures
 sorting: a
 folder: Ua0XvGOuOJ5KVvlz
 type: Item
@@ -9,8 +9,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '11.295'
+  coreVersion: '13.350'
   createdTime: null
-  modifiedTime: 1682387471299
+  modifiedTime: 1762719766692
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!D14x9AJ0TgXKtnzu'

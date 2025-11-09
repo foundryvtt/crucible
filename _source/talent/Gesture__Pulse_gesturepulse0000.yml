@@ -15,8 +15,8 @@ system:
   gesture: pulse
   actorHooks: []
 effects: []
-folder: D14x9AJ0TgXKtnzu
-sort: 1000000
+folder: hKkLXAoC3ygmEtEf
+sort: -150000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -24,10 +24,10 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.8
-  coreVersion: '13.348'
+  coreVersion: '13.350'
   createdTime: 1684686470274
-  modifiedTime: 1757524309684
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1762718940467
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
