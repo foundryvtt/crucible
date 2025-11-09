@@ -38,15 +38,22 @@ system:
   details:
     level: -1
     archetype:
-      description: ''
+      description: >-
+        <p>A magically fashioned and conjured creation corresponding to a
+        particular arcane essence.</p>
       abilities:
-        strength: 4
-        toughness: 4
-        dexterity: 4
-        intellect: 3
+        wisdom: 2
         presence: 2
-        wisdom: 1
+        intellect: 2
+        strength: 2
+        toughness: 2
+        dexterity: 2
+      talents: []
+      identifier: creation
+      skills: []
+      equipment: []
       name: Creation
+      img: icons/magic/symbols/elements-air-earth-fire-water.webp
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Lightning.</p>
       category: elemental
@@ -58,25 +65,52 @@ system:
         toughness: 1
         dexterity: 1
       resistances:
-        bludgeoning: 2
-        corruption: -2
-        piercing: 2
-        slashing: 2
-        poison: 0
-        acid: -2
-        fire: 0
-        cold: -2
-        electricity: 3
-        psychic: 0
-        radiant: -2
-        void: -1
+        bludgeoning:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        slashing:
+          value: -1
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        acid:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        cold:
+          value: 2
+          immune: false
+        electricity:
+          value: 0
+          immune: true
+        psychic:
+          value: -2
+          immune: false
+        radiant:
+          value: -2
+          immune: false
+        void:
+          value: -1
+          immune: false
       characteristics:
         spells: true
         equipment: false
       movement:
         size: 4
         stride: 10
-      talents: []
+      talents:
+        - Compendium.crucible.talent.Item.runelightning000
+        - Compendium.crucible.adversary-talents.Item.electricityAbsor
+      identifier: stormElemental
       name: Storm Elemental
       img: icons/magic/lightning/bolt-strike-clouds-blue.webp
     threat: minion
@@ -380,15 +414,51 @@ items:
     folder: null
     sort: 10700000
     _key: '!actors.items!Ne25xsSqYijgcrm0.runelightning000'
+  - name: Electricity Absorption
+    type: talent
+    _id: electricityAbsor
+    img: icons/magic/lightning/bolt-strike-explosion-blue.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} has an exceptional ability to take
+        lightning blasts in stride. Its <strong>Electricity</strong> resistance
+        is doubled and if that resistance would reduce an amount of damage below
+        zero, the negative amount is received as <strong>Healing</strong>
+        instead.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.electricityAbsor
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Ne25xsSqYijgcrm0.electricityAbsor'
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.6
-  coreVersion: '13.346'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1677963742821
-  modifiedTime: 1752525017101
+  modifiedTime: 1762714010778
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

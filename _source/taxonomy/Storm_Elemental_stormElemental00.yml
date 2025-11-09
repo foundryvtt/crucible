@@ -13,25 +13,38 @@ system:
     toughness: 1
     dexterity: 1
   resistances:
-    bludgeoning: 2
-    corruption: -2
-    piercing: 2
-    slashing: 2
+    bludgeoning:
+      value: 0
+    corruption:
+      value: 0
+    piercing:
+      value: 0
+    slashing:
+      value: -1
     poison: 0
-    acid: -2
+    acid:
+      value: 0
     fire: 0
-    cold: -2
-    electricity: 3
-    psychic: 0
-    radiant: -2
-    void: -1
+    cold:
+      value: 2
+    electricity:
+      value: 0
+      immune: true
+    psychic:
+      value: -2
+    radiant:
+      value: -2
+    void:
+      value: -1
   characteristics:
     spells: true
     equipment: false
   movement:
     size: 4
     stride: 10
-  talents: []
+  talents:
+    - Compendium.crucible.talent.Item.runelightning000
+    - Compendium.crucible.adversary-talents.Item.electricityAbsor
   identifier: stormElemental
 effects: []
 ownership:
@@ -41,11 +54,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
-  modifiedTime: 1751554883372
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.1
+  modifiedTime: 1762713940346
+  lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: stormElemental00
 sort: 300000

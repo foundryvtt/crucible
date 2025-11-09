@@ -437,20 +437,30 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.equipment.accessorySlots ??= 3;
     this.equipment.toolbeltSlots ??= 3;
 
-    // Prepare and configure equipment
+    // Step 1: Armor
     const armor = this._prepareArmor(items.armor);
-    const weapons = this._prepareWeapons(items.weapon);
+    this.#registerActorHooks(armor);
+    this.parent.callActorHooks("prepareArmor", armor);
+
+    // Step 2: Accessories
     const accessories = this._prepareAccessories(items.accessory, this.equipment.accessorySlots);
+    for ( const a of accessories ) this.#registerActorHooks(a);
+    this.parent.callActorHooks("prepareAccessories", accessories);
+
+    // Step 3: Weapons
+    const weapons = this._prepareWeapons(items.weapon);
+    if ( weapons.mainhand ) this.#registerActorHooks(weapons.mainhand);
+    if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
+    this.parent.callActorHooks("prepareWeapons", weapons);
+
+    // Step 4: Toolbelt
     const toolbelt = this._prepareToolbelt(items.consumable, items.tool, this.equipment.toolbeltSlots);
+    this.parent.callActorHooks("prepareToolbelt", toolbelt);
+
+    // Additional data
     const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
     Object.assign(this.equipment, {armor, weapons, accessories, toolbelt, canFreeMove, unarmored});
-
-    // Register actor hooks for equipped items
-    this.#registerActorHooks(armor);
-    if ( weapons.mainhand ) this.#registerActorHooks(weapons.mainhand);
-    if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
-    for ( const a of accessories ) this.#registerActorHooks(a);
   }
 
   /* -------------------------------------------- */

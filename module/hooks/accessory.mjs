@@ -20,6 +20,15 @@ HOOKS.evasion = {
 
 /* -------------------------------------------- */
 
+HOOKS.expandedToolbelt = {
+  prepareAccessories(item, _accessories) {
+    const {quality} = item.system.config;
+    this.equipment.toolbeltSlots += (1 + quality.bonus);
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
     const {quality, enchantment} = item.system.config;

@@ -304,6 +304,24 @@ export const HOOKS = Object.freeze({
     argNames: ["resistances"]
   },
 
+  // Equipment Preparation
+  prepareArmor: {
+    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    argNames: ["armor"]
+  },
+  prepareWeapons: {
+    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    argNames: ["weapons"]
+  },
+  prepareAccessories: {
+    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    argNames: ["accessories"]
+  },
+  prepareToolbelt: {
+    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    argNames: ["toolbelt"]
+  },
+
   // Turn Events
   startTurn: {
     group: "TALENT.HOOKS.GROUP_COMBAT",

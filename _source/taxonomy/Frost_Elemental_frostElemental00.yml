@@ -13,14 +13,17 @@ system:
     toughness: 3
     dexterity: 1
   resistances:
-    bludgeoning: -1
+    bludgeoning:
+      value: -2
     corruption: 0
     piercing: 0
     slashing: 1
     poison: 0
     acid: 0
-    fire: -2
-    cold: 3
+    fire:
+      value: -2
+    cold:
+      immune: true
     electricity: 0
     psychic: 0
     radiant: -2
@@ -47,9 +50,9 @@ _stats:
   duplicateSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
-  modifiedTime: 1760804503243
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.1
+  modifiedTime: 1762713629324
+  lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: frostElemental00
 sort: 400000

@@ -1,0 +1,47 @@
+name: Expanded Toolbelt
+type: accessory
+img: icons/containers/ammunition/bullets-belt.webp
+system:
+  identifier: expandedToolbelt
+  category: clothing
+  quantity: 1
+  weight: 3
+  price: 1200
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>An expanded toolbelt in the form of a utility belt, a bandolier, or an
+      array of pockets stitched into your equipment.</p><p>This item provides a
+      number of additional Toolbelt slots according to its quality
+      tier:</p><ul><li><p><strong>Standard</strong>: +1 Toolbelt
+      slot</p></li><li><p><strong>Fine</strong>: +2 Toolbelt
+      slots</p></li><li><p><strong>Superior</strong>: +3 Toolbelt
+      slots</p></li><li><p><strong>Masterwork</strong>: +4 Toolbelt
+      slots</p></li></ul>
+    private: ''
+  actions: []
+  actorHooks: []
+effects: []
+folder: GVbpo5LtAY44QZPD
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762713407278
+  modifiedTime: 1762713407278
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: expandedToolbelt
+sort: 0
+_key: '!items!expandedToolbelt'

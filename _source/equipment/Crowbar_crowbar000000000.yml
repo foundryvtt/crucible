@@ -1,11 +1,11 @@
-name: Lantern
+name: Crowbar
 type: tool
-img: icons/sundries/lights/lantern-iron-yellow.webp
+img: icons/tools/fasteners/pin-round.webp
 system:
-  identifier: lantern
+  identifier: crowbar
   category: implement
   quantity: 1
-  weight: 2
+  weight: 6
   price: 300
   quality: standard
   broken: false
@@ -15,18 +15,17 @@ system:
   properties: []
   description:
     public: >-
-      <p>An oil-burning or magically illuminated lantern that sheds bright light
-      in a 20 foot radius and dim light in a 40 foot radius.</p>
+      <p>A slightly curved bar of strong metal featuring a hook with a flattened
+      head on one end. Used to apply leverage, prying one object loose of
+      another.</p>
     private: ''
   actions: []
   skills:
-    - awareness
-    - stealth
+    - athletics
 effects: []
 folder: 7LUkTLEZvS60KVBp
 ownership:
   default: 0
-  QvBFYpRRXHRBcOfP: 3
   AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
@@ -36,9 +35,9 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762712297360
-  modifiedTime: 1762712297360
+  createdTime: 1762712344355
+  modifiedTime: 1762712344355
   lastModifiedBy: AnoypGxxNIMOS0XY
-_id: lantern000000000
+_id: crowbar000000000
 sort: 0
-_key: '!items!lantern000000000'
+_key: '!items!crowbar000000000'

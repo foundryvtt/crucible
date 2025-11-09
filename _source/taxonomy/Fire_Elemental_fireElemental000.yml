@@ -14,24 +14,31 @@ system:
     dexterity: 3
   resistances:
     bludgeoning: 0
-    corruption: -1
+    corruption:
+      value: 0
     piercing: 0
     slashing: 0
     poison: 0
-    acid: -2
-    fire: 3
+    acid:
+      value: -1
+    fire:
+      immune: true
     cold: -2
     electricity: 0
     psychic: 0
-    radiant: 2
-    void: 0
+    radiant:
+      value: 1
+    void:
+      value: -2
   characteristics:
     spells: true
     equipment: false
   movement:
     size: 4
     stride: 10
-  talents: []
+  talents:
+    - Compendium.crucible.talent.Item.runeflame0000000
+    - Compendium.crucible.adversary-talents.Item.fireAbsorption00
   identifier: fireElemental
 effects: []
 ownership:
@@ -41,11 +48,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
-  modifiedTime: 1751554872718
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.1
+  modifiedTime: 1762713930537
+  lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: fireElemental000
 sort: 200000

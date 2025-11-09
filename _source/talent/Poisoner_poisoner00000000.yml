@@ -14,25 +14,33 @@ system:
     - id: poisonBlades
       name: Poison Blades
       description: >-
-        You nimbly lather your blades in toxic alchemical oils which apply the
-        Poisoned condition on Critical Strikes.
-      tags:
-        - melee
+        <p>You nimbly lather your blades in toxic alchemical oils which apply
+        the Poisoned condition on Critical Strikes.</p>
+      tags: []
       cost:
         action: 2
         focus: 0
+        heroism: 0
+        weapon: false
       target:
         type: self
         number: 1
-        distance: 1
         scope: 1
+        self: false
       effects:
-        - duration:
+        - name: Poison Blades
+          scope: 1
+          statuses: []
+          duration:
+            turns: null
             rounds: 60
-          changes:
-            - key: rollBonuses.damage.poison
-              value: 2
-              mode: 2
+      img: icons/skills/melee/strike-dagger-poison-green.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   actorHooks:
     - hook: applyCriticalEffects
       fn: >-
@@ -62,11 +70,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1675734757901
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762645325955
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.poisoner00000000
   duplicateSource: null
   exportSource: null
