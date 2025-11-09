@@ -2,6 +2,7 @@ import * as ATTRIBUTES from "./attributes.mjs";
 import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.mjs";
 import * as CONSUMABLE from "./consumable.mjs";
+import * as CRAFTING from "./crafting.mjs";
 import * as dice from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
@@ -163,6 +164,7 @@ export const SYSTEM = {
   ARMOR,
   COMPENDIUM_PACKS,
   CONSUMABLE,
+  CRAFTING,
   DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,

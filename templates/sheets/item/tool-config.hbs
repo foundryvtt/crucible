@@ -6,6 +6,7 @@
         {{formGroup fields.category value=source.system.category}}
         {{formGroup fields.quality value=source.system.quality}}
         {{formGroup fields.enchantment value=source.system.enchantment}}
+        {{formGroup fields.skills value=source.system.skills options=@root.skillOptions}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>

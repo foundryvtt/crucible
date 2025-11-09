@@ -1430,6 +1430,12 @@
   "CATEGORIES": {
     "CRAFTING": "Crafting Kit",
     "IMPLEMENT": "Implement"
+  },
+  "FIELDS": {
+    "skills": {
+      "label": "Related Skills",
+      "hint": "Identify skills or tradecraft which involves usage of this particular tool."
+    }
   }
 },
 

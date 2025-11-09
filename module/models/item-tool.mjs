@@ -45,9 +45,10 @@ export default class CrucibleToolItem extends CruciblePhysicalItem {
   static defineSchema() {
     const schema = super.defineSchema();
     delete schema.actorHooks; // Tools don't provide actor hooks
-    const fields = foundry.data.fields;
+    const {SetField, StringField} = foundry.data.fields;
+    const skillOptions = Object.keys(SYSTEM.SKILLS).concat(Object.keys(SYSTEM.CRAFTING.TRAINING));
     return foundry.utils.mergeObject(schema, {
-      skill: new fields.StringField()
+      skills: new SetField(new StringField({choices: skillOptions, blank: false}))
     });
   }
 }
