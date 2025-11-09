@@ -28,6 +28,7 @@ export {default as CruciblePhysicalItem} from "./item-physical.mjs"
 export {default as CrucibleSchematicItem} from "./item-schematic.mjs";
 export {default as CrucibleSpellItem} from "./item-spell.mjs";
 export {default as CrucibleTalentItem} from "./item-talent.mjs";
+export {default as CrucibleToolItem} from "./item-tool.mjs";
 export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
 export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
 

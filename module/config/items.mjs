@@ -131,15 +131,32 @@ export const LOOT_CATEGORIES = {
 
 /**
  * The item types which are physical items.
+ * Dynamically populated during system initialization.
  * @type {Set<string>}
  */
-export const PHYSICAL_ITEM_TYPES = new Set(["accessory", "armor", "consumable", "loot", "schematic", "weapon"]);
+export const PHYSICAL_ITEM_TYPES = new Set();
+
+/**
+ * The categories of "tool" items which are allowed.
+ * @enum {CrucibleItemCategory}
+ */
+export const TOOL_CATEGORIES = {
+  crafting: {
+    id: "crafting",
+    label: "TOOL.CATEGORIES.CRAFTING"
+  },
+  implement: {
+    id: "implement",
+    label: "TOOL.CATEGORIES.IMPLEMENT"
+  }
+};
 
 /**
  * The item types which can be equipped.
+ * Dynamically populated during system initialization.
  * @type {Set<string>}
  */
-export const EQUIPABLE_ITEM_TYPES = new Set(["accessory", "armor", "consumable", "weapon"]);
+export const EQUIPABLE_ITEM_TYPES = new Set();
 
 /**
  * The categories of "schematic" items which are allowed.

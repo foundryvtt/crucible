@@ -27,6 +27,7 @@ export {default as CrucibleSchematicItemSheet} from "./sheets/item-schematic-she
 export {default as CrucibleSpellItemSheet} from "./sheets/item-spell-sheet.mjs";
 export {default as CrucibleTalentItemSheet} from "./sheets/item-talent-sheet.mjs";
 export {default as CrucibleTaxonomyItemSheet} from "./sheets/item-taxonomy-sheet.mjs";
+export {default as CrucibleToolItemSheet} from "./sheets/item-tool-sheet.mjs";
 export {default as CrucibleWeaponItemSheet} from "./sheets/item-weapon-sheet.mjs";
 
 // Journal Sheets

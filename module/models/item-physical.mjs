@@ -50,6 +50,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   static ITEM_PROPERTIES = {};
 
+  /**
+   * Is this item type equipable?
+   * @type {boolean}
+   */
+  static EQUIPABLE = true;
+
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM"];
 

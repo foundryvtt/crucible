@@ -66,7 +66,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     },
     inventory: {
       id: "inventory",
-      template: "systems/crucible/templates/sheets/actor/inventory.hbs"
+      template: "systems/crucible/templates/sheets/actor/inventory.hbs",
+      scrollable: [".inventory-sections"]
     },
     skills: {
       id: "skills",
@@ -106,6 +107,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       {id: "biography", group: "sheet", label: "ACTOR.TABS.BIOGRAPHY"}
     ]
   }
+
+  /**
+   * The mapping of Item types to equipment sections they belong to.
+   * @type {Record<string, string>}
+   */
+  static #EQUIPMENT_SECTION_TYPES = {
+    weapon: "weapon",
+    armor: "armor",
+    accessory: "accessory",
+    consumable: "toolbelt",
+    tool: "toolbelt"
+  };
 
   /** @override */
   tabGroups = {
@@ -345,23 +358,29 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Prepare rendering data for items owned by the Actor.
    */
   #prepareItems() {
-    const {accessorySlots, consumableSlots} = this.actor.equipment;
+    const {accessorySlots, toolbeltSlots} = this.actor.equipment;
     const sections = {
       talents: {
-        signature: {label: "Signature Talents", items: []},
-        active: {label: "Active Abilities", items: []},
-        passive: {label: "Passive Talents", items: []},
-        training: {label: "Training Talents", items: []},
-        spell: {label: "Spellcraft Talents", items: []}
+        signature: {label: game.i18n.localize("ACTOR.SECTIONS.SIGNATURE.header"), items: []},
+        active: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIVE.header"), items: []},
+        passive: {label: game.i18n.localize("ACTOR.SECTIONS.PASSIVE.header"), items: []},
+        training: {label: game.i18n.localize("ACTOR.SECTIONS.TRAINING.header"), items: []},
+        spell: {label: game.i18n.localize("ACTOR.SECTIONS.SPELL.header"), items: []}
       },
       inventory: {
-        weapon: {label: "Weapons", items: [], empty: game.i18n.localize("ACTOR.LABELS.WEAPONS_HINT")},
-        armor: {label: "Armor", items: [], empty: game.i18n.localize("ACTOR.LABELS.ARMOR_HINT")},
-        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {slots: accessorySlots})},
-        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {slots: consumableSlots})},
-        backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
+        weapon: {label: game.i18n.localize("ACTOR.SECTIONS.WEAPON.header"), items: [],
+          empty: game.i18n.localize("ACTOR.SECTIONS.WEAPON.empty")},
+        armor: {label: game.i18n.localize("ACTOR.SECTIONS.ARMOR.header"), items: [],
+          empty: game.i18n.localize("ACTOR.SECTIONS.ARMOR.empty")},
+        accessory: {label: game.i18n.localize("ACTOR.SECTIONS.ACCESSORY.header"), items: [],
+          counter: accessorySlots, empty: game.i18n.format("ACTOR.SECTIONS.ACCESSORY.empty", {slots: accessorySlots})},
+        toolbelt: {label: game.i18n.localize("ACTOR.SECTIONS.TOOLBELT.header"), items: [], counter: toolbeltSlots,
+          empty: game.i18n.format("ACTOR.SECTIONS.TOOLBELT.empty", {slots: toolbeltSlots})},
+        backpack: {label: game.i18n.localize("ACTOR.SECTIONS.BACKPACK.header"), items: [],
+          empty: game.i18n.localize("ACTOR.SECTIONS.BACKPACK.empty")}
       },
-      iconicSpells: {label: game.i18n.localize("SPELL.IconicPl"), items: []}
+      iconicSpells: {label: game.i18n.localize("ACTOR.SECTIONS.ICONIC.header"), items: [],
+        empty: game.i18n.localize("ACTOR.SECTIONS.ICONIC.empty")}
     };
 
     // Iterate over items and organize them
@@ -376,8 +395,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         case "physical":
           const canEquip = SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(i.type);
           this.#preparePhysicalItem(i, d, canEquip);
-          if ( canEquip && i.system.equipped ) section = sections.inventory[i.type];
-          else section = sections.inventory.backpack;
+          section = sections.inventory[d.section];
           break;
         case "talent":
           d.tier = i.system.node?.tier || 0;
@@ -404,7 +422,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Remove unused sections
     if ( this.actor.system.usesEquipment === false ) {
       if ( !sections.inventory.accessory.items.length ) delete sections.inventory.accessory;
-      if ( !sections.inventory.consumable.items.length ) delete sections.inventory.consumable;
+      if ( !sections.inventory.toolbelt.items.length ) delete sections.inventory.toolbelt;
     }
 
     // Sort inventory
@@ -430,7 +448,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {boolean} canEquip
    */
   #preparePhysicalItem(item, config, canEquip) {
-    const sortOrder = {weapon: 1, armor: 2, accessory: 3, consumable: 4};
+    const sortOrder = {weapon: 1, armor: 2, accessory: 3, tool: 4, consumable: 5};
     config.quantity = item.system.quantity;
     config.showStack = item.system.quantity > 1;
     config.sort = sortOrder[item.type] ?? Infinity;
@@ -461,6 +479,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( (item.type === "weapon") && !item.system.dropped ) {
       config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
     }
+    config.section = config.equipped ? CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type] : "backpack";
   }
 
   /* -------------------------------------------- */
@@ -576,37 +595,30 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       runes: {
         label: game.i18n.localize("SPELL.COMPONENTS.RunePl"),
         known: runes,
-        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.RuneNone")
+        emptyLabel: runes.size ? "" : game.i18n.localize("SPELL.COMPONENTS.RuneNone")
       },
       gestures: {
         label: game.i18n.localize("SPELL.COMPONENTS.GesturePl"),
         known: gestures,
-        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.GestureNone")
+        emptyLabel: gestures.size ? "" : game.i18n.localize("SPELL.COMPONENTS.GestureNone")
       },
       inflections: {
         label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl"),
         known: inflections,
-        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.InflectionNone")
+        emptyLabel: inflections.size ? "" : game.i18n.localize("SPELL.COMPONENTS.InflectionNone")
       },
       iconicSpells: {
-        label: iconicSpells.label,
+        label: game.i18n.format(iconicSpells.label, {slots: iconicSlots}),
         known: iconicSpells.items,
-        emptyLabel: game.i18n.localize("SPELL.IconicNone")
+        emptyLabel: game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
       }
     }
 
-    // Placeholder Iconic Slots
-    if ( iconicSlots > iconicSpells.items.length ) {
-      for ( let i=iconicSpells.items.length; i<iconicSlots; i++ ) {
-        const spell = {
-          id: `iconicSlot${i}`,
-          name: "Available Slot",
-          img: "icons/magic/symbols/question-stone-yellow.webp",
-          cssClass: "iconic-slot",
-          tags: {},
-          isItem: false
-        };
-        spells.iconicSpells.known.push(spell);
+    // Iconic Slot counters
+    if ( iconicSlots ) {
+      spells.iconicSpells.label += ` (${iconicSpells.items.length}/${iconicSlots})`;
+      if ( !iconicSpells.items.length ) {
+        spells.iconicSpells.emptyLabel = game.i18n.localize("ACTOR.SECTIONS.ICONIC.empty");
       }
     }
     return spells;
@@ -1042,6 +1054,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   async _onDropItem(event, item) {
     if ( !this.actor.isOwner ) return;
     const section = event.target.closest("[data-inventory-section]")?.dataset.inventorySection;
+    const targetSection = CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type];
 
     // Moving already owned items
     if ( this.actor.uuid === item.parent?.uuid ) {
@@ -1057,7 +1070,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           else await this._onSortItem(event, item);
           break;
         default:
-          if ( item.type === section ) {
+          if ( section === targetSection ) {
             try {
               await this.actor.equipItem(item, {equipped: true});
             } catch(err) {
@@ -1082,7 +1095,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Create a new item
     item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
-    if ( section === item.type ) { // Attempt equipment
+    if ( section === targetSection ) {
       try {
         const equipResult = this.actor.canEquipItem(item);
         item.updateSource({system: equipResult});

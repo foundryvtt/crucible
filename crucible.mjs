@@ -157,9 +157,20 @@ Hooks.once("init", async function() {
     spell: models.CrucibleSpellItem,
     talent: models.CrucibleTalentItem,
     taxonomy: models.CrucibleTaxonomyItem,
+    tool: models.CrucibleToolItem,
     weapon: models.CrucibleWeaponItem
   };
   CONFIG.Item.compendiumIndexFields = ["system.identifier"];
+
+  // Configure dynamic constants
+  for ( const [type, model] of Object.entries(CONFIG.Item.dataModels) ) {
+    if ( foundry.utils.isSubclass(model, models.CruciblePhysicalItem) ) {
+      SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.add(type);
+      if ( model.EQUIPABLE ) SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.add(type);
+    }
+  }
+  Object.freeze(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES);
+  Object.freeze(SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES);
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
@@ -187,6 +198,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleToolItemSheet, {types: ["tool"], label: "CRUCIBLE.SHEETS.Tool", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
@@ -269,7 +281,7 @@ Hooks.once("init", async function() {
         for (const item of pack.index) {
           if (item.type === type) {
             let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
-            if ( pack.metadata.packageType === "system" ) group += game.system.title; 
+            if ( pack.metadata.packageType === "system" ) group += game.system.title;
             else if ( pack.metadata.packageType === "world" ) group += game.world.title;
             else group += game.modules.get(pack.metadata.packageName).title;
             potentialPacks[pack.metadata.id] = {
@@ -370,8 +382,9 @@ Hooks.once("i18nInit", function() {
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
-    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES", "ITEM.SCHEMATIC_CATEGORIES",
-    "ITEM.SCHEMATIC_PROPERTIES",
+    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES",
+    "ITEM.SCHEMATIC_CATEGORIES", "ITEM.SCHEMATIC_PROPERTIES",
+    "ITEM.TOOL_CATEGORIES",
     "RESOURCES", "THREAT_RANKS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];

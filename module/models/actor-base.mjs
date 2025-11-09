@@ -5,9 +5,9 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquipment
  * @property {CrucibleItem} armor
  * @property {CrucibleActorEquippedWeapons} weapons
- * @property {CrucibleItem[]} accessories
+ * @property {CrucibleItem[]} toolbelt
  * @property {number} accessorySlots
- * @property {number} consumableSlots
+ * @property {number} toolbeltSlots
  * @property {boolean} canFreeMove
  * @property {boolean} unarmored
  */
@@ -435,16 +435,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   _prepareEquipment(items) {
     this.equipment.accessorySlots ??= 3;
-    this.equipment.consumableSlots ??= 3;
+    this.equipment.toolbeltSlots ??= 3;
 
     // Prepare and configure equipment
     const armor = this._prepareArmor(items.armor);
     const weapons = this._prepareWeapons(items.weapon);
     const accessories = this._prepareAccessories(items.accessory, this.equipment.accessorySlots);
-    const consumables = this._prepareConsumables(items.consumable, this.equipment.consumableSlots);
+    const toolbelt = this._prepareToolbelt(items.consumable, items.tool, this.equipment.toolbeltSlots);
     const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
-    Object.assign(this.equipment, {armor, weapons, accessories, consumables, canFreeMove, unarmored});
+    Object.assign(this.equipment, {armor, weapons, accessories, toolbelt, canFreeMove, unarmored});
 
     // Register actor hooks for equipped items
     this.#registerActorHooks(armor);
@@ -491,17 +491,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the consumable Items that this Actor has equipped.
+   * Prepare the toolbelt Items that this Actor has equipped including both consumables and tools.
    * @param {CrucibleItem[]} consumableItems  The consumable type Items in the Actor's inventory
+   * @param {CrucibleItem[]} toolItems        The tool type Items in the Actor's inventory
    * @param {number} slots                    The maximum allowed consumable slots
    * @returns {CrucibleItem[]}                The consumable Items which are equipped
    * @protected
    */
-  _prepareConsumables(consumableItems, slots) {
-    let equipped = consumableItems.filter(i => i.system.equipped);
+  _prepareToolbelt(consumableItems, toolItems, slots) {
+    const equipped = [];
+    for ( const item of consumableItems ) {
+      if ( item.system.equipped ) equipped.push(item);
+    }
+    for ( const item of toolItems ) {
+      if ( item.system.equipped ) equipped.push(item);
+    }
     if ( equipped.length > slots ) {
       console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than ${slots} equipped consumables.`);
-      equipped = equipped.slice(0, slots);
+      return equipped.slice(0, slots);
     }
     return equipped;
   }

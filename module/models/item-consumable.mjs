@@ -25,7 +25,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   /** @inheritDoc */
   static defineSchema() {
     const schema = super.defineSchema();
-    delete schema.actorHooks; // Consumables don't have actor hooks
+    delete schema.actorHooks; // Consumables don't provide actor hooks
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(schema, {
       uses: new fields.SchemaField({

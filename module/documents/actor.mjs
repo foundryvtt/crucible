@@ -1901,12 +1901,13 @@ export default class CrucibleActor extends Actor {
         result.slot = null;
         return result;
       case "consumable":
-        const {consumables, consumableSlots} = this.equipment;
-        if ( equipped && (consumables.length === consumableSlots) ) {
+      case "tool":
+        const {toolbelt, toolbeltSlots} = this.equipment;
+        if ( equipped && (toolbelt.length === toolbeltSlots) ) {
           throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize("TYPES.Item.accessory")
+            type: game.i18n.localize(`TYPES.Item.${item.type}`)
           }));
         }
         result.slot = null;

@@ -23,9 +23,10 @@
                 </div>
                 {{/if}}
             </li>
-            {{else}}
-            <li class="hint">{{section.emptyLabel}}</li>
             {{/each}}
+            {{#if section.emptyLabel}}
+            <li class="hint">{{section.emptyLabel}}</li>
+            {{/if}}
         </ol>
     </div>
     {{/each}}

@@ -206,6 +206,9 @@
       "taxonomy": {
         "htmlFields": ["description"]
       },
+      "tool": {
+        "htmlFields": ["description.public", "description.secret"]
+      },
       "weapon": {
         "htmlFields": ["description.public", "description.secret"]
       }

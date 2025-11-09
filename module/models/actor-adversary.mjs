@@ -147,7 +147,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   _prepareEquipment(items) {
     if ( !this.usesEquipment ) {
       this.equipment.accessorySlots = 0;
-      this.equipment.consumableSlots = 0;
+      this.equipment.toolbeltSlots = 0;
     }
     return super._prepareEquipment(items);
   }

@@ -50,6 +50,9 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "SCHEMATIC"];
 
+  /** @override */
+  static EQUIPABLE = false;
+
   /**
    * The operator modes supported for ingredient combination.
    * @type {Record<string, string>}

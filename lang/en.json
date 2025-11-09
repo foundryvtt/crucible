@@ -17,6 +17,7 @@
     "spell": "Iconic Spell",
     "taxonomy": "Taxonomy",
     "talent": "Talent",
+    "tool": "Tool",
     "weapon": "Weapon"
   },
   "JournalEntryPage": {
@@ -46,6 +47,7 @@
     "Spell": "Crucible Spell Sheet",
     "Talent": "Crucible Talent Sheet",
     "Taxonomy": "Crucible Taxonomy Sheet",
+    "Tool": "Crucible Tool Sheet",
     "Weapon": "Crucible Weapon Sheet"
   }
 },
@@ -270,14 +272,51 @@
     "OVER_CAPACITY": "Over Capacity",
     "CURRENT_EQUIPMENT": "Current Equipment",
     "FAVORITE_ACTIONS": "Favorite Actions",
-    "WEAPONS_HINT": "Equip weapons from your Backpack toggling the shield icon.",
-    "ARMOR_HINT": "Equip armor from your Backpack toggling the shield icon.",
-    "ACCESSORIES_HINT": "Equip up to {slots} accessories from your Backpack toggling the shield icon.",
-    "CONSUMABLES_HINT": "Equip up to {slots} consumables from your Backpack toggling the shield icon.",
-    "BACKPACK_HINT": "Add items by dropping them from the provided Crucible system compendium packs.",
     "KNOWLEDGE": "Knowledge Areas",
     "KNOWLEDGE_HINT": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
     "LANGUAGES": "Known Languages"
+  },
+  "SECTIONS": {
+    "ACCESSORY": {
+      "header": "Accessories",
+      "empty": "Equip up to {slots} accessories from your Backpack toggling the shield icon."
+    },
+    "ACTIVE": {
+      "header": "Active Abilities"
+    },
+    "ARMOR": {
+      "header": "Armor",
+      "empty": "Equip armor from your Backpack toggling the shield icon."
+    },
+    "BACKPACK": {
+      "header": "Backpack",
+      "empty": "Add items by dropping them from the provided Crucible system compendium packs."
+    },
+    "ICONIC": {
+      "header": "Iconic Spells",
+      "empty": "Add iconic spells by browsing the provided Crucible system compendium pack.",
+      "none": "No unlocked Iconic Spell slots."
+    },
+    "PASSIVE": {
+      "header": "Passive Talents"
+    },
+    "SIGNATURE": {
+      "header": "Signature Talents"
+    },
+    "SPELL": {
+      "header": "Spellcraft Talents"
+    },
+    "TRAINING": {
+      "header": "Training Talents"
+    },
+    "TOOLBELT": {
+      "header": "Toolbelt",
+      "empty":  "Equip up to {slots} tools or consumables from your Backpack toggling the shield icon."
+    },
+    "WEAPON": {
+      "header": "Weapons",
+      "empty": "Equip weapons from your Backpack toggling the shield icon."
+    }
   }
 },
 
@@ -1145,7 +1184,6 @@
 
   "Iconic": "Iconic Spell",
   "IconicPl": "Iconic Spells",
-  "IconicNone": "No unlocked Iconic Spell slots.",
   "DamageType": "Damage Type",
   "NameFormatNoun": "{gesture} of {rune}",
   "NameFormatAdj": "{rune} {gesture}",
@@ -1385,6 +1423,13 @@
     "CHOOSE": "Choose Taxonomy",
     "CLEAR": "Clear Taxonomy",
     "STATURE": "Taxonomy Stature"
+  }
+},
+
+"TOOL": {
+  "CATEGORIES": {
+    "CRAFTING": "Crafting Kit",
+    "IMPLEMENT": "Implement"
   }
 },
 
