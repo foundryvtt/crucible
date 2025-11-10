@@ -37,10 +37,35 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
    * One-time initialization to instantiate SYSTEM.SPELL.RUNES.
    */
   static initialize() {
-    const runes = SYSTEM.SPELL.RUNES;
+    const runes = SYSTEM.SPELL.RUNES; // Intentionally mutated
     for ( const [k, v] of Object.entries(runes) ) {
       runes[k] = new CrucibleSpellcraftRune(v);
     }
+
+    // Deprecated runes
+    Object.defineProperties(runes, {
+      shadow: {
+        get() {
+          foundry.utils.logCompatibilityWarning(`You are referencing the Crucible spellcraft rune "shadow" which 
+          has been removed in favor of "illusion" or "oblivion" depending on your use case.`);
+          return runes.oblivion;
+        }
+      },
+      spirit: {
+        get() {
+          foundry.utils.logCompatibilityWarning(`You are referencing the Crucible spellcraft rune "spirit" which 
+          has been renamed to "soul".`);
+          return runes.soul;
+        }
+      },
+      stasis: {
+        get() {
+          foundry.utils.logCompatibilityWarning(`You are referencing the Crucible spellcraft rune "stasis" which 
+          has been removed in favor of "control".`);
+          return runes.control;
+        }
+      }
+    });
     Object.freeze(runes);
   }
 

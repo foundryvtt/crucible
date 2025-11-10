@@ -179,6 +179,11 @@ Hooks.once("init", async function() {
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
 
+  // Spellcraft Initialization
+  models.CrucibleSpellcraftGesture.initialize();
+  models.CrucibleSpellcraftInflection.initialize();
+  models.CrucibleSpellcraftRune.initialize();
+
   // Time
   CONFIG.time.roundTime = SYSTEM.TIME.roundSeconds;
 
@@ -424,11 +429,6 @@ Hooks.once("i18nInit", function() {
   // Pre-localize configuration objects
   preLocalizeConfig();
 
-  // Initialize Spellcraft Components
-  models.CrucibleSpellcraftGesture.initialize();
-  models.CrucibleSpellcraftInflection.initialize();
-  models.CrucibleSpellcraftRune.initialize();
-
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
@@ -462,6 +462,11 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+
+  // Spellcraft
+  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name"], false);
+  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name"], false);
+  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name"], false);
 
   // Config objects
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);

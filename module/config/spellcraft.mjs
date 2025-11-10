@@ -8,7 +8,18 @@ export const NAME_FORMATS = Object.freeze({
  * These config objects are instantiated as CrucibleSpellcraftRune instances during system initialization.
  * @enum {object}
  */
-export const RUNES = Object.seal({
+export const RUNES = {
+  control: {
+    id: "control",
+    name: "SPELL.RUNES.Control",
+    img: "icons/magic/control/hypnosis-mesmerism-eye.webp",
+    resource: "morale",
+    damageType: "psychic",
+    opposed: "kinesis",
+    defense: "willpower",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.NOUN
+  },
   death: {
     id: "death",
     name: "SPELL.RUNES.Death",
@@ -59,9 +70,20 @@ export const RUNES = Object.seal({
     img: "icons/magic/light/projectile-beam-yellow.webp",
     resource: "health",
     damageType: "radiant",
-    opposed: "shadow",
-    defense: "willpower",
+    opposed: "illusion",
+    defense: "reflex",
     scaling: "presence",
+    nameFormat: NAME_FORMATS.ADJ
+  },
+  illusion: {
+    id: "illusion",
+    name: "SPELL.RUNES.Illusion",
+    img: "icons/magic/light/projectile-smoke-blue-white.webp",
+    resource: "morale",
+    damageType: "psychic",
+    opposed: "illumination",
+    defense: "willpower",
+    scaling: "intellect",
     nameFormat: NAME_FORMATS.ADJ
   },
   kinesis: {
@@ -70,7 +92,7 @@ export const RUNES = Object.seal({
     img: "icons/magic/movement/pinwheel-turning-blue.webp",
     resource: "health",
     damageType: "physical",
-    opposed: "stasis",
+    opposed: "control",
     defense: "physical",
     scaling: "presence",
     nameFormat: NAME_FORMATS.ADJ
@@ -98,52 +120,30 @@ export const RUNES = Object.seal({
     scaling: "intellect",
     nameFormat: NAME_FORMATS.ADJ
   },
-  control: {
-    id: "control",
-    name: "SPELL.RUNES.Control",
-    img: "icons/magic/control/hypnosis-mesmerism-eye.webp",
+  oblivion: {
+    id: "oblivion",
+    name: "SPELL.RUNES.Oblivion",
+    img: "icons/magic/unholy/barrier-shield-glowing-pink.webp",
     resource: "morale",
-    damageType: "psychic",
-    opposed: "spirit",
+    damageType: "void",
+    opposed: "soul",
     defense: "willpower",
     scaling: "intellect",
     nameFormat: NAME_FORMATS.NOUN
   },
-  shadow: {
-    id: "shadow",
-    name: "SPELL.RUNES.Shadow",
-    img: "icons/magic/unholy/orb-rays-blue.webp",
-    resource: "morale",
-    damageType: "void",
-    opposed: "illumination",
-    defense: "fortitude",
-    scaling: "presence",
-    nameFormat: NAME_FORMATS.ADJ
-  },
-  spirit: {
-    id: "spirit",
-    name: "SPELL.RUNES.Spirit",
-    img: "icons/magic/control/fear-fright-white.webp",
+  soul: {
+    id: "soul",
+    name: "SPELL.RUNES.Soul",
+    img: "icons/magic/light/projectile-halo-teal.webp",
     resource: "morale",
     restoration: true,
     damageType: "psychic",
-    opposed: "control",
+    opposed: "oblivion",
     defense: "willpower",
     scaling: "presence",
     nameFormat: NAME_FORMATS.NOUN
   },
-  stasis: {
-    id: "stasis",
-    name: "SPELL.RUNES.Stasis",
-    img: "icons/magic/time/clock-spinning-gold-pink.webp",
-    resource: "morale",
-    damageType: "physical",
-    opposed: "kinesis",
-    defense: "willpower",
-    scaling: "wisdom",
-    nameFormat: NAME_FORMATS.ADJ
-  }
-});
+};
 
 /**
  * The Somatic Gestures which exist in the Crucible spellcraft system.
@@ -186,6 +186,42 @@ export const GESTURES = Object.seal({
       type: "self"
     }
   },
+  aura: {
+    id: "aura",
+    name: "SPELL.GESTURES.Aura",
+    cost: {
+      action: 5,
+      focus: 1 // Maintained
+    },
+    hands: 2,
+    nameFormat: NAME_FORMATS.NOUN,
+    scaling: "presence",
+    target: {
+      type: "pulse", // TODO need an aura type
+      size: 20
+    }
+  },
+  blast: {
+    id: "blast",
+    name: "SPELL.GESTURES.Blast",
+    cost: {
+      action: 5,
+      focus: 2
+    },
+    damage: {
+      base: 8
+    },
+    hands: 2,
+    nameFormat: NAME_FORMATS.ADJ,
+    range: {
+      maximum: 60
+    },
+    scaling: "intellect",
+    target: {
+      type: "blast",
+      size: 6
+    }
+  },
   create: {
     id: "create",
     name: "SPELL.GESTURES.Create",
@@ -203,11 +239,31 @@ export const GESTURES = Object.seal({
       type: "summon"
     }
   },
+  cone: {
+    id: "cone",
+    name: "SPELL.GESTURES.Cone",
+    cost: {
+      action: 5,
+      focus: 2
+    },
+    damage: {
+      base: 8
+    },
+    hands: 2,
+    nameFormat: NAME_FORMATS.NOUN,
+    range: {
+      maximum: 30
+    },
+    scaling: "intellect",
+    target: {
+      type: "cone"
+    }
+  },
   conjure: {
     id: "conjure",
     name: "SPELL.GESTURES.Conjure",
     cost: {
-      action: 6,
+      action: 5,
       focus: 2
     },
     hands: 2,
@@ -267,7 +323,7 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 6
+      base: 8
     },
     hands: 2,
     range: {
@@ -276,7 +332,7 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "pulse",
-      size: 6
+      size: 10
     }
   },
   ray: {
@@ -297,6 +353,21 @@ export const GESTURES = Object.seal({
     target: {
       type: "ray",
       size: 1
+    }
+  },
+  sense: {
+    id: "sense",
+    name: "SPELL.GESTURES.Sense",
+    cost: {
+      action: 3,
+      focus: 1 // Maintained
+    },
+    hands: 1,
+    nameFormat: NAME_FORMATS.ADJ,
+    scaling: "presence",
+    target: {
+      type: "pulse", // TODO aura type
+      size: 30
     }
   },
   step: {
@@ -337,6 +408,27 @@ export const GESTURES = Object.seal({
     scaling: "strength",
     target: {
       type: "single"
+    }
+  },
+  surge: {
+    id: "surge",
+    name: "SPELL.GESTURES.Surge",
+    cost: {
+      action: 5,
+      focus: 2
+    },
+    damage: {
+      base: 8
+    },
+    hands: 2,
+    range: {
+      maximum: 15
+    },
+    nameFormat: NAME_FORMATS.ADJ,
+    scaling: "wisdom",
+    target: {
+      type: "ray",
+      size: 10
     }
   },
   touch: {

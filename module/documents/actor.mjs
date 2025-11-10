@@ -1867,6 +1867,7 @@ export default class CrucibleActor extends Actor {
     if ( dropped ) equipped = false;
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
+    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
     switch ( item.type ) {
       case "weapon":
         if ( item.system.properties.has("natural") ) result.dropped = false;
@@ -1912,8 +1913,9 @@ export default class CrucibleActor extends Actor {
         }
         result.slot = null;
         return result;
+      default:
+        throw new Error(`Items with type "${item.type}" are not equippable.`);
     }
-    throw new Error(`Items with type "${item.type}" are not equippable.`);
   }
 
   /* -------------------------------------------- */
