@@ -56,6 +56,20 @@ export default class CrucibleChatMessage extends ChatMessage {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Returns the most recent action (confirmed or otherwise) in the chat log
+   * @returns {CrucibleAction|null}
+   */
+  static getLastAction() {
+    for ( const message of game.messages.contents.toReversed() ) {
+      if ( !message.flags.crucible?.action ) continue;
+      return CrucibleAction.fromChatMessage(message);
+    }
+    return null;
+  }
+
+  /* -------------------------------------------- */
   /*  Message Rendering                           */
   /* -------------------------------------------- */
 
