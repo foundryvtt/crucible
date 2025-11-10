@@ -1,0 +1,42 @@
+name: 'Rune: Illusion'
+type: talent
+img: icons/magic/light/projectile-smoke-blue-white.webp
+system:
+  description: >-
+    <p>The chaotic force of trickery and whimsy. The illusion rune governs
+    magical manifestations of falsehood or misdirection.</p><p>The Illusion rune
+    scales using <strong>Intellect</strong>, targets <strong>Willpower</strong>
+    defense, and deals <strong>Psychic</strong> damage to
+    <strong>Morale</strong>. It is opposed by the orderly rune of
+    <strong>Illumination</strong>.</p>
+  actions: []
+  rune: illusion
+  actorHooks: []
+  nodes:
+    - int0a
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  compendiumSource: Item.runetime00000000
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762816062015
+  modifiedTime: 1762816718692
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: Dy9HnwadNE3kSZ4f
+sort: 1200000
+_id: runeIllusion0000
+_key: '!items!runeIllusion0000'

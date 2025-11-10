@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.bard000000000000
     - Compendium.crucible.talent.Item.inspireheroism00
     - Compendium.crucible.talent.Item.extolldeeds00000
+    - Compendium.crucible.talent.Item.runeSoul00000000
     - Compendium.crucible.talent.Item.inspirator000000
   skills:
     - society
@@ -34,12 +35,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.1
   createdTime: 1749922573051
-  modifiedTime: 1755978438372
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762817861428
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: bard000000000000
 sort: 600000
 _key: '!items!bard000000000000'

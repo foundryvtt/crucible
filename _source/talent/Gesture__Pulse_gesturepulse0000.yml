@@ -5,28 +5,34 @@ img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
 system:
   node: pre2b
   description: >-
-    <p>Emit a burst of Runic power in a circular wave that travels outward, with
-    you at its center. A Pulse of Spirit might be used to bolster Morale for
-    your allies, while a Death pulse might be used to deal Corruption damage to
-    a group of enemies gathered around you.</p><p>The Pulse gesture scales using
-    <strong>Presence</strong> and targets a 360 degree, 6 foot radius, dealing 6
-    base damage on a successful attack.</p>
+    <p>Expel the arcane power of a Rune in a radius that travels outward with
+    you at its center.</p><p>The Pulse gesture scales using
+    <strong>Presence</strong> and produces an emanation with 10 foot radius,
+    dealing <strong>8 Base Damage</strong> to targets which fail to Resist the
+    spell. The gesture requires <strong>2 Hands</strong> to cast and has a base
+    cost of <strong>5 Action</strong> and <strong>2 Focus</strong>.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent is currently placed at a
+    <strong>Tier 4</strong> node. It will eventually only be attainable at a
+    higher level (probably Level 6 required). It is currently available "early"
+    for testing.</p>
   actions: []
   gesture: pulse
   actorHooks: []
+  nodes:
+    - pre4c
 effects: []
-folder: hKkLXAoC3ygmEtEf
-sort: -150000
+folder: rL8CBb8MbQi6PDS6
+sort: 200000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1684686470274
-  modifiedTime: 1762718940467
+  modifiedTime: 1762793182077
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

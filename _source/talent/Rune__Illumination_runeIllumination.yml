@@ -1,0 +1,41 @@
+name: 'Rune: Illumination'
+type: talent
+img: icons/magic/light/projectile-beam-yellow.webp
+system:
+  description: >-
+    <p>The orderly force of light and energy. The Illumination rune governs
+    light and radiance. </p><p>The Illumination rune scales using
+    <strong>Presence</strong>, targets <strong>Reflex</strong>, and deals
+    <strong>Radiant</strong> damage to <strong>Health</strong>. It is opposed by
+    the chaotic rune of <strong>Illusion</strong>.</p>
+  actions: []
+  rune: illumination
+  actorHooks: []
+  nodes:
+    - pre0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  compendiumSource: Compendium.crucible.talent.runeradiance0000
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762815328000
+  modifiedTime: 1762815328000
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+folder: Dy9HnwadNE3kSZ4f
+sort: 600000
+_id: runeIllumination
+_key: '!items!runeIllumination'

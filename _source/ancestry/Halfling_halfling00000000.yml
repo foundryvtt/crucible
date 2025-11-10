@@ -22,15 +22,15 @@ system:
     secondary: presence
     primary: dexterity
   talents:
-    - Compendium.crucible.talent.Item.runecourage00000
+    - Compendium.crucible.talent.Item.runeSoul00000000
   ui:
     color: '#bff58a'
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0
-  coreVersion: '13.344'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1674942420028
-  modifiedTime: 1748565190499
+  modifiedTime: 1762817242258
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

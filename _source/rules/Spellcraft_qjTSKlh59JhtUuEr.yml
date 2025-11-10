@@ -125,72 +125,118 @@ pages:
         allows those with sufficient training to exert a level of influence over
         the Runes, using @UUID[.lhrYInsQ2f0YfhTu]{Gestures} to manifest powerful
         displays of magical prowess.</p><p>There are six Chaotic Runes and six
-        Orderly Runes, forming a natural opposition to one another. Lesser Runes
-        which are more closely associated with tangible, elemental forces (such
-        as Flame and Frost, Life and Death), and Greater Runes which represent
-        more abstract forces (such as Control and Spirit, Kinesis and
-        Stasis).</p><h2 class="divider">Chaotic Runes</h2><p><strong>Lesser
-        Runes</strong></p><ul><li><p>Flame - The chaotic force of elemental,
-        thermal energy. The Flame rune governs fire and heat. It is opposed by
-        the orderly rune of Frost.</p></li><li><p>Life - The chaotic force of
-        creation, responsible for all living matter. The Life rune governs
-        health and matters relating to biological growth. It is opposed by the
-        orderly rune of Death.</p></li><li><p>Lightning - The chaotic force of
-        raw, electrical energy. The Lightning rune governs sources of electrical
-        energy and electrical discharge. It is opposed by the orderly rune of
-        Earth.</p></li></ul><p><strong>Greater
-        Runes</strong></p><ul><li><p>Illumination - The chaotic force of light
-        and positive energy. The Illumination rune governs light and all of its
-        properties. It is opposed by the orderly rune of
-        Shadow.</p></li><li><p>Spirit - The chaotic force of emotion and
-        willfulness. The Spirit rune governs matters related to emotional
-        well-being as well as the soul. It is opposed by the orderly rune of
-        Control.</p></li><li><p>Kinesis - The chaotic force of space and
-        physical movement. The Kinesis rune governs all things related to the
-        act of movement and physicality. It is opposed by the orderly rune of
-        Stasis.</p></li></ul><h2 class="divider">Orderly
-        Runes</h2><p><strong>Lesser Runes</strong></p><ul><li><p>Death - The
-        orderly force of destruction, responsible for the decay of all matter.
-        The Death rune governs decay and destruction. It is opposed by the
-        chaotic rune of Life.</p></li><li><p>Earth - The orderly force of
-        elemental earth, responsible for physical matter. The Earth rune governs
-        health and matters relating to biological growth. It is opposed by the
-        chaotic rune of Lightning.</p></li><li><p>Frost - The orderly force of
-        elemental, thermal energy. The Frost rune governs sources of ice and
-        cold. It is opposed by the chaotic rune of
-        Flame.</p></li></ul><p><strong>Greater
-        Runes</strong></p><ul><li><p>Control - The orderly force of discipline
-        and the mind. The Control rune governs thought, logic and reason. It is
-        opposed by the chaotic rune of Spirit.</p></li><li><p>Shadow - The
-        orderly force of darkness and negative energy. The Shadow rune governs
-        darkness and all of its properties. It is opposed by the chaotic rune of
-        Illumination.</p></li><li><p>Stasis - The orderly force of immutability
-        and potential energy. The Stasis rune governs all things related to
-        permanence and resistance to change. It is opposed by the chaotic rune
-        of Kinesis.</p></li></ul><h2 class="divider">Runic Mechanics</h2><p>The
-        choice of Rune used in the casting of a spell affects or determines a
-        variety of aspects of the resulting spellcraft.</p><ul><li><p>The
-        conceptual essence of the magic.</p></li></ul><ul><li><p>Which other
-        Rune is in opposition to this Spell.</p></li><li><p>One
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Ability
+        Orderly Runes, forming a natural opposition to one another.</p><h2
+        class="divider">Runes of Chaos</h2><dl><dt><p>Flame</p></dt><dd><p>The
+        chaotic force of elemental, thermal energy. The Flame rune governs fire
+        and heat. The Flame rune scales using Intellect, targets
+        <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p></dd><dt><p></p></dt><dt><p>Illusion</p></dt><dd><p>The
+        chaotic force of trickery and whimsy. The illusion rune governs magical
+        manifestations of falsehood or misdirection. The Illusion rune scales
+        using <strong>Intellect</strong>, targets <strong>Willpower</strong>
+        defense, and deals <strong>Psychic</strong> damage to
+        <strong>Morale</strong>. It is opposed by the orderly rune of
+        <strong>Illumination</strong>.</p></dd><dt><p>Kinesis</p></dt><dd><p>The
+        chaotic force of space and physical movement. The Kinesis rune governs
+        all things related to the act of movement and physicality. The Kinesis
+        rune scales using <strong>Presence</strong>, targets
+        <strong>Physical</strong> defense, and deals
+        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of
+        <strong>Control</strong>.</p></dd><dt><p>Life</p></dt><dd><p>A chaotic
+        force of creation, responsible for living matter. The Life rune governs
+        health and matters relating to biological growth. The Life rune scales
+        using <strong>Wisdom</strong> and provides <strong>Restoration</strong>
+        of <strong>Health</strong> or <strong>Poison</strong> damage opposed by
+        <strong>Fortitude</strong>. It is opposed by the orderly rune of
+        <strong>Death</strong>.</p></dd><dt><p>Lightning</p></dt><dd><p>The
+        chaotic force of raw electrical energy. The Lightning rune governs
+        sources of electrical charge and discharge. The Lightning rune scales
+        using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+        deals <strong>Electrical</strong> damage to <strong>Health</strong>. It
+        is opposed by the orderly rune of
+        <strong>Earth</strong>.</p></dd><dt><p>Oblivion</p></dt><dd><p>A chaotic
+        force of destruction and annihilation of existence. The Oblivion rune
+        governs unmaking of matter or decoherence of spirit. The Oblivion rune
+        scales using <strong>Intellect</strong>, targets
+        <strong>Willpower</strong>, and deals <strong>Void</strong> damage to
+        <strong>Morale</strong>. It is opposed by the orderly rune of
+        <strong>Soul</strong>.</p></dd></dl><h2 class="divider">Runes of
+        Order</h2><dl><dt><p></p></dt><dt><p>Control</p></dt><dd><p>The orderly
+        force of discipline and permanence. The Control rune governs thought,
+        reason, and persistence. The Control rune scales using
+        <strong>Intellect</strong>, targets <strong>Willpower</strong>, and
+        deals <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
+        opposed by the chaotic rune of
+        <strong>Kinesis</strong>.</p></dd><dt><p>Death</p></dt><dd><p>The
+        orderly force of destruction, responsible for the corruption of all
+        biological matter. The Death rune governs decay and destruction. The
+        Death rune scales using <strong>Intellect</strong>, targets
+        <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage
+        to <strong>Health</strong>. It is opposed by the chaotic rune of
+        <strong>Life</strong>.</p></dd><dt><p></p></dt><dt><p>Earth</p></dt><dd><p>The
+        orderly force of elemental earth, responsible for physical matter. The
+        Earth rune governs minerals, metals, soils, and other physical
+        compounds. The Earth rune scales using <strong>Wisdom</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
+        <strong>Health</strong>. It is opposed by the chaotic rune of
+        <strong>Lightning</strong>.</p></dd><dt><p>Frost</p></dt><dd><p>The
+        orderly force of water and cold. The Frost rune governs the creation of
+        water or other fluids and their transfer between liquid and frozen
+        states. The Frost rune scales using <strong>Wisdom</strong>, targets
+        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
+        <strong>Health</strong>. It is opposed by the chaotic rune of
+        <strong>Flame</strong>.</p></dd><dt><p>Illumination</p></dt><dd><p>The
+        orderly force of light and energy. The Illumination rune governs light
+        and radiance. The Illumination rune scales using
+        <strong>Presence</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Radiant</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of
+        <strong>Illusion</strong>.</p></dd><dt><p></p></dt><dt><p></p></dt><dt><p>Soul</p></dt><dd><p>An
+        orderly force of creation and spiritual essence. The Soul rune governs
+        matters related to sapience, personality, emotion, and empathy. The Soul
+        rune scales using <strong>Presence</strong> and provides
+        <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
+        <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>.
+        It is opposed by the chaotic rune of
+        <strong>Oblivion</strong>.</p></dd></dl><h2 class="divider">Rune
+        Mechanics</h2><p>The choice of Rune used in the casting of a spell
+        affects or determines a variety of aspects of the resulting
+        spellcraft.</p><ul><li><p>The conceptual essence of the
+        magic.</p></li><li><p>Which other Rune is in opposition to this
+        Spell.</p></li><li><p>One
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
         Score} which defines half of the Spell Attack scaling
         formula.</p></li><li><p>The
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.alkVSDmt0ec5HBfE]{Defense}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}
         against which the spell is tested.</p></li><li><p>A
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FmmADsI9qo1uIIT3]{Resource}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000]{Resource}
         the spell affects.</p></li><li><p>The
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.XDx0e2rZWcHLcfBt#damage-types]{Damage
-        Type} that is dealt by the spell.</p></li></ul><p>The Runes in the
-        Crucible system have the following Damage Types, Target Defenses, and
-        Opposed Runes:</p><table><tbody><tr><th><p>Intellect
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]{Damage
+        Type} that is dealt by the spell.</p></li></ul><p>The following table
+        summarizes all twelve runes in the Crucible
+        system.</p><table><tbody><tr><th><p>Intellect
         Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runemind00000000]{Control}</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Spirit</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runedeath0000000]{Death}</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeflame0000000]{Flame}</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runelightning000]{Lightning}</p></td><td><p>Electricity</p></td><td><p>Reflex</p></td><td><p>Earth</p></td></tr><tr><th><p>Presence
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Flame</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>Illusion</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Illumination</p></td></tr><tr><td><p>Lightning</p></td><td><p>Electricity</p></td><td><p>Fortitude</p></td><td><p>Earth</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Void</p></td><td><p>Willpower</p></td><td><p>Soul</p></td></tr><tr><th><p>Presence
         Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeradiance0000]{Illumination}</p></td><td><p>Radiant</p></td><td><p>Willpower</p></td><td><p>Shadow</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runekinesis00000]{Kinesis}</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Stasis</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runevoid00000000]{Shadow}</p></td><td><p>Void</p></td><td><p>Fortitude</p></td><td><p>Illumination</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runecourage00000]{Spirit}</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Control</p></td></tr><tr><th><p>Wisdom
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Death</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>Illumination</p></td><td><p>Radiant</p></td><td><p>Reflex</p></td><td><p>Illusion</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Control</p></td></tr><tr><td><p>Soul</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Oblivion</p></td></tr><tr><th><p>Wisdom
         Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeearth0000000]{Earth}</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runefrost0000000]{Frost}</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runelife00000000]{Life}</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runetime00000000]{Stasis}</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Kinesis</p></td></tr></tbody><tfoot><tr><td
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Control</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td></tr><tr><td><p>Earth</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>Frost</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>Life</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr></tbody><tfoot><tr><td
         colspan="4">* - Rune is used primarily for Restoration rather than for
-        Damage.</td></tr></tfoot></table>
+        Damage.</td></tr></tfoot></table><p></p><h2 class="divider">Creature
+        Types</h2><p>Certain magical runes are inherently and indirectly related
+        to different creature types within the universe. Those associations are
+        as
+        follows:</p><table><tbody><tr><td><p>Control</p></td><td><p>Fiends</p></td></tr><tr><td><p>Death</p></td><td><p>Undead</p></td></tr><tr><td><p>Earth</p></td><td><p>Oozes
+        and Earth
+        Elementals</p></td></tr><tr><td><p>Flame</p></td><td><p>Dragons and Fire
+        Elementals</p></td></tr><tr><td><p>Frost</p></td><td><p>Giants and Frost
+        Elementals</p></td></tr><tr><td><p>Illumination</p></td><td><p>Celestials</p></td></tr><tr><td><p>Illusion</p></td><td><p>Fey</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Monstrosities</p></td></tr><tr><td><p>Life</p></td><td><p>Plants
+        and Beasts</p></td></tr><tr><td><p>Lightning</p></td><td><p>Constructs
+        and Storm
+        Elementals</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Outsiders</p></td></tr><tr><td><p>Soul</p></td><td><p>Humanoids</p></td></tr></tbody></table>
       markdown: ''
     video:
       controls: true
@@ -204,9 +250,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375014492
-      modifiedTime: 1687026223560
+      modifiedTime: 1762816945068
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

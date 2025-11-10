@@ -1,7 +1,7 @@
 type: Item
 folder: FQAUMNkcagdBLURJ
 name: Skills
-color: '#671313'
+color: '#340909'
 sorting: m
 _id: ghRKqdzq279SH1lt
 description: ''
@@ -11,9 +11,9 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.7.0-dev
   lastModifiedBy: AnoypGxxNIMOS0XY
-  modifiedTime: 1742946737745
+  modifiedTime: 1762791100664
 _key: '!folders!ghRKqdzq279SH1lt'

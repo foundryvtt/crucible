@@ -13,10 +13,10 @@ system:
     dexterity: 0
   talents:
     - Compendium.crucible.talent.Item.runedeath0000000
-    - Compendium.crucible.talent.Item.runecourage00000
-    - Compendium.crucible.talent.Item.runevoid00000000
     - Compendium.crucible.talent.Item.gestureinfluence
     - Compendium.crucible.talent.Item.gestureray000000
+    - Compendium.crucible.talent.Item.runeOblivion0000
+    - Compendium.crucible.talent.Item.runeSoul00000000
   identifier: occultist
 effects: []
 folder: 6Up7ddrphLept3RW
@@ -27,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
-  coreVersion: '13.347'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1685738637867
-  modifiedTime: 1755978438372
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762817637271
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

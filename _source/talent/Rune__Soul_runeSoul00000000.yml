@@ -1,0 +1,54 @@
+name: 'Rune: Soul'
+type: talent
+img: icons/magic/light/projectile-halo-teal.webp
+system:
+  description: >-
+    <p>An orderly force of creation and spiritual essence. The Soul rune governs
+    matters related to sapience, personality, emotion, and empathy.</p><p>The
+    Soul rune scales using <strong>Presence</strong> and provides
+    <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
+    <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>. It is
+    opposed by the chaotic rune of <strong>Oblivion</strong>.</p>
+  actions: []
+  rune: soul
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Spirit rune
+        if ( action.rune?.id !== "spirit" ) return;
+
+        // Require restoration to Morale
+        const restoreMorale = outcome.resources.morale > 0;
+        if ( !restoreMorale ) return;
+
+        // Apply Inspired effect
+        const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
+        outcome.effects.push(inspired);
+  nodes:
+    - pre0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  compendiumSource: Compendium.crucible.talent.runecourage00000
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762815813235
+  modifiedTime: 1762816107111
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+folder: Dy9HnwadNE3kSZ4f
+sort: 1100000
+_id: runeSoul00000000
+_key: '!items!runeSoul00000000'

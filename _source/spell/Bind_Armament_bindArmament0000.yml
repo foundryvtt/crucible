@@ -84,7 +84,8 @@ system:
         have sufficient free hands to hold it, the weapon returns
         instantaneously to you and is no longer <strong>Disarmed</strong>.</p>
   runes:
-    - stasis
+    - control
+    - kinesis
   gestures:
     - strike
   inflections:
@@ -102,9 +103,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.7
+  systemVersion: 0.8.1
   createdTime: 1749247011452
-  modifiedTime: 1759877572783
+  modifiedTime: 1762817760045
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 100000
 _key: '!items!bindArmament0000'

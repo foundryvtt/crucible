@@ -42,8 +42,8 @@ system:
         - iconicSpell
       actionHooks: []
   runes:
-    - shadow
-    - control
+    - oblivion
+    - illumination
   gestures:
     - pulse
   inflections:
@@ -61,9 +61,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.9
+  systemVersion: 0.8.1
   createdTime: 1759877572761
-  modifiedTime: 1761412270775
+  modifiedTime: 1762817782668
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: engulfingDarknes
 sort: 200000

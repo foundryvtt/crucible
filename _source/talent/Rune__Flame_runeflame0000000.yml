@@ -5,11 +5,10 @@ system:
   node: int0a
   description: >-
     <p>The chaotic force of elemental, thermal energy. The Flame rune governs
-    fire and heat. It is opposed by the orderly rune of Frost.</p>
-
-    <p>The Flame rune scales using <strong>Intellect</strong>, targets
+    fire and heat.</p><p>The Flame rune scales using Intellect, targets
     <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
-    <strong>Health</strong>.</p>
+    <strong>Health</strong>. It is opposed by the orderly rune of
+    <strong>Frost</strong>.</p>
   actions: []
   rune: flame
   actorHooks: []
@@ -18,10 +17,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1674698661050
-  modifiedTime: 1686250946477
+  modifiedTime: 1762815040533
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runeflame0000000
   duplicateSource: null

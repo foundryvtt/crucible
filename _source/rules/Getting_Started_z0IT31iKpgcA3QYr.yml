@@ -3,14 +3,18 @@ sorting: m
 folder: null
 type: JournalEntry
 _id: z0IT31iKpgcA3QYr
-sort: 100000
+sort: 0
 color: '#561206'
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '11.299'
+  coreVersion: '13.350'
   createdTime: null
-  modifiedTime: 1685624339482
+  modifiedTime: 1762816878993
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!z0IT31iKpgcA3QYr'

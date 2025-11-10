@@ -46,8 +46,7 @@ system:
         duplicates remaining. Each time a Strike misses you, one of your
         duplicates disappears.</p>
   runes:
-    - illumination
-    - shadow
+    - illusion
   gestures:
     - aspect
   inflections:
@@ -97,10 +96,10 @@ _stats:
   duplicateSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.8.1
   createdTime: 1727204769939
-  modifiedTime: 1761594127724
-  lastModifiedBy: p3lgSv60AK7ndmAK
+  modifiedTime: 1762817797210
+  lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: protectiveMirage
 sort: 300000

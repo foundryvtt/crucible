@@ -4,13 +4,11 @@ img: icons/magic/lightning/bolt-strike-blue.webp
 system:
   node: int0a
   description: >-
-    <p>The chaotic force of raw, electrical energy. The Lightning rune governs
-    sources of electrical energy and electrical discharge. It is opposed by the
-    orderly rune of Earth.</p>
-
-    <p>The Lightning rune scales using <strong>Intellect</strong>, targets
-    <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-    <strong>Health</strong>.</p>
+    <p>The chaotic force of raw electrical energy. The Lightning rune governs
+    sources of electrical charge and discharge.</p><p>The Lightning rune scales
+    using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
+    <strong>Electrical</strong> damage to <strong>Health</strong>. It is opposed
+    by the orderly rune of <strong>Earth</strong>.</p>
   actions: []
   rune: lightning
   actorHooks: []
@@ -19,10 +17,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1674698661050
-  modifiedTime: 1686251255810
+  modifiedTime: 1762815524829
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runelightning000
   duplicateSource: null

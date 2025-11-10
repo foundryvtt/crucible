@@ -1,0 +1,51 @@
+name: 'Gesture: Aura'
+type: talent
+img: icons/magic/light/explosion-beam-impact-silhouette.webp
+system:
+  nodes:
+    - pre4c
+  description: >-
+    <p>You concentrate the arcane power of a Rune to create a maintained field
+    of energy that washes over allies and enemies near to you.</p><p>The Aura
+    gesture scales with <strong>Presence</strong> and produces an emanation with
+    20 feet radius centered on the spellcaster. The center of this Aura moves
+    with the spellcaster.</p><p>Depending on the Rune used, the Aura deals
+    damage or provides healing to any creature which begins its turn inside the
+    Aura. This gesture requires <strong>2 Hands</strong> to cast, has a base
+    cost of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
+    <strong>Maintained</strong> costing an additional <strong>1 Focus</strong>
+    every subsequent round.</p><h3 class="divider">Playtest Notes</h3><p>This
+    talent is currently placed at a <strong>Tier 4</strong> node. It will
+    eventually only be attainable at a higher level (probably Level 6 required).
+    It is currently available "early" for testing.</p><p>Emanation templates
+    which are linked to the Token and move when the Token moves are a feature
+    coming in Foundry VTT version 14. Automation of the Aura gesture will occur
+    once Crucible depends on Foundry VTT version 14.</p>
+  actions: []
+  rune: ''
+  gesture: aura
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: rL8CBb8MbQi6PDS6
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762792947816
+  modifiedTime: 1762793162213
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: gestureAura00000
+sort: 0
+_key: '!items!gestureAura00000'

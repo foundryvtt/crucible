@@ -1,7 +1,7 @@
 type: Item
 folder: FQAUMNkcagdBLURJ
 name: Tradecraft
-color: '#671313'
+color: '#4e0e0e'
 sorting: a
 _id: nNjAJGgLtLFXtTab
 description: ''
@@ -11,8 +11,9 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  lastModifiedBy: null
+  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762791105486
 _key: '!folders!nNjAJGgLtLFXtTab'

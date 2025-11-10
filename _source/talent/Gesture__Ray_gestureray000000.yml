@@ -1,6 +1,6 @@
 name: 'Gesture: Ray'
 type: talent
-img: icons/magic/light/beam-rays-orange.webp
+img: icons/magic/light/beam-rays-blue.webp
 system:
   node: wis1b
   description: >-
@@ -25,7 +25,7 @@ _stats:
   systemVersion: 0.7.8
   coreVersion: '13.350'
   createdTime: 1675608839856
-  modifiedTime: 1762718941279
+  modifiedTime: 1762791321640
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureray000000
   duplicateSource: null

@@ -10,14 +10,16 @@ system:
     Needs automation. For now apply boons manually.</p>
   actions: []
   requirements: {}
+  nodes:
+    - wis4d
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1675015447186
-  modifiedTime: 1742948767483
+  modifiedTime: 1762793577661
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

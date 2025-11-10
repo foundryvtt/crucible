@@ -4,13 +4,17 @@ folder: Ua0XvGOuOJ5KVvlz
 type: Item
 _id: Uk4FgmLsNJc62zCJ
 sort: 0
-color: '#3a2c58'
+color: '#513e7a'
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '11.295'
+  coreVersion: '13.350'
   createdTime: null
-  modifiedTime: 1682387497060
+  modifiedTime: 1762791074218
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!Uk4FgmLsNJc62zCJ'

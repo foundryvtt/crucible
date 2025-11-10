@@ -4,13 +4,17 @@ folder: null
 type: Item
 _id: FQAUMNkcagdBLURJ
 sort: 200000
-color: '#4d0a0a'
+color: '#671313'
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '11.295'
+  coreVersion: '13.350'
   createdTime: null
-  modifiedTime: 1682387469635
+  modifiedTime: 1762791095324
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!FQAUMNkcagdBLURJ'
