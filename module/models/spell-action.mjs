@@ -188,7 +188,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /** @inheritDoc */
   _prepare() {
-    CrucibleSpellAction.#prepareGesture.call(this);
+    this.usage.hasDice = true; // Spells involve dice rolls unless configured otherwise
     super._prepare();
 
     // Call Spellcraft Hooks
@@ -209,126 +209,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this._trueCost = {...this.cost};
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
       this.cost.action = this.cost.focus = this.cost.health = 0;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Customize the spell based on the Gesture used.
-   * TODO I think this should be handled as a `prepare` hook on the gesture config itself?
-   * @this {CrucibleSpellAction}
-   */
-  static #prepareGesture() {
-    const e = this.actor.equipment;
-    const mh = e.weapons.mainhand;
-    const t = this.actor.talentIds;
-    this.usage.hasDice = true; // Spells involve dice rolls by default
-    switch ( this.gesture.id ) {
-
-      /* -------------------------------------------- */
-      /*  Gesture: Create                             */
-      /* -------------------------------------------- */
-      case "create":
-        this.tags.add("summon");
-        this.usage.hasDice = false;
-
-        // Configure summon active effect
-        let effectId = SYSTEM.EFFECTS.getEffectId("create");
-        if ( t.has("conjurer00000000") ) { // TODO move this to conjurer talent
-          const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));
-          effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
-        }
-        this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
-
-        // Configure summon data
-        const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS.create;
-        const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
-        const tokenData = {
-          delta: {
-            system: {
-              details: {
-                level: Math.ceil(this.actor.system.advancement.threatLevel / 2),
-                rank: "minion"
-              }
-            }
-          }
-        };
-        this.usage.summons = [{actorUuid, tokenData, effectId}];
-        break;
-
-      /* -------------------------------------------- */
-      /*  Gesture: Strike                             */
-      /* -------------------------------------------- */
-      case "strike":
-        this.scaling = new Set(mh.config.category.scaling.split("."));
-        this.damage.base = mh.system.damage.base;
-        break;
-
-      /* -------------------------------------------- */
-      /*  Gesture: Ward                               */
-      /* -------------------------------------------- */
-      case "ward":
-        this.usage.hasDice = false;
-
-        // TODO: Enable healing wards
-        if ( this.damage.healing ) {
-          ui.notifications.warning("Gesture: Ward is not configured for healing Runes yet");
-          break;
-        }
-
-        // Shield Ward
-        if ( t.has("shieldward000000") && e.weapons.shield ) this.cost.hands = 0;
-
-        // Configure Ward effect
-        let resistance = this.gesture.damage.base;
-        if ( this.actor.talentIds.has("runewarden000000") ) {
-          resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);
-        }
-        this.effects.push({
-          _id: SYSTEM.EFFECTS.getEffectId("ward"),
-          icon: this.gesture.img,
-          duration: {rounds: 1},
-          origin: this.actor.uuid,
-          changes: [
-            {
-              key: `system.resistances.${this.damage.type}.bonus`,
-              value: resistance,
-              mode: CONST.ACTIVE_EFFECT_MODES.ADD
-            }
-          ]
-        });
-        break;
-
-      /* -------------------------------------------- */
-      /*  Gesture: Aspect                             */
-      /* -------------------------------------------- */
-      case "aspect":
-        // TODO
-        if ( this.damage.healing ) {
-          ui.notifications.warning("Gesture: Aspect is not configured for healing Runes yet");
-          break;
-        }
-        this.effects.push({
-          _id: SYSTEM.EFFECTS.getEffectId("aspect"),
-          icon: this.gesture.img,
-          duration: {rounds: 6},
-          origin: this.actor.uuid,
-          changes: [
-            {
-              key: `system.resistances.${this.damage.type}.bonus`,
-              value: 2,
-              mode: CONST.ACTIVE_EFFECT_MODES.ADD
-            },
-            {
-              key: `system.rollBonuses.damage.${this.damage.type}`,
-              value: 2,
-              mode: CONST.ACTIVE_EFFECT_MODES.ADD
-            }
-          ]
-        });
-        this.usage.hasDice = false;
-        break;
     }
   }
 
