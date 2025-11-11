@@ -30,6 +30,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       includesActions: false,
       includesHooks: false,
       hasAdvancedDescription: false
+    },
+    window: {
+      resizable: true
     }
   };
 
