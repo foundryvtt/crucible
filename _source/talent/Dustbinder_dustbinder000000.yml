@@ -5,9 +5,10 @@ system:
   node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Earth. Spells which use
-    this Rune cause the Corroding condition on Critical Hits.</p><p>The
-    Corroding effect lasts for 3 Rounds and deals your Wisdom score as Acid
-    damage to Health each Round.</p>
+    this Rune cause the @Condition[corroding] condition on Critical
+    Hits.</p><p>The Corroding effect lasts for <strong>3 Rounds</strong> and
+    deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
+    <strong>Health</strong> each Round.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -29,15 +30,15 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1676596843579
-  modifiedTime: 1727280044889
+  modifiedTime: 1762830952603
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dustbinder000000
   duplicateSource: null
   exportSource: null
 _id: dustbinder000000
-folder: c0nl6X8tp4Of0Y4O
-sort: -100000
+folder: KojrDmhlaQhj52EG
+sort: 500000
 _key: '!items!dustbinder000000'

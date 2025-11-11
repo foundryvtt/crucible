@@ -1,0 +1,19 @@
+type: Item
+folder: Ua0XvGOuOJ5KVvlz
+name: Upgrades
+color: '#48376d'
+sorting: a
+_id: KojrDmhlaQhj52EG
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1762830745114
+_key: '!folders!KojrDmhlaQhj52EG'

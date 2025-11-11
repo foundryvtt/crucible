@@ -1,4 +1,4 @@
-name: Earth Sprite
+name: Earth Visitor
 type: adversary
 img: systems/crucible/assets/tokens/creations/Earth.webp
 system:
@@ -73,13 +73,13 @@ system:
       immune: false
   resources:
     health:
-      value: 21
+      value: 34
     morale:
-      value: 8
+      value: 17
     action:
       value: 4
     focus:
-      value: 2
+      value: 3
     heroism:
       value: 0
   movement:
@@ -94,29 +94,32 @@ system:
     - strike
     - defend
   advancement:
-    level: 1
+    level: 4
     rank: minion
   details:
     archetype:
       description: >-
-        <p>Sprites are lesser elementals which are embodiments of their raw
-        element, but lack the sapience of their greater kin.</p>
-      identifier: elementalSprite
+        <p>Visitors are embodiments of raw elemental energy that assume forms
+        that are vaguely humanoid in shape. Unlike their lesser kin, Elemental
+        Visitors are are capable of communication and understanding, although
+        their motivations are seldom aligned with those of mortals.</p>
+      identifier: elementalVisitor
       abilities:
         wisdom: 1
         presence: 2
-        intellect: 1
-        strength: 2
+        intellect: 2
+        strength: 3
         toughness: 3
-        dexterity: 3
+        dexterity: 1
       talents:
-        - Compendium.crucible.adversary-talents.Item.falseAppearance0
         - Compendium.crucible.talent.Item.gesturefan000000
+        - Compendium.crucible.talent.Item.gestureaspect000
       skills:
-        - stealth
+        - athletics
+        - intimidation
         - performance
       equipment: []
-      name: Elemental Sprite
+      name: Elemental Visitor
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Earth.</p>
@@ -340,39 +343,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!ugQYiiEmj9idwvqW.acidAbsorption00'
-  - name: False Appearance
-    type: talent
-    _id: falseAppearance0
-    img: icons/magic/perception/silhouette-stealth-shadow.webp
-    system:
-      nodes: []
-      description: >-
-        <p>While it remains motionless, the @ref[actor.name]{creature} is
-        indistinguishable from some other object or material.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!ugQYiiEmj9idwvqW.falseAppearance0'
   - name: 'Gesture: Fan'
     type: talent
     img: icons/magic/water/projectile-bolts-salvo-blue.webp
@@ -494,6 +464,52 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     _key: '!actors.items!ugQYiiEmj9idwvqW.47fiS0EI8OD46Uj2'
+  - name: 'Gesture: Aspect'
+    type: talent
+    img: icons/magic/control/silhouette-hold-change-green.webp
+    system:
+      description: >-
+        <p>Infuse the essence of a Rune into the self, empowering your own
+        physical form or psyche.</p>
+
+
+        <p>When you assume a certain Aspect, you become more closely attuned to
+        the damage type of the Rune used in your spell. You gain <strong>+2
+        Resistance</strong> to that damage type, and deal an additional
+        <strong>+2 Damage</strong> whenever dealing damage of that type.</p>
+
+
+        <p>Your Aspect lasts for <strong>6 Rounds</strong>. You may only have
+        one active Aspect, casting another spell using the Aspect gesture
+        replaces the previous effect.</p>
+      actions: []
+      gesture: aspect
+      actorHooks: []
+      nodes:
+        - pre1b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.gestureaspect000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: gestureaspect000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!ugQYiiEmj9idwvqW.gestureaspect000'
 effects: []
 folder: Qj43QwSX0hMgGKkC
 ownership:
@@ -508,7 +524,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762720935396
-  modifiedTime: 1762721088163
+  modifiedTime: 1762829115775
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: ugQYiiEmj9idwvqW
 sort: 300000

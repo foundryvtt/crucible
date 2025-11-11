@@ -6,8 +6,10 @@ system:
   node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Life. Spells which use this
-    Rune cause the Mending condition on Critical Hits.</p><p>The Mending effect
-    lasts for 1 Round and deals your Wisdom score as restoration to Health.</p>
+    Rune cause the @Condition[mending] condition on Critical Hits.</p><p>The
+    Mending effect lasts for <strong>1 Round</strong> and deals your
+    <strong>Wisdom</strong> score as additional <strong>Restoration</strong> to
+    <strong>Health</strong>.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -23,18 +25,18 @@ system:
         const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
         outcome.effects.push(mending);
 effects: []
-folder: c0nl6X8tp4Of0Y4O
-sort: 25000
+folder: KojrDmhlaQhj52EG
+sort: 400000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1682181078484
-  modifiedTime: 1727280051092
+  modifiedTime: 1762832868553
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

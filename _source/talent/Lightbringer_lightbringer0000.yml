@@ -5,9 +5,10 @@ system:
   node: pre3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Illumination. Spells which
-    use this Rune cause the Irradiated condition on Critical Hits.</p><p>The
-    Irradiated effect lasts for 1 Round and deals your Presence score as Radiant
-    damage to both Health and Morale.</p>
+    use this Rune cause the @Condition[irradiated] condition on Critical
+    Hits.</p><p>The Irradiated effect lasts for <strong>1 Round</strong> and
+    deals your <strong>Presence</strong> score as <strong>Radiant</strong>
+    damage to both <strong>Health</strong> and <strong>Morale</strong>.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -31,15 +32,15 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1677356823203
-  modifiedTime: 1727280120762
+  modifiedTime: 1762832862187
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.lightbringer0000
   duplicateSource: null
   exportSource: null
 _id: lightbringer0000
-folder: c0nl6X8tp4Of0Y4O
-sort: -200000
+folder: KojrDmhlaQhj52EG
+sort: 193750
 _key: '!items!lightbringer0000'

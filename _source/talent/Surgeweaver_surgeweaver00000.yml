@@ -5,9 +5,11 @@ system:
   node: int3a
   description: >-
     <p>You are highly skilled in weaving the Rune of Lightning. Spells which use
-    this Rune cause the Shocked condition on Critical Hits.</p><p>The Shocked
-    effect lasts for 1 Round, deals half your Intellect score as Lightning
-    damage to Morale, and applies the Staggered condition.</p>
+    this Rune cause the @Condition[shocked] condition on Critical
+    Hits.</p><p>The Shocked effect lasts for <strong>1 Round</strong>, deals
+    half your <strong>Intellect</strong> score as <strong>Lightning</strong>
+    damage to <strong>Morale</strong>, and applies the @Condition[staggered]
+    condition.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -30,15 +32,15 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1676596789321
-  modifiedTime: 1727280180262
+  modifiedTime: 1762831274416
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.surgeweaver00000
   duplicateSource: null
   exportSource: null
 _id: surgeweaver00000
-folder: c0nl6X8tp4Of0Y4O
-sort: 37500
+folder: KojrDmhlaQhj52EG
+sort: 200000
 _key: '!items!surgeweaver00000'

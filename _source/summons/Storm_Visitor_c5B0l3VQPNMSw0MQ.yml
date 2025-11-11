@@ -1,6 +1,6 @@
-name: Frost Sprite
+name: Storm Visitor
 type: adversary
-img: systems/crucible/assets/tokens/creations/Frost.webp
+img: systems/crucible/assets/tokens/creations/Storm.webp
 system:
   abilities:
     wisdom:
@@ -73,13 +73,13 @@ system:
       immune: false
   resources:
     health:
-      value: 17
+      value: 21
     morale:
-      value: 10
+      value: 26
     action:
       value: 4
     focus:
-      value: 3
+      value: 7
     heroism:
       value: 0
   movement:
@@ -88,45 +88,52 @@ system:
     engagementBonus: 0
   currency: 0
   status: null
-  favorites: []
+  favorites:
+    - cast
+    - reactiveStrike
+    - strike
+    - defend
   advancement:
-    level: 1
+    level: 4
     rank: minion
   details:
     archetype:
       description: >-
-        <p>Sprites are lesser elementals which are embodiments of their raw
-        element, but lack the sapience of their greater kin.</p>
-      identifier: elementalSprite
+        <p>Visitors are embodiments of raw elemental energy that assume forms
+        that are vaguely humanoid in shape. Unlike their lesser kin, Elemental
+        Visitors are are capable of communication and understanding, although
+        their motivations are seldom aligned with those of mortals.</p>
+      identifier: elementalVisitor
       abilities:
         wisdom: 1
         presence: 2
-        intellect: 1
-        strength: 2
-        toughness: 3
-        dexterity: 3
-      talents:
-        - Compendium.crucible.adversary-talents.Item.falseAppearance0
-        - Compendium.crucible.talent.Item.gesturefan000000
-      skills:
-        - stealth
-        - performance
-      equipment: []
-      name: Elemental Sprite
-      img: icons/magic/symbols/elements-air-earth-fire-water.webp
-    taxonomy:
-      description: <p>Elemental creatures corresponding to the element of Frost.</p>
-      category: elemental
-      abilities:
-        wisdom: 3
-        presence: 1
-        intellect: 1
+        intellect: 2
         strength: 3
         toughness: 3
         dexterity: 1
+      talents:
+        - Compendium.crucible.talent.Item.gesturefan000000
+        - Compendium.crucible.talent.Item.gestureaspect000
+      skills:
+        - athletics
+        - intimidation
+        - performance
+      equipment: []
+      name: Elemental Visitor
+      img: icons/magic/symbols/elements-air-earth-fire-water.webp
+    taxonomy:
+      description: <p>Elemental creatures corresponding to the element of Lightning.</p>
+      category: elemental
+      abilities:
+        wisdom: 3
+        presence: 3
+        intellect: 3
+        strength: 1
+        toughness: 1
+        dexterity: 1
       resistances:
         bludgeoning:
-          value: -2
+          value: 0
           immune: false
         corruption:
           value: 0
@@ -135,7 +142,7 @@ system:
           value: 0
           immune: false
         slashing:
-          value: 1
+          value: -1
           immune: false
         poison:
           value: 0
@@ -144,22 +151,22 @@ system:
           value: 0
           immune: false
         fire:
-          value: -2
+          value: 0
           immune: false
         cold:
-          immune: true
-          value: 0
+          value: 2
+          immune: false
         electricity:
           value: 0
-          immune: false
+          immune: true
         psychic:
-          value: 0
+          value: -2
           immune: false
         radiant:
           value: -2
           immune: false
         void:
-          value: 1
+          value: -1
           immune: false
       characteristics:
         spells: true
@@ -168,26 +175,24 @@ system:
         size: 4
         stride: 10
       talents:
-        - Compendium.crucible.adversary-talents.Item.coldAbsorption00
-        - Compendium.crucible.adversary-talents.Item.amorphous0000000
-        - Compendium.crucible.talent.Item.runefrost0000000
-        - Compendium.crucible.adversary-talents.Item.aqueousTransmiss
-      identifier: frostElemental
-      name: Frost Elemental
-      img: icons/magic/water/elemental-water.webp
+        - Compendium.crucible.talent.Item.runelightning000
+        - Compendium.crucible.adversary-talents.Item.electricityAbsor
+      identifier: stormElemental
+      name: Storm Elemental
+      img: icons/magic/lightning/bolt-strike-clouds-blue.webp
     biography:
       appearance: ''
       public: ''
       private: ''
     languages: []
 prototypeToken:
-  name: Frost Sprite
+  name: Storm Sprite
   displayName: 20
   actorLink: false
   width: 4
   height: 4
   texture:
-    src: systems/crucible/assets/tokens/creations/Frost.webp
+    src: systems/crucible/assets/tokens/creations/Storm.webp
     anchorX: 0.5
     anchorY: 0.5
     offsetX: 0
@@ -262,15 +267,56 @@ prototypeToken:
   appendNumber: false
   prependAdjective: false
 items:
-  - name: Cold Absorption
+  - name: 'Rune: Lightning'
     type: talent
-    img: icons/magic/water/snowflake-ice-blue-white.webp
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw, electrical energy. The Lightning rune
+        governs sources of electrical energy and electrical discharge. It is
+        opposed by the orderly rune of Earth.</p>
+
+        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: lightning
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runelightning000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.runelightning000'
+  - name: Electricity Absorption
+    type: talent
+    _id: electricityAbsor
+    img: icons/magic/lightning/bolt-strike-explosion-blue.webp
     system:
       nodes: []
       description: >-
-        <p>The @ref[actor.name]{creature} has an exceptional ability to thrive
-        within frigid environments. Its <strong>Cold</strong> resistance is
-        doubled and if that resistance would reduce an amount of damage below
+        <p>The @ref[actor.name]{creature} has an exceptional ability to take
+        lightning blasts in stride. Its <strong>Electricity</strong> resistance
+        is doubled and if that resistance would reduce an amount of damage below
         zero, the negative amount is received as <strong>Healing</strong>
         instead.</p>
       actions: []
@@ -292,177 +338,11 @@ items:
       systemId: crucible
       systemVersion: 0.8.1
       lastModifiedBy: null
-    _id: coldAbsorption00
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.coldAbsorption00'
-  - name: Amorphous
-    type: talent
-    _id: amorphous0000000
-    img: icons/creatures/slimes/slime-movement-dripping-purple.webp
-    system:
-      nodes: []
-      description: >-
-        <p>The @ref[actor.name]{creature} may move through a space as narrow as
-        1 inch in diameter without any penalty to its <strong>Stride</strong>.
-        It is immune to the @Condition[restrained] condition.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.amorphous0000000'
-  - name: 'Rune: Frost'
-    type: talent
-    img: icons/magic/water/snowflake-ice-snow-white.webp
-    system:
-      description: >-
-        <p>The orderly force of elemental, thermal energy. The Frost rune
-        governs sources of ice and cold. It is opposed by the chaotic rune of
-        Flame.</p>
-
-        <p>The Frost rune scales using <strong>Wisdom</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
-        <strong>Health</strong>.</p>
-      actions: []
-      rune: frost
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runefrost0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.runefrost0000000'
-  - name: Aqueous Transmission
-    type: talent
-    img: icons/magic/water/wave-water-teal.webp
-    system:
-      nodes: []
-      description: <p>The @ref[name] is able to move instantaneously through water.</p>
-      actions:
-        - id: aqueousTransmission
-          name: Aqueous Transmission
-          img: icons/magic/water/wave-water-teal.webp
-          condition: ''
-          description: >-
-            <p>When the @ref[name] is within water, it can instantaneously
-            transport itself to any unoccupied space within the same body of
-            water up to 120 feet away. It does not need to be able to see the
-            destination to make this <strong>Move</strong>.</p>
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            weapon: false
-          range:
-            minimum: null
-            maximum: 120
-            weapon: false
-          target:
-            type: self
-            number: 1
-            scope: 1
-            self: false
-          effects: []
-          tags:
-            - movement
-          actionHooks: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: aqueousTransmiss
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.aqueousTransmiss'
-  - name: False Appearance
-    type: talent
-    _id: falseAppearance0
-    img: icons/magic/perception/silhouette-stealth-shadow.webp
-    system:
-      nodes: []
-      description: >-
-        <p>While it remains motionless, the @ref[actor.name]{creature} is
-        indistinguishable from some other object or material.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.falseAppearance0'
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.electricityAbsor'
   - name: 'Gesture: Fan'
     type: talent
     img: icons/magic/water/projectile-bolts-salvo-blue.webp
@@ -501,7 +381,49 @@ items:
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!mMBMYzpipJdqVf7k.gesturefan000000'
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.gesturefan000000'
+  - name: Voltaic Claw
+    type: weapon
+    img: icons/magic/lightning/projectile-orb-blue.webp
+    system:
+      category: simple1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      damageType: electricity
+      identifier: voltaicClaw
+      invested: false
+      description:
+        public: ''
+        private: ''
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: feNVndyyNP8lNnqr
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.feNVndyyNP8lNnqr'
   - name: Elemental Armor
     type: armor
     img: icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp
@@ -535,55 +457,59 @@ items:
       systemId: crucible
       systemVersion: 0.8.1
       lastModifiedBy: null
-    _id: k0YORkxCqPLxrdNj
+    _id: DxCEPc6zCfAVdQSw
     folder: null
     sort: 0
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
-    _key: '!actors.items!mMBMYzpipJdqVf7k.k0YORkxCqPLxrdNj'
-  - name: Frost Claw
-    type: weapon
-    img: icons/skills/melee/strike-slashes-orange.webp
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.DxCEPc6zCfAVdQSw'
+  - name: 'Gesture: Aspect'
+    type: talent
+    img: icons/magic/control/silhouette-hold-change-green.webp
     system:
-      category: simple1
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      properties:
-        - natural
-      damageType: cold
-      identifier: earthenClaw
-      invested: false
-      description:
-        public: ''
-        private: ''
+      description: >-
+        <p>Infuse the essence of a Rune into the self, empowering your own
+        physical form or psyche.</p>
+
+
+        <p>When you assume a certain Aspect, you become more closely attuned to
+        the damage type of the Rune used in your spell. You gain <strong>+2
+        Resistance</strong> to that damage type, and deal an additional
+        <strong>+2 Damage</strong> whenever dealing damage of that type.</p>
+
+
+        <p>Your Aspect lasts for <strong>6 Rounds</strong>. You may only have
+        one active Aspect, casting another spell using the Aspect gesture
+        replaces the previous effect.</p>
       actions: []
+      gesture: aspect
       actorHooks: []
-      dropped: false
-      slot: 0
+      nodes:
+        - pre1b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
     effects: []
     flags:
       core: {}
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.gestureaspect000
       duplicateSource: null
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.8.1
       lastModifiedBy: null
-    _id: 9xN7cJJFkD00Nr2G
+    _id: gestureaspect000
     folder: null
     sort: 0
     ownership:
       default: 0
-      AnoypGxxNIMOS0XY: 3
-    _key: '!actors.items!mMBMYzpipJdqVf7k.9xN7cJJFkD00Nr2G'
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.gestureaspect000'
 effects: []
 folder: Qj43QwSX0hMgGKkC
 ownership:
@@ -597,9 +523,9 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762721002447
-  modifiedTime: 1762721088163
+  createdTime: 1762721088141
+  modifiedTime: 1762829107820
   lastModifiedBy: AnoypGxxNIMOS0XY
-_id: mMBMYzpipJdqVf7k
-sort: 400000
-_key: '!actors!mMBMYzpipJdqVf7k'
+_id: c5B0l3VQPNMSw0MQ
+sort: 200000
+_key: '!actors!c5B0l3VQPNMSw0MQ'

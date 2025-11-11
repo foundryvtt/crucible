@@ -1,0 +1,40 @@
+name: Kineturge
+type: talent
+img: icons/skills/ranged/bullets-triple-ball-yellow.webp
+system:
+  nodes:
+    - pre3b
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Kinesis. Spells which use
+    this Rune cause the @Condition[bleeding] condition on Critical
+    Hits.</p><p>The Bleeding effect lasts for <strong>1 Round</strong> and deals
+    your <strong>Presence</strong> ability score as additional
+    <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: KojrDmhlaQhj52EG
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1762832547425
+  modifiedTime: 1762832857687
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: kineturge0000000
+sort: 0
+_key: '!items!kineturge0000000'

@@ -1,5 +1,5 @@
 folder: 5oBBNdq95OvvXx3e
-name: Frost Mote
+name: Frost Sprite
 type: adversary
 img: systems/crucible/assets/tokens/creations/Frost.webp
 system:
@@ -39,25 +39,24 @@ system:
     level: -1
     archetype:
       description: >-
-        <p>Motes are the smallest elemental embodiments that still take physical
-        form. They are generally unintelligent and act according to
-        environmental stimuli or following the instinctual direction of a nearby
-        greater elemental.</p>
-      identifier: elementalMote
+        <p>Sprites are lesser elementals which are embodiments of their raw
+        element, but lack the sapience of their greater kin.</p>
+      identifier: elementalSprite
       abilities:
         wisdom: 1
-        presence: 3
-        intellect: 0
-        strength: 1
-        toughness: 2
-        dexterity: 5
+        presence: 2
+        intellect: 1
+        strength: 2
+        toughness: 3
+        dexterity: 3
       talents:
         - Compendium.crucible.adversary-talents.Item.falseAppearance0
+        - Compendium.crucible.talent.Item.gesturefan000000
       skills:
         - stealth
         - performance
       equipment: []
-      name: Elemental Mote
+      name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Frost.</p>
@@ -152,9 +151,9 @@ system:
       bonus: 0
   resources:
     health:
-      value: 6
+      value: 17
     morale:
-      value: 5
+      value: 10
     action:
       value: 4
     focus:
@@ -198,7 +197,7 @@ system:
   movement:
     sizeBonus: -1
   advancement:
-    level: -1
+    level: 1
     threat: minion
   favorites:
     - cast
@@ -584,6 +583,45 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!me5glbOshiijlVUH.falseAppearance0'
+  - name: 'Gesture: Fan'
+    type: talent
+    img: icons/magic/fire/blast-jet-stream-embers-red.webp
+    system:
+      description: >-
+        <p>Focus the essence of a rune into a sweeping or splintered arc to
+        strike multiple targets in close proximity. If used with Earth, this
+        might hurl a spray of stone in an arc, while using it with Kinesis might
+        carve a slice across multiple foes.</p><p>The Fan gesture scales using
+        <strong>Intellect</strong> and targets a 120 degree, 6 foot cone,
+        dealing 6 base damage on a successful attack.</p>
+      actions: []
+      gesture: fan
+      actorHooks: []
+      nodes:
+        - int1a
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: gesturefan000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!me5glbOshiijlVUH.gesturefan000000'
 effects: []
 flags: {}
 _stats:
@@ -591,7 +629,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1677963742821
-  modifiedTime: 1762720534109
+  modifiedTime: 1762829237316
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
