@@ -149,6 +149,18 @@ HOOKS.clarifyIntent = {
 
 /* -------------------------------------------- */
 
+HOOKS.counterSpell = {
+  async preActivate(targets) {
+    const target = targets[0];
+    const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
+    if ( !lastAction || !lastAction.tags.has("spell") ) {
+      throw new Error("You can only counterspell the caster of the last action, and that action must be a spell!")
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
