@@ -58,12 +58,21 @@ export default class CrucibleChatMessage extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Returns the most recent action (confirmed or otherwise) in the chat log
+   * Returns the most recent action in the chat log
+   * @param {Object} [options]              Options which modify which actions are considered valid for retrieval
+   * @param {boolean} [confirmed]           Require the action to be confirmed (true), unconfirmed (false), or either (undefined)
+   * @param {CrucibleActor|string} [actor]  An Actor (or actor ID) whose last action to get
    * @returns {CrucibleAction|null}
    */
-  static getLastAction() {
-    for ( const message of game.messages.contents.toReversed() ) {
+  static getLastAction({confirmed, actor}={}) {
+    const messages = game.messages.contents;
+    for ( let i = messages.length - 1; i >= 0; i-- ) {
+      const message = messages[i];
       if ( !message.flags.crucible?.action ) continue;
+      if ( (confirmed !== undefined) && (message.flags.crucible.confirmed !== confirmed) ) continue;
+      const messageActor = fromUuidSync(message.flags.crucible.actor);
+      if ( (typeof actor === "string") && (messageActor?.id !== actor) ) continue;
+      if ( (actor instanceof Actor) && (messageActor !== actor) ) continue;
       return CrucibleAction.fromChatMessage(message);
     }
     return null;
