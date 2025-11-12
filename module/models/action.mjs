@@ -615,6 +615,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const spell = crucible.api.models.CrucibleSpellAction.getDefault(this.actor);
       return spell.use({token, ...options});
     }
+    
+    // Redirect to counterspelling
+    if ( this.id === "counterSpell" ) {
+      const counterspell = crucible.api.models.CrucibleCounterspellAction.getDefault(this.actor, {
+        name: this.name,
+        img: this.img
+      });
+      return counterspell.use({token, ...options});
+    }
 
     // Infer the Token performing the Action
     if ( !token ) {
@@ -1675,6 +1684,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {
       action = new game.system.api.models.CrucibleSpellAction(actionData, actionContext);
+    }
+    else if ( actionId.startsWith("counterspell") ) {
+      action = new game.system.api.models.CrucibleCounterspellAction(actionData, actionContext);
     }
     else action = new this(actionData, actionContext);
     action.prepare();

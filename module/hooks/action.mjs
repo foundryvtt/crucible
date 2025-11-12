@@ -149,13 +149,33 @@ HOOKS.clarifyIntent = {
 
 /* -------------------------------------------- */
 
-HOOKS.counterSpell = {
-  async preActivate(targets) {
-    const target = targets[0];
-    const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
-    if ( !lastAction || !lastAction.tags.has("spell") ) {
-      throw new Error("You can only counterspell the caster of the last action, and that action must be a spell!")
+HOOKS.counterspell = {
+  initialize() {
+    Object.assign(this.usage.context, {
+      label: "Counterspell Tags",
+      icon: "fa-solid fa-sparkles",
+      tags: {}
+    });
+    if ( this.composition === 0 ) return;
+    this.usage.context.tags.rune = `Rune: ${this.rune?.name ?? "None"}`;
+    this.usage.context.tags.gesture = `Gesture: ${this.gesture?.name ?? "None"}`;
+  },
+  async postActivate(outcome) {
+    for ( const roll of outcome.rolls ) {
+      if ( roll.data.damage ) roll.data.damage.total = 0;
     }
+  },
+  async roll(outcome) {
+    outcome.usage.defenseType = "willpower"; // TODO
+    const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
+    if ( this.rune.id === usedRune.opposed ) {
+      this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 3};
+    }
+    if ( this.gesture.id === usedGesture.id ) {
+      this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 3};
+    }
+    const roll = await this.actor.spellAttack(this, outcome);
+    if ( roll ) outcome.rolls.push(roll);
   }
 }
 
