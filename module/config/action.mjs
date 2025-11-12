@@ -578,6 +578,7 @@ export const TAGS = {
       let weaponRange = 0;
       const contextTags = {};
       for ( const [i, weapon] of strikes.entries() ) {
+        this.scaling.push(...weapon.config.category.scaling.split("."));
         if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
         if ( this.range.weapon ) {
           if ( !weaponRange ) weaponRange = weapon.system.range;
@@ -1081,13 +1082,14 @@ TAGS.skill = {
 };
 
 // Specific Skills
-for ( const {id, label} of Object.values(SKILLS) ) {
+for ( const {id, abilities, label} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
     label,
     category: "skills",
     propagate: ["skill"],
     initialize() {
+      this.scaling.push(...abilities);
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
       this.usage.hasDice = true;

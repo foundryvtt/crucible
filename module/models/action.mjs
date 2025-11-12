@@ -298,6 +298,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   item = this.item; // Defined during constructor
 
   /**
+   * The ability scores which cause this action to scale.
+   * @type {string[]}
+   */
+  scaling = this.scaling; // Defined during _prepareData
+
+  /**
    * A specific Token that is performing this Action in the context of a Scene.
    * @type {CrucibleToken}
    */
@@ -460,6 +466,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Propagate and sort tags
     this.tags = new CrucibleActionTags(this._source.tags, this);
+
+    // Ability Scaling (if known)
+    this.scaling = [];
 
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
@@ -1031,16 +1040,34 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {name, statuses, duration} = effectData;
-      outcome.effects.push({
+      const {name, statuses: statusesArray, duration} = effectData;
+      const statuses = new Set(statusesArray);
+
+      // Prepare effect data
+      const effect = {
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
         name: name ?? this.name,
         description: this.description,
         icon: this.img,
         origin: this.actor.uuid,
-        statuses,
         duration
-      });
+      };
+
+      // Auto-configure statuses
+      for ( const status of statusesArray ) {
+        const fn = SYSTEM.EFFECTS[status];
+        if ( typeof fn !== "function" ) continue;
+        const statusEffect = fn(this.actor, {ability: this.scaling});
+        if ( statusEffect.flags ) {
+          effect.flags ||= {};
+          effect.flags.crucible ||= statusEffect.flags.crucible;
+        }
+        if ( statusEffect.statuses ) {
+          for ( const s of statusEffect.statuses ) statuses.add(s);
+        }
+      }
+      effect.statuses = Array.from(statuses);
+      outcome.effects.push(effect);
     }
   }
 
@@ -1181,6 +1208,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
     this.actor?.callActorHooks("prepareAction", this);
+
+    // Dedupe ability scaling
+    const scaling = new Set(this.scaling);
+    this.scaling.length = 0;
+    this.scaling.push(...scaling);
   }
 
   /* -------------------------------------------- */

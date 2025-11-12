@@ -267,12 +267,14 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the ability score bonus for a given scaling mode.
-   * @param {string[]} scaling    How is the ability bonus computed?
-   * @returns {number}            The ability bonus
+   * @param {string|string[]} scaling   How is the ability bonus computed?
+   * @param {number} [divisor=2]        The divisor that determines the bonus
+   * @returns {number}                  The ability bonus
    */
-  getAbilityBonus(scaling) {
+  getAbilityBonus(scaling, divisor=2) {
+    if ( typeof scaling === "string" ) scaling = scaling.split(".");
     const abilities = this.system.abilities;
-    return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * 2));
+    return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
 
   /* -------------------------------------------- */
@@ -605,7 +607,7 @@ export default class CrucibleActor extends Actor {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
-      ability: this.getAbilityBonus(Array.from(spell.scaling)),
+      ability: this.getAbilityBonus(spell.usage.scaling),
       skill: 0,
       enchantment: 0,
       banes, boons,
@@ -1032,9 +1034,6 @@ export default class CrucibleActor extends Actor {
     const wasWeakened = this.system.isWeakened;
     const wasBroken = this.system.isBroken;
     const wasIncapacitated = this.isIncapacitated;
-
-    // Prune effects if the attack was unsuccessful
-    if ( !reverse && outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) outcome.effects.length = 0;
 
     // Call outcome confirmation actor hooks
     this.callActorHooks("confirmAction", action, outcome, {reverse});

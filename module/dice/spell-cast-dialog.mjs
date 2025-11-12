@@ -25,7 +25,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     inflections.sort((a, b) => a.name.localeCompare(b.name));
 
     // Scaling
-    const ability = actor.getAbilityBonus([...spell.scaling]);
+    const ability = actor.getAbilityBonus(spell.usage.scaling);
 
     // Merge context
     return foundry.utils.mergeObject(context, {

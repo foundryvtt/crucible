@@ -100,7 +100,7 @@ HOOKS.create = {
 HOOKS.strike = {
   prepare() {
     const mh = this.actor.equipment.weapons.mainhand;
-    this.scaling = new Set(mh.config.category.scaling.split("."));
+    this.scaling = mh.config.category.scaling.split(".");
     this.damage.base = mh.system.damage.base;
   }
 }
