@@ -5,6 +5,31 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
+ * The different required conditions under which an Active Effect can be applied from an Action.
+ * @type {Readonly<Record<string, {label: string}>>}
+ */
+export const EFFECT_RESULT_TYPES = Object.freeze({
+  any: {
+    label: "Any"
+  },
+  custom: {
+    label: "Custom"
+  },
+  success: {
+    label: "Success"
+  },
+  successCritical: {
+    label: "Critical Success"
+  },
+  failure: {
+    label: "Failure"
+  },
+  failureCritical: {
+    label: "Critical Failure"
+  }
+});
+
+/**
  * The scope of creatures affected by an action.
  * @enum {number}
  */
