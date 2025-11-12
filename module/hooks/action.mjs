@@ -114,7 +114,6 @@ HOOKS.clarifyIntent = {
       roll.data.damage.base = roll.data.damage.total = 1;
       roll.data.damage.resource = "focus";
     }
-
     const effect = outcome.effects[0];
     if ( !effect ) return;
     effect.changes ||= [];
@@ -478,15 +477,6 @@ HOOKS.uppercut = {
     if ( !lastAction.outcomes.has(targets[0].actor) ) {
       throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
     }
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.venomousBite = {
-  postActivate(outcome) {
-    if ( outcome.target === this.actor ) return;
-    foundry.utils.mergeObject(outcome.effects[0], SYSTEM.EFFECTS.poisoned(this.actor));
   }
 }
 

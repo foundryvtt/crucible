@@ -13,11 +13,11 @@ system:
       condition: ''
       description: >-
         <p>This attack may be used after a <strong>Move</strong> that brings the
-        creature at least 10 feet closer to its target. If the creature was
-        above the target, this attack gains <strong>+1 Boon</strong> per 10 feet
-        of elevation decrease in that movement.</p><p>If this attack is a
-        <strong>Critical Hit</strong>, the target of the attack is immediately
-        knocked <strong>Prone</strong>.</p>
+        @ref[actor.name]{creature} at least 10 feet closer to its target. If the
+        creature was above the target, this attack gains <strong>+1
+        Boon</strong> per 10 feet of elevation decrease in that
+        movement.</p><p>If this attack is a <strong>Critical Hit</strong>, the
+        target of the attack is immediately knocked @Condition[prone].</p>
       cost:
         action: 0
         focus: 0
@@ -34,11 +34,14 @@ system:
         self: false
       effects:
         - name: Pouncing Strike
-          scope: 3
+          scope: '3'
+          result:
+            type: successCritical
+            all: false
           statuses:
             - prone
           duration:
-            turns: 1
+            turns: null
             rounds: null
       tags:
         - melee
@@ -62,12 +65,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.8.1
   createdTime: 1750877461266
-  modifiedTime: 1750877461266
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762975030140
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: pouncingStrike00
 sort: 0
 _key: '!items!pouncingStrike00'

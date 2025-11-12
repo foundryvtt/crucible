@@ -14,7 +14,7 @@ system:
         at least 10 feet towards the target. The attack gains <strong>+1
         Boon</strong> per 10 feet of elevation decrease in that
         movement.</p><p>If this attack is a <strong>Critical Hit</strong>, the
-        target of the attack is immediately knocked <strong>Prone</strong>.</p>
+        target of the attack is immediately knocked @Condition[prone].</p>
       cost:
         action: 0
         focus: 0
@@ -31,7 +31,10 @@ system:
         self: false
       effects:
         - name: Swooping Strike
-          scope: 3
+          scope: '3'
+          result:
+            type: successCritical
+            all: false
           statuses:
             - prone
           duration:
@@ -59,12 +62,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.1
   createdTime: 1750728541887
-  modifiedTime: 1751643764652
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762972280318
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: swoopingStrike00
 sort: 0
 _key: '!items!swoopingStrike00'

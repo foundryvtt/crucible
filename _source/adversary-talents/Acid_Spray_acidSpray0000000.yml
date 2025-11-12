@@ -12,9 +12,9 @@ system:
       img: icons/magic/acid/projectile-smoke-glowing.webp
       condition: ''
       description: >-
-        <p>The creature expels a spray of acidic bile in a 10 foot fan. On a
-        Critical Hit, this attack causes the <strong>Corroding</strong>
-        condition.</p>
+        <p>The creature expels a spray of acidic bile in a 10 foot fan.</p><p>On
+        a <strong>Critical Hit</strong>, this attack causes the
+        @Condition[corroding] condition for <strong>3 Turns</strong>.</p>
       cost:
         action: 1
         focus: 1
@@ -29,7 +29,17 @@ system:
         number: 1
         scope: 4
         self: false
-      effects: []
+      effects:
+        - name: Acid Spray
+          scope: '3'
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - corroding
+          duration:
+            turns: 3
+            rounds: null
       tags:
         - melee
         - natural
@@ -54,12 +64,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.1
   createdTime: 1750726617612
-  modifiedTime: 1751643743298
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762975196383
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: acidSpray0000000
 sort: 100000
 _key: '!items!acidSpray0000000'
