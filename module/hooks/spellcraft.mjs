@@ -76,7 +76,7 @@ HOOKS.create = {
       const effectIds = Array.fromRange(1, 3).map(i => SYSTEM.EFFECTS.getEffectId(`conjurercreate${i}`));
       effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
     }
-    this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 12}});
+    this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
 
     // Configure summon data
     const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];

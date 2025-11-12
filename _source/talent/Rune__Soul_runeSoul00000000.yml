@@ -4,8 +4,9 @@ img: icons/magic/light/projectile-halo-teal.webp
 system:
   description: >-
     <p>An orderly force of creation and spiritual essence. The Soul rune governs
-    matters related to sapience, personality, emotion, and empathy.</p><p>The
-    Soul rune scales using <strong>Presence</strong> and provides
+    the fundamental procession of souls through life and death and relates to
+    matters of sapience, personality, and mental health.</p><p>The Soul rune
+    scales using <strong>Presence</strong> and provides
     <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
     <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>. It is
     opposed by the chaotic rune of <strong>Oblivion</strong>.</p>
@@ -43,7 +44,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762815813235
-  modifiedTime: 1762816107111
+  modifiedTime: 1762981593520
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0

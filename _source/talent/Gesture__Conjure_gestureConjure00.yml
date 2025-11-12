@@ -10,16 +10,17 @@ system:
     <p>You coalesce arcane power into a superior form, manifesting a
     <strong>Visitor</strong> which appears within 30 feet and joins Combat at
     <strong>Initiative</strong> 1. Your Visitor is a Minion equal to your own
-    Level.</p><p>The Visitor survives for <strong>12 Rounds</strong>. You may
-    only have one active Visitor. Casting another spell using the Conjure
-    gesture replaces your previous Visitor. This gesture requires <strong>2
-    Hands</strong> to cast and has a base cost of <strong>5 Action</strong> and
-    <strong>2 Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
-    talent is currently placed at a <strong>Tier 4</strong> node. It will
-    eventually only be attainable at a higher level (probably Level 6 required).
-    It is currently available "early" for testing.</p><p>Not all Runes have a
-    Visitor actor defined yet. Runes that do not yet have a defined Conjuration
-    will — for now — manifest a <strong>Flame Visitor</strong>.</p>
+    Level.</p><p>The Conjure gesture scales with <strong>Wisdom</strong> and the
+    Visitor survives for <strong>12 Rounds</strong>. You may only have one
+    active Visitor. Casting another spell using the Conjure gesture replaces
+    your previous Visitor. This gesture requires <strong>2 Hands</strong> to
+    cast and has a base cost of <strong>5 Action</strong> and <strong>2
+    Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent is
+    currently placed at a <strong>Tier 4</strong> node. It will eventually only
+    be attainable at a higher level (probably Level 6 required). It is currently
+    available "early" for testing.</p><p>Not all Runes have a Visitor actor
+    defined yet. Runes that do not yet have a defined Conjuration will — for now
+    — manifest a <strong>Flame Visitor</strong>.</p>
   actions: []
   rune: ''
   gesture: conjure
@@ -43,6 +44,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762718477065
-  modifiedTime: 1762829373711
+  modifiedTime: 1762982800882
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!gestureConjure00'
