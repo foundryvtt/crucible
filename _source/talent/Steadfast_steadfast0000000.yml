@@ -27,7 +27,7 @@ system:
         number: 1
       effects:
         - name: Steadfast Resolve
-          scope: 0
+          scope: 1
           statuses:
             - resolute
           duration:

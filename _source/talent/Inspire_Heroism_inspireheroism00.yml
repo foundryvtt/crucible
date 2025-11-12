@@ -32,7 +32,7 @@ system:
         size: 10
       effects:
         - name: Inspire Heroism
-          scope: 0
+          scope: 2
           statuses: []
           duration:
             turns: 1

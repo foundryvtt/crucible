@@ -129,21 +129,21 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     const disableHooks = !game.user.isGM;
     return {
       action,
-      editable: this.isEditable,
       actionHookChoices: Object.entries(SYSTEM.ACTION_HOOKS).reduce((obj, [k, v]) => {
         if ( !v.deprecated ) obj[k] = k;
         return obj;
       }, {}),
-      disableHooks,
       actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
-      fields: this.action.constructor.schema.fields,
-      tabs: this.#prepareTabs().sheet,
-      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
-      tags: this.#prepareTags(),
-      targetTypes: SYSTEM.ACTION.TARGET_TYPES,
-      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
+      disableHooks,
+      editable: this.isEditable,
       effectsHTML: await this.#renderEffectsHTML(),
-      hookPartial: CrucibleActionConfig.HOOK_PARTIAL
+      fields: this.action.constructor.schema.fields,
+      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
+      hookPartial: CrucibleActionConfig.HOOK_PARTIAL,
+      tabs: this.#prepareTabs().sheet,
+      tags: this.#prepareTags(),
+      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
+      targetTypes: SYSTEM.ACTION.TARGET_TYPES
     }
   }
 
@@ -230,7 +230,9 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @returns {Promise<string>}
    */
   async #renderEffectHTML(i, effect) {
-    const ctx = {i, effect, statuses: CONFIG.statusEffects, targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices};
+    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+    const ctx = {i, effect, statuses: CONFIG.statusEffects, effectScopes};
     return foundry.applications.handlebars.renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, ctx);
   }
 
