@@ -289,6 +289,10 @@ export const PROPERTIES = {
     label: "WEAPON.TAGS.Engaging",
     tooltip: "WEAPON.TAGS.EngagingTooltip"
   },
+  intuitive: {
+    label: "WEAPON.TAGS.Intuitive",
+    tooltip: "WEAPON.TAGS.IntuitiveTooltip",
+  },
   keen: {
     label: "WEAPON.TAGS.Keen",
     tooltip: "WEAPON.TAGS.KeenTooltip",
@@ -353,7 +357,8 @@ export const UNARMED_DATA = {
     category: "unarmed",
     quality: "standard",
     enchantment: "mundane",
-    damageType: "bludgeoning"
+    damageType: "bludgeoning",
+    properties: ["intuitive"]
   }
 }
 

@@ -15,6 +15,7 @@ system:
   properties:
     - ambush
     - thrown
+    - intuitive
   description:
     public: >-
       <p>Small, swift, and deadly, the dagger slips between ribs or into gaps in
@@ -35,10 +36,10 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   createdTime: 1749824389920
-  modifiedTime: 1759602090859
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763063536179
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
