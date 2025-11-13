@@ -1,31 +1,10 @@
 import CounterspellDialog from "../dice/counterspell-dialog.mjs";
-import CrucibleAction from "./action.mjs";
+import CrucibleSpellAction from "./spell-action.mjs";
 
 /**
  * Data and functionality that represents a Counterspell in the Crucible spellcraft system.
- * 
- * @property {CrucibleSpellcraftRune} rune
- * @property {CrucibleSpellcarftGesture} gesture
  */
-export default class CrucibleCounterspellAction extends CrucibleAction {
-  static defineSchema() {
-    const fields = foundry.data.fields;
-    const schema = super.defineSchema();
-    schema.rune = new fields.StringField({required: true, choices: SYSTEM.SPELL.RUNES});
-    schema.gesture = new fields.StringField({required: true, choices: SYSTEM.SPELL.GESTURES});
-    schema.composition = new fields.NumberField({choices: Object.values(this.COMPOSITION_STATES)});
-    return schema;
-  }
-
-  /**
-   * Counter composition states.
-   * @enum {number}
-   */
-  static COMPOSITION_STATES = {
-    NONE: 0,
-    COMPOSING: 1,
-    COMPOSED: 2
-  }
+export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @override */
   static dialogClass = CounterspellDialog;
@@ -35,56 +14,30 @@ export default class CrucibleCounterspellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _initializeSource(data, options) {
-    data = super._initializeSource(data, options);
-    data.id = this.getCounterspellId(data);
-    return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  updateSource(changes, options) {
-    if ( ("rune" in changes) || ("gesture" in changes) ) {
-      changes.id = this.getCounterspellId(changes);
-    }
-    return super.updateSource(changes, options);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
   _prepareData() {
+    const {cost: {action, focus}, name, img, target, description, range} = this;
     super._prepareData();
 
-    this.rune = SYSTEM.SPELL.RUNES[this.rune];
-    this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
+    const cost = {
+      ...this.cost,
+      action,
+      focus
+    };
 
-    // Derived Attributes
-    this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
-    this.range = this.gesture.range;
-    this.range.maximum = Math.max(this.range.maximum ?? 0, this.gesture.target.size ?? 0);
-    this.damage = {
-      base: 0
-    }
+    // Avoid determining hands cost if not actually composing a counterspell
+    if ( !this.composition ) cost.hands = 0;
+    
+    // Undo certain changes we don't want done
+    Object.assign(this, {
+      name, img, target, description, range, cost
+    });
   }
 
-  // TODO: Hands check
 
   /* -------------------------------------------- */
 
-  getCounterspellId({rune, gesture}={}) {
-    return "counterspell";
-    rune ??= (this.rune?.id || "none");
-    gesture ??= (this.gesture?.id || "none");
-    return ["counterspell", rune, gesture].filterJoin(".");
-  }
-
-  /* -------------------------------------------- */
-
-  _prepare() {
-    this.usage.hasDice = true; // Counterspell always rolls
-    super._prepare();
+  getSpellId({rune, gesture, inflection}={}) {
+    return "counterSpell";
   }
 
   /* -------------------------------------------- */
@@ -93,7 +46,6 @@ export default class CrucibleCounterspellAction extends CrucibleAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
-    if ( this.composition === CrucibleCounterspellAction.COMPOSITION_STATES.COMPOSING ) options.strict = false;
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
@@ -103,6 +55,8 @@ export default class CrucibleCounterspellAction extends CrucibleAction {
     }
     return targets;
   }
+
+  /* -------------------------------------------- */
 
   /**
    * Prepare the default Counterspell action.
@@ -119,5 +73,16 @@ export default class CrucibleCounterspellAction extends CrucibleAction {
       gesture
     });
     return new this(counterspellData, {actor});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getTags() {
+    const tags = super.getTags();
+    delete tags.action.defense;
+    delete tags.action.healing;
+    delete tags.action.resource;
+    return tags;
   }
 }

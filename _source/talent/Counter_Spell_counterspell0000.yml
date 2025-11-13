@@ -18,26 +18,35 @@ system:
     - id: counterSpell
       condition: Another creature which you can see is casting a spell.
       description: >-
-        You form arcane energy into a countervailing spellcraft. Designate a
-        Rune and Gesture which you know to attempt to counter the spell. You
-        must be able to hit your target with your chosen Gesture. Choosing a
-        Rune which is opposed to the Rune being cast adds +3 Boons to your roll.
-        Choosing the same Gesture as the one being cast adds +3 Boons to your
-        roll. Perform an <strong>Opposed Test</strong> against the caster of the
-        spell using the Ability, Skill, and Enchantment bonuses of the
-        respective spells being cast. If your roll exceeds theirs, the spell is
-        countered and its magic is nullified.
+        <p>You form arcane energy into a countervailing spellcraft. Designate a
+        Rune and Gesture which you know to attempt to counter the spell.
+        Choosing a Rune which is opposed to the Rune being cast adds +3 Boons to
+        your roll. Choosing the same Gesture as the one being cast adds +3 Boons
+        to your roll. Perform an <strong>Opposed Test</strong> against the
+        caster of the spell using the Ability, Skill, and Enchantment bonuses of
+        the respective spells being cast. If your roll exceeds theirs, the spell
+        is countered and its magic is nullified.</p>
       tags:
         - reaction
+        - harmless
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
+      name: Counter Spell
+      img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      actionHooks: []
   actorHooks: []
 effects: []
 ownership:
@@ -47,11 +56,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.350'
   createdTime: 1675644858016
-  modifiedTime: 1742935539724
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763056394196
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.counterspell0000
   duplicateSource: null
   exportSource: null

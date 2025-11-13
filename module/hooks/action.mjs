@@ -149,7 +149,7 @@ HOOKS.clarifyIntent = {
 
 /* -------------------------------------------- */
 
-HOOKS.counterspell = {
+HOOKS.counterSpell = {
   initialize() {
     Object.assign(this.usage.context, {
       label: "Counterspell Tags",
@@ -159,11 +159,6 @@ HOOKS.counterspell = {
     if ( this.composition === 0 ) return;
     this.usage.context.tags.rune = `Rune: ${this.rune?.name ?? "None"}`;
     this.usage.context.tags.gesture = `Gesture: ${this.gesture?.name ?? "None"}`;
-  },
-  async postActivate(outcome) {
-    for ( const roll of outcome.rolls ) {
-      if ( roll.data.damage ) roll.data.damage.total = 0;
-    }
   },
   async roll(outcome) {
     outcome.usage.defenseType = "willpower"; // TODO

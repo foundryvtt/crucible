@@ -1,4 +1,5 @@
 import CrucibleAction from "./action.mjs";
+import CrucibleCounterspellAction from "./counterspell-action.mjs";
 import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
@@ -946,7 +947,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;
-      this.actions[actionId] = action.bind(this.parent);
+      if ( actionId === "counterSpell" ) {
+        const counterspell = crucible.api.models.CrucibleCounterspellAction.getDefault(this.parent, action.toObject());
+        this.actions[actionId] = counterspell;
+      } else this.actions[actionId] = action.bind(this.parent);
     }
   }
 
