@@ -441,8 +441,9 @@ export const TAGS = {
       this.usage.actorStatus.hasCast = true;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
+      this.usage.scaling = [this.rune.scaling, this.gesture.scaling];
     },
-    canUse() {
+    preActivate() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
       }
