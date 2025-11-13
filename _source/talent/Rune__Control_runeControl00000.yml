@@ -8,7 +8,45 @@ system:
     <strong>Intellect</strong>, targets <strong>Willpower</strong>, and deals
     <strong>Psychic</strong> damage to <strong>Morale</strong>. It is opposed by
     the chaotic rune of <strong>Kinesis</strong>.</p>
-  actions: []
+  actions:
+    - id: motivate
+      img: icons/magic/control/hypnosis-mesmerism-eye.webp
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+      actionHooks: []
+      name: Motivate
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Control allows you to affect the decision
+        making of others in basic ways including:</p><ul><li><p>Moderately
+        intensify or dampen the primary emotion being felt by a creature you
+        touch. If the creature is intelligent enough to be aware of the laws
+        governing spellcraft, they are aware of your
+        actions.</p></li><li><p>Understand the abstract motivations of another
+        living creature which allows you to touch it. You are able to intuit
+        their immediate goals expressed in the form of a single
+        verb.</p></li><li><p>Intensely focus on your current objective and the
+        means of achieving it. You receive a brief hint or reminder from the
+        Gamemaster about that objective containing only information which you
+        have previously learned.</p></li></ul><p>Uses of Motivate may only
+        effect yourself or another creature which you can physically touch. You
+        may attempt other uses similar those above, the effectiveness of which
+        is decided by the Gamemaster.</p>
   rune: control
   actorHooks: []
   nodes:
@@ -23,19 +61,19 @@ effects: []
 flags:
   core: {}
 _stats:
-  compendiumSource: Compendium.crucible.talent.runemind00000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762814809099
-  modifiedTime: 1762816797974
+  createdTime: 1763003747940
+  modifiedTime: 1763004228056
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
-sort: 100000
 _id: runeControl00000
+sort: 0
 _key: '!items!runeControl00000'

@@ -6,15 +6,14 @@ img: systems/crucible/icons/skills/medicine.jpg
 system:
   node: wis0a
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You have a basic education in
-    anatomy, physiology, and medicine. You gain the <strong>Novice</strong> rank
-    in the <strong>Medicine </strong>skill and are no longer considered
-    <strong>Untrained</strong> in that skill.</span></p><p><span
-    style="font-family:Vollkorn, serif">You’ve learned the basics of treating
-    common wounds and illnesses, and keep a running list of known alchemical and
-    herbal compounds that can be used for treating particular illnesses. With a
-    little time studying an injured, diseased, or otherwise ill individual you
-    can perform a basic diagnosis and treat accordingly.</span></p>
+    <p>You have a basic education in anatomy, physiology, and medicine. You gain
+    the <strong>Novice</strong> rank in the <strong>Medicine </strong>skill and
+    are no longer considered <strong>Untrained</strong> in that
+    skill.</p><p>You’ve learned the basics of treating common wounds and
+    illnesses, and keep a running list of known alchemical and herbal compounds
+    that can be used for treating particular illnesses. With a little time
+    studying an injured, diseased, or otherwise ill individual you can perform a
+    basic diagnosis and treat accordingly.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -31,10 +30,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742762260228
-  modifiedTime: 1742947368523
+  modifiedTime: 1763058446452
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!medicineNovice00'

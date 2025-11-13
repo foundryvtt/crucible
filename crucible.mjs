@@ -254,6 +254,14 @@ Hooks.once("init", async function() {
     },
   });
 
+  // Migration Required Version
+  game.settings.register("crucible", "migrationVersion", {
+    scope: "world",
+    config: false,
+    default: "0.0.0",
+    type: String
+  });
+
   // Primary party
   game.settings.register("crucible", "party", {
     name: "SETTINGS.CruciblePartyLabel",
@@ -512,6 +520,20 @@ Hooks.once("setup", function() {
  * On game ready, display the welcome journal if the user has not yet seen it.
  */
 Hooks.once("ready", async function() {
+
+  // System-specific interaction
+  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
+  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+
+  // Perform World Migrations
+  if ( game.users.activeGM?.isSelf ) {
+    const mv = game.settings.get("crucible", "migrationVersion");
+    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) {
+      await _performMigrations();
+    }
+  }
+
+  // Display Welcome Journal
   const welcome = game.settings.get("crucible", "welcome");
   if ( !welcome ) {
     const entry = await fromUuid("Compendium.crucible.rules.JournalEntry.5SgXrAKS2EnqVggJ");
@@ -519,14 +541,23 @@ Hooks.once("ready", async function() {
     await game.settings.set("crucible", "welcome", true);
     await _initializePrototypeTokenSettings();
   }
-
-  // FIXME bring this back with a migration version
-  // if ( game.user === game.users.activeGM ) await syncTalents();
-
-  // System-specific interaction
-  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
 });
+
+/* -------------------------------------------- */
+
+/**
+ * Perform one-time data migrations for the current world.
+ * @returns {Promise<void>}
+ */
+async function _performMigrations() {
+
+  // Sync all Actor talents
+  await syncTalents({force: true, reload: false});
+
+  // Record the new migration version
+  await game.settings.set("crucible", "migrationVersion", crucible.version);
+  foundry.utils.debouncedReload();
+}
 
 /* -------------------------------------------- */
 
@@ -727,31 +758,31 @@ function registerDevelopmentHooks() {
 
 /**
  * Sync talent data across all actors in the world if their synchronized version is stale.
- * @param {boolean} [force]   Force syncing even if the actor stats are current
+ * @param {object} options
+ * @param {boolean} [options.force]     Force syncing even if the actor stats are current
+ * @param {boolean} [options.reload]    Auto-reload when synchronization is complete
  * @returns {Promise<void>}
  */
-async function syncTalents(force=false) {
+async function syncTalents({force=false, reload=true}={}) {
   console.groupCollapsed("Crucible | Talent Data Synchronization")
-  const total = game.actors.size;
-  let n = 0;
-  let synced = 0;
+  const bar = {n: 0, total: game.actors.size, pct: 0};
+  const progress = ui.notifications.info("Synchronizing Talents", {console: true, progress: true});
   for ( const actor of game.actors ) {
-    n++;
+    bar.n++;
+    bar.pct = bar.n / bar.total;
     if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
       try {
         await actor.syncTalents();
-        console.log(`Crucible | Synchronized talents for Actor "${actor.name}"`);
-        synced++;
       } catch(err) {
         console.warn(`Crucible | Talent synchronization failed for Actor "${actor.name}": ${err.message}`);
+      } finally {
+        progress.update({pct: bar.pct, message: actor.name});
       }
-      SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: Math.round(n * 100 / total)});
     }
   }
-  if ( synced ) SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: 100});
-  console.log(`Crucible | Complete talent synchronization for ${synced} Actors`);
+  progress.update({pct: 1});
   console.groupEnd();
-  foundry.utils.debouncedReload();
+  if ( reload ) foundry.utils.debouncedReload();
 }
 
 /* -------------------------------------------- */

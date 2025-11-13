@@ -6,15 +6,13 @@ img: systems/crucible/icons/skills/performance.jpg
 system:
   node: pre0a
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You have learned the basic
-    practices of art and entertainment. You gain the <strong>Novice</strong>
-    rank in the <strong>Performance </strong>skill and are no longer considered
-    <strong>Untrained</strong> in that skill.</span></p><p><span
-    style="font-family:Vollkorn, serif">You know a few common dances, have a
-    collection of well-known tales, and you could probably sing or play a few
-    popular songs. You may be trained in an instrument or two, and your
-    capability with a brush or pen is reasonable enough that you could probably
-    create a passable work of art.</span></p>
+    <p>You have learned the basic practices of art and entertainment. You gain
+    the <strong>Novice</strong> rank in the <strong>Performance </strong>skill
+    and are no longer considered <strong>Untrained</strong> in that
+    skill.</p><p>You know a few common dances, have a collection of well-known
+    tales, and you could probably sing or play a few popular songs. You may be
+    trained in an instrument or two, and your capability with a brush or pen is
+    reasonable enough that you could probably create a passable work of art.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -31,10 +29,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742762964533
-  modifiedTime: 1742947368523
+  modifiedTime: 1763058447137
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!performanceNovic'

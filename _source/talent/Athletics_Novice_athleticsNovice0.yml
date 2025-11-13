@@ -6,14 +6,13 @@ img: systems/crucible/icons/skills/athletics.jpg
 system:
   node: str0b
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You have received training in
-    basic athletics. You gain the <strong>Novice</strong> rank in the
-    <strong>Athletics</strong> skill and are no longer considered
-    <strong>Untrained</strong> in that skill.</span></p><p><span
-    style="font-family:Vollkorn, serif">You know whether a surface can support
-    your weight or not, how to find handholds while climbing, and how to
-    distribute your weight for buoyancy when swimming. You know how to run for
-    distance, and how to pace yourself to avoid exhaustion.</span></p>
+    <p>You have received training in basic athletics. You gain the
+    <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and are
+    no longer considered <strong>Untrained</strong> in that skill.</p><p>You
+    know whether a surface can support your weight or not, how to find handholds
+    while climbing, and how to distribute your weight for buoyancy when
+    swimming. You know how to run for distance, and how to pace yourself to
+    avoid exhaustion.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -30,10 +29,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742761822347
-  modifiedTime: 1742947368523
+  modifiedTime: 1763057862095
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!athleticsNovice0'

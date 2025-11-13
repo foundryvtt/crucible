@@ -10,7 +10,43 @@ system:
     <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
     <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>. It is
     opposed by the chaotic rune of <strong>Oblivion</strong>.</p>
-  actions: []
+  actions:
+    - id: evoke
+      img: icons/magic/light/projectile-halo-teal.webp
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+      actionHooks: []
+      name: Evoke
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Soul allows you to facilitate basic forms
+        of spiritual influence including:</p><ul><li><p>Enable yourself or
+        another willing person to revisit a core memory from their past as if it
+        happened recently unless other magic prevents that
+        recollection.</p></li><li><p>Identify a negative spiritual condition
+        that is affecting a person such as @Condition[broken],
+        @Condition[frightened], @Condition[confused], or
+        @Condition[insane].</p></li><li><p>Create a momentary spiritual
+        connection with another willing creature that allows them to recognize
+        an idea which can be expressed as a single word.</p></li></ul><p>Uses of
+        Evoke may only effect yourself or another creature which you can
+        physically touch. You may attempt other uses similar those above, the
+        effectiveness of which is decided by the Gamemaster.</p>
   rune: soul
   actorHooks:
     - hook: applyCriticalEffects
@@ -37,19 +73,19 @@ effects: []
 flags:
   core: {}
 _stats:
-  compendiumSource: Compendium.crucible.talent.runecourage00000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762815813235
-  modifiedTime: 1762981593520
+  createdTime: 1763002983715
+  modifiedTime: 1763003945663
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
-sort: 1100000
 _id: runeSoul00000000
+sort: 0
 _key: '!items!runeSoul00000000'
