@@ -486,8 +486,8 @@ Hooks.once("setup", function() {
   // Update compendium sources from settings
   const sources = game.settings.get("crucible", "compendiumSources");
   crucible.CONFIG.packs = Object.entries(sources).reduce((acc, [type, packs]) => {
-    acc[type] = packs.filter(p => game.packs.has(p));
-    if ( !acc[type].size ) acc[type] = [crucible.CONST.COMPENDIUM_PACKS[type]];
+    acc[type] = new Set(packs.filter(p => game.packs.has(p)));
+    if ( !acc[type].size ) acc[type] = new Set([crucible.CONST.COMPENDIUM_PACKS[type]]);
     return acc;
   }, {});
 

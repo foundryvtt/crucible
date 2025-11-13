@@ -746,7 +746,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       // Specialization status
       const rank = SYSTEM.TALENT.TRAINING_RANK_VALUES[s.rank];
       s.rankTags = [rank.label];
-      s.hexClass = skill.abilities.sort().join("-");
+      s.hexClass = skill.abilities.toSorted().join("-");
 
       // Tooltips
       s.tooltips = {

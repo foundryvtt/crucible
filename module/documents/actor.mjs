@@ -1394,9 +1394,7 @@ export default class CrucibleActor extends Actor {
       let talent;
 
       // Known talent ID migration
-      if ( item.id in migrations ) {
-        talent = await fromUuid(migrations[item.id]);
-      }
+      if ( item._id in migrations ) talent = await fromUuid(migrations[item._id]);
 
       // Search for the talent ID in a source pack
       for ( const pack of packs ) {
@@ -1408,9 +1406,9 @@ export default class CrucibleActor extends Actor {
       if ( !talent ) continue;
 
       // Either update or delete+create
-      if ( talent.id === item.id ) updates.push(this._cleanItemData(talent));
+      if ( talent.id === item._id ) toUpdate.push(this._cleanItemData(talent));
       else {
-        toDelete.push(item.id);
+        toDelete.push(item._id);
         toCreate.push(this._cleanItemData(talent));
       }
     }
