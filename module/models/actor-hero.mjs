@@ -197,25 +197,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Preparation of resource pools for the Hero subtype specifically.
-   * @inheritDoc
-   */
-  _prepareResources() {
-    super._prepareResources();
-    const r = this.resources;
-
-    // Wounds
-    r.wounds.max = Math.ceil(1.5 * r.health.max);
-    r.wounds.value = Math.clamp(r.wounds.value, 0, r.wounds.max);
-
-    // Madness
-    r.madness.max = Math.ceil(1.5 * r.morale.max);
-    r.madness.value = Math.clamp(r.madness.value, 0, r.madness.max);
-  }
-
-  /* -------------------------------------------- */
-
   /** @inheritDoc */
   prepareItems(items) {
     super.prepareItems(items);

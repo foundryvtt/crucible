@@ -114,7 +114,8 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
    */
   static getUnarmoredArmor(actor) {
     const itemCls = /** @type Constructor<CrucibleItem> */ getDocumentClass("Item");
-    const armor = new itemCls(ARMOR.UNARMORED_DATA, {parent: actor});
+    const itemData = foundry.utils.deepClone(ARMOR.UNARMORED_DATA);
+    const armor = new itemCls(itemData, {parent: actor});
     armor.prepareData(); // Needs to be explicitly called since we may be in the midst of Actor preparation.
     return armor;
   }

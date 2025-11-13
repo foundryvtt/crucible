@@ -2142,14 +2142,24 @@ export default class CrucibleActor extends Actor {
     // Simulate changes on a cloned actor?
     const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
     if ( simulate ) {
-      const clone = this.clone();
-      clone.updateSource(data);
+      let clone;
+      try {
+        clone = this.clone({}, {keepId: true, save: false});
+        const simulateData = foundry.utils.mergeObject(data, {
+          system: {
+            resources: {
+              health: {value: 1}, // Clear weakened
+              morale: {value: 1}  // Clear broken
+            }
+          }
+        }, {inplace: false});
+        clone.updateSource(simulateData);
+      } finally {
+        if ( !clone ) return;
+      }
 
       // Replenish resources
-      if ( !this.inCombat ) {
-        clone.updateSource({system: {resources: {health: {value: 1}, morale: {value: 1}}}}); // Clear weakened + broken
-        foundry.utils.mergeObject(data, clone.#getRecoveryData());
-      }
+      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone.#getRecoveryData());
 
       // Constrain milestones
       if ( levelChange && (this.type === "hero") ) {

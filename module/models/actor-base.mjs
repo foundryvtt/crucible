@@ -785,20 +785,35 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareResources() {
     const {isIncapacitated, isWeakened} = this;
     const statuses = this.parent.statuses;
-    const {level, threat, threatFactor, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;
+    const level = this.advancement.level;
+    const rc = this._configureResourceProgression()
 
-    // Health and Morale
-    const levelBase = Math.max(level, 1) * 6;
-    const levelMultiplier = level < 1 ? threat : threatFactor;
-    r.health.max = Math.ceil((levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * levelMultiplier);
+    // Health
+    const healthBase = Math.max(level, 1) * rc.healthPerLevel;
+    r.health.max = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * rc.healthMultiplier);
     r.health.value = Math.clamp(r.health.value, 0, r.health.max);
-    r.morale.max = Math.ceil((levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * levelMultiplier);
+
+    // Morale
+    const moraleBase = Math.max(level, 1) * rc.moralePerLevel;
+    r.morale.max = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * rc.moraleMultiplier);
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
+    // Wounds
+    if ( "wounds" in r ) {
+      r.wounds.max = Math.ceil(rc.woundsMultiplier * r.health.max);
+      r.wounds.value = Math.clamp(r.wounds.value, 0, r.wounds.max);
+    }
+
+    // Madness
+    if ( "madness" in r ) {
+      r.madness.max = Math.ceil(rc.madnessMultiplier * r.morale.max);
+      r.madness.value = Math.clamp(r.madness.value, 0, r.madness.max);
+    }
+
     // Action
-    r.action.max = maxAction + (r.action.bonus || 0);
+    r.action.max = rc.actionMax + (r.action.bonus || 0);
     if ( statuses.has("stunned") ) r.action.max -= 4;
     else if ( statuses.has("staggered") ) r.action.max -= 2;
     if ( statuses.has("hastened") ) r.action.max += 1;
@@ -808,13 +823,33 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamp(r.action.value, 0, r.action.max);
 
     // Focus
-    const threatFocus = {1.5: 1, 2: 2}[threatFactor] || 0;
-    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2) + threatFocus;
+    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2) + rc.focusBonus;
     r.focus.value = Math.clamp(r.focus.value, 0, r.focus.max);
 
     // Heroism
-    r.heroism.max = 3;
-    r.heroism.value = Math.clamp(r.heroism.value, 0, 3);
+    r.heroism.max = rc.heroismMax;
+    r.heroism.value = Math.clamp(r.heroism.value, 0, r.heroism.max);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Configure parameters of resource progression for this Actor type.
+   * @protected
+   */
+  _configureResourceProgression() {
+    const {level, threat, threatFactor} = this.advancement;
+    return {
+      actionMax: 6,
+      focusBonus: {1.5: 1, 2: 2}[threatFactor] || 0,
+      healthPerLevel: 6,
+      healthMultiplier: level < 1 ? threat : threatFactor,
+      heroismMax: 3,
+      madnessMultiplier: 1.5,
+      moralePerLevel: 6,
+      moraleMultiplier: level < 1 ? threat : threatFactor,
+      woundsMultiplier: 1.5
+    }
   }
 
   /* -------------------------------------------- */

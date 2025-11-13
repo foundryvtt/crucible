@@ -87,6 +87,19 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _configureResourceProgression() {
+    const config = super._configureResourceProgression();
+    const {rank} = this.advancement;
+    const threatConfig = SYSTEM.THREAT_RANKS[rank];
+    config.actionMax = threatConfig.actionMax;
+    config.healthPerLevel = this.movement.size + 2;
+    config.moralePerLevel = this.movement.size + 2;
+    return config;
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   _prepareBaseMovement() {
     const {size=4, stride=10} = this.details.taxonomy?.movement || {};
@@ -117,7 +130,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
     // Automatic training and maximum action configuration
     this.advancement.autoTrainingRank = Math.clamp(1 + Math.floor(adv.threatLevel / 6), 0, 4);
-    this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes
     this.#scaleAbilities(taxonomy, archetype);
