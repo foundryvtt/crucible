@@ -265,23 +265,25 @@ export default class StandardCheck extends Roll {
         }
       }
     }
+    cardData.cssClass = cardData.cssClass.join(" ");
 
     // Damage, Resistance, and Vulnerability
-    damage.display = Number.isNumeric(damage?.total) && (damage.base > 0); // Was damage intended?
-    if ( damage.display ) {
-      damage.label = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
-      damage.baseLabel = game.i18n.format("DICE.DamageBase", {type: damage.label});
-      damage.hasMultiplier = damage?.multiplier !== 1;
-      if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
-      else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
-      damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
-      damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
-      damage.cssClass = "";
-      if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
-      else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
-      if ( damage.total === 0 ) damage.cssClass += " ineffective";
+    if ( damage ) {
+      damage.display = Number.isNumeric(damage?.total) && (damage.base > 0); // Was damage intended?
+      if ( damage.display ) {
+        damage.label = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
+        damage.baseLabel = game.i18n.format("DICE.DamageBase", {type: damage.label});
+        damage.hasMultiplier = damage?.multiplier !== 1;
+        if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
+        else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
+        damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
+        damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
+        damage.cssClass = "";
+        if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
+        else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
+        if ( damage.total === 0 ) damage.cssClass += " ineffective";
+      }
     }
-    cardData.cssClass = cardData.cssClass.join(" ");
     return cardData;
   }
 

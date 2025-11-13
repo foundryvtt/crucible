@@ -607,7 +607,7 @@ export default class CrucibleActor extends Actor {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
-      ability: this.getAbilityBonus(spell.usage.scaling),
+      ability: this.getAbilityBonus(spell.scaling),
       skill: 0,
       enchantment: 0,
       banes, boons,

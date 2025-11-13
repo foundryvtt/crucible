@@ -469,9 +469,9 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
 
   // Spellcraft
-  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name"], false);
-  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name"], false);
-  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name"], false);
+  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"], false);
+  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"], false);
+  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"], false);
 
   // Config objects
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
