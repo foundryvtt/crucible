@@ -441,7 +441,6 @@ export const TAGS = {
       this.usage.actorStatus.hasCast = true;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
-      this.usage.scaling = [this.rune.scaling, this.gesture.scaling];
     },
     preActivate() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
