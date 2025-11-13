@@ -10,6 +10,7 @@
                 {{selectOptions runes selected=action.rune.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
+        <p class="hint">Targeted Rune: {{targetedRune}}</p>
     </div>
 
     <div class="form-group spell-component">
@@ -19,6 +20,7 @@
                 {{selectOptions gestures selected=action.gesture.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
+        <p class="hint">Targeted Gesture: {{targetedGesture}}</p>
     </div>
 
     {{#if hasDice}}
