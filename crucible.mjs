@@ -6,7 +6,7 @@
  */
 
 // Configuration
-import {SYSTEM} from "./module/config/system.mjs";
+import {SYSTEM} from "./module/const/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
 // Import Modules
@@ -23,9 +23,9 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
-import Enum from "./module/config/enum.mjs";
-import CrucibleTalentNode from "./module/config/talent-node.mjs";
-import {statusEffects} from "./module/config/statuses.mjs";
+import Enum from "./module/const/enum.mjs";
+import CrucibleTalentNode from "./module/const/talent-node.mjs";
+import {statusEffects} from "./module/const/statuses.mjs";
 
 // Party
 let party = null;
@@ -190,26 +190,26 @@ Hooks.once("init", async function() {
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
   sheets.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);
-  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
 
   sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAccessoryItemSheet, {types: ["accessory"], label: "CRUCIBLE.SHEETS.Accessory", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleToolItemSheet, {types: ["tool"], label: "CRUCIBLE.SHEETS.Tool", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleAccessoryItemSheet, {types: ["accessory"], label: "CRUCIBLE.SHEETS.Accessory", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleToolItemSheet, {types: ["tool"], label: "CRUCIBLE.SHEETS.Tool", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
-  sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+  sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
@@ -354,7 +354,7 @@ Hooks.once("init", async function() {
   });
 
   // Activate socket handler
-  game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
+  game.socket.on("system.crucible", handleSocketEvent);
 
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
@@ -403,7 +403,6 @@ Hooks.once("i18nInit", function() {
     // Special handling for enums
     if ( conf instanceof Enum ) {
       for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = game.i18n.localize(l);
-      Object.freeze(conf.labels);
       continue;
     }
 
@@ -414,7 +413,6 @@ Hooks.once("i18nInit", function() {
           if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
           else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
         }
-        Object.freeze(v);
       }
       else {
         if ( typeof v === "function" ) conf[k] = v();
@@ -431,10 +429,10 @@ Hooks.once("i18nInit", function() {
 
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
-    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
-    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
-    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/item/talent-summary.hbs`
+    "systems/crucible/templates/dice/partials/action-use-header.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+    "systems/crucible/templates/sheets/item/talent-summary.hbs"
   ]);
 });
 
@@ -444,14 +442,13 @@ Hooks.once("i18nInit", function() {
  * Perform one-time configuration of system configuration objects.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys, freeze=true) => {
+  const localizeConfigObject = (obj, keys) => {
     for ( let o of Object.values(obj) ) {
       for ( let k of keys ) {
         const v = o[k];
         if ( typeof v === "function" ) o[k] = v();
         else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
       }
-      if ( freeze ) Object.freeze(o);
     }
   }
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
@@ -483,17 +480,20 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
+  // Deep freeze CONST
+  foundry.utils.deepFreeze(SYSTEM);
+
   // Update compendium sources from settings
-  const currSources = Object.entries(game.settings.get("crucible", "compendiumSources")).reduce((acc, [type, sources]) => {
-    acc[type] = sources.filter(p => game.packs.has(p));
+  const sources = game.settings.get("crucible", "compendiumSources");
+  crucible.CONFIG.packs = Object.entries(sources).reduce((acc, [type, packs]) => {
+    acc[type] = packs.filter(p => game.packs.has(p));
     if ( !acc[type].size ) acc[type] = [crucible.CONST.COMPENDIUM_PACKS[type]];
     return acc;
   }, {});
-  crucible.CONFIG.packs = currSources;
 
   // Deferred registration of the hero creation sheet
   const sheets = foundry.applications.apps.DocumentSheetConfig;
-  sheets.registerSheet(Actor, SYSTEM.id, crucible.CONFIG.heroCreationSheet, {types: ["hero"],
+  sheets.registerSheet(Actor, "crucible", crucible.CONFIG.heroCreationSheet, {types: ["hero"],
     label: "CRUCIBLE.SHEETS.HeroCreation", makeDefault: false, canBeDefault: false, canConfigure: false});
 
   // Initialize Party
@@ -776,7 +776,7 @@ async function resetAllActorTalents() {
 /*  ESModules API                               */
 /* -------------------------------------------- */
 
-export {SYSTEM} from "./module/config/system.mjs";
+export {SYSTEM} from "./module/const/system.mjs";
 export * as applications from "./module/applications/_module.mjs";
 export * as canvas from "./module/canvas/_module.mjs";
 export * as dice from "./module/dice/_module.mjs";

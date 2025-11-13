@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {TOOL_CATEGORIES, PROPERTIES} from "../config/items.mjs";
+import {TOOL_CATEGORIES, PROPERTIES} from "../const/items.mjs";
 
 /**
  * Data schema, attributes, and methods specific to "tool" type Items.

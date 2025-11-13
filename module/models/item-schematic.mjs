@@ -1,6 +1,6 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {QUALITY_TIERS, SCHEMATIC_CATEGORIES, SCHEMATIC_PROPERTIES} from "../config/items.mjs";
-import {PASSIVE_BASE} from "../config/attributes.mjs";
+import {QUALITY_TIERS, SCHEMATIC_CATEGORIES, SCHEMATIC_PROPERTIES} from "../const/items.mjs";
+import {PASSIVE_BASE} from "../const/attributes.mjs";
 
 /**
  * Data schema, attributes, and methods specific to "consumable" type Items.

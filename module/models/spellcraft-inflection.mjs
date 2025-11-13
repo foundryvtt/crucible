@@ -46,7 +46,6 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
     for ( const [k, v] of Object.entries(inflections) ) {
       inflections[k] = new CrucibleSpellcraftInflection(v);
     }
-    Object.freeze(inflections);
   }
 
   /* -------------------------------------------- */

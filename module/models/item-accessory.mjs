@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import * as ACCESSORY from "../config/accessory.mjs";
+import * as ACCESSORY from "../const/accessory.mjs";
 
 /**
  * Data schema, attributes, and methods specific to "accessory" type Items.

@@ -1,4 +1,4 @@
-import {SYSTEM} from "../../config/system.mjs";
+import {SYSTEM} from "../../const/system.mjs";
 import CrucibleItem from "../../documents/item.mjs";
 
 const {ActorSheetV2} = foundry.applications.sheets;

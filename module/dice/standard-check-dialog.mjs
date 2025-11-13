@@ -106,16 +106,16 @@ export default class StandardCheckDialog extends DialogV2 {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
-      difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
+      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
       rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
         return {icon, label, action, active: action === rollMode};
       }),
       showDetails: data.totalBoons + data.totalBanes > 0,
-      canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
+      canIncreaseBoons: data.totalBoons < SYSTEM.DICE.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
-      canIncreaseBanes: data.totalBanes < SYSTEM.dice.MAX_BOONS,
+      canIncreaseBanes: data.totalBanes < SYSTEM.DICE.MAX_BOONS,
       canDecreaseBanes: data.totalBanes > 0
     });
   }
@@ -170,7 +170,7 @@ export default class StandardCheckDialog extends DialogV2 {
   _getDifficulty(dc) {
     let label = "";
     let tier = 0;
-    for ( let [d, l] of Object.entries(SYSTEM.dice.checkDifficulties) ) {
+    for ( let [d, l] of Object.entries(SYSTEM.DICE.checkDifficulties) ) {
       if ( dc >= d ) {
         tier = d;
         label = `${l} (DC ${d})`;
@@ -262,7 +262,7 @@ export default class StandardCheckDialog extends DialogV2 {
   static #modifyBoons(boons, delta) {
     boons.special ||= {label: "Special", number: 0};
     const total = Object.values(boons).reduce((t, b) => t + (b.id === "special" ? 0 : b.number), 0);
-    boons.special.number = Math.clamp(boons.special.number + delta, 0, SYSTEM.dice.MAX_BOONS - total);
+    boons.special.number = Math.clamp(boons.special.number + delta, 0, SYSTEM.DICE.MAX_BOONS - total);
     return boons;
   }
 

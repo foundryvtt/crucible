@@ -1,4 +1,4 @@
-import CrucibleTalentNode from "../../config/talent-node.mjs";
+import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";

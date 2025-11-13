@@ -4,7 +4,7 @@ import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
- * @import {TRAINING_TYPES} from "../config/talents.mjs";
+ * @import {TRAINING_TYPES} from "../const/talents.mjs";
  */
 
 /**
@@ -1378,22 +1378,48 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async syncTalents() {
-    const updates = [];
+    const toCreate = [];
+    const toUpdate = [];
+    const toDelete = [];
     const packs = [];
+    const migrations = SYSTEM.TALENT.TALENT_ID_MIGRATIONS;
     for ( const packId of crucible.CONFIG.packs.talent ) {
       const pack = game.packs.get(packId);
       if ( pack ) packs.push(pack);
     }
+
+    // Identify updates to perform
     for ( const item of this._source.items ) {
       if ( item.type !== "talent" ) continue;
+      let talent;
+
+      // Known talent ID migration
+      if ( item.id in migrations ) {
+        talent = await fromUuid(migrations[item.id]);
+      }
+
+      // Search for the talent ID in a source pack
       for ( const pack of packs ) {
-        let talent;
         if ( pack.index.has(item._id) ) talent = await pack.getDocument(item._id);
-        else if ( item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
-        if ( talent ) updates.push(this._cleanItemData(talent));
+      }
+
+      // Search for the upstream talent from its compendium source
+      if ( !talent && item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
+      if ( !talent ) continue;
+
+      // Either update or delete+create
+      if ( talent.id === item.id ) updates.push(this._cleanItemData(talent));
+      else {
+        toDelete.push(item.id);
+        toCreate.push(this._cleanItemData(talent));
       }
     }
-    await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
+
+    // Create, update, and delete talents
+    if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
+    if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
+      {diff: false, recursive: false, noHook: true});
+    if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
     await this.update({"_stats.systemVersion": game.system.version});
   }
 

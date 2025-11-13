@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {SYSTEM} from "../config/system.mjs";
+import {SYSTEM} from "../const/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -297,7 +297,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   }
 
   /* -------------------------------------------- */
-  
+
   /**
    * Render this weapon as HTML for a tooltip card.
    * @param {object} options

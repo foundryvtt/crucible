@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {PROPERTIES, LOOT_CATEGORIES} from "../config/items.mjs";
+import {PROPERTIES, LOOT_CATEGORIES} from "../const/items.mjs";
 
 /**
  * Data schema, attributes, and methods specific to "consumable" type Items.

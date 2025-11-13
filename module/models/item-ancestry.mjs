@@ -1,4 +1,4 @@
-import {SYSTEM} from "../config/system.mjs";
+import {SYSTEM} from "../const/system.mjs";
 import {ItemIdentifierField} from "./fields.mjs";
 
 /**

@@ -1,6 +1,6 @@
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
-import CrucibleTalentNode from "../../config/talent-node.mjs";
+import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentItem from "../../models/item-talent.mjs";
 import CrucibleTalentItemSheet from "../../applications/sheets/item-talent-sheet.mjs";
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;

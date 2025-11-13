@@ -3,7 +3,7 @@ import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.mjs";
 import * as CONSUMABLE from "./consumable.mjs";
 import * as CRAFTING from "./crafting.mjs";
-import * as dice from "./dice.mjs";
+import * as DICE from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
 import * as SKILL from "./skills.mjs"
@@ -12,8 +12,6 @@ import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
-
-export const SYSTEM_ID = "crucible";
 
 /* -------------------------------------------- */
 
@@ -150,35 +148,34 @@ export const TIME = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * Include all constant definitions within the SYSTEM global export
- * @type {Object}
+ * Include all constant definitions within the SYSTEM global export.
+ * Export removing submodule structure such that the entire system constant structure is a plain object.
+ * @type {object}
  */
 export const SYSTEM = {
-  id: SYSTEM_ID,
   ABILITIES: ATTRIBUTES.ABILITIES,
-  ACCESSORY,
-  ACTION,
-  ACTOR,
+  ACCESSORY: {...ACCESSORY},
+  ACTION: {...ACTION},
   ACTION_HOOKS,
+  ACTOR: {...ACTOR},
   ANCESTRIES,
-  ARMOR,
+  ARMOR: {...ARMOR},
   COMPENDIUM_PACKS,
-  CONSUMABLE,
-  CRAFTING,
+  CONSUMABLE: {...CONSUMABLE},
+  CRAFTING: {...CRAFTING},
   DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,
-  EFFECTS,
-  ITEM,
+  DICE: {...DICE},
+  EFFECTS: {...EFFECTS},
+  ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,
-  SKILL,
+  SKILL: {...SKILL},
   SKILLS: SKILL.SKILLS, // alias
-  SPELL,
-  TALENT,
+  SPELL: {...SPELL},
+  TALENT: {...TALENT},
   THREAT_RANKS,
   TIME,
-  WEAPON,
-  activeCheckFormula: "3d8",
-  dice: dice
+  WEAPON: {...WEAPON}
 };

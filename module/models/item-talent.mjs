@@ -1,5 +1,5 @@
 import CrucibleAction from "./action.mjs";
-import CrucibleTalentNode from "../config/talent-node.mjs";
+import CrucibleTalentNode from "../const/talent-node.mjs";
 import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 
 /**

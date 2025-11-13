@@ -24,7 +24,7 @@ export default class CrucibleScene extends Scene {
     const allowed = await super._preUpdate(changed, options, userId);
     if ( allowed === false ) return false;
     if ( !changed._stats || !changed.tokens?.length ) return;
-    const systemChanged = (changed._stats.systemId ?? changed._stats.exportSource?.systemId) !== SYSTEM.id;
+    const systemChanged = (changed._stats.systemId ?? changed._stats.exportSource?.systemId) !== "crucible";
     if ( systemChanged && (options.recursive === false) && changed.tokens?.length ) {
       if ( this.constructor.useMicrogrid(changed) ) {
         for ( const token of changed.tokens ) {
@@ -42,7 +42,7 @@ export default class CrucibleScene extends Scene {
     const allowed = await super._preUpdate(data, options, userId);
     if ( allowed === false ) return false;
     const sceneSystem = data._stats?.systemId ?? data._stats?.exportSource?.systemId;
-    if ( !sceneSystem || (sceneSystem === SYSTEM.id) ) return;
+    if ( !sceneSystem || (sceneSystem === "crucible") ) return;
     if ( this.constructor.useMicrogrid(data) && data.tokens?.length ) {
       for ( const token of data.tokens ) {
         token.height *= 5;
