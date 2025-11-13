@@ -6,21 +6,19 @@ img: systems/crucible/icons/skills/arcana.jpg
 system:
   node: pre0a
   description: >-
-    <p><span style="font-family:Vollkorn, serif">Your education covered the
-    fundamentals of metaphysics and magical theory, the relationship between the
-    runes, the opposing nature of order and chaos, and a cursory introduction to
-    spiritual beings including the most commonly known deified and demonized
-    figures of worship. You gain the <strong>Novice</strong> rank in the
-    <strong>Arcana </strong>skill and are no longer considered
-    <strong>Untrained</strong> in that skill.</span></p><p><span
-    style="font-family:Vollkorn, serif">Your rudimentary understanding of the
-    principle grammar of magic is sufficient to identify which lesser rune a
-    spell or ritual may be using, as well as the gesture used (if not the
-    inflection). You can identify whether a figure is influenced more by chaos
-    or by order, and can spot the signs of common spirits (both lesser and
-    greater). You know enough about religious customs to communicate with those
-    who worship a particular spirit or deity without embarrassing
-    yourself.</span></p>
+    <p>Your education covered the fundamentals of metaphysics and magical
+    theory, the relationship between the runes, the opposing nature of order and
+    chaos, and a cursory introduction to spiritual beings including the most
+    commonly known deified and demonized figures of worship. You gain the
+    <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and are no
+    longer considered <strong>Untrained</strong> in that skill.</p><p>Your
+    rudimentary understanding of the principle grammar of magic is sufficient to
+    identify which lesser rune a spell or ritual may be using, as well as the
+    gesture used (if not the inflection). You can identify whether a figure is
+    influenced more by chaos or by order, and can spot the signs of common
+    spirits (both lesser and greater). You know enough about religious customs
+    to communicate with those who worship a particular spirit or deity without
+    embarrassing yourself.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -37,10 +35,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742762195596
-  modifiedTime: 1743709857563
+  modifiedTime: 1763057817674
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!arcanaNovice0000'

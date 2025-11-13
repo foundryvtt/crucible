@@ -2,28 +2,6 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
-HOOKS.acidSpit = {
-  postActivate(outcome) {
-    if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
-      const amount = this.actor.abilities.toughness.value;
-      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, {amount}));
-    }
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.acidSpray = {
-  postActivate(outcome) {
-    if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
-      const amount = this.actor.abilities.toughness.value;
-      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, {amount}));
-    }
-  }
-}
-
-/* -------------------------------------------- */
-
 HOOKS.alchemistsFire = {
   prepare() {
     const tiers = {
@@ -136,7 +114,6 @@ HOOKS.clarifyIntent = {
       roll.data.damage.base = roll.data.damage.total = 1;
       roll.data.damage.resource = "focus";
     }
-
     const effect = outcome.effects[0];
     if ( !effect ) return;
     effect.changes ||= [];
@@ -362,14 +339,6 @@ HOOKS.poisonIngest = {
 
 /* -------------------------------------------- */
 
-HOOKS.pouncingStrike = {
-  postActivate(outcome) {
-    if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;
-  }
-}
-
-/* -------------------------------------------- */
-
 HOOKS.selfRepair = {
   postActivate(outcome) {
     outcome.resources.health = this.actor.abilities.toughness.value;
@@ -384,27 +353,6 @@ HOOKS.spellband = {
     const amount = 2 + (2 * enchantment.bonus);
     outcome.resources.focus = (outcome.resources.focus || 0) + amount;
   }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.swoopingStrike = {
-  postActivate(outcome) {
-    if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.rakingTalons = {
-  initialize() {
-    this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "talons");
-  },
-  canUse() {
-    if ( this.usage.weapon?.system.identifier !== "talons" ) {
-      throw new Error("Must have a natural weapon identified as \"talons\" to use this action.");
-    }
-  },
 }
 
 /* -------------------------------------------- */
@@ -544,15 +492,6 @@ HOOKS.uppercut = {
     if ( !lastAction.outcomes.has(targets[0].actor) ) {
       throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
     }
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.venomousBite = {
-  postActivate(outcome) {
-    if ( outcome.target === this.actor ) return;
-    foundry.utils.mergeObject(outcome.effects[0], SYSTEM.EFFECTS.poisoned(this.actor));
   }
 }
 

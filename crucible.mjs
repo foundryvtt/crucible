@@ -6,7 +6,7 @@
  */
 
 // Configuration
-import {SYSTEM} from "./module/config/system.mjs";
+import {SYSTEM} from "./module/const/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
 // Import Modules
@@ -23,9 +23,9 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
-import Enum from "./module/config/enum.mjs";
-import CrucibleTalentNode from "./module/config/talent-node.mjs";
-import {statusEffects} from "./module/config/statuses.mjs";
+import Enum from "./module/const/enum.mjs";
+import CrucibleTalentNode from "./module/const/talent-node.mjs";
+import {statusEffects} from "./module/const/statuses.mjs";
 
 // Party
 let party = null;
@@ -190,26 +190,26 @@ Hooks.once("init", async function() {
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
   sheets.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);
-  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
+  sheets.registerSheet(Actor, "crucible", applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
 
   sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAccessoryItemSheet, {types: ["accessory"], label: "CRUCIBLE.SHEETS.Accessory", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleToolItemSheet, {types: ["tool"], label: "CRUCIBLE.SHEETS.Tool", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleAccessoryItemSheet, {types: ["accessory"], label: "CRUCIBLE.SHEETS.Accessory", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleToolItemSheet, {types: ["tool"], label: "CRUCIBLE.SHEETS.Tool", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
+  sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
-  sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+  sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
@@ -252,6 +252,14 @@ Hooks.once("init", async function() {
       1: "SETTINGS.AutoConfirmSelf",
       2: "SETTINGS.AutoConfirmAll"
     },
+  });
+
+  // Migration Required Version
+  game.settings.register("crucible", "migrationVersion", {
+    scope: "world",
+    config: false,
+    default: "0.0.0",
+    type: String
   });
 
   // Primary party
@@ -354,7 +362,7 @@ Hooks.once("init", async function() {
   });
 
   // Activate socket handler
-  game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
+  game.socket.on("system.crucible", handleSocketEvent);
 
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
@@ -403,7 +411,6 @@ Hooks.once("i18nInit", function() {
     // Special handling for enums
     if ( conf instanceof Enum ) {
       for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = game.i18n.localize(l);
-      Object.freeze(conf.labels);
       continue;
     }
 
@@ -414,7 +421,6 @@ Hooks.once("i18nInit", function() {
           if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
           else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
         }
-        Object.freeze(v);
       }
       else {
         if ( typeof v === "function" ) conf[k] = v();
@@ -432,10 +438,10 @@ Hooks.once("i18nInit", function() {
 
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
-    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
-    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
-    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/item/talent-summary.hbs`
+    "systems/crucible/templates/dice/partials/action-use-header.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+    "systems/crucible/templates/sheets/item/talent-summary.hbs"
   ]);
 });
 
@@ -445,14 +451,13 @@ Hooks.once("i18nInit", function() {
  * Perform one-time configuration of system configuration objects.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys, freeze=true) => {
+  const localizeConfigObject = (obj, keys) => {
     for ( let o of Object.values(obj) ) {
       for ( let k of keys ) {
         const v = o[k];
         if ( typeof v === "function" ) o[k] = v();
         else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
       }
-      if ( freeze ) Object.freeze(o);
     }
   }
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
@@ -484,17 +489,20 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
+  // Deep freeze CONST
+  foundry.utils.deepFreeze(SYSTEM);
+
   // Update compendium sources from settings
-  const currSources = Object.entries(game.settings.get("crucible", "compendiumSources")).reduce((acc, [type, sources]) => {
-    acc[type] = sources.filter(p => game.packs.has(p));
-    if ( !acc[type].size ) acc[type] = [crucible.CONST.COMPENDIUM_PACKS[type]];
+  const sources = game.settings.get("crucible", "compendiumSources");
+  crucible.CONFIG.packs = Object.entries(sources).reduce((acc, [type, packs]) => {
+    acc[type] = new Set(packs.filter(p => game.packs.has(p)));
+    if ( !acc[type].size ) acc[type] = new Set([crucible.CONST.COMPENDIUM_PACKS[type]]);
     return acc;
   }, {});
-  crucible.CONFIG.packs = currSources;
 
   // Deferred registration of the hero creation sheet
   const sheets = foundry.applications.apps.DocumentSheetConfig;
-  sheets.registerSheet(Actor, SYSTEM.id, crucible.CONFIG.heroCreationSheet, {types: ["hero"],
+  sheets.registerSheet(Actor, "crucible", crucible.CONFIG.heroCreationSheet, {types: ["hero"],
     label: "CRUCIBLE.SHEETS.HeroCreation", makeDefault: false, canBeDefault: false, canConfigure: false});
 
   // Initialize Party
@@ -513,6 +521,20 @@ Hooks.once("setup", function() {
  * On game ready, display the welcome journal if the user has not yet seen it.
  */
 Hooks.once("ready", async function() {
+
+  // System-specific interaction
+  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
+  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+
+  // Perform World Migrations
+  if ( game.users.activeGM?.isSelf ) {
+    const mv = game.settings.get("crucible", "migrationVersion");
+    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) {
+      await _performMigrations();
+    }
+  }
+
+  // Display Welcome Journal
   const welcome = game.settings.get("crucible", "welcome");
   if ( !welcome ) {
     const entry = await fromUuid("Compendium.crucible.rules.JournalEntry.5SgXrAKS2EnqVggJ");
@@ -520,14 +542,23 @@ Hooks.once("ready", async function() {
     await game.settings.set("crucible", "welcome", true);
     await _initializePrototypeTokenSettings();
   }
-
-  // FIXME bring this back with a migration version
-  // if ( game.user === game.users.activeGM ) await syncTalents();
-
-  // System-specific interaction
-  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
 });
+
+/* -------------------------------------------- */
+
+/**
+ * Perform one-time data migrations for the current world.
+ * @returns {Promise<void>}
+ */
+async function _performMigrations() {
+
+  // Sync all Actor talents
+  await syncTalents({force: true, reload: false});
+
+  // Record the new migration version
+  await game.settings.set("crucible", "migrationVersion", crucible.version);
+  foundry.utils.debouncedReload();
+}
 
 /* -------------------------------------------- */
 
@@ -728,31 +759,31 @@ function registerDevelopmentHooks() {
 
 /**
  * Sync talent data across all actors in the world if their synchronized version is stale.
- * @param {boolean} [force]   Force syncing even if the actor stats are current
+ * @param {object} options
+ * @param {boolean} [options.force]     Force syncing even if the actor stats are current
+ * @param {boolean} [options.reload]    Auto-reload when synchronization is complete
  * @returns {Promise<void>}
  */
-async function syncTalents(force=false) {
+async function syncTalents({force=false, reload=true}={}) {
   console.groupCollapsed("Crucible | Talent Data Synchronization")
-  const total = game.actors.size;
-  let n = 0;
-  let synced = 0;
+  const bar = {n: 0, total: game.actors.size, pct: 0};
+  const progress = ui.notifications.info("Synchronizing Talents", {console: true, progress: true});
   for ( const actor of game.actors ) {
-    n++;
+    bar.n++;
+    bar.pct = bar.n / bar.total;
     if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
       try {
         await actor.syncTalents();
-        console.log(`Crucible | Synchronized talents for Actor "${actor.name}"`);
-        synced++;
       } catch(err) {
         console.warn(`Crucible | Talent synchronization failed for Actor "${actor.name}": ${err.message}`);
+      } finally {
+        progress.update({pct: bar.pct, message: actor.name});
       }
-      SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: Math.round(n * 100 / total)});
     }
   }
-  if ( synced ) SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: 100});
-  console.log(`Crucible | Complete talent synchronization for ${synced} Actors`);
+  progress.update({pct: 1});
   console.groupEnd();
-  foundry.utils.debouncedReload();
+  if ( reload ) foundry.utils.debouncedReload();
 }
 
 /* -------------------------------------------- */
@@ -777,7 +808,7 @@ async function resetAllActorTalents() {
 /*  ESModules API                               */
 /* -------------------------------------------- */
 
-export {SYSTEM} from "./module/config/system.mjs";
+export {SYSTEM} from "./module/const/system.mjs";
 export * as applications from "./module/applications/_module.mjs";
 export * as canvas from "./module/canvas/_module.mjs";
 export * as dice from "./module/dice/_module.mjs";

@@ -66,7 +66,6 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
         }
       }
     });
-    Object.freeze(runes);
   }
 
   /* -------------------------------------------- */

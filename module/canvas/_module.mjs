@@ -1,6 +1,6 @@
 import CrucibleTokenRuler from "./token-ruler.mjs";
 import CrucibleTokenHUD from "../applications/hud/token-hud.mjs";
-import {TRAVEL_PACES} from "../config/actor.mjs";
+import {TRAVEL_PACES} from "../const/actor.mjs";
 
 export * as tree from "./tree/_module.mjs";
 export * as grid from "./grid/_module.mjs";

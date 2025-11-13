@@ -196,8 +196,9 @@ pages:
         opposed by the chaotic rune of
         <strong>Illusion</strong>.</p></dd><dt><p></p></dt><dt><p></p></dt><dt><p>Soul</p></dt><dd><p>An
         orderly force of creation and spiritual essence. The Soul rune governs
-        matters related to sapience, personality, emotion, and empathy. The Soul
-        rune scales using <strong>Presence</strong> and provides
+        the fundamental procession of souls through life and death and relates
+        to matters of sapience, personality, and mental health. The Soul rune
+        scales using <strong>Presence</strong> and provides
         <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
         <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>.
         It is opposed by the chaotic rune of
@@ -252,7 +253,7 @@ pages:
       systemVersion: 0.5.3
       coreVersion: '13.350'
       createdTime: 1684375014492
-      modifiedTime: 1762816945068
+      modifiedTime: 1762981611352
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -277,56 +278,165 @@ pages:
         properties of a magical spell, usually the cost in Action and Focus
         points, range (or size), targeting type, and shape. Gestures also
         determine one-half of the scaling damage formula, with Rune as the other
-        half.</p><h2>Arrow</h2><p><em>1 Hand, 2 Action, 1 Focus</em></p><p>Hurl
-        a projectile of magical power at a distant target. This might use the
-        Lightning Rune to hurl a lightning bolt, or the Shadow rune to hurl a
-        ball of devouring darkness.</p><h2>Aspect</h2><p><em>1 Hand, 2 Action, 1
-        Focus</em></p><p>Infuse the essence of a Rune into the self, empowering
-        the physical form or psyche.</p><p>When you assume a certain Aspect, you
-        become more closely attuned to the damage type of the Rune used in your
-        spell. You gain <strong>+2 Resistance</strong> to that damage type, and
-        deal an additional <strong>+2 Damage</strong> whenever dealing damage of
-        that type.</p><h2>Create</h2><p><em>2 Hands, 2 Action, 1
-        Focus</em></p><p>Coalesce arcane power into tangible form, conjuring a
-        <strong>Creation</strong> which appears in an adjacent space and joins
-        Combat at Initiative 1.</p><p>Your Creation is a Minion of half your own
-        Level chosen from the Summoned Creatures compendium pack corresponding
-        to the Rune used in the spell.</p><h2>Fan</h2><p><em>1 Hand, 2 Action, 1
-        Focus</em></p><p>Focus the essence of a rune into a sweeping or
-        splintered arc to strike multiple targets in close proximity. If used
-        with Earth, this might hurl a spray of stone in an arc, while using it
-        with Kinesis might carve a slice across multiple
-        foes.</p><h2>Influence</h2><p><em>1 Hand, 2 Action, 1
-        Focus</em></p><p>Channel concentrated arcane energy through a single
-        target via touch. If used with the rune of Life this would create a
-        powerful healing effect, while used with the touch of Lightning would
-        provide a powerful jolt of Electrical damage.</p><h2>Pulse</h2><p><em>2
-        Hands, 2 Action, 1 Focus</em></p><p>Emit a burst of Runic power in a
-        circular wave that travels outward, with you at its center. A Pulse of
-        Spirit might be used to bolster Morale for your allies, while a Death
-        pulse might be used to deal Corruption damage to a group of enemies
-        gathered around you.</p><h2>Ray</h2><p><em>1 Hand, 2 Action, 1
-        Focus</em></p><p>Focus the power of a Rune into a single point,
-        expelling its energy into a ranged beam which rapidly travels a short
-        distance to a targeted area. If used with Life this might restore the HP
-        of a distant ally steadily over time, while Frost might emit a beam that
-        freezes a target in place.</p><h2>Step</h2><p><em>0 Hands , 1 Action, 1
-        Focus</em></p><p>Infuse runic power into a movement, crossing physical
-        and spatial boundaries. Move 4 spaces in a straight line, dealing minor
-        damage to enemies or applying restoration to allies in your
-        path.</p><h2>Strike</h2><p><em>0 Hands, 2 Action, 1
-        Focus</em></p><p>Empower a close-range attack with the essence of a
-        Rune. This rune performs a melee weapon attack targeting the defense and
-        dealing damage of the Rune used in the spell.</p><h2>Touch</h2><p><em>1
-        Hand, 1 Action, 1 Focus</em></p><p>Manifest the power of a Rune to pass
-        its essence through physical contact. Used with Death this might deal
-        damage to a target within arm's reach, while using it with Control might
-        cause the target you touch to do your bidding.</p><h2>Ward</h2><p><em>1
-        Hand, 1 Action, 1 Focus</em></p><p>Focus the power of a Rune into a
-        protective barrier, shielding yourselves and others from harmful
-        effects. When used with the Kinesis rune the Ward reduces incoming
-        damage from a chosen physical damage type while combination with the
-        Death rune protects against Corruption damage.</p>
+        half.</p><h2 class="divider">Starting Gesture</h2><p>Any spellcaster who
+        knows any Rune automatically has access to the Touch gesture which
+        provides a basic capability to use that Rune. More advanced usages of
+        that Rune require incorporating more advanced
+        Gestures.</p><dl><dt><p>Touch</p></dt><dd><p>You empower the arcane
+        energy of a Rune into a hand-to-hand attack. The Touch gesture scales
+        using <strong>Dexterity</strong> and targets a single creature at a
+        range of 1 foot, dealing <strong>6 Base Damage</strong> to targets which
+        fail to Resist the spell. This gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>2 Action</strong> and <strong>1
+        Focus</strong>.</p></dd></dl><h2 class="divider">Tier 1
+        Gestures</h2><p>Tier 1 gestures (character levels 1-5) provide
+        wide-ranging fundamentals of spellcraft composition that allows shaping
+        Runes into a variety of offensive or defensive
+        forms.</p><dl><dt><p>Arrow</p></dt><dd><p>You hurl a projectile imbued
+        with the magical power of a Rune at a distant target. The Arrow gesture
+        scales using <strong>Intellect</strong> and targets a single creature up
+        to a distance of 60 feet, dealing <strong>8 Base Damage</strong> to
+        targets which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1
+        Focus</strong>.</p></dd></dl><dl><dt><p>Aspect</p></dt><dd><p>You infuse
+        the essence of a Rune into your body, empowering your own physical form
+        or psyche. When you assume a certain Aspect, you become more closely
+        attuned to the damage type of the Rune used in your spell. You gain
+        <strong>+2 Resistance</strong> to that damage type, and deal an
+        additional <strong>+2 Damage</strong> whenever dealing damage of that
+        type. Your Aspect lasts for <strong>6 Rounds</strong>. You may only have
+        one active Aspect, casting another spell using the Aspect gesture
+        replaces the previous effect. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
+        and <strong>1 Focus</strong>.</p></dd><dt><p>Create</p></dt><dd><p>You
+        coalesce arcane power into tangible form, manifesting a
+        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
+        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
+        Level. The Create gesture scales with <strong>Wisdom</strong> and the
+        Sprite survives for <strong>6 Rounds</strong>. You may only have one
+        active Sprite, casting another spell using the Create gesture replaces
+        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
+        cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        Focus</strong>.</p></dd><dt><p>Fan</p></dt><dd><p>You shape the essence
+        of a Rune into a sweeping or splintered arc to strike multiple targets
+        in close proximity. The Fan gesture scales using
+        <strong>Intellect</strong> and targets a 120 degree arc with 6 foot
+        radius. It deals <strong>6 Base Damage</strong> to targets which fail to
+        Resist the spell. This gesture requires <strong>1 Hand</strong> to cast
+        and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p></dd><dt><p>Influence</p></dt><dd><p>You intensify
+        the arcane power of a Rune into a concentrated direct contact which is
+        generally a more powerful evolution of the basic Touch gesture. The
+        Influence gesture scales using <strong>Presence</strong> and targets a
+        single adjacent creature. It deals <strong>10 Base Damage</strong> to
+        targets which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p></dd><dt><p>Ray</p></dt><dd><p>You
+        funnel the arcane power of a Rune into a point and project it outwards
+        in a beam. The Ray gesture scales using <strong>Wisdom</strong> and
+        produces a line that is 1 foot wide and 30 feet long originating from
+        the spellcaster, dealing <strong>6 Base Damage</strong> to targets which
+        fail to Resist the spell. The gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        Focus</strong>.</p></dd><dt><p>Sense</p></dt><dd><p>You attune your mind
+        to the arcane power of a Rune to sense nearby sources of energy. The
+        Sense gesture scales with <strong>Presence</strong> and produces an
+        emanation with 30 feet radius and position that remains centered upon
+        the spellcaster. This gesture requires <strong>1 Hand</strong> to cast
+        and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>. It may optionally be <strong>Maintained</strong> at the
+        additional cost of <strong>1 Focus</strong> every subsequent
+        round.</p><p>This spell allows the caster to detect the presence of
+        spellcraft using the same Rune as the one incorporated in this spell.
+        The sense will also momentarily detect the presence of creatures
+        according to their type.</p><ul><li><p><strong>Control</strong>:
+        Fiends</p></li><li><p><strong>Death</strong>:
+        Undead</p></li><li><p><strong>Earth</strong>: Oozes and Earth
+        Elementals</p></li><li><p><strong>Flame</strong>: Dragons and Fire
+        Elementals</p></li><li><p><strong>Frost</strong>: Giants and Frost
+        Elementals</p></li><li><p><strong>Illumination</strong>:
+        Celestials</p></li><li><p><strong>Illusion</strong>:
+        Fey</p></li><li><p><strong>Kinesis</strong>:
+        Monstrosities</p></li><li><p><strong>Life</strong>: Plants and
+        Beasts</p></li><li><p><strong>Lightning</strong>: Constructs and Storm
+        Elementals</p></li><li><p><strong>Oblivion</strong>:
+        Outsiders</p></li><li><p><strong>Soul</strong>:
+        Humanoids</p></li></ul></dd><dt><p>Step</p></dt><dd><p>You infuse runic
+        power into a movement, crossing physical and spatial boundaries. The
+        Step gesture scales with <strong>Dexterity</strong> and allows you to
+        move up to 20 feet in a straight line with width equal to your
+        <strong>Size</strong>. It deals <strong>2 Base Damage</strong> to
+        targets along that line which fail to Resist the spell. This gesture
+        does not require any free hands to cast and has a base cost of <strong>3
+        Action</strong> and <strong>1
+        Focus</strong>.</p></dd><dt><p>Strike</p></dt><dd><p>You empower a
+        direct close-range attack with the arcane essence of a Rune, performing
+        a Strike with your equipped weapon. The Strike gesture scales using
+        <strong>Strength</strong> and deal damage based on your used weapon but
+        with the damage type of the incorporated Rune. This gesture does not
+        require any free hand and has a base cost of <strong>1 Focus</strong> in
+        addition to the cost of your weapon
+        Strike.</p></dd><dt><p>Ward</p></dt><dd><p>You shape the arcane power of
+        a Rune into a protective barrier used to shield yourself from harm. The
+        Ward gesture scales using <strong>Toughness</strong> and provides
+        <strong>+6 Resistance</strong> against the damage type of the Rune used
+        in the spell. This resistance lasts for <strong>1 Round</strong> and you
+        may only have a single Ward at a time. Casting another spell using the
+        Ward gesture replaces your prior Ward. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
+        and <strong>1 Focus</strong>.</p></dd><h2 class="divider">Tier 2
+        Gestures</h2><p>Tier 2 gestures (character levels 6-11) provide advanced
+        capabilities that improve or expand upon fundamental Tier 1
+        gestures.</p></dl><dl><dt><p>Aura</p></dt><dd><p>You concentrate the
+        arcane power of a Rune to create a maintained field of energy that
+        washes over allies and enemies near to you. The Aura gesture scales with
+        <strong>Presence</strong> and produces an emanation with 20 feet radius
+        centered on the spellcaster. The center of this Aura moves with the
+        spellcaster. Depending on the Rune used, the Aura deals damage or
+        provides healing to any creature which begins its turn inside the Aura.
+        This gesture requires <strong>2 Hands</strong> to cast, has a base cost
+        of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
+        <strong>Maintained</strong> costing an additional <strong>1
+        Focus</strong> every subsequent
+        round.</p></dd><dt><p>Blast</p></dt><dd><p>You hurl the arcane power of
+        a Rune into an intense explosion of energy at a nearby point you can
+        see. The Blast gesture scales with <strong>Intellect</strong> and
+        produces a blast with 6 feet radius centered on a point within 60 feet
+        of the spellcaster. The blast deals <strong>8 Base Damage</strong> to
+        targets which fail to Resist the spell. This gesture requires <strong>2
+        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
+        and <strong>2 Focus</strong>.</p></dd><dt><p>Cone</p></dt><dd><p>You
+        focus the arcane power of a Rune into a narrow cone that projects
+        outwards from your location. The Cone gesture scales with
+        <strong>Intellect</strong> and produces a 60 degree cone with a 30 foot
+        radius originating from the spellcaster. The Cone deals <strong>8 Base
+        Damage</strong> to targets which fail to Resist the spell. This gesture
+        requires <strong>2 Hands</strong> to cast and has a base cost of
+        <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p></dd><dt><p>Conjure</p></dt><dd><p>You coalesce
+        arcane power into a superior form, manifesting a
+        <strong>Visitor</strong> which appears within 30 feet and joins Combat
+        at <strong>Initiative</strong> 1. Your Visitor is a Minion equal to your
+        own Level. The Conjure gesture scales with <strong>Wisdom</strong> and
+        the Visitor survives for <strong>12 Rounds</strong>. You may only have
+        one active Visitor. Casting another spell using the Conjure gesture
+        replaces your previous Visitor. This gesture requires <strong>2
+        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
+        and <strong>2 Focus</strong>.</p></dd><dt><p>Pulse</p></dt><dd><p>Expel
+        the arcane power of a Rune in a radius that travels outward with you at
+        its center. The Pulse gesture scales using <strong>Presence</strong> and
+        produces an emanation with 10 foot radius, dealing <strong>8 Base
+        Damage</strong> to targets which fail to Resist the spell. The gesture
+        requires <strong>2 Hands</strong> to cast and has a base cost of
+        <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p></dd><dt><p>Surge</p></dt><dd><p>Expel the arcane
+        power of a Rune in a radius that travels outward with you at its center.
+        The Pulse gesture scales using <strong>Presence</strong> and produces an
+        emanation with 10 foot radius, dealing <strong>8 Base Damage</strong> to
+        targets which fail to Resist the spell. The gesture requires <strong>2
+        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
+        and <strong>2 Focus</strong>.</p></dd></dl>
       markdown: ''
     video:
       controls: true
@@ -340,9 +450,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375020833
-      modifiedTime: 1688315548834
+      modifiedTime: 1762985094654
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -367,48 +477,19 @@ pages:
         purpose.</p><section class="construction"><p>While some inflections have
         been implemented for Playtest 1, more Inflections are intended for
         future phases. Some of the Inflections listed below may not be fully
-        implemented or automated at this
-        time.</p></section><h2>Compose</h2><p><em><strong>(+1 Action, -1
-        Focus)</strong></em></p><p>Enhance a spell by taking extra time in its
-        formation, reducing other resource costs in exchange. The Compose
-        inflection reduces the <strong>Focus</strong> cost of a spell by 1 while
-        increasing its <strong>Action</strong> cost by 1 in
-        exchange.</p><h2>Determine</h2><p><em><strong>(+1
-        Focus)</strong></em></p><p>Enhance a spell to make it more difficult to
-        counter. Any attempt to Counter-Spell this spell is made with +2
-        Banes.</p><h2>Extend</h2><p><em><strong>(+1 Action, +1
-        Focus)</strong></em></p><p>Enhance the duration of a spell, increasing
-        the duration of its effect. For spells which are instantaneous, any
-        corresponding status conditions that they cause are increased in
-        duration.</p><section class="construction"><p>Effect duration increases
-        from the Extend inflection are not yet automated in Playtest 1. This
-        inflection is included as an example of the intended direction for the
-        Spellcraft system.</p></section><h2>Elude</h2><p><em><strong>(+1
-        Focus)</strong></em></p><p>Enhance a spell to make it more difficult for
-        an enemy to retaliate against its casting. This spell does not provide
-        any opportunity to make reactions that involve Strike attacks,
-        regardless of the results of the
-        spell.</p><h2>Negate</h2><p><em><strong>(+1
-        Focus)</strong></em></p><p>Invert the effect of a spell. An Inverted
-        Life Touch spell which normally heals a target deals Poison damage
-        instead. An Inverted Death Ward spell inflicts vulnerability to
-        Corruption damage upon an adjacent enemy.</p><section
-        class="construction"><p>The effects of the Negate inflection are not yet
-        automated for Playtest 1. This inflection is included as an example of
-        the intended direction for the Spellcraft
-        system.</p></section><h2>Pull</h2><p><em><strong>(+1
-        Focus)</strong></em></p><p>Empower a spell to attract affected creatures
-        toward the caster. Creatures affected by a spell with the Pull
-        inflection move 1 space closer towards the spellcaster if that
-        destination space is unoccupied.</p><h2>Push</h2><p><em><strong>(+1
-        Focus)</strong></em></p><p>Empower a spell to repel affected creatures
-        away from the caster. Creatures affected by a spell with the Push
-        inflection move 1 space away from the spellcaster if that destination
-        space is unoccupied.</p><h2>Quicken</h2><p><em><strong>(-1 Action, +1
-        Focus)</strong></em></p><p>Enhance a spell by hastening the speed with
-        which it can be cast, at the expense of increased Focus. The Quicken
-        inflection reduces the <strong>Action</strong> cost of a spell by 1
-        while increasing its <strong>Focus</strong> cost by 1 in exchange.</p>
+        implemented or automated at this time.</p></section><h2
+        class="divider">Tier 1
+        Inflections</h2><ul><li><p>@UUID[Compendium.crucible.talent.Item.inflectioncompos]{Inflection:
+        Compose}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectiondeterm]{Inflection:
+        Determine}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionelude0]{Inflection:
+        Elude}</p></li><li>@UUID[Compendium.crucible.talent.Item.inflectionextend]{Inflection:
+        Extend}</li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionnegate]{Inflection:
+        Negate}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection:
+        Pull}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection:
+        Push}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionquicke]{Inflection:
+        Quicken}</p></li></ul><h2 class="divider">Tier 2
+        Inflections</h2><ul><li><p>@UUID[Compendium.crucible.talent.Item.inflectionReshap]{Inflection:
+        Reshape}</p></li></ul>
     video:
       controls: true
       volume: 0.5
@@ -421,9 +502,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684375027780
-      modifiedTime: 1686357166636
+      modifiedTime: 1762985383783
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

@@ -4,7 +4,7 @@ type: taxonomy
 img: icons/magic/fire/elemental-fire-flying.webp
 system:
   description: <p>Elemental creatures corresponding to the element of Fire.</p>
-  category: elemental
+  category: elementalFire
   abilities:
     wisdom: 1
     presence: 1
@@ -51,8 +51,8 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  modifiedTime: 1762713930537
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763060080165
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: fireElemental000
 sort: 200000

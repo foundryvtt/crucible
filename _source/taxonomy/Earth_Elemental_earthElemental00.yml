@@ -4,7 +4,7 @@ type: taxonomy
 img: icons/magic/earth/construct-stone-long-arms.webp
 system:
   description: <p>Elemental creatures corresponding to the element of Earth.</p>
-  category: elemental
+  category: elementalEarth
   abilities:
     wisdom: 1
     presence: 1
@@ -57,8 +57,8 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  modifiedTime: 1762713925017
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763060075037
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: earthElemental00
 sort: 100000

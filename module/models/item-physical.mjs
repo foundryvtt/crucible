@@ -1,9 +1,9 @@
-import {SYSTEM} from "../config/system.mjs";
+import {SYSTEM} from "../const/system.mjs";
 import CrucibleAction from "./action.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
- * @import {CrucibleItemCategory, ItemProperty} from "../config/items.mjs";
+ * @import {CrucibleItemCategory, ItemProperty} from "../const/items.mjs";
  */
 
 /**

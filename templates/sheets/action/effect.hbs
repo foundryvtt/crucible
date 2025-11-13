@@ -1,36 +1,32 @@
 <fieldset class="effect">
     <div class="form-group">
-        <label>Effect Name</label>
+        <label>{{fields.name.label}}</label>
         <div class="form-fields">
-            <input type="text" name="effects.{{i}}.name" value="{{effect.name}}" placeholder="{{effect.placeholder}}">
+            {{formInput fields.name placeholder=effect.placeholder value=effect.name}}
             <button type="button" class="icon frame-brown fa-solid fa-trash"
                     data-action="deleteEffect" data-tooltip="ACTION.EFFECTS.Delete"></button>
         </div>
     </div>
+    {{formGroup fields.scope value=effect.scope}}
     <div class="form-group">
-        <label>Effect Scope</label>
+        <label>{{fields.result.label}}</label>
         <div class="form-fields">
-            <select name="effects.{{i}}.scope" data-dtype="Number">
-                {{selectOptions targetScopes selected=effect.scope}}
-            </select>
+            {{formInput fields.result.fields.type value=effect.result.type}}
+            <label class="checkbox">
+                {{fields.resultAll.label}}
+                {{formInput fields.result.fields.all value=effect.result.all}}
+            </label>
         </div>
     </div>
+    {{formGroup fields.statuses value=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
     <div class="form-group">
-        <label>Statuses</label>
+        <label>{{fields.duration.label}}</label>
         <div class="form-fields">
-            <multi-select name="effects.{{i}}.statuses">
-                {{selectOptions statuses selected=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
-            </multi-select>
+            {{formInput fields.duration.fields.turns value=effect.duration.turns}}
+            <label>{{fields.duration.fields.turns.label}}</label>
+            {{formInput fields.duration.fields.rounds value=effect.duration.rounds}}
+            <label>{{fields.duration.fields.rounds.label}}</label>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Duration</label>
-        <div class="form-fields">
-            <input type="number" name="effects.{{i}}.duration.turns" min="1" step="1" value="{{effect.duration.turns}}">
-            <label>Turns</label>
-            <input type="number" name="effects.{{i}}.duration.rounds" min="1" step="1" value="{{effect.duration.rounds}}">
-            <label>Rounds</label>
-        </div>
-        <p class="hint">Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.</p>
+        <p class="hint">{{fields.duration.hint}}</p>
     </div>
 </fieldset>

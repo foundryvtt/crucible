@@ -188,8 +188,8 @@ export default class StandardCheck extends Roll {
     for ( const [id, boon] of Object.entries(boons) ) {
       boon.id = id;
       boon.number ??= 1;
-      if ( (total + boon.number) > SYSTEM.dice.MAX_BOONS ) {
-        boon.number = SYSTEM.dice.MAX_BOONS - total;
+      if ( (total + boon.number) > SYSTEM.DICE.MAX_BOONS ) {
+        boon.number = SYSTEM.DICE.MAX_BOONS - total;
       }
       total += boon.number;
     }
@@ -207,15 +207,15 @@ export default class StandardCheck extends Roll {
     // Apply boons from the left
     let d = 0;
     for (let i = 0; i < data.totalBoons; i++) {
-      pool[d] = pool[d] + SYSTEM.dice.DIE_STEP;
-      if (pool[d] === SYSTEM.dice.MAX_DIE) d++;
+      pool[d] = pool[d] + SYSTEM.DICE.DIE_STEP;
+      if (pool[d] === SYSTEM.DICE.MAX_DIE) d++;
     }
 
     // Apply banes from the right
     d = 2;
     for (let i = 0; i < data.totalBanes; i++) {
-      pool[d] = pool[d] - SYSTEM.dice.DIE_STEP;
-      if (pool[d] === SYSTEM.dice.MIN_DIE) d--;
+      pool[d] = pool[d] - SYSTEM.DICE.DIE_STEP;
+      if (pool[d] === SYSTEM.DICE.MIN_DIE) d--;
     }
 
     // Construct the formula
@@ -230,7 +230,7 @@ export default class StandardCheck extends Roll {
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
     const cardData = {
-      cssClass: [SYSTEM.id, "dice-roll", "standard-check"],
+      cssClass: ["crucible", "dice-roll", "standard-check"],
       data: this.data,
       defenseType: "DC",
       defenseValue: this.data.dc,

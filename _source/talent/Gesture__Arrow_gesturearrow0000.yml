@@ -4,11 +4,13 @@ img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
 system:
   node: int1a
   description: >-
-    <p>Hurl a projectile of magical power at a distant target. This might use
-    the Lightning Rune to hurl a lightning bolt, or the Shadow rune to hurl a
-    ball of devouring darkness.</p><p>The Arrow gesture scales using
-    <strong>Intellect</strong> and targets a <strong>single</strong> creature up
-    to a distance of 60 feet, dealing 8 base damage on a successful attack.</p>
+    <p>You hurl a projectile imbued with the magical power of a Rune at a
+    distant target.</p><p>The Arrow gesture scales using
+    <strong>Intellect</strong> and targets a single creature up to a distance of
+    60 feet, dealing <strong>8 Base Damage</strong> to targets which fail to
+    Resist the spell. This gesture requires <strong>1 Hand</strong> to cast and
+    has a base cost of <strong>3 Action</strong> and <strong>1
+    Focus</strong>.</p>
   actions: []
   gesture: arrow
   actorHooks: []
@@ -17,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1762718932924
+  modifiedTime: 1762982373267
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturearrow0000
   duplicateSource: null

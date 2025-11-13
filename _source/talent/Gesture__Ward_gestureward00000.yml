@@ -4,16 +4,14 @@ img: icons/magic/defensive/shield-barrier-glowing-blue.webp
 system:
   node: tou2b
   description: >-
-    <p>Focus the power of a Rune into a protective barrier, shielding yourselves
-    and others from harmful effects. When used with the Kinesis rune the Ward
-    reduces incoming damage from a chosen physical damage type while combination
-    with the Death rune protects against Corruption damage.</p>
-
-    <p>Your Ward provides <strong>+6 Resistance</strong> against the damage type
-    of the Rune used in the spell. The Ward lasts for 1 Round.</p>
-
-    <p>You may only have a single Ward at a time. Casting another spell using
-    the Ward gesture replaces your prior Ward.</p>
+    <p>You shape the arcane power of a Rune into a protective barrier used to
+    shield yourself from harm.</p><p>The Ward gesture scales using
+    <strong>Toughness</strong> and provides <strong>+6 Resistance</strong>
+    against the damage type of the Rune used in the spell. This resistance lasts
+    for <strong>1 Round</strong> and you may only have a single Ward at a time.
+    Casting another spell using the Ward gesture replaces your prior Ward. This
+    gesture requires <strong>1 Hand</strong> to cast and has a base cost of
+    <strong>2 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: ward
   actorHooks: []
@@ -25,10 +23,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1675654257211
-  modifiedTime: 1762718943983
+  modifiedTime: 1762984820492
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureward00000
   duplicateSource: null

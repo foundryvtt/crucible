@@ -6,7 +6,7 @@ system:
     - int4b
   description: >-
     <p>You focus the arcane power of a Rune into a narrow cone that projects
-    outwards from your location.</p><p></p><p>The Cone gesture scales with
+    outwards from your location.</p><p>The Cone gesture scales with
     <strong>Intellect</strong> and produces a 60 degree cone with a 30 foot
     radius originating from the spellcaster. The Cone deals <strong>8 Base
     Damage</strong> to targets which fail to Resist the spell. This gesture
@@ -39,7 +39,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762794177874
-  modifiedTime: 1762794375367
+  modifiedTime: 1762984977699
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: gestureCone00000
 sort: 0

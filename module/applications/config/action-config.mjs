@@ -103,6 +103,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   };
 
   /* -------------------------------------------- */
+
   /** @override */
   get title() {
     return `${game.i18n.localize("ACTION.SHEET.TITLE")}: ${this.action.name}`;
@@ -129,21 +130,21 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     const disableHooks = !game.user.isGM;
     return {
       action,
-      editable: this.isEditable,
       actionHookChoices: Object.entries(SYSTEM.ACTION_HOOKS).reduce((obj, [k, v]) => {
         if ( !v.deprecated ) obj[k] = k;
         return obj;
       }, {}),
-      disableHooks,
       actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
-      fields: this.action.constructor.schema.fields,
-      tabs: this.#prepareTabs().sheet,
-      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
-      tags: this.#prepareTags(),
-      targetTypes: SYSTEM.ACTION.TARGET_TYPES,
-      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
+      disableHooks,
+      editable: this.isEditable,
       effectsHTML: await this.#renderEffectsHTML(),
-      hookPartial: CrucibleActionConfig.HOOK_PARTIAL
+      fields: this.action.constructor.schema.fields,
+      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
+      hookPartial: CrucibleActionConfig.HOOK_PARTIAL,
+      tabs: this.#prepareTabs().sheet,
+      tags: this.#prepareTags(),
+      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
+      targetTypes: SYSTEM.ACTION.TARGET_TYPES
     }
   }
 
@@ -224,13 +225,44 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   /**
+   * A SchemaField used to control the configuration of ActiveEffect data for the action.
+   * @param {string} fieldPath
+   * @returns {foundry.data.fields.SchemaField}
+   */
+  static #defineEffectSchema(fieldPath) {
+    const fields = foundry.data.fields;
+    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+    const schema = new fields.SchemaField({
+      name: new fields.StringField({blank: true, initial: "", label: "Effect Name"}),
+      scope: new fields.StringField({choices: effectScopes, label: "Effect Scope"}),
+      result: new fields.SchemaField({
+        type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false,
+          label: "Type"}),
+        all: new fields.BooleanField({initial: false, label: "All"})
+      }, {label: "Result"}),
+      statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}), {label: "Statuses"}),
+      duration: new fields.SchemaField({
+        turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: "Turns"}),
+        rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: "Rounds"})
+      }, {label: "Duration", hint: "Effects with duration in Turns expire at the end of the Actor's turn. Effects " +
+          "with duration in Rounds expire at the beginning of the Actor's turn."})
+    });
+    schema.name = fieldPath;
+    return schema;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Render HTML for a single effect.
    * @param {number} i
    * @param {ActiveEffectData} effect
    * @returns {Promise<string>}
    */
   async #renderEffectHTML(i, effect) {
-    const ctx = {i, effect, statuses: CONFIG.statusEffects, targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices};
+    const schema = CrucibleActionConfig.#defineEffectSchema(`effects.${i}`);
+    const ctx = {i, effect, fields: schema.fields};
     return foundry.applications.handlebars.renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, ctx);
   }
 

@@ -4,13 +4,13 @@ img: icons/magic/light/beam-rays-blue.webp
 system:
   node: wis1b
   description: >-
-    <p>Focus the power of a Rune into a single point, expelling its energy into
-    a ranged beam which rapidly travels a short distance to a targeted area. If
-    used with Life this might restore the HP of a distant ally steadily over
-    time, while Frost might emit a beam that freezes a target in
-    place.</p><p>The Ray gesture scales using <strong>Wisdom</strong> and
-    targets a 30 foot line emanating from the caster, dealing 6 base damage on a
-    successful attack.</p>
+    <p>You funnel the arcane power of a Rune into a point and project it
+    outwards in a beam.</p><p>The Ray gesture scales using
+    <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30 feet
+    long originating from the spellcaster, dealing <strong>6 Base
+    Damage</strong> to targets which fail to Resist the spell. The gesture
+    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>4
+    Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: ray
   actorHooks: []
@@ -22,10 +22,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1675608839856
-  modifiedTime: 1762791321640
+  modifiedTime: 1762983260943
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureray000000
   duplicateSource: null

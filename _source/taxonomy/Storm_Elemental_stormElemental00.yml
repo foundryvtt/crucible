@@ -4,7 +4,7 @@ type: taxonomy
 img: icons/magic/lightning/bolt-strike-clouds-blue.webp
 system:
   description: <p>Elemental creatures corresponding to the element of Lightning.</p>
-  category: elemental
+  category: elementalStorm
   abilities:
     wisdom: 3
     presence: 3
@@ -57,8 +57,8 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  modifiedTime: 1762713940346
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763060088080
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: stormElemental00
 sort: 300000

@@ -6,13 +6,12 @@ img: systems/crucible/icons/skills/intimidation.jpg
 system:
   node: pre0a
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You understand the fundamentals
-    of how threats and coercion can achieve desired outcomes. You gain the
-    <strong>Novice</strong> rank in the <strong>Intimidation </strong>skill and
-    are no longer considered <strong>Untrained</strong> in that
-    skill.</span></p><p><span style="font-family:Vollkorn, serif">You know how
-    to use simple displays of violence or overt threats to get others to follow
-    your lead, but you aren't very subtle.</span></p>
+    <p>You understand the fundamentals of how threats and coercion can achieve
+    desired outcomes. You gain the <strong>Novice</strong> rank in the
+    <strong>Intimidation </strong>skill and are no longer considered
+    <strong>Untrained</strong> in that skill.</p><p>You know how to use simple
+    displays of violence or overt threats to get others to follow your lead, but
+    you aren't very subtle.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -29,10 +28,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742762879836
-  modifiedTime: 1742949905420
+  modifiedTime: 1763058445859
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!intimidationNovi'

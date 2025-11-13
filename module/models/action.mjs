@@ -298,6 +298,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   item = this.item; // Defined during constructor
 
   /**
+   * The ability scores which cause this action to scale.
+   * @type {string[]}
+   */
+  scaling = this.scaling; // Defined during _prepareData
+
+  /**
    * A specific Token that is performing this Action in the context of a Scene.
    * @type {CrucibleToken}
    */
@@ -461,6 +467,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Propagate and sort tags
     this.tags = new CrucibleActionTags(this._source.tags, this);
 
+    // Ability Scaling (if known)
+    this.scaling = [];
+
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
 
@@ -468,9 +477,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const effect of this.effects ) {
       effect.name ||= this.name;
       effect.img ||= this.img;
-      effect.tags = {
-        scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope)}`
+      effect.tags = {};
+      if ( effect.result?.type ) {
+        let result = SYSTEM.ACTION.EFFECT_RESULT_TYPES[effect.result.type]?.label;
+        if ( effect.result.all ) result += ` (All)`;
+        effect.tags.result = result;
       }
+      effect.tags.scope = `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope)}`;
       if ( effect.duration ) {
         if ( effect.duration.turns ) effect.tags.duration = `${effect.duration.turns}T`;
         else if ( effect.duration.rounds ) effect.tags.duration = `${effect.duration.rounds}R`;
@@ -988,12 +1001,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleActionOutcome} outcome
    */
   #updateOutcome(outcome) {
-    if ( outcome.target === this.actor ) return this.#updateSelfOutcome(outcome);
+    if ( outcome.target === this.actor ) this.#updateSelfOutcome(outcome);
     this.#attachOutcomeEffects(outcome);
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Additional steps that only apply to the self outcome.
+   * @param {CrucibleActionOutcome} outcome
+   */
   #updateSelfOutcome(outcome) {
     const u = outcome.actorUpdates;
     foundry.utils.mergeObject(u, foundry.utils.expandObject(this.usage.actorUpdates));
@@ -1011,14 +1028,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const [k, v] of Object.entries(this.cost) ) {
       outcome.resources[k] = (outcome.resources[k] || 0) - v;
     }
-
-    // Determine whether to apply effects
-    let applyEffects = Array.from(this.outcomes.keys()).length === 1; // Only self-outcome
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.target === this.actor ) continue;
-      if ( !outcome.rolls.length || outcome.rolls.some(r => r.isSuccess) ) applyEffects = true;
-    }
-    if ( applyEffects ) this.#attachOutcomeEffects(outcome);
   }
 
   /* -------------------------------------------- */
@@ -1029,32 +1038,80 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {object[]}                        An array of Active Effect data to attach to the outcome
    */
   #attachOutcomeEffects(outcome) {
-    const target = outcome.target;
-    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    for ( let {scope, ...effectData} of this.effects ) {
-      scope ??= this.target.scope;
-      if ( scope === scopes.NONE ) continue;
-      effectData.name ||= this.name;
+    for ( const effectData of this.effects ) {
+      if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
+      const {name, statuses: statusesArray, duration} = effectData;
+      const statuses = new Set(statusesArray);
 
-      // Self target
-      if ( target === this.actor ) {
-        if ( ![scopes.SELF, scopes.ALL].includes(scope) ) continue;
-      }
-
-      // Target other
-      else {
-        if ( scope === scopes.SELF ) continue;
-        if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) continue;
-      }
-
-      // Add effect
-      const effect = foundry.utils.mergeObject({
+      // Prepare effect data
+      const effect = {
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
+        name: name ?? this.name,
         description: this.description,
         icon: this.img,
-        origin: this.actor.uuid
-      }, effectData);
+        origin: this.actor.uuid,
+        duration
+      };
+
+      // Auto-configure statuses
+      for ( const status of statusesArray ) {
+        const fn = SYSTEM.EFFECTS[status];
+        if ( typeof fn !== "function" ) continue;
+        const statusEffect = fn(this.actor, {ability: this.scaling});
+        if ( statusEffect.flags ) {
+          effect.flags ||= {};
+          effect.flags.crucible ||= statusEffect.flags.crucible;
+        }
+        if ( statusEffect.statuses ) {
+          for ( const s of statusEffect.statuses ) statuses.add(s);
+        }
+      }
+      effect.statuses = Array.from(statuses);
       outcome.effects.push(effect);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether Action effectData should be applied to an outcome.
+   * @param {CrucibleActionOutcome} outcome     The outcome being prepared
+   * @param {ActionEffect} effectData           Effect data to consider
+   * @returns {boolean}                         Should the effect be applied?
+   */
+  #applyOutcomeEffect(outcome, effectData) {
+
+    // Assert correct target scope
+    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
+    const scope = effectData.scope ?? this.target.scope;
+    if ( scope === scopes.NONE ) return false; // Should never happen
+    if ( outcome.self ) {
+      if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false;
+    }
+    else if ( scope === scopes.SELF ) return false;
+
+    // Assert correct outcome result
+    let {type, all=false} = effectData.result || {};
+    type ??= this.usage.hasDice ? "success" : "any"; // Infer for effects that don't yet specify their result type
+    switch ( type ) {
+      case "any":
+        return true;
+      case "custom":
+        return false; // Custom results are never attached and are only handled using hook code
+      case "success":
+        if ( all ) return outcome.rolls.every(r => r.isSuccess);
+        else return outcome.rolls.some(r => r.isSuccess);
+      case "successCritical":
+        if ( all ) return outcome.rolls.every(r => r.isCriticalSuccess);
+        else return outcome.rolls.some(r => r.isCriticalSuccess);
+      case "failure":
+        if ( all ) return outcome.rolls.every(r => r.isFailure);
+        else return outcome.rolls.some(r => r.isFailure);
+      case "failureCritical":
+        if ( all ) return outcome.rolls.every(r => r.isCriticalFailure);
+        else return outcome.rolls.some(r => r.isCriticalFailure);
+      default:
+        return false; // Unknown or unsupported result type
     }
   }
 
@@ -1151,6 +1208,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
     this.actor?.callActorHooks("prepareAction", this);
+
+    // Dedupe ability scaling
+    const scaling = new Set(this.scaling);
+    this.scaling.length = 0;
+    this.scaling.push(...scaling);
   }
 
   /* -------------------------------------------- */

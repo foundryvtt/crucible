@@ -4,11 +4,16 @@ img: icons/magic/movement/chevrons-down-yellow.webp
 system:
   node: dex2b
   description: >-
-    <p>Infuse runic power into a movement, crossing physical and spatial
-    boundaries. Move 20 feet in a straight line, dealing minor damage to enemies
-    or applying restoration to allies in your path.</p><p>The Step gesture
-    scales with <strong>Dexterity</strong> and targets a 20 foot line, dealing 2
-    base damage on a successful attack.</p>
+    <p>You infuse runic power into a movement, crossing physical and spatial
+    boundaries.</p><p>The Step gesture scales with <strong>Dexterity</strong>
+    and allows you to move up to 20 feet in a straight line with width equal to
+    your <strong>Size</strong>. It deals <strong>2 Base Damage</strong> to
+    targets along that line which fail to Resist the spell. This gesture does
+    not require any free hands to cast and has a base cost of <strong>3
+    Action</strong> and <strong>1 Focus</strong>.</p><h3
+    class="divider">Playtest Notes</h3><p>The movement aspect of this talent is
+    not yet automated and must be manually performed as a consequence of the
+    spell.</p>
   actions: []
   gesture: step
   actorHooks: []
@@ -17,10 +22,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1762718942544
+  modifiedTime: 1762983572022
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturestep00000
   duplicateSource: null

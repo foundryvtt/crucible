@@ -122,3 +122,16 @@ export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS))
   obj[e.rank] = e;
   return obj;
 }, {});
+
+
+/**
+ * A mapping of talent IDs which changed, used by CrucibleActor#syncTalents during migrations.
+ * @type {Readonly<string, string>}
+ */
+export const TALENT_ID_MIGRATIONS = {
+  runemind00000000: "Compendium.crucible.talent.Item.runeControl00000",
+  runeradiance0000: "Compendium.crucible.talent.Item.runeIllumination",
+  runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
+  runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
+  runecourage00000: "Compendium.crucible.talent.Item.runeSoul00000000"
+}

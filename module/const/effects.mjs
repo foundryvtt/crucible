@@ -24,7 +24,7 @@ export function getEffectId(label) {
  * @returns {Partial<ActiveEffectData>}
  */
 export function bleeding(actor, {ability="dexterity", amount, turns=3, damageType="piercing"}={}) {
-  amount ??= actor.system.abilities[ability].value;
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Bleeding"),
     name: "Bleeding",
@@ -51,7 +51,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
  * @returns {Partial<ActiveEffectData>}
  */
 export function burning(actor, {ability="intellect", amount, turns=3}={}) {
-  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Burning"),
     name: "Burning",
@@ -79,7 +79,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
  * @returns {Partial<ActiveEffectData>}
  */
 export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
-  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Freezing"),
     name: "Freezing",
@@ -106,7 +106,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
  * @returns {Partial<ActiveEffectData>}
  */
 export function confused(actor, {ability="intellect", amount, turns=2}={}) {
-  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Confused"),
     name: "Confused",
@@ -133,7 +133,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
  * @returns {Partial<ActiveEffectData>}
  */
 export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
-  amount ??= actor.system.abilities[ability].value;
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
@@ -148,20 +148,18 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   }
 }
 
-// TODO as above
-export function decay(actor) {
+// TODO document
+export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
     name: "Decaying",
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
-    duration: {turns: 3},
+    duration: {turns},
     origin: actor.uuid,
     flags: {
       crucible: {
-        dot: {
-          health: actor.system.abilities.intellect.value,
-          damageType: "corruption"
-        }
+        dot: {health: amount, damageType: "corruption"}
       }
     }
   }
@@ -251,7 +249,7 @@ export function inspired(actor, target) {
  * @returns {Partial<ActiveEffectData>}
  */
 export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
-  amount ??= actor.system.abilities[ability].value;
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Poisoned"),
     name: "Poisoned",
@@ -272,13 +270,13 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
 
 /**
  * Generate a standardized shocked effect.
- * Freezing deals half wisdom in damage to Health.
+ * Shocked deals half intellect in damage to Morale.
  * @param {CrucibleActor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
 export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
-  amount ??= actor.system.abilities[ability].value;
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Shocked"),
     name: "Shocked",

@@ -89,7 +89,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     }
 
     // Derived Spell Attributes
-    this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
+    this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.cost = CrucibleSpellAction.#prepareCost.call(this);
     this.defense = CrucibleSpellAction.#prepareDefense.call(this);
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);

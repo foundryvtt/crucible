@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import * as ARMOR from "../config/armor.mjs";
+import * as ARMOR from "../const/armor.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Armor type Items.

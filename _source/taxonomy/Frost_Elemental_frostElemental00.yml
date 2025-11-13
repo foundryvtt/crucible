@@ -4,7 +4,7 @@ type: taxonomy
 img: icons/magic/water/elemental-water.webp
 system:
   description: <p>Elemental creatures corresponding to the element of Frost.</p>
-  category: elemental
+  category: elementalFrost
   abilities:
     wisdom: 3
     presence: 1
@@ -51,8 +51,8 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.8.1
-  modifiedTime: 1762713629324
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763060084323
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: frostElemental00
 sort: 400000

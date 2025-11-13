@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {SYSTEM} from "../config/system.mjs";
+import {SYSTEM} from "../const/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -55,7 +55,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   actionCost;
 
-
   /**
    * Weapon damage data.
    * @type {{base: number, quality: number, weapon: number}}
@@ -91,12 +90,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     // Weapon Range
     this.range = this.#prepareRange();
 
-    // Action bonuses and cost
-    this.actionBonuses = this.parent.actor ? {
-      ability: this.parent.actor.getAbilityBonus(category.scaling.split(".")),
-      skill: 0,
-      enchantment: enchantment.bonus
-    } : {}
+    // Weapon Bonuses
+    this.actionBonuses = {ability: 0, skill: -4, enchantment: enchantment.bonus};
     this.actionCost = category.actionCost;
 
     // Versatile Two-Handed
@@ -127,9 +122,18 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const category = this.config.category;
     const actor = this.parent.actor;
 
-    // Populate equipped skill bonus
+    // Ability Bonus
+    this.actionBonuses.ability = actor.getAbilityBonus(category.scaling.split("."));
+
+    // Skill Bonus
     const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
-    this.actionBonuses.skill = Math.max(...trainingTypes.map(t => actor.system.training[t] || 0));
+    const isIntuitive = ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive");
+    for ( const t of trainingTypes ) {
+      const r = actor.system.training[t] ?? 0;
+      let b = SYSTEM.TALENT.TRAINING_RANK_VALUES[r].bonus;
+      if ( !r && isIntuitive ) b = -1;
+      if ( b > this.actionBonuses.skill ) this.actionBonuses.skill = b;
+    }
 
     // Populate current damage bonus
     const actorBonuses = actor.system.rollBonuses.damage || {};
@@ -297,7 +301,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   }
 
   /* -------------------------------------------- */
-  
+
   /**
    * Render this weapon as HTML for a tooltip card.
    * @param {object} options

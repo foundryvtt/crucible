@@ -5,9 +5,8 @@ img: systems/crucible/icons/skills/arcana.jpg
 system:
   node: none12
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You gain the <strong>Master
-    </strong>rank in the <strong>Arcana </strong>skill, providing a <strong>+3
-    Skill Bonus</strong>.</span></p>
+    <p>You gain the <strong>Master </strong>rank in the <strong>Arcana
+    </strong>skill, providing a <strong>+3 Skill Bonus</strong>.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -24,11 +23,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742946660988
-  modifiedTime: 1742951072572
+  modifiedTime: 1763057842899
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: arcanaMaster0000
 _key: '!items!arcanaMaster0000'

@@ -6,15 +6,14 @@ img: systems/crucible/icons/skills/wilderness.jpg
 system:
   node: tou0b
   description: >-
-    <p><span style="font-family:Vollkorn, serif">You have received training in
-    the basics of wilderness survival and traversal. You gain the
-    <strong>Novice</strong> rank in the <strong>Wilderness </strong>skill and
-    are no longer considered <strong>Untrained</strong> in that
-    skill.</span></p><p><span style="font-family:Vollkorn, serif">You know how
-    to find and construct safe shelter from the elements, to start a fire for
-    warmth, to keep cool in hot environments. You can find safe, drinkable water
-    in most places, and how to identify which plants and animals can serve as
-    safe food sources.</span></p>
+    <p>You have received training in the basics of wilderness survival and
+    traversal. You gain the <strong>Novice</strong> rank in the
+    <strong>Wilderness </strong>skill and are no longer considered
+    <strong>Untrained</strong> in that skill.</p><p>You know how to find and
+    construct safe shelter from the elements, to start a fire for warmth, to
+    keep cool in hot environments. You can find safe, drinkable water in most
+    places, and how to identify which plants and animals can serve as safe food
+    sources.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -31,10 +30,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742761908046
-  modifiedTime: 1747840902856
+  modifiedTime: 1763058449859
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!wildernessNovice'

@@ -4,12 +4,13 @@ img: icons/magic/fire/blast-jet-stream-embers-red.webp
 system:
   node: int1a
   description: >-
-    <p>Focus the essence of a rune into a sweeping or splintered arc to strike
-    multiple targets in close proximity. If used with Earth, this might hurl a
-    spray of stone in an arc, while using it with Kinesis might carve a slice
-    across multiple foes.</p><p>The Fan gesture scales using
-    <strong>Intellect</strong> and targets a 120 degree, 6 foot cone, dealing 6
-    base damage on a successful attack.</p>
+    <p>You shape the essence of a Rune into a sweeping or splintered arc to
+    strike multiple targets in close proximity.</p><p>The Fan gesture scales
+    using <strong>Intellect</strong> and targets a 120 degree arc with 6 foot
+    radius. It deals <strong>6 Base Damage</strong> to targets which fail to
+    Resist the spell. This gesture requires <strong>1 Hand</strong> to cast and
+    has a base cost of <strong>3 Action</strong> and <strong>1
+    Focus</strong>.</p>
   actions: []
   gesture: fan
   actorHooks: []
@@ -18,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1674842056708
-  modifiedTime: 1762791341466
+  modifiedTime: 1762982957368
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturefan000000
   duplicateSource: null

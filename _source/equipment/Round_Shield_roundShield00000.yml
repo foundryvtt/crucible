@@ -1,0 +1,46 @@
+folder: pibeFfUJ9FFbWkoY
+name: Round Shield
+type: weapon
+_id: roundShield00000
+img: icons/equipment/shield/round-wooden-pointed-boss-steel-brown.webp
+system:
+  identifier: roundShield
+  category: shieldLight
+  quantity: 1
+  weight: 4
+  price: 2400
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - intuitive
+  description:
+    public: >-
+      <p>A round metal shield nearly two feet in diameter which is the basic
+      defensive armament of foot soldiers lacking specialized training in shield
+      combat.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763063304818
+  modifiedTime: 1763063441196
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!roundShield00000'

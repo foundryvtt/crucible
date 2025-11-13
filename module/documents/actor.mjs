@@ -4,7 +4,7 @@ import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
- * @import {TRAINING_TYPES} from "../config/talents.mjs";
+ * @import {TRAINING_TYPES} from "../const/talents.mjs";
  */
 
 /**
@@ -267,12 +267,14 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the ability score bonus for a given scaling mode.
-   * @param {string[]} scaling    How is the ability bonus computed?
-   * @returns {number}            The ability bonus
+   * @param {string|string[]} scaling   How is the ability bonus computed?
+   * @param {number} [divisor=2]        The divisor that determines the bonus
+   * @returns {number}                  The ability bonus
    */
-  getAbilityBonus(scaling) {
+  getAbilityBonus(scaling, divisor=2) {
+    if ( typeof scaling === "string" ) scaling = scaling.split(".");
     const abilities = this.system.abilities;
-    return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * 2));
+    return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
 
   /* -------------------------------------------- */
@@ -605,7 +607,7 @@ export default class CrucibleActor extends Actor {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
-      ability: this.getAbilityBonus(Array.from(spell.scaling)),
+      ability: this.getAbilityBonus(spell.usage.scaling),
       skill: 0,
       enchantment: 0,
       banes, boons,
@@ -1033,9 +1035,6 @@ export default class CrucibleActor extends Actor {
     const wasBroken = this.system.isBroken;
     const wasIncapacitated = this.isIncapacitated;
 
-    // Prune effects if the attack was unsuccessful
-    if ( !reverse && outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) outcome.effects.length = 0;
-
     // Call outcome confirmation actor hooks
     this.callActorHooks("confirmAction", action, outcome, {reverse});
 
@@ -1379,22 +1378,46 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async syncTalents() {
-    const updates = [];
+    const toCreate = [];
+    const toUpdate = [];
+    const toDelete = [];
     const packs = [];
+    const migrations = SYSTEM.TALENT.TALENT_ID_MIGRATIONS;
     for ( const packId of crucible.CONFIG.packs.talent ) {
       const pack = game.packs.get(packId);
       if ( pack ) packs.push(pack);
     }
+
+    // Identify updates to perform
     for ( const item of this._source.items ) {
       if ( item.type !== "talent" ) continue;
+      let talent;
+
+      // Known talent ID migration
+      if ( item._id in migrations ) talent = await fromUuid(migrations[item._id]);
+
+      // Search for the talent ID in a source pack
       for ( const pack of packs ) {
-        let talent;
         if ( pack.index.has(item._id) ) talent = await pack.getDocument(item._id);
-        else if ( item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
-        if ( talent ) updates.push(this._cleanItemData(talent));
+      }
+
+      // Search for the upstream talent from its compendium source
+      if ( !talent && item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
+      if ( !talent ) continue;
+
+      // Either update or delete+create
+      if ( talent.id === item._id ) toUpdate.push(this._cleanItemData(talent));
+      else {
+        toDelete.push(item._id);
+        toCreate.push(this._cleanItemData(talent));
       }
     }
-    await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
+
+    // Create, update, and delete talents
+    if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
+    if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
+      {diff: false, recursive: false, noHook: true});
+    if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
     await this.update({"_stats.systemVersion": game.system.version});
   }
 

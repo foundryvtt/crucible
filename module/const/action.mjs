@@ -5,6 +5,31 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
+ * The different required conditions under which an Active Effect can be applied from an Action.
+ * @type {Readonly<Record<string, {label: string}>>}
+ */
+export const EFFECT_RESULT_TYPES = Object.freeze({
+  any: {
+    label: "Any"
+  },
+  custom: {
+    label: "Custom"
+  },
+  success: {
+    label: "Success"
+  },
+  successCritical: {
+    label: "Critical Success"
+  },
+  failure: {
+    label: "Failure"
+  },
+  failureCritical: {
+    label: "Critical Failure"
+  }
+});
+
+/**
  * The scope of creatures affected by an action.
  * @enum {number}
  */
@@ -553,6 +578,7 @@ export const TAGS = {
       let weaponRange = 0;
       const contextTags = {};
       for ( const [i, weapon] of strikes.entries() ) {
+        this.scaling.push(...weapon.config.category.scaling.split("."));
         if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
         if ( this.range.weapon ) {
           if ( !weaponRange ) weaponRange = weapon.system.range;
@@ -1056,13 +1082,14 @@ TAGS.skill = {
 };
 
 // Specific Skills
-for ( const {id, label} of Object.values(SKILLS) ) {
+for ( const {id, abilities, label} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
     label,
     category: "skills",
     propagate: ["skill"],
     initialize() {
+      this.scaling.push(...abilities);
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
       this.usage.hasDice = true;

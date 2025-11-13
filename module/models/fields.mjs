@@ -1,6 +1,6 @@
 import CrucibleAction from "./action.mjs";
-import {SYSTEM} from "../config/system.mjs";
 import CrucibleCounterspellAction from "./counterspell-action.mjs";
+import {SYSTEM} from "../const/system.mjs";
 const {fields} = foundry.data;
 
 /* -------------------------------------------- */

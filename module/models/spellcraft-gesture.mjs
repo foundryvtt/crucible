@@ -44,7 +44,6 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     for ( const [k, v] of Object.entries(gestures) ) {
       gestures[k] = new CrucibleSpellcraftGesture(v);
     }
-    Object.freeze(gestures);
   }
 
   /* -------------------------------------------- */

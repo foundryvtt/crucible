@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import * as CONSUMABLE from "../config/consumable.mjs";
+import * as CONSUMABLE from "../const/consumable.mjs";
 
 /**
  * Data schema, attributes, and methods specific to "consumable" type Items.

@@ -13,8 +13,10 @@ system:
       img: icons/skills/wounds/injury-triple-slash-bleed.webp
       condition: ''
       description: >-
-        <p>The creature attacks swiftly with both talons. On a Critical Success,
-        inflicts the @Condition[bleeding] condition.</p>
+        <p>The @ref[actor.name]{creature} attacks swiftly with both
+        talons.</p><p>If at least one attack results in a <strong>Critical
+        Success</strong>, it inflicts the @Condition[bleeding] condition for
+        <strong>2 Rounds</strong>.</p>
       cost:
         action: 1
         focus: 0
@@ -30,7 +32,17 @@ system:
         scope: 3
         self: false
         multiple: 2
-      effects: []
+      effects:
+        - name: Raking Talons
+          scope: '3'
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - bleeding
+          duration:
+            turns: 2
+            rounds: null
       tags:
         - melee
         - natural
@@ -53,11 +65,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.1
   createdTime: 1751481339795
-  modifiedTime: 1751481339795
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1762972275325
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 0
 _key: '!items!rakingTalons0000'
