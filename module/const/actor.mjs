@@ -30,6 +30,26 @@ export const CREATURE_CATEGORIES = {
     skill: "arcana",
     knowledge: "elementals"
   },
+  elementalEarth: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL_EARTH",
+    skill: "arcana",
+    knowledge: "elementals"
+  },
+  elementalFire: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL_FIRE",
+    skill: "arcana",
+    knowledge: "elementals"
+  },
+  elementalFrost: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL_FROST",
+    skill: "arcana",
+    knowledge: "elementals"
+  },
+  elementalStorm: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL_STORM",
+    skill: "arcana",
+    knowledge: "elementals"
+  },
   giant: {
     label: "TAXONOMY.CATEGORIES.GIANT",
     skill: "society",
