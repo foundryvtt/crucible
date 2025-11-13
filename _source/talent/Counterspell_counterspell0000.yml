@@ -1,4 +1,4 @@
-name: Counter Spell
+name: Counterspell
 type: talent
 img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
 system:
@@ -15,7 +15,7 @@ system:
 
     </section>
   actions:
-    - id: counterSpell
+    - id: counterspell
       condition: Another creature which you can see is casting a spell.
       description: >-
         <p>You form arcane energy into a countervailing spellcraft. Designate a
@@ -40,7 +40,7 @@ system:
         scope: 0
         self: false
       effects: []
-      name: Counter Spell
+      name: Counterspell
       img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
       range:
         minimum: null
@@ -59,7 +59,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.350'
   createdTime: 1675644858016
-  modifiedTime: 1763056394196
+  modifiedTime: 1763063083505
   lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.counterspell0000
   duplicateSource: null

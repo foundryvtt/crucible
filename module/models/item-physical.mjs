@@ -1,4 +1,5 @@
 import {SYSTEM} from "../config/system.mjs";
+import CrucibleAction from "./action.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
@@ -27,7 +28,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      actions: new crucibleFields.ItemActionsField(),
+      actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
       actorHooks: new crucibleFields.ItemActorHooks()
     }
   }

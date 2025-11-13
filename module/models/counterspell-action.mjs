@@ -14,6 +14,14 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _initializeSource(data, options) {
+    data = super._initializeSource(data, options);
+    data.rune ??= this.actor?.grimoire.runes.first()?.id ?? "lightning";
+    data.gesture ??= this.actor?.grimoire.runes.first()?.id ?? "touch";
+    return data;
+  }
+
+  /** @inheritDoc */
   _prepareData() {
     const {cost: {action, focus}, name, img, target, description, range} = this;
     super._prepareData();
@@ -37,7 +45,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   getSpellId({rune, gesture, inflection}={}) {
-    return "counterSpell";
+    return "counterspell";
   }
 
   /* -------------------------------------------- */
@@ -54,25 +62,6 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
       if (options.strict) throw new Error(target.error);
     }
     return targets;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the default Counterspell action.
-   * @param {CrucibleActor} actor           The Actor for whom the counterspell is being prepared
-   * @param {object} counterspellData       Initial data for the counterspell
-   * @returns {CrucibleCounterspellAction}  The constructed CrucibleCounterspellAction
-   */
-  static getDefault(actor, counterspellData={}) {
-    const {runes, gestures} = actor.grimoire;
-    const rune = runes.first()?.id;
-    const gesture = gestures.first()?.id;
-    Object.assign(counterspellData, {
-      rune,
-      gesture
-    });
-    return new this(counterspellData, {actor});
   }
 
   /* -------------------------------------------- */

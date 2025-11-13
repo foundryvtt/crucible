@@ -1,6 +1,7 @@
 import CrucibleAction from "./action.mjs";
 import CrucibleTalentNode from "../config/talent-node.mjs";
 import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
+import * as crucibleFields from "./fields.mjs";
 
 /**
  * @typedef {Object} TalentData
@@ -52,7 +53,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     return {
       nodes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: () => CrucibleTalentNode.getChoices()})),
       description: new fields.HTMLField(),
-      actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
       rune: new fields.StringField({...blankString, choices: SYSTEM.SPELL.RUNES}),
       gesture: new fields.StringField({...blankString, choices: SYSTEM.SPELL.GESTURES}),
       inflection: new fields.StringField({...blankString, choices: SYSTEM.SPELL.INFLECTIONS}),

@@ -243,4 +243,12 @@ HOOKS.evasiveshot00000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.warmage000000000 = {
+  prepareAction(item, action) {
+    if ( action.id === "counterspell" ) action.usage.boons.warMage = {label: item.name, number: 2};
+  }
+}
+
+/* -------------------------------------------- */
+
 export default HOOKS;

@@ -149,7 +149,7 @@ HOOKS.clarifyIntent = {
 
 /* -------------------------------------------- */
 
-HOOKS.counterSpell = {
+HOOKS.counterspell = {
   initialize() {
     Object.assign(this.usage.context, {
       label: "Counterspell Tags",
