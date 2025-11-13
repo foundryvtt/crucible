@@ -229,9 +229,11 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
+    const damage = foundry.utils.deepClone(this.data.damage);
     const cardData = {
       cssClass: ["crucible", "dice-roll", "standard-check"],
       data: this.data,
+      damage,
       defenseType: "DC",
       defenseValue: this.data.dc,
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
@@ -264,10 +266,20 @@ export default class StandardCheck extends Roll {
       }
     }
 
-    // Damage Resistance or Vulnerability
-    if ( Number.isNumeric(this.data.damage?.total) ) {
-      cardData.resistanceLabel = this.data.damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
-      cardData.resistanceValue = (this.data.damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(this.data.damage.resistance);
+    // Damage, Resistance, and Vulnerability
+    damage.display = Number.isNumeric(damage?.total) && (damage.base > 0); // Was damage intended?
+    if ( damage.display ) {
+      damage.label = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
+      damage.baseLabel = game.i18n.format("DICE.DamageBase", {type: damage.label});
+      damage.hasMultiplier = damage?.multiplier !== 1;
+      if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
+      else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
+      damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
+      damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
+      damage.cssClass = "";
+      if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
+      else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
+      if ( damage.total === 0 ) damage.cssClass += " ineffective";
     }
     cardData.cssClass = cardData.cssClass.join(" ");
     return cardData;

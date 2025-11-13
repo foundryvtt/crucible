@@ -1454,8 +1454,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Award Heroism
     if ( award === 0 ) return;
     for ( const {actor} of game.combat.combatants ) {
-      if ( actor?.type !== "hero" ) continue;
-      await actor.alterResources({heroism: award})
+      const maxH = actor.system.resources?.heroism?.max || 0;
+      if ( maxH > 0 ) await actor.alterResources({heroism: award})
     }
   }
 

@@ -151,6 +151,28 @@
         opacity: 0.2;
       }
     }
+    &.ineffective .result {
+      --hex-size: 40px;
+      color: var(--color-result-warn);
+    }
+    &.resistance .result::after {
+      content: "\f103";
+      display: block;
+      position: absolute;
+      bottom: 2px;
+      font-family: var(--font-awesome);
+      font-size: 0.6em;
+      color: var(--color-text-subtle);
+    }
+    &.vulnerability .result::after {
+      content: "\f102";
+      display: block;
+      position: absolute;
+      bottom: 4px;
+      font-family: var(--font-awesome);
+      font-size: 0.6em;
+      color: var(--color-text-subtle);
+    }
   }
 
   // Success

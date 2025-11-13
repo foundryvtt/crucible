@@ -15,11 +15,11 @@
             <span class="result hex">{{total}}</span>
             <span class="target">{{#if isGM}}{{defenseType}} {{defenseValue}}{{/if}}</span>
         </h4>
-        {{#if data.damage.total}}
-        <h4 class="dice-total damage-result">
-            <span class="outcome">{{damageLabel}}</span>
-            <span class="result hex">{{data.damage.total}}</span>
-            <span class="target">{{damageType}}</span>
+        {{#if damage.display}}
+        <h4 class="dice-total damage-result {{damage.cssClass}}">
+            <span class="outcome">{{damage.label}}</span>
+            <span class="result hex">{{damage.total}}</span>
+            <span class="target">{{damage.typeLabel}}</span>
         </h4>
         {{/if}}
 
@@ -58,27 +58,27 @@
                 </div>
             </div>
 
-            {{#if data.damage.total}}
+            {{#if damage.display}}
             <div class="roll-breakdown damage-breakdown flexcol">
                 <div class="counter">
-                    <label>{{localize "DICE.DamageOverflow"}}{{#if hasMultiplier}} (x{{data.damage.multiplier}}){{/if}}</label>
-                    <span class="tag">{{data.damage.overflow}}</span>
+                    <label>{{localize "DICE.DamageOverflow"}}{{#if damage.hasMultiplier}} (x{{damage.multiplier}}){{/if}}</label>
+                    <span class="tag">{{damage.overflow}}</span>
                 </div>
                 <div class="counter">
-                    <label>{{baseLabel}}</label>
-                    <span class="tag">{{data.damage.base}}</span>
+                    <label>{{damage.baseLabel}}</label>
+                    <span class="tag">{{damage.base}}</span>
                 </div>
                 <div class="counter">
                     <label>{{localize "DICE.DamageBonus"}}</label>
-                    <span class="tag">{{data.damage.bonus}}</span>
+                    <span class="tag">{{damage.bonus}}</span>
                 </div>
                 <div class="counter">
-                    <label>{{localize resistanceLabel}}</label>
-                    <span class="tag">{{resistanceValue}}</span>
+                    <label>{{localize damage.resistanceLabel}}</label>
+                    <span class="tag">{{damage.resistanceValue}}</span>
                 </div>
                 <div class="counter total">
                     <label>{{localize "DICE.DamageTotal"}}</label>
-                    <span class="hex">{{data.damage.total}}</span>
+                    <span class="hex">{{damage.total}}</span>
                 </div>
             </div>
             {{/if}}

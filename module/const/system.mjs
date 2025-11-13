@@ -51,6 +51,7 @@ export const THREAT_RANKS = {
   minion: {
     id: "minion",
     actionMax: 4,
+    heroismMax: 0,
     label: "ADVERSARY.THREAT_RANKS.MINION",
     scaling: 0.5,
     icon: "fa-solid fa-chevron-down"
@@ -58,6 +59,7 @@ export const THREAT_RANKS = {
   normal: {
     id: "normal",
     actionMax: 6,
+    heroismMax: 1,
     label: "ADVERSARY.THREAT_RANKS.NORMAL",
     scaling: 1.0,
     icon: "fa-solid fa-chevron-up"
@@ -65,6 +67,7 @@ export const THREAT_RANKS = {
   elite: {
     id: "elite",
     actionMax: 8,
+    heroismMax: 2,
     label: "ADVERSARY.THREAT_RANKS.ELITE",
     scaling: 1.5,
     icon: "fa-solid fa-chevrons-up"
@@ -72,6 +75,7 @@ export const THREAT_RANKS = {
   boss: {
     id: "boss",
     actionMax: 10,
+    heroismMax: 3,
     label: "ADVERSARY.THREAT_RANKS.BOSS",
     scaling: 2.0,
     icon: "fa-solid fa-skull"

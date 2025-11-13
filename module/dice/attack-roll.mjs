@@ -108,17 +108,6 @@ export default class AttackRoll extends StandardCheck {
 
     // Outcome label
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
-
-    // Damage type
-    const damage = this.data.damage || {};
-    damage.display = (damage.total > 0) || Number.isNumeric(damage.overflow);
-    if ( damage.display ) {
-      cardData.damageLabel = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
-      cardData.baseLabel = game.i18n.format("DICE.DamageBase", {type: cardData.damageLabel});
-      if ( damage.restoration ) cardData.damageType = SYSTEM.RESOURCES[damage.resource].label;
-      else if ( damage.type ) cardData.damageType = SYSTEM.DAMAGE_TYPES[damage.type].label;
-    }
-    cardData.hasMultiplier = damage?.multiplier !== 1;
     return cardData;
   }
 

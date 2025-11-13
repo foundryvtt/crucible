@@ -704,7 +704,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Heroism
     resources.heroism.pips = [];
-    for ( let i=1; i<=3; i++ ) {
+    const maxHeroism = Math.min(resources.heroism.max, 3);
+    for ( let i=1; i<=maxHeroism; i++ ) {
       const full = resources.heroism.value >= i;
       const cssClass = full ? "full" : "";
       resources.heroism.pips.push({full, double: false, cssClass});

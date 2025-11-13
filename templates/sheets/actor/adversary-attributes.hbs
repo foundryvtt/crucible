@@ -41,6 +41,21 @@
                     <span class="max">{{resources.focus.max}}</span>
                 </div>
             </div>
+
+            {{#if resources.heroism.max}}
+            <div class="currency heroism flexcol">
+                <h4 class="label" data-tooltip="{{resources.heroism.tooltip}}">{{resources.heroism.label}}</h4>
+                <div class="points flexrow">
+                    {{formInput fields.resources.fields.heroism.fields.value value=resources.heroism.value type="number"}}
+                    <div class="pips flexrow">
+                        {{#each resources.heroism.pips as |pip|}}
+                            <div class="pip {{pip.cssClass}}"></div>
+                        {{/each}}
+                    </div>
+                    <span class="max">{{resources.heroism.max}}</span>
+                </div>
+            </div>
+            {{/if}}
         </div>
 
         <div class="resource morale flexcol" style="{{resources.morale.cssPct}}">
