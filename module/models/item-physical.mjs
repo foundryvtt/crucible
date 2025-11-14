@@ -27,7 +27,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      actions: new crucibleFields.ItemActionsField(),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
       actorHooks: new crucibleFields.ItemActorHooks()
     }
   }

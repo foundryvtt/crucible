@@ -1,5 +1,5 @@
-import CrucibleAction from "./action.mjs";
 import CrucibleSpellItemSheet from "../applications/sheets/item-spell-sheet.mjs";
+import * as crucibleFields from "./fields.mjs";
 
 /**
  * An Item subtype that defines an Iconic Spell composition.
@@ -11,7 +11,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       description: new fields.HTMLField(),
-      actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
       runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
       gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
       inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS})),

@@ -434,6 +434,7 @@ Hooks.once("i18nInit", function() {
 
   // Localize models
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction)
+  foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
 
   // Pre-localize configuration objects
   preLocalizeConfig();

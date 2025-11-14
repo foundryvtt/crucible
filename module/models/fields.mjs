@@ -1,15 +1,30 @@
 import CrucibleAction from "./action.mjs";
+import CrucibleCounterspellAction from "./counterspell-action.mjs";
 import {SYSTEM} from "../const/system.mjs";
 const {fields} = foundry.data;
 
 /* -------------------------------------------- */
 
 /**
- * A standardized ArrayField used when an Item contains Actions.
+ * A field embedding a CrucibleAction OR subtype thereof as appropriate
  */
-export class ItemActionsField extends fields.ArrayField {
-  constructor(options, context) {
-    super(new fields.EmbeddedDataField(CrucibleAction), options, context);
+export class CrucibleActionField extends fields.EmbeddedDataField {
+  constructor(options) {
+    super(CrucibleAction, options);
+  }
+
+  /** @override */
+  initialize(value, model, options={}) {
+    if ( value?.id === "counterspell" ) return new CrucibleCounterspellAction(value, {parent: model, ...options});
+    return super.initialize(value, model, options);
+  }
+
+  /** @override */
+  clean(value, options={}) {
+    if ( value?.id === "counterspell" ) {
+      return CrucibleCounterspellAction.schema.clean(value, options);
+    }
+    return super.clean(value, options);
   }
 }
 
