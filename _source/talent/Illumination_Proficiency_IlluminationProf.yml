@@ -1,0 +1,40 @@
+name: Illumination Proficiency
+type: talent
+img: icons/magic/light/projectile-beam-yellow.webp
+system:
+  nodes:
+    - pre4c
+  description: >-
+    <p>You have fluency in weaving spellcraft using the Rune of Illumination.
+    You gain a <strong>+1 Skill Bonus</strong> for spells cast using this
+    Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
+    eventually also provide an upgrade to the <strong>Reveal</strong> action,
+    expanding its effectiveness or including new options for how to use it.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: illumination
+    rank: 2
+  actorHooks: []
+effects: []
+folder: meNcaEyQoLucHy0I
+ownership:
+  default: 0
+  vke929uLgNzbrY41: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763163889572
+  modifiedTime: 1763163905729
+  lastModifiedBy: vke929uLgNzbrY41
+_id: IlluminationProf
+sort: 700000
+_key: '!items!IlluminationProf'
