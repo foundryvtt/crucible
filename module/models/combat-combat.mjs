@@ -145,10 +145,12 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     const heroism = game.combat.system.heroism;
     const pct = `${Math.round(heroism.pct * 100)}%`
     for ( const meter of meters ) {
-      const [bar, label] = meter.children;
-      bar.style.width = pct;
-      label.innerText = `Heroism ${pct}`;
-      meter.dataset.tooltip = "Progress to next Heroism point";
+      if ( meter ) {
+        const [bar, label] = meter.children;
+        bar.style.width = pct;
+        label.innerText = `Heroism ${pct}`;
+        meter.dataset.tooltip = "Progress to next Heroism point";
+      }
     }
   }
 }
