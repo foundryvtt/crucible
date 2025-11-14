@@ -576,45 +576,44 @@ pages:
         many fantasy RPG
         settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Novice
         Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
-        Souls</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.1XkdTDKQiY8hQjb9]{Arcana},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.hLLuHPQ028FFVyoE]{Medicine}</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
+        Souls</td><td>Arcana,
+        Medicine</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.runecourage00000]{Rune:
-        Spirit}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.constable0000000]{Constable}</td><td>Crime,
-        Forensics</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.tBFTQMxT6xTPg8TS]{Awareness},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.WUZTmZFkysEiHU2T]{Intimidation}</td><td>@UUID[Compendium.crucible.talent.Item.unarmedCombatTra]{Unarmed
+        @UUID[Compendium.crucible.talent.Item.runeSoul00000000]{Rune:
+        Soul}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.constable0000000]{Constable}</td><td>Crime,
+        Forensics</td><td>Awareness,
+        Intimidation</td><td>@UUID[Compendium.crucible.talent.Item.unarmedCombatTra]{Unarmed
         Combat Training},
         @UUID[Compendium.crucible.talent.Item.intercept0000000]{Intercept}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.merchant00000000]{Merchant}</td><td>Crafts,
-        Trade</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.y3bDt4HWg3S09U7c]{Society},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.W2UTXlsZn2TLQYt2]{Diplomacy}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
+        Trade</td><td>Society,
+        Diplomacy</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
-        Rituals</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.kOBG6OuTnvGwmU1W]{Deception},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.m7H5V1e5EVe4YlxD]{Performance}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
+        Rituals</td><td>Deception,Performance</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.inspireheroism00]{Inspire
         Heroism}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.physician0000000]{Physician}</td><td>Alchemy,
-        Undeath</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.hLLuHPQ028FFVyoE]{Medicine},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.vhbFWUXxWUdiODJn]{Science}</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
+        Undeath</td><td>Medicine,
+        Science</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.runelife00000000]{Rune:
         Life}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.scholar000000000]{Scholar}</td><td>Artifacts,
-        Legends</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.1XkdTDKQiY8hQjb9]{Arcana},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.vhbFWUXxWUdiODJn]{Science}</td><td>@UUID[Compendium.crucible.talent.Item.mechanicalTraini]{Mechanical
+        Legends</td><td>Arcana,
+        Science</td><td>@UUID[Compendium.crucible.talent.Item.mechanicalTraini]{Mechanical
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.runekinesis00000]{Rune:
         Kinesis}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.soldier000000000]{Soldier}</td><td>Machines,
-        Warfare</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.66MmDe432p8auE6d]{Athletics},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.WUZTmZFkysEiHU2T]{Intimidation}</td><td>@UUID[Compendium.crucible.talent.Item.heavyWeaponTrain]{Heavy
+        Warfare</td><td>Athletics,
+        Intimidation</td><td>@UUID[Compendium.crucible.talent.Item.heavyWeaponTrain]{Heavy
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.heavystrike00000]{Heavy
         Strike}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
-        Tracking</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.O2jmcYabEbqgxgLm]{Stealth},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.kOBG6OuTnvGwmU1W]{Deception}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
+        Tracking</td><td>Stealth,
+        Deception</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
-        Tracking</td><td>@UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.66MmDe432p8auE6d]{Athletics},
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.ZoGpLdSJPmjlH8bz]{Wilderness}</td><td>@UUID[Compendium.crucible.talent.Item.projectileTraini]{Projectile
+        Tracking</td><td>Athletics,
+        Wilderness</td><td>@UUID[Compendium.crucible.talent.Item.projectileTraini]{Projectile
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.precisionshot000]{Precision
         Shot}</td></tr></tbody></table><p>As a Game Master and storyteller, you
@@ -638,8 +637,8 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761773899846
-      modifiedTime: 1762097674864
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1763154247850
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.backgrounds00000'
   - _id: knowledges000000
     name: Knowledge Areas

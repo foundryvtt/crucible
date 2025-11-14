@@ -526,7 +526,7 @@ pages:
       content: >-
         <p></p><p><strong>Crafting</strong> in Crucible is performed using a set
         of <strong>Tradeskills</strong> which, similar to adventuring
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills},
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills},
         are invested aspects of your character's identity obtained through
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
@@ -577,8 +577,8 @@ pages:
       systemId: crucible
       systemVersion: 0.7.8
       createdTime: 1760019765630
-      modifiedTime: 1762098928574
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1763154304530
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
 folder: MMeWpMmsLOblp07U
 categories:

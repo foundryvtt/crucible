@@ -328,8 +328,8 @@ pages:
       format: 1
       content: >-
         <p><strong>Skill Attacks</strong> are Actions which involve use of one
-        of Crucible's 16
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills}
+        of Crucible's 12
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills}
         in a tactical way during combat. Actions which use a Skill in this way
         perform the Skill Attack by rolling a Skill Test opposed by the target's
         passive score in the same Skill.</p><section class="gameplay"><p>Krag
@@ -353,10 +353,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684374509565
-      modifiedTime: 1686014099234
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1763154338884
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -678,11 +678,11 @@ pages:
       format: 1
       content: >-
         <p>The
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.O2jmcYabEbqgxgLm]{Stealth}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000#exploration-skills]{Stealth}
         skill, paired with concealment from terrain are mechanics which allow
         creatures to be undetected by their enemies. Identification of hidden
         enemies is generally performed using an opposed
-        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.tBFTQMxT6xTPg8TS]{Awareness}
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000#exploration-skills]{Awareness}
         test or a passive Awareness check.</p><p>A character or adversary may be
         <strong>Unaware</strong>, a status condition which render them more
         vulnerable to attacks. Creatures that are Unaware act at Initiative 1 in
@@ -703,12 +703,12 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726931005153
-      modifiedTime: 1751137603535
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1763154584130
+      lastModifiedBy: vke929uLgNzbrY41
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.1fAJeBGIEaMnsi5A'
