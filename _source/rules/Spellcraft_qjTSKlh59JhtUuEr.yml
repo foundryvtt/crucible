@@ -80,7 +80,7 @@ pages:
         damage-over-time.</p></section><h2>The Cost of Magic</h2><p>Every magic
         spell has a cost- whether used within a combat situation or for
         out-of-combat benefits. Generally, this cost is paid in the form of
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FmmADsI9qo1uIIT3#capacity-for-action]{Focus
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000#capacity-for-action]{Focus
         Points}, though in some situations the cost may use other resources or
         have other requirements.</p><p>As you construct your spells, the cost of
         the spell in Action Points and Focus Points may change based on your
@@ -99,10 +99,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.350'
       createdTime: 1684374993517
-      modifiedTime: 1727451918945
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1763154465946
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null
