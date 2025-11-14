@@ -47,11 +47,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751676974597
-  modifiedTime: 1751678505173
-  lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 0
+  modifiedTime: 1763068954068
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 100000
 _key: '!items!taxCrystalSpider'

@@ -1,0 +1,18 @@
+type: Item
+folder: azO1TzmTVoNehily
+name: Claws
+color: null
+sorting: a
+_id: 9y11rpBtHeoqU3eB
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  lastModifiedBy: null
+_key: '!folders!9y11rpBtHeoqU3eB'

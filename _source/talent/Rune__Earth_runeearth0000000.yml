@@ -2,7 +2,6 @@ name: 'Rune: Earth'
 type: talent
 img: icons/magic/earth/projectile-boulder-debris.webp
 system:
-  node: wis0b
   description: >-
     <p>The orderly force of elemental earth, responsible for physical matter.
     The Earth rune governs minerals, metals, soils, and other physical
@@ -10,26 +9,72 @@ system:
     targets <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
     <strong>Health</strong>. It is opposed by the chaotic rune of
     <strong>Lightning</strong>.</p>
-  actions: []
+  actions:
+    - id: mould
+      name: Mould
+      img: icons/magic/earth/projectile-boulder-debris.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Earth allows you to manipulate raw forces
+        of rock, mineral, and soil in basic ways including:</p><ul><li><p>You
+        quickly shape up to one cubic foot of available material into a simple
+        geometric form like a cuboid, ellipsoid, or
+        polyhedron.</p></li><li><p>You precisely copy the physical shape of a
+        held object that is smaller than 3 cubic inches, reproducing it from
+        available clay, stone, or metal. The replica retains no useful
+        properties except for its physical form.</p></li><li><p>You separate and
+        collect earthen particles from the surface of an object, creature, or
+        liquid that you touch, rendering the subject completely cleaned or
+        purified in moments.</p></li></ul><p>Mould may only effect a creature or
+        object you can physically touch. You may attempt other uses similar
+        those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - harmless
+      actionHooks: []
   rune: earth
   actorHooks: []
+  nodes:
+    - wis0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.350'
-  createdTime: 1674698661050
-  modifiedTime: 1762815000064
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Compendium.crucible.talent.runeearth0000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763086578158
+  modifiedTime: 1763086578313
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runeearth0000000
 folder: Dy9HnwadNE3kSZ4f
+_id: runeEarth0000000
 sort: 300000
-_key: '!items!runeearth0000000'
+_key: '!items!runeEarth0000000'

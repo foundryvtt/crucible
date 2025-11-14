@@ -2,7 +2,6 @@ name: 'Rune: Death'
 type: talent
 img: icons/magic/unholy/hand-claw-fire-blue.webp
 system:
-  node: int0a
   description: >-
     <p>The orderly force of destruction, responsible for the corruption of all
     biological matter. The Death rune governs decay and destruction.</p><p>The
@@ -10,28 +9,74 @@ system:
     <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage to
     <strong>Health</strong>. It is opposed by the chaotic rune of
     <strong>Life</strong>.</p>
-  actions: []
+  actions:
+    - id: ennervate
+      name: Ennervate
+      img: icons/magic/unholy/hand-claw-fire-blue.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Death allows for basic communion with the
+        dead and for rudimentary manipulation of unholy
+        forces:</p><ul><li><p>You spread decay over an object no larger than 1
+        cubic foot, causing plants to wither, metallic objects to rust, wood to
+        become rotten, food to grow foul, or a corpse to rapidly decompose.
+        Magical objects are typically unaffected.</p></li><li><p>You cause a
+        corpse which has been dead for less than seven days or otherwise
+        preserved to perform a lifeless reenactment of its final moments. Its
+        movements imitate those that occurred during the creature's final 30
+        seconds of life. You have no control over the creature nor can it
+        communicate in any other way.</p></li><li><p>You can hasten the death of
+        a willing creature that is currently dying, causing it to pass swiftly
+        and peacefully.</p></li></ul><p>Ennervate may only effect a creature or
+        object you can physically touch. You may attempt other uses similar
+        those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - harmless
+      actionHooks: []
   rune: death
   actorHooks: []
   nodes:
     - pre0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.350'
-  createdTime: 1674698661050
-  modifiedTime: 1762816811846
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Compendium.crucible.talent.runedeath0000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763081402956
+  modifiedTime: 1763088876141
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runedeath0000000
 folder: Dy9HnwadNE3kSZ4f
+_id: runeDeath0000000
 sort: 200000
-_key: '!items!runedeath0000000'
+_key: '!items!runeDeath0000000'

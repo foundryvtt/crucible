@@ -2,7 +2,6 @@ name: 'Rune: Frost'
 type: talent
 img: icons/magic/water/snowflake-ice-snow-white.webp
 system:
-  node: wis0b
   description: >-
     <p>The orderly force of water and cold. The Frost rune governs the creation
     of water or other fluids and their transfer between liquid and frozen
@@ -10,25 +9,70 @@ system:
     <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
     <strong>Health</strong>. It is opposed by the chaotic rune of
     <strong>Flame</strong>.</p>
-  actions: []
+  actions:
+    - id: condense
+      name: Condense
+      img: icons/magic/water/snowflake-ice-snow-white.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Frost allows you to manipulate liquids
+        and their thermal properties, including:</p><ul><li><p>You draw up to
+        one liter of fresh water from the atmosphere into a container or upon a
+        surface you touch. The created water may be affected by relevant
+        atmospheric properties of your current location.</p></li><li><p>You
+        manipulate the temperature of up to 1 gallon of water, causing it to
+        immediately freeze or thaw. The water need not be in a container; this
+        technique can be used to coat a surface or join two objects together via
+        regelation. Ice created in this way remains frozen for as long as the
+        ambient temperature of the environment allows.</p></li><li><p>You gather
+        up to six cubic feet of nearby snow, forming it into a solidified
+        sculpture, shape, or shelter.</p></li></ul>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - harmless
+      actionHooks: []
   rune: frost
+  nodes:
+    - wis0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.350'
-  createdTime: 1674698661050
-  modifiedTime: 1762815280094
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Compendium.crucible.talent.runefrost0000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763088779428
+  modifiedTime: 1763088850737
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runefrost0000000
-folder: Dy9HnwadNE3kSZ4f
-sort: 500000
-_key: '!items!runefrost0000000'
+_id: runeFrost0000000
+sort: 0
+_key: '!items!runeFrost0000000'

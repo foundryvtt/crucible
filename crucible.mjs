@@ -367,7 +367,10 @@ Hooks.once("init", async function() {
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
-  if ( crucible.developmentMode ) registerDevelopmentHooks();
+  if ( crucible.developmentMode ) {
+    registerDevelopmentHooks();
+    enableSpellcheckContext();
+  }
 
   // Replace core layer class with custom grid layer class
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
@@ -738,8 +741,15 @@ function registerDevelopmentHooks() {
     }
   });
 
-  Hooks.on("updateItem", async (item, _change, _options, _user) => {
-    if ( crucible.CONFIG.packs.talent.has(item.pack) ) {
+  Hooks.on("createItem", async (item) => {
+    if ( (item.type === "talent") && item.system.nodes.size && crucible.CONFIG.packs.talent.has(item.pack) ) {
+      await CrucibleTalentNode.initialize();
+      crucible.tree.refresh();
+    }
+  });
+
+  Hooks.on("updateItem", async (item) => {
+    if ( (item.type === "talent") && item.system.nodes.size && crucible.CONFIG.packs.talent.has(item.pack) ) {
       await CrucibleTalentNode.initialize();
       crucible.tree.refresh();
     }
@@ -752,6 +762,17 @@ function registerDevelopmentHooks() {
       options.keepId = true;
     }
   });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Allow context menu interaction inside prose-mirror if the CDT is enabled for spellcheck.
+ */
+function enableSpellcheckContext() {
+  document.addEventListener("contextmenu", event => {
+    if ( event.target.closest("prose-mirror .editor-content") ) event.stopPropagation();
+  }, {capture: true});
 }
 
 /* -------------------------------------------- */

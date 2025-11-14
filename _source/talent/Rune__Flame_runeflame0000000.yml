@@ -2,33 +2,76 @@ name: 'Rune: Flame'
 type: talent
 img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
 system:
-  node: int0a
   description: >-
     <p>The chaotic force of elemental, thermal energy. The Flame rune governs
     fire and heat.</p><p>The Flame rune scales using Intellect, targets
     <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
     <strong>Health</strong>. It is opposed by the orderly rune of
     <strong>Frost</strong>.</p>
-  actions: []
+  actions:
+    - id: enkindle
+      name: Enkindle
+      img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Flame allows you to manipulate fire and
+        thermal energy in creative ways, including:</p><ul><li><p>You manifest a
+        burst of elemental flame in one inch sphere which can ignite a candle,
+        torch, or other flammable materials.</p></li><li><p>You imbue your body
+        with momentary thermal shielding which provides you with immunity to
+        fire damage on an immediately subsequent action that costs <strong>1
+        Action</strong> or less.</p></li><li><p>You can control the movement of
+        flames within a small area, causing them to flicker, dance, or shift in
+        an animated performance of light and shadow.</p></li></ul><p>Enkindle
+        may only effect a creature or object you can physically touch. You may
+        attempt other uses similar those above, the effectiveness of which is
+        decided by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - harmless
+      actionHooks: []
   rune: flame
   actorHooks: []
+  nodes:
+    - int0a
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.350'
-  createdTime: 1674698661050
-  modifiedTime: 1762815040533
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Compendium.crucible.talent.runeflame0000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763087882149
+  modifiedTime: 1763088883057
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runeflame0000000
 folder: Dy9HnwadNE3kSZ4f
-sort: 400000
-_key: '!items!runeflame0000000'
+_id: runeFlame0000000
+sort: 0
+_key: '!items!runeFlame0000000'

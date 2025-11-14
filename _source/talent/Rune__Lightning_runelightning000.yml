@@ -18,9 +18,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1674698661050
-  modifiedTime: 1762815524829
+  modifiedTime: 1763086578313
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runelightning000
   duplicateSource: null
@@ -30,5 +30,5 @@ ownership:
   AnoypGxxNIMOS0XY: 3
 _id: runelightning000
 folder: Dy9HnwadNE3kSZ4f
-sort: 900000
+sort: 1000000
 _key: '!items!runelightning000'
