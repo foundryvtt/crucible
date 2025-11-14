@@ -9,7 +9,7 @@ system:
     <strong>Initiative</strong> score for a Round of combat, you gain <strong>+1
     Focus</strong>.</p>
   nodes:
-    - int4a
+    - int4d
 effects: []
 folder: qHUCrqkzuPHtBkbG
 sort: 300000
@@ -20,9 +20,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1688924196212
-  modifiedTime: 1762793610512
+  modifiedTime: 1763136524385
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

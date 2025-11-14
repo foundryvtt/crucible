@@ -5,13 +5,13 @@ img: icons/equipment/shield/buckler-iron-cross-gray.webp
 system:
   node: tou3b
   description: >-
-    <p>You are a calm anchor in the swirling sea of combat. Your
-    <strong>Engagement</strong> increases by +1, allowing you to simultaneously
-    engage more adjacent foes.</p>
+    <p>You are a calm anchor in the swirling sea of combat. When you have a
+    Shield equipped, your <strong>Engagement</strong> increases by +1, allowing
+    you to simultaneously engage more adjacent foes.</p>
   actions: []
-  actorHooks:
-    - hook: prepareMovement
-      fn: movement.engagement += 1;
+  actorHooks: []
+  nodes:
+    - tou3a
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 100000
@@ -21,10 +21,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1685583955388
-  modifiedTime: 1742938936489
+  modifiedTime: 1763135640548
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

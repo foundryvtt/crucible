@@ -11,8 +11,9 @@ system:
       description: >-
         <p>You emit a courageous bellow that inspires Allies within 12 feet of
         you to remain stalwart in the face of danger. You perform an
-        Intimidation skill test against the Madness threshold of your allies. On
-        a success, affected allies become Resolute for one Round.</p>
+        <strong>Intimidation</strong> skill test against the Madness threshold
+        of your allies. On a success, affected allies become
+        @Condition[resolute] for one Round.</p>
       tags:
         - harmless
         - rallying
@@ -31,7 +32,10 @@ system:
         size: 12
       effects:
         - name: Rallying Cry
-          scope: 2
+          scope: '2'
+          result:
+            type: success
+            all: false
           statuses:
             - resolute
           duration:
@@ -54,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.348'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1675737507781
-  modifiedTime: 1757527854988
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1763135915350
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.rallyingcry00000
   duplicateSource: null
   exportSource: null

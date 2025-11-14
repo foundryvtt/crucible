@@ -10,6 +10,8 @@ system:
     upon eyesight.</p>
   actions: []
   requirements: {}
+  nodes:
+    - int1b
 effects: []
 folder: 2MFixpDJ379KOogE
 sort: 200000
@@ -19,11 +21,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1684459952440
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763136430763
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

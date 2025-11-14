@@ -39,6 +39,8 @@ system:
         minimum: null
       actionHooks: []
   requirements: {}
+  nodes:
+    - wis2b
 effects: []
 ownership:
   default: 0
@@ -47,10 +49,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1676168488294
-  modifiedTime: 1727321940828
+  modifiedTime: 1763135050766
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.steadfast0000000
   duplicateSource: null

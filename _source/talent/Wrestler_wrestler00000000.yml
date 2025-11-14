@@ -50,7 +50,7 @@ system:
       actionHooks: []
   actorHooks: []
   nodes:
-    - tou1a
+    - tou1b
   rune: ''
   gesture: ''
   inflection: ''
@@ -64,12 +64,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.8.1
   createdTime: 1750875661713
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763135490600
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: 2MFixpDJ379KOogE
 ownership:
   default: 0

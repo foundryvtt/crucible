@@ -14,6 +14,8 @@ system:
     type: shield
     rank: 1
   actorHooks: []
+  nodes:
+    - tou0b
 effects: []
 sort: 0
 ownership:
@@ -24,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.1
   createdTime: 1742951427779
-  modifiedTime: 1742951499753
+  modifiedTime: 1763135427288
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: shieldCombatTrai
 _key: '!items!shieldCombatTrai'

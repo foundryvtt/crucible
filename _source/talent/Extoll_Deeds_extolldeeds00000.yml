@@ -51,12 +51,14 @@ system:
               outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
             }
   requirements: {}
+  nodes:
+    - pre2a
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1674942420024
-  modifiedTime: 1742950410983
+  modifiedTime: 1763136144400
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

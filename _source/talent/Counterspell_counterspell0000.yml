@@ -4,28 +4,22 @@ img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
 system:
   node: preint4
   description: >-
-    <p>You can attempt to unravel and negate the spellcraft of other mages.</p>
-
-    <section class="construction">
-
-    <p>Counter-Spell mechanics are preliminary and not implemented in Playtest
-    1. You may test the <em>intention</em> of this talent by working with your
-    GM, but this process will not be refined or automated until a later Playtest
-    phase.</p>
-
-    </section>
+    <p>You immediately react to a spell being cast and compose a rune and
+    gesture designed to unravel and negate the spellcraft of an enemy mage.</p>
   actions:
     - id: counterspell
       condition: Another creature which you can see is casting a spell.
       description: >-
-        <p>You form arcane energy into a countervailing spellcraft. Designate a
-        Rune and Gesture which you know to attempt to counter the spell.
-        Choosing a Rune which is opposed to the Rune being cast adds +3 Boons to
-        your roll. Choosing the same Gesture as the one being cast adds +3 Boons
-        to your roll. Perform an <strong>Opposed Test</strong> against the
-        caster of the spell using the Ability, Skill, and Enchantment bonuses of
-        the respective spells being cast. If your roll exceeds theirs, the spell
-        is countered and its magic is nullified.</p>
+        <p>You form arcane energy into a countervailing spellcraft, targeting a
+        spellcaster you can see within 30 feet.</p><p>Designate a
+        <strong>Rune</strong> and <strong>Gesture</strong> which you know to
+        attempt to counter the spell. Choosing a Rune which is opposed to one
+        used in the spell grants <strong>+2 Boons</strong> to your attempt.
+        Selecting the identical Gesture as the one being cast also adds
+        <strong>+2 Boons</strong> to your attempt.</p><p>Perform a harmless
+        Spell Attack against your target's <strong>Willpower</strong> defense.
+        If your roll exceeds their defense, the spell is countered and its magic
+        is nullified, producing no effects.</p>
       tags:
         - reaction
         - harmless
@@ -47,7 +41,12 @@ system:
         maximum: 30
         weapon: false
       actionHooks: []
+      rune: lightning
+      gesture: touch
+      composition: 1
   actorHooks: []
+  nodes:
+    - preint1
 effects: []
 ownership:
   default: 0
@@ -57,10 +56,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1675644858016
-  modifiedTime: 1763063083505
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1763136852251
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.counterspell0000
   duplicateSource: null
   exportSource: null

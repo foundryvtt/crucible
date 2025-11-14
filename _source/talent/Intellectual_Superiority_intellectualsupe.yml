@@ -21,7 +21,7 @@ system:
         ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority
         = {label: "Intellectual Superiority", number: 1};
   nodes:
-    - int4a
+    - int4d
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: -50000
@@ -32,9 +32,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1684460412134
-  modifiedTime: 1762793620952
+  modifiedTime: 1763136506448
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

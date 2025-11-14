@@ -10,11 +10,13 @@ system:
       condition: ''
       description: >-
         <p>You rapidly bolster the Morale of an ally within 4 feet by applying
-        vapours. Perform a <strong>Medicine Check</strong> against the target's
-        Madness Threshold. Successful checks restore Morale.</p>
+        vapours. Perform a <strong>Medicine</strong> check against the target's
+        <strong>Madness Threshold</strong>. Successful checks restore
+        <strong>Morale</strong>.</p>
       tags:
         - rallying
         - morale
+        - skill
         - medicine
       cost:
         action: 3
@@ -25,6 +27,7 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       name: Alchemical Resolve
       img: icons/skills/toxins/bottle-open-vapors-pink.webp
@@ -35,6 +38,8 @@ system:
       actionHooks: []
   requirements: {}
   node: int2a
+  nodes:
+    - int2c
 effects: []
 ownership:
   default: 0
@@ -43,10 +48,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1677354070473
-  modifiedTime: 1742937141253
+  modifiedTime: 1763136447171
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.alchemicalresolv
   duplicateSource: null

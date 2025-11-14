@@ -13,6 +13,8 @@ system:
         resistances.bludgeoning.base += 2;
         resistances.slashing.base += 2;
         resistances.piercing.base += 2;
+  nodes:
+    - tou3b
 effects: []
 folder: SMe30RkoLutLr4ef
 ownership:
@@ -22,10 +24,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1676169285945
-  modifiedTime: 1747841114695
+  modifiedTime: 1763135171989
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.thickskin0000000
   duplicateSource: null

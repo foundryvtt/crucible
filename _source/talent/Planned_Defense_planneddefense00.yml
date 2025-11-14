@@ -11,6 +11,8 @@ system:
     attacks against you.
   actions: []
   actorHooks: []
+  nodes:
+    - wis3a
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: 50000
@@ -20,11 +22,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.350'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1685214851183
-  modifiedTime: 1761593546972
-  lastModifiedBy: p3lgSv60AK7ndmAK
+  modifiedTime: 1763134934928
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

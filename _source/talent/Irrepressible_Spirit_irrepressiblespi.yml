@@ -8,6 +8,8 @@ system:
     despair. At the start of your turn if you are not Broken you gain 1 Morale.
   actions: []
   requirements: {}
+  nodes:
+    - wis2b
 effects: []
 ownership:
   default: 0
@@ -16,10 +18,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1677211979198
-  modifiedTime: 1682387420113
+  modifiedTime: 1763135738510
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.irrepressiblespi
   duplicateSource: null

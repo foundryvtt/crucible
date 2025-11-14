@@ -9,7 +9,7 @@ system:
     inventory without spending any Action points.
   actorHooks: []
   nodes:
-    - wis2b
+    - wis1a
 effects: []
 ownership:
   default: 0
@@ -18,11 +18,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1677354662797
-  modifiedTime: 1750029054186
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763134997002
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.preparedness0000
   duplicateSource: null
   exportSource: null

@@ -11,6 +11,8 @@ system:
     occurs in reverse order of Initiative.</p>
   actions: []
   requirements: {}
+  nodes:
+    - int3b
 effects: []
 ownership:
   default: 0
@@ -19,11 +21,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.348'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1675741470187
-  modifiedTime: 1758547185781
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1763136416225
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.strategicreposit
   duplicateSource: null
   exportSource: null

@@ -19,12 +19,14 @@ system:
           const wisdom = this.system.abilities.wisdom.value;
           defenses.parry.bonus += Math.ceil(wisdom / 2);
         }
+  nodes:
+    - wis3a
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1674942420013
-  modifiedTime: 1685124271640
+  modifiedTime: 1763134941269
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

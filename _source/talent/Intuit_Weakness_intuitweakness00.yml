@@ -38,14 +38,16 @@ system:
         weapon: false
       actionHooks: []
   actorHooks: []
+  nodes:
+    - int2a
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.7
-  coreVersion: '13.347'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1674696771693
-  modifiedTime: 1755698847324
+  modifiedTime: 1763136252081
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

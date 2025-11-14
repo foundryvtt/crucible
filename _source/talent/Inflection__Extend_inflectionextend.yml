@@ -14,15 +14,17 @@ system:
   inflection: extend
   actorHooks: []
   iconicSpells: 1
+  nodes:
+    - wispre2
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1675016923097
-  modifiedTime: 1742935478402
+  modifiedTime: 1763133931910
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionextend
   duplicateSource: null

@@ -43,6 +43,8 @@ system:
         minimum: null
         maximum: 12
         weapon: false
+  nodes:
+    - wispre1
 effects: []
 ownership:
   default: 0
@@ -51,11 +53,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.348'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1677347458957
-  modifiedTime: 1758550799744
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  modifiedTime: 1763133989986
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null

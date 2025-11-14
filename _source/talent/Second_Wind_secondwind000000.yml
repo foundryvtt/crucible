@@ -38,12 +38,14 @@ system:
         weapon: false
         minimum: null
   requirements: {}
+  nodes:
+    - tou2c
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1674702266686
-  modifiedTime: 1747840964775
+  modifiedTime: 1763135285791
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
