@@ -777,7 +777,7 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
         Creation}, some Training Talents are awarded during the selection of a
         Background.</p><p>More information on Training Talents can be found in
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}.</p><h2>Exploration
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}.</p><h2 class="divider">Exploration
         Skills</h2><dl><dt><p>Athletics</p></dt><dd><p>The
         <strong>Athletics</strong> skill represents the ability to undertake and
         surmount physical challenges. These could involve traversal of difficult
@@ -798,7 +798,7 @@ pages:
         <strong>Wilderness</strong> learn to create shelter where there is none,
         identify which water is safe to drink and which is not, and locate
         sources of food in even the most inhospitable places, and to otherwise
-        survive in harsh environments.</p></dd></dl><h2>Knowledge
+        survive in harsh environments.</p></dd></dl><h2 class="divider">Knowledge
         Skills</h2><dl><dt><p>Arcana</p></dt><dd><p>Whether the focus of the
         education is magical or religious in nature, <strong>Arcana</strong>
         encompasses the study of esoteric knowledge. Students of Arcana learn
@@ -823,7 +823,7 @@ pages:
         establish historical or socio-political context, to identify the social
         rank of particular individuals, or to otherwise draw connections between
         a person or place and its most likely
-        contributors.</p></dd></dl><h2>Social
+        contributors.</p></dd></dl><h2 class="divider">Social
         Skills</h2><dl><dt><p>Deception</p></dt><dd><p><strong>Deception</strong>
         most commonly comes into play when a character is attempting to lie or
         mislead others, forge documents, or pierce the veil of lies others
