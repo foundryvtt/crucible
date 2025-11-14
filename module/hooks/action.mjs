@@ -151,6 +151,22 @@ HOOKS.counterspell = {
     }
     const roll = await this.actor.spellAttack(this, outcome);
     if ( roll ) outcome.rolls.push(roll);
+  },
+  async confirm(reverse) {
+    const targetActor = this.outcomes.keys().find(a => a !== this.actor);
+    const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
+    if ( !isSuccess ) return;
+    const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
+    if ( !targetMessage ) return;
+    if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
+      const desiredChange = game.i18n.localize(`DICE.${reverse ? "Reverse" : "Confirm"}`);
+      const problemState = game.i18n.localize(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
+      const errorText = `Cannot ${desiredChange} a counterspell if the targeted spell is already ${problemState}!`;
+      ui.notifications.warn(errorText);
+      throw new Error(errorText);
+    }
+    await targetMessage.setFlag("crucible", "isCounterspelled", !reverse);
+    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
   }
 }
 
