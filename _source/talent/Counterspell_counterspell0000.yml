@@ -5,7 +5,15 @@ system:
   node: preint4
   description: >-
     <p>You immediately react to a spell being cast and compose a rune and
-    gesture designed to unravel and negate the spellcraft of an enemy mage.</p>
+    gesture designed to unravel and negate the spellcraft of an enemy
+    mage.</p><h2 class="divider">Playtest Notes</h2><p>This action can now be
+    used in playtesting, but it is not yet <em>fully automated</em>. The
+    Counterspell can be performed, but it is up to the Gamemaster to manually
+    reverse a previously applied spell and to manually deduct its
+    <strong>Action</strong> and <strong>Focus</strong> cost. These steps of the
+    overall Counterspell workflow <em>will be automated</em> in a subsequent
+    update such that a confirmed Counterspell will also confirm the spell that
+    was countered, but with its effects removed.</p>
   actions:
     - id: counterspell
       condition: Another creature which you can see is casting a spell.
@@ -21,10 +29,10 @@ system:
         If your roll exceeds their defense, the spell is countered and its magic
         is nullified, producing no effects.</p>
       tags:
+        - freehand
         - reaction
         - spell
         - harmless
-        - freehand
       cost:
         action: 1
         focus: 1
@@ -60,7 +68,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.351'
   createdTime: 1675644858016
-  modifiedTime: 1763158342519
+  modifiedTime: 1763159139142
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.counterspell0000
   duplicateSource: null

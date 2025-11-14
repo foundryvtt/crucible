@@ -15,19 +15,20 @@ system:
       condition: ''
       description: >-
         <p>Your command of the Rune of Illumination allows you to create light
-        and exert basic control over its radiance, including:</p><ul><li><p>You
-        create a ball of light called a "tosslight" which sheds bright light in
-        a 20 foot radius and dim light in a 40 foot radius. The light can hover
-        near your body, be affixed to an item or surface, or be thrown up to a
-        distance of 30 feet. You may dismiss your tosslight at any time and may
-        only have a single tosslight at a time, casting this spell again causes
-        your previous tosslight to disappear.</p></li><li><p>You inscribe up to
-        200 words of invisible text into paper like a scroll, page, or book. The
-        text is written from light itself and hidden from non-magical detection.
-        It can be made visible by yourself or another through use of this spell
-        combined with a spoken passphrase that you define at the time of
-        inscription.</p></li><li><p>You touch a physical object that produces
-        dim light, causing it to become bright light for as long as you maintain
+        and exert basic control over its radiance, producing one of the
+        following effects:</p><ul><li><p>Create a ball of light called a
+        "tosslight" which sheds bright light in a 20 foot radius and dim light
+        in a 40 foot radius. The light can hover near your body, be affixed to
+        an item or surface, or be thrown up to a distance of 30 feet. You may
+        dismiss your tosslight at any time and may only have a single tosslight
+        at a time, casting this spell again causes your previous tosslight to
+        disappear.</p></li><li><p>Inscribe up to 200 words of invisible text
+        into paper like a scroll, page, or book. The text is written from light
+        itself and hidden from non-magical detection. It can be made visible by
+        yourself or another through use of this spell combined with a spoken
+        passphrase that you define at the time of
+        inscription.</p></li><li><p>Touch a physical object that produces dim
+        light, causing it to become bright light for as long as you maintain
         physical contact. Only one light source may be intensified in this way
         at a given time.</p></li></ul><p>Reveal may only affect a creature or
         object you can physically touch. You may attempt other uses similar
@@ -50,8 +51,8 @@ system:
       effects: []
       tags:
         - freehand
-        - harmless
         - spell
+        - harmless
       actionHooks: []
   rune: illumination
   actorHooks: []
@@ -74,12 +75,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763147872390
-  modifiedTime: 1763158069641
+  modifiedTime: 1763161023475
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: runeIllumination
-sort: 200000
+sort: 500000
 _key: '!items!runeIllumination'

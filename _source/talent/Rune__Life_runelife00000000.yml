@@ -2,7 +2,6 @@ name: 'Rune: Life'
 type: talent
 img: icons/magic/life/heart-shadow-red.webp
 system:
-  node: wis0b
   description: >-
     <p>A chaotic force of creation, responsible for living matter. The Life rune
     governs health and matters relating to biological growth.</p><p>The Life
@@ -10,29 +9,71 @@ system:
     <strong>Restoration</strong> of <strong>Health</strong> or inflicts
     <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It is
     opposed by the orderly rune of <strong>Death</strong>.</p>
-  actions: []
+  actions:
+    - id: bloom
+      name: Bloom
+      img: icons/magic/life/heart-shadow-red.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Life allows you to stimulate biological
+        growth and nourish physical health, producing one of the following
+        effects:</p><ul><li><p>Cultivate 1 cubic foot of existing plants or
+        fungus to rapidly grow to a healthy, blossoming, or harvestable
+        state.</p></li><li><p>Identify a negative physical condition that is
+        affecting a creature such as @Condition[diseased], @Condition[poisoned],
+        @Condition[bleeding], or @Condition[weakened].</p></li><li><p>Verify
+        whether a portion of food or drink is free of contamination from
+        bacteria, parasites, or poison.</p></li></ul><p>Bloom may only affect a
+        creature or object you can physically touch. You may attempt other uses
+        similar those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - spell
+        - harmless
+      actionHooks: []
   rune: life
   actorHooks: []
   training:
     type: life
     rank: 1
+  nodes:
+    - wis0b
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
 effects: []
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.351'
-  createdTime: 1674698661050
-  modifiedTime: 1763154847695
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Compendium.crucible.talent.runelife00000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763160905557
+  modifiedTime: 1763161078366
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runelife00000000
-folder: Dy9HnwadNE3kSZ4f
-sort: 900000
-_key: '!items!runelife00000000'
+_id: runeLife00000000
+sort: 0
+_key: '!items!runeLife00000000'

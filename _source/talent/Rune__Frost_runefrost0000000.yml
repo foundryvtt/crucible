@@ -16,20 +16,20 @@ system:
       condition: ''
       description: >-
         <p>Your command of the Rune of Frost allows you to manipulate liquids
-        and their thermal properties, including:</p><ul><li><p>You draw up to
-        one liter of fresh water from the atmosphere into a container or upon a
-        surface you touch. The created water may be affected by relevant
-        atmospheric properties of your current location.</p></li><li><p>You
-        manipulate the temperature of up to 1 gallon of water, causing it to
-        immediately freeze or thaw. The water need not be in a container; this
-        technique can be used to coat a surface or join two objects together via
-        regelation. Ice created in this way remains frozen for as long as the
-        ambient temperature of the environment allows.</p></li><li><p>You gather
-        up to six cubic feet of nearby snow, forming it into a solidified
-        sculpture, shape, or shelter.</p></li></ul><p>Condense may only affect a
-        creature or object you can physically touch. You may attempt other uses
-        similar those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        and their thermal properties, producing one of the following
+        effects:</p><ul><li><p>Draw up to one liter of fresh water from the
+        atmosphere into a container or upon a surface you touch. The created
+        water may be affected by relevant atmospheric properties of your current
+        location.</p></li><li><p>Manipulate the temperature of up to 1 gallon of
+        water, causing it to immediately freeze or thaw. The water need not be
+        in a container; this technique can be used to coat a surface or join two
+        objects together via regelation. Ice created in this way remains frozen
+        for as long as the ambient temperature of the environment
+        allows.</p></li><li><p>Gather up to a six-foot cube of nearby snow,
+        forming it into a solidified sculpture, shape, or
+        shelter.</p></li></ul><p>Condense may only affect a creature or object
+        you can physically touch. You may attempt other uses similar those
+        above, the effectiveness of which is decided by the Gamemaster.</p>
       cost:
         action: 3
         focus: 1
@@ -47,8 +47,8 @@ system:
       effects: []
       tags:
         - freehand
-        - harmless
         - spell
+        - harmless
       actionHooks: []
   rune: frost
   nodes:
@@ -71,12 +71,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763088779428
-  modifiedTime: 1763158062374
+  modifiedTime: 1763161420847
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: runeFrost0000000
-sort: 300000
+sort: 600000
 _key: '!items!runeFrost0000000'

@@ -15,17 +15,18 @@ system:
       condition: ''
       description: >-
         <p>Your command of the Rune of Flame allows you to manipulate fire and
-        thermal energy in creative ways, including:</p><ul><li><p>You manifest a
-        burst of elemental flame in one inch sphere which can ignite a candle,
-        torch, or other flammable materials.</p></li><li><p>You imbue your body
-        with momentary thermal shielding which provides you with immunity to
-        fire damage on an immediately subsequent action that costs <strong>1
-        Action</strong> or less.</p></li><li><p>You can control the movement of
-        flames within a small area, causing them to flicker, dance, or shift in
-        an animated performance of light and shadow.</p></li></ul><p>Enkindle
-        may only affect a creature or object you can physically touch. You may
-        attempt other uses similar those above, the effectiveness of which is
-        decided by the Gamemaster.</p>
+        thermal energy in creative ways, producing one of the following
+        effects:</p><ul><li><p>Manifest a burst of elemental flame in one inch
+        sphere which can ignite a candle, torch, or other flammable
+        materials.</p></li><li><p>Imbue your body with momentary thermal
+        shielding which provides you with immunity to fire damage on an
+        immediately subsequent action that costs <strong>1 Action</strong> or
+        less.</p></li><li><p>Control the movement of flames within a small area,
+        causing them to flicker, dance, or shift in an animated performance of
+        light and shadow.</p></li></ul><p>Enkindle may only affect a creature or
+        object you can physically touch. You may attempt other uses similar
+        those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
       cost:
         action: 3
         focus: 1
@@ -43,8 +44,8 @@ system:
       effects: []
       tags:
         - freehand
-        - harmless
         - spell
+        - harmless
       actionHooks: []
   rune: flame
   actorHooks: []
@@ -67,12 +68,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763087882149
-  modifiedTime: 1763158054054
+  modifiedTime: 1763160991434
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeFlame0000000
-sort: 100000
+sort: 400000
 _key: '!items!runeFlame0000000'

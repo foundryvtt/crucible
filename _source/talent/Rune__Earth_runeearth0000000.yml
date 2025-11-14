@@ -16,19 +16,18 @@ system:
       condition: ''
       description: >-
         <p>Your command of the Rune of Earth allows you to manipulate raw forces
-        of rock, mineral, and soil in basic ways including:</p><ul><li><p>You
-        quickly shape up to one cubic foot of available material into a simple
-        geometric form like a cuboid, ellipsoid, or
-        polyhedron.</p></li><li><p>You precisely copy the physical shape of a
-        held object that is smaller than 3 cubic inches, reproducing it from
-        available clay, stone, or metal. The replica retains no useful
-        properties except for its physical form.</p></li><li><p>You separate and
-        collect earthen particles from the surface of an object, creature, or
-        liquid that you touch, rendering the subject completely cleaned or
-        purified in moments.</p></li></ul><p>Mould may only affect a creature or
-        object you can physically touch. You may attempt other uses similar
-        those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        of rock, mineral, and soil in basic ways, producing one of the following
+        effects:</p><ul><li><p>Quickly shape up to one cubic foot of available
+        material into a simple geometric form like a cuboid, ellipsoid, or
+        polyhedron.</p></li><li><p>Precisely copy the physical shape of a held
+        object that is smaller than a 6-inch cube, reproducing it from available
+        clay, stone, or metal. The replica retains no useful properties except
+        for its physical form.</p></li><li><p>Separate and collect earthen
+        particles from the surface of an object, creature, or liquid that you
+        touch, rendering the subject completely cleaned or purified in
+        moments.</p></li></ul><p>Mould may only affect a creature or object you
+        can physically touch. You may attempt other uses similar those above,
+        the effectiveness of which is decided by the Gamemaster.</p>
       cost:
         action: 3
         focus: 0
@@ -46,8 +45,8 @@ system:
       effects: []
       tags:
         - freehand
-        - harmless
         - spell
+        - harmless
       actionHooks: []
   rune: earth
   actorHooks: []
@@ -70,12 +69,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763086578158
-  modifiedTime: 1763158045630
+  modifiedTime: 1763161402792
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeEarth0000000
-sort: 600000
+sort: 900000
 _key: '!items!runeEarth0000000'
