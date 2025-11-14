@@ -948,7 +948,9 @@ export const TAGS = {
     category: "modifiers",
     async postActivate(outcome) {
       for ( const roll of outcome.rolls ) {
-        if ( roll.data.damage ) roll.data.damage.total = 0;
+        if ( roll.data.damage ) {
+          roll.data.damage.base = roll.data.damage.total = 0;
+        }
       }
     }
   },

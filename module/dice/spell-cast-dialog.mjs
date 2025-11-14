@@ -30,6 +30,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     // Merge context
     return foundry.utils.mergeObject(context, {
       ability, runes, gestures, inflections,
+      canInflect: true,
       chooseDamageType: spell.rune.damageType === "physical",
       damageTypes: {
         bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,

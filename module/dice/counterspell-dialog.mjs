@@ -1,24 +1,20 @@
 import SpellCastDialog from "./spell-cast-dialog.mjs";
 
 /**
- * Prompt the user to configure their counterspell
+ * Prompt the user to configure their Counterspell.
  */
 export default class CounterspellDialog extends SpellCastDialog {
-
-  /** @override */
-  static TEMPLATE = "systems/crucible/templates/dice/counterspell-dialog.hbs";
 
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const actor = this.action.actor;
-
-    // Targeted spell
-    // TODO: War Mage?
-    const {rune, gesture} = ChatMessage.implementation.getLastAction();
-    context.targetedRune = (actor.talentIds.has("recognizespellcr") && actor.grimoire.runes.has(rune)) ? rune.name : "Unknown";
-    context.targetedGesture = "Unknown";
-    
+    const {rune=null, gesture=null} = ChatMessage.implementation.getLastAction() || {};
+    const rLabel = (actor.talentIds.has("recognizespellcr") && actor.grimoire.runes.has(rune)) ? rune.name : "Unknown";
+    context.canInflect = false;
+    context.runeHint = `Target Rune: ${rLabel}`;
+    context.gestureHint = `Target Gesture: Unknown`;
+    context.chooseDamageType = false;
     return context;
   }
 

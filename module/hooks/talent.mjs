@@ -121,12 +121,30 @@ HOOKS.healer0000000000 = {
     if ( spell.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
   }
 }
+/* -------------------------------------------- */
+
+HOOKS.holdfast00000000 = {
+  prepareMovement(item, movement) {
+    if ( this.equipment.weapons.shield ) movement.engagement += 1;
+  }
+}
 
 /* -------------------------------------------- */
 
 HOOKS.lesserregenerati = {
   startTurn(item, {resourceRecovery}) {
     if ( !this.system.isWeakened ) resourceRecovery.health = (resourceRecovery.health || 0) + 1;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.mentalfortress00 = {
+  prepareResistances(item, resistances) {
+    resistances.psychic.base += 5;
+  },
+  prepareDefenses(item, defenses) {
+    defenses.willpower.bonus += 1;
   }
 }
 

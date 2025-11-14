@@ -137,14 +137,17 @@ HOOKS.counterspell = {
     this.usage.context.tags.rune = `Rune: ${this.rune?.name ?? "None"}`;
     this.usage.context.tags.gesture = `Gesture: ${this.gesture?.name ?? "None"}`;
   },
+  preActivate() {
+    SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
+  },
   async roll(outcome) {
-    outcome.usage.defenseType = "willpower"; // TODO
+    outcome.usage.defenseType = "willpower"; // Maybe changed later
     const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
     if ( this.rune.id === usedRune.opposed ) {
-      this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 3};
+      this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 2};
     }
     if ( this.gesture.id === usedGesture.id ) {
-      this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 3};
+      this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 2};
     }
     const roll = await this.actor.spellAttack(this, outcome);
     if ( roll ) outcome.rolls.push(roll);
