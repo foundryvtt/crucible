@@ -20,7 +20,7 @@ system:
     rank: null
   actorHooks: []
 effects: []
-folder: KojrDmhlaQhj52EG
+folder: jpipM4v8QX2Amfpx
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -29,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762832547425
-  modifiedTime: 1762832857687
+  modifiedTime: 1763154061748
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kineturge0000000
-sort: 0
+sort: 150000
 _key: '!items!kineturge0000000'

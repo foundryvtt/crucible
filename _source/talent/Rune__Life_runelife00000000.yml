@@ -13,6 +13,9 @@ system:
   actions: []
   rune: life
   actorHooks: []
+  training:
+    type: life
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -21,7 +24,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.351'
   createdTime: 1674698661050
-  modifiedTime: 1763086578313
+  modifiedTime: 1763154847695
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runelife00000000
   duplicateSource: null

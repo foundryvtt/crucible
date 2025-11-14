@@ -128,12 +128,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     // Skill Bonus
     const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
     const isIntuitive = ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive");
-    for ( const t of trainingTypes ) {
-      const r = actor.system.training[t] ?? 0;
-      let b = SYSTEM.TALENT.TRAINING_RANK_VALUES[r].bonus;
-      if ( !r && isIntuitive ) b = -1;
-      if ( b > this.actionBonuses.skill ) this.actionBonuses.skill = b;
-    }
+    let b = actor.getSkillBonus(trainingTypes);
+    if ( isIntuitive ) b = Math.max(b, -1);
+    this.actionBonuses.skill = b;
 
     // Populate current damage bonus
     const actorBonuses = actor.system.rollBonuses.damage || {};

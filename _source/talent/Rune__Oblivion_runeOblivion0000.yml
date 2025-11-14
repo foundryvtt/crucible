@@ -18,8 +18,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: oblivion
+    rank: 1
 effects: []
 ownership:
   default: 0
@@ -34,7 +34,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762815604487
-  modifiedTime: 1763086578313
+  modifiedTime: 1763154865567
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 sort: 1100000

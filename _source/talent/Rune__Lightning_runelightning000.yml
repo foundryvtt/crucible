@@ -12,6 +12,9 @@ system:
   actions: []
   rune: lightning
   actorHooks: []
+  training:
+    type: lightning
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -20,7 +23,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.351'
   createdTime: 1674698661050
-  modifiedTime: 1763086578313
+  modifiedTime: 1763154857722
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runelightning000
   duplicateSource: null

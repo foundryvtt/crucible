@@ -26,7 +26,10 @@ system:
         regelation. Ice created in this way remains frozen for as long as the
         ambient temperature of the environment allows.</p></li><li><p>You gather
         up to six cubic feet of nearby snow, forming it into a solidified
-        sculpture, shape, or shelter.</p></li></ul>
+        sculpture, shape, or shelter.</p></li></ul><p>Condense may only affect a
+        creature or object you can physically touch. You may attempt other uses
+        similar those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
       cost:
         action: 3
         focus: 1
@@ -45,6 +48,7 @@ system:
       tags:
         - freehand
         - harmless
+        - spell
       actionHooks: []
   rune: frost
   nodes:
@@ -53,8 +57,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: frost
+    rank: 1
   actorHooks: []
 effects: []
 flags:
@@ -67,12 +71,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763088779428
-  modifiedTime: 1763088850737
+  modifiedTime: 1763158062374
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: runeFrost0000000
-sort: 0
+sort: 300000
 _key: '!items!runeFrost0000000'

@@ -23,7 +23,7 @@ system:
         Action</strong> or less.</p></li><li><p>You can control the movement of
         flames within a small area, causing them to flicker, dance, or shift in
         an animated performance of light and shadow.</p></li></ul><p>Enkindle
-        may only effect a creature or object you can physically touch. You may
+        may only affect a creature or object you can physically touch. You may
         attempt other uses similar those above, the effectiveness of which is
         decided by the Gamemaster.</p>
       cost:
@@ -44,6 +44,7 @@ system:
       tags:
         - freehand
         - harmless
+        - spell
       actionHooks: []
   rune: flame
   actorHooks: []
@@ -53,8 +54,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: flame
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -66,12 +67,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763087882149
-  modifiedTime: 1763088883057
+  modifiedTime: 1763158054054
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeFlame0000000
-sort: 0
+sort: 100000
 _key: '!items!runeFlame0000000'

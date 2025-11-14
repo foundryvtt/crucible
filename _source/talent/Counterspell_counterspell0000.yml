@@ -22,7 +22,9 @@ system:
         is nullified, producing no effects.</p>
       tags:
         - reaction
+        - spell
         - harmless
+        - freehand
       cost:
         action: 1
         focus: 1
@@ -58,7 +60,7 @@ _stats:
   systemVersion: 0.8.1
   coreVersion: '13.351'
   createdTime: 1675644858016
-  modifiedTime: 1763136852251
+  modifiedTime: 1763158342519
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.counterspell0000
   duplicateSource: null

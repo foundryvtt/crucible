@@ -1,6 +1,7 @@
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
+import {SYSTEM} from "../const/system.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -275,6 +276,24 @@ export default class CrucibleActor extends Actor {
     if ( typeof scaling === "string" ) scaling = scaling.split(".");
     const abilities = this.system.abilities;
     return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the skill bonus that this Actor has in a certain training area.
+   * @param {string[]} training
+   * @returns {number}
+   */
+  getSkillBonus(training) {
+    let bonus = training.length ? -4 : 0; // Does the skill require training?
+    for ( const t of training ) {
+      const tier = this.system.training[t] ?? 0;
+      const rank = SYSTEM.TALENT.TRAINING_RANK_VALUES[tier];
+      const b = rank.bonus;
+      if ( b > bonus ) bonus = b;
+    }
+    return bonus;
   }
 
   /* -------------------------------------------- */
@@ -1105,6 +1124,14 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * @typedef CrucibleTurnStartConfig
+   * @property {Record<string, number>} resourceChanges
+   * @property {object} actorUpdates
+   * @property {toCreate: object[], toUpdate: object[], toDelete: string[]} effectChanges
+   * @property {string[]} statusText
+   */
+
+  /**
    * Actions that occur at the beginning of an Actor's turn in Combat.
    * This method is only called for one User who has ownership permission over the Actor.
    *
@@ -1126,7 +1153,7 @@ export default class CrucibleActor extends Actor {
 
     // Plan actor changes
     const statusText = [];
-    const resourceRecovery = {action: Infinity};
+    const resourceChanges = {action: Infinity};
     if ( this.statuses.has("unaware") ) statusText.push({
       text: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
@@ -1142,10 +1169,11 @@ export default class CrucibleActor extends Actor {
 
     // Identify expiring effects
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    this.#updateStartTurnEffects(effectChanges);
+    /** @type {CrucibleTurnStartConfig} */
+    const turnStartConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
 
     // Actor turn start configuration hook
-    const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
+    this.#prepareTurnStartConfig(turnStartConfig);
     this.callActorHooks("startTurn", turnStartConfig);
 
     // Apply damage-over-time
@@ -1159,11 +1187,39 @@ export default class CrucibleActor extends Actor {
     });
 
     // Recover resources
-    await this.alterResources(resourceRecovery, actorUpdates, {statusText}).catch(cause => {
+    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
       console.error(new Error(`Failed to apply turn start resource recovery for Actor ${this.id}.`, {cause}));
     });
 
     // TODO log a turn start summary of resource changes and their sources?
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
+   * Effects with a duration specified in Rounds expire at the beginning of the Actor's turn on the subsequent round.
+   * @param {CrucibleTurnStartConfig} turnStartConfig
+   */
+  #prepareTurnStartConfig(turnStartConfig) {
+    const {effectChanges, resourceChanges} = turnStartConfig;
+
+    // Identify effect changes
+    for ( const effect of this.effects ) {
+
+      // Identify expired effects
+      const {startRound, rounds} = effect.duration;
+      if ( Number.isNumeric(rounds) ) {
+        const elapsed = game.combat.round - startRound;
+        if ( elapsed > rounds ) {
+          effectChanges.toDelete.push(effect.id);
+          continue;
+        }
+      }
+
+      // Identify maintained effects
+      debugger;
+    }
   }
 
   /* -------------------------------------------- */
@@ -1268,22 +1324,6 @@ export default class CrucibleActor extends Actor {
     if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
     if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a duration specified in Rounds expire at the beginning of the Actor's turn on the subsequent round.
-   * @param {{toCreate: object[], toUpdate: object[], toDelete: string[]}} [effectChanges]
-   */
-  #updateStartTurnEffects(effectChanges) {
-    for ( const effect of this.effects ) {
-      const {startRound, rounds} = effect.duration;
-      if ( !Number.isNumeric(rounds) ) continue; // Must have duration in rounds
-      const elapsed = game.combat.round - startRound;
-      if ( elapsed > rounds ) effectChanges.toDelete.push(effect.id);
-    }
   }
 
   /* -------------------------------------------- */

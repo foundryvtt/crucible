@@ -29,6 +29,7 @@ system:
       tags:
         - freehand
         - harmless
+        - spell
       actionHooks: []
       name: Motivate
       condition: ''
@@ -44,7 +45,7 @@ system:
         verb.</p></li><li><p>Intensely focus on your current objective and the
         means of achieving it. You receive a brief hint or reminder from the
         Gamemaster about that objective containing only information which you
-        have previously learned.</p></li></ul><p>Motivate may only effect a
+        have previously learned.</p></li></ul><p>Motivate may only affect a
         creature or object which you can physically touch. You may attempt other
         uses similar those above, the effectiveness of which is decided by the
         Gamemaster.</p>
@@ -56,8 +57,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: control
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -69,12 +70,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763003747940
-  modifiedTime: 1763088860533
+  modifiedTime: 1763158029377
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeControl00000
-sort: 100000
+sort: 400000
 _key: '!items!runeControl00000'

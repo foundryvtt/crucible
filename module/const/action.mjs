@@ -153,6 +153,8 @@ export const TARGET_TYPES = Object.freeze({
  */
 export const TAG_CATEGORIES = Object.freeze({
   attack: {label: "ACTION.TAG_CATEGORIES.ATTACK"},
+  spellcraft: {label: "ACTION.TAG_CATEGORIES.SPELLCRAFT"},
+  skills: {label: "ACTION.TAG_CATEGORIES.SKILLS"},
   requirements: {label: "ACTION.TAG_CATEGORIES.REQUIREMENTS"},
   context: {label: "ACTION.TAG_CATEGORIES.CONTEXT"},
   modifiers: {label: "ACTION.TAG_CATEGORIES.MODIFIERS"},
@@ -160,8 +162,7 @@ export const TAG_CATEGORIES = Object.freeze({
   damage: {label: "ACTION.TAG_CATEGORIES.DAMAGE"},
   scaling: {label: "ACTION.TAG_CATEGORIES.SCALING"},
   resources: {label: "ACTION.TAG_CATEGORIES.RESOURCES"},
-  skills: {label: "ACTION.TAG_CATEGORIES.SKILLS"},
-  special: {label: "ACTION.TAG_CATEGORIES.SPECIAL"},
+  special: {label: "ACTION.TAG_CATEGORIES.SPECIAL"}
 });
 
 /* -------------------------------------------- */
@@ -294,9 +295,13 @@ export const TAGS = {
     tooltip: "ACTION.TagFreehandTooltip",
     category: "requirements",
     canUse() {
+      if ( this.tags.has("spell") ) return; // Handled by spell tag
       const weapons = this.actor.equipment.weapons;
       if ( weapons.twoHanded && this.actor.talentIds.has("stronggrip000000") ) return true;
       return weapons.freeHands > 0;
+    },
+    prepare() {
+      this.cost.hands ||= 1; // At least 1 hand required
     }
   },
 
@@ -425,7 +430,8 @@ export const TAGS = {
     tag: "spell",
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
-    category: "attack",
+    category: "spellcraft",
+    priority: 1,
     initialize() {
       Object.assign(this.usage.context, {
         type: "spell",
@@ -433,6 +439,23 @@ export const TAGS = {
         icon: "fa-solid fa-sparkles",
         tags: {}
       });
+    },
+    preActivate() {
+      let hands = this.cost.hands ?? 0;
+      if ( hands > this.actor.equipment.weapons.spellHands ) {
+        throw new Error(`The "${this.name}" spell requires ${this.cost.hands} free hands to cast.`);
+      }
+    }
+  },
+
+  // Composed Spells
+  composed: {
+    tag: "composed",
+    label: "ACTION.TagComposed",
+    tooltip: "ACTION.TagComposedTooltip",
+    category: "spellcraft",
+    priority: 2,
+    initialize() {
       if ( this.composition === 0 ) return;
       this.usage.context.tags.rune = `Rune: ${this.rune.name}`;
       this.usage.context.tags.gesture = `Gesture: ${this.gesture.name}`;
@@ -458,17 +481,14 @@ export const TAGS = {
     tag: "iconicSpell",
     label: "ACTION.TagIconicSpell",
     tooltip: "ACTION.TagSpellTooltip",
+    category: "spellcraft",
+    priority: 2,
     prepare() {
       for ( const gestureId of this.parent.gestures ) {
         const gesture = SYSTEM.SPELL.GESTURES[gestureId];
         this.cost.hands = Math.max(this.cost.hands, gesture.hands);
       }
       this.usage.actorStatus.hasCast = true;
-    },
-    canUse() {
-      if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
-        throw new Error(`The ${this.name} spell requires ${this.cost.hands} free hands for spellcraft.`);
-      }
     }
   },
 
@@ -1092,6 +1112,7 @@ for ( const {id, abilities, label} of Object.values(SKILLS) ) {
     propagate: ["skill"],
     initialize() {
       this.scaling.push(...abilities);
+      this.training.push(id);
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
       this.usage.hasDice = true;

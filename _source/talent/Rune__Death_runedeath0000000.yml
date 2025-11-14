@@ -27,7 +27,7 @@ system:
         seconds of life. You have no control over the creature nor can it
         communicate in any other way.</p></li><li><p>You can hasten the death of
         a willing creature that is currently dying, causing it to pass swiftly
-        and peacefully.</p></li></ul><p>Ennervate may only effect a creature or
+        and peacefully.</p></li></ul><p>Ennervate may only affect a creature or
         object you can physically touch. You may attempt other uses similar
         those above, the effectiveness of which is decided by the
         Gamemaster.</p>
@@ -49,6 +49,7 @@ system:
       tags:
         - freehand
         - harmless
+        - spell
       actionHooks: []
   rune: death
   actorHooks: []
@@ -58,8 +59,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: death
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -71,12 +72,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763081402956
-  modifiedTime: 1763088876141
+  modifiedTime: 1763158037474
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeDeath0000000
-sort: 200000
+sort: 500000
 _key: '!items!runeDeath0000000'

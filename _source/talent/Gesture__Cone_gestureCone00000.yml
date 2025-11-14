@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/lightning/bolt-strike-sparks-teal.webp
 system:
   nodes:
-    - int4b
+    - int4a
   description: >-
     <p>You focus the arcane power of a Rune into a narrow cone that projects
     outwards from your location.</p><p>The Cone gesture scales with
@@ -35,11 +35,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762794177874
-  modifiedTime: 1762984977699
+  modifiedTime: 1763155025555
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: gestureCone00000
 sort: 0

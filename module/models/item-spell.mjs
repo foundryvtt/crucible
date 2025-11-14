@@ -53,7 +53,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
   _initializeSource(source, options) {
     super._initializeSource(source, options);
     for ( const action of source.actions ) {
-      action.tags[0] = "iconicSpell"; // Potentially fragile?
+      action.tags.unshift("spell", "iconicSpell");
     }
     return source;
   }

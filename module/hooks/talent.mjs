@@ -4,7 +4,7 @@ const HOOKS = {};
 
 HOOKS.arcanearcher0000 = {
   prepareAction(item, action) {
-    if ( !action.tags.has("spell") ) return;
+    if ( !action.tags.has("composed") ) return;
     const mh = this.equipment.weapons.mainhand;
     if ( !["projectile1", "projectile2"].includes(mh.category) ) return;
 
@@ -186,7 +186,7 @@ HOOKS.powerfulThrow000 = {
 
 HOOKS.spellblade000000 = {
   prepareAction(item, action) {
-    if ( !action.tags.has("spell") ) return;
+    if ( !action.tags.has("composed") ) return;
     const mh = this.equipment.weapons.mainhand;
     if ( mh.config.category.ranged ) return;
 

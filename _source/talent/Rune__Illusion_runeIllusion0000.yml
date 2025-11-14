@@ -9,7 +9,52 @@ system:
     defense, and deals <strong>Psychic</strong> damage to
     <strong>Morale</strong>. It is opposed by the orderly rune of
     <strong>Illumination</strong>.</p>
-  actions: []
+  actions:
+    - id: seeming
+      name: Seeming
+      img: icons/magic/light/projectile-smoke-blue-white.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Illusion allows you to fabricate
+        perception in various simple ways and to manipulate shadow and light to
+        create distraction or entertainment, including:</p><ul><li><p>You modify
+        a single aspect of your own physical appearance. Such alterations might
+        include adjusting the sound of your voice, changing the color of your
+        eyes, gaining illusory horns, or appearing slightly taller or shorter.
+        The alteration persists until you Rest or enact a different alteration
+        and can be verified as illusory by physical
+        inspection.</p></li><li><p>You manifest a convincing recreation of a
+        short sound or single scent that you can clearly recall. The illusion
+        originates from your position and lasts for 10 seconds. You can control
+        the volume of the sound or odorousness of the scent to be perceptible up
+        to a range of 60 feet or shorter.</p></li><li><p>You decouple your
+        shadow from your form, specifically controlling its movements separately
+        from your own. You can maintain this illusion as long as you do not
+        perform any other action that consumes
+        <strong>Focus</strong>.</p></li></ul><p>Seeming may only affect a
+        creature or object you can physically touch. You may attempt other uses
+        similar those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - harmless
+        - spell
+      actionHooks: []
   rune: illusion
   actorHooks: []
   nodes:
@@ -18,25 +63,25 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: illumination
+    rank: 1
 effects: []
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
-  compendiumSource: Item.runetime00000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762816062015
-  modifiedTime: 1762816718692
+  createdTime: 1763149060479
+  modifiedTime: 1763158078822
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
-sort: 1200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 _id: runeIllusion0000
+sort: 0
 _key: '!items!runeIllusion0000'

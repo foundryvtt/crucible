@@ -25,7 +25,7 @@ system:
         properties except for its physical form.</p></li><li><p>You separate and
         collect earthen particles from the surface of an object, creature, or
         liquid that you touch, rendering the subject completely cleaned or
-        purified in moments.</p></li></ul><p>Mould may only effect a creature or
+        purified in moments.</p></li></ul><p>Mould may only affect a creature or
         object you can physically touch. You may attempt other uses similar
         those above, the effectiveness of which is decided by the
         Gamemaster.</p>
@@ -47,6 +47,7 @@ system:
       tags:
         - freehand
         - harmless
+        - spell
       actionHooks: []
   rune: earth
   actorHooks: []
@@ -56,8 +57,8 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: earth
+    rank: 1
 effects: []
 flags:
   core: {}
@@ -69,12 +70,12 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763086578158
-  modifiedTime: 1763086578313
+  modifiedTime: 1763158045630
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 folder: Dy9HnwadNE3kSZ4f
 _id: runeEarth0000000
-sort: 300000
+sort: 600000
 _key: '!items!runeEarth0000000'

@@ -34,7 +34,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
     // Avoid determining hands cost if not actually composing a counterspell
     if ( !this.composition ) cost.hands = 0;
-    
+
     // Undo certain changes we don't want done
     Object.assign(this, {
       name, img, target, description, range, cost
@@ -57,8 +57,9 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
-    if ( !lastAction || !lastAction.tags.has("spell") ) {
-      target.error = "You can only counterspell the caster of the last action, and that must action must be a spell!";
+    const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
+    if ( !wasSpell ) {
+      target.error = "You can only Counterspell the caster of the last action, and that must action must be a spell!";
       if (options.strict) throw new Error(target.error);
     }
     return targets;
