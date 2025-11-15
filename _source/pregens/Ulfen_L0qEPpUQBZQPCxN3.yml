@@ -281,16 +281,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: oF4aJsv8ex
+      identifier: xBDkgmbLVs
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -321,17 +321,17 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: ddDiEDjEFz
+      dropped: false
+      identifier: rXhcX8sxWS
       invested: false
       actorHooks: []
-      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -393,9 +393,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -453,9 +453,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -516,9 +516,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -557,9 +557,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -627,9 +627,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: berserker0000000
     folder: fOYHlZJEWUukD7yr
@@ -663,9 +663,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -729,7 +729,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - tou1a
+        - tou1b
       rune: ''
       gesture: ''
       inflection: ''
@@ -739,9 +739,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -250000
@@ -788,9 +788,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: bloodfrenzy00000
     sort: 100000
@@ -862,9 +862,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 0
@@ -897,9 +897,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: unshakeablestanc
     folder: SMe30RkoLutLr4ef
@@ -960,9 +960,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -1016,7 +1016,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - tou1b
+        - tou2c
       rune: ''
       gesture: ''
       inflection: ''
@@ -1024,9 +1024,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -1094,9 +1094,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1111,15 +1111,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1138,9 +1137,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1152,14 +1151,12 @@ items:
     img: systems/crucible/icons/skills/intimidation.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You understand the
-        fundamentals of how threats and coercion can achieve desired outcomes.
-        You gain the <strong>Novice</strong> rank in the <strong>Intimidation
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</span></p><p><span style="font-family:Vollkorn,
-        serif">You know how to use simple displays of violence or overt threats
-        to get others to follow your lead, but you aren't very
-        subtle.</span></p>
+        <p>You understand the fundamentals of how threats and coercion can
+        achieve desired outcomes. You gain the <strong>Novice</strong> rank in
+        the <strong>Intimidation </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        simple displays of violence or overt threats to get others to follow
+        your lead, but you aren't very subtle.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1178,9 +1175,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1212,9 +1209,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1280,9 +1277,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1315,9 +1312,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1351,9 +1348,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1376,7 +1373,7 @@ items:
             resistances.slashing.base += 2;
             resistances.piercing.base += 2;
       nodes:
-        - tou2c
+        - tou3b
       rune: ''
       gesture: ''
       inflection: ''
@@ -1391,9 +1388,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: thickskin0000000
     folder: null
@@ -1427,9 +1424,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: armoredefficienc
     folder: null
@@ -1486,9 +1483,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: penetratingThrow
     folder: null
@@ -1496,11 +1493,68 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.penetratingThrow'
+  - name: Stiletto
+    type: weapon
+    img: icons/weapons/daggers/dagger-straight-thin-black.webp
+    system:
+      category: light1
+      quantity: 1
+      weight: 1
+      price: 800
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: false
+      properties:
+        - ambush
+        - keen
+        - intuitive
+      damageType: piercing
+      identifier: stiletto
+      invested: false
+      description:
+        public: >-
+          <p>Thin, tapered, and made for piercing, the stiletto is a killer’s
+          weapon — designed to slide between ribs or gaps in armor and leave
+          barely a trace.</p>
+        private: ''
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: WTzwacTfNem5ilp9
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.WTzwacTfNem5ilp9'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory:
+      - id: strike
+        messageId: 33D30TDgdhzTZcw5
+        combat: null
+      - id: strike
+        messageId: WJoPLA82IjN8CoNn
+        combat: null
+      - id: strike
+        messageId: BfrR6JLpcRj27mCu
+        combat: null
+      - id: strike
+        messageId: pjUEfzhhH8vhSdJK
+        combat: null
       - id: strike
         messageId: xHZjzBRNDAxZvcSf
         combat:
@@ -1585,11 +1639,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 ownership:

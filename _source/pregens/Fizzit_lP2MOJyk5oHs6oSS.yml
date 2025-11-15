@@ -278,16 +278,16 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: qftHTKVeMI
+      identifier: k3Q0IZNgk2
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -315,7 +315,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: dSFaRha3OI
+      identifier: cRIJSB9ZfD
       invested: false
       actorHooks: []
       dropped: false
@@ -326,9 +326,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -353,7 +353,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: TCSHHOP3Tc
+      identifier: x5OMsRpprk
       invested: false
       actorHooks: []
       dropped: false
@@ -365,9 +365,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 200000
@@ -418,7 +418,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - int1b
+        - int2a
       rune: ''
       gesture: ''
       inflection: ''
@@ -428,9 +428,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -50000
@@ -442,20 +442,19 @@ items:
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       description: >-
-        <p>The chaotic force of raw, electrical energy. The Lightning rune
-        governs sources of electrical energy and electrical discharge. It is
-        opposed by the orderly rune of Earth.</p>
-
-        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
         <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>.</p>
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
       actions: []
       rune: lightning
       actorHooks: []
       iconicSpells: 0
       training:
-        type: ''
-        rank: null
+        type: lightning
+        rank: 1
       nodes:
         - int0a
       gesture: ''
@@ -467,9 +466,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -482,12 +481,13 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>Hurl a projectile of magical power at a distant target. This might
-        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a <strong>single</strong>
-        creature up to a distance of 60 feet, dealing 8 base damage on a
-        successful attack.</p>
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -506,9 +506,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -516,58 +516,23 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.gesturearrow0000'
-  - name: 'Rune: Frost'
-    type: talent
-    img: icons/magic/water/snowflake-ice-snow-white.webp
-    system:
-      description: >-
-        <p>The orderly force of elemental, thermal energy. The Frost rune
-        governs sources of ice and cold. It is opposed by the chaotic rune of
-        Flame.</p>
-
-        <p>The Frost rune scales using <strong>Wisdom</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
-        <strong>Health</strong>.</p>
-      actions: []
-      rune: frost
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runefrost0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 500000
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.runefrost0000000'
   - name: 'Gesture: Create'
     type: talent
     img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
     system:
       description: >-
-        <p>Coalesce arcane power into tangible form, conjuring a
-        <strong>Creation</strong> which appears within 10 feet and joins Combat
-        at Initiative 1.</p><p>Your Creation is a Minion of half your own Level
-        chosen from the Summoned Creatures compendium pack corresponding to the
-        Rune used in the spell.</p><p>The Creation lasts for <strong>10
-        Rounds</strong>. You may only have one active Creation, casting another
-        spell using the Create gesture replaces your previous Creation.</p>
+        <p>You coalesce arcane power into tangible form, manifesting a
+        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
+        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
+        Level.</p><p>The Create gesture scales with <strong>Wisdom</strong> and
+        the Sprite survives for <strong>6 Rounds</strong>. You may only have one
+        active Sprite, casting another spell using the Create gesture replaces
+        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
+        cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
+        Runes have a Sprite actor defined yet. Runes that do not yet have a
+        defined Creation will — for now — manifest a <strong>Flame
+        Sprite</strong>.</p>
       actions: []
       gesture: create
       actorHooks: []
@@ -586,9 +551,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -623,9 +588,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -659,9 +624,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: conjurer00000000
     folder: fOYHlZJEWUukD7yr
@@ -669,55 +634,17 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.conjurer00000000'
-  - name: 'Rune: Control'
-    type: talent
-    img: icons/magic/control/hypnosis-mesmerism-eye.webp
-    system:
-      description: >-
-        <p>The orderly force of discipline and the mind. The Control rune
-        governs thought, logic and reason. It is opposed by the chaotic rune of
-        Spirit.</p>
-
-        <p>The Control rune scales using <strong>Intellect</strong>, targets
-        <strong>Willpower</strong>, and deals <strong>Psychic</strong> damage to
-        <strong>Morale</strong>.</p>
-      actions: []
-      rune: control
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runemind00000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.runemind00000000'
   - name: Rimecaller
     type: talent
     img: icons/magic/water/orb-ice-web.webp
     system:
       description: >-
         <p>You are highly skilled in weaving the Rune of Frost. Spells which use
-        this Rune cause the Chilled condition on Critical Hits.</p><p>The
-        Chilled effect lasts for 1 Round, deals half your Wisdom score as Frost
-        damage to Health, and applies the Slowed condition.</p>
+        this Rune cause the @Condition[freezing] condition on Critical
+        Hits.</p><p>The Freezing effect lasts for <strong>1 Round</strong>,
+        deals half your <strong>Wisdom</strong> score as <strong>Frost</strong>
+        damage to <strong>Health</strong>, and applies the @Condition[slowed]
+        condition.</p>
       actions: []
       actorHooks:
         - hook: applyCriticalEffects
@@ -747,9 +674,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: rimecaller000000
     folder: c0nl6X8tp4Of0Y4O
@@ -757,54 +684,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.rimecaller000000'
-  - name: Mesmer
-    type: talent
-    _id: mesmer0000000000
-    img: icons/magic/air/air-burst-spiral-pink.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Control. Spells which
-        use this Rune cause the Confusion condition on Critical Hits.</p><p>The
-        Confusion effect lasts for 1 Round, deals half your Intellect score as
-        Psychic damage to Morale, and applies the Disoriented condition.</p>
-      actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Control rune
-            if ( action.rune?.id !== "control" ) return;
-
-            // Require damage to Morale
-            const damageMorale = outcome.resources.morale < 0;
-            if ( !damageMorale ) return;
-
-            // Apply Confused effect
-            const confused = SYSTEM.EFFECTS.confused(this);
-            outcome.effects.push(confused);
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int3a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: c0nl6X8tp4Of0Y4O
-    sort: -300000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.mesmer0000000000'
   - name: Recognize Spellcraft
     type: talent
     img: icons/magic/perception/hand-eye-fire-blue.webp
@@ -813,7 +692,7 @@ items:
         <p>You can interpret the arcane incantations of others to discern the
         nature of their spellcraft. When an enemy within 40 feet that you can
         see and hear begins casting a spell, you can identify its Rune if you
-        have mastered that Rune.</p>
+        also know that Rune.</p>
       actions: []
       iconicSpells: 0
       actorHooks: []
@@ -832,9 +711,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: recognizespellcr
     folder: Uk4FgmLsNJc62zCJ
@@ -842,37 +721,41 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.recognizespellcr'
-  - name: Counter Spell
+  - name: Counterspell
     type: talent
     img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
     system:
       description: >-
-        <p>You can attempt to unravel and negate the spellcraft of other
-        mages.</p>
-
-        <section class="construction">
-
-        <p>Counter-Spell mechanics are preliminary and not implemented in
-        Playtest 1. You may test the <em>intention</em> of this talent by
-        working with your GM, but this process will not be refined or automated
-        until a later Playtest phase.</p>
-
-        </section>
+        <p>You immediately react to a spell being cast and compose a rune and
+        gesture designed to unravel and negate the spellcraft of an enemy
+        mage.</p><h2 class="divider">Playtest Notes</h2><p>This action can now
+        be used in playtesting, but it is not yet <em>fully automated</em>. The
+        Counterspell can be performed, but it is up to the Gamemaster to
+        manually reverse a previously applied spell and to manually deduct its
+        <strong>Action</strong> and <strong>Focus</strong> cost. These steps of
+        the overall Counterspell workflow <em>will be automated</em> in a
+        subsequent update such that a confirmed Counterspell will also confirm
+        the spell that was countered, but with its effects removed.</p>
       actions:
-        - id: counterSpell
+        - id: counterspell
           condition: Another creature which you can see is casting a spell.
           description: >-
-            You form arcane energy into a countervailing spellcraft. Designate a
-            Rune and Gesture which you know to attempt to counter the spell. You
-            must be able to hit your target with your chosen Gesture. Choosing a
-            Rune which is opposed to the Rune being cast adds +3 Boons to your
-            roll. Choosing the same Gesture as the one being cast adds +3 Boons
-            to your roll. Perform an <strong>Opposed Test</strong> against the
-            caster of the spell using the Ability, Skill, and Enchantment
-            bonuses of the respective spells being cast. If your roll exceeds
-            theirs, the spell is countered and its magic is nullified.
+            <p>You form arcane energy into a countervailing spellcraft,
+            targeting a spellcaster you can see within 30 feet.</p><p>Designate
+            a <strong>Rune</strong> and <strong>Gesture</strong> which you know
+            to attempt to counter the spell. Choosing a Rune which is opposed to
+            one used in the spell grants <strong>+2 Boons</strong> to your
+            attempt. Selecting the identical Gesture as the one being cast also
+            adds <strong>+2 Boons</strong> to your attempt.</p><p>Perform a
+            harmless Spell Attack against your target's
+            <strong>Willpower</strong> defense. If your roll exceeds their
+            defense, the spell is countered and its magic is nullified,
+            producing no effects.</p>
           tags:
+            - freehand
             - reaction
+            - spell
+            - harmless
           cost:
             action: 1
             focus: 1
@@ -884,19 +767,23 @@ items:
             scope: 0
             self: false
           effects: []
-          img: null
+          name: Counterspell
+          img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
           range:
             minimum: null
-            maximum: null
+            maximum: 30
             weapon: false
           actionHooks: []
+          rune: lightning
+          gesture: touch
+          composition: 1
       actorHooks: []
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - preint4
+        - preint1
       rune: ''
       gesture: ''
       inflection: ''
@@ -907,9 +794,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: counterspell0000
     folder: gCqKVVNjLmIaU7vj
@@ -924,21 +811,19 @@ items:
     img: systems/crucible/icons/skills/arcana.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">Your education covered the
-        fundamentals of metaphysics and magical theory, the relationship between
-        the runes, the opposing nature of order and chaos, and a cursory
-        introduction to spiritual beings including the most commonly known
-        deified and demonized figures of worship. You gain the
-        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
-        rudimentary understanding of the principle grammar of magic is
-        sufficient to identify which lesser rune a spell or ritual may be using,
-        as well as the gesture used (if not the inflection). You can identify
-        whether a figure is influenced more by chaos or by order, and can spot
-        the signs of common spirits (both lesser and greater). You know enough
-        about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</span></p>
+        <p>Your education covered the fundamentals of metaphysics and magical
+        theory, the relationship between the runes, the opposing nature of order
+        and chaos, and a cursory introduction to spiritual beings including the
+        most commonly known deified and demonized figures of worship. You gain
+        the <strong>Novice</strong> rank in the <strong>Arcana </strong>skill
+        and are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>Your rudimentary understanding of the principle grammar of
+        magic is sufficient to identify which lesser rune a spell or ritual may
+        be using, as well as the gesture used (if not the inflection). You can
+        identify whether a figure is influenced more by chaos or by order, and
+        can spot the signs of common spirits (both lesser and greater). You know
+        enough about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -957,9 +842,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -971,18 +856,16 @@ items:
     img: systems/crucible/icons/skills/science.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You've learned to study the
-        world around you through structured observation, mathematics, physics,
-        chemistry, and other disciplines. You gain the <strong>Novice</strong>
-        rank in the <strong>Science </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You are familiar with the basic
-        principles of mathematics, physics, chemistry, or other scientific
-        studies. You know how to construct and use simple machines for the
-        purposes of making physical tasks easier. You know some of the more
-        commonly understood scientific theories, and given suitable time to
-        study more complex machines you might be able to at least operate
-        them.</span></p>
+        <p>You've learned to study the world around you through structured
+        observation, mathematics, physics, chemistry, and other disciplines. You
+        gain the <strong>Novice</strong> rank in the <strong>Science
+        </strong>skill and are no longer considered <strong>Untrained</strong>
+        in that skill.</p><p>You are familiar with the basic principles of
+        mathematics, physics, chemistry, or other scientific studies. You know
+        how to construct and use simple machines for the purposes of making
+        physical tasks easier. You know some of the more commonly understood
+        scientific theories, and given suitable time to study more complex
+        machines you might be able to at least operate them.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1001,9 +884,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1036,9 +919,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: mechanicalTraini
     ownership:
@@ -1050,13 +933,12 @@ items:
     system:
       description: >-
         <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and physicality. It is
-        opposed by the orderly rune of Stasis.</p>
-
-        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
-        <strong>Physical</strong> defense, and deals
-        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions: []
       rune: kinesis
       actorHooks: []
@@ -1075,9 +957,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -1095,7 +977,7 @@ items:
         Morale.
       actions: []
       nodes:
-        - wis2c
+        - wis2b
       iconicSpells: 0
       training:
         type: ''
@@ -1111,9 +993,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: irrepressiblespi
     folder: 4Ll3b4Q4us2mp4Fu
@@ -1172,9 +1054,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1242,9 +1124,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
@@ -1257,16 +1139,13 @@ items:
     img: icons/magic/holy/barrier-shield-winged-blue.webp
     system:
       description: >-
-        Your strong will makes you exceedingly difficult to influence. You gain
-        +1 to your Willpower defense and +5 Psychic resistance.
+        <p>Your strong will makes you exceedingly difficult to influence. You
+        gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
+        <strong>Psychic</strong> damage.</p>
       actions: []
-      actorHooks:
-        - hook: prepareResistances
-          fn: resistances.psychic.base += 5;
-        - hook: prepareDefenses
-          fn: defenses.willpower.bonus += 1;
+      actorHooks: []
       nodes:
-        - pre2a
+        - pre3a
       rune: ''
       gesture: ''
       inflection: ''
@@ -1281,9 +1160,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: mentalfortress00
     folder: null
@@ -1291,19 +1170,21 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.mentalfortress00'
-  - name: Focused Anticipation
+  - name: 'Rune: Frost'
     type: talent
-    _id: focusedanticipat
-    img: icons/magic/light/circle-window-clock-blue.webp
+    img: icons/magic/water/snowflake-ice-snow-white.webp
     system:
       description: >-
-        Anticipation leads to decisive action. When you have the highest
-        <strong>Initiative</strong> score for a Round of combat, you gain
-        <strong>+1 Focus</strong>.<p></p>
-      nodes:
-        - int4b
+        <p>The orderly force of water and cold. The Frost rune governs the
+        creation of water or other fluids and their transfer between liquid and
+        frozen states.</p><p>The Frost rune scales using
+        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
+        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Flame</strong>.</p>
       actions: []
-      rune: ''
+      rune: frost
+      nodes:
+        - wis0b
       gesture: ''
       inflection: ''
       iconicSpells: 0
@@ -1312,38 +1193,267 @@ items:
         rank: null
       actorHooks: []
     effects: []
-    flags: {}
+    flags:
+      core: {}
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
+    _id: runefrost0000000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.focusedanticipat'
-  - name: 'Gesture: Pulse'
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.runefrost0000000'
+  - name: 'Rune: Control'
     type: talent
-    _id: gesturepulse0000
-    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+    img: icons/magic/control/hypnosis-mesmerism-eye.webp
     system:
       description: >-
-        <p>Emit a burst of Runic power in a circular wave that travels outward,
-        with you at its center. A Pulse of Spirit might be used to bolster
-        Morale for your allies, while a Death pulse might be used to deal
-        Corruption damage to a group of enemies gathered around you.</p><p>The
-        Pulse gesture scales using <strong>Presence</strong> and targets a 360
-        degree, 6 foot radius, dealing 6 base damage on a successful attack.</p>
-      actions: []
-      gesture: pulse
+        <p>The orderly force of discipline and permanence. The Control rune
+        governs thought, reason, and persistence.</p><p>The Control rune scales
+        using <strong>Intellect</strong>, targets <strong>Willpower</strong>,
+        and deals <strong>Psychic</strong> damage to <strong>Morale</strong>. It
+        is opposed by the chaotic rune of <strong>Kinesis</strong>.</p>
+      actions:
+        - id: motivate
+          img: icons/magic/control/hypnosis-mesmerism-eye.webp
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - spell
+            - harmless
+          actionHooks: []
+          name: Motivate
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Control allows you to affect the
+            decision making of others in basic ways, producing one of the
+            following effects:</p><ul><li><p>Moderately intensify or dampen the
+            primary emotion being felt by a creature you touch. If the creature
+            is intelligent enough to be aware of the laws governing spellcraft,
+            they are aware of your actions.</p></li><li><p>Understand the
+            abstract motivations of another living creature which allows you to
+            touch it. You are able to intuit their immediate goals expressed in
+            the form of a single verb.</p></li><li><p>Intensely focus on your
+            current objective and the means of achieving it. You receive a brief
+            hint or reminder from the Gamemaster about that objective containing
+            only information which you have previously
+            learned.</p></li></ul><p>Motivate may only affect a creature or
+            object which you can physically touch. You may attempt other uses
+            similar those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+      rune: control
       actorHooks: []
       nodes:
-        - pre2b
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: control
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeControl00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeControl00000'
+  - name: 'Rune: Illusion'
+    type: talent
+    img: icons/magic/light/projectile-smoke-blue-white.webp
+    system:
+      description: >-
+        <p>The chaotic force of trickery and whimsy. The illusion rune governs
+        magical manifestations of falsehood or misdirection.</p><p>The Illusion
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Willpower</strong> defense, and deals <strong>Psychic</strong>
+        damage to <strong>Morale</strong>. It is opposed by the orderly rune of
+        <strong>Illumination</strong>.</p>
+      actions:
+        - id: seeming
+          name: Seeming
+          img: icons/magic/light/projectile-smoke-blue-white.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Illusion allows you to fabricate
+            perception in various simple ways and to manipulate shadow and light
+            to create distraction or entertainment, producing one of the
+            following effects:</p><ul><li><p>Modify a single aspect of your own
+            physical appearance. Such alterations might include adjusting the
+            sound of your voice, changing the color of your eyes, gaining
+            illusory horns, or appearing slightly taller or shorter. The
+            alteration persists until you Rest or enact a different alteration
+            and can be verified as illusory by physical
+            inspection.</p></li><li><p>Manifest a convincing recreation of a
+            short sound or single scent that you can clearly recall. The
+            illusion originates from your position and lasts for 10 seconds. You
+            can control the volume of the sound or odorousness of the scent to
+            be perceptible up to a range of 60 feet or
+            shorter.</p></li><li><p>Decouple your shadow from your form,
+            specifically controlling its movements separately from your own. You
+            can maintain this illusion as long as you do not perform any other
+            action that consumes <strong>Focus</strong>.</p></li></ul><p>Seeming
+            may only affect a creature or object you can physically touch. You
+            may attempt other uses similar those above, the effectiveness of
+            which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - spell
+            - harmless
+          actionHooks: []
+      rune: illusion
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: illumination
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeIllusion0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeIllusion0000'
+  - name: Surgeweaver
+    type: talent
+    img: icons/magic/lightning/bolt-strike-forked-blue.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Lightning. Spells which
+        use this Rune cause the @Condition[shocked] condition on Critical
+        Hits.</p><p>The Shocked effect lasts for <strong>1 Round</strong>, deals
+        half your <strong>Intellect</strong> score as <strong>Lightning</strong>
+        damage to <strong>Morale</strong>, and applies the @Condition[staggered]
+        condition.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Lightning rune
+            if ( action.rune?.id !== "lightning" ) return;
+
+            // Require damage to Health or Morale
+            const damageHealth = outcome.resources.health < 0;
+            const damageMorale = outcome.resources.morale < 0;
+            if ( !(damageHealth || damageMorale) ) return;
+
+            // Apply Shocked effect
+            outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+      nodes:
+        - int3a
       rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: surgeweaver00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.surgeweaver00000'
+  - name: Mesmer
+    type: talent
+    _id: mesmer0000000000
+    img: icons/magic/air/air-burst-spiral-pink.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Illusion. Spells which
+        use this Rune cause @Condition[confused] on Critical Hits.</p><p>The
+        Confused effect lasts for <strong>1 Round</strong>, deals half your
+        <strong>Intellect</strong> score as <strong>Psychic</strong> damage to
+        <strong>Morale</strong>, and applies the @Condition[disoriented]
+        condition.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Control rune
+            if ( action.rune?.id !== "illusion" ) return;
+
+            // Require damage to Morale
+            const damageMorale = outcome.resources.morale < 0;
+            if ( !damageMorale ) return;
+
+            // Apply Confused effect
+            const confused = SYSTEM.EFFECTS.confused(this);
+            outcome.effects.push(confused);
+      nodes:
+        - int3a
+      rune: ''
+      gesture: ''
       inflection: ''
       iconicSpells: 0
       training:
@@ -1355,21 +1465,30 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.gesturepulse0000'
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.mesmer0000000000'
 effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.frost.create
+    lastSpell: spell.lightning.conjure
     actionHistory:
+      - id: spell.lightning.conjure
+        messageId: erJBHYJP7l9LlNHL
+        combat: null
+      - id: spell.lightning.conjure
+        messageId: iL7YbR7vE8r8hkbv
+        combat: null
+      - id: spell.frost.conjure
+        messageId: 9Kh6O2rIj4degAVT
+        combat: null
       - id: intuitWeakness
         messageId: jqWeWslzVrEZqjij
         combat: null
@@ -1437,11 +1556,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 ownership:

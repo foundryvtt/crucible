@@ -277,7 +277,7 @@ items:
       actions: []
       slot: 1
       dropped: false
-      identifier: cBf6H4xov4
+      identifier: aYdgknUQBk
       invested: false
       actorHooks: []
     effects: []
@@ -287,9 +287,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -318,124 +318,35 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: bYfQDrvILB
+      identifier: ksXGZLhCcy
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.Jucaft0kqe7QBfgY'
-  - name: 'Rune: Life'
-    type: talent
-    img: icons/magic/life/heart-shadow-red.webp
-    system:
-      description: >-
-        <p>The chaotic force of creation, responsible for all living matter. The
-        Life rune governs health and matters relating to biological growth. It
-        is opposed by the orderly rune of Death.</p>
-
-        <p>The Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong>.</p>
-      actions: []
-      rune: life
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runelife00000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 800000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runelife00000000'
-  - name: 'Rune: Spirit'
-    type: talent
-    img: icons/magic/control/silhouette-hold-beam-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of emotion and willfulness. The Spirit rune governs
-        matters related to emotional well-being as well as the soul. It is
-        opposed by the orderly rune of Control.</p>
-
-        <p>The Spirit rune scales using <strong>Presence</strong> and provides
-        <strong>Restoration</strong> of <strong>Morale</strong>.</p>
-      actions: []
-      rune: spirit
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Spirit rune
-            if ( action.rune?.id !== "spirit" ) return;
-
-            // Require restoration to Morale
-            const restoreMorale = outcome.resources.morale > 0;
-            if ( !restoreMorale ) return;
-
-            // Apply Inspired effect
-            const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
-            outcome.effects.push(inspired);
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runecourage00000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 1100000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runecourage00000'
   - name: 'Gesture: Influence'
     type: talent
     img: icons/magic/light/orbs-firefly-hand-yellow.webp
     system:
       description: >-
-        <p>Intensify an arcane phenomenon at close range. Influence could be
-        used with the Flame rune to set a target ablaze or with the Stasis rune
-        to sap their Morale.</p><p>The Influence gesture is a more powerful
-        evolution of the basic Touch gesture that is learned with any
-        Rune.</p><p>The Influence gesture scales using <strong>Presence</strong>
-        and targets a <strong>single</strong> adjacent creature, dealing 10 base
-        damage on a successful attack.</p>
+        <p>You intensify the arcane power of a Rune into a concentrated direct
+        contact which is generally a more powerful evolution of the basic Touch
+        gesture.</p><p>The Influence gesture scales using
+        <strong>Presence</strong> and targets a single adjacent creature. It
+        deals <strong>10 Base Damage</strong> to targets which fail to Resist
+        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
+        a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       gesture: influence
       actorHooks: []
@@ -454,9 +365,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -466,16 +377,16 @@ items:
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureinfluence'
   - name: 'Gesture: Ray'
     type: talent
-    img: icons/magic/light/beam-rays-orange.webp
+    img: icons/magic/light/beam-rays-blue.webp
     system:
       description: >-
-        <p>Focus the power of a Rune into a single point, expelling its energy
-        into a ranged beam which rapidly travels a short distance to a targeted
-        area. If used with Life this might restore the HP of a distant ally
-        steadily over time, while Frost might emit a beam that freezes a target
-        in place.</p><p>The Ray gesture scales using <strong>Wisdom</strong> and
-        targets a 30 foot line emanating from the caster, dealing 6 base damage
-        on a successful attack.</p>
+        <p>You funnel the arcane power of a Rune into a point and project it
+        outwards in a beam.</p><p>The Ray gesture scales using
+        <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30
+        feet long originating from the spellcaster, dealing <strong>6 Base
+        Damage</strong> to targets which fail to Resist the spell. The gesture
+        requires <strong>1 Hand</strong> to cast and has a base cost of
+        <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: ray
       actorHooks: []
@@ -494,9 +405,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -504,42 +415,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureray000000'
-  - name: Irrepressible Spirit
-    type: talent
-    img: icons/magic/light/projectile-smoke-pink.webp
-    system:
-      description: >-
-        Your tenacity gives you an irrepressible spirit which resists the onset
-        of despair. At the start of your turn if you are not Broken you gain 1
-        Morale.
-      actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis2c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: irrepressiblespi
-    folder: 4Ll3b4Q4us2mp4Fu
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.irrepressiblespi'
   - name: Conserve Effort
     type: talent
     img: icons/magic/time/arrows-circling-pink.webp
@@ -555,7 +430,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - wis4a
+        - wis2a
       rune: ''
       gesture: ''
       inflection: ''
@@ -566,9 +441,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
@@ -637,9 +512,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: fOYHlZJEWUukD7yr
     _id: healer0000000000
@@ -653,20 +528,17 @@ items:
     img: icons/magic/holy/barrier-shield-winged-blue.webp
     system:
       description: >-
-        Your strong will makes you exceedingly difficult to influence. You gain
-        +1 to your Willpower defense and +5 Psychic resistance.
+        <p>Your strong will makes you exceedingly difficult to influence. You
+        gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
+        <strong>Psychic</strong> damage.</p>
       actions: []
-      actorHooks:
-        - hook: prepareResistances
-          fn: resistances.psychic.base += 5;
-        - hook: prepareDefenses
-          fn: defenses.willpower.bonus += 1;
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - pre2a
+        - pre3a
       rune: ''
       gesture: ''
       inflection: ''
@@ -677,9 +549,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: mentalfortress00
     sort: 100000
@@ -713,9 +585,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -729,12 +601,11 @@ items:
     system:
       description: >-
         <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs health and matters relating to biological
-        growth. It is opposed by the chaotic rune of Lightning.</p>
-
-        <p>The Earth rune scales using <strong>Wisdom</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
-        <strong>Health</strong>.</p>
+        matter. The Earth rune governs minerals, metals, soils, and other
+        physical compounds.</p><p>The Earth rune scales using
+        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Lightning</strong>.</p>
       actions: []
       rune: earth
       actorHooks: []
@@ -753,9 +624,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runeearth0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -769,9 +640,10 @@ items:
     system:
       description: >-
         <p>You are highly skilled in weaving the Rune of Earth. Spells which use
-        this Rune cause the Corroding condition on Critical Hits.</p><p>The
-        Corroding effect lasts for 3 Rounds and deals your Wisdom score as Acid
-        damage to Health each Round.</p>
+        this Rune cause the @Condition[corroding] condition on Critical
+        Hits.</p><p>The Corroding effect lasts for <strong>3 Rounds</strong> and
+        deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage
+        to <strong>Health</strong> each Round.</p>
       actions: []
       actorHooks:
         - hook: applyCriticalEffects
@@ -801,9 +673,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: dustbinder000000
     folder: c0nl6X8tp4Of0Y4O
@@ -818,16 +690,14 @@ items:
     img: systems/crucible/icons/skills/medicine.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have a basic education
-        in anatomy, physiology, and medicine. You gain the
-        <strong>Novice</strong> rank in the <strong>Medicine </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You’ve
-        learned the basics of treating common wounds and illnesses, and keep a
-        running list of known alchemical and herbal compounds that can be used
-        for treating particular illnesses. With a little time studying an
-        injured, diseased, or otherwise ill individual you can perform a basic
-        diagnosis and treat accordingly.</span></p>
+        <p>You have a basic education in anatomy, physiology, and medicine. You
+        gain the <strong>Novice</strong> rank in the <strong>Medicine
+        </strong>skill and are no longer considered <strong>Untrained</strong>
+        in that skill.</p><p>You’ve learned the basics of treating common wounds
+        and illnesses, and keep a running list of known alchemical and herbal
+        compounds that can be used for treating particular illnesses. With a
+        little time studying an injured, diseased, or otherwise ill individual
+        you can perform a basic diagnosis and treat accordingly.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -846,9 +716,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -860,18 +730,16 @@ items:
     img: systems/crucible/icons/skills/science.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You've learned to study the
-        world around you through structured observation, mathematics, physics,
-        chemistry, and other disciplines. You gain the <strong>Novice</strong>
-        rank in the <strong>Science </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You are familiar with the basic
-        principles of mathematics, physics, chemistry, or other scientific
-        studies. You know how to construct and use simple machines for the
-        purposes of making physical tasks easier. You know some of the more
-        commonly understood scientific theories, and given suitable time to
-        study more complex machines you might be able to at least operate
-        them.</span></p>
+        <p>You've learned to study the world around you through structured
+        observation, mathematics, physics, chemistry, and other disciplines. You
+        gain the <strong>Novice</strong> rank in the <strong>Science
+        </strong>skill and are no longer considered <strong>Untrained</strong>
+        in that skill.</p><p>You are familiar with the basic principles of
+        mathematics, physics, chemistry, or other scientific studies. You know
+        how to construct and use simple machines for the purposes of making
+        physical tasks easier. You know some of the more commonly understood
+        scientific theories, and given suitable time to study more complex
+        machines you might be able to at least operate them.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -890,9 +758,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -925,9 +793,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -971,9 +839,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -1042,9 +910,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
@@ -1096,9 +964,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: JRqc3sRONMGAfSZ0
     folder: null
@@ -1150,9 +1018,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: 7Gh7o63Ny3uN81vM
     folder: null
@@ -1182,9 +1050,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: qvJkd2n69GcdvQSD
     folder: null
@@ -1214,9 +1082,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: rqy8F6OgvWeftNTw
     folder: null
@@ -1246,9 +1114,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: 3pHRBTGvfLngjRJ9
     folder: null
@@ -1287,9 +1155,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1337,7 +1205,7 @@ items:
             minimum: null
           actionHooks: []
       nodes:
-        - pre2c
+        - pre2a
       rune: ''
       gesture: ''
       inflection: ''
@@ -1352,67 +1220,36 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.soothe0000000000'
-  - name: Eye of the Storm
-    type: talent
-    _id: eyeofthestorm000
-    img: icons/magic/water/wave-water-explosion.webp
-    system:
-      description: >-
-        <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell
-        attack against an enemy that you allowed to act before you that
-        Round.</p><p>TODO: Needs automation. For now apply boons manually.</p>
-      actions: []
-      nodes:
-        - wis4c
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.eyeofthestorm000'
   - name: 'Gesture: Pulse'
     type: talent
     _id: gesturepulse0000
     img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
     system:
       description: >-
-        <p>Emit a burst of Runic power in a circular wave that travels outward,
-        with you at its center. A Pulse of Spirit might be used to bolster
-        Morale for your allies, while a Death pulse might be used to deal
-        Corruption damage to a group of enemies gathered around you.</p><p>The
-        Pulse gesture scales using <strong>Presence</strong> and targets a 360
-        degree, 6 foot radius, dealing 6 base damage on a successful attack.</p>
+        <p>Expel the arcane power of a Rune in a radius that travels outward
+        with you at its center.</p><p>The Pulse gesture scales using
+        <strong>Presence</strong> and produces an emanation with 10 foot radius,
+        dealing <strong>8 Base Damage</strong> to targets which fail to Resist
+        the spell. The gesture requires <strong>2 Hands</strong> to cast and has
+        a base cost of <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+        is currently placed at a <strong>Tier 4</strong> node. It will
+        eventually only be attainable at a higher level (probably Level 6
+        required). It is currently available "early" for testing.</p>
       actions: []
       gesture: pulse
       actorHooks: []
       nodes:
-        - pre2b
+        - pre4d
       rune: ''
       inflection: ''
       iconicSpells: 0
@@ -1425,9 +1262,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1440,10 +1277,11 @@ items:
     img: icons/magic/light/explosion-star-glow-silhouette.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Spirit. Spells which
-        use this Rune cause the Inspired condition on Critical Hits.</p><p>The
-        Inspired effect lasts for 1 Round and deals your Presence score as
-        restoration to Morale.</p>
+        <p>You are highly skilled in weaving the Rune of Soul. Spells which use
+        this Rune cause the @Condition[inspired] condition on Critical
+        Hits.</p><p>The Inspired effect lasts for <strong>1 Round</strong> and
+        deals your <strong>Presence</strong> score as additional
+        <strong>Restoration</strong> to <strong>Morale</strong>.</p>
       actions: []
       nodes:
         - pre3b
@@ -1461,9 +1299,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1477,9 +1315,10 @@ items:
     system:
       description: >-
         <p>You are highly skilled in weaving the Rune of Life. Spells which use
-        this Rune cause the Mending condition on Critical Hits.</p><p>The
-        Mending effect lasts for 1 Round and deals your Wisdom score as
-        restoration to Health.</p>
+        this Rune cause the @Condition[mending] condition on Critical
+        Hits.</p><p>The Mending effect lasts for <strong>1 Round</strong> and
+        deals your <strong>Wisdom</strong> score as additional
+        <strong>Restoration</strong> to <strong>Health</strong>.</p>
       actions: []
       actorHooks:
         - hook: applyCriticalEffects
@@ -1509,9 +1348,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1524,21 +1363,19 @@ items:
     img: systems/crucible/icons/skills/arcana.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">Your education covered the
-        fundamentals of metaphysics and magical theory, the relationship between
-        the runes, the opposing nature of order and chaos, and a cursory
-        introduction to spiritual beings including the most commonly known
-        deified and demonized figures of worship. You gain the
-        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
-        rudimentary understanding of the principle grammar of magic is
-        sufficient to identify which lesser rune a spell or ritual may be using,
-        as well as the gesture used (if not the inflection). You can identify
-        whether a figure is influenced more by chaos or by order, and can spot
-        the signs of common spirits (both lesser and greater). You know enough
-        about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</span></p>
+        <p>Your education covered the fundamentals of metaphysics and magical
+        theory, the relationship between the runes, the opposing nature of order
+        and chaos, and a cursory introduction to spiritual beings including the
+        most commonly known deified and demonized figures of worship. You gain
+        the <strong>Novice</strong> rank in the <strong>Arcana </strong>skill
+        and are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>Your rudimentary understanding of the principle grammar of
+        magic is sufficient to identify which lesser rune a spell or ritual may
+        be using, as well as the gesture used (if not the inflection). You can
+        identify whether a figure is influenced more by chaos or by order, and
+        can spot the signs of common spirits (both lesser and greater). You know
+        enough about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1556,15 +1393,217 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.arcanaNovice0000'
+  - name: 'Rune: Life'
+    type: talent
+    img: icons/magic/life/heart-shadow-red.webp
+    system:
+      description: >-
+        <p>A chaotic force of creation, responsible for living matter. The Life
+        rune governs health and matters relating to biological growth.</p><p>The
+        Life rune scales using <strong>Wisdom</strong> and provides
+        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
+        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
+        is opposed by the orderly rune of <strong>Death</strong>.</p>
+      actions: []
+      rune: life
+      actorHooks: []
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: life
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runelife00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runelife00000000'
+  - name: 'Rune: Soul'
+    type: talent
+    img: icons/magic/light/projectile-halo-teal.webp
+    system:
+      description: >-
+        <p>An orderly force of creation and spiritual essence. The Soul rune
+        governs the fundamental procession of souls through life and death and
+        relates to matters of sapience, personality, and mental
+        health.</p><p>The Soul rune scales using <strong>Presence</strong> and
+        provides <strong>Restoration</strong> of <strong>Morale</strong> or
+        inflicts <strong>Psychic</strong> damage opposed by
+        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        <strong>Oblivion</strong>.</p>
+      actions:
+        - id: evoke
+          img: icons/magic/light/projectile-halo-teal.webp
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - spell
+            - harmless
+          actionHooks: []
+          name: Evoke
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Soul allows you to facilitate basic
+            forms of spiritual influence, producing one of the following
+            effects:</p><ul><li><p>Enable yourself or another willing person to
+            revisit a core memory of a moment from their past up to one minute
+            in duration as if it happened recently.</p></li><li><p>Identify a
+            negative spiritual condition that is affecting a person such as
+            @Condition[broken], @Condition[frightened], @Condition[confused], or
+            @Condition[insane].</p></li><li><p>Create a momentary spiritual
+            connection with another willing creature that allows them to
+            recognize an idea which can be expressed as a single
+            word.</p></li></ul><p>Uses of Evoke may only affect yourself or
+            another creature which you can physically touch. You may attempt
+            other uses similar those above, the effectiveness of which is
+            decided by the Gamemaster.</p>
+      rune: soul
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Spirit rune
+            if ( action.rune?.id !== "spirit" ) return;
+
+            // Require restoration to Morale
+            const restoreMorale = outcome.resources.morale > 0;
+            if ( !restoreMorale ) return;
+
+            // Apply Inspired effect
+            const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
+            outcome.effects.push(inspired);
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: soul
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeSoul00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeSoul00000000'
+  - name: Irrepressible Spirit
+    type: talent
+    img: icons/magic/light/projectile-smoke-pink.webp
+    system:
+      description: >-
+        Your tenacity gives you an irrepressible spirit which resists the onset
+        of despair. At the start of your turn if you are not Broken you gain 1
+        Morale.
+      actions: []
+      nodes:
+        - wis2b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: irrepressiblespi
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.irrepressiblespi'
+  - name: Eye of the Storm
+    type: talent
+    _id: eyeofthestorm000
+    img: icons/magic/water/wave-water-explosion.webp
+    system:
+      description: >-
+        <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell
+        attack against an enemy that you allowed to act before you that
+        Round.</p><p>TODO: Needs automation. For now apply boons manually.</p>
+      actions: []
+      nodes:
+        - wis1a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.eyeofthestorm000'
 effects: []
 flags:
   core: {}
@@ -1623,11 +1662,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
 ownership:

@@ -286,7 +286,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: 2Cbuu1KviN
+      identifier: SsuIuL7wBo
       invested: false
       actorHooks: []
       dropped: false
@@ -294,9 +294,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -328,7 +328,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: R4reMaxdyj
+      identifier: Vrs4PxKEHi
       invested: false
       actorHooks: []
       dropped: false
@@ -336,9 +336,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -368,16 +368,16 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: ARCthFag1g
+      identifier: 9PA6yXUgxy
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -448,9 +448,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -508,9 +508,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
@@ -574,9 +574,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: cW6bwHXBB9pMcwva
     sort: 300000
@@ -621,9 +621,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: bloodletter00000
     folder: c0nl6X8tp4Of0Y4O
@@ -685,9 +685,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: JzAnF4yKIgvElwCJ
     sort: 100000
@@ -730,9 +730,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: BevAJzzLeFbSaVic
     sort: -100000
@@ -768,9 +768,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: BevAJzzLeFbSaVic
     sort: 0
@@ -830,9 +830,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: JzAnF4yKIgvElwCJ
     sort: 0
@@ -865,9 +865,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 106250
@@ -929,9 +929,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: backstab00000000
     folder: Xg1Jww0K0CK7vUo1
@@ -967,9 +967,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1002,9 +1002,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1069,9 +1069,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1086,17 +1086,15 @@ items:
     img: systems/crucible/icons/skills/stealth.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in the basics of stealth, infiltration, and subterfuge. You gain the
-        <strong>Novice</strong> rank in the <strong>Stealth </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to use light and shadow to mask your presence, to distribute your
-        weight when walking in order to move more quietly, and you have learned
-        a few tricks of disguise in order to blend into a crowd. You can appear
-        unsuspicious when surrounded by others, hide in a darkened room, and can
-        move silently enough to avoid detection by the average
-        person.</span></p>
+        <p>You have received training in the basics of stealth, infiltration,
+        and subterfuge. You gain the <strong>Novice</strong> rank in the
+        <strong>Stealth </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        light and shadow to mask your presence, to distribute your weight when
+        walking in order to move more quietly, and you have learned a few tricks
+        of disguise in order to blend into a crowd. You can appear unsuspicious
+        when surrounded by others, hide in a darkened room, and can move
+        silently enough to avoid detection by the average person.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1115,9 +1113,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1129,15 +1127,13 @@ items:
     img: systems/crucible/icons/skills/deception.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You are a liar and
-        manipulator, and deception is a skill you've practiced. You gain the
-        <strong>Novice</strong> rank in the <strong>Deception </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to construct basic lies and cons, and the telltale signs that tend
-        to give away poor liars. You can construct a basic forgery for most
-        common documents, but they won't stand up to any measure of close
-        scrutiny.</span></p>
+        <p>You are a liar and manipulator, and deception is a skill you've
+        practiced. You gain the <strong>Novice</strong> rank in the
+        <strong>Deception </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to
+        construct basic lies and cons, and the telltale signs that tend to give
+        away poor liars. You can construct a basic forgery for most common
+        documents, but they won't stand up to any measure of close scrutiny.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1156,9 +1152,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1217,9 +1213,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: lunge00000000000
     folder: Xg1Jww0K0CK7vUo1
@@ -1261,9 +1257,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: ot5RNLZzivbxcMTH
     folder: null
@@ -1336,9 +1332,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: xAsUuqGIEB5i6bL0
     folder: null
@@ -1414,9 +1410,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: obqSWKWIYSOhAMVb
     folder: null
@@ -1531,9 +1527,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: C2nqdDmFeaYv6E7m
     folder: null
@@ -1547,16 +1543,14 @@ items:
     img: systems/crucible/icons/skills/medicine.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have a basic education
-        in anatomy, physiology, and medicine. You gain the
-        <strong>Novice</strong> rank in the <strong>Medicine </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You’ve
-        learned the basics of treating common wounds and illnesses, and keep a
-        running list of known alchemical and herbal compounds that can be used
-        for treating particular illnesses. With a little time studying an
-        injured, diseased, or otherwise ill individual you can perform a basic
-        diagnosis and treat accordingly.</span></p>
+        <p>You have a basic education in anatomy, physiology, and medicine. You
+        gain the <strong>Novice</strong> rank in the <strong>Medicine
+        </strong>skill and are no longer considered <strong>Untrained</strong>
+        in that skill.</p><p>You’ve learned the basics of treating common wounds
+        and illnesses, and keep a running list of known alchemical and herbal
+        compounds that can be used for treating particular illnesses. With a
+        little time studying an injured, diseased, or otherwise ill individual
+        you can perform a basic diagnosis and treat accordingly.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1574,9 +1568,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1642,9 +1636,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1705,9 +1699,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1768,9 +1762,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: assassin00000000
     folder: null
@@ -1834,9 +1828,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1869,9 +1863,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: lightWeaponProfi
     folder: null
@@ -1885,15 +1879,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1911,9 +1904,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1924,24 +1917,16 @@ effects: []
 flags:
   core: {}
   crucible:
-    actionHistory:
-      - id: antitoxin
-        messageId: zO8SfVYabHrrMhUc
-        combat:
-          id: mgfBuBjXu6yOBX1p
-          round: 2
-          turn: 0
-          combatantId: dmtTChuG0gxecxnE
-          tokenId: f8nsQ0MBay7Cfkyy
+    actionHistory: []
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 0crVYYsPvV9KDEJ2
 ownership:

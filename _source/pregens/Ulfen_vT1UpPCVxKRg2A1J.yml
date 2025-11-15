@@ -276,16 +276,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: viLpoRW05I
+      identifier: QpHK4GSp7d
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -316,7 +316,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: 4CaWhlQlWW
+      identifier: oBLYt1Xjxa
       invested: false
       actorHooks: []
       dropped: false
@@ -324,9 +324,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -388,9 +388,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -448,9 +448,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -511,9 +511,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -580,9 +580,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -597,15 +597,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -624,9 +623,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -638,14 +637,12 @@ items:
     img: systems/crucible/icons/skills/intimidation.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You understand the
-        fundamentals of how threats and coercion can achieve desired outcomes.
-        You gain the <strong>Novice</strong> rank in the <strong>Intimidation
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</span></p><p><span style="font-family:Vollkorn,
-        serif">You know how to use simple displays of violence or overt threats
-        to get others to follow your lead, but you aren't very
-        subtle.</span></p>
+        <p>You understand the fundamentals of how threats and coercion can
+        achieve desired outcomes. You gain the <strong>Novice</strong> rank in
+        the <strong>Intimidation </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        simple displays of violence or overt threats to get others to follow
+        your lead, but you aren't very subtle.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -664,9 +661,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -698,9 +695,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -714,11 +711,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: vT1UpPCVxKRg2A1J
 ownership:

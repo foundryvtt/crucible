@@ -61,7 +61,7 @@ system:
         evolutionary results of hundreds of years of tradition.</p>
       identifier: elvish
       talents:
-        - Compendium.crucible.talent.Item.runemind00000000
+        - Compendium.crucible.talent.Item.runeIllusion0000
       ui:
         color: '#51d277'
       abilities:
@@ -279,7 +279,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: 7kQEt6Tsxo
+      identifier: cCNmHwimIm
       invested: false
       actorHooks: []
       dropped: false
@@ -287,9 +287,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -319,7 +319,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: iRYe8D8uhc
+      identifier: or01wnJqIx
       invested: false
       actorHooks: []
       dropped: false
@@ -327,9 +327,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -359,16 +359,16 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: eC9adfKwF8
+      identifier: d1oGBGFHX7
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -390,7 +390,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - int2c
+        - int1b
       rune: ''
       gesture: ''
       inflection: ''
@@ -402,9 +402,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -467,55 +467,15 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.pinningshot00000'
-  - name: 'Rune: Control'
-    type: talent
-    img: icons/magic/control/hypnosis-mesmerism-eye.webp
-    system:
-      description: >-
-        <p>The orderly force of discipline and the mind. The Control rune
-        governs thought, logic and reason. It is opposed by the chaotic rune of
-        Spirit.</p>
-
-        <p>The Control rune scales using <strong>Intellect</strong>, targets
-        <strong>Willpower</strong>, and deals <strong>Psychic</strong> damage to
-        <strong>Morale</strong>.</p>
-      actions: []
-      rune: control
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runemind00000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.runemind00000000'
   - folder: ghRKqdzq279SH1lt
     name: Wilderness Novice
     type: talent
@@ -523,15 +483,14 @@ items:
     img: systems/crucible/icons/skills/wilderness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in the basics of wilderness survival and traversal. You gain the
-        <strong>Novice</strong> rank in the <strong>Wilderness </strong>skill
-        and are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to find and construct safe shelter from the elements, to start a
-        fire for warmth, to keep cool in hot environments. You can find safe,
-        drinkable water in most places, and how to identify which plants and
-        animals can serve as safe food sources.</span></p>
+        <p>You have received training in the basics of wilderness survival and
+        traversal. You gain the <strong>Novice</strong> rank in the
+        <strong>Wilderness </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to find and
+        construct safe shelter from the elements, to start a fire for warmth, to
+        keep cool in hot environments. You can find safe, drinkable water in
+        most places, and how to identify which plants and animals can serve as
+        safe food sources.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -550,9 +509,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -564,15 +523,13 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in basic athletics. You gain the <strong>Novice</strong> rank in the
-        <strong>Athletics</strong> skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know whether a surface can
-        support your weight or not, how to find handholds while climbing, and
-        how to distribute your weight for buoyancy when swimming. You know how
-        to run for distance, and how to pace yourself to avoid
-        exhaustion.</span></p>
+        <p>You have received training in basic athletics. You gain the
+        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know whether a surface can support your weight or not,
+        how to find handholds while climbing, and how to distribute your weight
+        for buoyancy when swimming. You know how to run for distance, and how to
+        pace yourself to avoid exhaustion.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -591,9 +548,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -625,9 +582,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -682,9 +639,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -697,17 +654,15 @@ items:
     img: systems/crucible/icons/skills/stealth.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in the basics of stealth, infiltration, and subterfuge. You gain the
-        <strong>Novice</strong> rank in the <strong>Stealth </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to use light and shadow to mask your presence, to distribute your
-        weight when walking in order to move more quietly, and you have learned
-        a few tricks of disguise in order to blend into a crowd. You can appear
-        unsuspicious when surrounded by others, hide in a darkened room, and can
-        move silently enough to avoid detection by the average
-        person.</span></p>
+        <p>You have received training in the basics of stealth, infiltration,
+        and subterfuge. You gain the <strong>Novice</strong> rank in the
+        <strong>Stealth </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        light and shadow to mask your presence, to distribute your weight when
+        walking in order to move more quietly, and you have learned a few tricks
+        of disguise in order to blend into a crowd. You can appear unsuspicious
+        when surrounded by others, hide in a darkened room, and can move
+        silently enough to avoid detection by the average person.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -725,15 +680,100 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.stealthNovice000'
+  - name: 'Rune: Illusion'
+    type: talent
+    img: icons/magic/light/projectile-smoke-blue-white.webp
+    system:
+      description: >-
+        <p>The chaotic force of trickery and whimsy. The illusion rune governs
+        magical manifestations of falsehood or misdirection.</p><p>The Illusion
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Willpower</strong> defense, and deals <strong>Psychic</strong>
+        damage to <strong>Morale</strong>. It is opposed by the orderly rune of
+        <strong>Illumination</strong>.</p>
+      actions:
+        - id: seeming
+          name: Seeming
+          img: icons/magic/light/projectile-smoke-blue-white.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Illusion allows you to fabricate
+            perception in various simple ways and to manipulate shadow and light
+            to create distraction or entertainment, producing one of the
+            following effects:</p><ul><li><p>Modify a single aspect of your own
+            physical appearance. Such alterations might include adjusting the
+            sound of your voice, changing the color of your eyes, gaining
+            illusory horns, or appearing slightly taller or shorter. The
+            alteration persists until you Rest or enact a different alteration
+            and can be verified as illusory by physical
+            inspection.</p></li><li><p>Manifest a convincing recreation of a
+            short sound or single scent that you can clearly recall. The
+            illusion originates from your position and lasts for 10 seconds. You
+            can control the volume of the sound or odorousness of the scent to
+            be perceptible up to a range of 60 feet or
+            shorter.</p></li><li><p>Decouple your shadow from your form,
+            specifically controlling its movements separately from your own. You
+            can maintain this illusion as long as you do not perform any other
+            action that consumes <strong>Focus</strong>.</p></li></ul><p>Seeming
+            may only affect a creature or object you can physically touch. You
+            may attempt other uses similar those above, the effectiveness of
+            which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - spell
+            - harmless
+          actionHooks: []
+      rune: illusion
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: illumination
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeIllusion0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.runeIllusion0000'
 effects: []
 flags:
   core: {}
@@ -742,11 +782,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 ownership:

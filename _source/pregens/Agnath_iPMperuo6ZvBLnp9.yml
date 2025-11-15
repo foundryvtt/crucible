@@ -276,7 +276,7 @@ items:
       broken: false
       actions: []
       slot: 3
-      identifier: 3AlrvHHOQf
+      identifier: YcSGEqxyiZ
       invested: false
       actorHooks: []
       dropped: false
@@ -284,9 +284,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -317,61 +317,21 @@ items:
         base: 17
       broken: false
       actions: []
-      identifier: gEoBbwm3bn
+      identifier: I1a5KMaGh3
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!iPMperuo6ZvBLnp9.f4uwtWGdrCKeoxb7'
-  - name: 'Rune: Death'
-    type: talent
-    img: icons/magic/unholy/hand-claw-fire-blue.webp
-    system:
-      description: >-
-        <p>The orderly force of destruction, responsible for the decay of all
-        matter. The Death rune governs decay and destruction. It is opposed by
-        the chaotic rune of Life.</p>
-
-        <p>The Death rune scales using <strong>Intellect</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage
-        to <strong>Health</strong>.</p>
-      actions: []
-      rune: death
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runedeath0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 200000
-    ownership:
-      default: 0
-    _key: '!actors.items!iPMperuo6ZvBLnp9.runedeath0000000'
   - name: Cadence
     type: talent
     img: icons/skills/melee/strikes-sword-triple-gray.webp
@@ -405,9 +365,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -468,9 +428,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavystrike00000
     folder: tRHknqOEBLR808Cb
@@ -485,15 +445,13 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in basic athletics. You gain the <strong>Novice</strong> rank in the
-        <strong>Athletics</strong> skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know whether a surface can
-        support your weight or not, how to find handholds while climbing, and
-        how to distribute your weight for buoyancy when swimming. You know how
-        to run for distance, and how to pace yourself to avoid
-        exhaustion.</span></p>
+        <p>You have received training in basic athletics. You gain the
+        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know whether a surface can support your weight or not,
+        how to find handholds while climbing, and how to distribute your weight
+        for buoyancy when swimming. You know how to run for distance, and how to
+        pace yourself to avoid exhaustion.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -512,9 +470,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -526,14 +484,12 @@ items:
     img: systems/crucible/icons/skills/intimidation.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You understand the
-        fundamentals of how threats and coercion can achieve desired outcomes.
-        You gain the <strong>Novice</strong> rank in the <strong>Intimidation
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</span></p><p><span style="font-family:Vollkorn,
-        serif">You know how to use simple displays of violence or overt threats
-        to get others to follow your lead, but you aren't very
-        subtle.</span></p>
+        <p>You understand the fundamentals of how threats and coercion can
+        achieve desired outcomes. You gain the <strong>Novice</strong> rank in
+        the <strong>Intimidation </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        simple displays of violence or overt threats to get others to follow
+        your lead, but you aren't very subtle.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -552,9 +508,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -586,9 +542,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -599,12 +555,13 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>Hurl a projectile of magical power at a distant target. This might
-        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a <strong>single</strong>
-        creature up to a distance of 60 feet, dealing 8 base damage on a
-        successful attack.</p>
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -623,9 +580,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: null
@@ -633,6 +590,44 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iPMperuo6ZvBLnp9.gesturearrow0000'
+  - name: 'Rune: Flame'
+    type: talent
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    system:
+      description: >-
+        <p>The chaotic force of elemental, thermal energy. The Flame rune
+        governs fire and heat.</p><p>The Flame rune scales using Intellect,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
+      actions: []
+      rune: flame
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeflame0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iPMperuo6ZvBLnp9.runeflame0000000'
 effects: []
 flags:
   core: {}
@@ -642,11 +637,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iPMperuo6ZvBLnp9
 ownership:

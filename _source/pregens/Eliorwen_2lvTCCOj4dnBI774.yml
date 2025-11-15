@@ -61,7 +61,7 @@ system:
         evolutionary results of hundreds of years of tradition.</p>
       identifier: elvish
       talents:
-        - Compendium.crucible.talent.Item.runemind00000000
+        - Compendium.crucible.talent.Item.runeIllusion0000
       ui:
         color: '#51d277'
       abilities:
@@ -156,7 +156,7 @@ system:
     madness:
       value: 0
     action:
-      value: 3
+      value: 6
     focus:
       value: 5
     heroism:
@@ -165,22 +165,16 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status:
-    lastAction: strike
-    rangedAttack: true
-    hasAttacked: true
-    movement:
-      bonus: 5
+  status: null
   favorites:
+    - cast
     - defend
-    - pinningShot
-    - strike
     - reactiveStrike
+    - strike
+    - pinningShot
     - markPrey
     - precisionShot
-    - anticipateHarm
-    - cast
-    - combatMedicine
+    - blastFlask
   currency: 0
 prototypeToken:
   name: Eliorwen
@@ -289,7 +283,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: ue15t9CSe2
+      identifier: XtU74Kz9Bo
       invested: false
       actorHooks: []
       dropped: false
@@ -297,9 +291,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -329,7 +323,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: BCW143rj0G
+      identifier: 78VNzKWpsH
       invested: false
       actorHooks: []
       dropped: false
@@ -337,9 +331,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -369,56 +363,21 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: 1DhpPE3OO1
+      identifier: 2m6bVw27vD
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.3FyLFKnVlHqIedzr'
-  - name: Perspicacity
-    type: talent
-    _id: perspicacity0000
-    img: icons/magic/sonic/bell-alarm-red-purple.webp
-    system:
-      description: >-
-        <p>You have heightened insight into aspects of your surroundings. You
-        gain +2 Boons to any <strong>Awareness</strong> skill test which does
-        not rely upon eyesight.</p>
-      actions: []
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int2c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: 2MFixpDJ379KOogE
-    sort: -275000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.perspicacity0000'
   - name: Pinning Shot
     type: talent
     _id: pinningshot00000
@@ -477,79 +436,15 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.pinningshot00000'
-  - name: Combat Medicine
-    type: talent
-    img: icons/magic/life/heart-glowing-red.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        Your knowledge and skill in Medicine covers the rapid triage, diagnosis,
-        and treatment of wounds.
-      actions:
-        - id: combatMedicine
-          condition: ''
-          description: >-
-            <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
-            <strong>Medicine Check</strong> against the target's Wounds
-            Threshold. Your ally's Health is increased by the amount of the Roll
-            in excess of the threshold.</p>
-          tags:
-            - healing
-            - health
-            - medicine
-          cost:
-            action: 3
-            focus: 0
-            weapon: false
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 2
-            self: false
-          effects: []
-          name: Combat Medicine
-          img: icons/magic/life/heart-glowing-red.webp
-          range:
-            maximum: 4
-            weapon: false
-            minimum: null
-          actionHooks: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis2c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: combatmedicine00
-    folder: qrB8E2SHs322zTil
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.combatmedicine00'
   - name: Arcane Archer
     type: talent
     img: icons/skills/ranged/arrows-flying-salvo-blue-light.webp
@@ -581,9 +476,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: arcanearcher0000
     folder: fOYHlZJEWUukD7yr
@@ -618,9 +513,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: F5y85kE9ocaa5R4R
     sort: 0
@@ -685,9 +580,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     _id: markprey00000000
@@ -721,9 +616,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 150000
@@ -735,12 +630,13 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>Hurl a projectile of magical power at a distant target. This might
-        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a <strong>single</strong>
-        creature up to a distance of 60 feet, dealing 8 base damage on a
-        successful attack.</p>
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -759,9 +655,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -774,20 +670,19 @@ items:
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       description: >-
-        <p>The chaotic force of raw, electrical energy. The Lightning rune
-        governs sources of electrical energy and electrical discharge. It is
-        opposed by the orderly rune of Earth.</p>
-
-        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
         <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>.</p>
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
       actions: []
       rune: lightning
       actorHooks: []
       iconicSpells: 0
       training:
-        type: ''
-        rank: null
+        type: lightning
+        rank: 1
       nodes:
         - int0a
       gesture: ''
@@ -799,9 +694,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -858,55 +753,15 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.precisionshot000'
-  - name: 'Rune: Control'
-    type: talent
-    img: icons/magic/control/hypnosis-mesmerism-eye.webp
-    system:
-      description: >-
-        <p>The orderly force of discipline and the mind. The Control rune
-        governs thought, logic and reason. It is opposed by the chaotic rune of
-        Spirit.</p>
-
-        <p>The Control rune scales using <strong>Intellect</strong>, targets
-        <strong>Willpower</strong>, and deals <strong>Psychic</strong> damage to
-        <strong>Morale</strong>.</p>
-      actions: []
-      rune: control
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runemind00000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.runemind00000000'
   - folder: ghRKqdzq279SH1lt
     name: Wilderness Novice
     type: talent
@@ -914,15 +769,14 @@ items:
     img: systems/crucible/icons/skills/wilderness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in the basics of wilderness survival and traversal. You gain the
-        <strong>Novice</strong> rank in the <strong>Wilderness </strong>skill
-        and are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to find and construct safe shelter from the elements, to start a
-        fire for warmth, to keep cool in hot environments. You can find safe,
-        drinkable water in most places, and how to identify which plants and
-        animals can serve as safe food sources.</span></p>
+        <p>You have received training in the basics of wilderness survival and
+        traversal. You gain the <strong>Novice</strong> rank in the
+        <strong>Wilderness </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to find and
+        construct safe shelter from the elements, to start a fire for warmth, to
+        keep cool in hot environments. You can find safe, drinkable water in
+        most places, and how to identify which plants and animals can serve as
+        safe food sources.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -941,9 +795,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -955,15 +809,13 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in basic athletics. You gain the <strong>Novice</strong> rank in the
-        <strong>Athletics</strong> skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know whether a surface can
-        support your weight or not, how to find handholds while climbing, and
-        how to distribute your weight for buoyancy when swimming. You know how
-        to run for distance, and how to pace yourself to avoid
-        exhaustion.</span></p>
+        <p>You have received training in basic athletics. You gain the
+        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know whether a surface can support your weight or not,
+        how to find handholds while climbing, and how to distribute your weight
+        for buoyancy when swimming. You know how to run for distance, and how to
+        pace yourself to avoid exhaustion.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -982,9 +834,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1016,9 +868,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -1030,17 +882,15 @@ items:
     img: systems/crucible/icons/skills/stealth.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in the basics of stealth, infiltration, and subterfuge. You gain the
-        <strong>Novice</strong> rank in the <strong>Stealth </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
-        how to use light and shadow to mask your presence, to distribute your
-        weight when walking in order to move more quietly, and you have learned
-        a few tricks of disguise in order to blend into a crowd. You can appear
-        unsuspicious when surrounded by others, hide in a darkened room, and can
-        move silently enough to avoid detection by the average
-        person.</span></p>
+        <p>You have received training in the basics of stealth, infiltration,
+        and subterfuge. You gain the <strong>Novice</strong> rank in the
+        <strong>Stealth </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        light and shadow to mask your presence, to distribute your weight when
+        walking in order to move more quietly, and you have learned a few tricks
+        of disguise in order to blend into a crowd. You can appear unsuspicious
+        when surrounded by others, hide in a darkened room, and can move
+        silently enough to avoid detection by the average person.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1058,9 +908,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1119,9 +969,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1180,9 +1030,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1215,9 +1065,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: projectileProfic
     folder: null
@@ -1230,11 +1080,16 @@ items:
     img: icons/magic/movement/chevrons-down-yellow.webp
     system:
       description: >-
-        <p>Infuse runic power into a movement, crossing physical and spatial
-        boundaries. Move 20 feet in a straight line, dealing minor damage to
-        enemies or applying restoration to allies in your path.</p><p>The Step
-        gesture scales with <strong>Dexterity</strong> and targets a 20 foot
-        line, dealing 2 base damage on a successful attack.</p>
+        <p>You infuse runic power into a movement, crossing physical and spatial
+        boundaries.</p><p>The Step gesture scales with
+        <strong>Dexterity</strong> and allows you to move up to 20 feet in a
+        straight line with width equal to your <strong>Size</strong>. It deals
+        <strong>2 Base Damage</strong> to targets along that line which fail to
+        Resist the spell. This gesture does not require any free hands to cast
+        and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>The
+        movement aspect of this talent is not yet automated and must be manually
+        performed as a consequence of the spell.</p>
       actions: []
       gesture: step
       actorHooks: []
@@ -1253,9 +1108,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturestep00000
     folder: null
@@ -1289,9 +1144,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1361,9 +1216,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1376,9 +1231,11 @@ items:
     system:
       description: >-
         <p>You are highly skilled in weaving the Rune of Lightning. Spells which
-        use this Rune cause the Shocked condition on Critical Hits.</p><p>The
-        Shocked effect lasts for 1 Round, deals half your Intellect score as
-        Lightning damage to Morale, and applies the Staggered condition.</p>
+        use this Rune cause the @Condition[shocked] condition on Critical
+        Hits.</p><p>The Shocked effect lasts for <strong>1 Round</strong>, deals
+        half your <strong>Intellect</strong> score as <strong>Lightning</strong>
+        damage to <strong>Morale</strong>, and applies the @Condition[staggered]
+        condition.</p>
       actions: []
       actorHooks:
         - hook: applyCriticalEffects
@@ -1409,9 +1266,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: surgeweaver00000
     folder: null
@@ -1425,15 +1282,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1451,156 +1307,285 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.awarenessNovice0'
+  - name: 'Rune: Illusion'
+    type: talent
+    img: icons/magic/light/projectile-smoke-blue-white.webp
+    system:
+      description: >-
+        <p>The chaotic force of trickery and whimsy. The illusion rune governs
+        magical manifestations of falsehood or misdirection.</p><p>The Illusion
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Willpower</strong> defense, and deals <strong>Psychic</strong>
+        damage to <strong>Morale</strong>. It is opposed by the orderly rune of
+        <strong>Illumination</strong>.</p>
+      actions:
+        - id: seeming
+          name: Seeming
+          img: icons/magic/light/projectile-smoke-blue-white.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Illusion allows you to fabricate
+            perception in various simple ways and to manipulate shadow and light
+            to create distraction or entertainment, producing one of the
+            following effects:</p><ul><li><p>Modify a single aspect of your own
+            physical appearance. Such alterations might include adjusting the
+            sound of your voice, changing the color of your eyes, gaining
+            illusory horns, or appearing slightly taller or shorter. The
+            alteration persists until you Rest or enact a different alteration
+            and can be verified as illusory by physical
+            inspection.</p></li><li><p>Manifest a convincing recreation of a
+            short sound or single scent that you can clearly recall. The
+            illusion originates from your position and lasts for 10 seconds. You
+            can control the volume of the sound or odorousness of the scent to
+            be perceptible up to a range of 60 feet or
+            shorter.</p></li><li><p>Decouple your shadow from your form,
+            specifically controlling its movements separately from your own. You
+            can maintain this illusion as long as you do not perform any other
+            action that consumes <strong>Focus</strong>.</p></li></ul><p>Seeming
+            may only affect a creature or object you can physically touch. You
+            may attempt other uses similar those above, the effectiveness of
+            which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - spell
+            - harmless
+          actionHooks: []
+      rune: illusion
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: illumination
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeIllusion0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.runeIllusion0000'
+  - name: Subtle Extrication
+    type: talent
+    _id: subtleextricatio
+    img: icons/magic/air/wind-stream-blue-gray.webp
+    system:
+      description: >-
+        <p>You understand how to move away from an opponent without exposing
+        yourself to the worst attacks in return. Any <strong>Disengagement
+        Attack</strong> against you is performed without the 2 Boons that would
+        ordinarily apply to such an attack.</p>
+      actions: []
+      actorHooks: []
+      nodes:
+        - intdex2
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.subtleextricatio'
+  - name: Focused Anticipation
+    type: talent
+    _id: focusedanticipat
+    img: icons/magic/light/circle-window-clock-blue.webp
+    system:
+      description: >-
+        Anticipation leads to decisive action. When you have the highest
+        <strong>Initiative</strong> score for a Round of combat, you gain
+        <strong>+1 Focus</strong>.<p></p>
+      nodes:
+        - int4d
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.focusedanticipat'
+  - name: Blast Flask
+    type: consumable
+    img: icons/weapons/thrown/bomb-fuse-red-black.webp
+    system:
+      identifier: blastFlask
+      category: bomb
+      quantity: 1
+      weight: 1
+      price: 2500
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+        - thrown
+      description:
+        public: >-
+          <p>A flask filled with a reddish liquid explodes when it breaks open,
+          creating a small explosive fire that quickly dissipates.</p>
+        private: >-
+          <p></p><p>Primarily used to break apart large pieces of ore, these
+          alchemical flasks pack a concentrated punch. If combined in a large
+          enough quantity, they can also be used to create a chain reaction that
+          results in larger explosions.</p>
+      actions:
+        - id: blastFlask
+          name: Blast Flask
+          img: icons/weapons/thrown/bomb-fuse-red-black.webp
+          condition: ''
+          description: >-
+            <p>You light and throw the @ref[name], dealing <strong>Fire
+            </strong>damage to all enemies in the radius of the explosion. The
+            radius of the <strong>Blast</strong> depends on the quality of the
+            bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+            feet</p></li><li><p><strong>Standard</strong> - 4
+            feet</p></li><li><p><strong>Fine</strong> - 6
+            feet</p></li><li><p><strong>Superior</strong> - 8
+            feet</p></li><li><p><strong>Masterwork</strong> - 10
+            feet</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 20
+            weapon: false
+          target:
+            type: blast
+            number: 1
+            scope: 4
+            self: false
+            size: 4
+          effects: []
+          tags:
+            - freehand
+            - reflex
+            - fire
+            - dexterity
+            - skill
+            - athletics
+            - consume
+          actionHooks: []
+      uses:
+        value: 1
+        max: 1
+    effects: []
+    flags:
+      dnd5e:
+        riders:
+          activity: []
+          effect: []
+      ember:
+        crucibleOverride: true
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: 8tn6PxXEdDLyHKYD
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.8tn6PxXEdDLyHKYD'
 effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.lightning.arrow
+    lastSpell: spell.illusion.arrow
     actionHistory:
-      - id: strike
-        messageId: o1IvbeTHyz26tFP4
-        combat: null
-      - id: strike
-        messageId: tirIu3Vlv0vCM5s6
-        combat: null
-      - id: twinnedShot
-        messageId: XRAuahOEMELBqqPE
-        combat: null
-      - id: twinnedShot
-        messageId: eeEuby44h9an2kWb
-        combat: null
-      - id: twinnedShot
-        messageId: ZNwLWtWDHOE6Hp7X
-        combat: null
-      - id: twinnedShot
-        messageId: SIt2j7AfCd0nG2jE
-        combat: null
-      - id: fanOfArrows
-        messageId: lMe7FEhE5UAR1KO3
-        combat: null
-      - id: fanOfArrows
-        messageId: 3A4I5AyJvuj2chEY
-        combat: null
-      - id: fanOfArrows
-        messageId: XNbu2zxP8DFSeaI7
-        combat: null
-      - id: precisionShot
-        messageId: 5ZylwVFGsoo2lwC8
-        combat: null
-      - id: strike
-        messageId: tbTtKjscumjKSccr
-        combat: null
-      - id: strike
-        messageId: mDBxoxZ5rcfJZVZT
-        combat: null
-      - id: strike
-        messageId: GiAeax1AAKrYghf5
-        combat: null
-      - id: strike
-        messageId: lYYKnK8H96cf7n4Z
-        combat: null
-      - id: strike
-        messageId: DXDa5BXyydotUZem
-        combat: null
-      - id: strike
-        messageId: pWk3TZQYNTZkNwOk
-        combat: null
-      - id: strike
-        messageId: lahdW4Lt16CtQuMm
-        combat: null
-      - id: strike
-        messageId: XP7iHK2X6sKqefHa
-        combat: null
-      - id: strike
-        messageId: 3KqLwP3PGoI0SuBT
-        combat: null
-      - id: strike
-        messageId: jQYYNgQx2F7CaHnE
-        combat: null
-      - id: strike
-        messageId: oWzjMeHLSl0KJAL5
-        combat: null
-      - id: strike
-        messageId: rApTpobD8TXERkqg
-        combat: null
-      - id: strike
-        messageId: VLWToVCdRfRQg9H7
-        combat: null
-      - id: strike
-        messageId: QaijYrHwdq3w8h7k
-        combat: null
-      - id: strike
-        messageId: xj8mUHEotwt7C6cj
-        combat: null
-      - id: recover
-        messageId: 1SU4X5Xpd4uZ0vKG
-        combat: null
-      - id: strike
-        messageId: NpizgVYrCFLk4Ll6
+      - id: spell.illusion.arrow
+        messageId: 5sxfnCkwNjptLvcj
         combat:
-          id: J7Hw9RkYTGs5UHLr
+          id: iYZ3HAw5nHDZCCVa
           round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
-      - id: strike
-        messageId: Q9LJUxh7bTkr1d2R
-        combat:
-          id: J7Hw9RkYTGs5UHLr
-          round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
-      - id: spell.lightning.arrow
-        messageId: VK80wJQiurW29zzS
-        combat:
-          id: J7Hw9RkYTGs5UHLr
-          round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
-      - id: precisionShot
-        messageId: jb6IN5bPIlJhZown
-        combat:
-          id: J7Hw9RkYTGs5UHLr
-          round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
-      - id: spell.lightning.arrow
-        messageId: Z6MAjpbjXMYbpEtd
-        combat:
-          id: J7Hw9RkYTGs5UHLr
-          round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
-      - id: strike
-        messageId: 5k1aG0ZDwDGXQwHe
-        combat:
-          id: J7Hw9RkYTGs5UHLr
-          round: 1
-          turn: 0
-          combatantId: 4TBnXs1Dwyn6kMy3
-          tokenId: MndNelKUCSPSmp4x
+          turn: 3
+          combatantId: IVxZ7pdZO88zAAQ7
+          tokenId: L62zbZZ3PjGIAKO5
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 ownership:

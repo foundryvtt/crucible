@@ -282,7 +282,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: qA4kxfa55Q
+      identifier: Fi5s8c9J1t
       invested: false
       actorHooks: []
       dropped: false
@@ -290,9 +290,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -323,7 +323,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: aiZ7WS9Tp7
+      identifier: 6Ft3A2nE59
       invested: false
       actorHooks: []
       dropped: false
@@ -331,9 +331,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -362,16 +362,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: H5HdnKceOE
+      identifier: ZzmAfPgdSm
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -434,9 +434,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -501,9 +501,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -558,7 +558,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - tou1b
+        - tou2c
       rune: ''
       gesture: ''
       inflection: ''
@@ -566,9 +566,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -581,17 +581,15 @@ items:
     img: icons/magic/defensive/shield-barrier-glowing-blue.webp
     system:
       description: >-
-        <p>Focus the power of a Rune into a protective barrier, shielding
-        yourselves and others from harmful effects. When used with the Kinesis
-        rune the Ward reduces incoming damage from a chosen physical damage type
-        while combination with the Death rune protects against Corruption
-        damage.</p>
-
-        <p>Your Ward provides <strong>+6 Resistance</strong> against the damage
-        type of the Rune used in the spell. The Ward lasts for 1 Round.</p>
-
-        <p>You may only have a single Ward at a time. Casting another spell
-        using the Ward gesture replaces your prior Ward.</p>
+        <p>You shape the arcane power of a Rune into a protective barrier used
+        to shield yourself from harm.</p><p>The Ward gesture scales using
+        <strong>Toughness</strong> and provides <strong>+6 Resistance</strong>
+        against the damage type of the Rune used in the spell. This resistance
+        lasts for <strong>1 Round</strong> and you may only have a single Ward
+        at a time. Casting another spell using the Ward gesture replaces your
+        prior Ward. This gesture requires <strong>1 Hand</strong> to cast and
+        has a base cost of <strong>2 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       gesture: ward
       actorHooks: []
@@ -610,9 +608,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
@@ -696,9 +694,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: 100000
@@ -759,9 +757,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: counterstrike000
     folder: 8Vb0F5R7DMUrvhfw
@@ -807,9 +805,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -883,9 +881,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
@@ -899,13 +897,12 @@ items:
     system:
       description: >-
         <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and physicality. It is
-        opposed by the orderly rune of Stasis.</p>
-
-        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
-        <strong>Physical</strong> defense, and deals
-        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions: []
       rune: kinesis
       actorHooks: []
@@ -924,9 +921,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -946,9 +943,9 @@ items:
           description: >-
             <p>You emit a courageous bellow that inspires Allies within 12 feet
             of you to remain stalwart in the face of danger. You perform an
-            Intimidation skill test against the Madness threshold of your
-            allies. On a success, affected allies become Resolute for one
-            Round.</p>
+            <strong>Intimidation</strong> skill test against the Madness
+            threshold of your allies. On a success, affected allies become
+            @Condition[resolute] for one Round.</p>
           tags:
             - harmless
             - rallying
@@ -967,7 +964,10 @@ items:
             size: 12
           effects:
             - name: Rallying Cry
-              scope: 0
+              scope: '2'
+              result:
+                type: success
+                all: false
               statuses:
                 - resolute
               duration:
@@ -998,9 +998,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: rallyingcry00000
     folder: 2MFixpDJ379KOogE
@@ -1041,9 +1041,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -1077,9 +1077,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: -25000
@@ -1092,19 +1092,17 @@ items:
     img: icons/equipment/shield/buckler-iron-cross-gray.webp
     system:
       description: >-
-        <p>You are a calm anchor in the swirling sea of combat. Your
-        <strong>Engagement</strong> increases by +1, allowing you to
-        simultaneously engage more adjacent foes.</p>
+        <p>You are a calm anchor in the swirling sea of combat. When you have a
+        Shield equipped, your <strong>Engagement</strong> increases by +1,
+        allowing you to simultaneously engage more adjacent foes.</p>
       actions: []
-      actorHooks:
-        - hook: prepareMovement
-          fn: movement.engagement += 1;
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - tou3b
+        - tou3a
       rune: ''
       gesture: ''
       inflection: ''
@@ -1116,9 +1114,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1147,7 +1145,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: 4WgokbEDmb
+      identifier: B5My99DIbS
       invested: false
       actorHooks: []
       dropped: false
@@ -1155,9 +1153,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -1223,16 +1221,16 @@ items:
             - melee
           actionHooks: []
       dropped: false
-      identifier: l22xmPfKQU
+      identifier: lIeyrmRanL
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -1245,15 +1243,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1272,9 +1269,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1286,14 +1283,12 @@ items:
     img: systems/crucible/icons/skills/intimidation.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You understand the
-        fundamentals of how threats and coercion can achieve desired outcomes.
-        You gain the <strong>Novice</strong> rank in the <strong>Intimidation
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</span></p><p><span style="font-family:Vollkorn,
-        serif">You know how to use simple displays of violence or overt threats
-        to get others to follow your lead, but you aren't very
-        subtle.</span></p>
+        <p>You understand the fundamentals of how threats and coercion can
+        achieve desired outcomes. You gain the <strong>Novice</strong> rank in
+        the <strong>Intimidation </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        simple displays of violence or overt threats to get others to follow
+        your lead, but you aren't very subtle.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1312,9 +1307,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1346,9 +1341,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1414,9 +1409,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1451,9 +1446,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1485,9 +1480,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1501,15 +1496,13 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in basic athletics. You gain the <strong>Novice</strong> rank in the
-        <strong>Athletics</strong> skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know whether a surface can
-        support your weight or not, how to find handholds while climbing, and
-        how to distribute your weight for buoyancy when swimming. You know how
-        to run for distance, and how to pace yourself to avoid
-        exhaustion.</span></p>
+        <p>You have received training in basic athletics. You gain the
+        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know whether a surface can support your weight or not,
+        how to find handholds while climbing, and how to distribute your weight
+        for buoyancy when swimming. You know how to run for distance, and how to
+        pace yourself to avoid exhaustion.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1527,9 +1520,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1565,9 +1558,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1589,7 +1582,7 @@ items:
         rank: 1
       actorHooks: []
       nodes:
-        - tou0a
+        - tou0b
       rune: ''
       gesture: ''
       inflection: ''
@@ -1599,9 +1592,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: shieldCombatTrai
     folder: null
@@ -1634,9 +1627,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: shieldCombatProf
     folder: null
@@ -1644,6 +1637,164 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldCombatProf'
+  - name: Crowbar
+    type: tool
+    img: icons/tools/fasteners/pin-round.webp
+    system:
+      identifier: crowbar
+      category: implement
+      quantity: 1
+      weight: 6
+      price: 1200
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>A slightly curved bar of strong metal featuring a hook with a
+          flattened head on one end. Used to apply leverage, prying one object
+          loose of another.</p>
+        private: ''
+      actions: []
+      skills: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: NE3II2EDPT4zlWdr
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.NE3II2EDPT4zlWdr'
+  - name: Healing Elixir
+    type: consumable
+    img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+    system:
+      identifier: healingElixir
+      category: flask
+      quantity: 1
+      weight: 1
+      price: 4000
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>This potion contains a specialized alchemical formula to rapidly
+          close wounds and improve bodily health.</p>
+        private: ''
+      actions:
+        - id: healingElixir
+          name: Healing Elixir
+          img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+          condition: ''
+          description: >-
+            <p>Immediately recover an amount of <strong>Health</strong>
+            dependant on the quality of the
+            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
+            Immediately heals 12
+            <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
+            Immediately heals 24
+            <strong>Health</strong>.</p></li><li><p><strong>Superior</strong> -
+            Immediately heals 48
+            <strong>Health</strong>.</p></li><li><p><strong>Masterwork</strong>
+            - Immediately heals 96 <strong>Health</strong>.</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: true
+          effects: []
+          tags:
+            - consume
+            - healing
+          actionHooks: []
+      uses:
+        value: 1
+        max: 1
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: px5kNyBs36MvlJl4
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.px5kNyBs36MvlJl4'
+  - name: Expanded Toolbelt
+    type: accessory
+    img: icons/containers/ammunition/bullets-belt.webp
+    system:
+      identifier: expandedToolbelt
+      category: clothing
+      quantity: 1
+      weight: 3
+      price: 1200
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>An expanded toolbelt in the form of a utility belt, a bandolier, or
+          an array of pockets stitched into your equipment.</p><p>This item
+          provides a number of additional Toolbelt slots according to its
+          quality tier:</p><ul><li><p><strong>Standard</strong>: +1 Toolbelt
+          slot</p></li><li><p><strong>Fine</strong>: +2 Toolbelt
+          slots</p></li><li><p><strong>Superior</strong>: +3 Toolbelt
+          slots</p></li><li><p><strong>Masterwork</strong>: +4 Toolbelt
+          slots</p></li></ul>
+        private: ''
+      actions: []
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: UcTm1twwPEBk7OE2
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.UcTm1twwPEBk7OE2'
 effects: []
 flags:
   core: {}
@@ -1781,11 +1932,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 ownership:

@@ -278,61 +278,21 @@ items:
         base: 16
       broken: false
       actions: []
-      identifier: xtQx2tio1x
+      identifier: vpbxx8LtAo
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.f4uwtWGdrCKeoxb7'
-  - name: 'Rune: Death'
-    type: talent
-    img: icons/magic/unholy/hand-claw-fire-blue.webp
-    system:
-      description: >-
-        <p>The orderly force of destruction, responsible for the decay of all
-        matter. The Death rune governs decay and destruction. It is opposed by
-        the chaotic rune of Life.</p>
-
-        <p>The Death rune scales using <strong>Intellect</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage
-        to <strong>Health</strong>.</p>
-      actions: []
-      rune: death
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: runedeath0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 200000
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runedeath0000000'
   - name: Cadence
     type: talent
     img: icons/skills/melee/strikes-sword-triple-gray.webp
@@ -366,9 +326,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -381,12 +341,13 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>Hurl a projectile of magical power at a distant target. This might
-        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a <strong>single</strong>
-        creature up to a distance of 60 feet, dealing 8 base damage on a
-        successful attack.</p>
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -405,9 +366,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -415,53 +376,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.gesturearrow0000'
-  - name: Intellectual Superiority
-    type: talent
-    _id: intellectualsupe
-    img: icons/magic/light/projectile-smoke-blue-light.webp
-    system:
-      description: >-
-        It is sometimes a marvel how slowly others around you think. You gain
-        <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
-        lower than you in Initiative order.
-      actions: []
-      actorHooks:
-        - hook: prepareWeaponAttack
-          fn: >-
-            const ac = this.combatant; const tc = target.combatant; if (
-            ac?.initiative > tc?.initiative )
-            rollData.boons.intellectualSuperiority = {label: "Intellectual
-            Superiority", number: 1};
-        - hook: prepareSpellAttack
-          fn: >-
-            const ac = this.combatant; const tc = target.combatant; if (
-            ac?.initiative > tc?.initiative )
-            rollData.boons.intellectualSuperiority = {label: "Intellectual
-            Superiority", number: 1};
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int4b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: BevAJzzLeFbSaVic
-    sort: -50000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.intellectualsupe'
   - folder: fOYHlZJEWUukD7yr
     name: Spellblade
     type: talent
@@ -496,9 +410,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: spellblade000000
     sort: 250000
@@ -531,9 +445,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -545,12 +459,12 @@ items:
     img: icons/magic/fire/dagger-rune-enchant-flame-red.webp
     system:
       description: >-
-        <p>Empower a close-range attack with the essence of a Rune. This rune
-        performs a melee weapon attack targeting the defense and dealing damage
-        of the Rune used in the spell.</p><p>The Strike gesture scales using
-        <strong>Strength</strong> and targets a <strong>single</strong> adjacent
-        creature, dealing base damage according to your equipped weapon on a
-        successful attack.</p>
+        <p>You empower a direct close-range attack with the arcane essence of a
+        Rune, performing a Strike with your equipped weapon.</p><p>The Strike
+        gesture scales using <strong>Strength</strong> and deal damage based on
+        your used weapon but with the damage type of the incorporated Rune. This
+        gesture does not require any free hand and has a base cost of <strong>1
+        Focus</strong> in addition to the cost of your weapon Strike.</p>
       actions: []
       gesture: strike
       actorHooks: []
@@ -569,9 +483,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturestrike000
     folder: D14x9AJ0TgXKtnzu
@@ -611,9 +525,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -676,9 +590,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: iD0N4Q5xDZqsf354
     sort: 0
@@ -738,9 +652,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -773,9 +687,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     sort: 0
@@ -806,7 +720,7 @@ items:
       broken: false
       actions: []
       slot: 3
-      identifier: Hs19n4aoLb
+      identifier: bPu9RP39FE
       invested: false
       actorHooks: []
       dropped: false
@@ -814,9 +728,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -827,20 +741,19 @@ items:
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       description: >-
-        <p>The chaotic force of raw, electrical energy. The Lightning rune
-        governs sources of electrical energy and electrical discharge. It is
-        opposed by the orderly rune of Earth.</p>
-
-        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
         <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>.</p>
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
       actions: []
       rune: lightning
       actorHooks: []
       iconicSpells: 0
       training:
-        type: ''
-        rank: null
+        type: lightning
+        rank: 1
       nodes:
         - int0a
       gesture: ''
@@ -852,9 +765,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -915,9 +828,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavystrike00000
     folder: tRHknqOEBLR808Cb
@@ -932,15 +845,13 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have received training
-        in basic athletics. You gain the <strong>Novice</strong> rank in the
-        <strong>Athletics</strong> skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know whether a surface can
-        support your weight or not, how to find handholds while climbing, and
-        how to distribute your weight for buoyancy when swimming. You know how
-        to run for distance, and how to pace yourself to avoid
-        exhaustion.</span></p>
+        <p>You have received training in basic athletics. You gain the
+        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know whether a surface can support your weight or not,
+        how to find handholds while climbing, and how to distribute your weight
+        for buoyancy when swimming. You know how to run for distance, and how to
+        pace yourself to avoid exhaustion.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -959,9 +870,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -973,14 +884,12 @@ items:
     img: systems/crucible/icons/skills/intimidation.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You understand the
-        fundamentals of how threats and coercion can achieve desired outcomes.
-        You gain the <strong>Novice</strong> rank in the <strong>Intimidation
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</span></p><p><span style="font-family:Vollkorn,
-        serif">You know how to use simple displays of violence or overt threats
-        to get others to follow your lead, but you aren't very
-        subtle.</span></p>
+        <p>You understand the fundamentals of how threats and coercion can
+        achieve desired outcomes. You gain the <strong>Novice</strong> rank in
+        the <strong>Intimidation </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</p><p>You know how to use
+        simple displays of violence or overt threats to get others to follow
+        your lead, but you aren't very subtle.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -999,9 +908,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1033,63 +942,14 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.heavyWeaponTrain'
-  - name: Surgeweaver
-    type: talent
-    img: icons/magic/lightning/bolt-strike-forked-blue.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Lightning. Spells which
-        use this Rune cause the Shocked condition on Critical Hits.</p><p>The
-        Shocked effect lasts for 1 Round, deals half your Intellect score as
-        Lightning damage to Morale, and applies the Staggered condition.</p>
-      actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Lightning rune
-            if ( action.rune?.id !== "lightning" ) return;
-
-            // Require damage to Health or Morale
-            const damageHealth = outcome.resources.health < 0;
-            const damageMorale = outcome.resources.morale < 0;
-            if ( !(damageHealth || damageMorale) ) return;
-
-            // Apply Shocked effect
-            outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int3a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.8.0
-      lastModifiedBy: null
-    _id: surgeweaver00000
-    folder: c0nl6X8tp4Of0Y4O
-    sort: 37500
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.surgeweaver00000'
   - name: Opportunistic Spellcraft
     type: talent
     _id: opportunisticspe
@@ -1118,9 +978,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1132,15 +992,14 @@ items:
     img: systems/crucible/icons/skills/awareness.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You have been trained in
-        the basics of situational awareness, and are able to notice important
-        details about your environment. You gain the <strong>Novice</strong>
-        rank in the <strong>Awareness </strong>skill and are no longer
-        considered <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You know to check for exits when you
-        enter a room, and how to look for concealed weapons, hidden traps, and
-        other threats. You know how to spot when you are being followed, and how
-        to search for common hiding places.</span></p>
+        <p>You have been trained in the basics of situational awareness, and are
+        able to notice important details about your environment. You gain the
+        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>You know to check for exits when you enter a room, and how
+        to look for concealed weapons, hidden traps, and other threats. You know
+        how to spot when you are being followed, and how to search for common
+        hiding places.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1159,9 +1018,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1172,9 +1031,9 @@ items:
     img: systems/crucible/icons/skills/athletics.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You gain the
-        <strong>Journeyman </strong>rank in the <strong>Athletics
-        </strong>skill, providing a <strong>+1 Skill Bonus</strong>.</span></p>
+        <p>You gain the <strong>Journeyman </strong>rank in the
+        <strong>Athletics </strong>skill, providing a <strong>+1 Skill
+        Bonus</strong>.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -1193,9 +1052,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: athleticsJourney
     ownership:
@@ -1227,9 +1086,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1297,9 +1156,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1307,24 +1166,171 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.sunderingstrike0'
+  - name: 'Rune: Flame'
+    type: talent
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    system:
+      description: >-
+        <p>The chaotic force of elemental, thermal energy. The Flame rune
+        governs fire and heat.</p><p>The Flame rune scales using Intellect,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
+      actions: []
+      rune: flame
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: runeflame0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runeflame0000000'
+  - name: Pyromancer
+    type: talent
+    img: icons/magic/fire/projectile-smoke-swirl-red.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Flame. Spells which use
+        this Rune cause @Condition[burning] on Critical Hits.</p><p>The Burning
+        effect lasts for <strong>1 Round</strong> and deals your
+        <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
+        <strong>Health</strong> and <strong>Morale</strong>.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Flame rune
+            if ( action.rune?.id !== "flame" ) return;
+
+            // Require damage to Health
+            const damageHealth = outcome.resources.health < 0;
+            if ( !damageHealth ) return;
+
+            // Apply Burning effect
+            const burning = SYSTEM.EFFECTS.burning(this);
+            outcome.effects.push(burning);
+      nodes:
+        - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: pyromancer000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.pyromancer000000'
+  - name: 'Gesture: Blast'
+    type: talent
+    img: icons/magic/fire/barrier-wall-explosion-orange.webp
+    system:
+      nodes:
+        - int4a
+      description: >-
+        <p>You hurl the arcane power of a Rune into an intense explosion of
+        energy at a nearby point you can see.</p><p>The Blast gesture scales
+        with <strong>Intellect</strong> and produces a blast with 6 feet radius
+        centered on a point within 60 feet of the spellcaster. The blast deals
+        <strong>8 Base Damage</strong> to targets which fail to Resist the
+        spell. This gesture requires <strong>2 Hands</strong> to cast and has a
+        base cost of <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+        is currently placed at a <strong>Tier 4</strong> node. It will
+        eventually only be attainable at a higher level (probably Level 6
+        required). It is currently available "early" for testing.</p>
+      actions: []
+      rune: ''
+      gesture: blast
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.1
+      lastModifiedBy: null
+    _id: gestureBlast0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.gestureBlast0000'
 effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.lightning.strike
+    lastSpell: spell.flame.arrow
     actionHistory:
-      - id: spell.lightning.strike
-        messageId: LnYN113Kwmy6Sd5a
+      - id: spell.flame.arrow
+        messageId: L4X4kVbBiE7dhUpQ
         combat: null
+      - id: spell.flame.strike
+        messageId: tYWFrZ4xdtAH9mmp
+        combat:
+          id: gk20r52wqPhsolKb
+          round: 2
+          turn: 1
+          combatantId: h5BoLzXPp70rdtTJ
+          tokenId: dADEtTB8iYFSmMKd
+      - id: strike
+        messageId: Nh5cHBAzCwnAuNdY
+        combat:
+          id: gk20r52wqPhsolKb
+          round: 2
+          turn: 1
+          combatantId: h5BoLzXPp70rdtTJ
+          tokenId: dADEtTB8iYFSmMKd
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 ownership:

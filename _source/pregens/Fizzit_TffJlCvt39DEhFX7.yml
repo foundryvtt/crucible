@@ -274,16 +274,16 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: DVQG0JFa6t
+      identifier: C05GhNh521
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -311,7 +311,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: TdTFbiEIt8
+      identifier: YOmtKPksjL
       invested: false
       actorHooks: []
       dropped: false
@@ -322,9 +322,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -349,7 +349,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: 9ghisfx57c
+      identifier: gfWvhdhkTH
       invested: false
       actorHooks: []
       dropped: false
@@ -361,9 +361,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 200000
@@ -375,20 +375,19 @@ items:
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       description: >-
-        <p>The chaotic force of raw, electrical energy. The Lightning rune
-        governs sources of electrical energy and electrical discharge. It is
-        opposed by the orderly rune of Earth.</p>
-
-        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
         <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>.</p>
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
       actions: []
       rune: lightning
       actorHooks: []
       iconicSpells: 0
       training:
-        type: ''
-        rank: null
+        type: lightning
+        rank: 1
       nodes:
         - int0a
       gesture: ''
@@ -400,9 +399,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -415,12 +414,13 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>Hurl a projectile of magical power at a distant target. This might
-        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
-        hurl a ball of devouring darkness.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a <strong>single</strong>
-        creature up to a distance of 60 feet, dealing 8 base damage on a
-        successful attack.</p>
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
       actorHooks: []
@@ -439,9 +439,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -456,21 +456,19 @@ items:
     img: systems/crucible/icons/skills/arcana.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">Your education covered the
-        fundamentals of metaphysics and magical theory, the relationship between
-        the runes, the opposing nature of order and chaos, and a cursory
-        introduction to spiritual beings including the most commonly known
-        deified and demonized figures of worship. You gain the
-        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
-        rudimentary understanding of the principle grammar of magic is
-        sufficient to identify which lesser rune a spell or ritual may be using,
-        as well as the gesture used (if not the inflection). You can identify
-        whether a figure is influenced more by chaos or by order, and can spot
-        the signs of common spirits (both lesser and greater). You know enough
-        about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</span></p>
+        <p>Your education covered the fundamentals of metaphysics and magical
+        theory, the relationship between the runes, the opposing nature of order
+        and chaos, and a cursory introduction to spiritual beings including the
+        most commonly known deified and demonized figures of worship. You gain
+        the <strong>Novice</strong> rank in the <strong>Arcana </strong>skill
+        and are no longer considered <strong>Untrained</strong> in that
+        skill.</p><p>Your rudimentary understanding of the principle grammar of
+        magic is sufficient to identify which lesser rune a spell or ritual may
+        be using, as well as the gesture used (if not the inflection). You can
+        identify whether a figure is influenced more by chaos or by order, and
+        can spot the signs of common spirits (both lesser and greater). You know
+        enough about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -489,9 +487,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -503,18 +501,16 @@ items:
     img: systems/crucible/icons/skills/science.jpg
     system:
       description: >-
-        <p><span style="font-family:Vollkorn, serif">You've learned to study the
-        world around you through structured observation, mathematics, physics,
-        chemistry, and other disciplines. You gain the <strong>Novice</strong>
-        rank in the <strong>Science </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You are familiar with the basic
-        principles of mathematics, physics, chemistry, or other scientific
-        studies. You know how to construct and use simple machines for the
-        purposes of making physical tasks easier. You know some of the more
-        commonly understood scientific theories, and given suitable time to
-        study more complex machines you might be able to at least operate
-        them.</span></p>
+        <p>You've learned to study the world around you through structured
+        observation, mathematics, physics, chemistry, and other disciplines. You
+        gain the <strong>Novice</strong> rank in the <strong>Science
+        </strong>skill and are no longer considered <strong>Untrained</strong>
+        in that skill.</p><p>You are familiar with the basic principles of
+        mathematics, physics, chemistry, or other scientific studies. You know
+        how to construct and use simple machines for the purposes of making
+        physical tasks easier. You know some of the more commonly understood
+        scientific theories, and given suitable time to study more complex
+        machines you might be able to at least operate them.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -533,9 +529,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     ownership:
       default: 0
@@ -568,9 +564,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: mechanicalTraini
     ownership:
@@ -582,13 +578,12 @@ items:
     system:
       description: >-
         <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and physicality. It is
-        opposed by the orderly rune of Stasis.</p>
-
-        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
-        <strong>Physical</strong> defense, and deals
-        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions: []
       rune: kinesis
       actorHooks: []
@@ -607,9 +602,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -622,13 +617,12 @@ items:
     img: icons/magic/water/snowflake-ice-snow-white.webp
     system:
       description: >-
-        <p>The orderly force of elemental, thermal energy. The Frost rune
-        governs sources of ice and cold. It is opposed by the chaotic rune of
-        Flame.</p>
-
-        <p>The Frost rune scales using <strong>Wisdom</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
-        <strong>Health</strong>.</p>
+        <p>The orderly force of water and cold. The Frost rune governs the
+        creation of water or other fluids and their transfer between liquid and
+        frozen states.</p><p>The Frost rune scales using
+        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
+        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Flame</strong>.</p>
       actions: []
       rune: frost
       iconicSpells: 0
@@ -647,9 +641,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: runefrost0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -662,13 +656,18 @@ items:
     img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
     system:
       description: >-
-        <p>Coalesce arcane power into tangible form, conjuring a
-        <strong>Creation</strong> which appears within 10 feet and joins Combat
-        at Initiative 1.</p><p>Your Creation is a Minion of half your own Level
-        chosen from the Summoned Creatures compendium pack corresponding to the
-        Rune used in the spell.</p><p>The Creation lasts for <strong>10
-        Rounds</strong>. You may only have one active Creation, casting another
-        spell using the Create gesture replaces your previous Creation.</p>
+        <p>You coalesce arcane power into tangible form, manifesting a
+        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
+        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
+        Level.</p><p>The Create gesture scales with <strong>Wisdom</strong> and
+        the Sprite survives for <strong>6 Rounds</strong>. You may only have one
+        active Sprite, casting another spell using the Create gesture replaces
+        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
+        cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
+        Runes have a Sprite actor defined yet. Runes that do not yet have a
+        defined Creation will — for now — manifest a <strong>Flame
+        Sprite</strong>.</p>
       actions: []
       gesture: create
       actorHooks: []
@@ -687,9 +686,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.1
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -706,11 +705,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
-  createdTime: 1762099442645
-  modifiedTime: 1762099442645
+  systemVersion: 0.8.1
+  createdTime: 1763178751996
+  modifiedTime: 1763178751996
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 ownership:
