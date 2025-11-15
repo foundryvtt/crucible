@@ -269,12 +269,12 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /**
    * Render this Talent as HTML for a tooltip card.
-   * @param {object} options
-   * @param {CrucibleActor} [options.actor]
-   * @param {boolean} [options.testPrereqs] Whether or not to test prerequisites
-   * @returns {Promise<string>}
+   * @param {object} options                      Options that modify card presentation
+   * @param {CrucibleActor} [options.actor]         Display the card as if owned by a certain actor
+   * @param {boolean} [options.testPrereqs=true]    Whether or not to test prerequisites
+   * @returns {Promise<string>}                   Rendered HTML string for the item card
    */
-  async renderCard({actor, testPrereqs = true}={}) {
+  async renderCard({actor, testPrereqs=true}={}) {
 
     // Load necessary templates
     await foundry.applications.handlebars.loadTemplates([
@@ -286,15 +286,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     const talent = this.parent;
     actor ||= talent.parent;
 
-    let reqs = talent.system.prerequisites;
-    if ( !testPrereqs || !actor ) {
+    // Test prerequisites
+    if ( !actor ) testPrereqs = false;
+    let reqs;
+    if ( testPrereqs ) reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites)
+    else {
       reqs = foundry.utils.deepClone(talent.system.prerequisites);
-      for ( let req in reqs ) {
-        reqs[req].met = true;
-      }
-    } else if ( actor ) {
-      reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites)
-    };
+      for ( let req in reqs ) reqs[req].met = true;
+    }
 
     // Render the card
     return foundry.applications.handlebars.renderTemplate(this.constructor.CARD_TEMPLATE_PATH, {
@@ -315,11 +314,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
-  /** Renders the talent as an inline card */
+  /**
+   * Renders the talent as an inline card.
+   * @returns {HTMLElement}     A rendered HTMLElement for the embed
+   */
   async toEmbed() {
-    const container = document.createElement(`section`);
-    container.classList = `crucible`;
-    container.innerHTML = await this.renderCard({ testPrereqs: false });
+    const container = document.createElement("section");
+    container.classList = "crucible";
+    container.innerHTML = await this.renderCard();
     return container;
   };
 
