@@ -328,6 +328,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   outcomes = new Map();
 
   /**
+   * The message representing this action, if applicable
+   * @type {CrucibleChatMessage|null}
+   */
+  message = null;
+
+  /**
    * A sheet used to configure this Action.
    * @returns {*}
    */
@@ -1404,7 +1410,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
    * @param {object} [options]                  Options which affect the confirmation workflow
    * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
-   * @returns {Promise<void>}
+   * @returns {Promise<boolean>}                false if not actually confirmed/reversed, otherwise true
    */
   async confirm({reverse=false}={}) {
     if ( !this._prepared ) throw new Error("A CrucibleAction must be prepared for an Actor before it can be confirmed.");
@@ -1417,8 +1423,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         await test.confirm.call(this, reverse);
       } catch(err) {
         console.error(new Error(`"${this.id}" action confirmation failed`, {cause: err}));
+        return false;
       }
     }
+
+    const isNegated = this.message?.getFlag("crucible", "isCounterspelled");
 
     // Additional Actor-specific consequences
     this.actor.onDealDamage(this, this.outcomes);
@@ -1428,6 +1437,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {
+      if ( isNegated ) {
+        for ( const resource of ["health", "wounds", "morale", "madness"] ) {
+          if ( outcome.self && this.cost[resource] ) outcome.resources[resource] = -this.cost[resource];
+          else delete outcome.resources[resource];
+        }
+        outcome.effects = [];
+      }
       await outcome.target.applyActionOutcome(this, outcome, {reverse});
     }
 
@@ -1437,6 +1453,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } catch(err) {
       console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
     }
+    return true;
   }
 
   /* -------------------------------------------- */
@@ -1716,7 +1733,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static async confirmMessage(message, {action, reverse=false}={}) {
     action ||= this.fromChatMessage(message);
     await message.update({flags: {crucible: {confirmed: !reverse}}}); // Mark the message as confirmed *first*
-    await action.confirm({reverse}); // Then perform the confirmation effects
+    const confirmed = await action.confirm({reverse}); // Then perform the confirmation effects
+
+    // Un-flag message if confirmation/reversal didn't go through
+    if ( !confirmed ) await message.update({flags: {crucible: {confirmed: reverse}}});
   }
 
   /* -------------------------------------------- */
@@ -1762,6 +1782,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcome.rolls = outcomeRolls.map(i => message.rolls[i]);
       action.outcomes.set(outcome.target, outcome);
     }
+
+    // Add reference to originating message
+    action.message = message;
     return action;
   }
 
