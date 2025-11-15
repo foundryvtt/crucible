@@ -143,10 +143,10 @@ HOOKS.counterspell = {
   async roll(outcome) {
     outcome.usage.defenseType = "willpower"; // Maybe changed later
     const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
-    if ( this.rune.id === usedRune.opposed ) {
+    if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 2};
     }
-    if ( this.gesture.id === usedGesture.id ) {
+    if ( this.gesture.id === usedGesture?.id ) {
       this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 2};
     }
     const roll = await this.actor.spellAttack(this, outcome);

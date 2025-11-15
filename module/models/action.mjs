@@ -1427,6 +1427,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
+    const isNegated = this.message?.getFlag("crucible", "isCounterspelled");
+
     // Additional Actor-specific consequences
     this.actor.onDealDamage(this, this.outcomes);
 
@@ -1435,6 +1437,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {
+      if ( isNegated ) {
+        for ( const resource of ["health", "wounds", "morale", "madness"] ) {
+          if ( outcome.self && this.cost[resource] ) outcome.resources[resource] = -this.cost[resource];
+          else delete outcome.resources[resource];
+        }
+        outcome.effects = [];
+      }
       await outcome.target.applyActionOutcome(this, outcome, {reverse});
     }
 
