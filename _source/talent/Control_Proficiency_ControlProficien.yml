@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/control/hypnosis-mesmerism-eye.webp
 system:
   nodes:
-    - int4b
+    - wis4c
   description: >-
     <p>You have fluency in weaving spellcraft using the Rune of Control. You
     gain a <strong>+1 Skill Bonus</strong> for spells cast using this
@@ -29,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763163877936
-  modifiedTime: 1763163905729
-  lastModifiedBy: vke929uLgNzbrY41
+  modifiedTime: 1763166779346
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: ControlProficien
 sort: 800000
 _key: '!items!ControlProficien'

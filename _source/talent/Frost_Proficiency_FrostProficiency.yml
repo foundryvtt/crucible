@@ -11,7 +11,7 @@ system:
     provide an upgrade to the <strong>Condense </strong>action, expanding its
     effectiveness or including new options for how to use it.</p>
   actions: []
-  rune: frost
+  rune: ''
   gesture: ''
   inflection: ''
   iconicSpells: 0
@@ -29,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763163886659
-  modifiedTime: 1763163905729
-  lastModifiedBy: vke929uLgNzbrY41
+  modifiedTime: 1763166855957
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: FrostProficiency
 sort: 1100000
 _key: '!items!FrostProficiency'

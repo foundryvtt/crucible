@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/unholy/hand-claw-fire-blue.webp
 system:
   nodes:
-    - int4b
+    - pre4c
   description: >-
     <p>You have fluency in weaving spellcraft using the Rune of Death. You gain
     a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
@@ -29,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763163881562
-  modifiedTime: 1763163905729
-  lastModifiedBy: vke929uLgNzbrY41
+  modifiedTime: 1763166756379
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: DeathProficiency
 sort: 900000
 _key: '!items!DeathProficiency'
