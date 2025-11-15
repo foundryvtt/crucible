@@ -16,6 +16,7 @@ const {HandlebarsApplicationMixin} = foundry.applications.api;
 
 /**
  * @typedef CrucibleHeroCreationItem
+ * @property {string} identifier
  * @property {CrucibleItem} item
  * @property {string} name
  * @property {string} color
