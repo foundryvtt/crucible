@@ -5,7 +5,7 @@ _id: gestureConjure00
 img: icons/magic/nature/plant-sprout-hands-vines.webp
 system:
   nodes:
-    - wis4c
+    - wis4d
   description: >-
     <p>You coalesce arcane power into a superior form, manifesting a
     <strong>Visitor</strong> which appears within 30 feet and joins Combat at
@@ -40,10 +40,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762718477065
-  modifiedTime: 1762982800882
+  modifiedTime: 1763155032568
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!gestureConjure00'

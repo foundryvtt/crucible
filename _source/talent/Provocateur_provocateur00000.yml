@@ -35,6 +35,8 @@ system:
           statuses:
             - enraged
   requirements: {}
+  nodes:
+    - wis2c
 effects: []
 ownership:
   default: 0
@@ -43,11 +45,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.1
+  coreVersion: '13.351'
   createdTime: 1676927134720
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763138482830
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null

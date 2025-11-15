@@ -1,9 +1,9 @@
 type: Item
 folder: Ua0XvGOuOJ5KVvlz
-name: Upgrades
-color: '#3d2e5c'
+name: Training
+color: '#352a51'
 sorting: a
-_id: KojrDmhlaQhj52EG
+_id: meNcaEyQoLucHy0I
 description: ''
 sort: 0
 flags: {}
@@ -15,5 +15,5 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   lastModifiedBy: AnoypGxxNIMOS0XY
-  modifiedTime: 1763154119766
-_key: '!folders!KojrDmhlaQhj52EG'
+  modifiedTime: 1763154114539
+_key: '!folders!meNcaEyQoLucHy0I'

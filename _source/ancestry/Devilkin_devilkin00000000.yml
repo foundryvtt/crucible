@@ -20,15 +20,15 @@ system:
   stride: 10
   identifier: devilkin
   talents:
-    - Compendium.crucible.talent.Item.runeflame0000000
+    - Compendium.crucible.talent.Item.runeFlame0000000
   ui:
     color: '#c72950'
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1674942420025
-  modifiedTime: 1762817223399
+  modifiedTime: 1763155308739
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

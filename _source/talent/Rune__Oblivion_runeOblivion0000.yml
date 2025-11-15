@@ -9,7 +9,47 @@ system:
     <strong>Willpower</strong>, and deals <strong>Void</strong> damage to
     <strong>Morale</strong>. It is opposed by the orderly rune of
     <strong>Soul</strong>.</p></dd></dl>
-  actions: []
+  actions:
+    - id: erase
+      name: Erase
+      img: icons/magic/unholy/orb-rays-blue.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Oblivion allows you to unravel tiny holes
+        in the fabric of existence, producing one of the following
+        effects:</p><ul><li><p>Disintegrate a non-magical object you hold
+        smaller than a 6-inch cube, sundering it to a fine particulate dust of
+        its component elements.</p></li><li><p>Anesthetize the ability to feel
+        emotion from yourself or a willing target that you touch, causing it to
+        enter a placid, stoic, or dispassionate state. This effect can be
+        maintained as long as you make no further
+        <strong>Action</strong>.</p></li><li><p>Subdue the potency of a light
+        source, causing its visible radius to be reduced by half for as long as
+        you maintain physical contact with it. Only one light source may be
+        dampened in this way at a given time.</p></li></ul><p>Erase may only
+        affect a creature or object you can physically touch. You may attempt
+        other uses similar those above, the effectiveness of which is decided by
+        the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - spell
+        - harmless
+      actionHooks: []
   rune: oblivion
   actorHooks: []
   nodes:
@@ -18,25 +58,25 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: oblivion
+    rank: 1
 effects: []
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
-  compendiumSource: Item.runevoid00000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762815604487
-  modifiedTime: 1763086578313
+  createdTime: 1763161726647
+  modifiedTime: 1763162015293
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
-sort: 1100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 _id: runeOblivion0000
+sort: 0
 _key: '!items!runeOblivion0000'

@@ -8,7 +8,52 @@ system:
     <strong>Presence</strong>, targets <strong>Reflex</strong>, and deals
     <strong>Radiant</strong> damage to <strong>Health</strong>. It is opposed by
     the chaotic rune of <strong>Illusion</strong>.</p>
-  actions: []
+  actions:
+    - id: reveal
+      name: Reveal
+      img: icons/magic/light/projectile-beam-yellow.webp
+      condition: ''
+      description: >-
+        <p>Your command of the Rune of Illumination allows you to create light
+        and exert basic control over its radiance, producing one of the
+        following effects:</p><ul><li><p>Create a ball of light called a
+        "tosslight" which sheds bright light in a 20 foot radius and dim light
+        in a 40 foot radius. The light can hover near your body, be affixed to
+        an item or surface, or be thrown up to a distance of 30 feet. You may
+        dismiss your tosslight at any time and may only have a single tosslight
+        at a time, casting this spell again causes your previous tosslight to
+        disappear.</p></li><li><p>Inscribe up to 200 words of invisible text
+        into paper like a scroll, page, or book. The text is written from light
+        itself and hidden from non-magical detection. It can be made visible by
+        yourself or another through use of this spell combined with a spoken
+        passphrase that you define at the time of
+        inscription.</p></li><li><p>Touch a physical object that produces dim
+        light, causing it to become bright light for as long as you maintain
+        physical contact. Only one light source may be intensified in this way
+        at a given time.</p></li></ul><p>Reveal may only affect a creature or
+        object you can physically touch. You may attempt other uses similar
+        those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - spell
+        - harmless
+      actionHooks: []
   rune: illumination
   actorHooks: []
   nodes:
@@ -17,25 +62,25 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: ''
-    rank: null
+    type: illumination
+    rank: 1
 effects: []
 flags:
   core: {}
 _stats:
-  compendiumSource: Compendium.crucible.talent.runeradiance0000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
-  createdTime: 1762815328000
-  modifiedTime: 1763086578313
+  createdTime: 1763147872390
+  modifiedTime: 1763161023475
   lastModifiedBy: AnoypGxxNIMOS0XY
+folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-folder: Dy9HnwadNE3kSZ4f
-sort: 700000
 _id: runeIllumination
+sort: 500000
 _key: '!items!runeIllumination'

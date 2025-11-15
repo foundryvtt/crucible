@@ -316,6 +316,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   template = this.template; // Defined during constructor
 
   /**
+   * The training types which can provide a skill bonus to use of this action.
+   * @type {string[]}
+   */
+  training = this.training; // Defined during _prepareData
+
+  /**
    * A mapping of outcomes which occurred from this action, arranged by target.
    * @type {CrucibleActionOutcomes}
    */
@@ -473,8 +479,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Propagate and sort tags
     this.tags = new CrucibleActionTags(this._source.tags, this);
 
-    // Ability Scaling (if known)
+    // Ability Scaling and Skill Training
     this.scaling = [];
+    this.training = [];
 
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
@@ -1181,6 +1188,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _configureUsage() {
+
+    // Configure bonuses
+    this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
+    this.usage.bonuses.skill = this.actor.getSkillBonus(this.training);
+
+    // Call configuration hooks
     for ( const test of this._tests() ) {
       if ( test.initialize instanceof Function ) {
         try {

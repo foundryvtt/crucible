@@ -24,12 +24,9 @@ export default class SpellCastDialog extends ActionUseDialog {
     const inflections = Array.from(actor.grimoire.inflections);
     inflections.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Scaling
-    const ability = actor.getAbilityBonus(spell.scaling);
-
     // Merge context
     return foundry.utils.mergeObject(context, {
-      ability, runes, gestures, inflections,
+      runes, gestures, inflections,
       canInflect: true,
       chooseDamageType: spell.rune.damageType === "physical",
       damageTypes: {
@@ -47,6 +44,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     super._onChangeForm(formConfig, event);
     if ( ["rune", "gesture", "inflection"].includes(event.target.name) ) {
       this.action.updateSource({[event.target.name]: event.target.value});
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       this._clearTargetTemplate();
       this.render({window: {title: this.title}});
     }

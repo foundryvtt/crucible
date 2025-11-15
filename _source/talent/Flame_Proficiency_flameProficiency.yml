@@ -1,0 +1,40 @@
+folder: meNcaEyQoLucHy0I
+name: Flame Proficiency
+type: talent
+_id: flameProficiency
+img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+system:
+  nodes:
+    - int4b
+  description: >-
+    <p>You have fluency in weaving spellcraft using the Rune of Flame. You gain
+    a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent will eventually also
+    provide an upgrade to the <strong>Enkindle</strong> action, expanding its
+    effectiveness or including new options for how to use it.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: flame
+    rank: 2
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.1
+  createdTime: 1763154150208
+  modifiedTime: 1763155101788
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!flameProficiency'

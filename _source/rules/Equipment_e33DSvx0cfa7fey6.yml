@@ -233,7 +233,7 @@ pages:
         class="value">Physical Defense</p><p class="equals">=</p><p
         class="equation">Base Armor + Bonus Armor + Base Dodge + Bonus
         Dodge</p></section><section
-        class="gameplay"><p>@UUID[Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS]{Scale
+        class="gameplay"><p>@UUID[Compendium.crucible.equipment.Item.scaleMail0000000]{Scale
         Mail} is Medium Armor which offers <strong>13 Armor Defense</strong> and
         <strong>3 Base Dodge Defense</strong>. As Medium Armor, the
         effectiveness of Scale Mail will continue to improve if the wearer has
@@ -309,8 +309,8 @@ pages:
       systemVersion: 0.5.3
       coreVersion: '13.350'
       createdTime: 1685633109339
-      modifiedTime: 1762098970414
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1763154535498
+      lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: null
       duplicateSource: null
       exportSource: null

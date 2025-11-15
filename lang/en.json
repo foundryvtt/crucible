@@ -467,6 +467,7 @@
 "ACTION.TAG_CATEGORIES.SCALING": "Scaling",
 "ACTION.TAG_CATEGORIES.RESOURCES": "Resources",
 "ACTION.TAG_CATEGORIES.SKILLS": "Skills",
+"ACTION.TAG_CATEGORIES.SPELLCRAFT": "Spellcraft",
 "ACTION.TAG_CATEGORIES.SPECIAL": "Special",
 
 "ACTION.TagAfterStrike": "After Strike",
@@ -529,6 +530,8 @@
 "ACTION.TagShieldTooltip": "This action requires wielding a shield to perform.",
 "ACTION.TagSpell": "Spell",
 "ACTION.TagSpellTooltip": "This action involves spellcraft.",
+"ACTION.TagComposed": "Composed Spell",
+"ACTION.TagComposedTooltip": "This action is a composed spell.",
 "ACTION.TagSkill": "Skill",
 "ACTION.TagSkillTooltip": "This action involves a targeted or opposed Skill check.",
 "ACTION.TagSummon": "Summon",

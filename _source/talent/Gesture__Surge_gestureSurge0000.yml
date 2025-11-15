@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/water/wave-water-blue.webp
 system:
   nodes:
-    - wis4c
+    - wis4d
   description: >-
     <p>You channel the arcane power of a Rune into a rushing wave of energy that
     surges forward from your current position.</p><p>The Surge gesture scales
@@ -35,11 +35,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762791747140
-  modifiedTime: 1762793563615
+  modifiedTime: 1763155043658
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: gestureSurge0000
 sort: 0

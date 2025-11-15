@@ -1,6 +1,7 @@
 import {SKILLS} from "./skills.mjs";
 import {TRAINING as WEAPON_TRAINING} from "./weapon.mjs";
 import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
+import {RUNES as SPELLCRAFT_RUNES} from "./spellcraft.mjs";
 
 /**
  * The types of talent nodes which are supported.
@@ -54,16 +55,20 @@ export const NODE_TIERS = Object.freeze({
  * @type {Readonly<Record<string, {group: string, label: string}>>}
  */
 export const TRAINING_TYPES = Object.freeze({
-  ...Object.entries(SKILLS).reduce((obj, [id, cfg]) => {
-    obj[id] = {group: "TALENT.TRAINING.SKILL", label: cfg.label};
+  ...Object.entries(SKILLS).reduce((obj, [id, {label}]) => {
+    obj[id] = {group: "TALENT.TRAINING.SKILL", label};
     return obj;
   }, {}),
-  ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, cfg]) => {
-    obj[id] = {group: "TALENT.TRAINING.WEAPON", label: cfg.label};
+  ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, {label}]) => {
+    obj[id] = {group: "TALENT.TRAINING.WEAPON", label};
     return obj;
   }, {}),
-  ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, cfg]) => {
-    obj[id] = {group: "TALENT.TRAINING.CRAFT", label: cfg.label};
+  ...Object.entries(SPELLCRAFT_RUNES).reduce((obj, [id, {name: label}]) => {
+    obj[id] = {group: "TALENT.TRAINING.SPELL", label};
+    return obj;
+  }, {}),
+  ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, {label}]) => {
+    obj[id] = {group: "TALENT.TRAINING.CRAFT", label};
     return obj;
   }, {})
 });

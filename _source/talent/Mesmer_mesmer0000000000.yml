@@ -28,8 +28,8 @@ system:
   nodes:
     - int3a
 effects: []
-folder: KojrDmhlaQhj52EG
-sort: 187500
+folder: jpipM4v8QX2Amfpx
+sort: 500000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -37,9 +37,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1677357449776
-  modifiedTime: 1762831525338
+  modifiedTime: 1763154063655
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

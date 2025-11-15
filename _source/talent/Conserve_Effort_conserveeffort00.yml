@@ -10,7 +10,7 @@ system:
   actions: []
   requirements: {}
   nodes:
-    - wis4d
+    - wis2a
 effects: []
 ownership:
   default: 0
@@ -20,9 +20,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.1
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: 1677356252137
-  modifiedTime: 1762793589149
+  modifiedTime: 1763138621096
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.conserveeffort00
   duplicateSource: null

@@ -90,6 +90,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Derived Spell Attributes
     this.scaling = [this.rune.scaling, this.gesture.scaling];
+    this.training = [this.rune.id];
     this.cost = CrucibleSpellAction.#prepareCost.call(this);
     this.defense = CrucibleSpellAction.#prepareDefense.call(this);
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
@@ -261,7 +262,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       gesture,
       inflection: undefined,
       composition: this.COMPOSITION_STATES.NONE,
-      tags: ["spell"]
+      tags: ["spell", "composed"]
     });
     return new this(spellData, {actor});
   }
@@ -283,7 +284,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       gesture,
       inflection,
       composition: this.COMPOSITION_STATES.COMPOSED,
-      tags: ["spell"]
+      tags: ["spell", "composed"]
     }, context);
   }
 

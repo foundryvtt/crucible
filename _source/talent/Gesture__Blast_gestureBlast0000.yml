@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/fire/barrier-wall-explosion-orange.webp
 system:
   nodes:
-    - int4b
+    - int4a
   description: >-
     <p>You hurl the arcane power of a Rune into an intense explosion of energy
     at a nearby point you can see.</p><p>The Blast gesture scales with
@@ -35,11 +35,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1762794176016
-  modifiedTime: 1762794370085
+  modifiedTime: 1763155020354
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: gestureBlast0000
 sort: 0

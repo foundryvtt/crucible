@@ -4,14 +4,14 @@ folder: null
 type: Item
 _id: Ua0XvGOuOJ5KVvlz
 sort: 1300000
-color: '#513e7a'
+color: '#433366'
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   createdTime: null
-  modifiedTime: 1762791084756
+  modifiedTime: 1763154131489
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
