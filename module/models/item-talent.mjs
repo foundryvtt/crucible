@@ -314,14 +314,20 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
-  /**
-   * Renders the talent as an inline card.
-   * @returns {HTMLElement}     A rendered HTMLElement for the embed
-   */
-  async toEmbed() {
+  /** @override */
+  async toEmbed(config, _options) {
     const container = document.createElement("section");
-    container.classList = "crucible";
+
+    // Description only
+    if ( config.values.includes("description") ) {
+      container.innerHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description);
+      return container;
+    }
+
+    // Embedded Talent card
+    container.classList = "crucible item-embed";
     container.innerHTML = await this.renderCard();
+    if ( config.values.includes("centered") ) container.firstElementChild.classList.add("centered");
     return container;
   };
 

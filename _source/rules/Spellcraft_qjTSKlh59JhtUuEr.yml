@@ -126,83 +126,31 @@ pages:
         the Runes, using @UUID[.lhrYInsQ2f0YfhTu]{Gestures} to manifest powerful
         displays of magical prowess.</p><p>There are six Chaotic Runes and six
         Orderly Runes, forming a natural opposition to one another.</p><h2
-        class="divider">Runes of Chaos</h2><dl><dt><p>Flame</p></dt><dd><p>The
-        chaotic force of elemental, thermal energy. The Flame rune governs fire
-        and heat. The Flame rune scales using Intellect, targets
-        <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Frost</strong>.</p></dd><dt><p></p></dt><dt><p>Illusion</p></dt><dd><p>The
-        chaotic force of trickery and whimsy. The illusion rune governs magical
-        manifestations of falsehood or misdirection. The Illusion rune scales
-        using <strong>Intellect</strong>, targets <strong>Willpower</strong>
-        defense, and deals <strong>Psychic</strong> damage to
-        <strong>Morale</strong>. It is opposed by the orderly rune of
-        <strong>Illumination</strong>.</p></dd><dt><p>Kinesis</p></dt><dd><p>The
-        chaotic force of space and physical movement. The Kinesis rune governs
-        all things related to the act of movement and physicality. The Kinesis
-        rune scales using <strong>Presence</strong>, targets
-        <strong>Physical</strong> defense, and deals
-        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of
-        <strong>Control</strong>.</p></dd><dt><p>Life</p></dt><dd><p>A chaotic
-        force of creation, responsible for living matter. The Life rune governs
-        health and matters relating to biological growth. The Life rune scales
-        using <strong>Wisdom</strong> and provides <strong>Restoration</strong>
-        of <strong>Health</strong> or <strong>Poison</strong> damage opposed by
-        <strong>Fortitude</strong>. It is opposed by the orderly rune of
-        <strong>Death</strong>.</p></dd><dt><p>Lightning</p></dt><dd><p>The
-        chaotic force of raw electrical energy. The Lightning rune governs
-        sources of electrical charge and discharge. The Lightning rune scales
-        using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
-        deals <strong>Electrical</strong> damage to <strong>Health</strong>. It
-        is opposed by the orderly rune of
-        <strong>Earth</strong>.</p></dd><dt><p>Oblivion</p></dt><dd><p>A chaotic
-        force of destruction and annihilation of existence. The Oblivion rune
-        governs unmaking of matter or decoherence of spirit. The Oblivion rune
-        scales using <strong>Intellect</strong>, targets
-        <strong>Willpower</strong>, and deals <strong>Void</strong> damage to
-        <strong>Morale</strong>. It is opposed by the orderly rune of
-        <strong>Soul</strong>.</p></dd></dl><h2 class="divider">Runes of
-        Order</h2><dl><dt><p></p></dt><dt><p>Control</p></dt><dd><p>The orderly
-        force of discipline and permanence. The Control rune governs thought,
-        reason, and persistence. The Control rune scales using
-        <strong>Intellect</strong>, targets <strong>Willpower</strong>, and
-        deals <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
-        opposed by the chaotic rune of
-        <strong>Kinesis</strong>.</p></dd><dt><p>Death</p></dt><dd><p>The
-        orderly force of destruction, responsible for the corruption of all
-        biological matter. The Death rune governs decay and destruction. The
-        Death rune scales using <strong>Intellect</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage
-        to <strong>Health</strong>. It is opposed by the chaotic rune of
-        <strong>Life</strong>.</p></dd><dt><p></p></dt><dt><p>Earth</p></dt><dd><p>The
-        orderly force of elemental earth, responsible for physical matter. The
-        Earth rune governs minerals, metals, soils, and other physical
-        compounds. The Earth rune scales using <strong>Wisdom</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
-        <strong>Health</strong>. It is opposed by the chaotic rune of
-        <strong>Lightning</strong>.</p></dd><dt><p>Frost</p></dt><dd><p>The
-        orderly force of water and cold. The Frost rune governs the creation of
-        water or other fluids and their transfer between liquid and frozen
-        states. The Frost rune scales using <strong>Wisdom</strong>, targets
-        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
-        <strong>Health</strong>. It is opposed by the chaotic rune of
-        <strong>Flame</strong>.</p></dd><dt><p>Illumination</p></dt><dd><p>The
-        orderly force of light and energy. The Illumination rune governs light
-        and radiance. The Illumination rune scales using
-        <strong>Presence</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Radiant</strong> damage to <strong>Health</strong>. It is
-        opposed by the chaotic rune of
-        <strong>Illusion</strong>.</p></dd><dt><p></p></dt><dt><p></p></dt><dt><p>Soul</p></dt><dd><p>An
-        orderly force of creation and spiritual essence. The Soul rune governs
-        the fundamental procession of souls through life and death and relates
-        to matters of sapience, personality, and mental health. The Soul rune
-        scales using <strong>Presence</strong> and provides
-        <strong>Restoration</strong> of <strong>Morale</strong> or inflicts
-        <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>.
-        It is opposed by the chaotic rune of
-        <strong>Oblivion</strong>.</p></dd></dl><h2 class="divider">Rune
+        class="divider">Runes of
+        Chaos</h2><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Flame}</p><dl><dd><p>@Embed[Compendium.crucible.talent.Item.runeFlame0000000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeIllusion0000]{Illusion}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeIllusion0000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeKinesis00000]{Kinesis}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeKinesis00000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeLife00000000]{Life}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeLife00000000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeLightning000]{Lightning}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeLightning000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeOblivion0000]{Oblivion}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeOblivion0000
+        description inline]</p></dd></dl><h2 class="divider">Runes of
+        Order</h2><dl><dt><p>@UUID[Compendium.crucible.talent.Item.runeControl00000]{Control}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeControl00000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeDeath0000000]{Death}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeDeath0000000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Earth}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeEarth0000000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Frost}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeFrost0000000
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeIllumination]{Illumination}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeIllumination
+        description
+        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeSoul00000000]{Soul}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeSoul00000000
+        description inline]</p></dd></dl><h2 class="divider">Rune
         Mechanics</h2><p>The choice of Rune used in the casting of a spell
         affects or determines a variety of aspects of the resulting
         spellcraft.</p><ul><li><p>The conceptual essence of the
@@ -251,9 +199,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       createdTime: 1684375014492
-      modifiedTime: 1762981611352
+      modifiedTime: 1763178079916
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

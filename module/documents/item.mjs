@@ -143,6 +143,18 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  toAnchor(options={}) {
+    const tooltipTypes = ["talent", "spell"];
+    if ( tooltipTypes.includes(this.type) ) {
+      options.dataset ||= {};
+      options.dataset.crucibleTooltip = this.type;
+    }
+    return super.toAnchor(options);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Display changes to the Item as scrolling combat text.
    * @private

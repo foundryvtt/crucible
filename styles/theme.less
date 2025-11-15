@@ -429,7 +429,9 @@
 .crucible.crucible-tooltip {
   background: url("../ui/journal/background-texture.webp");
   padding: 1rem 1.5rem;
-  border: 2px ridge var(--color-frame);
+  border: 12px solid transparent;
+  border-image: url("../ui/frames/tooltip-frame.webp") 64 repeat;
+  border-image-width: 32px;
   text-align: left; // always left, regardless of tooltip position
 
   &.wide {

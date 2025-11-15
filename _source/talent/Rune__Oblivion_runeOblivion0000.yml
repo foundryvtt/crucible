@@ -3,12 +3,12 @@ type: talent
 img: icons/magic/unholy/orb-rays-blue.webp
 system:
   description: >-
-    <dl><dd><p>A chaotic force of destruction and annihilation of existence. The
-    Oblivion rune governs unmaking of matter or decoherence of spirit.
-    </p><p>The Oblivion rune scales using <strong>Intellect</strong>, targets
+    <p>A chaotic force of destruction and annihilation of existence. The
+    Oblivion rune governs unmaking of matter or decoherence of spirit.</p><p>The
+    Oblivion rune scales using <strong>Intellect</strong>, targets
     <strong>Willpower</strong>, and deals <strong>Void</strong> damage to
     <strong>Morale</strong>. It is opposed by the orderly rune of
-    <strong>Soul</strong>.</p></dd></dl>
+    <strong>Soul</strong>.</p>
   actions:
     - id: erase
       name: Erase
@@ -71,7 +71,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1763161726647
-  modifiedTime: 1763162015293
+  modifiedTime: 1763177987800
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 ownership:
