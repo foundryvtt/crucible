@@ -95,6 +95,10 @@
       "weapon": {
         "label": "Add Weapon Cost",
         "hint": "Is the equipped weapon's Action Point cost added to the cost for this Action?"
+      },
+      "hands": {
+        "label": "Hands Required",
+        "hint": "The number of hands required to perform this action."
       }
     },
     "id": {
@@ -490,8 +494,6 @@
 "ACTION.TagFinesseTooltip": "This action requires a certain amount of finesse to perform. You must be wielding a weapon which scales using Dexterity.",
 "ACTION.TagFlanking": "Flanking",
 "ACTION.TagFlankingTooltip": "This action may only be performed against a flanked or unaware target.",
-"ACTION.TagFreehand": "Free Hand",
-"ACTION.TagFreehandTooltip": "This action requires at least one hand which is not currently holding an object to perform.",
 "ACTION.TagBrute": "Brute",
 "ACTION.TagBruteTooltip": "This action involves the application of brute force and requires a weapon which scales using Strength.",
 "ACTION.TagGeneric": "Generic",

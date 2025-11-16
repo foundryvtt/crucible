@@ -42,6 +42,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 1
       range:
         minimum: null
         maximum: 20
@@ -61,7 +62,6 @@ system:
             turns: 3
             rounds: null
       tags:
-        - freehand
         - weakened
         - reflex
         - skill

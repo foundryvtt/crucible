@@ -505,10 +505,8 @@ pages:
         hands to be
         empty.</p></td></tr><tr><td><p>Unarmored</p></td><td><p>Requires no
         armor to be
-        equipped.</p></td></tr><tr><td><p>Freehand</p></td><td><p>Requires at
-        least one hand to be
-        empty.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves movement
-        and benefits from reduced movement cost once per
+        equipped.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves
+        movement and benefits from reduced movement cost once per
         turn.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
         performed on some other creature's
         turn.</p></td></tr><tr><td><p>Spell</p></td><td><p>Involves casting a

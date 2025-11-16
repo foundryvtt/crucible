@@ -12,7 +12,6 @@ system:
         <p>You fling debris into the eyes of an enemy. If the Strike is
         successful, they are Blinded until the end of their next Turn.</p>
       tags:
-        - freehand
         - harmless
         - reflex
         - skill
@@ -22,6 +21,7 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 1
       target:
         type: single
         number: 1

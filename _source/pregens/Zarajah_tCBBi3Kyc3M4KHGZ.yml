@@ -1048,6 +1048,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 1
           range:
             minimum: null
             maximum: 1
@@ -1059,7 +1060,6 @@ items:
             self: false
           effects: []
           tags:
-            - freehand
             - spell
             - harmless
           actionHooks: []
@@ -1155,7 +1155,6 @@ items:
             defense, the spell is countered and its magic is nullified,
             producing no effects.</p>
           tags:
-            - freehand
             - reaction
             - spell
             - harmless
@@ -1164,6 +1163,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 1
           target:
             type: single
             number: 1
@@ -1241,6 +1241,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 1
           range:
             minimum: null
             maximum: 1
@@ -1252,7 +1253,6 @@ items:
             self: false
           effects: []
           tags:
-            - freehand
             - spell
             - harmless
           actionHooks: []
@@ -1365,6 +1365,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 1
           range:
             minimum: null
             maximum: 1
@@ -1376,7 +1377,6 @@ items:
             self: false
           effects: []
           tags:
-            - freehand
             - spell
             - harmless
           actionHooks: []

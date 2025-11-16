@@ -19,13 +19,13 @@ system:
         its blood to heal your own wounds. This attack requires a free hand to
         grasp your target while you feed.</p>
       tags:
-        - freehand
         - melee
       cost:
         action: 1
         focus: 1
         heroism: 0
         weapon: false
+        hands: 1
       target:
         type: single
         number: 1
