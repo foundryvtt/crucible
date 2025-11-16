@@ -61,7 +61,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {number} action                The cost in action points
  * @property {number} focus                 The cost in focus points
  * @property {number} heroism               The cost in heroism points
- * @property {number} [hands]               A number of free hands required
+ * @property {number} [hands=0]             A number of free hands required
  * @property {boolean} [weapon]             Is the equipped weapon's action point cost added to this action's cost?
  */
 
@@ -239,7 +239,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        hands: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
+        hands: new fields.NumberField({required: false, nullable: false, integer: true, initial: 0, min: 0, max: 2}),
         weapon: new fields.BooleanField({initial: false})
       }),
       range: new fields.SchemaField({
