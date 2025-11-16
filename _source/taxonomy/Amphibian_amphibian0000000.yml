@@ -4,7 +4,7 @@ img: icons/environment/creatures/frog-spotted-green.webp
 system:
   description: >-
     <p>Beasts which dwell within or nearby water. Amphibians are typically
-    dextrous, but some varieties are powerful or large in
+    dexterous, but some varieties are powerful or large in
     size.</p><ul><li><p><strong>Size</strong>:
     variable</p></li><li><p><strong>Stride</strong>: variable</p></li></ul>
   category: beast
@@ -47,11 +47,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.2
   createdTime: 1751141018698
-  modifiedTime: 1751554841001
+  modifiedTime: 1763321537327
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: amphibian0000000
 sort: 0

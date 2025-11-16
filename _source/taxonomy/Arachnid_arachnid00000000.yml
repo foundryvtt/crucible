@@ -1,0 +1,84 @@
+name: Arachnid
+type: taxonomy
+img: icons/creatures/invertebrates/spider-web-black.webp
+system:
+  description: >-
+    <p>Beasts from the arachnid family which spin webs to ensnare and prey upon
+    small creatures or insects. Arachnids are typically dexterous and patient,
+    but some varieties favor power or
+    aggression.</p><ul><li><p><strong>Size</strong>:
+    variable</p></li><li><p><strong>Stride</strong>: variable</p></li></ul>
+  identifier: arachnid
+  category: beast
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 2
+    strength: 2
+    toughness: 2
+    dexterity: 2
+  movement:
+    size: 4
+    stride: 10
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 1
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 2
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -2
+      immune: false
+    cold:
+      value: -1
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 1
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - Compendium.crucible.adversary-talents.Item.venomousBite0000
+    - Compendium.crucible.adversary-talents.Item.webSpinner000000
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: wTcQjW37uAKhpMQL
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1763321699313
+  modifiedTime: 1763322114276
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: arachnid00000000
+sort: 0
+_key: '!items!arachnid00000000'
