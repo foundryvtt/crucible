@@ -63,7 +63,7 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: illumination
+    type: illusion
     rank: 1
 effects: []
 flags:
@@ -74,10 +74,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1763149060479
-  modifiedTime: 1763161040825
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763318623275
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

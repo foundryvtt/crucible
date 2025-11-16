@@ -255,16 +255,16 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @param taxonomy
    */
   #scaleResistances(taxonomy) {
-    for ( const r of Object.keys(this.resistances) ) {
+    for ( const [r, res] of Object.entries(this.resistances) ) {
       const tr = taxonomy.resistances[r].value || 0;
-      this.resistances[r].immune = taxonomy.resistances[r].immune;
+      res.immune ||= taxonomy.resistances[r].immune;
       if ( tr === 0 ) {
-        this.resistances[r].base = 0;
+        res.base = 0;
         continue;
       }
       const perLevel = tr < 0 ? (tr / 3) : (tr * 2 / 3);
       const base = this.advancement.threat * perLevel;
-      this.resistances[r].base = base < 0 ? Math.floor(base) : Math.ceil(base);
+      res.base = base < 0 ? Math.floor(base) : Math.ceil(base);
     }
   }
 

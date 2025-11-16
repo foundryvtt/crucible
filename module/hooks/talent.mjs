@@ -38,7 +38,7 @@ HOOKS.armoredShell0000 = {
 
 HOOKS.bard000000000000 = {
   prepareSpellAttack(item, spell, _target, rollData) {
-    if ( spell.rune.id === "spirit" ) rollData.boons.bard = {label: item.name, number: 2};
+    if ( spell.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
   }
 }
 

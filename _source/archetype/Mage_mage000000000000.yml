@@ -11,12 +11,12 @@ system:
     toughness: 2
     dexterity: 0
   talents:
-    - Compendium.crucible.talent.Item.runeflame0000000
-    - Compendium.crucible.talent.Item.runelightning000
     - Compendium.crucible.talent.Item.gesturefan000000
     - Compendium.crucible.talent.Item.gesturearrow0000
     - Compendium.crucible.talent.Item.counterspell0000
     - Compendium.crucible.talent.Item.recognizespellcr
+    - Compendium.crucible.talent.Item.runeFlame0000000
+    - Compendium.crucible.talent.Item.runeLightning000
   identifier: mage
   skills:
     - awareness
@@ -31,10 +31,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.347'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1685656712818
-  modifiedTime: 1755981124966
+  modifiedTime: 1763318016086
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
