@@ -418,13 +418,16 @@ pages:
     text:
       format: 1
       content: >-
-        <p>When a creature is <strong>Engaged</strong> by multiple foes which
-        are its own size or larger and those foes are located on opposite sides
-        of its square, the creature is considered to be
-        <strong>Flanked</strong>.</p><p>When attacking a creature that is your
-        size or smaller that is currently <strong>Flanked</strong>, you gain a
-        number of <strong>Boons</strong> to Attack abilities equal to the number
-        of flanking allies (excluding yourself).</p>
+        <p>When a creature is simultaneously <strong>Engaged</strong> by a
+        number of creatures greater than its <strong>Engagement</strong> score,
+        it has the <strong>Flanked</strong> condition. The Flanked condition has
+        multiple integer stages, starting at Flanked 1, where each stage of
+        Flanked contributes <strong>+1 Boon</strong> to attack rolls made
+        against that creature.</p><p>While having more Engaged enemies increases
+        your Flanked condition, having adjacent allies who are supporting you
+        can nullify flanking. Allies contribute their own Engagement as a bonus
+        to yours if you share enemies in common that you are both Engaged
+        with.</p>
     video:
       controls: true
       volume: 0.5
@@ -437,12 +440,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303094730
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1763304093974
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.flanked000000000'
   - sort: 1300000
     name: Incapacitated
