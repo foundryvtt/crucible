@@ -1359,6 +1359,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 1
           range:
             minimum: null
             maximum: null
@@ -1370,7 +1371,6 @@ items:
             self: false
           effects: []
           tags:
-            - freehand
             - spell
             - harmless
           actionHooks: []
@@ -1518,6 +1518,7 @@ items:
             focus: 0
             heroism: 0
             weapon: false
+            hands: 1
           range:
             minimum: null
             maximum: 20
@@ -1530,7 +1531,6 @@ items:
             size: 4
           effects: []
           tags:
-            - freehand
             - reflex
             - fire
             - dexterity

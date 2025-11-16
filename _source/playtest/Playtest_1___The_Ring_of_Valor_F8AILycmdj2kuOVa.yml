@@ -1255,7 +1255,6 @@ actors:
                 adjacent target. If successful, both you and your target are
                 Restrained for 1 Round.</p>
               tags:
-                - freehand
                 - difficult
                 - harmless
                 - skill
@@ -1265,6 +1264,7 @@ actors:
                 focus: 0
                 heroism: 0
                 weapon: false
+                hands: 1
               target:
                 type: single
                 number: 1
@@ -1489,7 +1489,6 @@ actors:
                 <p>Hammer grabs Anvil and hurls him up to 10 spaces, dealing
                 damage in an area of effect where the Orc warchief lands.</p>
               tags:
-                - freehand
                 - reflex
                 - bludgeoning
                 - mainhand
@@ -1498,6 +1497,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               target:
                 type: blast
                 number: 1
@@ -3237,6 +3237,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -3248,7 +3249,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -3300,6 +3300,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -3311,7 +3312,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -6180,6 +6180,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -6191,7 +6192,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -7886,6 +7886,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -7897,7 +7898,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -7964,6 +7964,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -7975,7 +7976,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -10902,6 +10902,7 @@ actors:
                 focus: 0
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -10913,7 +10914,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - consume
               actionHooks: []
           uses:
@@ -14697,6 +14697,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: null
@@ -14708,7 +14709,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -14858,6 +14858,7 @@ actors:
                 focus: 0
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 20
@@ -14870,7 +14871,6 @@ actors:
                 size: 4
               effects: []
               tags:
-                - freehand
                 - reflex
                 - fire
                 - dexterity
@@ -15693,7 +15693,6 @@ actors:
                 defense, the spell is countered and its magic is nullified,
                 producing no effects.</p>
               tags:
-                - freehand
                 - reaction
                 - spell
                 - harmless
@@ -15702,6 +15701,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               target:
                 type: single
                 number: 1
@@ -16176,6 +16176,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -16187,7 +16188,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -16284,6 +16284,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: null
@@ -16295,7 +16296,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -18010,6 +18010,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -18021,7 +18022,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -18917,7 +18917,6 @@ actors:
                 adjacent target. If successful, both you and your target are
                 Restrained for 1 Round.</p>
               tags:
-                - freehand
                 - difficult
                 - harmless
                 - skill
@@ -18927,6 +18926,7 @@ actors:
                 focus: 0
                 heroism: 0
                 weapon: false
+                hands: 1
               target:
                 type: single
                 number: 1
@@ -20972,6 +20972,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -20983,7 +20984,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -21084,7 +21084,6 @@ actors:
                 defense, the spell is countered and its magic is nullified,
                 producing no effects.</p>
               tags:
-                - freehand
                 - reaction
                 - spell
                 - harmless
@@ -21093,6 +21092,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               target:
                 type: single
                 number: 1
@@ -21172,6 +21172,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -21183,7 +21184,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -21300,6 +21300,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -21311,7 +21312,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -24442,6 +24442,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: null
@@ -24453,7 +24454,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []
@@ -25865,6 +25865,7 @@ actors:
                 focus: 1
                 heroism: 0
                 weapon: false
+                hands: 1
               range:
                 minimum: null
                 maximum: 1
@@ -25876,7 +25877,6 @@ actors:
                 self: false
               effects: []
               tags:
-                - freehand
                 - spell
                 - harmless
               actionHooks: []

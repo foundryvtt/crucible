@@ -11,7 +11,6 @@ system:
         target. If successful, both you and your target are Restrained for 1
         Round.</p>
       tags:
-        - freehand
         - difficult
         - harmless
         - skill
@@ -21,6 +20,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 1
       target:
         type: single
         number: 1

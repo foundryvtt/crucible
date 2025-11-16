@@ -18,6 +18,7 @@ system:
         focus: 1
         heroism: 0
         weapon: false
+        hands: 1
       range:
         minimum: null
         maximum: 1
@@ -29,7 +30,6 @@ system:
         self: false
       effects: []
       tags:
-        - freehand
         - spell
         - harmless
       actionHooks: []

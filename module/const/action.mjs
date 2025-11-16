@@ -288,23 +288,6 @@ export const TAGS = {
     }
   },
 
-  // Requires Free Hand
-  freehand: {
-    tag: "freehand",
-    label: "ACTION.TagFreehand",
-    tooltip: "ACTION.TagFreehandTooltip",
-    category: "requirements",
-    canUse() {
-      if ( this.tags.has("spell") ) return; // Handled by spell tag
-      const weapons = this.actor.equipment.weapons;
-      if ( weapons.twoHanded && this.actor.talentIds.has("stronggrip000000") ) return true;
-      return weapons.freeHands > 0;
-    },
-    prepare() {
-      this.cost.hands ||= 1; // At least 1 hand required
-    }
-  },
-
   // After a Basic Strike
   afterStrike: {
     tag: "afterStrike",

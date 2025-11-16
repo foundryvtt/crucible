@@ -1902,10 +1902,9 @@ export default class CrucibleActor extends Actor {
       id: "equipItem",
       name: item.system.dropped ? `Recover ${typeLabel}` : `Equip ${typeLabel}`,
       img: item.img,
-      cost: {action: ap},
+      cost: {action: ap, hands: 1},
       description: `${item.system.dropped ? "Recover the dropped" : "Equip the"} ${item.name}.`,
-      target: {type: "self", scope: 1},
-      tags: ["freehand"]
+      target: {type: "self", scope: 1}
     }, {actor: this});
 
     // Equip the weapon as a follow-up actor update

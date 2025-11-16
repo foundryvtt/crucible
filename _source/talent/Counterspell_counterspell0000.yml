@@ -29,7 +29,6 @@ system:
         If your roll exceeds their defense, the spell is countered and its magic
         is nullified, producing no effects.</p>
       tags:
-        - freehand
         - reaction
         - spell
         - harmless
@@ -38,6 +37,7 @@ system:
         focus: 1
         heroism: 0
         weapon: false
+        hands: 1
       target:
         type: single
         number: 1
