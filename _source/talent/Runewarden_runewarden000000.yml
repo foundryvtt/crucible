@@ -13,19 +13,11 @@ system:
     <strong>Ward</strong> gesture, the Resistance provided by your Ward also
     increases by half your Wisdom.</p>
   actions: []
-  actorHooks:
-    - hook: prepareResistances
-      fn: |-
-        for ( const [id, r] of Object.entries(resistances) ) {
-          if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-          if ( this.grimoire.runes.find(r => r.damageType === id) )  {
-            r.base += Math.ceil(this.abilities.wisdom.value / 2);
-          }
-        }
+  actorHooks: []
   iconicSpells: 1
   nodes:
-    - sig3.wisdom
     - sig3.toughness
+    - sig3.wisdom
 effects: []
 ownership:
   default: 0
@@ -34,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675735561453
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763349195106
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.runewarden000000
   duplicateSource: null
   exportSource: null

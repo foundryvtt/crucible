@@ -10,12 +10,7 @@ system:
     each successive attack.</p><p></p>
   actions: []
   requirements: {}
-  actorHooks:
-    - hook: prepareWeaponAttack
-      fn: >-
-        const {cadence} = this.status; const {actorStatus, boons} =
-        action.usage; actorStatus.cadence = (cadence ?? 0) + 1; if ( cadence )
-        rollData.boons.cadence = {label: "Cadence", number: status.cadence};
+  actorHooks: []
   nodes:
     - str2c
 effects: []
@@ -26,11 +21,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1677208371269
-  modifiedTime: 1749310581139
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763345139324
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.cadence000000000
   duplicateSource: null
   exportSource: null

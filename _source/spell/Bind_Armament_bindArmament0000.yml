@@ -21,6 +21,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -32,25 +33,11 @@ system:
         self: false
       effects: []
       tags:
+        - spell
         - iconicSpell
-      actionHooks:
-        - hook: canUse
-          fn: >-
-            const boundArmamentId = this.actor.getFlag("crucible", this.id);
-
-            const mainhandId = this.actor.equipment.weapons.mainhand.id;
-
-            if ( !mainhandId ) throw new Error("no mainhand weapon");
-
-            else if ( mainhandId === boundArmamentId ) throw new Error("weapon
-            is already bound");
-        - hook: preActivate
-          fn: |-
-            const mainhandId = this.actor.equipment.weapons.mainhand.id;
-            if ( !mainhandId ) return;
-            foundry.utils.mergeObject(this.usage.actorUpdates, {
-              [`flags.crucible.${this.id}`]: mainhandId
-            })
+        - spell
+        - iconicSpell
+      actionHooks: []
     - id: conjureArmament
       name: Conjure Armament
       img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
@@ -59,6 +46,7 @@ system:
         focus: 1
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -70,14 +58,9 @@ system:
         self: false
       effects: []
       tags:
+        - spell
         - iconicSpell
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const boundArmamentId = this.getFlag("crucible", this.id);
-            const weapon = this.items.get(boundArmamentId);
-            if ( !weapon || weapon.equipped ) return false;
-            this.canEquipWeapon(weapon);
+      actionHooks: []
       condition: ''
       description: >-
         <p>You call your bound armament back into your grasp. As long as you
@@ -101,11 +84,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1749247011452
-  modifiedTime: 1762817760045
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763325076383
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 sort: 100000
 _key: '!items!bindArmament0000'

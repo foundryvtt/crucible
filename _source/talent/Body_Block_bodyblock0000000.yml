@@ -14,53 +14,36 @@ system:
     - id: bodyBlock
       condition: You defend against a melee attack with your Armor or as a Glance.
       description: >-
-        An attack which otherwise is defended by your Armor or produced a
-        Glancing blow is converted to a Block and deals no damage.
+        <p>An attack which otherwise is defended by your Armor or produced a
+        Glancing blow is converted to a Block and deals no damage.</p>
       tags:
         - reaction
       cost:
         action: 0
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: self
         scope: 0
         number: 1
+        self: false
       effects: []
       name: Body Block
       img: icons/skills/melee/shield-block-gray-orange.webp
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const messageIds = Array.from(game.messages.keys());
-            for ( let i=messageIds.length-1; i>=0; i--) {
-              const message = game.messages.get(messageIds[i]);
-              if ( !message.flags.crucible?.action ) continue;
-              const targetAction = this.constructor.fromChatMessage(message);
-              for ( const outcome of targetAction.outcomes.values() ) {
-                if ( outcome.target.uuid !== actor.uuid ) continue;
-                if ( !targetAction.tags.has("melee") ) {
-                  throw new Error("You may only use Body Block against an incoming melee attack.");
-                }
-                if ( message.flags.crucible.confirmed ) {
-                  throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
-                }
-                const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
-                for ( const r of outcome.rolls ) {
-                  if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
-                    this.usage.targetAction = message.id;
-                    return true;
-                  }
-                }
-              }
-              throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
-            }
+      actionHooks: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674942420028
-  modifiedTime: 1742936870563
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763344869797
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

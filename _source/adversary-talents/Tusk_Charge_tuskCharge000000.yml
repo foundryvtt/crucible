@@ -14,13 +14,13 @@ system:
         Prone.</p>
       tags:
         - melee
-        - strike
         - natural
       cost:
         action: 1
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       target:
         type: ray
         number: 1
@@ -28,7 +28,10 @@ system:
         self: false
       effects:
         - name: Tusk Charge
-          scope: 3
+          scope: '3'
+          result:
+            type: success
+            all: false
           statuses:
             - prone
           duration:
@@ -41,9 +44,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      actionHooks:
-        - hook: prepare
-          fn: this.range.maximum = this.actor.system.movement.stride
+      actionHooks: []
   actorHooks: []
   node: ''
   iconicSpells: 0
@@ -56,12 +57,12 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.8.2
   createdTime: 1727362018628
-  modifiedTime: 1750791575640
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763324600657
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: tuskCharge000000
 sort: 100000

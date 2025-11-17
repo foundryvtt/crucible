@@ -9,17 +9,7 @@ system:
     <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
     lower than you in Initiative order.
   actions: []
-  actorHooks:
-    - hook: prepareWeaponAttack
-      fn: >-
-        const ac = this.combatant; const tc = target.combatant; if (
-        ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority
-        = {label: "Intellectual Superiority", number: 1};
-    - hook: prepareSpellAttack
-      fn: >-
-        const ac = this.combatant; const tc = target.combatant; if (
-        ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority
-        = {label: "Intellectual Superiority", number: 1};
+  actorHooks: []
   nodes:
     - int4d
 effects: []
@@ -31,11 +21,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1684460412134
-  modifiedTime: 1763154982364
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347569950
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

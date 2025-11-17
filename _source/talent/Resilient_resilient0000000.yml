@@ -11,9 +11,7 @@ system:
     <p>Your <strong>Wounds Threshold</strong> is reduced by 1, making you easier
     to heal.</p>
   actions: []
-  actorHooks:
-    - hook: prepareDefenses
-      fn: defenses.wounds.bonus -= 1;
+  actorHooks: []
   nodes:
     - tou2c
 effects: []
@@ -24,11 +22,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1684358834488
-  modifiedTime: 1763135366399
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348849792
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

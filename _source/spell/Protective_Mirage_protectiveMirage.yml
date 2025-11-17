@@ -51,40 +51,7 @@ system:
     - aspect
   inflections:
     - eluding
-  actorHooks:
-    - hook: defendAttack
-      fn: |-
-        if ( !action.tags.has("strike") ) return;
-        const effect = this.effects.get("protectiveMirage");
-        if ( !effect ) return;
-        const duplicates = effect.flags.crucible?.duplicates ?? 3;
-        rollData.banes.mirage = {label: item.name, number: duplicates * 2};
-    - hook: confirmActionOutcome
-      fn: |-
-        const effect = this.effects.get("protectiveMirage");
-        if ( !effect ) return;
-        let duplicates = effect.flags.crucible?.duplicates ?? 3;
-
-        // Verify the action targeted physical defense
-        let delta = options.reverse ? 1 : -1;
-        for ( const roll of outcome.rolls ) {
-         if ( !(roll instanceof crucible.api.dice.AttackRoll) ) continue;
-         if ( (roll.data.defenseType !== "physical") || roll.isSuccess ) continue;
-         duplicates += delta;
-        }
-
-        // Delete exhausted effect
-        if ( duplicates <= 0 ) {
-          outcome.effects.push({_id: effect.id, _delete: true});
-          return;
-        }
-
-        // Decrement effect
-        outcome.effects.push({
-          _id: effect.id,
-          name: `Mirage (${duplicates})`,
-          "flags.crucible.duplicates": duplicates
-        });
+  actorHooks: []
 effects: []
 folder: null
 ownership:
@@ -94,12 +61,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1727204769939
-  modifiedTime: 1762817797210
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763325542890
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: protectiveMirage
 sort: 300000

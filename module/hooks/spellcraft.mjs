@@ -70,12 +70,7 @@ HOOKS.create = {
     this.usage.hasDice = false;
 
     // Configure summon active effect
-    let effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    // TODO move to talent hook somehow
-    if ( this.actor.talentIds.has("conjurer00000000") ) {
-      const effectIds = Array.fromRange(1, 3).map(i => SYSTEM.EFFECTS.getEffectId(`conjurercreate${i}`));
-      effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
-    }
+    const effectId = this.usage.summons?.[0]?.effectId ?? SYSTEM.EFFECTS.getEffectId(this.gesture.id);
     this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
 
     // Configure summon data
@@ -116,10 +111,6 @@ HOOKS.ward = {
       console.warn("Gesture: Ward is not configured for healing Runes yet");
       return
     }
-
-    // Shield Ward
-    // TODO move to talent hook somehow
-    if ( this.actor.talentIds.has("shieldward000000") && this.actor.equipment.weapons.shield ) this.cost.hands = 0;
 
     // Configure Ward effect
     let resistance = this.gesture.damage.base;

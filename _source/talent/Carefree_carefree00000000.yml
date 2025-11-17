@@ -11,9 +11,7 @@ system:
     <p>Your <strong>Madness Threshold</strong> is reduced by 1, making you
     easier to heal.</p>
   actions: []
-  actorHooks:
-    - hook: prepareDefenses
-      fn: defenses.madness.bonus -= 1;
+  actorHooks: []
 effects: []
 folder: 4Ll3b4Q4us2mp4Fu
 sort: -75000
@@ -23,11 +21,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1684359825428
-  modifiedTime: 1742937694674
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763345663323
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

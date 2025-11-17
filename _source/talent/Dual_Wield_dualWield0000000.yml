@@ -21,6 +21,7 @@ system:
         focus: 0
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
@@ -29,13 +30,7 @@ system:
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const {basicStrike, lastAction} = this.actor.system.status;
-            if ( !basicStrike || (lastAction !== "strike") ) {
-              throw new Error("You may only perform an Offhand Strike after a basic Strike which did not critically miss.");
-            }
+      actionHooks: []
       range:
         maximum: 1
         weapon: true
@@ -54,12 +49,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.7
+  systemVersion: 0.8.2
   createdTime: 1748638326991
-  modifiedTime: 1753556340895
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763346646574
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 folder: cW6bwHXBB9pMcwva
 ownership:
   default: 0

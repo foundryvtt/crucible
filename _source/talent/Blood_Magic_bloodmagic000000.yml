@@ -14,18 +14,16 @@ system:
   requirements: {}
   nodes:
     - str2b
-  actorHooks:
-    - hook: preActivateAction
-      fn: // Hook code here
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674957908610
-  modifiedTime: 1749326873828
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763343554544
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

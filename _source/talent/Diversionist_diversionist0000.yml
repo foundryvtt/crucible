@@ -19,28 +19,22 @@ system:
       tags:
         - void
         - focus
+        - skill
         - deception
       cost:
         action: 1
         focus: 1
         heroism: 0
         weapon: false
+        hands: 0
       target:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       img: icons/skills/social/peace-luck-insult.webp
-      actionHooks:
-        - hook: postActivate
-          fn: |-
-            for ( const r of outcome.rolls ) {
-              if ( r.isSuccess ) {
-                r.data.damage.multiplier = 0;
-                r.data.damage.base = 1;
-                r.data.damage.total = 1;
-              }
-            }
+      actionHooks: []
       range:
         minimum: null
         maximum: 30
@@ -55,11 +49,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676837085147
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763345865701
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -8,15 +8,7 @@ system:
     doubles number of Boons awarded from attacking a <strong>Flanked</strong>
     enemy.</p>
   actions: []
-  actorHooks:
-    - hook: prepareWeaponAttack
-      fn: |-
-        if ( target.statuses.has("flanked") ) {
-          rollData.boons.packHunter = {
-            label: "Pack Hunter", 
-            number: rollData.boons.flanked.number
-          };
-        }
+  actorHooks: []
 effects: []
 folder: 9Ej4QwUt1yVpv4Wn
 ownership:
@@ -26,11 +18,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1685286272355
-  modifiedTime: 1750791583014
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763324081434
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

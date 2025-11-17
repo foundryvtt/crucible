@@ -11,19 +11,7 @@ system:
     <strong>Wisdom</strong> score as additional <strong>Restoration</strong> to
     <strong>Health</strong>.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Life rune
-        if ( action.rune?.id !== "life" ) return;
-
-        // Require restoration to Health
-        const restoreHealth = outcome.resources.health > 0;
-        if ( !restoreHealth ) return;
-
-        // Apply Mending effect
-        const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
-        outcome.effects.push(mending);
+  actorHooks: []
 effects: []
 folder: jpipM4v8QX2Amfpx
 sort: 400000
@@ -33,11 +21,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1682181078484
-  modifiedTime: 1763154063015
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347712105
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

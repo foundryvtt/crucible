@@ -31,11 +31,13 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: pulse
         number: 1
         scope: 2
         size: 10
+        self: false
       effects: []
       name: Extoll Deeds
       img: icons/tools/instruments/harp-gold-glowing.webp
@@ -43,23 +45,17 @@ system:
         maximum: null
         weapon: false
         minimum: null
-      actionHooks:
-        - hook: confirm
-          fn: |-
-            for ( const outcome of this.outcomes.values() ) {
-              if ( outcome.target === this.actor ) continue;
-              outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
-            }
+      actionHooks: []
   requirements: {}
   nodes:
     - pre2a
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1674942420024
-  modifiedTime: 1763136144400
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347320105
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

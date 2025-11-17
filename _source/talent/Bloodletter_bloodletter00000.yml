@@ -9,18 +9,7 @@ system:
     Health.</p><p>The Bleeding effect lasts for 1 round and deals your Dexterity
     score as additional damage to Health.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: >-
-        // Must damage health const damageHealth = outcome.resources.health < 0;
-        if ( !damageHealth ) return;
-
-        // Must deal slashing or piercing damage const dt =
-        action.usage.weapon?.system.damageType; if ( !["piercing",
-        "slashing"].includes(dt) ) return;
-
-        // Bleeding effect  const bleed = SYSTEM.EFFECTS.bleeding(this,
-        {damageType: dt});  outcome.effects.push(bleed);
+  actorHooks: []
   nodes:
     - dex4d
 effects: []
@@ -31,11 +20,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676687155877
-  modifiedTime: 1748552913030
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763343738887
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.bloodletter00000
   duplicateSource: null
   exportSource: null

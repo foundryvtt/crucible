@@ -12,20 +12,7 @@ system:
     <strong>Morale</strong>, and applies the @Condition[frightened]
     condition.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Shadow rune
-        if ( action.rune?.id !== "shadow" ) return;
-
-        // Require damage to Morale
-        const damageHealth = outcome.resources.health < 0;
-        const damageMorale = outcome.resources.morale < 0;
-        if ( !(damageHealth || damageMorale) ) return;
-
-        // Apply Entropy effect
-        const entropy = SYSTEM.EFFECTS.entropy(this, outcome.target);
-        outcome.effects.push(entropy);
+  actorHooks: []
   nodes:
     - int3a
 effects: []
@@ -37,11 +24,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1677358555167
-  modifiedTime: 1763154067281
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349739574
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

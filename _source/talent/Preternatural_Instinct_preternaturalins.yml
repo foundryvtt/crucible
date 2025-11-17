@@ -8,20 +8,16 @@ system:
     Your quickness of mind and body are equally impressive. You gain +2 Boons to
     all Initiative checks.
   actions: []
-  actorHooks:
-    - hook: prepareInitiativeCheck
-      fn: >-
-        rollData.boons.preternaturalInstinct = {label: "Preternatural Instinct",
-        number: 2};
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674959752544
-  modifiedTime: 1742867002442
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348783387
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

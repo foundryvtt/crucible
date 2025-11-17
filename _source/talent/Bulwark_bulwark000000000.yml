@@ -8,13 +8,7 @@ system:
     and others.</p><p>Once per Turn while you have a Shield equipped, you may
     use the <strong>Defend</strong> action at a reduced cost of 1 Action
     Point.</p>
-  actorHooks:
-    - hook: prepareActions
-      fn: >-
-        const defend = actions.defend; if ( !defend ||
-        !this.equipment.weapons.shield || this.system.status.bulwark ) return;
-        defend.cost.action -= 1;
-        defend.usage.actorUpdates["system.status.bulwark"] = true;
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -23,11 +17,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1677209859186
-  modifiedTime: 1747840911416
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763344958854
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.bulwark000000000
   duplicateSource: null
   exportSource: null

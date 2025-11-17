@@ -22,26 +22,25 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Executioner's Strike
-          scope: 3
+          scope: '3'
+          result:
+            type: success
+            all: false
           statuses: []
           duration:
             turns: null
+            rounds: null
       name: Executioner's Strike
       img: icons/skills/melee/strike-axe-blood-red.webp
-      actionHooks:
-        - hook: prepare
-          fn: >-
-            const w = this.actor.equipment.weapons.mainhand; this.effects[0] =
-            foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor, {
-              ability: "strength",
-              damageType: w.system.damageType,
-            }), this.effects[0]);
+      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -53,11 +52,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675011742969
-  modifiedTime: 1749311737208
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763347035263
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

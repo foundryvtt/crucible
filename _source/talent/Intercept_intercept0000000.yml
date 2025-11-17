@@ -27,10 +27,12 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       name: Intercept
       img: icons/skills/melee/shield-block-gray-orange.webp
@@ -38,20 +40,15 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      actionHooks:
-        - hook: prepare
-          fn: |-
-            if ( this.actor ) {
-              this.range.maximum = this.actor.system.movement.stride;
-            }
+      actionHooks: []
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674702266686
-  modifiedTime: 1747841296147
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347613981
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

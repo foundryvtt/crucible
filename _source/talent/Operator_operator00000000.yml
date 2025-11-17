@@ -12,16 +12,7 @@ system:
     less than 50% of your maximum Health remaining. You gain +2 Boons to all
     checks when you have less than 25% of your maximum Health remaining.</p>
   actions: []
-  actorHooks:
-    - hook: prepareStandardCheck
-      fn: >-
-        if ( !this.inCombat || !game.combat.started || this.isIncapacitated )
-        return; const health = this.system.resources.health; if ( health.value <
-        Math.ceil(health.max * 0.25) ) {
-          rollData.boons.operator= {label: "Operator", number: 2};
-        } else if ( health.value < Math.ceil(health.max * 0.5) ) {
-          rollData.boons.operator= {label: "Operator", number: 1};
-        }
+  actorHooks: []
 effects: []
 folder: fOYHlZJEWUukD7yr
 sort: 1400000
@@ -31,11 +22,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1685205248821
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763348479200
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

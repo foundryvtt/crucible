@@ -9,18 +9,16 @@ system:
     foes. Your <strong>Engagement</strong> increases by +1, allowing you to
     simultaneously engage more adjacent foes.</p>
   actions: []
-  actorHooks:
-    - hook: prepareMovement
-      fn: movement.engagement += 1;
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675013806159
-  modifiedTime: 1742939431379
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349225230
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null
