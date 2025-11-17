@@ -7,14 +7,7 @@ system:
     You can wield weapons with the Slow trait and wear Armor with the Bulky
     trait without suffering Banes to your Initiative rolls.
   actions: []
-  actorHooks:
-    - hook: prepareInitiativeCheck
-      fn: >-
-        const {weapons, armor} = this.equipment; const slowBanes =
-        rollData.banes.slow; if ( weapons.slow && slowBanes ) slowBanes.number
-        -= weapons.slow; const bulkyBanes = rollData.banes.bulky; if (
-        armor.system.properties.has("bulky") && bulkyBanes ) bulkyBanes.number
-        -= 2;
+  actorHooks: []
   nodes:
     - str2c
 effects: []
@@ -22,11 +15,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675014203613
-  modifiedTime: 1748552015806
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348722106
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Compendium.crucible.talent.powerfulphysique
   duplicateSource: null
   exportSource: null

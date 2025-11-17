@@ -50,19 +50,7 @@ system:
         physically touch. You may attempt other uses similar those above, the
         effectiveness of which is decided by the Gamemaster.</p>
   rune: soul
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Spirit rune
-        if ( action.rune?.id !== "spirit" ) return;
-
-        // Require restoration to Morale
-        const restoreMorale = outcome.resources.morale > 0;
-        if ( !restoreMorale ) return;
-
-        // Apply Inspired effect
-        const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
-        outcome.effects.push(inspired);
+  actorHooks: []
   nodes:
     - pre0b
   gesture: ''
@@ -80,10 +68,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1763002983715
-  modifiedTime: 1763161093983
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349128636
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

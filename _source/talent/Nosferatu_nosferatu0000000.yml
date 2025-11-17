@@ -33,38 +33,12 @@ system:
         self: false
       effects: []
       img: icons/magic/death/mouth-bite-fangs-vampire.webp
-      actionHooks:
-        - hook: prepare
-          fn: >-
-            const cls = getDocumentClass("Item"); const bite = new
-            cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent: this.actor});
-            this.usage.weapon = bite; 
-
-            this.usage.context.tags.add("Vampiric Bite");
-            foundry.utils.mergeObject(this.usage.bonuses,
-            bite.system.actionBonuses);
-            foundry.utils.mergeObject(this.usage.context, {
-              type: "weapons",
-              label: "Weapon Tags",
-              icon: "fa-solid fa-swords",
-              hasDice: true
-            });
-        - hook: confirm
-          fn: |-
-            const self = this.outcomes.get(this.actor);
-            for ( const outcome of this.outcomes.values() ) {
-              if ( outcome === self ) continue;
-              if ( outcome.rolls.some(r => r.isSuccess) ) {
-                self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
-              }
-            }
+      actionHooks: []
       range:
         minimum: null
         maximum: null
         weapon: false
-  actorHooks:
-    - hook: prepareResistances
-      fn: resistances.radiant.base -= 10;
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -73,11 +47,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.7
-  coreVersion: '13.346'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676157758719
-  modifiedTime: 1753556827482
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348125824
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null

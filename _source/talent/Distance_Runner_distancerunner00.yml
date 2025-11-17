@@ -7,18 +7,16 @@ system:
   description: >-
     You are adept at covering distance quickly. Your <strong>Stride</strong>
     increases by 1.
-  actorHooks:
-    - hook: prepareMovement
-      fn: movement.stride += 1;
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674841266259
-  modifiedTime: 1742939204145
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763345798512
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

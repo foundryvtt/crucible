@@ -10,18 +10,7 @@ system:
     deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
     <strong>Health</strong> each Round.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Earth rune
-        if ( action.rune?.id !== "earth" ) return;
-
-        // Require damage to Health
-        const damageHealth = outcome.resources.health < 0;
-        if ( !damageHealth ) return;
-
-        // Apply Corroding effect
-        outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -30,11 +19,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1676596843579
-  modifiedTime: 1763154060437
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763346779981
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.dustbinder000000
   duplicateSource: null
   exportSource: null

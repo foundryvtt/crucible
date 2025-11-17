@@ -41,27 +41,10 @@ system:
         maximum: null
         weapon: false
       actionHooks: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: >-
-        // Must damage health const damageHealth = outcome.resources.health < 0;
-        if ( !damageHealth ) return;
-
-        // Active effect must be active const hasEffect =
-        this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")); if (
-        !hasEffect ) return;
-
-        // Requires piercing or slashing damage with a melee action if (
-        !action.tags.has("melee") ) return; const dt =
-        action.usage.weapon?.system.damageType; if ( !["piercing",
-        "slashing"].includes(dt) ) return;
-
-        // Apply the poisoned condition const poisoned =
-        SYSTEM.EFFECTS.poisoned(this, outcome.target);
-        outcome.effects.push(poisoned);
+  actorHooks: []
   nodes:
-    - sig3.toughness
     - sig3.intellect
+    - sig3.toughness
 effects: []
 ownership:
   default: 0
@@ -70,11 +53,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.350'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675734757901
-  modifiedTime: 1762645325955
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348635949
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.poisoner00000000
   duplicateSource: null
   exportSource: null

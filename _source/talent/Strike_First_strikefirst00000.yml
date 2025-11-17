@@ -9,26 +9,16 @@ system:
     Strike or Spell attack against an enemy whose initiative score is lower than
     your own.
   actions: []
-  actorHooks:
-    - hook: prepareWeaponAttack
-      fn: >-
-        const ac = this.combatant; const tc = target.combatant; if (
-        ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label:
-        "Strike First", number: 1};
-    - hook: prepareSpellAttack
-      fn: >-
-        const ac = this.combatant; const tc = target.combatant; if (
-        ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label:
-        "Strike First", number: 1};
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1675015905002
-  modifiedTime: 1747841741412
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349509201
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

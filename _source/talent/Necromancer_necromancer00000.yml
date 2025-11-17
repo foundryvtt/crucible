@@ -11,19 +11,7 @@ system:
     deals your <strong>Intellect</strong> score as <strong>Corruption</strong>
     damage to <strong>Health</strong> each Round.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Death rune
-        if ( action.rune?.id !== "death" ) return;
-
-        // Require damage to Health
-        const damageHealth = outcome.resources.health < 0;
-        if ( !damageHealth ) return;
-
-        // Apply Decay effect
-        const decay = SYSTEM.EFFECTS.decay(this, outcome.target);
-        outcome.effects.push(decay);
+  actorHooks: []
   nodes:
     - pre3b
 effects: []
@@ -35,11 +23,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1677357187162
-  modifiedTime: 1763154064247
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347817730
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

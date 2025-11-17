@@ -242,6 +242,32 @@ export function inspired(actor, target) {
 }
 
 /**
+ * Generate a standardized restrained effect.
+ * Restrained deals wisdom in psychic damage to Morale.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function retrained(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
+  return {
+    _id: getEffectId("Restrained"),
+    name: "Restrained",
+    icon: "icons/magic/control/debuff-chains-shackle-movement-red.webp",
+    duration: {turns},
+    origin: actor.uuid,
+    flags: {
+      crucible: {
+        dot: {
+          morale: amount,
+          damageType
+        }
+      }
+    }
+  }
+}
+
+/**
  * Generate a standardized poisoned effect.
  * Poisoned deals the creatures toughness value in damage to Health.
  * @param {CrucibleActor} actor
