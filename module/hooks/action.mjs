@@ -654,9 +654,9 @@ HOOKS.uppercut = {
 HOOKS.vampiricBite = {
   prepare() {
     const cls = getDocumentClass("Item");
-    const bite = new cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent: this.actor});
+    const bite = new cls(foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE), {parent: this.actor});
     this.usage.weapon = bite; 
-    this.usage.context.tags.add("Vampiric Bite");
+    this.usage.context.tags.vampiricBite = "Vampiric Bite";
     foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
     foundry.utils.mergeObject(this.usage.context, {
       type: "weapons",

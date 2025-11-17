@@ -203,6 +203,17 @@ HOOKS.concussiveblows0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.conjurer00000000 = {
+  prepareAction(_item, action) {
+    if ( action.gesture?.id !== "create" ) return;
+    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId(`conjurercreate${i}`));
+    const effectId = effectIds.find(id => !this.effects.has(id)) || effectIds[0];
+    action.usage.summons = [{effectId}];
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceRecovery, statusText}) {
     if ( this.resources.action.value ) {
@@ -592,6 +603,14 @@ HOOKS.runewarden000000 = {
 HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
     movement.engagement += 1;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.shieldward000000 = {
+  prepareAction(_item, action) {
+    if ( (action.gesture?.id === "ward") && this.equipment.weapons.shield ) action.cost.hands = 0;
   }
 }
 
