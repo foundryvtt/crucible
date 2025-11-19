@@ -139,7 +139,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       editable: this.isEditable,
       effectsHTML: await this.#renderEffectsHTML(),
       fields: this.action.constructor.schema.fields,
-      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
+      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]).filter(t => !t.internal),
       hookPartial: CrucibleActionConfig.HOOK_PARTIAL,
       tabs: this.#prepareTabs().sheet,
       tags: this.#prepareTags(),
