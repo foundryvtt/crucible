@@ -95,7 +95,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: !["self", "none"].includes(this.action.target.type),
+      hasTargets: this.#requiresTemplate || !["self", "none", "summon"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,
       weaponChoice: this.#prepareWeaponChoice(),
       targets: this.#prepareTargets()
