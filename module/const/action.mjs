@@ -428,6 +428,7 @@ export const TAGS = {
       if ( hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`The "${this.name}" spell requires ${this.cost.hands} free hands to cast.`);
       }
+      this._canUse();
     }
   },
 
