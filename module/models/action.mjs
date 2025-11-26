@@ -128,13 +128,13 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 class ActionTagGroup {
   constructor({icon, tooltip}) {
     Object.defineProperties(this, {
-      icon: {value: icon},
-      tooltip: {value: tooltip}
+      icon: {value: icon, enumerable: false},
+      tooltip: {value: tooltip, enumerable: false}
     });
   }
 
   get empty() {
-    return foundry.utils.isEmpty(this);
+    return !Object.keys(this).length;
   }
 }
 

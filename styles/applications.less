@@ -307,14 +307,31 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 
-  // Image Icon
-  .icon-frame {
-    flex: none;
-  }
+  // Simple Icon
   img.icon {
+    flex: none;
     height: var(--icon-size);
     width: var(--icon-size);
     object-fit: contain;
+  }
+
+  // Framed Icon
+  .icon-frame {
+    position: relative;
+    width: calc(var(--icon-size) + 6px);
+    height: calc(var(--icon-size) + 6px);
+    flex: none;
+    img.icon {
+      margin: 3px;
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      inset: 0;
+      background: url("../ui/frames/square-small.webp") no-repeat center;
+      background-size: 100%;
+    }
   }
 
   // FA Icon
@@ -341,7 +358,6 @@
       white-space: nowrap;
     }
     .tags {
-      width: 100%;
       flex: none;
       justify-content: flex-start;
       margin: 0;
@@ -378,6 +394,7 @@
   p.condition {
     color: var(--color-text-subtle);
     font-size: var(--font-size-12);
+    margin: 0;
   }
 
   /** Configurable Quantity */

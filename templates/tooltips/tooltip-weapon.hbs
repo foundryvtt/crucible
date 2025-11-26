@@ -1,6 +1,8 @@
 <div class="action line-item" data-item-id="{{item.id}}">
     <header class="action-header">
-        <img class="icon" src="{{item.img}}" alt="{{item.name}}">
+        <div class="icon-frame">
+            <img class="icon" src="{{item.img}}" alt="{{item.name}}">
+        </div>
         <div class="title">
             <h4>{{item.name}}</h4>
             {{#unless tags.activation.empty}}

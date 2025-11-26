@@ -65,19 +65,33 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     const actor = game.system.tree.actor;
     const node = this.target.node;
     const state = game.system.tree.state.get(node);
-    const tags = [
-      {label: `Tier ${node.tier}`},
-      {label: game.i18n.localize(`TALENT.NODES.${node.type.toUpperCase()}`)}
-    ];
-    if ( state.banned ) tags.push({label: "Banned", class: "unmet"});
-    else if ( !state.unlocked ) tags.push({label: "Locked", class: "unmet"});
-    if ( !node.talents.size ) tags.push({label: "Empty", class: "unmet"});
-    const reqs = CrucibleTalentNode.preparePrerequisites(node.requirements);
-    return {
-      id: node.id,
-      tags,
-      prerequisites: CrucibleTalentItem.testPrerequisites(actor, reqs)
-    };
+    const tagGroups = [];
+
+    // Node tags
+    const nodeTags = [{label: `Tier ${node.tier}`}, {label: node.id}];
+    if ( state.banned ) nodeTags.push({label: "Banned", class: "unmet"});
+    else if ( !state.unlocked ) nodeTags.push({label: "Locked", class: "unmet"});
+    if ( !node.talents.size ) nodeTags.push({label: "Empty", class: "unmet"});
+    const nodeType = game.i18n.localize(`TALENT.NODES.${node.type.toUpperCase()}`);
+    tagGroups.push({
+      id: node.type,
+      label: `${nodeType} Node`,
+      tags: nodeTags
+    });
+
+    // Prerequisite tags
+    const requirements = CrucibleTalentNode.preparePrerequisites(node.requirements);
+    const reqTags = CrucibleTalentItem.testPrerequisites(actor, requirements);
+    for ( const tag of Object.values(reqTags) ) {
+      tag.label = tag.tag;
+      tag.cssClass = tag.met ? "met" : "unmet";
+    }
+    tagGroups.push({
+      id: "prerequisites",
+      label: "Prerequisites",
+      tags: reqTags
+    })
+    return {id: node.id, tagGroups};
   }
 
   /* -------------------------------------------- */

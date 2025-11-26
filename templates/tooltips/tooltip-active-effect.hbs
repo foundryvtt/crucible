@@ -1,6 +1,8 @@
 <div class="action line-item" data-effect-id="{{effect.id}}">
     <header class="action-header">
-        <img class="icon" src="{{effect.img}}" alt="{{effect.name}}">
+        <div class="icon-frame">
+            <img class="icon" src="{{effect.img}}" alt="{{effect.name}}">
+        </div>
         <div class="title">
             <h4>{{effect.name}}</h4>
             {{#unless tags.activation.empty}}
@@ -12,7 +14,6 @@
             {{/unless}}
         </div>
     </header>
-
     {{#unless tags.statuses.empty}}
     <div class="tags" data-tag-type="status">
         {{#each tags.statuses as |label tag|}}
@@ -20,7 +21,5 @@
         {{/each}}
     </div>
     {{/unless}}
-
     <div class="description">{{{effect.description}}}</div>
-
 </div>

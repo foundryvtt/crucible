@@ -1,15 +1,12 @@
 <div class="node">
-    <header class="flexrow">
-        <div class="tags">
-            <label>{{id}}</label>
-            {{#each tags as |tag|}}
+    <header class="flexcol">
+        {{#each tagGroups as |tagGroup|}}
+        <div class="tags {{tagGroup.cssClass}}" data-tags="{{tagGroup.id}}">
+            {{#if tagGroup.label}}<label>{{tagGroup.label}}</label>{{/if}}
+            {{#each tagGroup.tags as |tag|}}
             <span class="tag {{tag.class}}">{{tag.label}}</span>
             {{/each}}
         </div>
-        <div class="tags prerequisites">
-            {{#each prerequisites as |req|}}
-            <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
-            {{/each}}
-        </div>
+        {{/each}}
     </header>
 </div>
