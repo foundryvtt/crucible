@@ -134,9 +134,16 @@ export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS))
  * @type {Readonly<string, string>}
  */
 export const TALENT_ID_MIGRATIONS = {
+  runecourage00000: "Compendium.crucible.talent.Item.runeSoul00000000",
+  runedeath0000000: "Compendium.crucible.talent.Item.runeDeath0000000",
+  runeearth0000000: "Compendium.crucible.talent.Item.runeEarth0000000",
+  runeflame0000000: "Compendium.crucible.talent.Item.runeFlame0000000",
+  runefrost0000000: "Compendium.crucible.talent.Item.runeFrost0000000",
+  runekinesis00000: "Compendium.crucible.talent.Item.runeKinesis00000",
+  runelife00000000: "Compendium.crucible.talent.Item.runeLife00000000",
+  runelightning000: "Compendium.crucible.talent.Item.runeLightning000",
   runemind00000000: "Compendium.crucible.talent.Item.runeControl00000",
   runeradiance0000: "Compendium.crucible.talent.Item.runeIllumination",
-  runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
-  runecourage00000: "Compendium.crucible.talent.Item.runeSoul00000000"
+  runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
 }
