@@ -70,6 +70,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {Object<string, string>} activation
  * @property {Object<string, string>} action
  * @property {Object<string, string>} context
+ * @property {string[]} unmet
  */
 
 /**
@@ -1582,6 +1583,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: "Activation Tags"}),
       action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: "Action Tags"}),
       context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: "Context Tags"}),
+      unmet: [],
     };
 
     // Action Tags
@@ -1626,6 +1628,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.health = `${cost.health}HP`; // e.g. Blood Magic
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) tags.activation.hands = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
+    
+    // Populate unmet only if action's actually on an actor
+    if ( this.actor ) {
+      if ( tags.activation.ap && (ap > this.actor.resources.action.value) ) tags.unmet.push("ap");
+      if ( tags.activation.fp && (cost.focus > this.actor.resources.focus.value) ) tags.unmet.push("fp");
+      if ( tags.activation.hp && (cost.focus > this.actor.resources.heroism.value) ) tags.unmet.push("hp");
+      if ( tags.activation.health && (cost.health > this.actor.resources.health.value) ) tags.unmet.push("health");
+      if ( tags.activation.hands && (cost.hands > this.actor.equipment.weapons.spellHands) ) tags.unmet.push("hands");
+    }
     return tags;
   }
 

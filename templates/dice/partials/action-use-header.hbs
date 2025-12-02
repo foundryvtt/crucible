@@ -4,7 +4,7 @@
         <h4>{{action.name}}</h4>
         <div class="tags" data-tag-type="activation">
             {{#each tags.activation as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            <span class="tag{{#if (lookup ../unmetTags tag)}} unmet{{/if}}" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
     </div>
