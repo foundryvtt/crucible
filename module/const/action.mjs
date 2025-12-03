@@ -1027,6 +1027,23 @@ export const TAGS = {
       this.usage.defenseType = "madness";
       this.usage.restoration = true;
     }
+  },
+
+  /* -------------------------------------------- */
+  /*             Resource Consumption             */
+  /* -------------------------------------------- */
+
+  maintained: {
+    tag: "maintained",
+    label: "ACTION.TagMaintained",
+    tooltip: "ACTION.TagMaintainedTooltip",
+    category: "resources",
+    async postActivate(outcome) {
+      if ( !outcome.self ) return;
+      const maintainedEffectData = outcome.effects[0];
+      const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
+      foundry.utils.setProperty(maintainedEffectData, "flags.crucible.maintainedCost", maintainedCost);
+    }
   }
 }
 
