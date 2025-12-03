@@ -350,17 +350,6 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
-HOOKS.dualWield0000000 = {
-  canUse() {
-    const {basicStrike, lastAction} = this.actor.system.status;
-    if ( !basicStrike || (lastAction !== "strike") ) {
-      throw new Error("You may only perform an Offhand Strike after a basic Strike which did not critically miss.");
-    }
-  }
-}
-
-/* -------------------------------------------- */
-
 HOOKS.executionersStrike = {
   prepare() {
     const weapon = this.actor.equipment.weapons.mainhand;
