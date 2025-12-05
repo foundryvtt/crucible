@@ -1102,7 +1102,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    const scope = effectData.scope ?? this.target.scope;
+    const scope = Number(effectData.scope ?? this.target.scope);
     if ( scope === scopes.NONE ) return false; // Should never happen
     if ( outcome.self ) {
       if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false;

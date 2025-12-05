@@ -36,6 +36,24 @@ HOOKS.aspect = {
 
 /* -------------------------------------------- */
 
+HOOKS.aura = {
+  prepare() {
+    this.tags.add("maintained");
+
+    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
+    this.effects.push({
+      _id: effectId,
+      icon: this.img,
+      scope: SYSTEM.ACTION.TARGET_SCOPES.SELF,
+      result: {
+        type: "any"
+      }
+    });
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.conjure = {
   prepare() {
     this.tags.add("summon");
@@ -87,6 +105,24 @@ HOOKS.create = {
       }
     };
     this.usage.summons = [{actorUuid, tokenData, effectId}];
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.sense = {
+  prepare() {
+    this.tags.add("maintained");
+
+    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
+    this.effects.push({
+      _id: effectId,
+      icon: this.img,
+      scope: SYSTEM.ACTION.TARGET_SCOPES.SELF,
+      result: {
+        type: "any"
+      }
+    });
   }
 }
 

@@ -510,6 +510,8 @@
 "ACTION.TagMeleeTooltip": "This action requires wielding a melee weapon or being unarmed to perform.",
 "ACTION.TagMainHand": "Main-Hand",
 "ACTION.TagMainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
+"ACTION.TagMaintained": "Maintained",
+"ACTION.TagMaintainedTooltip": "This action can be maintained, incurring its focus cost at the start of your turns.",
 "ACTION.TagMovement": "Movement",
 "ACTION.TagMovementTooltip": "This action allows you to move as part of its activation, including a reduced action point cost for a free movement action per round.",
 "ACTION.TagNatural": "Natural Attack",

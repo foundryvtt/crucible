@@ -1173,7 +1173,7 @@ export default class CrucibleActor extends Actor {
     const turnStartConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
 
     // Actor turn start configuration hook
-    this.#prepareTurnStartConfig(turnStartConfig);
+    await this.#prepareTurnStartConfig(turnStartConfig);
     this.callActorHooks("startTurn", turnStartConfig);
 
     // Apply damage-over-time
@@ -1201,7 +1201,7 @@ export default class CrucibleActor extends Actor {
    * Effects with a duration specified in Rounds expire at the beginning of the Actor's turn on the subsequent round.
    * @param {CrucibleTurnStartConfig} turnStartConfig
    */
-  #prepareTurnStartConfig(turnStartConfig) {
+  async #prepareTurnStartConfig(turnStartConfig) {
     const {effectChanges, resourceChanges} = turnStartConfig;
 
     // Identify effect changes
@@ -1218,7 +1218,26 @@ export default class CrucibleActor extends Actor {
       }
 
       // Identify maintained effects
-      debugger;
+      const maintainedCost = effect.flags.crucible?.maintainedCost;
+      if ( maintainedCost ) {
+        if ( maintainedCost > this.resources.focus.value ) {
+          effectChanges.toDelete.push(effect.id);
+          continue;
+        }
+        const confirm = await DialogV2.confirm({
+          window: {
+            title: `Maintain Focus: ${effect.name}`
+          },
+          content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
+        });
+        if ( confirm ) {
+          resourceChanges.focus ??= 0;
+          resourceChanges.focus -= maintainedCost;
+        } else {
+          effectChanges.toDelete.push(effect.id);
+          continue;
+        }
+      }
     }
   }
 
