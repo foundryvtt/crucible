@@ -1366,6 +1366,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( test.preActivate instanceof Function ) await test.preActivate.call(this, targets);
     }
     this.actor.callActorHooks("preActivateAction", this, targets);
+    this._canUse();
   }
 
   /* -------------------------------------------- */
