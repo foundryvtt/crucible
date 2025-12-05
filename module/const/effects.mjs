@@ -248,7 +248,7 @@ export function inspired(actor, target) {
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function retrained(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
+export function restrained(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Restrained"),

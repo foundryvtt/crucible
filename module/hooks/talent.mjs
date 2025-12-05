@@ -46,17 +46,12 @@ HOOKS.bard000000000000 = {
 
 HOOKS.battlefocus00000 = {
   applyCriticalEffects(_item, _action, outcome, self) {
-    // Must damage health or morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
-
-    // Can only happen once per round
     const updates = self.actorUpdates;
     const hasStatus = this.status.battleFocus || updates.system?.status?.battleFocus;
     if ( hasStatus ) return;
-
-    // Increase Focus
     self.resources.focus = (self.resources.focus || 0) + 1;
     foundry.utils.setProperty(updates, "system.status.battleFocus", true);
   }
@@ -66,16 +61,11 @@ HOOKS.battlefocus00000 = {
 
 HOOKS.bloodfrenzy00000 = {
   applyCriticalEffects(_item, _action, outcome, self) {
-    // Must damage health
     const damageHealth = outcome.resources.health < 0;
     if ( !damageHealth ) return;
-
-    // Can only happen once per round
     const updates = self.actorUpdates;
     const hasStatus = this.status.bloodFrenzy || updates.system?.status?.bloodFrenzy;
     if ( hasStatus ) return;
-
-    // Increase Action
     self.resources.action = (self.resources.action || 0) + 1;
     foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
   }
@@ -85,17 +75,10 @@ HOOKS.bloodfrenzy00000 = {
 
 HOOKS.bloodletter00000 = {
   applyCriticalEffects(item, action, outcome, self) {
-    // Must damage health
     const damageHealth = outcome.resources.health < 0;
     if ( !damageHealth ) return;
-
-    // Must deal slashing or piercing damage
     const dt = action.usage.weapon?.system.damageType;
-    if ( !["piercing", "slashing"].includes(dt) ) return;
-    
-    // Bleeding effect
-    const bleed = SYSTEM.EFFECTS.bleeding(this, {damageType: dt});
-    outcome.effects.push(bleed);
+    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
   }
 }
 
@@ -187,17 +170,10 @@ HOOKS.carefree00000000 = {
 
 HOOKS.concussiveblows0 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Must damage health
     const damageHealth = outcome.resources.health < 0;
     if ( !damageHealth ) return;
-
-    // Must deal bludgeoning damage
     const dt = action.usage.weapon?.system.damageType;
-    if ( dt !== "bludgeoning" ) return;
-
-    // Apply stagger
-    const stagger = SYSTEM.EFFECTS.staggered(this, outcome.target);
-    outcome.effects.push(stagger);
+    if ( dt === "bludgeoning" ) outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
   }
 }
 
@@ -235,15 +211,9 @@ HOOKS.distancerunner00 = {
 
 HOOKS.dustbinder000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Earth rune
     if ( action.rune?.id !== "earth" ) return;
-
-    // Require damage to Health
     const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-
-    // Apply Corroding effect
-    outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
+    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
   }
 }
 
@@ -278,16 +248,9 @@ HOOKS.holdfast00000000 = {
 
 HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Soul rune
     if ( action.rune?.id !== "soul" ) return;
-
-    // Require restoration to Morale
     const restoreMorale = outcome.resources.morale > 0;
-    if ( !restoreMorale ) return;
-
-    // Apply Inspired effect
-    const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
-    outcome.effects.push(inspired);
+    if ( restoreMorale ) outcome.effects.push(SYSTEM.EFFECTS.inspired(this, outcome.target));
   }
 }
 
@@ -318,17 +281,13 @@ HOOKS.irrepressiblespi = {
 
 HOOKS.kineturge0000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Kinesis rune
     if ( action.rune?.id !== "kinesis" ) return;
-
-    // Require damage to Health or Morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
-
-    // Apply Bleeding effect
     const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability: "presence"});
     bleeding.duration = {rounds: 1};
+    outcome.effects.push(bleeding);
   }
 }
 
@@ -344,17 +303,10 @@ HOOKS.lesserregenerati = {
 
 HOOKS.lightbringer0000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Illumination rune
     if ( action.rune?.id !== "illumination" ) return;
-
-    // Require damage to Health or Morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-
-    // Apply Irradiated effect
-    const irradiated = SYSTEM.EFFECTS.irradiated(this, outcome.target);
-    outcome.effects.push(irradiated);
+    if ( damageHealth || damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.irradiated(this, outcome.target));
   }
 }
 
@@ -362,16 +314,9 @@ HOOKS.lightbringer0000 = {
 
 HOOKS.mender0000000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Life rune
     if ( action.rune?.id !== "life" ) return;
-
-    // Require restoration to Health
     const restoreHealth = outcome.resources.health > 0;
-    if ( !restoreHealth ) return;
-
-    // Apply Mending effect
-    const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
-    outcome.effects.push(mending);
+    if ( restoreHealth ) outcome.effects.push(SYSTEM.EFFECTS.mending(this, outcome.target));
   }
 }
 
@@ -390,16 +335,9 @@ HOOKS.mentalfortress00 = {
 
 HOOKS.mesmer0000000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Illusion rune
     if ( action.rune?.id !== "illusion" ) return;
-
-    // Require damage to Morale
     const damageMorale = outcome.resources.morale < 0;
-    if ( !damageMorale ) return;
-
-    // Apply Confused effect
-    const confused = SYSTEM.EFFECTS.confused(this);
-    outcome.effects.push(confused);
+    if ( damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.confused(this));
   }
 }
 
@@ -407,16 +345,9 @@ HOOKS.mesmer0000000000 = {
 
 HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Death rune
     if ( action.rune?.id !== "death" ) return;
-
-    // Require damage to Health
     const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-
-    // Apply Decay effect
-    const decay = SYSTEM.EFFECTS.decay(this, outcome.target);
-    outcome.effects.push(decay);
+    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.decay(this, outcome.target));
   }
 }
 
@@ -482,21 +413,12 @@ HOOKS.planneddefense00 = {
 
 HOOKS.poisoner00000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Must damage health
     const damageHealth = outcome.resources.health < 0; if ( !damageHealth ) return;
-
-    // Active effect must be active
     const hasEffect = this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"));
     if ( !hasEffect ) return;
-
-    // Requires piercing or slashing damage with a melee action
     if ( !action.tags.has("melee") ) return;
     const dt = action.usage.weapon?.system.damageType;
-    if ( !["piercing", "slashing"].includes(dt) ) return;
-
-    // Apply the poisoned condition
-    const poisoned = SYSTEM.EFFECTS.poisoned(this, outcome.target);
-    outcome.effects.push(poisoned);
+    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
   }
 }
 
@@ -505,10 +427,8 @@ HOOKS.poisoner00000000 = {
 HOOKS.powerfulphysique = {
   prepareInitiativeCheck(_item, rollData) {
     const {weapons, armor} = this.equipment;
-
     const slowBanes = rollData.banes.slow;
     if ( weapons.slow && slowBanes ) slowBanes.number -= weapons.slow;
-
     const bulkyBanes = rollData.banes.bulky;
     if ( armor.system.properties.has("bulky") && bulkyBanes ) bulkyBanes.number -= 2;
   }
@@ -548,16 +468,9 @@ HOOKS.preternaturalins = {
 
 HOOKS.pyromancer000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Flame rune
     if ( action.rune?.id !== "flame" ) return;
-
-    // Require damage to Health
     const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-
-    // Apply Burning effect
-    const burning = SYSTEM.EFFECTS.burning(this);
-    outcome.effects.push(burning);
+    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.burning(this));
   }
 }
 
@@ -573,15 +486,9 @@ HOOKS.resilient0000000 = {
 
 HOOKS.rimecaller000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Frost rune
     if ( action.rune?.id !== "frost" ) return;
-
-    // Require damage to Health
     const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-
-    // Apply Freezing effect
-    outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
+    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
   }
 }
 
@@ -696,16 +603,10 @@ HOOKS.stronggrip000000 = {
 
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Lightning rune
     if ( action.rune?.id !== "lightning" ) return;
-
-    // Require damage to Health or Morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-
-    // Apply Shocked effect
-    outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
   }
 }
 
@@ -733,15 +634,10 @@ HOOKS.thickskin0000000 = {
 
 HOOKS.thoughtbinder000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Control rune
     if ( action.rune?.id !== "control" ) return;
-  
-    // Require damage to Health or Morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
-  
-    // Apply Restrained effect
     const restrained = SYSTEM.EFFECTS.restrained(this, outcome.target);
     restrained.duration = {rounds: 1};
     outcome.effects.push(restrained);
@@ -772,17 +668,10 @@ HOOKS.unarmedblocking0 = {
 
 HOOKS.voidcaller000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
-    // Require Oblivion rune
     if ( action.rune?.id !== "oblivion" ) return;
-  
-    // Require damage to Morale
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-  
-    // Apply Entropy effect
-    const entropy = SYSTEM.EFFECTS.entropy(this, outcome.target);
-    outcome.effects.push(entropy);
+    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.entropy(this, outcome.target));
   }
 }
 

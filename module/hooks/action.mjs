@@ -63,6 +63,7 @@ HOOKS.assessStrength = {
 
 /* -------------------------------------------- */
 
+// TODO: Consider refactoring this talent to instead be a maintained action
 HOOKS.beastShapeRevert = {
   async confirm(reverse) {
     const effect = this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
@@ -366,7 +367,7 @@ HOOKS.executionersStrike = {
 HOOKS.extollDeeds = {
   confirm(reverse) {
     for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.target === this.actor ) continue;
+      if ( outcome.self ) continue;
       outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
     }
   }
@@ -377,7 +378,13 @@ HOOKS.extollDeeds = {
 HOOKS.hamstring = {
   canUse() {
     const mh = this.actor.equipment.weapons.mainhand;
-    if ( mh.system.damageType !== "slashing" ) {
+    const oh = this.actor.equipment.weapons.offhand;
+    if ( ![mh.system.damageType, oh.system.damageType].includes("slashing") ) {
+      throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
+    }
+  },
+  preActivate(targets) {
+    if ( this.usage.weapon.system.damageType !== "slashing" ) {
       throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
     }
   }
@@ -645,7 +652,7 @@ HOOKS.vampiricBite = {
     const cls = getDocumentClass("Item");
     const bite = new cls(foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE), {parent: this.actor});
     this.usage.weapon = bite; 
-    this.usage.context.tags.vampiricBite = "Vampiric Bite";
+    this.usage.context.tags.vampiricBite = this.name;
     foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
     foundry.utils.mergeObject(this.usage.context, {
       type: "weapons",
