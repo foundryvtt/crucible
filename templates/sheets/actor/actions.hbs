@@ -11,8 +11,8 @@
                 <div class="title">
                     <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
                     <div class="tags">
-                        {{#each action.tags as |label tag|}}
-                        <span class="tag {{tag}}">{{label}}</span>
+                        {{#each action.tags}}
+                        <span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>
                         {{/each}}
                     </div>
                 </div>

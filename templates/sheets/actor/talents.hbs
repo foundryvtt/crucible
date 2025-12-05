@@ -26,7 +26,7 @@
                     <h4>{{item.name}}</h4>
                     <div class="tags">
                         {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{#if this}}<span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>{{/if}}
                         {{/each}}
                     </div>
                 </div>

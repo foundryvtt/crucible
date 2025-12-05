@@ -92,7 +92,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
       action: this.action,
       actor: this.actor,
       tags,
-      unmetTags: Object.fromEntries(tags.unmet.map(i => [i, true])),
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
