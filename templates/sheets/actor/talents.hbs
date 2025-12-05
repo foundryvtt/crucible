@@ -25,9 +25,7 @@
                 <div class="title">
                     <h4>{{item.name}}</h4>
                     <div class="tags">
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>{{/if}}
-                        {{/each}}
+                        {{crucibleTags item.tags}}
                     </div>
                 </div>
                 <div class="controls">

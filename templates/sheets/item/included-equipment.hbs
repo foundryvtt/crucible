@@ -5,9 +5,7 @@
     <div class="title">
         <h4>{{equipment.name}}</h4>
         <div class="tags">
-            {{#each equipment.tags as |tag type|}}
-            <span class="tag" data-tag="{{type}}">{{tag}}</span>
-            {{/each}}
+            {{crucibleTags equipment.tags}}
         </div>
     </div>
     {{#if isEditable}}

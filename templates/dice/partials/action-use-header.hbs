@@ -3,9 +3,7 @@
     <div class="title">
         <h4>{{action.name}}</h4>
         <div class="tags" data-tag-type="activation">
-            {{#each tags.activation}}
-            <span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>
-            {{/each}}
+            {{crucibleTags tags.activation}}
         </div>
     </div>
 </header>
@@ -16,9 +14,7 @@
         <i class="fa-solid fa-bolt"></i>
     </label>
     <div class="tags" data-tag-type="action">
-        {{#each tags.action as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        {{crucibleTags tags.action}}
     </div>
 </div>
 {{/if}}
@@ -29,9 +25,7 @@
         <i class="{{tags.context.icon}}"></i>
     </label>
     <div class="tags" data-tag-type="context">
-        {{#each tags.context as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        {{crucibleTags tags.context}}
     </div>
 </div>
 {{/if}}

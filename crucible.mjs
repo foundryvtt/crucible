@@ -228,6 +228,18 @@ Hooks.once("init", async function() {
   // Rich Text Enrichers
   registerEnrichers();
 
+  // Register Handlebars helpers
+  Handlebars.registerHelper({
+    "crucibleTags": (tags) => {
+      const tagSpans = Object.entries(tags).map(([id, tag]) => {
+        const classes = `tag${tag.unmet ? " unmet" : ""}`;
+        const label = foundry.utils.escapeHTML(tag.label ?? tag);
+        return `<span class="${classes}" data-tag="${id}">${label}</span>`;
+      });
+      return new Handlebars.SafeString(tagSpans.join(""));
+    }
+  })
+
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
 

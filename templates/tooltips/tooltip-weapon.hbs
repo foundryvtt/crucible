@@ -7,9 +7,7 @@
             <h4>{{item.name}}</h4>
             {{#unless tags.activation.empty}}
             <div class="tags">
-                {{#each tags.activation}}
-                <span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>
-                {{/each}}
+                {{crucibleTags tags.activation}}
             </div>
             {{/unless}}
         </div>
@@ -17,9 +15,7 @@
 
     {{#unless tags.properties.empty}}
     <div class="tags" data-tag-type="weapon">
-        {{#each tags.properties as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        {{crucibleTags tags.properties}}
     </div>
     {{/unless}}
 

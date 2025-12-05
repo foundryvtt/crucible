@@ -11,9 +11,7 @@
                 <div class="title">
                     <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
                     <div class="tags">
-                        {{#each action.tags}}
-                        <span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>
-                        {{/each}}
+                        {{crucibleTags action.tags}}
                     </div>
                 </div>
                 <div class="controls">

@@ -7,9 +7,7 @@
             <h4>{{action.name}}</h4>
             {{#unless tags.activation.empty}}
             <div class="tags">
-                {{#each tags.activation}}
-                    <span class="tag{{#if unmet}} unmet{{/if}}" data-tag="{{@index}}">{{ifThen label label this}}</span>
-                {{/each}}
+                {{crucibleTags tags.activation}}
             </div>
             {{/unless}}
         </div>
@@ -17,17 +15,13 @@
 
     {{#unless tags.action.empty}}
     <div class="tags" data-tag-type="action">
-    {{#each tags.action as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-    {{/each}}
+        {{crucibleTags tags.action}}
     </div>
     {{/unless}}
 
     {{#unless tags.context.empty}}
     <div class="tags" data-tag-type="context">
-    {{#each tags.context as |label|}}
-        <span class="tag">{{label}}</span>
-    {{/each}}
+        {{crucibleTags tags.context}}
     </div>
     {{/unless}}
 
@@ -47,9 +41,7 @@
                     <h4>Effect: <span class="effect-name">{{action.name}}</span></h4>
                 </div>
                 <div class="effect-tags tags">
-                    {{#each effect.tags as |label tag|}}
-                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each}}
+                    {{crucibleTags effect.tags}}
                 </div>
             </li>
         {{/each}}
