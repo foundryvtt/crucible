@@ -1671,6 +1671,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {object} options              Context options for ChatMessage creation
    * @param {boolean} options.confirmed   Were the outcomes auto-confirmed?
    * @returns {Promise<ChatMessageData>}
+   * @protected
    */
   async _prepareMessage(targets, {confirmed}={}) {
 
@@ -1736,10 +1737,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
    * @returns {Promise<ChatMessage>}              The created ChatMessage document
    */
-  async toMessage(targets, {confirmed=false, ...options}={}) {
-    const messageData = await this._prepareMessage(targets, {confirmed});
-
-    // Create chat message
+  async toMessage(targets, options={}) {
+    const messageData = await this._prepareMessage(targets, options);
     return ChatMessage.create(messageData, options);
   }
 
