@@ -165,10 +165,10 @@ HOOKS.counterspell = {
       ui.notifications.warn(errorText);
       throw new Error(errorText);
     }
-    const setCounterspelled = () => targetMessage.setFlag("crucible", "isCounterspelled", !reverse);
-    if ( !reverse ) await setCounterspelled();
+    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
+    if ( !reverse ) await setNegated();
     await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setCounterspelled();
+    if ( reverse ) await setNegated();
   }
 }
 

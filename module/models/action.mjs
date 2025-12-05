@@ -331,7 +331,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The message representing this action, if applicable
    * @type {CrucibleChatMessage|null}
    */
-  message = null;
+  message = this.message; // Defined during constructor
 
   /**
    * A sheet used to configure this Action.
@@ -377,14 +377,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleItem} [options.item]     A specific Item that provided this Action
    * @param {MeasuredTemplateDocument} [options.template] A specific MeasuredTemplate that belongs to this Action
    * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
+   * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
    * @param {ActionUsage} [options.usage]     Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, template=null, token=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, template=null, token=null, message=null, usage={}, ...options}) {
     super._configure(options);
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
     Object.defineProperty(this, "item", {value: item ?? this.parent?.parent, writable: false, configurable: true});
     Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
     this.template = template instanceof foundry.documents.MeasuredTemplateDocument ? template : null;
+    Object.defineProperty(this, "message", {value: message, writable: false, configurable: true});
 
     /**
      * Dice roll bonuses which modify the usage of this action.
@@ -542,6 +544,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.actor ??= this.actor;
     context.token ??= this.token;
     context.template ??= this.template;
+    context.message ??= this.message;
     const clone = new this.constructor(actionData, context);
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
@@ -1427,10 +1430,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    const isNegated = this.message?.getFlag("crucible", "isCounterspelled");
+    const isNegated = this.message?.getFlag("crucible", "isNegated");
 
     // Additional Actor-specific consequences
-    this.actor.onDealDamage(this, this.outcomes);
+    if ( !isNegated ) this.actor.onDealDamage(this, this.outcomes);
 
     // Delete any Measured Template that was placed
     if ( this.template ) await this.template.delete();
@@ -1453,6 +1456,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } catch(err) {
       console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
     }
+
+    // Mark the message as confirmed (or unconfirmed)
+    await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
     return true;
   }
 
@@ -1660,13 +1666,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Render the action to a chat message including contained rolls and results
-   * @param {ActionUseTarget[]} targets           Targets affected by this action usage
-   * @param {object} options                      Context options for ChatMessage creation
-   * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
-   * @returns {Promise<ChatMessage>}              The created ChatMessage document
+   * Create the ChatMessageData object to be used for an action's chat message creation
+   * @param {AcitonUseTarget[]} targets   Targets affected by this action usage
+   * @param {object} options              Context options for ChatMessage creation
+   * @param {boolean} options.confirmed   Were the outcomes auto-confirmed?
+   * @returns {Promise<ChatMessageData>}
    */
-  async toMessage(targets, {confirmed=false, ...options}={}) {
+  async _prepareMessage(targets, {confirmed}={}) {
 
     // Prepare action data
     const actionData = {
@@ -1712,13 +1718,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       template: this.template
     });
 
-    // Create chat message
-    return ChatMessage.create({
+    // Return message data
+    return {
       content: content,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       rolls: rolls,
       flags: {crucible: actionData}
-    }, options);
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render the action to a chat message including contained rolls and results
+   * @param {ActionUseTarget[]} targets           Targets affected by this action usage
+   * @param {object} options                      Context options for ChatMessage creation
+   * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
+   * @returns {Promise<ChatMessage>}              The created ChatMessage document
+   */
+  async toMessage(targets, {confirmed=false, ...options}={}) {
+    const messageData = await this._prepareMessage(targets, {confirmed, ...options});
+
+    // Create chat message
+    return ChatMessage.create(messageData, options);
   }
 
   /* -------------------------------------------- */
@@ -1732,11 +1754,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
     action ||= this.fromChatMessage(message);
-    await message.update({flags: {crucible: {confirmed: !reverse}}}); // Mark the message as confirmed *first*
-    const confirmed = await action.confirm({reverse}); // Then perform the confirmation effects
-
-    // Un-flag message if confirmation/reversal didn't go through
-    if ( !confirmed ) await message.update({flags: {crucible: {confirmed: reverse}}});
+    await action.confirm({reverse});
   }
 
   /* -------------------------------------------- */
@@ -1765,7 +1783,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Rebuild action from explicit data
     const actionId = actionData.id;
-    const actionContext = {parent: item?.system, actor, item, token, template, lazy: true};
+    const actionContext = {parent: item?.system, actor, item, token, template, message, lazy: true};
     let action;
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {
@@ -1782,9 +1800,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcome.rolls = outcomeRolls.map(i => message.rolls[i]);
       action.outcomes.set(outcome.target, outcome);
     }
-
-    // Add reference to originating message
-    action.message = message;
     return action;
   }
 
