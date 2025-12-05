@@ -19,44 +19,62 @@ system:
     - id: beastShape
       name: Beast Shape
       description: >-
-        You assume the form of a beast that you are familiar with of one-half
-        your level or less.
+        <p>You assume the form of a beast that you are familiar with of one-half
+        your level or less.</p>
       tags: []
       cost:
         action: 3
         focus: 3
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: self
         scope: 1
         number: 1
-        distance: 1
+        self: false
       effects:
-        - scope: 1
+        - name: Beast Shape
+          scope: '1'
+          result:
+            type: success
+            all: false
+          statuses: []
           duration:
+            turns: null
             rounds: 60
-      img: null
+      img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
       actionHooks: []
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
     - id: beastShapeRevert
       name: Revert Shape
-      description: You end your bestial transformation, returning to your normal form.
+      description: >-
+        <p>You end your bestial transformation, returning to your normal
+        form.</p>
       tags: []
       cost:
         action: 3
         focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: self
         scope: 1
         number: 1
-        distance: 1
+        self: false
       effects: []
       img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
       condition: ''
-      actionHooks:
-        - hook: confirm
-          fn: >-
-            const effect =
-            this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
-            await effect.delete();
+      actionHooks: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
   requirements: {}
   nodes:
     - sig3.toughness
@@ -69,11 +87,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676167347186
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763349385134
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
   exportSource: null

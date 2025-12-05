@@ -9,23 +9,16 @@ system:
     using your bare arms. While <strong>Unarmed</strong>, half your Toughness
     score contributes to your <strong>Block</strong> defense.
   actions: []
-  actorHooks:
-    - hook: prepareDefenses
-      fn: |-
-        const weapons = this.equipment.weapons;
-        if ( weapons.unarmed ) {
-          const toughness = this.system.abilities.toughness.value;
-          defenses.block.bonus += Math.ceil(toughness / 2);
-        }
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1674959487279
-  modifiedTime: 1742938917834
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349678891
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

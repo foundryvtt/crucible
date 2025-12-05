@@ -7,12 +7,7 @@ system:
     Your physical toughness makes you more resistant to harm. You gain +2
     Resistance to Bludgeoning, Slashing, and Piercing damage.
   actions: []
-  actorHooks:
-    - hook: prepareResistances
-      fn: |-
-        resistances.bludgeoning.base += 2;
-        resistances.slashing.base += 2;
-        resistances.piercing.base += 2;
+  actorHooks: []
   nodes:
     - tou3b
 effects: []
@@ -24,11 +19,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1676169285945
-  modifiedTime: 1763135171989
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349575418
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.thickskin0000000
   duplicateSource: null
   exportSource: null

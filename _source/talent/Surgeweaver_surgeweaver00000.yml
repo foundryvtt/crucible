@@ -11,19 +11,7 @@ system:
     damage to <strong>Morale</strong>, and applies the @Condition[staggered]
     condition.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Lightning rune
-        if ( action.rune?.id !== "lightning" ) return;
-
-        // Require damage to Health or Morale
-        const damageHealth = outcome.resources.health < 0;
-        const damageMorale = outcome.resources.morale < 0;
-        if ( !(damageHealth || damageMorale) ) return;
-
-        // Apply Shocked effect
-        outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -32,11 +20,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1676596789321
-  modifiedTime: 1763154066138
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349542420
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.surgeweaver00000
   duplicateSource: null
   exportSource: null

@@ -11,23 +11,16 @@ system:
     effectively as a heavily armored fighter. While unarmed, half your Wisdom
     score contributes to your Parry defense.
   actions: []
-  actorHooks:
-    - hook: prepareDefenses
-      fn: |-
-        const weapons = this.equipment.weapons;
-        if ( weapons.unarmed ) {
-          const wisdom = this.system.abilities.wisdom.value;
-          defenses.parry.bonus += Math.ceil(wisdom / 2);
-        }
+  actorHooks: []
   nodes:
     - wis3a
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1674942420013
-  modifiedTime: 1763134941269
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763348518762
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

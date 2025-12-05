@@ -63,6 +63,16 @@ HOOKS.assessStrength = {
 
 /* -------------------------------------------- */
 
+// TODO: Consider refactoring this talent to instead be a maintained action
+HOOKS.beastShapeRevert = {
+  async confirm(reverse) {
+    const effect = this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
+    await effect.delete();
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.berserkStrike = {
   prepare() {
     const health = this.actor.resources.health;
@@ -82,9 +92,52 @@ HOOKS.berserkStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.bindArmament = {
+  canUse() {
+    const boundArmamentId = this.actor.getFlag("crucible", this.id);
+    const mainhandId = this.actor.equipment.weapons.mainhand.id;
+    if ( !mainhandId ) throw new Error("no mainhand weapon");
+    else if ( mainhandId === boundArmamentId ) throw new Error("weapon is already bound");
+  },
+  preActivate() {
+    const mainhandId = this.actor.equipment.weapons.mainhand.id;
+    if ( !mainhandId ) return;
+    foundry.utils.mergeObject(this.usage.actorUpdates, {
+      [`flags.crucible.${this.id}`]: mainhandId
+    });
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.blastFlask = {
   prepare() {
     this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.bodyBlock = {
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    for ( const outcome of targetAction.outcomes.values() ) {
+      if ( outcome.target.uuid !== actor.uuid ) continue;
+      if ( !targetAction.tags.has("melee") ) {
+        throw new Error("You may only use Body Block against an incoming melee attack.");
+      }
+      if ( targetAction.message.flags.crucible.confirmed ) {
+        throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
+      }
+      const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+      for ( const r of outcome.rolls ) {
+        if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
+          this.usage.targetAction = targetAction.message.id;
+          return true;
+        }
+      }
+    }
+    throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
   }
 }
 
@@ -121,6 +174,17 @@ HOOKS.clarifyIntent = {
       {key: "system.rollBonuses.boons.clarifyIntent.number", mode: 5, value: 1},
       {key: "system.rollBonuses.boons.clarifyIntent.label", mode: 5, value: this.name}
     );
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.conjureArmament = {
+  canUse() {
+    const boundArmamentId = this.actor.getFlag("crucible", this.id);
+    const weapon = this.items.get(boundArmamentId);
+    if ( !weapon || weapon.equipped ) return false;
+    this.canEquipWeapon(weapon);
   }
 }
 
@@ -211,6 +275,20 @@ HOOKS.delay = {
 
 /* -------------------------------------------- */
 
+HOOKS.distract = {
+  postActivate(outcome) {
+    for ( const r of outcome.rolls ) {
+      if ( r.isSuccess ) {
+        r.data.damage.multiplier = 0;
+        r.data.damage.base = 1;
+        r.data.damage.total = 1;
+      }
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(outcome) {
     this.usage.defenseType = "reflex";
@@ -291,6 +369,57 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
+HOOKS.executionersStrike = {
+  prepare() {
+    const weapon = this.actor.equipment.weapons.mainhand;
+    const bleeding = SYSTEM.EFFECTS.bleeding(this.actor, {
+      ability: "strength",
+      damageType: weapon.system.damageType
+    });
+    this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.extollDeeds = {
+  confirm(reverse) {
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.self ) continue;
+      outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.hamstring = {
+  canUse() {
+    const mh = this.actor.equipment.weapons.mainhand;
+    const oh = this.actor.equipment.weapons.offhand;
+    if ( ![mh.system.damageType, oh.system.damageType].includes("slashing") ) {
+      throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
+    }
+  },
+  preActivate(targets) {
+    if ( this.usage.weapon.system.damageType !== "slashing" ) {
+      throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.intercept = {
+  prepare() {
+    if ( this.actor ) {
+      this.range.maximum = this.actor.system.movement.stride;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.oozeMultiply = {
   postActivate(outcome) {
     outcome.actorUpdates ||= {};
@@ -355,24 +484,6 @@ HOOKS.poisonIngest = {
     };
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], poisoned);
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.selfRepair = {
-  postActivate(outcome) {
-    outcome.resources.health = this.actor.abilities.toughness.value;
-  }
-}
-
-/* -------------------------------------------- */
-
-HOOKS.spellband = {
-  postActivate(outcome) {
-    const enchantment = this.item.config.enchantment;
-    const amount = 2 + (2 * enchantment.bonus);
-    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
   }
 }
 
@@ -482,6 +593,34 @@ HOOKS.ruthlessMomentum = {
 
 /* -------------------------------------------- */
 
+HOOKS.secondWind = {
+  confirm(reverse) {
+    const self = this.outcomes.get(this.actor);
+    self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.selfRepair = {
+  postActivate(outcome) {
+    outcome.resources.health = this.actor.abilities.toughness.value;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.spellband = {
+  postActivate(outcome) {
+    const enchantment = this.item.config.enchantment;
+    const amount = 2 + (2 * enchantment.bonus);
+    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+  }
+}
+
+
+/* -------------------------------------------- */
+
 HOOKS.thrash = {
   preActivate(targets) {
     if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
@@ -507,11 +646,46 @@ HOOKS.threadTheNeedle = {
 
 /* -------------------------------------------- */
 
+HOOKS.tuskCharge = {
+  prepare() {
+    this.range.maximum = this.actor.system.movement.stride;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.uppercut = {
   preActivate(targets) {
     const lastAction = this.actor.lastConfirmedAction;
     if ( !lastAction.outcomes.has(targets[0].actor) ) {
       throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.vampiricBite = {
+  prepare() {
+    const cls = getDocumentClass("Item");
+    const bite = new cls(foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE), {parent: this.actor});
+    this.usage.weapon = bite; 
+    this.usage.context.tags.vampiricBite = this.name;
+    foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
+    foundry.utils.mergeObject(this.usage.context, {
+      type: "weapons",
+      label: "Weapon Tags",
+      icon: "fa-solid fa-swords",
+      hasDice: true
+    });
+  },
+  confirm(reverse) {
+    const self = this.outcomes.get(this.actor);
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome === self ) continue;
+      if ( outcome.rolls.some(r => r.isSuccess) ) {
+        self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
+      }
     }
   }
 }

@@ -12,20 +12,7 @@ system:
     <p>The Staggered effect lasts for 1 round and reduces your target's maximum
     Action by 1.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Must damage health
-        const damageHealth = outcome.resources.health < 0;
-        if ( !damageHealth ) return;
-
-        // Must deal bludgeoning damage
-        const dt = action.usage.weapon?.system.damageType;
-        if ( dt !== "bludgeoning" ) return;
-
-        // Apply stagger
-        const stagger = SYSTEM.EFFECTS.staggered(this, outcome.target);
-        outcome.effects.push(stagger);
+  actorHooks: []
   nodes:
     - str4a
 effects: []
@@ -37,11 +24,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676756257189
-  modifiedTime: 1749311493133
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763345761356
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

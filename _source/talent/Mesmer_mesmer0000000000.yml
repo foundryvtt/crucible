@@ -12,19 +12,7 @@ system:
     <strong>Morale</strong>, and applies the @Condition[disoriented]
     condition.</p>
   actions: []
-  actorHooks:
-    - hook: applyCriticalEffects
-      fn: |-
-        // Require Control rune
-        if ( action.rune?.id !== "illusion" ) return;
-
-        // Require damage to Morale
-        const damageMorale = outcome.resources.morale < 0;
-        if ( !damageMorale ) return;
-
-        // Apply Confused effect
-        const confused = SYSTEM.EFFECTS.confused(this);
-        outcome.effects.push(confused);
+  actorHooks: []
   nodes:
     - int3a
 effects: []
@@ -36,11 +24,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1677357449776
-  modifiedTime: 1763154063655
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763347783481
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -21,18 +21,15 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: self
         number: 0
         scope: 1
+        self: false
       effects: []
       img: icons/magic/life/cross-area-circle-green-white.webp
-      actionHooks:
-        - hook: confirm
-          fn: >-
-            const self = this.outcomes.get(this.actor); self.resources.health =
-            (self.resources.health || 0) +
-            this.actor.system.abilities.toughness.value;
+      actionHooks: []
       range:
         maximum: null
         weapon: false
@@ -42,11 +39,11 @@ system:
     - tou2c
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1674702266686
-  modifiedTime: 1763135285791
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349284325
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

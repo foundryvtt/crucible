@@ -8,9 +8,7 @@ system:
     Your supernatural toughness makes you resistant to venoms and toxins. You
     gain +5 Resistance to Poison damage.
   actions: []
-  actorHooks:
-    - hook: prepareResistances
-      fn: resistances.poison.base += 5;
+  actorHooks: []
   nodes:
     - tou3b
 effects: []
@@ -21,11 +19,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1676170092902
-  modifiedTime: 1749393715621
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349429324
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.snakeblood000000
   duplicateSource: null
   exportSource: null

@@ -20,6 +20,7 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       range:
         maximum: null
         weapon: true
@@ -28,15 +29,11 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       tags:
         - ranged
-      actionHooks:
-        - hook: roll
-          fn: >-
-            const boons = this.actor.applyTargetBoons(target, this, "weapon",
-            false).boons; if ( boons.flanked ) rolls[0].data.boons.flanked =
-            boons.flanked;
+      actionHooks: []
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 125000
@@ -46,11 +43,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
   createdTime: 1688235930869
-  modifiedTime: 1749329310194
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1763349594980
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

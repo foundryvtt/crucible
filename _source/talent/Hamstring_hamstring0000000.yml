@@ -21,26 +21,26 @@ system:
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Hamstring
-          scope: 3
+          scope: '3'
+          result:
+            type: success
+            all: false
           statuses:
             - slowed
           duration:
             turns: 3
+            rounds: null
       name: Hamstring
       img: icons/skills/melee/strike-axe-blood-red.webp
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const mh = this.actor.equipment.weapons.mainhand;
-            if ( mh.system.damageType !== "slashing" ) {
-              throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
-            }
+      actionHooks: []
       range:
         minimum: null
         maximum: null
@@ -58,12 +58,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.8.2
   createdTime: 1727366264893
-  modifiedTime: 1749320305023
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1763347369606
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: hamstring0000000
 sort: 0
