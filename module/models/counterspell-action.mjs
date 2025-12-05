@@ -44,8 +44,17 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
   getSpellId({rune, gesture, inflection}={}) {
     return "counterspell";
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepare() {
+    super._prepare();
+    this.usage.hasDice = true; // Even if the selected gesture overrides, counterspell always has dice
   }
 
   /* -------------------------------------------- */
@@ -74,5 +83,18 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     delete tags.action.healing;
     delete tags.action.resource;
     return tags;
+  }
+
+  /* -------------------------------------------- */
+  /*  Display and Formatting Methods              */
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _prepareMessage(targets, {confirmed}={}) {
+    const messageData = await super._prepareMessage(targets, {confirmed});
+    const lastAction = ChatMessage.implementation.getLastAction();
+    if ( !lastAction?.message ) return messageData; // This'll only happen if incorrectly programmatically called
+    foundry.utils.setProperty(messageData, "flags.crucible.targetMessageId", lastAction.message.id);
+    return messageData;
   }
 }

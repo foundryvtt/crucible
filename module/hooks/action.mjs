@@ -143,14 +143,32 @@ HOOKS.counterspell = {
   async roll(outcome) {
     outcome.usage.defenseType = "willpower"; // Maybe changed later
     const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
-    if ( this.rune.id === usedRune.opposed ) {
+    if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 2};
     }
-    if ( this.gesture.id === usedGesture.id ) {
+    if ( this.gesture.id === usedGesture?.id ) {
       this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 2};
     }
     const roll = await this.actor.spellAttack(this, outcome);
     if ( roll ) outcome.rolls.push(roll);
+  },
+  async confirm(reverse) {
+    const targetActor = this.outcomes.keys().find(a => a !== this.actor);
+    const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
+    if ( !isSuccess ) return;
+    const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
+    if ( !targetMessage ) return;
+    if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
+      const desiredChange = game.i18n.localize(`DICE.${reverse ? "Reverse" : "Confirm"}`);
+      const problemState = game.i18n.localize(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
+      const errorText = `Cannot ${desiredChange} a counterspell if the targeted spell is already ${problemState}!`;
+      ui.notifications.warn(errorText);
+      throw new Error(errorText);
+    }
+    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
+    if ( !reverse ) await setNegated();
+    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) await setNegated();
   }
 }
 
