@@ -1737,7 +1737,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<ChatMessage>}              The created ChatMessage document
    */
   async toMessage(targets, {confirmed=false, ...options}={}) {
-    const messageData = await this._prepareMessage(targets, {confirmed, ...options});
+    const messageData = await this._prepareMessage(targets, {confirmed});
 
     // Create chat message
     return ChatMessage.create(messageData, options);
