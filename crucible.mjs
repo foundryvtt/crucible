@@ -230,13 +230,20 @@ Hooks.once("init", async function() {
 
   // Register Handlebars helpers
   Handlebars.registerHelper({
-    "crucibleTags": (tags) => {
+    "crucibleTags": (tags, options={}) => {
+      const {enclosed=true, additionalClasses=null, tagType=null} = options.hash ?? {};
       const tagSpans = Object.entries(tags).map(([id, tag]) => {
-        const classes = `tag${tag.unmet ? " unmet" : ""}`;
+        let classes = "tag";
+        if ( tag.unmet ) classes += " unmet";
+        if ( tag.cssClasses ) classes += ` ${foundry.utils.escapeHTML(tag.cssClasses)}`;
         const label = foundry.utils.escapeHTML(tag.label ?? tag);
-        return `<span class="${classes}" data-tag="${id}">${label}</span>`;
+        const styleString = tag.color ? ` style="--tag-color: ${tag.color.css}"` : "";
+        return `<span class="${classes}" data-tag="${id}"${styleString}>${label}</span>`;
       });
-      return new Handlebars.SafeString(tagSpans.join(""));
+      if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
+      const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`
+      const tagTypeString = tagType ? ` data-tag-type="${foundry.utils.escapeHTML(tagType)}"` : "";
+      return new Handlebars.SafeString(`<div class="${enclosingClasses}"${tagTypeString}>${tagSpans.join("")}</div>`);
     }
   })
 

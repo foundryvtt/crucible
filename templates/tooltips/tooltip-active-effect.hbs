@@ -6,16 +6,12 @@
         <div class="title">
             <h4>{{effect.name}}</h4>
             {{#unless tags.activation.empty}}
-            <div class="tags">
-                {{crucibleTags tags.activation}}
-            </div>
+            {{crucibleTags tags.activation}}
             {{/unless}}
         </div>
     </header>
     {{#unless tags.statuses.empty}}
-    <div class="tags" data-tag-type="status">
-        {{crucibleTags tags.statuses}}
-    </div>
+    {{crucibleTags tags.statuses tagType="status"}}
     {{/unless}}
     <div class="description">{{{effect.description}}}</div>
 </div>

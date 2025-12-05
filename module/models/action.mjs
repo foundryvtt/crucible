@@ -66,8 +66,16 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
+ * @typedef CrucibleTag
+ * @property {string} label
+ * @property {string} [cssClasses]
+ * @property {boolean} [unmet]
+ * @property {Color} [color]
+ */
+
+/**
  * @typedef {Object} ActionTags
- * @property {Object<string, string|object>} activation
+ * @property {Object<string, string|CrucibleTag>} activation
  * @property {Object<string, string>} action
  * @property {Object<string, string>} context
  */

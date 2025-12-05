@@ -6,23 +6,17 @@
         <div class="title">
             <h4>{{action.name}}</h4>
             {{#unless tags.activation.empty}}
-            <div class="tags">
-                {{crucibleTags tags.activation}}
-            </div>
+            {{crucibleTags tags.activation}}
             {{/unless}}
         </div>
     </header>
 
     {{#unless tags.action.empty}}
-    <div class="tags" data-tag-type="action">
-        {{crucibleTags tags.action}}
-    </div>
+    {{crucibleTags tags.action tagType="action"}}
     {{/unless}}
 
     {{#unless tags.context.empty}}
-    <div class="tags" data-tag-type="context">
-        {{crucibleTags tags.context}}
-    </div>
+    {{crucibleTags tags.context tagType="context"}}
     {{/unless}}
 
     {{#if action.condition}}
@@ -40,9 +34,7 @@
                 <div class="title">
                     <h4>Effect: <span class="effect-name">{{action.name}}</span></h4>
                 </div>
-                <div class="effect-tags tags">
-                    {{crucibleTags effect.tags}}
-                </div>
+                {{crucibleTags effect.tags additionalClasses="effect-tags"}}
             </li>
         {{/each}}
     </ol>

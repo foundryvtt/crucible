@@ -13,9 +13,7 @@
         <img class="icon" src="{{o.img}}" alt="{{o.name}}">
         <div class="title">
             <h4>{{o.name}}</h4>
-            <div class="tags">
-                {{crucibleTags o.tags}}
-            </div>
+            {{crucibleTags o.tags}}
         </div>
         {{#if output.editable}}
         <input type="hidden" name="{{o.fieldPath}}.item" value="{{o.uuid}}">

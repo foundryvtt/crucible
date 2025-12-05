@@ -11,7 +11,7 @@
                 <div class="title">
                     <h4>{{effect.name}}</h4>
                     <div class="tags">
-                        {{crucibleTags effect.tags.activation}}
+                        {{crucibleTags effect.tags.activation enclosed=false}}
                         {{#each effect.tags.statuses as |label id|}}
                         <span class="tag" data-tag="{{id}}" data-crucible-tooltip="condition" data-condition="{{id}}" data-tooltip-class="crucible crucible-tooltip">{{label}}</span>
                         {{/each}}

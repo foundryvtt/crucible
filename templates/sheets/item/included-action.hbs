@@ -18,9 +18,7 @@
             <div class="title">
                 <h4>Effect: <span class="effect-name">{{effect.name}}</span></h4>
             </div>
-            <div class="effect-tags tags">
-                {{crucibleTags effect.tags}}
-            </div>
+            {{crucibleTags effect.tags additionalClasses="effect-tags"}}
         </li>
         {{/each}}
     </ol>

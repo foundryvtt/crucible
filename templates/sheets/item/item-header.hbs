@@ -4,8 +4,6 @@
         <h1 class="title">
             {{formInput item.schema.fields.name value=source.name placeholder="Item Name"}}
         </h1>
-        <div class="tags header-tags">
-            {{~crucibleTags tags~}}
-        </div>
+        {{~crucibleTags tags additionalClasses="header-tags"~}}
     </div>
 </header>

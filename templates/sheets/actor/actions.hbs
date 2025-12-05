@@ -10,9 +10,7 @@
                 <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true">
                 <div class="title">
                     <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
-                    <div class="tags">
-                        {{crucibleTags action.tags}}
-                    </div>
+                    {{crucibleTags action.tags}}
                 </div>
                 <div class="controls">
                     {{#if action.canEdit}}
