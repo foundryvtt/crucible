@@ -1,0 +1,45 @@
+name: Protector
+type: archetype
+img: icons/skills/melee/shield-block-fire-orange.webp
+system:
+  description: >-
+    <p>Stalwart warriors who interpose themselves between their allies and
+    peril, seeking foremost to protect themselves and others from harm.</p>
+  identifier: archetypeProtector
+  abilities:
+    wisdom: 3
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 3
+    dexterity: 1
+  talents:
+    - Compendium.crucible.talent.Item.shieldCombatTrai
+    - Compendium.crucible.talent.Item.bulwark000000000
+    - Compendium.crucible.talent.Item.intercept0000000
+    - Compendium.crucible.talent.Item.holdfast00000000
+    - Compendium.crucible.talent.Item.shieldBash000000
+  skills:
+    - athletics
+    - medicine
+    - diplomacy
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765037016031
+  modifiedTime: 1765037016031
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: protector0000000
+sort: 0
+_key: '!items!protector0000000'
