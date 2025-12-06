@@ -37,8 +37,9 @@ HOOKS.armoredShell0000 = {
 /* -------------------------------------------- */
 
 HOOKS.bard000000000000 = {
-  prepareSpellAttack(item, spell, _target, rollData) {
-    if ( spell.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
+  prepareAttack(item, action, _target, rollData) {
+    if ( !action.tags.has("spell") ) return;
+    if ( action.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
   }
 }
 
@@ -99,10 +100,8 @@ HOOKS.bloodmagic000000 = {
 /* -------------------------------------------- */
 
 HOOKS.bloodSense000000 = {
-  prepareWeaponAttack(_item, _action, target, rollData) {
-    if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
-  },
-  prepareSkillAttack(_item, _action, target, rollData) {
+  prepareAttack(_item, action, target, rollData) {
+    if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
     if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
   }
 }
@@ -149,7 +148,8 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
 /* -------------------------------------------- */
 
 HOOKS.cadence000000000 = {
-  prepareWeaponAttack(item, action, _target, rollData) {
+  prepareAttack(item, action, _target, rollData) {
+    if ( !action.tags.has("strike") ) return;
     if ( action.usage.weapon.config.category.hands !== 1 ) return;
     const {cadence} = this.status;
     const {actorStatus} = action.usage;
@@ -220,7 +220,8 @@ HOOKS.dustbinder000000 = {
 /* -------------------------------------------- */
 
 HOOKS.evasiveshot00000 = {
-  prepareWeaponAttack(item, action, _target, _rollData) {
+  prepareAttack(item, action, _target, _rollData) {
+    if ( !action.tags.has("strike") ) return;
     const isRanged = action.usage.strikes.some(w => w.system.config.category.ranged);
     if ( isRanged ) {
       const movementBonus = (this.system.status.movement?.bonus ?? 0) + Math.ceil(this.system.movement.stride / 2);
@@ -232,8 +233,9 @@ HOOKS.evasiveshot00000 = {
 /* -------------------------------------------- */
 
 HOOKS.healer0000000000 = {
-  prepareSpellAttack(item, spell, _target, rollData) {
-    if ( spell.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
+  prepareAttack(item, action, _target, rollData) {
+    if ( !action.tags.has("spell") ) return;
+    if ( action.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
   }
 }
 /* -------------------------------------------- */
@@ -257,12 +259,8 @@ HOOKS.inspirator000000 = {
 /* -------------------------------------------- */
 
 HOOKS.intellectualsupe = {
-  prepareWeaponAttack(item, _action, target, rollData) {
-    const ac = this.combatant;
-    const tc = target.combatant;
-    if ( ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority = {label: item.name, number: 1};
-  },
-  prepareSpellAttack(item, _action, target, rollData) {
+  prepareAttack(item, action, target, rollData) {
+    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
     const ac = this.combatant;
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority = {label: item.name, number: 1};
@@ -376,7 +374,8 @@ HOOKS.operator00000000 = {
 /* -------------------------------------------- */
 
 HOOKS.packhunter000000 = {
-  prepareWeaponAttack(item, _action, target, rollData) {
+  prepareAttack(item, action, target, rollData) {
+    if ( !action.tags.has("strike") ) return;
     if ( target.statuses.has("flanked") ) {
       rollData.boons.packHunter = {
         label: item.name, 
@@ -575,12 +574,8 @@ HOOKS.stilllake0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.strikefirst00000 = {
-  prepareWeaponAttack(item, _action, target, rollData) {
-    const ac = this.combatant;
-    const tc = target.combatant;
-    if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: item.name, number: 1};
-  },
-  prepareSpellAttack(item, _action, target, rollData) {
+  prepareAttack(item, action, target, rollData) {
+    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
     const ac = this.combatant;
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: item.name, number: 1};
