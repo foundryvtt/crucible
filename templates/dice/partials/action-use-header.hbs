@@ -2,11 +2,7 @@
     <img class="icon" src="{{action.img}}" alt="{{action.name}}">
     <div class="title">
         <h4>{{action.name}}</h4>
-        <div class="tags" data-tag-type="activation">
-            {{#each tags.activation as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-            {{/each}}
-        </div>
+        {{crucibleTags tags.activation tagType="activation"}}
     </div>
 </header>
 
@@ -15,11 +11,7 @@
     <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bolt"></i>
     </label>
-    <div class="tags" data-tag-type="action">
-        {{#each tags.action as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
-    </div>
+    {{crucibleTags tags.action tagType="action"}}
 </div>
 {{/if}}
 
@@ -28,11 +20,7 @@
     <label class="tag-icon" data-tooltip="{{tags.context.label}}" data-tooltip-direction="LEFT">
         <i class="{{tags.context.icon}}"></i>
     </label>
-    <div class="tags" data-tag-type="context">
-        {{#each tags.context as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
-    </div>
+    {{crucibleTags tags.context tagType="context"}}
 </div>
 {{/if}}
 

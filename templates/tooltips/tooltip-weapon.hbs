@@ -6,21 +6,13 @@
         <div class="title">
             <h4>{{item.name}}</h4>
             {{#unless tags.activation.empty}}
-            <div class="tags">
-                {{#each tags.activation as |label tag|}}
-                <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                {{/each}}
-            </div>
+            {{crucibleTags tags.activation}}
             {{/unless}}
         </div>
     </header>
 
     {{#unless tags.properties.empty}}
-    <div class="tags" data-tag-type="weapon">
-        {{#each tags.properties as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
-    </div>
+    {{crucibleTags tags.properties tagType="weapon"}}
     {{/unless}}
 
     <div class="description">{{{item.system.description.public}}}</div>

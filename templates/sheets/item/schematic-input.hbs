@@ -13,9 +13,7 @@
         <div class="title">
             <h4>{{i.name}}</h4>
             <div class="tags">
-                {{#each i.tags as |tag type|}}
-                <span class="tag" data-tag="{{type}}">{{tag}}</span>
-                {{/each}}
+                {{crucibleTags i.tags}}
             </div>
         </div>
         {{#if @root.isEditable}}

@@ -24,11 +24,7 @@
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
                 <div class="title">
                     <h4>{{item.name}}</h4>
-                    <div class="tags">
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
-                    </div>
+                    {{crucibleTags item.tags}}
                 </div>
                 <div class="controls">
                     <a class="button icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Talent"></a>

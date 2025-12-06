@@ -228,6 +228,25 @@ Hooks.once("init", async function() {
   // Rich Text Enrichers
   registerEnrichers();
 
+  // Register Handlebars helpers
+  Handlebars.registerHelper({
+    "crucibleTags": (tags, options={}) => {
+      const {enclosed=true, additionalClasses=null, tagType=null} = options.hash ?? {};
+      const tagSpans = Object.entries(tags).map(([id, tag]) => {
+        let classes = "tag";
+        if ( tag.unmet ) classes += " unmet";
+        if ( tag.cssClasses ) classes += ` ${foundry.utils.escapeHTML(tag.cssClasses)}`;
+        const label = foundry.utils.escapeHTML(tag.label ?? tag);
+        const styleString = tag.color ? ` style="--tag-color: ${tag.color.css}"` : "";
+        return `<span class="${classes}" data-tag="${id}"${styleString}>${label}</span>`;
+      });
+      if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
+      const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`
+      const tagTypeString = tagType ? ` data-tag-type="${foundry.utils.escapeHTML(tagType)}"` : "";
+      return new Handlebars.SafeString(`<div class="${enclosingClasses}"${tagTypeString}>${tagSpans.join("")}</div>`);
+    }
+  })
+
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
 

@@ -12,29 +12,17 @@
             <div class="title">
                 <h4>{{action.name}}</h4>
                 {{#unless tags.activation.empty}}
-                <div class="tags">
-                    {{#each tags.activation as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each}}
-                </div>
+                {{crucibleTags tags.activation}}
                 {{/unless}}
             </div>
         </header>
 
         {{#unless tags.action.empty}}
-        <div class="tags" data-tag-type="action">
-            {{#each tags.action as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-            {{/each}}
-        </div>
+        {{crucibleTags tags.action tagType="action"}}
         {{/unless}}
 
         {{#unless tags.context.empty}}
-        <div class="tags" data-tag-type="context">
-            {{#each tags.context as |label|}}
-            <span class="tag">{{label}}</span>
-            {{/each}}
-        </div>
+        {{crucibleTags tags.context tagType="context"}}
         {{/unless}}
 
         {{#if action.condition}}
@@ -52,11 +40,7 @@
                 <div class="title">
                     <h4>Effect: <span class="effect-name">{{action.name}}</span></h4>
                 </div>
-                <div class="effect-tags tags">
-                    {{#each effect.tags as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each}}
-                </div>
+                {{crucibleTags effect.tags additionalClasses="effect-tags"}}
             </li>
             {{/each}}
         </ol>

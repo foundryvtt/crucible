@@ -4,11 +4,7 @@
     </div>
     <div class="title">
         <h4>{{talent.name}}</h4>
-        <div class="tags">
-            {{#each talent.tags as |tag type|}}
-            <span class="tag" data-tag="{{type}}">{{tag}}</span>
-            {{/each}}
-        </div>
+        {{crucibleTags talent.tags}}
     </div>
     {{#if isEditable}}
     <div class="controls">

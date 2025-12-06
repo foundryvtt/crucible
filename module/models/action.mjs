@@ -66,8 +66,16 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
+ * @typedef CrucibleTag
+ * @property {string} label
+ * @property {string} [cssClasses]
+ * @property {boolean} [unmet]
+ * @property {Color} [color]
+ */
+
+/**
  * @typedef {Object} ActionTags
- * @property {Object<string, string>} activation
+ * @property {Object<string, string|CrucibleTag>} activation
  * @property {Object<string, string>} action
  * @property {Object<string, string>} context
  */
@@ -1645,11 +1653,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       else tags.activation.ap = "W";
     }
     else tags.activation.ap = `${ap}A`;
-    if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
-    if ( Number.isFinite(cost.heroism) && cost.heroism ) tags.activation.hp = `${cost.heroism}H`;
-    if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.health = `${cost.health}HP`; // e.g. Blood Magic
+    if ( ap ) {
+      const unmet = ap > this.actor?.resources.action.value;
+      const label = tags.activation.ap;
+      tags.activation.ap = {label, unmet};
+    }
+    if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) {
+      const unmet = cost.focus > this.actor?.resources.focus.value;
+      const label = `${cost.focus}F`;
+      tags.activation.fp = {label, unmet};
+    }
+    if ( Number.isFinite(cost.heroism) && cost.heroism ) {
+      const unmet = cost.heroism > this.actor?.resources.heroism.value;
+      const label = `${cost.heroism}H`;
+      tags.activation.hp = {label, unmet};
+    }
+    if ( Number.isFinite(cost.health) && (cost.health !== 0) ) {
+      // e.g. Blood Magic
+      const unmet = cost.health > this.actor?.resources.health.value;
+      const label = `${cost.health}HP`;
+      tags.activation.health = {label, unmet}; 
+    }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
-    if ( cost.hands ) tags.activation.hands = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
+    if ( cost.hands ) {
+      const unmet = cost.hands > this.actor?.equipment.weapons.spellHands;
+      const label = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
+      tags.activation.hands = {label, unmet};
+    }
     return tags;
   }
 

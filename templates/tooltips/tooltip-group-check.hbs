@@ -8,11 +8,7 @@
             <i class="icon {{result.icon}}"></i>
             <div class="title">
                 <h4>{{result.actor.name}}</h4>
-                <div class="tags">
-                    {{#each result.tags as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each}}
-                </div>
+                {{crucibleTags result.tags}}
             </div>
             {{#if result.hasValue}}
             <div class="hex check-value">
