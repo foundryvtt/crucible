@@ -268,10 +268,6 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["rollData"]
   },
-  prepareWeaponAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "target", "rollData"]
-  },
   applyCriticalEffects: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "outcome", "self"]
@@ -284,18 +280,13 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "roll"]
   },
-
-  prepareSkillCheck: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["skill", "rollData"]
-  },
-  prepareSkillAttack: {
+  prepareAttack: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "target", "rollData"]
   },
-  prepareSpellAttack: {
+  prepareSkillCheck: {
     group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["spell", "target", "rollData"]
+    argNames: ["skill", "rollData"]
   },
 
   // Data Preparation
