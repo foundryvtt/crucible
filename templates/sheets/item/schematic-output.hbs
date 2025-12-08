@@ -1,6 +1,6 @@
 <fieldset class="schematic-output" {{@root.fieldDisabled}} {{#unless template}}data-field="outputs" data-index="{{index}}"{{/unless}}>
     <legend>
-        <span>Outputs</span>
+        <span>{{localize "SCHEMATIC.SHEET.OUTPUTS"}}</span>
         {{#if output.editable}}
         <button type="button" class="icon fa-solid fa-times" data-action="outputRemove"
                 aria-label="{{localize 'SCHEMATIC.SHEET.OUTPUT_REMOVE'}}" data-tooltip></button>

@@ -1,6 +1,6 @@
 <fieldset class="schematic-input" {{@root.fieldDisabled}} data-field="inputs" data-index="{{index}}">
     <legend>
-        <span>Inputs</span>
+        <span>{{localize "SCHEMATIC.SHEET.INPUTS"}}</span>
         <button type="button" class="icon fa-solid fa-times" data-action="inputRemove"
                 aria-label="{{localize 'SCHEMATIC.SHEET.INPUT_REMOVE'}}" data-tooltip></button>
     </legend>
@@ -12,8 +12,8 @@
         <img class="icon" src="{{i.img}}" alt="{{i.name}}">
         <div class="title">
             <h4>{{i.name}}</h4>
+            {{crucibleTags i.tags}}
             <div class="tags">
-                {{crucibleTags i.tags}}
             </div>
         </div>
         {{#if @root.isEditable}}

@@ -76,6 +76,61 @@
 
 
 "ACTION": {
+  "DEFAULT_ACTIONS": {
+    "Cast": {
+      "Name": "Cast Spell",
+      "Description": "Weave arcana to create a work of spellcraft."
+    },
+    "Defend": {
+      "Name": "Defend",
+      "Description": "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn."
+    },
+    "Delay": {
+      "Name": "Delay",
+      "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and the Initiative value of the combatant after you. You will act at this new Initiative value. You may only delay your turn once per round."
+    },
+    "Move": {
+      "Name": "Move",
+      "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used."
+    },
+    "ReactiveStrike": {
+      "Name": "Reactive Strike",
+      "Description": "Perform a strike when an enemy leaves your engagement and you are not fully engaged."
+    },
+    "Recover": {
+      "Name": "Recover",
+      "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus."
+    },
+    "Refocus": {
+      "Name": "Recover Focus",
+      "Description": "Use your equipped Talisman to recover Focus."
+    },
+    "Reload": {
+      "Name": "Reload Weapon",
+      "Description": "Reload a ranged weapon which features a reloading time."
+    },
+    "Rest": {
+      "Name": "Rest",
+      "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources."
+    },
+    "Strike": {
+      "Name": "Strike",
+      "Description": "Attack a single creature or object with one of your equipped weapon."
+    },
+    "ThrowWeapon": {
+      "Name": "Throw Weapon",
+      "Description": "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>."
+    }
+  },
+  "EFFECT_RESULT_TYPES": {
+    "All": "All",
+    "Any": "Any",
+    "Custom": "Custom",
+    "Success": "Success",
+    "CriticalSuccess": "Critical Success",
+    "Failure": "Failure",
+    "CriticalFailure": "Critical Failure"
+  },
   "FIELDS": {
     "cost": {
       "label": "Action Cost",
@@ -176,6 +231,25 @@
     "TARGET": "Target",
     "EFFECTS": "Effects",
     "HOOKS": "Hooks"
+  },
+  "TARGET_SCOPES": {
+    "None": "None",
+    "Self": "Self",
+    "Allies": "Allies",
+    "Enemies": "Enemies",
+    "All": "All"
+  },
+  "TARGET_TYPES": {
+    "Blast": "Blast",
+    "Cone": "Cone",
+    "Fan": "Fan",
+    "None": "None",
+    "Pulse": "Pulse",
+    "Ray": "Ray",
+    "Self": "Self",
+    "Single": "Single",
+    "Summon": "Summon",
+    "Wall": "Wall"
   }
 },
 
@@ -285,6 +359,21 @@
       "header": "Accessories",
       "empty": "Equip up to {slots} accessories from your Backpack toggling the shield icon."
     },
+    "ACTIONS_ATTACK": {
+      "header": "Attack Actions"
+    },
+    "ACTIONS_GENERAL": {
+      "header": "General Actions"
+    },
+    "ACTIONS_MOVEMENT": {
+      "header": "Movement Actions"
+    },
+    "ACTIONS_REACTION": {
+      "header": "Reactions"
+    },
+    "ACTIONS_SPELL": {
+      "header": "Spellcraft Actions"
+    },
     "ACTIVE": {
       "header": "Active Abilities"
     },
@@ -295,6 +384,15 @@
     "BACKPACK": {
       "header": "Backpack",
       "empty": "Add items by dropping them from the provided Crucible system compendium packs."
+    },
+    "EFFECTS_DISABLED": {
+      "header": "Disabled Effects"
+    },
+    "EFFECTS_PERSISTENT": {
+      "header": "Persistent Effects"
+    },
+    "EFFECTS_TEMPORARY": {
+      "header": "Temporary Effects"
     },
     "ICONIC": {
       "header": "Iconic Spells",
@@ -321,6 +419,23 @@
       "header": "Weapons",
       "empty": "Equip weapons from your Backpack toggling the shield icon."
     }
+  },
+  "SHEET": {
+    "ABILITIES": "Abilities",
+    "ABILITY_POINTS": "Ability Points",
+    "DEFENSES": "Defenses",
+    "POINTS_AVAILABLE": "Available",
+    "POINTS_SPENT": "Spent",
+    "RESOURCES": "Resources"
+  },
+  "WARNINGS": {
+    "NoAncestry": "Choose an Ancestry",
+    "NoBackground": "Choose a Background",
+    "NoDragTalent": "Talents can only be added to a protagonist Actor via the Talent Tree.",
+    "OverspentAbility": "Too many Ability Points have been spent",
+    "OverspentTalent": "Too many Talents have been taken",
+    "UnderspentAbility": "Spend Ability Points",
+    "UnderspentTalent": "Spend Talent Points"
   }
 },
 
@@ -366,8 +481,36 @@
   }
 },
 
+"ACTOR.AbandonCreationContent": "Discard creation progress and exit the creator?",
+"ACTOR.AbandonCreationTitle": "Abandon Creation Process?",
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 "ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
+"ACTOR.CompleteCreation": "Complete",
+"ACTOR.CompleteCreationHint": "Complete Creation",
+"ACTOR.CompletedCreation": "Completed",
+"ACTOR.Details": "Details",
+"ACTOR.ExitCreation": "Exit",
+"ACTOR.ExitCreationHint": "Exit Creation",
+"ACTOR.KnowledgeSpecific": "Knowledge: {knowledge}",
+"ACTOR.LanguageSpecific": "Language: {language}",
+"ACTOR.LevelSpecific": "Level {level}",
+"ACTOR.LevelUp": "Level Up!",
+"ACTOR.ProgressionRequirements": "Progression Requirements",
+"ACTOR.ResistanceSpecific": "Resistance: {resistance}",
+"ACTOR.RestartCreation": "Restart",
+"ACTOR.RestartCreationContent": "Discard creation progress and restart from the beginning?",
+"ACTOR.RestartCreationHint": "Restart Creation",
+"ACTOR.RestartCreationTitle": "Reset Creation Progress?",
+"ACTOR.SpendCreationAbilities": "Spend 9 points across 6 ability scores, allocating up to 3 points per ability.",
+"ACTOR.TalentTreeClose": "Close Talent Tree",
+"ACTOR.TalentTreeOpen": "Open Talent Tree",
+"ACTOR.TooltipDecreaseAbility": "Decrease Ability Score",
+"ACTOR.TooltipIncreaseAbility": "Increase Ability Score",
+"ACTOR.TooltipResetTalents": "Reset All Talents",
+"ACTOR.TooltipToggleTree": "Toggle Talent Tree",
+"ACTOR.VulnerabilitySpecific": "Vulnerability: {vulnerability}",
+
+"ACTOR.GROUP.TooltipRemoveMember": "Remove Member",
 
 "ANCESTRY": {
   "FIELDS": {
@@ -441,12 +584,28 @@
   }
 },
 
+
 "ACTION.Action": "Action",
+"ACTION.AllResult": "{existing} (All)",
+"ACTION.AffectsScope": "Affects {scope}",
 "ACTION.Condition": "Condition",
+"ACTION.Confirmed": "Confirmed",
+"ACTION.DelayTitle": "Delay Turn",
+"ACTION.DelayLabel": "Delayed Initiative",
+"ACTION.DelayHint": "Choose an initiative value between 1 and {maximum} when you wish to act.",
+"ACTION.DurationUntilEnded": "Until Ended",
+"ACTION.NoTargets": "No Targets",
+"ACTION.Overview": "Action Overview",
+"ACTION.PlaceTemplate": "Place Template",
+"ACTION.RequestActorsHint": "Drag individual Actors or groups here to request they participate in this roll.",
+"ACTION.RequestRollsSuffix": "{label}: Request Rolls",
+"ACTION.RequestedActors": "Requested Actors",
+"ACTION.SkillCheck": "{skill} Skill Check",
+"ACTION.StandardCheck": "Standard Check",
 "ACTION.Targets": "Targets",
 "ACTION.TemplateTargets": "Template Targets",
-"ACTION.Confirmed": "Confirmed",
 "ACTION.Unconfirmed": "Unconfirmed",
+"ACTION.UseAction": "Use Action",
 "ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
@@ -458,9 +617,19 @@
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 "ACTION.WarningMinimumRange": "A selected target is closer than the minimum range of {min} feet.",
 "ACTION.WarningMaximumRange": "A selected target is further than the maximum range of {max} feet.",
+"ACTION.WarningUnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
 
 "ACTION.EFFECTS.Add": "Add Effect",
 "ACTION.EFFECTS.Delete": "Remove Effect",
+"ACTION.EFFECTS.Duration": "Duration",
+"ACTION.EFFECTS.DurationHint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
+"ACTION.EFFECTS.DurationRounds": "Rounds",
+"ACTION.EFFECTS.DurationTurns": "Turns",
+"ACTION.EFFECTS.Name": "Effect Name",
+"ACTION.EFFECTS.Result": "Result",
+"ACTION.EFFECTS.ResultType": "Type",
+"ACTION.EFFECTS.Scope": "Effect Scope",
+"ACTION.EFFECTS.Statuses": "Statuses",
 
 "ACTION.TAG_CATEGORIES.ATTACK": "Attack",
 "ACTION.TAG_CATEGORIES.REQUIREMENTS": "Requirements",
@@ -554,6 +723,16 @@
 "ACTION.TagIconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
+
+"ACTION.Tags.Activation": "Activation Tags",
+"ACTION.Tags.Action": "Action Tags",
+"ACTION.Tags.Context": "Context Tags",
+"ACTION.Tags.HandCost.one": "{hands} Hand",
+"ACTION.Tags.HandCost.other": "{hands} Hands",
+"ACTION.Tags.TargetLimit": "Limit {limit}",
+
+"ACTION.TooltipAddFavorite": "Add Favorite",
+"ACTION.TooltipRemoveFavorite": "Remove Favorite",
 
 "ACTION.ACTIONS": {
   "DELETE": "Delete Action: {name}",
@@ -757,6 +936,18 @@
   }
 },
 
+"CONSUMABLE.Uses": {
+  "Of": "of",
+  "TagMax": {
+    "one": "{value} Use",
+    "other": "{value} Uses"
+  },
+  "TagPartial": {
+    "one": "{value}/{max} Use",
+    "other": "{value}/{max} Uses"
+  }
+},
+
 "CURRENCY_DENOMINATIONS": {
   "CP": {
     "abbreviation": "CP",
@@ -805,11 +996,29 @@
 "DEFENSES.Wounds": "Wounds",
 "DEFENSES.Madness": "Madness",
 
+"DICE.DIFFICULTIES": {
+  "Challenging": "Challenging",
+  "Custom": "Custom Difficulty",
+  "Difficult": "Difficult",
+  "Easy": "Easy",
+  "Formidable": "Formidable",
+  "Impossible": "Impossible",
+  "Moderate": "Moderate",
+  "Trivial": "Trivial"
+},
+
 "DICE.DiceTotal": "Dice Total",
+"DICE.Ability": "Ability",
 "DICE.AbilityBonus": "Ability Bonus",
+"DICE.Skill": "Skill",
 "DICE.SkillBonus": "Skill Bonus",
+"DICE.Enchantment": "Enchantment",
 "DICE.EnchantmentBonus": "Enchantment Bonus",
 "DICE.CircumstanceBonus": "Circumstance Bonus",
+"DICE.Banes.one": "Bane",
+"DICE.Banes.other": "Banes",
+"DICE.Boons.one": "Boon",
+"DICE.Boons.other": "Boons",
 "DICE.Damage": "Damage",
 "DICE.DamageOverflow": "Overflow Amount",
 "DICE.DamageBase": "Base {type}",
@@ -817,6 +1026,7 @@
 "DICE.DamageResistance": "Damage Resistance",
 "DICE.DamageVulnerability": "Damage Vulnerability",
 "DICE.DamageTotal": "Damage Total",
+"DICE.DC": "DC",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
@@ -855,6 +1065,11 @@
     "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!"
   }
 },
+
+"ACTIVE_EFFECT.TooltipDelete": "Delete Effect",
+"ACTIVE_EFFECT.TooltipDisable": "Disable Effect",
+"ACTIVE_EFFECT.TooltipEdit": "Edit Effect",
+"ACTIVE_EFFECT.TooltipEnable": "Enable Effect",
 
 "ITEM": {
   "FIELDS": {
@@ -918,11 +1133,13 @@
   "SHEET": {
     "DETAILS": "Item Details",
     "TALENT_ADD": "Add Talent",
+    "TALENT_CONFIGURATION": "Talent Configuration",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
     "EQUIPMENT": "Equipment Details",
     "EQUIPMENT_REMOVE": "Remove Equipment",
     "EQUIPMENT_DROP": "Add starting equipment by dragging and dropping items into this area.",
+    "SPELLCRAFT": "Spellcraft",
     "TYPE": "Equipment Type",
     "SCALED_PRICE": "Scaled Price"
   },
@@ -937,11 +1154,31 @@
 "ITEM.EnchantmentMajor": "Major",
 "ITEM.EnchantmentLegendary": "Legendary",
 
+"ITEM.TagsArmor": "{armor} Armor",
+"ITEM.TagsBlock": "Block {block}",
+"ITEM.TagsDamage": "{damage} Damage",
+"ITEM.TagsDefense": "{defense} Defense",
+"ITEM.TagsDepleted": "Depleted",
+"ITEM.TagsDodge": "{dodge} Dodge",
+"ITEM.TagsDodgeBase": "{dodge}+ Dodge",
+"ITEM.TagsNotInvested": "Not Invested",
+"ITEM.TagsNotKnown": "Not Known",
+"ITEM.TagsParry": "Parry {parry}",
+"ITEM.TagsRange": "Range {range}",
+
 "ITEM.QualityShoddy": "Shoddy",
 "ITEM.QualityStandard": "Standard",
 "ITEM.QualityFine": "Fine",
 "ITEM.QualitySuperior": "Superior",
 "ITEM.QualityMasterwork": "Masterwork",
+
+"ITEM.TooltipCreate": "Create Item",
+"ITEM.TooltipDelete": "Delete Item",
+"ITEM.TooltipDrop": "Drop Weapon",
+"ITEM.TooltipEdit": "Edit Item",
+"ITEM.TooltipEquip": "Equip {typeLabel}",
+"ITEM.TooltipRecover": "Recover {typeLabel}",
+"ITEM.TooltipUnEquip": "Un-equip {typeLabel}",
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
@@ -1045,9 +1282,11 @@
     "INPUT_ADD": "Add Input Group",
     "INPUT_DROP": "Drop Input Item",
     "INPUT_REMOVE": "Remove Input Group",
+    "INPUTS": "Inputs",
     "OUTPUT_ADD": "Add Output Group",
     "OUTPUT_DROP": "Drop Output Item",
-    "OUTPUT_REMOVE": "Remove Output Group"
+    "OUTPUT_REMOVE": "Remove Output Group",
+    "OUTPUTS": "Outputs"
   }
 },
 
@@ -1101,6 +1340,39 @@
       "hint": "Artisanal skills reflecting your character's ability to create items or equipment."
     }
   },
+  "DEFAULT_KNOWLEDGE": {
+    "Alchemy": "Alchemy",
+    "Ancients": "Ancients",
+    "Artifacts": "Artifacts",
+    "Arts": "Arts",
+    "Beasts": "Beasts",
+    "Celestials": "Celestials",
+    "Cosmology": "Cosmology",
+    "Crafts": "Crafts",
+    "Crime": "Crime",
+    "Dragons": "Dragons",
+    "Elementals": "Elementals",
+    "Fey": "Fey",
+    "Fiends": "Fiends",
+    "Forensics": "Forensics",
+    "Gods": "Gods",
+    "Intrigue": "Intrigue",
+    "Legends": "Legends",
+    "Machines": "Machines",
+    "Monsters": "Monsters",
+    "Outsiders": "Outsiders",
+    "Plants": "Plants",
+    "Politics": "Politics",
+    "Rituals": "Rituals",
+    "Seafaring": "Seafaring",
+    "Souls": "Souls",
+    "Subterranea": "Subterranea",
+    "Tracking": "Tracking",
+    "Trade": "Trade",
+    "Undeath": "Undeath",
+    "Warfare": "Warfare",
+    "Weather": "Weather"
+  },
   "LABELS": {
     "athletics": "Athletics",
     "awareness": "Awareness",
@@ -1153,14 +1425,27 @@
       "hint": "You are peerless in your mastery of this skill and of your advanced specialization path."
     }
   },
+  "AcquiredRanks": "Acquired Ranks",
   "PageSheet": "Crucible Skill",
   "SheetTitle": "[{actor}] {skill} Skill",
   "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
+  "CategoryHeader": "{category} Skills",
+  "Id": "Skill ID",
+  "Overview": "Skill Overview",
+  "PathId": "Path ID",
+  "PathName": "Path Name",
+  "PathOverview": "Path Overview",
+  "Ranks": "Skill Ranks",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
+  "SpecializationPaths": "Specialization Paths",
+  "SpecializationPathSelect": "Select Specialization",
+  "SpecializationPathSpecific": "Specialization Path: {path}",
+  "Summary": "Skill Summary",
   "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
-  "TooltipPassive": "12 + Score"
+  "TooltipPassive": "12 + Score",
+  "UnacquiredRanks": "Unacquired Ranks"
 },
 
 "SPELL": {
@@ -1323,6 +1608,7 @@
     "AlreadyOwned": "You already own {name} and cannot add it a second time.",
     "Banned": "You cannot purchase additional Signature talents at this node or tier.",
     "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+    "CannotUse": "You cannot use this talent.",
     "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
     "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
     "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
@@ -1364,6 +1650,10 @@
   },
   "PointsAvailable": "Points Available",
   "Purchase": "<p>Spend 1 Talent Point to purchase <strong>{name}</strong>?</p>",
+  "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
+  "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
+  "PurchaseNodeTitle": "Purchase Talent Node?",
+  "PurchaseTitle": "Purchase Talent: {name}",
   "LABELS": {
     "Points": {
       "one": "Point",
@@ -1375,6 +1665,10 @@
     }
   }
 },
+
+"TALENT.GrantsSpells": "<strong>Iconic Spells:</strong>: {name} grants {spells} Iconic Spell slots.",
+"TALENT.TooltipDelete": "Delete Talent",
+"TALENT.TooltipEdit": "Edit Talent",
 
 "TAXONOMY": {
   "FIELDS": {
@@ -1441,6 +1735,7 @@
   "SHEET": {
     "CHOOSE": "Choose Taxonomy",
     "CLEAR": "Clear Taxonomy",
+    "PHYSIOLOGY": "Physiology",
     "STATURE": "Taxonomy Stature"
   }
 },

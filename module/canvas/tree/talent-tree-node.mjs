@@ -161,13 +161,12 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     const purchased = this.node.isPurchased(actor);
     if ( !purchased && !actor.points.talent.available ) return;
     const talents = new Set(actor.system.advancement.talentNodes);
-    const msg = purchased ? `<p>Remove point spent on empty node "${this.node.id}"?</p>`
-      : `<p>Spend talent point to purchase empty node "${this.node.id}"?</p>`;
+    const msgKey = purchased ? "TALENT.PurchaseNodeReverse" : "TALENT.PurchaseNode";
     const confirm = await foundry.applications.api.DialogV2.confirm({
       window: {
-        title: "Purchase Talent Node?"
+        title: "TALENT.PurchaseNodeTitle"
       },
-      content: msg
+      content: `<p>${game.i18n.format(msgKey, {node: this.node.id})}</p>`
     });
     if ( !confirm ) return;
     if ( purchased ) talents.delete(this.node.id);

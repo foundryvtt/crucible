@@ -1507,7 +1507,7 @@ export default class CrucibleActor extends Actor {
       try {
         const canUse = this.canUtilizeTalent(talent);
         if ( (canUse === false) && warnUnusable ) {
-          content += `<div class="notification warning">You cannot use this talent.</div>`;
+          content += `<div class="notification warning">${game.i18n.localize("TALENT.WARNINGS.CannotUse")}</div>`;
         }
       } catch(err) {
         if ( warnUnusable ) {
@@ -1515,7 +1515,7 @@ export default class CrucibleActor extends Actor {
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: `Purchase Talent: ${talent.name}`},
+        window: {title: game.i18n.format("TALENT.PurchaseTitle", {name: talent.name})},
         content,
         yes: {default: true},
         no: {default: false}

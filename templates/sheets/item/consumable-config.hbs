@@ -20,10 +20,10 @@
         {{formGroup fields.equipped value=source.system.equipped classes="half"}}
         {{formGroup fields.broken value=source.system.broken classes="half"}}
         <div class="form-group slim">
-            <label>Uses</label>
+            <label>{{localize "CONSUMABLE.FIELDS.uses.label"}}</label>
             <div class="form-fields">
                 {{formInput fields.uses.fields.value value=source.system.uses.value}}
-                <label>of</label>
+                <label>{{localize "CONSUMABLE.Uses.of"}}</label>
                 {{formInput fields.uses.fields.max value=source.system.uses.max}}
             </div>
         </div>

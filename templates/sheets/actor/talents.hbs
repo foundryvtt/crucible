@@ -3,14 +3,14 @@
 
     {{#if canPurchaseTalents}}
     <div class="header-section flexrow">
-        <a class="button framed" data-action="talentTree" data-tooltip="Toggle Talent Tree">
+        <a class="button framed" data-action="talentTree" data-tooltip="{{localize "ACTOR.TooltipToggleTree"}}">
             <i class="fa-solid fa-diagram-project"></i> {{talentTreeButtonText}}</a>
         <div class="point-pools flexrow">
-            <span class="label">Available</span>
+            <span class="label">{{localize "ACTOR.SHEET.POINTS_AVAILABLE"}}</span>
             <span class="value">{{points.talent.available}}</span>
-            <span class="label">Spent</span>
+            <span class="label">{{localize "ACTOR.SHEET.POINTS_SPENT"}}</span>
             <span class="value">{{points.talent.spent}}</span>
-            <a class="button icon fa-solid fa-undo" data-action="talentReset" data-tooltip="Reset All Talents"></a>
+            <a class="button icon fa-solid fa-undo" data-action="talentReset" data-tooltip="{{localize "ACTOR.TooltipResetTalents"}}"></a>
         </div>
     </div>
     {{/if}}
@@ -27,9 +27,9 @@
                     {{crucibleTags item.tags}}
                 </div>
                 <div class="controls">
-                    <a class="button icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Talent"></a>
+                    <a class="button icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="{{localize "TALENT.TooltipEdit"}}"></a>
                     {{#unless canPurchaseTalents}}
-                    <a class="button icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Talent"></a>
+                    <a class="button icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="{{localize "TALENT.TooltipDelete"}}"></a>
                     {{/unless}}
                 </div>
             </li>

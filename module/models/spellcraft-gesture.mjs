@@ -63,7 +63,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     const tags = [SYSTEM.ABILITIES[this.scaling].label];
 
     // Damage
-    if ( this.damage.base ) tags.push(`${this.damage.base} Damage`);
+    if ( this.damage.base ) tags.push(game.i18n.format("ITEM.TagsDamage", {damage: this.damage.base}));
 
     // Target
     if ( this.target.type !== "none" ) {
@@ -73,7 +73,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     }
 
     // Range
-    if ( this.range.maximum ) tags.push(`Range ${this.range.maximum}`);
+    if ( this.range.maximum ) tags.push(game.i18n.format("ITEM.TagsRange", {range: this.range.maximum}));
 
     // Cost
     if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);

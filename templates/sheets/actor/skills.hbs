@@ -2,7 +2,7 @@
          data-tab="{{tabs.skills.id}}" data-group="{{tabs.skills.group}}">
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
-        <h3 class="section-header">{{category.label}} Skills</h3>
+        <h3 class="section-header">{{localize "SKILL.CategoryHeader" category=category.label}}</h3>
         <ol class="items-list" style="--skill-color:{{category.color.css}}">
             {{#each category.skills as |skill skillId|}}
             <li class="skill line-item" data-skill="{{skillId}}">

@@ -4,7 +4,7 @@
                 data-action="boon-subtract"></button>
         <div class="hex boons-hex">
             <span class="value">{{totalBoons}}</span>
-            <h4 class="label">Boons</h4>
+            <h4 class="label">{{localize "DICE.Boons.other"}}</h4>
         </div>
         <button type="button" class="icon fa-solid fa-arrow-up"  {{#unless canIncreaseBoons}}disabled{{/unless}}
                 data-action="boon-add"></button>
@@ -14,7 +14,7 @@
                 data-action="bane-subtract"></button>
         <div class="hex banes-hex">
             <span class="value">{{totalBanes}}</span>
-            <h4 class="label">Banes</h4>
+            <h4 class="label">{{localize "DICE.Banes.other"}}</h4>
         </div>
         <button type="button" class="icon fa-solid fa-arrow-up"  {{#unless canIncreaseBanes}}disabled{{/unless}}
                 data-action="bane-add"></button>
@@ -29,15 +29,15 @@
 
 <div class="bonuses flexrow">
     <div class="bonus ability hex">
-        <h4 class="label">Ability</h4>
+        <h4 class="label">{{localize "DICE.Ability"}}</h4>
         <span class="value ability">{{ability}}</span>
     </div>
     <div class="bonus enchantment hex">
-        <h4 class="label">Enchantment</h4>
+        <h4 class="label">{{localize "DICE.Enchantment"}}</h4>
         <span class="value enchantment">{{enchantment}}</span>
     </div>
     <div class="bonus skill hex">
-        <h4 class="label">Skill</h4>
+        <h4 class="label">{{localize "DICE.Skill"}}</h4>
         <span class="value skill">{{skill}}</span>
     </div>
 </div>
