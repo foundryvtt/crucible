@@ -27,7 +27,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Bleeding"),
-    name: "Bleeding",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Bleeding"),
     icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -54,7 +54,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Burning"),
-    name: "Burning",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Burning"),
     icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -82,7 +82,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Freezing"),
-    name: "Freezing",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Freezing"),
     icon: "icons/magic/water/orb-ice-web.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -109,7 +109,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Confused"),
-    name: "Confused",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Confused"),
     icon: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -136,7 +136,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Corroding"),
-    name: "Corroding",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Corroding"),
     icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -153,7 +153,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
-    name: "Decaying",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Decaying"),
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -169,7 +169,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
 export function entropy(actor) {
   return {
     _id: getEffectId("Entropy"),
-    name: "Entropy",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Entropy"),
     icon: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -189,7 +189,7 @@ export function entropy(actor) {
 export function irradiated(actor) {
   return {
     _id: getEffectId("Irradiated"),
-    name: "Irradiated",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Irradiated"),
     icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -209,7 +209,7 @@ export function irradiated(actor) {
 export function mending(actor, target) {
   return {
     _id: getEffectId("Mending"),
-    name: "Mending",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Mending"),
     icon: "icons/magic/life/cross-beam-green.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -227,7 +227,7 @@ export function mending(actor, target) {
 export function inspired(actor, target) {
   return {
     _id: getEffectId("Inspired"),
-    name: "Inspired",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Inspired"),
     icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -252,7 +252,7 @@ export function restrained(actor, {ability="wisdom", amount, turns=3, damageType
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Restrained"),
-    name: "Restrained",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Restrained"),
     icon: "icons/magic/control/debuff-chains-shackle-movement-red.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -278,7 +278,7 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Poisoned"),
-    name: "Poisoned",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Poisoned"),
     icon: "icons/magic/unholy/orb-smoking-green.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -305,7 +305,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Shocked"),
-    name: "Shocked",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Shocked"),
     icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     duration: {turns},
     origin: actor.uuid,
@@ -325,7 +325,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
 export function staggered(actor, target) {
   return {
     _id: getEffectId("Staggered"),
-    name: "Staggered",
+    name: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Staggered"),
     icon: "icons/skills/melee/strike-hammer-destructive-orange.webp",
     duration: {turns: 1},
     origin: actor.uuid,
