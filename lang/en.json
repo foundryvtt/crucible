@@ -357,7 +357,7 @@
   "WARNINGS": {
     "NoAncestry": "Choose an Ancestry",
     "NoBackground": "Choose a Background",
-    "NoDragTalent": "Talents can only be added to a protagonist Actor via the Talent Tree.",
+    "NoDragTalent": "Talents can only be added to a Hero Actor via the Talent Tree.",
     "OverspentAbility": "Too many Ability Points have been spent",
     "OverspentTalent": "Too many Talents have been taken",
     "UnderspentAbility": "Spend Ability Points",
