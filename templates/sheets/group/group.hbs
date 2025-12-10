@@ -27,7 +27,7 @@
             <div class="travel-pace labeled-hex">
                 <h4 class="label">{{systemFields.movement.fields.pace.label}}</h4>
                 <button type="button" class="value icon {{pace.icon}}" data-action="cyclePace"
-                        data-tooltip="ACTOR.GROUP.LABELS.cyclePace" data-tooltip-direction="RIGHT"></button>
+                        aria-label="{{localize "ACTOR.GROUP.LABELS.cyclePace"}}" data-tooltip data-tooltip-direction="RIGHT"></button>
                 <span class="label footer">{{localize pace.label}}</span>
             </div>
         </div>
@@ -38,7 +38,7 @@
             <div class="milestones labeled-hex">
                 <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
                 <button type="button" class="value" data-action="awardMilestone"
-                        data-tooltip="ADVANCEMENT.MilestoneAward" data-tooltip-direction="RIGHT">
+                        aria-label="{{localize "ADVANCEMENT.MilestoneAward"}}" data-tooltip data-tooltip-direction="RIGHT">
                     {{system.advancement.totalMilestones}}
                 </button>
                 <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{system.advancement.expectedLevel}}</span>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="controls">
                     {{#if @root.isEditable}}
-                    <a class="control icon fa-solid fa-times" data-tooltip="{{localize "ACTOR.GROUP.TooltipRemoveMember"}}" data-action="memberRemove"></a>
+                    <a class="control icon fa-solid fa-times" aria-label="{{localize "ACTOR.GROUP.ACTIONS.RemoveMember"}}" data-tooltip data-action="memberRemove"></a>
                     {{/if}}
                 </div>
             </li>

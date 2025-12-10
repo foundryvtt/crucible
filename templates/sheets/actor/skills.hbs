@@ -8,7 +8,7 @@
             <li class="skill line-item" data-skill="{{skillId}}">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.label}}">
                 <div class="title">
-                    <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.label}}</a></h4>
+                    <h4 aria-label="{{localize "ACTOR.ACTIONS.RollCheck"}}" data-tooltip data-action="skillRoll"><a>{{skill.label}}</a></h4>
                 </div>
                 <div class="tags abilities">
                     {{#each skill.abilityAbbrs}}
@@ -17,7 +17,7 @@
                 </div>
                 <div class="bonus flexrow">
                     <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
-                    <span class="passive" data-tooltip="Passive: {{skill.tooltips.passive}}">{{skill.passive}}</span>
+                    <span class="passive" data-tooltip="{{localize "SKILL.PassiveSpecific" passive=skill.tooltips.passive}}">{{skill.passive}}</span>
                 </div>
                 <div class="ranks flexrow">
                     {{#each skill.pips}}<span class="pip {{this}}"></span>{{/each}}

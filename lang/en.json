@@ -189,6 +189,16 @@
 },
 
 "ACTOR": {
+  "ACTIONS": {
+    "DecreaseAbility": "Decrease {ability}",
+    "IncreaseAbility": "Increase {ability}",
+    "LevelUp": "Level Up!",
+    "TalentTreeClose": "Close Talent Tree",
+    "TalentTreeOpen": "Open Talent Tree",
+    "ResetTalents": "Reset All Talents",
+    "RollCheck": "Roll Check",
+    "ToggleTree": "Toggle Talent Tree"
+  },
   "FIELDS": {
     "abilities": {
       "label": "Ability Scores"
@@ -366,6 +376,9 @@
 },
 
 "ACTOR.GROUP": {
+  "ACTIONS": {
+    "RemoveMember": "Remove Member"
+  },
   "FIELDS": {
     "advancement": {
       "label": "Advancement",
@@ -410,14 +423,7 @@
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 "ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
 "ACTOR.Details": "Details",
-"ACTOR.LevelUp": "Level Up!",
 "ACTOR.ProgressionRequirements": "Progression Requirements",
-"ACTOR.TalentTreeClose": "Close Talent Tree",
-"ACTOR.TalentTreeOpen": "Open Talent Tree",
-"ACTOR.TooltipResetTalents": "Reset All Talents",
-"ACTOR.TooltipToggleTree": "Toggle Talent Tree",
-
-"ACTOR.GROUP.TooltipRemoveMember": "Remove Member",
 
 "ANCESTRY": {
   "FIELDS": {
@@ -605,12 +611,11 @@
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
-"ACTION.TooltipAddFavorite": "Add Favorite",
-"ACTION.TooltipRemoveFavorite": "Remove Favorite",
-
 "ACTION.ACTIONS": {
+  "ADD_FAVORITE": "Add Favorite",
   "DELETE": "Delete Action: {name}",
-  "DELETE_CONFIRM": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?"
+  "DELETE_CONFIRM": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
+  "REMOVE_FAVORITE": "Remove Favorite"
 },
 
 "ADVANCEMENT.Level": "Level",
@@ -877,6 +882,12 @@
 "DICE.SetDifficulty": "Set Difficulty",
 
 "ACTIVE_EFFECT": {
+  "ACTIONS": {
+    "DELETE": "Delete Effect",
+    "DISABLE": "Disable Effect",
+    "EDIT": "Edit Effect",
+    "ENABLE": "Enable Effect"
+  },
   "STATUSES": {
     "Asleep": "Asleep",
     "Blind": "Blinded",
@@ -909,12 +920,16 @@
   }
 },
 
-"ACTIVE_EFFECT.TooltipDelete": "Delete Effect",
-"ACTIVE_EFFECT.TooltipDisable": "Disable Effect",
-"ACTIVE_EFFECT.TooltipEdit": "Edit Effect",
-"ACTIVE_EFFECT.TooltipEnable": "Enable Effect",
-
 "ITEM": {
+  "ACTIONS": {
+    "CREATE": "Create Item",
+    "DELETE": "Delete Item",
+    "DROP": "Drop Weapon",
+    "EDIT": "Edit Item",
+    "EQUIP": "Equip {typeLabel}",
+    "RECOVER": "Recover {typeLabel}",
+    "UN_EQUIP": "Un-equip {typeLabel}"
+  },
   "FIELDS": {
     "identifier": {
       "label": "Identifier",
@@ -1000,14 +1015,6 @@
 "ITEM.QualityFine": "Fine",
 "ITEM.QualitySuperior": "Superior",
 "ITEM.QualityMasterwork": "Masterwork",
-
-"ITEM.TooltipCreate": "Create Item",
-"ITEM.TooltipDelete": "Delete Item",
-"ITEM.TooltipDrop": "Drop Weapon",
-"ITEM.TooltipEdit": "Edit Item",
-"ITEM.TooltipEquip": "Equip {typeLabel}",
-"ITEM.TooltipRecover": "Recover {typeLabel}",
-"ITEM.TooltipUnEquip": "Un-equip {typeLabel}",
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
@@ -1225,6 +1232,7 @@
   "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "CategoryHeader": "{category} Skills",
+  "PassiveSpecific": "Passive: {passive}",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
   "SpecializationPaths": "Specialization Paths",
@@ -1385,9 +1393,11 @@
     }
   },
   "ACTIONS": {
-    "ADD": "Add Action",
-    "DELETE": "Delete Action",
-    "EDIT": "Edit Action",
+    "ACTION_ADD": "Add Action",
+    "ACTION_DELETE": "Delete Action",
+    "ACTION_EDIT": "Edit Action",
+    "DELETE": "Delete Talent",
+    "EDIT": "Edit Talent",
     "HOOK_ADD": "Add Hook",
     "HOOK_DELETE": "Delete Hook"
   },
@@ -1448,9 +1458,6 @@
     }
   }
 },
-
-"TALENT.TooltipDelete": "Delete Talent",
-"TALENT.TooltipEdit": "Edit Talent",
 
 "TAXONOMY": {
   "FIELDS": {

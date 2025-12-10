@@ -89,11 +89,11 @@
             <span class="input score">{{ability.value}}</span>
             {{#if ability.canDecrease}}
             <a class="button icon fa-solid fa-caret-down decrease" data-action="abilityDecrease"
-               data-tooltip="Decrease {{ability.label}}" data-tooltip-direction="LEFT"></a>
+               aria-label="{{localize "ACTOR.ACTIONS.DecreaseAbility" ability=ability.label}}" data-tooltip data-tooltip-direction="LEFT"></a>
             {{/if}}
             {{#if ability.canIncrease}}
             <a class="button icon fa-solid fa-caret-up increase" data-action="abilityIncrease"
-               data-tooltip="Increase {{ability.label}}" data-tooltip-direction="RIGHT"></a>
+               aria-label="{{localize "ACTOR.ACTIONS.IncreaseAbility" ability=ability.label}}" data-tooltip data-tooltip-direction="RIGHT"></a>
             {{/if}}
         </div>
         {{/each}}

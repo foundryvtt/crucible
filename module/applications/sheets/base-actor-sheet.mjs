@@ -470,14 +470,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     let equipAction;
     if ( item.system.dropped ) {
       config.cssClass += " dropped";
-      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: game.i18n.format("ITEM.TooltipRecover", {typeLabel})};
+      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: game.i18n.format("ITEM.ACTIONS.RECOVER", {typeLabel})};
     }
     else equipAction = item.system.equipped ?
-      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.TooltipUnEquip", {typeLabel})} :
-      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.TooltipEquip", {typeLabel})};
+      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.ACTIONS.UN_EQUIP", {typeLabel})} :
+      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.ACTIONS.EQUIP", {typeLabel})};
     config.actions.push(equipAction);
     if ( (item.type === "weapon") && !item.system.dropped ) {
-      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.TooltipDrop"});
+      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.ACTIONS.DROP"});
     }
     config.section = config.equipped ? CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type] : "backpack";
   }
@@ -506,8 +506,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         img: action.img,
         tags: action.getTags().activation,
         canEdit: !!action.parent,
-        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.TooltipRemoveFavorite"} :
-          {icon: "fa-regular fa-star", tooltip: "ACTION.TooltipAddFavorite"}
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.ADD_FAVORITE"} :
+          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.REMOVE_FAVORITE"}
       }
 
       // Classify actions
@@ -564,8 +564,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         name: effect.name,
         tags: tags,
         uuid: effect.uuid,
-        disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.TooltipEnable"}
-          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.TooltipDisable"},
+        disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.ACTIONS.ENABLE"}
+          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.DISABLE"},
       };
       sections[tags.context.section].effects.push(e);
     }

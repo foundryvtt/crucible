@@ -32,7 +32,7 @@
             {{#each config.paths as |path|}}
             <h3>
                 <a class="button icon choose-path {{path.actionIcon}}" data-action="choosePath" data-path="{{path.id}}"
-                   data-tooltip="{{path.actionTooltip}}"></a>
+                   aria-label="{{localize path.actionTooltip}}" data-tooltip></a>
                 {{path.name}}
             </h3>
             {{{path.overview}}}

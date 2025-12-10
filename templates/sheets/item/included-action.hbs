@@ -5,8 +5,8 @@
     </div>
     {{#if isEditable}}
     <div class="controls">
-        <a class="button icon fa-solid fa-edit" data-action="actionEdit" data-tooltip="TALENT.ACTIONS.EDIT"></a>
-        <a class="button icon fa-solid fa-trash" data-action="actionDelete" data-tooltip="TALENT.ACTIONS.DELETE"></a>
+        <a class="button icon fa-solid fa-edit" data-action="actionEdit" aria-label="{{localize "TALENT.ACTIONS.ACTION_EDIT"}}" data-tooltip></a>
+        <a class="button icon fa-solid fa-trash" data-action="actionDelete" aria-label="{{localize "TALENT.ACTIONS.ACTION_DELETE"}}" data-tooltip></a>
     </div>
     {{/if}}
     <div class="description">{{{action.description}}}</div>
