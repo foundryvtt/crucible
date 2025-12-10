@@ -245,8 +245,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     ancestry.features.push({
       label: schema.getField("movement").label,
       tags: [
-        {text: `Size ${size}ft`},
-        {text: `Stride ${stride}ft`}
+        {text: game.i18n.format("ACTOR.SizeSpecific", {size})},
+        {text: game.i18n.format("ACTOR.StrideSpecific", {stride})}
       ]
     });
 
