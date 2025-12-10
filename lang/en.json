@@ -666,10 +666,10 @@
 "ACTION.TagCostWeapon": "W",
 "ACTION.TagCostWeaponAction": "W{action}A",
 
-"ACTION.Tags.Activation": "Activation Tags",
-"ACTION.Tags.Action": "Action Tags",
-"ACTION.Tags.Context": "Context Tags",
-"ACTION.Tags.TargetLimit": "Limit {limit}",
+"ACTION.TAGS.Activation": "Activation Tags",
+"ACTION.TAGS.Action": "Action Tags",
+"ACTION.TAGS.Context": "Context Tags",
+"ACTION.TAGS.TargetLimit": "Limit {limit}",
 
 "ACTION.ACTIONS": {
   "DELETE": "Delete Action: {name}",

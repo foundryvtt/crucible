@@ -1610,9 +1610,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   getTags() {
     const tags = {
-      activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: game.i18n.localize("ACTION.Tags.Activation")}),
-      action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: game.i18n.localize("ACTION.Tags.Action")}),
-      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: game.i18n.localize("ACTION.Tags.Context")}),
+      activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: game.i18n.localize("ACTION.TAGS.Activation")}),
+      action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: game.i18n.localize("ACTION.TAGS.Action")}),
+      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: game.i18n.localize("ACTION.TAGS.Context")}),
     };
 
     // Action Tags
@@ -1624,7 +1624,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Context Tags
     const ctx = this.usage.context;
-    tags.context = new ActionTagGroup({icon: ctx.icon || "fa-solid fa-bullseye", tooltip: ctx.label || game.i18n.localize("ACTION.Tags.Context")});
+    tags.context = new ActionTagGroup({icon: ctx.icon || "fa-solid fa-bullseye", tooltip: ctx.label || game.i18n.localize("ACTION.TAGS.Context")});
     for ( const [k, v] of Object.entries(ctx.tags) ) {
       tags.context[k] = v;
     }
@@ -1638,7 +1638,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( this.range.weapon && !this.actor ) r = `+${r}`;
         parts.push(r);
       }
-      if ( this.target.limit > 0 ) parts.push(game.i18n.format("ACTION.Tags.TargetLimit", {limit: this.target.limit}));
+      if ( this.target.limit > 0 ) parts.push(game.i18n.format("ACTION.TAGS.TargetLimit", {limit: this.target.limit}));
       if ( this.target.multiple > 1 ) parts.push(`x${this.target.multiple}`);
       tags.activation.target = parts.join(" ");
     }
