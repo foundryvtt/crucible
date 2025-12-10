@@ -59,12 +59,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1759877572761
-  modifiedTime: 1762817782668
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1765403195009
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: engulfingDarknes
-sort: 200000
+sort: 500000
 _key: '!items!engulfingDarknes'

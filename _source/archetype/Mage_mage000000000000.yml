@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.recognizespellcr
     - Compendium.crucible.talent.Item.runeFlame0000000
     - Compendium.crucible.talent.Item.runeLightning000
+    - Compendium.crucible.talent.Item.talismanWeaponTr
   identifier: mage
   skills:
     - awareness
@@ -34,7 +35,7 @@ _stats:
   systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1685656712818
-  modifiedTime: 1763318016086
+  modifiedTime: 1765314743768
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null

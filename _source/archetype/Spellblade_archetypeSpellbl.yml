@@ -18,6 +18,7 @@ system:
     - Compendium.crucible.talent.Item.gesturestrike000
     - Compendium.crucible.talent.Item.opportunisticspe
     - Compendium.crucible.talent.Item.stronggrip000000
+    - Compendium.crucible.talent.Item.gesturearrow0000
   skills:
     - athletics
     - arcana
@@ -33,11 +34,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.2
   createdTime: 1749246074533
-  modifiedTime: 1755978438372
+  modifiedTime: 1765314853909
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 400000
 _key: '!items!archetypeSpellbl'

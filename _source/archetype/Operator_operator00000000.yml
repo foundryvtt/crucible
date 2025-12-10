@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.strategicreposit
     - Compendium.crucible.talent.Item.subtleextricatio
     - Compendium.crucible.talent.Item.weakpoints000000
+    - Compendium.crucible.talent.Item.lightWeaponTrain
   skills:
     - awareness
     - stealth
@@ -33,11 +34,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.2
   createdTime: 1749849741883
-  modifiedTime: 1755978438372
+  modifiedTime: 1765314780520
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: operator00000000
 sort: 800000
