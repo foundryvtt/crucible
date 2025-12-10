@@ -189,6 +189,12 @@
 },
 
 "ACTOR": {
+  "ACTIONS": {
+    "AppliedDetailItem": "Applied the {name} {type} to {actor}.",
+    "ClearedDetailItem": "Removed the {type} from {actor}.",
+    "DecreaseAbility": "Decrease Ability Score",
+    "IncreaseAbility": "Increase Ability Score"
+  },
   "CREATION": {
     "AbandonContent": "Discard creation progress and exit the creator?",
     "AbandonTitle": "Abandon Creation Process?",
@@ -380,16 +386,12 @@
   }
 },
 
-"ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
-"ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
 "ACTOR.KnowledgeSpecific": "Knowledge: {knowledge}",
 "ACTOR.LanguageSpecific": "Language: {language}",
 "ACTOR.LevelSpecific": "Level {level}",
 "ACTOR.ResistanceSpecific": "Resistance: {resistance}",
 "ACTOR.SizeSpecific": "Size {size}",
 "ACTOR.StrideSpecific": "Stride {stride}",
-"ACTOR.TooltipDecreaseAbility": "Decrease Ability Score",
-"ACTOR.TooltipIncreaseAbility": "Increase Ability Score",
 "ACTOR.VulnerabilitySpecific": "Vulnerability: {vulnerability}",
 
 "ANCESTRY": {

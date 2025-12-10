@@ -1738,7 +1738,7 @@ export default class CrucibleActor extends Actor {
     let message;
     if ( !item ) {
       updateData[key] = null;
-      message = game.i18n.format("ACTOR.ClearedDetailItem", {type, actor: this.name});
+      message = game.i18n.format("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
     }
 
     // Add new detail data
@@ -1771,7 +1771,7 @@ export default class CrucibleActor extends Actor {
 
       // Include granted items in Actor update
       if ( updateItems.length ) updateData.items = updateItems;
-      message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
+      message = game.i18n.format("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
 
     // Update locally (for example during character creation)
