@@ -140,6 +140,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       effectsHTML: await this.#renderEffectsHTML(),
       fields: this.action.constructor.schema.fields,
       headerTags: this.action.tags.reduce((arr, t) => {
+        t = SYSTEM.ACTION.TAGS[t];
         if ( !t.internal ) arr.push(t);
         return arr;
       }, []),
