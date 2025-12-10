@@ -470,14 +470,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     let equipAction;
     if ( item.system.dropped ) {
       config.cssClass += " dropped";
-      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: `Recover ${typeLabel}`};
+      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: game.i18n.format("ITEM.TooltipRecover", {typeLabel})};
     }
     else equipAction = item.system.equipped ?
-      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: `Un-equip ${typeLabel}`} :
-      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: `Equip ${typeLabel}`};
+      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.TooltipUnEquip", {typeLabel})} :
+      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.TooltipEquip", {typeLabel})};
     config.actions.push(equipAction);
     if ( (item.type === "weapon") && !item.system.dropped ) {
-      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
+      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.TooltipDrop"});
     }
     config.section = config.equipped ? CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type] : "backpack";
   }
@@ -490,11 +490,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActions() {
     const sections = {
-      attack: {label: "Attack Actions", actions: []},
-      spell: {label: "Spellcraft Actions", actions: []},
-      reaction: {label: "Reactions", actions: []},
-      movement: {label: "Movement Actions", actions: []},
-      general: {label: "General Actions", actions: []}
+      attack: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_ATTACK.header"), actions: []},
+      spell: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_SPELL.header"), actions: []},
+      reaction: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_REACTION.header"), actions: []},
+      movement: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_MOVEMENT.header"), actions: []},
+      general: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_GENERAL.header"), actions: []}
     };
     const favorites = [];
 
@@ -506,8 +506,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         img: action.img,
         tags: action.getTags().activation,
         canEdit: !!action.parent,
-        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "Remove Favorite"} :
-          {icon: "fa-regular fa-star", tooltip: "Add Favorite"}
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.TooltipRemoveFavorite"} :
+          {icon: "fa-regular fa-star", tooltip: "ACTION.TooltipAddFavorite"}
       }
 
       // Classify actions
@@ -548,9 +548,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActiveEffects() {
     const sections = {
-      temporary: {label: "Temporary Effects", effects: []},
-      persistent: {label: "Persistent Effects", effects: []},
-      disabled: {label: "Disabled Effects", effects: []}
+      temporary: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_TEMPORARY.header"), effects: []},
+      persistent: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_PERSISTENT.header"), effects: []},
+      disabled: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_DISABLED.header"), effects: []}
     };
 
     // Categorize and prepare effects
@@ -564,8 +564,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         name: effect.name,
         tags: tags,
         uuid: effect.uuid,
-        disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "Enable Effect"}
-          : {icon: "fa-solid fa-toggle-on", tooltip: "Disable Effect"},
+        disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.TooltipEnable"}
+          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.TooltipDisable"},
       };
       sections[tags.context.section].effects.push(e);
     }

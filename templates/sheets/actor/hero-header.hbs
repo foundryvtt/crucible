@@ -8,9 +8,9 @@
                     data-tooltip-class="crucible crucible-tooltip incomplete"></button>
             {{else if incomplete.level}}
             <button type="button" class="icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
-                    data-tooltip="Level Up!"></button>
+                    data-tooltip="{{localize "ACTOR.LevelUp"}}"></button>
             {{/if}}
-            <span>Level</span>
+            <span>{{localize "ADVANCEMENT.Level"}}</span>
             <div class="milestones">
                 {{#if actor.system.advancement.progress}}
                 <span class="bar" style="width: {{actor.system.advancement.pct}}%"></span>

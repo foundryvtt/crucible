@@ -285,6 +285,21 @@
       "header": "Accessories",
       "empty": "Equip up to {slots} accessories from your Backpack toggling the shield icon."
     },
+    "ACTIONS_ATTACK": {
+      "header": "Attack Actions"
+    },
+    "ACTIONS_GENERAL": {
+      "header": "General Actions"
+    },
+    "ACTIONS_MOVEMENT": {
+      "header": "Movement Actions"
+    },
+    "ACTIONS_REACTION": {
+      "header": "Reactions"
+    },
+    "ACTIONS_SPELL": {
+      "header": "Spellcraft Actions"
+    },
     "ACTIVE": {
       "header": "Active Abilities"
     },
@@ -295,6 +310,15 @@
     "BACKPACK": {
       "header": "Backpack",
       "empty": "Add items by dropping them from the provided Crucible system compendium packs."
+    },
+    "EFFECTS_DISABLED": {
+      "header": "Disabled Effects"
+    },
+    "EFFECTS_PERSISTENT": {
+      "header": "Persistent Effects"
+    },
+    "EFFECTS_TEMPORARY": {
+      "header": "Temporary Effects"
     },
     "ICONIC": {
       "header": "Iconic Spells",
@@ -321,6 +345,23 @@
       "header": "Weapons",
       "empty": "Equip weapons from your Backpack toggling the shield icon."
     }
+  },
+  "SHEET": {
+    "ABILITIES": "Abilities",
+    "ABILITY_POINTS": "Ability Points",
+    "DEFENSES": "Defenses",
+    "POINTS_AVAILABLE": "Available",
+    "POINTS_SPENT": "Spent",
+    "RESOURCES": "Resources"
+  },
+  "WARNINGS": {
+    "NoAncestry": "Choose an Ancestry",
+    "NoBackground": "Choose a Background",
+    "NoDragTalent": "Talents can only be added to a protagonist Actor via the Talent Tree.",
+    "OverspentAbility": "Too many Ability Points have been spent",
+    "OverspentTalent": "Too many Talents have been taken",
+    "UnderspentAbility": "Spend Ability Points",
+    "UnderspentTalent": "Spend Talent Points"
   }
 },
 
@@ -368,6 +409,15 @@
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 "ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
+"ACTOR.Details": "Details",
+"ACTOR.LevelUp": "Level Up!",
+"ACTOR.ProgressionRequirements": "Progression Requirements",
+"ACTOR.TalentTreeClose": "Close Talent Tree",
+"ACTOR.TalentTreeOpen": "Open Talent Tree",
+"ACTOR.TooltipResetTalents": "Reset All Talents",
+"ACTOR.TooltipToggleTree": "Toggle Talent Tree",
+
+"ACTOR.GROUP.TooltipRemoveMember": "Remove Member",
 
 "ANCESTRY": {
   "FIELDS": {
@@ -554,6 +604,9 @@
 "ACTION.TagIconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
+
+"ACTION.TooltipAddFavorite": "Add Favorite",
+"ACTION.TooltipRemoveFavorite": "Remove Favorite",
 
 "ACTION.ACTIONS": {
   "DELETE": "Delete Action: {name}",
@@ -856,6 +909,11 @@
   }
 },
 
+"ACTIVE_EFFECT.TooltipDelete": "Delete Effect",
+"ACTIVE_EFFECT.TooltipDisable": "Disable Effect",
+"ACTIVE_EFFECT.TooltipEdit": "Edit Effect",
+"ACTIVE_EFFECT.TooltipEnable": "Enable Effect",
+
 "ITEM": {
   "FIELDS": {
     "identifier": {
@@ -942,6 +1000,14 @@
 "ITEM.QualityFine": "Fine",
 "ITEM.QualitySuperior": "Superior",
 "ITEM.QualityMasterwork": "Masterwork",
+
+"ITEM.TooltipCreate": "Create Item",
+"ITEM.TooltipDelete": "Delete Item",
+"ITEM.TooltipDrop": "Drop Weapon",
+"ITEM.TooltipEdit": "Edit Item",
+"ITEM.TooltipEquip": "Equip {typeLabel}",
+"ITEM.TooltipRecover": "Recover {typeLabel}",
+"ITEM.TooltipUnEquip": "Un-equip {typeLabel}",
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
@@ -1153,14 +1219,20 @@
       "hint": "You are peerless in your mastery of this skill and of your advanced specialization path."
     }
   },
+  "AcquiredRanks": "Acquired Ranks",
   "PageSheet": "Crucible Skill",
   "SheetTitle": "[{actor}] {skill} Skill",
   "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
+  "CategoryHeader": "{category} Skills",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
+  "SpecializationPaths": "Specialization Paths",
+  "SpecializationPathSelect": "Select Specialization",
+  "SpecializationPathSpecific": "Specialization Path: {path}",
   "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
-  "TooltipPassive": "12 + Score"
+  "TooltipPassive": "12 + Score",
+  "UnacquiredRanks": "Unacquired Ranks"
 },
 
 "SPELL": {
@@ -1323,6 +1395,7 @@
     "AlreadyOwned": "You already own {name} and cannot add it a second time.",
     "Banned": "You cannot purchase additional Signature talents at this node or tier.",
     "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+    "CannotUse": "You cannot use this talent.",
     "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
     "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
     "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
@@ -1375,6 +1448,9 @@
     }
   }
 },
+
+"TALENT.TooltipDelete": "Delete Talent",
+"TALENT.TooltipEdit": "Edit Talent",
 
 "TAXONOMY": {
   "FIELDS": {

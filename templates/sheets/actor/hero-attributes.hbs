@@ -2,7 +2,7 @@
          data-tab="{{tabs.attributes.id}}" data-group="{{tabs.attributes.group}}">
 
     <div class="sheet-section resources flexrow">
-        <h3>Resources</h3>
+        <h3>{{localize "ACTOR.SHEET.RESOURCES"}}</h3>
         <div class="resource health flexcol" style="{{resources.health.cssPct}}">
             <h4 class="label above" data-tooltip="{{resources.health.tooltip}}">{{resources.health.label}}</h4>
             <div class="pool short flexrow">
@@ -82,7 +82,7 @@
     </div>
 
     <div class="sheet-section abilities">
-        <h3>Abilities</h3>
+        <h3>{{localize "ACTOR.SHEET.ABILITIES"}}</h3>
         {{#each abilityScores as |ability|}}
         <div class="ability {{ability.id}} {{ability.type}} flexcol" data-ability="{{ability.id}}">
             <h4 class="label">{{ability.label}}</h4>
@@ -99,7 +99,7 @@
         {{/each}}
         {{#if points.ability.requireInput}}
         <footer class="footer-section point-pools flexrow">
-            <span class="label">Ability Points</span>
+            <span class="label">{{localize "ACTOR.SHEET.ABILITY_POINTS"}}</span>
             {{#if points.ability.pool}}
             <span class="value hex filled">{{points.ability.pool}}</span>
             {{else if points.ability.available}}
@@ -110,7 +110,7 @@
     </div>
 
     <div class="sheet-section defenses">
-        <h3>Defenses</h3>
+        <h3>{{localize "ACTOR.SHEET.DEFENSES"}}</h3>
         <div class="physical flexrow">
             <div class="defense total">
                 <h4 class="label">{{defenses.physical.label}}</h4>
@@ -154,7 +154,7 @@
     </div>
 
     <div class="sheet-section resistances flexrow">
-        <h3>Resistances</h3>
+        <h3>{{localize "ACTOR.FIELDS.resistances.label"}}</h3>
         {{#each resistances as |group|}}
         <div class="resistance-group flexcol">
             {{#each group.resistances as |r|}}
