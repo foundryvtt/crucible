@@ -757,6 +757,18 @@
   }
 },
 
+"CONSUMABLE.Uses": {
+  "Of": "of",
+  "TagMax": {
+    "one": "{value} Use",
+    "other": "{value} Uses"
+  },
+  "TagPartial": {
+    "one": "{value}/{max} Use",
+    "other": "{value}/{max} Uses"
+  }
+},
+
 "CURRENCY_DENOMINATIONS": {
   "CP": {
     "abbreviation": "CP",
@@ -918,11 +930,13 @@
   "SHEET": {
     "DETAILS": "Item Details",
     "TALENT_ADD": "Add Talent",
+    "TALENT_CONFIGURATION": "Talent Configuration",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
     "EQUIPMENT": "Equipment Details",
     "EQUIPMENT_REMOVE": "Remove Equipment",
     "EQUIPMENT_DROP": "Add starting equipment by dragging and dropping items into this area.",
+    "SPELLCRAFT": "Spellcraft",
     "TYPE": "Equipment Type",
     "SCALED_PRICE": "Scaled Price"
   },
@@ -936,6 +950,18 @@
 "ITEM.EnchantmentMinor": "Minor",
 "ITEM.EnchantmentMajor": "Major",
 "ITEM.EnchantmentLegendary": "Legendary",
+
+"ITEM.TagsArmor": "{armor} Armor",
+"ITEM.TagsBlock": "Block {block}",
+"ITEM.TagsDamage": "{damage} Damage",
+"ITEM.TagsDefense": "{defense} Defense",
+"ITEM.TagsDepleted": "Depleted",
+"ITEM.TagsDodge": "{dodge} Dodge",
+"ITEM.TagsDodgeBase": "{dodge}+ Dodge",
+"ITEM.TagsNotInvested": "Not Invested",
+"ITEM.TagsNotKnown": "Not Known",
+"ITEM.TagsParry": "Parry {parry}",
+"ITEM.TagsRange": "Range {range}",
 
 "ITEM.QualityShoddy": "Shoddy",
 "ITEM.QualityStandard": "Standard",
@@ -1045,9 +1071,11 @@
     "INPUT_ADD": "Add Input Group",
     "INPUT_DROP": "Drop Input Item",
     "INPUT_REMOVE": "Remove Input Group",
+    "INPUTS": "Inputs",
     "OUTPUT_ADD": "Add Output Group",
     "OUTPUT_DROP": "Drop Output Item",
-    "OUTPUT_REMOVE": "Remove Output Group"
+    "OUTPUT_REMOVE": "Remove Output Group",
+    "OUTPUTS": "Outputs"
   }
 },
 
@@ -1376,6 +1404,8 @@
   }
 },
 
+"TALENT.GrantsSpells": "<strong>Iconic Spells:</strong>: {name} grants {spells} Iconic Spell slots.",
+
 "TAXONOMY": {
   "FIELDS": {
     "abilities": {
@@ -1441,6 +1471,7 @@
   "SHEET": {
     "CHOOSE": "Choose Taxonomy",
     "CLEAR": "Clear Taxonomy",
+    "PHYSIOLOGY": "Physiology",
     "STATURE": "Taxonomy Stature"
   }
 },

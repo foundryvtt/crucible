@@ -76,12 +76,12 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       quality: this.config.quality.label,
       ...parentTags
     };
-    if ( this.isDepleted ) tags.uses = "Depleted";
+    if ( this.isDepleted ) tags.uses = game.i18n.localize("ITEM.TagsDepleted");
     else {
       const {value, max} = this.uses;
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const usesLabel = {one: "Use", other: "Uses"}[plurals.select(max)];
-      tags.uses = value === max ? `${value} ${usesLabel}` : `${value}/${max} ${usesLabel}`;
+      const usesLabel = `CONSUMABLE.Uses.Tag${value === max ? "Max" : "Partial"}.${plurals.select(max)}`;
+      tags.uses = game.i18n.format(usesLabel, {value, max});
     }
     return tags;
   }
