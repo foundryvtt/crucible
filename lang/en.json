@@ -529,6 +529,7 @@
 "ACTION.NoTargets": "No Targets",
 "ACTION.Overview": "Action Overview",
 "ACTION.PlaceTemplate": "Place Template",
+"ACTION.RemoveActor": "Remove Actor",
 "ACTION.RequestActorsHint": "Drag individual Actors or groups here to request they participate in this roll.",
 "ACTION.RequestRollsSuffix": "{label}: Request Rolls",
 "ACTION.RequestedActors": "Requested Actors",
