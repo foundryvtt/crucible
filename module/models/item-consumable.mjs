@@ -80,7 +80,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
     else {
       const {value, max} = this.uses;
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const usesLabel = `CONSUMABLE.Uses.Tag${value === max ? "Max" : "Partial"}.${plurals.select(max)}`;
+      const usesLabel = `CONSUMABLE.USES.Tag${value === max ? "Max" : "Partial"}.${plurals.select(max)}`;
       tags.uses = game.i18n.format(usesLabel, {value, max});
     }
     return tags;

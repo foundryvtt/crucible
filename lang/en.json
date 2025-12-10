@@ -757,7 +757,7 @@
   }
 },
 
-"CONSUMABLE.Uses": {
+"CONSUMABLE.USES": {
   "Of": "of",
   "TagMax": {
     "one": "{value} Use",
