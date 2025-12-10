@@ -1,7 +1,7 @@
 <section class="tab sheet-body flexcol {{tabs.description.cssClass}}"
          data-group="{{tabs.description.group}}" data-tab="{{tabs.description.id}}">
     <fieldset>
-        <legend>Action Overview</legend>
+        <legend>{{localize "ACTION.Overview"}}</legend>
         {{formGroup fields.id value=action.id}}
         {{formGroup fields.description value=action.description height=300}}
         {{formGroup fields.condition value=action.condition rows=2 stacked=true}}

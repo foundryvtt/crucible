@@ -4,7 +4,7 @@
     {{#if boon.number}}
     <div class="boon flexrow">
         <span class="label">{{localize boon.label}}</span>
-        <span class="type"><i class="fa-solid fa-arrow-up"></i> Boon</span>
+        <span class="type"><i class="fa-solid fa-arrow-up"></i> {{localize "DICE.Boons.one"}}</span>
         <span class="value">{{boon.number}}</span>
     </div>
     {{/if}}
@@ -17,7 +17,7 @@
     {{#if bane.number}}
     <div class="bane flexrow">
         <span class="label">{{localize bane.label}}</span>
-        <span class="type"><i class="fa-solid fa-arrow-down"></i> Bane</span>
+        <span class="type"><i class="fa-solid fa-arrow-down"></i> {{localize "DICE.Banes.one"}}</span>
         <span class="value">{{bane.number}}</span>
     </div>
     {{/if}}

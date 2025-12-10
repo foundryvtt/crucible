@@ -7,9 +7,9 @@
     <section class="difficulty form-group">
         <div class="form-fields">
             <select name="difficultyTier">
-                {{selectOptions difficulties selected=difficulty.dc valueAttr="dc" labelAttr="label" blank="Custom Difficulty"}}
+                {{selectOptions difficulties selected=difficulty.dc valueAttr="dc" labelAttr="label" blank="DICE.DIFFICULTIES.Custom" localize=true}}
             </select>
-            <label>DC</label>
+            <label>{{localize "DICE.DC"}}</label>
             {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
         </div>
     </section>
@@ -24,7 +24,7 @@
 
 {{#if request}}
 <aside class="request-form standard-form">
-    <h3 class="divider">Requested Actors</h3>
+    <h3 class="divider">{{localize "ACTION.RequestedActors"}}</h3>
     <div class="requested-actors flexcol droppable scrollable">
         {{#each request.actors as |actor|}}
         <div class="line-item member" data-actor-id="{{actor.id}}">
@@ -43,7 +43,7 @@
             </div>
         </div>
         {{else}}
-        <p class="hint">Drag individual Actors or groups here to request they participate in this roll.</p>
+        <p class="hint">{{localize "ACTION.RequestActorsHint"}}</p>
         {{/each}}
     </div>
 </aside>

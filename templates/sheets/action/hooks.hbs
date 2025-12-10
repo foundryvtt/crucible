@@ -5,10 +5,10 @@
     <fieldset class="add-hook">
         <legend>{{fields.actionHooks.label}}</legend>
         <div class="form-group">
-            <label>Add Hook</label>
+            <label>{{localize "TALENT.ACTIONS.HOOK_ADD"}}</label>
             <div class="form-fields">
                 <select>{{selectOptions actionHookChoices blank=""}}</select>
-                <button type="button" class="icon frame-brown fa-solid fa-plus" data-action="addHook" data-tooltip="Add Hook"></button>
+                <button type="button" class="icon frame-brown fa-solid fa-plus" data-action="addHook" data-tooltip="{{localize "TALENT.ACTIONS.HOOK_ADD"}}"></button>
             </div>
         </div>
         <p class="hint">{{fields.actionHooks.hint}}</p>

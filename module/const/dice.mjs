@@ -1,13 +1,13 @@
 
 
 export const checkDifficulties = {
-  10: "Trivial",
-  15: "Easy",
-  20: "Moderate",
-  25: "Challenging",
-  30: "Difficult",
-  35: "Formidable",
-  45: "Impossible"
+  10: "DICE.DIFFICULTIES.Trivial",
+  15: "DICE.DIFFICULTIES.Easy",
+  20: "DICE.DIFFICULTIES.Moderate",
+  25: "DICE.DIFFICULTIES.Challenging",
+  30: "DICE.DIFFICULTIES.Difficult",
+  35: "DICE.DIFFICULTIES.Formidable",
+  45: "DICE.DIFFICULTIES.Impossible"
 };
 
 
