@@ -506,8 +506,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         img: action.img,
         tags: action.getTags().activation,
         canEdit: !!action.parent,
-        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.ADD_FAVORITE"} :
-          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.REMOVE_FAVORITE"}
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"} :
+          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"}
       }
 
       // Classify actions
