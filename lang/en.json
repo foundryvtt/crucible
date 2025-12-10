@@ -1386,7 +1386,7 @@
   "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
   "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
   "PurchaseNodeTitle": "Purchase Talent Node?",
-    "PurchaseTitle": "Purchase Talent: {name}",
+  "PurchaseTitle": "Purchase Talent: {name}",
   "LABELS": {
     "Points": {
       "one": "Point",

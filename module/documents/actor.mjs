@@ -1515,7 +1515,7 @@ export default class CrucibleActor extends Actor {
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: `Purchase Talent: ${talent.name}`},
+        window: {title: game.i18n.format("TALENT.PurchaseTitle", {name: talent.name})},
         content,
         yes: {default: true},
         no: {default: false}
