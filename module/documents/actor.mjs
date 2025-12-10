@@ -1503,7 +1503,7 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
-      let content = game.i18n.format("TALENT.Purchase", {name: talent.name});
+      let content = game.i18n.format("TALENT.ACTIONS.Purchase", {name: talent.name});
       try {
         const canUse = this.canUtilizeTalent(talent);
         if ( (canUse === false) && warnUnusable ) {
@@ -1515,7 +1515,7 @@ export default class CrucibleActor extends Actor {
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: game.i18n.format("TALENT.PurchaseTitle", {name: talent.name})},
+        window: {title: game.i18n.format("TALENT.ACTIONS.PurchaseTitle", {name: talent.name})},
         content,
         yes: {default: true},
         no: {default: false}

@@ -189,6 +189,20 @@
 },
 
 "ACTOR": {
+  "CREATION": {
+    "AbandonContent": "Discard creation progress and exit the creator?",
+    "AbandonTitle": "Abandon Creation Process?",
+    "Complete": "Complete",
+    "Completed": "Completed",
+    "CompleteHint": "Complete Creation",
+    "Exit": "Exit",
+    "ExitHint": "Exit Creation",
+    "Restart": "Restart",
+    "RestartContent": "Discard creation progress and restart from the beginning?",
+    "RestartHint": "Restart Creation",
+    "RestartTitle": "Reset Creation Progress?",
+    "SpendAbilities": "Spend 9 points across 6 ability scores, allocating up to 3 points per ability."
+  },
   "FIELDS": {
     "abilities": {
       "label": "Ability Scores"
@@ -366,25 +380,13 @@
   }
 },
 
-"ACTOR.AbandonCreationContent": "Discard creation progress and exit the creator?",
-"ACTOR.AbandonCreationTitle": "Abandon Creation Process?",
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 "ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
-"ACTOR.CompleteCreation": "Complete",
-"ACTOR.CompleteCreationHint": "Complete Creation",
-"ACTOR.CompletedCreation": "Completed",
-"ACTOR.ExitCreation": "Exit",
-"ACTOR.ExitCreationHint": "Exit Creation",
 "ACTOR.KnowledgeSpecific": "Knowledge: {knowledge}",
 "ACTOR.LanguageSpecific": "Language: {language}",
 "ACTOR.LevelSpecific": "Level {level}",
 "ACTOR.ResistanceSpecific": "Resistance: {resistance}",
-"ACTOR.RestartCreation": "Restart",
-"ACTOR.RestartCreationContent": "Discard creation progress and restart from the beginning?",
-"ACTOR.RestartCreationHint": "Restart Creation",
-"ACTOR.RestartCreationTitle": "Reset Creation Progress?",
 "ACTOR.SizeSpecific": "Size {size}",
-"ACTOR.SpendCreationAbilities": "Spend 9 points across 6 ability scores, allocating up to 3 points per ability.",
 "ACTOR.StrideSpecific": "Stride {stride}",
 "ACTOR.TooltipDecreaseAbility": "Decrease Ability Score",
 "ACTOR.TooltipIncreaseAbility": "Increase Ability Score",
@@ -1334,6 +1336,11 @@
     }
   },
   "ACTIONS": {
+    "Purchase": "<p>Spend 1 Talent Point to purchase <strong>{name}</strong>?</p>",
+    "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
+    "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
+    "PurchaseNodeTitle": "Purchase Talent Node?",
+    "PurchaseTitle": "Purchase Talent: {name}",
     "ADD": "Add Action",
     "DELETE": "Delete Action",
     "EDIT": "Edit Action",
@@ -1384,11 +1391,6 @@
     "MASTER": "Master"
   },
   "PointsAvailable": "Points Available",
-  "Purchase": "<p>Spend 1 Talent Point to purchase <strong>{name}</strong>?</p>",
-  "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
-  "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
-  "PurchaseNodeTitle": "Purchase Talent Node?",
-  "PurchaseTitle": "Purchase Talent: {name}",
   "LABELS": {
     "Points": {
       "one": "Point",

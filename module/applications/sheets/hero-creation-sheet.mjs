@@ -408,11 +408,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   _prepareHeaderButtons() {
     const buttons = [
-      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "ACTOR.ExitCreation", tooltip: "ACTOR.ExitCreationHint"},
-      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "ACTOR.RestartCreation", tooltip: "ACTOR.RestartCreationHint"}
+      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "ACTOR.CREATION.Exit", tooltip: "ACTOR.CREATION.ExitHint"},
+      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "ACTOR.CREATION.Restart", tooltip: "ACTOR.CREATION.RestartHint"}
     ];
     if ( Object.values(this._completed).every(v => v === true) ) {
-      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "ACTOR.CompleteCreation", tooltip: "ACTOR.CompleteCreationHint"});
+      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "ACTOR.CREATION.Complete", tooltip: "ACTOR.CREATION.CompleteHint"});
     }
     return buttons;
   }
@@ -452,7 +452,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
           ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
-          : game.i18n.localize("ACTOR.CompletedCreation");
+          : game.i18n.localize("ACTOR.CREATION.Completed");
       }
     }
   }
@@ -608,10 +608,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       crucible.api.audio.playClick();
       const confirm = await foundry.applications.api.DialogV2.confirm({
         window: {
-          title: "ACTOR.AbandonCreationTitle",
+          title: "ACTOR.CREATION.AbandonTitle",
           icon: "fa-solid fa-circle-x"
         },
-        content: game.i18n.localize("ACTOR.AbandonCreationContent"),
+        content: game.i18n.localize("ACTOR.CREATION.AbandonContent"),
         modal: true
       });
       if ( !confirm ) return;
@@ -805,10 +805,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onRestart() {
     const confirm = await foundry.applications.api.DialogV2.confirm({
       window: {
-        title: "ACTOR.RestartCreationTitle",
+        title: "ACTOR.CREATION.RestartTitle",
         icon: "fa-solid fa-hexagon-exclamation"
       },
-      content: game.i18n.localize("ACTOR.RestartCreationContent"),
+      content: game.i18n.localize("ACTOR.CREATION.RestartContent"),
       modal: true
     });
     if ( !confirm ) return;

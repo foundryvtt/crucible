@@ -53,14 +53,14 @@
             <span class="increases">{{ability.increases}}</span>
             <div class="buttons flexcol">
                 <button type="button" class="plain icon fa-solid fa-caret-up" data-action="abilityIncrease"
-                        data-tooltip="{{localize "ACTOR.TooltipIncreaseAbility"}}" {{#unless ability.canIncrease}}disabled{{/unless}}>
+                        aria-label="{{localize "ACTOR.TooltipIncreaseAbility"}}" data-tooltip {{#unless ability.canIncrease}}disabled{{/unless}}>
                 </button>
                 <button type="button" class="plain icon fa-solid fa-caret-down" data-action="abilityDecrease"
-                        data-tooltip="{{localize "ACTOR.TooltipDecreaseAbility"}}" {{#unless ability.canDecrease}}disabled{{/unless}}>
+                        aria-label="{{localize "ACTOR.TooltipDecreaseAbility"}}" data-tooltip {{#unless ability.canDecrease}}disabled{{/unless}}>
                 </button>
             </div>
         </div>
         {{/each}}
-        <p class="hint">{{localize "ACTOR.SpendCreationAbilities"}}</p>
+        <p class="hint">{{localize "ACTOR.CREATION.SpendAbilities"}}</p>
     </section>
 </section>
