@@ -883,10 +883,10 @@
 
 "ACTIVE_EFFECT": {
   "ACTIONS": {
-    "DELETE": "Delete Effect",
-    "DISABLE": "Disable Effect",
-    "EDIT": "Edit Effect",
-    "ENABLE": "Enable Effect"
+    "Delete": "Delete Effect",
+    "Disable": "Disable Effect",
+    "Edit": "Edit Effect",
+    "Enable": "Enable Effect"
   },
   "STATUSES": {
     "Asleep": "Asleep",
@@ -922,13 +922,13 @@
 
 "ITEM": {
   "ACTIONS": {
-    "CREATE": "Create Item",
-    "DELETE": "Delete Item",
-    "DROP": "Drop Weapon",
-    "EDIT": "Edit Item",
-    "EQUIP": "Equip {typeLabel}",
-    "RECOVER": "Recover {typeLabel}",
-    "UN_EQUIP": "Un-equip {typeLabel}"
+    "Create": "Create Item",
+    "Delete": "Delete Item",
+    "Drop": "Drop Weapon",
+    "Edit": "Edit Item",
+    "Equip": "Equip {typeLabel}",
+    "Recover": "Recover {typeLabel}",
+    "UnEquip": "Un-equip {typeLabel}"
   },
   "FIELDS": {
     "identifier": {
@@ -1393,13 +1393,13 @@
     }
   },
   "ACTIONS": {
-    "ACTION_ADD": "Add Action",
-    "ACTION_DELETE": "Delete Action",
-    "ACTION_EDIT": "Edit Action",
-    "DELETE": "Delete Talent",
-    "EDIT": "Edit Talent",
-    "HOOK_ADD": "Add Hook",
-    "HOOK_DELETE": "Delete Hook"
+    "ActionAdd": "Add Action",
+    "ActionDelete": "Delete Action",
+    "ActionEdit": "Edit Action",
+    "Delete": "Delete Talent",
+    "Edit": "Edit Talent",
+    "HookAdd": "Add Hook",
+    "HookDelete": "Delete Hook"
   },
   "WARNINGS": {
     "AlreadyOwned": "You already own {name} and cannot add it a second time.",

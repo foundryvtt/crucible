@@ -23,8 +23,8 @@
                         {{#each item.actions as |button|}}
                         <button type="button" class="icon {{button.icon}}" data-action="{{button.action}}" aria-label="{{localize button.tooltip}}" data-tooltip></button>
                         {{/each}}
-                        <button type="button" class="icon fa-solid fa-edit" data-action="itemEdit" aria-label="{{localize "ITEM.ACTIONS.EDIT"}}" data-tooltip></button>
-                        <button type="button" class="icon fa-solid fa-trash" data-action="itemDelete" aria-label="{{localize "ITEM.ACTIONS.DELETE"}}" data-tooltip></button>
+                        <button type="button" class="icon fa-solid fa-edit" data-action="itemEdit" aria-label="{{localize "ITEM.ACTIONS.Edit"}}" data-tooltip></button>
+                        <button type="button" class="icon fa-solid fa-trash" data-action="itemDelete" aria-label="{{localize "ITEM.ACTIONS.Delete"}}" data-tooltip></button>
                     </div>
                 </li>
                 {{else}}
@@ -45,6 +45,6 @@
             <span class="value">{{capacity.value}} / {{capacity.max}}</span>
         </div>
         {{/if}}
-        <button type="button" class="icon frame-brown fa-solid fa-plus inventory-create" data-action="itemCreate" aria-label="{{localize "ITEM.ACTIONS.CREATE"}}" data-tooltip></button>
+        <button type="button" class="icon frame-brown fa-solid fa-plus inventory-create" data-action="itemCreate" aria-label="{{localize "ITEM.ACTIONS.Create"}}" data-tooltip></button>
     </footer>
 </section>

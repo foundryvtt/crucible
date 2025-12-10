@@ -4,7 +4,7 @@
         <div class="form-group stacked">
             <label class="flexrow"><code>{{localize hook.label}}</code></label>
             <button type="button" class="icon fa-solid fa-times frame-brown" data-action="hookDelete"
-                    data-tooltip="TALENT.ACTIONS.HOOK_DELETE"></button>
+                    data-tooltip="TALENT.ACTIONS.HookDelete"></button>
             <input type="hidden" name="system.actorHooks.{{i}}.hook" value="{{hook.hook}}">
             <code-mirror class="hook-editor" name="system.actorHooks.{{i}}.fn" language="javascript">
                 {{~hook.fn~}}
@@ -21,7 +21,7 @@
                     {{selectOptions actorHookChoices blank=""}}
                 </select>
                 <button type="button" class="icon fa-solid fa-plus frame-brown" data-action="hookAdd"
-                        data-tooltip="TALENT.ACTIONS.HOOK_ADD"></button>
+                        data-tooltip="TALENT.ACTIONS.HookAdd"></button>
             </div>
             <p class="hint">{{fields.actorHooks.hint}}</p>
         </div>
