@@ -4,13 +4,13 @@
 
 {{#if source.system.iconicSpells}}
 <p class="condition iconic-spells">
-    <strong>{{localize "SPELL.IconicPl"}}:</strong> {{source.name}} grants {{source.system.iconicSpells}} Iconic Spell slots.
+    {{{localize "TALENT.GrantsSpells" name=source.name spells=source.system.iconicSpells}}}
 </p>
 {{/if}}
 
 {{#if actions.length}}
 <section class="actions">
-    <h3 class="divider">Actions</h3>
+    <h3 class="divider">{{localize "ITEM.TABS.ACTIONS"}}</h3>
     {{#each actions as |action|}}
     <div class="action line-item" data-action-id="{{this.id}}">
         <header class="action-header">

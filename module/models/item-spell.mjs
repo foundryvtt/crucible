@@ -92,7 +92,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   getTags(scope="full") {
     const tags = {};
-    if ( this.parent.parent && !this.isKnown ) tags.known = "Not Known";
+    if ( this.parent.parent && !this.isKnown ) tags.known = game.i18n.localize("ITEM.PROPERTIES.NotKnown");
     for ( const runeId of this.runes ) {
       const rune = SYSTEM.SPELL.RUNES[runeId];
       tags[runeId] = rune.name;

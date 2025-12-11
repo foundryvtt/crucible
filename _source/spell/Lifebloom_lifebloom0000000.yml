@@ -1,0 +1,84 @@
+name: Lifebloom
+type: spell
+img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
+system:
+  description: >-
+    <p>Few are those that can serve as a conduit within the physical world and
+    allow the raw powers of Life and Soul to comingle, tipping the balance in
+    their favour. This spell allows the caster to serve as a wellspring for the
+    abundant forces that bring all soulful life into being. With a susurration
+    of air the caster is surrounded with dancing motes of the pure energies of
+    life and soul, like dozens of fireflies or the sparks from a fire, and a
+    those within the radius are filled with a calming sensation as if they were
+    immersed in pleasantly warm water. All plant life in the vicinity
+    immediately surges through stages of growth to bloom, and the scent of
+    pollen and lush greenery fills the air.</p>
+  actions:
+    - id: lifebloom
+      name: Lifebloom
+      img: icons/svg/item-bag.svg
+      condition: ''
+      description: >-
+        <p>You channel vital magic into an aura that restores the Health and
+        Morale of all allies within 30 feet of you. Each round, allies who start
+        their turn within this aura recover your <strong>Wisdom</strong> in both
+        <strong>Health</strong> and <strong>Morale</strong>. The spell must be
+        maintained.</p>
+      cost:
+        action: 6
+        focus: 2
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+        self: true
+        size: 30
+      effects:
+        - name: Lifebloom
+          scope: '1'
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            turns: 6
+            rounds: null
+      tags:
+        - spell
+        - iconicSpell
+        - maintained
+      actionHooks: []
+  runes:
+    - life
+    - soul
+  gestures:
+    - aura
+  inflections:
+    - extend
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765403194971
+  modifiedTime: 1765403195009
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: lifebloom0000000
+sort: 200000
+_key: '!items!lifebloom0000000'

@@ -528,7 +528,7 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.classList.add("knowledge-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
-  tag.innerHTML = `Knowledge: ${knowledge.label}`;
+  tag.innerHTML = game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledge.label});
   return tag;
 }
 
@@ -566,7 +566,7 @@ function enrichLanguage([match, languageId]) {
   tag.classList.add("language-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "languageCheck";
   tag.dataset.languageId = languageId;
-  tag.innerHTML = `Language: ${language.label}`;
+  tag.innerHTML = game.i18n.format("ACTOR.LanguageSpecific", {language: language.label});
   return tag;
 }
 

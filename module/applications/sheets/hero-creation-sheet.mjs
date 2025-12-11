@@ -62,7 +62,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static STEPS = {
     ancestry: {
       id: "ancestry",
-      label: "Ancestry",
+      label: "TYPES.Item.ancestry",
       order: 1,
       numeral: "I",
       template: "systems/crucible/templates/sheets/creation/ancestry.hbs",
@@ -71,7 +71,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     },
     background: {
       id: "background",
-      label: "Background",
+      label: "TYPES.Item.background",
       order: 2,
       numeral: "II",
       template: "systems/crucible/templates/sheets/creation/background.hbs",
@@ -81,7 +81,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     },
     talents: {
       id: "talents",
-      label: "Talents",
+      label: "TALENT.LABELS.Talents.other",
       order: 3,
       numeral: "III",
       template: "systems/crucible/templates/sheets/creation/talents.hbs",
@@ -235,8 +235,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     ancestry.features.push({
       label: schema.getField("resistances").label,
       tags: [
-        {text: res ? `Resistance: ${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : "Resistance: None"},
-        {text: res ? `Vulnerability: ${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : "Vulnerability: None"}
+        {text: game.i18n.format("ACTOR.ResistanceSpecific", {resistance: res ? `${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : game.i18n.localize("None")})},
+        {text: game.i18n.format("ACTOR.VulnerabilitySpecific", {vulnerability: vuln ? `${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : game.i18n.localize("None")})}
       ]
     });
 
@@ -245,8 +245,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     ancestry.features.push({
       label: schema.getField("movement").label,
       tags: [
-        {text: `Size ${size}ft`},
-        {text: `Stride ${stride}ft`}
+        {text: game.i18n.format("ACTOR.SizeSpecific", {size})},
+        {text: game.i18n.format("ACTOR.StrideSpecific", {stride})}
       ]
     });
 
@@ -284,7 +284,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
       const k = crucible.CONFIG.knowledge[knowledgeId]
-      return {text: `Knowledge: ${k?.label || k}`};
+      return {text: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: k?.label || k})};
     }));
     if ( knowledgeTags.length ) background.features.push({
       label: schema.getField("knowledge").label,
@@ -294,7 +294,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Languages
     const languageTags = Array.from(languages.map(languageId => {
       const l = crucible.CONFIG.languages[languageId];
-      return {text: `Language: ${l?.label || l}`};
+      return {text: game.i18n.format("ACTOR.LanguageSpecific", {language: l?.label || l})};
     }))
     if ( languageTags.length ) background.features.push({
       label: schema.getField("languages").label,
@@ -408,11 +408,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   _prepareHeaderButtons() {
     const buttons = [
-      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "Exit", tooltip: "Exit Creation"},
-      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "Restart", tooltip: "Restart Creation"}
+      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "ACTOR.CREATION.Exit", tooltip: "ACTOR.CREATION.ExitHint"},
+      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "ACTOR.CREATION.Restart", tooltip: "ACTOR.CREATION.RestartHint"}
     ];
     if ( Object.values(this._completed).every(v => v === true) ) {
-      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "Complete", tooltip: "Complete Creation"});
+      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "ACTOR.CREATION.Complete", tooltip: "ACTOR.CREATION.CompleteHint"});
     }
     return buttons;
   }
@@ -452,7 +452,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
           ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
-          : "Completed";
+          : game.i18n.localize("ACTOR.CREATION.Completed");
       }
     }
   }
@@ -608,10 +608,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       crucible.api.audio.playClick();
       const confirm = await foundry.applications.api.DialogV2.confirm({
         window: {
-          title: "Abandon Creation Progress?",
+          title: "ACTOR.CREATION.AbandonTitle",
           icon: "fa-solid fa-circle-x"
         },
-        content: "Discard creation progress and exit the creator?",
+        content: game.i18n.localize("ACTOR.CREATION.AbandonContent"),
         modal: true
       });
       if ( !confirm ) return;
@@ -805,10 +805,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onRestart() {
     const confirm = await foundry.applications.api.DialogV2.confirm({
       window: {
-        title: "Reset Creation Progress?",
+        title: "ACTOR.CREATION.RestartTitle",
         icon: "fa-solid fa-hexagon-exclamation"
       },
-      content: "Discard creation progress and restart from the beginning?",
+      content: game.i18n.localize("ACTOR.CREATION.RestartContent"),
       modal: true
     });
     if ( !confirm ) return;

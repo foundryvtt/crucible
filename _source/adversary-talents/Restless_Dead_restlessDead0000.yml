@@ -1,0 +1,45 @@
+name: Restless Dead
+type: talent
+img: icons/magic/death/hand-undead-skeleton-fire-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature}'s life is sustained by necromantic magic
+    or otherworldly forces. When it would be considered @Condition[dead]  it is
+    instead @Condition[incapacitated].</p><p>After the conclusion of combat, the
+    @ref[actor.name]{creature} may begin to perform the Recover action,
+    regaining consciousness after the recovery is complete. Recovery in this
+    fashion may be prevented in one of the following ways:</p><ul><li><p>The
+    creature was incapacitated by a type of damage for which it is
+    <strong>Vulnerable</strong>.</p></li><li><p>The magical forces which caused
+    it to rise as undead are disrupted, countered, or otherwise
+    dispelled.</p></li><li><p>The creature's body is destroyed to a degree that
+    it can no longer maintain its physical form.</p></li></ul>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: EDeByOa9cuYSaF8Y
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765333044435
+  modifiedTime: 1765333057152
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: restlessDead0000
+sort: 100000
+_key: '!items!restlessDead0000'

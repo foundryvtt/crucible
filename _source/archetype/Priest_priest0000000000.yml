@@ -19,6 +19,7 @@ system:
     - Compendium.crucible.talent.Item.gestureaspect000
     - Compendium.crucible.talent.Item.steadfast0000000
     - Compendium.crucible.talent.Item.runeSoul00000000
+    - Compendium.crucible.talent.Item.talismanWeaponTr
   skills:
     - arcana
     - medicine
@@ -34,12 +35,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1755978438338
-  modifiedTime: 1762817883751
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1765314791087
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: priest0000000000
 sort: 500000
 _key: '!items!priest0000000000'

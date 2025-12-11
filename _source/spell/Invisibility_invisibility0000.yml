@@ -1,0 +1,89 @@
+name: Invisibility
+type: spell
+img: icons/magic/light/orbs-hand-gray.webp
+system:
+  description: >-
+    <p>A sophisticated use of Illusory magic, the Invisibility spell allows the
+    caster to wrap light and shadow around themselves like donning a cloak,
+    reflecting the world about them as if they were not standing there. What
+    person wouldn't believe it when their own eyes tell them that there is
+    nothing to see?</p>
+  actions:
+    - id: invisibility
+      name: Invisibility
+      img: icons/svg/item-bag.svg
+      condition: ''
+      description: >-
+        <p>You become @Condition[invisible] and cannot be detected using
+        sight-based perception. You cannot be directly targeted by any action.
+        This spell must be <strong>Maintained</strong> in order to remain in
+        effect.</p>
+      cost:
+        action: 3
+        focus: 2
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Invisibility
+          scope: '1'
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            turns: null
+            rounds: null
+      tags:
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - maintained
+      actionHooks: []
+  runes:
+    - illumination
+    - illusion
+  gestures:
+    - aspect
+  inflections:
+    - eluding
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765403193427
+  modifiedTime: 1765403195009
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: invisibility0000
+sort: 300000
+_key: '!items!invisibility0000'

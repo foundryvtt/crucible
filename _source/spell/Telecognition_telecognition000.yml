@@ -1,0 +1,87 @@
+name: Telecognition
+type: spell
+img: icons/magic/control/hypnosis-mesmerism-eye-tan.webp
+system:
+  description: >-
+    <p>A rudimentary example of the complex art of penetrating the minds of
+    others, Telecognition skims thoughts from the surface of a subject's mind
+    like leaves from the surface of a pond. Though it may not be disruptive, it
+    is unsubtle— just as the pond ripples when its surface is touched, so too
+    does the mind.</p><p></p>
+  actions:
+    - id: telecognition
+      name: Telecognition
+      img: icons/svg/item-bag.svg
+      condition: ''
+      description: >-
+        <p>You reach into the mind of a <strong>Humanoid</strong> or
+        <strong>Giant</strong> creature, attempting to penetrate their
+        <strong>Willpower</strong> defense to understand their thoughts and
+        motives. The target of this spell is aware of the intrusion, even if
+        they cannot perceive you.</p><p>If successful, the Gamemaster (in the
+        case of an Adversary target) or Player (in the case of a Hero target)
+        must describe to you in 3 words or less what idea or sentiment is at the
+        forefront of their thoughts in the current moment.</p><p>Upon a Critical
+        Success, this description may use up to 10 words to convey deeper
+        understanding.</p>
+      cost:
+        action: 3
+        focus: 2
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - harmless
+        - willpower
+      actionHooks: []
+  runes:
+    - control
+    - soul
+  gestures:
+    - sense
+  inflections:
+    - pull
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765403197993
+  modifiedTime: 1765403197993
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: telecognition000
+sort: 0
+_key: '!items!telecognition000'

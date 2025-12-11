@@ -18,6 +18,7 @@ system:
     - Compendium.crucible.talent.Item.assessstrength00
     - Compendium.crucible.talent.Item.precisionshot000
     - Compendium.crucible.talent.Item.lunge00000000000
+    - Compendium.crucible.talent.Item.projectileTraini
   skills:
     - athletics
     - awareness
@@ -34,11 +35,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.2
   createdTime: 1751388804848
-  modifiedTime: 1755978438372
+  modifiedTime: 1765314805901
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 300000
 _key: '!items!archetypeScout00'
