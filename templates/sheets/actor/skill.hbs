@@ -20,19 +20,19 @@
         </div>
 
         {{#if displayPath}}
-        <h3>Specialization Path: {{path.name}}</h3>
+        <h3>{{localize "SKILL.SpecializationPathSpecific" path=path.name}}</h3>
         <div class="description path-description">
             {{{path.overview}}}
         </div>
         {{/if}}
 
         {{#if choosePath}}
-        <h2 class="divider">Select Specialization</h2>
+        <h2 class="divider">{{localize "SKILL.SpecializationPathSelect"}}</h2>
         <div class="skill-ranks current-ranks">
             {{#each config.paths as |path|}}
             <h3>
                 <a class="button icon choose-path {{path.actionIcon}}" data-action="choosePath" data-path="{{path.id}}"
-                   data-tooltip="{{path.actionTooltip}}"></a>
+                   aria-label="{{localize path.actionTooltip}}" data-tooltip></a>
                 {{path.name}}
             </h3>
             {{{path.overview}}}
@@ -40,7 +40,7 @@
         </div>
         {{/if}}
 
-        <h2 class="divider">Acquired Ranks</h2>
+        <h2 class="divider">{{localize "SKILL.AcquiredRanks"}}</h2>
         <div class="skill-ranks current-ranks">
             {{#each trainedRanks}}
             <h3>{{this.label}}</h3>
@@ -49,7 +49,7 @@
         </div>
 
         {{#if untrainedRanks.length}}
-        <h2 class="divider">Unacquired Ranks</h2>
+        <h2 class="divider">{{localize "SKILL.UnacquiredRanks"}}</h2>
         <div class="skill-ranks current-ranks">
             {{#each untrainedRanks}}
             <h3>{{this.label}}</h3>
@@ -59,7 +59,7 @@
         {{/if}}
 
         {{#if showPaths}}
-        <h2 class="divider">Specialization Paths</h2>
+        <h2 class="divider">{{localize "SKILL.SpecializationPaths"}}</h2>
         <div class="skill-ranks skill-paths">
             {{#each config.paths as |path|}}
             <h3>{{path.name}}</h3>

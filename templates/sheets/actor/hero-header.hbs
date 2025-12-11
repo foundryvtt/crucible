@@ -8,9 +8,9 @@
                     data-tooltip-class="crucible crucible-tooltip incomplete"></button>
             {{else if incomplete.level}}
             <button type="button" class="icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
-                    data-tooltip="Level Up!"></button>
+                    aria-label="{{localize "ACTOR.ACTIONS.LevelUp"}}" data-tooltip></button>
             {{/if}}
-            <span>Level</span>
+            <span>{{localize "ADVANCEMENT.Level"}}</span>
             <div class="milestones">
                 {{#if actor.system.advancement.progress}}
                 <span class="bar" style="width: {{actor.system.advancement.pct}}%"></span>
@@ -23,11 +23,11 @@
 
     <div class="subtitle flexrow">
         <h2 class="ancestry flexrow {{#if incomplete.ancestry}}incomplete{{/if}}" data-action="editAncestry"
-            {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
+            {{#if incomplete.ancestry}}aria-label="{{localize "WALKTHROUGH.AddAncestry"}}" data-tooltip{{/if}}>
             <a>{{#if incomplete.ancestry}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{ancestryName}}</a>
         </h2>
         <h2 class="background flexrow {{#if incomplete.background}}incomplete{{/if}}" data-action="editBackground"
-            {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
+            {{#if incomplete.background}}aria-label="{{localize "WALKTHROUGH.AddBackground"}}" data-tooltip{{/if}}>
             <a>{{#if incomplete.background}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{backgroundName}}</a>
         </h2>
         {{#if actor.system.details.signatureName}}

@@ -38,7 +38,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       capacity: a.system.capacity,
       knowledgeOptions: this.#prepareKnowledgeOptions(),
       knowledge: this.#prepareKnowledge(),
-      talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree",
+      talentTreeButtonText: game.i18n.localize(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`),
     });
 
     // Advancement
@@ -48,16 +48,16 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
     // Progression Issues
     const issues = [];
-    if ( !s.system.details.ancestry?.name ) issues.push("Choose an Ancestry");
-    if ( !s.system.details.background?.name ) issues.push("Choose a Background");
-    if ( points.ability.available < 0 ) issues.push("Too many Ability Points have been spent");
-    else if ( points.ability.requireInput ) issues.push("Spend Ability Points");
-    if ( points.talent.available < 0 ) issues.push("Too many Talents have been taken");
-    else if ( points.talent.available ) issues.push("Spend Talent Points");
+    if ( !s.system.details.ancestry?.name ) issues.push("ACTOR.WARNINGS.NoAncestry");
+    if ( !s.system.details.background?.name ) issues.push("ACTOR.WARNINGS.NoBackground");
+    if ( points.ability.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentAbility");
+    else if ( points.ability.requireInput ) issues.push("ACTOR.WARNINGS.UnderspentAbility");
+    if ( points.talent.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentTalent");
+    else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
     i.progress = !!issues.length;
     if ( i.progress ) {
-      const items = issues.reduce((s, text) => s + `<li>${text}</li>`, "");
-      i.progressTooltip = `<h4>Progression Requirements</h4><ol>${items}</ol>`;
+      const items = issues.reduce((s, text) => s + `<li>${game.i18n.localize(text)}</li>`, "");
+      i.progressTooltip = `<h4>${game.i18n.localize("ACTOR.ProgressionRequirements")}</h4><ol>${items}</ol>`;
     }
 
     // Allow extension of sheet context
@@ -183,7 +183,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         break;
       case "talent":
         if ( !crucible.developmentMode ) {
-          ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
+          ui.notifications.error("ACTOR.WARNINGS.NoDragTalent", {localize: true});
           return;
         }
     }

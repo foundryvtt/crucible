@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <a class="button icon {{effect.disabled.icon}}" data-action="effectToggle" data-tooltip="{{effect.disabled.tooltip}}"></a>
-                    <a class="button icon fa-solid fa-edit" data-action="effectEdit" data-tooltip="Edit Effect"></a>
-                    <a class="button icon fa-solid fa-trash" data-action="effectDelete" data-tooltip="Delete Effect"></a>
+                    <a class="button icon {{effect.disabled.icon}}" data-action="effectToggle" aria-label="{{localize effect.disabled.tooltip}}" data-tooltip></a>
+                    <a class="button icon fa-solid fa-edit" data-action="effectEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></a>
+                    <a class="button icon fa-solid fa-trash" data-action="effectDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></a>
                 </div>
             </li>
             {{/each}}

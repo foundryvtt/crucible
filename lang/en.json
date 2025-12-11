@@ -193,7 +193,15 @@
     "AppliedDetailItem": "Applied the {name} {type} to {actor}.",
     "ClearedDetailItem": "Removed the {type} from {actor}.",
     "DecreaseAbility": "Decrease Ability Score",
-    "IncreaseAbility": "Increase Ability Score"
+    "DecreaseAbilitySpecific": "Decrease {ability}",
+    "IncreaseAbility": "Increase Ability Score",
+    "IncreaseAbilitySpecific": "Increase {ability}",
+    "LevelUp": "Level Up!",
+    "ResetTalents": "Reset All Talents",
+    "RollCheck": "Roll Check",
+    "TalentTreeClose": "Close Talent Tree",
+    "TalentTreeOpen": "Open Talent Tree",
+    "ToggleTree": "Toggle Talent Tree"
   },
   "CREATION": {
     "AbandonContent": "Discard creation progress and exit the creator?",
@@ -341,10 +349,40 @@
       "header": "Weapons",
       "empty": "Equip weapons from your Backpack toggling the shield icon."
     }
+  },
+  "SHEET": {
+    "Abilities": "Abilities",
+    "AbilityPoints": "Ability Points",
+    "Defenses": "Defenses",
+    "HEADERS": {
+      "ActionsAttack": "Attack Actions",
+      "ActionsGeneral": "General Actions",
+      "ActionsMovement": "Movement Actions",
+      "ActionsReaction": "Reactions",
+      "ActionsSpell": "Spellcraft Actions",
+      "EffectsDisabled": "Disabled Effects",
+      "EffectsPersistent": "Persistent Effects",
+      "EffectsTemporary": "Temporary Effects"
+    },
+    "PointsAvailable": "Available",
+    "PointsSpent": "Spent",
+    "Resources": "Resources"
+  },
+  "WARNINGS": {
+    "NoAncestry": "Choose an Ancestry",
+    "NoBackground": "Choose a Background",
+    "NoDragTalent": "Talents can only be added to a Hero Actor via the Talent Tree.",
+    "OverspentAbility": "Too many Ability Points have been spent",
+    "OverspentTalent": "Too many Talents have been taken",
+    "UnderspentAbility": "Spend Ability Points",
+    "UnderspentTalent": "Spend Talent Points"
   }
 },
 
 "ACTOR.GROUP": {
+  "ACTIONS": {
+    "RemoveMember": "Remove Member"
+  },
   "FIELDS": {
     "advancement": {
       "label": "Advancement",
@@ -393,6 +431,8 @@
 "ACTOR.SizeSpecific": "Size {size}",
 "ACTOR.StrideSpecific": "Stride {stride}",
 "ACTOR.VulnerabilitySpecific": "Vulnerability: {vulnerability}",
+"ACTOR.Details": "Details",
+"ACTOR.ProgressionRequirements": "Progression Requirements",
 
 "ANCESTRY": {
   "FIELDS": {
@@ -581,8 +621,10 @@
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
 "ACTION.ACTIONS": {
-  "DELETE": "Delete Action: {name}",
-  "DELETE_CONFIRM": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?"
+  "AddFavorite": "Add Favorite",
+  "Delete": "Delete Action: {name}",
+  "DeleteConfirm": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
+  "RemoveFavorite": "Remove Favorite"
 },
 
 "ADVANCEMENT.Level": "Level",
@@ -861,6 +903,12 @@
 "DICE.SetDifficulty": "Set Difficulty",
 
 "ACTIVE_EFFECT": {
+  "ACTIONS": {
+    "Delete": "Delete Effect",
+    "Disable": "Disable Effect",
+    "Edit": "Edit Effect",
+    "Enable": "Enable Effect"
+  },
   "STATUSES": {
     "Asleep": "Asleep",
     "Blind": "Blinded",
@@ -894,6 +942,15 @@
 },
 
 "ITEM": {
+  "ACTIONS": {
+    "Create": "Create Item",
+    "Delete": "Delete Item",
+    "Drop": "Drop Weapon",
+    "Edit": "Edit Item",
+    "Equip": "Equip {typeLabel}",
+    "Recover": "Recover {typeLabel}",
+    "UnEquip": "Un-equip {typeLabel}"
+  },
   "FIELDS": {
     "identifier": {
       "label": "Identifier",
@@ -1205,14 +1262,21 @@
       "hint": "You are peerless in your mastery of this skill and of your advanced specialization path."
     }
   },
+  "AcquiredRanks": "Acquired Ranks",
   "PageSheet": "Crucible Skill",
   "SheetTitle": "[{actor}] {skill} Skill",
   "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
+  "CategoryHeader": "{category} Skills",
+  "PassiveSpecific": "Passive: {passive}",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
+  "SpecializationPaths": "Specialization Paths",
+  "SpecializationPathSelect": "Select Specialization",
+  "SpecializationPathSpecific": "Specialization Path: {path}",
   "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
-  "TooltipPassive": "12 + Score"
+  "TooltipPassive": "12 + Score",
+  "UnacquiredRanks": "Unacquired Ranks"
 },
 
 "SPELL": {
@@ -1365,21 +1429,24 @@
     }
   },
   "ACTIONS": {
+    "ActionAdd": "Add Action",
+    "ActionDelete": "Delete Action",
+    "ActionEdit": "Edit Action",
+    "Delete": "Delete Talent",
+    "Edit": "Edit Talent",
+    "HookAdd": "Add Hook",
+    "HookDelete": "Delete Hook",
     "Purchase": "<p>Spend 1 Talent Point to purchase <strong>{name}</strong>?</p>",
     "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
     "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
     "PurchaseNodeTitle": "Purchase Talent Node?",
-    "PurchaseTitle": "Purchase Talent: {name}",
-    "ADD": "Add Action",
-    "DELETE": "Delete Action",
-    "EDIT": "Edit Action",
-    "HOOK_ADD": "Add Hook",
-    "HOOK_DELETE": "Delete Hook"
+    "PurchaseTitle": "Purchase Talent: {name}"
   },
   "WARNINGS": {
     "AlreadyOwned": "You already own {name} and cannot add it a second time.",
     "Banned": "You cannot purchase additional Signature talents at this node or tier.",
     "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+    "CannotUse": "You cannot use this talent.",
     "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
     "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
     "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
