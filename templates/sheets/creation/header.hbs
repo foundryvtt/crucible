@@ -4,7 +4,7 @@
         <li class="step flexcol {{step.cssClass}}" data-action="tab" data-group="header" data-tab="{{step.id}}"
             {{#if step.selectionColor}}style="--selection-color:{{step.selectionColor}}"{{/if}}>
             <span class="step-number">{{step.numeral}}</span>
-            <span class="step-title">{{step.label}}</span>
+            <span class="step-title">{{localize step.label}}</span>
             <div class="step-banner flexcol">
                 <img class="step-icon icon" src="{{step.selectionIcon}}" alt="{{step.label}}">
                 {{#if step.selectionLabel}}
@@ -18,7 +18,7 @@
     <div class="fullscreen-buttons flexcol">
         {{#each buttons as |button|}}
         <button type="button" class="fullscreen-button plain" data-action="{{button.action}}">
-            <i class="{{button.icon}}" inert></i>{{button.label}}
+            <i class="{{button.icon}}" inert></i>{{localize button.label}}
         </button>
         {{/each}}
     </div>
