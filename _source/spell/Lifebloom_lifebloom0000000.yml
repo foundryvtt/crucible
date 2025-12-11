@@ -53,18 +53,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
         - maintained
       actionHooks: []
   runes:
@@ -73,7 +61,7 @@ system:
   gestures:
     - aura
   inflections:
-    - push
+    - extend
   actorHooks: []
 effects: []
 folder: null
