@@ -76,7 +76,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       quality: this.config.quality.label,
       ...parentTags
     };
-    if ( this.isDepleted ) tags.uses = game.i18n.localize("ITEM.TagsDepleted");
+    if ( this.isDepleted ) tags.uses = game.i18n.localize("ITEM.PROPERTIES.Depleted");
     else {
       const {value, max} = this.uses;
       const plurals = new Intl.PluralRules(game.i18n.lang);

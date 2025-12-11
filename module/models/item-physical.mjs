@@ -147,7 +147,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     tags.category = this.config.category.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
-    if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label : game.i18n.localize("ITEM.TagsNotInvested");
+    if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label : game.i18n.localize("ITEM.PROPERTIES.NotInvested");
     return tags;
   }
 }

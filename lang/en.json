@@ -941,8 +941,19 @@
     "SCALED_PRICE": "Scaled Price"
   },
   "PROPERTIES": {
-    "INVESTMENT": "Investment",
-    "STACKABLE": "Stackable"
+    "Armor": "{armor} Armor",
+    "Block": "Block {block}",
+    "Damage": "{damage} Damage",
+    "Defense": "{defense} Defense",
+    "Depleted": "Depleted",
+    "Dodge": "{dodge} Dodge",
+    "DodgeBase": "{dodge}+ Dodge",
+    "Investment": "Investment",
+    "NotInvested": "Not Invested",
+    "NotKnown": "Not Known",
+    "Parry": "Parry {parry}",
+    "Range": "Range {range}",
+    "Stackable": "Stackable"
   }
 },
 
@@ -950,18 +961,6 @@
 "ITEM.EnchantmentMinor": "Minor",
 "ITEM.EnchantmentMajor": "Major",
 "ITEM.EnchantmentLegendary": "Legendary",
-
-"ITEM.TagsArmor": "{armor} Armor",
-"ITEM.TagsBlock": "Block {block}",
-"ITEM.TagsDamage": "{damage} Damage",
-"ITEM.TagsDefense": "{defense} Defense",
-"ITEM.TagsDepleted": "Depleted",
-"ITEM.TagsDodge": "{dodge} Dodge",
-"ITEM.TagsDodgeBase": "{dodge}+ Dodge",
-"ITEM.TagsNotInvested": "Not Invested",
-"ITEM.TagsNotKnown": "Not Known",
-"ITEM.TagsParry": "Parry {parry}",
-"ITEM.TagsRange": "Range {range}",
 
 "ITEM.QualityShoddy": "Shoddy",
 "ITEM.QualityStandard": "Standard",
