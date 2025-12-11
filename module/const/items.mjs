@@ -102,11 +102,11 @@ export const ENCHANTMENT_TIERS = {
 export const PROPERTIES = Object.freeze({
   investment: {
     id: "investment",
-    label: "ITEM.PROPERTIES.INVESTMENT"
+    label: "ITEM.PROPERTIES.Investment"
   },
   stackable: {
     id: "stackable",
-    label: "ITEM.PROPERTIES.STACKABLE"
+    label: "ITEM.PROPERTIES.Stackable"
   }
 });
 

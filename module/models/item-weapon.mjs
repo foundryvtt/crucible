@@ -280,13 +280,13 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     Object.assign(tags, parentTags);
 
     // Damage and Range
-    let damage = `${this.damage.weapon} Damage`;
-    if ( this.config.category.reload && !this.loaded ) damage = "Reload";
-    const range = `Range ${this.range}`;
+    let damage = game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
+    if ( this.config.category.reload && !this.loaded ) damage = game.i18n.localize("WEAPON.TAGS.Reload");
+    const range = game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range});
 
     // Weapon Properties
-    if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
-    if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
+    if ( this.defense.block ) tags.block = game.i18n.format("ITEM.PROPERTIES.Block", {block: this.defense.block});
+    if ( this.defense.parry ) tags.parry = game.i18n.format("ITEM.PROPERTIES.Parry", {parry: this.defense.parry});
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
 
     switch(scope) {

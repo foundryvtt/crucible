@@ -2,12 +2,12 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
     <fieldset>
-        <legend>Talent Configuration</legend>
+        <legend>{{localize "ITEM.SHEET.TALENT_CONFIGURATION"}}</legend>
         {{formGroup fields.nodes value=source.system.nodes options=nodes sort=true}}
     </fieldset>
 
     <fieldset>
-        <legend>Spellcraft</legend>
+        <legend>{{localize "ITEM.SHEET.SPELLCRAFT"}}</legend>
         {{formGroup fields.rune value=source.system.rune valueAttr="id" labelAttr="name"}}
         {{formGroup fields.gesture value=source.system.gesture valueAttr="id" labelAttr="name"}}
         {{formGroup fields.inflection value=source.system.inflection valueAttr="id" labelAttr="name"}}
