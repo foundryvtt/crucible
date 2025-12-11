@@ -117,7 +117,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       choices[mainhandId] = `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`;
     }
     if ( oh ) {
-      const offhandId = oh.id || "mainhandUnarmed";
+      const offhandId = oh.id || "offhandUnarmed";
       choices[offhandId] = `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`;
     }
     for ( const n of natural ) {

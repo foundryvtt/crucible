@@ -44,8 +44,8 @@
     </div>
 
     <section id="ability-scores" class="step-sidebar ability-scores flexcol">
-        <h2 class="step-sidebar-header">Ability Scores</h2>
-        <p id="ability-points"><span class="points">{{abilities.points.pool}}</span> Points</p>
+        <h2 class="step-sidebar-header">{{localize "ATTRIBUTES.Abilities"}}</h2>
+        <p id="ability-points"><span class="points">{{abilities.points.pool}}</span> {{localize "TALENT.LABELS.Points.other"}}</p>
         {{#each abilities.abilities as |ability|}}
         <div class="ability flexrow" data-ability="{{ability.id}}">
             <h4>{{ability.label}}</h4>
@@ -53,14 +53,14 @@
             <span class="increases">{{ability.increases}}</span>
             <div class="buttons flexcol">
                 <button type="button" class="plain icon fa-solid fa-caret-up" data-action="abilityIncrease"
-                        data-tooltip="Increase Ability Score" {{#unless ability.canIncrease}}disabled{{/unless}}>
+                        aria-label="{{localize "ACTOR.ACTIONS.IncreaseAbility"}}" data-tooltip {{#unless ability.canIncrease}}disabled{{/unless}}>
                 </button>
                 <button type="button" class="plain icon fa-solid fa-caret-down" data-action="abilityDecrease"
-                        data-tooltip="Decrease Ability Score" {{#unless ability.canDecrease}}disabled{{/unless}}>
+                        aria-label="{{localize "ACTOR.ACTIONS.DecreaseAbility"}}" data-tooltip {{#unless ability.canDecrease}}disabled{{/unless}}>
                 </button>
             </div>
         </div>
         {{/each}}
-        <p class="hint">Spend 9 points across 6 ability scores, allocating up to 3 points per ability.</p>
+        <p class="hint">{{localize "ACTOR.CREATION.SpendAbilities"}}</p>
     </section>
 </section>

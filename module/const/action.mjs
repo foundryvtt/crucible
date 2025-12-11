@@ -573,8 +573,14 @@ export const TAGS = {
       this.usage.actorStatus.hasAttacked = true;
       this.usage.hasDice = true;
       this.usage.isAttack = true;
-      this.usage.isRanged = this.tags.has("ranged") || strikes.every(w => w.config.category.ranged);
-      this.usage.isMelee = this.tags.has("melee") || strikes.every(w => !w.config.category.ranged);
+      if ( this.tags.has("ranged") ) {
+        if ( strikes.every(w => w.config.category.ranged) ) this.usage.isRanged = true;
+        else this.tags.delete("ranged");
+      }
+      if ( this.tags.has("melee") ) {
+        if ( strikes.every(w => !w.config.category.ranged) ) this.usage.isMelee = true;
+        else this.tags.delete("melee");
+      }
       this.usage.defenseType ??= "physical";
 
       // Prepare cost and range for the base strike sequence

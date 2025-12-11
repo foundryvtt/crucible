@@ -7,7 +7,7 @@
         </h3>
         {{formInput biography.appearanceField value=biography.appearanceSrc enriched=biography.appearanceHTML toggled=true}}
         <fieldset class="standard-form">
-            <legend>Details</legend>
+            <legend>{{localize "ACTOR.Details"}}</legend>
             {{formGroup fields.details.fields.biography.fields.pronouns value=source.system.details.biography.pronouns}}
             {{formGroup fields.details.fields.biography.fields.age value=source.system.details.biography.age
                         classes="slim"}}

@@ -1,0 +1,94 @@
+name: Revive
+type: spell
+img: icons/magic/life/heart-cross-strong-flame-green.webp
+system:
+  description: >-
+    <p>A potent expression of Life and Control magics, Revive allows the caster
+    to intervene in the natural process of death by driving a surge of the
+    essence of life into the body of the recently deceased. Those who have
+    experienced Revival are often reluctant to discuss it, but describe it as a
+    sensation that is unpleasantly reminiscent of being woken suddenly from a
+    deep slumber to find they have been freezing— the flesh prickles and aches,
+    the mind reels, and the soul aches with the memory of its interrupted
+    departure.</p>
+  actions:
+    - id: revive
+      name: Revive
+      img: icons/svg/item-bag.svg
+      condition: ''
+      description: >-
+        <p>You restore a creature which has recently become @Condition[dead]
+        back to life, reducing its <strong>Wounds</strong> by your
+        <strong>Wisdom</strong> score. If successful, the revived creature is
+        @Condition[disoriented] and @Condition[staggered] for 10 minutes.</p>
+      cost:
+        action: 6
+        focus: 4
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: Revived
+          scope: '4'
+          result:
+            type: success
+            all: false
+          statuses:
+            - staggered
+            - disoriented
+          duration:
+            turns: 60
+            rounds: null
+      tags:
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - healing
+      actionHooks: []
+  runes:
+    - control
+    - life
+  gestures:
+    - influence
+  inflections:
+    - push
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765403197235
+  modifiedTime: 1765403197235
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: revive0000000000
+sort: 0
+_key: '!items!revive0000000000'

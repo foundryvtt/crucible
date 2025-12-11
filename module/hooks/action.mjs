@@ -50,8 +50,8 @@ HOOKS.assessStrength = {
     SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
     this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
-      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
-      this.usage.boons.assessStrength = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+      const knowledgeLabel = crucible.CONFIG.knowledge[knowledge].label;
+      this.usage.boons.assessStrength = {label: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
   async roll(outcome) {
@@ -342,8 +342,8 @@ HOOKS.intuitWeakness = {
     SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
     this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
-      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
-      this.usage.boons.intuitWeakness = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+      const knowledgeLabel = crucible.CONFIG.knowledge[knowledge].label;
+      this.usage.boons.intuitWeakness = {label: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
   async roll(outcome) {

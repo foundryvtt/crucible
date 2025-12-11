@@ -32,11 +32,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.2
   createdTime: 1755979621108
-  modifiedTime: 1755979621108
+  modifiedTime: 1765314876050
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: thief00000000000
 sort: 0

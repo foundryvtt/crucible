@@ -382,8 +382,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
     // Prompt for confirmation
     const confirm = await api.DialogV2.confirm({
-      title: game.i18n.format("ACTION.ACTIONS.DELETE", {name: action.name}),
-      content: `<p>${game.i18n.format("ACTION.ACTIONS.DELETE_CONFIRM", {
+      title: game.i18n.format("ACTION.ACTIONS.Delete", {name: action.name}),
+      content: `<p>${game.i18n.format("ACTION.ACTIONS.DeleteConfirm", {
         name: action.name, 
         parent: this.document.name,
         type: game.i18n.localize(CONFIG.Item.typeLabels[this.document.type])

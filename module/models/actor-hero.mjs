@@ -298,7 +298,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
     if ( source.details?.ancestry ) CrucibleAncestryItem.migrateData(source.details.ancestry);
+    return source;
   }
 }
