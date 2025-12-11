@@ -337,10 +337,11 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
     if ( (typeof source.node === "string") && !source.nodes ) {
       source.nodes = source.node ? [source.node] : [];
       delete source.node;
     }
+    return source;
   }
 }

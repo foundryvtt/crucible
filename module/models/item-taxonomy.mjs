@@ -90,7 +90,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
 
     const abilities = source.abilities;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
@@ -120,8 +120,10 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         source.resistances[damageType.id] = {
           value: source.resistances[damageType.id],
           immune: false
-        } 
+        }
       }
     }
+
+    return source;
   }
 }

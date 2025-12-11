@@ -360,7 +360,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
     /** @deprecated since 0.7.3 */
     if ( source.details?.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
     /** @deprecated since 0.7.3 */
@@ -370,5 +370,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       source.advancement.rank = source.advancement.threat;
       delete source.advancement.threat;
     }
+    return source;
   }
 }
