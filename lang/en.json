@@ -313,21 +313,6 @@
       "header": "Accessories",
       "empty": "Equip up to {slots} accessories from your Backpack toggling the shield icon."
     },
-    "ACTIONS_ATTACK": {
-      "header": "Attack Actions"
-    },
-    "ACTIONS_GENERAL": {
-      "header": "General Actions"
-    },
-    "ACTIONS_MOVEMENT": {
-      "header": "Movement Actions"
-    },
-    "ACTIONS_REACTION": {
-      "header": "Reactions"
-    },
-    "ACTIONS_SPELL": {
-      "header": "Spellcraft Actions"
-    },
     "ACTIVE": {
       "header": "Active Abilities"
     },
@@ -338,15 +323,6 @@
     "BACKPACK": {
       "header": "Backpack",
       "empty": "Add items by dropping them from the provided Crucible system compendium packs."
-    },
-    "EFFECTS_DISABLED": {
-      "header": "Disabled Effects"
-    },
-    "EFFECTS_PERSISTENT": {
-      "header": "Persistent Effects"
-    },
-    "EFFECTS_TEMPORARY": {
-      "header": "Temporary Effects"
     },
     "ICONIC": {
       "header": "Iconic Spells",
@@ -375,12 +351,22 @@
     }
   },
   "SHEET": {
-    "ABILITIES": "Abilities",
-    "ABILITY_POINTS": "Ability Points",
-    "DEFENSES": "Defenses",
-    "POINTS_AVAILABLE": "Available",
-    "POINTS_SPENT": "Spent",
-    "RESOURCES": "Resources"
+    "Abilities": "Abilities",
+    "AbilityPoints": "Ability Points",
+    "Defenses": "Defenses",
+    "HEADERS": {
+      "ActionsAttack": "Attack Actions",
+      "ActionsGeneral": "General Actions",
+      "ActionsMovement": "Movement Actions",
+      "ActionsReaction": "Reactions",
+      "ActionsSpell": "Spellcraft Actions",
+      "EffectsDisabled": "Disabled Effects",
+      "EffectsPersistent": "Persistent Effects",
+      "EffectsTemporary": "Temporary Effects"
+    },
+    "PointsAvailable": "Available",
+    "PointsSpent": "Spent",
+    "Resources": "Resources"
   },
   "WARNINGS": {
     "NoAncestry": "Choose an Ancestry",

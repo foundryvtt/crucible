@@ -490,11 +490,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActions() {
     const sections = {
-      attack: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_ATTACK.header"), actions: []},
-      spell: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_SPELL.header"), actions: []},
-      reaction: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_REACTION.header"), actions: []},
-      movement: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_MOVEMENT.header"), actions: []},
-      general: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIONS_GENERAL.header"), actions: []}
+      attack: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsAttack"), actions: []},
+      spell: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSpell"), actions: []},
+      reaction: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
+      movement: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
+      general: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
     };
     const favorites = [];
 
@@ -548,9 +548,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActiveEffects() {
     const sections = {
-      temporary: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_TEMPORARY.header"), effects: []},
-      persistent: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_PERSISTENT.header"), effects: []},
-      disabled: {label: game.i18n.localize("ACTOR.SECTIONS.EFFECTS_DISABLED.header"), effects: []}
+      temporary: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsTemporary"), effects: []},
+      persistent: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsPersistent"), effects: []},
+      disabled: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsDisabled"), effects: []}
     };
 
     // Categorize and prepare effects
