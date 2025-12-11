@@ -65,7 +65,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
 
     const abilities = source.abilities;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
@@ -74,5 +74,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       obj[a] = 2;
       return obj;
     }, {});
+
+    return source;
   }
 }

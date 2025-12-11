@@ -141,7 +141,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
 
     /** @deprecated since 0.7.0 until 0.8.0 */
     const {primary, secondary, resistance, vulnerability, size, stride} = source;
@@ -164,5 +164,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       delete source.size;
       delete source.stride;
     }
+
+    return source;
   }
 }

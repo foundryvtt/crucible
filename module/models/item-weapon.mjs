@@ -319,7 +319,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @inheritDoc */
   static migrateData(source) {
-    super.migrateData(source);
+    source = super.migrateData(source);
 
     /** @deprecated since 0.7.3 */
     if ( source.category === "natural" ) {
@@ -327,5 +327,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       source.properties ||= [];
       source.properties.push("natural");
     }
+
+    return source;
   }
 }
