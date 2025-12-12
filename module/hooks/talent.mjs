@@ -60,6 +60,15 @@ HOOKS.battlefocus00000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.bestialSenses000 = {
+  prepareAttack(item, action, _target, rollData) {
+    if ( !(action.tags.has("skill") && (action.usage.skillId === "awareness")) ) return;
+    rollData.boons.bestialSenses = {label: item.name, number: 2};
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.bloodfrenzy00000 = {
   applyCriticalEffects(_item, _action, outcome, self) {
     const damageHealth = outcome.resources.health < 0;
@@ -378,7 +387,7 @@ HOOKS.packhunter000000 = {
     if ( !action.tags.has("strike") ) return;
     if ( target.statuses.has("flanked") ) {
       rollData.boons.packHunter = {
-        label: item.name, 
+        label: item.name,
         number: rollData.boons.flanked.number
       };
     }
