@@ -594,17 +594,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const spells = {
       runes: {
         label: game.i18n.localize("SPELL.COMPONENTS.RunePl"),
-        known: runes,
+        known: runes.values(),
         emptyLabel: runes.size ? "" : game.i18n.localize("SPELL.COMPONENTS.RuneNone")
       },
       gestures: {
         label: game.i18n.localize("SPELL.COMPONENTS.GesturePl"),
-        known: gestures,
+        known: gestures.values(),
         emptyLabel: gestures.size ? "" : game.i18n.localize("SPELL.COMPONENTS.GestureNone")
       },
       inflections: {
         label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl"),
-        known: inflections,
+        known: inflections.values(),
         emptyLabel: inflections.size ? "" : game.i18n.localize("SPELL.COMPONENTS.InflectionNone")
       },
       iconicSpells: {

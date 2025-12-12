@@ -50,6 +50,17 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  clone(data, {once=false, ...context}={}) {
+    if ( once && (this !== SYSTEM.SPELL.INFLECTIONS[this.id]) ) {
+      this.updateSource(data);
+      return this;
+    }
+    return super.clone(data, context);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   toString() {
     return this.name;

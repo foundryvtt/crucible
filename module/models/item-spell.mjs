@@ -67,16 +67,13 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   canKnowSpell(grimoire) {
     for ( const runeId of this.runes ) {
-      const rune = SYSTEM.SPELL.RUNES[runeId];
-      if ( !grimoire.runes.has(rune) ) return false;
+      if ( !grimoire.runes.has(runeId) ) return false;
     }
     for ( const gestureId of this.gestures ) {
-      const gesture = SYSTEM.SPELL.GESTURES[gestureId];
-      if ( !grimoire.gestures.has(gesture) ) return false;
+      if ( !grimoire.gestures.has(gestureId) ) return false;
     }
     for ( const inflectionId of this.inflections ) {
-      const inflection = SYSTEM.SPELL.INFLECTIONS[inflectionId];
-      if ( !grimoire.inflections.has(inflection) ) return false;
+      if ( !grimoire.inflections.has(inflectionId) ) return false;
     }
     return true;
   }

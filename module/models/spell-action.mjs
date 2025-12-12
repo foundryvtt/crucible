@@ -35,7 +35,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @override */
   static dialogClass = SpellCastDialog;
 
-
   /* -------------------------------------------- */
   /*  Action Lifecycle                            */
   /* -------------------------------------------- */
@@ -76,9 +75,15 @@ export default class CrucibleSpellAction extends CrucibleAction {
     super._prepareData();
 
     // Spell Composition
-    this.rune = SYSTEM.SPELL.RUNES[this.rune];
-    this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
-    this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
+    if ( this.actor ) {
+      this.rune = this.actor.grimoire.runes.get(this.rune);
+      this.gesture = this.actor.grimoire.gestures.get(this.gesture);
+      this.inflection = this.actor.grimoire.inflections.get(this.inflection);
+    } else {
+      this.rune = SYSTEM.SPELL.RUNES[this.rune];
+      this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
+      this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
+    }
 
     // Composed Spell
     if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {

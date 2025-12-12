@@ -48,6 +48,17 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  clone(data, {once=false, ...context}={}) {
+    if ( once && (this !== SYSTEM.SPELL.GESTURES[this.id]) ) {
+      this.updateSource(data);
+      return this;
+    }
+    return super.clone(data, context);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   toString() {
     return this.name;

@@ -41,9 +41,9 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
  * @typedef CrucibleActorGrimoire
- * @property {Set<CrucibleSpellcraftRune>} runes
- * @property {Set<CrucibleSpellcraftGesture>} gestures
- * @property {Set<CrucibleSpellcraftInflection>} inflections
+ * @property {Map<string,CrucibleSpellcraftRune>} runes
+ * @property {Map<string,CrucibleSpellcraftGesture>} gestures
+ * @property {Map<string,CrucibleSpellcraftInflection>} inflections
  * @property {number} iconicSlots
  * @property {CrucibleItem[]} iconicSpells
  */
@@ -268,7 +268,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
-    this.grimoire ||= {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
+    this.grimoire ||= {runes: new Map(), gestures: new Map(), inflections: new Map(), iconicSlots: 0, iconicSpells: []};
     this.grimoire.runes.clear();
     this.grimoire.gestures.clear();
     this.grimoire.inflections.clear();
@@ -381,11 +381,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
       // Register spellcraft knowledge
       if ( rune ) {
-        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[rune]);
-        this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
+        this.grimoire.runes.set(rune, SYSTEM.SPELL.RUNES[rune]);
+        this.grimoire.gestures.set("touch", SYSTEM.SPELL.GESTURES.touch);
       }
-      if ( gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[gesture]);
-      if ( inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[inflection]);
+      if ( gesture ) this.grimoire.gestures.set(gesture, SYSTEM.SPELL.GESTURES[gesture]);
+      if ( inflection ) this.grimoire.inflections.set(inflection, SYSTEM.SPELL.INFLECTIONS[inflection]);
       if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
     }
 
@@ -419,11 +419,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem[]} spells
    */
   #prepareSpells(spells) {
+    this.parent.callActorHooks("prepareGrimoire", this.grimoire);
     for ( const spell of spells ) {
       spell.system.isKnown = spell.system.canKnowSpell(this.grimoire);
       this.grimoire.iconicSpells.push(spell);
       this.#registerActorHooks(spell);
     }
+    this.parent.callActorHooks("prepareSpells", this.grimoire);
   }
 
   /* -------------------------------------------- */

@@ -16,8 +16,8 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /** @inheritDoc */
   _initializeSource(data, options) {
     data = super._initializeSource(data, options);
-    data.rune ??= this.actor?.grimoire.runes.first()?.id ?? "lightning";
-    data.gesture ??= this.actor?.grimoire.runes.first()?.id ?? "touch";
+    data.rune ??= this.actor?.grimoire.runes.keys().next().value ?? "lightning";
+    data.gesture ??= "touch";
     return data;
   }
 
@@ -25,22 +25,14 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   _prepareData() {
     const {cost: {action, focus}, name, img, target, description, range} = this;
     super._prepareData();
-
-    const cost = {
-      ...this.cost,
-      action,
-      focus
-    };
+    const cost = {...this.cost, action, focus};
 
     // Avoid determining hands cost if not actually composing a counterspell
     if ( !this.composition ) cost.hands = 0;
 
     // Undo certain changes we don't want done
-    Object.assign(this, {
-      name, img, target, description, range, cost
-    });
+    Object.assign(this, {name, img, target, description, range, cost});
   }
-
 
   /* -------------------------------------------- */
 

@@ -17,11 +17,11 @@ export default class SpellCastDialog extends ActionUseDialog {
     const actor = spell.actor;
 
     // Spellcraft Components
-    const runes = Array.from(actor.grimoire.runes);
+    const runes = Array.from(actor.grimoire.runes.values());
     runes.sort((a, b) => a.name.localeCompare(b.name));
-    const gestures = Array.from(actor.grimoire.gestures);
+    const gestures = Array.from(actor.grimoire.gestures.values());
     gestures.sort((a, b) => a.name.localeCompare(b.name));
-    const inflections = Array.from(actor.grimoire.inflections);
+    const inflections = Array.from(actor.grimoire.inflections.values());
     inflections.sort((a, b) => a.name.localeCompare(b.name));
 
     // Merge context

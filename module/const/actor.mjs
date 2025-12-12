@@ -333,6 +333,16 @@ export const HOOKS = Object.freeze({
     argNames: ["toolbelt"]
   },
 
+  // Spell Preparation
+  prepareGrimoire: {
+    group: "TALENT.HOOKS.GROUP_SPELLCRAFT",
+    argNames: ["grimoire"]
+  },
+  prepareSpells: {
+    group: "TALENT.HOOKS.GROUP_SPELLCRAFT",
+    argNames: ["grimoire"]
+  },
+
   // Turn Events
   startTurn: {
     group: "TALENT.HOOKS.GROUP_COMBAT",

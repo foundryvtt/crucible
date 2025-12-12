@@ -504,12 +504,20 @@ HOOKS.rimecaller000000 = {
 
 HOOKS.runewarden000000 = {
   prepareResistances(_item, resistances) {
-    for ( const [id, r] of Object.entries(resistances) ) {
-      if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-      if ( this.grimoire.runes.find(r => r.damageType === id) )  {
-        r.base += Math.ceil(this.abilities.wisdom.value / 2);
-      }
+    for ( const rune of this.grimoire.runes.values() ) {
+      const dt = rune.damageType;
+      if ( SYSTEM.DAMAGE_TYPES[dt].type === "physical" ) continue;
+      resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.inexorableFlame0 = {
+  prepareGrimoire(_item, grimoire) {
+    if ( !grimoire.runes.has("flame") ) return;
+    grimoire.runes.set("flame", grimoire.runes.get("flame").clone({scaling: "wisdom"}, {once: true}));
   }
 }
 
