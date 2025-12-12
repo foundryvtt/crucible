@@ -53,6 +53,18 @@ system:
       tags:
         - spell
         - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
+        - spell
+        - iconicSpell
         - maintained
       actionHooks: []
   runes:
@@ -77,8 +89,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765403194971
-  modifiedTime: 1765403195009
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1765482605760
+  lastModifiedBy: QPs9IwGEu5DxD700
 _id: lifebloom0000000
 sort: 200000
 _key: '!items!lifebloom0000000'

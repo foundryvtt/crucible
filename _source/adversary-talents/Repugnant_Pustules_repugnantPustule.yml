@@ -1,0 +1,83 @@
+name: Repugnant Pustules
+type: talent
+img: icons/magic/acid/dissolve-vomit-green-brown.webp
+system:
+  nodes: []
+  description: >-
+    <p>A malodorous cloud hangs about this creature like a pall, the rank
+    noxious scent that can only come from active decay. Striking this creature
+    is likely to release repugnant and corrupting essence.</p>
+  actions:
+    - id: repugnantPustules
+      name: Repugnant Pustules
+      img: icons/magic/acid/dissolve-vomit-green-brown.webp
+      condition: ''
+      description: >-
+        <p>When the @ref[actor.name]{creature} is hit by a
+        <strong>Strike</strong>, it may partially burst to release a spray of
+        sickening fluid that deals <strong>Corruption</strong> damage. This
+        action scales with <strong>Toughness</strong> and targets the
+        <strong>Reflex</strong> defense of any creature within 3 feet.</p><p>On
+        a <strong>Critical Success</strong>, the affected target becomes
+        temporarily @Condition[diseased] for 3 Rounds.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 3
+        self: false
+        size: 3
+      effects:
+        - name: Repugnant Pustules
+          scope: '3'
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - diseased
+          duration:
+            turns: 3
+            rounds: null
+      tags:
+        - reaction
+        - weakened
+        - reflex
+        - corruption
+        - toughness
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765549802169
+  modifiedTime: 1765549802169
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: repugnantPustule
+sort: 0
+_key: '!items!repugnantPustule'

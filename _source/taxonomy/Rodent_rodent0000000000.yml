@@ -1,0 +1,82 @@
+name: Rodent
+img: icons/creatures/mammals/rodent-rat-diseaed-gray.webp
+type: taxonomy
+system:
+  description: >-
+    <p>Beasts which typically congregate in high populations in and around
+    humanoid settlements and are opportunistic scavengers. </p>
+  identifier: rodent
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 2
+    strength: 2
+    toughness: 2
+    dexterity: 4
+  movement:
+    size: 3
+    stride: 10
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 1
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 1
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: -1
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - Compendium.crucible.adversary-talents.Item.bestialSenses000
+    - Compendium.crucible.talent.Item.skirmisher000000
+    - Compendium.crucible.talent.Item.defensiveroll000
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: wTcQjW37uAKhpMQL
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765549208310
+  modifiedTime: 1765549208310
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: rodent0000000000
+sort: 0
+_key: '!items!rodent0000000000'

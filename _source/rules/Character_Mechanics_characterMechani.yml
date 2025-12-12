@@ -410,21 +410,21 @@ pages:
         particular weapons or to craft particular types of schematics, Skill
         Training Talents award the following benefits:</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
-        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
+        data-colwidth="50"><p>-2</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
         no education or professional training related to
         it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Novice</p></td><td><p>You have
+        data-colwidth="50"><p>2</p></td><td><p>Novice</p></td><td><p>You have
         received training in the basic practices common across all parts of that
         skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Journeyman</p></td><td><p>You've
+        data-colwidth="50"><p>3</p></td><td><p>Journeyman</p></td><td><p>You've
         reached some degree of advanced training and know some of the less
         common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Adept</p></td><td><p>You have
+        data-colwidth="50"><p>4</p></td><td><p>Adept</p></td><td><p>You have
         exceeded all the bounds of professional training. There is nothing more
         about your skills that you can learn from others. All that is left is to
         perfect your understanding.</p></td></tr><tr><td
-        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
+        data-colwidth="50"><p>5</p></td><td><p>Master</p></td><td><p>You have
         mastered this skill. There is nothing more to learn about
         it.</p></td></tr></tbody></table><p></p><h2 class="divider">Signature
         Talents</h2><p>Talent nodes at the outer edges of the Talent Tree
@@ -449,12 +449,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761772015764
-      modifiedTime: 1765488061511
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1763085596846
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.talents000000000'
   - _id: ancestry00000000
     name: Ancestry
@@ -868,21 +868,21 @@ pages:
         skill has 4 ranks as well as an 'untrained'
         rank.</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
-        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
+        data-colwidth="50"><p>-2</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
         no education or professional training related to
         it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Novice</p></td><td><p>You have
+        data-colwidth="50"><p>2</p></td><td><p>Novice</p></td><td><p>You have
         received training in the basic practices common across all parts of that
         skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Journeyman</p></td><td><p>You've
+        data-colwidth="50"><p>3</p></td><td><p>Journeyman</p></td><td><p>You've
         reached some degree of advanced training and know some of the less
         common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Adept</p></td><td><p>You have
+        data-colwidth="50"><p>4</p></td><td><p>Adept</p></td><td><p>You have
         exceeded all the bounds of professional training. There is nothing more
         about your skills that you can learn from others. All that is left is to
         perfect your understanding.</p></td></tr><tr><td
-        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
+        data-colwidth="50"><p>5</p></td><td><p>Master</p></td><td><p>You have
         mastered this skill. There is nothing more to learn about
         it.</p></td></tr></tbody></table><section class="formula"><p
         class="value">Skill Check</p><p class="equals">=</p><p
@@ -890,26 +890,26 @@ pages:
         Up) + Skill Bonus + Enchantment Bonus</p></section><section
         class="gameplay"><h4>Example: Rolling a Skill Check</h4><p>Albert, our
         storied naval captain from a previous example, is faced with a dilemma.
-        His ship is about to be imperiled by a storm, and his crew is looking to
-        him to safely navigate out of the harbor. Albert relies on his Master
-        skills in Wilderness to try and overcome a Challenging (DC25) roll.
-        </p><p>Albert rolls a Wilderness check with dice results of
-        <strong>6</strong>, <strong>4</strong>, and <strong>7</strong> for a
-        total of <strong>17</strong>. The Wilderness skill scales using
-        Toughness and Wisdom. Albert has 5 Toughness and 9 Wisdom, resulting in
-        a <strong>+4 Ability Bonus</strong>. Albert has a <strong>+3 Skill
-        Bonus</strong> from Master level training and a magical set of nautical
-        charts that provide a <strong>+2 Enchantment Bonus</strong>. Albert's
-        total result on the roll is a <strong>26</strong>, narrowly succeeding
-        on the test!</p></section><h2 class="divider">Passive Skill
-        Checks</h2><p>Crucible allows any skill check to be considered passive
-        at the discretion of the gamemaster. In a case where a character's
-        trained skill rank is sufficient to exceed the DC of a roll by adding 12
-        to it, the check is considered successful without a need to
-        roll.</p><p></p><h2 class="divider">Group Skill Checks</h2><section
-        class="foundryvtt"><p>Crucible's handling of Group Skill Checks is a
-        work in progress at this time, please look forward to a future update
-        that adds this functionality.</p></section><p></p>
+        His ship is about to be imperilled by a storm, and his crew is looking
+        to him to safely navigate out of the harbor. As a Master Cartographer,
+        Albert taps into his extremely strong knowledge of long-distance travel.
+        This will be a Challenging (DC 25) roll; Albert rolls his Skill check.
+        Unluckily, Albert's dice total turn up <strong>6</strong>,
+        <strong>4</strong>, and <strong>7</strong>— a total of
+        <strong>17</strong> and a far cry from the needed 25. However, Albert's
+        ability score for Strength is quite high at <strong>8</strong>, and his
+        Dexterity is <strong>6, </strong>so the average of the two abilities
+        adds an Ability bonus of <strong>7</strong>. Albert also happens to have
+        a magical set of nautical charts which grant a +2 enchantment bonus,
+        pushing the result of the roll to <strong>26</strong>.</p></section><h2
+        class="divider">Passive Skill Checks</h2><p>Crucible allows any skill
+        check to be considered passive at the discretion of the gamemaster. In a
+        case where a character's trained skill rank is sufficient to exceed the
+        DC of a roll by adding 12 to it, the check is considered successful
+        without a need to roll.</p><p></p><h2 class="divider">Group Skill
+        Checks</h2><section class="foundryvtt"><p>Crucible's handling of Group
+        Skill Checks is a work in progress at this time, please look forward to
+        a future update that adds this functionality.</p></section><p></p>
     video:
       controls: true
       volume: 0.5
@@ -924,12 +924,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '13.350'
       systemId: crucible
       systemVersion: 0.8.1
       createdTime: 1763079763956
-      modifiedTime: 1765481948485
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1763152956749
+      lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.skills0000000000'
 folder: MMeWpMmsLOblp07U
 categories: []

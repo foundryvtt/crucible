@@ -2,35 +2,45 @@ name: Skeleton
 type: taxonomy
 img: icons/magic/death/undead-skeleton-worn-blue.webp
 system:
-  description: <p>Undeathly denizens fashioned of bone and sinew.</p>
+  description: >-
+    <p>Malevolent undying creatures brought to life by necromancy, created from
+    the skeletal remains of long-dead humanoids. Driven by unholy forces beyond
+    their control, @ref[name] rarely exist of their own accord, and are often
+    encountered as the minions of evil spellcasters and greater undead.</p>
   category: undead
   abilities:
     wisdom: 1
-    presence: 0
+    presence: 1
     intellect: 1
-    strength: 4
-    toughness: 4
-    dexterity: 2
+    strength: 3
+    toughness: 3
+    dexterity: 3
   resistances:
     bludgeoning: -2
-    corruption: 0
+    corruption:
+      immune: true
     piercing: 1
     slashing: 1
-    poison: 2
-    acid: 0
+    poison:
+      value: 1
+    acid:
+      value: -1
     fire: 0
-    cold: 0
+    cold:
+      value: -1
     electricity: 0
     psychic: 0
     radiant: -2
-    void: 0
+    void:
+      value: -1
   characteristics:
     equipment: true
     spells: true
   movement:
     size: 4
     stride: 8
-  talents: []
+  talents:
+    - Compendium.crucible.adversary-talents.Item.restlessDead0000
   identifier: skeleton
 effects: []
 folder: REYz7fzLYEdBX3A2
@@ -41,9 +51,9 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
-  coreVersion: '13.346'
-  modifiedTime: 1751554922432
+  systemVersion: 0.8.2
+  coreVersion: '13.351'
+  modifiedTime: 1765550299173
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null

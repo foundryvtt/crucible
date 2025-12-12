@@ -1,0 +1,84 @@
+name: Zombie
+type: taxonomy
+img: icons/magic/death/hand-dirt-undead-zombie.webp
+system:
+  description: >-
+    <p>The shambling corpses of the restless dead, their still-rotting bodies
+    bloated with putrescence. They move without regard for the wounds they
+    sustain and seek only mindless consumption.</p>
+  identifier: zombie
+  category: undead
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 0
+    strength: 3
+    toughness: 5
+    dexterity: 2
+  movement:
+    size: 4
+    stride: 6
+  resistances:
+    bludgeoning:
+      value: 2
+      immune: false
+    corruption:
+      value: -2
+      immune: true
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: -3
+      immune: false
+    poison:
+      value: 1
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -2
+      immune: false
+    cold:
+      value: -1
+      immune: false
+    electricity:
+      value: 1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: -2
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - Compendium.crucible.adversary-talents.Item.restlessDead0000
+    - Compendium.crucible.adversary-talents.Item.repugnantPustule
+    - Compendium.crucible.talent.Item.thickskin0000000
+  characteristics:
+    equipment: true
+    spells: true
+effects: []
+folder: null
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765550120842
+  modifiedTime: 1765551221934
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: zombie0000000000
+sort: 0
+_key: '!items!zombie0000000000'

@@ -1,4 +1,4 @@
-name: Immuntable Form
+name: Immutable Form
 type: talent
 _id: immuntableForm00
 img: icons/magic/unholy/orb-beam-pink.webp
@@ -26,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751504854502
-  modifiedTime: 1751504854502
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1765494964375
+  lastModifiedBy: QPs9IwGEu5DxD700
 sort: 0
 _key: '!items!immuntableForm00'
