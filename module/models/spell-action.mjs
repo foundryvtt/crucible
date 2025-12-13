@@ -76,9 +76,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Spell Composition
     if ( this.actor ) {
-      this.rune = this.actor.grimoire.runes.get(this.rune);
-      this.gesture = this.actor.grimoire.gestures.get(this.gesture);
-      this.inflection = this.actor.grimoire.inflections.get(this.inflection);
+      this.rune = this.actor.grimoire.runes.get(this.rune) || SYSTEM.SPELL.RUNES[this.rune];
+      this.gesture = this.actor.grimoire.gestures.get(this.gesture) || SYSTEM.SPELL.GESTURES[this.gesture];
+      this.inflection = this.actor.grimoire.inflections.get(this.inflection) || SYSTEM.SPELL.INFLECTIONS[this.inflection];
     } else {
       this.rune = SYSTEM.SPELL.RUNES[this.rune];
       this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];

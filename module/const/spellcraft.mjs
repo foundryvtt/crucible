@@ -181,7 +181,7 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     nameFormat: NAME_FORMATS.NOUN,
-    scaling: "wisdom",
+    scaling: "presence",
     target: {
       type: "self"
     }

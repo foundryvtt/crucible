@@ -14,16 +14,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _initializeSource(data, options) {
-    data = super._initializeSource(data, options);
-    data.rune ??= this.actor?.grimoire.runes.keys().next().value ?? "lightning";
-    data.gesture ??= "touch";
-    return data;
-  }
-
-  /** @inheritDoc */
   _prepareData() {
     const {cost: {action, focus}, name, img, target, description, range} = this;
+    this.rune ??= this.actor?.grimoire.runes.keys().next().value ?? "lightning";
+    this.gesture ??= "touch";
+
     super._prepareData();
     const cost = {...this.cost, action, focus};
 
