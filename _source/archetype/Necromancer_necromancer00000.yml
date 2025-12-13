@@ -1,0 +1,47 @@
+name: Necromancer
+type: archetype
+img: icons/magic/unholy/hand-fire-skeleton-pink.webp
+system:
+  description: >-
+    <p>Mages who exploit the power that lies in undeath, raising minions from
+    the dead to serve their nefarious ambitions or extending their own lives
+    through occult spellcraft.</p>
+  identifier: necromancer
+  abilities:
+    wisdom: 2
+    presence: 5
+    intellect: 4
+    strength: 0
+    toughness: 1
+    dexterity: 0
+  talents:
+    - Compendium.crucible.talent.Item.runeDeath0000000
+    - Compendium.crucible.talent.Item.DeathProficiency
+    - Compendium.crucible.talent.Item.gesturecreate000
+    - Compendium.crucible.talent.Item.gestureConjure00
+    - Compendium.crucible.talent.Item.counterspell0000
+    - Compendium.crucible.talent.Item.inflectioncompos
+  skills:
+    - arcana
+    - medicine
+    - deception
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765576683284
+  modifiedTime: 1765576683284
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: necromancer00000
+sort: 0
+_key: '!items!necromancer00000'

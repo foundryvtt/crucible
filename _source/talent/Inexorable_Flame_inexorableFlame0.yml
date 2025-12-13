@@ -1,0 +1,38 @@
+name: Inexorable Flame
+type: talent
+img: icons/magic/fire/flame-burning-campfire-rocks.webp
+system:
+  nodes:
+    - wis4d
+  description: >-
+    <p>You recognize that fire can spread with inevitable and unstoppable
+    purpose. Your usage of the <strong>Rune of Flame</strong> scales with
+    <strong>Wisdom</strong> instead of <strong>Intellect</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: xhBPnxcjrC9F4AVL
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765571304162
+  modifiedTime: 1765571347707
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: inexorableFlame0
+sort: 0
+_key: '!items!inexorableFlame0'

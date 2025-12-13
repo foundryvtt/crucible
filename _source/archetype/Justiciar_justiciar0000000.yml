@@ -1,0 +1,47 @@
+name: Justiciar
+type: archetype
+img: icons/skills/melee/sword-stuck-glowing-pink.webp
+system:
+  description: >-
+    <p>Justiciars are divine champions which bring the wrath and judgment of
+    divine power to those who are wicked or unworthy.</p>
+  identifier: justiciar
+  abilities:
+    wisdom: 4
+    presence: 1
+    intellect: 0
+    strength: 4
+    toughness: 3
+    dexterity: 0
+  talents:
+    - Compendium.crucible.talent.Item.justiciar0000000
+    - Compendium.crucible.talent.Item.heavyWeaponTrain
+    - Compendium.crucible.talent.Item.heavyWeaponProfi
+    - Compendium.crucible.talent.Item.zealoussmite0000
+    - Compendium.crucible.talent.Item.vowofanimus00000
+    - Compendium.crucible.talent.Item.uppercut00000000
+    - Compendium.crucible.talent.Item.seasonedveteran0
+  skills:
+    - athletics
+    - intimidation
+    - awareness
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765570443478
+  modifiedTime: 1765570443478
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: justiciar0000000
+sort: 0
+_key: '!items!justiciar0000000'

@@ -1,0 +1,45 @@
+name: Lyre
+type: weapon
+img: icons/tools/instruments/harp-red.webp
+system:
+  identifier: lyre
+  category: talisman1
+  quantity: 1
+  weight: 3
+  price: 4800
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A stringed instrument within a curved frame. The lyre is a favored
+      instrument of many roving bards or storytellers which use music to augment
+      their magic or oration.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: psychic
+  dropped: false
+  slot: 0
+effects: []
+folder: uvvY6c0nbJBhAjM6
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765576179114
+  modifiedTime: 1765576179114
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: lyre000000000000
+sort: 0
+_key: '!items!lyre000000000000'

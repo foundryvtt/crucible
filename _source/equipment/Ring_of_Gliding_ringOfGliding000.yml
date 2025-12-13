@@ -1,0 +1,81 @@
+name: Ring of Gliding
+type: accessory
+img: icons/equipment/finger/ring-band-engraved-scrolls-silver.webp
+system:
+  identifier: ringOfGliding
+  category: jewelry
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A band of elegant pale blue steel that features a spiraling pattern to
+      the metal that presents the illusion that it is perpetually spinning
+      slowly upon its wearer's finger.</p><p>This ring can be instinctually
+      activated by its bearer when in freefall to enter a graceful and
+      controlled descent.</p>
+    private: >-
+      <p>This item is presented as a ring, but it can be any type of accessory
+      like an amulet, cloak, bracers, or other type of trinket.</p>
+  actions:
+    - id: gliding
+      name: Ring of Gliding
+      img: icons/equipment/finger/ring-band-engraved-scrolls-silver.webp
+      condition: ''
+      description: >-
+        <p>If used while <strong>Falling</strong>, you may laterally move a
+        number of spaces from your initial location as you
+        glide.</p><ul><li><p><strong>Minor </strong>enchantment: <strong>1
+        foot</strong> per 20 feet of
+        descent.</p></li><li><p><strong>Superior</strong> enchantment: <strong>2
+        feet </strong>per <strong>20 feet</strong> of
+        descent.</p></li><li><p><strong>Masterwork </strong>enchantment:
+        <strong>4 feet</strong> per <strong>20 feet</strong> of
+        descent.</p></li></ul><p>You take no falling damage upon landing, nor
+        are you rendered @Condition[prone].</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - reaction
+        - movement
+      actionHooks: []
+  actorHooks: []
+effects: []
+folder: dNk8eE87Ep8GtNse
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1765578152594
+  modifiedTime: 1765578152632
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: ringOfGliding000
+sort: 400000
+_key: '!items!ringOfGliding000'

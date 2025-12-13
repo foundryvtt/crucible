@@ -44,12 +44,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.8
   createdTime: 1759603295903
-  modifiedTime: 1759603295903
+  modifiedTime: 1765578152632
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: amuletOfNimblene
-sort: 0
+sort: 100000
 _key: '!items!amuletOfNimblene'
