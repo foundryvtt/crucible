@@ -90,7 +90,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
       this.name = CrucibleSpellAction.#getName(this);
       this.img = this.rune.img;
-      this.description = "Weave arcana to create a work of spellcraft." // TODO make dynamic
+      this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description") // TODO make dynamic
     }
 
     // Derived Spell Attributes
@@ -319,7 +319,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
-    if ( this.damage.healing ) tags.action.healing = "Healing";
+    if ( this.damage.healing ) tags.action.healing = game.i18n.localize("ACTION.TagHealing");
     else tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
     return tags;

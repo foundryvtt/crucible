@@ -4,10 +4,10 @@
         <div class="form-fields">
             {{formInput fields.name placeholder=effect.placeholder value=effect.name}}
             <button type="button" class="icon frame-brown fa-solid fa-trash"
-                    data-action="deleteEffect" data-tooltip="ACTION.EFFECTS.Delete"></button>
+                    data-action="deleteEffect" aria-label="{{localize "ACTION.EFFECTS.Delete"}}" data-tooltip></button>
         </div>
     </div>
-    {{formGroup fields.scope value=effect.scope}}
+    {{formGroup fields.scope value=effect.scope localize=true}}
     <div class="form-group">
         <label>{{fields.result.label}}</label>
         <div class="form-fields">

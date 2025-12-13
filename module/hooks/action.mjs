@@ -252,16 +252,16 @@ HOOKS.delay = {
     const combatant = game.combat.getCombatantByActor(this.actor);
     const maximum = combatant.getDelayMaximum();
     const response = await foundry.applications.api.DialogV2.prompt({
-      window: { title: "Delay Turn" },
+      window: { title: "ACTION.DelayTitle" },
       content: `<form class="delay-turn" autocomplete="off">
             <div class="form-group">
-                <label>Delayed Initiative</label>
+                <label>${game.i18n.localize("ACTION.DelayLabel")}</label>
                 <input name="initiative" type="number" min="1" value="${maximum - 1}" max="${maximum}" step="1">
-                <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
+                <p class="hint">${game.i18n.format("ACTION.DelayHint", {maximum})}</p>
             </div>
         </form>`,
       ok: {
-        label: "Delay",
+        label: this.name,
         callback: (event, button, dialog) => button.form.elements.initiative.valueAsNumber
       },
       rejectClose: false

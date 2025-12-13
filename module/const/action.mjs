@@ -10,22 +10,22 @@ import CrucibleAction from "../models/action.mjs";
  */
 export const EFFECT_RESULT_TYPES = Object.freeze({
   any: {
-    label: "Any"
+    label: "ACTION.EFFECT_RESULT_TYPES.Any"
   },
   custom: {
-    label: "Custom"
+    label: "ACTION.EFFECT_RESULT_TYPES.Custom"
   },
   success: {
-    label: "Success"
+    label: "ACTION.EFFECT_RESULT_TYPES.Success"
   },
   successCritical: {
-    label: "Critical Success"
+    label: "ACTION.EFFECT_RESULT_TYPES.CriticalSuccess"
   },
   failure: {
-    label: "Failure"
+    label: "ACTION.EFFECT_RESULT_TYPES.Failure"
   },
   failureCritical: {
-    label: "Critical Failure"
+    label: "ACTION.EFFECT_RESULT_TYPES.CriticalFailure"
   }
 });
 
@@ -34,11 +34,11 @@ export const EFFECT_RESULT_TYPES = Object.freeze({
  * @enum {number}
  */
 export const TARGET_SCOPES = new Enum({
-  NONE: {value: 0, label: "None"},
-  SELF: {value: 1, label: "Self"},
-  ALLIES: {value: 2, label: "Allies"},
-  ENEMIES: {value: 3, label: "Enemies"},
-  ALL: {value: 4, label: "All"}
+  NONE: {value: 0, label: "ACTION.TARGET_SCOPES.None"},
+  SELF: {value: 1, label: "ACTION.TARGET_SCOPES.Self"},
+  ALLIES: {value: 2, label: "ACTION.TARGET_SCOPES.Allies"},
+  ENEMIES: {value: 3, label: "ACTION.TARGET_SCOPES.Enemies"},
+  ALL: {value: 4, label: "ACTION.TARGET_SCOPES.All"}
 });
 
 /**
@@ -47,22 +47,22 @@ export const TARGET_SCOPES = new Enum({
  */
 export const TARGET_TYPES = Object.freeze({
   none: {
-    label: "None",
+    label: "ACTION.TARGET_TYPES.None",
     template: null,
     scope: TARGET_SCOPES.NONE
   },
   self: {
-    label: "Self",
+    label: "ACTION.TARGET_TYPES.Self",
     template: null,
     scope: TARGET_SCOPES.SELF
   },
   single: {
-    label: "Single",
+    label: "ACTION.TARGET_TYPES.Single",
     template: null,
     scope: TARGET_SCOPES.ALL
   },
   cone: {
-    label: "Cone",
+    label: "ACTION.TARGET_TYPES.Cone",
     template: {
       t: "cone",
       angle: 60,
@@ -73,7 +73,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.ALL
   },
   fan: {
-    label: "Fan",
+    label: "ACTION.TARGET_TYPES.Fan",
     template: {
       t: "cone",
       angle: 210,
@@ -84,7 +84,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.ALL
   },
   pulse: {
-    label: "Pulse",
+    label: "ACTION.TARGET_TYPES.Pulse",
     template: {
       t: "circle",
       anchor: "self",
@@ -93,7 +93,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.ALL
   },
   blast: {
-    label: "Blast",
+    label: "ACTION.TARGET_TYPES.Blast",
     template: {
       t: "circle",
       anchor: "vertex"
@@ -101,7 +101,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.ALL
   },
   ray: {
-    label: "Ray",
+    label: "ACTION.TARGET_TYPES.Ray",
     template: {
       t: "ray",
       width: 1,
@@ -112,7 +112,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.ALL
   },
   summon: {
-    label: "Summon",
+    label: "ACTION.TARGET_TYPES.Summon",
     template: {
       t: "rect",
       direction: 45, // Square
@@ -122,7 +122,7 @@ export const TARGET_TYPES = Object.freeze({
     scope: TARGET_SCOPES.SELF
   },
   wall: {
-    label: "Wall",
+    label: "ACTION.TARGET_TYPES.Wall",
     template: {
       t: "ray",
       width: 2,
@@ -1105,7 +1105,7 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
 // All Skill Attacks
 TAGS.skill = {
   tag: "skill",
-  label: "Skill",
+  label: "ACTION.TagSkill",
   category: "skills"
 };
 
@@ -1148,9 +1148,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Cast Spell
   {
     id: "cast",
-    name: "Cast Spell",
+    name: "ACTION.DEFAULT_ACTIONS.Cast.Name",
     img: "icons/magic/air/air-smoke-casting.webp",
-    description: "Weave arcana to create a work of spellcraft.",
+    description: "ACTION.DEFAULT_ACTIONS.Cast.Description",
     tags: [],
     target: {
       type: "none",
@@ -1160,9 +1160,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Basic Movement
   {
     id: "move",
-    name: "Move",
+    name: "ACTION.DEFAULT_ACTIONS.Move.Name",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
-    description: "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
+    description: "ACTION.DEFAULT_ACTIONS.Move.Description",
     target: {
       type: "none",
       number: 0,
@@ -1174,10 +1174,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Defend
   {
     id: "defend",
-    name: "Defend",
+    name: "ACTION.DEFAULT_ACTIONS.Defend.Name",
     img: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-    description: "You concentrate effort on avoiding harm, heightening your physical defense. You gain the "
-      + "<strong>Guarded</strong> condition until the start of your next Turn.",
+    description: "ACTION.DEFAULT_ACTIONS.Defend.Description",
     target: {
       type: "self",
       number: 0,
@@ -1197,11 +1196,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Delay
   {
     id: "delay",
-    name: "Delay",
+    name: "ACTION.DEFAULT_ACTIONS.Delay.Name",
     img: "icons/magic/time/clock-analog-gray.webp",
-    description: "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and "
-      + "the Initiative value of the combatant after you. You will act at this new Initiative value. You may only "
-      + "delay your turn once per round.",
+    description: "ACTION.DEFAULT_ACTIONS.Delay.Description",
     target: {
       type: "self",
       scope: 1
@@ -1211,9 +1208,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Reactive Strike
   {
     id: "reactiveStrike",
-    name: "Reactive Strike",
+    name: "ACTION.DEFAULT_ACTIONS.ReactiveStrike.Name",
     img: "icons/skills/melee/blade-tip-orange.webp",
-    description: "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
+    description: "ACTION.DEFAULT_ACTIONS.ReactiveStrike.Description",
     cost: {
       action: -1,
       focus: 1,
@@ -1233,9 +1230,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Throw Weapon
   {
     id: "throwWeapon",
-    name: "Throw Weapon",
+    name: "ACTION.DEFAULT_ACTIONS.ThrowWeapon.Name",
     img: "icons/skills/ranged/dagger-thrown-jeweled-green.webp",
-    description: "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>.",
+    description: "ACTION.DEFAULT_ACTIONS.ThrowWeapon.Description",
     cost: {
       weapon: true
     },
@@ -1250,9 +1247,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Recover
   {
     id: "recover",
-    name: "Recover",
+    name: "ACTION.DEFAULT_ACTIONS.Recover.Name",
     img: "icons/magic/life/cross-area-circle-green-white.webp",
-    description: "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus.",
+    description: "ACTION.DEFAULT_ACTIONS.Recover.Description",
     target: {
       type: "self",
       number: 0,
@@ -1267,9 +1264,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Refocus
   {
     id: "refocus",
-    name: "Recover Focus",
+    name: "ACTION.DEFAULT_ACTIONS.Refocus.Name",
     img: "icons/magic/light/orb-shadow-blue.webp",
-    description: "Use your equipped Talisman to recover Focus.",
+    description: "ACTION.DEFAULT_ACTIONS.Refocus.Description",
     target: {
       type: "self",
       scope: 1
@@ -1282,9 +1279,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Reload
   {
     id: "reload",
-    name: "Reload Weapon",
+    name: "ACTION.DEFAULT_ACTIONS.Reload.Name",
     img: "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
-    description: "Reload a ranged weapon which features a reloading time.",
+    description: "ACTION.DEFAULT_ACTIONS.Reload.Description",
     cost: {
       action: 2
     },
@@ -1297,9 +1294,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Rest
   {
     id: "rest",
-    name: "Rest",
+    name: "ACTION.DEFAULT_ACTIONS.Rest.Name",
     img: "icons/magic/time/arrows-circling-green.webp",
-    description: "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources.",
+    description: "ACTION.DEFAULT_ACTIONS.Rest.Description",
     target: {
       type: "self",
       number: 0,
@@ -1314,9 +1311,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
   // Basic Strike
   {
     id: "strike",
-    name: "Strike",
+    name: "ACTION.DEFAULT_ACTIONS.Strike.Name",
     img: "icons/skills/melee/blade-tip-orange.webp",
-    description: "Attack a single creature or object with one of your equipped weapon.",
+    description: "ACTION.DEFAULT_ACTIONS.Strike.Description",
     range: {
       weapon: true
     },

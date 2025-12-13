@@ -1,8 +1,8 @@
 <form class="crucible-skill-page flexcol">
     <div class="scrollable standard-form">
-        <h2 class="divider">Skill Summary</h2>
+        <h2 class="divider">{{localize "SKILL.Summary"}}</h2>
         <div class="form-group">
-            <label>Skill ID</label>
+            <label>{{localize "SKILL.Id"}}</label>
             <div class="form-fields">
                 <select name="system.skillId">
                     {{selectOptions skills selected=document.system.skillId labelAttr="name" blank=""}}
@@ -11,11 +11,11 @@
         </div>
 
         <div class="form-group stacked">
-            <label>Skill Overview</label>
+            <label>{{localize "SKILL.Overview"}}</label>
             <textarea name="system.overview">{{document.system.overview}}</textarea>
         </div>
 
-        <h2 class="divider">Skill Ranks</h2>
+        <h2 class="divider">{{localize "SKILL.Ranks"}}</h2>
         {{#each ranks as |rank|}}
         <div class="form-group stacked">
             <label>{{rank.title}}</label>
@@ -27,19 +27,19 @@
         {{#each paths as |path pathId|}}
         <h2 class="divider">{{path.title}}</h2>
         <div class="form-group">
-            <label>Path ID</label>
+            <label>{{localize "SKILL.PathId"}}</label>
             <div class="form-fields">
                 <input type="text" name="system.paths.{{pathId}}.id" value="{{path.id}}">
             </div>
         </div>
         <div class="form-group">
-            <label>Path Name</label>
+            <label>{{localize "SKILL.PathName"}}</label>
             <div class="form-fields">
                 <input type="text" name="system.paths.{{pathId}}.name" value="{{path.name}}">
             </div>
         </div>
         <div class="form-group stacked">
-            <label>Path Overview</label>
+            <label>{{localize "SKILL.PathOverview"}}</label>
             <textarea name="system.paths.{{pathId}}.overview">{{path.overview}}</textarea>
         </div>
         {{#each path.ranks as |rank rankId|}}
@@ -53,7 +53,7 @@
 
     <footer class="form-footer">
         <button class="frame-brown" type="submit">
-            <i class="fa-solid fa-save"></i> Save Changes
+            <i class="fa-solid fa-save"></i> {{localize "Save Changes"}}
         </button>
     </footer>
 </form>

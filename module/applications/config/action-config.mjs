@@ -238,19 +238,18 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
     delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
     const schema = new fields.SchemaField({
-      name: new fields.StringField({blank: true, initial: "", label: "Effect Name"}),
-      scope: new fields.StringField({choices: effectScopes, label: "Effect Scope"}),
+      name: new fields.StringField({blank: true, initial: "", label: game.i18n.localize("ACTION.EFFECTS.Name")}),
+      scope: new fields.StringField({choices: effectScopes, label: game.i18n.localize("ACTION.EFFECTS.Scope")}),
       result: new fields.SchemaField({
         type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false,
-          label: "Type"}),
-        all: new fields.BooleanField({initial: false, label: "All"})
-      }, {label: "Result"}),
-      statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}), {label: "Statuses"}),
+          label: game.i18n.localize("ACTION.EFFECTS.ResultType")}),
+        all: new fields.BooleanField({initial: false, label: game.i18n.localize("ACTION.EFFECT_RESULT_TYPES.All")})
+      }, {label: game.i18n.localize("ACTION.EFFECTS.Result")}),
+      statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}), {label: game.i18n.localize("ACTION.EFFECTS.Statuses")}),
       duration: new fields.SchemaField({
-        turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: "Turns"}),
-        rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: "Rounds"})
-      }, {label: "Duration", hint: "Effects with duration in Turns expire at the end of the Actor's turn. Effects " +
-          "with duration in Rounds expire at the beginning of the Actor's turn."})
+        turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: game.i18n.localize("ACTION.EFFECTS.DurationTurns")}),
+        rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: game.i18n.localize("ACTION.EFFECTS.DurationRounds")})
+      }, {label: game.i18n.localize("ACTION.EFFECTS.Duration"), hint: game.i18n.localize("ACTION.EFFECTS.DurationHint")})
     });
     schema.name = fieldPath;
     return schema;

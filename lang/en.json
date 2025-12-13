@@ -76,6 +76,61 @@
 
 
 "ACTION": {
+  "DEFAULT_ACTIONS": {
+    "Cast": {
+      "Name": "Cast Spell",
+      "Description": "Weave arcana to create a work of spellcraft."
+    },
+    "Defend": {
+      "Name": "Defend",
+      "Description": "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn."
+    },
+    "Delay": {
+      "Name": "Delay",
+      "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and the Initiative value of the combatant after you. You will act at this new Initiative value. You may only delay your turn once per round."
+    },
+    "Move": {
+      "Name": "Move",
+      "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used."
+    },
+    "ReactiveStrike": {
+      "Name": "Reactive Strike",
+      "Description": "Perform a strike when an enemy leaves your engagement and you are not fully engaged."
+    },
+    "Recover": {
+      "Name": "Recover",
+      "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus."
+    },
+    "Refocus": {
+      "Name": "Recover Focus",
+      "Description": "Use your equipped Talisman to recover Focus."
+    },
+    "Reload": {
+      "Name": "Reload Weapon",
+      "Description": "Reload a ranged weapon which features a reloading time."
+    },
+    "Rest": {
+      "Name": "Rest",
+      "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources."
+    },
+    "Strike": {
+      "Name": "Strike",
+      "Description": "Attack a single creature or object with one of your equipped weapon."
+    },
+    "ThrowWeapon": {
+      "Name": "Throw Weapon",
+      "Description": "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>."
+    }
+  },
+  "EFFECT_RESULT_TYPES": {
+    "All": "All",
+    "Any": "Any",
+    "Custom": "Custom",
+    "Success": "Success",
+    "CriticalSuccess": "Critical Success",
+    "Failure": "Failure",
+    "CriticalFailure": "Critical Failure"
+  },
   "FIELDS": {
     "cost": {
       "label": "Action Cost",
@@ -176,6 +231,25 @@
     "TARGET": "Target",
     "EFFECTS": "Effects",
     "HOOKS": "Hooks"
+  },
+  "TARGET_SCOPES": {
+    "None": "None",
+    "Self": "Self",
+    "Allies": "Allies",
+    "Enemies": "Enemies",
+    "All": "All"
+  },
+  "TARGET_TYPES": {
+    "Blast": "Blast",
+    "Cone": "Cone",
+    "Fan": "Fan",
+    "None": "None",
+    "Pulse": "Pulse",
+    "Ray": "Ray",
+    "Self": "Self",
+    "Single": "Single",
+    "Summon": "Summon",
+    "Wall": "Wall"
   }
 },
 
@@ -507,11 +581,29 @@
 },
 
 "ACTION.Action": "Action",
+"ACTION.AllResult": "{existing} (All)",
+"ACTION.AffectsScope": "Affects {scope}",
 "ACTION.Condition": "Condition",
+"ACTION.Confirmed": "Confirmed",
+"ACTION.DelayTitle": "Delay Turn",
+"ACTION.DelayLabel": "Delayed Initiative",
+"ACTION.DelayHint": "Choose an initiative value between 1 and {maximum} when you wish to act.",
+"ACTION.DurationRounds": "{rounds}R",
+"ACTION.DurationTurns": "{turns}T",
+"ACTION.DurationUntilEnded": "Until Ended",
+"ACTION.NoTargets": "No Targets",
+"ACTION.Overview": "Action Overview",
+"ACTION.PlaceTemplate": "Place Template",
+"ACTION.RemoveActor": "Remove Actor",
+"ACTION.RequestActorsHint": "Drag individual Actors or groups here to request they participate in this roll.",
+"ACTION.RequestRollsSuffix": "{label}: Request Rolls",
+"ACTION.RequestedActors": "Requested Actors",
+"ACTION.SkillCheck": "{skill} Skill Check",
+"ACTION.StandardCheck": "Standard Check",
 "ACTION.Targets": "Targets",
 "ACTION.TemplateTargets": "Template Targets",
-"ACTION.Confirmed": "Confirmed",
 "ACTION.Unconfirmed": "Unconfirmed",
+"ACTION.UseAction": "Use Action",
 "ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
@@ -523,9 +615,19 @@
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 "ACTION.WarningMinimumRange": "A selected target is closer than the minimum range of {min} feet.",
 "ACTION.WarningMaximumRange": "A selected target is further than the maximum range of {max} feet.",
+"ACTION.WarningUnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
 
 "ACTION.EFFECTS.Add": "Add Effect",
 "ACTION.EFFECTS.Delete": "Remove Effect",
+"ACTION.EFFECTS.Duration": "Duration",
+"ACTION.EFFECTS.DurationHint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
+"ACTION.EFFECTS.DurationRounds": "Rounds",
+"ACTION.EFFECTS.DurationTurns": "Turns",
+"ACTION.EFFECTS.Name": "Effect Name",
+"ACTION.EFFECTS.Result": "Result",
+"ACTION.EFFECTS.ResultType": "Type",
+"ACTION.EFFECTS.Scope": "Effect Scope",
+"ACTION.EFFECTS.Statuses": "Statuses",
 
 "ACTION.TAG_CATEGORIES.ATTACK": "Attack",
 "ACTION.TAG_CATEGORIES.REQUIREMENTS": "Requirements",
@@ -619,6 +721,20 @@
 "ACTION.TagIconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
+
+"ACTION.TagCostAction": "{action}A",
+"ACTION.TagCostFocus": "{focus}F",
+"ACTION.TagCostHand.one": "{hands} Hand",
+"ACTION.TagCostHand.other": "{hands} Hands",
+"ACTION.TagCostHeroism": "{heroism}H",
+"ACTION.TagCostHealth": "{health}HP",
+"ACTION.TagCostWeapon": "W",
+"ACTION.TagCostWeaponAction": "W{action}A",
+
+"ACTION.TAGS.Activation": "Activation Tags",
+"ACTION.TAGS.Action": "Action Tags",
+"ACTION.TAGS.Context": "Context Tags",
+"ACTION.TAGS.TargetLimit": "Limit {limit}",
 
 "ACTION.ACTIONS": {
   "AddFavorite": "Add Favorite",
@@ -884,11 +1000,29 @@
 "DEFENSES.Wounds": "Wounds",
 "DEFENSES.Madness": "Madness",
 
+"DICE.DIFFICULTIES": {
+  "Challenging": "Challenging",
+  "Custom": "Custom Difficulty",
+  "Difficult": "Difficult",
+  "Easy": "Easy",
+  "Formidable": "Formidable",
+  "Impossible": "Impossible",
+  "Moderate": "Moderate",
+  "Trivial": "Trivial"
+},
+
 "DICE.DiceTotal": "Dice Total",
+"DICE.Ability": "Ability",
 "DICE.AbilityBonus": "Ability Bonus",
+"DICE.Skill": "Skill",
 "DICE.SkillBonus": "Skill Bonus",
+"DICE.Enchantment": "Enchantment",
 "DICE.EnchantmentBonus": "Enchantment Bonus",
 "DICE.CircumstanceBonus": "Circumstance Bonus",
+"DICE.Banes.one": "Bane",
+"DICE.Banes.other": "Banes",
+"DICE.Boons.one": "Boon",
+"DICE.Boons.other": "Boons",
 "DICE.Damage": "Damage",
 "DICE.DamageOverflow": "Overflow Amount",
 "DICE.DamageBase": "Base {type}",
@@ -896,6 +1030,7 @@
 "DICE.DamageResistance": "Damage Resistance",
 "DICE.DamageVulnerability": "Damage Vulnerability",
 "DICE.DamageTotal": "Damage Total",
+"DICE.DC": "DC",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
@@ -1052,6 +1187,40 @@
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
+
+"KNOWLEDGE": {
+  "Alchemy": "Alchemy",
+  "Ancients": "Ancients",
+  "Artifacts": "Artifacts",
+  "Arts": "Arts",
+  "Beasts": "Beasts",
+  "Celestials": "Celestials",
+  "Cosmology": "Cosmology",
+  "Crafts": "Crafts",
+  "Crime": "Crime",
+  "Dragons": "Dragons",
+  "Elementals": "Elementals",
+  "Fey": "Fey",
+  "Fiends": "Fiends",
+  "Forensics": "Forensics",
+  "Gods": "Gods",
+  "Intrigue": "Intrigue",
+  "Legends": "Legends",
+  "Machines": "Machines",
+  "Monsters": "Monsters",
+  "Outsiders": "Outsiders",
+  "Plants": "Plants",
+  "Politics": "Politics",
+  "Rituals": "Rituals",
+  "Seafaring": "Seafaring",
+  "Souls": "Souls",
+  "Subterranea": "Subterranea",
+  "Tracking": "Tracking",
+  "Trade": "Trade",
+  "Undeath": "Undeath",
+  "Warfare": "Warfare",
+  "Weather": "Weather"
+},
 
 "LANGUAGE_CATEGORIES": {
   "NONSPOKEN": "Non-Spoken Languages",
@@ -1268,12 +1437,19 @@
   "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "CategoryHeader": "{category} Skills",
+  "Id": "Skill ID",
+  "Overview": "Skill Overview",
   "PassiveSpecific": "Passive: {passive}",
+  "PathId": "Path ID",
+  "PathName": "Path Name",
+  "PathOverview": "Path Overview",
+  "Ranks": "Skill Ranks",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
   "SpecializationPaths": "Specialization Paths",
   "SpecializationPathSelect": "Select Specialization",
   "SpecializationPathSpecific": "Specialization Path: {path}",
+  "Summary": "Skill Summary",
   "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
   "TooltipPassive": "12 + Score",
   "UnacquiredRanks": "Unacquired Ranks"

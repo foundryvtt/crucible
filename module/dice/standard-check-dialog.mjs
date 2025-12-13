@@ -69,10 +69,10 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
-    let label = skill ? `${skill.label} Skill Check` : "Standard Check";
+    let label = skill ? game.i18n.format("ACTION.SkillCheck", {skill: skill.label}) : game.i18n.localize("ACTION.StandardCheck");
     const actor = this.#requestActors.first();
     if ( actor && (this.#requestActors.size === 1) ) label += `: ${actor.name}`;
-    else if ( this.request ) label += `: Request Rolls`;
+    else if ( this.request ) label = game.i18n.format("ACTION.RequestRollsSuffix", {label});
     return label;
   }
 
@@ -106,7 +106,7 @@ export default class StandardCheckDialog extends DialogV2 {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
-      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
+      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${game.i18n.localize(d[1])} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
       rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {

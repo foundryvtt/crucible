@@ -482,8 +482,11 @@ function preLocalizeConfig() {
       }
     }
   }
+  localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
+  localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES, ["label"]);
+  localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
   localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
@@ -498,6 +501,7 @@ function preLocalizeConfig() {
 
   // Config objects
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
+  localizeConfigObject(crucible.CONFIG.knowledge, ["label"]);
   localizeConfigObject(crucible.CONFIG.languageCategories, ["label"]);
   localizeConfigObject(crucible.CONFIG.languages, ["label"]);
 }

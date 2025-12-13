@@ -506,14 +506,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       effect.tags = {};
       if ( effect.result?.type ) {
         let result = SYSTEM.ACTION.EFFECT_RESULT_TYPES[effect.result.type]?.label;
-        if ( effect.result.all ) result += ` (All)`;
+        if ( effect.result.all ) result = game.i18n.format("ACTION.AllResult", {existing: result});
         effect.tags.result = result;
       }
-      effect.tags.scope = `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope)}`;
+      effect.tags.scope = game.i18n.format("ACTION.AffectsScope", {scope: game.i18n.localize(SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope))})
       if ( effect.duration ) {
-        if ( effect.duration.turns ) effect.tags.duration = `${effect.duration.turns}T`;
-        else if ( effect.duration.rounds ) effect.tags.duration = `${effect.duration.rounds}R`;
-        else effect.tags.duration = "Until Ended";
+        if ( effect.duration.turns ) effect.tags.duration = game.i18n.format("ACTION.DurationTurns", {turns: effect.duration.turns});
+        else if ( effect.duration.rounds ) effect.tags.duration = game.i18n.format("ACTION.DurationRounds", {rounds: effect.duration.rounds});
+        else effect.tags.duration = game.i18n.localize("ACTION.DurationUntilEnded");
       }
     }
 
@@ -823,8 +823,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
         default:
-          ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not 
-            yet supported, you must manually target affected tokens.`);
+          ui.notifications.warn(game.i18n.format("ACTION.WarningUnimplementedTarget", {type: this.target.type, name: this.name}));
           targets = Array.from(game.user.targets).map(CrucibleAction.#getTargetFromToken);
           break;
       }
@@ -1611,9 +1610,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   getTags() {
     const tags = {
-      activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: "Activation Tags"}),
-      action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: "Action Tags"}),
-      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: "Context Tags"}),
+      activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: game.i18n.localize("ACTION.TAGS.Activation")}),
+      action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: game.i18n.localize("ACTION.TAGS.Action")}),
+      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: game.i18n.localize("ACTION.TAGS.Context")}),
     };
 
     // Action Tags
@@ -1625,7 +1624,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Context Tags
     const ctx = this.usage.context;
-    tags.context = new ActionTagGroup({icon: ctx.icon || "fa-solid fa-bullseye", tooltip: ctx.label || "Context Tags"});
+    tags.context = new ActionTagGroup({icon: ctx.icon || "fa-solid fa-bullseye", tooltip: ctx.label || game.i18n.localize("ACTION.TAGS.Context")});
     for ( const [k, v] of Object.entries(ctx.tags) ) {
       tags.context[k] = v;
     }
@@ -1633,13 +1632,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Target
     if ( this.target.type !== "none" ) {
       const parts = [SYSTEM.ACTION.TARGET_TYPES[this.target.type].label];
-      if ( this.target.number > 1 ) parts.unshift(this.target.number);
+      if ( this.target.number > 1 ) parts.unshift(`${this.target.number}x`);
       if ( this.range.maximum ) {
-        let r = `${this.range.maximum}ft`;
+        let r = this.range.maximum;
         if ( this.range.weapon && !this.actor ) r = `+${r}`;
         parts.push(r);
       }
-      if ( this.target.limit > 0 ) parts.push(`Limit ${this.target.limit}`);
+      if ( this.target.limit > 0 ) parts.push(game.i18n.format("ACTION.TAGS.TargetLimit", {limit: this.target.limit}));
       if ( this.target.multiple > 1 ) parts.push(`x${this.target.multiple}`);
       tags.activation.target = parts.join(" ");
     }
@@ -1648,11 +1647,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const cost = this._trueCost || this.cost;
     let ap = cost.action ?? 0;
     if ( this.cost.weapon && !this.usage.strikes?.length ) { // Strike sequence not yet determined
-      if ( ap > 0 ) tags.activation.ap = `W+${ap}A`;
-      else if ( ap < 0 ) tags.activation.ap = `W${ap}A`;
-      else tags.activation.ap = "W";
+      if ( ap === 0 ) tags.activation.ap = game.i18n.localize("ACTION.TagCostWeapon");
+      else tags.activation.ap = game.i18n.format("ACTION.TagCostWeaponAction", {action: ap.signedString()});
     }
-    else tags.activation.ap = `${ap}A`;
+    else tags.activation.ap = game.i18n.format("ACTION.TagCostAction", {action: ap});
     if ( ap ) {
       const unmet = ap > this.actor?.resources.action.value;
       const label = tags.activation.ap;
@@ -1660,24 +1658,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) {
       const unmet = cost.focus > this.actor?.resources.focus.value;
-      const label = `${cost.focus}F`;
+      const label = game.i18n.format("ACTION.TagCostFocus", {focus: cost.focus});
       tags.activation.fp = {label, unmet};
     }
     if ( Number.isFinite(cost.heroism) && cost.heroism ) {
       const unmet = cost.heroism > this.actor?.resources.heroism.value;
-      const label = `${cost.heroism}H`;
+      const label = game.i18n.format("ACTION.TagCostHeroism", {heroism: cost.heroism});
       tags.activation.hp = {label, unmet};
     }
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) {
       // e.g. Blood Magic
       const unmet = cost.health > this.actor?.resources.health.value;
-      const label = `${cost.health}HP`;
+      const label = game.i18n.format("ACTION.TagCostHealth", {health: cost.health});
       tags.activation.health = {label, unmet}; 
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
       const unmet = cost.hands > this.actor?.equipment.weapons.spellHands;
-      const label = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
+      const plurals = new Intl.PluralRules(game.i18n.lang);
+      const label = game.i18n.format(`ACTION.TagCostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
       tags.activation.hands = {label, unmet};
     }
     return tags;

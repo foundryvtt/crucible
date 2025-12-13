@@ -3,7 +3,7 @@
     <fieldset>
         <legend>{{fields.range.label}}</legend>
         <div class="form-group">
-            <label>Distance</label>
+            <label>{{localize "Distance"}}</label>
             <div class="form-fields">
                 <label>{{fields.range.fields.minimum.label}}</label>
                 {{formInput fields.range.fields.minimum value=action.range.minimum}}
@@ -17,7 +17,7 @@
 
     <fieldset>
         <legend>{{fields.target.label}}</legend>
-        {{formGroup fields.target.fields.scope value=action.target.scope}}
+        {{formGroup fields.target.fields.scope value=action.target.scope localize=true}}
         {{formGroup fields.target.fields.type value=action.target.type}}
         {{formGroup fields.target.fields.number value=action.target.number classes="slim"}}
         {{formGroup fields.target.fields.size value=action.target.size classes="slim"}}

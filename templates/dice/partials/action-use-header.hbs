@@ -40,14 +40,14 @@
         {{#if requiresTemplate}}
         <button class="place-template frame-brown" type="button" data-action="placeTemplate">
             <i class="fa-solid fa-ruler-combined"></i>
-            Place Template
+            {{localize "ACTION.PlaceTemplate"}}
         </button>
         {{else}}
         {{#each targets}}
         <span class="target-link tag {{this.cssClass}}" data-uuid="{{this.uuid}}"
               {{#if this.tooltip}}data-tooltip="{{this.tooltip}}"{{/if}}>{{this.name}}</span>
         {{else}}
-        <span class="tag unmet">No Targets</span>
+        <span class="tag unmet">{{localize "ACTION.NoTargets"}}</span>
         {{/each}}
         {{/if}}
     </div>
