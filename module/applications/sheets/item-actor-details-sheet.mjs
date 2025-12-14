@@ -14,7 +14,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     actions: {
       removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
       toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
-      removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent
+      removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent,
+      removeSpell: CrucibleActorDetailsItemSheet.#onRemoveSpell
     }
   };
 
@@ -178,6 +179,17 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const uuid = item.dataset.uuid || null;
     const equipment = this.document.system._source.equipment.filter(i => i.item !== uuid);
     const updateData = {system: {equipment}};
+    return this._processSubmitData(event, this.form, updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  static async #onRemoveSpell(event, target) {
+    const spell = target.closest(".spell");
+    const spells = new Set(this.document.system.spells);
+    const uuid = spell.dataset.uuid;
+    spells.delete(uuid);
+    const updateData = {system: {spells: [...spells]}};
     return this._processSubmitData(event, this.form, updateData);
   }
 }

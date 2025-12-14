@@ -18,7 +18,8 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
         return obj;
       }, {})}),
       nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
-      scaling: new fields.StringField({choices: SYSTEM.ABILITIES})
+      scaling: new fields.StringField({choices: SYSTEM.ABILITIES}),
+      talentUuid: new fields.StringField({required: true, nullable: true})
     }
   }
 

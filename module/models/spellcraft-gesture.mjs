@@ -21,6 +21,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
       range: actionSchema.range,
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
+      talentUuid: new fields.StringField({required: true, nullable: true}),
       target: actionSchema.target
     }
   }

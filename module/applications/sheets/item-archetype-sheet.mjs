@@ -18,6 +18,12 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
    */
   static INCLUDED_EQUIPMENT_TEMPLATE = "systems/crucible/templates/sheets/item/included-equipment.hbs";
 
+  /**
+   * The template partial used to render an included iconic spell.
+   * @type {string}
+   */
+  static INCLUDED_SPELL_TEMPLATE = "systems/crucible/templates/sheets/item/included-spell.hbs";
+
   /** @override */
   static PARTS = {
     ...super.PARTS,
@@ -26,6 +32,12 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
       template: "systems/crucible/templates/sheets/item/item-equipment.hbs",
       templates: [this.INCLUDED_EQUIPMENT_TEMPLATE],
       scrollable: [".equipment-list"]
+    },
+    spells: {
+      id: "spells",
+      template: "systems/crucible/templates/sheets/item/item-spells.hbs",
+      templates: [this.INCLUDED_SPELL_TEMPLATE],
+      scrollable: [".spells-list"]
     }
   };
 
@@ -33,6 +45,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   static TABS = foundry.utils.deepClone(super.TABS);
   static {
     this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase", label: "ITEM.TABS.EQUIPMENT"});
+    this.TABS.sheet.push({id: "spells", group: "sheet", icon: "fa-solid fa-wand-magic-sparkles", label: "ITEM.TABS.SPELLS"});
   }
 
   // Initialize subclass options
@@ -53,7 +66,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
         value: context.source.system.abilities[ability.id]
       })),
       equipment: await this._prepareEquipment(),
-      equipmentPartial: this.constructor.INCLUDED_EQUIPMENT_TEMPLATE
+      equipmentPartial: this.constructor.INCLUDED_EQUIPMENT_TEMPLATE,
+      spells: await this._prepareSpells(),
+      spellPartial: this.constructor.INCLUDED_SPELL_TEMPLATE
     });
   }
 
@@ -87,13 +102,37 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /* -------------------------------------------- */
 
+  /**
+   * Retrieve spells and prepare for rendering
+   * @returns {Promise<{uuid: string, name: string, img: string, description: string, tags: object[]}>}
+   */
+  async _prepareSpells() {
+    const spells = this.document.system.spells;
+    const promises = spells.map(async (uuid) => {
+      const spell = await fromUuid(uuid);
+      if ( !spell ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
+      return {
+        uuid,
+        name: spell.name,
+        img: spell.img,
+        description: spell.system.description,
+        tags: spell.getTags()
+      }
+    });
+    return Promise.all(promises);
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
     this.#updateAbilitySum();
     if ( !this.isEditable ) return;
-    const dropZone = this.element.querySelector(".equipment-drop");
-    dropZone?.addEventListener("drop", this.#onDropEquipment.bind(this));
+    const dropZoneEquipment = this.element.querySelector(".equipment-drop");
+    dropZoneEquipment?.addEventListener("drop", this.#onDropEquipment.bind(this));
+    const dropZoneSpells = this.element.querySelector(".spell-drop");
+    dropZoneSpells?.addEventListener("drop", this.#onDropSpell.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -137,6 +176,42 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
     // Update Actor detail or permanent Item
     const updateData = {system: {equipment: [...equipment, {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped}]}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle drop events for a spell item added to this sheet
+   * @param {DragEvent} event 
+   * @returns {Promise<*>}
+   */
+  async #onDropSpell(event) {
+    const data = foundry.applications.ux.TextEditor.getDragEventData(event);
+    const spells = this.document.system.spells;
+    if ( (data.type !== "Item") || spells.has(data.uuid) ) return;
+    const spell = await fromUuid(data.uuid);
+    if ( !(spell?.system instanceof crucible.api.models.CrucibleSpellItem) ) return;
+
+    // Update Actor detail or permanent Item
+    const talents = this.document.system.talents;
+    const requisiteTalents = [];
+    for ( const rune of spell.system.runes ) {
+      const talentUuid = SYSTEM.SPELL.RUNES[rune].talentUuid;
+      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+    }
+    for ( const gesture of spell.system.gestures ) {
+      const talentUuid = SYSTEM.SPELL.GESTURES[gesture].talentUuid;
+      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+    }
+    for ( const inflection of spell.system.inflections ) {
+      const talentUuid = SYSTEM.SPELL.INFLECTIONS[inflection].talentUuid;
+      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+    }
+    const updateData = {system: {spells: [...spells, data.uuid], talents: [...talents, ...requisiteTalents]}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {
       return this._processSubmitData(event, this.form, updateData);
     }

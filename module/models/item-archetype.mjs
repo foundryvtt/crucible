@@ -22,6 +22,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
+      spells: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       equipment: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1}),

@@ -17,7 +17,8 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
-      })
+      }),
+      talentUuid: new fields.StringField({required: true, nullable: true})
     }
   }
 
