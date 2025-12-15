@@ -200,16 +200,22 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const talents = this.document.system.talents;
     const requisiteTalents = [];
     for ( const rune of spell.system.runes ) {
-      const talentUuid = SYSTEM.SPELL.RUNES[rune].talentUuid;
-      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+      const grantingTalents = crucible.api.models.CrucibleSpellcraftRune.grantingTalents[rune];
+      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
+      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
+      requisiteTalents.push(minTalent);
     }
     for ( const gesture of spell.system.gestures ) {
-      const talentUuid = SYSTEM.SPELL.GESTURES[gesture].talentUuid;
-      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+      const grantingTalents = crucible.api.models.CrucibleSpellcraftGesture.grantingTalents[gesture];
+      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
+      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
+      requisiteTalents.push(minTalent);
     }
     for ( const inflection of spell.system.inflections ) {
-      const talentUuid = SYSTEM.SPELL.INFLECTIONS[inflection].talentUuid;
-      if ( !talents.has(talentUuid) ) requisiteTalents.push(talentUuid);
+      const grantingTalents = crucible.api.models.CrucibleSpellcraftInflection.grantingTalents[inflection];
+      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
+      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
+      requisiteTalents.push(minTalent);
     }
     const updateData = {system: {spells: [...spells, data.uuid], talents: [...talents, ...requisiteTalents]}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {

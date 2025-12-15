@@ -18,10 +18,18 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
         return obj;
       }, {})}),
       nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
-      scaling: new fields.StringField({choices: SYSTEM.ABILITIES}),
-      talentUuid: new fields.StringField({required: true, nullable: true})
+      scaling: new fields.StringField({choices: SYSTEM.ABILITIES})
     }
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A mapping from rune ID to a list of talent UUIDs & tiers that grant the rune.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
 
   /* -------------------------------------------- */
 

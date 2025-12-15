@@ -108,14 +108,23 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     if ( this.rune ) {
       const rune = SYSTEM.SPELL.RUNES[this.rune];
       rune.img = talent.img;
+      const tier = this.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      crucible.api.models.CrucibleSpellcraftRune.grantingTalents[this.rune] ??= [];
+      crucible.api.models.CrucibleSpellcraftRune.grantingTalents[this.rune].push({uuid: this.parent.uuid, tier});
     }
     if ( this.gesture ) {
       const gesture = SYSTEM.SPELL.GESTURES[this.gesture];
       gesture.img = talent.img;
+      const tier = this.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      crucible.api.models.CrucibleSpellcraftGesture.grantingTalents[this.gesture] ??= [];
+      crucible.api.models.CrucibleSpellcraftGesture.grantingTalents[this.gesture].push({uuid: this.parent.uuid, tier});
     }
     if ( this.inflection ) {
       const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
       inflection.img = talent.img;
+      const tier = this.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      crucible.api.models.CrucibleSpellcraftInflection.grantingTalents[this.inflection] ??= [];
+      crucible.api.models.CrucibleSpellcraftInflection.grantingTalents[this.inflection].push({uuid: this.parent.uuid, tier});
     }
   }
 

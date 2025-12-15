@@ -17,8 +17,7 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
-      }),
-      talentUuid: new fields.StringField({required: true, nullable: true})
+      })
     }
   }
 
@@ -27,6 +26,15 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
    * @type {Record<string, function>}
    */
   hooks;
+
+  /* -------------------------------------------- */
+
+  /**
+   * A mapping from inflection ID to a list of talent UUIDs & tiers that grant the inflection.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
 
   /* -------------------------------------------- */
 

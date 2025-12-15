@@ -21,13 +21,21 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
       range: actionSchema.range,
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
-      talentUuid: new fields.StringField({required: true, nullable: true}),
       target: actionSchema.target
     }
   }
 
   /* -------------------------------------------- */
-1
+
+  /**
+   * A mapping from gesture ID to a list of talent UUIDs & tiers that grant the gesture.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _initialize() {
     super._initialize();

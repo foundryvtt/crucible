@@ -18,8 +18,7 @@ export const RUNES = {
     opposed: "kinesis",
     defense: "willpower",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeControl00000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   death: {
     id: "death",
@@ -30,8 +29,7 @@ export const RUNES = {
     opposed: "life",
     defense: "fortitude",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeDeath0000000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   earth: {
     id: "earth",
@@ -42,8 +40,7 @@ export const RUNES = {
     opposed: "lightning",
     defense: "reflex",
     scaling: "wisdom",
-    nameFormat: NAME_FORMATS.ADJ,
-    talentUuid: "Compendium.crucible.talent.Item.runeEarth0000000"
+    nameFormat: NAME_FORMATS.ADJ
   },
   flame: {
     id: "flame",
@@ -54,8 +51,7 @@ export const RUNES = {
     opposed: "frost",
     defense: "reflex",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeFlame0000000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   frost: {
     id: "frost",
@@ -66,8 +62,7 @@ export const RUNES = {
     opposed: "flame",
     defense: "fortitude",
     scaling: "wisdom",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeFrost0000000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   illumination: {
     id: "illumination",
@@ -78,8 +73,7 @@ export const RUNES = {
     opposed: "illusion",
     defense: "reflex",
     scaling: "presence",
-    nameFormat: NAME_FORMATS.ADJ,
-    talentUuid: "Compendium.crucible.talent.Item.runeIllumination"
+    nameFormat: NAME_FORMATS.ADJ
   },
   illusion: {
     id: "illusion",
@@ -90,8 +84,7 @@ export const RUNES = {
     opposed: "illumination",
     defense: "willpower",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.ADJ,
-    talentUuid: "Compendium.crucible.talent.Item.runeIllusion0000"
+    nameFormat: NAME_FORMATS.ADJ
   },
   kinesis: {
     id: "kinesis",
@@ -102,8 +95,7 @@ export const RUNES = {
     opposed: "control",
     defense: "physical",
     scaling: "presence",
-    nameFormat: NAME_FORMATS.ADJ,
-    talentUuid: "Compendium.crucible.talent.Item.runeKinesis00000"
+    nameFormat: NAME_FORMATS.ADJ
   },
   life: {
     id: "life",
@@ -115,8 +107,7 @@ export const RUNES = {
     opposed: "death",
     defense: "fortitude",
     scaling: "wisdom",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeLife00000000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   lightning: {
     id: "lightning",
@@ -127,8 +118,7 @@ export const RUNES = {
     opposed: "earth",
     defense: "reflex",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.ADJ,
-    talentUuid: "Compendium.crucible.talent.Item.runeLightning000"
+    nameFormat: NAME_FORMATS.ADJ
   },
   oblivion: {
     id: "oblivion",
@@ -139,8 +129,7 @@ export const RUNES = {
     opposed: "soul",
     defense: "willpower",
     scaling: "intellect",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeOblivion0000"
+    nameFormat: NAME_FORMATS.NOUN
   },
   soul: {
     id: "soul",
@@ -152,8 +141,7 @@ export const RUNES = {
     opposed: "oblivion",
     defense: "willpower",
     scaling: "presence",
-    nameFormat: NAME_FORMATS.NOUN,
-    talentUuid: "Compendium.crucible.talent.Item.runeSoul00000000"
+    nameFormat: NAME_FORMATS.NOUN
   },
 };
 
@@ -182,8 +170,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "single",
       number: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturearrow0000"
+    }
   },
   aspect: {
     id: "aspect",
@@ -197,8 +184,7 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "self"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureaspect000"
+    }
   },
   aura: {
     id: "aura",
@@ -213,8 +199,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "pulse", // TODO need an aura type
       size: 20
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureAura00000"
+    }
   },
   blast: {
     id: "blast",
@@ -235,8 +220,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "blast",
       size: 6
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureBlast0000"
+    }
   },
   cone: {
     id: "cone",
@@ -256,8 +240,7 @@ export const GESTURES = Object.seal({
     scaling: "intellect",
     target: {
       type: "cone"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureCone00000"
+    }
   },
   conjure: {
     id: "conjure",
@@ -274,8 +257,7 @@ export const GESTURES = Object.seal({
     scaling: "wisdom",
     target: {
       type: "summon"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureConjure00"
+    }
   },
   create: {
     id: "create",
@@ -292,8 +274,7 @@ export const GESTURES = Object.seal({
     scaling: "wisdom",
     target: {
       type: "summon"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturecreate000"
+    }
   },
   fan: {
     id: "fan",
@@ -312,8 +293,7 @@ export const GESTURES = Object.seal({
     scaling: "intellect",
     target: {
       type: "fan"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturefan000000"
+    }
   },
   influence: {
     id: "influence",
@@ -333,8 +313,7 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "single"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureinfluence"
+    }
   },
   pulse: {
     id: "pulse",
@@ -354,8 +333,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "pulse",
       size: 10
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturepulse0000"
+    }
   },
   ray: {
     id: "ray",
@@ -375,8 +353,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "ray",
       size: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureray000000"
+    }
   },
   sense: {
     id: "sense",
@@ -391,8 +368,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "pulse", // TODO aura type
       size: 30
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureSense0000"
+    }
   },
   step: {
     id: "step",
@@ -413,8 +389,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "ray",
       distance: 20
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturestep00000"
+    }
   },
   strike: {
     id: "strike",
@@ -433,8 +408,7 @@ export const GESTURES = Object.seal({
     scaling: "strength",
     target: {
       type: "single"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gesturestrike000"
+    }
   },
   surge: {
     id: "surge",
@@ -455,8 +429,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "ray",
       size: 10
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureSurge0000"
+    }
   },
   touch: {
     id: "touch",
@@ -477,8 +450,7 @@ export const GESTURES = Object.seal({
     scaling: "dexterity",
     target: {
       type: "single"
-    },
-    talentUuid: null
+    }
   },
   ward: {
     id: "ward",
@@ -494,8 +466,7 @@ export const GESTURES = Object.seal({
     scaling: "toughness",
     target: {
       type: "self"
-    },
-    talentUuid: "Compendium.crucible.talent.Item.gestureward00000"
+    }
   }
 });
 
@@ -513,24 +484,21 @@ export const INFLECTIONS = {
     cost: {
       action: 1,
       focus: -1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectioncompos"
+    }
   },
   determine: {
     id: "determine",
     name: "SPELL.INFLECTIONS.Determine",
     cost: {
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectiondeterm"
+    }
   },
   eluding: {
     id: "eluding",
     name: "SPELL.INFLECTIONS.Elude",
     cost: {
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionelude0"
+    }
   },
   extend: {
     id: "extend",
@@ -538,32 +506,28 @@ export const INFLECTIONS = {
     cost: {
       action: 1,
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionextend"
+    }
   },
   negate: {
     id: "negate",
     name: "SPELL.INFLECTIONS.Negate",
     cost: {
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionnegate"
+    }
   },
   pull: {
     id: "pull",
     name: "SPELL.INFLECTIONS.Pull",
     cost: {
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionpull00"
+    }
   },
   push: {
     id: "push",
     name: "SPELL.INFLECTIONS.Push",
     cost: {
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionpush00"
+    }
   },
   quicken: {
     id: "quicken",
@@ -571,8 +535,7 @@ export const INFLECTIONS = {
     cost: {
       action: -1,
       focus: 1
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionquicke"
+    }
   },
   reshape: {
     id: "reshape",
@@ -585,8 +548,7 @@ export const INFLECTIONS = {
         if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
         else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
       }
-    },
-    talentUuid: "Compendium.crucible.talent.Item.inflectionReshap"
+    }
   }
 };
 
@@ -606,4 +568,14 @@ export const GESTURE_SUMMONS =  {
     lightning: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
     fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
   }
-}
+};
+
+/**
+ * A reverse-mapping of each component ID to the UUIDs (and node tiers) of each talent which grants them.
+ * To be dynamically populated in `CrucibleTalentNode.initialize`
+ */
+export const COMPONENT_TO_TALENTS = {
+  rune: {},
+  gesture: {},
+  inflection: {}
+};
