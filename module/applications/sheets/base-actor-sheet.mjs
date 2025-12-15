@@ -610,7 +610,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       iconicSpells: {
         label: game.i18n.format(iconicSpells.label, {slots: iconicSlots}),
         known: iconicSpells.items,
-        emptyLabel: game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
+        emptyLabel: iconicSlots ? "" : game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
       }
     }
 
