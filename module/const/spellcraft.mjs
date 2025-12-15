@@ -569,13 +569,3 @@ export const GESTURE_SUMMONS =  {
     fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
   }
 };
-
-/**
- * A reverse-mapping of each component ID to the UUIDs (and node tiers) of each talent which grants them.
- * To be dynamically populated in `CrucibleTalentNode.initialize`
- */
-export const COMPONENT_TO_TALENTS = {
-  rune: {},
-  gesture: {},
-  inflection: {}
-};
