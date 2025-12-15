@@ -1477,7 +1477,47 @@ export default class CrucibleActor extends Actor {
     if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
       {diff: false, recursive: false, noHook: true});
     if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
-    await this.update({"_stats.systemVersion": game.system.version});
+  }
+
+  /* -------------------------------------------- */
+
+  async syncIconicSpells() {
+    const toCreate = [];
+    const toUpdate = [];
+    const toDelete = [];
+    const packs = [];
+    for ( const packId of crucible.CONFIG.packs.spell ) {
+      const pack = game.packs.get(packId);
+      if ( pack ) packs.push(pack);
+    }
+
+    // Identify updates to perform
+    for ( const item of this._source.items ) {
+      if ( item.type !== "spell" ) continue;
+      let spell;
+
+      // Search for the spell ID in a source pack
+      for ( const pack of packs ) {
+        if ( pack.index.has(item._id) ) spell = await pack.getDocument(item._id);
+      }
+
+      // Search for the upstream spell from its compendium source
+      if ( !spell && item._stats.compendiumSource ) spell = await fromUuid(item._stats.compendiumSource);
+      if ( !spell ) continue;
+
+      // Either update or delete+create
+      if ( spell.id === item._id ) toUpdate.push(this._cleanItemData(spell));
+      else {
+        toDelete.push(item._id);
+        toCreate.push(this._cleanItemData(spell));
+      }
+    }
+
+    // Create, update, and delete spells
+    if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
+    if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
+      {diff: false, recursive: false, noHook: true});
+    if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
   }
 
   /* -------------------------------------------- */

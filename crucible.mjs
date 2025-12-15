@@ -578,7 +578,7 @@ Hooks.once("ready", async function() {
  */
 async function _performMigrations() {
 
-  // Sync all Actor talents
+  // Sync all Actor talents & spells
   await syncTalents({force: true, reload: false});
 
   // Record the new migration version
@@ -809,17 +809,19 @@ function enableSpellcheckContext() {
  * @returns {Promise<void>}
  */
 async function syncTalents({force=false, reload=true}={}) {
-  console.groupCollapsed("Crucible | Talent Data Synchronization")
+  console.groupCollapsed("Crucible | Talent/Spell Data Synchronization")
   const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info("Synchronizing Talents", {console: true, progress: true});
+  const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
   for ( const actor of game.actors ) {
     bar.n++;
     bar.pct = bar.n / bar.total;
     if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
       try {
         await actor.syncTalents();
+        await actor.syncIconicSpells();
+        await actor.update({"_stats.systemVersion": game.system.version});
       } catch(err) {
-        console.warn(`Crucible | Talent synchronization failed for Actor "${actor.name}": ${err.message}`);
+        console.warn(`Crucible | Talent/Spell synchronization failed for Actor "${actor.name}": ${err.message}`);
       } finally {
         progress.update({pct: bar.pct, message: actor.name});
       }
