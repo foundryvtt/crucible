@@ -865,6 +865,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const tokens = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
+      if ( token.document.hidden ) return false;
       const hit = token.getHitRectangle();
       hit.x -= x;
       hit.y -= y;

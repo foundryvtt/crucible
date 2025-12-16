@@ -16,14 +16,19 @@ system:
   actions:
     - id: lifebloom
       name: Lifebloom
-      img: icons/svg/item-bag.svg
+      img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
       condition: ''
       description: >-
         <p>You channel vital magic into an aura that restores the Health and
         Morale of all allies within 30 feet of you. Each round, allies who start
         their turn within this aura recover your <strong>Wisdom</strong> in both
         <strong>Health</strong> and <strong>Morale</strong>. The spell must be
-        maintained.</p>
+        maintained.</p><p><strong>WIP: This spell is currently treated as an
+        Area of Effect, granting healing-over-time effects to those within
+        initial range. Removal of these effects if the spell ceases being
+        maintained must be done manually for now. When auras are automated by
+        the system in Foundry VTT version 14, the mechanical implementation of
+        this spell will match the description.</strong></p>
       cost:
         action: 6
         focus: 2
@@ -53,18 +58,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
         - maintained
       actionHooks: []
   runes:
@@ -89,8 +82,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765403194971
-  modifiedTime: 1765482605760
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1765651916570
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: lifebloom0000000
 sort: 200000
 _key: '!items!lifebloom0000000'

@@ -369,6 +369,32 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
+HOOKS.lifebloom = {
+  confirm(reverse) {
+    const wisdom = this.actor.system.abilities.wisdom.value;
+    const lifebloomEffect = {
+      _id: "lifebloom0000000",
+      name: this.name,
+      icon: this.img,
+      origin: this.actor.uuid,
+      duration: {turns: 6},
+      flags: {
+        crucible: {
+          dot: {
+            health: -wisdom,
+            morale: -wisdom
+          }
+        }
+      }
+    };
+    for ( const outcome of this.outcomes.values() ) {
+      outcome.effects.push(lifebloomEffect);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.executionersStrike = {
   prepare() {
     const weapon = this.actor.equipment.weapons.mainhand;
@@ -580,6 +606,36 @@ HOOKS.rest = {
 HOOKS.restrainingChomp = {
   postActivate(outcome) {
     if ( outcome.target.size > this.actor.size ) outcome.effects.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
+// TODO: consider moving scaling & bonuses logic into iconicSpell tag hook
+HOOKS.revive = {
+  prepare() {
+    this.usage.hasDice = true;
+    const runeScaling = this.parent.runes.map(r => SYSTEM.SPELL.RUNES[r].scaling);
+    const gestureScaling = this.parent.gestures.map(g => SYSTEM.SPELL.GESTURES[g].scaling);
+    this.scaling = Array.from(runeScaling.union(gestureScaling));
+    this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
+  },
+  preActivate(targets) {
+    if ( (targets.length !== 1) || !targets[0].actor?.statuses.has("dead") ) {
+      throw new Error(`${this.name} requires a Dead target.`);
+    }
+  },
+  async roll(outcome) {
+    const roll = await this.actor.skillAttack(this, outcome);
+    if ( roll ) outcome.rolls.push(roll);
+  },
+  postActivate(outcome) {
+    if ( !outcome.self && outcome.rolls[0].isSuccess ) {
+      SYSTEM.ACTION.TAGS.harmless.postActivate(outcome);
+      outcome.resources = {
+        wounds: -this.actor.system.abilities.wisdom.value
+      };
+    }
   }
 }
 
