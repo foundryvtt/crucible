@@ -388,7 +388,6 @@ HOOKS.lifebloom = {
       }
     };
     for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.self ) continue;
       outcome.effects.push(lifebloomEffect);
     }
   }
@@ -622,7 +621,7 @@ HOOKS.revive = {
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
   },
   preActivate(targets) {
-    if ( !targets.length || targets.length > 1 || !targets[0].actor?.statuses.has("dead") ) {
+    if ( (targets.length !== 1) || !targets[0].actor?.statuses.has("dead") ) {
       throw new Error(`${this.name} requires a Dead target.`);
     }
   },
