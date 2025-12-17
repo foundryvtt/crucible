@@ -27,7 +27,7 @@
             {{#if feature.tags}}
                 <div class="tags">
                     {{#each feature.tags as |tag|}}
-                    <span class="tag" {{#if tag.tooltip}}data-tooltip aria-label="{{tab.tooltip}}"{{/if}}>{{tag.text}}</span>
+                    <span class="tag" {{#if tag.tooltip}}data-tooltip aria-label="{{localize tab.tooltip}}"{{/if}}>{{tag.text}}</span>
                     {{/each}}
                 </div>
             {{/if}}
