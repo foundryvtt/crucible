@@ -37,7 +37,7 @@ system:
         - name: Beast Shape
           scope: '1'
           result:
-            type: success
+            type: any
             all: false
           statuses: []
           duration:
@@ -90,7 +90,7 @@ _stats:
   systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1676167347186
-  modifiedTime: 1763349385134
+  modifiedTime: 1766003060087
   lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
