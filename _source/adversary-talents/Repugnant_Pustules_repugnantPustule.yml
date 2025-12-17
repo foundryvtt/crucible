@@ -63,7 +63,7 @@ system:
     rank: null
   actorHooks: []
 effects: []
-folder: null
+folder: EDeByOa9cuYSaF8Y
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -76,8 +76,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765549802169
-  modifiedTime: 1765549802169
+  modifiedTime: 1765977800693
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: repugnantPustule
-sort: 0
+sort: 200000
 _key: '!items!repugnantPustule'

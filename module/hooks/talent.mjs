@@ -2,6 +2,15 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.amorphous0000000 = {
+  prepareDefenses(item, defenses) {
+    this.statuses.delete("restrained");
+    defenses.dodge.bonus += this.system.abilities.toughness.value;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.arcanearcher0000 = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") ) return;
