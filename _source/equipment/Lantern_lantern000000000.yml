@@ -6,7 +6,7 @@ system:
   category: implement
   quantity: 1
   weight: 2
-  price: 300
+  price: 30
   quality: standard
   broken: false
   enchantment: mundane
@@ -35,10 +35,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1762712297360
-  modifiedTime: 1766086361085
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lantern000000000
 sort: 1400000
 _key: '!items!lantern000000000'

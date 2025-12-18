@@ -6,7 +6,7 @@ system:
   category: crafting
   enchantment: mundane
   quality: standard
-  price: 17500
+  price: 1750
   quantity: 1
   weight: 10
   description:
@@ -39,8 +39,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086113664
-  modifiedTime: 1766086523980
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: poisonersToolkit
 sort: 800000
 _key: '!items!poisonersToolkit'

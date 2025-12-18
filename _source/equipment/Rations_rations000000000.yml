@@ -6,7 +6,7 @@ system:
   category: other
   enchantment: mundane
   quality: standard
-  price: 10
+  price: 1
   quantity: 1
   weight: 1
   description:
@@ -37,8 +37,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086183593
-  modifiedTime: 1766086183741
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: rations000000000
 sort: 200000
 _key: '!items!rations000000000'

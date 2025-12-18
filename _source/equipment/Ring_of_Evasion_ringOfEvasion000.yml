@@ -5,7 +5,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 0
-  price: 2000
+  price: 200
   quality: fine
   broken: false
   enchantment: minor
@@ -45,10 +45,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.2
   createdTime: 1749823361663
-  modifiedTime: 1765578152632
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: ringOfEvasion000
 sort: 600000
 _key: '!items!ringOfEvasion000'

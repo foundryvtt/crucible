@@ -6,7 +6,7 @@ system:
   category: ingredient
   enchantment: mundane
   quality: standard
-  price: 20
+  price: 2
   quantity: 1
   weight: 1
   description:
@@ -29,8 +29,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086059822
-  modifiedTime: 1766086059822
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: ink0000000000000
 sort: 0
 _key: '!items!ink0000000000000'

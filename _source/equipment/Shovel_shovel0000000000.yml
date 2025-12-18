@@ -6,7 +6,7 @@ system:
   category: implement
   enchantment: mundane
   quality: standard
-  price: 1000
+  price: 100
   quantity: 1
   weight: 2
   description:
@@ -34,8 +34,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086403955
-  modifiedTime: 1766086403955
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: shovel0000000000
 sort: 0
 _key: '!items!shovel0000000000'

@@ -6,7 +6,7 @@ system:
   category: other
   enchantment: mundane
   quality: standard
-  price: 100
+  price: 10
   quantity: 1
   weight: 0
   description:
@@ -38,8 +38,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086139207
-  modifiedTime: 1766086488743
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: perfume000000000
 sort: 300000
 _key: '!items!perfume000000000'

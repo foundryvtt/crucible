@@ -6,7 +6,7 @@ system:
   category: crafting
   enchantment: mundane
   quality: standard
-  price: 34000
+  price: 3400
   quantity: 1
   weight: 25
   description:
@@ -38,8 +38,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086390384
-  modifiedTime: 1766086523980
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: runeweaversPorta
 sort: 900000
 _key: '!items!runeweaversPorta'

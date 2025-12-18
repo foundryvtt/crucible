@@ -6,7 +6,7 @@ system:
   category: talisman1
   quantity: 1
   weight: 2
-  price: 3200
+  price: 320
   quality: standard
   broken: false
   enchantment: mundane
@@ -31,12 +31,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.2
   createdTime: 1749827823251
-  modifiedTime: 1759602090859
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
