@@ -140,7 +140,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     for ( const t of targets ) {
       t.cssClass = t.error ? "unmet" : "";
       t.tooltip = t.error ?? null;
-      t.hidden = !t.token.isVisible;
+      t.hidden = t.token?.isVisible === false;
     }
     return targets;
   }
