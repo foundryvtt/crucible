@@ -803,6 +803,7 @@ export const TAGS = {
     initialize() {
       Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
       this.usage.bonuses.ability = this.usage.hazard;
+      this.usage.bonuses.base = 1;
     },
     async roll(outcome) {
       const n = this.target.multiple ?? 1;
