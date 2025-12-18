@@ -6,7 +6,7 @@ system:
   category: talisman1
   quantity: 1
   weight: 3
-  price: 4800
+  price: 480
   quality: standard
   broken: false
   enchantment: mundane
@@ -38,8 +38,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765576179114
-  modifiedTime: 1765576179114
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lyre000000000000
 sort: 0
 _key: '!items!lyre000000000000'

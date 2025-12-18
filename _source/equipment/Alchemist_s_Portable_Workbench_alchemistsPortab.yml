@@ -6,7 +6,7 @@ system:
   category: crafting
   enchantment: mundane
   quality: standard
-  price: 32000
+  price: 3200
   quantity: 1
   weight: 25
   description:
@@ -39,8 +39,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766084789658
-  modifiedTime: 1766086523980
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: alchemistsPortab
 sort: 1800000
 _key: '!items!alchemistsPortab'

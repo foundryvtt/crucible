@@ -6,7 +6,7 @@ system:
   category: other
   enchantment: mundane
   quality: standard
-  price: 200
+  price: 20
   quantity: 1
   weight: 1
   description:
@@ -31,8 +31,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766085583150
-  modifiedTime: 1766085583150
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: commonClothing00
 sort: 0
 _key: '!items!commonClothing00'

@@ -6,7 +6,7 @@ system:
   category: implement
   enchantment: mundane
   quality: standard
-  price: 1800
+  price: 180
   quantity: 1
   weight: 20
   description:
@@ -38,8 +38,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086545556
-  modifiedTime: 1766086549711
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tentCaravan00000
 sort: 100000
 _key: '!items!tentCaravan00000'

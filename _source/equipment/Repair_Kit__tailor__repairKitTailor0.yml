@@ -6,7 +6,7 @@ system:
   category: crafting
   enchantment: mundane
   quality: standard
-  price: 1200
+  price: 120
   quantity: 1
   weight: 3
   description:
@@ -37,8 +37,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766086314890
-  modifiedTime: 1766086523980
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: repairKitTailor0
 sort: 1100000
 _key: '!items!repairKitTailor0'

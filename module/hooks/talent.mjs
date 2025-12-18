@@ -515,7 +515,7 @@ HOOKS.runewarden000000 = {
   prepareResistances(_item, resistances) {
     for ( const rune of this.grimoire.runes.values() ) {
       const dt = rune.damageType;
-      if ( SYSTEM.DAMAGE_TYPES[dt].type === "physical" ) continue;
+      if ( (dt === "physical") || (SYSTEM.DAMAGE_TYPES[dt].type === "physical") ) continue;
       resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
     }
   }

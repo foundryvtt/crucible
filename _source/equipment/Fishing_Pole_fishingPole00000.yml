@@ -6,7 +6,7 @@ system:
   category: implement
   enchantment: mundane
   quality: standard
-  price: 800
+  price: 80
   quantity: 1
   weight: 1
   description:
@@ -36,8 +36,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766085812519
-  modifiedTime: 1766086361085
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: fishingPole00000
 sort: 900000
 _key: '!items!fishingPole00000'

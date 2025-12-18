@@ -6,7 +6,7 @@ system:
   category: ingredient
   enchantment: mundane
   quality: standard
-  price: 30
+  price: 3
   quantity: 1
   weight: 1
   description:
@@ -29,8 +29,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1766085826309
-  modifiedTime: 1766086003403
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: glue000000000000
 sort: 300000
 _key: '!items!glue000000000000'
