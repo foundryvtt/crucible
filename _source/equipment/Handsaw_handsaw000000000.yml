@@ -1,0 +1,42 @@
+name: Handsaw
+img: icons/tools/hand/saw-steel-grey.webp
+type: tool
+system:
+  identifier: toolSaw
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 600
+  quantity: 1
+  weight: 2
+  description:
+    public: <p>A common hand tool used to cut through wood.</p>
+    private: ''
+  skills:
+    - smithing
+    - fletching
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085863564
+  modifiedTime: 1766086361085
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: handsaw000000000
+sort: 400000
+_key: '!items!handsaw000000000'

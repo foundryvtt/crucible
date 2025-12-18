@@ -45,12 +45,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.9
   createdTime: 1750031538348
-  modifiedTime: 1761412619690
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1766086183741
+  lastModifiedBy: QPs9IwGEu5DxD700
 _id: messengerCoin000
-sort: 0
+sort: 100000
 _key: '!items!messengerCoin000'

@@ -1,0 +1,44 @@
+name: Tailor's Toolkit
+img: icons/containers/bags/pouch-gold-grey.webp
+type: tool
+system:
+  identifier: toolKitTailoring
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 12000
+  quantity: 1
+  weight: 20
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag containing spools for thread, suitable
+      needles and pins, a skinning knife awls, suitable for working with cloth
+      and leather.</p>
+    private: ''
+  skills:
+    - tailoring
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086537359
+  modifiedTime: 1766086537359
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: tailorsToolkit00
+sort: 0
+_key: '!items!tailorsToolkit00'

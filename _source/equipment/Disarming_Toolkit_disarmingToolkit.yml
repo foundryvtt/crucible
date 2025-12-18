@@ -1,0 +1,45 @@
+name: Disarming Toolkit
+img: icons/containers/bags/satchel-leather-grey.webp
+type: tool
+system:
+  identifier: toolKitDisarming
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 12000
+  quantity: 1
+  weight: 6
+  description:
+    public: >-
+      <p>A small leather pouch containing a set of pliers, cutters, awls and a
+      set of collapsible metal rods that can be screwed together. Designed for
+      the purposes of disarming or triggering snares, tripwires, pressure
+      plates, and other common traps.</p>
+    private: ''
+  skills:
+    - stealth
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085692103
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: disarmingToolkit
+sort: 1300000
+_key: '!items!disarmingToolkit'

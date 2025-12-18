@@ -1,8 +1,8 @@
-name: Torch
-img: icons/sundries/lights/torch-black.webp
+name: Rations
+img: icons/consumables/food/dried-meat-jerky-fish-red.webp
 type: consumable
 system:
-  identifier: torch
+  identifier: rations
   category: other
   enchantment: mundane
   quality: standard
@@ -11,10 +11,8 @@ system:
   weight: 1
   description:
     public: >-
-      <p>Layered oil-soaked affixed around the end of a rod made of bone or
-      another non-flammable material, an inexpensive, if inefficient, temporary
-      lightsource. Each torch can burned for one hour before it can no longer be
-      used.</p>
+      <p>Dried bread, nuts, smoked cheese and meat suitable to serve as a
+      rudimentary meal capable of sustaining life for a single day.</p>
     private: ''
   broken: false
   equipped: false
@@ -24,7 +22,7 @@ system:
   uses:
     value: 1
     max: 1
-folder: h5q90kRajvUXzsEw
+folder: B6n3Q73Jl36TvWlr
 effects: []
 ownership:
   default: 0
@@ -38,9 +36,9 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.2
-  createdTime: 1766086584080
-  modifiedTime: 1766086584080
+  createdTime: 1766086183593
+  modifiedTime: 1766086183741
   lastModifiedBy: QPs9IwGEu5DxD700
-_id: torch00000000000
-sort: 0
-_key: '!items!torch00000000000'
+_id: rations000000000
+sort: 200000
+_key: '!items!rations000000000'

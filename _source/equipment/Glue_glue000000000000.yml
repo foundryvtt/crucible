@@ -1,0 +1,36 @@
+name: Glue
+img: icons/consumables/potions/potion-bottle-corked-white.webp
+type: loot
+system:
+  identifier: ingredientGlue
+  category: ingredient
+  enchantment: mundane
+  quality: standard
+  price: 30
+  quantity: 1
+  weight: 1
+  description:
+    public: <p>A vial of common animal glue.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: enNNOtkze4LoJXgw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085826309
+  modifiedTime: 1766086003403
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: glue000000000000
+sort: 300000
+_key: '!items!glue000000000000'

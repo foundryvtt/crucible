@@ -1,0 +1,43 @@
+name: Fishing Pole
+img: icons/tools/fishing/rod-simple-bamboo.webp
+type: tool
+system:
+  identifier: toolFishing
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 800
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A collapsible wooden pole affixed with metal rings and a post to attach
+      fishing line. Easily fits in or alongside a backpack.</p>
+    private: ''
+  skills:
+    - wilderness
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085812519
+  modifiedTime: 1766086361085
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: fishingPole00000
+sort: 900000
+_key: '!items!fishingPole00000'

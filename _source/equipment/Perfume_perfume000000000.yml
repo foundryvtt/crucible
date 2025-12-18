@@ -1,0 +1,45 @@
+name: Perfume
+img: icons/consumables/potions/flask-decorated-label-pink.webp
+type: consumable
+system:
+  identifier: perfume
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 100
+  quantity: 1
+  weight: 0
+  description:
+    public: >-
+      <p>A gentle finery in the form of floral scented oils designed to mask the
+      natural scent with a more pleasing olfactory experience. Each small vial
+      contains 20 applications.</p>
+    private: ''
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+  uses:
+    value: 20
+    max: 20
+folder: B6n3Q73Jl36TvWlr
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086139207
+  modifiedTime: 1766086488743
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: perfume000000000
+sort: 300000
+_key: '!items!perfume000000000'

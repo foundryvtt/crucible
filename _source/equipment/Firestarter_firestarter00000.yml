@@ -1,0 +1,44 @@
+name: Firestarter
+img: icons/containers/bags/case-simple-leather-brown.webp
+type: tool
+system:
+  identifier: toolKitFire
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 1650
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A small waxed-leather pouch containing dry shredded plant fibre and
+      wood shavings, with a little clasp inside for securing a piece of flint
+      and a steel striking ring for the purposes of starting fires.</p>
+    private: ''
+  skills:
+    - wilderness
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: eiHFNJQiIGesLyuw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085800405
+  modifiedTime: 1766086549711
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: firestarter00000
+sort: 600000
+_key: '!items!firestarter00000'

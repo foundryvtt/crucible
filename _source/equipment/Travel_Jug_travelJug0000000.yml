@@ -1,20 +1,19 @@
-name: Torch
-img: icons/sundries/lights/torch-black.webp
+name: Travel Jug
+img: icons/consumables/drinks/water-jug-clay-brown.webp
 type: consumable
 system:
-  identifier: torch
+  identifier: survivalJug
   category: other
   enchantment: mundane
   quality: standard
-  price: 10
+  price: 300
   quantity: 1
-  weight: 1
+  weight: 2
   description:
     public: >-
-      <p>Layered oil-soaked affixed around the end of a rod made of bone or
-      another non-flammable material, an inexpensive, if inefficient, temporary
-      lightsource. Each torch can burned for one hour before it can no longer be
-      used.</p>
+      <p>A clay jug with a stopper, wrapped in leather that can be affixed to a
+      belt or outside of a pack for convenient use. Can contain 40oz of
+      liquid.</p>
     private: ''
   broken: false
   equipped: false
@@ -24,7 +23,7 @@ system:
   uses:
     value: 1
     max: 1
-folder: h5q90kRajvUXzsEw
+folder: B6n3Q73Jl36TvWlr
 effects: []
 ownership:
   default: 0
@@ -38,9 +37,9 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.2
-  createdTime: 1766086584080
-  modifiedTime: 1766086584080
+  createdTime: 1766086668114
+  modifiedTime: 1766086668114
   lastModifiedBy: QPs9IwGEu5DxD700
-_id: torch00000000000
+_id: travelJug0000000
 sort: 0
-_key: '!items!torch00000000000'
+_key: '!items!travelJug0000000'

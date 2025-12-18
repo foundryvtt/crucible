@@ -1,0 +1,45 @@
+name: Cook's Toolkit
+img: icons/tools/cooking/cauldron-empty.webp
+type: tool
+system:
+  identifier: toolKitCooking
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 12000
+  quantity: 1
+  weight: 12
+  description:
+    public: >-
+      <p>An iron pot with a fastenable lid, a broad knife, and wooden utensils
+      designed to be stowed inside during travel, leaving room for a leather
+      ingredients pouch for storing grains, a vial of cooking oil, spices or
+      salt, and other small foodstuffs securely.</p>
+    private: ''
+  skills:
+    - cooking
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085590422
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: cooksToolkit0000
+sort: 1200000
+_key: '!items!cooksToolkit0000'

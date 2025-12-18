@@ -1,0 +1,46 @@
+name: Scrivener's Portable Workbench
+img: icons/containers/chest/chest-reinforced-box-brown.webp
+type: tool
+system:
+  identifier: workbenchScribing
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 30000
+  quantity: 1
+  weight: 25
+  description:
+    public: >-
+      <p>A wooden box wrapped in leather not much larger than a common book.
+      Contains calligraphic brushes and pen tips, needle and thread, and room to
+      store ink vials separately from folded paper. When unlatched, the box can
+      be unfolded to serve as a flat writing surface.</p>
+    private: ''
+  skills:
+    - science
+    - society
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086395882
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: scrivenersPortab
+sort: 200000
+_key: '!items!scrivenersPortab'

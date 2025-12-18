@@ -1,0 +1,45 @@
+name: Tent (caravan)
+img: icons/environment/settlement/tent-flag.webp
+type: tool
+system:
+  identifier: tentCaravan
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 1800
+  quantity: 1
+  weight: 20
+  description:
+    public: >-
+      <p>A massive foldable or rollable sheet for building a temporary shelter,
+      suitable for up to twelve occupants. Includes ropes, pegs, and six
+      collapsible cross-brace poles which must be assembled before the sheet can
+      be stretched over it.</p>
+    private: ''
+  skills:
+    - wilderness
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: eiHFNJQiIGesLyuw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086545556
+  modifiedTime: 1766086549711
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: tentCaravan00000
+sort: 100000
+_key: '!items!tentCaravan00000'

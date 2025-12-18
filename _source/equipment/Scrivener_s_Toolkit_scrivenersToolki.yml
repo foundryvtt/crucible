@@ -1,0 +1,45 @@
+name: Scrivener's Toolkit
+img: icons/containers/bags/pack-leather-embossed-brown.webp
+type: tool
+system:
+  identifier: toolKitScribing
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 10000
+  quantity: 1
+  weight: 8
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag. Contains a waxed document pouch for
+      keeping papers dry, a packet of sealing wax, several quills and inks, and
+      a flat wooden board to use as a writing surface.</p>
+    private: ''
+  skills:
+    - science
+    - society
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086398232
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: scrivenersToolki
+sort: 300000
+_key: '!items!scrivenersToolki'

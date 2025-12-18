@@ -1,0 +1,44 @@
+name: Runeweaver's Toolkit
+img: icons/containers/bags/pack-engraved-leather-blue.webp
+type: tool
+system:
+  identifier: toolKitRuneweaving
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 12000
+  quantity: 1
+  weight: 8
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag. Contains engraving chisels and awls, a
+      lapidary hammer, decorative leather mat and space for storing glyphs and
+      other ritual materials.</p>
+    private: ''
+  skills:
+    - runeweaving
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086393315
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: runeweaversToolk
+sort: 100000
+_key: '!items!runeweaversToolk'

@@ -1,0 +1,41 @@
+name: Hacksaw
+img: icons/tools/hand/saw-hacksaw-brass-grey.webp
+type: tool
+system:
+  identifier: toolHacksaw
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 800
+  quantity: 1
+  weight: 1
+  description:
+    public: <p>A common hand tool used to cut through metal.</p>
+    private: ''
+  skills:
+    - smithing
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085846300
+  modifiedTime: 1766086361085
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: hacksaw000000000
+sort: 1000000
+_key: '!items!hacksaw000000000'

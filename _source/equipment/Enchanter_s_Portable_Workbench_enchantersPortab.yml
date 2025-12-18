@@ -1,0 +1,45 @@
+name: Enchanter's Portable Workbench
+img: icons/containers/chest/chest-simple-box-blue.webp
+type: tool
+system:
+  identifier: workbenchEnchanting
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 34000
+  quantity: 1
+  weight: 25
+  description:
+    public: >-
+      <p>A collapsible wooden box that can be unfolded into a small decorative
+      altar. Contains a stone offering bowl, leather mat for covering the work
+      surface, and space to store enchanting rods, ritual candles, incense
+      packets and engraving tools.</p>
+    private: ''
+  skills:
+    - enchanting
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085740247
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: enchantersPortab
+sort: 1400000
+_key: '!items!enchantersPortab'

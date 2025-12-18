@@ -1,0 +1,45 @@
+name: Tailor's Portable Workbench
+img: icons/containers/boxes/crate-worn-brown.webp
+type: tool
+system:
+  identifier: workbenchTailoring
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 30000
+  quantity: 1
+  weight: 20
+  description:
+    public: >-
+      <p>A leather-bound shallow wooden box containing spools for thread,
+      suitable needles and pins, a skinning knife, hook knife, punches, awls,
+      and brands suitable for working with cloth and leather while travelling.
+      When unfastened, can be collapsed into a flat work surface.</p>
+    private: ''
+  skills:
+    - tailoring
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086523827
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: tailorsPortableW
+sort: 400000
+_key: '!items!tailorsPortableW'

@@ -1,0 +1,36 @@
+name: Blanket
+img: icons/sundries/survival/bedroll-tan.webp
+type: loot
+system:
+  identifier: blanket
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 600
+  quantity: 1
+  weight: 20
+  description:
+    public: <p>A thick felted wool or fibre cloth with a myriad of uses.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: eiHFNJQiIGesLyuw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085226419
+  modifiedTime: 1766086549711
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: blanket000000000
+sort: 400000
+_key: '!items!blanket000000000'

@@ -1,0 +1,45 @@
+name: Chirurgeon's Toolkit
+img: icons/containers/bags/pack-leather-stitched-tan.webp
+type: tool
+system:
+  identifier: toolKitChirurgy
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 15000
+  quantity: 1
+  weight: 10
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag. Contains a razor, handsaw, pliers,
+      bandages, a bottle of alchemical spirits, needle and thread, and a four
+      inch wooden branch wrapped in leather. Everything one might need to
+      perform amputations or excisions.</p>
+    private: ''
+  skills:
+    - medicine
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085569032
+  modifiedTime: 1766086523980
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: chirurgeonsToolk
+sort: 1900000
+_key: '!items!chirurgeonsToolk'

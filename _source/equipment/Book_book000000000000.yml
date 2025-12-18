@@ -1,0 +1,36 @@
+name: Book
+img: icons/sundries/books/book-embossed-steel-brown.webp
+type: loot
+system:
+  identifier: book
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 400
+  quantity: 1
+  weight: 1
+  description:
+    public: <p>A wood-covered book bound in cloth or leather.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766087168771
+  modifiedTime: 1766087168771
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: book000000000000
+sort: 0
+_key: '!items!book000000000000'

@@ -1,0 +1,44 @@
+name: Harness
+img: icons/equipment/waist/belt-leather-black-brass.webp
+type: tool
+system:
+  identifier: toolClimbing
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 500
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>An adjustable leather-and-steel harness designed to fit a humanoid
+      torso, can be used with rope or chain to assist with climbing or for the
+      purposes of restraint.</p>
+    private: ''
+  skills:
+    - athletics
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085912901
+  modifiedTime: 1766086361085
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: harness000000000
+sort: 500000
+_key: '!items!harness000000000'
