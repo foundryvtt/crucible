@@ -351,7 +351,7 @@ pages:
         Equipment compendium (found on the compendium tab in the Items folder).
         Dragging items from this compendium onto your newly created Actor Sheet
         will assign the item to that Actor's Inventory.</p><p>A newly created
-        character begins their journey with [[/award 250gp]] which is
+        character begins their journey with [[/award 25gp]] which is
         automatically added to their inventory. You may spend this initial
         budget on starting equipment. As you purchase initial equipment, deduct
         the full <strong>Scaled Price</strong> of each item from your initial
@@ -395,11 +395,11 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761696727244
-      modifiedTime: 1762098741413
+      modifiedTime: 1766112205823
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.FinishingTouches'
 _stats:

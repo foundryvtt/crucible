@@ -255,44 +255,44 @@ prototypeToken:
     disposition: false
   movementAction: null
 items:
-  - folder: SQH4h6ujibkpGCUF
-    name: Mage Staff
+  - folder: uvvY6c0nbJBhAjM6
+    name: Flame Staff
     type: weapon
     _id: 5HWc3RX8F46IJt9g
-    img: icons/weapons/staves/staff-ornate-jeweled-blue.webp
+    img: icons/weapons/staves/staff-engraved-red.webp
     system:
       category: talisman2
       quantity: 1
-      weight: 0
-      price: 60
-      quality: fine
+      weight: 4
+      price: 640
+      quality: standard
       broken: false
       enchantment: mundane
       equipped: true
-      properties:
-        - blocking
-      damageType: radiant
+      properties: []
+      damageType: fire
       description:
-        public: ''
+        public: >-
+          <p>This mage staff is a talisman to assist with spellcraft or hurl
+          gouts of arcane flame at enemies.</p>
         private: ''
       actions: []
       slot: 0
-      identifier: m1PdaIKSiR
+      identifier: flameStaff
       invested: false
       actorHooks: []
       dropped: false
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.5HWc3RX8F46IJt9g'
@@ -306,20 +306,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 30
-      price: 60
-      quality: fine
+      weight: 20
+      price: 800
+      quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Ring mail features metal rings sewn onto a padded base, offering a
+          compromise of less protection than heavier mail options in exchange
+          for greater mobility.</p>
         private: ''
       armor:
-        base: 9
+        base: 10
       broken: false
       actions: []
-      identifier: a5X2RR5oCg
+      identifier: ringMail
       invested: false
       actorHooks: []
     _stats:
@@ -328,10 +332,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.DTvwKvvLLEhvJ7ER'
@@ -361,6 +365,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: pulse
             number: 1
@@ -394,7 +399,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
@@ -434,7 +439,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -471,7 +476,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: warmage000000000
     folder: fOYHlZJEWUukD7yr
@@ -511,7 +516,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -549,7 +554,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -584,7 +589,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -600,19 +605,7 @@ items:
         <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
         <strong>Health</strong> and <strong>Morale</strong>.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Flame rune
-            if ( action.rune?.id !== "flame" ) return;
-
-            // Require damage to Health
-            const damageHealth = outcome.resources.health < 0;
-            if ( !damageHealth ) return;
-
-            // Apply Burning effect
-            const burning = SYSTEM.EFFECTS.burning(this);
-            outcome.effects.push(burning);
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -631,7 +624,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: pyromancer000000
     folder: c0nl6X8tp4Of0Y4O
@@ -676,7 +669,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -716,7 +709,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -755,7 +748,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -789,7 +782,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
@@ -833,7 +826,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -870,7 +863,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: strategicreposit
     folder: null
@@ -890,20 +883,7 @@ items:
         <strong>Radiant</strong> damage to both <strong>Health</strong> and
         <strong>Morale</strong>.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Illumination rune
-            if ( action.rune?.id !== "illumination" ) return;
-
-            // Require damage to Health or Morale
-            const damageHealth = outcome.resources.health < 0;
-            const damageMorale = outcome.resources.morale < 0;
-            if ( !(damageHealth || damageMorale) ) return;
-
-            // Apply Irradiated effect
-            const irradiated = SYSTEM.EFFECTS.irradiated(this, outcome.target);
-            outcome.effects.push(irradiated);
+      actorHooks: []
       nodes:
         - pre3b
       rune: ''
@@ -922,7 +902,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: lightbringer0000
     folder: null
@@ -963,7 +943,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1003,7 +983,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1082,7 +1062,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeOblivion0000
     folder: null
@@ -1117,7 +1097,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1199,7 +1179,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: counterspell0000
     folder: null
@@ -1275,7 +1255,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeFlame0000000
     folder: null
@@ -1314,7 +1294,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1399,7 +1379,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -1427,9 +1407,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 ownership:

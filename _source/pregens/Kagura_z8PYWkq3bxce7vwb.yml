@@ -251,44 +251,44 @@ prototypeToken:
     disposition: false
   movementAction: null
 items:
-  - folder: SQH4h6ujibkpGCUF
-    name: Mage Staff
+  - folder: uvvY6c0nbJBhAjM6
+    name: Ice Staff
     type: weapon
     _id: teHqGUKkPcrk8Pvm
-    img: icons/weapons/staves/staff-ornate-jeweled-blue.webp
+    img: icons/weapons/staves/staff-ornate-engraved-blue.webp
     system:
       category: talisman2
       quantity: 1
-      weight: 0
-      price: 60
+      weight: 4
+      price: 640
       quality: standard
       broken: false
       enchantment: mundane
       equipped: true
-      properties:
-        - blocking
-      damageType: radiant
+      properties: []
+      damageType: cold
       description:
-        public: ''
+        public: >-
+          <p>This mage staff is a talisman to assist with spellcraft or hurl
+          blasts of frigid ice towards enemies.</p>
         private: ''
       actions: []
       slot: 0
-      identifier: FLsYi2O09w
+      identifier: iceStaff
       invested: false
       actorHooks: []
       dropped: false
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 500000
     ownership:
       default: 0
     _key: '!actors.items!z8PYWkq3bxce7vwb.teHqGUKkPcrk8Pvm'
@@ -302,20 +302,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
+      weight: 30
+      price: 2400
       quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: TJ2IiA912F
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -324,10 +328,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!z8PYWkq3bxce7vwb.Jucaft0kqe7QBfgY'
@@ -364,7 +368,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -372,45 +376,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!z8PYWkq3bxce7vwb.gestureinfluence'
-  - name: 'Rune: Earth'
-    type: talent
-    img: icons/magic/earth/projectile-boulder-debris.webp
-    system:
-      description: >-
-        <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs minerals, metals, soils, and other
-        physical compounds.</p><p>The Earth rune scales using
-        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Lightning</strong>.</p>
-      actions: []
-      rune: earth
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runeearth0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 300000
-    ownership:
-      default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.runeearth0000000'
   - folder: ghRKqdzq279SH1lt
     name: Medicine Novice
     type: talent
@@ -446,7 +411,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -488,7 +453,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -523,7 +488,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -561,7 +526,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -569,45 +534,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!z8PYWkq3bxce7vwb.gestureray000000'
-  - name: 'Rune: Life'
-    type: talent
-    img: icons/magic/life/heart-shadow-red.webp
-    system:
-      description: >-
-        <p>A chaotic force of creation, responsible for living matter. The Life
-        rune governs health and matters relating to biological growth.</p><p>The
-        Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
-        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
-        is opposed by the orderly rune of <strong>Death</strong>.</p>
-      actions: []
-      rune: life
-      actorHooks: []
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: life
-        rank: 1
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runelife00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.runelife00000000'
   - name: 'Rune: Soul'
     type: talent
     img: icons/magic/light/projectile-halo-teal.webp
@@ -662,19 +588,7 @@ items:
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
       rune: soul
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Spirit rune
-            if ( action.rune?.id !== "spirit" ) return;
-
-            // Require restoration to Morale
-            const restoreMorale = outcome.resources.morale > 0;
-            if ( !restoreMorale ) return;
-
-            // Apply Inspired effect
-            const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
-            outcome.effects.push(inspired);
+      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -692,7 +606,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeSoul00000000
     folder: null
@@ -700,6 +614,160 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!z8PYWkq3bxce7vwb.runeSoul00000000'
+  - name: 'Rune: Earth'
+    type: talent
+    img: icons/magic/earth/projectile-boulder-debris.webp
+    system:
+      description: >-
+        <p>The orderly force of elemental earth, responsible for physical
+        matter. The Earth rune governs minerals, metals, soils, and other
+        physical compounds.</p><p>The Earth rune scales using
+        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Lightning</strong>.</p>
+      actions:
+        - id: mould
+          name: Mould
+          img: icons/magic/earth/projectile-boulder-debris.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Earth allows you to manipulate raw
+            forces of rock, mineral, and soil in basic ways, producing one of
+            the following effects:</p><ul><li><p>Quickly shape up to one cubic
+            foot of available material into a simple geometric form like a
+            cuboid, ellipsoid, or polyhedron.</p></li><li><p>Precisely copy the
+            physical shape of a held object that is smaller than a 6-inch cube,
+            reproducing it from available clay, stone, or metal. The replica
+            retains no useful properties except for its physical
+            form.</p></li><li><p>Separate and collect earthen particles from the
+            surface of an object, creature, or liquid that you touch, rendering
+            the subject completely cleaned or purified in
+            moments.</p></li></ul><p>Mould may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: earth
+      actorHooks: []
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: earth
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeEarth0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!z8PYWkq3bxce7vwb.runeEarth0000000'
+  - name: 'Rune: Life'
+    type: talent
+    img: icons/magic/life/heart-shadow-red.webp
+    system:
+      description: >-
+        <p>A chaotic force of creation, responsible for living matter. The Life
+        rune governs health and matters relating to biological growth.</p><p>The
+        Life rune scales using <strong>Wisdom</strong> and provides
+        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
+        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
+        is opposed by the orderly rune of <strong>Death</strong>.</p>
+      actions:
+        - id: bloom
+          name: Bloom
+          img: icons/magic/life/heart-shadow-red.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Life allows you to stimulate
+            biological growth and nourish physical health, producing one of the
+            following effects:</p><ul><li><p>Cultivate 1 cubic foot of existing
+            plants or fungus to rapidly grow to a healthy, blossoming, or
+            harvestable state.</p></li><li><p>Identify a negative physical
+            condition that is affecting a creature such as @Condition[diseased],
+            @Condition[poisoned], @Condition[bleeding], or
+            @Condition[weakened].</p></li><li><p>Verify whether a portion of
+            food or drink is free of contamination from bacteria, parasites, or
+            poison.</p></li></ul><p>Bloom may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: life
+      actorHooks: []
+      training:
+        type: life
+        rank: 1
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeLife00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!z8PYWkq3bxce7vwb.runeLife00000000'
 effects: []
 flags:
   core: {}
@@ -711,9 +779,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: z8PYWkq3bxce7vwb
 ownership:

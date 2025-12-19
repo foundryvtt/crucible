@@ -252,27 +252,29 @@ items:
     type: weapon
     img: icons/weapons/hammers/hammer-war-rounding.webp
     effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
+    folder: 3BDkyJ5nPk8nVa81
+    flags: {}
     system:
       category: heavy1
       quantity: 1
-      weight: 0
-      price: 0
+      weight: 5
+      price: 400
       quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - versatile
       description:
-        public: ''
+        public: >-
+          <p>Built to crush plate and shatter shields, the war hammer features a
+          heavy, blunt head mounted atop a reinforced haft, delivering ruin in
+          the hands of those who favor power over finesse.</p>
         private: ''
       damageType: bludgeoning
       broken: false
       actions: []
-      slot: 0
-      identifier: QPyg1iLRo3
+      slot: 1
+      identifier: warhammer
       invested: false
       actorHooks: []
       dropped: false
@@ -282,9 +284,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!nPOVNsOFhqA7SUud.jLQ5DTwKfZBUnt7R'
@@ -293,27 +295,29 @@ items:
     type: weapon
     img: icons/equipment/shield/heater-steel-worn.webp
     effects: []
-    folder: 9v0ru58f09fO3sE3
+    folder: pibeFfUJ9FFbWkoY
     flags:
       core: {}
     system:
       category: shieldLight
       quantity: 1
       weight: 6
-      price: 30
+      price: 360
       quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - engaging
       description:
-        public: ''
+        public: >-
+          <p>Named for its iron shape resembling the base of a clothes iron, the
+          heater shield offers a balance of coverage and mobility.</p>
         private: ''
       damageType: bludgeoning
       broken: false
       actions: []
       slot: 0
-      identifier: iGzS5jNHKc
+      identifier: heaterShield
       invested: false
       actorHooks: []
       dropped: false
@@ -323,9 +327,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!nPOVNsOFhqA7SUud.dYAj8K9XP5DT4wxs'
@@ -339,20 +343,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
+      weight: 30
+      price: 2400
       quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: N2Csqm3jDI
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -361,10 +369,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!nPOVNsOFhqA7SUud.uzOVLLoRYLWoQjWV'
@@ -393,6 +401,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -426,7 +435,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -455,6 +464,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -493,7 +503,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -525,6 +535,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: self
             number: 0
@@ -532,12 +543,7 @@ items:
             self: false
           effects: []
           img: icons/magic/life/cross-area-circle-green-white.webp
-          actionHooks:
-            - hook: confirm
-              fn: >-
-                const self = this.outcomes.get(this.actor);
-                self.resources.health = (self.resources.health || 0) +
-                this.actor.system.abilities.toughness.value;
+          actionHooks: []
           range:
             maximum: null
             weapon: false
@@ -558,7 +564,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -601,7 +607,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -639,7 +645,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -673,7 +679,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -707,6 +713,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -719,12 +726,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+          actionHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -741,7 +743,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -758,13 +760,7 @@ items:
         yourself and others.</p><p>Once per Turn while you have a Shield
         equipped, you may use the <strong>Defend</strong> action at a reduced
         cost of 1 Action Point.</p>
-      actorHooks:
-        - hook: prepareActions
-          fn: >-
-            const defend = actions.defend; if ( !defend ||
-            !this.equipment.weapons.shield || this.system.status.bulwark )
-            return; defend.cost.action -= 1;
-            defend.usage.actorUpdates["system.status.bulwark"] = true;
+      actorHooks: []
       actions: []
       iconicSpells: 0
       training:
@@ -784,7 +780,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -802,9 +798,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: nPOVNsOFhqA7SUud
 ownership:

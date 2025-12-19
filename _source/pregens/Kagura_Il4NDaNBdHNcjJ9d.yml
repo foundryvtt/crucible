@@ -254,44 +254,44 @@ prototypeToken:
     disposition: false
   movementAction: null
 items:
-  - folder: SQH4h6ujibkpGCUF
-    name: Mage Staff
+  - folder: uvvY6c0nbJBhAjM6
+    name: Ice Staff
     type: weapon
     _id: teHqGUKkPcrk8Pvm
-    img: icons/weapons/staves/staff-ornate-jeweled-blue.webp
+    img: icons/weapons/staves/staff-ornate-engraved-blue.webp
     system:
       category: talisman2
       quantity: 1
-      weight: 0
-      price: 60
-      quality: fine
+      weight: 4
+      price: 640
+      quality: standard
       broken: false
       enchantment: mundane
       equipped: true
-      properties:
-        - blocking
-      damageType: radiant
+      properties: []
+      damageType: cold
       description:
-        public: ''
+        public: >-
+          <p>This mage staff is a talisman to assist with spellcraft or hurl
+          blasts of frigid ice towards enemies.</p>
         private: ''
       actions: []
-      slot: 1
+      slot: 0
       dropped: false
-      identifier: aYdgknUQBk
+      identifier: iceStaff
       invested: false
       actorHooks: []
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 500000
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.teHqGUKkPcrk8Pvm'
@@ -305,20 +305,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
-      quality: fine
+      weight: 30
+      price: 2400
+      quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: ksXGZLhCcy
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -327,10 +331,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.Jucaft0kqe7QBfgY'
@@ -367,7 +371,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -407,7 +411,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -443,7 +447,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
@@ -468,6 +472,7 @@ items:
             focus: 0
             heroism: 1
             weapon: false
+            hands: 0
           range:
             minimum: null
             maximum: null
@@ -514,7 +519,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: fOYHlZJEWUukD7yr
     _id: healer0000000000
@@ -551,7 +556,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: mentalfortress00
     sort: 100000
@@ -587,7 +592,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -595,45 +600,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.inflectioncompos'
-  - name: 'Rune: Earth'
-    type: talent
-    img: icons/magic/earth/projectile-boulder-debris.webp
-    system:
-      description: >-
-        <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs minerals, metals, soils, and other
-        physical compounds.</p><p>The Earth rune scales using
-        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Lightning</strong>.</p>
-      actions: []
-      rune: earth
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runeearth0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 300000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeearth0000000'
   - name: Dustbinder
     type: talent
     img: icons/magic/earth/orb-stone-smoke-teal.webp
@@ -645,18 +611,7 @@ items:
         deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage
         to <strong>Health</strong> each Round.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Earth rune
-            if ( action.rune?.id !== "earth" ) return;
-
-            // Require damage to Health
-            const damageHealth = outcome.resources.health < 0;
-            if ( !damageHealth ) return;
-
-            // Apply Corroding effect
-            outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -675,7 +630,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: dustbinder000000
     folder: c0nl6X8tp4Of0Y4O
@@ -718,7 +673,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -760,7 +715,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -795,7 +750,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -813,19 +768,11 @@ items:
         <strong>Ward</strong> gesture, the Resistance provided by your Ward also
         increases by half your Wisdom.</p>
       actions: []
-      actorHooks:
-        - hook: prepareResistances
-          fn: |-
-            for ( const [id, r] of Object.entries(resistances) ) {
-              if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-              if ( this.grimoire.runes.find(r => r.damageType === id) )  {
-                r.base += Math.ceil(this.abilities.wisdom.value / 2);
-              }
-            }
+      actorHooks: []
       iconicSpells: 1
       nodes:
-        - sig3.wisdom
         - sig3.toughness
+        - sig3.wisdom
       training:
         type: ''
         rank: null
@@ -841,7 +788,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -881,6 +828,7 @@ items:
             focus: 0
             heroism: 0
             weapon: false
+            hands: 0
           range:
             minimum: null
             maximum: null
@@ -912,7 +860,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
@@ -966,7 +914,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: JRqc3sRONMGAfSZ0
     folder: null
@@ -1020,7 +968,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: 7Gh7o63Ny3uN81vM
     folder: null
@@ -1028,102 +976,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.7Gh7o63Ny3uN81vM'
-  - name: Alchemical Vial
-    type: loot
-    img: icons/consumables/potions/bottle-corked-empty.webp
-    system:
-      identifier: alchemicalVial
-      category: ingredient
-      quantity: 3
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      properties: []
-      description:
-        public: ''
-        private: ''
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: qvJkd2n69GcdvQSD
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.qvJkd2n69GcdvQSD'
-  - name: Alchemists Tools
-    type: loot
-    img: icons/tools/laboratory/vials-blue-pink.webp
-    system:
-      identifier: alchemistsTools
-      category: ingredient
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      properties: []
-      description:
-        public: ''
-        private: ''
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: rqy8F6OgvWeftNTw
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.rqy8F6OgvWeftNTw'
-  - name: Healing Herbs
-    type: loot
-    img: icons/commodities/flowers/buds-red-green.webp
-    system:
-      identifier: healingHerbs
-      category: ingredient
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      properties: []
-      description:
-        public: ''
-        private: ''
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: 3pHRBTGvfLngjRJ9
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.3pHRBTGvfLngjRJ9'
   - name: Versatile Translator
     type: talent
     img: icons/skills/trades/academics-book-study-runes.webp
@@ -1157,7 +1009,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1189,6 +1041,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: pulse
             number: 1
@@ -1222,7 +1075,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1264,7 +1117,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1301,7 +1154,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1320,19 +1173,7 @@ items:
         deals your <strong>Wisdom</strong> score as additional
         <strong>Restoration</strong> to <strong>Health</strong>.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Life rune
-            if ( action.rune?.id !== "life" ) return;
-
-            // Require restoration to Health
-            const restoreHealth = outcome.resources.health > 0;
-            if ( !restoreHealth ) return;
-
-            // Apply Mending effect
-            const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
-            outcome.effects.push(mending);
+      actorHooks: []
       nodes:
         - wis3b
       rune: ''
@@ -1350,7 +1191,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1395,52 +1236,13 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.arcanaNovice0000'
-  - name: 'Rune: Life'
-    type: talent
-    img: icons/magic/life/heart-shadow-red.webp
-    system:
-      description: >-
-        <p>A chaotic force of creation, responsible for living matter. The Life
-        rune governs health and matters relating to biological growth.</p><p>The
-        Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
-        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
-        is opposed by the orderly rune of <strong>Death</strong>.</p>
-      actions: []
-      rune: life
-      actorHooks: []
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: life
-        rank: 1
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runelife00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runelife00000000'
   - name: 'Rune: Soul'
     type: talent
     img: icons/magic/light/projectile-halo-teal.webp
@@ -1495,19 +1297,7 @@ items:
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
       rune: soul
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Spirit rune
-            if ( action.rune?.id !== "spirit" ) return;
-
-            // Require restoration to Morale
-            const restoreMorale = outcome.resources.morale > 0;
-            if ( !restoreMorale ) return;
-
-            // Apply Inspired effect
-            const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
-            outcome.effects.push(inspired);
+      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -1525,7 +1315,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeSoul00000000
     folder: null
@@ -1561,7 +1351,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: irrepressiblespi
     folder: null
@@ -1597,13 +1387,167 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.eyeofthestorm000'
+  - name: 'Rune: Earth'
+    type: talent
+    img: icons/magic/earth/projectile-boulder-debris.webp
+    system:
+      description: >-
+        <p>The orderly force of elemental earth, responsible for physical
+        matter. The Earth rune governs minerals, metals, soils, and other
+        physical compounds.</p><p>The Earth rune scales using
+        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Lightning</strong>.</p>
+      actions:
+        - id: mould
+          name: Mould
+          img: icons/magic/earth/projectile-boulder-debris.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Earth allows you to manipulate raw
+            forces of rock, mineral, and soil in basic ways, producing one of
+            the following effects:</p><ul><li><p>Quickly shape up to one cubic
+            foot of available material into a simple geometric form like a
+            cuboid, ellipsoid, or polyhedron.</p></li><li><p>Precisely copy the
+            physical shape of a held object that is smaller than a 6-inch cube,
+            reproducing it from available clay, stone, or metal. The replica
+            retains no useful properties except for its physical
+            form.</p></li><li><p>Separate and collect earthen particles from the
+            surface of an object, creature, or liquid that you touch, rendering
+            the subject completely cleaned or purified in
+            moments.</p></li></ul><p>Mould may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: earth
+      actorHooks: []
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: earth
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeEarth0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeEarth0000000'
+  - name: 'Rune: Life'
+    type: talent
+    img: icons/magic/life/heart-shadow-red.webp
+    system:
+      description: >-
+        <p>A chaotic force of creation, responsible for living matter. The Life
+        rune governs health and matters relating to biological growth.</p><p>The
+        Life rune scales using <strong>Wisdom</strong> and provides
+        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
+        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
+        is opposed by the orderly rune of <strong>Death</strong>.</p>
+      actions:
+        - id: bloom
+          name: Bloom
+          img: icons/magic/life/heart-shadow-red.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Life allows you to stimulate
+            biological growth and nourish physical health, producing one of the
+            following effects:</p><ul><li><p>Cultivate 1 cubic foot of existing
+            plants or fungus to rapidly grow to a healthy, blossoming, or
+            harvestable state.</p></li><li><p>Identify a negative physical
+            condition that is affecting a creature such as @Condition[diseased],
+            @Condition[poisoned], @Condition[bleeding], or
+            @Condition[weakened].</p></li><li><p>Verify whether a portion of
+            food or drink is free of contamination from bacteria, parasites, or
+            poison.</p></li></ul><p>Bloom may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: life
+      actorHooks: []
+      training:
+        type: life
+        rank: 1
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeLife00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeLife00000000'
 effects: []
 flags:
   core: {}
@@ -1664,9 +1608,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
 ownership:

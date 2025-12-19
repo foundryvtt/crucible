@@ -259,28 +259,31 @@ items:
     type: weapon
     img: icons/weapons/daggers/dagger-straight-blue.webp
     effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
+    folder: 3BDkyJ5nPk8nVa81
+    flags: {}
     system:
       category: light1
       quantity: 1
       weight: 1
-      price: 5
+      price: 80
       quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - ambush
         - thrown
+        - intuitive
       description:
-        public: ''
+        public: >-
+          <p>Small, swift, and deadly, the dagger slips between ribs or into
+          gaps in armor with ease, its wicked edge favored by assassins,
+          thieves, and those who prefer a silent kill.</p>
         private: ''
       damageType: piercing
       broken: false
       actions: []
       slot: 0
-      identifier: MKh4pjCJyn
+      identifier: dagger
       invested: false
       actorHooks: []
       dropped: false
@@ -290,9 +293,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 1200000
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.YBeEb4tg4QxDtNIx'
@@ -301,28 +304,31 @@ items:
     type: weapon
     img: icons/weapons/daggers/dagger-straight-blue.webp
     effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
+    folder: 3BDkyJ5nPk8nVa81
+    flags: {}
     system:
       category: light1
       quantity: 1
       weight: 1
-      price: 5
+      price: 80
       quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - ambush
         - thrown
+        - intuitive
       description:
-        public: ''
+        public: >-
+          <p>Small, swift, and deadly, the dagger slips between ribs or into
+          gaps in armor with ease, its wicked edge favored by assassins,
+          thieves, and those who prefer a silent kill.</p>
         private: ''
       damageType: piercing
       broken: false
       actions: []
       slot: 0
-      identifier: Wd0fSF9Gbk
+      identifier: dagger
       invested: false
       actorHooks: []
       dropped: false
@@ -332,9 +338,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 1200000
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.U0pzlydffRGomINf'
@@ -343,26 +349,28 @@ items:
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
     effects: []
-    folder: kjHb0FCE2nJe6Dtx
-    flags:
-      core: {}
+    folder: fLJrHfDuvr4Z8bXK
+    flags: {}
     system:
       category: light
       quantity: 1
-      weight: 10
-      price: 45
+      weight: 16
+      price: 640
       quality: standard
       enchantment: mundane
       equipped: true
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>A base of leather reinforced with small metal studs or riveted
+          plates, this armor strikes a balance between mobility and modest
+          protection against slashes.</p>
         private: ''
       armor:
-        base: 7
+        base: 8
       broken: false
       actions: []
-      identifier: 7CSxRXeHr7
+      identifier: studdedLeatherArmor
       invested: false
       actorHooks: []
     _stats:
@@ -371,7 +379,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -397,12 +405,14 @@ items:
           tags:
             - void
             - focus
+            - skill
             - deception
           cost:
             action: 1
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -410,16 +420,7 @@ items:
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
-          actionHooks:
-            - hook: postActivate
-              fn: |-
-                for ( const r of outcome.rolls ) {
-                  if ( r.isSuccess ) {
-                    r.data.damage.multiplier = 0;
-                    r.data.damage.base = 1;
-                    r.data.damage.total = 1;
-                  }
-                }
+          actionHooks: []
           range:
             minimum: null
             maximum: 30
@@ -444,7 +445,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -472,6 +473,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -504,7 +506,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
@@ -542,6 +544,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -570,7 +573,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: cW6bwHXBB9pMcwva
     sort: 300000
@@ -605,6 +608,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -617,12 +621,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+          actionHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -639,7 +638,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -683,7 +682,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -722,7 +721,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -756,7 +755,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
@@ -786,6 +785,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -818,7 +818,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: lunge00000000000
     folder: Xg1Jww0K0CK7vUo1
@@ -836,9 +836,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: hfOaEbw4ObPXu6Qa
 ownership:

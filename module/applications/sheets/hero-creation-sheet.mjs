@@ -848,7 +848,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     delete creationData.ownership;
     creationData.flags.core.sheetClass = '';
     creationData.system.advancement.level = 1;
-    creationData.system.currency = 250 * 100; // 250gp
+    creationData.system.currency = 25 * 100; // 25gp
   }
 
   /* -------------------------------------------- */

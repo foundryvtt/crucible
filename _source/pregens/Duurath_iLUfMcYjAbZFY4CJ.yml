@@ -257,88 +257,6 @@ prototypeToken:
     disposition: false
   movementAction: null
 items:
-  - _id: jLQ5DTwKfZBUnt7R
-    name: War Hammer
-    type: weapon
-    img: icons/weapons/hammers/hammer-war-rounding.webp
-    effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
-    system:
-      category: heavy1
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: fine
-      enchantment: mundane
-      equipped: false
-      properties:
-        - versatile
-      description:
-        public: ''
-        private: ''
-      damageType: bludgeoning
-      broken: false
-      actions: []
-      slot: 1
-      identifier: Fi5s8c9J1t
-      invested: false
-      actorHooks: []
-      dropped: false
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.jLQ5DTwKfZBUnt7R'
-  - _id: dYAj8K9XP5DT4wxs
-    name: Heater Shield
-    type: weapon
-    img: icons/equipment/shield/heater-steel-worn.webp
-    effects: []
-    folder: 9v0ru58f09fO3sE3
-    flags:
-      core: {}
-    system:
-      category: shieldLight
-      quantity: 1
-      weight: 6
-      price: 30
-      quality: fine
-      enchantment: mundane
-      equipped: true
-      properties:
-        - engaging
-      description:
-        public: ''
-        private: ''
-      damageType: bludgeoning
-      broken: false
-      actions: []
-      slot: 0
-      identifier: 6Ft3A2nE59
-      invested: false
-      actorHooks: []
-      dropped: false
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.dYAj8K9XP5DT4wxs'
   - _id: uzOVLLoRYLWoQjWV
     name: Scale Mail
     type: armor
@@ -349,20 +267,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
-      quality: fine
+      weight: 30
+      price: 2400
+      quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: ZzmAfPgdSm
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -371,10 +293,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.uzOVLLoRYLWoQjWV'
@@ -403,6 +325,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -436,7 +359,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -464,6 +387,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -503,7 +427,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -535,6 +459,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: self
             number: 0
@@ -542,12 +467,7 @@ items:
             self: false
           effects: []
           img: icons/magic/life/cross-area-circle-green-white.webp
-          actionHooks:
-            - hook: confirm
-              fn: >-
-                const self = this.outcomes.get(this.actor);
-                self.resources.health = (self.resources.health || 0) +
-                this.actor.system.abilities.toughness.value;
+          actionHooks: []
           range:
             maximum: null
             weapon: false
@@ -568,7 +488,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -610,7 +530,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
@@ -633,14 +553,15 @@ items:
         - id: bodyBlock
           condition: You defend against a melee attack with your Armor or as a Glance.
           description: >-
-            An attack which otherwise is defended by your Armor or produced a
-            Glancing blow is converted to a Block and deals no damage.
+            <p>An attack which otherwise is defended by your Armor or produced a
+            Glancing blow is converted to a Block and deals no damage.</p>
           tags:
             - reaction
           cost:
             action: 0
             focus: 1
             heroism: 0
+            hands: 0
             weapon: false
           target:
             type: self
@@ -650,32 +571,7 @@ items:
           effects: []
           name: Body Block
           img: icons/skills/melee/shield-block-gray-orange.webp
-          actionHooks:
-            - hook: canUse
-              fn: |-
-                const messageIds = Array.from(game.messages.keys());
-                for ( let i=messageIds.length-1; i>=0; i--) {
-                  const message = game.messages.get(messageIds[i]);
-                  if ( !message.flags.crucible?.action ) continue;
-                  const targetAction = this.constructor.fromChatMessage(message);
-                  for ( const outcome of targetAction.outcomes.values() ) {
-                    if ( outcome.target.uuid !== actor.uuid ) continue;
-                    if ( !targetAction.tags.has("melee") ) {
-                      throw new Error("You may only use Body Block against an incoming melee attack.");
-                    }
-                    if ( message.flags.crucible.confirmed ) {
-                      throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
-                    }
-                    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
-                    for ( const r of outcome.rolls ) {
-                      if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
-                        this.usage.targetAction = message.id;
-                        return true;
-                      }
-                    }
-                  }
-                  throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
-                }
+          actionHooks: []
           range:
             minimum: null
             maximum: null
@@ -696,7 +592,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: 100000
@@ -732,6 +628,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -759,7 +656,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: counterstrike000
     folder: 8Vb0F5R7DMUrvhfw
@@ -767,54 +664,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.counterstrike000'
-  - name: Runewarden
-    type: talent
-    img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
-    system:
-      description: >-
-        <p>Your mastery of the arcane makes you more resilient to elemental and
-        spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
-        half your Wisdom for each Elemental or Spiritual damage type where you
-        know the Arcane Rune attuned to that damage type.</p><p>When you use the
-        <strong>Ward</strong> gesture, the Resistance provided by your Ward also
-        increases by half your Wisdom.</p>
-      actions: []
-      actorHooks:
-        - hook: prepareResistances
-          fn: |-
-            for ( const [id, r] of Object.entries(resistances) ) {
-              if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-              if ( this.grimoire.runes.find(r => r.damageType === id) )  {
-                r.base += Math.ceil(this.abilities.wisdom.value / 2);
-              }
-            }
-      iconicSpells: 1
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - sig3.wisdom
-        - sig3.toughness
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runewarden000000
-    folder: fOYHlZJEWUukD7yr
-    sort: 306250
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.runewarden000000'
   - name: Dread Lord
     type: talent
     img: icons/magic/death/skull-horned-worn-fire-blue.webp
@@ -842,6 +691,7 @@ items:
             focus: 2
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: pulse
             number: 1
@@ -883,7 +733,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
@@ -891,46 +741,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.dreadlord0000000'
-  - name: 'Rune: Kinesis'
-    type: talent
-    img: icons/magic/movement/pinwheel-turning-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
-      actions: []
-      rune: kinesis
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runekinesis00000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 700000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.runekinesis00000'
   - name: Rallying Cry
     type: talent
     img: icons/creatures/abilities/mouth-teeth-human.webp
@@ -956,6 +766,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: pulse
             number: 1
@@ -1000,7 +811,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: rallyingcry00000
     folder: 2MFixpDJ379KOogE
@@ -1017,13 +828,7 @@ items:
         yourself and others.</p><p>Once per Turn while you have a Shield
         equipped, you may use the <strong>Defend</strong> action at a reduced
         cost of 1 Action Point.</p>
-      actorHooks:
-        - hook: prepareActions
-          fn: >-
-            const defend = actions.defend; if ( !defend ||
-            !this.equipment.weapons.shield || this.system.status.bulwark )
-            return; defend.cost.action -= 1;
-            defend.usage.actorUpdates["system.status.bulwark"] = true;
+      actorHooks: []
       actions: []
       iconicSpells: 0
       training:
@@ -1043,7 +848,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -1079,7 +884,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: -25000
@@ -1116,126 +921,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.holdfast00000000'
-  - _id: sai0000000000000
-    name: Sai
-    type: weapon
-    img: icons/weapons/daggers/dagger-simple-black.webp
-    effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags: {}
-    system:
-      category: light1
-      quantity: 1
-      weight: 3
-      price: 40
-      quality: standard
-      enchantment: mundane
-      equipped: false
-      properties:
-        - parrying
-      description:
-        public: ''
-        private: ''
-      damageType: piercing
-      broken: false
-      actions: []
-      slot: 1
-      identifier: B5My99DIbS
-      invested: false
-      actorHooks: []
-      dropped: false
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.sai0000000000000'
-  - _id: 2KNz0fAIcWSSRQaN
-    name: Earth Breaker
-    type: weapon
-    img: icons/weapons/hammers/hammer-war-rounding.webp
-    effects: []
-    folder: null
-    flags: {}
-    system:
-      category: heavy1
-      quantity: 1
-      weight: 0
-      price: 30
-      quality: superior
-      enchantment: minor
-      equipped: true
-      properties:
-        - versatile
-      description:
-        public: ''
-        private: ''
-      damageType: bludgeoning
-      broken: false
-      slot: 1
-      actions:
-        - id: breakEarth
-          name: Break Earth
-          img: icons/weapons/hammers/hammer-war-rounding.webp
-          condition: ''
-          description: >-
-            <p>You slam Earth Breaker into the ground, knocking enemies in front
-            of you Prone if your attack exceeds their <strong>Reflex</strong>
-            defense.</p>
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            weapon: true
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: cone
-            number: 1
-            scope: 4
-            size: 10
-            self: false
-          effects:
-            - name: Break Earth
-              scope: 3
-              statuses:
-                - prone
-              duration:
-                turns: null
-          tags:
-            - mainhand
-            - reflex
-            - melee
-          actionHooks: []
-      dropped: false
-      identifier: lIeyrmRanL
-      invested: false
-      actorHooks: []
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.2KNz0fAIcWSSRQaN'
   - folder: ghRKqdzq279SH1lt
     name: Awareness Novice
     type: talent
@@ -1271,7 +961,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1309,7 +999,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1343,7 +1033,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1377,6 +1067,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -1389,12 +1080,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+          actionHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -1411,7 +1097,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1448,7 +1134,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1482,7 +1168,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1522,7 +1208,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1560,7 +1246,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1594,7 +1280,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: shieldCombatTrai
     folder: null
@@ -1629,7 +1315,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: shieldCombatProf
     folder: null
@@ -1645,7 +1331,7 @@ items:
       category: implement
       quantity: 1
       weight: 6
-      price: 1200
+      price: 30
       quality: standard
       broken: false
       enchantment: mundane
@@ -1659,7 +1345,8 @@ items:
           loose of another.</p>
         private: ''
       actions: []
-      skills: []
+      skills:
+        - athletics
     effects: []
     flags: {}
     _stats:
@@ -1668,11 +1355,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: NE3II2EDPT4zlWdr
-    folder: null
-    sort: 0
+    folder: 7LUkTLEZvS60KVBp
+    sort: 1200000
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.NE3II2EDPT4zlWdr'
@@ -1684,7 +1371,7 @@ items:
       category: flask
       quantity: 1
       weight: 1
-      price: 4000
+      price: 400
       quality: standard
       broken: false
       enchantment: mundane
@@ -1718,6 +1405,7 @@ items:
             focus: 0
             heroism: 0
             weapon: false
+            hands: 0
           range:
             minimum: null
             maximum: 1
@@ -1743,11 +1431,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: px5kNyBs36MvlJl4
-    folder: null
-    sort: 0
+    folder: WqUGvC0ubhjrpvz9
+    sort: 100000
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.px5kNyBs36MvlJl4'
@@ -1759,7 +1447,7 @@ items:
       category: clothing
       quantity: 1
       weight: 3
-      price: 1200
+      price: 120
       quality: standard
       broken: false
       enchantment: mundane
@@ -1787,14 +1475,226 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: UcTm1twwPEBk7OE2
-    folder: null
+    folder: GVbpo5LtAY44QZPD
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.UcTm1twwPEBk7OE2'
+  - name: 'Rune: Kinesis'
+    type: talent
+    img: icons/magic/movement/pinwheel-turning-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
+      actions:
+        - id: propel
+          name: Propel
+          img: icons/magic/movement/pinwheel-turning-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Kinesis allows you to exert local
+            control over gravitational forces to perform basic telekinetic
+            manipulations, producing one of the following
+            effects:</p><ul><li><p>Pull an unsecured object within 15 feet and
+            with weight no greater than 1 towards you and catch it. An object
+            that is equipped or possessed by a creature is never treated as
+            unsecured unless that creature is willing to release
+            it.</p></li><li><p>Flick an object that you hold with weight no
+            greater than 1 towards a target up to 30 feet away. The object flies
+            unerringly in a straight line towards that target at a moderate
+            speed. Any creature along the object's path can react to catch it as
+            long as they have a free hand with which to do
+            so.</p></li><li><p>Suspend in midair an object or willing creature
+            that you touch with weight less than or equal to 10 times your
+            <strong>Presence</strong>, altering its position up to 20 feet in
+            any direction from its original location. You can maintain this
+            suspension indefinitely as long as you take no further Action and
+            are not @Condition[incapacitated].</p></li></ul><p>Propel may only
+            affect a creature or object you can physically touch unless
+            otherwise specified. You may attempt other uses similar those above,
+            the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: kinesis
+      actorHooks: []
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: kinesis
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeKinesis00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.runeKinesis00000'
+  - name: Runewarden
+    type: talent
+    img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
+    system:
+      description: >-
+        <p>Your mastery of the arcane makes you more resilient to elemental and
+        spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
+        half your Wisdom for each Elemental or Spiritual damage type where you
+        know the Arcane Rune attuned to that damage type.</p><p>When you use the
+        <strong>Ward</strong> gesture, the Resistance provided by your Ward also
+        increases by half your Wisdom.</p>
+      actions: []
+      actorHooks: []
+      iconicSpells: 1
+      nodes:
+        - sig3.toughness
+        - sig3.wisdom
+      rune: ''
+      gesture: ''
+      inflection: ''
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runewarden000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.runewarden000000'
+  - name: Heater Shield
+    type: weapon
+    img: icons/equipment/shield/heater-steel-worn.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      category: shieldLight
+      quantity: 1
+      weight: 6
+      price: 360
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - engaging
+      description:
+        public: >-
+          <p>Named for its iron shape resembling the base of a clothes iron, the
+          heater shield offers a balance of coverage and mobility.</p>
+        private: ''
+      damageType: bludgeoning
+      broken: false
+      identifier: heaterShield
+      invested: false
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: egJ3CmAJFORYcUDl
+    folder: pibeFfUJ9FFbWkoY
+    sort: 200000
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.egJ3CmAJFORYcUDl'
+  - name: War Hammer
+    type: weapon
+    img: icons/weapons/hammers/hammer-war-rounding.webp
+    effects: []
+    flags: {}
+    system:
+      category: heavy1
+      quantity: 1
+      weight: 5
+      price: 400
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - versatile
+      description:
+        public: >-
+          <p>Built to crush plate and shatter shields, the war hammer features a
+          heavy, blunt head mounted atop a reinforced haft, delivering ruin in
+          the hands of those who favor power over finesse.</p>
+        private: ''
+      damageType: bludgeoning
+      broken: false
+      slot: 1
+      identifier: warhammer
+      invested: false
+      actions: []
+      actorHooks: []
+      dropped: false
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: kJid7WLFn0ox8JeS
+    folder: 3BDkyJ5nPk8nVa81
+    sort: 200000
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.kJid7WLFn0ox8JeS'
 effects: []
 flags:
   core: {}
@@ -1934,9 +1834,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 ownership:
