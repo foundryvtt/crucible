@@ -397,7 +397,11 @@ export default class StandardCheck extends Roll {
   static async handle({title, flavor, check}={}) {
     const actor = game.actors.get(check.actorId);
     if ( actor.testUserPermission(game.user, "OBSERVER") ) {
-      const pool = new this(check);
+      const skill = check.type;
+      check.boons = check.totalBoons;
+      check.banes = check.totalBanes;
+      const pool = actor.system.skills[skill] ? actor.getSkillCheck(skill, check) : new this(check);
+      flavor ??= game.i18n.format("SKILL.RollFlavor", {name: actor.name, skill: SYSTEM.SKILLS[skill].label});
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
       return pool.toMessage({flavor});
