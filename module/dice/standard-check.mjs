@@ -248,21 +248,18 @@ export default class StandardCheck extends Roll {
 
     // Successes and Failures
     if ( this.data.dc ) {
+      cardData.outcome = "ACTION.EFFECT_RESULT_TYPES.";
+      if ( this.isCriticalSuccess || this.isCriticalFailure ) {
+        cardData.outcome += "Critical";
+        cardData.cssClass.push("critical");
+      }
       if ( this.isSuccess ) {
-        cardData.outcome = "Success";
+        cardData.outcome += "Success";
         cardData.cssClass.push("success");
-        if ( this.isCriticalSuccess ) {
-          cardData.outcome = "Critical " + cardData.outcome;
-          cardData.cssClass.push("critical");
-        }
       }
       else {
-        cardData.outcome = "Failure";
+        cardData.outcome += "Failure";
         cardData.cssClass.push("failure");
-        if ( this.isCriticalFailure ) {
-          cardData.outcome = "Critical " + cardData.outcome;
-          cardData.cssClass.push("critical");
-        }
       }
     }
     cardData.cssClass = cardData.cssClass.join(" ");
