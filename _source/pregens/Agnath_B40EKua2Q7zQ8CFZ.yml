@@ -258,27 +258,29 @@ items:
     type: armor
     img: icons/equipment/chest/breastplate-layered-steel-black.webp
     effects: []
-    folder: mLC1TdXCG7bX8VE9
-    flags:
-      core: {}
+    folder: amO0X74IO8uQIox5
+    flags: {}
     system:
       category: heavy
       quantity: 1
-      weight: 55
-      price: 200
-      quality: fine
+      weight: 40
+      price: 4800
+      quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - bulky
       description:
-        public: ''
+        public: >-
+          <p>A layer of vertical metal strips riveted to a backing of leather or
+          mail, splint armor offers strong limb protection while sacrificing
+          some flexibility.</p>
         private: ''
       armor:
         base: 16
       broken: false
       actions: []
-      identifier: vpbxx8LtAo
+      identifier: splintMail
       invested: false
       actorHooks: []
     _stats:
@@ -287,9 +289,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.f4uwtWGdrCKeoxb7'
@@ -303,13 +305,7 @@ items:
         sequence using a one-handed melee weapon you gain a stacking <strong>+1
         Boon</strong> for each successive attack.</p><p></p>
       actions: []
-      actorHooks:
-        - hook: prepareWeaponAttack
-          fn: >-
-            const {cadence} = this.status; const {actorStatus, boons} =
-            action.usage; actorStatus.cadence = (cadence ?? 0) + 1; if ( cadence
-            ) rollData.boons.cadence = {label: "Cadence", number:
-            status.cadence};
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -328,7 +324,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -368,7 +364,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -412,7 +408,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: spellblade000000
     sort: 250000
@@ -447,7 +443,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -485,7 +481,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturestrike000
     folder: D14x9AJ0TgXKtnzu
@@ -501,14 +497,7 @@ items:
         You can wield weapons with the Slow trait and wear Armor with the Bulky
         trait without suffering Banes to your Initiative rolls.
       actions: []
-      actorHooks:
-        - hook: prepareInitiativeCheck
-          fn: >-
-            const {weapons, armor} = this.equipment; const slowBanes =
-            rollData.banes.slow; if ( weapons.slow && slowBanes )
-            slowBanes.number -= weapons.slow; const bulkyBanes =
-            rollData.banes.bulky; if ( armor.system.properties.has("bulky") &&
-            bulkyBanes ) bulkyBanes.number -= 2;
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -527,7 +516,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -562,6 +551,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -592,7 +582,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: iD0N4Q5xDZqsf354
     sort: 0
@@ -624,6 +614,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           range:
             maximum: null
             weapon: true
@@ -654,7 +645,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -689,7 +680,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     sort: 0
@@ -701,26 +692,29 @@ items:
     type: weapon
     img: icons/weapons/polearms/glaive-simple.webp
     effects: []
-    folder: bvWJheBtuW1LmkAy
+    folder: mmJSa1xhCb4ILfT7
     flags: {}
     system:
       category: balanced2
       quantity: 1
-      weight: 8
-      price: 60
-      quality: fine
+      weight: 7
+      price: 560
+      quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - reach
       description:
-        public: ''
+        public: >-
+          <p>A polearm with a curved, sword-like blade affixed to the end of a
+          long shaft, the glaive sweeps through foes in broad, arcing
+          strikes.</p>
         private: ''
       damageType: slashing
       broken: false
       actions: []
-      slot: 3
-      identifier: bPu9RP39FE
+      slot: 0
+      identifier: glaive
       invested: false
       actorHooks: []
       dropped: false
@@ -730,51 +724,12 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 600000
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.glaive0000000000'
-  - name: 'Rune: Lightning'
-    type: talent
-    img: icons/magic/lightning/bolt-strike-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of raw electrical energy. The Lightning rune
-        governs sources of electrical charge and discharge.</p><p>The Lightning
-        rune scales using <strong>Intellect</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Earth</strong>.</p>
-      actions: []
-      rune: lightning
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: lightning
-        rank: 1
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runelightning000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 900000
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runelightning000'
   - name: Heavy Strike
     type: talent
     img: icons/skills/melee/strike-hammer-destructive-blue.webp
@@ -798,6 +753,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -830,7 +786,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavystrike00000
     folder: tRHknqOEBLR808Cb
@@ -872,7 +828,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -910,7 +866,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -944,7 +900,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -980,7 +936,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1020,7 +976,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1054,7 +1010,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: athleticsJourney
     ownership:
@@ -1088,7 +1044,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1125,6 +1081,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -1158,7 +1115,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1166,44 +1123,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.sunderingstrike0'
-  - name: 'Rune: Flame'
-    type: talent
-    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-    system:
-      description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using Intellect,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Frost</strong>.</p>
-      actions: []
-      rune: flame
-      actorHooks: []
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runeflame0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runeflame0000000'
   - name: Pyromancer
     type: talent
     img: icons/magic/fire/projectile-smoke-swirl-red.webp
@@ -1215,19 +1134,7 @@ items:
         <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
         <strong>Health</strong> and <strong>Morale</strong>.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Flame rune
-            if ( action.rune?.id !== "flame" ) return;
-
-            // Require damage to Health
-            const damageHealth = outcome.resources.health < 0;
-            if ( !damageHealth ) return;
-
-            // Apply Burning effect
-            const burning = SYSTEM.EFFECTS.burning(this);
-            outcome.effects.push(burning);
+      actorHooks: []
       nodes:
         - int3a
       rune: ''
@@ -1246,7 +1153,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: pyromancer000000
     folder: null
@@ -1289,7 +1196,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gestureBlast0000
     folder: null
@@ -1297,6 +1204,165 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.gestureBlast0000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
+      actions:
+        - id: energize
+          name: Energize
+          img: icons/magic/lightning/bolt-strike-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Lightning allows you to conduct the
+            flow of both air and electricity, manipulating charge and
+            aerodynamics to produce one of the following
+            effects:</p><ul><li><p>Instill an electromagnetic charge into a
+            metallic object that you touch no larger than a one-foot cube,
+            causing it to strongly adhere to other metals. Only one object can
+            be charged in this way at a given time, casting this spell on a
+            different object causes the prior object to lose its magnetic
+            effect.</p></li><li><p>Gather a squall of wind at your current
+            location in a six-foot radius which blows either as a gust in a
+            single controlled direction or as a cyclone with centripetal force
+            in all directions. Airborne effects in the immediate area are
+            dispersed and unsecured objects with weight less than 1 are flung in
+            the direction of the gust.</p></li><li><p>Produce the concussive
+            sound of a thunderclap at a location you can see within 15 feet of
+            your current position.</p></li></ul><p>Energize may only affect a
+            creature or object you can physically touch. You may attempt other
+            uses similar those above, the effectiveness of which is decided by
+            the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: lightning
+      actorHooks: []
+      training:
+        type: lightning
+        rank: 1
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeLightning000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runeLightning000'
+  - name: 'Rune: Flame'
+    type: talent
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    system:
+      description: >-
+        <p>The chaotic force of elemental, thermal energy. The Flame rune
+        governs fire and heat.</p><p>The Flame rune scales using Intellect,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
+      actions:
+        - id: enkindle
+          name: Enkindle
+          img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Flame allows you to manipulate fire
+            and thermal energy in creative ways, producing one of the following
+            effects:</p><ul><li><p>Manifest a burst of elemental flame in one
+            inch sphere which can ignite a candle, torch, or other flammable
+            materials.</p></li><li><p>Imbue your body with momentary thermal
+            shielding which provides you with immunity to fire damage on an
+            immediately subsequent action that costs <strong>1 Action</strong>
+            or less.</p></li><li><p>Control the movement of flames within a
+            small area, causing them to flicker, dance, or shift in an animated
+            performance of light and shadow.</p></li></ul><p>Enkindle may only
+            affect a creature or object you can physically touch. You may
+            attempt other uses similar those above, the effectiveness of which
+            is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: flame
+      actorHooks: []
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: flame
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeFlame0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.runeFlame0000000'
 effects: []
 flags:
   core: {}
@@ -1328,9 +1394,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 ownership:
