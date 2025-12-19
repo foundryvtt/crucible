@@ -583,9 +583,6 @@ async function _performMigrations(priorVersion) {
   // Sync all Actor talents
   await syncTalents({force: true, reload: false});
 
-  // One-time migration of prices
-  if ( foundry.utils.isNewerVersion("0.8.3", priorVersion) ) await syncEquipmentPrices();
-
   // Record the new migration version
   await game.settings.set("crucible", "migrationVersion", crucible.version);
   foundry.utils.debouncedReload();
@@ -852,29 +849,35 @@ async function syncEquipmentPrices() {
   function migrateItem(item) {
     if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
     if ( !item.system.price ) return null;
-    const equipmentItem = equipmentIdentifiers[item.system.identifiers];
+    const equipmentItem = equipmentIdentifiers[item.system.identifier];
     if ( !equipmentItem ) {
-      console.warn(`No upstream equipment for priced Item ${item.uuid}`);
+      console.warn(`No upstream equipment for priced Item ${item.name} [${item.uuid}]`);
       return null;
     }
-    return {_id: item.id, system: {price: equipmentItem.system.price}};
+    return {_id: item.id, system: {price: equipmentItem._source.system.price}};
   }
 
-// World Items
+  // World Items
   const itemUpdates = [];
   for ( const item of game.items ) {
     const update = migrateItem(item);
-    if ( update ) itemUpdates.push(update);
+    if ( update ) {
+      itemUpdates.push(update);
+      console.debug(`Syncing equipment price for ${item.name} [${item.uuid}]`);
+    }
   }
   await Item.updateDocuments(itemUpdates);
 
-// Actor Items
+  // Actor Items
   const actorPromises = [];
   for ( const actor of game.actors ) {
     const ownedItemUpdates = [];
     for ( const item of actor.items ) {
       const update = migrateItem(item);
-      if ( update ) ownedItemUpdates.push(update);
+      if ( update ) {
+        ownedItemUpdates.push(update);
+        console.debug(`Syncing equipment price for ${item.name} in Actor ${actor.name} [${item.uuid}]`);
+      }
     }
     if ( ownedItemUpdates.length ) actorPromises.push(actor.updateEmbeddedDocuments("Item", ownedItemUpdates));
   }
