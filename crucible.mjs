@@ -127,6 +127,9 @@ Hooks.once("init", async function() {
 
   // Active Effect document configuration
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
+  CONFIG.ActiveEffect.dataModels = {
+    crucible: models.CrucibleBaseActiveEffect
+  };
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;

@@ -28,8 +28,8 @@ HOOKS.antitoxin = {
       if ( outcome.self && !targetSelf ) continue;
       const effectsToDelete = [];
       for ( const effect of outcome.target.effects ) {
-        if ( !effect.statuses.has("poisoned") || !effect.flags.crucible?.dot ) continue;
-        const dot = effect.flags.crucible.dot;
+        if ( !effect.statuses.has("poisoned") || !effect.system.dot ) continue;
+        const dot = effect.system.dot;
         const poisonAmount = (dot.health || 0) + (dot.morale || 0);
         if ( poisonAmount <= neutralizeAmount ) effectsToDelete.push(effect.id);
       }
@@ -325,7 +325,7 @@ HOOKS.healingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    foundry.utils.setProperty(effect, "flags.crucible.dot.health", -amount);
+    foundry.utils.setProperty(effect, "system.dot.health", -amount);
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
 }
@@ -378,12 +378,10 @@ HOOKS.lifebloom = {
       icon: this.img,
       origin: this.actor.uuid,
       duration: {turns: 6},
-      flags: {
-        crucible: {
-          dot: {
-            health: -wisdom,
-            morale: -wisdom
-          }
+      system: {
+        dot: {
+          health: -wisdom,
+          morale: -wisdom
         }
       }
     };
@@ -533,7 +531,7 @@ HOOKS.rallyingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    foundry.utils.setProperty(effect, "flags.crucible.dot.morale", -amount);
+    foundry.utils.setProperty(effect, "system.dot.morale", -amount);
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
 }

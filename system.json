@@ -156,6 +156,9 @@
     }
   ],
   "documentTypes": {
+    "ActiveEffect": {
+      "crucible": {}
+    },
     "Actor": {
       "hero": {
         "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]

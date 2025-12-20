@@ -22,7 +22,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     });
   }
 
-/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Obtain an object of tags which describe the Effect.
@@ -68,5 +68,30 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     // Disabled Effects
     if ( this.disabled ) tags.context.section = "disabled";
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /** inheritDoc */
+  static migrateData(source) {
+    if ( source.type === "base" ) {
+      source.type = "crucible";
+      const crucibleFlags = source.flags.crucible ?? {};
+      const migrationMap = {
+        dot: "system.dot",
+        maintainedCost: "system.maintenance.cost",
+        summons: "system.summons",
+        engagedEnemies: "system.engagement.enemies",
+        engagedAllies: "system.engagement.allies",
+        flanked: "system.engagement.flanked"
+      };
+      for ( const [oldProperty, newProperty] of Object.entries(migrationMap)) {
+        if ( !(oldProperty in crucibleFlags) ) continue;
+        foundry.utils.setProperty(source, newProperty, crucibleFlags[oldProperty]);
+        delete crucibleFlags[oldProperty];
+      }
+      if ( foundry.utils.isEmpty(crucibleFlags) ) delete source.flags.crucible;
+    }
+    return super.migrateData(source);
   }
 }

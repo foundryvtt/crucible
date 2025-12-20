@@ -1085,10 +1085,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const fn = SYSTEM.EFFECTS[status];
         if ( typeof fn !== "function" ) continue;
         const statusEffect = fn(this.actor, {ability: this.scaling});
-        if ( statusEffect.flags ) {
-          effect.flags ||= {};
-          effect.flags.crucible ||= statusEffect.flags.crucible;
-        }
+        if ( statusEffect.system ) effect.system ||= statusEffect.system;
         if ( statusEffect.statuses ) {
           for ( const s of statusEffect.statuses ) statuses.add(s);
         }

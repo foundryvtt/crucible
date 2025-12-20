@@ -1218,7 +1218,7 @@ export default class CrucibleActor extends Actor {
       }
 
       // Identify maintained effects
-      const maintainedCost = effect.flags.crucible?.maintainedCost;
+      const maintainedCost = effect.system.maintenance?.cost;
       if ( maintainedCost ) {
         if ( maintainedCost > this.resources.focus.value ) {
           effectChanges.toDelete.push(effect.id);
@@ -1315,7 +1315,7 @@ export default class CrucibleActor extends Actor {
    */
   async applyDamageOverTime() {
     for ( const effect of this.effects ) {
-      const dot = effect.flags.crucible?.dot;
+      const dot = effect.system.dot;
       if ( !dot ) continue;
 
       // Categorize damage
@@ -2061,7 +2061,7 @@ export default class CrucibleActor extends Actor {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const flankedStage = engagement.flanked;
     const current = this.effects.get(flankedId);
-    if ( flankedStage === current?.flags.crucible.flanked ) return;
+    if ( flankedStage === current?.system.flanked ) return;
 
     // Add flanked effect
     if ( flankedStage > 0 ) {
@@ -2071,10 +2071,10 @@ export default class CrucibleActor extends Actor {
         description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
-        flags: {
-          crucible: {
-            engagedEnemies: engagement.enemies.size,
-            engagedAllies: engagement.allies.size,
+        system: {
+          engagement: {
+            enemies: engagement.enemies.size,
+            allies: engagement.allies.size,
             flanked: flankedStage
           }
         }

@@ -32,12 +32,10 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
     duration: {turns},
     origin: actor.uuid,
     statuses: ["bleeding"],
-    flags: {
-      crucible: {
-        dot: {
-          health: amount,
-          damageType
-        }
+    system: {
+      dot: {
+        health: amount,
+        damageType
       }
     }
   }
@@ -59,13 +57,11 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
     duration: {turns},
     origin: actor.uuid,
     statuses: ["burning"],
-    flags: {
-      crucible: {
-        dot: {
-          health: amount,
-          morale: amount,
-          damageType: "fire"
-        }
+    system: {
+      dot: {
+        health: amount,
+        morale: amount,
+        damageType: "fire"
       }
     }
   }
@@ -87,12 +83,10 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
     duration: {turns},
     origin: actor.uuid,
     statuses: ["freezing", "slowed"],
-    flags: {
-      crucible: {
-        dot: {
-          health: amount,
-          damageType: "cold"
-        }
+    system: {
+      dot: {
+        health: amount,
+        damageType: "cold"
       }
     }
   }
@@ -114,12 +108,10 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
     duration: {turns},
     origin: actor.uuid,
     statuses: ["confused", "disoriented"],
-    flags: {
-      crucible: {
-        dot: {
-          morale: amount,
-          damageType: "psychic"
-        }
+    system: {
+      dot: {
+        morale: amount,
+        damageType: "psychic"
       }
     }
   }
@@ -140,10 +132,8 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
     icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {turns},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {health: amount, damageType: "acid"}
-      }
+    system: {
+      dot: {health: amount, damageType: "acid"}
     }
   }
 }
@@ -157,10 +147,8 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {turns},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {health: amount, damageType: "corruption"}
-      }
+    system: {
+      dot: {health: amount, damageType: "corruption"}
     }
   }
 }
@@ -174,12 +162,10 @@ export function entropy(actor) {
     duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["frightened"],
-    flags: {
-      crucible: {
-        dot: {
-          health: Math.floor(actor.system.abilities.presence.value / 2),
-          damageType: "void"
-        }
+    system: {
+      dot: {
+        health: Math.floor(actor.system.abilities.presence.value / 2),
+        damageType: "void"
       }
     }
   }
@@ -193,13 +179,11 @@ export function irradiated(actor) {
     icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {turns: 1},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {
-          health: actor.system.abilities.presence.value,
-          morale: actor.system.abilities.presence.value,
-          damageType: "radiant"
-        }
+    system: {
+      dot: {
+        health: actor.system.abilities.presence.value,
+        morale: actor.system.abilities.presence.value,
+        damageType: "radiant"
       }
     }
   }
@@ -213,11 +197,9 @@ export function mending(actor, target) {
     icon: "icons/magic/life/cross-beam-green.webp",
     duration: {turns: 1},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {
-          health: -actor.system.abilities.wisdom.value
-        }
+    system: {
+      dot: {
+        health: -actor.system.abilities.wisdom.value
       }
     }
   }
@@ -231,11 +213,9 @@ export function inspired(actor, target) {
     icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {turns: 1},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {
-          morale: -actor.system.abilities.presence.value
-        }
+    system: {
+      dot: {
+        morale: -actor.system.abilities.presence.value
       }
     }
   }
@@ -256,12 +236,10 @@ export function restrained(actor, {ability="wisdom", amount, turns=3, damageType
     icon: "icons/magic/control/debuff-chains-shackle-movement-red.webp",
     duration: {turns},
     origin: actor.uuid,
-    flags: {
-      crucible: {
-        dot: {
-          morale: amount,
-          damageType
-        }
+    system: {
+      dot: {
+        morale: amount,
+        damageType
       }
     }
   }
@@ -283,12 +261,10 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
     duration: {turns},
     origin: actor.uuid,
     statuses: ["poisoned"],
-    flags: {
-      crucible: {
-        dot: {
-          health: amount,
-          damageType: "poison"
-        }
+    system: {
+      dot: {
+        health: amount,
+        damageType: "poison"
       }
     }
   }
@@ -310,12 +286,10 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
     duration: {turns},
     origin: actor.uuid,
     statuses: ["shocked"],
-    flags: {
-      crucible: {
-        dot: {
-          morale: amount,
-          damageType: "electricity"
-        }
+    system: {
+      dot: {
+        morale: amount,
+        damageType: "electricity"
       }
     }
   }

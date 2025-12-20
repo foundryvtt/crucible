@@ -546,7 +546,7 @@ export const TAGS = {
 
       // Update Active Effect
       const ae = self.effects?.[0];
-      if ( ae ) foundry.utils.setProperty(ae, "flags.crucible.summons",  summonedTokens);
+      if ( ae ) foundry.utils.setProperty(ae, "system.summons", summonedTokens);
     }
   },
 
@@ -1049,7 +1049,7 @@ export const TAGS = {
       if ( !outcome.self ) return;
       const maintainedEffectData = outcome.effects[0];
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
-      foundry.utils.setProperty(maintainedEffectData, "flags.crucible.maintainedCost", maintainedCost);
+      foundry.utils.setProperty(maintainedEffectData, "system.maintenance.cost", maintainedCost);
     }
   }
 }
