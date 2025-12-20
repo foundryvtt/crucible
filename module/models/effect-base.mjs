@@ -1,4 +1,13 @@
+/**
+ * Active Effect subtype containing crucible-specific system schema.
+ */
 export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataModel {
+
+  /* -------------------------------------------- */
+  /*                  Data Schema                 */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   static defineSchema() {
     const fields = foundry.data.fields;
     const schema = {};
@@ -37,4 +46,7 @@ export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataM
 
     return schema;
   }
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT"];
 }

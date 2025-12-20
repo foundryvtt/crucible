@@ -1,5 +1,8 @@
 {
 "TYPES": {
+  "ActiveEffect": {
+    "crucible": "Active Effect"
+  },
   "Actor": {
     "adversary": "Adversary",
     "hero": "Hero",
@@ -1043,6 +1046,46 @@
     "Disable": "Disable Effect",
     "Edit": "Edit Effect",
     "Enable": "Enable Effect"
+  },
+  "FIELDS": {
+    "dot": {
+      "damageType": {
+        "label": "Damage Type"
+      },
+      "health": {
+        "label": "Health DOT"
+      },
+      "label": "Damage Over Time",
+      "morale": {
+        "label": "Morale DOT"
+      }
+    },
+    "engagement": {
+      "allies": {
+        "label": "Allies Engaging"
+      },
+      "enemies": {
+        "label": "Enemies Engaging"
+      },
+      "flanked": {
+        "label": "Flanked Stage"
+      },
+      "label": "Engagement"
+    },
+    "maintenance": {
+      "cost": {
+        "label": "Maintenance Cost"
+      },
+      "label": "Maintenance"
+    },
+    "regions": {
+      "hint": "The regions dependent on this effect.",
+      "label": "Regions"
+    },
+    "summons": {
+      "hint": "The summoned Tokens dependent on this effect.",
+      "label": "Summons"
+    }
   },
   "STATUSES": {
     "Asleep": "Asleep",
