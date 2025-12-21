@@ -33,10 +33,11 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
     origin: actor.uuid,
     statuses: ["bleeding"],
     system: {
-      dot: {
-        health: amount,
-        damageType
-      }
+      dot: [{
+        amount,
+        damageType,
+        resource: "health"
+      }]
     }
   }
 }
@@ -58,11 +59,15 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
     origin: actor.uuid,
     statuses: ["burning"],
     system: {
-      dot: {
-        health: amount,
-        morale: amount,
-        damageType: "fire"
-      }
+      dot: [{
+        amount,
+        damageType: "fire",
+        resource: "health"
+      }, {
+        amount,
+        damageType: "fire",
+        resource: "morale"
+      }]
     }
   }
 }
@@ -84,10 +89,11 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
     origin: actor.uuid,
     statuses: ["freezing", "slowed"],
     system: {
-      dot: {
-        health: amount,
-        damageType: "cold"
-      }
+      dot: [{
+        amount,
+        damageType: "cold",
+        resource: "health",
+      }]
     }
   }
 }
@@ -109,10 +115,11 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
     origin: actor.uuid,
     statuses: ["confused", "disoriented"],
     system: {
-      dot: {
-        morale: amount,
-        damageType: "psychic"
-      }
+      dot: [{
+        amount,
+        damageType: "psychic",
+        resource: "morale"
+      }]
     }
   }
 }
@@ -133,7 +140,11 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
     duration: {turns},
     origin: actor.uuid,
     system: {
-      dot: {health: amount, damageType: "acid"}
+      dot: [{
+        amount,
+        damageType: "acid",
+        resource: "health"
+      }]
     }
   }
 }
@@ -148,7 +159,11 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
     duration: {turns},
     origin: actor.uuid,
     system: {
-      dot: {health: amount, damageType: "corruption"}
+      dot: [{
+        amount,
+        damageType: "corruption",
+        resource: "health"
+      }]
     }
   }
 }
@@ -163,10 +178,11 @@ export function entropy(actor) {
     origin: actor.uuid,
     statuses: ["frightened"],
     system: {
-      dot: {
-        health: Math.floor(actor.system.abilities.presence.value / 2),
-        damageType: "void"
-      }
+      dot: [{
+        amount: Math.floor(actor.system.abilities.presence.value / 2),
+        damageType: "void",
+        resource: "health"
+      }]
     }
   }
 }
@@ -180,11 +196,15 @@ export function irradiated(actor) {
     duration: {turns: 1},
     origin: actor.uuid,
     system: {
-      dot: {
-        health: actor.system.abilities.presence.value,
-        morale: actor.system.abilities.presence.value,
-        damageType: "radiant"
-      }
+      dot: [{
+        amount: actor.system.abilities.presence.value,
+        damageType: "radiant",
+        resource: "health"
+      }, {
+        amount: actor.system.abilities.presence.value,
+        damageType: "radiant",
+        resource: "morale"
+      }]
     }
   }
 }
@@ -198,9 +218,11 @@ export function mending(actor, target) {
     duration: {turns: 1},
     origin: actor.uuid,
     system: {
-      dot: {
-        health: -actor.system.abilities.wisdom.value
-      }
+      dot: [{
+        amount: actor.system.abilities.wisdom.value,
+        resource: "health",
+        restoration: true
+      }]
     }
   }
 }
@@ -214,9 +236,11 @@ export function inspired(actor, target) {
     duration: {turns: 1},
     origin: actor.uuid,
     system: {
-      dot: {
-        morale: -actor.system.abilities.presence.value
-      }
+      dot: [{
+        amount: actor.system.abilities.presence.value,
+        resource: "morale",
+        restoration: true
+      }]
     }
   }
 }
@@ -237,10 +261,11 @@ export function restrained(actor, {ability="wisdom", amount, turns=3, damageType
     duration: {turns},
     origin: actor.uuid,
     system: {
-      dot: {
-        morale: amount,
-        damageType
-      }
+      dot: [{
+        amount,
+        damageType,
+        resource: "morale"
+      }]
     }
   }
 }
@@ -262,10 +287,11 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
     origin: actor.uuid,
     statuses: ["poisoned"],
     system: {
-      dot: {
-        health: amount,
-        damageType: "poison"
-      }
+      dot: [{
+        amount,
+        damageType: "poison",
+        resource: "health"
+      }]
     }
   }
 }
@@ -287,10 +313,11 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
     origin: actor.uuid,
     statuses: ["shocked"],
     system: {
-      dot: {
-        morale: amount,
-        damageType: "electricity"
-      }
+      dot: [{
+        amount,
+        damageType: "electricity",
+        resource: "morale"
+      }]
     }
   }
 }

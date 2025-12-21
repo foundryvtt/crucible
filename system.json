@@ -157,7 +157,8 @@
   ],
   "documentTypes": {
     "ActiveEffect": {
-      "crucible": {}
+      "crucible": {},
+      "flanked": {}
     },
     "Actor": {
       "hero": {

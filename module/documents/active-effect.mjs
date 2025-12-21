@@ -75,10 +75,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** inheritDoc */
   static migrateData(source) {
     if ( source.type === "base" ) {
-      source.type = "crucible";
+      if ( source._id === SYSTEM.EFFECTS.getEffectId("flanked") ) source.type = "flanked";
+      else source.type = "crucible";
       const crucibleFlags = source.flags.crucible ?? {};
       const migrationMap = {
-        dot: "system.dot",
         maintainedCost: "system.maintenance.cost",
         summons: "system.summons",
         engagedEnemies: "system.engagement.enemies",
@@ -87,8 +87,31 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       };
       for ( const [oldProperty, newProperty] of Object.entries(migrationMap)) {
         if ( !(oldProperty in crucibleFlags) ) continue;
+        if ( oldProperty === "flanked" ) source.type = "flanked";
         foundry.utils.setProperty(source, newProperty, crucibleFlags[oldProperty]);
         delete crucibleFlags[oldProperty];
+      }
+      if ( crucibleFlags.dot ) {
+        let dot = [];
+        for ( const resource of ["health", "morale"] ) {
+          if ( !(resource in crucibleFlags.dot) ) continue;
+          const amount = crucibleFlags.dot[resource];
+          if ( amount > 0 ) {
+            dot.push({
+              amount,
+              damageType: crucibleFlags.dot.damageType,
+              resource
+            });
+          } else {
+            dot.push({
+              amount: -amount,
+              resource,
+              restoration: true
+            });
+          }
+        }
+        foundry.utils.setProperty(source, "system.dot", dot);
+        delete crucibleFlags.dot;
       }
       if ( foundry.utils.isEmpty(crucibleFlags) ) delete source.flags.crucible;
     }

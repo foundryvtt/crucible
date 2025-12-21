@@ -28,9 +28,9 @@ HOOKS.antitoxin = {
       if ( outcome.self && !targetSelf ) continue;
       const effectsToDelete = [];
       for ( const effect of outcome.target.effects ) {
-        if ( !effect.statuses.has("poisoned") || !effect.system.dot ) continue;
+        if ( !effect.statuses.has("poisoned") || !effect.system.dot?.length ) continue;
         const dot = effect.system.dot;
-        const poisonAmount = (dot.health || 0) + (dot.morale || 0);
+        const poisonAmount = dot.reduce((acc, {amount, damageType}) => acc + ((damageType === "poison") ? amount : 0), 0);
         if ( poisonAmount <= neutralizeAmount ) effectsToDelete.push(effect.id);
       }
       if ( effectsToDelete.length ) await outcome.target.deleteEmbeddedDocuments("ActiveEffect", effectsToDelete);
@@ -325,7 +325,11 @@ HOOKS.healingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    foundry.utils.setProperty(effect, "system.dot.health", -amount);
+    effect.system.dot = [{
+      amount,
+      resource: "health",
+      restoration: true
+    }];
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
 }
@@ -379,10 +383,15 @@ HOOKS.lifebloom = {
       origin: this.actor.uuid,
       duration: {turns: 6},
       system: {
-        dot: {
-          health: -wisdom,
-          morale: -wisdom
-        }
+        dot: [{
+          amount: wisdom,
+          resource: "health",
+          restoration: true
+        }, {
+          amount: wisdom,
+          resource: "morale",
+          restoration: true
+        }]
       }
     };
     for ( const outcome of this.outcomes.values() ) {
@@ -531,7 +540,11 @@ HOOKS.rallyingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    foundry.utils.setProperty(effect, "system.dot.morale", -amount);
+    effect.system.dot = [{
+      amount,
+      resource: "morale",
+      restoration: true
+    }];
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
 }
@@ -692,7 +705,7 @@ HOOKS.threadTheNeedle = {
       outcome.usage.boons ||= {};
       if ( target.statuses.has("flanked") ) {
         const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        outcome.usage.boons.flanked = {label: "Flanked", number: ae?.getFlag("crucible", "flanked") ?? 1};
+        outcome.usage.boons.flanked = {label: "Flanked", number: ae?.system.engagement.flanked ?? 1};
       }
     }
   }

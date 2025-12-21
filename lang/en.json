@@ -1,7 +1,8 @@
 {
 "TYPES": {
   "ActiveEffect": {
-    "crucible": "Active Effect"
+    "crucible": "Active Effect",
+    "flanked": "Flanked Active Effect"
   },
   "Actor": {
     "adversary": "Adversary",
@@ -1049,16 +1050,23 @@
   },
   "FIELDS": {
     "dot": {
-      "damageType": {
-        "label": "Damage Type"
+      "element": {
+        "amount": {
+          "hint": "The amount of damage (or restoration) which should be done each turn.",
+          "label": "Amount"
+        },
+        "damageType": {
+          "label": "Damage Type"
+        },
+        "resource": {
+          "hint": "The resource targeted by this damage/restoration",
+          "label": "Resource"
+        },
+        "restoration": {
+          "label": "Restoration"
+        }
       },
-      "health": {
-        "label": "Health DOT"
-      },
-      "label": "Damage Over Time",
-      "morale": {
-        "label": "Morale DOT"
-      }
+      "label": "Damage Over Time"
     },
     "engagement": {
       "allies": {
