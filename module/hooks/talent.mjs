@@ -288,8 +288,8 @@ HOOKS.intellectualsupe = {
 /* -------------------------------------------- */
 
 HOOKS.irrepressiblespi = {
-  startTurn(item, {resourceRecovery}) {
-    if ( !this.system.isBroken ) resourceRecovery.morale = (resourceRecovery.morale || 0) + 1;
+  startTurn(item, {resourceChanges}) {
+    if ( !this.system.isBroken ) resourceChanges.morale = (resourceChanges.morale || 0) + 1;
   }
 }
 
@@ -310,8 +310,8 @@ HOOKS.kineturge0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.lesserregenerati = {
-  startTurn(item, {resourceRecovery}) {
-    if ( !this.system.isWeakened ) resourceRecovery.health = (resourceRecovery.health || 0) + 1;
+  startTurn(item, {resourceChanges}) {
+    if ( !this.system.isWeakened ) resourceChanges.health = (resourceChanges.health || 0) + 1;
   }
 }
 
