@@ -261,7 +261,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     // Cast New Spell
     const {runes, gestures} = actor.grimoire;
     const rune = runes.keys().next().value;
-    const gesture = gestures.keys().next().value;
+    const gesture = "touch";
     Object.assign(spellData, {
       rune,
       gesture,
