@@ -126,35 +126,22 @@ pages:
         allows those with sufficient training to exert a level of influence over
         the Runes, using @UUID[.lhrYInsQ2f0YfhTu]{Gestures} to manifest powerful
         displays of magical prowess.</p><p>There are six Chaotic Runes and six
-        Orderly Runes, forming a natural opposition to one another.</p><h2
-        class="divider">Runes of
-        Chaos</h2><dl><dt><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Flame}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeFlame0000000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeIllusion0000]{Illusion}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeIllusion0000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeKinesis00000]{Kinesis}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeKinesis00000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeLife00000000]{Life}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeLife00000000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeLightning000]{Lightning}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeLightning000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeOblivion0000]{Oblivion}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeOblivion0000
-        description inline]</p></dd></dl><h2 class="divider">Runes of
-        Order</h2><dl><dt><p>@UUID[Compendium.crucible.talent.Item.runeControl00000]{Control}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeControl00000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeDeath0000000]{Death}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeDeath0000000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Earth}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeEarth0000000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Frost}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeFrost0000000
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeIllumination]{Illumination}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeIllumination
-        description
-        inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeSoul00000000]{Soul}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeSoul00000000
-        description inline]</p></dd></dl><h2 class="divider">Rune
-        Mechanics</h2><p>The choice of Rune used in the casting of a spell
-        affects or determines a variety of aspects of the resulting
-        spellcraft.</p><ul><li><p>The conceptual essence of the
+        Orderly Runes, forming a natural opposition to one another. The
+        following table summarizes all twelve runes in the Crucible
+        system.</p><table><tbody><tr><th><p>Intellect
+        Runes</p></th><th><p>Axiom</p></th><th><p>Damage
+        Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Flame</p></td><td><p>Chaotic</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>Illusion</p></td><td><p>Chaotic</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Illumination</p></td></tr><tr><td><p>Lightning</p></td><td><p>Chaotic</p></td><td><p>Electricity</p></td><td><p>Fortitude</p></td><td><p>Earth</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Chaotic</p></td><td><p>Void</p></td><td><p>Willpower</p></td><td><p>Soul</p></td></tr><tr><th><p>Presence
+        Runes</p></th><th><p>Axiom</p></th><th><p>Damage
+        Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Death</p></td><td><p>Orderly</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>Illumination</p></td><td><p>Orderly</p></td><td><p>Radiant</p></td><td><p>Reflex</p></td><td><p>Illusion</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Chaotic</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Control</p></td></tr><tr><td><p>Soul</p></td><td><p>Orderly</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Oblivion</p></td></tr><tr><th><p>Wisdom
+        Runes</p></th><th><p>Axiom</p></th><th><p>Damage
+        Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Control</p></td><td><p>Orderly</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td></tr><tr><td><p>Earth</p></td><td><p>Orderly</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>Frost</p></td><td><p>Orderly</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>Life</p></td><td><p>Chaotic</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr></tbody><tfoot><tr><td
+        colspan="5">* - Rune is used primarily for Restoration rather than for
+        Damage.</td></tr></tfoot></table><p>The choice of Rune used in the
+        casting of a spell affects or determines a variety of aspects of the
+        resulting spellcraft.</p><ul><li><p>The conceptual essence of the
         magic.</p></li><li><p>Which other Rune is in opposition to this
         Spell.</p></li><li><p>One
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
@@ -165,20 +152,24 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000]{Resource}
         the spell affects.</p></li><li><p>The
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]{Damage
-        Type} that is dealt by the spell.</p></li></ul><p>The following table
-        summarizes all twelve runes in the Crucible
-        system.</p><table><tbody><tr><th><p>Intellect
-        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Flame</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>Illusion</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Illumination</p></td></tr><tr><td><p>Lightning</p></td><td><p>Electricity</p></td><td><p>Fortitude</p></td><td><p>Earth</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Void</p></td><td><p>Willpower</p></td><td><p>Soul</p></td></tr><tr><th><p>Presence
-        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Death</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>Illumination</p></td><td><p>Radiant</p></td><td><p>Reflex</p></td><td><p>Illusion</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Control</p></td></tr><tr><td><p>Soul</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Oblivion</p></td></tr><tr><th><p>Wisdom
-        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Control</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td></tr><tr><td><p>Earth</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>Frost</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>Life</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr></tbody><tfoot><tr><td
-        colspan="4">* - Rune is used primarily for Restoration rather than for
-        Damage.</td></tr></tfoot></table><p></p><h2 class="divider">Creature
-        Types</h2><p>Certain magical runes are inherently and indirectly related
-        to different creature types within the universe. Those associations are
-        as
+        Type} that is dealt by the spell.</p></li></ul><h2
+        class="divider">Available Runes</h2><p>The mechanics for each of the
+        twelve runes are embedded
+        below:</p><p>@Embed[Compendium.crucible.talent.Item.runeControl00000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeDeath0000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeEarth0000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeFlame0000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeFrost0000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeIllumination
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeIllusion0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeKinesis00000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeLife00000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeLightning000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeOblivion0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeSoul00000000
+        inline]</p><h2 class="divider">Creature Types</h2><p>Certain magical
+        runes are inherently and indirectly related to different creature types
+        within the universe. Those associations are as
         follows:</p><table><tbody><tr><td><p>Control</p></td><td><p>Fiends</p></td></tr><tr><td><p>Death</p></td><td><p>Undead</p></td></tr><tr><td><p>Earth</p></td><td><p>Oozes
         and Earth
         Elementals</p></td></tr><tr><td><p>Flame</p></td><td><p>Dragons and Fire
@@ -202,8 +193,8 @@ pages:
       systemVersion: 0.5.3
       coreVersion: '13.351'
       createdTime: 1684375014492
-      modifiedTime: 1765820831331
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1766421750872
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -241,151 +232,26 @@ pages:
         Gestures</h2><p>Tier 1 gestures (character levels 1-5) provide
         wide-ranging fundamentals of spellcraft composition that allows shaping
         Runes into a variety of offensive or defensive
-        forms.</p><dl><dt><p>Arrow</p></dt><dd><p>You hurl a projectile imbued
-        with the magical power of a Rune at a distant target. The Arrow gesture
-        scales using <strong>Intellect</strong> and targets a single creature up
-        to a distance of 60 feet, dealing <strong>8 Base Damage</strong> to
-        targets which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1
-        Focus</strong>.</p></dd></dl><dl><dt><p>Aspect</p></dt><dd><p>You infuse
-        the essence of a Rune into your body, empowering your own physical form
-        or psyche. When you assume a certain Aspect, you become more closely
-        attuned to the damage type of the Rune used in your spell. You gain
-        <strong>+2 Resistance</strong> to that damage type, and deal an
-        additional <strong>+2 Damage</strong> whenever dealing damage of that
-        type. Your Aspect lasts for <strong>6 Rounds</strong>. You may only have
-        one active Aspect, casting another spell using the Aspect gesture
-        replaces the previous effect. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
-        and <strong>1 Focus</strong>.</p></dd><dt><p>Create</p></dt><dd><p>You
-        coalesce arcane power into tangible form, manifesting a
-        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
-        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
-        Level. The Create gesture scales with <strong>Wisdom</strong> and the
-        Sprite survives for <strong>6 Rounds</strong>. You may only have one
-        active Sprite, casting another spell using the Create gesture replaces
-        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
-        cast and has a base cost of <strong>4 Action</strong> and <strong>1
-        Focus</strong>.</p></dd><dt><p>Fan</p></dt><dd><p>You shape the essence
-        of a Rune into a sweeping or splintered arc to strike multiple targets
-        in close proximity. The Fan gesture scales using
-        <strong>Intellect</strong> and targets a 120 degree arc with 6 foot
-        radius. It deals <strong>6 Base Damage</strong> to targets which fail to
-        Resist the spell. This gesture requires <strong>1 Hand</strong> to cast
-        and has a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>.</p></dd><dt><p>Influence</p></dt><dd><p>You intensify
-        the arcane power of a Rune into a concentrated direct contact which is
-        generally a more powerful evolution of the basic Touch gesture. The
-        Influence gesture scales using <strong>Presence</strong> and targets a
-        single adjacent creature. It deals <strong>10 Base Damage</strong> to
-        targets which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1 Focus</strong>.</p></dd><dt><p>Ray</p></dt><dd><p>You
-        funnel the arcane power of a Rune into a point and project it outwards
-        in a beam. The Ray gesture scales using <strong>Wisdom</strong> and
-        produces a line that is 1 foot wide and 30 feet long originating from
-        the spellcaster, dealing <strong>6 Base Damage</strong> to targets which
-        fail to Resist the spell. The gesture requires <strong>1 Hand</strong>
-        to cast and has a base cost of <strong>4 Action</strong> and <strong>1
-        Focus</strong>.</p></dd><dt><p>Sense</p></dt><dd><p>You attune your mind
-        to the arcane power of a Rune to sense nearby sources of energy. The
-        Sense gesture scales with <strong>Presence</strong> and produces an
-        emanation with 30 feet radius and position that remains centered upon
-        the spellcaster. This gesture requires <strong>1 Hand</strong> to cast
-        and has a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>. It may optionally be <strong>Maintained</strong> at the
-        additional cost of <strong>1 Focus</strong> every subsequent
-        round.</p><p>This spell allows the caster to detect the presence of
-        spellcraft using the same Rune as the one incorporated in this spell.
-        The sense will also momentarily detect the presence of creatures
-        according to their type.</p><ul><li><p><strong>Control</strong>:
-        Fiends</p></li><li><p><strong>Death</strong>:
-        Undead</p></li><li><p><strong>Earth</strong>: Oozes and Earth
-        Elementals</p></li><li><p><strong>Flame</strong>: Dragons and Fire
-        Elementals</p></li><li><p><strong>Frost</strong>: Giants and Frost
-        Elementals</p></li><li><p><strong>Illumination</strong>:
-        Celestials</p></li><li><p><strong>Illusion</strong>:
-        Fey</p></li><li><p><strong>Kinesis</strong>:
-        Monstrosities</p></li><li><p><strong>Life</strong>: Plants and
-        Beasts</p></li><li><p><strong>Lightning</strong>: Constructs and Storm
-        Elementals</p></li><li><p><strong>Oblivion</strong>:
-        Outsiders</p></li><li><p><strong>Soul</strong>:
-        Humanoids</p></li></ul></dd><dt><p>Step</p></dt><dd><p>You infuse runic
-        power into a movement, crossing physical and spatial boundaries. The
-        Step gesture scales with <strong>Dexterity</strong> and allows you to
-        move up to 20 feet in a straight line with width equal to your
-        <strong>Size</strong>. It deals <strong>2 Base Damage</strong> to
-        targets along that line which fail to Resist the spell. This gesture
-        does not require any free hands to cast and has a base cost of <strong>3
-        Action</strong> and <strong>1
-        Focus</strong>.</p></dd><dt><p>Strike</p></dt><dd><p>You empower a
-        direct close-range attack with the arcane essence of a Rune, performing
-        a Strike with your equipped weapon. The Strike gesture scales using
-        <strong>Strength</strong> and deal damage based on your used weapon but
-        with the damage type of the incorporated Rune. This gesture does not
-        require any free hand and has a base cost of <strong>1 Focus</strong> in
-        addition to the cost of your weapon
-        Strike.</p></dd><dt><p>Ward</p></dt><dd><p>You shape the arcane power of
-        a Rune into a protective barrier used to shield yourself from harm. The
-        Ward gesture scales using <strong>Toughness</strong> and provides
-        <strong>+6 Resistance</strong> against the damage type of the Rune used
-        in the spell. This resistance lasts for <strong>1 Round</strong> and you
-        may only have a single Ward at a time. Casting another spell using the
-        Ward gesture replaces your prior Ward. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
-        and <strong>1 Focus</strong>.</p></dd><h2 class="divider">Tier 2
-        Gestures</h2><p>Tier 2 gestures (character levels 6-11) provide advanced
-        capabilities that improve or expand upon fundamental Tier 1
-        gestures.</p></dl><dl><dt><p>Aura</p></dt><dd><p>You concentrate the
-        arcane power of a Rune to create a maintained field of energy that
-        washes over allies and enemies near to you. The Aura gesture scales with
-        <strong>Presence</strong> and produces an emanation with 20 feet radius
-        centered on the spellcaster. The center of this Aura moves with the
-        spellcaster. Depending on the Rune used, the Aura deals damage or
-        provides healing to any creature which begins its turn inside the Aura.
-        This gesture requires <strong>2 Hands</strong> to cast, has a base cost
-        of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
-        <strong>Maintained</strong> costing an additional <strong>1
-        Focus</strong> every subsequent
-        round.</p></dd><dt><p>Blast</p></dt><dd><p>You hurl the arcane power of
-        a Rune into an intense explosion of energy at a nearby point you can
-        see. The Blast gesture scales with <strong>Intellect</strong> and
-        produces a blast with 6 feet radius centered on a point within 60 feet
-        of the spellcaster. The blast deals <strong>8 Base Damage</strong> to
-        targets which fail to Resist the spell. This gesture requires <strong>2
-        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
-        and <strong>2 Focus</strong>.</p></dd><dt><p>Cone</p></dt><dd><p>You
-        focus the arcane power of a Rune into a narrow cone that projects
-        outwards from your location. The Cone gesture scales with
-        <strong>Intellect</strong> and produces a 60 degree cone with a 30 foot
-        radius originating from the spellcaster. The Cone deals <strong>8 Base
-        Damage</strong> to targets which fail to Resist the spell. This gesture
-        requires <strong>2 Hands</strong> to cast and has a base cost of
-        <strong>5 Action</strong> and <strong>2
-        Focus</strong>.</p></dd><dt><p>Conjure</p></dt><dd><p>You coalesce
-        arcane power into a superior form, manifesting a
-        <strong>Visitor</strong> which appears within 30 feet and joins Combat
-        at <strong>Initiative</strong> 1. Your Visitor is a Minion equal to your
-        own Level. The Conjure gesture scales with <strong>Wisdom</strong> and
-        the Visitor survives for <strong>12 Rounds</strong>. You may only have
-        one active Visitor. Casting another spell using the Conjure gesture
-        replaces your previous Visitor. This gesture requires <strong>2
-        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
-        and <strong>2 Focus</strong>.</p></dd><dt><p>Pulse</p></dt><dd><p>Expel
-        the arcane power of a Rune in a radius that travels outward with you at
-        its center. The Pulse gesture scales using <strong>Presence</strong> and
-        produces an emanation with 10 foot radius, dealing <strong>8 Base
-        Damage</strong> to targets which fail to Resist the spell. The gesture
-        requires <strong>2 Hands</strong> to cast and has a base cost of
-        <strong>5 Action</strong> and <strong>2
-        Focus</strong>.</p></dd><dt><p>Surge</p></dt><dd><p>Expel the arcane
-        power of a Rune in a radius that travels outward with you at its center.
-        The Pulse gesture scales using <strong>Presence</strong> and produces an
-        emanation with 10 foot radius, dealing <strong>8 Base Damage</strong> to
-        targets which fail to Resist the spell. The gesture requires <strong>2
-        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
-        and <strong>2 Focus</strong>.</p></dd></dl>
+        forms.</p><p>@Embed[Compendium.crucible.talent.Item.gesturearrow0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureaspect000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gesturecreate000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gesturefan000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureinfluence
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureray000000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureSense0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gesturestep00000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gesturestrike000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureward00000
+        inline]</p><h2 class="divider">Tier 2 Gestures</h2><p>Tier 2 gestures
+        (character levels 6-11) provide advanced capabilities that improve or
+        expand upon fundamental Tier 1
+        gestures.</p><p>@Embed[Compendium.crucible.talent.Item.gestureAura00000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureBlast0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureCone00000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureConjure00
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gesturepulse0000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.gestureSurge0000
+        inline]</p>
       markdown: ''
     video:
       controls: true
@@ -399,9 +265,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       createdTime: 1684375020833
-      modifiedTime: 1762985094654
+      modifiedTime: 1766421828765
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -427,18 +293,21 @@ pages:
         been implemented for Playtest 1, more Inflections are intended for
         future phases. Some of the Inflections listed below may not be fully
         implemented or automated at this time.</p></section><h2
-        class="divider">Tier 1
-        Inflections</h2><ul><li><p>@UUID[Compendium.crucible.talent.Item.inflectioncompos]{Inflection:
-        Compose}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectiondeterm]{Inflection:
-        Determine}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionelude0]{Inflection:
-        Elude}</p></li><li>@UUID[Compendium.crucible.talent.Item.inflectionextend]{Inflection:
-        Extend}</li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionnegate]{Inflection:
-        Negate}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection:
-        Pull}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection:
-        Push}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.inflectionquicke]{Inflection:
-        Quicken}</p></li></ul><h2 class="divider">Tier 2
-        Inflections</h2><ul><li><p>@UUID[Compendium.crucible.talent.Item.inflectionReshap]{Inflection:
-        Reshape}</p></li></ul>
+        class="divider">Tier 1 Inflections</h2><p>The following inflections are
+        available within Tier 1 of the talent tree, from character levels
+        1-6.</p><p>@Embed[Compendium.crucible.talent.Item.inflectioncompos
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectiondeterm
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionelude0
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionextend
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionnegate
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionpull00
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionpush00
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionquicke
+        inline]</p><h2 class="divider">Tier 2 Inflections</h2><p>The following
+        inflections are available within Tier 2 of the talent tree, from
+        character levels
+        7-12.</p><p>@Embed[Compendium.crucible.talent.Item.inflectionReshap
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -451,9 +320,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       createdTime: 1684375027780
-      modifiedTime: 1762985383783
+      modifiedTime: 1766420924773
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
