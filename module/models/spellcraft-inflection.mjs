@@ -29,6 +29,15 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
 
   /* -------------------------------------------- */
 
+  /**
+   * A mapping from inflection ID to a list of talent UUIDs & tiers that grant the inflection.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _initialize() {
     super._initialize();

@@ -105,17 +105,18 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const node of this.nodes ) node.talents.add(talent);
 
     // Update Metadata
-    if ( this.rune ) {
-      const rune = SYSTEM.SPELL.RUNES[this.rune];
-      rune.img = talent.img;
-    }
-    if ( this.gesture ) {
-      const gesture = SYSTEM.SPELL.GESTURES[this.gesture];
-      gesture.img = talent.img;
-    }
-    if ( this.inflection ) {
-      const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
-      inflection.img = talent.img;
+    const components = [
+      {type: "rune", cls: crucible.api.models.CrucibleSpellcraftRune, options: SYSTEM.SPELL.RUNES},
+      {type: "gesture", cls: crucible.api.models.CrucibleSpellcraftGesture, options: SYSTEM.SPELL.GESTURES},
+      {type: "inflection", cls: crucible.api.models.CrucibleSpellcraftInflection, options: SYSTEM.SPELL.INFLECTIONS}
+    ];
+    for ( const {type, cls, options} of components ) {
+      if ( !this[type] ) continue;
+      const component = options[this[type]];
+      component.img = talent.img;
+      const tier = this.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      cls.grantingTalents[this[type]] ??= [];
+      cls.grantingTalents[this[type]].push({uuid: this.parent.uuid, tier});
     }
   }
 
@@ -253,15 +254,18 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /**
    * Render this Talent as HTML for inline display.
+   * @param {object} [options]
+   * @param {boolean} [options.showRemove]  Whether to show "Remove Talent" button
    * @returns {Promise<string>}
    */
-  async renderInline() {
+  async renderInline({showRemove=false}={}) {
     return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
       talent: this,
       uuid: this.parent.uuid,
       name: this.parent.name,
       img: this.parent.img,
-      tags: this.getTags()
+      tags: this.getTags(),
+      showRemove
     });
   }
 

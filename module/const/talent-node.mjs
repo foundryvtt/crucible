@@ -116,6 +116,9 @@ export default class CrucibleTalentNode {
    * Initialize all talents from within the designated collection
    */
   static async initialize() {
+    crucible.api.models.CrucibleSpellcraftRune.grantingTalents = {};
+    crucible.api.models.CrucibleSpellcraftGesture.grantingTalents = {};
+    crucible.api.models.CrucibleSpellcraftInflection.grantingTalents = {};
     for ( const node of this.nodes.values() ) node.talents.clear();
     for ( const packId of crucible.CONFIG.packs.talent ) {
       const pack = game.packs.get(packId);

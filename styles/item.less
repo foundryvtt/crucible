@@ -52,9 +52,10 @@
 
   /** Talent Progression Items & Initial Equipment */
   .equipment-list,
-  .talents-list {
+  .talents-list,
+  .spells-list {
     max-height: 600px;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
   .droppable {
     padding: 0.5rem 1rem;
@@ -198,7 +199,13 @@
   .resistances .form-fields {
     grid-template-columns: repeat(4, 1fr);
   }
-  .equipment,
+  .equipment {
+    gap: 1rem;
+    &.equipped .toggle-equipped {
+      opacity: 1;
+    }
+  }
+
   .talents {
     gap: 1rem;
   }

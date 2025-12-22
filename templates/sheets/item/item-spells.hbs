@@ -1,0 +1,16 @@
+<section class="tab sheet-body flexcol {{tabs.spells.cssClass}}"
+         data-tab="{{tabs.spells.id}}" data-group="{{tabs.spells.group}}">
+    <p class="hint">{{fields.spells.hint}}</p>
+    {{#if spells.length}}
+    <div class="spells-list flexcol scrollable">
+        {{#each spells}}
+        {{{item}}}
+        {{/each}}
+    </div>
+    {{/if}}
+    {{#if isEditable}}
+    <div class="spell-drop droppable">
+        <p class="hint">{{localize "ITEM.SHEET.SPELL_DROP"}}</p>
+    </div>
+    {{/if}}
+</section>

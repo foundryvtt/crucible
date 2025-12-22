@@ -22,6 +22,10 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
+      spells: new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item"}),
+        level: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
+      }), {validate: CrucibleArchetypeItem.#validateSpells}),
       equipment: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1}),
@@ -48,6 +52,23 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Validate that the Archetype-granted spells contain no duplicates.
+   * @param {object[]} spells                     Iconic Spells
+   * @param {DataFieldValidationOptions} options  Options which affect validation
+   * @throws {Error}                              An error if there are duplicate spells
+   */
+  static #validateSpells(spells, options) {
+    if ( spells.length < 2 ) return;
+    const uuids = new Set();
+    for ( const s of spells ) {
+      if ( uuids.has(s.item) ) throw new Error(`There must not be duplicate spells on an archetype.`);
+      uuids.add(s.item);
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Properties                                  */
   /* -------------------------------------------- */
 
@@ -68,13 +89,14 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     source = super.migrateData(source);
 
     const abilities = source.abilities;
-    const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    /** @deprecated since 0.7.3 */
-    if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
-      obj[a] = 2;
-      return obj;
-    }, {});
-
+    if ( abilities ) {
+      const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
+      /** @deprecated since 0.7.3 */
+      if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
+        obj[a] = 2;
+        return obj;
+      }, {});
+    }
     return source;
   }
 }

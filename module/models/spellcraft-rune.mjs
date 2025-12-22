@@ -24,6 +24,15 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
+  /**
+   * A mapping from rune ID to a list of talent UUIDs & tiers that grant the rune.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _initialize() {
     super._initialize();

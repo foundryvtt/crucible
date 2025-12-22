@@ -26,7 +26,16 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
   }
 
   /* -------------------------------------------- */
-1
+
+  /**
+   * A mapping from gesture ID to a list of talent UUIDs & tiers that grant the gesture.
+   * Dynamically populated in `CrucibleTalentNode.initialize`
+   * @type {Record<string, {tier: number, uuid: string}[]>}
+   */
+  static grantingTalents = {};
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _initialize() {
     super._initialize();

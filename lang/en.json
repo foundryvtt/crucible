@@ -812,12 +812,21 @@
     "skills": {
       "label": "Favored Skills",
       "hint": "Configure a selection of skills that will automatically progress their training rank for this Archetype."
+    },
+    "spells": {
+      "label": "Granted Spells",
+      "hint": "Configure iconic spells which this Archetype receives automatically."
     }
   },
   "SHEET": {
-    "CHOOSE": "Choose Archetype",
-    "CLEAR": "Clear Archetype",
-    "SKILLS": "Skill Progression"
+    "Choose": "Choose Archetype",
+    "Clear": "Clear Archetype",
+    "RequiredComponents": "<p><strong>{spell}</strong> requires spell components not currently on this Archetype. Do you want to add them automatically?</p>",
+    "Skills": "Skill Progression"
+  },
+  "WARNINGS": {
+    "NotEquipment": "The dropped document must be Equipment.",
+    "NotSpell": "The dropped document must be an Iconic Spell."
   }
 },
 
@@ -1142,7 +1151,8 @@
     "HOOKS": "Hooks",
     "SECRETS": "Secrets",
     "TALENTS": "Talents",
-    "EQUIPMENT": "Equipment"
+    "EQUIPMENT": "Equipment",
+    "SPELLS": "Spells"
   },
   "SHEET": {
     "DETAILS": "Item Details",
@@ -1153,6 +1163,8 @@
     "EQUIPMENT": "Equipment Details",
     "EQUIPMENT_REMOVE": "Remove Equipment",
     "EQUIPMENT_DROP": "Add starting equipment by dragging and dropping items into this area.",
+    "SPELL_REMOVE": "Remove Spell",
+    "SPELL_DROP": "Add an iconic spell by dragging and dropping a Spell item into this area.",
     "SPELLCRAFT": "Spellcraft",
     "TYPE": "Equipment Type",
     "SCALED_PRICE": "Scaled Price"
@@ -1171,6 +1183,9 @@
     "Parry": "Parry {parry}",
     "Range": "Range {range}",
     "Stackable": "Stackable"
+  },
+  "WARNINGS": {
+    "NotTalent": "The dropped document must be a Talent."
   }
 },
 
@@ -1478,7 +1493,7 @@
     }
   },
   "SHEET": {
-    "KNOWLEDGE": "Required Knowledge"
+    "Knowledge": "Required Knowledge"
   },
 
   "Iconic": "Iconic Spell",

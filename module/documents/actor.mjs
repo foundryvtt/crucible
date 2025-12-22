@@ -1777,6 +1777,12 @@ export default class CrucibleActor extends Actor {
       if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
     }
 
+    // Remove existing spells
+    for ( const {item: uuid} of (existing?.spells || []) ) {
+      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
+    }
+
     // Remove skill talents
     if ( skillTalents ) {
       for ( const skillId of (existing?.skills || []) ) {
@@ -1821,6 +1827,16 @@ export default class CrucibleActor extends Actor {
         Object.assign(itemData.system, {quantity, equipped});
         if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
         updateItems.push(itemData); // Always update equipment, even if already owned
+      }
+
+      // Grant Spells
+      for ( const {item: uuid, level} of (detail.spells || []) ) {
+        
+        // TODO: Respect level when granting
+        const item = await fromUuid(uuid);
+        if ( !item ) continue;
+        if ( this.items.has(item.id) ) deleteItemIds.delete(item.id); // Spell already known
+        else updateItems.push(this._cleanItemData(item));             // Add new Spell
       }
 
       // Include granted items in Actor update

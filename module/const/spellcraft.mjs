@@ -222,23 +222,6 @@ export const GESTURES = Object.seal({
       size: 6
     }
   },
-  create: {
-    id: "create",
-    name: "SPELL.GESTURES.Create",
-    cost: {
-      action: 4,
-      focus: 1
-    },
-    hands: 2,
-    range: {
-      maximum: 10
-    },
-    nameFormat: NAME_FORMATS.ADJ,
-    scaling: "wisdom",
-    target: {
-      type: "summon"
-    }
-  },
   cone: {
     id: "cone",
     name: "SPELL.GESTURES.Cone",
@@ -271,6 +254,23 @@ export const GESTURES = Object.seal({
       maximum: 30
     },
     nameFormat: NAME_FORMATS.NOUN,
+    scaling: "wisdom",
+    target: {
+      type: "summon"
+    }
+  },
+  create: {
+    id: "create",
+    name: "SPELL.GESTURES.Create",
+    cost: {
+      action: 4,
+      focus: 1
+    },
+    hands: 2,
+    range: {
+      maximum: 10
+    },
+    nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
       type: "summon"
@@ -493,11 +493,10 @@ export const INFLECTIONS = {
       focus: 1
     }
   },
-  quicken: {
-    id: "quicken",
-    name: "SPELL.INFLECTIONS.Quicken",
+  eluding: {
+    id: "eluding",
+    name: "SPELL.INFLECTIONS.Elude",
     cost: {
-      action: -1,
       focus: 1
     }
   },
@@ -506,13 +505,6 @@ export const INFLECTIONS = {
     name: "SPELL.INFLECTIONS.Extend",
     cost: {
       action: 1,
-      focus: 1
-    }
-  },
-  eluding: {
-    id: "eluding",
-    name: "SPELL.INFLECTIONS.Elude",
-    cost: {
       focus: 1
     }
   },
@@ -534,6 +526,14 @@ export const INFLECTIONS = {
     id: "push",
     name: "SPELL.INFLECTIONS.Push",
     cost: {
+      focus: 1
+    }
+  },
+  quicken: {
+    id: "quicken",
+    name: "SPELL.INFLECTIONS.Quicken",
+    cost: {
+      action: -1,
       focus: 1
     }
   },
@@ -568,4 +568,4 @@ export const GESTURE_SUMMONS =  {
     lightning: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
     fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
   }
-}
+};
