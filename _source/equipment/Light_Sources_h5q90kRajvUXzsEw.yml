@@ -1,0 +1,19 @@
+type: Item
+folder: ocvFfPG9YrJ6CKsp
+name: Light Sources
+color: '#62160e'
+sorting: a
+_id: h5q90kRajvUXzsEw
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1766085477023
+_key: '!folders!h5q90kRajvUXzsEw'

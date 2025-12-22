@@ -56,7 +56,8 @@ Hooks.once("init", async function() {
       packageCompendium,
       resetAllActorTalents,
       standardizeItemIds,
-      syncOwnedItems
+      syncOwnedItems,
+      syncEquipmentPrices
     },
     talents: {
       CrucibleTalentNode,
@@ -556,7 +557,7 @@ Hooks.once("ready", async function() {
   if ( game.users.activeGM?.isSelf ) {
     const mv = game.settings.get("crucible", "migrationVersion");
     if ( foundry.utils.isNewerVersion(crucible.version, mv) ) {
-      await _performMigrations();
+      await _performMigrations(mv);
     }
   }
 
@@ -574,9 +575,10 @@ Hooks.once("ready", async function() {
 
 /**
  * Perform one-time data migrations for the current world.
+ * @param {string} priorVersion
  * @returns {Promise<void>}
  */
-async function _performMigrations() {
+async function _performMigrations(priorVersion) {
 
   // Sync all Actor talents & spells
   await syncOwnedItems({force: true, reload: false});
@@ -849,6 +851,58 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
   progress.update({pct: 1});
   console.groupEnd();
   if ( reload ) foundry.utils.debouncedReload();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Sync all equipment prices with those in the Crucible Equipment compendium pack.
+ * @returns {Promise<void>}
+ */
+async function syncEquipmentPrices() {
+  const pack = game.packs.get("crucible.equipment");
+  await pack.getDocuments();
+  const equipmentIdentifiers = pack.contents.reduce((obj, item) => {
+    obj[item.system.identifier] = item;
+    return obj;
+  }, {});
+
+  function migrateItem(item) {
+    if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
+    if ( !item.system.price ) return null;
+    const equipmentItem = equipmentIdentifiers[item.system.identifier];
+    if ( !equipmentItem ) {
+      console.warn(`No upstream equipment for priced Item ${item.name} [${item.uuid}]`);
+      return null;
+    }
+    return {_id: item.id, system: {price: equipmentItem._source.system.price}};
+  }
+
+  // World Items
+  const itemUpdates = [];
+  for ( const item of game.items ) {
+    const update = migrateItem(item);
+    if ( update ) {
+      itemUpdates.push(update);
+      console.debug(`Syncing equipment price for ${item.name} [${item.uuid}]`);
+    }
+  }
+  await Item.updateDocuments(itemUpdates);
+
+  // Actor Items
+  const actorPromises = [];
+  for ( const actor of game.actors ) {
+    const ownedItemUpdates = [];
+    for ( const item of actor.items ) {
+      const update = migrateItem(item);
+      if ( update ) {
+        ownedItemUpdates.push(update);
+        console.debug(`Syncing equipment price for ${item.name} in Actor ${actor.name} [${item.uuid}]`);
+      }
+    }
+    if ( ownedItemUpdates.length ) actorPromises.push(actor.updateEmbeddedDocuments("Item", ownedItemUpdates));
+  }
+  await Promise.allSettled(actorPromises);
 }
 
 /* -------------------------------------------- */

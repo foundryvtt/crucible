@@ -14,7 +14,7 @@ system:
   actions:
     - id: revive
       name: Revive
-      img: icons/svg/item-bag.svg
+      img: icons/magic/life/heart-cross-strong-flame-green.webp
       condition: ''
       description: >-
         <p>You restore a creature which has recently become @Condition[dead]
@@ -51,18 +51,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
         - healing
       actionHooks: []
   runes:
@@ -87,8 +75,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765403197235
-  modifiedTime: 1765482987013
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1765651692764
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: revive0000000000
 sort: 50000
 _key: '!items!revive0000000000'

@@ -1,0 +1,38 @@
+name: Common Clothing
+img: icons/equipment/chest/shirt-collared-brown.webp
+type: loot
+system:
+  identifier: clothingCommon
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 20
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A shirt, pair of pants, undergarments, socks and shoes or boots
+      suitable for menial labour or travel, cannot be worn with armor.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: GVbpo5LtAY44QZPD
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085583150
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: commonClothing00
+sort: 0
+_key: '!items!commonClothing00'

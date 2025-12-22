@@ -263,20 +263,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
+      weight: 30
+      price: 2400
       quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: QpHK4GSp7d
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -285,10 +289,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!vT1UpPCVxKRg2A1J.5ImsYEoZ5PjW0Ltw'
@@ -297,26 +301,28 @@ items:
     type: weapon
     img: icons/weapons/axes/axe-double-simple-brown.webp
     effects: []
-    folder: bvWJheBtuW1LmkAy
-    flags:
-      core: {}
+    folder: mmJSa1xhCb4ILfT7
+    flags: {}
     system:
       category: heavy2
       quantity: 1
-      weight: 10
-      price: 80
+      weight: 8
+      price: 640
       quality: standard
       enchantment: mundane
       equipped: true
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>A towering weapon with a broad, often double-bladed head, the
+          greataxe is made for delivering devastating cleaves, hewing men and
+          beasts with terrible force.</p>
         private: ''
       damageType: slashing
       broken: false
       actions: []
       slot: 0
-      identifier: oBLYt1Xjxa
+      identifier: greataxe
       invested: false
       actorHooks: []
       dropped: false
@@ -326,9 +332,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 900000
     ownership:
       default: 0
     _key: '!actors.items!vT1UpPCVxKRg2A1J.ciTtaw2LB6hN6fMx'
@@ -357,6 +363,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -390,7 +397,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -423,6 +430,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -450,7 +458,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -483,6 +491,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: fan
             number: 1
@@ -513,7 +522,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -548,6 +557,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -560,12 +570,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+          actionHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -582,7 +587,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -625,7 +630,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -663,7 +668,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -697,7 +702,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -713,9 +718,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: vT1UpPCVxKRg2A1J
 ownership:

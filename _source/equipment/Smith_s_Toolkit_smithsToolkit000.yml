@@ -1,0 +1,43 @@
+name: Smith's Toolkit
+img: icons/containers/bags/pack-engraved-leather-blue.webp
+type: tool
+system:
+  identifier: toolKitSmithing
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 1200
+  quantity: 1
+  weight: 12
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag. Contains awls, pincers, scrap metal and
+      a small anvil as well as space for storing bits of scrap metal.</p>
+    private: ''
+  skills:
+    - smithing
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086417307
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: smithsToolkit000
+sort: 600000
+_key: '!items!smithsToolkit000'

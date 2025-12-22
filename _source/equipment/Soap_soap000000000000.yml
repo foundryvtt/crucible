@@ -1,0 +1,44 @@
+name: Soap
+img: icons/sundries/survival/soap.webp
+type: consumable
+system:
+  identifier: soap
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 1
+  quantity: 1
+  weight: 0
+  description:
+    public: >-
+      <p>A bar of common cleaning soap used for personal hygiene. Each bar
+      contains about 20 applications.</p>
+    private: ''
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+  uses:
+    value: 20
+    max: 20
+folder: B6n3Q73Jl36TvWlr
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086480545
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: soap000000000000
+sort: 0
+_key: '!items!soap000000000000'

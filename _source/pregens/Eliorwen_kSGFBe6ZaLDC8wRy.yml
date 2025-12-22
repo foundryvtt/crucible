@@ -259,27 +259,29 @@ items:
     type: weapon
     img: icons/weapons/bows/longbow-leather-green.webp
     effects: []
-    folder: Pe27j9LY8Nmygkqt
-    flags:
-      core: {}
+    folder: NNHjWBS5AM148J20
+    flags: {}
     system:
       category: projectile2
       quantity: 1
-      weight: 6
-      price: 50
+      weight: 3
+      price: 360
       quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - reach
       description:
-        public: ''
+        public: >-
+          <p>A tall, self-bow often taller than the archer who draws it, the
+          longbow requires great strength and years of practice to master,
+          sending arrows with deadly force across the battlefield.</p>
         private: ''
       damageType: piercing
       broken: false
-      slot: 3
+      slot: 0
       actions: []
-      identifier: cCNmHwimIm
+      identifier: longbow
       invested: false
       actorHooks: []
       dropped: false
@@ -289,9 +291,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 50000
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.WYw63RWi2vcIPylm'
@@ -300,26 +302,28 @@ items:
     type: weapon
     img: icons/weapons/swords/scimitar-worn-blue.webp
     effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
+    folder: 3BDkyJ5nPk8nVa81
+    flags: {}
     system:
       category: balanced1
       quantity: 1
-      weight: 6
-      price: 40
+      weight: 3
+      price: 240
       quality: standard
       enchantment: mundane
       equipped: false
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>With its wide, curved blade and deadly arc, the scimitar dances
+          through battle, its edge carving through foes in sweeping, elegant
+          strikes.</p>
         private: ''
       damageType: slashing
       broken: false
       actions: []
-      slot: 1
-      identifier: or01wnJqIx
+      slot: 0
+      identifier: scimitar
       invested: false
       actorHooks: []
       dropped: false
@@ -329,9 +333,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 900000
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.CItsWhgzGd5hXOQD'
@@ -340,26 +344,28 @@ items:
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
     effects: []
-    folder: kjHb0FCE2nJe6Dtx
-    flags:
-      core: {}
+    folder: fLJrHfDuvr4Z8bXK
+    flags: {}
     system:
       category: light
       quantity: 1
-      weight: 10
-      price: 45
+      weight: 16
+      price: 640
       quality: standard
       enchantment: mundane
       equipped: true
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>A base of leather reinforced with small metal studs or riveted
+          plates, this armor strikes a balance between mobility and modest
+          protection against slashes.</p>
         private: ''
       armor:
-        base: 7
+        base: 8
       broken: false
       actions: []
-      identifier: d1oGBGFHX7
+      identifier: studdedLeatherArmor
       invested: false
       actorHooks: []
     _stats:
@@ -368,7 +374,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -404,7 +410,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -432,6 +438,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -469,7 +476,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
@@ -511,7 +518,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -550,7 +557,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -584,7 +591,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -612,6 +619,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -641,7 +649,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -682,7 +690,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -755,7 +763,7 @@ items:
       inflection: ''
       iconicSpells: 0
       training:
-        type: illumination
+        type: illusion
         rank: 1
     effects: []
     flags:
@@ -766,7 +774,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
@@ -784,9 +792,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 ownership:

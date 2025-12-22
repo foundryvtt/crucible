@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Adventuring Gear
+color: '#861f13'
+sorting: a
+_id: ocvFfPG9YrJ6CKsp
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766084882789
+  modifiedTime: 1766084894569
+  lastModifiedBy: QPs9IwGEu5DxD700
+_key: '!folders!ocvFfPG9YrJ6CKsp'

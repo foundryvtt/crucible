@@ -1,0 +1,45 @@
+name: Whistle
+img: icons/tools/instruments/pipe-flute-yellow.webp
+type: tool
+system:
+  quantity: 1
+  identifier: whistle
+  category: implement
+  weight: 0
+  price: 8
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>An instrument made from carved wood or bone that, when blown into,
+      produces a single shrill sound that can be heard over long distances.
+      Often used by hunters and fishers to signal one another when in the
+      wilderness or at sea.</p>
+    private: ''
+  actions: []
+  skills:
+    - wilderness
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086980025
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: whistle000000000
+sort: 0
+_key: '!items!whistle000000000'

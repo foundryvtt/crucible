@@ -1,0 +1,39 @@
+name: Incense
+img: icons/commodities/wood/kindling-sticks-brown.webp
+type: loot
+system:
+  identifier: incense
+  category: ingredient
+  enchantment: mundane
+  quality: standard
+  price: 1
+  quantity: 1
+  weight: 0
+  description:
+    public: >-
+      <p>Sticks or cones of resin, powdered wood, and floral oils designed to
+      emit a sweet smelling smoke when burned. Each packet contains 12
+      individual pieces.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: enNNOtkze4LoJXgw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086052221
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: incense000000000
+sort: 0
+_key: '!items!incense000000000'

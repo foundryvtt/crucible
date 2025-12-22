@@ -1,0 +1,43 @@
+name: Chain
+img: icons/tools/fasteners/chain-steel-grey.webp
+type: tool
+system:
+  identifier: chain
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 325
+  quantity: 1
+  weight: 5
+  description:
+    public: >-
+      <p>A 30' length of steel chain that can be used to assist climbing or
+      combined with fastening equipment to secure objects in place.</p>
+    private: ''
+  skills:
+    - athletics
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085558339
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: chain00000000000
+sort: 1300000
+_key: '!items!chain00000000000'

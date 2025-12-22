@@ -6,7 +6,7 @@ system:
   category: simple1
   quantity: 1
   weight: 5
-  price: 3000
+  price: 300
   quality: standard
   broken: false
   enchantment: mundane
@@ -34,12 +34,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.8.2
   createdTime: 1760798444194
-  modifiedTime: 1762043903603
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: pickaxe000000000
 sort: 0
 _key: '!items!pickaxe000000000'

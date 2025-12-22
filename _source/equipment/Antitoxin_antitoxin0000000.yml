@@ -8,7 +8,7 @@ system:
   category: flask
   quantity: 1
   weight: 1
-  price: 2500
+  price: 250
   quality: standard
   broken: false
   enchantment: mundane
@@ -72,10 +72,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.9
+  systemVersion: 0.8.2
   createdTime: 1761415385598
-  modifiedTime: 1761415730246
+  modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!antitoxin0000000'

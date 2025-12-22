@@ -1,0 +1,44 @@
+name: Wetskin
+img: icons/sundries/survival/wetskin-leather-tan.webp
+type: consumable
+system:
+  identifier: survivalWetskin
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 20
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A leather-wrapped bladder that can be affixed to a belt or outside of a
+      pack for convenient use. Can contain 26oz of liquid.</p>
+    private: ''
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+  uses:
+    value: 1
+    max: 1
+folder: B6n3Q73Jl36TvWlr
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086693180
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: wetskin000000000
+sort: 0
+_key: '!items!wetskin000000000'

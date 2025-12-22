@@ -1,0 +1,45 @@
+name: Jeweler's Portable Workbench
+img: icons/containers/chest/chest-simple-box-red.webp
+type: tool
+system:
+  identifier: workbenchJewelcrafting
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 3200
+  quantity: 1
+  weight: 30
+  description:
+    public: >-
+      <p>A leather-bound shallow wooden box containing a collapsible grinding
+      wheel, a grinding stone and polishing stone, a lapidary hammer, and a tiny
+      steel anvil, leaving space for storing current projects safely for
+      travel.</p>
+    private: ''
+  skills:
+    - jewelcraft
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086067978
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: jewelersPortable
+sort: 700000
+_key: '!items!jewelersPortable'

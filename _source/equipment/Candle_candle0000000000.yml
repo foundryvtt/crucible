@@ -1,0 +1,38 @@
+name: Candle
+img: icons/sundries/lights/candle-unlit-tan.webp
+type: loot
+system:
+  identifier: candle
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 1
+  quantity: 1
+  weight: 0
+  description:
+    public: >-
+      <p>A small pillar of wax pressed around a central wick that emits a dim
+      warm light when ignited. Each candle can burn for about eight hours.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: h5q90kRajvUXzsEw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085542504
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: candle0000000000
+sort: 0
+_key: '!items!candle0000000000'

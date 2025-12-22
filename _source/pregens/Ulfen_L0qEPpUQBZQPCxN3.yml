@@ -268,20 +268,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 40
-      price: 100
-      quality: fine
+      weight: 30
+      price: 2400
+      quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+          backing, scale mail resembles the hide of a dragon and protects well
+          against cuts and stabs—though it's noisy and inflexible.</p>
         private: ''
       armor:
         base: 13
       broken: false
       actions: []
-      identifier: xBDkgmbLVs
+      identifier: scaleMail
       invested: false
       actorHooks: []
     _stats:
@@ -290,10 +294,10 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 200000
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.5ImsYEoZ5PjW0Ltw'
@@ -302,27 +306,29 @@ items:
     type: weapon
     img: icons/weapons/axes/axe-double-simple-brown.webp
     effects: []
-    folder: bvWJheBtuW1LmkAy
-    flags:
-      core: {}
+    folder: mmJSa1xhCb4ILfT7
+    flags: {}
     system:
       category: heavy2
       quantity: 1
-      weight: 10
-      price: 80
-      quality: fine
+      weight: 8
+      price: 640
+      quality: standard
       enchantment: mundane
       equipped: true
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>A towering weapon with a broad, often double-bladed head, the
+          greataxe is made for delivering devastating cleaves, hewing men and
+          beasts with terrible force.</p>
         private: ''
       damageType: slashing
       broken: false
       actions: []
       slot: 0
       dropped: false
-      identifier: rXhcX8sxWS
+      identifier: greataxe
       invested: false
       actorHooks: []
     _stats:
@@ -331,9 +337,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 900000
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.ciTtaw2LB6hN6fMx'
@@ -362,6 +368,7 @@ items:
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -395,7 +402,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -428,6 +435,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -455,7 +463,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -488,6 +496,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: fan
             number: 1
@@ -518,7 +527,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -533,14 +542,7 @@ items:
         You can wield weapons with the Slow trait and wear Armor with the Bulky
         trait without suffering Banes to your Initiative rolls.
       actions: []
-      actorHooks:
-        - hook: prepareInitiativeCheck
-          fn: >-
-            const {weapons, armor} = this.equipment; const slowBanes =
-            rollData.banes.slow; if ( weapons.slow && slowBanes )
-            slowBanes.number -= weapons.slow; const bulkyBanes =
-            rollData.banes.bulky; if ( armor.system.properties.has("bulky") &&
-            bulkyBanes ) bulkyBanes.number -= 2;
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -559,7 +561,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -590,6 +592,7 @@ items:
             action: 1
             focus: 0
             heroism: 0
+            hands: 0
             weapon: false
           target:
             type: self
@@ -629,7 +632,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: berserker0000000
     folder: fOYHlZJEWUukD7yr
@@ -665,7 +668,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -741,7 +744,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -250000
@@ -759,19 +762,7 @@ items:
         immediately gain +1 Action. This benefit may only happen once per
         Round.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: >-
-            // Must damage health const damageHealth = outcome.resources.health
-            < 0; if ( !damageHealth ) return;
-
-            // Can only happen once per round const updates = self.actorUpdates;
-            const hasStatus = this.status.bloodFrenzy ||
-            updates.system?.status?.bloodFrenzy; if ( hasStatus ) return;
-
-            // Increase Action self.resources.action = (self.resources.action ||
-            0) + 1; foundry.utils.setProperty(updates,
-            "system.status.bloodFrenzy", true);
+      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -790,7 +781,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: bloodfrenzy00000
     sort: 100000
@@ -820,6 +811,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -827,21 +819,17 @@ items:
             self: false
           effects:
             - name: Executioner's Strike
-              scope: 3
+              scope: '3'
+              result:
+                type: success
+                all: false
               statuses: []
               duration:
                 turns: null
+                rounds: null
           name: Executioner's Strike
           img: icons/skills/melee/strike-axe-blood-red.webp
-          actionHooks:
-            - hook: prepare
-              fn: >-
-                const w = this.actor.equipment.weapons.mainhand; this.effects[0]
-                = foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor,
-                {
-                  ability: "strength",
-                  damageType: w.system.damageType,
-                }), this.effects[0]);
+          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -864,7 +852,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 0
@@ -899,7 +887,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: unshakeablestanc
     folder: SMe30RkoLutLr4ef
@@ -932,6 +920,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           range:
             maximum: null
             weapon: true
@@ -962,7 +951,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -993,6 +982,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: self
             number: 0
@@ -1000,12 +990,7 @@ items:
             self: false
           effects: []
           img: icons/magic/life/cross-area-circle-green-white.webp
-          actionHooks:
-            - hook: confirm
-              fn: >-
-                const self = this.outcomes.get(this.actor);
-                self.resources.health = (self.resources.health || 0) +
-                this.actor.system.abilities.toughness.value;
+          actionHooks: []
           range:
             maximum: null
             weapon: false
@@ -1026,7 +1011,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -1062,6 +1047,7 @@ items:
             focus: 1
             weapon: false
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -1074,12 +1060,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+          actionHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -1096,7 +1077,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1139,7 +1120,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1177,7 +1158,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1211,7 +1192,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1246,6 +1227,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -1279,7 +1261,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1314,7 +1296,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1350,7 +1332,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1366,12 +1348,7 @@ items:
         Your physical toughness makes you more resistant to harm. You gain +2
         Resistance to Bludgeoning, Slashing, and Piercing damage.
       actions: []
-      actorHooks:
-        - hook: prepareResistances
-          fn: |-
-            resistances.bludgeoning.base += 2;
-            resistances.slashing.base += 2;
-            resistances.piercing.base += 2;
+      actorHooks: []
       nodes:
         - tou3b
       rune: ''
@@ -1390,7 +1367,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: thickskin0000000
     folder: null
@@ -1426,7 +1403,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: armoredefficienc
     folder: null
@@ -1456,6 +1433,7 @@ items:
             focus: 1
             heroism: 0
             weapon: true
+            hands: 0
           range:
             minimum: null
             maximum: null
@@ -1485,7 +1463,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: penetratingThrow
     folder: null
@@ -1500,7 +1478,7 @@ items:
       category: light1
       quantity: 1
       weight: 1
-      price: 800
+      price: 80
       quality: standard
       broken: false
       enchantment: mundane
@@ -1530,11 +1508,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: WTzwacTfNem5ilp9
-    folder: null
-    sort: 0
+    folder: 3BDkyJ5nPk8nVa81
+    sort: 100000
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.WTzwacTfNem5ilp9'
@@ -1641,9 +1619,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 ownership:

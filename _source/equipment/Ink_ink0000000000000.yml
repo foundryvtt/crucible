@@ -1,0 +1,36 @@
+name: Ink
+img: icons/consumables/potions/bottle-conical-corked-tied-blue.webp
+type: loot
+system:
+  identifier: ingredientInk
+  category: ingredient
+  enchantment: mundane
+  quality: standard
+  price: 2
+  quantity: 1
+  weight: 1
+  description:
+    public: <p>A vial of common writing ink.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: enNNOtkze4LoJXgw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086059822
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: ink0000000000000
+sort: 0
+_key: '!items!ink0000000000000'

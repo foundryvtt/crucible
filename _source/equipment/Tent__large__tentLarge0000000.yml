@@ -1,0 +1,44 @@
+name: Tent (large)
+img: icons/environment/settlement/tent.webp
+type: tool
+system:
+  identifier: tentLarge
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 120
+  quantity: 1
+  weight: 10
+  description:
+    public: >-
+      <p>A large foldable or rollable sheet for building a temporary shelter,
+      suitable for up to six occupants. Includes ropes, pegs, and a collapsible
+      cross-brace for its center.</p>
+    private: ''
+  skills:
+    - wilderness
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: eiHFNJQiIGesLyuw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086547611
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: tentLarge0000000
+sort: 300000
+_key: '!items!tentLarge0000000'

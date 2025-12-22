@@ -11,7 +11,7 @@ system:
   actions:
     - id: invisibility
       name: Invisibility
-      img: icons/svg/item-bag.svg
+      img: icons/magic/light/orbs-hand-gray.webp
       condition: ''
       description: >-
         <p>You become @Condition[invisible] and cannot be detected using
@@ -46,18 +46,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
         - maintained
       actionHooks: []
   runes:
@@ -82,8 +70,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765403193427
-  modifiedTime: 1765482545333
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1765651661446
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: invisibility0000
 sort: 150000
 _key: '!items!invisibility0000'

@@ -506,8 +506,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         img: action.img,
         tags: action.getTags().activation,
         canEdit: !!action.parent,
-        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"} :
-          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"}
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"} :
+          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"}
       }
 
       // Classify actions
@@ -610,7 +610,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       iconicSpells: {
         label: game.i18n.format(iconicSpells.label, {slots: iconicSlots}),
         known: iconicSpells.items,
-        emptyLabel: game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
+        emptyLabel: iconicSlots ? "" : game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
       }
     }
 

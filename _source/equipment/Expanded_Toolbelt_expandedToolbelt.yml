@@ -6,7 +6,7 @@ system:
   category: clothing
   quantity: 1
   weight: 3
-  price: 1200
+  price: 120
   quality: standard
   broken: false
   enchantment: mundane
@@ -36,11 +36,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1762713407278
-  modifiedTime: 1762713407278
+  modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: expandedToolbelt
 sort: 0

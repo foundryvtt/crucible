@@ -1,0 +1,38 @@
+name: Mealkit
+img: icons/containers/bags/pouch-leather-silver-brown.webp
+type: loot
+system:
+  identifier: mealKit
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 6
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A leather pouch containing a metal cup, plate, fork, and a piece of
+      cloth for wiping them clean.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: eiHFNJQiIGesLyuw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086107625
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: mealkit000000000
+sort: 500000
+_key: '!items!mealkit000000000'

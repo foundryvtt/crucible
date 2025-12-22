@@ -1,46 +1,46 @@
 name: Torch
-type: weapon
-img: icons/sundries/lights/torch-brown-lit.webp
-effects: []
-folder: 3BDkyJ5nPk8nVa81
-flags:
-  core: {}
+img: icons/sundries/lights/torch-black.webp
+type: consumable
 system:
-  category: simple1
+  identifier: torch
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 1
   quantity: 1
   weight: 1
-  price: 200
-  quality: shoddy
-  enchantment: mundane
-  equipped: false
-  properties: []
   description:
     public: >-
-      <p>Able to be used as either a light source or as an improvised weapon, a
-      torch can illuminate dark places and ward off the foes that lurk
-      there.</p>
+      <p>Layered oil-soaked affixed around the end of a rod made of bone or
+      another non-flammable material, an inexpensive, if inefficient, temporary
+      lightsource. Each torch can burned for one hour before it can no longer be
+      used.</p>
     private: ''
-  damageType: fire
   broken: false
-  identifier: torch
+  equipped: false
   invested: false
+  properties: []
   actions: []
-  actorHooks: []
-  dropped: false
-  slot: 0
+  uses:
+    value: 1
+    max: 1
+folder: h5q90kRajvUXzsEw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1749825894728
-  modifiedTime: 1759602090859
-  lastModifiedBy: QvBFYpRRXHRBcOfP
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
+  systemVersion: 0.8.2
+  createdTime: 1766086584080
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: torch00000000000
-sort: 300000
+sort: 0
 _key: '!items!torch00000000000'

@@ -1,0 +1,44 @@
+name: Handmirror
+img: icons/sundries/survival/mirror-plain.webp
+type: tool
+system:
+  identifier: mirror
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 90
+  quantity: 1
+  weight: 0
+  description:
+    public: >-
+      <p>A simple piece of handheld polished glass with a reflective metal
+      backing that can be used to see one's reflection.</p>
+    private: ''
+  skills:
+    - wilderness
+    - society
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085859249
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: handmirror000000
+sort: 200000
+_key: '!items!handmirror000000'

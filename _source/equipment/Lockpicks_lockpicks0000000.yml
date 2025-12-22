@@ -1,0 +1,44 @@
+name: Lockpicks
+img: icons/tools/hand/lockpicks-steel-grey.webp
+type: tool
+system:
+  identifier: lockpicks
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 100
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A set of long thin metal pins with slightly hooked ends designed to
+      manipulate the internal mechanisms of locks and a metal bar for applying
+      torsion. In the right hands, these can be used to open locks just as well
+      as any key.</p>
+    private: ''
+  skills:
+    - stealth
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766083482885
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: lockpicks0000000
+sort: 1500000
+_key: '!items!lockpicks0000000'

@@ -77,9 +77,10 @@ pages:
         attack is also a Critical Hit, the Manticore bursts into flame due to
         Zarajah's <strong>Pyromancer</strong> talent which inflicts the
         <strong>Burning</strong> condition causing additional
-        damage-over-time.</p></section><h2>The Cost of Magic</h2><p>Every magic
-        spell has a cost- whether used within a combat situation or for
-        out-of-combat benefits. Generally, this cost is paid in the form of
+        damage-over-time.</p></section><h2 class="divider">The Cost of
+        Magic</h2><p>Every magic spell has a cost- whether used within a combat
+        situation or for out-of-combat benefits. Generally, this cost is paid in
+        the form of
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000#capacity-for-action]{Focus
         Points}, though in some situations the cost may use other resources or
         have other requirements.</p><p>As you construct your spells, the cost of
@@ -99,10 +100,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       createdTime: 1684374993517
-      modifiedTime: 1763154465946
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1765820445717
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -127,7 +128,7 @@ pages:
         displays of magical prowess.</p><p>There are six Chaotic Runes and six
         Orderly Runes, forming a natural opposition to one another.</p><h2
         class="divider">Runes of
-        Chaos</h2><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Flame}</p><dl><dd><p>@Embed[Compendium.crucible.talent.Item.runeFlame0000000
+        Chaos</h2><dl><dt><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Flame}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeFlame0000000
         description
         inline]</p></dd><dt><p>@UUID[Compendium.crucible.talent.Item.runeIllusion0000]{Illusion}</p></dt><dd><p>@Embed[Compendium.crucible.talent.Item.runeIllusion0000
         description
@@ -201,8 +202,8 @@ pages:
       systemVersion: 0.5.3
       coreVersion: '13.351'
       createdTime: 1684375014492
-      modifiedTime: 1763178079916
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1765820831331
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -518,16 +519,18 @@ pages:
       content: >-
         <p>Countermagic is the art of magical defence, weaving opposing
         spellcraft to negate the spell being cast by an opponent. Constructing a
-        proper counterspell requires a degree of magical knowledge and an
-        ability to process that knowledge in an asymmetric way, as you may not
-        always have all the information needed to build your opposition
-        correctly. Someone with a deep understanding of magic may be able to
-        easily identify the telltale signs of specific Runes being used,
-        identify a gesture, or interpret an inflection and glean the purpose of
-        a spell. Someone practiced in Countermagic may find unique ways to
-        disrupt a spell being cast, including sapping the magical energies from
-        it at inception.</p><section class="construction"><p>The Counterspell
-        sub-system has not been included in this playtest.</p></section>
+        proper
+        @UUID[Compendium.crucible.talent.Item.counterspell0000]{Counterspell}
+        requires a degree of magical knowledge and an ability to process that
+        knowledge in an asymmetric way, as you may not always have all the
+        information needed to build your opposition correctly. Someone with a
+        deep understanding of magic may be able to easily identify the telltale
+        signs of specific Runes being used, identify a gesture, or interpret an
+        inflection and glean the purpose of a spell. Someone practiced in
+        Countermagic may find unique ways to disrupt a spell being cast,
+        including sapping the magical energies from it at
+        inception.</p><p>@Embed[Compendium.crucible.talent.Item.counterspell0000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -540,10 +543,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.351'
       createdTime: 1684973762830
-      modifiedTime: 1686193770669
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1765821593859
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null

@@ -261,20 +261,24 @@ items:
     system:
       category: medium
       quantity: 1
-      weight: 30
-      price: 60
+      weight: 20
+      price: 800
       quality: standard
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - noisy
       description:
-        public: ''
+        public: >-
+          <p>Ring mail features metal rings sewn onto a padded base, offering a
+          compromise of less protection than heavier mail options in exchange
+          for greater mobility.</p>
         private: ''
       armor:
-        base: 9
+        base: 10
       broken: false
       actions: []
-      identifier: C05GhNh521
+      identifier: ringMail
       invested: false
       actorHooks: []
     _stats:
@@ -283,14 +287,14 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    folder: HVRX1hdeNtvlHbQs
-    sort: 0
+    folder: gQTZ7J9hqDpVTtPb
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.wdzOn8u66F9Yiehc'
-  - folder: SQH4h6ujibkpGCUF
+  - folder: uvvY6c0nbJBhAjM6
     name: Arcane Orb
     type: weapon
     _id: wXxurnCyPXbLaVIY
@@ -298,35 +302,38 @@ items:
     system:
       category: talisman1
       quantity: 1
-      weight: 3
-      price: 60
+      weight: 2
+      price: 320
       quality: standard
       broken: false
       enchantment: mundane
       equipped: true
       properties: []
-      damageType: void
+      damageType: electricity
       description:
-        public: ''
+        public: >-
+          <p>A sphere of crystal or glass that — in the palm of a capable
+          spellcaster — becomes a conduit for their power. It gathers voltaic
+          energy within its orb before blasting a target with electrifying
+          force.</p>
         private: ''
       actions: []
       slot: 0
-      identifier: YOmtKPksjL
+      identifier: arcaneOrb
       invested: false
       actorHooks: []
       dropped: false
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 100000
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.wXxurnCyPXbLaVIY'
@@ -336,25 +343,28 @@ items:
     system:
       category: talisman1
       quantity: 1
-      weight: 4
-      price: 40
+      weight: 3
+      price: 480
       quality: standard
       broken: false
       enchantment: mundane
       equipped: true
       properties: []
       damageType: bludgeoning
-      slot: 2
+      slot: 0
       description:
-        public: ''
+        public: >-
+          <p>This heavy tome is used as a repository of knowledge as well as an
+          implement for spellcraft. In the hands of an arcane practitioner, it
+          can project concussive blasts of force towards a target.</p>
         private: ''
       actions: []
-      identifier: gfWvhdhkTH
+      identifier: grimoire
       invested: false
       actorHooks: []
       dropped: false
     effects: []
-    folder: SQH4h6ujibkpGCUF
+    folder: uvvY6c0nbJBhAjM6
     flags:
       core: {}
     _stats:
@@ -363,52 +373,13 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
-    sort: 200000
+    sort: 700000
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.ncji9G3g4WqBffUK'
-  - name: 'Rune: Lightning'
-    type: talent
-    img: icons/magic/lightning/bolt-strike-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of raw electrical energy. The Lightning rune
-        governs sources of electrical charge and discharge.</p><p>The Lightning
-        rune scales using <strong>Intellect</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Earth</strong>.</p>
-      actions: []
-      rune: lightning
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: lightning
-        rank: 1
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runelightning000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 900000
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.runelightning000'
   - name: 'Gesture: Arrow'
     type: talent
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
@@ -441,7 +412,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -489,7 +460,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -531,7 +502,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -566,91 +537,12 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: mechanicalTraini
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.mechanicalTraini'
-  - name: 'Rune: Kinesis'
-    type: talent
-    img: icons/magic/movement/pinwheel-turning-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
-      actions: []
-      rune: kinesis
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runekinesis00000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 700000
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.runekinesis00000'
-  - name: 'Rune: Frost'
-    type: talent
-    img: icons/magic/water/snowflake-ice-snow-white.webp
-    system:
-      description: >-
-        <p>The orderly force of water and cold. The Frost rune governs the
-        creation of water or other fluids and their transfer between liquid and
-        frozen states.</p><p>The Frost rune scales using
-        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
-        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Flame</strong>.</p>
-      actions: []
-      rune: frost
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runefrost0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 500000
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.runefrost0000000'
   - name: 'Gesture: Create'
     type: talent
     img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
@@ -688,7 +580,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -696,6 +588,255 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.gesturecreate000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
+      actions:
+        - id: energize
+          name: Energize
+          img: icons/magic/lightning/bolt-strike-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Lightning allows you to conduct the
+            flow of both air and electricity, manipulating charge and
+            aerodynamics to produce one of the following
+            effects:</p><ul><li><p>Instill an electromagnetic charge into a
+            metallic object that you touch no larger than a one-foot cube,
+            causing it to strongly adhere to other metals. Only one object can
+            be charged in this way at a given time, casting this spell on a
+            different object causes the prior object to lose its magnetic
+            effect.</p></li><li><p>Gather a squall of wind at your current
+            location in a six-foot radius which blows either as a gust in a
+            single controlled direction or as a cyclone with centripetal force
+            in all directions. Airborne effects in the immediate area are
+            dispersed and unsecured objects with weight less than 1 are flung in
+            the direction of the gust.</p></li><li><p>Produce the concussive
+            sound of a thunderclap at a location you can see within 15 feet of
+            your current position.</p></li></ul><p>Energize may only affect a
+            creature or object you can physically touch. You may attempt other
+            uses similar those above, the effectiveness of which is decided by
+            the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: lightning
+      actorHooks: []
+      training:
+        type: lightning
+        rank: 1
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeLightning000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.runeLightning000'
+  - name: 'Rune: Kinesis'
+    type: talent
+    img: icons/magic/movement/pinwheel-turning-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
+      actions:
+        - id: propel
+          name: Propel
+          img: icons/magic/movement/pinwheel-turning-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Kinesis allows you to exert local
+            control over gravitational forces to perform basic telekinetic
+            manipulations, producing one of the following
+            effects:</p><ul><li><p>Pull an unsecured object within 15 feet and
+            with weight no greater than 1 towards you and catch it. An object
+            that is equipped or possessed by a creature is never treated as
+            unsecured unless that creature is willing to release
+            it.</p></li><li><p>Flick an object that you hold with weight no
+            greater than 1 towards a target up to 30 feet away. The object flies
+            unerringly in a straight line towards that target at a moderate
+            speed. Any creature along the object's path can react to catch it as
+            long as they have a free hand with which to do
+            so.</p></li><li><p>Suspend in midair an object or willing creature
+            that you touch with weight less than or equal to 10 times your
+            <strong>Presence</strong>, altering its position up to 20 feet in
+            any direction from its original location. You can maintain this
+            suspension indefinitely as long as you take no further Action and
+            are not @Condition[incapacitated].</p></li></ul><p>Propel may only
+            affect a creature or object you can physically touch unless
+            otherwise specified. You may attempt other uses similar those above,
+            the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: kinesis
+      actorHooks: []
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: kinesis
+        rank: 1
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeKinesis00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.runeKinesis00000'
+  - name: 'Rune: Frost'
+    type: talent
+    img: icons/magic/water/snowflake-ice-snow-white.webp
+    system:
+      description: >-
+        <p>The orderly force of water and cold. The Frost rune governs the
+        creation of water or other fluids and their transfer between liquid and
+        frozen states.</p><p>The Frost rune scales using
+        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
+        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
+        by the chaotic rune of <strong>Flame</strong>.</p>
+      actions:
+        - id: condense
+          name: Condense
+          img: icons/magic/water/snowflake-ice-snow-white.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Frost allows you to manipulate
+            liquids and their thermal properties, producing one of the following
+            effects:</p><ul><li><p>Draw up to one liter of fresh water from the
+            atmosphere into a container or upon a surface you touch. The created
+            water may be affected by relevant atmospheric properties of your
+            current location.</p></li><li><p>Manipulate the temperature of up to
+            1 gallon of water, causing it to immediately freeze or thaw. The
+            water need not be in a container; this technique can be used to coat
+            a surface or join two objects together via regelation. Ice created
+            in this way remains frozen for as long as the ambient temperature of
+            the environment allows.</p></li><li><p>Gather up to a six-foot cube
+            of nearby snow, forming it into a solidified sculpture, shape, or
+            shelter.</p></li></ul><p>Condense may only affect a creature or
+            object you can physically touch. You may attempt other uses similar
+            those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: frost
+      nodes:
+        - wis0b
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: frost
+        rank: 1
+      actorHooks: []
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeFrost0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.runeFrost0000000'
 effects: []
 flags:
   core: {}
@@ -707,9 +848,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 ownership:

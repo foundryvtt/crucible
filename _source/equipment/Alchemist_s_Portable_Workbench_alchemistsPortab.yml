@@ -1,0 +1,46 @@
+name: Alchemist's Portable Workbench
+img: icons/tools/laboratory/vials-blue-pink.webp
+type: tool
+system:
+  identifier: workbenchAlchemy
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 3200
+  quantity: 1
+  weight: 25
+  description:
+    public: >-
+      <p>A portable copper distilling device favoured by alchemists with no
+      access to a personal workshop due to its collapsible nature. Many of its
+      fittings can be unscrewed and stored inside the body of the still for
+      travel. Though this item takes time to set up and take down, it can stand
+      in for a more permanent laboratory for those who travel.</p>
+    private: ''
+  skills:
+    - alchemy
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766084789658
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: alchemistsPortab
+sort: 1800000
+_key: '!items!alchemistsPortab'

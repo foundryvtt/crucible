@@ -11,7 +11,7 @@ system:
   actions:
     - id: telecognition
       name: Telecognition
-      img: icons/svg/item-bag.svg
+      img: icons/magic/control/hypnosis-mesmerism-eye-tan.webp
       condition: ''
       description: >-
         <p>You reach into the mind of a <strong>Humanoid</strong> or
@@ -43,18 +43,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
         - harmless
         - willpower
       actionHooks: []
@@ -80,8 +68,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765403197993
-  modifiedTime: 1765403197993
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1765651705219
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: telecognition000
 sort: 0
 _key: '!items!telecognition000'

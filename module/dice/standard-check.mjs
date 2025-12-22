@@ -248,21 +248,18 @@ export default class StandardCheck extends Roll {
 
     // Successes and Failures
     if ( this.data.dc ) {
+      cardData.outcome = "ACTION.EFFECT_RESULT_TYPES.";
+      if ( this.isCriticalSuccess || this.isCriticalFailure ) {
+        cardData.outcome += "Critical";
+        cardData.cssClass.push("critical");
+      }
       if ( this.isSuccess ) {
-        cardData.outcome = "Success";
+        cardData.outcome += "Success";
         cardData.cssClass.push("success");
-        if ( this.isCriticalSuccess ) {
-          cardData.outcome = "Critical " + cardData.outcome;
-          cardData.cssClass.push("critical");
-        }
       }
       else {
-        cardData.outcome = "Failure";
+        cardData.outcome += "Failure";
         cardData.cssClass.push("failure");
-        if ( this.isCriticalFailure ) {
-          cardData.outcome = "Critical " + cardData.outcome;
-          cardData.cssClass.push("critical");
-        }
       }
     }
     cardData.cssClass = cardData.cssClass.join(" ");
@@ -397,7 +394,11 @@ export default class StandardCheck extends Roll {
   static async handle({title, flavor, check}={}) {
     const actor = game.actors.get(check.actorId);
     if ( actor.testUserPermission(game.user, "OBSERVER") ) {
-      const pool = new this(check);
+      const skill = SYSTEM.SKILLS[check.type];
+      check.boons = check.totalBoons;
+      check.banes = check.totalBanes;
+      const pool = skill ? actor.getSkillCheck(skill.id, check) : new this(check);
+      if ( skill ) flavor ??= game.i18n.format("SKILL.RollFlavor", {name: actor.name, skill: skill.label});
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
       return pool.toMessage({flavor});

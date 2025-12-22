@@ -1,0 +1,45 @@
+name: Repair Kit (smith)
+img: icons/tools/hand/hammer-backing-steel.webp
+type: tool
+system:
+  identifier: toolKitSmithing
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 150
+  quantity: 1
+  weight: 5
+  description:
+    public: >-
+      <p>A leather-bound bag containing sharpening stones and a grinder, a small
+      hammer, a small crucible for liquifying metal, and an assortment of small
+      pieces of scrap metal. Can be used to repair metal armor, weapons, and
+      accessories.</p>
+    private: ''
+  skills:
+    - smithing
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086312659
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: repairKitSmith00
+sort: 1000000
+_key: '!items!repairKitSmith00'

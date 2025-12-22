@@ -1,0 +1,41 @@
+name: Shovel
+img: icons/tools/hand/shovel-spade-steel-grey.webp
+type: tool
+system:
+  identifier: shovel
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 100
+  quantity: 1
+  weight: 2
+  description:
+    public: <p>A common two-handed tool used for digging soil and stones.</p>
+    private: ''
+  skills:
+    - wilderness
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086403955
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: shovel0000000000
+sort: 0
+_key: '!items!shovel0000000000'

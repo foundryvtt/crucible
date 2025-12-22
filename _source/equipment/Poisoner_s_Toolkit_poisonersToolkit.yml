@@ -1,0 +1,46 @@
+name: Poisoner's Toolkit
+img: icons/containers/bags/pouch-silver-purple.webp
+type: tool
+system:
+  identifier: toolKitPoison
+  category: crafting
+  enchantment: mundane
+  quality: standard
+  price: 1750
+  quantity: 1
+  weight: 10
+  description:
+    public: >-
+      <p>A wooden box wrapped in leather etched with a decorative cross-stitch
+      to make it clear it contains dangerous goods. Contains a stone mortar and
+      pestle spaces for securing several stoppered vials of poisonous
+      ingredients, a silver spoon, and a small collapsible iron frame and small
+      brass pot for combining ingredients above a fire.</p>
+    private: ''
+  skills:
+    - alchemy
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: zKA7bUzu7rPpL2lk
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086113664
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: poisonersToolkit
+sort: 800000
+_key: '!items!poisonersToolkit'

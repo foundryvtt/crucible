@@ -8,7 +8,7 @@ system:
   category: balanced1
   quantity: 1
   weight: 3
-  price: 2400
+  price: 240
   quality: standard
   enchantment: mundane
   equipped: false
@@ -33,11 +33,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1749825636698
-  modifiedTime: 1763063584061
+  modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0

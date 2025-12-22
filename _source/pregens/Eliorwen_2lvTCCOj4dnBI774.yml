@@ -263,27 +263,29 @@ items:
     type: weapon
     img: icons/weapons/bows/longbow-leather-green.webp
     effects: []
-    folder: Pe27j9LY8Nmygkqt
-    flags:
-      core: {}
+    folder: NNHjWBS5AM148J20
+    flags: {}
     system:
       category: projectile2
       quantity: 1
-      weight: 6
-      price: 50
-      quality: fine
+      weight: 3
+      price: 360
+      quality: standard
       enchantment: mundane
       equipped: true
       properties:
         - reach
       description:
-        public: ''
+        public: >-
+          <p>A tall, self-bow often taller than the archer who draws it, the
+          longbow requires great strength and years of practice to master,
+          sending arrows with deadly force across the battlefield.</p>
         private: ''
       damageType: piercing
       broken: false
-      slot: 3
+      slot: 0
       actions: []
-      identifier: XtU74Kz9Bo
+      identifier: longbow
       invested: false
       actorHooks: []
       dropped: false
@@ -293,9 +295,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 50000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.WYw63RWi2vcIPylm'
@@ -304,26 +306,28 @@ items:
     type: weapon
     img: icons/weapons/swords/scimitar-worn-blue.webp
     effects: []
-    folder: pUXcL0pnY3FlKwj8
-    flags:
-      core: {}
+    folder: 3BDkyJ5nPk8nVa81
+    flags: {}
     system:
       category: balanced1
       quantity: 1
-      weight: 6
-      price: 40
-      quality: fine
+      weight: 3
+      price: 240
+      quality: standard
       enchantment: mundane
       equipped: false
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>With its wide, curved blade and deadly arc, the scimitar dances
+          through battle, its edge carving through foes in sweeping, elegant
+          strikes.</p>
         private: ''
       damageType: slashing
       broken: false
       actions: []
-      slot: 1
-      identifier: 78VNzKWpsH
+      slot: 0
+      identifier: scimitar
       invested: false
       actorHooks: []
       dropped: false
@@ -333,9 +337,9 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
-    sort: 0
+    sort: 900000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.CItsWhgzGd5hXOQD'
@@ -344,26 +348,28 @@ items:
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
     effects: []
-    folder: kjHb0FCE2nJe6Dtx
-    flags:
-      core: {}
+    folder: fLJrHfDuvr4Z8bXK
+    flags: {}
     system:
       category: light
       quantity: 1
-      weight: 10
-      price: 45
-      quality: fine
+      weight: 16
+      price: 640
+      quality: standard
       enchantment: mundane
       equipped: true
       properties: []
       description:
-        public: ''
+        public: >-
+          <p>A base of leather reinforced with small metal studs or riveted
+          plates, this armor strikes a balance between mobility and modest
+          protection against slashes.</p>
         private: ''
       armor:
-        base: 7
+        base: 8
       broken: false
       actions: []
-      identifier: 2m6bVw27vD
+      identifier: studdedLeatherArmor
       invested: false
       actorHooks: []
     _stats:
@@ -372,7 +378,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -401,6 +407,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -438,7 +445,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
@@ -478,7 +485,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: arcanearcher0000
     folder: fOYHlZJEWUukD7yr
@@ -515,7 +522,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: F5y85kE9ocaa5R4R
     sort: 0
@@ -543,6 +550,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -582,7 +590,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     _id: markprey00000000
@@ -618,7 +626,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 150000
@@ -657,7 +665,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -665,45 +673,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.gesturearrow0000'
-  - name: 'Rune: Lightning'
-    type: talent
-    img: icons/magic/lightning/bolt-strike-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of raw electrical energy. The Lightning rune
-        governs sources of electrical charge and discharge.</p><p>The Lightning
-        rune scales using <strong>Intellect</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Earth</strong>.</p>
-      actions: []
-      rune: lightning
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: lightning
-        rank: 1
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.1
-      lastModifiedBy: null
-    _id: runelightning000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 900000
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.runelightning000'
   - _id: precisionshot000
     name: Precision Shot
     type: talent
@@ -726,6 +695,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -755,7 +725,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -797,7 +767,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -836,7 +806,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     ownership:
       default: 0
@@ -870,7 +840,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -910,7 +880,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -941,6 +911,7 @@ items:
             focus: 1
             weapon: true
             heroism: 0
+            hands: 0
           range:
             maximum: null
             weapon: true
@@ -971,7 +942,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -995,6 +966,7 @@ items:
             focus: 0
             weapon: true
             heroism: 0
+            hands: 0
           target:
             type: single
             number: 1
@@ -1032,7 +1004,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1067,7 +1039,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: projectileProfic
     folder: null
@@ -1110,7 +1082,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: gesturestep00000
     folder: null
@@ -1146,7 +1118,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1173,12 +1145,14 @@ items:
           tags:
             - void
             - focus
+            - skill
             - deception
           cost:
             action: 1
             focus: 1
             heroism: 0
             weapon: false
+            hands: 0
           target:
             type: single
             number: 1
@@ -1186,16 +1160,7 @@ items:
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
-          actionHooks:
-            - hook: postActivate
-              fn: |-
-                for ( const r of outcome.rolls ) {
-                  if ( r.isSuccess ) {
-                    r.data.damage.multiplier = 0;
-                    r.data.damage.base = 1;
-                    r.data.damage.total = 1;
-                  }
-                }
+          actionHooks: []
           range:
             minimum: null
             maximum: 30
@@ -1218,7 +1183,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1237,19 +1202,7 @@ items:
         damage to <strong>Morale</strong>, and applies the @Condition[staggered]
         condition.</p>
       actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: |-
-            // Require Lightning rune
-            if ( action.rune?.id !== "lightning" ) return;
-
-            // Require damage to Health or Morale
-            const damageHealth = outcome.resources.health < 0;
-            const damageMorale = outcome.resources.morale < 0;
-            if ( !(damageHealth || damageMorale) ) return;
-
-            // Apply Shocked effect
-            outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+      actorHooks: []
       nodes:
         - int3a
       rune: ''
@@ -1268,7 +1221,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: surgeweaver00000
     folder: null
@@ -1309,7 +1262,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1382,7 +1335,7 @@ items:
       inflection: ''
       iconicSpells: 0
       training:
-        type: illumination
+        type: illusion
         rank: 1
     effects: []
     flags:
@@ -1393,7 +1346,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
@@ -1430,7 +1383,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1465,7 +1418,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1480,7 +1433,7 @@ items:
       category: bomb
       quantity: 1
       weight: 1
-      price: 2500
+      price: 250
       quality: standard
       broken: false
       enchantment: mundane
@@ -1555,14 +1508,97 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.2
       lastModifiedBy: null
     _id: 8tn6PxXEdDLyHKYD
+    folder: 9u3lR2Lbhj3cdjQk
+    sort: 200000
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.8tn6PxXEdDLyHKYD'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw electrical energy. The Lightning rune
+        governs sources of electrical charge and discharge.</p><p>The Lightning
+        rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Earth</strong>.</p>
+      actions:
+        - id: energize
+          name: Energize
+          img: icons/magic/lightning/bolt-strike-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Lightning allows you to conduct the
+            flow of both air and electricity, manipulating charge and
+            aerodynamics to produce one of the following
+            effects:</p><ul><li><p>Instill an electromagnetic charge into a
+            metallic object that you touch no larger than a one-foot cube,
+            causing it to strongly adhere to other metals. Only one object can
+            be charged in this way at a given time, casting this spell on a
+            different object causes the prior object to lose its magnetic
+            effect.</p></li><li><p>Gather a squall of wind at your current
+            location in a six-foot radius which blows either as a gust in a
+            single controlled direction or as a cyclone with centripetal force
+            in all directions. Airborne effects in the immediate area are
+            dispersed and unsecured objects with weight less than 1 are flung in
+            the direction of the gust.</p></li><li><p>Produce the concussive
+            sound of a thunderclap at a location you can see within 15 feet of
+            your current position.</p></li></ul><p>Energize may only affect a
+            creature or object you can physically touch. You may attempt other
+            uses similar those above, the effectiveness of which is decided by
+            the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          actionHooks: []
+      rune: lightning
+      actorHooks: []
+      training:
+        type: lightning
+        rank: 1
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.2
+      lastModifiedBy: null
+    _id: runeLightning000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.8tn6PxXEdDLyHKYD'
+    _key: '!actors.items!2lvTCCOj4dnBI774.runeLightning000'
 effects: []
 flags:
   core: {}
@@ -1583,9 +1619,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1763178751996
-  modifiedTime: 1763178751996
+  systemVersion: 0.8.2
+  createdTime: 1766112175797
+  modifiedTime: 1766112175797
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 ownership:

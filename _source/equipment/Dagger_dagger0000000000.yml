@@ -8,7 +8,7 @@ system:
   category: light1
   quantity: 1
   weight: 1
-  price: 800
+  price: 80
   quality: standard
   enchantment: mundane
   equipped: false
@@ -34,11 +34,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.2
   createdTime: 1749824389920
-  modifiedTime: 1763063536179
+  modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0

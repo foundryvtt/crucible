@@ -6,7 +6,7 @@ system:
   category: other
   quantity: 1
   weight: 1
-  price: 100
+  price: 10
   quality: fine
   broken: false
   enchantment: minor
@@ -45,12 +45,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.9
+  systemVersion: 0.8.2
   createdTime: 1750031538348
-  modifiedTime: 1761412619690
+  modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: messengerCoin000
-sort: 0
+sort: 100000
 _key: '!items!messengerCoin000'

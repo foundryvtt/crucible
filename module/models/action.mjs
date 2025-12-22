@@ -865,6 +865,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const tokens = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
+      if ( token.document.hidden ) return false;
       const hit = token.getHitRectangle();
       hit.x -= x;
       hit.y -= y;
@@ -1270,8 +1271,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cannot spend focus
     if ( this.cost.focus ) {
       let focusBlock = "";
+      const allowEnragedFocus = this.actor.talentIds.has("iramancer0000000") || this.tags.has("strike");
       if ( statuses.has("broken") ) focusBlock = "broken";
-      else if ( statuses.has("enraged") && !this.actor.talentIds.has("iramancer0000000") ) focusBlock = "enraged";
+      else if ( statuses.has("enraged") && !allowEnragedFocus ) focusBlock = "enraged";
       if ( focusBlock ) throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
         name: this.actor.name,
         status: game.i18n.localize(`ACTIVE_EFFECT.STATUSES.${focusBlock.titleCase()}`)

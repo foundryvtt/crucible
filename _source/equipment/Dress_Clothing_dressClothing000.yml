@@ -1,0 +1,40 @@
+name: Dress Clothing
+img: icons/equipment/chest/robe-layered-red.webp
+type: loot
+system:
+  identifier: clothingDress
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 60
+  quantity: 1
+  weight: 2
+  description:
+    public: >-
+      <p>A regal set of fine vestments fit for attending celebrations and high
+      society functions, includes an overcoat or dress, kerchief or necktie, a
+      fine shirt or corset, a vest or bodice, trousers or petticoat, belt or
+      braces, stockings and fine shoes.</p>
+    private: ''
+  broken: false
+  properties: []
+folder: GVbpo5LtAY44QZPD
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766085701489
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dressClothing000
+sort: 0
+_key: '!items!dressClothing000'

@@ -44,8 +44,10 @@
         </button>
         {{else}}
         {{#each targets}}
+        {{#unless hidden}}
         <span class="target-link tag {{this.cssClass}}" data-uuid="{{this.uuid}}"
               {{#if this.tooltip}}data-tooltip="{{this.tooltip}}"{{/if}}>{{this.name}}</span>
+        {{/unless}}
         {{else}}
         <span class="tag unmet">{{localize "ACTION.NoTargets"}}</span>
         {{/each}}

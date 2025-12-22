@@ -1,0 +1,45 @@
+name: Travel Jug
+img: icons/consumables/drinks/water-jug-clay-brown.webp
+type: consumable
+system:
+  identifier: survivalJug
+  category: other
+  enchantment: mundane
+  quality: standard
+  price: 30
+  quantity: 1
+  weight: 2
+  description:
+    public: >-
+      <p>A clay jug with a stopper, wrapped in leather that can be affixed to a
+      belt or outside of a pack for convenient use. Can contain 40oz of
+      liquid.</p>
+    private: ''
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+  uses:
+    value: 1
+    max: 1
+folder: B6n3Q73Jl36TvWlr
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086668114
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: travelJug0000000
+sort: 0
+_key: '!items!travelJug0000000'

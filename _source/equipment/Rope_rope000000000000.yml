@@ -1,0 +1,43 @@
+name: Rope
+img: icons/sundries/survival/rope-wrapped-brown.webp
+type: tool
+system:
+  identifier: rope
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 75
+  quantity: 1
+  weight: 2
+  description:
+    public: >-
+      <p>A 30' length of plant-fibre rope that can be used to assist climbing or
+      for many other purposes.</p>
+    private: ''
+  skills:
+    - athletics
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086355025
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: rope000000000000
+sort: 800000
+_key: '!items!rope000000000000'

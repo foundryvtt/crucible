@@ -387,11 +387,15 @@ function renderHazard(element) {
 
 async function onClickHazard(event) {
   event.preventDefault();
+  const element = event.target;
+  const {hazard, tags} = element.dataset;
 
   // Select a target
-  let actor = inferEnricherActor();
+  const actor = inferEnricherActor();
   const partyMembers = crucible.party?.system.members || [];
-  if ( !actor ) {
+  let targets;
+  if ( actor ) targets = new Set([actor.id]);
+  else {
     const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
       name: "partyMember",
       type: "checkboxes",
@@ -421,21 +425,19 @@ async function onClickHazard(event) {
       ${partyMember.outerHTML}${anyActor.outerHTML}
       `,
     });
+    targets = new Set([...response.partyMember, ...response.anyActor]);
+  }
 
-    // Iterate over actor targets
-    const element = event.target;
-    const {hazard, tags} = element.dataset;
-    const targets = new Set([...response.partyMember, ...response.anyActor]);
-    for ( const actorId of targets ) {
-      const actor = game.actors.get(actorId);
-      const action = crucible.api.models.CrucibleAction.createHazard(actor, {
-        name: element.innerText,
-        hazard: Number(hazard),
-        tags: tags.split(",")
-      });
-      // noinspection ES6MissingAwait
-      action.use();
-    }
+  // Iterate over actor targets
+  for ( const actorId of targets ) {
+    const actor = game.actors.get(actorId);
+    const action = crucible.api.models.CrucibleAction.createHazard(actor, {
+      name: element.innerText,
+      hazard: Number(hazard),
+      tags: tags.split(",")
+    });
+    // noinspection ES6MissingAwait
+    action.use();
   }
 }
 

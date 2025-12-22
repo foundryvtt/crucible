@@ -1,0 +1,44 @@
+name: Rope Ladder
+img: icons/sundries/survival/rope-wrapped-loops-grey.webp
+type: tool
+system:
+  identifier: ropeLadder
+  category: implement
+  enchantment: mundane
+  quality: standard
+  price: 150
+  quantity: 1
+  weight: 8
+  description:
+    public: >-
+      <p>25 feet of wooden slats and knotted rope tied together and rolled into
+      a convenient climbing device. When secured at one end significantly
+      reduces the chances that those climbing might fall.</p>
+    private: ''
+  skills:
+    - athletics
+  broken: false
+  equipped: false
+  invested: false
+  properties: []
+  actions: []
+folder: 7LUkTLEZvS60KVBp
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.2
+  createdTime: 1766086360936
+  modifiedTime: 1766097022534
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: ropeLadder000000
+sort: 300000
+_key: '!items!ropeLadder000000'
