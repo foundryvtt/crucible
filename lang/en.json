@@ -962,6 +962,10 @@
   }
 },
 
+"CONTROLS": {
+  "VisualizeFlanking": "Visualize Flanking"
+},
+
 "CURRENCY_DENOMINATIONS": {
   "CP": {
     "abbreviation": "CP",
@@ -999,13 +1003,6 @@
 "DAMAGE.Spiritual": "Spiritual",
 "DAMAGE.Void": "Void",
 
-"DEBUG": {
-  "Enemies": "{enemies} Enemies",
-  "Engagement": "Engagement {engagement}",
-  "Flanked": "Flanked {flanked}",
-  "VisualizeFlanking": "Visualize Flanking"
-},
-
 "DEFENSES.Armor": "Armor",
 "DEFENSES.Block": "Block",
 "DEFENSES.Dodge": "Dodge",
@@ -1016,7 +1013,7 @@
 "DEFENSES.Physical": "Physical",
 "DEFENSES.Wounds": "Wounds",
 "DEFENSES.Madness": "Madness",
-"DEFENSES.FORMULA": {
+"DEFENSES.TOOLTIPS": {
   "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
   "Willpower": "{base} + ((Toughness + Presence) / 4)",
   "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
@@ -1285,7 +1282,7 @@
   "ACTION": "Action",
   "FOCUS": "Focus",
   "HEROISM": "Heroism",
-  "FORMULA": {
+  "TOOLTIPS": {
     "Health": "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
     "Wounds": "Health &times; 1.5",
     "Morale": "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
@@ -1899,6 +1896,11 @@
 },
 
 "TOKEN": {
+  "LABELS": {
+    "Enemies": "{enemies} Enemies",
+    "Engagement": "Engagement {engagement}",
+    "Flanked": "Flanked {flanked}"
+  },
   "MOVEMENT": {
     "ACTIONS": {
       "walk": {

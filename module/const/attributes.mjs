@@ -191,7 +191,7 @@ export const RESOURCES = Object.freeze({
     id: "health",
     label: "RESOURCES.HEALTH",
     type: "active",
-    tooltip: "RESOURCES.FORMULA.Health",
+    tooltip: "RESOURCES.TOOLTIPS.Health",
     color: {
       high: Color.from("#d72828"),
       low: Color.from("#5e0000"),
@@ -202,7 +202,7 @@ export const RESOURCES = Object.freeze({
     id: "wounds",
     label: "RESOURCES.WOUNDS",
     type: "reserve",
-    tooltip: "RESOURCES.FORMULA.Wounds",
+    tooltip: "RESOURCES.TOOLTIPS.Wounds",
     color: {
       high: Color.from("#d72828"),
       low: Color.from("#5e0000"),
@@ -213,7 +213,7 @@ export const RESOURCES = Object.freeze({
     id: "morale",
     label: "RESOURCES.MORALE",
     type: "active",
-    tooltip: "RESOURCES.FORMULA.Morale",
+    tooltip: "RESOURCES.TOOLTIPS.Morale",
     color: {
       high: Color.from("#7550ff"),
       low: Color.from("#3c037e"),
@@ -223,7 +223,7 @@ export const RESOURCES = Object.freeze({
   madness: {
     id: "madness",
     label: "RESOURCES.MADNESS",
-    tooltip: "RESOURCES.FORMULA.Madness",
+    tooltip: "RESOURCES.TOOLTIPS.Madness",
     type: "reserve",
     color: {
       high: Color.from("#7550ff"),
@@ -234,7 +234,7 @@ export const RESOURCES = Object.freeze({
   action: {
     id: "action",
     label: "RESOURCES.ACTION",
-    tooltip: "RESOURCES.FORMULA.Action",
+    tooltip: "RESOURCES.TOOLTIPS.Action",
     type: "active",
     color: Color.from("#FF9900"),
     max: 12
@@ -242,7 +242,7 @@ export const RESOURCES = Object.freeze({
   focus: {
     id: "focus",
     label: "RESOURCES.FOCUS",
-    tooltip: "RESOURCES.FORMULA.Focus",
+    tooltip: "RESOURCES.TOOLTIPS.Focus",
     type: "active",
     color: Color.from("#3385ff"),
     max: 24
@@ -250,7 +250,7 @@ export const RESOURCES = Object.freeze({
   heroism: {
     id: "heroism",
     label: "RESOURCES.HEROISM",
-    tooltip: "RESOURCES.FORMULA.Heroism",
+    tooltip: "RESOURCES.TOOLTIPS.Heroism",
     type: "active",
     color: Color.from("#ff0059"),
     max: 3
@@ -301,33 +301,33 @@ export const DEFENSES = {
     id: "fortitude",
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "wisdom"],
-    tooltip: "DEFENSES.FORMULA.Fortitude",
+    tooltip: "DEFENSES.TOOLTIPS.Fortitude",
     type: "save"
   },
   willpower: {
     id: "willpower",
     label: "DEFENSES.Willpower",
     abilities: ["toughness", "presence"],
-    tooltip: "DEFENSES.FORMULA.Willpower",
+    tooltip: "DEFENSES.TOOLTIPS.Willpower",
     type: "save"
   },
   reflex: {
     id: "reflex",
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
-    tooltip: "DEFENSES.FORMULA.Reflex",
+    tooltip: "DEFENSES.TOOLTIPS.Reflex",
     type: "save"
   },
   wounds: {
     id: "wounds",
     label: "DEFENSES.Wounds",
-    tooltip: "DEFENSES.FORMULA.Wounds",
+    tooltip: "DEFENSES.TOOLTIPS.Wounds",
     type: "threshold"
   },
   madness: {
     id: "madness",
     label: "DEFENSES.Madness",
-    tooltip: "DEFENSES.FORMULA.Madness",
+    tooltip: "DEFENSES.TOOLTIPS.Madness",
     type: "threshold"
   }
 }
