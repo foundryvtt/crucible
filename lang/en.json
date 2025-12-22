@@ -1047,50 +1047,6 @@
     "Edit": "Edit Effect",
     "Enable": "Enable Effect"
   },
-  "FIELDS": {
-    "allies": {
-      "label": "Allies Engaging"
-    },
-    "dot": {
-      "element": {
-        "amount": {
-          "hint": "The amount of damage (or restoration) which should be done each turn.",
-          "label": "Amount"
-        },
-        "damageType": {
-          "label": "Damage Type"
-        },
-        "resource": {
-          "hint": "The resource targeted by this damage/restoration",
-          "label": "Resource"
-        },
-        "restoration": {
-          "label": "Restoration"
-        }
-      },
-      "label": "Damage Over Time"
-    },
-    "enemies": {
-      "label": "Enemies Engaging"
-    },
-    "flanked": {
-      "label": "Flanked Stage"
-    },
-    "maintenance": {
-      "cost": {
-        "label": "Maintenance Cost"
-      },
-      "label": "Maintenance"
-    },
-    "regions": {
-      "hint": "The regions dependent on this effect.",
-      "label": "Regions"
-    },
-    "summons": {
-      "hint": "The summoned Tokens dependent on this effect.",
-      "label": "Summons"
-    }
-  },
   "STATUSES": {
     "Asleep": "Asleep",
     "Blind": "Blinded",
@@ -1120,6 +1076,58 @@
     "Unaware": "Unaware",
     "Weakened": "Weakened",
     "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!"
+  }
+},
+
+"BASE_EFFECT": {
+  "FIELDS": {
+    "dot": {
+      "element": {
+        "amount": {
+          "hint": "The amount of damage (or restoration) which should be done each turn.",
+          "label": "Amount"
+        },
+        "damageType": {
+          "label": "Damage Type"
+        },
+        "resource": {
+          "hint": "The resource targeted by this damage/restoration",
+          "label": "Resource"
+        },
+        "restoration": {
+          "label": "Restoration"
+        }
+      },
+      "label": "Damage Over Time"
+    },
+    "maintenance": {
+      "cost": {
+        "label": "Maintenance Cost"
+      },
+      "label": "Maintenance"
+    },
+    "regions": {
+      "hint": "The regions dependent on this effect.",
+      "label": "Regions"
+    },
+    "summons": {
+      "hint": "The summoned Tokens dependent on this effect.",
+      "label": "Summons"
+    }
+  }
+},
+
+"FLANKED_EFFECT": {
+  "FIELDS": {
+    "allies": {
+      "label": "Allies Engaging"
+    },
+    "enemies": {
+      "label": "Enemies Engaging"
+    },
+    "flanked": {
+      "label": "Flanked Stage"
+    }
   }
 },
 

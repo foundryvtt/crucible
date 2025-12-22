@@ -38,5 +38,5 @@ export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataM
   }
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT"];
+  static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "BASE_EFFECT"];
 }

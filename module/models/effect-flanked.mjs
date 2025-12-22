@@ -10,13 +10,13 @@ export default class CrucibleFlankedActiveEffect extends foundry.abstract.TypeDa
   /** @inheritDoc */
   static defineSchema() {
     const fields = foundry.data.fields;
-    const schema = {};
-
-    // Engagement
-    schema.enemies = new fields.NumberField({required: true, integer: true, nullable: false}),
-    schema.allies = new fields.NumberField({required: true, integer: true, nullable: false}),
-    schema.flanked = new fields.NumberField({required: true, integer: true, nullable: false})
-
-    return schema;
+    return {
+      allies: new fields.NumberField({required: true, integer: true, nullable: false}),
+      enemies: new fields.NumberField({required: true, integer: true, nullable: false}),
+      flanked: new fields.NumberField({required: true, integer: true, nullable: false})
+    }
   }
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "FLANKED_EFFECT"];
 }
