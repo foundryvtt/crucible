@@ -365,7 +365,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     content.append(
       identifier.toFormGroup({}, {name: "identifier", placeholder: identifierPlaceholder}),
       number.toFormGroup({classes: ["slim"]}, {name: "number", value: options.number || 1, placeholder: "1"}),
-      reason.toFormGroup({stacked: true}, {name: "reason", placeholder: "An optional award reason."}),
+      
+      // TODO: Can remove this manual localization in v14
+      reason.toFormGroup({stacked: true}, {name: "reason", placeholder: game.i18n.localize("ACTOR.GROUP.FIELDS.advancement.milestones.element.reason.placeholder")}),
       recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
         sort: true})
     );

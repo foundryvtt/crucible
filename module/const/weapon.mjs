@@ -350,7 +350,7 @@ export const SLOTS = new Enum({
  * @type {object}
  */
 export const UNARMED_DATA = {
-  name: "Unarmed",
+  name: "WEAPON.SPECIFIC.Unarmed",
   type: "weapon",
   img: "icons/skills/melee/unarmed-punch-fist.webp",
   system: {
@@ -367,7 +367,7 @@ export const UNARMED_DATA = {
  * @type {CrucibleWeaponItem}
  */
 export const VAMPIRE_BITE = {
-  name: "Vampire Bite",
+  name: "WEAPON.SPECIFIC.VampireBite",
   type: "weapon",
   img: "icons/magic/death/mouth-bite-fangs-vampire.webp",
   system: {

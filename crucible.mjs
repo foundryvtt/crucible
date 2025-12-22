@@ -628,7 +628,7 @@ Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {
   const flankingTool = {
     name: "debugFlanking",
-    title: "Visualize Flanking",
+    title: "DEBUG.VisualizeFlanking",
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
     active: false

@@ -71,7 +71,7 @@ export const PROPERTIES = {
  * @type {ItemData}
  */
 export const UNARMORED_DATA = {
-  name: "Unarmored",
+  name: "ARMOR.SPECIFIC.Unarmored",
   img: "icons/equipment/chest/shirt-simple-white.webp",
   type: "armor",
   system: {

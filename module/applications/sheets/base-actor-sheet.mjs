@@ -303,6 +303,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type === "physical" ) continue;
       const d = foundry.utils.mergeObject(defense, data[id], {inplace: false});
+      d.tooltip = game.i18n.format(d.tooltip, {base: SYSTEM.PASSIVE_BASE});
       d.id = id;
       if ( d.bonus !== 0 ) {
         const sign = d.bonus > 0 ? "+" : "-";
