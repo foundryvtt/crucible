@@ -25,7 +25,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       spells: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
-      })),
+      }), {validate: CrucibleArchetypeItem.#validateSpells}),
       equipment: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1}),
@@ -49,6 +49,18 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
     if ( sum !== 12 ) throw new Error(`The sum of ability scaling values must equal 12. Currently ${sum}`);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate that the Archetype-granted spells contain no duplicates.
+   * @param {object[]} spells                     Iconic Spells
+   * @param {DataFieldValidationOptions} options  Options which affect validation
+   * @throws {Error}                              An error if there are duplicate spells
+   */
+  static #validateSpells(spells, options) {
+    if ( spells.length !== new Set(spells.map(s => s.item)).size ) throw new Error(`There must not be duplicate spells on an archetype.`);
   }
 
   /* -------------------------------------------- */
