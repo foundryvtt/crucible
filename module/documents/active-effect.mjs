@@ -69,23 +69,4 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( this.disabled ) tags.context.section = "disabled";
     return tags;
   }
-
-  /* -------------------------------------------- */
-  /*              Database Workflows              */
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _preCreate(data, options, user) {
-    await super._preCreate(data, options, user);
-    const updates = {};
-
-    // Default document type should be our CrucibleBaseActiveEffect
-    if ( (data.type ?? "base") === "base" ) {
-      updates.type = "crucible";
-
-      // TODO: Update this in v14
-      updates["==system"] = data.system ?? {};
-    };
-    this.updateSource(updates);
-  }
 }

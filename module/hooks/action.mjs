@@ -705,7 +705,7 @@ HOOKS.threadTheNeedle = {
       outcome.usage.boons ||= {};
       if ( target.statuses.has("flanked") ) {
         const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        outcome.usage.boons.flanked = {label: "Flanked", number: ae?.system.engagement.flanked ?? 1};
+        outcome.usage.boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
       }
     }
   }

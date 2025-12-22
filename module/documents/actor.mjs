@@ -352,7 +352,7 @@ export default class CrucibleActor extends Actor {
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: "Flanked", number: ae?.system.engagement.flanked ?? 1};
+        boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
       }
     }
   }
@@ -2059,7 +2059,7 @@ export default class CrucibleActor extends Actor {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const flankedStage = engagement.flanked;
     const current = this.effects.get(flankedId);
-    if ( flankedStage === current?.system.engagement.flanked ) return;
+    if ( flankedStage === current?.system.flanked ) return;
 
     // Add flanked effect
     if ( flankedStage > 0 ) {
@@ -2071,11 +2071,9 @@ export default class CrucibleActor extends Actor {
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         system: {
-          engagement: {
-            enemies: engagement.enemies.size,
-            allies: engagement.allies.size,
-            flanked: flankedStage
-          }
+          enemies: engagement.enemies.size,
+          allies: engagement.allies.size,
+          flanked: flankedStage
         }
       }
       if ( current ) {

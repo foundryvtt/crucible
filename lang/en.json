@@ -1,7 +1,6 @@
 {
 "TYPES": {
   "ActiveEffect": {
-    "crucible": "Active Effect",
     "flanked": "Flanked Active Effect"
   },
   "Actor": {
@@ -1049,6 +1048,9 @@
     "Enable": "Enable Effect"
   },
   "FIELDS": {
+    "allies": {
+      "label": "Allies Engaging"
+    },
     "dot": {
       "element": {
         "amount": {
@@ -1068,17 +1070,11 @@
       },
       "label": "Damage Over Time"
     },
-    "engagement": {
-      "allies": {
-        "label": "Allies Engaging"
-      },
-      "enemies": {
-        "label": "Enemies Engaging"
-      },
-      "flanked": {
-        "label": "Flanked Stage"
-      },
-      "label": "Engagement"
+    "enemies": {
+      "label": "Enemies Engaging"
+    },
+    "flanked": {
+      "label": "Flanked Stage"
     },
     "maintenance": {
       "cost": {
