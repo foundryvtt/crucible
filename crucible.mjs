@@ -412,7 +412,7 @@ Hooks.once("i18nInit", function() {
 
   // Apply localizations
   const toLocalize = [
-    ["ABILITIES", ["abbreviation", "label"]],
+    ["ABILITIES", ["abbreviation", "label", "group"]],
     "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
     "ACTOR.CREATURE_CATEGORIES",
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",

@@ -64,6 +64,11 @@
 "ABILITIES.PresenceAbbr": "Pre",
 "ABILITIES.Wisdom": "Wisdom",
 "ABILITIES.WisdomAbbr": "Wis",
+"ABILITIES.GROUPS": {
+  "Power": "Power",
+  "Resilience": "Resilience",
+  "Speed": "Speed"
+},
 
 "ADVERSARY": {
   "THREAT_RANKS": {
