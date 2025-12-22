@@ -1692,6 +1692,7 @@
     "TRAINING": "Training",
     "UTILITY": "Utility"
   },
+  "NodeSpecific": "{nodeType} Node",
   "TRAINING": {
     "SKILL": "Skill Training",
     "WEAPON": "Weapon Training",
@@ -1706,6 +1707,7 @@
     "MASTER": "Master"
   },
   "PointsAvailable": "Points Available",
+  "Prerequisites": "Prerequisites",
   "LABELS": {
     "Points": {
       "one": "Point",

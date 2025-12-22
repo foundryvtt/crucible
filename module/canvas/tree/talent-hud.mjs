@@ -75,7 +75,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     const nodeType = game.i18n.localize(`TALENT.NODES.${node.type.toUpperCase()}`);
     tagGroups.push({
       id: node.type,
-      label: `${nodeType} Node`,
+      label: game.i18n.format("TALENT.NodeSpecific", {nodeType}),
       tags: nodeTags
     });
 
@@ -88,7 +88,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     }
     tagGroups.push({
       id: "prerequisites",
-      label: "Prerequisites",
+      label: game.i18n.localize("TALENT.Prerequisites"),
       tags: reqTags
     })
     return {id: node.id, tagGroups};
