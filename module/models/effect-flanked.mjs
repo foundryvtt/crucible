@@ -1,9 +1,7 @@
-import CrucibleBaseActiveEffect from "./effect-base.mjs";
-
 /**
  * Active Effect subtype specific to "flanked" effect.
  */
-export default class CrucibleFlankedActiveEffect extends CrucibleBaseActiveEffect {
+export default class CrucibleFlankedActiveEffect extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*                  Data Schema                 */
@@ -12,7 +10,7 @@ export default class CrucibleFlankedActiveEffect extends CrucibleBaseActiveEffec
   /** @inheritDoc */
   static defineSchema() {
     const fields = foundry.data.fields;
-    const schema = super.defineSchema();
+    const schema = {};
 
     // Engagement (Flanked)
     schema.engagement = new fields.SchemaField({

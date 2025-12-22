@@ -71,50 +71,21 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   }
 
   /* -------------------------------------------- */
+  /*              Database Workflows              */
+  /* -------------------------------------------- */
 
-  /** inheritDoc */
-  static migrateData(source) {
-    if ( source.type === "base" ) {
-      if ( source._id === SYSTEM.EFFECTS.getEffectId("flanked") ) source.type = "flanked";
-      else source.type = "crucible";
-      const crucibleFlags = source.flags.crucible ?? {};
-      const migrationMap = {
-        maintainedCost: "system.maintenance.cost",
-        summons: "system.summons",
-        engagedEnemies: "system.engagement.enemies",
-        engagedAllies: "system.engagement.allies",
-        flanked: "system.engagement.flanked"
-      };
-      for ( const [oldProperty, newProperty] of Object.entries(migrationMap)) {
-        if ( !(oldProperty in crucibleFlags) ) continue;
-        if ( oldProperty === "flanked" ) source.type = "flanked";
-        foundry.utils.setProperty(source, newProperty, crucibleFlags[oldProperty]);
-        delete crucibleFlags[oldProperty];
-      }
-      if ( crucibleFlags.dot ) {
-        let dot = [];
-        for ( const resource of ["health", "morale"] ) {
-          if ( !(resource in crucibleFlags.dot) ) continue;
-          const amount = crucibleFlags.dot[resource];
-          if ( amount > 0 ) {
-            dot.push({
-              amount,
-              damageType: crucibleFlags.dot.damageType,
-              resource
-            });
-          } else {
-            dot.push({
-              amount: -amount,
-              resource,
-              restoration: true
-            });
-          }
-        }
-        foundry.utils.setProperty(source, "system.dot", dot);
-        delete crucibleFlags.dot;
-      }
-      if ( foundry.utils.isEmpty(crucibleFlags) ) delete source.flags.crucible;
-    }
-    return super.migrateData(source);
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    const updates = {};
+
+    // Default document type should be our CrucibleBaseActiveEffect
+    if ( (data.type ?? "base") === "base" ) {
+      updates.type = "crucible";
+
+      // TODO: Update this in v14
+      updates["==system"] = data.system ?? {};
+    };
+    this.updateSource(updates);
   }
 }
