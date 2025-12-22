@@ -597,6 +597,7 @@
 "ACTION.DurationRounds": "{rounds}R",
 "ACTION.DurationTurns": "{turns}T",
 "ACTION.DurationUntilEnded": "Until Ended",
+"ACTION.EffectSpecific": "Effect: {effect}",
 "ACTION.NoTargets": "No Targets",
 "ACTION.Overview": "Action Overview",
 "ACTION.PlaceTemplate": "Place Template",
@@ -1055,8 +1056,16 @@
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
+"DICE.Roll": "Roll",
 "DICE.RollTotal": "Roll Total",
 "DICE.SetDifficulty": "Set Difficulty",
+
+"DICE.REQUESTS": {
+  "AddParty": "Add Party",
+  "ClearRequest": "Clear Request",
+  "Request": "Request",
+  "RequestRolls": "Request Rolls"
+},
 
 "ACTIVE_EFFECT": {
   "ACTIONS": {
