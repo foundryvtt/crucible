@@ -1434,9 +1434,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Re-sync all Talent data on this actor with updated source data.
-   * @returns {Promise<void>}
+   * @param {object} [options]
+   * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
+   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[]}>}
    */
-  async syncTalents() {
+  async syncTalents({performUpdates=true}={}) {
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
@@ -1473,15 +1475,24 @@ export default class CrucibleActor extends Actor {
     }
 
     // Create, update, and delete talents
-    if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-    if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-      {diff: false, recursive: false, noHook: true});
-    if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+    if ( performUpdates ) {
+      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
+      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
+        {diff: false, recursive: false, noHook: true});
+      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+    }
+    return {toCreate, toUpdate, toDelete};
   }
 
   /* -------------------------------------------- */
 
-  async syncIconicSpells() {
+  /**
+   * Re-sync all Spell data on this actor with updated source data.
+   * @param {object} [options]
+   * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
+   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[]}>}
+   */
+  async syncIconicSpells({performUpdates=true}={}) {
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
@@ -1514,10 +1525,13 @@ export default class CrucibleActor extends Actor {
     }
 
     // Create, update, and delete spells
-    if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-    if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-      {diff: false, recursive: false, noHook: true});
-    if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+    if ( performUpdates ) {
+      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
+      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
+        {diff: false, recursive: false, noHook: true});
+      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+    }
+    return {toCreate, toUpdate, toDelete};
   }
 
   /* -------------------------------------------- */
