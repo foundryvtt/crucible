@@ -17,8 +17,8 @@ system:
       description: >-
         <p>Your command of the Rune of Frost allows you to manipulate liquids
         and their thermal properties, producing one of the following
-        effects:</p><ul><li><p>Draw up to one liter of fresh water from the
-        atmosphere into a container or upon a surface you touch. The created
+        effects:</p><ul><li><p>Draw up to one quarter gallon of fresh water from
+        the atmosphere into a container or upon a surface you touch. The created
         water may be affected by relevant atmospheric properties of your current
         location.</p></li><li><p>Manipulate the temperature of up to 1 gallon of
         water, causing it to immediately freeze or thaw. The water need not be
@@ -69,9 +69,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.3
   createdTime: 1763088779428
-  modifiedTime: 1763161420847
+  modifiedTime: 1766422507142
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: Dy9HnwadNE3kSZ4f
 ownership:

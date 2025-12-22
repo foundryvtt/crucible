@@ -218,7 +218,7 @@ pages:
         <strong>Exact √2</strong> diagonal measurement
         mode.</p></section><p>Many combat actions a character can perform
         involve the <strong>Movement</strong> tag. Such actions allow you to
-        move a certain number of feet up to our equal to your character's
+        move a certain number of feet up to or equal to your character's
         <strong>Stride</strong> attribute. The distance allowed by a
         <strong>Movement </strong>action cannot be broken up or interrupted.
         There is no leftover movement saved across actions if you move less than
@@ -307,9 +307,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '13.344'
+      coreVersion: '13.351'
       createdTime: 1684374473225
-      modifiedTime: 1748655571623
+      modifiedTime: 1766422403634
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

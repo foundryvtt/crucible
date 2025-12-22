@@ -352,7 +352,7 @@ pages:
         provided you possess the prerequisite knowledge to learn it.</p><h2
         class="divider">Replacing Iconic Spells</h2><p>When your character
         advances in level you may — if you wish — remove one known Iconic Spell
-        from your repetoire, freeing that spell slot to be filled with an
+        from your repertoire, freeing that spell slot to be filled with an
         alternative Iconic Spell.</p>
     video:
       controls: true
@@ -366,9 +366,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.351'
       createdTime: 1684375035098
-      modifiedTime: 1727452042292
+      modifiedTime: 1766422381825
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
