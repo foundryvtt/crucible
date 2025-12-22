@@ -60,7 +60,12 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
    * @throws {Error}                              An error if there are duplicate spells
    */
   static #validateSpells(spells, options) {
-    if ( spells.length !== new Set(spells.map(s => s.item)).size ) throw new Error(`There must not be duplicate spells on an archetype.`);
+    if ( spells.length < 2 ) return;
+    const uuids = new Set();
+    for ( const s of spells ) {
+      if ( uuids.has(s.item) ) throw new Error(`There must not be duplicate spells on an archetype.`);
+      uuids.add(s.item);
+    }
   }
 
   /* -------------------------------------------- */
