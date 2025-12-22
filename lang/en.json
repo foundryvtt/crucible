@@ -819,9 +819,14 @@
     }
   },
   "SHEET": {
-    "CHOOSE": "Choose Archetype",
-    "CLEAR": "Clear Archetype",
-    "SKILLS": "Skill Progression"
+    "Choose": "Choose Archetype",
+    "Clear": "Clear Archetype",
+    "RequiredComponents": "<p><strong>{spell}</strong> requires spell components not currently on this Archetype. Do you want to add them automatically?</p>",
+    "Skills": "Skill Progression"
+  },
+  "WARNINGS": {
+    "NotEquipment": "The dropped document must be Equipment.",
+    "NotSpell": "The dropped document must be an Iconic Spell."
   }
 },
 
@@ -1178,6 +1183,9 @@
     "Parry": "Parry {parry}",
     "Range": "Range {range}",
     "Stackable": "Stackable"
+  },
+  "WARNINGS": {
+    "NotTalent": "The dropped document must be a Talent."
   }
 },
 
@@ -1485,7 +1493,7 @@
     }
   },
   "SHEET": {
-    "KNOWLEDGE": "Required Knowledge"
+    "Knowledge": "Required Knowledge"
   },
 
   "Iconic": "Iconic Spell",

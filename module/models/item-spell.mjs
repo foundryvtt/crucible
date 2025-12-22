@@ -107,15 +107,18 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
 
   /**
    * Render this Iconic Spell as HTML for inline display.
+   * @param {object} [options]
+   * @param {boolean} [options.showRemove]  Whether to show "Remove Spell" button
    * @returns {Promise<string>}
    */
-  async renderInline() {
+  async renderInline({showRemove=false}={}) {
     return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
       spell: this,
       uuid: this.parent.uuid,
       name: this.parent.name,
       img: this.parent.img,
-      tags: this.getTags()
+      tags: this.getTags(),
+      showRemove
     });
   }
 
@@ -141,15 +144,15 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
 
     const runeReqs = [...this.runes].map(req => ({
       tag: SYSTEM.SPELL.RUNES[req]?.name ?? req,
-      met: actor.itemTypes.talent.some(i => i.system.rune === req)
+      met: !actor || actor.itemTypes.talent.some(i => i.system.rune === req)
     }));
     const gestureReqs = [...this.gestures].map(req => ({
       tag: SYSTEM.SPELL.GESTURES[req]?.name ?? req,
-      met: actor.itemTypes.talent.some(i => i.system.gesture === req)
+      met: !actor || actor.itemTypes.talent.some(i => i.system.gesture === req)
     }));
     const inflectionReqs = [...this.inflections].map(req => ({
       tag: SYSTEM.SPELL.INFLECTIONS[req]?.name ?? req,
-      met: actor.itemTypes.talent.some(i => i.system.inflection === req)
+      met: !actor || actor.itemTypes.talent.some(i => i.system.inflection === req)
     }));
 
     // Render the card

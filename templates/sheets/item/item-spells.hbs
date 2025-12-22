@@ -4,7 +4,7 @@
     {{#if spells.length}}
     <div class="spells-list flexcol scrollable">
         {{#each spells}}
-        {{> (lookup @root "spellPartial") spell=this isEditable=@root.isEditable}}
+        {{{item}}}
         {{/each}}
     </div>
     {{/if}}

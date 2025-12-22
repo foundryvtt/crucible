@@ -16,13 +16,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
    * The template partial used to render an included equipment item.
    * @type {string}
    */
+  // TODO: Move over to using item#renderInline for this
   static INCLUDED_EQUIPMENT_TEMPLATE = "systems/crucible/templates/sheets/item/included-equipment.hbs";
-
-  /**
-   * The template partial used to render an included iconic spell.
-   * @type {string}
-   */
-  static INCLUDED_SPELL_TEMPLATE = "systems/crucible/templates/sheets/item/included-spell.hbs";
 
   /** @override */
   static PARTS = {
@@ -36,7 +31,6 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     spells: {
       id: "spells",
       template: "systems/crucible/templates/sheets/item/item-spells.hbs",
-      templates: [this.INCLUDED_SPELL_TEMPLATE],
       scrollable: [".spells-list"]
     }
   };
@@ -67,8 +61,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
       })),
       equipment: await this._prepareEquipment(),
       equipmentPartial: this.constructor.INCLUDED_EQUIPMENT_TEMPLATE,
-      spells: await this._prepareSpells(),
-      spellPartial: this.constructor.INCLUDED_SPELL_TEMPLATE
+
+      // TODO: Make use of each spell's `level` in UI
+      spells: await this._prepareSpells()
     });
   }
 
@@ -104,11 +99,11 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /**
    * Retrieve spells and prepare for rendering
-   * @returns {Promise<{uuid: string, name: string, img: string, description: string, tags: object[]}>}
+   * @returns {Promise<{uuid: string, name: string, img: string, description: string, tags: object[], item: string}>}
    */
   async _prepareSpells() {
     const spells = this.document.system.spells;
-    const promises = spells.map(async (uuid) => {
+    const promises = spells.map(async ({item: uuid, level}) => {
       const spell = await fromUuid(uuid);
       if ( !spell ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
       return {
@@ -116,7 +111,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
         name: spell.name,
         img: spell.img,
         description: spell.system.description,
-        tags: spell.getTags()
+        tags: spell.getTags(),
+        item: await spell.renderInline({showRemove: this.isEditable}),
+        level
       }
     });
     return Promise.all(promises);
@@ -172,7 +169,10 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const equipment = this.document.system.equipment;
     if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
     const item = await fromUuid(data.uuid);
-    if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
+    if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) {
+      ui.notifications.warn("ARCHETYPE.WARNINGS.NotEquipment", {localize: true});
+      return;
+    }
 
     // Update Actor detail or permanent Item
     const updateData = {system: {equipment: [...equipment, {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped}]}};
@@ -192,32 +192,39 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   async #onDropSpell(event) {
     const data = foundry.applications.ux.TextEditor.getDragEventData(event);
     const spells = this.document.system.spells;
-    if ( (data.type !== "Item") || spells.has(data.uuid) ) return;
+    if ( (data.type !== "Item") || spells.some(s => s.item === data.uuid) ) return;
     const spell = await fromUuid(data.uuid);
-    if ( !(spell?.system instanceof crucible.api.models.CrucibleSpellItem) ) return;
+    if ( !(spell?.system instanceof crucible.api.models.CrucibleSpellItem) ) {
+      ui.notifications.warn("ARCHETYPE.WARNINGS.NotSpell", {localize: true});
+      return;
+    }
 
     // Update Actor detail or permanent Item
     const talents = this.document.system.talents;
+    const components = [
+      {cls: crucible.api.models.CrucibleSpellcraftRune, required: spell.system.runes},
+      {cls: crucible.api.models.CrucibleSpellcraftGesture, required: spell.system.gestures},
+      {cls: crucible.api.models.CrucibleSpellcraftInflection, required: spell.system.inflections}
+    ];
     const requisiteTalents = [];
-    for ( const rune of spell.system.runes ) {
-      const grantingTalents = crucible.api.models.CrucibleSpellcraftRune.grantingTalents[rune];
-      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
-      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-      requisiteTalents.push(minTalent);
+    for ( const {cls, required} of components ) {
+      for ( const component of required ) {
+        const grantingTalents = cls.grantingTalents[component];
+        if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
+        const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
+        requisiteTalents.push(minTalent);
+      }
     }
-    for ( const gesture of spell.system.gestures ) {
-      const grantingTalents = crucible.api.models.CrucibleSpellcraftGesture.grantingTalents[gesture];
-      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
-      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-      requisiteTalents.push(minTalent);
+    const updateData = {system: {spells: [...spells, {item: data.uuid}]}};
+    if ( requisiteTalents.length ) {
+      const addRequisites = await foundry.applications.api.Dialog.confirm({
+        window: {title: "SPELL.SHEET.Knowledge"},
+        content: game.i18n.format("ARCHETYPE.SHEET.RequiredComponents", {spell: spell.name})
+      });
+      if ( addRequisites ) {
+        updateData.system.talents = [...talents, ...requisiteTalents];
+      }
     }
-    for ( const inflection of spell.system.inflections ) {
-      const grantingTalents = crucible.api.models.CrucibleSpellcraftInflection.grantingTalents[inflection];
-      if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
-      const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-      requisiteTalents.push(minTalent);
-    }
-    const updateData = {system: {spells: [...spells, data.uuid], talents: [...talents, ...requisiteTalents]}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {
       return this._processSubmitData(event, this.form, updateData);
     }

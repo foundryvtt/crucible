@@ -134,10 +134,11 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /**
    * Render the Item as HTML for inline display, if supported by its item type subclass.
+   * @param {object} [options]  Additional rendering options
    * @returns {Promise<string>}
    */
-  async renderInline() {
-    if ( this.system.renderInline instanceof Function ) return this.system.renderInline();
+  async renderInline(options={}) {
+    if ( this.system.renderInline instanceof Function ) return this.system.renderInline(options);
     return "";
   }
 

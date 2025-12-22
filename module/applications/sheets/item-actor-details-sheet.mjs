@@ -19,19 +19,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     }
   };
 
-  /**
-   * The template partial used to render an included talent.
-   * @type {string}
-   */
-  static INCLUDED_TALENT_TEMPLATE = "systems/crucible/templates/sheets/item/included-talent.hbs";
-
   /** @override */
   static PARTS = {
     ...super.PARTS,
     talents: {
       id: "talents",
       template: "systems/crucible/templates/sheets/item/item-talents.hbs",
-      templates: [this.INCLUDED_TALENT_TEMPLATE],
       scrollable: [".talents-list"]
     }
   };
@@ -74,7 +67,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
         name: talent.name,
         img: talent.img,
         description: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description),
-        tags: talent.getTags()
+        tags: talent.getTags(),
+        item: await talent.renderInline({showRemove: this.isEditable})
       }
     });
     return Promise.all(promises);
@@ -129,7 +123,10 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talents = this.document.system.talents;
     if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
-    if ( talent?.type !== "talent" ) return;
+    if ( talent?.type !== "talent" ) {
+      ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
+      return;
+    }
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
     }
@@ -186,10 +183,9 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
 
   static async #onRemoveSpell(event, target) {
     const spell = target.closest(".spell");
-    const spells = new Set(this.document.system.spells);
     const uuid = spell.dataset.uuid;
-    spells.delete(uuid);
-    const updateData = {system: {spells: [...spells]}};
+    const spells = this.document.system._source.spells.filter(i => i.item !== uuid);
+    const updateData = {system: {spells}};
     return this._processSubmitData(event, this.form, updateData);
   }
 }
