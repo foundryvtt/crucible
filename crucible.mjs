@@ -56,7 +56,7 @@ Hooks.once("init", async function() {
       packageCompendium,
       resetAllActorTalents,
       standardizeItemIds,
-      syncTalents,
+      syncOwnedItems,
       syncEquipmentPrices
     },
     talents: {
@@ -580,8 +580,8 @@ Hooks.once("ready", async function() {
  */
 async function _performMigrations(priorVersion) {
 
-  // Sync all Actor talents
-  await syncTalents({force: true, reload: false});
+  // Sync all Actor talents & spells
+  await syncOwnedItems({force: true, reload: false});
 
   // Record the new migration version
   await game.settings.set("crucible", "migrationVersion", crucible.version);
@@ -808,20 +808,41 @@ function enableSpellcheckContext() {
  * @param {object} options
  * @param {boolean} [options.force]     Force syncing even if the actor stats are current
  * @param {boolean} [options.reload]    Auto-reload when synchronization is complete
+ * @param {boolean} [options.talents]   Sync actor talents
+ * @param {boolean} [options.spells]    Sync actor iconic spells
  * @returns {Promise<void>}
  */
-async function syncTalents({force=false, reload=true}={}) {
-  console.groupCollapsed("Crucible | Talent Data Synchronization")
+async function syncOwnedItems({force=false, reload=true, talents=true, spells=true}={}) {
+  console.groupCollapsed("Crucible | Talent/Spell Data Synchronization")
   const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info("Synchronizing Talents", {console: true, progress: true});
+  const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
   for ( const actor of game.actors ) {
     bar.n++;
     bar.pct = bar.n / bar.total;
     if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
       try {
-        await actor.syncTalents();
+        const batchCreate = [];
+        const batchUpdate = [];
+        const batchDelete = [];
+        if ( talents ) {
+          const {toCreate, toUpdate, toDelete} = await actor.syncTalents({performUpdates: false});
+          batchCreate.push(...toCreate);
+          batchUpdate.push(...toUpdate);
+          batchDelete.push(...toDelete);
+        }
+        if ( spells ) {
+          const {toCreate, toUpdate, toDelete} = await actor.syncIconicSpells({performUpdates: false});
+          batchCreate.push(...toCreate);
+          batchUpdate.push(...toUpdate);
+          batchDelete.push(...toDelete);
+        }
+        if ( batchDelete.length ) await actor.deleteEmbeddedDocuments("Item", batchDelete);
+        if ( batchUpdate.length ) await actor.updateEmbeddedDocuments("Item", batchUpdate,
+          {diff: false, recursive: false, noHook: true});
+        if ( batchCreate.length ) await actor.createEmbeddedDocuments("Item", batchCreate, {keepId: true});
+        await actor.update({"_stats.systemVersion": game.system.version});
       } catch(err) {
-        console.warn(`Crucible | Talent synchronization failed for Actor "${actor.name}": ${err.message}`);
+        console.warn(`Crucible | Item synchronization failed for Actor "${actor.name}": ${err.message}`);
       } finally {
         progress.update({pct: bar.pct, message: actor.name});
       }
