@@ -412,7 +412,7 @@ Hooks.once("i18nInit", function() {
 
   // Apply localizations
   const toLocalize = [
-    ["ABILITIES", ["abbreviation", "label"]],
+    ["ABILITIES", ["abbreviation", "label", "group"]],
     "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
     "ACTOR.CREATURE_CATEGORIES",
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
@@ -628,7 +628,7 @@ Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {
   const flankingTool = {
     name: "debugFlanking",
-    title: "Visualize Flanking",
+    title: "CONTROLS.VisualizeFlanking",
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
     active: false

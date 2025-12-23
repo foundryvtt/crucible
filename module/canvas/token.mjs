@@ -692,13 +692,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Flanking State
     const {x, y} = this.document._source;
     const {x: cx, y: cy} = this.getCenterPoint({x, y});
-    this.#engagementDebug.enemies.text = `${engagement.enemies.size} Enemies`;
+    this.#engagementDebug.enemies.text = game.i18n.format("TOKEN.LABELS.Enemies", {enemies: engagement.enemies.size});
     this.#engagementDebug.enemies.position.set(cx, y);
     this.#engagementDebug.enemies.visible = true;
-    this.#engagementDebug.engagement.text = `Engagement ${engagement.value + engagement.allyBonus}`;
+    this.#engagementDebug.engagement.text = game.i18n.format("TOKEN.LABELS.Engagement", {engagement: engagement.value + engagement.allyBonus});
     this.#engagementDebug.engagement.position.set(cx, y + this.h);
     this.#engagementDebug.engagement.visible = true;
-    this.#engagementDebug.flanked.text = `Flanked ${engagement.flanked}`;
+    this.#engagementDebug.flanked.text = game.i18n.format("TOKEN.LABELS.Flanked", {flanked: engagement.flanked});
     this.#engagementDebug.flanked.position.set(cx, cy);
     this.#engagementDebug.flanked.visible = true;
   }

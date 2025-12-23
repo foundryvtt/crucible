@@ -131,7 +131,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     const tags = {};
     if ( this.abilities.primary ) tags.a1 = SYSTEM.ABILITIES[this.abilities.primary].label;
     if ( this.abilities.secondary ) tags.a2 = SYSTEM.ABILITIES[this.abilities.secondary].label;
-    tags.size = `Size ${this.movement.size}`;
+    tags.size = game.i18n.format("ACTOR.SizeSpecific", {size: this.movement.size});
     return tags;
   }
 

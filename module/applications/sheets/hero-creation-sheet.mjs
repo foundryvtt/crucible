@@ -471,7 +471,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       abilities.push({
         id: abilityId,
         label: cfg.label,
-        group: cfg.group,
+        group: cfg.groupInternal,
         order: cfg.sheetOrder,
         total: value,
         increases: base ? base.signedString() : "",

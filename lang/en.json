@@ -64,6 +64,11 @@
 "ABILITIES.PresenceAbbr": "Pre",
 "ABILITIES.Wisdom": "Wisdom",
 "ABILITIES.WisdomAbbr": "Wis",
+"ABILITIES.GROUPS": {
+  "Power": "Power",
+  "Resilience": "Resilience",
+  "Speed": "Speed"
+},
 
 "ADVERSARY": {
   "THREAT_RANKS": {
@@ -465,7 +470,8 @@
         "hint": "A record of milestones that have been earned by this group.",
         "element": {
           "number.label": "Award Number",
-          "reason.label": "Award Reason"
+          "reason.label": "Award Reason",
+          "reason.placeholder": "An optional award reason."
         }
       }
     },
@@ -591,6 +597,7 @@
 "ACTION.DurationRounds": "{rounds}R",
 "ACTION.DurationTurns": "{turns}T",
 "ACTION.DurationUntilEnded": "Until Ended",
+"ACTION.EffectSpecific": "Effect: {effect}",
 "ACTION.NoTargets": "No Targets",
 "ACTION.Overview": "Action Overview",
 "ACTION.PlaceTemplate": "Place Template",
@@ -745,6 +752,7 @@
 
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
+"ADVANCEMENT.MilestoneAward": "Award Milestones",
 "ADVANCEMENT.MilestoneTooltip": "{progress} of {required} milestones until next level",
 
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
@@ -856,6 +864,9 @@
     "DODGE_BASE": "Base Dodge",
     "DODGE_SCALING": "Scaling Threshold"
   },
+  "SPECIFIC": {
+    "Unarmored": "Unarmored"
+  },
   "PROPERTIES": {
     "BULKY": "Bulky",
     "ORGANIC": "Organic",
@@ -961,6 +972,10 @@
   }
 },
 
+"CONTROLS": {
+  "VisualizeFlanking": "Visualize Flanking"
+},
+
 "CURRENCY_DENOMINATIONS": {
   "CP": {
     "abbreviation": "CP",
@@ -1008,6 +1023,13 @@
 "DEFENSES.Physical": "Physical",
 "DEFENSES.Wounds": "Wounds",
 "DEFENSES.Madness": "Madness",
+"DEFENSES.TOOLTIPS": {
+  "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
+  "Willpower": "{base} + ((Toughness + Presence) / 4)",
+  "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
+  "Wounds": "{base} + (Wounds / 10)",
+  "Madness": "{base} + (Madness / 10)"
+},
 
 "DICE.DIFFICULTIES": {
   "Challenging": "Challenging",
@@ -1043,8 +1065,16 @@
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
+"DICE.Roll": "Roll",
 "DICE.RollTotal": "Roll Total",
 "DICE.SetDifficulty": "Set Difficulty",
+
+"DICE.REQUESTS": {
+  "AddParty": "Add Party",
+  "ClearRequest": "Clear Request",
+  "Request": "Request",
+  "RequestRolls": "Request Rolls"
+},
 
 "ACTIVE_EFFECT": {
   "ACTIONS": {
@@ -1081,7 +1111,20 @@
     "Staggered": "Staggered",
     "Unaware": "Unaware",
     "Weakened": "Weakened",
-    "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!"
+    "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
+
+    "Bleeding": "Bleeding",
+    "Burning": "Burning",
+    "Freezing": "Freezing",
+    "Confused": "Confused",
+    "Corroding": "Corroding",
+    "Decaying": "Decaying",
+    "Entropy": "Entropy",
+    "Irradiated": "Irradiated",
+    "Mending": "Mending",
+    "Inspired": "Inspired",
+    "Poisoned": "Poisoned",
+    "Shocked": "Shocked"
   }
 },
 
@@ -1262,7 +1305,16 @@
   "MADNESS": "Madness",
   "ACTION": "Action",
   "FOCUS": "Focus",
-  "HEROISM": "Heroism"
+  "HEROISM": "Heroism",
+  "TOOLTIPS": {
+    "Health": "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
+    "Wounds": "Health &times; 1.5",
+    "Morale": "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
+    "Madness": "Morale &times; 1.5",
+    "Action": "6 + Action Bonus",
+    "Focus": "(Wisdom + Presence + Intellect) / 2",
+    "Heroism": "Maximum 3"
+  }
 },
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
@@ -1647,7 +1699,9 @@
     "REGISTER": "Register Hook Function",
     "GROUP_PREPARATION": "Actor Data Preparation",
     "GROUP_ACTION": "Action Usage",
-    "GROUP_COMBAT": "Combat Turns"
+    "GROUP_COMBAT": "Combat Turns",
+    "GROUP_EQUIPMENT": "Equipment Preparation",
+    "GROUP_SPELLCRAFT": "Spellcraft Preparation"
   },
   "NODES": {
     "ATTACK": "Attack",
@@ -1664,6 +1718,7 @@
     "TRAINING": "Training",
     "UTILITY": "Utility"
   },
+  "NodeSpecific": "{nodeType} Node",
   "TRAINING": {
     "SKILL": "Skill Training",
     "WEAPON": "Weapon Training",
@@ -1678,6 +1733,7 @@
     "MASTER": "Master"
   },
   "PointsAvailable": "Points Available",
+  "Prerequisites": "Prerequisites",
   "LABELS": {
     "Points": {
       "one": "Point",
@@ -1856,10 +1912,19 @@
     "MAINHAND": "Main-Hand",
     "OFFHAND": "Off-Hand",
     "TWOHAND": "Two-Handed"
+  },
+  "SPECIFIC": {
+    "Unarmed": "Unarmed",
+    "VampireBite": "Vampire Bite"
   }
 },
 
 "TOKEN": {
+  "LABELS": {
+    "Enemies": "{enemies} Enemies",
+    "Engagement": "Engagement {engagement}",
+    "Flanked": "Flanked {flanked}"
+  },
   "MOVEMENT": {
     "ACTIONS": {
       "walk": {

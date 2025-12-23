@@ -44,7 +44,7 @@
             {{#each action.effects as |effect|}}
             <li class="effect line-item">
                 <div class="title">
-                    <h4>Effect: <span class="effect-name">{{action.name}}</span></h4>
+                    <h4>{{localize "ACTION.EffectSpecific" effect=effect.name}}</h4>
                 </div>
                 {{crucibleTags effect.tags additionalClasses="effect-tags"}}
             </li>

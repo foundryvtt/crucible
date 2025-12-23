@@ -83,7 +83,7 @@ export default class StandardCheckDialog extends DialogV2 {
     delete options.position?.width; // Ignore default dialog width
     options = super._initializeApplicationOptions(options);
     options.buttons = {
-      roll: {action: "roll", label: "Roll", icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)},
+      roll: {action: "roll", label: game.i18n.localize("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)},
     }
     return options;
   }
@@ -126,11 +126,11 @@ export default class StandardCheckDialog extends DialogV2 {
     const buttons = [];
     for ( const b of Object.values(this.options.buttons) ) buttons.push({type: "submit", ...b});
     if ( this.request ) buttons.push(
-      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: "Request"},
-      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: "Clear Request"},
-      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: "Add Party"},
+      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: game.i18n.localize("DICE.REQUESTS.Request")},
+      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: game.i18n.localize("DICE.REQUESTS.ClearRequest")},
+      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: game.i18n.localize("DICE.REQUESTS.AddParty")},
     )
-    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: "Request Rolls"});
+    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: game.i18n.localize("DICE.REQUESTS.RequestRolls")});
     return buttons;
   }
 

@@ -193,84 +193,84 @@ export const statusEffects = [
   // Damage Over Time
   {
     id: "bleeding",
-    name: "Bleeding",
+    name: "ACTIVE_EFFECT.STATUSES.Bleeding",
     img: "icons/skills/wounds/blood-spurt-spray-red.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.bleeding00000000"
   },
   {
     id: "burning",
-    name: "Burning",
+    name: "ACTIVE_EFFECT.STATUSES.Burning",
     img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.burning000000000"
   },
   {
     id: "freezing",
-    name: "Freezing",
+    name: "ACTIVE_EFFECT.STATUSES.Freezing",
     img: "icons/magic/water/orb-ice-web.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.freezing00000000"
   },
   {
     id: "confused",
-    name: "Confused",
+    name: "ACTIVE_EFFECT.STATUSES.Confused",
     img: "icons/magic/air/air-burst-spiral-pink.webp",
     hud: false
     // page: TODO
   },
   {
     id: "corroding",
-    name: "Corroding",
+    name: "ACTIVE_EFFECT.STATUSES.Corroding",
     img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.corroding0000000"
   },
   {
     id: "decaying",
-    name: "Decaying",
+    name: "ACTIVE_EFFECT.STATUSES.Decaying",
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.decaying00000000"
   },
   {
     id: "entropy",
-    name: "Entropy",
+    name: "ACTIVE_EFFECT.STATUSES.Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",
     hud: false
     // page: TODO
   },
   {
     id: "irradiated",
-    name: "Irradiated",
+    name: "ACTIVE_EFFECT.STATUSES.Irradiated",
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.irradiated000000"
   },
   {
     id: "mending",
-    name: "Mending",
+    name: "ACTIVE_EFFECT.STATUSES.Mending",
     img: "icons/magic/life/cross-beam-green.webp",
     hud: false
     // page: TODO
   },
   {
     id: "inspired",
-    name: "Inspired",
+    name: "ACTIVE_EFFECT.STATUSES.Inspired",
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     hud: false
     // page: TODO
   },
   {
     id: "poisoned",
-    name: "Poisoned",
+    name: "ACTIVE_EFFECT.STATUSES.Poisoned",
     img: "icons/magic/unholy/orb-smoking-green.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.poisoned00000000"
   },
   {
     id: "shocked",
-    name: "Shocked",
+    name: "ACTIVE_EFFECT.STATUSES.Shocked",
     img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.shocked000000000"

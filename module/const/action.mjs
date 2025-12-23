@@ -981,7 +981,7 @@ export const TAGS = {
   // Target Fortitude
   fortitude: {
     tag: "fortitude",
-    label: "Fortitude",
+    label: "DEFENSES.Fortitude",
     category: "defenses",
     prepare() {
       this.usage.defenseType = "fortitude";
@@ -991,7 +991,7 @@ export const TAGS = {
   // Target Reflex
   reflex: {
     tag: "reflex",
-    label: "Reflex",
+    label: "DEFENSES.Reflex",
     category: "defenses",
     prepare() {
       this.usage.defenseType = "reflex";
@@ -1001,7 +1001,7 @@ export const TAGS = {
   // Target Willpower
   willpower: {
     tag: "willpower",
-    label: "Willpower",
+    label: "DEFENSES.Willpower",
     category: "defenses",
     prepare() {
       this.usage.defenseType = "willpower";
