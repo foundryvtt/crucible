@@ -22,7 +22,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     });
   }
 
-/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Obtain an object of tags which describe the Effect.

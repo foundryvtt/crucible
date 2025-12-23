@@ -352,7 +352,7 @@ export default class CrucibleActor extends Actor {
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: "Flanked", number: ae?.getFlag("crucible", "flanked") ?? 1};
+        boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
       }
     }
   }
@@ -1218,7 +1218,7 @@ export default class CrucibleActor extends Actor {
       }
 
       // Identify maintained effects
-      const maintainedCost = effect.flags.crucible?.maintainedCost;
+      const maintainedCost = effect.system.maintenance?.cost;
       if ( maintainedCost ) {
         if ( maintainedCost > this.resources.focus.value ) {
           effectChanges.toDelete.push(effect.id);
@@ -1315,17 +1315,15 @@ export default class CrucibleActor extends Actor {
    */
   async applyDamageOverTime() {
     for ( const effect of this.effects ) {
-      const dot = effect.flags.crucible?.dot;
-      if ( !dot ) continue;
+      const dot = effect.system.dot;
+      if ( !dot?.length ) continue;
 
       // Categorize damage
       const damage = {};
-      for ( const r of Object.keys(SYSTEM.RESOURCES) ) {
-        let v = dot[r];
-        if ( !v ) continue;
-        if (  v > 0 ) v = Math.clamp(v - this.resistances[dot.damageType].total, 0, 2 * v);
-        damage[r] ||= 0;
-        damage[r] -= v;
+      for ( let {amount, damageType, resource, restoration} of dot ) {
+        if ( !restoration ) amount = -Math.clamp(amount - this.resistances[damageType].total, 0, 2 * amount);
+        damage[resource] ??= 0;
+        damage[resource] += amount;
       }
       const status = {text: effect.label, fillColor: SYSTEM.RESOURCES.health.color.high.css};
       await this.alterResources(damage, {}, {statusText: [status]});
@@ -2131,22 +2129,21 @@ export default class CrucibleActor extends Actor {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const flankedStage = engagement.flanked;
     const current = this.effects.get(flankedId);
-    if ( flankedStage === current?.flags.crucible.flanked ) return;
+    if ( flankedStage === current?.system.flanked ) return;
 
     // Add flanked effect
     if ( flankedStage > 0 ) {
       const flankedData = {
         _id: flankedId,
+        type: "flanked",
         name: `${game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
         description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
-        flags: {
-          crucible: {
-            engagedEnemies: engagement.enemies.size,
-            engagedAllies: engagement.allies.size,
-            flanked: flankedStage
-          }
+        system: {
+          enemies: engagement.enemies.size,
+          allies: engagement.allies.size,
+          flanked: flankedStage
         }
       }
       if ( current ) {

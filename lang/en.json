@@ -1,5 +1,8 @@
 {
 "TYPES": {
+  "ActiveEffect": {
+    "flanked": "Flanked Active Effect"
+  },
   "Actor": {
     "adversary": "Adversary",
     "hero": "Hero",
@@ -1125,6 +1128,58 @@
     "Inspired": "Inspired",
     "Poisoned": "Poisoned",
     "Shocked": "Shocked"
+  }
+},
+
+"BASE_EFFECT": {
+  "FIELDS": {
+    "dot": {
+      "element": {
+        "amount": {
+          "hint": "The amount of damage (or restoration) which should be done each turn.",
+          "label": "Amount"
+        },
+        "damageType": {
+          "label": "Damage Type"
+        },
+        "resource": {
+          "hint": "The resource targeted by this damage/restoration",
+          "label": "Resource"
+        },
+        "restoration": {
+          "label": "Restoration"
+        }
+      },
+      "label": "Damage Over Time"
+    },
+    "maintenance": {
+      "cost": {
+        "label": "Maintenance Cost"
+      },
+      "label": "Maintenance"
+    },
+    "regions": {
+      "hint": "The regions dependent on this effect.",
+      "label": "Regions"
+    },
+    "summons": {
+      "hint": "The summoned Tokens dependent on this effect.",
+      "label": "Summons"
+    }
+  }
+},
+
+"FLANKED_EFFECT": {
+  "FIELDS": {
+    "allies": {
+      "label": "Allies Engaging"
+    },
+    "enemies": {
+      "label": "Enemies Engaging"
+    },
+    "flanked": {
+      "label": "Flanked Stage"
+    }
   }
 },
 

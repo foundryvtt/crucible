@@ -6,6 +6,10 @@ export {default as CrucibleAction} from "./action.mjs";
 export {default as CrucibleCounterspellAction} from "./counterspell-action.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";
 
+// ActiveEffect
+export {default as CrucibleBaseActiveEffect} from "./effect-base.mjs";
+export {default as CrucibleFlankedActiveEffect} from "./effect-flanked.mjs";
+
 // Actor
 export {default as CrucibleBaseActor} from "./actor-base.mjs";
 export {default as CrucibleAdversaryActor} from "./actor-adversary.mjs";
