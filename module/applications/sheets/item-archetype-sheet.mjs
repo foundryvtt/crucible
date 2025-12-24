@@ -38,8 +38,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   /** @inheritDoc */
   static TABS = foundry.utils.deepClone(super.TABS);
   static {
-    this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase", label: "ITEM.TABS.EQUIPMENT"});
-    this.TABS.sheet.push({id: "spells", group: "sheet", icon: "fa-solid fa-wand-magic-sparkles", label: "ITEM.TABS.SPELLS"});
+    this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase", label: "ITEM.TABS.Equipment"});
+    this.TABS.sheet.push({id: "spells", group: "sheet", icon: "fa-solid fa-wand-magic-sparkles", label: "ITEM.TABS.Spells"});
   }
 
   // Initialize subclass options

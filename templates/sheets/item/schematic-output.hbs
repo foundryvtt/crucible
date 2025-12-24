@@ -1,9 +1,9 @@
 <fieldset class="schematic-output" {{@root.fieldDisabled}} {{#unless template}}data-field="outputs" data-index="{{index}}"{{/unless}}>
     <legend>
-        <span>{{localize "SCHEMATIC.SHEET.OUTPUTS"}}</span>
+        <span>{{localize "SCHEMATIC.SHEET.Outputs"}}</span>
         {{#if output.editable}}
         <button type="button" class="icon fa-solid fa-times" data-action="outputRemove"
-                aria-label="{{localize 'SCHEMATIC.SHEET.OUTPUT_REMOVE'}}" data-tooltip></button>
+                aria-label="{{localize 'SCHEMATIC.SHEET.OutputRemove'}}" data-tooltip></button>
         {{/if}}
     </legend>
     {{#each output.products as |o|}}
@@ -19,14 +19,14 @@
         <input type="hidden" name="{{o.fieldPath}}.item" value="{{o.uuid}}">
         <div class="controls">
             <a class="button icon fa-solid fa-times" data-action="itemRemove"
-               aria-label="{{localize 'SCHEMATIC.SHEET.ITEM_REMOVE'}}" data-tooltip></a>
+               aria-label="{{localize 'SCHEMATIC.SHEET.ItemRemove'}}" data-tooltip></a>
         </div>
         {{/if}}
     </div>
     {{/each}}
     {{#if output.editable}}
     <div class="output-drop droppable">
-        <p class="hint">{{localize "SCHEMATIC.SHEET.OUTPUT_DROP"}}</p>
+        <p class="hint">{{localize "SCHEMATIC.SHEET.OutputDrop"}}</p>
     </div>
     {{/if}}
 </fieldset>

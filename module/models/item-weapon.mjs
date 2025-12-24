@@ -275,7 +275,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( this.properties.has("natural") ) tags.natural = SYSTEM.WEAPON.PROPERTIES.natural.label;
     else if ( this.equipped ) {
       const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([_k, v]) => v === this.slot)[0];
-      tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
+      tags.slot = SYSTEM.WEAPON.SLOTS.labels[slotKey];
     }
     Object.assign(tags, parentTags);
 

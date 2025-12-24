@@ -40,7 +40,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       id: "components",
       group: "sheet",
       icon: "fa-solid fa-list-ol",
-      label: "SCHEMATIC.SHEET.COMPONENTS"
+      label: "SCHEMATIC.SHEET.Components"
     });
   }
 

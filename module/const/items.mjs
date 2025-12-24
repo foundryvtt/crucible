@@ -117,15 +117,15 @@ export const PROPERTIES = Object.freeze({
 export const LOOT_CATEGORIES = {
   treasure: {
     id: "treasure",
-    label: "LOOT.CATEGORIES.TREASURE"
+    label: "LOOT.CATEGORIES.Treasure"
   },
   ingredient: {
     id: "ingredient",
-    label: "LOOT.CATEGORIES.INGREDIENT"
+    label: "LOOT.CATEGORIES.Ingredient"
   },
   other: {
     id: "other",
-    label: "LOOT.CATEGORIES.OTHER"
+    label: "LOOT.CATEGORIES.Other"
   }
 };
 
@@ -143,11 +143,11 @@ export const PHYSICAL_ITEM_TYPES = new Set();
 export const TOOL_CATEGORIES = {
   crafting: {
     id: "crafting",
-    label: "TOOL.CATEGORIES.CRAFTING"
+    label: "TOOL.CATEGORIES.Crafting"
   },
   implement: {
     id: "implement",
-    label: "TOOL.CATEGORIES.IMPLEMENT"
+    label: "TOOL.CATEGORIES.Implement"
   }
 };
 
@@ -164,14 +164,14 @@ export const EQUIPABLE_ITEM_TYPES = new Set();
  * @enum {CrucibleItemCategory}
  */
 export const SCHEMATIC_CATEGORIES = {
-  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.ALCHEMY"},
-  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.COOKING"},
-  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.ENCHANTING"},
-  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.FLETCHING"},
-  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.JEWELCRAFT"},
-  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.RUNEWEAVING"},
-  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.SMITHING"},
-  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.TAILORING"}
+  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.Alchemy"},
+  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.Cooking"},
+  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.Enchanting"},
+  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.Fletching"},
+  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.Jewelcraft"},
+  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.Runeweaving"},
+  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.Smithing"},
+  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.Tailoring"}
 }
 
 /**
@@ -179,5 +179,5 @@ export const SCHEMATIC_CATEGORIES = {
  * @type {Record<string, ItemProperty>}
  */
 export const SCHEMATIC_PROPERTIES = {
-  common: {id: "common", label: "SCHEMATIC.PROPERTIES.COMMON"}
+  common: {id: "common", label: "SCHEMATIC.PROPERTIES.Common"}
 }

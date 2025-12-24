@@ -75,10 +75,10 @@
 
 "ADVERSARY": {
   "THREAT_RANKS": {
-    "MINION": "Minion",
-    "NORMAL": "Normal",
-    "ELITE": "Elite",
-    "BOSS": "Boss"
+    "Minion": "Minion",
+    "Normal": "Normal",
+    "Elite": "Elite",
+    "Boss": "Boss"
   }
 },
 
@@ -231,14 +231,14 @@
     }
   },
   "SHEET": {
-    "TITLE": "Action"
+    "Title": "Action"
   },
   "TABS": {
-    "DESCRIPTION": "Description",
-    "USAGE": "Usage",
-    "TARGET": "Target",
-    "EFFECTS": "Effects",
-    "HOOKS": "Hooks"
+    "Description": "Description",
+    "Usage": "Usage",
+    "Target": "Target",
+    "Effects": "Effects",
+    "Hooks": "Hooks"
   },
   "TARGET_SCOPES": {
     "None": "None",
@@ -263,10 +263,10 @@
 
 "ACCESSORY": {
   "CATEGORIES": {
-    "CLOTHING": "Clothing",
-    "JEWELRY": "Jewelry",
-    "TRINKET": "Trinket",
-    "OTHER": "Other"
+    "Clothing": "Clothing",
+    "Jewelry": "Jewelry",
+    "Trinket": "Trinket",
+    "Other": "Other"
   }
 },
 
@@ -370,25 +370,25 @@
     }
   },
   "TABS": {
-    "ATTRIBUTES": "Attributes",
-    "ACTIONS": "Actions",
-    "EFFECTS": "Effects",
-    "SKILLS": "Skills",
-    "TALENTS": "Talents",
-    "INVENTORY": "Inventory",
-    "SPELLS": "Spells",
-    "BIOGRAPHY": "Biography"
+    "Attributes": "Attributes",
+    "Actions": "Actions",
+    "Effects": "Effects",
+    "Skills": "Skills",
+    "Talents": "Talents",
+    "Inventory": "Inventory",
+    "Spells": "Spells",
+    "Biography": "Biography"
   },
   "LABELS": {
-    "CURRENCY": "Currency",
-    "CAPACITY": "Carrying Capacity",
-    "CURRENT_CAPACITY": "Current Capacity",
-    "OVER_CAPACITY": "Over Capacity",
-    "CURRENT_EQUIPMENT": "Current Equipment",
-    "FAVORITE_ACTIONS": "Favorite Actions",
-    "KNOWLEDGE": "Knowledge Areas",
-    "KNOWLEDGE_HINT": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
-    "LANGUAGES": "Known Languages"
+    "Currency": "Currency",
+    "Capacity": "Carrying Capacity",
+    "CurrentCapacity": "Current Capacity",
+    "OverCapacity": "Over Capacity",
+    "CurrentEquipment": "Current Equipment",
+    "FavoriteActions": "Favorite Actions",
+    "Knowledge": "Knowledge Areas",
+    "KnowledgeHint": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
+    "Languages": "Known Languages"
   },
   "SECTIONS": {
     "ACCESSORY": {
@@ -577,15 +577,15 @@
     }
   },
   "SHEET": {
-    "BROWSE": "Browse Ancestries",
-    "CHOOSE": "Choose Ancestry",
-    "CLEAR": "Clear Ancestry",
-    "IDENTITY": "Identity"
+    "Browse": "Browse Ancestries",
+    "Choose": "Choose Ancestry",
+    "Clear": "Clear Ancestry",
+    "Identity": "Identity"
   },
   "WARNINGS": {
-    "ABILITIES": "The primary and secondary Abilities for an Ancestry may not be the same.",
-    "RESISTANCES_BOTH": "You must assign both Resistance and Vulnerability if defining either.",
-    "RESISTANCES_DIFFERENT": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
+    "Abilities": "The primary and secondary Abilities for an Ancestry may not be the same.",
+    "ResistancesBoth": "You must assign both Resistance and Vulnerability if defining either.",
+    "ResistancesDifferent": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
   }
 },
 
@@ -627,29 +627,33 @@
 "ACTION.WarningMaximumRange": "A selected target is further than the maximum range of {max} feet.",
 "ACTION.WarningUnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
 
-"ACTION.EFFECTS.Add": "Add Effect",
-"ACTION.EFFECTS.Delete": "Remove Effect",
-"ACTION.EFFECTS.Duration": "Duration",
-"ACTION.EFFECTS.DurationHint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
-"ACTION.EFFECTS.DurationRounds": "Rounds",
-"ACTION.EFFECTS.DurationTurns": "Turns",
-"ACTION.EFFECTS.Name": "Effect Name",
-"ACTION.EFFECTS.Result": "Result",
-"ACTION.EFFECTS.ResultType": "Type",
-"ACTION.EFFECTS.Scope": "Effect Scope",
-"ACTION.EFFECTS.Statuses": "Statuses",
+"ACTION.EFFECTS": {
+  "Add": "Add Effect",
+  "Delete": "Remove Effect",
+  "Duration": "Duration",
+  "DurationHint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
+  "DurationRounds": "Rounds",
+  "DurationTurns": "Turns",
+  "Name": "Effect Name",
+  "Result": "Result",
+  "ResultType": "Type",
+  "Scope": "Effect Scope",
+  "Statuses": "Statuses"
+},
 
-"ACTION.TAG_CATEGORIES.ATTACK": "Attack",
-"ACTION.TAG_CATEGORIES.REQUIREMENTS": "Requirements",
-"ACTION.TAG_CATEGORIES.CONTEXT": "Context",
-"ACTION.TAG_CATEGORIES.MODIFIERS": "Modifiers",
-"ACTION.TAG_CATEGORIES.DEFENSES": "Defenses",
-"ACTION.TAG_CATEGORIES.DAMAGE": "Damage",
-"ACTION.TAG_CATEGORIES.SCALING": "Scaling",
-"ACTION.TAG_CATEGORIES.RESOURCES": "Resources",
-"ACTION.TAG_CATEGORIES.SKILLS": "Skills",
-"ACTION.TAG_CATEGORIES.SPELLCRAFT": "Spellcraft",
-"ACTION.TAG_CATEGORIES.SPECIAL": "Special",
+"ACTION.TAG_CATEGORIES": {
+  "Attack": "Attack",
+  "Requirements": "Requirements",
+  "Context": "Context",
+  "Modifiers": "Modifiers",
+  "Defenses": "Defenses",
+  "Damage": "Damage",
+  "Scaling": "Scaling",
+  "Resources": "Resources",
+  "Skills": "Skills",
+  "Spellcraft": "Spellcraft",
+  "Special": "Special"
+},
 
 "ACTION.TagAfterStrike": "After Strike",
 "ACTION.TagAfterStrikeTooltip": "This action may only be performed immediately after a basic Strike attack which did not critically miss.",
@@ -741,10 +745,12 @@
 "ACTION.TagCostWeapon": "W",
 "ACTION.TagCostWeaponAction": "W{action}A",
 
-"ACTION.TAGS.Activation": "Activation Tags",
-"ACTION.TAGS.Action": "Action Tags",
-"ACTION.TAGS.Context": "Context Tags",
-"ACTION.TAGS.TargetLimit": "Limit {limit}",
+"ACTION.TAGS": {
+  "Activation": "Activation Tags",
+  "Action": "Action Tags",
+  "Context": "Context Tags",
+  "TargetLimit": "Limit {limit}"
+},
 
 "ACTION.ACTIONS": {
   "AddFavorite": "Add Favorite",
@@ -854,37 +860,37 @@
     }
   },
   "CATEGORIES": {
-    "UNARMORED": "Unarmored",
-    "LIGHT": "Light Armor",
-    "MEDIUM": "Medium Armor",
-    "HEAVY": "Heavy Armor",
-    "NATURAL": "Natural"
+    "Unarmored": "Unarmored",
+    "Light": "Light Armor",
+    "Medium": "Medium Armor",
+    "Heavy": "Heavy Armor",
+    "Natural": "Natural"
   },
   "SHEET": {
-    "DEFENSES": "Armor Defenses",
-    "ARMOR_BONUS": "Armor Bonus",
-    "DODGE": "Dodge",
-    "DODGE_BASE": "Base Dodge",
-    "DODGE_SCALING": "Scaling Threshold"
+    "Defenses": "Armor Defenses",
+    "ArmorBonus": "Armor Bonus",
+    "Dodge": "Dodge",
+    "DodgeBase": "Base Dodge",
+    "DodgeScaling": "Scaling Threshold"
   },
   "SPECIFIC": {
     "Unarmored": "Unarmored"
   },
   "PROPERTIES": {
-    "BULKY": "Bulky",
-    "ORGANIC": "Organic",
-    "NOISY": "Noisy"
+    "Bulky": "Bulky",
+    "Organic": "Organic",
+    "Noisy": "Noisy"
   }
 },
 
-"ATTACK.RESULT_TYPES.MISS": "Miss",
-"ATTACK.RESULT_TYPES.DODGE": "Dodge",
-"ATTACK.RESULT_TYPES.PARRY": "Parry",
-"ATTACK.RESULT_TYPES.BLOCK": "Block",
-"ATTACK.RESULT_TYPES.ARMOR": "Armor",
-"ATTACK.RESULT_TYPES.RESIST": "Resist",
-"ATTACK.RESULT_TYPES.GLANCE": "Glance",
-"ATTACK.RESULT_TYPES.HIT": "Hit",
+"ATTACK.RESULT_TYPES.Miss": "Miss",
+"ATTACK.RESULT_TYPES.Dodge": "Dodge",
+"ATTACK.RESULT_TYPES.Parry": "Parry",
+"ATTACK.RESULT_TYPES.Block": "Block",
+"ATTACK.RESULT_TYPES.Armor": "Armor",
+"ATTACK.RESULT_TYPES.Resist": "Resist",
+"ATTACK.RESULT_TYPES.Glance": "Glance",
+"ATTACK.RESULT_TYPES.Hit": "Hit",
 
 "ATTRIBUTES.Abilities": "Ability Scores",
 "ATTRIBUTES.Pools": "Resource Pools",
@@ -928,18 +934,18 @@
     }
   },
   "SHEET": {
-    "BROWSE": "Browse Backgrounds",
-    "CLEAR": "Clear Background",
-    "CHOOSE": "Choose Background",
-    "IDENTITY": "Identity",
-    "SKILLS": "Skills",
-    "TALENT_ADD": "Add Talent",
-    "TALENT_REMOVE": "Remove Talent",
-    "TALENT_DROP": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."
+    "Browse": "Browse Backgrounds",
+    "Clear": "Clear Background",
+    "Choose": "Choose Background",
+    "Identity": "Identity",
+    "Skills": "Skills",
+    "TalentAdd": "Add Talent",
+    "TalentRemove": "Remove Talent",
+    "TalentDrop": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."
   },
   "ERRORS": {
-    "APPLY": "You may only apply a background to a level 0 character with no spent skill points.",
-    "TALENT_TIER": "Backgrounds may only offer Tier 0 starting Talents."
+    "Apply": "You may only apply a background to a level 0 character with no spent skill points.",
+    "TalentTier": "Backgrounds may only offer Tier 0 starting Talents."
   }
 },
 
@@ -947,11 +953,11 @@
 
 "CONSUMABLE": {
   "CATEGORIES": {
-    "AMMUNITION": "Ammunition",
-    "BOMB": "Bomb",
-    "FLASK": "Flask",
-    "KIT": "Kit",
-    "OTHER": "Other"
+    "Ammunition": "Ammunition",
+    "Bomb": "Bomb",
+    "Flask": "Flask",
+    "Kit": "Kit",
+    "Other": "Other"
   },
   "FIELDS": {
     "uses": {
@@ -1243,29 +1249,29 @@
     }
   },
   "TABS": {
-    "CONFIGURATION": "Configuration",
-    "ACTIONS": "Actions",
-    "DESCRIPTION": "Description",
-    "HOOKS": "Hooks",
-    "SECRETS": "Secrets",
-    "TALENTS": "Talents",
-    "EQUIPMENT": "Equipment",
-    "SPELLS": "Spells"
+    "Configuration": "Configuration",
+    "Actions": "Actions",
+    "Description": "Description",
+    "Hooks": "Hooks",
+    "Secrets": "Secrets",
+    "Talents": "Talents",
+    "Equipment": "Equipment",
+    "Spells": "Spells"
   },
   "SHEET": {
-    "DETAILS": "Item Details",
-    "TALENT_ADD": "Add Talent",
-    "TALENT_CONFIGURATION": "Talent Configuration",
-    "TALENT_REMOVE": "Remove Talent",
-    "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
-    "EQUIPMENT": "Equipment Details",
-    "EQUIPMENT_REMOVE": "Remove Equipment",
-    "EQUIPMENT_DROP": "Add starting equipment by dragging and dropping items into this area.",
-    "SPELL_REMOVE": "Remove Spell",
-    "SPELL_DROP": "Add an iconic spell by dragging and dropping a Spell item into this area.",
-    "SPELLCRAFT": "Spellcraft",
-    "TYPE": "Equipment Type",
-    "SCALED_PRICE": "Scaled Price"
+    "Details": "Item Details",
+    "TalentAdd": "Add Talent",
+    "TalentConfiguration": "Talent Configuration",
+    "TalentRemove": "Remove Talent",
+    "TalentDrop": "Add a talent by dragging and dropping a Talent item into this area.",
+    "Equipment": "Equipment Details",
+    "EquipmentRemove": "Remove Equipment",
+    "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
+    "SpellRemove": "Remove Spell",
+    "SpellDrop": "Add an iconic spell by dragging and dropping a Spell item into this area.",
+    "Spellcraft": "Spellcraft",
+    "Type": "Equipment Type",
+    "ScaledPrice": "Scaled Price"
   },
   "PROPERTIES": {
     "Armor": "{armor} Armor",
@@ -1336,31 +1342,31 @@
 },
 
 "LANGUAGE_CATEGORIES": {
-  "NONSPOKEN": "Non-Spoken Languages",
-  "SPOKEN": "Spoken Languages"
+  "Nonspoken": "Non-Spoken Languages",
+  "Spoken": "Spoken Languages"
 },
 
 "LANGUAGES": {
-  "COMMON": "Common",
-  "SIGN": "Sign"
+  "Common": "Common",
+  "Sign": "Sign"
 },
 
 "LOOT": {
   "CATEGORIES": {
-    "TREASURE": "Treasure",
-    "INGREDIENT": "Ingredient",
-    "OTHER": "Miscellaneous"
+    "Treasure": "Treasure",
+    "Ingredient": "Ingredient",
+    "Other": "Miscellaneous"
   }
 },
 
 "RESOURCES": {
-  "HEALTH": "Health",
-  "WOUNDS": "Wounds",
-  "MORALE": "Morale",
-  "MADNESS": "Madness",
-  "ACTION": "Action",
-  "FOCUS": "Focus",
-  "HEROISM": "Heroism",
+  "Health": "Health",
+  "Wounds": "Wounds",
+  "Morale": "Morale",
+  "Madness": "Madness",
+  "Action": "Action",
+  "Focus": "Focus",
+  "Heroism": "Heroism",
   "TOOLTIPS": {
     "Health": "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
     "Wounds": "Health &times; 1.5",
@@ -1376,14 +1382,14 @@
 
 "SCHEMATIC": {
   "CATEGORIES": {
-    "ALCHEMY": "Alchemy Formula",
-    "COOKING": "Cooking Recipe",
-    "ENCHANTING": "Enchanting Glyph",
-    "FLETCHING": "Fletching Draft",
-    "JEWELCRAFT": "Jewelers Graph",
-    "RUNEWEAVING": "Runeweave Arcanum",
-    "SMITHING": "Smithing Blueprint",
-    "TAILORING": "Tailoring Pattern"
+    "Alchemy": "Alchemy Formula",
+    "Cooking": "Cooking Recipe",
+    "Enchanting": "Enchanting Glyph",
+    "Fletching": "Fletching Draft",
+    "Jewelcraft": "Jewelers Graph",
+    "Runeweaving": "Runeweave Arcanum",
+    "Smithing": "Smithing Blueprint",
+    "Tailoring": "Tailoring Pattern"
   },
   "FIELDS": {
     "dc": {
@@ -1431,23 +1437,23 @@
     }
   },
   "MODES": {
-    "ANY": "Any",
-    "ALL": "All",
-    "TEMPLATE": "Template"
+    "Any": "Any",
+    "All": "All",
+    "Template": "Template"
   },
   "PROPERTIES": {
-    "COMMON": "Commonly Known"
+    "Common": "Commonly Known"
   },
   "SHEET": {
-    "COMPONENTS": "Components",
-    "INPUT_ADD": "Add Input Group",
-    "INPUT_DROP": "Drop Input Item",
-    "INPUT_REMOVE": "Remove Input Group",
-    "INPUTS": "Inputs",
-    "OUTPUT_ADD": "Add Output Group",
-    "OUTPUT_DROP": "Drop Output Item",
-    "OUTPUT_REMOVE": "Remove Output Group",
-    "OUTPUTS": "Outputs"
+    "Components": "Components",
+    "InputAdd": "Add Input Group",
+    "InputDrop": "Drop Input Item",
+    "InputRemove": "Remove Input Group",
+    "Inputs": "Inputs",
+    "OutputAdd": "Add Output Group",
+    "OutputDrop": "Drop Output Item",
+    "OutputRemove": "Remove Output Group",
+    "Outputs": "Outputs"
   }
 },
 
@@ -1751,41 +1757,41 @@
     "RequiresRuneInflection": "You must know a spellcraft Rune in order to utilize an Inflection."
   },
   "HOOKS": {
-    "REGISTER": "Register Hook Function",
-    "GROUP_PREPARATION": "Actor Data Preparation",
-    "GROUP_ACTION": "Action Usage",
-    "GROUP_COMBAT": "Combat Turns",
-    "GROUP_EQUIPMENT": "Equipment Preparation",
-    "GROUP_SPELLCRAFT": "Spellcraft Preparation"
+    "Register": "Register Hook Function",
+    "GroupPreparation": "Actor Data Preparation",
+    "GroupAction": "Action Usage",
+    "GroupCombat": "Combat Turns",
+    "GroupEquipment": "Equipment Preparation",
+    "GroupSpellcraft": "Spellcraft Preparation"
   },
   "NODES": {
-    "ATTACK": "Attack",
-    "MELEE": "Melee",
-    "RANGED": "Ranged",
-    "MAGIC": "Magic",
-    "DEFENSE": "Defense",
-    "HEAL": "Healing",
-    "MOVE": "Movement",
-    "ORIGIN": "Origin",
-    "SIGNATURE": "Signature",
-    "SPELL": "Spellcraft",
-    "SKILL": "Skill",
-    "TRAINING": "Training",
-    "UTILITY": "Utility"
+    "Attack": "Attack",
+    "Melee": "Melee",
+    "Ranged": "Ranged",
+    "Magic": "Magic",
+    "Defense": "Defense",
+    "Heal": "Healing",
+    "Move": "Movement",
+    "Origin": "Origin",
+    "Signature": "Signature",
+    "Spell": "Spellcraft",
+    "Skill": "Skill",
+    "Training": "Training",
+    "Utility": "Utility"
   },
   "NodeSpecific": "{nodeType} Node",
   "TRAINING": {
-    "SKILL": "Skill Training",
-    "WEAPON": "Weapon Training",
-    "CRAFT": "Tradecraft Training",
-    "SPELL": "Spellcraft Training"
+    "Skill": "Skill Training",
+    "Weapon": "Weapon Training",
+    "Craft": "Tradecraft Training",
+    "Spell": "Spellcraft Training"
   },
   "RANKS": {
-    "UNTRAINED": "Untrained",
-    "TRAINED": "Trained",
-    "PROFICIENT": "Proficient",
-    "EXPERT": "Expert",
-    "MASTER": "Master"
+    "Untrained": "Untrained",
+    "Trained": "Trained",
+    "Proficient": "Proficient",
+    "Expert": "Expert",
+    "Master": "Master"
   },
   "PointsAvailable": "Points Available",
   "Prerequisites": "Prerequisites",
@@ -1847,36 +1853,36 @@
     }
   },
   "CATEGORIES": {
-    "BEAST": "Beast",
-    "CELESTIAL": "Celestial",
-    "CONSTRUCT": "Construct",
-    "DRAGON": "Dragon",
-    "ELEMENTAL": "Elemental",
-    "ELEMENTAL_EARTH": "Earth Elemental",
-    "ELEMENTAL_FIRE": "Fire Elemental",
-    "ELEMENTAL_FROST": "Frost Elemental",
-    "ELEMENTAL_STORM": "Storm Elemental",
-    "FEY": "Fey",
-    "FIEND": "Fiend",
-    "GIANT": "Giant",
-    "HUMANOID": "Humanoid",
-    "MONSTROSITY": "Monstrosity",
-    "OOZE": "Ooze",
-    "OUTSIDER": "Outsider",
-    "UNDEAD": "Undead"
+    "Beast": "Beast",
+    "Celestial": "Celestial",
+    "Construct": "Construct",
+    "Dragon": "Dragon",
+    "Elemental": "Elemental",
+    "ElementalEarth": "Earth Elemental",
+    "ElementalFire": "Fire Elemental",
+    "ElementalFrost": "Frost Elemental",
+    "ElementalStorm": "Storm Elemental",
+    "Fey": "Fey",
+    "Fiend": "Fiend",
+    "Giant": "Giant",
+    "Humanoid": "Humanoid",
+    "Monstrosity": "Monstrosity",
+    "Ooze": "Ooze",
+    "Outsider": "Outsider",
+    "Undead": "Undead"
   },
   "SHEET": {
-    "CHOOSE": "Choose Taxonomy",
-    "CLEAR": "Clear Taxonomy",
-    "PHYSIOLOGY": "Physiology",
-    "STATURE": "Taxonomy Stature"
+    "Choose": "Choose Taxonomy",
+    "Clear": "Clear Taxonomy",
+    "Physiology": "Physiology",
+    "Stature": "Taxonomy Stature"
   }
 },
 
 "TOOL": {
   "CATEGORIES": {
-    "CRAFTING": "Crafting Kit",
-    "IMPLEMENT": "Implement"
+    "Crafting": "Crafting Kit",
+    "Implement": "Implement"
   },
   "FIELDS": {
     "skills": {
@@ -1887,27 +1893,27 @@
 },
 
 "TRAVEL_PACES": {
-  "HIDDEN": "Hidden",
-  "SLOW": "Cautious",
-  "NORMAL": "Normal",
-  "FAST": "Hurried",
-  "RECKLESS": "Reckless"
+  "Hidden": "Hidden",
+  "Slow": "Cautious",
+  "Normal": "Normal",
+  "Fast": "Hurried",
+  "Reckless": "Reckless"
 },
 
 "WEAPON": {
   "CATEGORIES": {
-    "CATEGORY_HANDS": "{category} ({hands}h)",
-    "LIGHT": "Light",
-    "SIMPLE": "Simple",
-    "BALANCED": "Balanced",
-    "HEAVY": "Heavy",
-    "PROJECTILE": "Projectile",
-    "MECHANICAL": "Mechanical",
-    "UNARMED": "Unarmed",
-    "SHIELD": "Shield",
-    "SHIELD_LIGHT": "Light Shield",
-    "SHIELD_HEAVY": "Heavy Shield",
-    "TALISMAN": "Talisman"
+    "CategoryHands": "{category} ({hands}h)",
+    "Light": "Light",
+    "Simple": "Simple",
+    "Balanced": "Balanced",
+    "Heavy": "Heavy",
+    "Projectile": "Projectile",
+    "Mechanical": "Mechanical",
+    "Unarmed": "Unarmed",
+    "Shield": "Shield",
+    "ShieldLight": "Light Shield",
+    "ShieldHeavy": "Heavy Shield",
+    "Talisman": "Talisman"
   },
   "FIELDS": {
     "damageType": {
@@ -1959,14 +1965,14 @@
     "DamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier."
   },
   "SHEET": {
-    "EQUIPMENT": "Weapon Details",
-    "TYPE": "Weapon Type"
+    "Equipment": "Weapon Details",
+    "Type": "Weapon Type"
   },
   "SLOTS": {
-    "EITHER": "Either Hand",
-    "MAINHAND": "Main-Hand",
-    "OFFHAND": "Off-Hand",
-    "TWOHAND": "Two-Handed"
+    "Either": "Either Hand",
+    "Mainhand": "Main-Hand",
+    "Offhand": "Off-Hand",
+    "Twohand": "Two-Handed"
   },
   "SPECIFIC": {
     "Unarmed": "Unarmed",

@@ -4,12 +4,12 @@
     {{> (lookup @root "inputPartial") input=input index=@index}}
     {{/each}}
     <button type="button" class="add-group" data-action="inputAdd">
-        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.INPUT_ADD"}}
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.InputAdd"}}
     </button>
     {{#each outputs as |output|}}
     {{> (lookup @root "outputPartial") output=output index=@index}}
     {{/each}}
     <button type="button" class="add-group" data-action="outputAdd">
-        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.OUTPUT_ADD"}}
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.OutputAdd"}}
     </button>
 </section>

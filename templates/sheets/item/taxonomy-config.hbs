@@ -2,12 +2,12 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
+        <legend>{{localize "BACKGROUND.SHEET.Identity"}}</legend>
         {{formGroup fields.identifier value=system.identifier}}
     </fieldset>
 
     <fieldset class="form-group physical">
-        <legend>{{localize "TAXONOMY.SHEET.PHYSIOLOGY"}}</legend>
+        <legend>{{localize "TAXONOMY.SHEET.Physiology"}}</legend>
         {{formGroup fields.category value=source.system.category hint=null}}
         {{formGroup fields.movement.fields.size value=source.system.movement.size classes="slim"}}
         {{formGroup fields.movement.fields.stride value=source.system.movement.stride classes="slim"}}

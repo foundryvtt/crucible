@@ -52,7 +52,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     if ( options.partial === true ) return;
     const {primary, secondary} = abilities;
     if ( !(primary && secondary) ) return;
-    if ( primary === secondary ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ABILITIES"));
+    if ( primary === secondary ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.Abilities"));
   }
 
   /* -------------------------------------------- */
@@ -67,8 +67,8 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     if ( options.partial === true ) return;
     const {resistance: res, vulnerability: vuln} = resistances;
     if ( !res && !vuln ) return;
-    if ( res === vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES_DIFFERENT"));
-    if ( !res !== !vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES_BOTH"));
+    if ( res === vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ResistancesDifferent"));
+    if ( !res !== !vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ResistancesBoth"));
   }
 
   /* -------------------------------------------- */

@@ -1,7 +1,7 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "WEAPON.SHEET.TYPE"}}</legend>
+        <legend>{{localize "WEAPON.SHEET.Type"}}</legend>
         {{formGroup fields.identifier value=source.system.identifier}}
         {{formGroup fields.category value=source.system.category}}
         {{formGroup fields.quality value=source.system.quality}}
@@ -15,7 +15,7 @@
     </fieldset>
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
-        <legend>{{localize "WEAPON.SHEET.EQUIPMENT"}}</legend>
+        <legend>{{localize "WEAPON.SHEET.Equipment"}}</legend>
         {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
         {{formGroup fields.weight value=source.system.weight classes="slim half"}}
         {{#if showSlots}}{{formGroup fields.slot value=source.system.slot options=equipmentSlots hint=false}}{{/if}}

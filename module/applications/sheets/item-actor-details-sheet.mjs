@@ -35,7 +35,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    */
   static TABS = foundry.utils.deepClone(super.TABS);
   static {
-    this.TABS.sheet.push({id: "talents", group: "sheet", icon: "fa-solid fa-bookmark", label: "ITEM.TABS.TALENTS"});
+    this.TABS.sheet.push({id: "talents", group: "sheet", icon: "fa-solid fa-bookmark", label: "ITEM.TABS.Talents"});
   }
 
   /* -------------------------------------------- */
@@ -128,7 +128,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
       return;
     }
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
-      return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
+      return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
     const updateData = {system: {talents: [...talents, data.uuid]}};
     return this._processSubmitData(event, this.form, updateData);

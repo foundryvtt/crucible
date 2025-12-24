@@ -68,8 +68,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    */
   static TABS = {
     sheet: [
-      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.DESCRIPTION"},
-      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.CONFIGURATION"}
+      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
+      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"}
     ]
   }
 
@@ -100,7 +100,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         template: "systems/crucible/templates/sheets/item/item-actions.hbs",
         templates: [this.ACTION_PARTIAL]
       }
-      this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"});
+      this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.Actions"});
     }
 
     // Includes Hooks
@@ -109,7 +109,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         id: "hooks",
         template: "systems/crucible/templates/sheets/item/item-hooks.hbs"
       }
-      this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
+      this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
     }
   }
 
@@ -147,7 +147,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( this.document.system instanceof CruciblePhysicalItem ) {
       context.propertiesWidget = this.#propertiesWidget.bind(this);
       context.currencyInput = this.#currencyInput.bind(this);
-      context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.SCALED_PRICE")});
+      context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.ScaledPrice")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
     }
     return context;

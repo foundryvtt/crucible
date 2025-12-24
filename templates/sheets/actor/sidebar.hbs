@@ -3,7 +3,7 @@
          data-action="editImage" data-edit="img">
 
     {{!-- Current Equipment --}}
-    <h2 class="section-header divider">{{localize "ACTOR.LABELS.CURRENT_EQUIPMENT"}}</h2>
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.CurrentEquipment"}}</h2>
     <div class="item-list equipped" data-tooltip-direction="LEFT">
         {{#each featuredEquipment as |e|}}
         <div class="equipped line-item" data-crucible-tooltip="{{e.type}}" data-uuid="{{e.uuid}}">
@@ -19,7 +19,7 @@
     </div>
 
     {{!-- Favorite Actions --}}
-    <h2 class="section-header divider">{{localize "ACTOR.LABELS.FAVORITE_ACTIONS"}}</h2>
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.FavoriteActions"}}</h2>
     <div class="item-list actions" data-tooltip-direction="RIGHT">
         {{#each favoriteActions as |action|}}
         <div class="action line-item" data-action-id="{{action.id}}" data-crucible-tooltip="action" data-uuid="{{@root.actor.uuid}}">
