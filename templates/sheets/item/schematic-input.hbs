@@ -1,8 +1,8 @@
 <fieldset class="schematic-input" {{@root.fieldDisabled}} data-field="inputs" data-index="{{index}}">
     <legend>
-        <span>{{localize "SCHEMATIC.SHEET.INPUTS"}}</span>
+        <span>{{localize "SCHEMATIC.SHEET.Inputs"}}</span>
         <button type="button" class="icon fa-solid fa-times" data-action="inputRemove"
-                aria-label="{{localize 'SCHEMATIC.SHEET.INPUT_REMOVE'}}" data-tooltip></button>
+                aria-label="{{localize 'SCHEMATIC.SHEET.InputRemove'}}" data-tooltip></button>
     </legend>
     {{formInput @root.inputFields.mode name=(concat input.fieldPath ".mode") value=input.mode classes="input-mode" localize=true}}
     {{#each input.ingredients as |i|}}
@@ -20,7 +20,7 @@
         {{formGroup @root.ingredientFields.consumed name=(concat i.fieldPath ".consumed") value=i.consumed classes="slim" hint=""}}
         <div class="controls">
             <a class="button icon fa-solid fa-times" data-action="itemRemove"
-               aria-label="{{localize 'SCHEMATIC.SHEET.ITEM_REMOVE'}}" data-tooltip></a>
+               aria-label="{{localize 'SCHEMATIC.SHEET.ItemRemove'}}" data-tooltip></a>
         </div>
         {{/if}}
     </div>
@@ -29,7 +29,7 @@
                 input=@root.currencyInput classes="currency" hint=""}}
     {{#if @root.isEditable}}
     <div class="ingredient-drop droppable">
-        <p class="hint">{{localize "SCHEMATIC.SHEET.INPUT_DROP"}}</p>
+        <p class="hint">{{localize "SCHEMATIC.SHEET.InputDrop"}}</p>
     </div>
     {{/if}}
 </fieldset>

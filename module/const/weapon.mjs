@@ -28,21 +28,21 @@ import Enum from "./enum.mjs";
  * @type {Record<WeaponTrainingTypes, {label: string}>}
  **/
 export const TRAINING = Object.freeze({
-  talisman: {label: "WEAPON.CATEGORIES.TALISMAN"},
-  heavy: {label: "WEAPON.CATEGORIES.HEAVY"},
-  light: {label: "WEAPON.CATEGORIES.LIGHT"},
-  mechanical: {label: "WEAPON.CATEGORIES.MECHANICAL"},
+  talisman: {label: "WEAPON.CATEGORIES.Talisman"},
+  heavy: {label: "WEAPON.CATEGORIES.Heavy"},
+  light: {label: "WEAPON.CATEGORIES.Light"},
+  mechanical: {label: "WEAPON.CATEGORIES.Mechanical"},
   natural: {label: "WEAPON.TAGS.Natural"},
-  projectile: {label: "WEAPON.CATEGORIES.PROJECTILE"},
-  shield: {label: "WEAPON.CATEGORIES.SHIELD"},
-  simple: {label: "WEAPON.CATEGORIES.SIMPLE"},
-  unarmed: {label: "WEAPON.CATEGORIES.UNARMED"}
+  projectile: {label: "WEAPON.CATEGORIES.Projectile"},
+  shield: {label: "WEAPON.CATEGORIES.Shield"},
+  simple: {label: "WEAPON.CATEGORIES.Simple"},
+  unarmed: {label: "WEAPON.CATEGORIES.Unarmed"}
 });
 
 // Helper function for labeling categories
 const label = (category, hands) => {
   category = game.i18n.localize(category);
-  return game.i18n.format("WEAPON.CATEGORIES.CATEGORY_HANDS", {category, hands});
+  return game.i18n.format("WEAPON.CATEGORIES.CategoryHands", {category, hands});
 }
 
 /**
@@ -55,7 +55,7 @@ export const CATEGORIES = Object.freeze({
   // One-Handed Melee
   unarmed: {
     id: "unarmed",
-    label: "WEAPON.CATEGORIES.UNARMED",
+    label: "WEAPON.CATEGORIES.Unarmed",
     hands: 1,
     main: true,
     off: true,
@@ -67,7 +67,7 @@ export const CATEGORIES = Object.freeze({
   },
   light1: {
     id: "light1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.LIGHT", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Light", 1),
     hands: 1,
     main: true,
     off: true,
@@ -79,7 +79,7 @@ export const CATEGORIES = Object.freeze({
   },
   simple1: {
     id: "simple1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.SIMPLE", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 1),
     hands: 1,
     main: true,
     off: true,
@@ -91,7 +91,7 @@ export const CATEGORIES = Object.freeze({
   },
   balanced1: {
     id: "balanced1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.BALANCED", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Balanced", 1),
     hands: 1,
     main: true,
     off: true,
@@ -103,7 +103,7 @@ export const CATEGORIES = Object.freeze({
   },
   heavy1: {
     id: "heavy1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.HEAVY", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 1),
     hands: 1,
     main: true,
     off: false,
@@ -117,7 +117,7 @@ export const CATEGORIES = Object.freeze({
   // Two-Handed Melee
   simple2: {
     id: "simple2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.SIMPLE", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 2),
     hands: 2,
     main: true,
     off: false,
@@ -129,7 +129,7 @@ export const CATEGORIES = Object.freeze({
   },
   balanced2: {
     id: "balanced2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.BALANCED", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Balanced", 2),
     hands: 2,
     main: true,
     off: false,
@@ -141,7 +141,7 @@ export const CATEGORIES = Object.freeze({
   },
   heavy2: {
     id: "heavy2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.HEAVY", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 2),
     hands: 2,
     main: true,
     off: false,
@@ -155,7 +155,7 @@ export const CATEGORIES = Object.freeze({
   // One-Handed Ranged
   projectile1: {
     id: "projectile1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.PROJECTILE", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 1),
     hands: 1,
     main: true,
     off: true,
@@ -168,7 +168,7 @@ export const CATEGORIES = Object.freeze({
   },
   talisman1: {
     id: "talisman1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.TALISMAN", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 1),
     hands: 1,
     main: true,
     off: true,
@@ -181,7 +181,7 @@ export const CATEGORIES = Object.freeze({
   },
   mechanical1: {
     id: "mechanical1",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.MECHANICAL", 1),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 1),
     hands: 1,
     main: true,
     off: true,
@@ -197,7 +197,7 @@ export const CATEGORIES = Object.freeze({
   // Two-Handed Ranged
   projectile2: {
     id: "projectile2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.PROJECTILE", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 2),
     hands: 2,
     main: true,
     off: false,
@@ -210,7 +210,7 @@ export const CATEGORIES = Object.freeze({
   },
   talisman2: {
     id: "talisman2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.TALISMAN", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 2),
     hands: 2,
     main: true,
     off: false,
@@ -223,7 +223,7 @@ export const CATEGORIES = Object.freeze({
   },
   mechanical2: {
     id: "mechanical2",
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.MECHANICAL", 2),
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 2),
     hands: 2,
     main: true,
     off: false,
@@ -239,7 +239,7 @@ export const CATEGORIES = Object.freeze({
   // Shields
   shieldLight: {
     id: "shieldLight",
-    label: "WEAPON.CATEGORIES.SHIELD_LIGHT",
+    label: "WEAPON.CATEGORIES.ShieldLight",
     hands: 1,
     main: false,
     off: true,
@@ -255,7 +255,7 @@ export const CATEGORIES = Object.freeze({
   },
   shieldHeavy: {
     id: "shieldHeavy",
-    label: "WEAPON.CATEGORIES.SHIELD_HEAVY",
+    label: "WEAPON.CATEGORIES.ShieldHeavy",
     hands: 1,
     main: false,
     off: true,
@@ -339,10 +339,10 @@ export const PROPERTIES = {
  * @type {Enum<number>}
  */
 export const SLOTS = new Enum({
-  EITHER: {value: 0, label: "WEAPON.SLOTS.EITHER"},
-  MAINHAND: {value: 1, label: "WEAPON.SLOTS.MAINHAND"},
-  OFFHAND: {value: 2, label: "WEAPON.SLOTS.OFFHAND"},
-  TWOHAND: {value: 3, label: "WEAPON.SLOTS.TWOHAND"}
+  EITHER: {value: 0, label: "WEAPON.SLOTS.Either"},
+  MAINHAND: {value: 1, label: "WEAPON.SLOTS.Mainhand"},
+  OFFHAND: {value: 2, label: "WEAPON.SLOTS.Offhand"},
+  TWOHAND: {value: 3, label: "WEAPON.SLOTS.Twohand"}
 });
 
 /**

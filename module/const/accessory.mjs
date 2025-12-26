@@ -11,19 +11,19 @@ import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
 export const CATEGORIES = {
   clothing: {
     id: "clothing",
-    label: "ACCESSORY.CATEGORIES.CLOTHING"
+    label: "ACCESSORY.CATEGORIES.Clothing"
   },
   jewelry: {
     id: "jewelry",
-    label: "ACCESSORY.CATEGORIES.JEWELRY"
+    label: "ACCESSORY.CATEGORIES.Jewelry"
   },
   trinket: {
     id: "trinket",
-    label: "ACCESSORY.CATEGORIES.TRINKET"
+    label: "ACCESSORY.CATEGORIES.Trinket"
   },
   other: {
     id: "other",
-    label: "ACCESSORY.CATEGORIES.OTHER"
+    label: "ACCESSORY.CATEGORIES.Other"
   }
 };
 

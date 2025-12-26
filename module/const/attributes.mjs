@@ -189,7 +189,7 @@ export const DAMAGE_TYPES = Object.freeze({
 export const RESOURCES = Object.freeze({
   health: {
     id: "health",
-    label: "RESOURCES.HEALTH",
+    label: "RESOURCES.Health",
     type: "active",
     tooltip: "RESOURCES.TOOLTIPS.Health",
     color: {
@@ -200,7 +200,7 @@ export const RESOURCES = Object.freeze({
   },
   wounds: {
     id: "wounds",
-    label: "RESOURCES.WOUNDS",
+    label: "RESOURCES.Wounds",
     type: "reserve",
     tooltip: "RESOURCES.TOOLTIPS.Wounds",
     color: {
@@ -211,7 +211,7 @@ export const RESOURCES = Object.freeze({
   },
   morale: {
     id: "morale",
-    label: "RESOURCES.MORALE",
+    label: "RESOURCES.Morale",
     type: "active",
     tooltip: "RESOURCES.TOOLTIPS.Morale",
     color: {
@@ -222,7 +222,7 @@ export const RESOURCES = Object.freeze({
   },
   madness: {
     id: "madness",
-    label: "RESOURCES.MADNESS",
+    label: "RESOURCES.Madness",
     tooltip: "RESOURCES.TOOLTIPS.Madness",
     type: "reserve",
     color: {
@@ -233,7 +233,7 @@ export const RESOURCES = Object.freeze({
   },
   action: {
     id: "action",
-    label: "RESOURCES.ACTION",
+    label: "RESOURCES.Action",
     tooltip: "RESOURCES.TOOLTIPS.Action",
     type: "active",
     color: Color.from("#FF9900"),
@@ -241,7 +241,7 @@ export const RESOURCES = Object.freeze({
   },
   focus: {
     id: "focus",
-    label: "RESOURCES.FOCUS",
+    label: "RESOURCES.Focus",
     tooltip: "RESOURCES.TOOLTIPS.Focus",
     type: "active",
     color: Color.from("#3385ff"),
@@ -249,7 +249,7 @@ export const RESOURCES = Object.freeze({
   },
   heroism: {
     id: "heroism",
-    label: "RESOURCES.HEROISM",
+    label: "RESOURCES.Heroism",
     tooltip: "RESOURCES.TOOLTIPS.Heroism",
     type: "active",
     color: Color.from("#ff0059"),

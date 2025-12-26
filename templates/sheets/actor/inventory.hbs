@@ -36,12 +36,12 @@
     </section>
     <footer class="tab-footer inventory-footer flexrow">
         <div class="sheet-section currency-section flexcol">
-            <h3>{{localize "ACTOR.LABELS.CURRENCY"}}</h3>
+            <h3>{{localize "ACTOR.LABELS.Currency"}}</h3>
             <crucible-currency name="system.currency" value="{{source.system.currency}}"></crucible-currency>
         </div>
         {{#if capacity}}
         <div class="carrying-capacity labeled-hex" style="--capacity-pct: {{capacity.pct}}">
-            <h4 class="label">{{localize "ACTOR.LABELS.CAPACITY"}}</h4>
+            <h4 class="label">{{localize "ACTOR.LABELS.Capacity"}}</h4>
             <span class="value">{{capacity.value}} / {{capacity.max}}</span>
         </div>
         {{/if}}

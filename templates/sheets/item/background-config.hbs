@@ -2,13 +2,13 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
+        <legend>{{localize "BACKGROUND.SHEET.Identity"}}</legend>
         {{formGroup fields.identifier value=system.identifier}}
         {{formGroup fields.ui.fields.color value=system.ui.color}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "BACKGROUND.SHEET.SKILLS"}}</legend>
+        <legend>{{localize "BACKGROUND.SHEET.Skills"}}</legend>
         {{formGroup fields.skills value=source.system.skills stacked=true type="checkboxes"}}
         {{formGroup fields.knowledge value=source.system.knowledge sort=true}}
         {{formGroup fields.languages value=source.system.languages options=languages}}

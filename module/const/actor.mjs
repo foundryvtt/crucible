@@ -6,77 +6,77 @@ import {freezeEnum} from "./enum.mjs";
  */
 export const CREATURE_CATEGORIES = {
   beast: {
-    label: "TAXONOMY.CATEGORIES.BEAST",
+    label: "TAXONOMY.CATEGORIES.Beast",
     skill: "medicine",
     knowledge: "beasts"
   },
   celestial: {
-    label: "TAXONOMY.CATEGORIES.CELESTIAL",
+    label: "TAXONOMY.CATEGORIES.Celestial",
     skill: "arcana",
     knowledge: "celestials"
   },
   construct: {
-    label: "TAXONOMY.CATEGORIES.CONSTRUCT",
+    label: "TAXONOMY.CATEGORIES.Construct",
     skill: "science",
     knowledge: "machines"
   },
   dragon: {
-    label: "TAXONOMY.CATEGORIES.DRAGON",
+    label: "TAXONOMY.CATEGORIES.Dragon",
     skill: "arcana",
     knowledge: "dragons"
   },
   elemental: {
-    label: "TAXONOMY.CATEGORIES.ELEMENTAL",
+    label: "TAXONOMY.CATEGORIES.Elemental",
     skill: "arcana",
     knowledge: "elementals"
   },
   elementalEarth: {
-    label: "TAXONOMY.CATEGORIES.ELEMENTAL_EARTH",
+    label: "TAXONOMY.CATEGORIES.ElementalEarth",
     skill: "arcana",
     knowledge: "elementals"
   },
   elementalFire: {
-    label: "TAXONOMY.CATEGORIES.ELEMENTAL_FIRE",
+    label: "TAXONOMY.CATEGORIES.ElementalFire",
     skill: "arcana",
     knowledge: "elementals"
   },
   elementalFrost: {
-    label: "TAXONOMY.CATEGORIES.ELEMENTAL_FROST",
+    label: "TAXONOMY.CATEGORIES.ElementalFrost",
     skill: "arcana",
     knowledge: "elementals"
   },
   elementalStorm: {
-    label: "TAXONOMY.CATEGORIES.ELEMENTAL_STORM",
+    label: "TAXONOMY.CATEGORIES.ElementalStorm",
     skill: "arcana",
     knowledge: "elementals"
   },
   giant: {
-    label: "TAXONOMY.CATEGORIES.GIANT",
+    label: "TAXONOMY.CATEGORIES.Giant",
     skill: "society",
     knowledge: "legends"
   },
   humanoid: {
-    label: "TAXONOMY.CATEGORIES.HUMANOID",
+    label: "TAXONOMY.CATEGORIES.Humanoid",
     skill: "society",
     knowledge: null
   },
   monstrosity: {
-    label: "TAXONOMY.CATEGORIES.MONSTROSITY",
+    label: "TAXONOMY.CATEGORIES.Monstrosity",
     skill: "medicine",
     knowledge: "monsters"
   },
   ooze: {
-    label: "TAXONOMY.CATEGORIES.OOZE",
+    label: "TAXONOMY.CATEGORIES.Ooze",
     skill: "science",
     knowledge: null
   },
   outsider: {
-    label: "TAXONOMY.CATEGORIES.OUTSIDER",
+    label: "TAXONOMY.CATEGORIES.Outsider",
     skill: "arcana",
     knowledge: "outsiders"
   },
   undead: {
-    label: "TAXONOMY.CATEGORIES.UNDEAD",
+    label: "TAXONOMY.CATEGORIES.Undead",
     skill: "arcana",
     knowledge: "undeath"
   }
@@ -172,35 +172,35 @@ foundry.utils.deepFreeze(LEVELS);
 export const TRAVEL_PACES = freezeEnum({
   hidden: {
     order: 1,
-    label: "TRAVEL_PACES.HIDDEN",
+    label: "TRAVEL_PACES.Hidden",
     costMultiplier: 4,
     speedMultiplier: 0.25,
     icon: "fa-solid fa-backward-fast"
   },
   slow: {
     order: 2,
-    label: "TRAVEL_PACES.SLOW",
+    label: "TRAVEL_PACES.Slow",
     costMultiplier: 2,
     speedMultiplier: 0.5,
     icon: "fa-solid fa-backward"
   },
   normal: {
     order: 3,
-    label: "TRAVEL_PACES.NORMAL",
+    label: "TRAVEL_PACES.Normal",
     costMultiplier: 1,
     speedMultiplier: 1,
     icon: "fa-solid fa-equals"
   },
   fast: {
     order: 4,
-    label: "TRAVEL_PACES.FAST",
+    label: "TRAVEL_PACES.Fast",
     costMultiplier: 0.66,
     speedMultiplier: 1.5,
     icon: "fa-solid fa-forward"
   },
   reckless: {
     order: 5,
-    label: "TRAVEL_PACES.RECKLESS",
+    label: "TRAVEL_PACES.Reckless",
     costMultiplier: 0.5,
     speedMultiplier: 2,
     icon: "fa-solid fa-forward-fast"
@@ -213,10 +213,10 @@ export const TRAVEL_PACES = freezeEnum({
  */
 export const LANGUAGE_CATEGORIES = {
   nonSpoken: {
-    label: "LANGUAGE_CATEGORIES.NONSPOKEN"
+    label: "LANGUAGE_CATEGORIES.Nonspoken"
   },
   spoken: {
-    label: "LANGUAGE_CATEGORIES.SPOKEN"
+    label: "LANGUAGE_CATEGORIES.Spoken"
   }
 };
 
@@ -226,11 +226,11 @@ export const LANGUAGE_CATEGORIES = {
  */
 export const LANGUAGES = {
   common: {
-    label: "LANGUAGES.COMMON",
+    label: "LANGUAGES.Common",
     category: "spoken"
   },
   sign: {
-    label: "LANGUAGES.SIGN",
+    label: "LANGUAGES.Sign",
     category: "nonSpoken"
   }
 };
@@ -245,111 +245,111 @@ export const HOOKS = Object.freeze({
 
   // Action Usage
   prepareAction: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action"]
   },
   preActivateAction: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "targets"]
   },
   rollAction: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "target", "rolls"]
   },
   finalizeAction: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "outcome"]
   },
   confirmAction: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "outcome", "options"]
   },
   prepareStandardCheck: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["rollData"]
   },
   applyCriticalEffects: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "outcome", "self"]
   },
   defendAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "origin", "rollData"]
   },
   receiveAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "roll"]
   },
   prepareAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "target", "rollData"]
   },
   prepareSkillCheck: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
+    group: "TALENT.HOOKS.GroupAction",
     argNames: ["skill", "rollData"]
   },
 
   // Data Preparation
   prepareActions: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["actions"]
   },
   prepareResources: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["resources"]
   },
   prepareDefenses: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["defenses"]
   },
   prepareInitiativeCheck: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["rollData"]
   },
   prepareMovement: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["movement"]
   },
   prepareResistances: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
+    group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["resistances"]
   },
 
   // Equipment Preparation
   prepareArmor: {
-    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    group: "TALENT.HOOKS.GroupEquipment",
     argNames: ["armor"]
   },
   prepareWeapons: {
-    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    group: "TALENT.HOOKS.GroupEquipment",
     argNames: ["weapons"]
   },
   prepareAccessories: {
-    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    group: "TALENT.HOOKS.GroupEquipment",
     argNames: ["accessories"]
   },
   prepareToolbelt: {
-    group: "TALENT.HOOKS.GROUP_EQUIPMENT",
+    group: "TALENT.HOOKS.GroupEquipment",
     argNames: ["toolbelt"]
   },
 
   // Spell Preparation
   prepareGrimoire: {
-    group: "TALENT.HOOKS.GROUP_SPELLCRAFT",
+    group: "TALENT.HOOKS.GroupSpellcraft",
     argNames: ["grimoire"]
   },
   prepareSpells: {
-    group: "TALENT.HOOKS.GROUP_SPELLCRAFT",
+    group: "TALENT.HOOKS.GroupSpellcraft",
     argNames: ["grimoire"]
   },
 
   // Turn Events
   startTurn: {
-    group: "TALENT.HOOKS.GROUP_COMBAT",
+    group: "TALENT.HOOKS.GroupCombat",
     argNames: ["turnStartConfig"]
   },
   endTurn: {
-    group: "TALENT.HOOKS.GROUP_COMBAT",
+    group: "TALENT.HOOKS.GroupCombat",
     argNames: ["turnEndConfig"]
   }
 });

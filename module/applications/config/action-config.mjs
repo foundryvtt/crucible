@@ -89,11 +89,11 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    */
   static TABS = {
     sheet: [
-      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ACTION.TABS.DESCRIPTION"},
-      {id: "usage", group: "sheet", icon: "fa-solid fa-cogs", label: "ACTION.TABS.USAGE"},
-      {id: "target", group: "sheet", icon: "fa-solid fa-bullseye", label: "ACTION.TABS.TARGET"},
-      {id: "effects", group: "sheet", icon: "fa-solid fa-hourglass-clock", label: "ACTION.TABS.EFFECTS"},
-      {id: "hooks", group: "sheet", icon: "fa-solid fa-code", label: "ACTION.TABS.HOOKS"}
+      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ACTION.TABS.Description"},
+      {id: "usage", group: "sheet", icon: "fa-solid fa-cogs", label: "ACTION.TABS.Usage"},
+      {id: "target", group: "sheet", icon: "fa-solid fa-bullseye", label: "ACTION.TABS.Target"},
+      {id: "effects", group: "sheet", icon: "fa-solid fa-hourglass-clock", label: "ACTION.TABS.Effects"},
+      {id: "hooks", group: "sheet", icon: "fa-solid fa-code", label: "ACTION.TABS.Hooks"}
     ]
   }
 
@@ -106,7 +106,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
 
   /** @override */
   get title() {
-    return `${game.i18n.localize("ACTION.SHEET.TITLE")}: ${this.action.name}`;
+    return `${game.i18n.localize("ACTION.SHEET.Title")}: ${this.action.name}`;
   }
 
   /* -------------------------------------------- */

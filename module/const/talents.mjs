@@ -8,19 +8,19 @@ import {RUNES as SPELLCRAFT_RUNES} from "./spellcraft.mjs";
  * @type {Readonly<Record<string, {label: string, style: string, icon: string, [passive]: boolean}>>}
  */
 export const NODE_TYPES = Object.freeze({
-  origin: {label: "TALENT.NODES.ORIGIN", style: "originHex", icon: "GlyphOrigin", passive: false},
-  attack: {label: "TALENT.NODES.ATTACK", style: "rect", icon: "GlyphMelee", passive: false},
-  melee: {label: "TALENT.NODES.MELEE", style: "rect", icon: "GlyphMelee", passive: false},
-  ranged: {label: "TALENT.NODES.RANGED", style: "rect", icon: "GlyphRanged", passive: false},
-  magic: {label: "TALENT.NODES.MAGIC", style: "rect", icon: "GlyphMagic", passive: false},
-  defense: {label: "TALENT.NODES.DEFENSE", style: "rect", icon: "GlyphDefense"},
-  heal: {label: "TALENT.NODES.HEAL", style: "rect", icon: "GlyphHealing"},
-  spell: {label: "TALENT.NODES.SPELL", style: "rect", icon: "GlyphSpellcraft"},
-  move: {label: "TALENT.NODES.MOVEMENT", style: "rect", icon: "GlyphMovement"},
-  utility: {label: "TALENT.NODES.UTILITY", style: "rect", icon: "GlyphUtility"},
-  skill: {label: "TALENT.NODES.SKILL", style: "rect", icon: "GlyphSkill"},
-  signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "GlyphSignature", passive: false},
-  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "GlyphTraining", passive: true}
+  origin: {label: "TALENT.NODES.Origin", style: "originHex", icon: "GlyphOrigin", passive: false},
+  attack: {label: "TALENT.NODES.Attack", style: "rect", icon: "GlyphMelee", passive: false},
+  melee: {label: "TALENT.NODES.Melee", style: "rect", icon: "GlyphMelee", passive: false},
+  ranged: {label: "TALENT.NODES.Ranged", style: "rect", icon: "GlyphRanged", passive: false},
+  magic: {label: "TALENT.NODES.Magic", style: "rect", icon: "GlyphMagic", passive: false},
+  defense: {label: "TALENT.NODES.Defense", style: "rect", icon: "GlyphDefense"},
+  heal: {label: "TALENT.NODES.Heal", style: "rect", icon: "GlyphHealing"},
+  spell: {label: "TALENT.NODES.Spell", style: "rect", icon: "GlyphSpellcraft"},
+  move: {label: "TALENT.NODES.Movement", style: "rect", icon: "GlyphMovement"},
+  utility: {label: "TALENT.NODES.Utility", style: "rect", icon: "GlyphUtility"},
+  skill: {label: "TALENT.NODES.Skill", style: "rect", icon: "GlyphSkill"},
+  signature: {label: "TALENT.NODES.Signature", style: "largeHex", icon: "GlyphSignature", passive: false},
+  training: {label: "TALENT.NODES.Training", style: "hex", icon: "GlyphTraining", passive: true}
 });
 
 /**
@@ -56,19 +56,19 @@ export const NODE_TIERS = Object.freeze({
  */
 export const TRAINING_TYPES = Object.freeze({
   ...Object.entries(SKILLS).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.SKILL", label};
+    obj[id] = {group: "TALENT.TRAINING.Skill", label};
     return obj;
   }, {}),
   ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.WEAPON", label};
+    obj[id] = {group: "TALENT.TRAINING.Weapon", label};
     return obj;
   }, {}),
   ...Object.entries(SPELLCRAFT_RUNES).reduce((obj, [id, {name: label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.SPELL", label};
+    obj[id] = {group: "TALENT.TRAINING.Spell", label};
     return obj;
   }, {}),
   ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.CRAFT", label};
+    obj[id] = {group: "TALENT.TRAINING.Craft", label};
     return obj;
   }, {})
 });
@@ -90,31 +90,31 @@ export const TRAINING_RANKS = Object.freeze({
   untrained: {
     id: "untrained",
     rank: 0,
-    label: "TALENT.RANKS.UNTRAINED",
+    label: "TALENT.RANKS.Untrained",
     bonus: -4
   },
   trained: {
     id: "trained",
     rank: 1,
-    label: "TALENT.RANKS.TRAINED",
+    label: "TALENT.RANKS.Trained",
     bonus: 0
   },
   proficient: {
     id: "proficient",
     rank: 2,
-    label: "TALENT.RANKS.PROFICIENT",
+    label: "TALENT.RANKS.Proficient",
     bonus: 1,
   },
   expert: {
     id: "expert",
     rank: 3,
-    label: "TALENT.RANKS.EXPERT",
+    label: "TALENT.RANKS.Expert",
     bonus: 2
   },
   master: {
     id: "master",
     rank: 4,
-    label: "TALENT.RANKS.MASTER",
+    label: "TALENT.RANKS.Master",
     bonus: 3
   }
 });

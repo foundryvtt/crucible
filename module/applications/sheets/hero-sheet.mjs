@@ -33,8 +33,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
     // Expand Context
     Object.assign(context, {
-      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.CHOOSE"),
-      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.CHOOSE"),
+      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.Choose"),
+      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
       knowledgeOptions: this.#prepareKnowledgeOptions(),
       knowledge: this.#prepareKnowledge(),

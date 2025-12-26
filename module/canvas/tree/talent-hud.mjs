@@ -72,7 +72,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     if ( state.banned ) nodeTags.push({label: "Banned", class: "unmet"});
     else if ( !state.unlocked ) nodeTags.push({label: "Locked", class: "unmet"});
     if ( !node.talents.size ) nodeTags.push({label: "Empty", class: "unmet"});
-    const nodeType = game.i18n.localize(`TALENT.NODES.${node.type.toUpperCase()}`);
+    const nodeType = game.i18n.localize(`TALENT.NODES.${node.type.capitalize()}`);
     tagGroups.push({
       id: node.type,
       label: game.i18n.format("TALENT.NodeSpecific", {nodeType}),

@@ -152,17 +152,17 @@ export const TARGET_TYPES = Object.freeze({
  * @type {Readonly<Object<string, {label: string}>>}
  */
 export const TAG_CATEGORIES = Object.freeze({
-  attack: {label: "ACTION.TAG_CATEGORIES.ATTACK"},
-  spellcraft: {label: "ACTION.TAG_CATEGORIES.SPELLCRAFT"},
-  skills: {label: "ACTION.TAG_CATEGORIES.SKILLS"},
-  requirements: {label: "ACTION.TAG_CATEGORIES.REQUIREMENTS"},
-  context: {label: "ACTION.TAG_CATEGORIES.CONTEXT"},
-  modifiers: {label: "ACTION.TAG_CATEGORIES.MODIFIERS"},
-  defenses: {label: "ACTION.TAG_CATEGORIES.DEFENSES"},
-  damage: {label: "ACTION.TAG_CATEGORIES.DAMAGE"},
-  scaling: {label: "ACTION.TAG_CATEGORIES.SCALING"},
-  resources: {label: "ACTION.TAG_CATEGORIES.RESOURCES"},
-  special: {label: "ACTION.TAG_CATEGORIES.SPECIAL"}
+  attack: {label: "ACTION.TAG_CATEGORIES.Attack"},
+  spellcraft: {label: "ACTION.TAG_CATEGORIES.Spellcraft"},
+  skills: {label: "ACTION.TAG_CATEGORIES.Skills"},
+  requirements: {label: "ACTION.TAG_CATEGORIES.Requirements"},
+  context: {label: "ACTION.TAG_CATEGORIES.Context"},
+  modifiers: {label: "ACTION.TAG_CATEGORIES.Modifiers"},
+  defenses: {label: "ACTION.TAG_CATEGORIES.Defenses"},
+  damage: {label: "ACTION.TAG_CATEGORIES.Damage"},
+  scaling: {label: "ACTION.TAG_CATEGORIES.Scaling"},
+  resources: {label: "ACTION.TAG_CATEGORIES.Resources"},
+  special: {label: "ACTION.TAG_CATEGORIES.Special"}
 });
 
 /* -------------------------------------------- */

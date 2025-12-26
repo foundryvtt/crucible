@@ -34,17 +34,17 @@
     {{/each}}
     <footer class="tab-footer skills-footer flexrow">
         <div class="sheet-section flexcol">
-            <h3>{{localize "ACTOR.LABELS.KNOWLEDGE"}}</h3>
+            <h3>{{localize "ACTOR.LABELS.Knowledge"}}</h3>
             <div class="tags flexrow">
                 {{#each knowledge}}
                 <span class="larger tag knowledge-area">{{this}}</span>
                 {{else}}
-                <p class="hint">{{localize "ACTOR.LABELS.KNOWLEDGE_HINT"}}</p>
+                <p class="hint">{{localize "ACTOR.LABELS.KnowledgeHint"}}</p>
                 {{/each}}
             </div>
         </div>
         <div class="sheet-section flexcol">
-            <h3>{{localize "ACTOR.LABELS.LANGUAGES"}}</h3>
+            <h3>{{localize "ACTOR.LABELS.Languages"}}</h3>
             {{formInput fields.details.fields.languages value=source.system.details.languages
                         options=languages classes="languages"}}
         </div>

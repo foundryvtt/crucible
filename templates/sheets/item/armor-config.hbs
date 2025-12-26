@@ -1,7 +1,7 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "ITEM.SHEET.TYPE"}}</legend>
+        <legend>{{localize "ITEM.SHEET.Type"}}</legend>
         {{formGroup fields.identifier value=source.system.identifier}}
         {{formGroup fields.category value=source.system.category}}
         {{formGroup fields.quality value=source.system.quality}}
@@ -15,16 +15,16 @@
             <div class="form-fields">
                 <label>{{fields.armor.fields.base.label}}</label>
                 {{formInput fields.armor.fields.base value=source.system.armor.base type="number"}}
-                <label>{{localize "ARMOR.SHEET.ARMOR_BONUS"}}</label>
+                <label>{{localize "ARMOR.SHEET.ArmorBonus"}}</label>
                 <input type="number" value="{{item.system.armor.bonus}}" readonly>
             </div>
         </div>
         <div class="form-group slim defense">
-            <label>{{localize "ARMOR.SHEET.DODGE"}}</label>
+            <label>{{localize "ARMOR.SHEET.Dodge"}}</label>
             <div class="form-fields">
-                <label>{{localize "ARMOR.SHEET.DODGE_BASE"}}</label>
+                <label>{{localize "ARMOR.SHEET.DodgeBase"}}</label>
                 <input type="number" value="{{item.system.dodge.base}}" readonly>
-                <label>{{localize "ARMOR.SHEET.DODGE_SCALING"}}</label>
+                <label>{{localize "ARMOR.SHEET.DodgeScaling"}}</label>
                 <input type="number" value="{{item.system.dodge.scaling}}" readonly>
             </div>
         </div>
@@ -36,7 +36,7 @@
     </fieldset>
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
-        <legend>{{localize "ITEM.SHEET.EQUIPMENT"}}</legend>
+        <legend>{{localize "ITEM.SHEET.Equipment"}}</legend>
         {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
         {{formGroup fields.weight value=source.system.weight classes="slim half"}}
         {{formGroup fields.equipped value=source.system.equipped classes="half"}}

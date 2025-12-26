@@ -57,7 +57,7 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
    * The operator modes supported for ingredient combination.
    * @type {Record<string, string>}
    */
-  static #MODES = {ALL: "SCHEMATIC.MODES.ALL", ANY: "SCHEMATIC.MODES.ANY", TEMPLATE: "SCHEMATIC.MODES.TEMPLATE"};
+  static #MODES = {ALL: "SCHEMATIC.MODES.All", ANY: "SCHEMATIC.MODES.Any", TEMPLATE: "SCHEMATIC.MODES.Template"};
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */

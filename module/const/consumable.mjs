@@ -11,23 +11,23 @@ import {PROPERTIES as COMMON_PROPERTIES} from "./items.mjs";
 export const CATEGORIES = {
   ammunition: {
     id: "ammunition",
-    label: "CONSUMABLE.CATEGORIES.AMMUNITION"
+    label: "CONSUMABLE.CATEGORIES.Ammunition"
   },
   bomb: {
     id: "bomb",
-    label: "CONSUMABLE.CATEGORIES.BOMB"
+    label: "CONSUMABLE.CATEGORIES.Bomb"
   },
   flask: {
     id: "flask",
-    label: "CONSUMABLE.CATEGORIES.FLASK"
+    label: "CONSUMABLE.CATEGORIES.Flask"
   },
   kit: {
     id: "kit",
-    label: "CONSUMABLE.CATEGORIES.KIT"
+    label: "CONSUMABLE.CATEGORIES.Kit"
   },
   other: {
     id: "other",
-    label: "CONSUMABLE.CATEGORIES.OTHER"
+    label: "CONSUMABLE.CATEGORIES.Other"
   }
 };
 
