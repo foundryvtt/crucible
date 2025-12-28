@@ -40,13 +40,13 @@ system:
       actionHooks: []
   requirements: {}
   nodes:
-    - wis2b
+    - wis2c
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.3
   coreVersion: '13.351'
   createdTime: 1674702266686
-  modifiedTime: 1763135035898
+  modifiedTime: 1766949373440
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

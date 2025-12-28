@@ -1,0 +1,73 @@
+name: Adrenaline Surge
+type: talent
+img: icons/magic/movement/abstract-ribbons-red-orange.webp
+system:
+  nodes:
+    - str2c
+  description: >-
+    <p>You can draw upon exceptional reserves of physical strength to meet
+    challenges imposed on your body.</p>
+  actions:
+    - id: adrenalineSurge
+      name: Adrenaline Surge
+      img: icons/magic/movement/abstract-ribbons-red-orange.webp
+      condition: ''
+      description: >-
+        <p>You expend <strong>Heroism</strong> and benefit from <strong>+2
+        Boons</strong> to any action which scales using Strength for 3 Rounds.
+        You may perform this action outside of your turn in Combat before making
+        a <strong>Reaction</strong>.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Adrenaline Surge
+          scope: '1'
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            turns: null
+            rounds: 3
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: kvXzGhvDAbUcQsXM
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766951705301
+  modifiedTime: 1766951705301
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: adrenalineSurge0
+sort: 0
+_key: '!items!adrenalineSurge0'

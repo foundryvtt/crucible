@@ -238,6 +238,15 @@ HOOKS.counterspell = {
 
 /* -------------------------------------------- */
 
+HOOKS.decisiveAction = {
+  postActivate(outcome) {
+    const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
+    outcome.resources.action = (outcome.resources.action || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
@@ -367,6 +376,21 @@ HOOKS.laughingMatter = {
     effect.changes.push(
       {key: "system.rollBonuses.banes.laughingMatter.number", mode: 5, value: 1},
       {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name},
+    );
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.lastStand = {
+  postActivate(outcome) {
+    outcome.resources.health ||= 0;
+    outcome.resources.health += (this.actor.abilities.toughness.value * 2);
+    const effect = outcome.effects[0];
+    if ( !effect ) return;
+    effect.changes ||= [];
+    effect.changes.push(
+      {key: "system.defenses.wounds.bonus", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: 2},
     );
   }
 }
@@ -517,6 +541,15 @@ HOOKS.poisonIngest = {
     };
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], poisoned);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rallyingCry = {
+  postActivate(outcome) {
+    const amount = this.actor.abilities.presence.value;
+    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
 }
 
@@ -729,6 +762,14 @@ HOOKS.threadTheNeedle = {
 HOOKS.tuskCharge = {
   prepare() {
     this.range.maximum = this.actor.system.movement.stride;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.unshakeablePoise = {
+  postActivate(outcome) {
+    outcome.resources.focus = (outcome.resources.focus || 0) + this.actor.abilities.wisdom.value;
   }
 }
 

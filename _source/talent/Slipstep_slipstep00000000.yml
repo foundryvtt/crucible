@@ -1,0 +1,66 @@
+name: Slipstep
+type: talent
+img: icons/skills/movement/feet-winged-sandals-tan.webp
+system:
+  nodes:
+    - dex2a
+  description: >-
+    <p>Your nimbleness allows you to occasionally perform exceptionally elusive
+    maneuvers to evade harm on the battlefield.</p>
+  actions:
+    - id: slipstep
+      name: Slipstep
+      img: icons/skills/movement/feet-winged-sandals-tan.webp
+      condition: An action targets you
+      description: >-
+        <p>As a <strong>Reaction</strong> to an action that targets you before
+        it is confirmed, you may expend <strong>Heroism</strong> to instantly
+        move up to your <strong>Stride</strong>. The interrupted action is
+        nullified without being confirmed or applying any effects.</p><p>This
+        movement does not provoke any Disengagement.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - movement
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: kvXzGhvDAbUcQsXM
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766950695686
+  modifiedTime: 1766951278576
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: slipstep00000000
+sort: 0
+_key: '!items!slipstep00000000'

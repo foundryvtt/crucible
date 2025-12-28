@@ -2,6 +2,18 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.adrenalineSurge0 = {
+  useAction(item, action) {
+    if ( !this.effects.has(item.id) || !action.scaling?.includes("strength") ) return;
+    action.usage.boons[item.id] = {label: item.name, number: 2};
+  },
+  preActivateAction(item, action, _targets) {
+    if ( !action.scaling?.includes("strength") ) delete action.usage.boons[item.id]; // Double-check
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.amorphous0000000 = {
   prepareDefenses(item, defenses) {
     this.statuses.delete("restrained");

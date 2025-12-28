@@ -248,6 +248,10 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action"]
   },
+  useAction: {
+    group: "TALENT.HOOKS.GroupAction",
+    argNames: ["action"]
+  },
   preActivateAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "targets"]

@@ -10,15 +10,17 @@ system:
     score contributes to your <strong>Block</strong> defense.
   actions: []
   actorHooks: []
+  nodes:
+    - tou1a
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.3
   coreVersion: '13.351'
   createdTime: 1674959487279
-  modifiedTime: 1763349678891
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1766948240745
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

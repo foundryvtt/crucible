@@ -693,6 +693,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // TODO this.usage should be frozen from this point onwards and everything from here onwards uses outcome.usage
     // TODO wrap this.usage as a getter around this.#usage which warns if it is accessed after this point?
 
+    // Use-time configuration by the using Actor
+    this.actor.callActorHooks("useAction", this);
+
     // Acquire initial targets non-strictly and set up initial outcomes
     let targets = this.acquireTargets({strict: false});
     this.configureOutcomes(targets);
@@ -1348,24 +1351,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * An action hook that fires whenever the targets of the action change.
-   * This happens immediately when the action is designated for use and again when targets change during configuration.
-   * It happens a final time after configuration is confirmed and targets are finalized.
-   * Workflows performed in this hook must be idempotent since the hook can be called multiple times.
-   *
-   * @param {ActionUseTarget[]} targets       The array of targets affected by the action
-   * @protected
-   */
-  async _acquireTargets(targets) {
-    for ( const test of this._tests() ) {
-      if ( test.preActivate instanceof Function ) await test.acquireTargets.call(this, targets);
-    }
-    this.actor.callActorHooks("acquireActionTargets", this, targets);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Pre-activation steps which happen after dialog configuration of the action but before the action is evaluated.
    * This could be used to mutate the array of targets which are affected by the action.
    *
@@ -1669,7 +1654,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // e.g. Blood Magic
       const unmet = cost.health > this.actor?.resources.health.value;
       const label = game.i18n.format("ACTION.TagCostHealth", {health: cost.health});
-      tags.activation.health = {label, unmet}; 
+      tags.activation.health = {label, unmet};
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {

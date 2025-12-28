@@ -21,7 +21,7 @@ const TIER_0 = [
 const TIER_1A = [
   {id: "dex1a", abilities: ["dexterity"], type: "ranged", connected: ["dex0a"]},
   {id: "dex1b", abilities: ["dexterity"], type: "melee", connected: ["dex0b", "dex1a"]},
-  {id: "tou1a", abilities: ["toughness"], type: "melee", connected: ["tou0a"]},
+  {id: "tou1a", abilities: ["toughness"], type: "defense", connected: ["tou0a"]},
   {id: "tou1b", abilities: ["toughness"], type: "skill", connected: ["tou0b", "tou1a"]},
   {id: "str1a", abilities: ["strength"], type: "melee", connected: ["str0a"]},
   {id: "str1b", abilities: ["strength"], type: "melee", connected: ["str0b", "str1a"]},

@@ -1,0 +1,18 @@
+type: Item
+folder: aDzkPaU5XlBu3mgO
+name: Heroism
+color: null
+sorting: a
+_id: kvXzGhvDAbUcQsXM
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  lastModifiedBy: null
+_key: '!folders!kvXzGhvDAbUcQsXM'

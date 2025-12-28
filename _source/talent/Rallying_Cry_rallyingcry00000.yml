@@ -2,37 +2,34 @@ name: Rallying Cry
 type: talent
 img: icons/creatures/abilities/mouth-teeth-human.webp
 system:
-  node: pre2c
   description: >-
-    You are a battlefield leader, using your presence and voice to harden the
-    resolve of your allies.
+    <p>Your presence as a battlefield leader fortifies and restores the morale
+    of your allies.</p>
   actions:
     - id: rallyingCry
       description: >-
-        <p>You emit a courageous bellow that inspires Allies within 12 feet of
-        you to remain stalwart in the face of danger. You perform an
-        <strong>Intimidation</strong> skill test against the Madness threshold
-        of your allies. On a success, affected allies become
-        @Condition[resolute] for one Round.</p>
+        <p>You emit a courageous bellow that inspires allies within 12 feet of
+        you to remain stalwart in the face of peril. All allies within range
+        immediately recover your <strong>Presence</strong> score in
+        <strong>Morale</strong> and become @Condition[resolute] for 3
+        Rounds.</p>
       tags:
-        - harmless
         - rallying
-        - skill
-        - intimidation
       cost:
         action: 1
-        focus: 1
-        heroism: 0
+        focus: 0
+        heroism: 1
         weapon: false
+        hands: 0
       target:
         type: pulse
         number: 1
         scope: 2
-        self: false
+        self: true
         size: 12
       effects:
         - name: Rallying Cry
-          scope: '2'
+          scope: '4'
           result:
             type: success
             all: false
@@ -40,7 +37,7 @@ system:
             - resolute
           duration:
             turns: null
-            rounds: 1
+            rounds: 3
       name: Rallying Cry
       img: icons/creatures/abilities/mouth-teeth-human.webp
       condition: ''
@@ -50,23 +47,32 @@ system:
         weapon: false
       actionHooks: []
   actorHooks: []
+  nodes:
+    - pre2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.8.1
-  coreVersion: '13.351'
-  createdTime: 1675737507781
-  modifiedTime: 1763135915350
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Item.rallyingcry00000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: rallyingcry00000
-folder: 2MFixpDJ379KOogE
-sort: 500000
-_key: '!items!rallyingcry00000'
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766948760410
+  modifiedTime: 1766950680056
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: kvXzGhvDAbUcQsXM
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: rallyingCry00000
+sort: 200000
+_key: '!items!rallyingCry00000'

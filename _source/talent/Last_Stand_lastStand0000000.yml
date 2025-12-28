@@ -1,0 +1,74 @@
+name: Last Stand
+type: talent
+img: icons/skills/wounds/injury-face-impact-orange.webp
+system:
+  nodes:
+    - tou2c
+  description: >-
+    <p>You can muster the toughness and courage to fight on and stand your
+    ground against improbable odds.</p>
+  actions:
+    - id: lastStand
+      name: Last Stand
+      img: icons/skills/wounds/injury-face-impact-orange.webp
+      condition: ''
+      description: >-
+        <p>You expend <strong>Heroism</strong> to instantly recover two times
+        your <strong>Toughness</strong> in <strong>Health</strong>. Your
+        <strong>Healing Threshold</strong> is reduced by 2 for the next 3
+        Rounds.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Last Stand
+          scope: '1'
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            turns: null
+            rounds: 3
+      tags:
+        - healing
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: kvXzGhvDAbUcQsXM
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766948162576
+  modifiedTime: 1766950674221
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: lastStand0000000
+sort: 100000
+_key: '!items!lastStand0000000'

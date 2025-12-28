@@ -1,0 +1,64 @@
+name: Decisive Action
+type: talent
+img: icons/magic/symbols/symbol-lightning-bolt.webp
+system:
+  nodes:
+    - int2c
+  description: >-
+    <p>Your sharpened mind thinks quickly amidst the maelstrom of combat,
+    identifying and seizing opportunities that others might miss.</p>
+  actions:
+    - id: decisiveAction
+      name: Decisive Action
+      img: icons/magic/symbols/symbol-lightning-bolt.webp
+      condition: ''
+      description: >-
+        <p>You expend <strong>Heroism</strong> to instantly recover half your
+        <strong>Intellect</strong> in <strong>Action</strong>. You may perform
+        this action outside of your turn in Combat before making a
+        <strong>Reaction</strong>.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: kvXzGhvDAbUcQsXM
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766949858120
+  modifiedTime: 1766950687464
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: decisiveAction00
+sort: 300000
+_key: '!items!decisiveAction00'
