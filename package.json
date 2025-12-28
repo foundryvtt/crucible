@@ -13,8 +13,8 @@
   "devDependencies": {
     "@foundryvtt/foundryvtt-cli": "^3.0.2",
     "commander": "^14.0.2",
-    "less": "^4.4.2",
-    "rollup": "^4.53.2"
+    "less": "^4.5.1",
+    "rollup": "^4.54.0"
   },
   "author": "Foundry Gaming, LLC",
   "license": "UNLICENSED"
