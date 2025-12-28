@@ -10,15 +10,17 @@ system:
     <strong>Weapon Attacks</strong> while wielding a shield.
   actions: []
   actorHooks: []
+  nodes:
+    - tou1a
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.350'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1674840825101
-  modifiedTime: 1761594314378
-  lastModifiedBy: p3lgSv60AK7ndmAK
+  modifiedTime: 1766941567521
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

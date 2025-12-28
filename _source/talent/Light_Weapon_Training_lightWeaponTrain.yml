@@ -3,32 +3,69 @@ name: Light Weapon Training
 type: talent
 img: icons/weapons/swords/sword-simple-white.webp
 system:
-  node: dex0b
   description: >-
-    <p>You have a basic education in the use of finesse weaponry. You are no
-    longer treated as <strong>Untrained</strong> with weapons in the
-    <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
-  actions: []
+    <p>You know how to wield light weapons fluidly with a high degree of
+    maneuverability and grace in combat. You are <strong>Trained</strong> with
+    all weapons in the <strong>Light</strong> and <strong>Balanced</strong>
+    categories.</p>
+  actions:
+    - id: lunge
+      name: Lunge
+      img: icons/skills/melee/strike-polearm-light-orange.webp
+      condition: ''
+      description: >-
+        <p>You dart forward nimbly, making a strike with sudden and unexpected
+        swiftness to perform a <strong>Strike </strong>with a
+        <strong>Finesse</strong> weapon against a single target with an
+        increased range of <strong>+2 feet</strong>.</p><p>The attack is
+        <strong>Difficult</strong>, but you do not move from your current
+        position nor does this attack provoke Disengagement.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: 2
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - finesse
+        - melee
+        - difficult
+      actionHooks: []
   iconicSpells: 0
   training:
     type: light
     rank: 1
   actorHooks: []
+  nodes:
+    - dex0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
-sort: 200000
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1742951427779
-  modifiedTime: 1747841416845
+  systemVersion: 0.8.3
+  createdTime: 1766943056257
+  modifiedTime: 1766943617602
   lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 _id: lightWeaponTrain
+sort: 0
 _key: '!items!lightWeaponTrain'

@@ -15,7 +15,7 @@ system:
     rank: 2
   actorHooks: []
 effects: []
-sort: 0
+sort: 400000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -24,11 +24,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742951519489
-  modifiedTime: 1742951998306
+  modifiedTime: 1766941451694
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: naturalWeaponPro
 _key: '!items!naturalWeaponPro'

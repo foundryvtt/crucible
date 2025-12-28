@@ -1,0 +1,65 @@
+folder: i7WposibCJ94XpuD
+name: Mechanical Weapon Training
+type: talent
+img: icons/weapons/crossbows/crossbow-white.webp
+system:
+  description: >-
+    <p>You are familiar in the design and usage of crossbows, firearms, and
+    other similar armaments. You are <strong>Trained</strong> with weapons in
+    the <strong>Mechanical</strong> category.</p>
+  actions:
+    - id: rapidReload
+      name: Rapid Reload
+      img: icons/skills/ranged/bullet-sparks-yellow.webp
+      condition: ''
+      description: >-
+        <p>You focus deeply and calm your nerves to quickly
+        <strong>Reload</strong> your mechanical weapon with exceptional
+        haste.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - reload
+      actionHooks: []
+  iconicSpells: 0
+  training:
+    type: mechanical
+    rank: 1
+  actorHooks: []
+  nodes:
+    - dex0a
+  rune: ''
+  gesture: ''
+  inflection: ''
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766943398064
+  modifiedTime: 1766943398064
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: mechanicalWeapon
+sort: 0
+_key: '!items!mechanicalWeapon'

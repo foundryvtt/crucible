@@ -109,10 +109,6 @@
       "Name": "Recover",
       "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus."
     },
-    "Refocus": {
-      "Name": "Recover Focus",
-      "Description": "Use your equipped Talisman to recover Focus."
-    },
     "Reload": {
       "Name": "Reload Weapon",
       "Description": "Reload a ranged weapon which features a reloading time."

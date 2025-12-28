@@ -570,11 +570,24 @@ HOOKS.recover = {
 /* -------------------------------------------- */
 
 HOOKS.refocus = {
+  canUse() {
+    const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
+    const categories = ["talisman1", "talisman2"];
+    return categories.includes(mh.category) || (oh && categories.includes(oh.category));
+  },
+  preActivate(_targets) {
+    if ( !["talisman1", "talisman2"].includes(this.usage.weapon?.category) ) {
+      throw new Error(`${this.name} requires use of a Talisman weapon.`);
+    }
+  },
   async confirm() {
     const self = this.outcomes.get(this.actor);
-    const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons
-    const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
-    self.resources.focus = (self.resources.focus || 0) + talisman.system.config.category.hands;
+    const talisman = this.usage.weapon;
+    const r = self.rolls[0];
+    let focus = 0;
+    if ( r.isSuccess ) focus += talisman.config.category.hands;
+    if ( r.isCriticalSuccess ) focus += 1;
+    self.resources.focus = focus;
   }
 }
 
@@ -724,7 +737,7 @@ HOOKS.tuskCharge = {
 HOOKS.uppercut = {
   preActivate(targets) {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction.outcomes.has(targets[0].actor) ) {
+    if ( !lastAction?.outcomes.has(targets[0].actor) ) {
       throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
     }
   }
@@ -738,7 +751,7 @@ HOOKS.vampiricBite = {
     const biteData = foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE);
     biteData.name = game.i18n.localize(biteData.name);
     const bite = new cls(biteData, {parent: this.actor});
-    this.usage.weapon = bite; 
+    this.usage.weapon = bite;
     this.usage.context.tags.vampiricBite = this.name;
     foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
     foundry.utils.mergeObject(this.usage.context, {
@@ -756,6 +769,18 @@ HOOKS.vampiricBite = {
         self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
       }
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.wildStrike = {
+  preActivate(targets) {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction?.outcomes.has(targets[0].actor) ) {
+      throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
+    }
+    // TODO somehow require this to use a different weapon than the prior confirmed strike
   }
 }
 

@@ -3,32 +3,66 @@ name: Heavy Weapon Training
 type: talent
 img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
 system:
-  node: str0a
   description: >-
-    <p>You have a basic education in the use of martial weaponry. You are no
-    longer treated as <strong>Untrained</strong> with weapons in the
-    <strong>Heavy</strong>, or <strong>Balanced</strong> categories.</p>
-  actions: []
+    <p>You know how to use a heavy weapon to deliver punishing blows, putting
+    your entire strength behind every swing. You are <strong>Trained</strong>
+    with all weapons in the <strong>Heavy</strong> and <strong>Balanced</strong>
+    categories.</p>
+  actions:
+    - id: heavyStrike
+      img: icons/skills/melee/strike-hammer-destructive-blue.webp
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - melee
+        - mainhand
+        - empowered
+      actionHooks: []
+      name: Heavy Strike
+      condition: ''
+      description: >-
+        <p>You unleash a powerful <strong>Strike</strong> with your mainhand
+        weapon. The attack is slower to execute, but is
+        <strong>Empowered</strong> to deliver additional damage.</p>
   iconicSpells: 0
   training:
     type: heavy
     rank: 1
   actorHooks: []
+  nodes:
+    - str0a
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
-sort: 150000
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1742951427779
-  modifiedTime: 1747840855127
+  systemVersion: 0.8.3
+  createdTime: 1766939901383
+  modifiedTime: 1766943627651
   lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 _id: heavyWeaponTrain
+sort: 100000
 _key: '!items!heavyWeaponTrain'

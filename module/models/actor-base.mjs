@@ -948,9 +948,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         case "reload":
           if ( !w.reload ) continue;
           break;
-        case "refocus":
-          if ( !w.talisman ) continue;
-          break;
         case "throwWeapon":
           if ( !(w.mainhand?.system.canThrow() || w.offhand?.system.canThrow()) ) continue;
           break;

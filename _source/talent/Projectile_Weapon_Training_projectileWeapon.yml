@@ -1,0 +1,67 @@
+folder: i7WposibCJ94XpuD
+name: Projectile Weapon Training
+type: talent
+img: icons/weapons/bows/shortbow-white.webp
+system:
+  description: >-
+    <p>You have a basic education in archery and other projectile weaponry. You
+    are no longer treated as <strong>Untrained</strong> with weapons in the
+    <strong>Projectile </strong>categories.</p>
+  actions:
+    - id: quickDraw
+      name: Quick Draw
+      img: icons/skills/ranged/arrow-barbed-flying-gray.webp
+      condition: ''
+      description: >-
+        <p>You can loose a shot under pressure, although with decreased
+        accuracy. You perform a <strong>Strike</strong> that is
+        <strong>Difficult</strong>, but has a reduced Action cost.</p>
+      cost:
+        action: -1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - projectile
+        - ranged
+        - difficult
+      actionHooks: []
+  iconicSpells: 0
+  training:
+    type: projectile
+    rank: 1
+  actorHooks: []
+  nodes:
+    - dex0a
+  rune: ''
+  gesture: ''
+  inflection: ''
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1766944226381
+  modifiedTime: 1766944226381
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: projectileWeapon
+sort: 0
+_key: '!items!projectileWeapon'

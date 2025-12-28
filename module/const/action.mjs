@@ -1262,21 +1262,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["noncombat"]
   },
 
-  // Refocus
-  {
-    id: "refocus",
-    name: "ACTION.DEFAULT_ACTIONS.Refocus.Name",
-    img: "icons/magic/light/orb-shadow-blue.webp",
-    description: "ACTION.DEFAULT_ACTIONS.Refocus.Description",
-    target: {
-      type: "self",
-      scope: 1
-    },
-    cost: {
-      action: 2
-    }
-  },
-
   // Reload
   {
     id: "reload",

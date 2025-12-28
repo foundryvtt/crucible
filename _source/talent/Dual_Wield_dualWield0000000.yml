@@ -25,14 +25,14 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 4
         self: false
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
       actionHooks: []
       range:
-        maximum: 1
+        maximum: null
         weapon: true
         minimum: null
   actorHooks: []
@@ -51,10 +51,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.3
   createdTime: 1748638326991
-  modifiedTime: 1763346646574
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1766942272135
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: cW6bwHXBB9pMcwva
 ownership:
   default: 0

@@ -5,10 +5,10 @@ const ORIGIN = [
 
 const TIER_0 = [
   {id: "dex0a", abilities: ["dexterity"], type: "training", connected: ["origin"]},
-  {id: "dex0b", abilities: ["dexterity"], type: "utility", connected: ["origin"]},
-  {id: "tou0a", abilities: ["toughness"], type: "defense", connected: ["origin"]},
+  {id: "dex0b", abilities: ["dexterity"], type: "training", connected: ["origin"]},
+  {id: "tou0a", abilities: ["toughness"], type: "training", connected: ["origin"]},
   {id: "tou0b", abilities: ["toughness"], type: "training", connected: ["origin"]},
-  {id: "str0a", abilities: ["strength"], type: "utility", connected: ["origin"]},
+  {id: "str0a", abilities: ["strength"], type: "training", connected: ["origin"]},
   {id: "str0b", abilities: ["strength"], type: "training", connected: ["origin"]},
   {id: "wis0a", abilities: ["wisdom"], type: "training", connected: ["origin"]},
   {id: "wis0b", abilities: ["wisdom"], type: "spell", connected: ["origin"], style: "hex"},

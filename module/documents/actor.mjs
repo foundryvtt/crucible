@@ -1453,7 +1453,14 @@ export default class CrucibleActor extends Actor {
       let talent;
 
       // Known talent ID migration
-      if ( item._id in migrations ) talent = await fromUuid(migrations[item._id]);
+      if ( item._id in migrations ) {
+        const uuid = migrations[item._id];
+        talent = await fromUuid(uuid);
+        if ( (uuid === null) || this.items.has(talent.id) ) {
+          toDelete.push(item._id);
+          continue;
+        }
+      }
 
       // Search for the talent ID in a source pack
       for ( const pack of packs ) {
@@ -1468,7 +1475,7 @@ export default class CrucibleActor extends Actor {
       if ( talent.id === item._id ) toUpdate.push(this._cleanItemData(talent));
       else {
         toDelete.push(item._id);
-        toCreate.push(this._cleanItemData(talent));
+        if ( !this.items.has(talent._id) ) toCreate.push(this._cleanItemData(talent));
       }
     }
 
@@ -1829,7 +1836,7 @@ export default class CrucibleActor extends Actor {
 
       // Grant Spells
       for ( const {item: uuid, level} of (detail.spells || []) ) {
-        
+
         // TODO: Respect level when granting
         const item = await fromUuid(uuid);
         if ( !item ) continue;

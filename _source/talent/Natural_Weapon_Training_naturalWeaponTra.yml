@@ -3,20 +3,53 @@ name: Natural Weapon Training
 type: talent
 img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
 system:
-  node: tou0b
   description: >-
     <p>You have a developed familiarity with using features of your own body as
     a natural weapons including claws, jaws, tails, or other mechanisms of
-    self-defense. You are no longer treated as <strong>Untrained</strong> with
-    weapons in the <strong>Natural</strong> category.</p>
-  actions: []
+    self-defense. You are <strong>Trained</strong> with weapons in the
+    <strong>Natural</strong> category.</p>
+  actions:
+    - id: wildStrike
+      img: icons/creatures/abilities/fangs-teeth-bite.webp
+      cost:
+        action: -1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - afterStrike
+        - melee
+        - natural
+      actionHooks: []
+      name: Wild Strike
+      condition: ''
+      description: >-
+        <p>Immediately after you perform a basic Strike, you perform a
+        reduced-cost follow-up <strong>Strike</strong> against the same target
+        using a different <strong>Natural</strong> weapon that you have access
+        to.</p>
   iconicSpells: 0
   training:
     type: natural
     rank: 1
   actorHooks: []
+  nodes:
+    - tou0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
-sort: 0
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -25,11 +58,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1742951427779
-  modifiedTime: 1747840894684
+  systemVersion: 0.8.3
+  createdTime: 1766942793666
+  modifiedTime: 1766942793666
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: naturalWeaponTra
+sort: 0
 _key: '!items!naturalWeaponTra'

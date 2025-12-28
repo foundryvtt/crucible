@@ -9,6 +9,8 @@ system:
     while wearing Heavy armor.</p>
   actions: []
   requirements: {}
+  nodes:
+    - str0b
 effects: []
 ownership:
   default: 0
@@ -17,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1676829084233
-  modifiedTime: 1747840615718
+  modifiedTime: 1766941275723
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.armoredefficienc
   duplicateSource: null

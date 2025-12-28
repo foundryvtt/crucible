@@ -131,9 +131,13 @@ export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS))
 
 /**
  * A mapping of talent IDs which changed, used by CrucibleActor#syncTalents during migrations.
- * @type {Readonly<string, string>}
+ * Mapping to a UUID string results in talent replacement.
+ * Mapping to null results in talent deletion.
+ * @type {Readonly<string, string|null>}
  */
 export const TALENT_ID_MIGRATIONS = {
+
+  // Spellcraft Rune Renames
   runecourage00000: "Compendium.crucible.talent.Item.runeSoul00000000",
   runedeath0000000: "Compendium.crucible.talent.Item.runeDeath0000000",
   runeearth0000000: "Compendium.crucible.talent.Item.runeEarth0000000",
@@ -146,4 +150,11 @@ export const TALENT_ID_MIGRATIONS = {
   runeradiance0000: "Compendium.crucible.talent.Item.runeIllumination",
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
   runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
+
+  // Weapon Trainings
+  heavystrike00000: "Compendium.crucible.talent.Item.heavyWeaponTrain",
+  wrestler00000000: "Compendium.crucible.talent.Item.unarmedCombatTra",
+  shieldBash000000: "Compendium.crucible.talent.Item.shieldCombatTrai",
+  lunge00000000000: "Compendium.crucible.talent.Item.lightWeaponTrain",
+  rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon"
 }

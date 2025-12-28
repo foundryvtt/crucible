@@ -3,24 +3,61 @@ name: Shield Combat Training
 type: talent
 img: icons/equipment/shield/buckler-wooden-boss-lightning.webp
 system:
-  node: tou0a
   description: >-
-    <p>You have a basic education in the usage of shields in combat. You are no
-    longer treated as <strong>Untrained</strong> with weapons in the
-    <strong>Shield </strong>category.</p>
-  actions: []
+    <p>You are practiced at fighting with shield, using it to slam into and
+    imbalance your foes. You are <strong>Trained</strong> with weapons in the
+    <strong>Shield</strong> category.</p>
+  actions:
+    - id: shieldBash
+      name: Shield Bash
+      img: icons/skills/melee/shield-block-bash-blue.webp
+      condition: ''
+      description: >-
+        <p>Following a basic Strike with your mainhand weapon, you
+        <strong>Strike</strong> with your shield, causing the
+        @Condition[staggered] condition for one Round.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: Shield Bash
+          scope: '3'
+          result:
+            type: success
+            all: false
+          statuses:
+            - staggered
+          duration:
+            turns: 1
+            rounds: null
+      tags:
+        - shield
+        - afterStrike
+        - offhand
+      actionHooks: []
   iconicSpells: 0
   training:
     type: shield
     rank: 1
   actorHooks: []
   nodes:
-    - tou0b
+    - tou0a
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
-sort: 0
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags: {}
 _stats:
   compendiumSource: null
@@ -28,9 +65,13 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  createdTime: 1742951427779
-  modifiedTime: 1763135427288
+  systemVersion: 0.8.3
+  createdTime: 1766941450332
+  modifiedTime: 1766941638861
   lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
 _id: shieldCombatTrai
+sort: 700000
 _key: '!items!shieldCombatTrai'
