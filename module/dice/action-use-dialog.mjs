@@ -239,16 +239,15 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const minimizedWindows = [];
     for ( const app of Object.values(ui.windows) ) {
       if ( !app.minimized ) {
-        app.minimize();
         minimizedWindows.push(app);
       }
     }
     for ( const app of foundry.applications.instances.values() ) {
       if ( !app.minimized ) {
-        app.minimize();
         minimizedWindows.push(app);
       }
     }
+    await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
     // Store preview template data
     this.#targetTemplate = {
