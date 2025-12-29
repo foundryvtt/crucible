@@ -247,7 +247,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
         minimizedWindows.push(app);
       }
     }
-    await Promise.all(minimizedWindows.map(app => app.minimize()));
+    await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
     // Store preview template data
     this.#targetTemplate = {
