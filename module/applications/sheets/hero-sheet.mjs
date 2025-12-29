@@ -169,8 +169,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
    */
   static async #onEditSize() {
     const schema = this.actor.system.schema;
+    const { baseSize } = this.actor.system.movement;
 
-    const bonusField = schema.getField(`movement.sizeBonus`).toFormGroup({}, { min: 0 });
+    const minSize = (baseSize * -1) + 1; // prevents sizes <= 0
+    const bonusField = schema.getField(`movement.sizeBonus`).toFormGroup({}, { min: minSize });
 
     const formData = await foundry.applications.api.DialogV2.input({
       window: {title: "Edit Movement: " + this.actor.name},
