@@ -13,6 +13,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
     actions: {
       editArchetype: AdversarySheet.#onEditArchetype,
       editTaxonomy: AdversarySheet.#onEditTaxonomy,
+      editSize: AdversarySheet.#onEditSize,
       levelDecrease: AdversarySheet.#onLevelDecrease,
       levelIncrease: AdversarySheet.#onLevelIncrease
     }
@@ -88,6 +89,26 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
   static async #onEditTaxonomy(event) {
     await this.actor._viewDetailItem("taxonomy", {editable: false});
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit size bonuses
+   * @this {HeroSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onEditSize() {
+    const schema = this.actor.system.schema;
+
+    const bonusField = schema.getField(`movement.sizeBonus`).toFormGroup({}, { min: 0 });
+
+    const formData = await foundry.applications.api.DialogV2.input({
+      window: {title: "Edit Movement: " + this.actor.name},
+      content: bonusField.outerHTML,
+    });
+
+    await this.actor.update(formData);
+  };
 
   /* -------------------------------------------- */
 

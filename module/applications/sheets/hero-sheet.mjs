@@ -13,6 +13,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     actions: {
       editAncestry: HeroSheet.#onEditAncestry,
       editBackground: HeroSheet.#onEditBackground,
+      editSize: HeroSheet.#onEditSize,
       levelUp: HeroSheet.#onLevelUp
     }
   };
@@ -158,6 +159,26 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   static async #onEditBackground(event) {
     await this.actor._viewDetailItem("background", {editable: false});
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit size bonuses
+   * @this {HeroSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onEditSize() {
+    const schema = this.actor.system.schema;
+
+    const bonusField = schema.getField(`movement.sizeBonus`).toFormGroup({}, { min: 0 });
+
+    const formData = await foundry.applications.api.DialogV2.input({
+      window: {title: "Edit Movement: " + this.actor.name},
+      content: bonusField.outerHTML,
+    });
+
+    await this.actor.update(formData);
+  };
 
   /* -------------------------------------------- */
   /*  Drag and Drop                               */
