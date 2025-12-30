@@ -1032,14 +1032,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const { baseSize, sizeBonus } = this.actor.system.movement;
     const content = document.createElement(`div`);
 
-    content.appendChild(foundry.utils.parseHTML(`
-      <div class="form-group">
-        <label>Base Size</label>
-        <div class="form-fields">
-          <input type="number" value="${baseSize}" disabled>
-        </div>
-      </div>`
-    ));
+    content.innerHTML = `
+    <div class="form-group">
+      <label>Base Size</label>
+      <div class="form-fields">
+        <input type="number" value="${baseSize}" disabled>
+      </div>
+    </div>`;
 
     const minSize = (baseSize * -1) + 1; // prevents sizes <= 0
     content.appendChild(schema.getField(`movement.sizeBonus`).toFormGroup({}, { value: sizeBonus, min: minSize }));
