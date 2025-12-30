@@ -98,7 +98,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       this.PARTS.actions = {
         id: "actions",
         template: "systems/crucible/templates/sheets/item/item-actions.hbs",
-        templates: [this.ACTION_PARTIAL]
+        templates: [this.ACTION_PARTIAL],
+        scrollable: [""]
       }
       this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.Actions"});
     }
@@ -107,7 +108,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( item.includesHooks ) {
       this.PARTS.hooks = {
         id: "hooks",
-        template: "systems/crucible/templates/sheets/item/item-hooks.hbs"
+        template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
+        scrollable: [""]
       }
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
     }
