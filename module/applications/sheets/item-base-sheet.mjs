@@ -54,8 +54,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/item/item-description.hbs",
-      scrollable: [""]
+      template: "systems/crucible/templates/sheets/item/item-description.hbs"
     },
     config: {
       id: "config",

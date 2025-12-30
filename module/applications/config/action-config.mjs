@@ -61,8 +61,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/action/description.hbs",
-      scrollable: [""]
+      template: "systems/crucible/templates/sheets/action/description.hbs"
     },
     usage: {
       id: "usage",
