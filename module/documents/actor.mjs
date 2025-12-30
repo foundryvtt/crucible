@@ -2024,6 +2024,11 @@ export default class CrucibleActor extends Actor {
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
     if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
+    if ( this.system.usesEquipment === false ) throw new Error(game.i18n.format("WARNING.CannotEquipAny", {
+      actor: this.name,
+      item: item.name,
+      taxonomy: this.system.details.taxonomy.name
+    }));
     switch ( item.type ) {
       case "weapon":
         if ( item.system.properties.has("natural") ) result.dropped = false;
@@ -2094,7 +2099,7 @@ export default class CrucibleActor extends Actor {
     // Identify the target equipment slot
     if ( slot === undefined ) {
       if ( category.hands === 2 ) slot = slots.TWOHAND;
-      else if ( category.main ) slot = mainhand.id && category.off ? slots.OFFHAND : slots.MAINHAND;
+      else if ( category.main ) slot = mainhand?.id && category.off ? slots.OFFHAND : slots.MAINHAND;
       else if ( category.off ) slot = slots.OFFHAND;
     }
 
