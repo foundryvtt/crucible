@@ -4,8 +4,8 @@ img: icons/skills/targeting/crosshair-mark-rough-pink.webp
 system:
   node: dex2a
   description: >-
-    You fire a special shot which deals reduced damage, but explodes in luminous
-    powder clearly marking your target.
+    <p>You fire a special shot which deals no damage, but explodes in luminous
+    powder clearly marking your target.</p>
   actions:
     - id: markPrey
       description: >-
@@ -44,11 +44,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1674962663358
-  modifiedTime: 1749329300558
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767117381607
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null
   exportSource: null

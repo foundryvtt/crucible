@@ -344,11 +344,11 @@ export default class CrucibleActor extends Actor {
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: "Blinded", number: 2};
-      if ( this.statuses.has("guarded") ) banes.guarded = {label: "Guarded", number: 1};
+      if ( this.statuses.has("blinded") ) boons.blind = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Blinded"), number: 2};
+      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) banes.guarded = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Guarded"), number: 1};
       if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: "Prone", number: 1};
-        else boons.prone = {label: "Prone", number: 1};
+        if ( isRanged ) banes.prone = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Prone"), number: 1};
+        else boons.prone = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Prone"), number: 1};
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
@@ -1211,7 +1211,7 @@ export default class CrucibleActor extends Actor {
       const {startRound, rounds} = effect.duration;
       if ( Number.isNumeric(rounds) ) {
         const elapsed = game.combat.round - startRound;
-        if ( elapsed > rounds ) {
+        if ( elapsed >= rounds ) {
           effectChanges.toDelete.push(effect.id);
           continue;
         }

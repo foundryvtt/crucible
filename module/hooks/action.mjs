@@ -316,6 +316,37 @@ HOOKS.feintingStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.fontOfLife = {
+  postActivate(outcome) {
+    if ( outcome.self ) return;
+    const amount = this.actor.abilities.wisdom.value;
+    outcome.resources.health = (outcome.resources.health || 0) + amount;
+  },
+  confirm(reverse) {
+    const wisdom = this.actor.system.abilities.wisdom.value;
+    const fontOfLifeEffect = {
+      _id: "fontOfLife000000",
+      name: this.name,
+      icon: this.img,
+      origin: this.actor.uuid,
+      duration: {turns: 3},
+      system: {
+        dot: [{
+          amount: wisdom,
+          resource: "health",
+          restoration: true
+        }]
+      }
+    };
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.self ) continue;
+      outcome.effects.push(fontOfLifeEffect);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.healingElixir = {
   postActivate(outcome) {
     const quality = this.usage.consumable.config.quality;
@@ -548,6 +579,7 @@ HOOKS.poisonIngest = {
 
 HOOKS.rallyingCry = {
   postActivate(outcome) {
+    if ( outcome.self ) return;
     const amount = this.actor.abilities.presence.value;
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }

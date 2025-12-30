@@ -29,7 +29,7 @@ system:
         size: 12
       effects:
         - name: Rallying Cry
-          scope: '4'
+          scope: '2'
           result:
             type: success
             all: false
@@ -67,8 +67,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.3
   createdTime: 1766948760410
-  modifiedTime: 1766950680056
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767116962095
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 folder: kvXzGhvDAbUcQsXM
 ownership:
   default: 0

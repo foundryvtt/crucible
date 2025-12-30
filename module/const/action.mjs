@@ -324,7 +324,8 @@ export const TAGS = {
     prepare() {
       const stride = this.actor.system.movement.stride;
       const movement = this.usage.movement || this.actor.getMovementActionCost(stride);
-      this.cost.action = movement.cost;
+      if ( this.id === "move" ) this.cost.action = movement.cost;
+      else if ( this.actor.system.hasFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1);
       this.usage.actorStatus ||= {};
       this.usage.actorStatus.hasMoved = true;
       this.usage.actorStatus.lastMovementId = movement.id || null;
