@@ -63,7 +63,7 @@ system:
     equipment: true
     spells: true
 effects: []
-folder: null
+folder: REYz7fzLYEdBX3A2
 ownership:
   default: 0
   QPs9IwGEu5DxD700: 3
@@ -77,8 +77,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1765550120842
-  modifiedTime: 1765551221934
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767111139691
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: zombie0000000000
-sort: 0
+sort: 100000
 _key: '!items!zombie0000000000'
