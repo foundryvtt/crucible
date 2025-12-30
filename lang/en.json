@@ -444,7 +444,9 @@
     },
     "PointsAvailable": "Available",
     "PointsSpent": "Spent",
-    "Resources": "Resources"
+    "Resources": "Resources",
+    "EditMovement": "Edit Movement: {name}",
+    "BaseSize": "Base Size"
   },
   "WARNINGS": {
     "NoAncestry": "Choose an Ancestry",

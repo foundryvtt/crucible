@@ -1034,21 +1034,25 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     content.innerHTML = `
     <div class="form-group">
-      <label>Base Size</label>
+      <label>${game.i18n.localize("ACTOR.SHEET.BaseSize")}</label>
       <div class="form-fields">
         <input type="number" value="${baseSize}" disabled>
       </div>
     </div>`;
 
     const minSize = (baseSize * -1) + 1; // prevents sizes <= 0
-    content.appendChild(schema.getField(`movement.sizeBonus`).toFormGroup({}, { value: sizeBonus, min: minSize }));
+    content.appendChild(schema.getField("movement.sizeBonus").toFormGroup({}, { value: sizeBonus, min: minSize }));
 
     const formData = await foundry.applications.api.DialogV2.input({
-      window: {title: "Edit Movement: " + this.actor.name},
+      window: {
+        title: game.i18n.format("ACTOR.SHEET.EditMovement", { name: this.actor.name }),
+      },
       content,
     });
 
-    await this.actor.update(formData);
+    if (formData) {
+      await this.actor.update(formData);
+    };
   };
 
   /* -------------------------------------------- */
