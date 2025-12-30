@@ -2023,7 +2023,7 @@
 "WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
 "WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",
 "WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",
-"WARNING.CannotEquipAny": "Actor {actor} cannot equip {item} because the \"{taxonomy}\" taxonomy is incapable of using equipment.",
+"WARNING.CannotEquipTaxonomy": "Actor {actor} cannot equip {item} because the \"{taxonomy}\" taxonomy is incapable of using equipment.",
 "WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because the {type} item slot is already in use.",
 "WARNING.CannotEquipInCombat": "Actor {actor} cannot equip or un-equip {item} during a combat encounter.",
 "WARNING.CannotEquipActionCost": "You cannot equip weaponry because you have no Action points available.",
