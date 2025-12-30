@@ -323,21 +323,12 @@ HOOKS.fontOfLife = {
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   },
   confirm(reverse) {
-    const wisdom = this.actor.system.abilities.wisdom.value;
-    const fontOfLifeEffect = {
+    const fontOfLifeEffect = SYSTEM.EFFECTS.mending(this.actor, {turns: 3});
+    Object.assign(fontOfLifeEffect, {
       _id: "fontOfLife000000",
       name: this.name,
-      icon: this.img,
-      origin: this.actor.uuid,
-      duration: {turns: 3},
-      system: {
-        dot: [{
-          amount: wisdom,
-          resource: "health",
-          restoration: true
-        }]
-      }
-    };
+      icon: this.img
+    });
     for ( const outcome of this.outcomes.values() ) {
       if ( outcome.self ) continue;
       outcome.effects.push(fontOfLifeEffect);

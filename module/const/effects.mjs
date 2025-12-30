@@ -209,17 +209,24 @@ export function irradiated(actor) {
   }
 }
 
-// TODO as above
-export function mending(actor, target) {
+/**
+ * Generate a standardized mending effect.
+ * Mending deals wisdom in restoration to Health.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Mending"),
     name: "Mending",
     icon: "icons/magic/life/cross-beam-green.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
     system: {
       dot: [{
-        amount: actor.system.abilities.wisdom.value,
+        amount,
         resource: "health",
         restoration: true
       }]

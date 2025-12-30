@@ -309,13 +309,13 @@ export default class CrucibleActor extends Actor {
     const {isAttack=false} = action.usage;
 
     // Global conditions
-    if ( this.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
+    if ( this.statuses.has("broken") ) banes.broken = {label: CONFIG.statusEffects.find(i => i.id === "broken").name, number: 2};
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) banes.blind = {label: "Blinded", number: 2};
-      if ( this.statuses.has("prone") ) banes.prone = {label: "Prone", number: 1};
-      if ( this.statuses.has("restrained") ) banes.restrained = {label: "Restrained", number: 2};
+      if ( this.statuses.has("blinded") ) banes.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
+      if ( this.statuses.has("prone") ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
+      if ( this.statuses.has("restrained") ) banes.restrained = {label: CONFIG.statusEffects.find(i => i.id === "restrained").name, number: 2};
     }
 
     // Temporary boons and banes stored as Actor rollBonuses
@@ -344,15 +344,15 @@ export default class CrucibleActor extends Actor {
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Blinded"), number: 2};
-      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) banes.guarded = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Guarded"), number: 1};
+      if ( this.statuses.has("blinded") ) boons.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
+      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) banes.guarded = {label: CONFIG.statusEffects.find(i => i.id === "guarded").name, number: 1};
       if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Prone"), number: 1};
-        else boons.prone = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Prone"), number: 1};
+        if ( isRanged ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
+        else boons.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
+        boons.flanked = {label: CONFIG.statusEffects.find(i => i.id === "flanked").name, number: ae?.system.flanked ?? 1};
       }
     }
   }
