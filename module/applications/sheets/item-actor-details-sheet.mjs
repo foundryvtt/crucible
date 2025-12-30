@@ -121,7 +121,10 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async #onDropTalent(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
-    if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
+    const hasLeveledTalents = this.document.type === "archetype";
+    if ( (data.type !== "Item") ) return;
+    if ( hasLeveledTalents && talents.some(({item}) => item === data.uuid) ) return;
+    if ( !hasLeveledTalents && talents.has(data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) {
       ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
@@ -130,7 +133,13 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
-    const updateData = {system: {talents: [...talents, data.uuid]}};
+    const updateData = {system: {talents: [...talents]}};
+    if ( hasLeveledTalents ) {
+      const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      updateData.system.talents.push({item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null});
+    } else {
+      updateData.system.talents.push(data.uuid);
+    }
     return this._processSubmitData(event, this.form, updateData);
   }
 
@@ -144,7 +153,10 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
-    talents.delete(uuid);
+    const hasLeveledTalents = this.document.type === "archetype";
+    let toDelete = uuid;
+    if ( hasLeveledTalents ) toDelete = talents.find(({item}) => item === uuid);
+    talents.delete(toDelete);
     const updateData = {system: {talents: [...talents]}};
     return this._processSubmitData(event, this.form, updateData);
   }

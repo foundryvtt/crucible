@@ -231,8 +231,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
       for ( const component of required ) {
         const grantingTalents = cls.grantingTalents[component];
         if ( grantingTalents.some(({uuid}) => talents.some(t => t.item === uuid)) ) continue;
-        const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-        requisiteTalents.push({item: minTalent, level: SYSTEM.TALENT.NODE_TIERS[minTalent.tier].level});
+        const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t);
+        requisiteTalents.push({item: minTalent.uuid, level: SYSTEM.TALENT.NODE_TIERS[minTalent.tier].level});
       }
     }
     const updateData = {system: {spells: [...spells, {item: data.uuid}]}};
