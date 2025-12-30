@@ -345,7 +345,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const s of permanentTalentSources ) {
       if ( s?.talents ) {
         for ( const uuid of s.talents ) {
-          const {documentId} = foundry.utils.parseUuid(uuid);
+          const {documentId} = foundry.utils.parseUuid(uuid.item ?? uuid);
           maybePermanentTalentIds.add(documentId);
         }
       }

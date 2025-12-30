@@ -121,6 +121,26 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /* -------------------------------------------- */
 
+  /** @override */
+  async _prepareTalents() {
+    const talents = this.document.system.talents;
+    const promises = talents.map(async ({item: uuid}) => {
+      const talent = await fromUuid(uuid);
+      if ( !talent ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
+      return {
+        uuid,
+        name: talent.name,
+        img: talent.img,
+        description: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description),
+        tags: talent.getTags(),
+        item: await talent.renderInline({showRemove: this.isEditable})
+      }
+    });
+    return Promise.all(promises);
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
@@ -210,9 +230,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     for ( const {cls, required} of components ) {
       for ( const component of required ) {
         const grantingTalents = cls.grantingTalents[component];
-        if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
+        if ( grantingTalents.some(({uuid}) => talents.some(t => t.item === uuid)) ) continue;
         const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-        requisiteTalents.push(minTalent);
+        requisiteTalents.push({item: minTalent, level: SYSTEM.TALENT.NODE_TIERS[minTalent.tier].level});
       }
     }
     const updateData = {system: {spells: [...spells, {item: data.uuid}]}};
