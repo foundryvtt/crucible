@@ -46,7 +46,6 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.talents = await this._prepareTalents();
-    context.talentPartial = this.constructor.INCLUDED_TALENT_TEMPLATE;
     return context;
   }
 
@@ -60,16 +59,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareTalents() {
     const uuids = this.document.system.talents;
     const promises = uuids.map(async (uuid) => {
-      const talent = await fromUuid(uuid);
-      if ( !talent ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
-      return {
-        uuid,
-        name: talent.name,
-        img: talent.img,
-        description: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description),
-        tags: talent.getTags(),
-        item: await talent.renderInline({showRemove: this.isEditable})
-      }
+      const talent = (await fromUuid(uuid)) ?? await new Item.implementation({type: "talent", name: "INVALID"});
+      return talent.renderInline({showRemove: this.isEditable});
     });
     return Promise.all(promises);
   }
@@ -121,6 +112,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async #onDropTalent(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
+    // TODO 541
     const hasLeveledTalents = this.document.type === "archetype";
     if ( (data.type !== "Item") ) return;
     if ( hasLeveledTalents && talents.some(({item}) => item === data.uuid) ) return;
@@ -134,6 +126,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
       return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
     const updateData = {system: {talents: [...talents]}};
+    // TODO 541
     if ( hasLeveledTalents ) {
       const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
       updateData.system.talents.push({item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null});
@@ -153,6 +146,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
+    // TODO 541
     const hasLeveledTalents = this.document.type === "archetype";
     let toDelete = uuid;
     if ( hasLeveledTalents ) toDelete = talents.find(({item}) => item === uuid);
