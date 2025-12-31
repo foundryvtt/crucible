@@ -1022,6 +1022,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
 
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} _event 
+   * @param {HTMLElement} target 
+   * @returns {void}
+   */
   static #onTogglePip(_event, target) {
     const {resource, index} = target.dataset;
     const isDoubled = target.classList.contains("double");
