@@ -43,7 +43,7 @@ system:
     size: 4
     stride: 10
   talents:
-    - Compendium.crucible.talent.Item.runelightning000
+    - Compendium.crucible.talent.Item.runeLightning000
     - Compendium.crucible.adversary-talents.Item.electricityAbsor
   identifier: stormElemental
 effects: []
@@ -54,11 +54,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  modifiedTime: 1763060088080
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.3
+  modifiedTime: 1767206038425
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: stormElemental00
 sort: 300000

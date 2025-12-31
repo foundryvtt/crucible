@@ -19,16 +19,16 @@ system:
   stride: 8
   identifier: gnome
   talents:
-    - Compendium.crucible.talent.Item.runelightning000
+    - Compendium.crucible.talent.Item.runeLightning000
   ui:
     color: '#afa2c3'
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1674942420027
-  modifiedTime: 1746803325486
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767206195009
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

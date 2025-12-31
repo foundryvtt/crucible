@@ -156,5 +156,7 @@ export const TALENT_ID_MIGRATIONS = {
   wrestler00000000: "Compendium.crucible.talent.Item.unarmedCombatTra",
   shieldBash000000: "Compendium.crucible.talent.Item.shieldCombatTrai",
   lunge00000000000: "Compendium.crucible.talent.Item.lightWeaponTrain",
-  rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon"
+  rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon",
+  mechanicalTraini: "Compendium.crucible.talent.Item.mechanicalWeapon",
+  projectileTraini: "Compendium.crucible.talent.Item.projectileWeapon"
 }

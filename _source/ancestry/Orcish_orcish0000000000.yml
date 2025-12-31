@@ -20,16 +20,16 @@ system:
   stride: 10
   identifier: orcish
   talents:
-    - Compendium.crucible.talent.Item.heavystrike00000
+    - Compendium.crucible.talent.Item.heavyWeaponTrain
   ui:
     color: '#c14425'
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1674942420029
-  modifiedTime: 1746803361519
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767206559777
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null
