@@ -1025,7 +1025,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static #onTogglePip(_event, target) {
     const {resource, index} = target.dataset;
     const isDoubled = target.classList.contains("double");
-    const offsetValue = Number(index) + 1 + (isDoubled ? 6 : 0);
+    let resourceMax = 6;
+    if ( resource === "focus" ) resourceMax = 12;
+    const offsetValue = Number(index) + 1 + (isDoubled ? resourceMax : 0);
     let resourceValue = this.actor.resources[resource].value;
     if ( resourceValue === offsetValue ) resourceValue--;
     else resourceValue = offsetValue;
