@@ -27,7 +27,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
-      skillRoll: CrucibleBaseActorSheet.#onSkillRoll
+      skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
+      togglePip: CrucibleBaseActorSheet.#onTogglePip
     },
     form: {
       submitOnChange: true
@@ -1017,6 +1018,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onSkillRoll(_event, target) {
     return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
+  }
+
+  /* -------------------------------------------- */
+
+  static #onTogglePip(_event, target) {
+    const {resource, index} = target.dataset;
+    const isDoubled = target.classList.contains("double");
+    const offsetValue = Number(index) + 1 + (isDoubled ? 6 : 0);
+    let resourceValue = this.actor.resources[resource].value;
+    if ( resourceValue === offsetValue ) resourceValue--;
+    else resourceValue = offsetValue;
+    this.actor.update({[`system.resources.${resource}.value`]: resourceValue});
   }
 
   /* -------------------------------------------- */
