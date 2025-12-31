@@ -16,7 +16,7 @@ system:
     - athletics
     - wilderness
   talents:
-    - Compendium.crucible.talent.Item.projectileTraini
+    - Compendium.crucible.talent.Item.projectileWeapon
     - Compendium.crucible.talent.Item.precisionshot000
   identifier: wanderer
   ui:
@@ -28,11 +28,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.347'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1674942420012
-  modifiedTime: 1756084022044
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767206660224
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

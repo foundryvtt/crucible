@@ -93,12 +93,14 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
     source = super.migrateData(source);
 
     const abilities = source.abilities;
-    const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    /** @deprecated since 0.7.3 */
-    if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
-      obj[a] = 2;
-      return obj;
-    }, {});
+    if ( abilities ) {
+      const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
+      /** @deprecated since 0.7.3 */
+      if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
+        obj[a] = 2;
+        return obj;
+      }, {});
+    }
 
     /** @deprecated since 0.7.3 */
     if ( source.size && !source.movement?.size ) {
@@ -116,7 +118,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
     /** @deprecated since 0.8.1 */
     for ( const damageType of Object.values(SYSTEM.DAMAGE_TYPES) ) {
-      if ( Number.isNumeric(source.resistances[damageType.id]) ) {
+      if ( Number.isNumeric(source.resistances?.[damageType.id]) ) {
         source.resistances[damageType.id] = {
           value: source.resistances[damageType.id],
           immune: false
