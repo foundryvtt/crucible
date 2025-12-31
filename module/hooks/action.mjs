@@ -566,7 +566,6 @@ HOOKS.poisonIngest = {
 
 HOOKS.rallyingCry = {
   postActivate(outcome) {
-    if ( outcome.self ) return;
     const amount = this.actor.abilities.presence.value;
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
