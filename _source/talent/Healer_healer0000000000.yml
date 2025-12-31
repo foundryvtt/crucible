@@ -29,10 +29,10 @@ system:
         self: false
       effects:
         - name: Font of Life
-          scope: '1'
+          scope: '2'
           result:
             type: success
-            all: false
+            all: true
           statuses: []
           duration:
             turns: 3
@@ -68,7 +68,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.3
   createdTime: 1727311608001
-  modifiedTime: 1767117316048
+  modifiedTime: 1767195519339
   lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 folder: fOYHlZJEWUukD7yr
