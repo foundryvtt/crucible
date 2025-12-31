@@ -5,7 +5,7 @@ system:
   description: >-
     <p>The orderly force of destruction, responsible for the corruption of all
     biological matter. The Death rune governs decay and destruction.</p><p>The
-    Death rune scales using <strong>Intellect</strong>, targets
+    Death rune scales using <strong>Presence</strong>, targets
     <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage to
     <strong>Health</strong>. It is opposed by the chaotic rune of
     <strong>Life</strong>.</p>
@@ -70,10 +70,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.3
   createdTime: 1763081402956
-  modifiedTime: 1763161357881
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767114327657
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

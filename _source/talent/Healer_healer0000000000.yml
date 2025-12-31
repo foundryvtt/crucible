@@ -16,6 +16,7 @@ system:
         focus: 0
         heroism: 1
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -25,12 +26,17 @@ system:
         number: 1
         scope: 2
         size: 20
+        self: false
       effects:
         - name: Font of Life
-          scope: 1
+          scope: '2'
+          result:
+            type: success
+            all: true
           statuses: []
           duration:
             turns: 3
+            rounds: null
       tags:
         - healing
         - health
@@ -41,7 +47,11 @@ system:
         <p>You bring forth an aura of life-giving magic. Immediately upon
         activation and at the start of your turn for <strong>3 Rounds</strong>
         every ally within 20 feet heals for an amount equal to your
-        <strong>Wisdom</strong> score.</p>
+        <strong>Wisdom</strong> score.</p><p><strong>WIP: This action is
+        currently treated as an Area of Effect, granting healing-over-time
+        effects to those within the initial range. When auras are automated by
+        the system in Foundry VTT version 14, the mechanical implementation of
+        this action will match the description.</strong></p>
   actorHooks: []
   iconicSpells: 1
   rune: life
@@ -54,12 +64,12 @@ flags:
 _stats:
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.8.3
   createdTime: 1727311608001
-  modifiedTime: 1749922306365
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767195519339
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 folder: fOYHlZJEWUukD7yr
 _id: healer0000000000

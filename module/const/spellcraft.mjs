@@ -28,7 +28,7 @@ export const RUNES = {
     damageType: "corruption",
     opposed: "life",
     defense: "fortitude",
-    scaling: "intellect",
+    scaling: "presence",
     nameFormat: NAME_FORMATS.NOUN
   },
   earth: {

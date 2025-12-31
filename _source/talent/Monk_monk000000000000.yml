@@ -12,21 +12,31 @@ system:
   actions:
     - id: doublePunch
       name: Double Punch
-      description: You Strike twice in the blink of an eye, punching with both arms.
+      description: <p>You Strike twice in the blink of an eye, punching with both arms.</p>
       tags:
-        - melee
         - unarmed
+        - melee
         - mainhand
         - offhand
       cost:
         action: -1
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
+      img: icons/magic/earth/strike-fist-stone-gray.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   requirements: {}
   nodes:
     - sig3.dexterity
@@ -35,11 +45,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1675136908649
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767117670099
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null
