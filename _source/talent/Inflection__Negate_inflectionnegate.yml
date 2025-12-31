@@ -21,9 +21,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   createdTime: 1675017043175
-  modifiedTime: 1742935471673
+  modifiedTime: 1767142001675
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionnegate
   duplicateSource: null
@@ -33,5 +33,5 @@ ownership:
   AnoypGxxNIMOS0XY: 3
 _id: inflectionnegate
 folder: mFfsius4gpT45Q2R
-sort: 300000
+sort: 700000
 _key: '!items!inflectionnegate'

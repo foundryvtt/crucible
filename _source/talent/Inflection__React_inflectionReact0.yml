@@ -1,0 +1,38 @@
+name: 'Inflection: React'
+type: talent
+img: icons/magic/fire/projectile-feathers-embers-gold.webp
+system:
+  nodes:
+    - preint4
+  description: >-
+    <p>Instinctually compose a spell as a <strong>Reaction</strong> in response
+    to some other action that you observe. The React inflection increases the
+    <strong>Focus</strong> cost of a spell by 2.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: react
+  iconicSpells: 1
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: mFfsius4gpT45Q2R
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1767142001548
+  modifiedTime: 1767142025215
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: inflectionReact0
+sort: 200000
+_key: '!items!inflectionReact0'

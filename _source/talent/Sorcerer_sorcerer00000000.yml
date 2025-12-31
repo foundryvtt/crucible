@@ -1,0 +1,40 @@
+name: Sorcerer
+type: talent
+img: icons/magic/lightning/projectile-tendrils-red.webp
+system:
+  nodes:
+    - sig3.presence.intellect
+  description: >-
+    <p>Your magic is deeply instinctual and your practice of spellcraft defies
+    traditional academic understanding.</p><p>You cannot cast <strong>Iconic
+    Spells</strong>, but when you cast a spell using an
+    <strong>Inflection</strong> it deals an additional <strong>+1
+    Damage</strong> per Iconic Spell slot that you have.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 1
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.3
+  createdTime: 1767141355772
+  modifiedTime: 1767144809397
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: sorcerer00000000
+sort: 0
+_key: '!items!sorcerer00000000'

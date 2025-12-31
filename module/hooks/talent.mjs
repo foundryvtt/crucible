@@ -568,6 +568,22 @@ HOOKS.snakeblood000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.sorcerer00000000 = {
+  useAction(item, action) {
+    if ( action.tags.has("iconicSpell") ) {
+      throw new Error(`As a ${item.name}, you cannot cast Iconic Spells.`);
+    }
+  },
+  preActivateAction(item, action) {
+    if ( action.tags.has("spell") ) {
+      this.usage.bonuses.damageBonus ||= 0;
+      this.usage.bonuses.damageBonus += this.grimoire.iconicSlots;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.spellblade000000 = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") ) return;

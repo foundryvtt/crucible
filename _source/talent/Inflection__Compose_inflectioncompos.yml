@@ -21,14 +21,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   createdTime: 1676608867154
-  modifiedTime: 1742935564454
+  modifiedTime: 1767142001675
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.inflectioncompos
   duplicateSource: null
   exportSource: null
 _id: inflectioncompos
 folder: mFfsius4gpT45Q2R
-sort: 100000
+sort: 500000
 _key: '!items!inflectioncompos'

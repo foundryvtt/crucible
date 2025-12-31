@@ -17,9 +17,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.351'
   createdTime: 1675016427487
-  modifiedTime: 1742935571389
+  modifiedTime: 1767142001675
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionpull00
   duplicateSource: null
@@ -29,5 +29,5 @@ ownership:
   AnoypGxxNIMOS0XY: 3
 _id: inflectionpull00
 folder: mFfsius4gpT45Q2R
-sort: 400000
+sort: 800000
 _key: '!items!inflectionpull00'

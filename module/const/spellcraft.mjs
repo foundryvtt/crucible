@@ -537,6 +537,18 @@ export const INFLECTIONS = {
       focus: 1
     }
   },
+  react: {
+    id: "react",
+    name: "SPELL.INFLECTIONS.React",
+    cost: {
+      focus: 2
+    },
+    hooks: {
+      prepare() {
+        this.tags.add("reaction");
+      }
+    }
+  },
   reshape: {
     id: "reshape",
     name: "SPELL.INFLECTIONS.Reshape",

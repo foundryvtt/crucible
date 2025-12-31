@@ -685,6 +685,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Assert that the action could possibly be used based on its tags
     try {
       this._canUse();
+      this.actor.callActorHooks("useAction", this);
     } catch(err) {
       ui.notifications.warn(err);
       return null;
@@ -692,9 +693,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // TODO this.usage should be frozen from this point onwards and everything from here onwards uses outcome.usage
     // TODO wrap this.usage as a getter around this.#usage which warns if it is accessed after this point?
-
-    // Use-time configuration by the using Actor
-    this.actor.callActorHooks("useAction", this);
 
     // Acquire initial targets non-strictly and set up initial outcomes
     let targets = this.acquireTargets({strict: false});
