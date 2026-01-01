@@ -38,12 +38,6 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   };
 
   /**
-   * A template partial used for rendering an Active Effect inside an Action.
-   * @type {string}
-   */
-  static ACTIVE_EFFECT_PARTIAL = "systems/crucible/templates/sheets/action/effect.hbs";
-
-  /**
    * A template partial used for rendering a Hook inside an Action.
    * @type {string}
    */
@@ -76,7 +70,6 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     effects: {
       id: "effects",
       template: "systems/crucible/templates/sheets/action/effects.hbs",
-      templates: [CrucibleActionConfig.ACTIVE_EFFECT_PARTIAL],
       scrollable: [""]
     },
     hooks: {
@@ -141,7 +134,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
       disableHooks,
       editable: this.isEditable,
-      effectsHTML: await this.#renderEffectsHTML(),
+      effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
       headerTags: this.action.tags.reduce((arr, tagId) => {
         const tag = SYSTEM.ACTION.TAGS[tagId];
@@ -154,6 +147,23 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       targetTypes: SYSTEM.ACTION.TARGET_TYPES
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare effects array for the Action.
+   * @returns {object[]}
+   */
+  #prepareEffects() {
+    const effects = this.action.toObject().effects;
+    return effects.map((e, i) => Object.assign(
+      e,
+      ["name", "scope", "result.type", "result.all", "statuses", "duration.turns", "duration.rounds"].reduce((paths, fieldName) => {
+        paths[`${fieldName.replaceAll(".", "")}Path`] = `effects.${i}.${fieldName}`;
+        return paths;
+      }, {})
+    ));
   }
 
   /* -------------------------------------------- */
@@ -213,64 +223,6 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       hookHTML.push(html);
     }
     return hookHTML.join("");
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare effects data attached to the action.
-   * @returns {Promise<string>}
-   */
-  async #renderEffectsHTML() {
-    const effectHTML = [];
-    for ( const [i, e] of this.action.effects.entries() ) {
-      const html = await this.#renderEffectHTML(i, e);
-      effectHTML.push(html);
-    }
-    return effectHTML.join("");
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * A SchemaField used to control the configuration of ActiveEffect data for the action.
-   * @param {string} fieldPath
-   * @returns {foundry.data.fields.SchemaField}
-   */
-  static #defineEffectSchema(fieldPath) {
-    const fields = foundry.data.fields;
-    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
-    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
-    const schema = new fields.SchemaField({
-      name: new fields.StringField({blank: true, initial: "", label: game.i18n.localize("ACTION.EFFECTS.Name")}),
-      scope: new fields.StringField({choices: effectScopes, label: game.i18n.localize("ACTION.EFFECTS.Scope")}),
-      result: new fields.SchemaField({
-        type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false,
-          label: game.i18n.localize("ACTION.EFFECTS.ResultType")}),
-        all: new fields.BooleanField({initial: false, label: game.i18n.localize("ACTION.EFFECT_RESULT_TYPES.All")})
-      }, {label: game.i18n.localize("ACTION.EFFECTS.Result")}),
-      statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}), {label: game.i18n.localize("ACTION.EFFECTS.Statuses")}),
-      duration: new fields.SchemaField({
-        turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: game.i18n.localize("ACTION.EFFECTS.DurationTurns")}),
-        rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0, label: game.i18n.localize("ACTION.EFFECTS.DurationRounds")})
-      }, {label: game.i18n.localize("ACTION.EFFECTS.Duration"), hint: game.i18n.localize("ACTION.EFFECTS.DurationHint")})
-    });
-    schema.name = fieldPath;
-    return schema;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render HTML for a single effect.
-   * @param {number} i
-   * @param {ActiveEffectData} effect
-   * @returns {Promise<string>}
-   */
-  async #renderEffectHTML(i, effect) {
-    const schema = CrucibleActionConfig.#defineEffectSchema(`effects.${i}`);
-    const ctx = {i, effect, fields: schema.fields};
-    return foundry.applications.handlebars.renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, ctx);
   }
 
   /* -------------------------------------------- */
@@ -341,21 +293,21 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   /**
-   * Add a status effect to the Action.
+   * Add an effect to the Action.
    * @this {CrucibleActionConfig}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAddEffect(_event, target) {
-    const html = await this.#renderEffectHTML(foundry.utils.randomID(), {
+  static async #onAddEffect(_event, _target) {
+    const effects = this.action.toObject().effects;
+    effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
-      placeholder: this.action.name,
       duration: {
         turns: 1
-      },
+      }
     });
-    const section = target.parentElement;
-    section.insertAdjacentHTML("beforeend", html);
+    this.action.updateSource({effects});
+    await this.render();
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
   }

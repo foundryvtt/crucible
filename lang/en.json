@@ -172,6 +172,38 @@
       "label": "Action Description",
       "hint": "A text description of how the action functions mechanically."
     },
+    "effects": {
+      "element": {
+        "duration": {
+          "label": "Duration",
+          "hint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
+          "rounds": {
+            "label": "Rounds"
+          },
+          "turns": {
+            "label": "Turns"
+          }
+        },
+        "name": {
+          "label": "Effect Name"
+        },
+        "result": {
+          "all": {
+            "label": "All"
+          },
+          "label": "Result",
+          "type": {
+            "label": "Type"
+          }
+        },
+        "scope": {
+          "label": "Effect Scope"
+        },
+        "statuses": {
+          "label": "Statuses"
+        }
+      }
+    },
     "tags": {
       "label": "Action Tags",
       "hint": "Add tags which define the requirements, behavior, and modifiers of this action. The order of tags matters as later tags will take priority over earlier ones if they modify the same properties of the action."
@@ -625,16 +657,7 @@
 
 "ACTION.EFFECTS": {
   "Add": "Add Effect",
-  "Delete": "Remove Effect",
-  "Duration": "Duration",
-  "DurationHint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
-  "DurationRounds": "Rounds",
-  "DurationTurns": "Turns",
-  "Name": "Effect Name",
-  "Result": "Result",
-  "ResultType": "Type",
-  "Scope": "Effect Scope",
-  "Statuses": "Statuses"
+  "Delete": "Remove Effect"
 },
 
 "ACTION.TAG_CATEGORIES": {
