@@ -862,7 +862,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onItemCreate(event) {
     const cls = getDocumentClass("Item");
-    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack});
+    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack}, {
+      types: Array.from(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES)
+    });
   }
 
   /* -------------------------------------------- */
