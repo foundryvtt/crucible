@@ -18,7 +18,6 @@ system:
         target loses <strong>1 Focus</strong>.</p>
       tags:
         - void
-        - focus
         - skill
         - deception
       cost:
@@ -49,10 +48,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.3
   coreVersion: '13.351'
   createdTime: 1676837085147
-  modifiedTime: 1763345865701
+  modifiedTime: 1767294479280
   lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null

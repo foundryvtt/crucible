@@ -289,8 +289,8 @@ HOOKS.distract = {
     for ( const r of outcome.rolls ) {
       if ( r.isSuccess ) {
         r.data.damage.multiplier = 0;
-        r.data.damage.base = 1;
-        r.data.damage.total = 1;
+        r.data.damage.base = r.data.damage.total = 1;
+        r.data.damage.resource = "focus";
       }
     }
   }
