@@ -268,7 +268,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
-      // effects: new fields.ArrayField(new fields.ObjectField()),
       effects: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: ""}),
         scope: new fields.NumberField({choices: effectScopes}),
