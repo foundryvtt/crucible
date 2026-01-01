@@ -15,7 +15,6 @@ system:
         <strong>Boon</strong> to actions made within the next Round.</p>
       tags:
         - rallying
-        - focus
         - skill
         - diplomacy
       cost:
@@ -23,6 +22,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       target:
         type: single
         number: 1
@@ -30,7 +30,10 @@ system:
         self: false
       effects:
         - name: Clarify Intent
-          scope: 2
+          scope: '2'
+          result:
+            type: success
+            all: false
           statuses: []
           duration:
             turns: null
@@ -53,11 +56,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.3
   coreVersion: '13.351'
   createdTime: 1677347458957
-  modifiedTime: 1763133989986
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767294497757
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null

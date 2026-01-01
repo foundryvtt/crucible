@@ -1089,13 +1089,13 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
 /*  Target Resources                            */
 /* -------------------------------------------- */
 
-for ( const {id, label} of Object.values(RESOURCES) ) {
-  TAGS[id] = {
-    tag: id,
-    label: label,
+for ( const resource of ["health", "morale"] ) {
+  TAGS[resource] = {
+    tag: resource,
+    label: RESOURCES[resource].label,
     category: "resources",
     initialize() {
-      this.usage.resource = id;
+      this.usage.resource = resource
     }
   }
 }
