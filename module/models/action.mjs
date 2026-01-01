@@ -1087,7 +1087,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {_id, name, statuses: statusesArray=[], duration} = effectData;
+      const {_id, name, statuses: statusesArray, duration, system} = effectData;
       const statuses = new Set(statusesArray);
 
       // Prepare effect data
@@ -1097,7 +1097,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         description: this.description,
         icon: this.img,
         origin: this.actor.uuid,
-        duration
+        duration,
+        system
       };
 
       // Auto-configure statuses
@@ -1127,7 +1128,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    const scope = Number(effectData.scope ?? this.target.scope);
+    const scope = effectData.scope ?? this.target.scope;
     if ( scope === scopes.NONE ) return false; // Should never happen
     if ( outcome.self ) {
       if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false;
