@@ -416,16 +416,16 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         case "talent":
           d.tier = i.system.node?.tier || 0;
           const action = i.actions.at(0);
-          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
-          if ( i.system.isSignature ) section = sections.talents.signature;
           if ( action ) {
             const tags = action.getTags();
             d.tags = Object.assign({}, tags.action, tags.activation);
-            section ||= sections.talents.active;
           }
-          else if ( spellComp ) section ||= sections.talents.spell;
-          else if ( i.system.training.type ) section ||= sections.talents.training;
-          else section ||= sections.talents.passive;
+          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
+          if ( i.system.isSignature ) section = sections.talents.signature;           // Signature
+          else if ( spellComp ) section ||= sections.talents.spell;                   // Spellcraft
+          else if ( i.system.training.type ) section ||= sections.talents.training;   // Training
+          else if ( action ) section ||= sections.talents.active;                     // Actives
+          else section ||= sections.talents.passive;                                  // Passives
           break;
         case "spell":
           d.isItem = true;
