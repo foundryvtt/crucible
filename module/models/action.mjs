@@ -82,10 +82,12 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
  * @typedef {Object} ActionEffect
- * @property {string} [name]
+ * @property {string} name
  * @property {number} scope
  * @property {string[]} statuses
- * @property {{rounds: number, turns: number}} [duration]
+ * @property {{rounds: number, turns: number}} duration
+ * @property {{type: string, all: boolean}} result
+ * @property {object} system
  */
 
 /**
@@ -1133,24 +1135,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     else if ( scope === scopes.SELF ) return false;
 
     // Assert correct outcome result
-    let {type, all=false} = effectData.result || {};
-    type ??= this.usage.hasDice ? "success" : "any"; // Infer for effects that don't yet specify their result type
+    const {type, all} = effectData.result;
+    const hasRolls = outcome.rolls.length > 0;
     switch ( type ) {
       case "any":
         return true;
       case "custom":
         return false; // Custom results are never attached and are only handled using hook code
       case "success":
-        if ( all ) return outcome.rolls.every(r => r.isSuccess);
-        else return outcome.rolls.some(r => r.isSuccess);
+        if ( all ) return hasRolls && outcome.rolls.every(r => r.isSuccess);
+        else return !hasRolls || outcome.rolls.some(r => r.isSuccess);
       case "successCritical":
-        if ( all ) return outcome.rolls.every(r => r.isCriticalSuccess);
+        if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalSuccess);
         else return outcome.rolls.some(r => r.isCriticalSuccess);
       case "failure":
-        if ( all ) return outcome.rolls.every(r => r.isFailure);
+        if ( all ) return hasRolls && outcome.rolls.every(r => r.isFailure);
         else return outcome.rolls.some(r => r.isFailure);
       case "failureCritical":
-        if ( all ) return outcome.rolls.every(r => r.isCriticalFailure);
+        if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalFailure);
         else return outcome.rolls.some(r => r.isCriticalFailure);
       default:
         return false; // Unknown or unsupported result type
