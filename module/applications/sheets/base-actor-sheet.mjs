@@ -86,7 +86,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     },
     effects:{
       id: "effects",
-      template: "systems/crucible/templates/sheets/actor/effects.hbs"
+      template: "systems/crucible/templates/sheets/actor/effects.hbs",
+      scrollable: [".effects-sections"]
     },
     biography: {
       id: "biography",
@@ -864,7 +865,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onItemCreate(event) {
     const cls = getDocumentClass("Item");
-    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack});
+    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack}, {
+      types: Array.from(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES)
+    });
   }
 
   /* -------------------------------------------- */
@@ -940,7 +943,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onEffectCreate(event) {
     const cls = getDocumentClass("ActiveEffect");
-    await cls.createDialog({}, {parent: this.document, pack: this.document.pack});
+    await cls.create({
+      name: game.i18n.localize("ACTIVE_EFFECT.New"),
+      img: "icons/svg/aura.svg"
+    }, {parent: this.actor, renderSheet: true});
   }
 
   /* -------------------------------------------- */
