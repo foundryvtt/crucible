@@ -165,13 +165,10 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    */
   #prepareEffects() {
     const effects = this.action.toObject().effects;
-    return effects.map((e, i) => Object.assign(
-      e,
-      ["name", "scope", "result.type", "result.all", "statuses", "duration.turns", "duration.rounds"].reduce((paths, fieldName) => {
-        paths[`${fieldName.replaceAll(".", "")}Path`] = `effects.${i}.${fieldName}`;
-        return paths;
-      }, {})
-    ));
+    for ( const [i, effect] of effects.entries() ) {
+      effect.fieldPath = `effects.${i}`;
+    }
+    return effects;
   }
 
   /* -------------------------------------------- */
