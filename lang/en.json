@@ -1089,6 +1089,7 @@
 
 "ACTIVE_EFFECT": {
   "ACTIONS": {
+    "New": "New Effect",
     "Create": "Create Effect",
     "Delete": "Delete Effect",
     "Disable": "Disable Effect",
@@ -1139,8 +1140,6 @@
     "Shocked": "Shocked"
   }
 },
-
-"ACTIVE_EFFECT.New": "New Effect",
 
 "BASE_EFFECT": {
   "FIELDS": {

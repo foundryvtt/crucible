@@ -809,8 +809,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionEdit(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -823,8 +822,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionFavorite(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -848,8 +846,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionUse(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -860,10 +857,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
-  static async #onItemCreate(event) {
+  static async #onItemCreate(_event, _target) {
     const cls = getDocumentClass("Item");
     await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack}, {
       types: Array.from(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES)
@@ -874,8 +870,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemDelete(event, target) {
     const item = this.#getEventItem(event, target);
@@ -886,8 +881,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemDrop(event, target) {
     const item = this.#getEventItem(event, target);
@@ -898,8 +892,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemEdit(event, target) {
     const item = this.#getEventItem(event, target);
@@ -910,8 +903,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemEquip(event, target) {
     const item = this.#getEventItem(event, target);
@@ -926,7 +918,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Get the Item document associated with an action event.
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {CrucibleItem}
    */
   #getEventItem(_event, target) {
@@ -938,14 +931,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
-  static async #onEffectCreate(event) {
+  static async #onEffectCreate() {
     const cls = getDocumentClass("ActiveEffect");
     await cls.create({
-      name: game.i18n.localize("ACTIVE_EFFECT.New"),
-      img: "icons/svg/aura.svg"
+      name: game.i18n.localize("ACTIVE_EFFECT.ACTIONS.New"),
+      img: CONFIG.controlIcons.effects,
+      type: "base"
     }, {parent: this.actor, renderSheet: true});
   }
 
@@ -953,8 +946,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectDelete(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -965,8 +957,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectEdit(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -977,8 +968,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectToggle(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -989,7 +979,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Get the ActiveEffect document associated with an action event.
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {ActiveEffect}
    */
   #getEventEffect(_event, target) {
@@ -1001,8 +992,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onExpandSection(_event, target) {
     const section = target.closest(".sheet-section");
@@ -1021,8 +1011,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onSkillRoll(_event, target) {
     return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
@@ -1033,7 +1022,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /**
    * Handle click actions to edit engagement bonus.
    * @this {HeroSheet}
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEditEngagement() {
     return this.#editMovementBonusDialog({
@@ -1050,7 +1039,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /**
    * Handle click actions to edit size bonus.
    * @this {HeroSheet}
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEditSize() {
     return this.#editMovementBonusDialog({
@@ -1067,7 +1056,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /**
    * Handle click actions to edit stride bonus.
    * @this {HeroSheet}
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEditStride() {
     return this.#editMovementBonusDialog({
