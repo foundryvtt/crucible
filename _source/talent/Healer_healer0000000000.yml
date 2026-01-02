@@ -29,14 +29,19 @@ system:
         self: false
       effects:
         - name: Font of Life
-          scope: '2'
+          scope: 2
           result:
-            type: success
-            all: true
+            type: any
+            all: false
           statuses: []
           duration:
             turns: 3
             rounds: null
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - healing
         - health
@@ -68,7 +73,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.3
   createdTime: 1727311608001
-  modifiedTime: 1767195519339
+  modifiedTime: 1767382048845
   lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 folder: fOYHlZJEWUukD7yr
