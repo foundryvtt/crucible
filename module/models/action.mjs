@@ -280,9 +280,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
           rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
         }),
-        system: new fields.SchemaField({
-          dot: crucible.api.models.CrucibleBaseActiveEffect.defineSchema().dot
-        })
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
       actionHooks: new fields.ArrayField(new fields.SchemaField({

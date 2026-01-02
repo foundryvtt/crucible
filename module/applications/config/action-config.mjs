@@ -36,6 +36,12 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     },
     sheetConfig: false
   };
+  
+  /**
+   * A template partial used for rendering an Active Effect inside an Action.
+   * @type {string}
+   */
+  static ACTIVE_EFFECT_PARTIAL = "systems/crucible/templates/sheets/action/effect.hbs";
 
   /**
    * A template partial used for rendering a Hook inside an Action.
@@ -70,6 +76,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     effects: {
       id: "effects",
       template: "systems/crucible/templates/sheets/action/effects.hbs",
+      templates: [CrucibleActionConfig.ACTIVE_EFFECT_PARTIAL],
       scrollable: [""]
     },
     hooks: {
@@ -134,6 +141,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
       disableHooks,
       editable: this.isEditable,
+      effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
       headerTags: this.action.tags.reduce((arr, tagId) => {

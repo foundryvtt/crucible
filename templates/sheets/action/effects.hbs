@@ -5,39 +5,6 @@
         <span>{{localize "ACTION.EFFECTS.Add"}}</span>
     </button>
     {{#each effects as |effect|}}
-    {{#with ../fields.effects.element.fields as |fields|}}
-    <fieldset class="effect">
-        <div class="form-group">
-            <label>{{fields.name.label}}</label>
-            <div class="form-fields">
-                {{formInput fields.name name=effect.namePath placeholder=@root/action.name value=effect.name}}
-                <button type="button" class="icon frame-brown fa-solid fa-trash"
-                        data-action="deleteEffect" aria-label="{{localize "ACTION.EFFECTS.Delete"}}" data-tooltip></button>
-            </div>
-        </div>
-        {{formGroup fields.scope name=effect.scopePath value=effect.scope localize=true}}
-        <div class="form-group">
-            <label>{{fields.result.label}}</label>
-            <div class="form-fields">
-                {{formInput fields.result.fields.type name=effect.resulttypePath value=effect.result.type}}
-                <label class="checkbox">
-                    {{fields.result.fields.all.label}}
-                    {{formInput fields.result.fields.all name=effect.resultallPath value=effect.result.all}}
-                </label>
-            </div>
-        </div>
-        {{formGroup fields.statuses name=effect.statusesPath value=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
-        <div class="form-group">
-            <label>{{fields.duration.label}}</label>
-            <div class="form-fields">
-                {{formInput fields.duration.fields.turns name=effect.durationturnsPath value=effect.duration.turns}}
-                <label>{{fields.duration.fields.turns.label}}</label>
-                {{formInput fields.duration.fields.rounds name=effect.durationroundsPath value=effect.duration.rounds}}
-                <label>{{fields.duration.fields.rounds.label}}</label>
-            </div>
-            <p class="hint">{{fields.duration.hint}}</p>
-        </div>
-    </fieldset>
-    {{/with}}
+    {{> (lookup @root "effectPartial") effect=effect fields=@root/fields.effects.element.fields placeholder=@root/action.name}}
     {{/each}}
 </section>
