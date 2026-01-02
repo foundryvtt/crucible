@@ -15,10 +15,17 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
    */
   #inputs = {};
 
+  /**
+   * Named span elements used if the element is readonly.
+   * @type {Record<string, HTMLSpanElement>}
+   */
+  #spans = {};
+
   /* -------------------------------------------- */
 
   /** @override */
   _buildElements() {
+    const isReadonly = this.hasAttribute("readonly");
 
     // Initialize existing raw value
     this._value = Number(this.getAttribute("value") || 0);
@@ -29,17 +36,8 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
     const ds = Object.entries(crucible.CONFIG.currency).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
     for ( const [k, v] of ds ) {
 
-      // Number input
-      const i = document.createElement("input");
-      if ( this.id ) i.id = `${this.id}-${k}`;
-      i.type = "text"; // Use text so we can support delta values like "+12"
-      i.placeholder = v.abbreviation;
-      i.dataset.denomination = k;
-      this.#inputs[k] = i;
-
       // Icon or string label
       const l = document.createElement("label");
-      l.setAttribute("for", i.id);
       if ( v.icon ) {
         const img = document.createElement("img");
         img.src = v.icon;
@@ -49,7 +47,21 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
         l.appendChild(img);
       }
       else l.innerText = v.abbreviation;
-      elements.push(l, i);
+      elements.push(l);
+
+      // Number input
+      const input = document.createElement("input");
+      if ( this.id ) input.id = `${this.id}-${k}`;
+      input.type = "text"; // Use text so we can support delta values like "+12"
+      input.placeholder = v.abbreviation;
+      input.dataset.denomination = k;
+      this.#inputs[k] = input;
+      l.setAttribute("for", input.id);
+      elements.push(input);
+
+      // Readonly spans
+      this.#spans[k] = document.createElement("span");
+      elements.push(this.#spans[k]);
     }
     return elements;
   }
@@ -61,13 +73,22 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
     const isReadonly = this.hasAttribute("readonly");
     const amounts = crucible.api.documents.CrucibleActor.allocateCurrency(this._value);
     for ( const [k, v] of Object.entries(amounts) ) {
-      const i = this.#inputs[k];
-      i.value = v;
-      // Hide zero inputs for readonly elements
-      i.toggleAttribute("readonly", isReadonly);
-      const isHidden = isReadonly && (v === 0);
-      i.classList.toggle("hidden", isHidden);
-      i.previousElementSibling.classList.toggle("hidden", isHidden);
+      const input = this.#inputs[k];
+      const span = this.#spans[k];
+      const icon = input.previousElementSibling;
+      input.value = span.innerText = String(v);
+      if ( isReadonly ) {
+        const isRequired = (this._value === 0) && (crucible.CONFIG.currency[k].multiplier === 1);
+        let canHide = (v === 0) && !isRequired;
+        input.classList.toggle("hidden", true);
+        span.classList.toggle("hidden", canHide);
+        icon.classList.toggle("hidden", canHide);
+      } else {
+        span.classList.toggle("hidden", true);
+        input.classList.toggle("hidden", false);
+        icon.classList.toggle("hidden", false);
+      }
+      input.toggleAttribute("readonly", isReadonly);
     }
   }
 

@@ -4,6 +4,9 @@
         <h1 class="title">
             {{formInput item.schema.fields.name value=source.name placeholder="Item Name"}}
         </h1>
-        {{~crucibleTags tags additionalClasses="header-tags"~}}
+        <div class="metadata flexrow">
+            {{~crucibleTags tags additionalClasses="header-tags"~}}
+            {{#if isPhysical}}<crucible-currency class="currency" value="{{item.system.price}}" readonly></crucible-currency>{{/if}}
+        </div>
     </div>
 </header>

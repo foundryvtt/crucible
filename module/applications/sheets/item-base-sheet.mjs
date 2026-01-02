@@ -147,6 +147,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
     // Physical Items
     if ( this.document.system instanceof CruciblePhysicalItem ) {
+      context.isPhysical = true;
       context.propertiesWidget = this.#propertiesWidget.bind(this);
       context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.ScaledPrice")});
