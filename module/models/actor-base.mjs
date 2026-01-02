@@ -910,12 +910,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   _prepareMovement() {
     const m = this.movement;
+
+    // Size
     m.size = m.baseSize + m.sizeBonus;
+
+    // Stride
     m.stride = m.baseStride + m.strideBonus;
     m.free = m.stride;
-    m.engagement = 1; // Default engagement is size-2 with a minimum of 1.
-    const {shield, offhand} = this.parent.equipment.weapons;
-    if ( shield && offhand.system.properties.has("engaging") ) m.engagement += 1;
+
+    // Engagement
+    m.baseEngagement = 1;
+    const {mainhand, offhand} = this.parent.equipment.weapons;
+    if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
+    if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;
+    m.engagement = m.baseEngagement + m.engagementBonus;
   }
 
   /* -------------------------------------------- */

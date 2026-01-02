@@ -28,7 +28,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
       skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
+      editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
       editSize: CrucibleBaseActorSheet.#onEditSize,
+      editStride: CrucibleBaseActorSheet.#onEditStride
     },
     form: {
       submitOnChange: true
@@ -1023,37 +1025,86 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
-   * Handle click actions to edit size bonuses
+   * Handle click actions to edit engagement bonus.
+   * @this {HeroSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onEditEngagement() {
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseEngagement",
+      bonusAttribute: "engagementBonus",
+      minValue: 0,
+      editLabel: "ACTOR.ACTIONS.EditEngagement",
+      baseLabel: "ACTOR.FIELDS.movement.engagement.base"
+    });
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit size bonus.
    * @this {HeroSheet}
    * @returns {Promise<void>}
    */
   static async #onEditSize() {
-    const schema = this.actor.system.schema;
-    const { baseSize, sizeBonus } = this.actor.system.movement;
-    const content = document.createElement(`div`);
-
-    content.innerHTML = `
-    <div class="form-group">
-      <label>${game.i18n.localize("ACTOR.SHEET.BaseSize")}</label>
-      <div class="form-fields">
-        <input type="number" value="${baseSize}" disabled>
-      </div>
-    </div>`;
-
-    const minSize = (baseSize * -1) + 1; // prevents sizes <= 0
-    content.appendChild(schema.getField("movement.sizeBonus").toFormGroup({}, { value: sizeBonus, min: minSize }));
-
-    const formData = await foundry.applications.api.DialogV2.input({
-      window: {
-        title: game.i18n.format("ACTOR.SHEET.EditMovement", { name: this.actor.name }),
-      },
-      content,
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseSize",
+      bonusAttribute: "sizeBonus",
+      minValue: 1,
+      editLabel: "ACTOR.ACTIONS.EditSize",
+      baseLabel: "ACTOR.FIELDS.movement.size.base"
     });
-
-    if (formData) {
-      await this.actor.update(formData);
-    };
   };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit stride bonus.
+   * @this {HeroSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onEditStride() {
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseStride",
+      bonusAttribute: "strideBonus",
+      minValue: 0,
+      editLabel: "ACTOR.ACTIONS.EditStride",
+      baseLabel: "ACTOR.FIELDS.movement.stride.base"
+    });
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * A common helper method that handles editing a movement bonus via an input dialog.
+   * @param {object} options
+   * @param {string} [options.baseAttribute]
+   * @param {string} [options.bonusAttribute]
+   * @param {number} [options.minValue]
+   * @param {string} [options.editLabel]
+   * @param {string} [options.baseLabel]
+   * @returns {Promise<void>}
+   */
+  async #editMovementBonusDialog({baseAttribute, bonusAttribute, minValue, editLabel, baseLabel}={}) {
+    const bonusField = this.actor.system.schema.getField(`movement.${bonusAttribute}`);
+    if ( !bonusField ) throw new Error(`Actor ${this.actor.name} does not have a movement.${bonusAttribute} field`);
+    const baseValue = this.actor.system.movement[baseAttribute];
+    const bonusValue = this.actor.system._source.movement[bonusAttribute];
+    const minBonus = minValue - baseValue;
+
+    // Structure form content
+    const baseGroup = bonusField.toFormGroup({label: game.i18n.localize(baseLabel), classes: ["slim"]},
+      {name: "", value: baseValue, disabled: true});
+    const bonusGroup = bonusField.toFormGroup({classes: ["slim"]}, {value: bonusValue, min: minBonus, step: 1});
+    bonusGroup.querySelector("input").toggleAttribute("autofocus", true);
+    const content = document.createElement("div");
+    content.append(baseGroup, bonusGroup);
+
+    // Process user-input dialog
+    const title = `${game.i18n.localize(editLabel)}: ${this.actor.name}`;
+    const formData = await foundry.applications.api.DialogV2.input({window: {title}, content});
+    if (formData) await this.actor.update(formData);
+  }
 
   /* -------------------------------------------- */
   /*  Drag and Drop                               */

@@ -272,6 +272,9 @@
     "ClearedDetailItem": "Removed the {type} from {actor}.",
     "DecreaseAbility": "Decrease Ability Score",
     "DecreaseAbilitySpecific": "Decrease {ability}",
+    "EditMovement": "Edit Movement",
+    "EditSize": "Edit Size",
+    "EditEngagement": "Edit Engagement",
     "IncreaseAbility": "Increase Ability Score",
     "IncreaseAbilitySpecific": "Increase {ability}",
     "LevelUp": "Level Up!",
@@ -328,6 +331,7 @@
     },
     "movement": {
       "size": {
+        "base": "Base Size",
         "label": "Size",
         "tooltip": "The number of grid spaces squared occupied by this creature."
       },
@@ -336,6 +340,7 @@
         "hint": "An additive modifier to the base size of the creature defined by Ancestry or Taxonomy."
       },
       "stride": {
+        "base": "Base Stride",
         "label": "Stride",
         "tooltip": "Movement distance per spent Action Point."
       },
@@ -344,6 +349,7 @@
         "hint": "An additive modifier to Stride speed of the Actor defined by Ancestry or Taxonomy."
       },
       "engagement": {
+        "base": "Base Engagement",
         "label": "Engagement",
         "labelShort": "Engage",
         "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
@@ -444,9 +450,7 @@
     },
     "PointsAvailable": "Available",
     "PointsSpent": "Spent",
-    "Resources": "Resources",
-    "EditMovement": "Edit Movement: {name}",
-    "BaseSize": "Base Size"
+    "Resources": "Resources"
   },
   "WARNINGS": {
     "NoAncestry": "Choose an Ancestry",
