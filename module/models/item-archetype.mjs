@@ -20,7 +20,10 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      talents: new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item"}),
+        level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
+      })),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
       spells: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
@@ -87,6 +90,12 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
+
+    if ( source.talents?.length ) {
+      if ( typeof source.talents[0] === "string") {
+        source.talents = source.talents.map(t => ({item: t, level: null}));
+      }
+    }
 
     const abilities = source.abilities;
     if ( abilities ) {

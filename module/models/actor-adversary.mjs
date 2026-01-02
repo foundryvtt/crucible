@@ -365,7 +365,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     /** @deprecated since 0.7.3 */
     if ( source.details?.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
     /** @deprecated since 0.7.3 */
-    if ( source.details?.taxonomy ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.taxonomy);
+    if ( source.details?.taxonomy ) crucible.api.models.CrucibleTaxonomyItem.migrateData(source.details.taxonomy);
     /** @deprecated since 0.7.4 */
     if ( source.advancement?.threat ) {
       source.advancement.rank = source.advancement.threat;
