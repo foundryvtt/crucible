@@ -237,6 +237,9 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+    const statusEffectsObj = CONFIG.statusEffects.reduce((acc, s) => ({...acc, [s.id]: s}), {}); // TODO: In V14 won't need to do this
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -265,7 +268,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
-      effects: new fields.ArrayField(new fields.ObjectField()),
+      effects: new fields.ArrayField(new fields.SchemaField({
+        name: new fields.StringField({blank: true, initial: ""}),
+        scope: new fields.NumberField({choices: effectScopes}),
+        result: new fields.SchemaField({
+          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
+          all: new fields.BooleanField({initial: false})
+        }),
+        statuses: new fields.SetField(new fields.StringField({choices: statusEffectsObj})),
+        duration: new fields.SchemaField({
+          turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
+          rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
+        }),
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+      })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
       actionHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
@@ -1068,7 +1084,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {_id, name, statuses: statusesArray=[], duration} = effectData;
+      const {_id, name, statuses: statusesArray, duration, system} = effectData;
       const statuses = new Set(statusesArray);
 
       // Prepare effect data
@@ -1078,7 +1094,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         description: this.description,
         icon: this.img,
         origin: this.actor.uuid,
-        duration
+        duration,
+        system
       };
 
       // Auto-configure statuses
@@ -1108,7 +1125,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    const scope = Number(effectData.scope ?? this.target.scope);
+    const scope = effectData.scope ?? this.target.scope;
     if ( scope === scopes.NONE ) return false; // Should never happen
     if ( outcome.self ) {
       if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false;

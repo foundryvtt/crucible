@@ -321,7 +321,6 @@ HOOKS.fontOfLife = {
     if ( outcome.self ) return;
     const amount = this.actor.abilities.wisdom.value;
     const effect = outcome.effects[0];
-    effect.system ??= {};
     effect.system.dot = [{
       amount,
       resource: "health",
@@ -351,7 +350,6 @@ HOOKS.healingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    effect.system ??= {};
     effect.system.dot = [{
       amount,
       resource: "health",
@@ -591,7 +589,6 @@ HOOKS.rallyingTonic = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     const effect = outcome.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    effect.system ??= {};
     effect.system.dot = [{
       amount,
       resource: "morale",

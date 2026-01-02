@@ -4,5 +4,7 @@
         <i class="fa-solid fa-plus"></i>
         <span>{{localize "ACTION.EFFECTS.Add"}}</span>
     </button>
-    {{{effectsHTML}}}
+    {{#each effects as |effect|}}
+    {{> (lookup @root "effectPartial") effect=effect fields=@root/fields.effects.element.fields placeholder=@root/action.name}}
+    {{/each}}
 </section>
