@@ -251,15 +251,15 @@ export const statusEffects = [
     id: "mending",
     name: "ACTIVE_EFFECT.STATUSES.Mending",
     img: "icons/magic/life/cross-beam-green.webp",
-    hud: false
-    // page: TODO
+    hud: false,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.mending000000000"
   },
   {
     id: "inspired",
     name: "ACTIVE_EFFECT.STATUSES.Inspired",
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
-    hud: false
-    // page: TODO
+    hud: false,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.inspired00000000"
   },
   {
     id: "poisoned",

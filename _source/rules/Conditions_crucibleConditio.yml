@@ -676,7 +676,8 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Restrained</strong> is unable to perform
-        any Action which involves Movement.</p>
+        any Action which involves <strong>Movement</strong> and suffers
+        <strong>+2 Banes</strong> to attack rolls.</p>
     video:
       controls: true
       volume: 0.5
@@ -689,12 +690,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303541755
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375233136
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.restrained000000'
   - sort: 1450000
     name: Disoriented
@@ -868,7 +869,7 @@ pages:
       modifiedTime: 1751303715447
       lastModifiedBy: QvBFYpRRXHRBcOfP
     _key: '!journal.pages!crucibleConditio.poisoned00000000'
-  - sort: 1700000
+  - sort: 1550000
     name: Corroding
     type: text
     category: rpL70eBEekWih461
@@ -895,14 +896,14 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303721856
-      modifiedTime: 1751303722991
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375123711
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.corroding0000000'
-  - sort: 1800000
+  - sort: 1525000
     name: Burning
     type: text
     category: rpL70eBEekWih461
@@ -929,14 +930,14 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303729701
-      modifiedTime: 1751303730870
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375125676
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.burning000000000'
-  - sort: 1900000
+  - sort: 1556250
     name: Freezing
     type: text
     category: rpL70eBEekWih461
@@ -963,14 +964,14 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303737573
-      modifiedTime: 1751303738804
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375134382
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.freezing00000000'
-  - sort: 2000000
+  - sort: 1562500
     name: Irradiated
     type: text
     category: rpL70eBEekWih461
@@ -997,14 +998,14 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303746850
-      modifiedTime: 1751303748125
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375129289
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.irradiated000000'
-  - sort: 2100000
+  - sort: 1553125
     name: Decaying
     type: text
     category: rpL70eBEekWih461
@@ -1031,12 +1032,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751303754005
-      modifiedTime: 1751303755094
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1767375135964
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.decaying00000000'
   - sort: 1350000
     name: Hastened
@@ -1322,6 +1323,78 @@ pages:
       modifiedTime: 1751311943055
       lastModifiedBy: QvBFYpRRXHRBcOfP
     _key: '!journal.pages!crucibleConditio.exhausted0000000'
+  - sort: 1581250
+    name: Mending
+    type: text
+    category: rpL70eBEekWih461
+    _id: mending000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Mending</strong> will gradually recover
+        <strong>Health</strong> at the start of each of its turns. The amount of
+        Health recovered is defined by a corresponding value of the Mending
+        effect.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.3
+      createdTime: 1767374998128
+      modifiedTime: 1767375140074
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleConditio.mending000000000'
+  - sort: 1559375
+    name: Inspired
+    type: text
+    category: rpL70eBEekWih461
+    _id: inspired00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Inspired </strong>will gradually recover
+        <strong>Morale </strong>at the start of each of its turns. The amount of
+        Morale recovered is defined by a corresponding value of the Inspired
+        effect.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.3
+      createdTime: 1767375059724
+      modifiedTime: 1767375142617
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleConditio.inspired00000000'
 folder: MMeWpMmsLOblp07U
 categories:
   - name: Health
