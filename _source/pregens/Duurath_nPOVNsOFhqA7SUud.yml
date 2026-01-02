@@ -284,7 +284,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 200000
     ownership:
@@ -327,7 +327,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 200000
     ownership:
@@ -369,7 +369,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
@@ -435,7 +435,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -477,6 +477,15 @@ items:
                 - staggered
               duration:
                 turns: 1
+                rounds: null
+              result:
+                type: success
+                all: false
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           name: Shield Bash
           img: icons/skills/melee/shield-block-bash-blue.webp
           actionHooks: []
@@ -503,7 +512,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -564,7 +573,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -607,7 +616,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -645,7 +654,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -656,10 +665,57 @@ items:
     img: icons/skills/melee/unarmed-punch-fist-white.webp
     system:
       description: >-
-        <p>You have a basic education in hand-to-hand combat and other martial
-        arts. You are no longer treated as <strong>Untrained</strong> with
-        weapons in the <strong>Unarmed </strong>category.</p>
-      actions: []
+        <p>You are familiar with basic martial arts and hand-to-hand combat. You
+        know how to subdue or restrain opponents using your physical Strength.
+        You are <strong>Trained</strong> with weapons in the
+        <strong>Unarmed</strong> category.</p>
+      actions:
+        - id: grapple
+          img: icons/magic/control/buff-strength-muscle-damage.webp
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Grappled
+              scope: 4
+              result:
+                type: success
+                all: false
+              statuses:
+                - restrained
+              duration:
+                turns: null
+                rounds: 1
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+          tags:
+            - difficult
+            - harmless
+            - skill
+            - athletics
+          actionHooks: []
+          name: Grapple
+          condition: ''
+          description: >-
+            <p>You attempt to physically restrain or subdue an opponent. Perform
+            a <strong>Athletics</strong> skill attack against an adjacent
+            target. If successful, both you and your target are
+            @Condition[restrained] for 1 Round.</p>
       iconicSpells: 0
       training:
         type: unarmed
@@ -679,7 +735,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -743,7 +799,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -780,7 +836,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -798,9 +854,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: nPOVNsOFhqA7SUud
 ownership:

@@ -287,7 +287,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
@@ -331,7 +331,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -373,7 +373,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 700000
@@ -412,7 +412,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -460,7 +460,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -502,47 +502,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.scienceNovice000'
-  - folder: i7WposibCJ94XpuD
-    name: Mechanical Weapon Training
-    type: talent
-    img: icons/weapons/crossbows/crossbow-white.webp
-    system:
-      description: >-
-        <p>You have a basic education in crossbows, firearms, and other
-        mechanical weapons. You are no longer treated as
-        <strong>Untrained</strong> with weapons in the <strong>Mechanical
-        </strong>category.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: mechanical
-        rank: 1
-      actorHooks: []
-      nodes:
-        - dex0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 0
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.2
-      lastModifiedBy: null
-    _id: mechanicalTraini
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.mechanicalTraini'
   - name: 'Gesture: Create'
     type: talent
     img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
@@ -580,7 +544,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -663,7 +627,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeLightning000
     folder: null
@@ -749,7 +713,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -776,20 +740,20 @@ items:
           description: >-
             <p>Your command of the Rune of Frost allows you to manipulate
             liquids and their thermal properties, producing one of the following
-            effects:</p><ul><li><p>Draw up to one liter of fresh water from the
-            atmosphere into a container or upon a surface you touch. The created
-            water may be affected by relevant atmospheric properties of your
-            current location.</p></li><li><p>Manipulate the temperature of up to
-            1 gallon of water, causing it to immediately freeze or thaw. The
-            water need not be in a container; this technique can be used to coat
-            a surface or join two objects together via regelation. Ice created
-            in this way remains frozen for as long as the ambient temperature of
-            the environment allows.</p></li><li><p>Gather up to a six-foot cube
-            of nearby snow, forming it into a solidified sculpture, shape, or
-            shelter.</p></li></ul><p>Condense may only affect a creature or
-            object you can physically touch. You may attempt other uses similar
-            those above, the effectiveness of which is decided by the
-            Gamemaster.</p>
+            effects:</p><ul><li><p>Draw up to one quarter gallon of fresh water
+            from the atmosphere into a container or upon a surface you touch.
+            The created water may be affected by relevant atmospheric properties
+            of your current location.</p></li><li><p>Manipulate the temperature
+            of up to 1 gallon of water, causing it to immediately freeze or
+            thaw. The water need not be in a container; this technique can be
+            used to coat a surface or join two objects together via regelation.
+            Ice created in this way remains frozen for as long as the ambient
+            temperature of the environment allows.</p></li><li><p>Gather up to a
+            six-foot cube of nearby snow, forming it into a solidified
+            sculpture, shape, or shelter.</p></li></ul><p>Condense may only
+            affect a creature or object you can physically touch. You may
+            attempt other uses similar those above, the effectiveness of which
+            is decided by the Gamemaster.</p>
           cost:
             action: 3
             focus: 1
@@ -829,7 +793,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeFrost0000000
     folder: null
@@ -837,6 +801,68 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.runeFrost0000000'
+  - name: Mechanical Weapon Training
+    type: talent
+    img: icons/weapons/crossbows/crossbow-white.webp
+    system:
+      description: >-
+        <p>You are familiar in the design and usage of crossbows, firearms, and
+        other similar armaments. You are <strong>Trained</strong> with weapons
+        in the <strong>Mechanical</strong> category.</p>
+      actions:
+        - id: rapidReload
+          name: Rapid Reload
+          img: icons/skills/ranged/bullet-sparks-yellow.webp
+          condition: ''
+          description: >-
+            <p>You focus deeply and calm your nerves to quickly
+            <strong>Reload</strong> your mechanical weapon with exceptional
+            haste.</p>
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - reload
+          actionHooks: []
+      iconicSpells: 0
+      training:
+        type: mechanical
+        rank: 1
+      actorHooks: []
+      nodes:
+        - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.4
+      lastModifiedBy: null
+    _id: mechanicalWeapon
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.mechanicalWeapon'
 effects: []
 flags:
   core: {}
@@ -848,9 +874,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 ownership:

@@ -289,7 +289,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 500000
     ownership:
@@ -331,7 +331,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
@@ -371,7 +371,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -411,7 +411,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -447,7 +447,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
@@ -485,10 +485,19 @@ items:
             self: false
           effects:
             - name: Font of Life
-              scope: 1
+              scope: 2
+              result:
+                type: any
+                all: false
               statuses: []
               duration:
                 turns: 3
+                rounds: null
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           tags:
             - healing
             - health
@@ -499,7 +508,12 @@ items:
             <p>You bring forth an aura of life-giving magic. Immediately upon
             activation and at the start of your turn for <strong>3
             Rounds</strong> every ally within 20 feet heals for an amount equal
-            to your <strong>Wisdom</strong> score.</p>
+            to your <strong>Wisdom</strong> score.</p><p><strong>WIP: This
+            action is currently treated as an Area of Effect, granting
+            healing-over-time effects to those within the initial range. When
+            auras are automated by the system in Foundry VTT version 14, the
+            mechanical implementation of this action will match the
+            description.</strong></p>
       actorHooks: []
       iconicSpells: 1
       rune: life
@@ -519,7 +533,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: fOYHlZJEWUukD7yr
     _id: healer0000000000
@@ -556,7 +570,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: mentalfortress00
     sort: 100000
@@ -592,7 +606,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -630,7 +644,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: dustbinder000000
     folder: c0nl6X8tp4Of0Y4O
@@ -673,7 +687,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -715,7 +729,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -726,11 +740,44 @@ items:
     img: icons/weapons/polearms/trident-fork-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of talismans, orbs, foci, or
-        other similar weapons. You are no longer treated as
-        <strong>Untrained</strong> with weapons in the <strong>Talisman</strong>
+        <p>You understand the arcane usage of talismans, orbs, foci, or other
+        similar implements to channel magic or empower spellcraft. You are
+        <strong>Trained</strong> with weapons in the <strong>Talisman</strong>
         categories.</p>
-      actions: []
+      actions:
+        - id: refocus
+          name: Refocus
+          img: icons/magic/light/orb-shadow-blue.webp
+          condition: ''
+          description: >-
+            <p>You use your equipped Talisman to attempt to regain some
+            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
+            <strong>Strike</strong> against your own <strong>Rallying</strong>
+            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
+            if using a one-handed Talisman and <strong>+2 Focus</strong> if
+            using a two-handed Talisman. On a critical success the amount of
+            Focus recovered increases by an additional +1.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - ranged
+            - harmless
+            - rallying
+          actionHooks: []
       iconicSpells: 0
       training:
         type: talisman
@@ -750,7 +797,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -788,7 +835,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -860,7 +907,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
@@ -914,7 +961,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: JRqc3sRONMGAfSZ0
     folder: null
@@ -968,7 +1015,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: 7Gh7o63Ny3uN81vM
     folder: null
@@ -1009,7 +1056,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1075,7 +1122,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1117,7 +1164,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1154,7 +1201,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1191,7 +1238,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1236,7 +1283,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1315,7 +1362,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeSoul00000000
     folder: null
@@ -1351,7 +1398,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: irrepressiblespi
     folder: null
@@ -1387,7 +1434,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1464,7 +1511,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeEarth0000000
     folder: null
@@ -1540,7 +1587,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeLife00000000
     folder: null
@@ -1554,6 +1601,9 @@ flags:
   crucible:
     lastSpell: spell.life.ray.compose
     actionHistory:
+      - id: refocus
+        messageId: yQj1YDMDN8rp7nPX
+        combat: null
       - id: wildspeaker
         messageId: tMoWq4UN9zguhNFO
         combat: null
@@ -1608,9 +1658,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
 ownership:

@@ -291,7 +291,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 50000
     ownership:
@@ -333,7 +333,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 900000
     ownership:
@@ -374,7 +374,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -410,7 +410,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -451,6 +451,15 @@ items:
                 - restrained
               duration:
                 turns: 1
+                rounds: null
+              result:
+                type: success
+                all: false
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           name: Pinning Shot
           img: icons/skills/ranged/arrow-strike-glowing-teal.webp
           range:
@@ -476,7 +485,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
@@ -518,7 +527,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -557,46 +566,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.athleticsNovice0'
-  - folder: i7WposibCJ94XpuD
-    name: Projectile Weapon Training
-    type: talent
-    img: icons/weapons/bows/shortbow-white.webp
-    system:
-      description: >-
-        <p>You have a basic education in archery and other projectile weaponry.
-        You are no longer treated as <strong>Untrained</strong> with weapons in
-        the <strong>Projectile </strong>categories.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: projectile
-        rank: 1
-      actorHooks: []
-      nodes:
-        - dex0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 300000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.2
-      lastModifiedBy: null
-    _id: projectileTraini
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.projectileTraini'
   - _id: precisionshot000
     name: Precision Shot
     type: talent
@@ -649,7 +623,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -690,7 +664,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -774,7 +748,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
@@ -782,6 +756,70 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.runeIllusion0000'
+  - name: Projectile Weapon Training
+    type: talent
+    img: icons/weapons/bows/shortbow-white.webp
+    system:
+      description: >-
+        <p>You have a basic education in archery and other projectile weaponry.
+        You are no longer treated as <strong>Untrained</strong> with weapons in
+        the <strong>Projectile </strong>categories.</p>
+      actions:
+        - id: quickDraw
+          name: Quick Draw
+          img: icons/skills/ranged/arrow-barbed-flying-gray.webp
+          condition: ''
+          description: >-
+            <p>You can loose a shot under pressure, although with decreased
+            accuracy. You perform a <strong>Strike</strong> that is
+            <strong>Difficult</strong>, but has a reduced Action cost.</p>
+          cost:
+            action: -1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - projectile
+            - ranged
+            - difficult
+          actionHooks: []
+      iconicSpells: 0
+      training:
+        type: projectile
+        rank: 1
+      actorHooks: []
+      nodes:
+        - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.4
+      lastModifiedBy: null
+    _id: projectileWeapon
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.projectileWeapon'
 effects: []
 flags:
   core: {}
@@ -792,9 +830,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 ownership:

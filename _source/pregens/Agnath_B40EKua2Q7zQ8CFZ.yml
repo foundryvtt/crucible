@@ -289,7 +289,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 300000
     ownership:
@@ -324,7 +324,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -364,7 +364,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -408,7 +408,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: spellblade000000
     sort: 250000
@@ -443,7 +443,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -481,7 +481,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gesturestrike000
     folder: D14x9AJ0TgXKtnzu
@@ -516,7 +516,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -582,7 +582,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: iD0N4Q5xDZqsf354
     sort: 0
@@ -645,7 +645,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -680,7 +680,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     sort: 0
@@ -724,76 +724,12 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 600000
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.glaive0000000000'
-  - name: Heavy Strike
-    type: talent
-    img: icons/skills/melee/strike-hammer-destructive-blue.webp
-    system:
-      description: >-
-        <p>You know how to use a heavy weapon to deliver punishing blows,
-        putting your entire strength behind every swing.</p>
-      actions:
-        - id: heavyStrike
-          condition: ''
-          description: >-
-            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
-            weapon. The attack is slower to execute, but is
-            <strong>Empowered</strong> to deliver additional damage.</p>
-          tags:
-            - melee
-            - mainhand
-            - empowered
-          cost:
-            action: 1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Heavy Strike
-          img: icons/skills/melee/strike-hammer-destructive-blue.webp
-          actionHooks: []
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-      nodes:
-        - str1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.2
-      lastModifiedBy: null
-    _id: heavystrike00000
-    folder: tRHknqOEBLR808Cb
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.heavystrike00000'
   - folder: ghRKqdzq279SH1lt
     name: Athletics Novice
     type: talent
@@ -828,7 +764,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -866,7 +802,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -877,10 +813,40 @@ items:
     img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of martial weaponry. You are no
-        longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Heavy</strong>, or <strong>Balanced</strong> categories.</p>
-      actions: []
+        <p>You know how to use a heavy weapon to deliver punishing blows,
+        putting your entire strength behind every swing. You are
+        <strong>Trained</strong> with all weapons in the <strong>Heavy</strong>
+        and <strong>Balanced</strong> categories.</p>
+      actions:
+        - id: heavyStrike
+          img: icons/skills/melee/strike-hammer-destructive-blue.webp
+          cost:
+            action: 1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - melee
+            - mainhand
+            - empowered
+          actionHooks: []
+          name: Heavy Strike
+          condition: ''
+          description: >-
+            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
+            weapon. The attack is slower to execute, but is
+            <strong>Empowered</strong> to deliver additional damage.</p>
       iconicSpells: 0
       training:
         type: heavy
@@ -900,7 +866,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -936,7 +902,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -976,7 +942,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1010,7 +976,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: athleticsJourney
     ownership:
@@ -1044,7 +1010,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1094,6 +1060,15 @@ items:
                 - exposed
               duration:
                 turns: 3
+                rounds: null
+              result:
+                type: success
+                all: false
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           actionHooks: []
           range:
             maximum: null
@@ -1115,7 +1090,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1153,7 +1128,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: pyromancer000000
     folder: null
@@ -1196,7 +1171,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureBlast0000
     folder: null
@@ -1279,7 +1254,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeLightning000
     folder: null
@@ -1355,7 +1330,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeFlame0000000
     folder: null
@@ -1394,9 +1369,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 ownership:

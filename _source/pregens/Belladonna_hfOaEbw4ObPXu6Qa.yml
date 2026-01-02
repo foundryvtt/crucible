@@ -293,7 +293,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 1200000
     ownership:
@@ -338,7 +338,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 1200000
     ownership:
@@ -379,7 +379,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -404,7 +404,6 @@ items:
             target loses <strong>1 Focus</strong>.</p>
           tags:
             - void
-            - focus
             - skill
             - deception
           cost:
@@ -445,7 +444,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -506,7 +505,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
@@ -573,7 +572,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: cW6bwHXBB9pMcwva
     sort: 300000
@@ -638,7 +637,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -682,7 +681,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -721,7 +720,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -732,10 +731,43 @@ items:
     img: icons/weapons/swords/sword-simple-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of finesse weaponry. You are no
-        longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
-      actions: []
+        <p>You know how to wield light weapons fluidly with a high degree of
+        maneuverability and grace in combat. You are <strong>Trained</strong>
+        with all weapons in the <strong>Light</strong> and
+        <strong>Balanced</strong> categories.</p>
+      actions:
+        - id: lunge
+          name: Lunge
+          img: icons/skills/melee/strike-polearm-light-orange.webp
+          condition: ''
+          description: >-
+            <p>You dart forward nimbly, making a strike with sudden and
+            unexpected swiftness to perform a <strong>Strike </strong>with a
+            <strong>Finesse</strong> weapon against a single target with an
+            increased range of <strong>+2 feet</strong>.</p><p>The attack is
+            <strong>Difficult</strong>, but you do not move from your current
+            position nor does this attack provoke Disengagement.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: 2
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - finesse
+            - melee
+            - difficult
+          actionHooks: []
       iconicSpells: 0
       training:
         type: light
@@ -755,77 +787,12 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.lightWeaponTrain'
-  - name: Lunge
-    type: talent
-    img: icons/skills/melee/strike-polearm-light-orange.webp
-    system:
-      description: >-
-        You dart forward nimbly, making a strike with sudden and unexpected
-        swiftness.
-      actions:
-        - id: lunge
-          condition: ''
-          description: >-
-            <p>You <strong>Strike</strong> with your mainhand weapon against a
-            single foe with an increased range of <strong>+2 feet</strong>. The
-            attack is <strong>Difficult</strong>, but you do not move from your
-            current position nor does this attack provoke any Disengagement.</p>
-          tags:
-            - finesse
-            - melee
-            - difficult
-          cost:
-            action: 0
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Lunge
-          img: icons/skills/melee/strike-polearm-light-orange.webp
-          actionHooks: []
-          range:
-            maximum: 2
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.2
-      lastModifiedBy: null
-    _id: lunge00000000000
-    folder: Xg1Jww0K0CK7vUo1
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!hfOaEbw4ObPXu6Qa.lunge00000000000'
 effects: []
 flags:
   core: {}
@@ -836,9 +803,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: hfOaEbw4ObPXu6Qa
 ownership:

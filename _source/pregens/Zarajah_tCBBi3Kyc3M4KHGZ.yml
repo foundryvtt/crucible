@@ -290,7 +290,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 300000
     ownership:
@@ -332,7 +332,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
@@ -378,6 +378,15 @@ items:
               statuses: []
               duration:
                 turns: 1
+                rounds: null
+              result:
+                type: success
+                all: false
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           range:
             maximum: null
             weapon: false
@@ -399,7 +408,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
@@ -439,7 +448,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -476,7 +485,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: warmage000000000
     folder: fOYHlZJEWUukD7yr
@@ -516,7 +525,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -554,7 +563,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -589,7 +598,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -624,7 +633,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: pyromancer000000
     folder: c0nl6X8tp4Of0Y4O
@@ -669,7 +678,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -709,7 +718,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -748,7 +757,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -759,10 +768,43 @@ items:
     img: icons/weapons/swords/sword-simple-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of finesse weaponry. You are no
-        longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
-      actions: []
+        <p>You know how to wield light weapons fluidly with a high degree of
+        maneuverability and grace in combat. You are <strong>Trained</strong>
+        with all weapons in the <strong>Light</strong> and
+        <strong>Balanced</strong> categories.</p>
+      actions:
+        - id: lunge
+          name: Lunge
+          img: icons/skills/melee/strike-polearm-light-orange.webp
+          condition: ''
+          description: >-
+            <p>You dart forward nimbly, making a strike with sudden and
+            unexpected swiftness to perform a <strong>Strike </strong>with a
+            <strong>Finesse</strong> weapon against a single target with an
+            increased range of <strong>+2 feet</strong>.</p><p>The attack is
+            <strong>Difficult</strong>, but you do not move from your current
+            position nor does this attack provoke Disengagement.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: 2
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - finesse
+            - melee
+            - difficult
+          actionHooks: []
       iconicSpells: 0
       training:
         type: light
@@ -782,7 +824,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
@@ -826,7 +868,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -863,7 +905,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: strategicreposit
     folder: null
@@ -902,7 +944,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: lightbringer0000
     folder: null
@@ -943,7 +985,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -983,7 +1025,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: versatileTransla
     folder: null
@@ -1062,7 +1104,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeOblivion0000
     folder: null
@@ -1097,7 +1139,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1179,7 +1221,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: counterspell0000
     folder: null
@@ -1255,7 +1297,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeFlame0000000
     folder: null
@@ -1294,7 +1336,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1379,7 +1421,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -1407,9 +1449,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 ownership:

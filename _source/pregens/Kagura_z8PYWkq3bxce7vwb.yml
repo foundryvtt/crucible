@@ -286,7 +286,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     sort: 500000
     ownership:
@@ -328,7 +328,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
@@ -368,7 +368,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -411,7 +411,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -453,7 +453,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -464,11 +464,44 @@ items:
     img: icons/weapons/polearms/trident-fork-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of talismans, orbs, foci, or
-        other similar weapons. You are no longer treated as
-        <strong>Untrained</strong> with weapons in the <strong>Talisman</strong>
+        <p>You understand the arcane usage of talismans, orbs, foci, or other
+        similar implements to channel magic or empower spellcraft. You are
+        <strong>Trained</strong> with weapons in the <strong>Talisman</strong>
         categories.</p>
-      actions: []
+      actions:
+        - id: refocus
+          name: Refocus
+          img: icons/magic/light/orb-shadow-blue.webp
+          condition: ''
+          description: >-
+            <p>You use your equipped Talisman to attempt to regain some
+            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
+            <strong>Strike</strong> against your own <strong>Rallying</strong>
+            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
+            if using a one-handed Talisman and <strong>+2 Focus</strong> if
+            using a two-handed Talisman. On a critical success the amount of
+            Focus recovered increases by an additional +1.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - ranged
+            - harmless
+            - rallying
+          actionHooks: []
       iconicSpells: 0
       training:
         type: talisman
@@ -488,7 +521,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -526,7 +559,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -606,7 +639,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeSoul00000000
     folder: null
@@ -684,7 +717,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeEarth0000000
     folder: null
@@ -760,7 +793,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeLife00000000
     folder: null
@@ -779,9 +812,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: z8PYWkq3bxce7vwb
 ownership:

@@ -293,7 +293,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
@@ -359,82 +359,11 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.intimidator00000'
-  - name: Shield Bash
-    type: talent
-    img: icons/skills/melee/shield-block-bash-blue.webp
-    system:
-      description: >-
-        <p>You are practiced at fighting with shield, using it to slam into and
-        imbalance your foes.</p>
-      actions:
-        - id: shieldBash
-          condition: ''
-          description: >-
-            <p>Following a basic Strike with your mainhand weapon, you
-            <strong>Strike</strong> with your shield, causing the
-            @Condition[staggered] condition for one Round.</p>
-          tags:
-            - shield
-            - afterStrike
-            - offhand
-          cost:
-            action: 0
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects:
-            - name: Shield Bash
-              scope: 3
-              statuses:
-                - staggered
-              duration:
-                turns: 1
-                rounds: null
-          name: Shield Bash
-          img: icons/skills/melee/shield-block-bash-blue.webp
-          actionHooks: []
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - tou1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.2
-      lastModifiedBy: null
-    _id: shieldbash000000
-    folder: 08mOaWGw5rYKejer
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldbash000000'
   - name: Second Wind
     type: talent
     img: icons/magic/life/cross-area-circle-green-white.webp
@@ -488,7 +417,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -530,7 +459,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
@@ -592,7 +521,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: 100000
@@ -656,7 +585,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: counterstrike000
     folder: 8Vb0F5R7DMUrvhfw
@@ -706,6 +635,14 @@ items:
               duration:
                 turns: null
                 rounds: 1
+              result:
+                type: success
+                all: false
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           img: icons/magic/death/skull-horned-worn-fire-blue.webp
           condition: ''
           range:
@@ -733,7 +670,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
@@ -775,7 +712,7 @@ items:
             size: 12
           effects:
             - name: Rallying Cry
-              scope: '2'
+              scope: 2
               result:
                 type: success
                 all: false
@@ -784,6 +721,11 @@ items:
               duration:
                 turns: null
                 rounds: 1
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
           name: Rallying Cry
           img: icons/creatures/abilities/mouth-teeth-human.webp
           condition: ''
@@ -811,7 +753,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: rallyingcry00000
     folder: 2MFixpDJ379KOogE
@@ -848,7 +790,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -872,7 +814,7 @@ items:
         type: ''
         rank: null
       nodes:
-        - tou0a
+        - tou1a
       rune: ''
       gesture: ''
       inflection: ''
@@ -884,7 +826,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: -25000
@@ -921,7 +863,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -961,7 +903,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -999,7 +941,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1010,10 +952,57 @@ items:
     img: icons/skills/melee/unarmed-punch-fist-white.webp
     system:
       description: >-
-        <p>You have a basic education in hand-to-hand combat and other martial
-        arts. You are no longer treated as <strong>Untrained</strong> with
-        weapons in the <strong>Unarmed </strong>category.</p>
-      actions: []
+        <p>You are familiar with basic martial arts and hand-to-hand combat. You
+        know how to subdue or restrain opponents using your physical Strength.
+        You are <strong>Trained</strong> with weapons in the
+        <strong>Unarmed</strong> category.</p>
+      actions:
+        - id: grapple
+          img: icons/magic/control/buff-strength-muscle-damage.webp
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Grappled
+              scope: 4
+              result:
+                type: success
+                all: false
+              statuses:
+                - restrained
+              duration:
+                turns: null
+                rounds: 1
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+          tags:
+            - difficult
+            - harmless
+            - skill
+            - athletics
+          actionHooks: []
+          name: Grapple
+          condition: ''
+          description: >-
+            <p>You attempt to physically restrain or subdue an opponent. Perform
+            a <strong>Athletics</strong> skill attack against an adjacent
+            target. If successful, both you and your target are
+            @Condition[restrained] for 1 Round.</p>
       iconicSpells: 0
       training:
         type: unarmed
@@ -1033,7 +1022,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1097,7 +1086,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1134,7 +1123,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1146,10 +1135,40 @@ items:
     img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
     system:
       description: >-
-        <p>You have a basic education in the use of martial weaponry. You are no
-        longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Heavy</strong>, or <strong>Balanced</strong> categories.</p>
-      actions: []
+        <p>You know how to use a heavy weapon to deliver punishing blows,
+        putting your entire strength behind every swing. You are
+        <strong>Trained</strong> with all weapons in the <strong>Heavy</strong>
+        and <strong>Balanced</strong> categories.</p>
+      actions:
+        - id: heavyStrike
+          img: icons/skills/melee/strike-hammer-destructive-blue.webp
+          cost:
+            action: 1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - melee
+            - mainhand
+            - empowered
+          actionHooks: []
+          name: Heavy Strike
+          condition: ''
+          description: >-
+            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
+            weapon. The attack is slower to execute, but is
+            <strong>Empowered</strong> to deliver additional damage.</p>
       iconicSpells: 0
       training:
         type: heavy
@@ -1168,7 +1187,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: heavyWeaponTrain
     folder: null
@@ -1208,7 +1227,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1246,7 +1265,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1258,17 +1277,61 @@ items:
     img: icons/equipment/shield/buckler-wooden-boss-lightning.webp
     system:
       description: >-
-        <p>You have a basic education in the usage of shields in combat. You are
-        no longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Shield </strong>category.</p>
-      actions: []
+        <p>You are practiced at fighting with shield, using it to slam into and
+        imbalance your foes. You are <strong>Trained</strong> with weapons in
+        the <strong>Shield</strong> category.</p>
+      actions:
+        - id: shieldBash
+          name: Shield Bash
+          img: icons/skills/melee/shield-block-bash-blue.webp
+          condition: ''
+          description: >-
+            <p>Following a basic Strike with your mainhand weapon, you
+            <strong>Strike</strong> with your shield, causing the
+            @Condition[staggered] condition for one Round.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Shield Bash
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - staggered
+              duration:
+                turns: 1
+                rounds: null
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+          tags:
+            - shield
+            - afterStrike
+            - offhand
+          actionHooks: []
       iconicSpells: 0
       training:
         type: shield
         rank: 1
       actorHooks: []
       nodes:
-        - tou0b
+        - tou0a
       rune: ''
       gesture: ''
       inflection: ''
@@ -1280,7 +1343,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: shieldCombatTrai
     folder: null
@@ -1315,7 +1378,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: shieldCombatProf
     folder: null
@@ -1355,7 +1418,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: NE3II2EDPT4zlWdr
     folder: 7LUkTLEZvS60KVBp
@@ -1431,7 +1494,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: px5kNyBs36MvlJl4
     folder: WqUGvC0ubhjrpvz9
@@ -1475,7 +1538,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: UcTm1twwPEBk7OE2
     folder: GVbpo5LtAY44QZPD
@@ -1561,7 +1624,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -1601,7 +1664,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: runewarden000000
     folder: null
@@ -1644,7 +1707,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: egJ3CmAJFORYcUDl
     folder: pibeFfUJ9FFbWkoY
@@ -1687,7 +1750,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.2
+      systemVersion: 0.8.4
       lastModifiedBy: null
     _id: kJid7WLFn0ox8JeS
     folder: 3BDkyJ5nPk8nVa81
@@ -1834,9 +1897,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766112175797
-  modifiedTime: 1766112175797
+  systemVersion: 0.8.4
+  createdTime: 1767387165889
+  modifiedTime: 1767387165889
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 ownership:
