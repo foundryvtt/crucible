@@ -26,7 +26,7 @@
             {{formInput fields.advancement.fields.rank value=source.system.advancement.rank labelAttr="label"}}
             <div class="size flexrow">
                 <span class="label" data-tooltip="TAXONOMY.FIELDS.movement.size.hint">{{localize "TAXONOMY.FIELDS.movement.size.label"}}</span>
-                <span class="hex">{{actor.size}}</span>
+                <span role="button" tabindex="0" class="hex" data-action="editSize" aria-label="Edit Size: {{actor.size}}">{{actor.size}}</span>
             </div>
         </div>
     </div>

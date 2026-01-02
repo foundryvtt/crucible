@@ -27,7 +27,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
-      skillRoll: CrucibleBaseActorSheet.#onSkillRoll
+      skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
+      editSize: CrucibleBaseActorSheet.#onEditSize,
     },
     form: {
       submitOnChange: true
@@ -1018,6 +1019,41 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static async #onSkillRoll(_event, target) {
     return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit size bonuses
+   * @this {HeroSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onEditSize() {
+    const schema = this.actor.system.schema;
+    const { baseSize, sizeBonus } = this.actor.system.movement;
+    const content = document.createElement(`div`);
+
+    content.innerHTML = `
+    <div class="form-group">
+      <label>${game.i18n.localize("ACTOR.SHEET.BaseSize")}</label>
+      <div class="form-fields">
+        <input type="number" value="${baseSize}" disabled>
+      </div>
+    </div>`;
+
+    const minSize = (baseSize * -1) + 1; // prevents sizes <= 0
+    content.appendChild(schema.getField("movement.sizeBonus").toFormGroup({}, { value: sizeBonus, min: minSize }));
+
+    const formData = await foundry.applications.api.DialogV2.input({
+      window: {
+        title: game.i18n.format("ACTOR.SHEET.EditMovement", { name: this.actor.name }),
+      },
+      content,
+    });
+
+    if (formData) {
+      await this.actor.update(formData);
+    };
+  };
 
   /* -------------------------------------------- */
   /*  Drag and Drop                               */
