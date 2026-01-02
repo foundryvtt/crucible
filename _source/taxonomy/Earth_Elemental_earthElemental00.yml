@@ -43,7 +43,7 @@ system:
     size: 4
     stride: 10
   talents:
-    - Compendium.crucible.talent.Item.runeearth0000000
+    - Compendium.crucible.talent.Item.runeEarth0000000
     - Compendium.crucible.adversary-talents.Item.acidAbsorption00
   identifier: earthElemental
 effects: []
@@ -54,11 +54,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.1
-  modifiedTime: 1763060075037
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.3
+  modifiedTime: 1767205860892
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: earthElemental00
 sort: 100000

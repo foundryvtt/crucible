@@ -36,7 +36,8 @@
         <div class="metadata flexrow">
             <div class="size flexrow">
                 <span class="label" data-tooltip="ANCESTRY.FIELDS.movement.size.hint">{{localize "ANCESTRY.FIELDS.movement.size.label"}}</span>
-                <span class="hex">{{actor.size}}</span>
+                <span role="button" tabindex="0" class="hex" data-action="editSize"
+                      aria-label="{{localize 'ACTOR.ACTIONS.EditSize'}}" data-tooltip>{{actor.size}}</span>
             </div>
         </div>
     </div>

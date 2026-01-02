@@ -127,7 +127,10 @@
         </div>
         <div class="magical flexrow">
             <div class="defense extra engagement">
-                <span class="value">{{actor.system.movement.engagement}}</span>
+                <span class="value" role="button" tabindex="0" data-action="editEngagement"
+                      aria-label="{{localize 'ACTOR.ACTIONS.EditEngagement'}}" data-tooltip>
+                    {{actor.system.movement.engagement}}
+                </span>
                 <h4 class="label" data-tooltip="ACTOR.FIELDS.movement.engagement.tooltip">
                     {{localize "ACTOR.FIELDS.movement.engagement.labelShort"}}
                 </h4>
@@ -145,7 +148,10 @@
                 <span class="value">{{defenses.reflex.total}}</span>
             </div>
             <div class="defense extra stride">
-                <span class="value">{{actor.system.movement.stride}}</span>
+                <span class="value" role="button" tabindex="0" data-action="editStride"
+                      aria-label="{{localize 'ACTOR.ACTIONS.EditStride'}}" data-tooltip>
+                    {{actor.system.movement.stride}}
+                </span>
                 <h4 class="label" data-tooltip="ACTOR.FIELDS.movement.stride.tooltip">
                     {{localize "ACTOR.FIELDS.movement.stride.label"}}
                 </h4>

@@ -28,7 +28,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
       skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
-      togglePip: CrucibleBaseActorSheet.#onTogglePip
+      togglePip: CrucibleBaseActorSheet.#onTogglePip,
+      editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
+      editSize: CrucibleBaseActorSheet.#onEditSize,
+      editStride: CrucibleBaseActorSheet.#onEditStride
     },
     form: {
       submitOnChange: true
@@ -84,7 +87,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     },
     effects:{
       id: "effects",
-      template: "systems/crucible/templates/sheets/actor/effects.hbs"
+      template: "systems/crucible/templates/sheets/actor/effects.hbs",
+      scrollable: [".effects-sections"]
     },
     biography: {
       id: "biography",
@@ -806,8 +810,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionEdit(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -820,8 +823,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionFavorite(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -845,8 +847,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onActionUse(_event, target) {
     const actionId = target.closest(".action").dataset.actionId;
@@ -857,20 +858,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
-  static async #onItemCreate(event) {
+  static async #onItemCreate(_event, _target) {
     const cls = getDocumentClass("Item");
-    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack});
+    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack}, {
+      types: Array.from(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES)
+    });
   }
 
   /* -------------------------------------------- */
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemDelete(event, target) {
     const item = this.#getEventItem(event, target);
@@ -881,8 +882,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemDrop(event, target) {
     const item = this.#getEventItem(event, target);
@@ -893,8 +893,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemEdit(event, target) {
     const item = this.#getEventItem(event, target);
@@ -905,8 +904,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onItemEquip(event, target) {
     const item = this.#getEventItem(event, target);
@@ -921,7 +919,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Get the Item document associated with an action event.
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {CrucibleItem}
    */
   #getEventItem(_event, target) {
@@ -933,20 +932,22 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
-  static async #onEffectCreate(event) {
+  static async #onEffectCreate() {
     const cls = getDocumentClass("ActiveEffect");
-    await cls.createDialog({}, {parent: this.document, pack: this.document.pack});
+    await cls.create({
+      name: game.i18n.localize("ACTIVE_EFFECT.ACTIONS.New"),
+      img: CONFIG.controlIcons.effects,
+      type: "base"
+    }, {parent: this.actor, renderSheet: true});
   }
 
   /* -------------------------------------------- */
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectDelete(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -957,8 +958,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectEdit(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -969,8 +969,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onEffectToggle(event, target) {
     const effect = this.#getEventEffect(event, target);
@@ -981,7 +980,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Get the ActiveEffect document associated with an action event.
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {ActiveEffect}
    */
   #getEventEffect(_event, target) {
@@ -993,8 +993,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onExpandSection(_event, target) {
     const section = target.closest(".sheet-section");
@@ -1013,8 +1012,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @type {ApplicationClickAction}
    */
   static async #onSkillRoll(_event, target) {
     return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
@@ -1038,6 +1036,90 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( resourceValue === offsetValue ) resourceValue--;
     else resourceValue = offsetValue;
     this.actor.update({[`system.resources.${resource}.value`]: resourceValue});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit engagement bonus.
+   * @this {HeroSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onEditEngagement() {
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseEngagement",
+      bonusAttribute: "engagementBonus",
+      minValue: 0,
+      editLabel: "ACTOR.ACTIONS.EditEngagement",
+      baseLabel: "ACTOR.FIELDS.movement.engagement.base"
+    });
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit size bonus.
+   * @this {HeroSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onEditSize() {
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseSize",
+      bonusAttribute: "sizeBonus",
+      minValue: 1,
+      editLabel: "ACTOR.ACTIONS.EditSize",
+      baseLabel: "ACTOR.FIELDS.movement.size.base"
+    });
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit stride bonus.
+   * @this {HeroSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onEditStride() {
+    return this.#editMovementBonusDialog({
+      baseAttribute: "baseStride",
+      bonusAttribute: "strideBonus",
+      minValue: 0,
+      editLabel: "ACTOR.ACTIONS.EditStride",
+      baseLabel: "ACTOR.FIELDS.movement.stride.base"
+    });
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * A common helper method that handles editing a movement bonus via an input dialog.
+   * @param {object} options
+   * @param {string} [options.baseAttribute]
+   * @param {string} [options.bonusAttribute]
+   * @param {number} [options.minValue]
+   * @param {string} [options.editLabel]
+   * @param {string} [options.baseLabel]
+   * @returns {Promise<void>}
+   */
+  async #editMovementBonusDialog({baseAttribute, bonusAttribute, minValue, editLabel, baseLabel}={}) {
+    const bonusField = this.actor.system.schema.getField(`movement.${bonusAttribute}`);
+    if ( !bonusField ) throw new Error(`Actor ${this.actor.name} does not have a movement.${bonusAttribute} field`);
+    const baseValue = this.actor.system.movement[baseAttribute];
+    const bonusValue = this.actor.system._source.movement[bonusAttribute];
+    const minBonus = minValue - baseValue;
+
+    // Structure form content
+    const baseGroup = bonusField.toFormGroup({label: game.i18n.localize(baseLabel), classes: ["slim"]},
+      {name: "", value: baseValue, disabled: true});
+    const bonusGroup = bonusField.toFormGroup({classes: ["slim"]}, {value: bonusValue, min: minBonus, step: 1});
+    bonusGroup.querySelector("input").toggleAttribute("autofocus", true);
+    const content = document.createElement("div");
+    content.append(baseGroup, bonusGroup);
+
+    // Process user-input dialog
+    const title = `${game.i18n.localize(editLabel)}: ${this.actor.name}`;
+    const formData = await foundry.applications.api.DialogV2.input({window: {title}, content});
+    if (formData) await this.actor.update(formData);
   }
 
   /* -------------------------------------------- */

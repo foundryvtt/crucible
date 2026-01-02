@@ -161,6 +161,11 @@
     gap: var(--sheet-body-gap);
   }
 
+  // Click actions that aren't <button> elements
+  [data-action] {
+    cursor: var(--cursor-pointer, pointer);
+  }
+
   /* ----------------------------------------- */
   /*  Sheet Sections                           */
   /* ----------------------------------------- */

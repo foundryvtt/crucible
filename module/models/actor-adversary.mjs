@@ -273,8 +273,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /** @inheritDoc */
   _prepareMovement() {
     super._prepareMovement();
-    const sizeBonus = Math.ceil(Math.max(this.movement.size - 4, 0) / 2);
-    this.movement.engagement += sizeBonus;
+    const m = this.movement;
+    m.baseEngagement = 1 + Math.ceil(Math.max(this.movement.size - 4, 0) / 2); // Size-based base engagement
+    m.engagement = m.baseEngagement + m.engagementBonus;
   }
 
   /* -------------------------------------------- */

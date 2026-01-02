@@ -14,7 +14,7 @@ system:
     - science
   talents:
     - Compendium.crucible.talent.Item.talismanWeaponTr
-    - Compendium.crucible.talent.Item.runelife00000000
+    - Compendium.crucible.talent.Item.runeLife00000000
   identifier: physician
   ui:
     color: '#fe4d4d'
@@ -27,11 +27,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
-  coreVersion: '13.347'
+  systemVersion: 0.8.3
+  coreVersion: '13.351'
   createdTime: 1677350949941
-  modifiedTime: 1756083997933
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767206235346
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null
