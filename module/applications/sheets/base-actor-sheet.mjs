@@ -1039,10 +1039,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const {resource, index} = target.dataset;
     const maxPips = CrucibleBaseActorSheet.#maxResourcePips[resource];
     const offsetValue = Number(index) + 1 + ((event.button === 2) ? maxPips : 0);
-    let resourceValue = this.actor.resources[resource].value;
-    if ( resourceValue === offsetValue ) resourceValue--;
-    else resourceValue = offsetValue;
-    this.actor.update({[`system.resources.${resource}.value`]: resourceValue});
+    const resourceValue = this.actor.resources[resource].value;
+    let resourceDelta;
+    if ( resourceValue === offsetValue ) resourceDelta = -1;
+    else resourceDelta = offsetValue - resourceValue;
+    this.actor.alterResources({[resource]: resourceDelta});
   }
 
   /* -------------------------------------------- */
