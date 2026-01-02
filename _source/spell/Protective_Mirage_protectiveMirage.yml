@@ -14,6 +14,7 @@ system:
         focus: 2
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -22,19 +23,24 @@ system:
         type: self
         number: 1
         scope: 1
+        self: false
       effects:
         - name: Mirage
           scope: 1
+          result:
+            type: any
+            all: false
           statuses: []
           duration:
             turns: 10
+            rounds: null
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
-        - iconicSpell
-        - iconicSpell
-        - iconicSpell
-        - iconicSpell
-        - iconicSpell
-        - iconicSpell
+        - spell
         - iconicSpell
       actionHooks: []
       name: Protective Mirage
@@ -63,10 +69,10 @@ _stats:
   duplicateSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.3
   createdTime: 1727204769939
-  modifiedTime: 1765403195009
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767382089803
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   exportSource: null
 _id: protectiveMirage
 sort: 600000

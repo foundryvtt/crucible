@@ -1077,25 +1077,19 @@ export default class CrucibleActor extends Actor {
    */
   async #applyOutcomeEffects(outcome, reverse=false) {
 
-    // Reverse effects
-    if ( reverse ) {
-      const deleteEffectIds = outcome.effects.reduce((arr, e) => {
-        if ( this.effects.has(e._id) ) arr.push(e._id);
-        return arr;
-      }, []);
-      await this.deleteEmbeddedDocuments("ActiveEffect", deleteEffectIds);
-      return;
-    }
-
     // Create new effects or update existing ones
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
     for ( const effectData of outcome.effects ) {
       const existing = this.effects.get(effectData._id);
-      if ( existing && effectData._delete ) toDelete.push(effectData._id);
-      else if ( existing ) toUpdate.push(effectData);
-      else toCreate.push(effectData);
+      const forceDelete = effectData._action === "delete";
+      const forceUpdate = effectData._action === "update";
+      const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
+      const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
+      if ( shouldUpdate ) toUpdate.push(effectData);
+      else if ( shouldDelete ) toDelete.push(effectData._id);
+      else if ( !reverse ) toCreate.push(effectData);
     }
     await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);

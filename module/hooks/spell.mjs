@@ -25,7 +25,7 @@ HOOKS.protectiveMirage = {
 
     // Delete exhausted effect
     if ( duplicates <= 0 ) {
-      outcome.effects.push({_id: effect.id, _delete: true});
+      outcome.effects.push({_id: effect.id, _action: "delete"});
       return;
     }
 
@@ -33,7 +33,8 @@ HOOKS.protectiveMirage = {
     outcome.effects.push({
       _id: effect.id,
       name: `Mirage (${duplicates})`,
-      "flags.crucible.duplicates": duplicates
+      "flags.crucible.duplicates": duplicates,
+      _action: "update"
     });
   }
 }
