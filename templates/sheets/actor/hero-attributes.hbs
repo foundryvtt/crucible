@@ -28,7 +28,7 @@
                     {{formInput fields.resources.fields.action.fields.value value=resources.action.value type="number"}}
                     <div class="pips flexrow">
                         {{#each resources.action.pips as |pip i|}}
-                        <a class="pip {{pip.cssClass}}" data-action="togglePip" data-resource="action" data-index="{{i}}"></a>
+                        <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="action" data-index="{{i}}"></a>
                         {{/each}}
                     </div>
                     <span class="max">{{resources.action.max}}</span>
@@ -41,7 +41,7 @@
                     {{formInput fields.resources.fields.focus.fields.value value=resources.focus.value type="number"}}
                     <div class="pips flexrow">
                         {{#each resources.focus.pips as |pip i|}}
-                        <a class="pip {{pip.cssClass}}" data-action="togglePip" data-resource="focus" data-index="{{i}}"></a>
+                        <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="focus" data-index="{{i}}"></a>
                         {{/each}}
                     </div>
                     <span class="max">{{resources.focus.max}}</span>
@@ -54,7 +54,7 @@
                     {{formInput fields.resources.fields.heroism.fields.value value=resources.heroism.value type="number"}}
                     <div class="pips flexrow">
                         {{#each resources.heroism.pips as |pip i|}}
-                            <a class="pip {{pip.cssClass}}" data-action="togglePip" data-resource="heroism" data-index="{{i}}"></a>
+                            <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="heroism" data-index="{{i}}"></a>
                         {{/each}}
                     </div>
                     <span class="max">{{resources.heroism.max}}</span>

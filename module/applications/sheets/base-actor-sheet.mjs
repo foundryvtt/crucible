@@ -28,7 +28,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
       skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
-      togglePip: CrucibleBaseActorSheet.#onTogglePip,
+      resourcePip: {handler: CrucibleBaseActorSheet.#onResourcePip, buttons: [0, 2]},
       editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
       editSize: CrucibleBaseActorSheet.#onEditSize,
       editStride: CrucibleBaseActorSheet.#onEditStride
@@ -1022,16 +1022,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} _event 
-   * @param {HTMLElement} target 
-   * @returns {void}
+   * @type {ApplicationClickAction}
    */
-  static #onTogglePip(_event, target) {
+  static #onResourcePip(event, target) {
     const {resource, index} = target.dataset;
-    const isDoubled = target.classList.contains("double");
-    let resourceMax = 6;
-    if ( resource === "focus" ) resourceMax = 12;
-    const offsetValue = Number(index) + 1 + (isDoubled ? resourceMax : 0);
+    const maxPips = SYSTEM.RESOURCES[resource].max / 2;
+    const offsetValue = Number(index) + 1 + ((event.button === 2) ? maxPips : 0);
     let resourceValue = this.actor.resources[resource].value;
     if ( resourceValue === offsetValue ) resourceValue--;
     else resourceValue = offsetValue;
