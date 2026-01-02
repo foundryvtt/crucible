@@ -28,6 +28,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
       skillRoll: CrucibleBaseActorSheet.#onSkillRoll,
+      resourcePip: {handler: CrucibleBaseActorSheet.#onResourcePip, buttons: [0, 2]},
       editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
       editSize: CrucibleBaseActorSheet.#onEditSize,
       editStride: CrucibleBaseActorSheet.#onEditStride
@@ -127,6 +128,16 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /** @override */
   tabGroups = {
     sheet: "attributes"
+  };
+
+  /**
+   * The number of resource pips rendered for each resource.
+   * @type {Record<string, number>}
+   */
+  static #maxResourcePips = {
+    action: 6,
+    focus: 12,
+    heroism: 3
   };
 
   /* -------------------------------------------- */
@@ -677,6 +688,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #prepareResources() {
     const resources = {};
     const rs = this.document.system.resources;
+    const maxPips = CrucibleBaseActorSheet.#maxResourcePips;
 
     // Pools
     for ( const [id, resource] of Object.entries(rs) ) {
@@ -689,27 +701,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Action
     resources.action.pips = [];
-    const maxAction = Math.min(resources.action.max, 6);
+    const maxAction = Math.min(resources.action.max, maxPips.action);
     for ( let i=1; i<=maxAction; i++ ) {
       const full = resources.action.value >= i;
-      const double = (resources.action.value - 6) >= i;
+      const double = (resources.action.value - maxPips.action) >= i;
       const cssClass = [full ? "full" : "", double ? "double" : ""].filterJoin(" ");
       resources.action.pips.push({full, double, cssClass});
     }
 
     // Focus
     resources.focus.pips = [];
-    const maxFocus = Math.min(resources.focus.max, 12);
+    const maxFocus = Math.min(resources.focus.max, maxPips.focus);
     for ( let i=1; i<=maxFocus; i++ ) {
       const full = resources.focus.value >= i;
-      const double = (resources.focus.value - 12) >= i;
+      const double = (resources.focus.value - maxPips.focus) >= i;
       const cssClass = [full ? "full" : "", double ? "double" : ""].filterJoin(" ");
       resources.focus.pips.push({full, double, cssClass});
     }
 
     // Heroism
     resources.heroism.pips = [];
-    const maxHeroism = Math.min(resources.heroism.max, 3);
+    const maxHeroism = Math.min(resources.heroism.max, maxPips.heroism);
     for ( let i=1; i<=maxHeroism; i++ ) {
       const full = resources.heroism.value >= i;
       const cssClass = full ? "full" : "";
@@ -1015,6 +1027,23 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onSkillRoll(_event, target) {
     return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static #onResourcePip(event, target) {
+    const {resource, index} = target.dataset;
+    const maxPips = CrucibleBaseActorSheet.#maxResourcePips[resource];
+    const offsetValue = Number(index) + 1 + ((event.button === 2) ? maxPips : 0);
+    const resourceValue = this.actor.resources[resource].value;
+    let resourceDelta;
+    if ( resourceValue === offsetValue ) resourceDelta = -1;
+    else resourceDelta = offsetValue - resourceValue;
+    this.actor.alterResources({[resource]: resourceDelta});
   }
 
   /* -------------------------------------------- */
