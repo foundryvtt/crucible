@@ -29,6 +29,16 @@ HOOKS.expandedToolbelt = {
 
 /* -------------------------------------------- */
 
+HOOKS.luminary = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("composed") || !action.inflection?.id ) return;
+    const {enchantment} = item.system.config;
+    this.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
     const {quality, enchantment} = item.system.config;
