@@ -1,0 +1,46 @@
+name: Pen
+type: tool
+img: icons/tools/scribal/pen-steel-grey-brown.webp
+system:
+  identifier: pen
+  category: implement
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A common writing implement used by scribes, allows for a variety of
+      tips to be interchanged for different stroke styles.</p>
+    private: ''
+  actions: []
+  skills:
+    - science
+    - society
+    - diplomacy
+    - arcana
+effects: []
+folder: 7LUkTLEZvS60KVBp
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767731013707
+  modifiedTime: 1767731013707
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: pen0000000000000
+sort: 0
+_key: '!items!pen0000000000000'
