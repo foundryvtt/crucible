@@ -185,6 +185,7 @@ Hooks.once("init", async function() {
   CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
 
   // Spellcraft Initialization
+  Hooks.callAll("crucible.initializeSpellcraft");
   models.CrucibleSpellcraftGesture.initialize();
   models.CrucibleSpellcraftInflection.initialize();
   models.CrucibleSpellcraftRune.initialize();

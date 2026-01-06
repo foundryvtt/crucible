@@ -132,6 +132,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.inflection ) {
       cost.action += this.inflection.cost.action;
       cost.focus += this.inflection.cost.focus;
+      cost.heroism += this.inflection.cost.heroism;
+      cost.hands += this.inflection.cost.hands;
     }
     return cost;
   }

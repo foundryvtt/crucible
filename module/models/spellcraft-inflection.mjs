@@ -7,6 +7,7 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
     this.hooks = Object.freeze(hooks);
   }
 
+  /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -16,7 +17,9 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
       adjective: new fields.StringField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
+        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        hands: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: -2, max: 2})
       })
     }
   }
@@ -78,13 +81,15 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
   /* -------------------------------------------- */
 
   /**
-   * Tags used to annotate this Gesture.
+   * Tags used to annotate this Inflection.
    * @returns {string[]}
    */
   get tags() {
     const tags = [];
     if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);
     if ( this.cost.focus !== 0 ) tags.push(`${this.cost.focus}F`);
+    if ( this.cost.heroism !== 0 ) tags.push(`${this.cost.heroism}H`);
+    if ( this.cost.hands !== 0 ) tags.push(`${this.cost.hands} Hands`);
     return tags;
   }
 }
