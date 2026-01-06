@@ -315,14 +315,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareItems(items) {
 
-    // Acquired talents, training, skills, and spellcraft
+    // Acquired talents, training, skills
     this.#prepareTalents(items.talent);
     this._prepareTraining();
     this.#prepareSkills();
-    this.#prepareSpells(items.spell);
 
-    // Current equipment
+    // Equipment
     this._prepareEquipment(items);
+
+    // Iconic Spells
+    this.#prepareSpells(items.spell);
 
     // Defenses based on current equipment
     this.#preparePhysicalDefenses();
