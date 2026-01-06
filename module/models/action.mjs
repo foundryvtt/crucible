@@ -278,6 +278,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           all: new fields.BooleanField({initial: false})
         }),
         statuses: new fields.SetField(new fields.StringField({choices: statusEffectsObj})),
+        changes: ActiveEffect.defineSchema().changes,
         duration: new fields.SchemaField({
           turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
           rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
