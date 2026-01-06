@@ -61,7 +61,8 @@ Hooks.once("init", async function() {
     },
     talents: {
       CrucibleTalentNode,
-      nodes: CrucibleTalentNode.nodes
+      nodes: CrucibleTalentNode.nodes,
+      talentIds: CrucibleTalentNode.talentIds
     },
     hooks
   }

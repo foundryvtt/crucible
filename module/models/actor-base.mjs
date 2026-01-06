@@ -375,6 +375,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         this.talentNodes[node.id].add(t.id);
         if ( node.type === "signature" ) signatureNames.add(t.name);
       }
+      if ( !nodes.size ) this.permanentTalentIds.add(t.id); // Manual talents
 
       // Register training ranks
       if ( training.type ) {

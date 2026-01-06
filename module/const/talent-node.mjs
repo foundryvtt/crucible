@@ -45,6 +45,18 @@ export default class CrucibleTalentNode {
   /* -------------------------------------------- */
 
   /**
+   * The set of all Talent ID->UUID in the tree.
+   * @returns {Map<string, string>}
+   */
+  static get talentIds() {
+    return this.#talentIds;
+  }
+
+  static #talentIds = new Map();
+
+  /* -------------------------------------------- */
+
+  /**
    * Is this node passive?
    * Passive nodes contain no Talents which provide Actions.
    * @type {boolean}
@@ -131,6 +143,7 @@ export default class CrucibleTalentNode {
         if ( talent.type !== "talent" ) continue;
         try {
           talent.system.initializeTree();
+          CrucibleTalentNode.#talentIds.set(talent.id, talent.uuid);
         } catch(err) {
           console.warn(err);
         }
