@@ -66,14 +66,16 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    * @returns {boolean}
    */
   canKnowSpell(grimoire) {
+    const ifc = grimoire.iconicFreeComponents;
+    let fc = 0;
     for ( const runeId of this.runes ) {
-      if ( !grimoire.runes.has(runeId) ) return false;
+      if ( !grimoire.runes.has(runeId) && (fc++ > ifc) ) return false;
     }
     for ( const gestureId of this.gestures ) {
-      if ( !grimoire.gestures.has(gestureId) ) return false;
+      if ( !grimoire.gestures.has(gestureId) && (fc++ > ifc) ) return false;
     }
     for ( const inflectionId of this.inflections ) {
-      if ( !grimoire.inflections.has(inflectionId) ) return false;
+      if ( !grimoire.inflections.has(inflectionId) && (fc++ > ifc) ) return false;
     }
     return true;
   }

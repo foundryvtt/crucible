@@ -45,6 +45,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @property {Map<string,CrucibleSpellcraftGesture>} gestures
  * @property {Map<string,CrucibleSpellcraftInflection>} inflections
  * @property {number} iconicSlots
+ * @property {number} iconicFreeComponents
  * @property {CrucibleItem[]} iconicSpells
  */
 
@@ -272,7 +273,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.grimoire.runes.clear();
     this.grimoire.gestures.clear();
     this.grimoire.inflections.clear();
-    this.grimoire.iconicSlots = 0;
+    this.grimoire.iconicSlots = this.grimoire.iconicFreeComponents = 0;
     this.grimoire.iconicSpells.length = 0;
     this.permanentTalentIds ||= new Set();
     this.permanentTalentIds.clear();
