@@ -2018,11 +2018,16 @@ export default class CrucibleActor extends Actor {
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
     if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
-    if ( (this.type === "adversary") && !this.system.usesEquipment ) throw new Error(game.i18n.format("WARNING.CannotEquipTaxonomy", {
-      actor: this.name,
-      item: item.name,
-      taxonomy: this.system.details.taxonomy.name
-    }));
+
+    // Taxonomies which cannot use equipment must have the natural tag
+    if ( (this.type === "adversary") && !this.system.usesEquipment ) {
+      const canEquip = ((item.type === "weapon") && item.system.properties.has("natural")) ||
+        ((item.type === "armor") && (item.config.category === "natural"));
+      if ( !canEquip ) throw new Error(game.i18n.format("WARNING.CannotEquipTaxonomy",
+        {actor: this.name, item: item.name, taxonomy: this.system.details.taxonomy.name}));
+    }
+
+    // Type-specific handling
     switch ( item.type ) {
       case "weapon":
         if ( item.system.properties.has("natural") ) result.dropped = false;
