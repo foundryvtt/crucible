@@ -2525,7 +2525,8 @@ export default class CrucibleActor extends Actor {
         this._groups.delete(group);
         continue;
       }
-      group.sheet.render({force: false});
+      // TODO v14 remove conditional https://github.com/foundryvtt/foundryvtt/issues/13722
+      if ( group.sheet.isVisible ) group.sheet.render({force: false});
     }
   }
 
