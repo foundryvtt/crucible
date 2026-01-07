@@ -85,6 +85,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {string} name
  * @property {number} scope
  * @property {string[]} statuses
+ * @property {object[]} changes
  * @property {{rounds: number, turns: number}} duration
  * @property {{type: string, all: boolean}} result
  * @property {object} system
@@ -1087,13 +1088,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {_id, name, changes, duration, statuses: statusesArray, system} = effectData;
+      const {name, changes, duration, statuses: statusesArray, system} = effectData;
       const statuses = new Set(statusesArray);
 
       // Prepare effect data
       const effect = {
-        _id: _id ?? SYSTEM.EFFECTS.getEffectId(this.id),
-        name: name ?? this.name,
+        _id: SYSTEM.EFFECTS.getEffectId(this.id),
+        name: name || this.name,
         changes,
         description: this.description,
         icon: this.img,

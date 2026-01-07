@@ -41,9 +41,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /** @inheritDoc */
   * _tests() {
-    if ( this.rune.hooks ) yield this.rune.hooks;
-    if ( this.gesture.hooks ) yield this.gesture.hooks;
-    if ( this.inflection?.hooks ) yield this.inflection.hooks;
+    const hooks = crucible.api.hooks.spellcraft;
+    if ( hooks[this.rune.id] ) yield hooks[this.rune.id];
+    if ( hooks[this.gesture.id] ) yield hooks[this.gesture.id];
+    if ( hooks[this.inflection?.id] ) yield hooks[this.inflection.id];
     yield* super._tests();
   }
 
@@ -198,14 +199,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _prepare() {
     this.usage.hasDice = true; // Spells involve dice rolls unless configured otherwise
     super._prepare();
-
-    // Call Spellcraft Hooks
-    const hooks = crucible.api.hooks.spellcraft;
-    const fns = [hooks[this.gesture.id]?.prepare, hooks[this.rune.id]?.prepare, hooks[this.inflection?.id]?.prepare];
-    for ( const fn of fns ) {
-      if ( !(typeof fn === "function") ) continue;
-      fn.call(this);
-    }
 
     // Add Weapon cost
     if ( this.cost.weapon ) {
