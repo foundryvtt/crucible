@@ -2525,7 +2525,7 @@ export default class CrucibleActor extends Actor {
         this._groups.delete(group);
         continue;
       }
-      group.sheet.render({force: false});
+      if ( group.sheet.isVisible ) group.sheet.render({force: false});
     }
   }
 
