@@ -46,7 +46,6 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.talents = await this._prepareTalents();
-    context.talentPartial = this.constructor.INCLUDED_TALENT_TEMPLATE;
     return context;
   }
 
@@ -59,18 +58,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    */
   async _prepareTalents() {
     const uuids = this.document.system.talents;
-    const promises = uuids.map(async (uuid) => {
-      const talent = await fromUuid(uuid);
-      if ( !talent ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
-      return {
-        uuid,
-        name: talent.name,
-        img: talent.img,
-        description: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description),
-        tags: talent.getTags(),
-        item: await talent.renderInline({showRemove: this.isEditable})
-      }
-    });
+    const promises = [];
+    for ( const uuid of uuids ) {
+      let talent = await fromUuid(uuid);
+      talent ||= new Item.implementation({type: "talent", name: "INVALID"});
+      promises.push(talent.renderInline({showRemove: this.isEditable}));
+    }
     return Promise.all(promises);
   }
 
@@ -121,7 +114,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async #onDropTalent(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
-    if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
+    // TODO 541
+    const hasLeveledTalents = this.document.type === "archetype";
+    if ( (data.type !== "Item") ) return;
+    if ( hasLeveledTalents && talents.some(({item}) => item === data.uuid) ) return;
+    if ( !hasLeveledTalents && talents.has(data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) {
       ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
@@ -130,7 +127,14 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
-    const updateData = {system: {talents: [...talents, data.uuid]}};
+    const updateData = {system: {talents: [...talents]}};
+    // TODO 541
+    if ( hasLeveledTalents ) {
+      const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+      updateData.system.talents.push({item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null});
+    } else {
+      updateData.system.talents.push(data.uuid);
+    }
     return this._processSubmitData(event, this.form, updateData);
   }
 
@@ -144,7 +148,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
-    talents.delete(uuid);
+    // TODO 541
+    const hasLeveledTalents = this.document.type === "archetype";
+    let toDelete = uuid;
+    if ( hasLeveledTalents ) toDelete = talents.find(({item}) => item === uuid);
+    talents.delete(toDelete);
     const updateData = {system: {talents: [...talents]}};
     return this._processSubmitData(event, this.form, updateData);
   }
