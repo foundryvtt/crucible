@@ -263,6 +263,7 @@ Hooks.once("init", async function() {
   // Status Effects
   CONFIG.statusEffects = statusEffects;
   CONFIG.specialStatusEffects.BLIND = "blinded";
+  CONFIG.specialStatusEffects.BURROW = "burrowing";
 
   // Canvas Configuration
   canvas.configure();

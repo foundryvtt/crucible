@@ -93,6 +93,13 @@ export const statusEffects = [
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.blinded000000000"
   },
   {
+    id: "burrowing",
+    name: "ACTIVE_EFFECT.STATUSES.Burrowing",
+    img: "icons/svg/burrow.svg",
+    hud: nonGroupTypes,
+    // page: TODO
+  },
+  {
     id: "deafened",
     name: "ACTIVE_EFFECT.STATUSES.Deaf",
     img: "icons/svg/deaf.svg",
