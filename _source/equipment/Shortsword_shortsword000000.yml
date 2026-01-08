@@ -3,7 +3,9 @@ type: weapon
 img: icons/weapons/swords/sword-guard.webp
 effects: []
 folder: 3BDkyJ5nPk8nVa81
-flags: {}
+flags:
+  ember:
+    crucibleOverride: true
 system:
   category: balanced1
   quantity: 1
@@ -37,8 +39,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.2
   createdTime: 1749825636698
-  modifiedTime: 1766097022534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1767753282768
+  lastModifiedBy: QPs9IwGEu5DxD700
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

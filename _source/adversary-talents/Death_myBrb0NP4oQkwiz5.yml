@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Death
+color: null
+sorting: a
+_id: myBrb0NP4oQkwiz5
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767823947056
+  modifiedTime: 1767823947056
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!myBrb0NP4oQkwiz5'

@@ -1,0 +1,44 @@
+name: Servitor
+type: archetype
+img: icons/commodities/tech/sensor-yellow.webp
+system:
+  description: >-
+    <p>Creatures which are specialized in espionage or performing tasks in
+    remote service of a controlling master.</p>
+  identifier: servitor
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 3
+    strength: 1
+    toughness: 2
+    dexterity: 3
+  talents:
+    - Compendium.crucible.adversary-talents.Item.servitor00000000
+    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+  skills:
+    - awareness
+    - stealth
+    - deception
+    - performance
+  spells: []
+  equipment: []
+effects: []
+folder: VzmX3ltBOPdcbOEY
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767897471793
+  modifiedTime: 1767897471793
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: servitor00000000
+sort: 0
+_key: '!items!servitor00000000'

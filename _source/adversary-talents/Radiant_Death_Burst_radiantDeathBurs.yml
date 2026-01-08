@@ -1,0 +1,68 @@
+name: Radiant Death Burst
+type: talent
+img: icons/magic/fire/explosion-fireball-large-orange.webp
+system:
+  nodes: []
+  description: >-
+    <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst
+    of radiant energy.</p>
+  actions:
+    - id: radiantDeathBurst
+      name: Radiant Death Burst
+      img: icons/magic/fire/explosion-fireball-large-orange.webp
+      condition: The creature becomes Dead.
+      description: >-
+        <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
+        explodes in a pulse of <strong>Radiant</strong> energy which attacks the
+        <strong>Fortitude</strong> defense of all nearby creatures that fail to
+        resist the effect.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+        size: 8
+      effects: []
+      tags:
+        - generic
+        - fortitude
+        - radiant
+        - intellect
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: hLW9grST8mutR0JI
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767823953161
+  modifiedTime: 1767824237237
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: radiantDeathBurs
+sort: 0
+_key: '!items!radiantDeathBurs'

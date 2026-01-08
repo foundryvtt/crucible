@@ -1,0 +1,64 @@
+name: Servitor
+type: talent
+img: icons/commodities/tech/sensor-yellow.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} serves the will of another and maintains a
+    connection to that master that allows the transmission or messages or even
+    the sharing of senses between the servitor and its controller.</p>
+  actions:
+    - id: servitorSending
+      name: Servitor Sending
+      img: icons/commodities/tech/sensor-yellow.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} can contact its master, sending
+        inaudible communication which is instantaneously received by its
+        controller as long as that other creature is capable of receiving
+        messages.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: DjDiZofs7UvgUC9D
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767824273513
+  modifiedTime: 1767824337905
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: servitor00000000
+sort: 0
+_key: '!items!servitor00000000'

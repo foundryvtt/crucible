@@ -1,0 +1,70 @@
+name: Burrower
+type: talent
+img: icons/environment/wilderness/terrain-stone-stalagtite.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} has a supernatural ability to rapidly
+    burrow through solid surfaces which are not entirely
+    impermeable.</p><p>Additionally, it can compress its body to pass through
+    apertures that can accommodate ¼ of its <strong>Size</strong>.</p>
+  actions:
+    - id: explosiveEmergence
+      name: Explosive Emergence
+      img: icons/environment/wilderness/terrain-stone-stalagtite.webp
+      condition: While burrowing.
+      description: >-
+        <p>The @ref[actor.name]{creature} emerges from a subterranean position
+        with surprising and sudden force. This action may only be activated
+        immediately the creature leaves the @Condition[burrowing]
+        state.</p><p>The @ref[actor.name]{creature} erupts to
+        <strong>Strike</strong> against all enemies within its weapon range with
+        an <strong>Empowered</strong> attack.</p>
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: pulse
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - melee
+        - natural
+        - empowered
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767896453753
+  modifiedTime: 1767897305482
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: burrower00000000
+sort: 0
+_key: '!items!burrower00000000'

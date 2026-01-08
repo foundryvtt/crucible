@@ -1,6 +1,6 @@
 type: Item
 folder: null
-name: Attacks
+name: Strikes
 color: null
 sorting: a
 _id: azO1TzmTVoNehily
@@ -15,6 +15,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1750726612736
-  modifiedTime: 1765333070307
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1767823937435
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _key: '!folders!azO1TzmTVoNehily'

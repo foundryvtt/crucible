@@ -56,7 +56,7 @@ system:
     rank: null
   actorHooks: []
 effects: []
-folder: jPlehJgYr7sjtA8J
+folder: 9y11rpBtHeoqU3eB
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -65,11 +65,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.1
   createdTime: 1751481339795
-  modifiedTime: 1762972275325
-  lastModifiedBy: AnoypGxxNIMOS0XY
-sort: 0
+  modifiedTime: 1767897352027
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 100000
 _key: '!items!rakingTalons0000'

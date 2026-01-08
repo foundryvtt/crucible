@@ -1,0 +1,83 @@
+name: Sacrifice Self
+type: talent
+img: icons/magic/death/skull-fire-white-yellow.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} may intervene to take a blow instead of an
+    adjacent ally.</p>
+  actions:
+    - id: sacrificeSelf
+      name: Sacrifice Self
+      img: icons/magic/death/skull-fire-white-yellow.webp
+      condition: A nearby ally is targeted by a hostile action.
+      description: >-
+        <p>The @ref[actor.name]{creature} reacts, performing a
+        <strong>Movement</strong> up to their <strong>Stride </strong>to
+        interpose itself between a nearby ally and some source of harm which it
+        can perceive.</p><p>The @ref[actor.name]{creature} becomes
+        @Condition[dead], destroyed in their sacrifice, but the triggering
+        action causes no effects to its original target.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses:
+            - dead
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - movement
+        - reaction
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767823565219
+  modifiedTime: 1767823565219
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: sacrificeSelf000
+sort: 0
+_key: '!items!sacrificeSelf000'

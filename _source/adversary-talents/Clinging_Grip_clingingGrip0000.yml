@@ -1,0 +1,86 @@
+name: Clinging Grip
+type: talent
+img: icons/commodities/biological/foot-amphibian-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to cling to vertical or overhead
+    surfaces with exceptional grip or adhesion. This creature can avoid falling
+    as long as they are adjacent to any solid surface which can reasonably
+    support them.</p>
+  actions:
+    - id: droppingStrike
+      name: Dropping Strike
+      img: icons/commodities/biological/foot-amphibian-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} can drop from overhead to
+        <strong>Strike</strong> a creature below it. The target creature suffers
+        an <strong>Empowered</strong> attack which, if successful, knocks them
+        @Condition[prone] in addition to dealing damage.</p><p>The
+        @ref[actor.name]{creature} can suffer falling damage from this attack
+        only if it misses its target.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - prone
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - melee
+        - natural
+        - empowered
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767897037107
+  modifiedTime: 1767897037107
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: clingingGrip0000
+sort: 0
+_key: '!items!clingingGrip0000'
