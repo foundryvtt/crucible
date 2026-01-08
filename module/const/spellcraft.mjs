@@ -542,11 +542,6 @@ export const INFLECTIONS = {
     name: "SPELL.INFLECTIONS.React",
     cost: {
       focus: 2
-    },
-    hooks: {
-      prepare() {
-        this.tags.add("reaction");
-      }
     }
   },
   reshape: {
@@ -554,12 +549,6 @@ export const INFLECTIONS = {
     name: "SPELL.INFLECTIONS.Reshape",
     cost: {
       focus: 2
-    },
-    hooks: {
-      prepare() {
-        if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
-        else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
-      }
     }
   }
 };

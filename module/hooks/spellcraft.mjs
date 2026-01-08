@@ -2,6 +2,29 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+function prepareSummon(level) {
+  this.tags.add("summon");
+  this.usage.hasDice = false;
+  
+  // Configure summon data
+  const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
+  const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+  const tokenData = {
+    delta: {
+      system: {
+        details: {
+          level,
+          rank: "minion"
+        }
+      }
+    }
+  };
+  const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
+  this.usage.summons = [{actorUuid, tokenData, effectId}];
+}
+
+/* -------------------------------------------- */
+
 HOOKS.aspect = {
   prepare() {
     this.usage.hasDice = false;
@@ -11,10 +34,12 @@ HOOKS.aspect = {
       console.warn("Gesture: Aspect is not configured for healing Runes yet");
       return
     }
-
-    // Configure active effect
-    this.effects.push({
+  },
+  postActivate(outcome) {
+    if ( !outcome.self ) return;
+    outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId("aspect"),
+      name: this.name,
       icon: this.gesture.img,
       duration: {rounds: 6},
       origin: this.actor.uuid,
@@ -39,15 +64,14 @@ HOOKS.aspect = {
 HOOKS.aura = {
   prepare() {
     this.tags.add("maintained");
-
-    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    this.effects.push({
-      _id: effectId,
+  },
+  postActivate(outcome) {
+    if ( !outcome.self ) return;
+    outcome.effects.push({
+      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       icon: this.img,
-      scope: SYSTEM.ACTION.TARGET_SCOPES.SELF,
-      result: {
-        type: "any"
-      }
+      name: this.name,
+      system: {}
     });
   }
 }
@@ -56,27 +80,17 @@ HOOKS.aura = {
 
 HOOKS.conjure = {
   prepare() {
-    this.tags.add("summon");
-    this.usage.hasDice = false;
-
-    // Configure summon active effect
-    let effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 12}});
-
-    // Configure summon data
-    const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
-    const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
-    const tokenData = {
-      delta: {
-        system: {
-          details: {
-            level: this.actor.system.advancement.threatLevel,
-            rank: "minion"
-          }
-        }
-      }
-    };
-    this.usage.summons = [{actorUuid, tokenData, effectId}];
+    prepareSummon.call(this, this.actor.system.advancement.threatLevel);
+  },
+  postActivate(outcome) {
+    if ( !outcome.self ) return;
+    outcome.effects.push({
+      _id: outcome.summons[0].effectId,
+      icon: this.img,
+      name: this.name,
+      duration: {rounds: 12},
+      system: {}
+    });
   }
 }
 
@@ -84,27 +98,34 @@ HOOKS.conjure = {
 
 HOOKS.create = {
   prepare() {
-    this.tags.add("summon");
-    this.usage.hasDice = false;
+    prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
+  },
+  postActivate(outcome) {
+    if ( !outcome.self ) return;
+    outcome.effects.push({
+      _id: outcome.summons[0].effectId,
+      icon: this.img,
+      name: this.name,
+      duration: {rounds: 6},
+      system: {}
+    });
+  }
+}
 
-    // Configure summon active effect
-    const effectId = this.usage.summons?.[0]?.effectId ?? SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
+/* -------------------------------------------- */
 
-    // Configure summon data
-    const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
-    const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
-    const tokenData = {
-      delta: {
-        system: {
-          details: {
-            level: Math.ceil(this.actor.system.advancement.threatLevel / 2),
-            rank: "minion"
-          }
-        }
-      }
-    };
-    this.usage.summons = [{actorUuid, tokenData, effectId}];
+HOOKS.react = {
+  prepare() {
+    this.tags.add("reaction");
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.reshape = {
+  prepare() {
+    if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
+    else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
   }
 }
 
@@ -113,15 +134,14 @@ HOOKS.create = {
 HOOKS.sense = {
   prepare() {
     this.tags.add("maintained");
-
-    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    this.effects.push({
-      _id: effectId,
+  },
+  postActivate(outcome) {
+    if ( !outcome.self ) return;
+    outcome.effects.push({
+      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       icon: this.img,
-      scope: SYSTEM.ACTION.TARGET_SCOPES.SELF,
-      result: {
-        type: "any"
-      }
+      name: this.name,
+      system: {}
     });
   }
 }
@@ -147,16 +167,20 @@ HOOKS.ward = {
       console.warn("Gesture: Ward is not configured for healing Runes yet");
       return
     }
-
+  },
+  postActivate(outcome) {
+    
     // Configure Ward effect
+    // TODO: Move into its own talent hook
     let resistance = this.gesture.damage.base;
     if ( this.actor.talentIds.has("runewarden000000") ) {
       resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);
     }
 
     // Configure active effect
-    this.effects.push({
+    outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId("ward"),
+      name: this.name,
       icon: this.gesture.img,
       duration: {rounds: 1},
       origin: this.actor.uuid,
