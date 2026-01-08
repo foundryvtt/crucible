@@ -13,8 +13,7 @@ HOOKS.aspect = {
     }
   },
   postActivate(outcome) {
-
-    // Configure active effect
+    if ( !outcome.self ) return;
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId("aspect"),
       name: this.name,
@@ -47,7 +46,7 @@ HOOKS.aura = {
     if ( !outcome.self ) return;
     const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
     outcome.effects.push({
-      _id: effectId,
+      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       icon: this.img,
       name: this.name,
       system: {}
@@ -80,9 +79,8 @@ HOOKS.conjure = {
   },
   postActivate(outcome) {
     if ( !outcome.self ) return;
-    const effectId = outcome.summons[0].effectId;
     outcome.effects.push({
-      _id: effectId,
+      _id: outcome.summons[0].effectId,
       icon: this.img,
       name: this.name,
       duration: {rounds: 12},
