@@ -121,6 +121,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /* -------------------------------------------- */
 
+  // TODO 541
   /** @override */
   async _prepareTalents() {
     const talents = this.document.system.talents;

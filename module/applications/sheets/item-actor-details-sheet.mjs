@@ -58,10 +58,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    */
   async _prepareTalents() {
     const uuids = this.document.system.talents;
-    const promises = uuids.map(async (uuid) => {
-      const talent = (await fromUuid(uuid)) ?? await new Item.implementation({type: "talent", name: "INVALID"});
-      return talent.renderInline({showRemove: this.isEditable});
-    });
+    const promises = [];
+    for ( const uuid of uuids ) {
+      let talent = await fromUuid(uuid);
+      talent ||= new Item.implementation({type: "talent", name: "INVALID"});
+      promises.push(talent.renderInline({showRemove: this.isEditable}));
+    }
     return Promise.all(promises);
   }
 
