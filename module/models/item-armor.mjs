@@ -65,6 +65,9 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     this.dodge ||= {};
     this.dodge.base = category.dodge.base(this.armor.base) + enchantment.bonus;
     this.dodge.scaling = category.dodge.scaling;
+
+    // Natural applies property
+    if ( category.id === "natural" ) this.properties.add("natural");
   }
 
   /* -------------------------------------------- */
