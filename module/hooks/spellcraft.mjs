@@ -2,6 +2,29 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+function prepareSummon(level) {
+  this.tags.add("summon");
+  this.usage.hasDice = false;
+  
+  // Configure summon data
+  const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
+  const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+  const tokenData = {
+    delta: {
+      system: {
+        details: {
+          level,
+          rank: "minion"
+        }
+      }
+    }
+  };
+  const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
+  this.usage.summons = [{actorUuid, tokenData, effectId}];
+}
+
+/* -------------------------------------------- */
+
 HOOKS.aspect = {
   prepare() {
     this.usage.hasDice = false;
@@ -44,7 +67,6 @@ HOOKS.aura = {
   },
   postActivate(outcome) {
     if ( !outcome.self ) return;
-    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       icon: this.img,
@@ -58,24 +80,7 @@ HOOKS.aura = {
 
 HOOKS.conjure = {
   prepare() {
-    this.tags.add("summon");
-    this.usage.hasDice = false;
-    
-    // Configure summon data
-    const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
-    const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
-    const tokenData = {
-      delta: {
-        system: {
-          details: {
-            level: this.actor.system.advancement.threatLevel,
-            rank: "minion"
-          }
-        }
-      }
-    };
-    const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-    this.usage.summons = [{actorUuid, tokenData, effectId}];
+    prepareSummon.call(this, this.actor.system.advancement.threatLevel);
   },
   postActivate(outcome) {
     if ( !outcome.self ) return;
@@ -93,14 +98,17 @@ HOOKS.conjure = {
 
 HOOKS.create = {
   prepare() {
-    HOOKS.conjure.prepare.call(this);
-    const currDetails = this.usage.summons[0].tokenData.delta.system.details;
-    currDetails.level = Math.ceil(currDetails.level / 2);
+    prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
   },
   postActivate(outcome) {
     if ( !outcome.self ) return;
-    HOOKS.conjure.postActivate.call(this, outcome);
-    outcome.effects[0].duration.rounds = 6;
+    outcome.effects.push({
+      _id: outcome.summons[0].effectId,
+      icon: this.img,
+      name: this.name,
+      duration: {rounds: 6},
+      system: {}
+    });
   }
 }
 
@@ -125,10 +133,16 @@ HOOKS.reshape = {
 
 HOOKS.sense = {
   prepare() {
-    HOOKS.aura.prepare.call(this);
+    this.tags.add("maintained");
   },
   postActivate(outcome) {
-    HOOKS.aura.postActivate.call(this, outcome);
+    if ( !outcome.self ) return;
+    outcome.effects.push({
+      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
+      icon: this.img,
+      name: this.name,
+      system: {}
+    });
   }
 }
 
@@ -157,6 +171,7 @@ HOOKS.ward = {
   postActivate(outcome) {
     
     // Configure Ward effect
+    // TODO: Move into its own talent hook
     let resistance = this.gesture.damage.base;
     if ( this.actor.talentIds.has("runewarden000000") ) {
       resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);

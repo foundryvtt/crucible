@@ -1088,8 +1088,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {name, changes, duration, statuses: statusesArray, system} = effectData;
-      const statuses = new Set(statusesArray);
+      const {name, changes, duration, statuses: origStatuses, system} = effectData;
+      const statuses = new Set(origStatuses);
 
       // Prepare effect data
       const effect = {
@@ -1103,12 +1103,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         system
       };
 
-      // Auto-configure statuses
-      for ( const status of statusesArray ) {
+      // Auto-configure damage-over-time statuses
+      for ( const status of origStatuses ) {
         const fn = SYSTEM.EFFECTS[status];
         if ( typeof fn !== "function" ) continue;
         const statusEffect = fn(this.actor, {ability: this.scaling});
-        if ( statusEffect.system ) effect.system ||= statusEffect.system;
+        if ( statusEffect.system?.dot ) effect.system.dot.push(...statusEffect.system.dot);
         if ( statusEffect.statuses ) {
           for ( const s of statusEffect.statuses ) statuses.add(s);
         }
