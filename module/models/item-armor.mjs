@@ -120,4 +120,20 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     armor.prepareData(); // Needs to be explicitly called since we may be in the midst of Actor preparation.
     return armor;
   }
+
+  /* -------------------------------------------- */
+  /*        Deprecations and Compatibility        */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    
+    /** @deprecated since 0.8.5 */
+    if ( source.properties?.includes("organic") ) {
+      source.properties.findSplice(p => p === "organic", "natural");
+    }
+
+    return source;
+  }
 }
