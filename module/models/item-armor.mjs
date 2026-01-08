@@ -103,6 +103,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     // Armor Properties
     for ( let p of this.properties ) {
       if ( p === "investment" ) continue;
+      if ( (p === "natural") && (this.config.category.id === "natural") ) continue;
       tags[p] = ARMOR.PROPERTIES[p].label;
     }
     return scope === "short" ? {armor: tags.armor, dodge: tags.dodge} : tags;
