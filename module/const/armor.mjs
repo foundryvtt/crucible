@@ -58,8 +58,8 @@ export const PROPERTIES = {
   bulky: {
     label: "ARMOR.PROPERTIES.Bulky"
   },
-  organic: {
-    label: "ARMOR.PROPERTIES.Organic"
+  natural: {
+    label: "ARMOR.PROPERTIES.Natural"
   },
   noisy: {
     label: "ARMOR.PROPERTIES.Noisy"

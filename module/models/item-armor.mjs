@@ -65,6 +65,9 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     this.dodge ||= {};
     this.dodge.base = category.dodge.base(this.armor.base) + enchantment.bonus;
     this.dodge.scaling = category.dodge.scaling;
+
+    // Natural applies property
+    if ( category.id === "natural" ) this.properties.add("natural");
   }
 
   /* -------------------------------------------- */
@@ -100,6 +103,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     // Armor Properties
     for ( let p of this.properties ) {
       if ( p === "investment" ) continue;
+      if ( (p === "natural") && (this.config.category.id === "natural") ) continue;
       tags[p] = ARMOR.PROPERTIES[p].label;
     }
     return scope === "short" ? {armor: tags.armor, dodge: tags.dodge} : tags;
@@ -119,5 +123,21 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     const armor = new itemCls(itemData, {parent: actor});
     armor.prepareData(); // Needs to be explicitly called since we may be in the midst of Actor preparation.
     return armor;
+  }
+
+  /* -------------------------------------------- */
+  /*        Deprecations and Compatibility        */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    
+    /** @deprecated since 0.8.5 */
+    if ( source.properties?.includes("organic") ) {
+      source.properties.findSplice(p => p === "organic", "natural");
+    }
+
+    return source;
   }
 }

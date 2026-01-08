@@ -2021,8 +2021,7 @@ export default class CrucibleActor extends Actor {
 
     // Taxonomies which cannot use equipment must have the natural tag
     if ( (this.type === "adversary") && !this.system.usesEquipment ) {
-      const canEquip = ((item.type === "weapon") && item.system.properties.has("natural")) ||
-        ((item.type === "armor") && (item.config.category === "natural"));
+      const canEquip = ["armor", "weapon"].includes(item.type) && item.system.properties.has("natural");
       if ( !canEquip ) throw new Error(game.i18n.format("WARNING.CannotEquipTaxonomy",
         {actor: this.name, item: item.name, taxonomy: this.system.details.taxonomy.name}));
     }
