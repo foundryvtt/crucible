@@ -57,9 +57,9 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @protected
    */
   async _prepareTalents() {
-    const uuids = this.document.system.talents;
+    const talents = this.document.system.talents;
     const promises = [];
-    for ( const uuid of uuids ) {
+    for ( const {item: uuid, level} of talents ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
       promises.push(talent.renderInline({showRemove: this.isEditable}));
@@ -114,11 +114,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async #onDropTalent(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
-    // TODO 541
-    const hasLeveledTalents = this.document.type === "archetype";
     if ( (data.type !== "Item") ) return;
-    if ( hasLeveledTalents && talents.some(({item}) => item === data.uuid) ) return;
-    if ( !hasLeveledTalents && talents.has(data.uuid) ) return;
+    if ( talents.some(({item}) => item === data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) {
       ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
@@ -127,14 +124,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
-    const updateData = {system: {talents: [...talents]}};
-    // TODO 541
-    if ( hasLeveledTalents ) {
-      const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
-      updateData.system.talents.push({item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null});
-    } else {
-      updateData.system.talents.push(data.uuid);
-    }
+    const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+    const updateData = {
+      system: {
+        talents: [...talents, {item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null}]
+      }
+    };
     return this._processSubmitData(event, this.form, updateData);
   }
 
@@ -148,10 +143,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
-    // TODO 541
-    const hasLeveledTalents = this.document.type === "archetype";
-    let toDelete = uuid;
-    if ( hasLeveledTalents ) toDelete = talents.find(({item}) => item === uuid);
+    const toDelete = talents.find(({item}) => item === uuid);
     talents.delete(toDelete);
     const updateData = {system: {talents: [...talents]}};
     return this._processSubmitData(event, this.form, updateData);
