@@ -1257,7 +1257,7 @@ export default class CrucibleActor extends Actor {
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
     // Plan actor changes
-    const resourceRecovery = {};
+    const resourceChanges = {};
     const actorUpdates = {};
     if ( this.flags.crucible?.delay ) foundry.utils.mergeObject(actorUpdates, {"flags.crucible.-=delay": null});
 
@@ -1267,7 +1267,7 @@ export default class CrucibleActor extends Actor {
 
     // Actor turn start configuration hook
     const statusText = [];
-    const turnEndConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
+    const turnEndConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
     this.callActorHooks("endTurn", turnEndConfig);
 
     // Remove active effects which expire at the end of a turn
@@ -1276,7 +1276,7 @@ export default class CrucibleActor extends Actor {
     });
 
     // Recover resources
-    await this.alterResources(resourceRecovery, actorUpdates, {statusText}).catch(cause => {
+    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
       console.error(new Error(`Failed to apply turn end resource recovery for Actor ${this.id}.`, {cause}));
     });
 
