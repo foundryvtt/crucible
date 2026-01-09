@@ -204,7 +204,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.cost.weapon ) {
       const w = this.actor.equipment.weapons.mainhand;
       this.cost.action += (w?.system.actionCost || 0);
-      this.usage.strikes = [w];
     }
 
     // Zero cost for un-composed spells
