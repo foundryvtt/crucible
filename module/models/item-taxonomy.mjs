@@ -33,7 +33,10 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         });
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateResistances}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      talents: new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item"}),
+        level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
+      })),
       characteristics: new fields.SchemaField({
         equipment: new fields.BooleanField(),
         spells: new fields.BooleanField()
@@ -91,6 +94,12 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
+
+    if ( source.talents?.length ) {
+      if ( typeof source.talents[0] === "string") {
+        source.talents = source.talents.map(t => ({item: t, level: null}));
+      }
+    }
 
     const abilities = source.abilities;
     if ( abilities ) {

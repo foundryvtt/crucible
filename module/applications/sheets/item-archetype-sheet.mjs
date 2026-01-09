@@ -121,19 +121,6 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /* -------------------------------------------- */
 
-  // TODO 541
-  /** @override */
-  async _prepareTalents() {
-    const talents = this.document.system.talents;
-    const promises = talents.map(async ({item: uuid}) => {
-      const talent = (await fromUuid(uuid)) ?? await new Item.implementation({type: "talent", name: "INVALID"});
-      return talent.renderInline({showRemove: this.isEditable});
-    });
-    return Promise.all(promises);
-  }
-
-  /* -------------------------------------------- */
-
   /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);

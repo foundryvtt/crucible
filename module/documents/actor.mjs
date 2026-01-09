@@ -1765,9 +1765,8 @@ export default class CrucibleActor extends Actor {
     // Remove existing talents
     const existing = this.system.details[type];
     let deleteItemIds = new Set();
-    for ( const uuid of (existing?.talents || []) ) {
-      // TODO 541
-      const talentId = foundry.utils.parseUuid(uuid.item ?? uuid)?.documentId;
+    for ( const {item: uuid} of (existing?.talents || []) ) {
+      const talentId = foundry.utils.parseUuid(uuid)?.documentId;
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
@@ -1812,9 +1811,8 @@ export default class CrucibleActor extends Actor {
         ...(detail.talents || []),
         ...(skillTalents ? (detail.skills || []).map(skillId => SYSTEM.SKILLS[skillId]?.talents[1]) : [])
       ];
-      for ( const uuid of talentUuids ) {
-        // TODO 541
-        const talent = await fromUuid(uuid.item ?? uuid);
+      for ( const {item: uuid, level} of talentUuids ) {
+        const talent = await fromUuid(uuid);
         if ( !talent ) continue;
         if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id); // Talent already owned
         else updateItems.push(this._cleanItemData(talent));               // Add new Talent

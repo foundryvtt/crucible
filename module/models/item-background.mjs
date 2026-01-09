@@ -18,7 +18,10 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
       knowledge: new fields.SetField(new fields.StringField({choices: () => crucible.CONFIG.knowledge})),
       languages: new fields.SetField(new fields.StringField()),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      talents: new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item"}),
+        level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
+      })),
       ui: new fields.SchemaField({
         color: new fields.ColorField()
       })
@@ -27,4 +30,21 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["BACKGROUND"];
+
+  /* -------------------------------------------- */
+  /*        Deprecations and Compatibility        */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+
+    if ( source.talents?.length ) {
+      if ( typeof source.talents[0] === "string") {
+        source.talents = source.talents.map(t => ({item: t, level: null}));
+      }
+    }
+
+    return source;
+  }
 }
