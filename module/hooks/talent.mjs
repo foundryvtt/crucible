@@ -221,10 +221,10 @@ HOOKS.conjurer00000000 = {
 /* -------------------------------------------- */
 
 HOOKS.conserveeffort00 = {
-  endTurn(item, {resourceRecovery, statusText}) {
+  endTurn(item, {resourceChanges, statusText}) {
     if ( this.resources.action.value ) {
-      resourceRecovery.focus = (resourceRecovery.focus || 0) + 1;
-      statusText.push({text: "Conserve Effort", fillColor: SYSTEM.RESOURCES.focus.color.css});
+      resourceChanges.focus = (resourceChanges.focus || 0) + 1;
+      statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
     }
   }
 }
