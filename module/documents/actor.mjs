@@ -1812,6 +1812,7 @@ export default class CrucibleActor extends Actor {
         ...(skillTalents ? (detail.skills || []).map(skillId => SYSTEM.SKILLS[skillId]?.talents[1]) : [])
       ];
       for ( const {item: uuid, level} of talentUuids ) {
+        if ( (level ?? 0) > Math.max(0, this.system.advancement.level) ) continue;
         const talent = await fromUuid(uuid);
         if ( !talent ) continue;
         if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id); // Talent already owned
@@ -2319,6 +2320,7 @@ export default class CrucibleActor extends Actor {
       this.#updateSize(data, options);
       this.#updatePace(data, options);
       this.#applyResourceStatuses(data);
+      this.#refreshDetailTalents(data);
     }
 
     // Update flanking
@@ -2500,6 +2502,28 @@ export default class CrucibleActor extends Actor {
     for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
       const scene = game.scenes.get(sceneId);
       if ( scene ) await scene.updateEmbeddedDocuments("Token", updates, {_crucibleRelatedUpdate: true});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  async #refreshDetailTalents(data) {
+    if ( !("level" in (data.system?.advancement ?? {})) ) return;
+    const effectiveLevel = Math.max(0, data.system.advancement.level);
+    for ( const itemType of ["ancestry", "archetype", "background", "taxonomy"] ) {
+      const detail = this.system.details[itemType];
+      if ( !detail ) continue;
+      const deleteItemIds = new Set();
+      const createItems = [];
+      for ( const {item: uuid, level} of detail.talents ) {
+        const talent = await fromUuid(uuid);
+        if ( !talent ) continue;
+        const hasTalent = this.items.has(talent.id);
+        if ( level > effectiveLevel && hasTalent ) deleteItemIds.add(talent.id); 
+        else if ( level <= effectiveLevel && !hasTalent ) createItems.push(this._cleanItemData(talent));
+      }
+      if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
+      if ( createItems.length ) await this.createEmbeddedDocuments("Item", createItems, {keepId: true});
     }
   }
 
