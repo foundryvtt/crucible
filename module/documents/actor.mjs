@@ -2507,6 +2507,10 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /**
+   * Ensure Talents granted by details items (Ancestry and Background for Heroes, Archetype and Taxonomy for Adversaries),
+   * are present if they should be, and not present if they should not be.
+   */
   async #refreshDetailTalents(data) {
     if ( !("level" in (data.system?.advancement ?? {})) ) return;
     const effectiveLevel = Math.max(0, data.system.advancement.level);
