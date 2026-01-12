@@ -112,7 +112,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     
     // Handle talent level changes
     if ( submitData.system.talents ) {
-      const updatedTalents = [...this.document.system.talents];
+      const updatedTalents = [...this.document.system._source.talents];
       for ( const [idx, changes] of Object.entries(submitData.system.talents) ) {
         foundry.utils.mergeObject(updatedTalents[idx], changes);
       }
