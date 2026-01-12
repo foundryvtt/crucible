@@ -59,10 +59,10 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareTalents() {
     const talents = this.document.system.talents;
     const promises = [];
-    for ( const {item: uuid, level} of talents ) {
+    for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
-      promises.push(talent.renderInline({showRemove: this.isEditable}));
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level}));
     }
     return Promise.all(promises);
   }
@@ -106,6 +106,23 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
+    
+    // Handle talent level changes
+    if ( submitData.system.talents ) {
+      const updatedTalents = [...this.document.system._source.talents];
+      for ( const [idx, changes] of Object.entries(submitData.system.talents) ) {
+        foundry.utils.mergeObject(updatedTalents[idx], changes);
+      }
+      submitData.system.talents = updatedTalents;
+    }
+    return submitData;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Handle drop events for a talent added to this sheet.
    * @param {DragEvent} event
@@ -142,7 +159,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   static async #onRemoveTalent(event, target) {
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
-    const uuid = talent.dataset.uuid;
+    const uuid = talent.dataset.uuid || null;
     const toDelete = talents.find(({item}) => item === uuid);
     talents.delete(toDelete);
     const updateData = {system: {talents: [...talents]}};

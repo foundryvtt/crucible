@@ -256,16 +256,22 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * Render this Talent as HTML for inline display.
    * @param {object} [options]
    * @param {boolean} [options.showRemove]  Whether to show "Remove Talent" button
+   * @param {boolean} [options.showLevel]   Whether to show the input for what level the Talent is granted at (on a details item)
+   * @param {number} [options.talentIndex]  The index of the currently-rendered Talent - only relevant when displaying level index
+   * @param {number} [options.level]        What level the Talent is granted at (on a details item)
    * @returns {Promise<string>}
    */
-  async renderInline({showRemove=false}={}) {
+  async renderInline({showRemove=false, showLevel=false, talentIndex, level}={}) {
     return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
       talent: this,
       uuid: this.parent.uuid,
       name: this.parent.name,
       img: this.parent.img,
       tags: this.getTags(),
-      showRemove
+      showRemove,
+      showLevel,
+      talentIndex,
+      level
     });
   }
 

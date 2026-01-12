@@ -239,9 +239,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const fields = this.document.system.schema.fields;
 
     // Handle equipment quantity changes
-    if (submitData.system.equipment) {
-      const updatedEquipment = [...this.document.system.equipment];
-      for (const [idx, changes] of Object.entries(submitData.system.equipment)) {
+    if ( submitData.system.equipment ) {
+      const updatedEquipment = [...this.document.system._source.equipment];
+      for ( const [idx, changes] of Object.entries(submitData.system.equipment) ) {
         foundry.utils.mergeObject(updatedEquipment[idx], changes);
       }
       submitData.system.equipment = updatedEquipment;
