@@ -43,15 +43,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
- * @property {ActionCounterspellConfig} [counterspellConfig]  Counterspell configuration
- */
-
-/**
- * @typedef ActionCounterspellConfig
- * @property {string} rune
- * @property {string} gesture
- * @property {number} dc
- * @property {string} [inflection]
+ * @property {CrucibleACtion} [targetAction]  An action being "responded" to by this action
  */
 
 /**

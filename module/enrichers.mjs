@@ -408,97 +408,18 @@ async function onClickCounterspell(event) {
   const dc = Number(dcString);
   const actor = inferEnricherActor();
   const counterspellAction = actor?.actions.counterspell;
-  if ( !game.user.isGM || counterspellAction ) {
-    // If inferred can counterspell, prompt
-    if ( !counterspellAction ) return ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
-    const counterspellConfig = {
-      rune: SYSTEM.SPELL.RUNES[rune],
-      gesture: SYSTEM.SPELL.GESTURES[gesture],
-      dc
-    };
-    if ( inflection ) {
-      counterspellConfig.inflection = SYSTEM.SPELL.INFLECTIONS[inflection];
-    }
-    const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
-    action.usage.counterspellConfig = counterspellConfig;
-    await action.use();
-  } else {
-    // Prompt GM to pick among counterspellable party members
-    const partyMembers = crucible.party?.system.members.filter(({actor}) => actor.actions.counterspell) || [];
-    const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
-      name: "partyMember",
-      type: "checkboxes",
-      options: partyMembers.reduce((arr, m) => {
-        if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name, selected: true});
-        return arr;
-      }, [])
-    });
-    const partyMember = foundry.applications.fields.createFormGroup({
-      label: "Party Members",
-      hint: "Choose characters in the active party.",
-      stacked: true,
-      input: partyMemberInput
-    });
-    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
-      type: "Actor",
-      name: "anyActor",
-    });
-    const anyActor = foundry.applications.fields.createFormGroup({
-      label: "Any Actor",
-      hint: "Alternatively, choose any Actors.",
-      input: anyActorInput
-    });
-    const response = await foundry.applications.api.DialogV2.input({
-      window: {title: game.i18n.localize("SPELL.COUNTERSPELL.Name"), icon: "fa-solid fa-magic-wand"},
-      content: `\
-      ${partyMember.outerHTML}${anyActor.outerHTML}
-      `,
-    });
-  
-    if (!response) return;
 
-    // Iterate over actor targets
-    const targets = new Set([...response.partyMember, ...response.anyActor]);
-    const reconstructedEnricher = `[[/counterspell rune=${rune} gesture=${gesture} dc=${dc}${inflection ? ` inflection=${inflection}` : ""}]]`
-    for ( const actorId of targets ) {
-      const actor = game.actors.get(actorId) ?? await fromUuid(actorId);
-      if ( !actor?.actions.counterspell ) {
-        ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
-        continue;
-      }
-      const designatedUser = game.users.getDesignatedUser(user => {
-        if ( !user.active ) return false;
-        if ( user.isGM ) return false;
-        return actor?.testUserPermission(user, "OWNER");
-      });
-      if ( designatedUser ) {
-        await ChatMessage.implementation.create({
-          content: `
-          <section class="crucible">
-            <p>${game.i18n.format("SPELL.COUNTERSPELL.UseForActor", {actor: actor.name})}</p>
-            <p>${reconstructedEnricher}</p>
-          </section>
-          `,
-          speaker: {user: game.user},
-          whisper: [designatedUser.id],
-          flags: {crucible: {isCrucibleMessage: true}}
-        });
-      } else {
-        const counterspellAction = actor?.actions.counterspell;
-        const counterspellConfig = {
-          rune: SYSTEM.SPELL.RUNES[rune],
-          gesture: SYSTEM.SPELL.GESTURES[gesture],
-          dc
-        };
-        if ( inflection ) {
-          counterspellConfig.inflection = SYSTEM.SPELL.INFLECTIONS[inflection];
-        }
-        const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
-        action.usage.counterspellConfig = counterspellConfig;
-        action.use();
-      }
-    }
-  }
+  // If inferred can counterspell, prompt
+  if ( !game.user.isGM || counterspellAction ) {
+    if ( !counterspellAction ) return ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
+    const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
+    action.usage.dc = dc;
+    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
+    return action.use();
+  } 
+
+  // TODO: Prompt GM to pick among party members who can use Counterspell
+  await ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
 }
 
 /* -------------------------------------------- */

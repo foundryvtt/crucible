@@ -9,7 +9,7 @@ export default class CounterspellDialog extends SpellCastDialog {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const actor = this.action.actor;
-    const {rune=null} = this.action.usage.counterspellConfig || ChatMessage.implementation.getLastAction() || {};
+    const {rune=null} = this.action.usage.targetAction || {};
     const unknown = game.i18n.localize("Unknown");
     let runeLabel = unknown;
     if ( rune && actor.talentIds.has("recognizespellcr") && actor.grimoire.runes.has(rune?.id) ) runeLabel = rune.name;

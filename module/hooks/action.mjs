@@ -206,14 +206,16 @@ HOOKS.counterspell = {
     SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
   },
   async roll(outcome) {
+    this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction;
+    if ( this.rune.id === usedRune?.opposed ) {
+      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
+    }
+    if ( this.gesture.id === usedGesture?.id ) {
+      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
+    }
     if ( this.tags.has("noncombat") ) {
-      const {dc, gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.counterspellConfig;
-      if ( this.rune.id === usedRune?.opposed ) {
-        this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
-      }
-      if ( this.gesture.id === usedGesture?.id ) {
-        this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
-      }
+      const dc = this.usage.dc;
       const rollData = {
         actorId: this.actor.id,
         banes: {...this.actor.system.rollBonuses.banes, ...this.usage.banes},
@@ -228,13 +230,6 @@ HOOKS.counterspell = {
       if ( roll ) outcome.rolls.push(roll);
     } else {
       outcome.usage.defenseType = "willpower"; // Maybe changed later
-      const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
-      if ( this.rune.id === usedRune?.opposed ) {
-        this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
-      }
-      if ( this.gesture.id === usedGesture?.id ) {
-        this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
-      }
       const roll = await this.actor.spellAttack(this, outcome);
       if ( roll ) outcome.rolls.push(roll);
     }
