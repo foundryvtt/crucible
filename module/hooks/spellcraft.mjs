@@ -153,6 +153,7 @@ HOOKS.strike = {
     const mh = this.actor.equipment.weapons.mainhand;
     this.scaling = mh.config.category.scaling.split(".");
     this.damage.base = mh.system.damage.base;
+    this.usage.strikes = [mh];
   }
 }
 

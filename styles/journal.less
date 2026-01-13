@@ -157,7 +157,8 @@ enriched-content.skill-check,
 enriched-content.passive-check,
 enriched-content.hazard-check,
 enriched-content.award,
-enriched-content.milestone {
+enriched-content.milestone,
+enriched-content.counterspell {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
@@ -193,9 +194,10 @@ enriched-content.milestone {
     }
   }
 
-  // Exploration and Talent checks
+  // Exploration and Talent checks, Counterspell
   &.exp,
-  &.talent-check {
+  &.talent-check,
+  &.counterspell {
     --color-background: #2c3921;
     --color-background-hover: #365021;
     --color-border: #5b9e26;
@@ -205,7 +207,9 @@ enriched-content.milestone {
     content: "\e4e2";
     font-weight: 900;
   }
-
+  &.counterspell:before {
+    content: "\f72b";
+  }
   // Knowledge Checks
   &.kno,
   &.knowledge-check {
