@@ -334,6 +334,7 @@ HOOKS.fontOfLife = {
 
 HOOKS.healingElixir = {
   postActivate(outcome) {
+    if ( this.outcomes.size > 1 && outcome.self ) return;
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
@@ -345,6 +346,10 @@ HOOKS.healingElixir = {
 
 HOOKS.healingTonic = {
   postActivate(outcome) {
+    if ( this.outcomes.size > 1 && outcome.self ) {
+      outcome.effects = [];
+      return;
+    }
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
@@ -573,6 +578,7 @@ HOOKS.rallyingCry = {
 
 HOOKS.rallyingElixir = {
   postActivate(outcome) {
+    if ( this.outcomes.size > 1 && outcome.self ) return;
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
@@ -584,6 +590,10 @@ HOOKS.rallyingElixir = {
 
 HOOKS.rallyingTonic = {
   postActivate(outcome) {
+    if ( this.outcomes.size > 1 && outcome.self ) {
+      outcome.effects = [];
+      return;
+    }
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
