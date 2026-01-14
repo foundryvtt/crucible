@@ -376,11 +376,9 @@ export const TAGS = {
     label: "ACTION.TagFlanking",
     tooltip: "ACTION.TagFlankingTooltip",
     category: "context",
-    preActivate(targets) {
-      for ( const {actor} of targets ) {
-        if ( !actor.statuses.has("flanked") ) {
-          throw new Error(`${this.name} requires a flanked target. Target "${actor.name}" is not flanked.`);
-        }
+    acquireTargets(targets) {
+      for ( const target of targets ) {
+        if ( !target.actor.statuses.has("flanked") ) target.error ??= `${this.name} requires a flanked target. Target "${target.actor.name}" is not flanked.`;
       }
     },
   },

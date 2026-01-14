@@ -110,9 +110,13 @@ export const ACTION_HOOKS = Object.freeze({
     argNames: [],
     argLabels: []
   },
+  acquireTargets: {
+    argNames: ["targets"],
+    argLabels: ["targets: ActionUseTarget[]"]
+  },
   preActivate: {
     argNames: ["targets"],
-    argLabels: ["targets: ActionTarget[]"],
+    argLabels: ["targets: ActionUseTarget[]"],
     async: true
   },
   roll: {

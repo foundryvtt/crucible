@@ -693,9 +693,9 @@ HOOKS.revive = {
     this.scaling = Array.from(runeScaling.union(gestureScaling));
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
   },
-  preActivate(targets) {
-    if ( (targets.length !== 1) || !targets[0].actor?.statuses.has("dead") ) {
-      throw new Error(`${this.name} requires a Dead target.`);
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( !target.actor.system.isDead ) target.error ??= `${this.name} requires a Dead target.`;
     }
   },
   async roll(outcome) {
@@ -751,9 +751,9 @@ HOOKS.spellband = {
 /* -------------------------------------------- */
 
 HOOKS.thrash = {
-  preActivate(targets) {
-    if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
-      throw new Error("You can only perform Thrash against a target that you have Restrained.");
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( !target.actor.statuses.has("restrained") ) target.error ??= `You can only perform ${this.name} against a target that you have Restrained.`;
     }
   }
 }
@@ -792,10 +792,10 @@ HOOKS.unshakeablePoise = {
 /* -------------------------------------------- */
 
 HOOKS.uppercut = {
-  preActivate(targets) {
+  acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.outcomes.has(targets[0].actor) ) {
-      throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
+    for ( const target of targets ) {
+      if ( !lastAction?.outcomes.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
     }
   }
 }
@@ -832,10 +832,10 @@ HOOKS.vampiricBite = {
 /* -------------------------------------------- */
 
 HOOKS.wildStrike = {
-  preActivate(targets) {
+  acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.outcomes.has(targets[0].actor) ) {
-      throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
+    for ( const target of targets ) {
+      if ( !lastAction?.outcomes.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
     }
     // TODO somehow require this to use a different weapon than the prior confirmed strike
   }
