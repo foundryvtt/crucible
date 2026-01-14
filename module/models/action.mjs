@@ -850,6 +850,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
+    // Call acquireTargets action hook
+    for ( const test of this._tests() ) {
+      if ( test.acquireTargets instanceof Function ) test.acquireTargets.call(this, targets);
+    }
+
     // Throw an error if any target had an error
     for ( const target of targets ) {
       if ( target.error && strict ) throw new Error(target.error);
