@@ -132,7 +132,7 @@ HOOKS.bodyBlock = {
       const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
       for ( const r of outcome.rolls ) {
         if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
-          this.usage.targetAction = targetAction.message.id;
+          this.usage.targetAction = targetAction;
           return true;
         }
       }
@@ -206,8 +206,8 @@ HOOKS.counterspell = {
     SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
   },
   async roll(outcome) {
-    this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
-    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction;
+    outcome.targetAction ??= ChatMessage.implementation.getLastAction();
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = outcome.targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
