@@ -32,13 +32,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.8
-  coreVersion: '13.347'
+  coreVersion: '13.351'
   createdTime: 1684889541198
-  modifiedTime: 1755980720225
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767927161067
+  lastModifiedBy: QPs9IwGEu5DxD700
   compendiumSource: null
   duplicateSource: null
   exportSource: null
 _id: fighter000000000
-sort: 1500000
+sort: 2000000
 _key: '!items!fighter000000000'

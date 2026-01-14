@@ -5,16 +5,16 @@ color: null
 sorting: a
 _id: EzdzEWVNHF3sCVco
 description: ''
-sort: 0
+sort: 100000
 flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1750727585603
-  modifiedTime: 1750727585603
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767920186205
+  lastModifiedBy: QPs9IwGEu5DxD700
 _key: '!folders!EzdzEWVNHF3sCVco'

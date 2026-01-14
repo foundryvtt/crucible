@@ -22,7 +22,7 @@ system:
   identifier: skirmisher
 effects: []
 folder: 6Up7ddrphLept3RW
-sort: 1100000
+sort: 1600000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -32,8 +32,8 @@ _stats:
   systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1686145201526
-  modifiedTime: 1765314837296
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767927161067
+  lastModifiedBy: QPs9IwGEu5DxD700
   compendiumSource: null
   duplicateSource: null
   exportSource: null

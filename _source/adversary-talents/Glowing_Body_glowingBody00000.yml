@@ -1,0 +1,36 @@
+name: Glowing Body
+type: talent
+img: icons/magic/light/explosion-star-glow-blue-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} emits non-magical bright light in a
+    15-foot radius and dim light in a 30 foot radius.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767900876773
+  modifiedTime: 1767900876773
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: glowingBody00000
+sort: 0
+_key: '!items!glowingBody00000'

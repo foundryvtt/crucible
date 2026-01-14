@@ -7,7 +7,7 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} may move through a space as narrow as 1
     inch in diameter without any penalty to its <strong>Stride</strong>. It
-    gains a bonus to <strong>Dodge</strong> equal to its <strong>Toughness
+    gains a bonus to <strong>Dodge</strong> equal to half its <strong>Toughness
     </strong>score and is immune to the @Condition[restrained] condition.</p>
   actions: []
   rune: ''
@@ -30,9 +30,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.4
   createdTime: 1751364846819
-  modifiedTime: 1765979215855
+  modifiedTime: 1768414240617
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 100000
 _key: '!items!amorphous0000000'

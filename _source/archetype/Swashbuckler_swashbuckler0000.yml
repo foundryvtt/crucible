@@ -1,0 +1,51 @@
+name: Swashbuckler
+type: archetype
+img: icons/skills/trades/profession-sailing-pirate.webp
+system:
+  description: >-
+    <p>Those who engage in the dangerous life aboard a sailing ship, or practice
+    the trade of high seas piracy. You are known for your wit, charm, and
+    sometimes reckless bravery.</p>
+  identifier: buccaneer
+  abilities:
+    wisdom: 1
+    presence: 3
+    intellect: 1
+    strength: 2
+    toughness: 2
+    dexterity: 3
+  talents:
+    - Compendium.crucible.talent.Item.swashbuckler0000
+    - Compendium.crucible.talent.Item.inspireheroism00
+    - Compendium.crucible.talent.Item.rallyingCry00000
+    - Compendium.crucible.talent.Item.dualWield0000000
+    - Compendium.crucible.talent.Item.lightWeaponTrain
+    - Compendium.crucible.talent.Item.feintingstrike00
+    - Compendium.crucible.talent.Item.mechanicalWeapon
+  skills:
+    - athletics
+    - wilderness
+    - deception
+    - diplomacy
+    - intimidation
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1767927160901
+  modifiedTime: 1767927161067
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: swashbuckler0000
+sort: 200000
+_key: '!items!swashbuckler0000'

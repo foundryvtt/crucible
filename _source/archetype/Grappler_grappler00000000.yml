@@ -22,7 +22,7 @@ system:
   identifier: grappler
 effects: []
 folder: 6Up7ddrphLept3RW
-sort: 1300000
+sort: 1800000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -32,8 +32,8 @@ _stats:
   systemVersion: 0.8.2
   coreVersion: '13.351'
   createdTime: 1685831675455
-  modifiedTime: 1765314728142
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1767927161067
+  lastModifiedBy: QPs9IwGEu5DxD700
   compendiumSource: null
   duplicateSource: null
   exportSource: null
