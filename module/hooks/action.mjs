@@ -742,6 +742,17 @@ HOOKS.spellband = {
   }
 }
 
+/* -------------------------------------------- */
+
+HOOKS.telecognition = {
+  prepare() {
+    this.usage.hasDice = true;
+  },
+  async roll(outcome) {
+    const roll = await this.actor.skillAttack(this, outcome);
+    if ( roll ) outcome.rolls.push(roll);
+  }
+}
 
 /* -------------------------------------------- */
 
