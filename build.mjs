@@ -37,7 +37,7 @@ export async function extract() {
   for ( const db of CONFIG.databases ) {
     const dbPath = path.join(CONFIG.dataPath, db);
     const sourcePath = path.join(CONFIG.sourcePath, db);
-    await extractPack(dbPath, sourcePath, {yaml: CONFIG.yaml, clean: true} );
+    await extractPack(dbPath, sourcePath, {yaml: CONFIG.yaml, clean: true, omitVolatile: true} );
     console.log(`Extracted database: ${db}`);
   }
   console.log(`Successfully extracted ${CONFIG.databases.length} databases.`);

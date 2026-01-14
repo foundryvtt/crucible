@@ -17,7 +17,7 @@ HOOKS.adrenalineSurge0 = {
 HOOKS.amorphous0000000 = {
   prepareDefenses(item, defenses) {
     this.statuses.delete("restrained");
-    defenses.dodge.bonus += this.system.abilities.toughness.value;
+    defenses.dodge.bonus += this.getAbilityBonus("toughness");
   }
 }
 
