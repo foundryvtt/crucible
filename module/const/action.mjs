@@ -473,6 +473,8 @@ export const TAGS = {
         this.cost.hands = Math.max(this.cost.hands, gesture.hands);
       }
       this.usage.actorStatus.hasCast = true;
+      this.scaling = this.parent.scaling;
+      this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
     }
   },
 

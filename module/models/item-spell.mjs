@@ -42,6 +42,15 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   isKnown = false;
 
+  /**
+   * Which abilities the Iconic Spell should scale with
+   */
+  get scaling() {
+    const runeScaling = this.runes.map(r => SYSTEM.SPELL.RUNES[r].scaling);
+    const gestureScaling = this.gestures.map(g => SYSTEM.SPELL.GESTURES[g].scaling);
+    return Array.from(runeScaling.union(gestureScaling));
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
