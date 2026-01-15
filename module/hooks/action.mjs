@@ -300,17 +300,17 @@ HOOKS.distract = {
 
 HOOKS.feintingStrike = {
   async roll(outcome) {
-    this.usage.defenseType = "reflex";
-    const deception = await this.actor.skillAttack(this, outcome);
+    outcome.rolls.shift();
+    const deception = outcome.rolls[0];
     if ( deception.data.damage ) deception.data.damage.total = 0;
     if ( deception.isSuccess ) {
-      this.usage.boons.feintingStrike = {label: "Feinting Strike", number: 2};
+      outcome.usage.boons.feintingStrike = {label: this.name, number: 2};
       this.usage.bonuses.damageBonus += 6;
     }
     const offhand = this.actor.equipment.weapons.offhand;
-    this.usage.defenseType = "physical";
+    outcome.usage.defenseType = "physical";
     const attack = await this.actor.weaponAttack(this, offhand, outcome);
-    outcome.rolls.push(deception, attack);
+    outcome.rolls.push(attack);
   }
 }
 
@@ -362,7 +362,7 @@ HOOKS.healingTonic = {
 /* -------------------------------------------- */
 
 HOOKS.inspireHeroism = {
-  prepare () {
+  preActivate() {
     const effect = this.effects[0];
     effect.changes ||= [];
     effect.changes.push(
@@ -760,6 +760,17 @@ HOOKS.spellband = {
   }
 }
 
+/* -------------------------------------------- */
+
+HOOKS.telecognition = {
+  prepare() {
+    this.usage.hasDice = true;
+  },
+  async roll(outcome) {
+    const roll = await this.actor.skillAttack(this, outcome);
+    if ( roll ) outcome.rolls.push(roll);
+  }
+}
 
 /* -------------------------------------------- */
 
