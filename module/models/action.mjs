@@ -641,12 +641,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token?.document || null, true);
+      const outcome = this.#createOutcome(actor, token?.document || null);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
     }
-    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor, this.token, false));
+    if ( !this.outcomes.has(this.actor) ) {
+      const outcome = this.#createOutcome(this.actor, this.token);
+      outcome.isTarget = false;
+      this.outcomes.set(this.actor, outcome);
+    }
 
     // Configure outcomes
     for ( const test of this._tests() ) {
@@ -1020,10 +1024,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Translate the action usage result into an outcome to be persisted.
    * @param {CrucibleActor} actor
    * @param {CrucibleToken} token
-   * @param {boolean} isTarget
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor, token, isTarget) {
+  #createOutcome(actor, token) {
     const outcome = {
       target: actor,
       token: token,
@@ -1033,7 +1036,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actorUpdates: {},
       metadata: {},
       self: actor === this.actor,
-      isTarget,
+      isTarget: true,
       statusText: [],
     };
 
@@ -1130,6 +1133,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {boolean}                         Should the effect be applied?
    */
   #applyOutcomeEffect(outcome, effectData) {
+
+    // Assert actually targeted
+    if ( !outcome.isTarget ) return false;
 
     // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
