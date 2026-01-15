@@ -95,6 +95,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @typedef CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
  * @property {boolean} self               Is this outcome target the action actor?
+ * @property {boolean} isTarget           Does this outcome represent an actual target of the Action use?
  * @property {ActionUsage} [usage]        Outcome-specific usage data
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
@@ -640,12 +641,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token?.document || null);
+      const outcome = this.#createOutcome(actor, token?.document || null, true);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
     }
-    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor, this.token));
+    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor, this.token, false));
 
     // Configure outcomes
     for ( const test of this._tests() ) {
@@ -1019,9 +1020,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Translate the action usage result into an outcome to be persisted.
    * @param {CrucibleActor} actor
    * @param {CrucibleToken} token
+   * @param {boolean} isTarget
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor, token) {
+  #createOutcome(actor, token, isTarget) {
     const outcome = {
       target: actor,
       token: token,
@@ -1031,6 +1033,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actorUpdates: {},
       metadata: {},
       self: actor === this.actor,
+      isTarget,
       statusText: [],
     };
 
