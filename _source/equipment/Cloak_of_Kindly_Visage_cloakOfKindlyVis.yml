@@ -1,0 +1,101 @@
+folder: GVbpo5LtAY44QZPD
+name: Cloak of Kindly Visage
+type: accessory
+img: icons/equipment/back/cloak-collared-grey.webp
+system:
+  quantity: 1
+  identifier: cloakKindlyVisage
+  category: clothing
+  weight: 0
+  price: 105
+  quality: fine
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties:
+    - investment
+  description:
+    public: >-
+      <p>A nondescript black cloak that seems as if it would match with almost
+      any outfit.</p><p></p>
+    private: >-
+      <p>While equipped and <strong>Invested</strong>, its wearer gains the
+      <strong>Kindly Visage</strong> action and a benefit to all Diplomacy
+      checks depending on the enchantment tier of the
+      item.</p><ul><li><p><strong>Minor</strong> enchantment: <strong>+1
+      Boon</strong></p></li><li><p><strong>Major </strong>enchantment:
+      <strong>+2 Boons</strong></p></li><li><p><strong>Legendary</strong>
+      enchantment: <strong>+3 Boons</strong></p></li></ul>
+  actions:
+    - id: kindlyVisage
+      name: Kindly Visage
+      img: icons/equipment/back/cloak-collared-grey.webp
+      condition: ''
+      description: >-
+        <p>You assume an illusory appearance once per rest which alters your
+        appearance as well as your attire. The illusion cannot alter your
+        ancestry, but can change other aspects of your anatomy including your
+        apparent gender. The cloak itself does not change in appearance and
+        remains visible.</p><p>The illusion persists indefinitely and can be
+        dismissed at-will. Once activated, the cloak cannot produce another
+        illusion in this way until 24 hours have passed.</p>
+      cost:
+        action: 6
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags: []
+      actionHooks: []
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  mRyoRp6afxulGiE1: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1768517320446
+  modifiedTime: 1768517320487
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: cloakOfKindlyVis
+sort: 400000
+_key: '!items!cloakOfKindlyVis'

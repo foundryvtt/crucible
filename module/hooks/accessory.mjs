@@ -2,6 +2,23 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.cloakKindlyVisage = {
+  prepareSkillCheck(item, skill, rollData) {
+    if ( rollData.type === "diplomacy" ) {
+      const {enchantment} = item.system.config;
+      rollData.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
+    }
+  },
+  preActivateAction(item, action, _targets) {
+    if ( action.tags.has("diplomacy") ) {
+      const {enchantment} = item.system.config;
+      action.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.determination = {
   prepareDefenses(item, defenses) {
     const {quality, enchantment} = item.system.config;
