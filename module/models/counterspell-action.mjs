@@ -58,7 +58,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     if ( !wasSpell ) {
       const error = game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.BadTarget");
       if ( target ) target.error = error;
-      if (options.strict) throw new Error(error);
+      if ( options.strict ) throw new Error(error);
     }
     return targets;
   }
@@ -79,12 +79,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   /** @override */
+  // TODO: Store target message ID on action instead of flag, obviating the need for this override
   async _prepareMessage(targets, {confirmed}={}) {
     const messageData = await super._prepareMessage(targets, {confirmed});
-    // TODO: Only use this.usage.targetAction
     const lastAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
     if ( !lastAction?.message ) return messageData;
-    // TODO: Store message ID on action instead of in flag
     foundry.utils.setProperty(messageData, "flags.crucible.targetMessageId", lastAction.message.id);
     return messageData;
   }
