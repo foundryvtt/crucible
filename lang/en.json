@@ -1096,6 +1096,7 @@
 "DICE.DamageVulnerability": "Damage Vulnerability",
 "DICE.DamageTotal": "Damage Total",
 "DICE.DC": "DC",
+"DICE.DCSpecific": "DC: {dc}",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
@@ -1646,12 +1647,30 @@
     "Rune": "Arcane Rune",
     "RunePl": "Arcane Runes",
     "RuneNone": "No Arcane Runes known.",
+    "RuneSpecific": "Rune: {rune}",
     "Gesture": "Somatic Gesture",
     "GesturePl": "Somatic Gestures",
     "GestureNone": "No Somatic Gestures known.",
+    "GestureSpecific": "Gesture: {gesture}",
     "Inflection": "Metamagic Inflection",
     "InflectionPl": "Metamagic Inflections",
-    "InflectionNone": "No Metamagic Inflections known."
+    "InflectionNone": "No Metamagic Inflections known.",
+    "InflectionSpecific": "Inflection: {inflection}"
+  },
+  "COUNTERSPELL": {
+    "Detailed": "Counterspell ({details})",
+    "Name": "Counterspell",
+    "OpposingRune": "Counterspell: Opposing Rune",
+    "SameGesture": "Counterspell: Same Gesture",
+    "Tags": "Counterspell Tags",
+    "TargetGesture": "Target Gesture: {gesture}",
+    "TargetRune": "Target Rune: {rune}",
+    "UseForActor": "Use Counterspell for: {actor}",
+    "WARNINGS": {
+      "BadTarget": "You can only Counterspell the caster of the last action, and that action must be a spell.",
+      "InvalidTerms": "Unable to parse {terms} as valid Counterspell terms.",
+      "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture."
+    }
   },
   "RUNES": {
     "Soul": "Soul",

@@ -439,9 +439,9 @@ export const TAGS = {
     priority: 2,
     initialize() {
       if ( this.composition === 0 ) return;
-      this.usage.context.tags.rune = `Rune: ${this.rune.name}`;
-      this.usage.context.tags.gesture = `Gesture: ${this.gesture.name}`;
-      if ( this.inflection ) this.usage.context.tags.gesture = this.inflection.name;
+      this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune.name});
+      this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
+      if ( this.inflection ) this.usage.context.tags.inflection = game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
       this.usage.actorStatus.hasCast = true;
       this.usage.isAttack = true;

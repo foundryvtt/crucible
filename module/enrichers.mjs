@@ -9,6 +9,12 @@ export function registerEnrichers() {
       enricher: enrichAward,
       onRender: renderAward
     },
+    {
+      id: "crucibleCounterspell",
+      pattern: /\[\[\/counterspell ([\w\s=]+)]]/g,
+      enricher: enrichCounterspell,
+      onRender: renderCounterspell
+    },
     { // Crucible Hazards
       id: "crucibleHazard",
       pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
@@ -136,14 +142,10 @@ function parseAwardTerms(terms) {
     if ( !part ) continue;
     let [, amount, label] = part.match(pattern) ?? [];
     label = label?.toLowerCase();
-    try {
-      if ( part === "each" ) each = true;
-      else if ( !Roll.validate(amount) ) throw new Error();
-      else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
-      else throw new Error();
-    } catch(err) {
-      invalid.push(part);
-    }
+    if ( part === "each" ) each = true;
+    else if ( !Roll.validate(amount) ) invalid.push(part);
+    else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
+    else invalid.push(part);
   }
 
   if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
@@ -301,6 +303,117 @@ async function onClickAward(event) {
     speaker: {user: game.user},
     flags: {crucible: {isAwardSummary: true}}
   });
+}
+
+/* -------------------------------------------- */
+/*                 Counterspell                 */
+/* -------------------------------------------- */
+
+/**
+ * Parse a counterspell's terms into an object representing the configuration of the counterspell
+ * @param {string} terms
+ * @returns {{rune: string, gesture: string, inflection: string|undefined, dc: string}}
+ * @throws {Error}
+ */
+function parseCounterspellTerms(terms) {
+  const pattern = new RegExp(/^(\w+)=?(\w+)?$/);
+  const matches = {};
+  const invalid = [];
+
+  // TODO: Handle multiple same-component values. Currently, just keeping the last one
+  for ( const part of terms.split(" ") ) {
+    if ( !part ) continue;
+    let [, component, value] = part.match(pattern) ?? [];
+    switch ( component ) {
+      case "rune":
+        if ( value in SYSTEM.SPELL.RUNES ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "gesture":
+        if ( value in SYSTEM.SPELL.GESTURES ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "inflection":
+        if ( value in SYSTEM.SPELL.INFLECTIONS ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "dc":
+        matches[component] = value;
+        break;
+      default:
+        invalid.push(part);
+    }
+  }
+
+  if ( invalid.length ) throw new Error(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
+    terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
+  }));
+
+  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
+
+  return matches;
+}
+
+/**
+ * Enrich a Counterspell with the format [[/counterspell {...config}]]
+ * @param {string} match
+ * @param {string} terms
+ */
+function enrichCounterspell([match, terms]) {
+  let parsed;
+  try {
+    parsed = parseCounterspellTerms(terms);
+  } catch(err) {
+    return new Text(match);
+  }
+  const {rune, gesture, inflection, dc="20"} = parsed;
+  const dataset = {rune, gesture, dc};
+  if ( inflection ) dataset.inflection = inflection;
+
+  // Return the enriched content tag
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("counterspell");
+  Object.assign(tag.dataset, dataset);
+  const innerElements = [];
+  innerElements.push(game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: SYSTEM.SPELL.RUNES[rune].name}));
+  innerElements.push(game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: SYSTEM.SPELL.GESTURES[gesture].name}));
+  if ( inflection ) innerElements.push(game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: SYSTEM.SPELL.INFLECTIONS[inflection].name}));
+  innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
+  tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
+  tag.dataset.crucibleTooltip = "talentCheck";
+  tag.dataset.talentUuid = "Compendium.crucible.talent.Item.counterspell0000";
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered counterspell enrichment.
+ * @param {HTMLElement} element
+ */
+function renderCounterspell(element) {
+  element.addEventListener("click", onClickCounterspell);
+}
+
+/* -------------------------------------------- */
+
+async function onClickCounterspell(event) {
+  event.preventDefault();
+  const {rune, gesture, inflection, dc: dcString} = event.currentTarget.dataset;
+  const dc = Number(dcString);
+  const actor = inferEnricherActor();
+  const counterspellAction = actor?.actions.counterspell;
+
+  // If inferred can counterspell, prompt
+  if ( counterspellAction ) {
+    const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
+    action.usage.dc = dc;
+    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
+    return action.use();
+  } 
+
+  // TODO: Prompt GM to pick among party members who can use Counterspell
+  ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
 }
 
 /* -------------------------------------------- */

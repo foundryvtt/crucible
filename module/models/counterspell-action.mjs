@@ -50,13 +50,15 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
+    if ( this.tags.has("noncombat") ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
     const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
     if ( !wasSpell ) {
-      target.error = "You can only Counterspell the caster of the last action, and that must action must be a spell!";
-      if (options.strict) throw new Error(target.error);
+      const error = game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.BadTarget");
+      if ( target ) target.error = error;
+      if ( options.strict ) throw new Error(error);
     }
     return targets;
   }
@@ -77,10 +79,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   /** @override */
+  // TODO: Store target message ID on action instead of flag, obviating the need for this override
   async _prepareMessage(targets, {confirmed}={}) {
     const messageData = await super._prepareMessage(targets, {confirmed});
-    const lastAction = ChatMessage.implementation.getLastAction();
-    if ( !lastAction?.message ) return messageData; // This'll only happen if incorrectly programmatically called
+    const lastAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
+    if ( !lastAction?.message ) return messageData;
     foundry.utils.setProperty(messageData, "flags.crucible.targetMessageId", lastAction.message.id);
     return messageData;
   }

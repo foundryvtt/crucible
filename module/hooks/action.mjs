@@ -132,6 +132,7 @@ HOOKS.bodyBlock = {
       const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
       for ( const r of outcome.rolls ) {
         if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
+          // TODO: Amend (or remove) as necessary
           this.usage.targetAction = targetAction.message.id;
           return true;
         }
@@ -193,33 +194,53 @@ HOOKS.conjureArmament = {
 HOOKS.counterspell = {
   initialize() {
     Object.assign(this.usage.context, {
-      label: "Counterspell Tags",
+      label: game.i18n.localize("SPELL.COUNTERSPELL.Tags"),
       icon: "fa-solid fa-sparkles",
       tags: {}
     });
     if ( this.composition === 0 ) return;
-    this.usage.context.tags.rune = `Rune: ${this.rune?.name ?? "None"}`;
-    this.usage.context.tags.gesture = `Gesture: ${this.gesture?.name ?? "None"}`;
+    const none = game.i18n.localize("None");
+    this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none})
+    this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none})
   },
   preActivate() {
     SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
   },
   async roll(outcome) {
-    outcome.usage.defenseType = "willpower"; // Maybe changed later
-    const {gesture: usedGesture, rune: usedRune} = ChatMessage.implementation.getLastAction();
+    // TODO: Only use this.usage.targetAction
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
     if ( this.rune.id === usedRune?.opposed ) {
-      this.usage.boons.counterspellRune = {label: "Counterspell: Opposing Rune", number: 2};
+      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
     if ( this.gesture.id === usedGesture?.id ) {
-      this.usage.boons.counterspellGesture = {label: "Counterspell: Same Gesture", number: 2};
+      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
     }
-    const roll = await this.actor.spellAttack(this, outcome);
-    if ( roll ) outcome.rolls.push(roll);
+    if ( this.tags.has("noncombat") ) {
+      const dc = this.usage.dc;
+      const rollData = {
+        actorId: this.actor.id,
+        banes: {...this.actor.system.rollBonuses.banes, ...this.usage.banes},
+        boons: {...this.actor.system.rollBonuses.boons, ...this.usage.boons},
+        dc,
+        ability: this.usage.bonuses.ability,
+        skill: this.usage.bonuses.skill,
+        enchantment: this.usage.bonuses.enchantment
+      };
+      this.actor.callActorHooks("prepareStandardCheck", rollData);
+      const roll = await new crucible.api.dice.StandardCheck(rollData).evaluate();
+      if ( roll ) outcome.rolls.push(roll);
+    } else {
+      outcome.usage.defenseType = "willpower"; // Maybe changed later
+      const roll = await this.actor.spellAttack(this, outcome);
+      if ( roll ) outcome.rolls.push(roll);
+    }
   },
   async confirm(reverse) {
+    if ( this.tags.has("noncombat") ) return;
     const targetActor = this.outcomes.keys().find(a => a !== this.actor);
     const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
     if ( !isSuccess ) return;
+    // TODO: Fetch this ID from action instead of message flag
     const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
     if ( !targetMessage ) return;
     if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
