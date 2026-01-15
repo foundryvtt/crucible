@@ -20,6 +20,10 @@ system:
     - Compendium.crucible.talent.Item.concussiveblows0
     - Compendium.crucible.talent.Item.unarmedCombatTra
   identifier: grappler
+  skills:
+    - athletics
+    - intimidation
+    - performance
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 1800000
@@ -29,11 +33,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.4
   coreVersion: '13.351'
   createdTime: 1685831675455
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1768428592108
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

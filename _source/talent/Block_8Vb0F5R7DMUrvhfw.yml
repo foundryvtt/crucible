@@ -3,14 +3,18 @@ sorting: a
 folder: Ahu22t6uN2vkixC7
 type: Item
 _id: 8Vb0F5R7DMUrvhfw
-sort: 0
+sort: 100000
 color: null
 flags: {}
 _stats:
   systemId: null
   systemVersion: null
-  coreVersion: null
+  coreVersion: '13.351'
   createdTime: null
-  modifiedTime: null
-  lastModifiedBy: null
+  modifiedTime: 1768422188645
+  lastModifiedBy: QPs9IwGEu5DxD700
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!8Vb0F5R7DMUrvhfw'

@@ -3,14 +3,18 @@ sorting: a
 folder: Ahu22t6uN2vkixC7
 type: Item
 _id: p4F0SmUoKJr0riBd
-sort: 100000
+sort: 700000
 color: null
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '11.295'
+  coreVersion: '13.351'
   createdTime: null
-  modifiedTime: 1682386690755
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1768422188645
+  lastModifiedBy: QPs9IwGEu5DxD700
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+description: ''
 _key: '!folders!p4F0SmUoKJr0riBd'
