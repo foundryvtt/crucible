@@ -251,7 +251,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   prepareBaseData() {
     this.#clear();
     this._prepareDetails();
-    this._prepareAbilities();
+    this._prepareBaseAbilities();
     this._prepareBaseMovement();
   }
 
@@ -300,10 +300,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare ability scores for all Actor subtypes.
+   * Prepare base ability scores for all Actor subtypes.
    * @protected
    */
-  _prepareAbilities() {}
+  _prepareBaseAbilities() {}
 
   /* -------------------------------------------- */
   /*  Embedded Document Preparation               */
@@ -745,6 +745,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareDerivedData() {
 
+    // Abilities
+    this.parent.callActorHooks("prepareAbilities", this.abilities);
+    this._prepareAbilities();
+
     // Movement and Size
     this._prepareMovement();
     this.parent.callActorHooks("prepareMovement", this.movement);
@@ -906,6 +910,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #prepareTotalResistances() {
     for ( const r of Object.values(this.resistances) ) r.total = r.immune ? Infinity : (r.base + r.bonus);
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation of derived abilities for all Actor subtypes.
+   */
+  _prepareAbilities() {}
 
   /* -------------------------------------------- */
 

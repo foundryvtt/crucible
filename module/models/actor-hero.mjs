@@ -163,10 +163,10 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare abilities data for the Hero subtype specifically.
+   * Prepare base abilities data for the Hero subtype specifically.
    * @override
    */
-  _prepareAbilities() {
+  _prepareBaseAbilities() {
     const points = this.points.ability;
     const {primary, secondary} = this.details.ancestry.abilities;
 
@@ -180,7 +180,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       ability.initial = 1;
       if ( a === primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAbilityStart;
       else if ( a === secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAbilityStart;
-      ability.value = Math.clamp(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
+      ability.value = ability.initial + ability.base + ability.increases;
 
       // Track points spent
       abilityPointsBought += ability.base;
@@ -226,6 +226,16 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       for ( const item of items[type] ) {
         this.capacity.value += (item.system.weight * item.system.quantity);
       }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareAbilities() {
+    for ( let a in SYSTEM.ABILITIES ) {
+      const ability = this.abilities[a];
+      ability.value = Math.clamp(ability.value + ability.bonus, 0, 12);
     }
   }
 
