@@ -375,9 +375,9 @@ function enrichCounterspell([match, terms]) {
   tag.classList.add("counterspell");
   Object.assign(tag.dataset, dataset);
   const innerElements = [];
-  innerElements.push(game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: SYSTEM.SPELL.RUNES[rune].name}));
-  innerElements.push(game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: SYSTEM.SPELL.GESTURES[gesture].name}));
-  if ( inflection ) innerElements.push(game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: SYSTEM.SPELL.INFLECTIONS[inflection].name}));
+  innerElements.push(SYSTEM.SPELL.RUNES[rune].name);
+  innerElements.push(SYSTEM.SPELL.GESTURES[gesture].name);
+  if ( inflection ) innerElements.push(SYSTEM.SPELL.INFLECTIONS[inflection].name);
   innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
   tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
   tag.dataset.crucibleTooltip = "talentCheck";

@@ -1096,7 +1096,7 @@
 "DICE.DamageVulnerability": "Damage Vulnerability",
 "DICE.DamageTotal": "Damage Total",
 "DICE.DC": "DC",
-"DICE.DCSpecific": "DC: {dc}",
+"DICE.DCSpecific": "DC {dc}",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
