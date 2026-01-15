@@ -361,6 +361,19 @@ HOOKS.healingTonic = {
 
 /* -------------------------------------------- */
 
+HOOKS.inspireHeroism = {
+  prepare () {
+    const effect = this.effects[0];
+    effect.changes ||= [];
+    effect.changes.push(
+      {key: "system.rollBonuses.boons.inspireHeroism.number", mode: 5, value: 1},
+      {key: "system.rollBonuses.boons.inspireHeroism.label", mode: 5, value: this.name}
+    );
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.intuitWeakness = {
   configure(targets) {
     const target = targets[0]?.actor;

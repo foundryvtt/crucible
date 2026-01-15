@@ -726,6 +726,17 @@ HOOKS.voidcaller000000 = {
 
 /* -------------------------------------------- */
 
+// TODO: If/when hooks exist on effects, have this be a defendAttack hook which verifies that the origin of the effect is the attacker
+HOOKS.vowofanimus00000 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
+    if ( !target.effects.has(SYSTEM.EFFECTS.getEffectId(item.actions[0].id)) ) return;
+    rollData.boons.vowOfAnimus = {label: item.name, number: 2};
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.warmage000000000 = {
   prepareAction(item, action) {
     if ( action.id === "counterspell" ) action.usage.boons.warMage = {label: item.name, number: 2};

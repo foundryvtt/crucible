@@ -5,8 +5,8 @@ system:
   node: wispre2
   description: >-
     <p>Empower a spell to repel affected creatures away from the caster.
-    Creatures affected by a spell with the Push inflection move 1 space away
-    from the spellcaster if that destination space is unoccupied.</p>
+    Creatures affected by a spell with the Push inflection move 4 feet away from
+    the spellcaster if that destination is unoccupied.</p>
   actions: []
   inflection: push
   actorHooks: []
@@ -16,11 +16,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
+  systemVersion: 0.8.4
   coreVersion: '13.351'
   createdTime: 1675016611028
-  modifiedTime: 1767142001675
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1768495784102
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Compendium.crucible.talent.inflectionpush00
   duplicateSource: null
   exportSource: null
