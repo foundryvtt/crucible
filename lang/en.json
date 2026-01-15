@@ -1668,8 +1668,8 @@
     "UseForActor": "Use Counterspell for: {actor}",
     "WARNINGS": {
       "BadTarget": "You can only Counterspell the caster of the last action, and that action must be a spell.",
-      "InvalidTerms": "Unable to parse {terms} as valid counterspell terms.",
-      "NoTalent": "{actor} does not have the Counterspell talent."
+      "InvalidTerms": "Unable to parse {terms} as valid Counterspell terms.",
+      "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture."
     }
   },
   "RUNES": {

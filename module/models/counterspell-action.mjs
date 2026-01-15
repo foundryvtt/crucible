@@ -81,8 +81,10 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /** @override */
   async _prepareMessage(targets, {confirmed}={}) {
     const messageData = await super._prepareMessage(targets, {confirmed});
-    const lastAction = ChatMessage.implementation.getLastAction();
-    if ( !lastAction?.message ) return messageData; // This'll only happen if incorrectly programmatically called
+    // TODO: Only use this.usage.targetAction
+    const lastAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
+    if ( !lastAction?.message ) return messageData;
+    // TODO: Store message ID on action instead of in flag
     foundry.utils.setProperty(messageData, "flags.crucible.targetMessageId", lastAction.message.id);
     return messageData;
   }

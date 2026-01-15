@@ -142,14 +142,10 @@ function parseAwardTerms(terms) {
     if ( !part ) continue;
     let [, amount, label] = part.match(pattern) ?? [];
     label = label?.toLowerCase();
-    try {
-      if ( part === "each" ) each = true;
-      else if ( !Roll.validate(amount) ) throw new Error();
-      else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
-      else throw new Error();
-    } catch(err) {
-      invalid.push(part);
-    }
+    if ( part === "each" ) each = true;
+    else if ( !Roll.validate(amount) ) invalid.push(part);
+    else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
+    else invalid.push(part);
   }
 
   if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
@@ -323,34 +319,37 @@ function parseCounterspellTerms(terms) {
   const pattern = new RegExp(/^(\w+)=?(\w+)?$/);
   const matches = {};
   const invalid = [];
+
+  // TODO: Handle multiple same-component values. Currently, just keeping the last one
   for ( const part of terms.split(" ") ) {
     if ( !part ) continue;
     let [, component, value] = part.match(pattern) ?? [];
-    try {
-      switch ( component ) {
-        case "rune":
-          if ( !(value in SYSTEM.SPELL.RUNES) ) throw new Error();
-          break;
-        case "gesture":
-          if ( !(value in SYSTEM.SPELL.GESTURES) ) throw new Error();
-          break;
-        case "inflection":
-          if ( !(value in SYSTEM.SPELL.INFLECTIONS) ) throw new Error();
-          break;
-        case "dc":
-          break;
-        default:
-          throw new Error();
-      }
-      matches[component] = value;
-    } catch(err) {
-      invalid.push(part);
+    switch ( component ) {
+      case "rune":
+        if ( value in SYSTEM.SPELL.RUNES ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "gesture":
+        if ( value in SYSTEM.SPELL.GESTURES ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "inflection":
+        if ( value in SYSTEM.SPELL.INFLECTIONS ) matches[component] = value;
+        else invalid.push(part);
+        break;
+      case "dc":
+        matches[component] = value;
+        break;
+      default:
+        invalid.push(part);
     }
   }
 
   if ( invalid.length ) throw new Error(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
+
+  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
 
   return matches;
 }
@@ -367,7 +366,7 @@ function enrichCounterspell([match, terms]) {
   } catch(err) {
     return new Text(match);
   }
-  const {rune="lightning", gesture="touch", inflection, dc="20"} = parsed;
+  const {rune, gesture, inflection, dc="20"} = parsed;
   const dataset = {rune, gesture, dc};
   if ( inflection ) dataset.inflection = inflection;
 
@@ -375,18 +374,14 @@ function enrichCounterspell([match, terms]) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("counterspell");
   Object.assign(tag.dataset, dataset);
-  if ( game.user.isGM ) {
-    const innerElements = [];
-    innerElements.push(game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: SYSTEM.SPELL.RUNES[rune].name}));
-    innerElements.push(game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: SYSTEM.SPELL.GESTURES[gesture].name}));
-    if ( inflection ) innerElements.push(game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: SYSTEM.SPELL.INFLECTIONS[inflection].name}));
-    innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
-    tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
-    tag.dataset.crucibleTooltip = "talentCheck";
-    tag.dataset.talentUuid = "Compendium.crucible.talent.Item.counterspell0000";
-  } else {
-    tag.innerHTML = game.i18n.localize("SPELL.COUNTERSPELL.Name");
-  }
+  const innerElements = [];
+  innerElements.push(game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: SYSTEM.SPELL.RUNES[rune].name}));
+  innerElements.push(game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: SYSTEM.SPELL.GESTURES[gesture].name}));
+  if ( inflection ) innerElements.push(game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: SYSTEM.SPELL.INFLECTIONS[inflection].name}));
+  innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
+  tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
+  tag.dataset.crucibleTooltip = "talentCheck";
+  tag.dataset.talentUuid = "Compendium.crucible.talent.Item.counterspell0000";
   return tag;
 }
 
@@ -410,8 +405,7 @@ async function onClickCounterspell(event) {
   const counterspellAction = actor?.actions.counterspell;
 
   // If inferred can counterspell, prompt
-  if ( !game.user.isGM || counterspellAction ) {
-    if ( !counterspellAction ) return ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
+  if ( counterspellAction ) {
     const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
     action.usage.dc = dc;
     action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
@@ -419,7 +413,7 @@ async function onClickCounterspell(event) {
   } 
 
   // TODO: Prompt GM to pick among party members who can use Counterspell
-  await ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
+  ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
 }
 
 /* -------------------------------------------- */
@@ -549,7 +543,7 @@ async function onClickHazard(event) {
 
   // Iterate over actor targets
   for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId) ?? await fromUuid(actorId);
+    const actor = game.actors.get(actorId);
     const action = crucible.api.models.CrucibleAction.createHazard(actor, {
       name: element.innerText,
       hazard: Number(hazard),

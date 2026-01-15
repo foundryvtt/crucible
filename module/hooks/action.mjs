@@ -132,7 +132,8 @@ HOOKS.bodyBlock = {
       const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
       for ( const r of outcome.rolls ) {
         if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
-          this.usage.targetAction = targetAction;
+          // TODO: Amend (or remove) as necessary
+          this.usage.targetAction = targetAction.message.id;
           return true;
         }
       }
@@ -206,8 +207,8 @@ HOOKS.counterspell = {
     SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
   },
   async roll(outcome) {
-    outcome.targetAction ??= ChatMessage.implementation.getLastAction();
-    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = outcome.targetAction;
+    // TODO: Only use this.usage.targetAction
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
@@ -239,6 +240,7 @@ HOOKS.counterspell = {
     const targetActor = this.outcomes.keys().find(a => a !== this.actor);
     const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
     if ( !isSuccess ) return;
+    // TODO: Fetch this ID from action instead of message flag
     const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
     if ( !targetMessage ) return;
     if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
