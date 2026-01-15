@@ -12,6 +12,11 @@
         </div>
         {{/if}}
     </div>
+    {{#if showLevel}}
+    <label>{{localize "ADVANCEMENT.Level"}}</label>
+    <input type="number" class="quantity" name="system.talents.{{talentIndex}}.level" value="{{level}}"
+        min="0" step="1" placeholder="0">
+    {{/if}}
     {{#if showRemove}}
     <div class="controls">
         <a class="button icon fa-solid fa-times remove-talent" data-action="removeTalent"

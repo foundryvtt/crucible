@@ -300,6 +300,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   static migrateData(source) {
     source = super.migrateData(source);
     if ( source.details?.ancestry ) CrucibleAncestryItem.migrateData(source.details.ancestry);
+    if ( source.details?.background ) CrucibleBackgroundItem.migrateData(source.details.background);
     return source;
   }
 }

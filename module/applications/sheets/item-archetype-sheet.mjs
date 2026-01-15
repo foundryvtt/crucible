@@ -210,9 +210,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     for ( const {cls, required} of components ) {
       for ( const component of required ) {
         const grantingTalents = cls.grantingTalents[component];
-        if ( grantingTalents.some(({uuid}) => talents.has(uuid)) ) continue;
-        const minTalent = grantingTalents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t).uuid;
-        requisiteTalents.push(minTalent);
+        if ( grantingTalents.some(({uuid}) => talents.some(t => t.item === uuid)) ) continue;
+        const minTalent = cls.getGrantingTalent(component);
+        requisiteTalents.push({item: minTalent.uuid, level: SYSTEM.TALENT.NODE_TIERS[minTalent.tier].level});
       }
     }
     const updateData = {system: {spells: [...spells, {item: data.uuid}]}};
@@ -239,9 +239,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const fields = this.document.system.schema.fields;
 
     // Handle equipment quantity changes
-    if (submitData.system.equipment) {
-      const updatedEquipment = [...this.document.system.equipment];
-      for (const [idx, changes] of Object.entries(submitData.system.equipment)) {
+    if ( submitData.system.equipment ) {
+      const updatedEquipment = [...this.document.system._source.equipment];
+      for ( const [idx, changes] of Object.entries(submitData.system.equipment) ) {
         foundry.utils.mergeObject(updatedEquipment[idx], changes);
       }
       submitData.system.equipment = updatedEquipment;

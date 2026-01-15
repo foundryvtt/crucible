@@ -30,7 +30,10 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         resistance: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES}),
         vulnerability: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES})
       }, {validate: CrucibleAncestryItem.#validateResistances}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      talents: new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item"}),
+        level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
+      })),
       ui: new fields.SchemaField({
         color: new fields.ColorField()
       })
@@ -142,6 +145,12 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
+
+    if ( source.talents?.length ) {
+      if ( typeof source.talents[0] === "string") {
+        source.talents = source.talents.map(t => ({item: t, level: null}));
+      }
+    }
 
     /** @deprecated since 0.7.0 until 0.8.0 */
     const {primary, secondary, resistance, vulnerability, size, stride} = source;

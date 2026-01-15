@@ -46,7 +46,6 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.talents = await this._prepareTalents();
-    context.talentPartial = this.constructor.INCLUDED_TALENT_TEMPLATE;
     return context;
   }
 
@@ -58,19 +57,13 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @protected
    */
   async _prepareTalents() {
-    const uuids = this.document.system.talents;
-    const promises = uuids.map(async (uuid) => {
-      const talent = await fromUuid(uuid);
-      if ( !talent ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
-      return {
-        uuid,
-        name: talent.name,
-        img: talent.img,
-        description: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description),
-        tags: talent.getTags(),
-        item: await talent.renderInline({showRemove: this.isEditable})
-      }
-    });
+    const talents = this.document.system.talents;
+    const promises = [];
+    for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
+      let talent = await fromUuid(uuid);
+      talent ||= new Item.implementation({type: "talent", name: "INVALID"});
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level}));
+    }
     return Promise.all(promises);
   }
 
@@ -113,6 +106,23 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
+    
+    // Handle talent level changes
+    if ( submitData.system.talents ) {
+      const updatedTalents = [...this.document.system._source.talents];
+      for ( const [idx, changes] of Object.entries(submitData.system.talents) ) {
+        foundry.utils.mergeObject(updatedTalents[idx], changes);
+      }
+      submitData.system.talents = updatedTalents;
+    }
+    return submitData;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Handle drop events for a talent added to this sheet.
    * @param {DragEvent} event
@@ -121,7 +131,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async #onDropTalent(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
-    if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
+    if ( (data.type !== "Item") ) return;
+    if ( talents.some(({item}) => item === data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) {
       ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
@@ -130,7 +141,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
     }
-    const updateData = {system: {talents: [...talents, data.uuid]}};
+    const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
+    const updateData = {
+      system: {
+        talents: [...talents, {item: data.uuid, level: SYSTEM.TALENT.NODE_TIERS[tier]?.level ?? null}]
+      }
+    };
     return this._processSubmitData(event, this.form, updateData);
   }
 
@@ -143,8 +159,9 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   static async #onRemoveTalent(event, target) {
     const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
-    const uuid = talent.dataset.uuid;
-    talents.delete(uuid);
+    const uuid = talent.dataset.uuid || null;
+    const toDelete = talents.find(({item}) => item === uuid);
+    talents.delete(toDelete);
     const updateData = {system: {talents: [...talents]}};
     return this._processSubmitData(event, this.form, updateData);
   }

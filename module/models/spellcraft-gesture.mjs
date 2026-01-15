@@ -36,6 +36,19 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
 
   /* -------------------------------------------- */
 
+  /**
+   * Return the minimum-tier talent (tier & uuid) which grants the given Gesture
+   * @param {string} component 
+   * @returns {tier: number, uuid: string}
+   */
+  static getGrantingTalent(component) {
+    const talents = CrucibleSpellcraftGesture.grantingTalents[component];
+    const minTalent = talents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t);
+    return minTalent;
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _initialize() {
     super._initialize();
