@@ -242,7 +242,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
     const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
     delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
-    const statusEffectsObj = CONFIG.statusEffects.reduce((acc, s) => ({...acc, [s.id]: s}), {}); // TODO: In V14 won't need to do this
+    const statusEffectsObj = game.release.generation >= 14
+      ? {...CONFIG.statusEffects}
+      : CONFIG.statusEffects.reduce((acc, s) => ({...acc, [s.id]: s}), {});
+    const changesField = game.release.generation >= 14
+      ? foundry.data.ActiveEffectTypeDataModel.defineSchema().changes
+      : foundry.documents.ActiveEffect.defineSchema().changes;
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -279,7 +284,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           all: new fields.BooleanField({initial: false})
         }),
         statuses: new fields.SetField(new fields.StringField({choices: statusEffectsObj})),
-        changes: ActiveEffect.defineSchema().changes,
+        changes: changesField,
         duration: new fields.SchemaField({
           turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
           rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
