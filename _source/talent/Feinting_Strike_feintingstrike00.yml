@@ -18,11 +18,13 @@ system:
         - offhand
         - skill
         - deception
+        - reflex
       cost:
         action: 1
         focus: 0
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
@@ -47,11 +49,11 @@ system:
         minimum: null
 _stats:
   systemId: crucible
-  systemVersion: 0.7.7
-  coreVersion: '13.346'
+  systemVersion: 0.8.4
+  coreVersion: '13.351'
   createdTime: 1674942420023
-  modifiedTime: 1753556694800
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1768512445413
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null
