@@ -705,14 +705,9 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
-// TODO: consider moving scaling & bonuses logic into iconicSpell tag hook
 HOOKS.revive = {
   prepare() {
     this.usage.hasDice = true;
-    const runeScaling = this.parent.runes.map(r => SYSTEM.SPELL.RUNES[r].scaling);
-    const gestureScaling = this.parent.gestures.map(g => SYSTEM.SPELL.GESTURES[g].scaling);
-    this.scaling = Array.from(runeScaling.union(gestureScaling));
-    this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
   },
   acquireTargets(targets) {
     for ( const target of targets ) {
@@ -768,6 +763,17 @@ HOOKS.spellband = {
   }
 }
 
+/* -------------------------------------------- */
+
+HOOKS.telecognition = {
+  prepare() {
+    this.usage.hasDice = true;
+  },
+  async roll(outcome) {
+    const roll = await this.actor.skillAttack(this, outcome);
+    if ( roll ) outcome.rolls.push(roll);
+  }
+}
 
 /* -------------------------------------------- */
 
