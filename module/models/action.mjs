@@ -889,7 +889,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {x, y} = template;
     const targetDispositions = this.#getTargetDispositions();
     const tokens = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
-      if ( token.actor === this.actor ) return false;
+      if ( !this.target.self && (token.actor === this.actor) ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
       if ( token.document.hidden ) return false;
       const hit = token.getHitRectangle();
@@ -1134,38 +1134,53 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #applyOutcomeEffect(outcome, effectData) {
 
-    // Assert actually targeted
-    if ( !outcome.isTarget ) return false;
-
     // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     const scope = effectData.scope ?? this.target.scope;
+    const isSelfScope = scope === scopes.SELF;
     if ( scope === scopes.NONE ) return false; // Should never happen
     if ( outcome.self ) {
-      if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false;
+      if ( !isSelfScope && !outcome.isTarget ) return false; // If not target, only self-scoped
+      if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false; // Either self-scoped or all-scoped & target
     }
-    else if ( scope === scopes.SELF ) return false;
+    else if ( isSelfScope ) return false;
 
+    
     // Assert correct outcome result
     const {type, all} = effectData.result;
     const hasRolls = outcome.rolls.length > 0;
+    
+    // Helper to determine whether effect should be applied for a single outcome
+    const checkOutcome = (outcome) => {
+      const hasRolls = outcome.rolls.length > 0;
+      switch ( type ) {
+        case "success":
+          if ( all ) return hasRolls && outcome.rolls.every(r => r.isSuccess);
+          else return !hasRolls || outcome.rolls.some(r => r.isSuccess);
+        case "successCritical":
+          if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalSuccess);
+          else return outcome.rolls.some(r => r.isCriticalSuccess);
+        case "failure":
+          if ( all ) return hasRolls && outcome.rolls.every(r => r.isFailure);
+          else return outcome.rolls.some(r => r.isFailure);
+        case "failureCritical":
+          if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalFailure);
+          else return outcome.rolls.some(r => r.isCriticalFailure);
+      }
+    }
     switch ( type ) {
       case "any":
         return true;
       case "custom":
         return false; // Custom results are never attached and are only handled using hook code
       case "success":
-        if ( all ) return hasRolls && outcome.rolls.every(r => r.isSuccess);
-        else return !hasRolls || outcome.rolls.some(r => r.isSuccess);
       case "successCritical":
-        if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalSuccess);
-        else return outcome.rolls.some(r => r.isCriticalSuccess);
       case "failure":
-        if ( all ) return hasRolls && outcome.rolls.every(r => r.isFailure);
-        else return outcome.rolls.some(r => r.isFailure);
       case "failureCritical":
-        if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalFailure);
-        else return outcome.rolls.some(r => r.isCriticalFailure);
+        if ( isSelfScope && !hasRolls ) {
+          return this.outcomes.values().filter(o => !o.self).some(o => checkOutcome(o));
+        }
+        return checkOutcome(outcome);
       default:
         return false; // Unknown or unsupported result type
     }
