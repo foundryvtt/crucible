@@ -39,7 +39,7 @@ export default class CrucibleScene extends Scene {
 
   /** @override */
   async _preCreate(data, options, userId) {
-    const allowed = await super._preUpdate(data, options, userId);
+    const allowed = await super._preCreate(data, options, userId);
     if ( allowed === false ) return false;
     const sceneSystem = data._stats?.systemId ?? data._stats?.exportSource?.systemId;
     if ( !sceneSystem || (sceneSystem === "crucible") ) return;
