@@ -685,7 +685,7 @@ export default class CrucibleActor extends Actor {
    */
   async receiveAttack(action) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {bonuses, damageType, defenseType, resource} = action.usage;
+    const {banes, bonuses, boons, damageType, defenseType, resource} = action.usage;
     const roll = new AttackRoll({
       actorId: this.id,
       target: this.uuid,
@@ -693,7 +693,8 @@ export default class CrucibleActor extends Actor {
       skill: bonuses.skill,
       enchantment: bonuses.enchantment,
       defenseType,
-      dc: this.defenses[defenseType].total
+      dc: this.defenses[defenseType].total,
+      banes, boons
     });
     await roll.evaluate();
 
