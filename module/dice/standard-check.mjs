@@ -266,7 +266,7 @@ export default class StandardCheck extends Roll {
 
     // Damage, Resistance, and Vulnerability
     if ( damage ) {
-      damage.display = Number.isNumeric(damage?.total) && (damage.base > 0); // Was damage intended?
+      damage.display = Number.isNumeric(damage?.total) && !damage.harmless; // Was damage intended?
       if ( damage.display ) {
         damage.label = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
         damage.baseLabel = game.i18n.format("DICE.DamageBase", {type: damage.label});
