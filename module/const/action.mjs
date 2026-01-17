@@ -77,7 +77,7 @@ export const TARGET_TYPES = Object.freeze({
     template: {
       t: "cone",
       angle: 210,
-      directionDelta: 45,
+      directionDelta: 15,
       anchor: "self",
       addSize: true
     },

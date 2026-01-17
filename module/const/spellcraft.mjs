@@ -382,13 +382,13 @@ export const GESTURES = Object.seal({
     },
     hands: 0,
     range: {
-      maximum: 0
+      maximum: 20
     },
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
       type: "ray",
-      distance: 20
+      size: 1
     }
   },
   strike: {
