@@ -252,6 +252,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.#clear();
     this._prepareDetails();
     this._prepareAbilities();
+    this._prepareBaseResources();
     this._prepareBaseMovement();
   }
 
@@ -750,16 +751,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareMovement", this.movement);
 
     // Resource pools
-    this._prepareResources();
     this.parent.callActorHooks("prepareResources", this.resources);
+    this.#prepareFinalResources();
 
     // Defenses
     this.parent.callActorHooks("prepareDefenses", this.defenses);
-    this.#prepareTotalDefenses();
+    this.#prepareFinalDefenses();
 
     // Resistances
     this.parent.callActorHooks("prepareResistances", this.resistances);
-    this.#prepareTotalResistances();
+    this.#prepareFinalResistances();
 
     // Actions
     this.#prepareActions();
@@ -784,58 +785,35 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
+  /*  Resource Preparation                        */
+  /* -------------------------------------------- */
 
   /**
-   * Preparation of resource pools for all Actor subtypes.
+   * Compute base and bonus values for every resource pool.
    * @protected
    */
-  _prepareResources() {
-    const {isIncapacitated, isWeakened} = this;
-    const statuses = this.parent.statuses;
-    const r = this.resources;
-    const a = this.abilities;
+  _prepareBaseResources() {
+    const {resources: rs, abilities: a} = this;
     const level = this.advancement.level;
-    const rc = this._configureResourceProgression()
+    const rc = this._configureResourceProgression();
 
-    // Health
+    // Health and Wounds
     const healthBase = Math.max(level, 1) * rc.healthPerLevel;
-    r.health.max = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * rc.healthMultiplier);
-    r.health.value = Math.clamp(r.health.value, 0, r.health.max);
+    rs.health.base = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * rc.healthMultiplier);
+    if ( "wounds" in rs ) rs.wounds.base = Math.ceil(rc.woundsMultiplier * rs.health.base);
 
-    // Morale
+    // Morale and Madness
     const moraleBase = Math.max(level, 1) * rc.moralePerLevel;
-    r.morale.max = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * rc.moraleMultiplier);
-    r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
+    rs.morale.base = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * rc.moraleMultiplier);
+    if ( "madness" in rs ) rs.madness.base = Math.ceil(rc.madnessMultiplier * rs.morale.base);
 
-    // Wounds
-    if ( "wounds" in r ) {
-      r.wounds.max = Math.ceil(rc.woundsMultiplier * r.health.max);
-      r.wounds.value = Math.clamp(r.wounds.value, 0, r.wounds.max);
-    }
+    // Resources
+    rs.action.base = rc.actionMax;
+    rs.focus.base = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
+    rs.heroism.base = rc.heroismMax;
 
-    // Madness
-    if ( "madness" in r ) {
-      r.madness.max = Math.ceil(rc.madnessMultiplier * r.morale.max);
-      r.madness.value = Math.clamp(r.madness.value, 0, r.madness.max);
-    }
-
-    // Action
-    r.action.max = rc.actionMax + (r.action.bonus || 0);
-    if ( statuses.has("stunned") ) r.action.max -= 4;
-    else if ( statuses.has("staggered") ) r.action.max -= 2;
-    if ( statuses.has("hastened") ) r.action.max += 1;
-    if ( isWeakened ) r.action.max -= 2;
-    if ( isIncapacitated ) r.action.max = 0;
-    r.action.max = Math.max(r.action.max, 0);
-    r.action.value = Math.clamp(r.action.value, 0, r.action.max);
-
-    // Focus
-    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2) + rc.focusBonus;
-    r.focus.value = Math.clamp(r.focus.value, 0, r.focus.max);
-
-    // Heroism
-    r.heroism.max = rc.heroismMax;
-    r.heroism.value = Math.clamp(r.heroism.value, 0, r.heroism.max);
+    // Initialize bonuses for each resource
+    for ( const r of Object.values(rs) ) r.bonus = 0;
   }
 
   /* -------------------------------------------- */
@@ -862,9 +840,36 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Compute maximum and current values of every resource pool.
+   */
+  #prepareFinalResources() {
+    const statuses = this.parent.statuses;
+    const {resources} = this;
+
+    // Apply status bonuses
+    if ( statuses.has("stunned") ) resources.action.bonus -= 4;
+    else if ( statuses.has("staggered") ) resources.action.bonus -= 2;
+    if ( statuses.has("hastened") ) resources.action.bonus += 1;
+
+    // Compute resource maximums
+    for ( const r of Object.values(resources) ) r.max = Math.max(r.base + r.bonus, 0);
+
+    // Clamp resource values
+    for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
+
+    // Final status modifiers
+    if ( this.isWeakened ) resources.action.max = Math.max(resources.action.max - 2, 0);
+    if ( this.isIncapacitated ) resources.action.max = 0;
+  }
+
+  /* -------------------------------------------- */
+  /*  Defense Preparation                         */
+  /* -------------------------------------------- */
+
+  /**
    * Compute total defenses as base + bonus.
    */
-  #prepareTotalDefenses() {
+  #prepareFinalDefenses() {
     const {defenses, resources} = this;
     const {isIncapacitated, statuses} = this.parent;
 
@@ -903,7 +908,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /**
    * Preparation of resistances for all Actor subtypes.
    */
-  #prepareTotalResistances() {
+  #prepareFinalResistances() {
     for ( const r of Object.values(this.resistances) ) r.total = r.immune ? Infinity : (r.base + r.bonus);
   }
 
