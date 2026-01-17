@@ -3,13 +3,13 @@ const HOOKS = {};
 /* -------------------------------------------- */
 
 HOOKS.alchemistsFire = {
-  prepare() {
+  preActivate() {
     const tiers = {
-      shoddy: {duration: 2, amount: 2},
-      standard: {duration: 3, amount: 3},
-      fine: {duration: 4, amount: 4},
-      superior: {duration: 5, amount: 6},
-      masterwork: {duration: 6, amount: 8},
+      shoddy: {turns: 2, amount: 2},
+      standard: {turns: 3, amount: 3},
+      fine: {turns: 4, amount: 4},
+      superior: {turns: 5, amount: 6},
+      masterwork: {turns: 6, amount: 8},
     };
     const burning = SYSTEM.EFFECTS.burning(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], burning);
@@ -147,11 +147,11 @@ HOOKS.bodyBlock = {
 HOOKS.causticPhial = {
   prepare() {
     const tiers = {
-      shoddy: {duration: 2, amount: 2},
-      standard: {duration: 3, amount: 3},
-      fine: {duration: 4, amount: 4},
-      superior: {duration: 5, amount: 6},
-      masterwork: {duration: 6, amount: 8},
+      shoddy: {turns: 2, amount: 2},
+      standard: {turns: 3, amount: 3},
+      fine: {turns: 4, amount: 4},
+      superior: {turns: 5, amount: 6},
+      masterwork: {turns: 6, amount: 8},
     };
     const corroding = SYSTEM.EFFECTS.corroding(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], corroding);
@@ -585,11 +585,11 @@ HOOKS.oozeSubdivide = {
 HOOKS.poisonIngest = {
   prepare() {
     const tiers = {
-      shoddy: {amount: 2, duration: 4},
-      standard: {amount: 4, duration: 6},
-      fine: {amount: 6, duration: 8},
-      superior: {amount: 8, duration: 10},
-      masterwork: {amount: 10, duration: 12},
+      shoddy: {amount: 2, turns: 4},
+      standard: {amount: 4, turns: 6},
+      fine: {amount: 6, turns: 8},
+      superior: {amount: 8, turns: 10},
+      masterwork: {amount: 10, turns: 12},
     };
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], poisoned);

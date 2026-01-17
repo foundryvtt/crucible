@@ -1,14 +1,16 @@
 name: Weather Clothing
+type: accessory
 img: icons/equipment/back/cloak-heavy-fur-blue.webp
-type: loot
 system:
   identifier: clothingWeather
-  category: other
+  category: clothing
   enchantment: mundane
   quality: standard
   price: 40
   quantity: 1
   weight: 2
+  equipped: false
+  invested: false
   description:
     public: >-
       <p>A set of clothing designed for protecting the wearer against inclement
@@ -16,12 +18,13 @@ system:
     private: ''
   broken: false
   properties: []
+  actions: []
+  actorHooks: []
 folder: GVbpo5LtAY44QZPD
 effects: []
 ownership:
   default: 0
-  QvBFYpRRXHRBcOfP: 3
-  QPs9IwGEu5DxD700: 3
+  ifaQA7jTJsr3UWFE: 3
 flags: {}
 _stats:
   compendiumSource: null
@@ -29,10 +32,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766086680483
-  modifiedTime: 1768517320487
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.4
+  createdTime: 1768583479133
+  modifiedTime: 1768583479133
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: weatherClothing0
 sort: 500000
 _key: '!items!weatherClothing0'

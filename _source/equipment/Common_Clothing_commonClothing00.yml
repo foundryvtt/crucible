@@ -1,14 +1,16 @@
 name: Common Clothing
 img: icons/equipment/chest/shirt-collared-brown.webp
-type: loot
+type: accessory
 system:
   identifier: clothingCommon
-  category: other
+  category: clothing
   enchantment: mundane
   quality: standard
   price: 20
   quantity: 1
   weight: 1
+  equipped: false
+  invested: false
   description:
     public: >-
       <p>A shirt, pair of pants, undergarments, socks and shoes or boots
@@ -16,12 +18,13 @@ system:
     private: ''
   broken: false
   properties: []
+  actions: []
+  actorHooks: []
 folder: GVbpo5LtAY44QZPD
 effects: []
 ownership:
   default: 0
-  QvBFYpRRXHRBcOfP: 3
-  QPs9IwGEu5DxD700: 3
+  ifaQA7jTJsr3UWFE: 3
 flags: {}
 _stats:
   compendiumSource: null
@@ -29,10 +32,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
-  createdTime: 1766085583150
-  modifiedTime: 1768517320487
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.8.4
+  createdTime: 1768583216182
+  modifiedTime: 1768583232856
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: commonClothing00
 sort: 100000
 _key: '!items!commonClothing00'
