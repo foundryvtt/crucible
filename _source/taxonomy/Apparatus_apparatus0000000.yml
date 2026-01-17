@@ -1,0 +1,79 @@
+name: Apparatus
+type: taxonomy
+img: icons/commodities/tech/cog-steel.webp
+system:
+  description: >-
+    <p>Constructs built for simple purposes, such as multi-stage automated trap
+    devices or machines to perform a specific repetitive function.</p>
+  identifier: apparatus
+  category: humanoid
+  abilities:
+    wisdom: 0
+    presence: 0
+    intellect: 0
+    strength: 4
+    toughness: 4
+    dexterity: 4
+  movement:
+    size: 4
+    stride: 10
+  resistances:
+    bludgeoning:
+      value: 2
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 2
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: -2
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: -2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents: []
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: aQTavGHQfHKY6NVw
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.4
+  createdTime: 1768422303217
+  modifiedTime: 1768422303217
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: apparatus0000000
+sort: 0
+_key: '!items!apparatus0000000'
