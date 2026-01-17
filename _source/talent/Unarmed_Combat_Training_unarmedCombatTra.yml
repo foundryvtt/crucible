@@ -28,7 +28,7 @@ system:
         self: false
       effects:
         - name: Grappled
-          scope: '4'
+          scope: 4
           result:
             type: success
             all: false
@@ -37,6 +37,28 @@ system:
           duration:
             turns: null
             rounds: 1
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+        - name: Grappling
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses:
+            - restrained
+          duration:
+            turns: null
+            rounds: 1
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - difficult
         - harmless
@@ -68,10 +90,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.3
+  systemVersion: 0.8.4
   createdTime: 1766940604912
-  modifiedTime: 1766941451694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1768579062618
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
