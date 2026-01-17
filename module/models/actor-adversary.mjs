@@ -94,8 +94,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const threatConfig = SYSTEM.THREAT_RANKS[rank];
     config.actionMax = threatConfig.actionMax;
     config.heroismMax = threatConfig.heroismMax;
-    config.healthPerLevel = this.movement.size + 2;
-    config.moralePerLevel = this.movement.size + 2;
+    const expectedSize = this.movement.baseSize + this.movement.sizeBonus;
+    config.healthPerLevel = expectedSize + 2;
+    config.moralePerLevel = expectedSize + 2;
     return config;
   }
 

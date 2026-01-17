@@ -252,8 +252,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.#clear();
     this._prepareDetails();
     this._prepareAbilities();
-    this._prepareBaseResources();
     this._prepareBaseMovement();
+    this._prepareBaseResources();
   }
 
   /* -------------------------------------------- */
