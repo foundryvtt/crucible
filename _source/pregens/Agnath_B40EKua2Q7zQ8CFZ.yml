@@ -61,7 +61,8 @@ system:
         strength and resilience above all else.</p>
       identifier: orcish
       talents:
-        - Compendium.crucible.talent.Item.heavystrike00000
+        - item: Compendium.crucible.talent.Item.heavystrike00000
+          level: null
       ui:
         color: '#c14425'
       abilities:
@@ -82,10 +83,14 @@ system:
         demonstrating strength and dominance over others, and years on horseback
         or marching taught you how to handle all manner of terrain.</p>
       talents:
-        - Compendium.crucible.talent.Item.athleticsNovice0
-        - Compendium.crucible.talent.Item.intimidationNovi
-        - Compendium.crucible.talent.Item.heavyWeaponTrain
-        - Compendium.crucible.talent.Item.heavystrike00000
+        - item: Compendium.crucible.talent.Item.athleticsNovice0
+          level: null
+        - item: Compendium.crucible.talent.Item.intimidationNovi
+          level: null
+        - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+          level: null
+        - item: Compendium.crucible.talent.Item.heavystrike00000
+          level: null
       identifier: soldier
       ui:
         color: '#f08e4c'
@@ -1064,6 +1069,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -1370,8 +1376,8 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.4
-  createdTime: 1767387165889
-  modifiedTime: 1767387165889
+  createdTime: 1768686183317
+  modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 ownership:

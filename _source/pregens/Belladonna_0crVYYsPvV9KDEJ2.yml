@@ -61,7 +61,8 @@ system:
         drive a stubborn will to survive.</p>
       identifier: human
       talents:
-        - Compendium.crucible.talent.Item.intercept0000000
+        - item: Compendium.crucible.talent.Item.intercept0000000
+          level: null
       ui:
         color: '#a985d6'
       abilities:
@@ -82,10 +83,14 @@ system:
         or disloyalty, to avoid the attention of others, scavenging for scraps
         of food on the streets of some urban sprawl.</p>
       talents:
-        - Compendium.crucible.talent.Item.stealthNovice000
-        - Compendium.crucible.talent.Item.deceptionNovice0
-        - Compendium.crucible.talent.Item.lightWeaponTrain
-        - Compendium.crucible.talent.Item.lunge00000000000
+        - item: Compendium.crucible.talent.Item.stealthNovice000
+          level: null
+        - item: Compendium.crucible.talent.Item.deceptionNovice0
+          level: null
+        - item: Compendium.crucible.talent.Item.lightWeaponTrain
+          level: null
+        - item: Compendium.crucible.talent.Item.lunge00000000000
+          level: null
       identifier: urchin
       ui:
         color: '#84d7b7'
@@ -1435,6 +1440,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -1580,6 +1586,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -1895,8 +1902,8 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.4
-  createdTime: 1767387165889
-  modifiedTime: 1767387165889
+  createdTime: 1768686183317
+  modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 0crVYYsPvV9KDEJ2
 ownership:

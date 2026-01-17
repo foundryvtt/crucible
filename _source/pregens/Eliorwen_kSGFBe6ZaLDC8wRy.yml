@@ -61,7 +61,8 @@ system:
         evolutionary results of hundreds of years of tradition.</p>
       identifier: elvish
       talents:
-        - Compendium.crucible.talent.Item.runeIllusion0000
+        - item: Compendium.crucible.talent.Item.runeIllusion0000
+          level: null
       ui:
         color: '#51d277'
       abilities:
@@ -82,19 +83,24 @@ system:
         pass above you. You learned to pay careful attention to your
         surroundings and their needs, to tend the creatures on which you rely,
         and to make do with what you can find.</p>
+      skills:
+        - athletics
+        - wilderness
       talents:
-        - Compendium.crucible.talent.Item.wildernessNovice
-        - Compendium.crucible.talent.Item.athleticsNovice0
-        - Compendium.crucible.talent.Item.projectileTraini
-        - Compendium.crucible.talent.Item.precisionshot000
+        - item: Compendium.crucible.talent.Item.projectileWeapon
+          level: null
+        - item: Compendium.crucible.talent.Item.precisionshot000
+          level: null
       identifier: wanderer
       ui:
         color: '#98da62'
+      knowledge:
+        - plants
+        - tracking
+      languages:
+        - common
       name: Wanderer
       img: icons/environment/wilderness/portal.webp
-      knowledge: []
-      languages: []
-      skills: []
     biography:
       public: >-
         <p>Eliorwen is a nimble skirmisher who uses archery and spellcraft to
@@ -105,6 +111,7 @@ system:
       age: ''
       height: ''
       weight: ''
+      pronouns: ''
       appearance: ''
     knowledge: []
     languages: []
@@ -455,6 +462,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -492,144 +500,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.pinningshot00000'
-  - folder: ghRKqdzq279SH1lt
-    name: Wilderness Novice
-    type: talent
-    _id: wildernessNovice
-    img: systems/crucible/icons/skills/wilderness.jpg
-    system:
-      description: >-
-        <p>You have received training in the basics of wilderness survival and
-        traversal. You gain the <strong>Novice</strong> rank in the
-        <strong>Wilderness </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</p><p>You know how to find and
-        construct safe shelter from the elements, to start a fire for warmth, to
-        keep cool in hot environments. You can find safe, drinkable water in
-        most places, and how to identify which plants and animals can serve as
-        safe food sources.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: wilderness
-        rank: 1
-      actorHooks: []
-      nodes:
-        - tou0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 440000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.wildernessNovice'
-  - folder: ghRKqdzq279SH1lt
-    name: Athletics Novice
-    type: talent
-    _id: athleticsNovice0
-    img: systems/crucible/icons/skills/athletics.jpg
-    system:
-      description: >-
-        <p>You have received training in basic athletics. You gain the
-        <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</p><p>You know whether a surface can support your weight or not,
-        how to find handholds while climbing, and how to distribute your weight
-        for buoyancy when swimming. You know how to run for distance, and how to
-        pace yourself to avoid exhaustion.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: athletics
-        rank: 1
-      actorHooks: []
-      nodes:
-        - str0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 40000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.athleticsNovice0'
-  - _id: precisionshot000
-    name: Precision Shot
-    type: talent
-    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
-    effects: []
-    flags: {}
-    system:
-      description: >-
-        You take time to steady your aim and target the weakest point of a foe.
-        You may only get one shot, but you make it count.
-      actions:
-        - id: precisionShot
-          condition: ''
-          description: <p>You steady your aim and fire a single accurate shot.</p>
-          tags:
-            - ranged
-            - accurate
-          cost:
-            action: 1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Precision Shot
-          img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          actionHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-      nodes:
-        - dex1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    folder: k2H23tobHffCMQCj
-    sort: 150000
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.precisionshot000'
   - name: Stealth Novice
     type: talent
     _id: stealthNovice000
@@ -820,6 +690,65 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.projectileWeapon'
+  - _id: precisionshot000
+    name: Precision Shot
+    type: talent
+    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+    effects: []
+    flags: {}
+    system:
+      description: >-
+        You take time to steady your aim and target the weakest point of a foe.
+        You may only get one shot, but you make it count.
+      actions:
+        - id: precisionShot
+          condition: ''
+          description: <p>You steady your aim and fire a single accurate shot.</p>
+          tags:
+            - ranged
+            - accurate
+          cost:
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Precision Shot
+          img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          actionHooks: []
+      nodes:
+        - dex1a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.4
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.precisionshot000'
 effects: []
 flags:
   core: {}
@@ -831,8 +760,8 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.4
-  createdTime: 1767387165889
-  modifiedTime: 1767387165889
+  createdTime: 1768686183317
+  modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 ownership:

@@ -62,7 +62,8 @@ system:
         devil.</p>
       identifier: devilkin
       talents:
-        - Compendium.crucible.talent.Item.runeFlame0000000
+        - item: Compendium.crucible.talent.Item.runeFlame0000000
+          level: null
       ui:
         color: '#c72950'
       abilities:
@@ -82,19 +83,24 @@ system:
         attending a variety of social functions, how to play to your audience,
         embellishing details of your performance to evoke particular emotional
         responses.
+      skills:
+        - deception
+        - performance
       talents:
-        - Compendium.crucible.talent.Item.performanceNovic
-        - Compendium.crucible.talent.Item.deceptionNovice0
-        - Compendium.crucible.talent.Item.lightWeaponTrain
-        - Compendium.crucible.talent.Item.dualwield0000000
+        - item: Compendium.crucible.talent.Item.lightWeaponTrain
+          level: null
+        - item: Compendium.crucible.talent.Item.inspireheroism00
+          level: null
       identifier: performer
       ui:
         color: '#e26ce4'
+      knowledge:
+        - arts
+        - rituals
+      languages:
+        - common
       name: Performer
       img: icons/skills/movement/ball-spinning-blue.webp
-      knowledge: []
-      languages: []
-      skills: []
     biography:
       public: >-
         <p>Zarajah is a spirited Devilkin with a penchant for pyromancy who
@@ -380,6 +386,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -454,85 +461,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!sqTUaPrXpwCzk3xs.gestureinfluence'
-  - folder: ghRKqdzq279SH1lt
-    name: Performance Novice
-    type: talent
-    _id: performanceNovic
-    img: systems/crucible/icons/skills/performance.jpg
-    system:
-      description: >-
-        <p>You have learned the basic practices of art and entertainment. You
-        gain the <strong>Novice</strong> rank in the <strong>Performance
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</p><p>You know a few common dances, have a collection of
-        well-known tales, and you could probably sing or play a few popular
-        songs. You may be trained in an instrument or two, and your capability
-        with a brush or pen is reasonable enough that you could probably create
-        a passable work of art.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: performance
-        rank: 1
-      actorHooks: []
-      nodes:
-        - pre0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 280000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.performanceNovic'
-  - folder: ghRKqdzq279SH1lt
-    name: Deception Novice
-    type: talent
-    _id: deceptionNovice0
-    img: systems/crucible/icons/skills/deception.jpg
-    system:
-      description: >-
-        <p>You are a liar and manipulator, and deception is a skill you've
-        practiced. You gain the <strong>Novice</strong> rank in the
-        <strong>Deception </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</p><p>You know how to
-        construct basic lies and cons, and the telltale signs that tend to give
-        away poor liars. You can construct a basic forgery for most common
-        documents, but they won't stand up to any measure of close scrutiny.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: deception
-        rank: 1
-      actorHooks: []
-      nodes:
-        - int0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 120000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.deceptionNovice0'
   - folder: i7WposibCJ94XpuD
     name: Light Weapon Training
     type: talent
@@ -601,70 +529,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!sqTUaPrXpwCzk3xs.lightWeaponTrain'
-  - name: Dual Wield
-    type: talent
-    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-    system:
-      description: >-
-        <p>You are adept at fighting with two weapons simultaneously. You can
-        weave attacks together to strike more rapidly than possible with a
-        single weapon.</p>
-      actions:
-        - id: offhandStrike
-          name: Offhand Strike
-          description: >-
-            <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
-            with your <strong>offhand</strong> weapon.</p>
-          tags:
-            - afterStrike
-            - offhand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-          condition: ''
-          actionHooks: []
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      actorHooks: []
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.4
-      lastModifiedBy: null
-    _id: dualwield0000000
-    folder: cW6bwHXBB9pMcwva
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.dualwield0000000'
   - name: 'Rune: Oblivion'
     type: talent
     img: icons/magic/unholy/orb-rays-blue.webp
@@ -820,6 +684,46 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!sqTUaPrXpwCzk3xs.runeFlame0000000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      description: >-
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
+      actions: []
+      gesture: arrow
+      actorHooks: []
+      nodes:
+        - int1a
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.4
+      lastModifiedBy: null
+    _id: gesturearrow0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturearrow0000'
 effects: []
 flags:
   core: {}
@@ -832,8 +736,8 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.4
-  createdTime: 1767387165889
-  modifiedTime: 1767387165889
+  createdTime: 1768686183317
+  modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: sqTUaPrXpwCzk3xs
 ownership:

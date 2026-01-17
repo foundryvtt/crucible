@@ -61,7 +61,8 @@ system:
         beats a heart of stone.</p>
       identifier: dwarven
       talents:
-        - Compendium.crucible.talent.Item.shieldbash000000
+        - item: Compendium.crucible.talent.Item.shieldbash000000
+          level: null
       ui:
         color: '#cb9943'
       abilities:
@@ -81,10 +82,14 @@ system:
         remain vigilant to your surroundings, work within complex social
         structures, and affect an imposing presence.</p>
       talents:
-        - Compendium.crucible.talent.Item.awarenessNovice0
-        - Compendium.crucible.talent.Item.intimidationNovi
-        - Compendium.crucible.talent.Item.unarmedCombatTra
-        - Compendium.crucible.talent.Item.intercept0000000
+        - item: Compendium.crucible.talent.Item.awarenessNovice0
+          level: null
+        - item: Compendium.crucible.talent.Item.intimidationNovi
+          level: null
+        - item: Compendium.crucible.talent.Item.unarmedCombatTra
+          level: null
+        - item: Compendium.crucible.talent.Item.intercept0000000
+          level: null
       identifier: constable
       ui:
         color: '#1d2196'
@@ -481,6 +486,7 @@ items:
               result:
                 type: success
                 all: false
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -698,6 +704,23 @@ items:
               duration:
                 turns: null
                 rounds: 1
+              changes: []
+              system:
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+            - name: Grappling
+              scope: 1
+              result:
+                type: success
+                all: false
+              statuses:
+                - restrained
+              duration:
+                turns: null
+                rounds: 1
+              changes: []
               system:
                 dot: []
                 maintenance: null
@@ -855,8 +878,8 @@ _stats:
   coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.4
-  createdTime: 1767387165889
-  modifiedTime: 1767387165889
+  createdTime: 1768686183317
+  modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: nPOVNsOFhqA7SUud
 ownership:
