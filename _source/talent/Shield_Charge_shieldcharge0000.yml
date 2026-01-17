@@ -48,7 +48,7 @@ system:
     - toustr2
 _stats:
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.8.6
   coreVersion: '13.348'
   createdTime: 1674942420012
   modifiedTime: 1757529410227

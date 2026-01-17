@@ -294,7 +294,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     sort: 300000
     ownership:
@@ -329,7 +329,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -369,7 +369,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -413,7 +413,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: spellblade000000
     sort: 250000
@@ -448,7 +448,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -486,7 +486,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturestrike000
     folder: D14x9AJ0TgXKtnzu
@@ -521,7 +521,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -587,7 +587,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: iD0N4Q5xDZqsf354
     sort: 0
@@ -650,7 +650,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -685,7 +685,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     sort: 0
@@ -729,7 +729,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     sort: 600000
     ownership:
@@ -769,7 +769,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     ownership:
       default: 0
@@ -807,7 +807,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     ownership:
       default: 0
@@ -871,7 +871,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -907,7 +907,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     ownership:
       default: 0
@@ -947,7 +947,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     ownership:
       default: 0
@@ -981,7 +981,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: athleticsJourney
     ownership:
@@ -1015,7 +1015,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1096,7 +1096,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: sunderingstrike0
     folder: null
@@ -1134,7 +1134,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: pyromancer000000
     folder: null
@@ -1177,7 +1177,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gestureBlast0000
     folder: null
@@ -1260,7 +1260,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeLightning000
     folder: null
@@ -1336,7 +1336,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeFlame0000000
     folder: null
@@ -1375,7 +1375,7 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.4
+  systemVersion: 0.8.6
   createdTime: 1768686183317
   modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY

@@ -306,7 +306,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1685222679614
           modifiedTime: 1685230943609
@@ -348,7 +348,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.7.3
+          systemVersion: 0.8.6
           coreVersion: '13.345'
           createdTime: 1685223044129
           modifiedTime: 1750787200010
@@ -429,7 +429,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333105
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -442,7 +442,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1685230780675
       modifiedTime: 1768686333111
@@ -747,7 +747,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1685223044129
           modifiedTime: 1685579784015
@@ -788,7 +788,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1685222679614
           modifiedTime: 1685230881464
@@ -826,7 +826,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333505
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -840,7 +840,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1685217604062
       modifiedTime: 1768686333509
@@ -1156,7 +1156,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420030
           modifiedTime: 1766111997464
@@ -1201,7 +1201,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420027
           modifiedTime: 1766111994134
@@ -1238,7 +1238,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -1321,7 +1321,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -1362,7 +1362,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -1395,7 +1395,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -1458,7 +1458,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
-          systemVersion: 0.6.0
+          systemVersion: 0.8.6
           createdTime: 1727365622019
           modifiedTime: 1727365622019
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -1524,7 +1524,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
@@ -1621,7 +1621,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766946365022
           modifiedTime: 1768686333056
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -1638,7 +1638,7 @@ actors:
         actionHistory: []
     _stats:
       systemId: crucible
-      systemVersion: 0.8.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1685831615922
       modifiedTime: 1768686333073
@@ -1650,7 +1650,7 @@ actors:
         uuid: null
         coreVersion: '11.301'
         systemId: crucible
-        systemVersion: 0.5.3
+        systemVersion: 0.8.6
     ownership:
       default: 0
   - name: Hammer
@@ -1964,7 +1964,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420028
           modifiedTime: 1766112041170
@@ -2008,7 +2008,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420024
           modifiedTime: 1766112005821
@@ -2048,7 +2048,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333446
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2114,7 +2114,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333446
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2193,7 +2193,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333446
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2260,7 +2260,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333446
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
@@ -2323,7 +2323,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333446
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: cW6bwHXBB9pMcwva
@@ -2368,7 +2368,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1766112015274
           modifiedTime: 1766112044035
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -2384,7 +2384,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1685830625262
       modifiedTime: 1768686333455
@@ -2396,7 +2396,7 @@ actors:
         uuid: null
         coreVersion: '11.301'
         systemId: crucible
-        systemVersion: 0.5.3
+        systemVersion: 0.8.6
     ownership:
       default: 0
   - name: Orivech
@@ -2711,7 +2711,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1677293085873
           modifiedTime: 1766112074210
@@ -2753,7 +2753,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420015
           modifiedTime: 1766112091295
@@ -2796,7 +2796,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2833,7 +2833,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2879,7 +2879,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2919,7 +2919,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2955,7 +2955,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -2991,7 +2991,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -3064,7 +3064,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: talismanWeaponTr
@@ -3128,7 +3128,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333621
         _id: intercept0000000
@@ -3168,7 +3168,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333621
         _id: gestureray000000
@@ -3249,7 +3249,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333621
         _id: runeOblivion0000
@@ -3330,7 +3330,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333621
         _id: runeSoul00000000
@@ -3412,7 +3412,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094910014
           modifiedTime: 1768686333621
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -3457,7 +3457,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1766112086749
           modifiedTime: 1766112086749
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -3474,7 +3474,7 @@ actors:
         lastSpell: spell.death.create
     _stats:
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686183305269
       modifiedTime: 1768686333637
@@ -3779,7 +3779,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965383866
           modifiedTime: 1686181459865
@@ -3821,7 +3821,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420018
           modifiedTime: 1766112100064
@@ -3883,7 +3883,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333651
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -3919,7 +3919,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333651
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -3983,7 +3983,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1767386629485
           modifiedTime: 1768686333651
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -3999,7 +3999,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686181185927
       modifiedTime: 1768686333658
@@ -4310,7 +4310,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965383866
           modifiedTime: 1686181459865
@@ -4354,7 +4354,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420033
           modifiedTime: 1766112105080
@@ -4393,7 +4393,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333668
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -4429,7 +4429,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333668
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -4512,7 +4512,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333668
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -4581,7 +4581,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1750814366658
           modifiedTime: 1768686333668
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -4597,7 +4597,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686181185927
       modifiedTime: 1768686333675
@@ -4915,7 +4915,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1685222679614
           modifiedTime: 1685839865763
@@ -4959,7 +4959,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965044710
           modifiedTime: 1685840924497
@@ -4996,7 +4996,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5079,7 +5079,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
-          systemVersion: 0.7.3
+          systemVersion: 0.8.6
           modifiedTime: 1749830417160
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5144,7 +5144,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5179,7 +5179,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5214,7 +5214,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5250,7 +5250,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5314,7 +5314,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -5352,7 +5352,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: naturalWeaponPro
@@ -5433,7 +5433,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333591
         _id: berserker0000000
@@ -5476,7 +5476,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.1
+          systemVersion: 0.8.6
           createdTime: 1763068895364
           modifiedTime: 1763068895364
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -5539,7 +5539,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           createdTime: 1763069279442
           modifiedTime: 1766420021542
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -5620,7 +5620,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333591
         _id: pouncingStrike00
@@ -5685,7 +5685,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766946365954
           modifiedTime: 1768686333591
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -5702,7 +5702,7 @@ actors:
         actionHistory: []
     _stats:
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1685839607073
       modifiedTime: 1768686333603
@@ -6006,7 +6006,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965044710
           modifiedTime: 1686150134923
@@ -6048,7 +6048,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965044710
           modifiedTime: 1686155435165
@@ -6091,7 +6091,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
-          systemVersion: 0.6.0
+          systemVersion: 0.8.6
           createdTime: 1727406097283
           modifiedTime: 1727406098354
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -6173,7 +6173,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           modifiedTime: 1767376467485
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6211,7 +6211,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333468
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6257,7 +6257,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333468
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6291,7 +6291,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333468
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6373,7 +6373,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817540637
           modifiedTime: 1768686333468
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -6456,7 +6456,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909772
           modifiedTime: 1768686333468
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -6471,7 +6471,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686148548654
       modifiedTime: 1768686333478
@@ -6775,7 +6775,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1685223044129
           modifiedTime: 1686157266061
@@ -6818,7 +6818,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
-          systemVersion: 0.6.0
+          systemVersion: 0.8.6
           createdTime: 1727406111367
           modifiedTime: 1727406112363
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -6900,7 +6900,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           modifiedTime: 1767376501393
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6960,7 +6960,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
-          systemVersion: 0.7.3
+          systemVersion: 0.8.6
           modifiedTime: 1749830417038
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -6972,7 +6972,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686151649800
       modifiedTime: 1768686333486
@@ -7279,7 +7279,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.6.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1677965044710
           modifiedTime: 1727406850308
@@ -7322,7 +7322,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
-          systemVersion: 0.6.0
+          systemVersion: 0.8.6
           createdTime: 1727406118087
           modifiedTime: 1727406119166
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -7403,7 +7403,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           modifiedTime: 1767376589814
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -7481,7 +7481,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           modifiedTime: 1767376544893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -7493,7 +7493,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686151655811
       modifiedTime: 1768686333492
@@ -7796,7 +7796,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1677293085873
           modifiedTime: 1766111779791
@@ -7839,7 +7839,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420030
           modifiedTime: 1766111784108
@@ -7920,7 +7920,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333762
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -7960,7 +7960,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333762
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8031,7 +8031,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333762
         _id: lightWeaponTrain
@@ -8110,7 +8110,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817703985
           modifiedTime: 1768686333762
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -8188,7 +8188,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333762
         _id: runeFlame0000000
@@ -8228,7 +8228,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1768686096231
           modifiedTime: 1768686333762
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -8244,7 +8244,7 @@ actors:
         lastSpell: spell.flame.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686233123616
       modifiedTime: 1768686333772
@@ -8552,7 +8552,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111880538
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -8588,7 +8588,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8628,7 +8628,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8672,7 +8672,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8707,7 +8707,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8746,7 +8746,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8781,7 +8781,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8847,7 +8847,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8910,7 +8910,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8945,7 +8945,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -8989,7 +8989,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1727382788701
           modifiedTime: 1766111880566
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9031,7 +9031,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686332477
         ownership:
@@ -9069,7 +9069,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686332477
         ownership:
@@ -9133,7 +9133,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686332477
         _id: heavyWeaponTrain
@@ -9170,7 +9170,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
@@ -9211,7 +9211,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
@@ -9245,7 +9245,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: athleticsJourney
@@ -9280,7 +9280,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1750814171577
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9363,7 +9363,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761410070552
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9402,7 +9402,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817126571
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9446,7 +9446,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763155084939
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9531,7 +9531,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909123
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9609,7 +9609,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909123
           modifiedTime: 1768686332477
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9648,7 +9648,7 @@ actors:
       duplicateSource: Actor.iPMperuo6ZvBLnp9
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       createdTime: 1727381797456
       modifiedTime: 1768686332980
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -9963,7 +9963,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111883994
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -10009,7 +10009,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111884003
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -10051,7 +10051,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111884034
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -10117,7 +10117,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10179,7 +10179,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.344'
           systemId: crucible
-          systemVersion: 0.7.0-dev
+          systemVersion: 0.8.6
           modifiedTime: 1748359541039
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10246,7 +10246,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10282,7 +10282,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10347,7 +10347,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10382,7 +10382,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10416,7 +10416,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10479,7 +10479,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10515,7 +10515,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10580,7 +10580,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10618,7 +10618,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -10687,7 +10687,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
@@ -10750,7 +10750,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333133
         _id: intercept0000000
@@ -10795,7 +10795,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333133
         ownership:
@@ -10835,7 +10835,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333133
         ownership:
@@ -10877,7 +10877,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1750789601496
           modifiedTime: 1766111884069
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -10955,7 +10955,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1761414128102
           modifiedTime: 1766111884123
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11036,7 +11036,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1761415986728
           modifiedTime: 1766111884220
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11168,7 +11168,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1761416192832
           modifiedTime: 1766111884282
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11211,7 +11211,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761416916892
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11291,7 +11291,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424690677
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11356,7 +11356,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424754127
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11421,7 +11421,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424757232
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11491,7 +11491,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424783673
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11527,7 +11527,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424786005
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11570,7 +11570,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424794201
           modifiedTime: 1768686333133
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11588,7 +11588,7 @@ actors:
       duplicateSource: Actor.hfOaEbw4ObPXu6Qa
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.3
+      systemVersion: 0.8.6
       createdTime: 1727453878928
       modifiedTime: 1768686333158
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11898,7 +11898,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111889617
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -11966,7 +11966,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12024,7 +12024,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12066,7 +12066,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12131,7 +12131,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12195,7 +12195,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12281,7 +12281,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12365,7 +12365,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.3
+          systemVersion: 0.8.6
           modifiedTime: 1766946371885
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12402,7 +12402,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12439,7 +12439,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12476,7 +12476,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -12518,7 +12518,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333218
         ownership:
@@ -12556,7 +12556,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333218
         ownership:
@@ -12654,7 +12654,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333218
         _id: unarmedCombatTra
@@ -12718,7 +12718,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333218
         _id: intercept0000000
@@ -12755,7 +12755,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423747297
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -12820,7 +12820,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423759637
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -12861,7 +12861,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423771644
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -12900,7 +12900,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423790566
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -12980,7 +12980,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423875385
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13017,7 +13017,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423884934
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13058,7 +13058,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1762703368075
           modifiedTime: 1766111889662
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13136,7 +13136,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1762704166740
           modifiedTime: 1766111889686
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13182,7 +13182,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1762713391208
           modifiedTime: 1766111889747
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13272,7 +13272,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909439
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13315,7 +13315,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094960266
           modifiedTime: 1768686333218
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13359,7 +13359,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1766096052687
           modifiedTime: 1766111889775
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13404,7 +13404,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.4
+          systemVersion: 0.8.6
           createdTime: 1766096062322
           modifiedTime: 1767390035599
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13554,7 +13554,7 @@ actors:
       duplicateSource: Actor.nPOVNsOFhqA7SUud
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727400179378
       modifiedTime: 1768686333243
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13865,7 +13865,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111914368
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13908,7 +13908,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111914405
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -13950,7 +13950,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111914417
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14029,7 +14029,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14070,7 +14070,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14107,7 +14107,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14185,7 +14185,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14222,7 +14222,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14261,7 +14261,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14321,7 +14321,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -14364,7 +14364,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1750814216884
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14427,7 +14427,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1753646572762
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14492,7 +14492,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1753647573747
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14528,7 +14528,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424030302
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14572,7 +14572,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424064115
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14610,7 +14610,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424071831
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14675,7 +14675,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424100326
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14714,7 +14714,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424102889
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14757,7 +14757,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424140523
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14844,7 +14844,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333294
         _id: runeIllusion0000
@@ -14881,7 +14881,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763136578185
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -14917,7 +14917,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763136594335
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15008,7 +15008,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1763157624079
           modifiedTime: 1766111914479
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15093,7 +15093,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909549
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15158,7 +15158,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1767386629074
           modifiedTime: 1768686333294
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15186,7 +15186,7 @@ actors:
       duplicateSource: Actor.kSGFBe6ZaLDC8wRy
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727454160495
       modifiedTime: 1768686333314
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15495,7 +15495,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111922070
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15540,7 +15540,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111922101
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15584,7 +15584,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111922126
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -15649,7 +15649,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15688,7 +15688,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15734,7 +15734,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15771,7 +15771,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15807,7 +15807,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15846,7 +15846,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15883,7 +15883,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -15968,7 +15968,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -16031,7 +16031,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424419402
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16103,7 +16103,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424436845
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16191,7 +16191,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762816982762
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16231,7 +16231,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762831387946
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16271,7 +16271,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762831446772
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16355,7 +16355,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909702
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16445,7 +16445,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909702
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16527,7 +16527,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909702
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16598,7 +16598,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766946263862
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16661,7 +16661,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333389
         _id: mechanicalWeapon
@@ -16723,7 +16723,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1768685953586
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16773,7 +16773,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1768685967787
           modifiedTime: 1768686333389
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -16867,7 +16867,7 @@ actors:
       duplicateSource: Actor.TffJlCvt39DEhFX7
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727455170340
       modifiedTime: 1768686333423
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17173,7 +17173,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111949508
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17217,7 +17217,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111927254
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17258,7 +17258,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17298,7 +17298,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17334,7 +17334,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17421,7 +17421,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17458,7 +17458,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17494,7 +17494,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17533,7 +17533,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -17606,7 +17606,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333525
         _id: talismanWeaponTr
@@ -17646,7 +17646,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runewarden000000
@@ -17718,7 +17718,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1760232492398
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17773,7 +17773,7 @@ actors:
           exportSource: null
           coreVersion: '13.350'
           systemId: crucible
-          systemVersion: 0.7.8
+          systemVersion: 0.8.6
           createdTime: 1760280542228
           modifiedTime: 1760280542228
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17828,7 +17828,7 @@ actors:
           exportSource: null
           coreVersion: '13.350'
           systemId: crucible
-          systemVersion: 0.7.8
+          systemVersion: 0.8.6
           createdTime: 1760280543946
           modifiedTime: 1760280543946
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17870,7 +17870,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761409906515
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17937,7 +17937,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761409915807
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -17981,7 +17981,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761409938078
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18019,7 +18019,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761409947719
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18057,7 +18057,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761409952385
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18104,7 +18104,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761410016414
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18185,7 +18185,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817581743
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18222,7 +18222,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763135791927
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18260,7 +18260,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763135807575
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18340,7 +18340,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909874
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18420,7 +18420,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909874
           modifiedTime: 1768686333525
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18491,7 +18491,7 @@ actors:
       duplicateSource: Actor.z8PYWkq3bxce7vwb
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727455326708
       modifiedTime: 1768686333546
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18802,7 +18802,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111962972
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18846,7 +18846,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111962996
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -18913,7 +18913,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -18975,7 +18975,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19039,7 +19039,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19073,7 +19073,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19156,7 +19156,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19192,7 +19192,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19229,7 +19229,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19306,7 +19306,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19341,7 +19341,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19405,7 +19405,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19465,7 +19465,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -19532,7 +19532,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333693
         _id: intercept0000000
@@ -19633,7 +19633,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333693
         _id: unarmedCombatTra
@@ -19713,7 +19713,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1760793218735
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19779,7 +19779,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423910948
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19817,7 +19817,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423912673
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19853,7 +19853,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423933426
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19890,7 +19890,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423940177
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19951,7 +19951,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761423984165
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -19997,7 +19997,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: 1763062683993
           modifiedTime: 1766111963023
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20075,7 +20075,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766951718806
           modifiedTime: 1768686333693
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20192,7 +20192,7 @@ actors:
       duplicateSource: Actor.vT1UpPCVxKRg2A1J
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727455458694
       modifiedTime: 1768686333713
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20500,7 +20500,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111978638
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20543,7 +20543,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           createdTime: null
           modifiedTime: 1766111968853
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20621,7 +20621,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20661,7 +20661,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20699,7 +20699,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20739,7 +20739,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20777,7 +20777,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20813,7 +20813,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20848,7 +20848,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20894,7 +20894,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -20962,7 +20962,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333792
         _id: lightWeaponTrain
@@ -21007,7 +21007,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424194304
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21046,7 +21046,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424219934
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21086,7 +21086,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424257480
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21129,7 +21129,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424326534
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21170,7 +21170,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1761424345076
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21252,7 +21252,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817728404
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21289,7 +21289,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817733217
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21374,7 +21374,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763137136629
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21452,7 +21452,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333792
         _id: runeFlame0000000
@@ -21491,7 +21491,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763155345173
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21580,7 +21580,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1763156744835
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21624,7 +21624,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1768686133816
           modifiedTime: 1768686333792
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21652,7 +21652,7 @@ actors:
       duplicateSource: Actor.sqTUaPrXpwCzk3xs
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       createdTime: 1727455582423
       modifiedTime: 1768686333812
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -21954,7 +21954,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420024
           modifiedTime: 1766111645146
@@ -21997,7 +21997,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420027
           modifiedTime: 1766111649250
@@ -22036,7 +22036,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333014
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -22079,7 +22079,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333014
         ownership:
@@ -22117,7 +22117,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333014
         ownership:
@@ -22181,7 +22181,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333014
         _id: heavyWeaponTrain
@@ -22219,7 +22219,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1750814138642
           modifiedTime: 1768686333014
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -22297,7 +22297,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909193
           modifiedTime: 1768686333014
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -22313,7 +22313,7 @@ actors:
         lastSpell: spell.death.touch
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686231111928
       modifiedTime: 1768686333028
@@ -22622,7 +22622,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420023
           modifiedTime: 1766111661351
@@ -22668,7 +22668,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420023
           modifiedTime: 1766111665707
@@ -22710,7 +22710,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420015
           modifiedTime: 1766111668960
@@ -22779,7 +22779,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333181
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -22841,7 +22841,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.344'
           systemId: crucible
-          systemVersion: 0.7.0-dev
+          systemVersion: 0.8.6
           modifiedTime: 1748359541606
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -22908,7 +22908,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333181
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -22974,7 +22974,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333181
         _id: intercept0000000
@@ -23019,7 +23019,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333181
         ownership:
@@ -23059,7 +23059,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333181
         ownership:
@@ -23126,7 +23126,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333181
         _id: lightWeaponTrain
@@ -23138,7 +23138,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686231753904
       modifiedTime: 1768686333191
@@ -23439,7 +23439,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420018
           modifiedTime: 1766111679001
@@ -23483,7 +23483,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420010
           modifiedTime: 1766111675628
@@ -23527,7 +23527,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420024
           modifiedTime: 1766111681881
@@ -23598,7 +23598,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333263
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -23676,7 +23676,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.344'
           systemId: crucible
-          systemVersion: 0.7.0-dev
+          systemVersion: 0.8.6
           modifiedTime: 1748359543677
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -23737,7 +23737,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333263
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -23782,7 +23782,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333263
         ownership:
@@ -23820,7 +23820,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333263
         ownership:
@@ -23918,7 +23918,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333263
         _id: unarmedCombatTra
@@ -23982,7 +23982,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333263
         _id: intercept0000000
@@ -24019,7 +24019,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333263
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: bulwark000000000
@@ -24033,7 +24033,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686231927873
       modifiedTime: 1768686333274
@@ -24341,7 +24341,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420014
           modifiedTime: 1766111687750
@@ -24384,7 +24384,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420016
           modifiedTime: 1766111693176
@@ -24426,7 +24426,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420015
           modifiedTime: 1766111690342
@@ -24466,7 +24466,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333335
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -24543,7 +24543,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333335
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -24586,7 +24586,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1750814202401
           modifiedTime: 1768686333335
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -24673,7 +24673,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333335
         _id: runeIllusion0000
@@ -24737,7 +24737,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1767386629125
           modifiedTime: 1768686333335
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -24798,7 +24798,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333335
         folder: null
@@ -24811,7 +24811,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686232354753
       modifiedTime: 1768686333345
@@ -25116,7 +25116,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420030
           modifiedTime: 1766111705932
@@ -25161,7 +25161,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1677292780874
           modifiedTime: 1766111700366
@@ -25205,7 +25205,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1688315033294
           modifiedTime: 1766111702973
@@ -25248,7 +25248,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -25295,7 +25295,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gesturecreate000
@@ -25379,7 +25379,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909625
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -25469,7 +25469,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909625
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -25551,7 +25551,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909625
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -25614,7 +25614,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1767386629172
           modifiedTime: 1768686333359
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -25630,7 +25630,7 @@ actors:
         lastSpell: spell.lightning.arrow
     _stats:
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686232488381
       modifiedTime: 1768686333370
@@ -25934,7 +25934,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1677293085873
           modifiedTime: 1766111750972
@@ -25978,7 +25978,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420024
           modifiedTime: 1766111755356
@@ -26022,7 +26022,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333563
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -26095,7 +26095,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333563
         _id: talismanWeaponTr
@@ -26133,7 +26133,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333563
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gestureray000000
@@ -26214,7 +26214,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1762817566229
           modifiedTime: 1768686333563
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -26295,7 +26295,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909926
           modifiedTime: 1768686333563
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -26375,7 +26375,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           createdTime: 1766094909926
           modifiedTime: 1768686333563
           lastModifiedBy: AnoypGxxNIMOS0XY
@@ -26391,7 +26391,7 @@ actors:
         lastSpell: spell.life.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686232748166
       modifiedTime: 1768686333574
@@ -26697,7 +26697,7 @@ actors:
           actorHooks: []
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420024
           modifiedTime: 1766111765551
@@ -26741,7 +26741,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.8.2
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1674942420015
           modifiedTime: 1766111762478
@@ -26811,7 +26811,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333733
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -26873,7 +26873,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333733
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -26937,7 +26937,7 @@ actors:
           duplicateSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           modifiedTime: 1768686333733
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
@@ -27003,7 +27003,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333733
         _id: intercept0000000
@@ -27104,7 +27104,7 @@ actors:
           exportSource: null
           coreVersion: '13.351'
           systemId: crucible
-          systemVersion: 0.8.5
+          systemVersion: 0.8.6
           lastModifiedBy: AnoypGxxNIMOS0XY
           modifiedTime: 1768686333733
         _id: unarmedCombatTra
@@ -27116,7 +27116,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1686232920753
       modifiedTime: 1768686333744
@@ -27191,7 +27191,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281515236
           modifiedTime: 1727360706929
@@ -27273,7 +27273,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281538255
           modifiedTime: 1727404100826
@@ -27343,7 +27343,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281594795
           modifiedTime: 1727366685827
@@ -27423,7 +27423,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.4
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281617457
           modifiedTime: 1727404750138
@@ -27490,7 +27490,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281638406
           modifiedTime: 1727404686951
@@ -27562,7 +27562,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1684281705366
           modifiedTime: 1727405195074
@@ -27655,7 +27655,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.351'
           createdTime: 1684281721532
           modifiedTime: 1766422597412
@@ -27697,7 +27697,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.5.0
+          systemVersion: 0.8.6
           coreVersion: '13.342'
           createdTime: 1686153741697
           modifiedTime: 1727450884211
@@ -27713,7 +27713,7 @@ journal:
         sheetClass: crucible.CrucibleJournalEntrySheet
     _stats:
       systemId: crucible
-      systemVersion: 0.5.4
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1684281502865
       modifiedTime: 1746796837299
@@ -30243,7 +30243,7 @@ scenes:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.8
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       modifiedTime: 1762094710615
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -30309,7 +30309,7 @@ macros:
       duplicateSource: null
       coreVersion: '13.344'
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.8.6
       createdTime: 1726326326924
       modifiedTime: 1748790785853
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -30336,7 +30336,7 @@ macros:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.344'
       createdTime: 1684334968127
       modifiedTime: 1748790893430
@@ -30364,7 +30364,7 @@ macros:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.3
+      systemVersion: 0.8.6
       coreVersion: '13.344'
       createdTime: null
       modifiedTime: 1748790808023
@@ -30387,7 +30387,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686269718409
@@ -30406,7 +30406,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686269630243
@@ -30425,7 +30425,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686269655413
@@ -30444,7 +30444,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1688154978212
@@ -30463,7 +30463,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1688154978212
@@ -30482,7 +30482,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1688154978212
@@ -30501,7 +30501,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1688154978212
@@ -30520,7 +30520,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686269649384
@@ -30539,7 +30539,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686269598854
@@ -30557,7 +30557,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686273021794
@@ -30577,7 +30577,7 @@ folders:
     flags: {}
     _stats:
       systemId: null
-      systemVersion: null
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: null
@@ -30600,7 +30600,7 @@ folders:
       duplicateSource: null
       coreVersion: '13.342'
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.8.6
       createdTime: 1727381800515
       modifiedTime: 1727381800515
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -30620,7 +30620,7 @@ folders:
       exportSource: null
       coreVersion: '13.344'
       systemId: crucible
-      systemVersion: 0.7.0
+      systemVersion: 0.8.6
       createdTime: 1748790781391
       modifiedTime: 1748790918868
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -30631,7 +30631,7 @@ flags:
     sheetClass: core.AdventureImporterV2
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.8.6
   coreVersion: '13.351'
   modifiedTime: 1768686344203
   lastModifiedBy: AnoypGxxNIMOS0XY

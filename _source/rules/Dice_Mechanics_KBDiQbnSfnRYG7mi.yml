@@ -54,7 +54,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1684894768806
@@ -144,7 +144,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1684374120469
       modifiedTime: 1684893796895
@@ -156,7 +156,7 @@ pages:
     _key: '!journal.pages!KBDiQbnSfnRYG7mi.Qme1mM71Jn950Zsf'
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1684343824437
   modifiedTime: 1760019535362

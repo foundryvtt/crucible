@@ -45,7 +45,7 @@ effects:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.7
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _key: '!items.effects!bloodSense000000.blinded000000000'
 flags: {}
@@ -55,7 +55,7 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.7
+  systemVersion: 0.8.6
   createdTime: 1753449068132
   modifiedTime: 1753449068132
   lastModifiedBy: QvBFYpRRXHRBcOfP

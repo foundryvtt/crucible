@@ -119,7 +119,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761697191065
       modifiedTime: 1761779648495
       lastModifiedBy: vke929uLgNzbrY41
@@ -202,7 +202,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761697210522
       modifiedTime: 1762036065810
       lastModifiedBy: vke929uLgNzbrY41
@@ -280,7 +280,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761697235112
       modifiedTime: 1762098125781
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -347,7 +347,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761771265716
       modifiedTime: 1762036034593
       lastModifiedBy: vke929uLgNzbrY41
@@ -451,7 +451,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761772015764
       modifiedTime: 1766420085983
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -540,7 +540,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761772960409
       modifiedTime: 1762095883789
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -635,7 +635,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761773899846
       modifiedTime: 1763154247850
       lastModifiedBy: vke929uLgNzbrY41
@@ -752,7 +752,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761937467527
       modifiedTime: 1762098434685
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -926,7 +926,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       createdTime: 1763079763956
       modifiedTime: 1766420060526
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -946,7 +946,7 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.8.6
   createdTime: 1761697111327
   modifiedTime: 1761697321659
   lastModifiedBy: vke929uLgNzbrY41

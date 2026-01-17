@@ -75,7 +75,7 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.2
+  systemVersion: 0.8.6
   createdTime: 1765550120842
   modifiedTime: 1767111139691
   lastModifiedBy: ifaQA7jTJsr3UWFE

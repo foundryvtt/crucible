@@ -314,7 +314,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1677965874590
@@ -348,7 +348,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1682175143004
@@ -373,7 +373,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1677965942260
@@ -407,7 +407,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1677965968105
@@ -450,7 +450,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: coldAbsorption00
     folder: null
@@ -485,7 +485,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -542,7 +542,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: aqueousTransmiss
     folder: null
@@ -576,7 +576,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -614,7 +614,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturefan000000
     folder: null
@@ -626,7 +626,7 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1677963742821
   modifiedTime: 1762829237316

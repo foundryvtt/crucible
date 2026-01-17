@@ -31,7 +31,7 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.8.6
   coreVersion: '13.345'
   createdTime: 1675020119928
   modifiedTime: 1749921041418

@@ -8,7 +8,7 @@ color: '#561206'
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.8.6
   coreVersion: '13.351'
   createdTime: null
   modifiedTime: 1765894540686

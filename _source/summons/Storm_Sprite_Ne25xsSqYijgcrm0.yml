@@ -312,7 +312,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1677966347928
@@ -346,7 +346,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1682175456965
@@ -374,7 +374,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1677966374363
@@ -405,7 +405,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1677966377392
@@ -449,7 +449,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -482,7 +482,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -520,7 +520,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturefan000000
     folder: null
@@ -533,7 +533,7 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1677963742821
   modifiedTime: 1762829247741

@@ -298,7 +298,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
@@ -342,7 +342,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -384,7 +384,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 700000
@@ -448,7 +448,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -50000
@@ -487,7 +487,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -532,7 +532,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -569,7 +569,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -605,7 +605,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: conjurer00000000
     folder: fOYHlZJEWUukD7yr
@@ -644,7 +644,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: rimecaller000000
     folder: c0nl6X8tp4Of0Y4O
@@ -681,7 +681,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: recognizespellcr
     folder: Uk4FgmLsNJc62zCJ
@@ -764,7 +764,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: counterspell0000
     folder: gCqKVVNjLmIaU7vj
@@ -826,7 +826,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -897,7 +897,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
@@ -982,7 +982,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
@@ -1021,7 +1021,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: surgeweaver00000
     folder: null
@@ -1060,7 +1060,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1142,7 +1142,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeLightning000
     folder: null
@@ -1228,7 +1228,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -1308,7 +1308,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeFrost0000000
     folder: null
@@ -1377,7 +1377,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: talismanWeaponTr
     folder: null
@@ -1439,7 +1439,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: mechanicalWeapon
     folder: null
@@ -1500,7 +1500,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: unshakeablePoise
     folder: null
@@ -1548,7 +1548,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1642,7 +1642,7 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.4
+  systemVersion: 0.8.6
   createdTime: 1768686183317
   modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY

@@ -47,7 +47,7 @@ system:
   actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.8.6
   coreVersion: '13.345'
   modifiedTime: 1749320089452
   lastModifiedBy: QvBFYpRRXHRBcOfP

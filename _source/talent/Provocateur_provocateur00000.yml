@@ -45,7 +45,7 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   coreVersion: '13.351'
   createdTime: 1676927134720
   modifiedTime: 1763138482830

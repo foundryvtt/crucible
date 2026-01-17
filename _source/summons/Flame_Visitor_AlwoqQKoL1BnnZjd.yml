@@ -298,7 +298,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeflame0000000
     folder: null
@@ -335,7 +335,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -373,7 +373,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturefan000000
     folder: null
@@ -412,7 +412,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       createdTime: 1762720567220
       modifiedTime: 1762720575931
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -456,7 +456,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       createdTime: 1762720586860
       modifiedTime: 1762720779509
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -505,7 +505,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gestureaspect000
     folder: null
@@ -525,7 +525,7 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   createdTime: 1762720389739
   modifiedTime: 1762829120042
   lastModifiedBy: AnoypGxxNIMOS0XY

@@ -295,7 +295,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
@@ -338,7 +338,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     sort: 900000
     ownership:
@@ -403,7 +403,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     ownership:
       default: 0
@@ -464,7 +464,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -528,7 +528,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -593,7 +593,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -694,7 +694,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -710,7 +710,7 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.4
+  systemVersion: 0.8.6
   createdTime: 1768686183317
   modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY

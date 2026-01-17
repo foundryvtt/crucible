@@ -294,7 +294,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
@@ -338,7 +338,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -380,7 +380,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 700000
@@ -419,7 +419,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -464,7 +464,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -547,7 +547,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeLightning000
     folder: null
@@ -633,7 +633,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
@@ -713,7 +713,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: runeFrost0000000
     folder: null
@@ -775,7 +775,7 @@ items:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.4
+      systemVersion: 0.8.6
       lastModifiedBy: null
     _id: mechanicalWeapon
     folder: null
@@ -794,7 +794,7 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.4
+  systemVersion: 0.8.6
   createdTime: 1768686183317
   modifiedTime: 1768686183317
   lastModifiedBy: AnoypGxxNIMOS0XY

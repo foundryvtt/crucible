@@ -82,7 +82,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684020732888
       modifiedTime: 1762095478911
@@ -156,7 +156,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684020740713
       modifiedTime: 1762095129173
@@ -204,7 +204,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684020793428
       modifiedTime: 1762095140052
@@ -256,7 +256,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684375157534
       modifiedTime: 1762095456907
@@ -300,7 +300,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1686266954300
       modifiedTime: 1686269380632
@@ -363,7 +363,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.8.6
       createdTime: 1743873856457
       modifiedTime: 1762095274739
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -374,7 +374,7 @@ flags:
     sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.8.6
   coreVersion: '13.342'
   createdTime: 1684020691763
   modifiedTime: 1743882712510
@@ -386,7 +386,7 @@ _stats:
     uuid: null
     coreVersion: '11.296'
     systemId: crucible
-    systemVersion: 0.6.2
+    systemVersion: 0.8.6
 sort: -100000
 ownership:
   default: 0

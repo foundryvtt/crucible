@@ -42,7 +42,7 @@ system:
     - str2a
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.8.6
   coreVersion: '13.345'
   createdTime: 1674942420020
   modifiedTime: 1749319720753

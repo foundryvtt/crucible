@@ -8,7 +8,7 @@ color: null
 flags: {}
 _stats:
   systemId: null
-  systemVersion: null
+  systemVersion: 0.8.6
   coreVersion: null
   createdTime: null
   modifiedTime: null

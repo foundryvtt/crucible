@@ -286,7 +286,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1686181459865
@@ -320,7 +320,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1686181629480
@@ -343,7 +343,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1686181711374
@@ -374,7 +374,7 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1686181719057
@@ -415,7 +415,7 @@ items:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.1
+      systemVersion: 0.8.6
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -431,7 +431,7 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1686181185927
   modifiedTime: 1762829189817

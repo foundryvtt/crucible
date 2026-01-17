@@ -43,7 +43,7 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.6
   coreVersion: '13.346'
   modifiedTime: 1751554890147
   lastModifiedBy: QvBFYpRRXHRBcOfP

@@ -59,7 +59,7 @@ pages:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: null
       modifiedTime: 1762096004363
@@ -127,7 +127,7 @@ pages:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: null
       modifiedTime: 1762096150117
@@ -202,7 +202,7 @@ pages:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: null
       modifiedTime: 1762098872799
@@ -271,7 +271,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684372703418
       modifiedTime: 1762097639745
@@ -320,7 +320,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761693852797
       modifiedTime: 1762096569764
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -397,14 +397,14 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       createdTime: 1761696727244
       modifiedTime: 1766112205823
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.FinishingTouches'
 _stats:
   systemId: crucible
-  systemVersion: 0.5.6
+  systemVersion: 0.8.6
   coreVersion: '13.342'
   createdTime: 1676600838396
   modifiedTime: 1743873799983
@@ -416,7 +416,7 @@ _stats:
     uuid: null
     coreVersion: '11.296'
     systemId: crucible
-    systemVersion: 0.6.2
+    systemVersion: 0.8.6
 sort: 0
 ownership:
   default: 0

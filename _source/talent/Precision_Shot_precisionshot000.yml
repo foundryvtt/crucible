@@ -36,7 +36,7 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.8.6
   coreVersion: '13.346'
   createdTime: 1674942420026
   modifiedTime: 1751643658898

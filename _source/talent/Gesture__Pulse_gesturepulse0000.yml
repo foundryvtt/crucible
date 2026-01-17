@@ -29,7 +29,7 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.1
+  systemVersion: 0.8.6
   coreVersion: '13.351'
   createdTime: 1684686470274
   modifiedTime: 1763155038110

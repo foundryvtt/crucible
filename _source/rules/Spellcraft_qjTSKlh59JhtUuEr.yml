@@ -99,7 +99,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684374993517
       modifiedTime: 1765820445717
@@ -190,7 +190,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.3
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684375014492
       modifiedTime: 1766421750872
@@ -264,7 +264,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.6
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684375020833
       modifiedTime: 1766421828765
@@ -319,7 +319,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684375027780
       modifiedTime: 1766420924773
@@ -365,7 +365,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684375035098
       modifiedTime: 1766422381825
@@ -411,7 +411,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.351'
       createdTime: 1684973762830
       modifiedTime: 1765821593859
@@ -426,7 +426,7 @@ flags:
     sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
-  systemVersion: 0.5.6
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1684374985562
   modifiedTime: 1760019535362

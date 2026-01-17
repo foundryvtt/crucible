@@ -24,7 +24,7 @@ system:
     color: '#afa2c3'
 _stats:
   systemId: crucible
-  systemVersion: 0.8.3
+  systemVersion: 0.8.6
   coreVersion: '13.351'
   createdTime: 1674942420027
   modifiedTime: 1767206195009

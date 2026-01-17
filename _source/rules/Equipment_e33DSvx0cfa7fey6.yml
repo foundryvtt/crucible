@@ -127,7 +127,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.0
+      systemVersion: 0.8.6
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1727548475512
@@ -187,7 +187,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1684891238587
       modifiedTime: 1762098944262
@@ -306,7 +306,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.5.3
+      systemVersion: 0.8.6
       coreVersion: '13.350'
       createdTime: 1685633109339
       modifiedTime: 1763154535498
@@ -324,7 +324,7 @@ flags:
     sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
-  systemVersion: 0.5.3
+  systemVersion: 0.8.6
   coreVersion: '13.350'
   createdTime: 1676659579008
   modifiedTime: 1760019535362
