@@ -1810,7 +1810,7 @@ export default class CrucibleActor extends Actor {
       // Grant Talents
       const talents = [
         ...(detail.talents || []),
-        ...(skillTalents ? (detail.skills || []).map(skillId => SYSTEM.SKILLS[skillId]?.talents[1]) : [])
+        ...(skillTalents ? (detail.skills || []).map(skillId => ({item: SYSTEM.SKILLS[skillId]?.talents[1], level: 0})) : [])
       ];
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
       deleteItemIds = deleteItemIds.difference(talentsToKeep);  // Talent already owned
