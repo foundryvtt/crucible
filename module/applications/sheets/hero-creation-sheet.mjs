@@ -253,7 +253,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Talents
     ancestry.features.push({
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)))
+      items: await Promise.all(talents.map(({item}) => CrucibleHeroCreationSheet._renderFeatureItem(item)))
     });
   }
 
@@ -312,7 +312,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     });
 
     // Talents
-    const talentItems = await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)));
+    const talentItems = await Promise.all(talents.map(({item}) => CrucibleHeroCreationSheet._renderFeatureItem(item)));
     if ( talentItems.length ) background.features.push({
       label: schema.getField("talents").label,
       items: talentItems
