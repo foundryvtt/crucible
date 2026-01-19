@@ -91,19 +91,20 @@ pages:
         Threshold</h3><p><strong>Healing Threshold</strong> describes how
         difficult it is to restore the Health of a creature. As creatures become
         more severely wounded, they grow more difficult to heal. This provides a
-        measure of attrition which requires adventures to carefully manage their
-        accumulation of <strong>Wounds </strong>over time. Healing threshold is
-        calculated as:</p><section class="formula"><p class="value">Healing
-        Threshold</p><p class="equals">=</p><p class="equation">12 + (Wounds /
-        10) - Bonus</p></section><h3 class="divider">Rallying
-        Threshold</h3><p><strong>Rallying Threshold</strong> describes how
-        difficult it is to restore the Morale of a creature. As creatures become
-        more psychologically damaged they become more difficult to rally. This
-        provides a measure of attrition which requires adventurers to carefully
-        manage their accumulation of <strong>Madness</strong> over time.
-        Rallying threshold is calculated as:</p><section class="formula"><p
-        class="value">Rallying Threshold</p><p class="equals">=</p><p
-        class="equation">12 + (Madness / 10) - Bonus</p></section>
+        measure of attrition which requires adventurers to carefully manage
+        their accumulation of <strong>Wounds </strong>over time. Healing
+        threshold is calculated as:</p><section class="formula"><p
+        class="value">Healing Threshold</p><p class="equals">=</p><p
+        class="equation">12 + (Wounds / 10) - Bonus</p></section><h3
+        class="divider">Rallying Threshold</h3><p><strong>Rallying
+        Threshold</strong> describes how difficult it is to restore the Morale
+        of a creature. As creatures become more psychologically damaged they
+        become more difficult to rally. This provides a measure of attrition
+        which requires adventurers to carefully manage their accumulation of
+        <strong>Madness</strong> over time. Rallying threshold is calculated
+        as:</p><section class="formula"><p class="value">Rallying
+        Threshold</p><p class="equals">=</p><p class="equation">12 + (Madness /
+        10) - Bonus</p></section>
     video:
       controls: true
       volume: 0.5
@@ -122,7 +123,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1761697191065
-      modifiedTime: 1768843711252
+      modifiedTime: 1768862309118
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.Defenses00000000'
   - _id: Resources0000000
@@ -400,7 +401,7 @@ pages:
         would have possessed contributes to their <strong>Health</strong> pool
         instead.</p><h2 class="divider">Intellect</h2><p>Intellect is a mental
         quickness attribute that reflects speed of thought and decisiveness of
-        action. Dexterity affects <strong>Initiative</strong> in taking action,
+        action. Intellect affects <strong>Initiative</strong> in taking action,
         the <strong>Reflex</strong> defense, and the size of
         <strong>Focus</strong> pool.</p><section class="gameplay"><p>Characters
         with high Intellect are highly adaptable to various circumstances. They
@@ -429,7 +430,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1761771265716
-      modifiedTime: 1768860110670
+      modifiedTime: 1768862328846
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.abilityScores000'
   - _id: talents000000000
