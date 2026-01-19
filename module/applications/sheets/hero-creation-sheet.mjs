@@ -204,7 +204,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #initializeAncestries() {
     const packs = crucible.CONFIG.packs.ancestry;
     this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", packs,
-      this._initializeAncestry);
+      this.constructor._initializeAncestry);
   }
 
   /* -------------------------------------------- */
@@ -215,7 +215,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    * @protected
    */
-  async _initializeAncestry(ancestry) {
+  static async _initializeAncestry(ancestry) {
     const {abilities, resistances, movement, talents, schema} = ancestry.item.system;
 
     // Ability Bonuses
@@ -253,7 +253,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Talents
     ancestry.features.push({
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(({item}) => CrucibleHeroCreationSheet._renderFeatureItem(item)))
+      items: await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)))
     });
   }
 
@@ -267,7 +267,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #initializeBackgrounds() {
     const packs = crucible.CONFIG.packs.background;
     this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", packs,
-      this._initializeBackground);
+      this.constructor._initializeBackground);
   }
 
   /* -------------------------------------------- */
@@ -278,7 +278,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    * @protected
    */
-  async _initializeBackground(background) {
+  static async _initializeBackground(background) {
     const {knowledge, skills, talents, schema, languages} = background.item.system;
 
     // Knowledge Areas
@@ -304,7 +304,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Skills
     const skillItems = await Promise.all(skills.map(skillId => {
       const uuid = SYSTEM.SKILLS[skillId].talents[1];
-      return CrucibleHeroCreationSheet._renderFeatureItem(uuid)
+      return this._renderFeatureItem(uuid)
     }));
     if ( skillItems.length ) background.features.push({
       label: schema.getField("skills").label,
@@ -312,7 +312,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     });
 
     // Talents
-    const talentItems = await Promise.all(talents.map(({item}) => CrucibleHeroCreationSheet._renderFeatureItem(item)));
+    const talentItems = await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)));
     if ( talentItems.length ) background.features.push({
       label: schema.getField("talents").label,
       items: talentItems
@@ -826,7 +826,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const creationData = this._clone.toObject();
-    const creationOptions = {recursive: false, diff: false, noHook: true, render: false, characterCreation: true};
+    const creationOptions = {recursive: false, diff: false, noHook: true, characterCreation: true};
     await this._finalizeCreationData(creationData, creationOptions);
 
     // Update the actor and render the regular sheet
