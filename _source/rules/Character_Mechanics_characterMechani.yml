@@ -50,59 +50,60 @@ pages:
         the <strong>Blocked </strong>outcome. Blocked attacks deal no damage and
         provide opportunity for block-based reactions.</p></dd></dl><h2
         class="divider">Non-Physical Defenses</h2><p>The three non-physical
-        defenses are used to protect against spells or other abilities which are
-        non-corporeal or intangible in
-        nature.</p><h4>Fortitude</h4><p><strong>Fortitude Defense</strong>
+        defenses are used to protect against actions which do not involve a
+        targeted kinetic strike and instead are withstood or avoided through
+        some other means. Bonuses to these non-physical defenses may be obtained
+        through Talents or magical Equipment.</p><h3
+        class="divider">Fortitude</h3><p><strong>Fortitude Defense</strong>
         describes a character's ability to withstand bodily harm. Fortitude is
         modified by <strong>Strength</strong> and <strong>Wisdom</strong> which
         represent physical resistance and mental resilience respectively.
         Fortitude defense is calculated as:</p><section class="formula"><p
         class="value">Fortitude Defense</p><p class="equals">=</p><p
         class="equation">12 + ((Strength + Wisdom) / 2) + Fortitude
-        Bonus</p></section><h4>Willpower</h4><p><strong>Willpower
-        Defense</strong> describes a character's ability to withstand mental or
-        emotional attacks. Willpower is modified by <strong>Toughness</strong>
-        and <strong>Presence</strong> which represent physical grit and mental
+        Bonus</p></section><h3
+        class="divider">Willpower</h3><p><strong>Willpower Defense</strong>
+        describes a character's ability to withstand mental or emotional
+        attacks. Willpower is modified by <strong>Toughness</strong> and
+        <strong>Presence</strong> which represent physical grit and mental
         determination respectively. Willpower defense is calculated
         as:</p><section class="formula"><p class="value">Willpower Defense</p><p
         class="equals">=</p><p class="equation">12 + ((Toughness + Presence) /
-        2) + Willpower Bonus</p></section><h4>Reflex</h4><p><strong>Reflex
-        Defense</strong> describes a character's ability to avoid harm that
-        would otherwise occur in a specific area. Reflex is modified by
-        <strong>Dexterity</strong> and <strong>Intellect</strong> which
-        represent quickness of body and rapidity of thought respectively. Reflex
-        defense is calculated as:</p><section class="formula"><p
-        class="value">Reflex Defense</p><p class="equals">=</p><p
-        class="equation">12 + ((Dexterity + Intellect) / 2) + Reflex
-        Bonus</p></section><p>Note that Reflex is typically used as the defense
-        type for intangible - but otherwise physical - sources of harm, while
-        Physical Defense is used to defend against tangible
-        attacks.</p><h4>Defense Bonuses</h4><p>Bonuses to these non-physical
-        defenses may be obtained through Talents or magical Equipment.</p><h2
-        class="divider">Restoration Thresholds</h2><p><strong>Restoration
-        Thresholds</strong> describe a pair of defenses which dictate how
-        challenging it is to restore a creature's resources through healing or
-        rallying actions.</p><h4>Healing Threshold</h4><p><strong>Healing
-        Threshold</strong> describes how difficult it is to restore the Health
-        of a creature. As creatures become more severely wounded, they grow more
-        difficult to heal. This provides a measure of attrition which requires
-        adventures to carefully manage their accumulation of <strong>Wounds
-        </strong>over time. Healing threshold is calculated as:</p><section
-        class="formula"><p class="value">Healing Threshold</p><p
-        class="equals">=</p><p class="equation">12 + (Wounds / 10) -
-        Bonus</p></section><h4>Rallying Threshold</h4><p><strong>Rallying
-        Threshold</strong> describes how difficult it is to restore the Morale
-        of a creature. As creatures become more psychologically damaged they
-        become more difficult to rally. This provides a measure of attrition
-        which requires adventurers to carefully manage their accumulation of
-        <strong>Madness</strong> over time. Rallying threshold is calculated
-        as:</p><section class="formula"><p class="value">Rallying
-        Threshold</p><p class="equals">=</p><p class="equation">12 + (Madness /
-        10) - Bonus</p></section><h4>Threshold Bonuses</h4><p>Bonuses to these
-        Restoration Threshold defenses may be obtained through Talents or
+        2) + Willpower Bonus</p></section><h3
+        class="divider">Reflex</h3><p><strong>Reflex Defense</strong> describes
+        a character's ability to avoid harm that would otherwise occur in a
+        specific area. Reflex is modified by <strong>Dexterity</strong> and
+        <strong>Intellect</strong> which represent quickness of body and
+        rapidity of thought respectively. Reflex defense is calculated
+        as:</p><section class="formula"><p class="value">Reflex Defense</p><p
+        class="equals">=</p><p class="equation">12 + ((Dexterity + Intellect) /
+        2) + Reflex Bonus</p></section><p>Note that Reflex is typically used as
+        the defense type for intangible - but otherwise physical - sources of
+        harm, while Physical Defense is used to defend against tangible
+        attacks.</p><h2 class="divider">Restoration
+        Thresholds</h2><p><strong>Restoration Thresholds</strong> describe a
+        pair of defenses which dictate how challenging it is to restore a
+        creature's resources through healing or rallying actions. Bonuses to
+        these Restoration Threshold defenses may be obtained through Talents or
         magical Equipment. Since higher thresholds make a character more
         difficult to heal, bonuses to these defenses lower the threshold instead
-        of increasing it.</p>
+        of increasing it.</p><h3 class="divider">Healing
+        Threshold</h3><p><strong>Healing Threshold</strong> describes how
+        difficult it is to restore the Health of a creature. As creatures become
+        more severely wounded, they grow more difficult to heal. This provides a
+        measure of attrition which requires adventures to carefully manage their
+        accumulation of <strong>Wounds </strong>over time. Healing threshold is
+        calculated as:</p><section class="formula"><p class="value">Healing
+        Threshold</p><p class="equals">=</p><p class="equation">12 + (Wounds /
+        10) - Bonus</p></section><h3 class="divider">Rallying
+        Threshold</h3><p><strong>Rallying Threshold</strong> describes how
+        difficult it is to restore the Morale of a creature. As creatures become
+        more psychologically damaged they become more difficult to rally. This
+        provides a measure of attrition which requires adventurers to carefully
+        manage their accumulation of <strong>Madness</strong> over time.
+        Rallying threshold is calculated as:</p><section class="formula"><p
+        class="value">Rallying Threshold</p><p class="equals">=</p><p
+        class="equation">12 + (Madness / 10) - Bonus</p></section>
     video:
       controls: true
       volume: 0.5
@@ -117,12 +118,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1761697191065
-      modifiedTime: 1761779648495
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1768843711252
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.Defenses00000000'
   - _id: Resources0000000
     name: Resources
@@ -304,33 +305,112 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defenses}
         and
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000]{Resource}
-        pools.</p><p>A score of 1 typically indicates an area of weakness
-        compared to peers while an ability score of 12 is reserved for
-        supernatural entities, great beasts, or heroes who are unparalleled in
-        their power. Some adversaries may have a score of 0 in a particular
-        ability score. This convention is used when a particular ability is not
-        applicable for that particular creature.</p><p>The ability scores used
-        in the Crucible system
-        are:</p><dl><dt><p>Strength</p></dt><dd><p><strong>Strength</strong> is
-        a hero's physical potency, brawn and might. Strength affects Health, use
-        of melee weaponry, Fortitude defense, and carrying
-        capacity.</p></dd><dt><p>Dexterity</p></dt><dd><p><strong>Dexterity</strong>
-        refers to both agility and precision. Dexterity affects the use of
-        precision weapons, Initiative in taking action, as well as the Dodge and
-        Reflex
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defenses}.</p></dd><dt><p>Toughness</p></dt><dd><p><strong>Toughness</strong>
-        defines physical hardiness and resilience. Toughness affects Health and
-        contributes to the Fortitude
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Wisdom</p></dt><dd><p><strong>Wisdom</strong>
-        is a hero's mental potency, depth and breadth of knowledge. Wisdom
-        influences Morale, maximum Focus Points, and the Willpower
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Intellect</p></dt><dd><p><strong>Intellect</strong>
-        refers to mental flexibility, swiftness, and precision of thought.
-        Intellect influences Initiative in taking action and the Reflex
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd><dt><p>Presence</p></dt><dd><p>Presence
-        is a hero's mental and emotional hardiness, charm, and personality.
-        Presence influences Morale, Focus Points, and the Willpower
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000]{Defense}.</p></dd></dl>
+        pools.</p><p>The ability scores used in the Crucible system are
+        described below, following a designed symmetry that is reflected both on
+        the character sheet as well as in the talent tree. The six ability
+        scores are further divided into physical attributes which describe
+        bodily capabilities and mental attributes which describe cognitive or
+        spiritual capabilities. The three ability scores within each division
+        are classified as power, resilience, or quickness
+        attributes.</p><dl><dt><p>Power Attributes</p></dt><dd><p>Strength
+        (physical) and Wisdom (mental) are power attributes which describe
+        capability to exert force.</p></dd></dl><dl><dt><p>Resilience
+        Attributes</p></dt><dd><p>Toughness (physical) and Presence (mental) are
+        resilience attributes which describe capability to withstand
+        strain.</p></dd></dl><dl><dt><p>Quickness
+        Attributes</p></dt><dd><p>Dexterity (physical) and Intellect (mental)
+        are quickness attributes which describe capability to act
+        swiftly.</p></dd></dl><p>Ability scores generally range from 1 to 12. A
+        score of 2 or 3 would be typical for the median person inhabiting the
+        game setting. A score of 1 indicates an area of weakness compared to the
+        median, while a score of 12 or higher is reserved for supernatural
+        entities or peerless heroes.</p><p>Some creatures may rarely have a
+        score of zero in a particular ability score, denoting cases where a
+        certain ability is not relevant for a particular creature. This alters
+        the rules for that creature in a meaningful way, as described
+        below.</p><h2 class="divider">Strength</h2><p>Strength is a physical
+        power attribute describing a creature's potency, brawn and might.
+        Strength affects <strong>Fortitude</strong> defense, carrying
+        <strong>Capacity</strong>, and the use of weaponry with the
+        <strong>Brute</strong> trait. Each point of Strength increases base
+        <strong>Health</strong> by 2.</p><section class="gameplay"><p>Characters
+        with high Strength are typically capable of feats of physical prowess.
+        They may wield oversized or heavy weaponry, wear heavy suits of armor,
+        or use their brawn to physically subdue their
+        opponents.</p></section><p>Creatures with zero Strength are incapable of
+        exerting physical influence on the world around them. They may not
+        possess equipment nor can they physically interact with objects. They
+        may not perform any Action which scales only using the physical ability
+        scores of Strength, Toughness, and Dexterity.</p><h2
+        class="divider">Toughness</h2><p>Toughness is a physical resilience
+        attribute describing physical hardiness and tenacity. Toughness affects
+        the <strong>Fortitude</strong> defense. Each point of Toughness
+        increases base <strong>Health</strong> by 4.</p><section
+        class="gameplay"><p>Characters with high Toughness can typically
+        withstand considerable physical strain, demonstrating both grit and
+        endurance in demanding situations. They may thrive amidst the center of
+        danger, using their tenacity to hold or break the frontlines of
+        combat.</p></section><p>Creatures with zero Toughness are incorporeal or
+        otherwise have no meaningful physical form. They have no
+        <strong>Health</strong> pool and can become neither @Condition[weakened]
+        nor @Condition[dead]. Any amount of Health they would have possessed
+        contributes to their <strong>Morale</strong> pool instead. The creature
+        becomes @Condition[incapacitated] if their Morale reaches zero.</p><h2
+        class="divider">Dexterity</h2><p>Dexterity is a physical quickness
+        attribute that reflects agility and precision of movement. Dexterity
+        affects <strong>Initiative</strong> in taking action, the
+        <strong>Dodge</strong> component of Physical Defense,
+        <strong>Reflex</strong> defense, and the use of weaponry with the
+        <strong>Finesse</strong> trait.</p><section
+        class="gameplay"><p>Characters with high Dexterity typically act
+        swiftly, favoring quickness and precision of movement over pure power.
+        They may wield weapons that allow for nimble movement or offer ranged
+        capabilities, seeking to outmaneuver their foes before they even get a
+        chance to act.</p></section><p>Creatures with zero Dexterity are
+        inherently sluggish or ponderous. Their <strong>Initiative</strong> is
+        always zero and they may not perform any actions with the
+        <strong>Reaction</strong> tag.</p><h2
+        class="divider">Wisdom</h2><p>Wisdom is a mental power attribute
+        describing a creature's force of conviction, depth of knowledge, and
+        patience. Wisdom affects <strong>Willpower</strong> defense and size of
+        <strong>Focus</strong> pool. Each point of Wisdom increases base
+        <strong>Morale</strong> by 2.</p><section class="gameplay"><p>Characters
+        with high Wisdom typically act deliberately, demonstrating patience and
+        judgment to intervene at the ideal moment where leverage is greatest.
+        When they do act, they do so with conviction and commitment to their
+        chosen path.</p></section><p>Creatures with zero Wisdom are non-sapient
+        and incapable of exerting mental or spiritual influence on the world
+        around them. They can neither obtain nor generate
+        <strong>Heroism</strong> and they may not perform any Action which
+        scales only using the mental ability scores of Wisdom, Presence, and
+        Intellect.</p><h2 class="divider">Presence</h2><p>Presence is a mental
+        resilience attribute describing a creature's force of personality,
+        resolve, and self-belief. Presence affects <strong>Willpower</strong>
+        defense and the size of <strong>Focus</strong> pool. Each point of
+        Presence increases base <strong>Morale</strong> by 4.</p><section
+        class="gameplay"><p>Characters with high Presence can inspire themselves
+        and others to feats of great heroism, overcoming obstacles, in part,
+        through the sheer belief that things are possible. The aura of such
+        heroes can instill similar belief in allies or foment doubts in the
+        minds of adversaries.</p></section><p>Creatures with zero Presence have
+        no sense of self or meaningful cognitive form. They can neither
+        influence the thoughts of others nor have their own behavior influenced.
+        They have no <strong>Morale</strong> pool and can become neither
+        @Condition[broken] nor @Condition[insane]. Any amount of Morale they
+        would have possessed contributes to their <strong>Health</strong> pool
+        instead.</p><h2 class="divider">Intellect</h2><p>Intellect is a mental
+        quickness attribute that reflects speed of thought and decisiveness of
+        action. Dexterity affects <strong>Initiative</strong> in taking action,
+        the <strong>Reflex</strong> defense, and the size of
+        <strong>Focus</strong> pool.</p><section class="gameplay"><p>Characters
+        with high Intellect are highly adaptable to various circumstances. They
+        apply excellent problem solving and decision making skills to think
+        on-the-fly and synthesize learned knowledge to guide decisive action. By
+        anticipating and outwitting their opponent they can gain the upper hand
+        in any conflict.</p></section><p>Creatures with zero Intellect lack the
+        ability to concentrate or make rapid decisions. They have no
+        <strong>Focus</strong> and cannot perform any action which requires
+        it.</p>
     video:
       controls: true
       volume: 0.5
@@ -345,12 +425,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1761771265716
-      modifiedTime: 1762036034593
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1768860110670
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!characterMechani.abilityScores000'
   - _id: talents000000000
     name: Talents
