@@ -571,7 +571,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     if ( !options.isFirstRender ) options.parts.findSplice(p => p === "talents"); // Never re-render talents
-    if ( this.element && !this.#characterName ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    if ( this.element && (this.#characterName === null) ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
   }
 
   /* -------------------------------------------- */
