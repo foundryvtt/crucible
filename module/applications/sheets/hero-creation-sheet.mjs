@@ -138,6 +138,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   #complete = false;
 
+  /**
+   * The Actor's name, stored only when restarting character creation
+   * @type {string|null}
+   */
+  #characterName = null;
+
   /* -------------------------------------------- */
 
   get steps() {
@@ -185,7 +191,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeState() {
-    this._state.name = this._clone.name;
+    this._state.name = this.#characterName || this._clone.name;
+    this.#characterName = null;
     this.#complete = false;
     const promises = [];
     for ( const step of Object.values(this.constructor.STEPS) ) {
@@ -564,7 +571,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     if ( !options.isFirstRender ) options.parts.findSplice(p => p === "talents"); // Never re-render talents
-    if ( this.element ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    if ( this.element && !this.#characterName ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
   }
 
   /* -------------------------------------------- */
@@ -861,6 +868,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _reset() {
     await this.deactivateTalentTree();
     this._clone = this.#createClone();
+    this.#characterName = this._state.name;
     this._state = {};
     for ( const k in this._completed ) this._completed[k] = false;
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
