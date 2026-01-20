@@ -1188,7 +1188,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       case "successCritical":
       case "failure":
       case "failureCritical":
-        if ( isSelfScope && !hasRolls ) {
+        if ( isSelfScope && !outcome.isTarget && !hasRolls ) {
           return this.outcomes.values().filter(o => !o.self).some(o => checkOutcome(o));
         }
         return checkOutcome(outcome);
