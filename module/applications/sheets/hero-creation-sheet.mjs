@@ -142,7 +142,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * The Actor's name, stored only when restarting character creation
    * @type {string|null}
    */
-  #characterName = null;
+  #characterName = this._clone.name;
 
   /* -------------------------------------------- */
 
@@ -191,7 +191,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeState() {
-    this._state.name = this.#characterName || this._clone.name;
+    this._state.name = this.#characterName;
     this.#characterName = null;
     this.#complete = false;
     const promises = [];
