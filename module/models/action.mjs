@@ -1144,57 +1144,71 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {boolean}                         Should the effect be applied?
    */
   #applyOutcomeEffect(outcome, effectData) {
-
-    // Assert correct target scope
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     const scope = effectData.scope ?? this.target.scope;
-    const isSelfScope = scope === scopes.SELF;
-    if ( scope === scopes.NONE ) return false; // Should never happen
-    if ( outcome.self ) {
-      if ( !isSelfScope && !outcome.isTarget ) return false; // If not target, only self-scoped
-      if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return false; // Either self-scoped or all-scoped & target
-    }
-    else if ( isSelfScope ) return false;
+    const {type: resultType, all: resultAll} = effectData.result;
 
-    
-    // Assert correct outcome result
-    const {type, all} = effectData.result;
-    const hasRolls = outcome.rolls.length > 0;
-    
-    // Helper to determine whether effect should be applied for a single outcome
-    const checkOutcome = (outcome) => {
-      const hasRolls = outcome.rolls.length > 0;
-      switch ( type ) {
-        case "success":
-          if ( all ) return hasRolls && outcome.rolls.every(r => r.isSuccess);
-          else return !hasRolls || outcome.rolls.some(r => r.isSuccess);
-        case "successCritical":
-          if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalSuccess);
-          else return outcome.rolls.some(r => r.isCriticalSuccess);
-        case "failure":
-          if ( all ) return hasRolls && outcome.rolls.every(r => r.isFailure);
-          else return outcome.rolls.some(r => r.isFailure);
-        case "failureCritical":
-          if ( all ) return hasRolls && outcome.rolls.every(r => r.isCriticalFailure);
-          else return outcome.rolls.some(r => r.isCriticalFailure);
+    // Eliminate conditions where the effect cannot apply
+    if ( scope === scopes.NONE ) return false;
+    if ( (scope === scopes.SELF) && !outcome.self ) return false;
+    if ( outcome.self ) {
+      const canAffectSelf = (scope === scopes.SELF) || (outcome.isTarget && (scope === scopes.ALL));
+      if ( !canAffectSelf) return false;
+    }
+
+    // Does the effect apply to the outcome directly?
+    if ( CrucibleAction.#testOutcomeEffect(outcome, resultType, resultAll) ) return true;
+
+    // A SELF effect may apply based on other outcomes if self is not a target and has no immediate rolls
+    if ( (scope === scopes.SELF) && !outcome.isTarget && !outcome.rolls.length ) {
+      for ( const other of this.outcomes.values() ) {
+        if ( other === outcome ) continue;
+        if ( CrucibleAction.#testOutcomeEffect(other, resultType, resultAll) ) return true;
       }
     }
-    switch ( type ) {
-      case "any":
-        return true;
-      case "custom":
-        return false; // Custom results are never attached and are only handled using hook code
+
+    // Otherwise, the effect does not apply
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether an action effect should apply to a given outcome based on its required result.
+   * @param {CrucibleActionOutcome} outcome
+   * @param {string} resultType
+   * @param {boolean} resultAll
+   * @returns {boolean}
+   */
+  static #testOutcomeEffect(outcome, resultType, resultAll) {
+    const hasRolls = outcome.rolls.length > 0;
+
+    // Any result can be always applied
+    if ( resultType === "any" ) return true;
+
+    // Custom result types are never applied and handled only using hook code
+    if ( resultType === "custom" ) return false;
+
+    // If an "all" result is required, the outcome must have rolls
+    if ( resultAll && !hasRolls ) return false;
+
+    // Roll-based results
+    switch ( resultType ) {
       case "success":
+        if ( resultAll ) return outcome.rolls.every(r => r.isSuccess);
+        if ( !hasRolls ) return true; // Special case: allow success (not "all") without rolls
+        return outcome.rolls.some(r => r.isSuccess);
       case "successCritical":
+        if ( resultAll ) return outcome.rolls.every(r => r.isCriticalSuccess);
+        return outcome.rolls.some(r => r.isCriticalSuccess);
       case "failure":
+        if ( resultAll ) return outcome.rolls.every(r => r.isFailure);
+        return outcome.rolls.some(r => r.isFailure);
       case "failureCritical":
-        if ( isSelfScope && !outcome.isTarget && !hasRolls ) {
-          return this.outcomes.values().filter(o => !o.self).some(o => checkOutcome(o));
-        }
-        return checkOutcome(outcome);
-      default:
-        return false; // Unknown or unsupported result type
+        if ( resultAll ) return outcome.rolls.every(r => r.isCriticalFailure);
+        return outcome.rolls.some(r => r.isCriticalFailure);
     }
+    return false; // Should never be reached
   }
 
   /* -------------------------------------------- */
