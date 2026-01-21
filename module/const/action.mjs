@@ -324,13 +324,33 @@ export const TAGS = {
     prepare() {
       const stride = this.actor.system.movement.stride;
       const movement = this.usage.movement || this.actor.getMovementActionCost(stride);
-      if ( this.id === "move" ) this.cost.action = movement.cost;
-      else if ( this.actor.system.hasFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1);
-      this.usage.actorStatus ||= {};
-      this.usage.actorStatus.hasMoved = true;
-      this.usage.actorStatus.lastMovementId = movement.id || null;
+      if ( movement.useFreeMove ) this.usage.freeMove = true;
+      if ( this.id === "move" ) this.cost.action = movement.cost; // Standard movement cost
+      else if ( movement.useFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1); // Reduce cost of movement action
     },
-    async confirm() {
+    postActivate(outcome) {
+      if ( !outcome.self ) return;
+      const {movement, freeMove} = this.usage;
+      const status = outcome.actorUpdates.system.status;
+      if ( movement?.id ) {
+        outcome.movement = movement.id;
+        if ( freeMove ) status.freeMovementId = movement.id;
+      }
+      status.hasMoved = true;
+    },
+    async confirm(reverse) {
+
+      // Reverse recorded movement
+      if ( reverse ) {
+        const self = this.outcomes.get(this.actor);
+        if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
+        if ( self.movement === this.actor.system.status.freeMovementId ) {
+          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
+        }
+        return;
+      }
+
+      // Remove prone condition upon movement confirmation
       if ( this.actor.statuses.has("prone") ) {
         await this.actor.toggleStatusEffect("prone", {active: false});
       }

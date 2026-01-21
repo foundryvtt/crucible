@@ -103,6 +103,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {object} actorUpdates        Data updates to apply to the target Actor
  * @property {object} metadata            Fallback storage for miscellaneous data that persists throughout the action lifecycle
  * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
+ * @property {string} [movement]          A movement ID that was performed as part of this action
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {boolean} [weakened]         Did the target become weakened?
  * @property {boolean} [broken]           Did the target become broken?

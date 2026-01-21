@@ -9,8 +9,9 @@ const {DialogV2} = foundry.applications.api;
  */
 
 /**
- * @typedef {Object}   ActorRoundStatus
+ * @typedef ActorRoundStatus
  * @property {boolean} hasMoved
+ * @property {string} freeMovementId
  * @property {boolean} hasAttacked
  * @property {boolean} wasAttacked
  */
