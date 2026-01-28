@@ -1744,8 +1744,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async renderCard() {
     await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
+    const descriptionHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description, {relativeTo: this});
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
       action: this,
+      descriptionHTML,
       tags: this.getTags()
     });
   }

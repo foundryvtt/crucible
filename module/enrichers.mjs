@@ -54,6 +54,11 @@ export function registerEnrichers() {
       enricher: enrichCondition
     },
     {
+      id: "crucibleAction",
+      pattern: /@Action\[([\w.]+) (\w+)]/g,
+      enricher: enrichAction
+    },
+    {
       id: "crucibleSpell",
       pattern: /@Spell\[([\w.]+)]/g,
       enricher: enrichSpell
@@ -410,7 +415,7 @@ async function onClickCounterspell(event) {
     action.usage.dc = dc;
     action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
     return action.use();
-  } 
+  }
 
   // TODO: Prompt GM to pick among party members who can use Counterspell
   ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
@@ -570,8 +575,30 @@ function enrichCondition([match, conditionId]) {
 }
 
 /* -------------------------------------------- */
-/*  Spells                                      */
+/*  Actions                                     */
 /* -------------------------------------------- */
+
+/**
+ * Enrich a reference to a specific action using syntax @Action[{actorUUID} {actionId}].
+ * @param {RegExpMatchArray} terms
+ * @returns {HTMLEnrichedContentElement|string}
+ */
+function enrichAction([match, actorUUID, actionId]) {
+  const actor = fromUuidSync(actorUUID);
+  if ( !actor ) return match;
+  const action = actor.actions[actionId];
+  if ( !action ) return match;
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("action");
+  tag.dataset.uuid = actorUUID;
+  tag.dataset.actionId = actionId;
+  tag.dataset.crucibleTooltip = "action";
+  tag.innerText = action.name;
+  return tag;
+}
+
+/* -------------------------------------------- */
+
 
 function enrichSpell([match, spellId]) {
   let spell;
@@ -584,10 +611,12 @@ function enrichSpell([match, spellId]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = spell.name;
   tag.dataset.spellId = spell.id;
-  tag.classList.add("spell");
+  tag.classList.add("action", "spell");
   tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
   return tag;
 }
+
+
 
 /* -------------------------------------------- */
 /*  Skill Checks                                */
