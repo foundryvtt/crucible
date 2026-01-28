@@ -5,15 +5,11 @@
         </div>
         <div class="title">
             <h4>{{item.name}}</h4>
-            {{#unless tags.activation.empty}}
-            {{crucibleTags tags.activation}}
-            {{/unless}}
+            {{crucibleTags tags.primary tagType=item.type}}
         </div>
     </header>
 
-    {{#unless tags.properties.empty}}
-    {{crucibleTags tags.properties tagType="weapon"}}
-    {{/unless}}
+    {{crucibleTags tags.secondary tagType=item.type}}
 
     <div class="description">{{{item.system.description.public}}}</div>
 

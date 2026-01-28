@@ -18,12 +18,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];
 
-  /**
-   * The Handlebars template used to render this weapon as a line item for tooltips or as a partial.
-   * @type {string}
-   */
-  static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-weapon.hbs";
-
   /* -------------------------------------------- */
   /*  Data Schema                                 */
   /* -------------------------------------------- */
@@ -295,22 +289,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     }
 
     return { ...tags, damage, range };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render this weapon as HTML for a tooltip card.
-   * @param {object} options
-   * @param {CrucibleActor} [options.actor]
-   * @returns {Promise<string>}
-   */
-  async renderCard() {
-    await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
-    return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
-      item: this.parent,
-      tags: this.getTags('tooltip'),
-    });
   }
 
   /* -------------------------------------------- */

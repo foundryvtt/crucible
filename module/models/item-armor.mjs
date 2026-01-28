@@ -92,11 +92,11 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     const actor = this.parent.parent;
 
     // Defenses
-    tags.armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
-    if ( !actor ) tags.dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base})
-    else {
+    const armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
+    let dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base})
+    if ( actor )  {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
-      tags.dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
+      dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
       tags.total = game.i18n.format("ITEM.PROPERTIES.Defense", {defense: this.armor.base + this.armor.bonus + this.dodge.base + dodgeBonus});
     }
 
@@ -106,7 +106,11 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       if ( (p === "natural") && (this.config.category.id === "natural") ) continue;
       tags[p] = ARMOR.PROPERTIES[p].label;
     }
-    return scope === "short" ? {armor: tags.armor, dodge: tags.dodge} : tags;
+    switch (scope) {
+      case "short": return {armor, dodge};
+      case "tooltip": return { activation: { armor, dodge }, properties: tags };
+    }
+    return { ...tags, armor, dodge }
   }
 
   /* -------------------------------------------- */
