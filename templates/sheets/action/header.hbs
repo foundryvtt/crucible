@@ -4,10 +4,6 @@
         <h1 class="title">
             <input name="name" type="text" value="{{action.name}}" placeholder="Action Name">
         </h1>
-        <div class="tags header-tags">
-            {{#each headerTags as |t|}}
-            <span class="tag" data-tag="{{t.tag}}">{{t.label}}</span>
-            {{/each}}
-        </div>
+        {{crucibleTags headerTags additionalClasses="header-tags"}}
     </div>
 </header>
