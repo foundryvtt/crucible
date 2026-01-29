@@ -259,6 +259,7 @@ Hooks.once("init", async function() {
 
   // Queries
   CONFIG.queries.rollSkillRequest = dice.StandardCheck.handle.bind(dice.StandardCheck);
+  CONFIG.queries.counterspellRequest = models.CrucibleCounterspellAction.promptCounterspell;
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;
