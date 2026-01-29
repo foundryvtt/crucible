@@ -94,7 +94,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     // Defenses
     tags.armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
     if ( !actor ) tags.dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base});
-    else  {
+    else {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
       tags.dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
     }
