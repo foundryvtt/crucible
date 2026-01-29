@@ -178,7 +178,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       stateful: {},
       other: this.getTags("full")
     };
-    const statefulTags = ["equipped", "dropped", "invested", "uses"];
     for ( const tag of this.constructor.STATEFUL_TAGS ) {
       if ( preparedTags.other[tag] ) {
         preparedTags.stateful[tag] = preparedTags.other[tag];
