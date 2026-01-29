@@ -92,11 +92,11 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     const actor = this.parent.parent;
 
     // Defenses
-    const armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
-    let dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base})
-    if ( actor )  {
+    tags.armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
+    if ( !actor ) tags.dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base});
+    else  {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
-      dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
+      tags.dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
     }
 
     // Armor Properties
@@ -106,8 +106,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       tags[p] = ARMOR.PROPERTIES[p].label;
     }
 
-    if ( scope === "short" ) return {armor, dodge};
-    return { ...tags, armor, dodge }
+    return scope === "short" ? {armor: tags.armor, dodge: tags.dodge} : tags;
   }
 
   /* -------------------------------------------- */
