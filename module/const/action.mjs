@@ -366,6 +366,11 @@ export const TAGS = {
     canUse() {
       if ( !this.actor.inCombat ) return false;
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
+      if ( !this.actor.abilities.dexterity.value ) throw new Error(game.i18n.format("ACTION.WarningNoAbility", {
+        actor: this.actor.name,
+        ability: SYSTEM.ABILITIES.dexterity.label,
+        action: this.name
+      }));
       return this.actor !== game.combat?.combatant?.actor;
     },
     prepare() {

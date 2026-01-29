@@ -19,7 +19,7 @@ export default class CrucibleCombatant extends Combatant {
     const banes = {};
     const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes}
     if ( this.actor ) {
-      if ( this.actor.isIncapacitated ) rollData.incapacitated = true;
+      if ( this.actor.isIncapacitated || !this.actor.abilities.dexterity.value ) rollData.incapacitated = true;
       else if ( this.actor.statuses.has("unaware") ) rollData.unaware = true;
 
       // Boons and Banes
