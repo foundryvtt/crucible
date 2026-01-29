@@ -62,6 +62,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   static EQUIPABLE = true;
 
+  /**
+   * Which tags should be considered "stateful", appearing in the first row of tags in a tooltip.
+   * @type {string[]}
+   */
+  static STATEFUL_TAGS = ["equipped", "dropped", "invested"];
+
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM"];
 
@@ -145,13 +151,14 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /**
    * Return an object of string formatted tag data which describes this item type.
-   * @param {string} [scope="full"]       The scope of tags being retrieved, "full", "short", or "tooltip"
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
    * @returns {Object<string, string>}    The tags which describe this item
    */
   getTags(scope="full") {
     const tags = {};
     tags.category = this.config.category.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
+    else if ( this.parent.parent && !this.dropped ) tags.equipped = game.i18n.localize("ITEM.PROPERTIES.Unequipped")
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
     if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label : game.i18n.localize("ITEM.PROPERTIES.NotInvested");
     return tags;
@@ -167,11 +174,17 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   async renderCard() {
     await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
-    const tags = this.getTags("tooltip");
     const preparedTags = {
-      primary: tags.activation ?? tags,
-      secondary: tags.properties ?? {}
+      stateful: {},
+      other: this.getTags("full")
     };
+    const statefulTags = ["equipped", "dropped", "invested", "uses"];
+    for ( const tag of this.constructor.STATEFUL_TAGS ) {
+      if ( preparedTags.other[tag] ) {
+        preparedTags.stateful[tag] = preparedTags.other[tag];
+        delete preparedTags.other[tag];
+      }
+    }
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
       item: this.parent,
       tags: preparedTags,

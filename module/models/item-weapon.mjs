@@ -283,11 +283,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( this.defense.parry ) tags.parry = game.i18n.format("ITEM.PROPERTIES.Parry", {parry: this.defense.parry});
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
 
-    switch(scope) {
-      case "short": return {damage, range};
-      case "tooltip": return { activation: { damage, range }, properties: tags };
-    }
-
+    if ( scope === "short" ) return {damage, range};
     return { ...tags, damage, range };
   }
 

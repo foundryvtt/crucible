@@ -5,11 +5,11 @@
         </div>
         <div class="title">
             <h4>{{item.name}}</h4>
-            {{crucibleTags tags.primary tagType=item.type}}
+            {{crucibleTags tags.stateful}}
         </div>
     </header>
 
-    {{crucibleTags tags.secondary tagType=item.type}}
+    {{crucibleTags tags.other tagType=item.type}}
 
     <div class="description">{{{item.system.description.public}}}</div>
 

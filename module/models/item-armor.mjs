@@ -97,7 +97,6 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     if ( actor )  {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
       dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
-      tags.total = game.i18n.format("ITEM.PROPERTIES.Defense", {defense: this.armor.base + this.armor.bonus + this.dodge.base + dodgeBonus});
     }
 
     // Armor Properties
@@ -106,10 +105,8 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       if ( (p === "natural") && (this.config.category.id === "natural") ) continue;
       tags[p] = ARMOR.PROPERTIES[p].label;
     }
-    switch (scope) {
-      case "short": return {armor, dodge};
-      case "tooltip": return { activation: { armor, dodge }, properties: tags };
-    }
+
+    if ( scope === "short" ) return {armor, dodge};
     return { ...tags, armor, dodge }
   }
 
