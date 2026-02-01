@@ -94,14 +94,14 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /**
    * Handle a request to use a non-combat Counterspell action
-   * @param {string} actorId    The ID of the actor who should use Counterspell
+   * @param {string} actorUuid  The UUID of the actor who should use Counterspell
    * @param {string} rune       The rune used on the to-be-counterspelled action
    * @param {string} gesture    The gesture used on the to-be-counterspelled action
    * @param {string} inflection The inflection used on the to-be-counterspelled action
    * @param {number} dc         The DC for the Counterspell action
    */
-  static async promptCounterspell({actorId, rune, gesture, inflection, dc}={}) {
-    const actor = game.actors.get(actorId);
+  static async prompt({actorUuid, rune, gesture, inflection, dc}={}) {
+    const actor = await fromUuid(actorUuid);
     const counterspellAction = actor?.actions.counterspell;
     if ( !counterspellAction ) return;
     const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});

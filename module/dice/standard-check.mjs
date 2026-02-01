@@ -380,7 +380,7 @@ export default class StandardCheck extends Roll {
   request({user, title, flavor, actorId}={}) {
     const data = foundry.utils.deepClone(this.data);
     if ( actorId ) data.actorId = actorId;
-    return user.query('rollSkillRequest', {title, flavor, check: data});
+    return user.query("requestSkillCheck", {title, flavor, check: data});
   }
 
   /* -------------------------------------------- */

@@ -243,17 +243,20 @@ async function onClickAward(event) {
 
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
 
-  const targets = await chooseTargetActors({dialogTitle: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`), dialogIcon: "fa-solid fa-trophy"});
+  const targets = await chooseActorsDialog({
+    dialogTitle: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
+    dialogIcon: "fa-solid fa-trophy"
+  });
   if (!targets.size) return;
 
   // Iterate over actor targets
   if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
   if ( currencyEach < 0 ) {
-    const cannotAfford = targets.map(id => game.actors.get(id)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
+    const cannotAfford = targets.map(uuid => fromUuidSync(uuid)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
     if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
   }
-  for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId);
+  for ( const actorUuid of targets ) {
+    const actor = fromUuidSync(actorUuid);
     const startingCurrency = actor.system.currency;
     const newCurrency = Math.max(startingCurrency + currencyEach, 0);
     actor.update({
@@ -377,27 +380,38 @@ async function onClickCounterspell(event) {
   const actor = inferEnricherActor();
 
   // If inferred can counterspell, prompt
-  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.promptCounterspell({actorId: actor.id, rune, gesture, inflection, dc});
+  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.prompt({actorUuid: actor.uuid, rune, gesture, inflection, dc});
 
   // Prompt GM to pick among counterspellable party members
-  const partyMembers = crucible.party?.system.members.filter(({actor}) => actor.actions.counterspell);
-  const targets = await chooseTargetActors({dialogTitle: "SPELL.COUNTERSPELL.Name", dialogIcon: "fa-solid fa-magic-wand", partyMembers});
+  const actors = crucible.party?.system.members.reduce((acc, {actor}) => {
+    if ( actor.actions.counterspell ) acc.push(actor);
+    return acc;
+  }, []);
+  const targets = await chooseActorsDialog({
+    dialogTitle: "SPELL.COUNTERSPELL.Name",
+    dialogIcon: "fa-solid fa-magic-wand",
+    actors
+  });
   if (!targets.size) return;
 
   // Iterate over actor targets
-  for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId);
+  for ( const actorUuid of targets ) {
+    const actor = fromUuidSync(actorUuid);
     if ( !actor?.actions.counterspell ) {
       ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
       continue;
     }
+    // TODO: Consider whether to prompt multiple users
     const designatedUser = game.users.getDesignatedUser(user => {
       if ( !user.active ) return false;
       if ( user.isGM ) return false;
       return actor?.testUserPermission(user, "OWNER");
     });
-    if ( designatedUser ) designatedUser.query("counterspellRequest", {actorId, rune, gesture, inflection, dc});
-    else crucible.api.models.CrucibleCounterspellAction.promptCounterspell({actorId, rune, gesture, inflection, dc});
+    if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid, rune, gesture, inflection, dc});
+    else {
+      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
+      crucible.api.models.CrucibleCounterspellAction.prompt({actorUuid, rune, gesture, inflection, dc});
+    }
   }
 }
 
@@ -492,11 +506,11 @@ async function onClickHazard(event) {
   const actor = inferEnricherActor();
   let targets;
   if ( actor ) targets = new Set([actor.id]);
-  else targets = await chooseTargetActors();
+  else targets = await chooseActorsDialog();
 
   // Iterate over actor targets
-  for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId);
+  for ( const actorUuid of targets ) {
+    const actor = fromUuidSync(actorUuid);
     const action = crucible.api.models.CrucibleAction.createHazard(actor, {
       name: element.innerText,
       hazard: Number(hazard),
@@ -697,54 +711,57 @@ function inferEnricherActor() {
 /* -------------------------------------------- */
 
 /**
- * Creates a dialog for selecting party members or arbitrary world actors
+ * Creates a dialog for selecting from a specific group of, or from arbitrary, world actors
  * @param {object} [options]
- * @param {string} [options.dialogTitle]                            The title of the dialog
- * @param {string} [options.dialogIcon]                             The FontAwesome classes used for the dialog's Icon
- * @param {{actorId: string, actor: CrucibleActor}} [partyMembers]  Which party members to provide for selection
- * @returns {Promise<Set<string>>} A set of selected actor IDs
+ * @param {string} [options.dialogTitle]    The title of the dialog
+ * @param {string} [options.dialogIcon]     The FontAwesome classes used for the dialog's Icon
+ * @param {CrucibleActor[]} [actors]        Which specific actors to checkboxes for
+ * @param {boolean} [options.showSpecific]  Whether to show checkboxes for specific actors
+ * @param {boolean} [options.showAny]       Whether to show the inputs for "any actor"
+ * @returns {Promise<Set<string>>} A set of selected actor UUIDs
  */
-async function chooseTargetActors({dialogTitle="DICE.REQUESTS.ChooseTarget", dialogIcon="fa-solid fa-bullseye", partyMembers}={}) {
-  partyMembers ??= crucible.party?.system.members || [];
-  const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
-    name: "partyMember",
-    type: "checkboxes",
-    options: partyMembers.reduce((arr, m) => {
-      if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name, selected: true});
-      return arr;
-    }, [])
-  });
-  const partyMember = foundry.applications.fields.createFormGroup({
-    label: "DICE.REQUESTS.PartyMembers",
-    hint: "DICE.REQUESTS.PartyMembersHint",
-    stacked: true,
-    localize: true,
-    input: partyMemberInput
-  });
-  const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
-    type: "Actor",
-    name: "anyActor",
-  });
-  const anyActor = foundry.applications.fields.createFormGroup({
-    label: "DICE.REQUESTS.AnyActor",
-    hint: "DICE.REQUESTS.AnyActorHint",
-    localize: true,
-    input: anyActorInput
-  });
+async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarget", dialogIcon="fa-solid fa-bullseye", actors, showSpecific=true, showAny=true}={}) {
+  let content = "";
+  if ( showSpecific ) {
+    actors ??= crucible.party?.system.members.map(a => a.actor) || [];
+    const specificActorInput = foundry.applications.fields.createMultiSelectInput({
+      name: "specificActor",
+      type: "checkboxes",
+      options: actors.reduce((arr, actor) => {
+        if ( actor ) arr.push({value: actor.uuid, label: actor.name, selected: true});
+        return arr;
+      }, [])
+    });
+    const specificActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.SpecificActors",
+      hint: "DICE.REQUESTS.SpecificActorsHint",
+      stacked: true,
+      localize: true,
+      input: specificActorInput
+    });
+    content += specificActor.outerHTML;
+  }
+
+  // Don't respect showAny if showSpecific is false or there are no specific actors to show
+  if ( showAny || !showSpecific || !actors?.length ) {
+    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+      type: "Actor",
+      name: "anyActor",
+    });
+    const anyActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.AnyActor",
+      hint: "DICE.REQUESTS.AnyActorHint",
+      localize: true,
+      input: anyActorInput
+    });
+    content += anyActor.outerHTML;
+  }
   const result = await foundry.applications.api.DialogV2.input({
     window: {title: dialogTitle, icon: dialogIcon},
-    content: `\
-    ${partyMember.outerHTML}${anyActor.outerHTML}
-    `,
+    content,
   });
   if ( !result ) return new Set();
-  const targets = new Set(result.partyMember);
-  for ( const actorUuid of result.anyActor ) {
-    const {id} = foundry.utils.parseUuid(actorUuid);
-    if ( !actorUuid.startsWith("Actor") ) continue;
-    targets.add(id);
-  }
-  return targets;
+  return new Set([...(result.specificActor ?? []), ...(result.anyActor ?? [])]).filter(uuid => !uuid.startsWith("Compendium"));
 }
 
 /* -------------------------------------------- */
