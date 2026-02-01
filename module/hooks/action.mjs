@@ -208,14 +208,15 @@ HOOKS.counterspell = {
   },
   async roll(outcome) {
     // TODO: Only use this.usage.targetAction
-    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
+    const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction()
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
     if ( this.gesture.id === usedGesture?.id ) {
       this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
     }
-    if ( this.tags.has("noncombat") ) {
+    if ( !targetAction.message ) {
       const dc = this.usage.dc;
       const rollData = {
         actorId: this.actor.id,
@@ -236,7 +237,7 @@ HOOKS.counterspell = {
     }
   },
   async confirm(reverse) {
-    if ( this.tags.has("noncombat") ) return;
+    if ( this.outcomes.size === 1 ) return;
     const targetActor = this.outcomes.keys().find(a => a !== this.actor);
     const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
     if ( !isSuccess ) return;

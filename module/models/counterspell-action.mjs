@@ -50,7 +50,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
-    if ( this.tags.has("noncombat") ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
+    if ( this.usage.targetAction?.message === null ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
@@ -104,7 +104,8 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     const actor = await fromUuid(actorUuid);
     const counterspellAction = actor?.actions.counterspell;
     if ( !counterspellAction ) return;
-    const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
+    const tags = actor.inCombat ? counterspellAction.tags : Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat");
+    const action = counterspellAction.clone({tags});
     action.usage.dc = dc;
     action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
     return action.use();
