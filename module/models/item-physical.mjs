@@ -176,12 +176,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
     const preparedTags = {
       stateful: {},
-      other: this.getTags("full")
+      permanent: this.getTags("full")
     };
     for ( const tag of this.constructor.STATEFUL_TAGS ) {
-      if ( preparedTags.other[tag] ) {
-        preparedTags.stateful[tag] = preparedTags.other[tag];
-        delete preparedTags.other[tag];
+      if ( preparedTags.permanent[tag] ) {
+        preparedTags.stateful[tag] = preparedTags.permanent[tag];
+        delete preparedTags.permanent[tag];
       }
     }
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
