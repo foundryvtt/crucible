@@ -1377,6 +1377,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }));
     }
 
+    // Cannot use physical scaling
+    if ( !this.actor.abilities.strength.value && this.scaling.length && this.scaling.every(s => ["strength", "toughness", "dexterity"].includes(s)) ) {
+      throw new Error(game.i18n.format("ACTION.WarningNoAbility", {
+        actor: this.actor.name,
+        ability: SYSTEM.ABILITIES.strength.label,
+        action: this.name
+      }));
+    }
+
+    // Cannot use mental scaling
+    if ( !this.actor.abilities.wisdom.value && this.scaling.length && this.scaling.every(s => ["wisdom", "presence", "intellect"].includes(s)) ) {
+      throw new Error(game.i18n.format("ACTION.WarningNoAbility", {
+        actor: this.actor.name,
+        ability: SYSTEM.ABILITIES.wisdom.label,
+        action: this.name
+      }));
+    }
+
     // Test each action tag
     for ( const test of this._tests() ) {
       if ( !(test.canUse instanceof Function) ) continue;
@@ -1568,6 +1586,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #canGenerateHeroism() {
     if ( !this.actor.inCombat ) return false;
+    if ( !this.actor.abilities.wisdom.value ) return false;
     for ( const outcome of this.outcomes.values() ) {
       if ( outcome.target === this.actor ) continue;
       if ( outcome.effects.length ) return true;

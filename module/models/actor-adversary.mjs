@@ -67,7 +67,18 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /** @override */
   get isDead() {
-    return this.resources.health.value === 0;
+    return (this.abilities.toughness.value > 0) && (this.resources.health.value === 0);
+  }
+
+  /** @override */
+  get isWeakened() {
+    return false;
+  }
+
+  /** @override */
+  get isBroken() {
+    if ( !this.abilities.presence.value ) return false;
+    return super.isBroken;
   }
 
   /** @override */
@@ -75,12 +86,17 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     return false;
   }
 
+  get isIncapacitated() {
+    if ( !this.abilities.toughness.value && this.isBroken ) return true;
+    return super.isIncapacitated;
+  }
+
   /**
    * Does this Adversary use physical equipment?
    * @type {boolean}
    */
   get usesEquipment() {
-    return !!this.details.taxonomy?.characteristics.equipment;
+    return (this.abilities.strength.value > 0) && !!this.details.taxonomy?.characteristics.equipment;
   }
 
   /* -------------------------------------------- */
