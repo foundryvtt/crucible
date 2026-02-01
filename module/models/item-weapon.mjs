@@ -18,12 +18,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];
 
-  /**
-   * The Handlebars template used to render this weapon as a line item for tooltips or as a partial.
-   * @type {string}
-   */
-  static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-weapon.hbs";
-
   /* -------------------------------------------- */
   /*  Data Schema                                 */
   /* -------------------------------------------- */
@@ -280,37 +274,16 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     Object.assign(tags, parentTags);
 
     // Damage and Range
-    let damage = game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
-    if ( this.config.category.reload && !this.loaded ) damage = game.i18n.localize("WEAPON.TAGS.Reload");
-    const range = game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range});
+    tags.damage = game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
+    if ( this.config.category.reload && !this.loaded ) tags.damage = game.i18n.localize("WEAPON.TAGS.Reload");
+    tags.range = game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range});
 
     // Weapon Properties
     if ( this.defense.block ) tags.block = game.i18n.format("ITEM.PROPERTIES.Block", {block: this.defense.block});
     if ( this.defense.parry ) tags.parry = game.i18n.format("ITEM.PROPERTIES.Parry", {parry: this.defense.parry});
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
 
-    switch(scope) {
-      case "short": return {damage, range};
-      case "tooltip": return { activation: { damage, range }, properties: tags };
-    }
-
-    return { ...tags, damage, range };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render this weapon as HTML for a tooltip card.
-   * @param {object} options
-   * @param {CrucibleActor} [options.actor]
-   * @returns {Promise<string>}
-   */
-  async renderCard() {
-    await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
-    return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
-      item: this.parent,
-      tags: this.getTags('tooltip'),
-    });
+    return scope === "short" ? {damage: tags.damage, range: tags.range} : tags;
   }
 
   /* -------------------------------------------- */

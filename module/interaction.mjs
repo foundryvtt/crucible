@@ -10,9 +10,13 @@ export function onPointerEnter(event) {
       return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "accessory":
     case "activeEffect":
+    case "armor":
+    case "backpack":
     case "spell":
     case "talent":
+    case "toolbelt":
     case "weapon":
       return displayFromUuid(event);
     case "knowledgeCheck":
