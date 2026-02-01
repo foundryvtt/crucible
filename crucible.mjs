@@ -245,7 +245,8 @@ Hooks.once("init", async function() {
         if ( tag.cssClasses ) classes += ` ${foundry.utils.escapeHTML(tag.cssClasses)}`;
         const label = foundry.utils.escapeHTML(tag.label ?? tag);
         const styleString = tag.color ? ` style="--tag-color: ${tag.color.css}"` : "";
-        return `<span class="${classes}" data-tag="${id}"${styleString}>${label}</span>`;
+        const tooltipString = tag.tooltip ? ` data-crucible-tooltip-text="${tag.tooltip}"` : "";
+        return `<span class="${classes}" data-crucible-tooltip="tag" data-tag="${id}"${styleString}${tooltipString}>${label}</span>`;
       });
       if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
       const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`

@@ -27,6 +27,8 @@ export function onPointerEnter(event) {
       return displayLanguageCheck(event);
     case "passiveCheck":
       return displayPassiveCheck(event);
+    case "tag":
+      return displayTagTooltip(event);
   }
 }
 
@@ -181,6 +183,27 @@ async function displayCondition(event) {
   const page = await fromUuid(cfg.page);
   if ( !page ) return;
   const html = `<h3 class="tooltip-title divider">${page.name}</h3>${page.text.content}`;
+  element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Display tag tooltip descriptions.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayTagTooltip(event) {
+  const element = event.target;
+  const tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  if ( !tooltip ) return;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const html = `<h3 class="tooltip-title divider">${element.innerText}</h3>${tooltip}`;
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
