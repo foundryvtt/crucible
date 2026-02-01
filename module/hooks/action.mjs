@@ -122,7 +122,7 @@ HOOKS.bodyBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
     for ( const outcome of targetAction.outcomes.values() ) {
-      if ( outcome.target.uuid !== actor.uuid ) continue;
+      if ( outcome.target.uuid !== this.actor.uuid ) continue;
       if ( !targetAction.tags.has("melee") ) {
         throw new Error("You may only use Body Block against an incoming melee attack.");
       }
