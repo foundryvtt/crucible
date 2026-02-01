@@ -855,7 +855,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const r of Object.values(resources) ) r.max = Math.max(r.base + r.bonus, 0);
 
     // Specific logic for 0-ability actors
-    if ( !this.abilities.toughness.value ) {
+    if ( !this.abilities.toughness.value && !this.abilities.presence.value ) {
+      resources.health.max = 0;
+      resources.morale.max = 0;
+    } else if ( !this.abilities.toughness.value ) {
       resources.morale.max += resources.health.max;
       resources.health.max = 0;
     } else if ( !this.abilities.presence.value ) {
