@@ -254,11 +254,10 @@ async function onClickAward(event) {
   // Iterate over actor targets
   if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
   if ( currencyEach < 0 ) {
-    const cannotAfford = targets.map(uuid => fromUuidSync(uuid)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
+    const cannotAfford = targets.filter(a => a.system.currency < -currencyEach).map(a => a.name);
     if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
   }
-  for ( const actorUuid of targets ) {
-    const actor = fromUuidSync(actorUuid);
+  for ( const actor of targets ) {
     const startingCurrency = actor.system.currency;
     const newCurrency = Math.max(startingCurrency + currencyEach, 0);
     actor.update({
@@ -274,7 +273,7 @@ async function onClickAward(event) {
       <div class="currencies-inline">
         ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
-      <ul class="plain">${Array.from(targets.map(t => `<li>${game.actors.get(t).name}</li>`)).join("")}</ul>
+      <ul class="plain">${Array.from(targets.map(a => `<li>${a.name}</li>`)).join("")}</ul>
     </section>
     `.concat(rollsHTML.join("")),
     rolls,
@@ -397,8 +396,7 @@ async function onClickCounterspell(event) {
   if (!targets.size) return;
 
   // Iterate over actor targets
-  for ( const actorUuid of targets ) {
-    const actor = fromUuidSync(actorUuid);
+  for ( const actor of targets ) {
     if ( !actor?.actions.counterspell ) {
       ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
       continue;
@@ -409,10 +407,10 @@ async function onClickCounterspell(event) {
       if ( user.isGM ) return false;
       return actor?.testUserPermission(user, "OWNER");
     });
-    if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid, rune, gesture, inflection, dc});
+    if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid: actor.uuid, rune, gesture, inflection, dc});
     else {
       ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
-      crucible.api.models.CrucibleCounterspellAction.prompt({actorUuid, rune, gesture, inflection, dc});
+      crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
     }
   }
 }
@@ -507,12 +505,11 @@ async function onClickHazard(event) {
   // Select a target
   const actor = inferEnricherActor();
   let targets;
-  if ( actor ) targets = new Set([actor.id]);
+  if ( actor ) targets = new Set([actor]);
   else targets = await chooseActorsDialog();
 
   // Iterate over actor targets
-  for ( const actorUuid of targets ) {
-    const actor = fromUuidSync(actorUuid);
+  for ( const actor of targets ) {
     const action = crucible.api.models.CrucibleAction.createHazard(actor, {
       name: element.innerText,
       hazard: Number(hazard),

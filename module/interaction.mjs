@@ -213,7 +213,7 @@ async function displayFromUuid(event) {
  * @param {CrucibleActor[]} [actors]        Which specific actors to checkboxes for
  * @param {boolean} [options.showSpecific]  Whether to show checkboxes for specific actors
  * @param {boolean} [options.showAny]       Whether to show the inputs for "any actor"
- * @returns {Promise<Set<string>>} A set of selected actor UUIDs
+ * @returns {Promise<Set<CrucibleActor>>} A set of selected actor UUIDs
  */
 export async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarget", dialogIcon="fa-solid fa-bullseye", actors, showSpecific=true, showAny=true}={}) {
   let content = "";
@@ -256,5 +256,9 @@ export async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarge
     content,
   });
   if ( !result ) return new Set();
-  return new Set([...(result.specificActor ?? []), ...(result.anyActor ?? [])]).filter(uuid => !uuid.startsWith("Compendium"));
+  const selectedActors = [...(result.specificActor ?? []), ...(result.anyActor ?? [])].reduce((acc, uuid) => {
+    if ( !uuid.startsWith("Compendium") ) acc.push(fromUuidSync(uuid));
+    return acc;
+  }, []);
+  return new Set(selectedActors);
 }
