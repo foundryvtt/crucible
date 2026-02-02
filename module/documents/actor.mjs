@@ -1316,6 +1316,7 @@ export default class CrucibleActor extends Actor {
     
     // Prompt designated user to pick up dropped items
     // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
+    const itemUpdates = [];
     const designatedUser = game.users.getDesignatedUser(user => {
       return user.active && (user.character === this);
     });
@@ -1325,19 +1326,13 @@ export default class CrucibleActor extends Actor {
         window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
         content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
       });
-      if ( pickUp ) {
-        for ( const item of droppedItems ) {
-          try {
-            await this.equipItem(item);
-          } catch (err) {
-            ui.notifications.warn(err);
-          }
-        }
-      }
+      if ( pickUp ) itemUpdates.push(...droppedItems.map(i => ({
+        _id: i.id,
+        "system.dropped": false
+      })));
     }
 
     // Reload any equipped weapons
-    const itemUpdates = [];
     const {mainhand, offhand} = this.equipment.weapons;
     for ( const weapon of [mainhand, offhand] ) {
       if ( weapon?.config.category.reload && !weapon.system.loaded ) {
