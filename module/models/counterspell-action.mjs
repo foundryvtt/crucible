@@ -50,7 +50,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
-    if ( this.tags.has("noncombat") ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
+    if ( this.usage.targetAction?.message === null ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
@@ -86,5 +86,30 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     if ( !lastAction?.message ) return messageData;
     foundry.utils.setProperty(messageData, "flags.crucible.targetMessageId", lastAction.message.id);
     return messageData;
+  }
+
+  /* -------------------------------------------- */
+  /*              Socket Interactions             */
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a request to use a non-combat Counterspell action
+   * @param {CrucibleActor|string} actor  An Actor or UUID of an Actor to perform the action
+   * @param {object} options              Additional options
+   * @param {string} options.rune         The rune used on the to-be-counterspelled action
+   * @param {string} options.gesture      The gesture used on the to-be-counterspelled action
+   * @param {number} options.dc           The DC for the Counterspell action
+   * @param {string} [options.inflection] The inflection used on the to-be-counterspelled action
+   */
+  static async prompt(actor, {rune, gesture, inflection, dc}={}) {
+    if ( typeof actor === "string" ) actor = await fromUuid(actor);
+    if ( !(actor instanceof Actor) ) throw new Error("CounterspellAction.prompt requires an Actor instance");
+    const counterspellAction = actor?.actions.counterspell;
+    if ( !counterspellAction ) return;
+    const tags = actor.inCombat ? counterspellAction.tags : Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat");
+    const action = counterspellAction.clone({tags});
+    action.usage.dc = dc;
+    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
+    return action.use();
   }
 }

@@ -1107,7 +1107,12 @@
 
 "DICE.REQUESTS": {
   "AddParty": "Add Party",
+  "AnyActor": "Any Actor",
+  "AnyActorHint": "Choose any world Actors.",
+  "ChooseTarget": "Choose Target",
   "ClearRequest": "Clear Request",
+  "SpecificActors": "Specific Actors",
+  "SpecificActorsHint": "Choose specific relevant actors.",
   "Request": "Request",
   "RequestRolls": "Request Rolls"
 },
@@ -1671,7 +1676,9 @@
     "WARNINGS": {
       "BadTarget": "You can only Counterspell the caster of the last action, and that action must be a spell.",
       "InvalidTerms": "Unable to parse {terms} as valid Counterspell terms.",
-      "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture."
+      "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture.",
+      "NoTalent": "{actor} does not have the Counterspell talent.",
+      "NoUser": "No non-GM users present to handle Counterspelling for actor {actor}"
     }
   },
   "RUNES": {

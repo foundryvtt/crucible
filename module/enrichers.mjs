@@ -1,3 +1,5 @@
+import { chooseActorsDialog } from "./interaction.mjs";
+
 /**
  * Register custom text editor enrichers that are applied to Crucible content.
  */
@@ -243,49 +245,19 @@ async function onClickAward(event) {
 
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
 
-  // TODO: Consider pulling this logic out and using it for both hazard & award
-  const partyMembers = crucible.party?.system.members || [];
-  const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
-    name: "partyMember",
-    type: "checkboxes",
-    options: partyMembers.reduce((arr, m) => {
-      if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name, selected: true});
-      return arr;
-    }, [])
-  })
-  const partyMember = foundry.applications.fields.createFormGroup({
-    label: "Party Members",
-    hint: "Choose characters in the active party.",
-    stacked: true,
-    input: partyMemberInput
+  const targets = await chooseActorsDialog({
+    dialogTitle: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
+    dialogIcon: "fa-solid fa-trophy"
   });
-  const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
-    type: "Actor",
-    name: "anyActor",
-  });
-  const anyActor = foundry.applications.fields.createFormGroup({
-    label: "Any Actor",
-    hint: "Alternatively, choose any Actors.",
-    input: anyActorInput
-  });
-  const response = await foundry.applications.api.DialogV2.input({
-    window: {title: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`), icon: "fa-solid fa-trophy"},
-    content: `\
-    ${partyMember.outerHTML}${anyActor.outerHTML}
-    `,
-  });
-
-  if (!response) return;
+  if (!targets.size) return;
 
   // Iterate over actor targets
-  const targets = new Set([...response.partyMember, ...response.anyActor]);
   if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
   if ( currencyEach < 0 ) {
-    const cannotAfford = targets.map(id => game.actors.get(id)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
+    const cannotAfford = targets.filter(a => a.system.currency < -currencyEach).map(a => a.name);
     if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
   }
-  for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId);
+  for ( const actor of targets ) {
     const startingCurrency = actor.system.currency;
     const newCurrency = Math.max(startingCurrency + currencyEach, 0);
     actor.update({
@@ -301,7 +273,7 @@ async function onClickAward(event) {
       <div class="currencies-inline">
         ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
-      <ul class="plain">${Array.from(targets.map(t => `<li>${game.actors.get(t).name}</li>`)).join("")}</ul>
+      <ul class="plain">${Array.from(targets.map(a => `<li>${a.name}</li>`)).join("")}</ul>
     </section>
     `.concat(rollsHTML.join("")),
     rolls,
@@ -407,18 +379,40 @@ async function onClickCounterspell(event) {
   const {rune, gesture, inflection, dc: dcString} = event.currentTarget.dataset;
   const dc = Number(dcString);
   const actor = inferEnricherActor();
-  const counterspellAction = actor?.actions.counterspell;
 
   // If inferred can counterspell, prompt
-  if ( counterspellAction ) {
-    const action = counterspellAction.clone({tags: Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat")});
-    action.usage.dc = dc;
-    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
-    return action.use();
-  }
+  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
 
-  // TODO: Prompt GM to pick among party members who can use Counterspell
-  ui.notifications.warn("Counterspell enricher currently only works with a single token capable of using Counterspell selected!");
+  // Prompt GM to pick among counterspellable party members
+  const actors = crucible.party?.system.members.reduce((acc, {actor}) => {
+    if ( actor.actions.counterspell ) acc.push(actor);
+    return acc;
+  }, []);
+  const targets = await chooseActorsDialog({
+    dialogTitle: "SPELL.COUNTERSPELL.Name",
+    dialogIcon: "fa-solid fa-magic-wand",
+    actors
+  });
+  if (!targets.size) return;
+
+  // Iterate over actor targets
+  for ( const actor of targets ) {
+    if ( !actor?.actions.counterspell ) {
+      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
+      continue;
+    }
+    // TODO: Consider whether to prompt multiple users
+    const designatedUser = game.users.getDesignatedUser(user => {
+      if ( !user.active ) return false;
+      if ( user.isGM ) return false;
+      return actor?.testUserPermission(user, "OWNER");
+    });
+    if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid: actor.uuid, rune, gesture, inflection, dc});
+    else {
+      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
+      crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
+    }
+  }
 }
 
 /* -------------------------------------------- */
@@ -510,45 +504,10 @@ async function onClickHazard(event) {
 
   // Select a target
   const actor = inferEnricherActor();
-  const partyMembers = crucible.party?.system.members || [];
-  let targets;
-  if ( actor ) targets = new Set([actor.id]);
-  else {
-    const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
-      name: "partyMember",
-      type: "checkboxes",
-      options: partyMembers.reduce((arr, m) => {
-        if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name});
-        return arr;
-      }, [])
-    })
-    const partyMember = foundry.applications.fields.createFormGroup({
-      label: "Party Members",
-      hint: "Choose characters in the active party.",
-      stacked: true,
-      input: partyMemberInput
-    });
-    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
-      type: "Actor",
-      name: "anyActor",
-    });
-    const anyActor = foundry.applications.fields.createFormGroup({
-      label: "Any Actor",
-      hint: "Alternatively, choose any Actors.",
-      input: anyActorInput
-    });
-    const response = await foundry.applications.api.DialogV2.input({
-      window: {title: "Choose Target", icon: "fa-solid fa-bullseye"},
-      content: `\
-      ${partyMember.outerHTML}${anyActor.outerHTML}
-      `,
-    });
-    targets = new Set([...response.partyMember, ...response.anyActor]);
-  }
+  const targets = actor ? [actor] : (await chooseActorsDialog());
 
   // Iterate over actor targets
-  for ( const actorId of targets ) {
-    const actor = game.actors.get(actorId);
+  for ( const actor of targets ) {
     const action = crucible.api.models.CrucibleAction.createHazard(actor, {
       name: element.innerText,
       hazard: Number(hazard),
