@@ -1940,11 +1940,17 @@ export default class CrucibleActor extends Actor {
     }
 
     // Verify whether equipment can occur
-    const result = this.canEquipItem(item, {slot, dropped, equipped});
-    if ( result.equipped === item.system.equipped ) return; // No change needed
+    let stowDropped = false;
+    try {
+      const result = this.canEquipItem(item, {slot, dropped, equipped});
+      if ( result.equipped === item.system.equipped ) return; // No change needed
+    } catch(err) {
+      if ( item.system.dropped ) stowDropped = true;
+      else throw err;
+    }
 
     // Configure and use the equipItem action
-    slot = equipped ? this.canEquipItem(item, slot) : undefined;
+    slot = (equipped && !stowDropped) ? this.canEquipItem(item, slot).slot : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
     else if ( action.usage.actorUpdates.items.length ) {
@@ -1997,18 +2003,19 @@ export default class CrucibleActor extends Actor {
     const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
-      name: item.system.dropped ? `Recover ${typeLabel}` : `Equip ${typeLabel}`,
+      name: game.i18n.format(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
       img: item.img,
-      cost: {action: ap, hands: 1},
-      description: `${item.system.dropped ? "Recover the dropped" : "Equip the"} ${item.name}.`,
+      cost: {action: ap, hands: this.inCombat ? 1 : 0},
+      description: game.i18n.format(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
       target: {type: "self", scope: 1}
     }, {actor: this});
 
     // Equip the weapon as a follow-up actor update
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
-    const update = {_id: item.id, system: {dropped: false, equipped: true}}
+    const update = {_id: item.id, system: {dropped: false, equipped: true}};
     if ( slot !== undefined ) update.slot = slot;
+    else update.system.equipped = false;
     action.usage.actorUpdates.items.push(update);
     return action;
   }

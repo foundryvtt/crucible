@@ -1226,7 +1226,9 @@
     "Drop": "Drop Weapon",
     "Edit": "Edit Item",
     "Equip": "Equip {typeLabel}",
+    "EquipDetail": "Equip the {item}",
     "Recover": "Recover {typeLabel}",
+    "RecoverDetail": "Recover the dropped {item}",
     "UnEquip": "Un-equip {typeLabel}"
   },
   "FIELDS": {
