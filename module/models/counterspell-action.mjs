@@ -95,11 +95,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /**
    * Handle a request to use a non-combat Counterspell action
    * @param {CrucibleActor|string} actor  An Actor or UUID of an Actor to perform the action
-   * @param {object} [options]            Additional options
-   * @param {string} [options.rune]       The rune used on the to-be-counterspelled action
-   * @param {string} [options.gesture]    The gesture used on the to-be-counterspelled action
+   * @param {object} options              Additional options
+   * @param {string} options.rune         The rune used on the to-be-counterspelled action
+   * @param {string} options.gesture      The gesture used on the to-be-counterspelled action
+   * @param {number} options.dc           The DC for the Counterspell action
    * @param {string} [options.inflection] The inflection used on the to-be-counterspelled action
-   * @param {number} [options.dc]         The DC for the Counterspell action
    */
   static async prompt(actor, {rune, gesture, inflection, dc}={}) {
     if ( typeof actor === "string" ) actor = await fromUuid(actor);

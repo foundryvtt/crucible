@@ -381,7 +381,7 @@ async function onClickCounterspell(event) {
   const actor = inferEnricherActor();
 
   // If inferred can counterspell, prompt
-  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.prompt({actorUuid: actor.uuid, rune, gesture, inflection, dc});
+  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
 
   // Prompt GM to pick among counterspellable party members
   const actors = crucible.party?.system.members.reduce((acc, {actor}) => {
@@ -504,9 +504,7 @@ async function onClickHazard(event) {
 
   // Select a target
   const actor = inferEnricherActor();
-  let targets;
-  if ( actor ) targets = new Set([actor]);
-  else targets = await chooseActorsDialog();
+  const targets = actor ? [actor] : (await chooseActorsDialog());
 
   // Iterate over actor targets
   for ( const actor of targets ) {
