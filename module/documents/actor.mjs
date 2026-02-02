@@ -1288,17 +1288,60 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Actions that occur when this Actor leaves a Combat encounter.
+   * GM-executed actions that occur when this Actor leaves a Combat encounter.
+   * @param {CrucibleCombat} combat The Combat encounter being left
    * @returns {Promise<void>}
    */
-  async onLeaveCombat() {
+  async onLeaveCombat(combat) {
 
-    // Clear turn delay flags
-    if ( this.flags.crucible?.delay ) await this.update({"flags.crucible.-=delay": null});
+    // Only if combat is ongoing (combatant deleted, not combat)
+    if ( combat.started && (combat.turn !== null) ) {
 
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
-    this._sheet?.render(false);
+      // If heroism, turn delay flags
+      const actorUpdates = {};
+      if ( this.resources.heroism.value ) actorUpdates["system.resources.heroism.value"] = 0;
+      if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.-=delay"] = null;
+      if ( !foundry.utils.isEmpty(actorUpdates) ) await this.update(actorUpdates);
+  
+      // Clear flanking
+      if ( this.statuses.has("flanked") ) await this.commitFlanking();
+    }
+    
+    // Prompt designated user to pick up dropped items
+    // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
+    const designatedUser = game.users.getDesignatedUser(user => {
+      if ( !user.active ) return false;
+      return user.character === this;
+    });
+    const droppedItems = this.items.filter(i => i.system.dropped);
+    if ( designatedUser && !this.isIncapacitated && droppedItems.length ) {
+      const pickUp = await DialogV2.query(designatedUser, "confirm", {
+        window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
+        content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
+      });
+      if ( pickUp ) {
+        for ( const item of droppedItems ) {
+          try {
+            await this.equipItem(item);
+          } catch (err) {
+            ui.notifications.warn(err);
+          }
+        }
+      }
+    }
+
+    // Reload any equipped weapons
+    const itemUpdates = [];
+    const {mainhand, offhand} = this.equipment.weapons;
+    for ( const weapon of [mainhand, offhand] ) {
+      if ( weapon?.config.category.reload && !weapon.system.loaded ) {
+        itemUpdates.push({
+          _id: weapon.id,
+          "system.loaded": true
+        });
+      }
+    }
+    if ( itemUpdates.length ) await this.updateEmbeddedDocuments("Item", itemUpdates);
   }
 
   /* -------------------------------------------- */

@@ -1227,6 +1227,8 @@
     "Edit": "Edit Item",
     "Equip": "Equip {typeLabel}",
     "Recover": "Recover {typeLabel}",
+    "RecoverAllTitle": "Recover Dropped Items",
+    "RecoverAllContent": "Pick up all of {actor}'s dropped items?",
     "UnEquip": "Un-equip {typeLabel}"
   },
   "FIELDS": {
