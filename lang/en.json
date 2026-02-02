@@ -650,6 +650,8 @@
 "ACTION.UseAction": "Use Action",
 "ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
+"ACTION.WarningCannotAffordHands.one": "{name} must have {hands} free hand to use {action}!",
+"ACTION.WarningCannotAffordHands.other": "{name} must have {hands} free hands to use {action}!",
 "ACTION.WarningCannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Incapacitated!",
 "ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
@@ -1747,6 +1749,10 @@
     "ReactAdj": "Reactive",
     "Reshape": "Reshape",
     "ReshapeAdj": "Shaped"
+  },
+  "WARNINGS": {
+    "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
+    "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast."
   }
 },
 

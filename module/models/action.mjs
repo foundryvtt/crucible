@@ -525,7 +525,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.training = [];
 
     // Prepare Cost
-    this.cost.hands = 0; // Number of free hands required
+    this.cost.hands ??= 0; // Number of free hands required
 
     // Prepare Effects
     for ( const effect of this.effects ) {
@@ -1377,6 +1377,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }));
     }
 
+    // Cannot afford hands cost
+    const {freeHands, spellHands} = this.actor.equipment.weapons;
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    if ( this.cost.hands > (this.tags.has("spell") ? spellHands : freeHands) ) {
+      const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WarningCannotAffordHands";
+      throw new Error(game.i18n.format(`${error}.${plurals.select(this.cost.hands)}`, {
+        name: this.actor.name,
+        hands: this.cost.hands,
+        action: this.name
+      }));
+    }
+
     // Cannot use physical scaling
     if ( !this.actor.abilities.strength.value && this.scaling.length && this.scaling.every(s => ["strength", "toughness", "dexterity"].includes(s)) ) {
       throw new Error(game.i18n.format("ACTION.WarningNoAbility", {
@@ -1747,7 +1759,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
-      const unmet = cost.hands > this.actor?.equipment.weapons.spellHands;
+      const {spellHands, freeHands} = this.actor?.equipment.weapons ?? {};
+      const unmet = cost.hands > (this.tags.has("spell") ? spellHands : freeHands);
       const plurals = new Intl.PluralRules(game.i18n.lang);
       const label = game.i18n.format(`ACTION.TagCostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
       tags.activation.hands = {label, unmet};
