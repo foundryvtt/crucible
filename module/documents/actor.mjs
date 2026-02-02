@@ -1288,6 +1288,19 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * A helper function to return actor updates that should take place upon exiting combat, and whether flanking needs updating
+   * @returns {{updates: object, updateFlanking: boolean}}
+   */
+  prepareLeaveCombatUpdates() {
+    const updates = {};
+    if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
+    if ( this.flags.crucible?.delay ) updates["flags.crucible.-=delay"] = null;
+    return {updates, updateFlanking: this.statuses.has("flanked")};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * GM-executed actions that occur when this Actor leaves a Combat encounter.
    * @param {CrucibleCombat} combat The Combat encounter being left
    * @returns {Promise<void>}
@@ -1296,26 +1309,19 @@ export default class CrucibleActor extends Actor {
 
     // Only if combat is ongoing (combatant deleted, not combat)
     if ( combat.started && (combat.turn !== null) ) {
-
-      // If heroism, turn delay flags
-      const actorUpdates = {};
-      if ( this.resources.heroism.value ) actorUpdates["system.resources.heroism.value"] = 0;
-      if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.-=delay"] = null;
-      if ( !foundry.utils.isEmpty(actorUpdates) ) await this.update(actorUpdates);
-  
-      // Clear flanking
-      if ( this.statuses.has("flanked") ) await this.commitFlanking();
+      const {updates, updateFlanking} = this.prepareLeaveCombatUpdates();
+      if ( !foundry.utils.isEmpty(updates) ) await this.update(updates);
+      if ( updateFlanking ) await this.commitFlanking();
     }
     
     // Prompt designated user to pick up dropped items
     // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
     const designatedUser = game.users.getDesignatedUser(user => {
-      if ( !user.active ) return false;
-      return user.character === this;
+      return user.active && (user.character === this);
     });
     const droppedItems = this.items.filter(i => i.system.dropped);
-    if ( designatedUser && !this.isIncapacitated && droppedItems.length ) {
-      const pickUp = await DialogV2.query(designatedUser, "confirm", {
+    if ( !this.isIncapacitated && droppedItems.length ) {
+      const pickUp = await DialogV2.query(designatedUser ?? game.user, "confirm", {
         window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
         content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
       });

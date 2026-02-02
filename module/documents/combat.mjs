@@ -106,8 +106,9 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     for ( const {actor} of this.combatants ) {
       if ( !actor ) continue;
       if ( isGM ) {
-        actorUpdates.push({_id: actor.id, "system.resources.heroism.value": 0, "flags.crucible.-=delay": null});
-        if ( actor.statuses.has("flanked") ) removeFlanking.push(actor);
+        const {updates, updateFlanking} = actor.prepareLeaveCombatUpdates();
+        if ( !foundry.utils.isEmpty(updates) ) actorUpdates.push({_id: actor.id, ...updates});
+        if ( updateFlanking ) removeFlanking.push(actor);
       }
       actor.reset();
       actor.render(false);
