@@ -1341,7 +1341,7 @@ export default class CrucibleActor extends Actor {
         });
       }
     }
-    if ( itemUpdates.length ) await this.updateEmbeddedDocuments("Item", itemUpdates);
+    if ( !this.isIncapacitated && itemUpdates.length ) await this.updateEmbeddedDocuments("Item", itemUpdates);
   }
 
   /* -------------------------------------------- */
