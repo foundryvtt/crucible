@@ -1,0 +1,45 @@
+name: Jeweler's Toolkit
+type: tool
+img: icons/containers/bags/pack-leather-gold-pink.webp
+system:
+  identifier: toolKitJewelcraft
+  category: crafting
+  quantity: 1
+  weight: 6
+  price: 940
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag. Contains files, calipers, a small
+      grindstone, polishing compounds and rags, and an assortment of inexpensive
+      settings. The case can unfold completely to provide a smooth work
+      surface.</p>
+    private: ''
+  actions: []
+  skills:
+    - jewelcraft
+effects: []
+folder: zKA7bUzu7rPpL2lk
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770151643429
+  modifiedTime: 1770151643429
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: jewelersToolkit0
+sort: 350000
+_key: '!items!jewelersToolkit0'
