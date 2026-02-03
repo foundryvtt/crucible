@@ -583,8 +583,19 @@ HOOKS.oozeSubdivide = {
 
 /* -------------------------------------------- */
 
+HOOKS.paralyticIngest = {
+  preActivate() {
+    const poison = this.effects[0];
+    const turns = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: null};
+    poison.duration.turns = turns[this.item.system.quality];
+    poison.system.dot.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.poisonIngest = {
-  prepare() {
+  preActivate() {
     const tiers = {
       shoddy: {amount: 2, turns: 4},
       standard: {amount: 4, turns: 6},
@@ -825,7 +836,7 @@ HOOKS.threadTheNeedle = {
 
 /* -------------------------------------------- */
 
-HOOKS.triggerSteelJawTrap = {
+HOOKS.steelJawTrigger = {
   prepare() {
     const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
     this.usage.bonuses.damageBonus = tiers[this.item.system.quality];

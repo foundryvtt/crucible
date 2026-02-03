@@ -20,7 +20,7 @@ system:
       creature steps on a pressure plate in the center</p>
     private: ''
   actions:
-    - id: armSteelJawTrap
+    - id: steelJawArm
       name: Arm Steel-Jaw Trap
       img: icons/environment/traps/trap-jaw-steel.webp
       condition: ''
@@ -49,7 +49,7 @@ system:
       tags:
         - consume
       actionHooks: []
-    - id: triggerSteelJawTrap
+    - id: steelJawTrigger
       name: Trigger Steel-Jaw Trap
       img: icons/environment/traps/trap-jaw-steel.webp
       condition: ''
@@ -127,7 +127,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1770143792462
-  modifiedTime: 1770143792462
+  modifiedTime: 1770144387331
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: steeljawTrap0000
 sort: 0
