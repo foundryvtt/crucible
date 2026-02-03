@@ -1,0 +1,105 @@
+name: Choking Ampoule
+type: consumable
+img: icons/consumables/potions/potion-flask-corked-cyan.webp
+system:
+  identifier: chokingAmpoule
+  category: bomb
+  quantity: 1
+  weight: 0
+  price: 250
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>This sealed glass phial contains a swirling cloud of dense green gas
+      held at pressure within. Shattering the ampoule would release its
+      contained fumes which cause a demoralizing and suffocating effect on those
+      exposed to it.</p>
+    private: ''
+  actions:
+    - id: chokingAmpoule
+      name: Choking Ampoule
+      img: icons/consumables/potions/potion-flask-corked-cyan.webp
+      condition: ''
+      description: >-
+        <p>You hurl the @ref[name], which is <strong>Harmless</strong> in its
+        immediate effect but causes the @Condition[poisoned] condition to all
+        enemies in an 8 foot radius <strong>Blast</strong> who fail to resist
+        the attack with their <strong>Fortitude</strong>.</p><p>The gas deals
+        poison damage to <strong>Morale</strong> in an amount dependent on the
+        quality of the @ref[name]. Upon a critical success, the affected target
+        also becomes @Condition[silenced] for the
+        duration.</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 3
+        rounds</p></li><li><p><strong>Standard</strong> - 6 damage for 3
+        rounds</p></li><li><p><strong>Fine</strong> - 12 damage for 3
+        rounds</p></li><li><p><strong>Superior</strong> - 20 damage for 3
+        rounds</p></li><li><p><strong>Masterwork</strong> - 30 damage for 3
+        rounds</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+        size: 8
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - poisoned
+          duration:
+            turns: 3
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - harmless
+        - reflex
+        - skill
+        - athletics
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770156398129
+  modifiedTime: 1770156398129
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: chokingAmpoule00
+sort: 0
+_key: '!items!chokingAmpoule00'

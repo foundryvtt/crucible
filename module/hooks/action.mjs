@@ -160,6 +160,21 @@ HOOKS.causticPhial = {
 
 /* -------------------------------------------- */
 
+HOOKS.chokingAmpoule = {
+  preActivate(_targets) {
+    const damage = {shoddy: 2, standard: 6, fine: 12, superior: 20, masterwork: 30};
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, {turns: 3, amount: damage[this.item.system.quality]});
+    poisoned.system.dot[0].resource = "morale";
+    foundry.utils.mergeObject(this.effects[0], poisoned);
+  },
+  postActivate(outcome) {
+    if ( outcome.self ) return;
+    if ( outcome.rolls[0].isCriticalSuccess ) outcome.effects[0].statuses.push("silenced");
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.clarifyIntent = {
   async postActivate(outcome) {
     const roll = outcome.rolls[0];
@@ -595,7 +610,7 @@ HOOKS.paralyticIngest = {
 /* -------------------------------------------- */
 
 HOOKS.poisonIngest = {
-  preActivate() {
+  preActivate(_targets) {
     const tiers = {
       shoddy: {amount: 2, turns: 4},
       standard: {amount: 4, turns: 6},
