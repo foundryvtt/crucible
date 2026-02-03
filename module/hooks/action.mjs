@@ -825,6 +825,15 @@ HOOKS.threadTheNeedle = {
 
 /* -------------------------------------------- */
 
+HOOKS.triggerSteelJawTrap = {
+  prepare() {
+    const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
+    this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.tuskCharge = {
   prepare() {
     this.range.maximum = this.actor.system.movement.stride;

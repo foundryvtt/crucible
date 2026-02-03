@@ -983,7 +983,8 @@
     "Bomb": "Bomb",
     "Flask": "Flask",
     "Kit": "Kit",
-    "Other": "Other"
+    "Other": "Other",
+    "Trap": "Trap"
   },
   "FIELDS": {
     "uses": {

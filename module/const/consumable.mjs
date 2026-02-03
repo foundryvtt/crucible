@@ -25,6 +25,10 @@ export const CATEGORIES = {
     id: "kit",
     label: "CONSUMABLE.CATEGORIES.Kit"
   },
+  trap: {
+    id: "trap",
+    label: "CONSUMABLE.CATEGORIES.Trap"
+  },
   other: {
     id: "other",
     label: "CONSUMABLE.CATEGORIES.Other"
