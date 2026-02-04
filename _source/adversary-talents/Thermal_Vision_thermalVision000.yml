@@ -1,0 +1,41 @@
+name: Thermal Vision
+type: talent
+img: icons/magic/perception/eye-slit-orange.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{Creature} perceives the world through differences in
+    temperature with precision, allowing it to locate creatures which are
+    warm-blooded or otherwise emit heat up to 60 feet away as long as they are
+    not behind total cover and you are not Blinded or Incapacitated. A creature
+    detected using this Thermal Vision is treated as visible for the purposes of
+    actions which require you to see your target.</p><p></p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770239196651
+  modifiedTime: 1770239196669
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: thermalVision000
+sort: 50000
+_key: '!items!thermalVision000'

@@ -1,0 +1,39 @@
+name: Bonded Mind
+type: talent
+img: icons/creatures/webs/web-sparse-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The mind of a @ref[actor.name]{creature} with this talent is inextricably
+    bound to other members of its group. It is capable of instantaneous
+    telepathic communication with any other @ref[actor.taxonomy.name]{creature
+    of its taxonomy} within 60 feet.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: DjDiZofs7UvgUC9D
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770239192228
+  modifiedTime: 1770239192228
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: bondedMind000000
+sort: 0
+_key: '!items!bondedMind000000'
