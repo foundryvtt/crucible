@@ -446,12 +446,6 @@ export const TAGS = {
         icon: "fa-solid fa-sparkles",
         tags: {}
       });
-    },
-    preActivate() {
-      let hands = this.cost.hands ?? 0;
-      if ( hands > this.actor.equipment.weapons.spellHands ) {
-        throw new Error(`The "${this.name}" spell requires ${this.cost.hands} free hands to cast.`);
-      }
     }
   },
 
@@ -471,11 +465,6 @@ export const TAGS = {
       this.usage.actorStatus.hasCast = true;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
-    },
-    preActivate() {
-      if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
-        throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
-      }
     },
     async roll(outcome) {
       const roll = await this.actor.spellAttack(this, outcome);
