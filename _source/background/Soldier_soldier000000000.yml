@@ -15,8 +15,10 @@ system:
     - athletics
     - intimidation
   talents:
-    - Compendium.crucible.talent.Item.heavyWeaponTrain
-    - Compendium.crucible.talent.Item.heavystrike00000
+    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.truegrit00000000
+      level: null
   identifier: soldier
   ui:
     color: '#f08e4c'
@@ -27,11 +29,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.347'
+  systemVersion: 0.8.7
+  coreVersion: '13.351'
   createdTime: 1674942420015
-  modifiedTime: 1756084010605
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1770236069607
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

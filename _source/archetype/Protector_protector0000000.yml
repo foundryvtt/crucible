@@ -14,11 +14,14 @@ system:
     toughness: 3
     dexterity: 1
   talents:
-    - Compendium.crucible.talent.Item.shieldCombatTrai
-    - Compendium.crucible.talent.Item.bulwark000000000
-    - Compendium.crucible.talent.Item.intercept0000000
-    - Compendium.crucible.talent.Item.holdfast00000000
-    - Compendium.crucible.talent.Item.shieldBash000000
+    - item: Compendium.crucible.talent.Item.shieldCombatTrai
+      level: null
+    - item: Compendium.crucible.talent.Item.bulwark000000000
+      level: null
+    - item: Compendium.crucible.talent.Item.intercept0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.holdfast00000000
+      level: null
   skills:
     - athletics
     - medicine
@@ -36,10 +39,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1765037016031
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1770235999398
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 _id: protector0000000
 sort: 400000
 _key: '!items!protector0000000'
