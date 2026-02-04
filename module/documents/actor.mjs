@@ -1941,16 +1941,17 @@ export default class CrucibleActor extends Actor {
 
     // Verify whether equipment can occur
     let stowDropped = false;
+    let result;
     try {
-      const result = this.canEquipItem(item, {slot, dropped, equipped});
+      result = this.canEquipItem(item, {slot, dropped, equipped});
       if ( result.equipped === item.system.equipped ) return; // No change needed
     } catch(err) {
-      if ( item.system.dropped ) stowDropped = true;
+      if ( item.system.dropped && (slot === undefined) ) stowDropped = true;
       else throw err;
     }
 
     // Configure and use the equipItem action
-    slot = (equipped && !stowDropped) ? this.canEquipItem(item, slot).slot : undefined;
+    slot = (equipped && !stowDropped) ? result.slot : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
     else if ( action.usage.actorUpdates.items.length ) {
