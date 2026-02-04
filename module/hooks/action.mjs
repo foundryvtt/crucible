@@ -160,6 +160,21 @@ HOOKS.causticPhial = {
 
 /* -------------------------------------------- */
 
+HOOKS.chokingAmpoule = {
+  preActivate(_targets) {
+    const damage = {shoddy: 2, standard: 6, fine: 12, superior: 20, masterwork: 30};
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, {turns: 3, amount: damage[this.item.system.quality]});
+    poisoned.system.dot[0].resource = "morale";
+    foundry.utils.mergeObject(this.effects[0], poisoned);
+  },
+  postActivate(outcome) {
+    if ( outcome.self ) return;
+    if ( outcome.rolls[0].isCriticalSuccess ) outcome.effects[0].statuses.push("silenced");
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.clarifyIntent = {
   async postActivate(outcome) {
     const roll = outcome.rolls[0];
@@ -208,14 +223,15 @@ HOOKS.counterspell = {
   },
   async roll(outcome) {
     // TODO: Only use this.usage.targetAction
-    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
+    const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction()
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
     if ( this.gesture.id === usedGesture?.id ) {
       this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
     }
-    if ( this.tags.has("noncombat") ) {
+    if ( !targetAction.message ) {
       const dc = this.usage.dc;
       const rollData = {
         actorId: this.actor.id,
@@ -236,7 +252,7 @@ HOOKS.counterspell = {
     }
   },
   async confirm(reverse) {
-    if ( this.tags.has("noncombat") ) return;
+    if ( this.outcomes.size === 1 ) return;
     const targetActor = this.outcomes.keys().find(a => a !== this.actor);
     const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
     if ( !isSuccess ) return;
@@ -582,8 +598,19 @@ HOOKS.oozeSubdivide = {
 
 /* -------------------------------------------- */
 
+HOOKS.paralyticIngest = {
+  preActivate() {
+    const poison = this.effects[0];
+    const turns = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: null};
+    poison.duration.turns = turns[this.item.system.quality];
+    poison.system.dot.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.poisonIngest = {
-  prepare() {
+  preActivate(_targets) {
     const tiers = {
       shoddy: {amount: 2, turns: 4},
       standard: {amount: 4, turns: 6},
@@ -819,6 +846,15 @@ HOOKS.threadTheNeedle = {
         outcome.usage.boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
       }
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.steelJawTrigger = {
+  prepare() {
+    const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
+    this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
   }
 }
 

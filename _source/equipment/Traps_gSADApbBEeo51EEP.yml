@@ -1,0 +1,18 @@
+type: Item
+folder: 28lvOLF0NPxRjMta
+name: Traps
+color: null
+sorting: a
+_id: gSADApbBEeo51EEP
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  lastModifiedBy: null
+_key: '!folders!gSADApbBEeo51EEP'

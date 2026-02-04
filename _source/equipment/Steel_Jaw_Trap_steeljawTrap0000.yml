@@ -1,0 +1,134 @@
+name: Steel-Jaw Trap
+type: consumable
+img: icons/environment/traps/trap-jaw-steel.webp
+system:
+  identifier: steelJawTrap
+  category: trap
+  quantity: 1
+  weight: 20
+  price: 300
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A particularly cruel and sharp mechanical trap designed to immobilize
+      and kill the unwary. A saw-toothed steel ring that snaps shut when a
+      creature steps on a pressure plate in the center</p>
+    private: ''
+  actions:
+    - id: steelJawArm
+      name: Arm Steel-Jaw Trap
+      img: icons/environment/traps/trap-jaw-steel.webp
+      condition: ''
+      description: >-
+        <p>Setting the trap places a dangerous hazard that deals significant
+        damage if triggered. It must be affixed by heavy chain to an immobile
+        object, such as a tree or spike driven into the ground. The area of the
+        trap is a circle with a radius of 2 feet.</p>
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: 4
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: false
+        size: 2
+      effects: []
+      tags:
+        - consume
+      actionHooks: []
+    - id: steelJawTrigger
+      name: Trigger Steel-Jaw Trap
+      img: icons/environment/traps/trap-jaw-steel.webp
+      condition: ''
+      description: >-
+        <p>When triggered the creature that set the trap makes a
+        <strong>Wilderness</strong> skill attack against the
+        <strong>Reflex</strong> defense of a single target which triggered the
+        trap. If not resisted, it deals piercing damage and applies the
+        @Condition[restrained] condition. The base damage dealt by the trap
+        varies according to the quality of the
+        trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+        damage</p></li><li><p><strong>Standard</strong> - 2
+        damage</p></li><li><p><strong>Fine</strong> - 4
+        damage</p></li><li><p><strong>Superior</strong> - 8
+        damage</p></li><li><p><strong>Masterwork</strong> - 16
+        damage</p></li></ul><p></p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: Steel-Jaw Trap
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - restrained
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - reflex
+        - piercing
+        - skill
+        - wilderness
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: gSADApbBEeo51EEP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770143792462
+  modifiedTime: 1770144387331
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: steeljawTrap0000
+sort: 0
+_key: '!items!steeljawTrap0000'

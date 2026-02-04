@@ -231,3 +231,61 @@ async function displayFromUuid(event) {
 }
 
 /* -------------------------------------------- */
+
+/**
+ * Creates a dialog for selecting from a specific group of world actors, and/or from arbitrary world actors
+ * @param {object} [options]
+ * @param {string} [options.dialogTitle]    The title of the dialog
+ * @param {string} [options.dialogIcon]     The FontAwesome classes used for the dialog's Icon
+ * @param {CrucibleActor[]} [actors]        Which specific actors to checkboxes for
+ * @param {boolean} [options.showSpecific]  Whether to show checkboxes for specific actors
+ * @param {boolean} [options.showAny]       Whether to show the inputs for "any actor"
+ * @returns {Promise<Set<CrucibleActor>>} A set of selected actor UUIDs
+ */
+export async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarget", dialogIcon="fa-solid fa-bullseye", actors, showSpecific=true, showAny=true}={}) {
+  let content = "";
+  if ( showSpecific ) {
+    actors ??= crucible.party?.system.members.map(a => a.actor) || [];
+    const specificActorInput = foundry.applications.fields.createMultiSelectInput({
+      name: "specificActor",
+      type: "checkboxes",
+      options: actors.reduce((arr, actor) => {
+        if ( actor ) arr.push({value: actor.uuid, label: actor.name, selected: true});
+        return arr;
+      }, [])
+    });
+    const specificActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.SpecificActors",
+      hint: "DICE.REQUESTS.SpecificActorsHint",
+      stacked: true,
+      localize: true,
+      input: specificActorInput
+    });
+    content += specificActor.outerHTML;
+  }
+
+  // Don't respect showAny if showSpecific is false or there are no specific actors to show
+  if ( showAny || !showSpecific || !actors?.length ) {
+    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+      type: "Actor",
+      name: "anyActor",
+    });
+    const anyActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.AnyActor",
+      hint: "DICE.REQUESTS.AnyActorHint",
+      localize: true,
+      input: anyActorInput
+    });
+    content += anyActor.outerHTML;
+  }
+  const result = await foundry.applications.api.DialogV2.input({
+    window: {title: dialogTitle, icon: dialogIcon},
+    content,
+  });
+  if ( !result ) return new Set();
+  const selectedActors = [...(result.specificActor ?? []), ...(result.anyActor ?? [])].reduce((acc, uuid) => {
+    if ( !uuid.startsWith("Compendium") ) acc.push(fromUuidSync(uuid));
+    return acc;
+  }, []);
+  return new Set(selectedActors);
+}
