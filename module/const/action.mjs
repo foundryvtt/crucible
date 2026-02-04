@@ -1228,7 +1228,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     description: "ACTION.DEFAULT_ACTIONS.ReactiveStrike.Description",
     cost: {
       action: -1,
-      focus: 1,
       weapon: true
     },
     range: {
