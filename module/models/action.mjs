@@ -36,6 +36,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [rollMode]            A dice roll mode to apply to the message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             A skill ID that is being used
@@ -526,6 +527,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare Cost
     this.cost.hands ??= 0; // Number of free hands required
+    if ( this.actor ) {
+      const {freeHands, spellHands} = this.actor.equipment.weapons;
+      this.usage.availableHands = this.tags.has("spell") ? spellHands : freeHands;
+    }
 
     // Prepare Effects
     for ( const effect of this.effects ) {
@@ -1378,9 +1383,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cannot afford hands cost
-    const {freeHands, spellHands} = this.actor.equipment.weapons;
-    const plurals = new Intl.PluralRules(game.i18n.lang);
-    if ( this.cost.hands > (this.tags.has("spell") ? spellHands : freeHands) ) {
+    if ( this.cost.hands > this.usage.availableHands ) {
+      const plurals = new Intl.PluralRules(game.i18n.lang);
       const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WarningCannotAffordHands";
       throw new Error(game.i18n.format(`${error}.${plurals.select(this.cost.hands)}`, {
         name: this.actor.name,
@@ -1759,8 +1763,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
-      const {spellHands, freeHands} = this.actor?.equipment.weapons ?? {};
-      const unmet = cost.hands > (this.tags.has("spell") ? spellHands : freeHands);
+      const unmet = cost.hands > this.usage.availableHands;
       const plurals = new Intl.PluralRules(game.i18n.lang);
       const label = game.i18n.format(`ACTION.TagCostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
       tags.activation.hands = {label, unmet};
