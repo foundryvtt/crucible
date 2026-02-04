@@ -1288,17 +1288,61 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Actions that occur when this Actor leaves a Combat encounter.
+   * A helper function to return actor updates that should take place upon exiting combat, and whether flanking needs updating
+   * @returns {{updates: object, updateFlanking: boolean}}
+   */
+  prepareLeaveCombatUpdates() {
+    const updates = {};
+    if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
+    if ( this.flags.crucible?.delay ) updates["flags.crucible.-=delay"] = null;
+    return {updates, updateFlanking: this.statuses.has("flanked")};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * GM-executed actions that occur when this Actor leaves a Combat encounter.
+   * @param {CrucibleCombat} combat The Combat encounter being left
    * @returns {Promise<void>}
    */
-  async onLeaveCombat() {
+  async onLeaveCombat(combat) {
 
-    // Clear turn delay flags
-    if ( this.flags.crucible?.delay ) await this.update({"flags.crucible.-=delay": null});
+    // Only if combat is ongoing (combatant deleted, not combat)
+    if ( combat.started && (combat.turn !== null) ) {
+      const {updates, updateFlanking} = this.prepareLeaveCombatUpdates();
+      if ( !foundry.utils.isEmpty(updates) ) await this.update(updates);
+      if ( updateFlanking ) await this.commitFlanking();
+    }
+    
+    // Prompt designated user to pick up dropped items
+    // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
+    const itemUpdates = [];
+    const designatedUser = game.users.getDesignatedUser(user => {
+      return user.active && (user.character === this);
+    });
+    const droppedItems = this.items.filter(i => i.system.dropped);
+    if ( !this.isIncapacitated && droppedItems.length ) {
+      const pickUp = await DialogV2.query(designatedUser ?? game.user, "confirm", {
+        window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
+        content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
+      });
+      if ( pickUp ) itemUpdates.push(...droppedItems.map(i => ({
+        _id: i.id,
+        "system.dropped": false
+      })));
+    }
 
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
-    this._sheet?.render(false);
+    // Reload any equipped weapons
+    const {mainhand, offhand} = this.equipment.weapons;
+    for ( const weapon of [mainhand, offhand] ) {
+      if ( weapon?.config.category.reload && !weapon.system.loaded ) {
+        itemUpdates.push({
+          _id: weapon.id,
+          "system.loaded": true
+        });
+      }
+    }
+    if ( !this.isIncapacitated && itemUpdates.length ) await this.updateEmbeddedDocuments("Item", itemUpdates);
   }
 
   /* -------------------------------------------- */

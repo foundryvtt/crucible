@@ -106,9 +106,11 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     for ( const {actor} of this.combatants ) {
       if ( !actor ) continue;
       if ( isGM ) {
-        actorUpdates.push({_id: actor.id, "system.resources.heroism.value": 0});
-        if ( actor.statuses.has("flanked") ) removeFlanking.push(actor);
+        const {updates, updateFlanking} = actor.prepareLeaveCombatUpdates();
+        if ( !foundry.utils.isEmpty(updates) ) actorUpdates.push({_id: actor.id, ...updates});
+        if ( updateFlanking ) removeFlanking.push(actor);
       }
+      actor.reset();
       actor.render(false);
     }
     if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
@@ -185,5 +187,13 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     // FIXME determine whether these lines are still required
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onExit(combatant) {
+    await super._onExit(combatant);
+    if ( combatant.actor ) await combatant.actor.onLeaveCombat(this);
   }
 }

@@ -63,7 +63,7 @@ export default class CrucibleCombatant extends Combatant {
     super._onCreate(data, options, userId);
     if ( this.actor ) {
       this.actor.reset();
-      this.actor._sheet?.render(false);
+      this.actor.render(false);
     }
   }
 
@@ -72,6 +72,9 @@ export default class CrucibleCombatant extends Combatant {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
-    if ( this.actor ) this.actor.onLeaveCombat();
+    if ( this.actor ) {
+      this.actor.reset();
+      this.actor.render(false);
+    }
   }
 }
