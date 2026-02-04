@@ -1232,9 +1232,11 @@
     "Drop": "Drop Weapon",
     "Edit": "Edit Item",
     "Equip": "Equip {typeLabel}",
+    "EquipDetail": "Equip the {item}",
     "Recover": "Recover {typeLabel}",
     "RecoverAllTitle": "Recover Dropped Items",
     "RecoverAllContent": "Pick up all of {actor}'s dropped items?",
+    "RecoverDetail": "Recover the dropped {item}",
     "UnEquip": "Un-equip {typeLabel}"
   },
   "FIELDS": {
