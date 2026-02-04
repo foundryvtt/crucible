@@ -15,8 +15,10 @@ system:
     - stealth
     - deception
   talents:
-    - Compendium.crucible.talent.Item.lightWeaponTrain
-    - Compendium.crucible.talent.Item.lunge00000000000
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.backstab00000000
+      level: null
   identifier: urchin
   ui:
     color: '#84d7b7'
@@ -27,11 +29,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.347'
+  systemVersion: 0.8.7
+  coreVersion: '13.351'
   createdTime: 1674942420027
-  modifiedTime: 1756084018447
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1770236050631
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

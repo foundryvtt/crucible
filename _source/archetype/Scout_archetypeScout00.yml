@@ -14,11 +14,16 @@ system:
     toughness: 3
     dexterity: 3
   talents:
-    - Compendium.crucible.talent.Item.preparedness0000
-    - Compendium.crucible.talent.Item.assessstrength00
-    - Compendium.crucible.talent.Item.precisionshot000
-    - Compendium.crucible.talent.Item.lunge00000000000
-    - Compendium.crucible.talent.Item.projectileTraini
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: null
+    - item: Compendium.crucible.talent.Item.assessstrength00
+      level: null
+    - item: Compendium.crucible.talent.Item.precisionshot000
+      level: null
+    - item: Compendium.crucible.talent.Item.projectileWeapon
+      level: null
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
   skills:
     - athletics
     - awareness
@@ -37,9 +42,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1751388804848
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1770236128679
+  lastModifiedBy: ifaQA7jTJsr3UWFE
 sort: 800000
 _key: '!items!archetypeScout00'

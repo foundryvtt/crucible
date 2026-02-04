@@ -11,10 +11,12 @@ system:
     toughness: 4
     dexterity: 2
   talents:
-    - Compendium.crucible.talent.Item.heavystrike00000
-    - Compendium.crucible.talent.Item.thickskin0000000
-    - Compendium.crucible.talent.Item.berserker0000000
-    - Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.thickskin0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.berserker0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+      level: null
   identifier: berserker
 effects: []
 folder: 6Up7ddrphLept3RW
@@ -25,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   coreVersion: '13.351'
   createdTime: 1684888350310
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1770235978192
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

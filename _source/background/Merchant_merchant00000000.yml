@@ -14,8 +14,10 @@ system:
     - society
     - diplomacy
   talents:
-    - Compendium.crucible.talent.Item.lightWeaponTrain
-    - Compendium.crucible.talent.Item.lunge00000000000
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: null
   identifier: merchant
   ui:
     color: '#dac372'
@@ -26,11 +28,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.347'
+  systemVersion: 0.8.7
+  coreVersion: '13.351'
   createdTime: 1674942420028
-  modifiedTime: 1756083988003
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1770236077295
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -14,11 +14,14 @@ system:
     toughness: 4
     dexterity: 1
   talents:
-    - Compendium.crucible.talent.Item.powerfulphysique
-    - Compendium.crucible.talent.Item.wrestler00000000
-    - Compendium.crucible.talent.Item.legsweep00000000
-    - Compendium.crucible.talent.Item.concussiveblows0
-    - Compendium.crucible.talent.Item.unarmedCombatTra
+    - item: Compendium.crucible.talent.Item.powerfulphysique
+      level: null
+    - item: Compendium.crucible.talent.Item.legsweep00000000
+      level: null
+    - item: Compendium.crucible.talent.Item.concussiveblows0
+      level: null
+    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+      level: null
   identifier: grappler
   skills:
     - athletics
@@ -33,11 +36,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   coreVersion: '13.351'
   createdTime: 1685831675455
-  modifiedTime: 1768428592108
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1770235990351
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null

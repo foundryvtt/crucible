@@ -12,9 +12,12 @@ system:
     toughness: 2
     dexterity: 4
   talents:
-    - Compendium.crucible.talent.Item.precisionshot000
-    - Compendium.crucible.talent.Item.evasiveshot00000
-    - Compendium.crucible.talent.Item.projectileTraini
+    - item: Compendium.crucible.talent.Item.precisionshot000
+      level: null
+    - item: Compendium.crucible.talent.Item.evasiveshot00000
+      level: null
+    - item: Compendium.crucible.talent.Item.projectileWeapon
+      level: null
   identifier: archer
 effects: []
 folder: 6Up7ddrphLept3RW
@@ -25,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   coreVersion: '13.351'
   createdTime: 1685738036284
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1770233960482
+  lastModifiedBy: ifaQA7jTJsr3UWFE
   compendiumSource: null
   duplicateSource: null
   exportSource: null
