@@ -352,8 +352,10 @@ export const TAGS = {
 
       // Remove prone condition upon movement confirmation if non-crawl action
       if ( this.actor.statuses.has("prone") ) {
-        const movementPath = this.token?.movementHistory.filter(m => m.movementId === self.movement) ?? [];
-        if ( movementPath.some(m => m.action !== "crawl") ) await this.actor.toggleStatusEffect("prone", {active: false});
+        const movementHistory = this.token?.movementHistory ?? [];
+        if ( !movementHistory.every(m => (m.movementId !== self.movement) || (m.action === "crawl")) ) {
+          await this.actor.toggleStatusEffect("prone", {active: false});
+        }
       }
     }
   },
