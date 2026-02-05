@@ -1,3 +1,5 @@
+import {TARGET_SCOPES} from "../const/action.mjs";
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -198,6 +200,16 @@ HOOKS.carefree00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.chirurgeon000000 = {
+  prepareAction(item, action) {
+    if ( action.tags.has("medicine") && this.inCombat ) {
+      action.usage.boons[item.id] = {label: item.name, number: 1};
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.concussiveblows0 = {
   applyCriticalEffects(_item, action, outcome, _self) {
     const damageHealth = outcome.resources.health < 0;
@@ -225,6 +237,20 @@ HOOKS.conserveeffort00 = {
     if ( this.resources.action.value ) {
       resourceChanges.focus = (resourceChanges.focus || 0) + 1;
       statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.demolitionist000 = {
+  prepareAction(item, action) {
+    if ( action.item?.config?.category.id === "bomb" ) {
+      if ( action.target.scope === SYSTEM.ACTION.TARGET_SCOPES.ALL ) action.target.self = false;
+      if ( !action.actor.system.status.demolitionist ) {
+        action.cost.action = Math.max(action.cost.action - 1, 0);
+        action.usage.actorStatus.demolitionist = true;
+      }
     }
   }
 }
@@ -467,7 +493,7 @@ HOOKS.powerfulphysique = {
 
 HOOKS.powerfulThrow000 = {
   prepareAction(item, action) {
-    if ( action.tags.has("thrown") ) {
+    if ( action.tags.has("thrown") || (action.item?.config?.category.id === "bomb") ) {
       action.range.maximum *= 2;
     }
   }
@@ -529,6 +555,17 @@ HOOKS.runewarden000000 = {
       const dt = rune.damageType;
       if ( (dt === "physical") || (SYSTEM.DAMAGE_TYPES[dt].type === "physical") ) continue;
       resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.saboteur00000000 = {
+  prepareAction(item, action) {
+    if ( action.item?.config?.category.id === "bomb" ) {
+      action.usage.bonuses.skill = Math.max(action.usage.bonuses.skill, SYSTEM.TALENT.TRAINING_RANKS.trained.bonus);
+      action.usage.boons[item.id] = {label: item.name, number: 1};
     }
   }
 }

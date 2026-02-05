@@ -1,0 +1,39 @@
+name: Saboteur
+type: talent
+img: icons/skills/ranged/bomb-grenade-thrown-gray.webp
+system:
+  nodes:
+    - dextou2
+  description: >-
+    <p>You are skilled with the use of thrown munitions. When using a consumable
+    of the <strong>Bomb</strong> type you always count as at least
+    <strong>Trained</strong> regardless of which skill is used and you gain
+    <strong>+1 Boon</strong> to any involved check.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 17mi9eBYSlWpdF3m
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770254240021
+  modifiedTime: 1770254774725
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: saboteur00000000
+sort: 100000
+_key: '!items!saboteur00000000'

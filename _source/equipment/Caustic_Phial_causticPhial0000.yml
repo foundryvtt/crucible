@@ -51,7 +51,7 @@ system:
         type: blast
         number: 1
         scope: 4
-        self: false
+        self: true
         size: 4
       effects:
         - name: Caustic Phial
@@ -61,12 +61,21 @@ system:
           duration:
             turns: 3
             rounds: null
+          result:
+            type: success
+            all: false
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - consume
         - weakened
         - reflex
         - skill
         - athletics
-        - consume
       actionHooks: []
   uses:
     value: 1
@@ -83,9 +92,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1760799532842
-  modifiedTime: 1766113583062
+  modifiedTime: 1770255496684
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: causticPhial0000
 sort: 0

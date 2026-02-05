@@ -53,16 +53,16 @@ system:
         type: blast
         number: 1
         scope: 4
-        self: false
+        self: true
         size: 4
       effects: []
       tags:
+        - consume
         - reflex
         - fire
         - dexterity
         - skill
         - athletics
-        - consume
       actionHooks: []
   uses:
     value: 1
@@ -86,9 +86,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1751422081513
-  modifiedTime: 1766113585695
+  modifiedTime: 1770255487186
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 200000
 _key: '!items!KdlUUFhAnpv6YIHT'

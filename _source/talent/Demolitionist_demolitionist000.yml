@@ -1,0 +1,40 @@
+name: Demolitionist
+type: talent
+img: icons/skills/ranged/bomb-grenade-thrown-yellow.webp
+system:
+  nodes:
+    - sig3.dexterity.toughness
+  description: >-
+    <p>Your remarkable expertise with munitions allows you to wield them
+    efficiently amidst the chaos of combat. Each turn, your first usage of a
+    <strong>Bomb</strong> has a reduced cost of <strong>-1 Action</strong>.
+    </p><p>You are no longer targeted by your own bombs, even if you are
+    otherwise within their area of effect.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770255661128
+  modifiedTime: 1770256161790
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: demolitionist000
+sort: 0
+_key: '!items!demolitionist000'

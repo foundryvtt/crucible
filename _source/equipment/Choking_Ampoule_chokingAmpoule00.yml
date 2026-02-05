@@ -55,7 +55,7 @@ system:
         type: blast
         number: 1
         scope: 4
-        self: false
+        self: true
         size: 8
       effects:
         - name: ''
@@ -98,7 +98,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1770156398129
-  modifiedTime: 1770156398129
+  modifiedTime: 1770255505276
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: chokingAmpoule00
 sort: 0

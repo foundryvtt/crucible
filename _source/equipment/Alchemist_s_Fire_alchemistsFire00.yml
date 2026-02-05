@@ -51,7 +51,7 @@ system:
         type: blast
         number: 1
         scope: 4
-        self: false
+        self: true
         size: 4
       effects:
         - name: Alchemist's Fire
@@ -61,12 +61,21 @@ system:
           duration:
             turns: 3
             rounds: null
+          result:
+            type: success
+            all: false
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - consume
         - weakened
         - reflex
         - skill
         - athletics
-        - consume
       actionHooks: []
   uses:
     value: 1
@@ -83,9 +92,9 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1751637580701
-  modifiedTime: 1766113588170
+  modifiedTime: 1770255467379
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 100000
 _key: '!items!alchemistsFire00'

@@ -1,0 +1,90 @@
+name: Chirurgeon
+type: talent
+img: icons/equipment/head/mask-plague-grey.webp
+system:
+  nodes:
+    - sig3.dexterity
+    - sig3.wisdom
+  description: >-
+    <p>Your improvisational expertise with battlefield medicine can save many
+    lives. You make all <strong>Medicine</strong> checks during combat with
+    <strong>+1 Boon</strong>.</p>
+  actions:
+    - id: medicinalCompound
+      name: Medicinal Compound
+      img: icons/equipment/head/mask-plague-grey.webp
+      condition: ''
+      description: >-
+        <p>You delve into your medical supplies, hastily combining whatever you
+        might have available to salve the target's wounds or calm the target's
+        mind. Perform a <strong>Medicine Check</strong>.</p><p>The attempt is
+        contested by the higher of the target's <strong>Healing
+        Threshold</strong> or <strong>Rallying Threshold</strong>. If successful
+        the target immediately regains both Health and Morale as well as half
+        that amount at the beginning of each of the subsequent 3 turns.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 1
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects:
+        - name: ''
+          scope: 2
+          result:
+            type: success
+            all: false
+          statuses:
+            - mending
+            - inspired
+          duration:
+            turns: 3
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - healing
+        - skill
+        - medicine
+        - rallying
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770257843241
+  modifiedTime: 1770257843241
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: chirurgeon000000
+sort: 0
+_key: '!items!chirurgeon000000'

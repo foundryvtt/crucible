@@ -545,6 +545,25 @@ HOOKS.intercept = {
 
 /* -------------------------------------------- */
 
+HOOKS.medicinalCompound = {
+  preActivate(targets) {
+    const defenses = targets[0].actor.system.defenses;
+    this.usage.defenseType = defenses.wounds.total >= defenses.madness.total ? "wounds" : "madness";
+  },
+  postActivate(outcome) {
+    if ( outcome.self || outcome.rolls[0].isFailure ) return;
+    const dmg = outcome.rolls[0].data.damage.total;
+    outcome.resources.health = dmg;
+    const amount = Math.ceil(dmg / 2);
+    outcome.effects[0].system.dot.push(
+      {amount, resource: "health", restoration: true},
+      {amount, resource: "morale", restoration: true}
+    )
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.oozeMultiply = {
   postActivate(outcome) {
     outcome.actorUpdates ||= {};

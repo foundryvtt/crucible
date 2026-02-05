@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Toolbelt
+color: null
+sorting: a
+_id: 17mi9eBYSlWpdF3m
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770254278662
+  modifiedTime: 1770254278662
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!17mi9eBYSlWpdF3m'

@@ -5,8 +5,8 @@ system:
   nodes:
     - str3b
   description: >-
-    <p>The maximum range at which you can use <strong>Throw Weapon</strong> is
-    doubled.</p>
+    <p>The maximum range of actions with the <strong>Throw</strong> tag or
+    actions from <strong>Bomb</strong> consumables are doubled</p>
   actions: []
   rune: ''
   gesture: ''
@@ -26,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1749329319147
-  modifiedTime: 1749342592213
+  modifiedTime: 1770253735823
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: powerfulThrow000
 sort: 400000
