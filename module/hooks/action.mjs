@@ -833,6 +833,17 @@ HOOKS.spellband = {
 
 /* -------------------------------------------- */
 
+HOOKS.tailSweep = {
+  canUse() {
+    return this.usage.weapon.system.identifier === "tail";
+  },
+  initialize() {
+    this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "tail");
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.telecognition = {
   prepare() {
     this.usage.hasDice = true;
