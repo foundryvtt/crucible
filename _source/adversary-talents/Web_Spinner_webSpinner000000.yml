@@ -45,7 +45,7 @@ system:
     rank: null
   actorHooks: []
 effects: []
-folder: 9Ej4QwUt1yVpv4Wn
+folder: cIS6eiJYaMi1oZQJ
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -54,11 +54,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751677645787
-  modifiedTime: 1751677645787
+  modifiedTime: 1770326568650
   lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 0
+sort: 50000
 _key: '!items!webSpinner000000'

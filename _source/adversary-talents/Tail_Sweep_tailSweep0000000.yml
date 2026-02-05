@@ -1,0 +1,80 @@
+name: Tail Sweep
+type: talent
+img: icons/skills/melee/strike-scythe-fire-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can whip its heavy tail across the
+    battlefield with terrible force.</p>
+  actions:
+    - id: tailSweep
+      name: Tail Sweep
+      img: icons/skills/melee/strike-scythe-fire-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} sweeps its heavy tail in a circular
+        arc, striking all creatures within range. On a <strong>Critical
+        Hit</strong>, affected targets become @Condition[staggered] for until
+        the end of their next turn.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: ''
+          scope: 4
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - staggered
+          duration:
+            turns: 1
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - natural
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: z5YUjjlgfHiFfM2X
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770329441207
+  modifiedTime: 1770329441207
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+_id: tailSweep0000000
+sort: 0
+_key: '!items!tailSweep0000000'

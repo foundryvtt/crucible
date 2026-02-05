@@ -1,0 +1,36 @@
+name: Extended Breath
+type: talent
+img: icons/magic/water/pseudopod-swirl-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can hold its breath for <strong>15
+    minutes</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770326680000
+  modifiedTime: 1770326680000
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: extendedBreath00
+sort: 0
+_key: '!items!extendedBreath00'
