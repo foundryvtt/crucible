@@ -1,13 +1,15 @@
 name: Swooping Strike
 type: talent
-img: icons/creatures/claws/claw-talons-glowing-orange.webp
+img: icons/creatures/abilities/dragon-breath-purple.webp
 system:
   nodes: []
-  description: <p>This creature swoops from high above into a diving attack.</p>
+  description: >-
+    <p>This @ref[actor.name]{creature} swoops from high above into a diving
+    attack.</p>
   actions:
     - id: swoopingStrike
       name: Swooping Strike
-      img: icons/creatures/claws/claw-talons-glowing-orange.webp
+      img: icons/creatures/abilities/dragon-breath-purple.webp
       condition: ''
       description: >-
         <p>This attack may be used after a <strong>Move</strong> which descended
@@ -20,6 +22,7 @@ system:
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -31,7 +34,7 @@ system:
         self: false
       effects:
         - name: Swooping Strike
-          scope: '3'
+          scope: 3
           result:
             type: successCritical
             all: false
@@ -40,6 +43,12 @@ system:
           duration:
             turns: null
             rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
@@ -62,12 +71,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1750728541887
-  modifiedTime: 1762972280318
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1770325211262
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: swoopingStrike00
 sort: 0
 _key: '!items!swoopingStrike00'

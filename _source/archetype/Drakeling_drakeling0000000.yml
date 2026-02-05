@@ -8,18 +8,19 @@ system:
   abilities:
     wisdom: 0
     presence: 0
-    intellect: 2
-    strength: 4
+    intellect: 3
+    strength: 3
     toughness: 3
     dexterity: 3
   talents:
-    - Compendium.crucible.adversary-talents.Item.packhunter000000
-    - Compendium.crucible.adversary-talents.Item.acidSpit00000000
-    - Compendium.crucible.adversary-talents.Item.pouncingStrike00
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      level: null
   skills:
     - awareness
     - stealth
-    - wilderness
+    - deception
   identifier: drakeling
 effects: []
 folder: EzdzEWVNHF3sCVco
@@ -31,11 +32,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1750876423684
-  modifiedTime: 1751554949263
+  modifiedTime: 1770325107114
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: drakeling0000000
 sort: 0

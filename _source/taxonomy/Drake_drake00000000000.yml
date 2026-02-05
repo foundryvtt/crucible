@@ -36,7 +36,13 @@ system:
     psychic: 0
     radiant: 0
     void: 0
-  talents: []
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -51,11 +57,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1750730886197
-  modifiedTime: 1751554860555
+  modifiedTime: 1770324569467
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: drake00000000000
 sort: 0
