@@ -676,12 +676,8 @@ HOOKS.strikefirst00000 = {
 /* -------------------------------------------- */
 
 HOOKS.stronggrip000000 = {
-  prepareActions(_actions) {
-    const weapons = this.equipment.weapons;
-    if ( weapons.twoHanded ) {
-      weapons.freeHands += 1;
-      weapons.spellHands += 1;
-    }
+  prepareAction(_item, action) {
+    if ( this.equipment.weapons.twoHanded ) action.usage.availableHands += 1;
   }
 }
 
