@@ -493,6 +493,11 @@ export const TAGS = {
     label: "ACTION.TagSummon",
     tooltip: "ACTION.TagSummonTooltip",
     category: "special",
+    canUse() {
+      if ( !this.usage.summons?.length || this.usage.summons.some(s => !s.actorUuid) ) {
+        throw new Error(game.i18n.format("ACTION.WarningMisconfiguredSummon", { action: this.name }));
+      }
+    },
     async postActivate(outcome) {
       if ( (outcome.target !== this.actor) || !outcome.summons?.length ) return;
       for ( const summon of outcome.summons ) {
