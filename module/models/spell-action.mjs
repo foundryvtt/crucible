@@ -218,10 +218,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _canUse() {
     super._canUse();
-
-    // Can't use an inflection while silenced
     if ( this.inflection && this.actor.statuses.has("silenced") ) {
-      throw new Error(game.i18n.localize("SPELL.WARNINGS.Silenced"));
+      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced"));
     }
   }
 
@@ -335,7 +333,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       tags.context.inflection = {
         label: tags.context.inflection,
         unmet: true,
-        tooltip: game.i18n.localize("SPELL.WARNINGS.Silenced")
+        tooltip: game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced")
       }
     }
     return tags;
