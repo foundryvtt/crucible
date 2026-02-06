@@ -281,8 +281,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         self: new fields.BooleanField()
       }),
       // TODO: Consider which fields make sense to have configurable via UI
-      summons: new fields.SchemaField({
-        actorUuid: new fields.DocumentUUIDField({type: "Actor"})
+      summon: new fields.SchemaField({
+        actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
+        permanent: new fields.BooleanField({initial: true})
       }),
       effects: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: ""}),
@@ -555,10 +556,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Prepare Summons
-    if ( this.summons.actorUuid ) {
+    if ( this.summon.actorUuid ) {
       this.usage.summons = [{
-        actorUuid: this.summons.actorUuid,
-        permanent: true
+        actorUuid: this.summon.actorUuid,
+        permanent: this.summon.permanent
       }];
     }
 

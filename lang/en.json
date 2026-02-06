@@ -204,11 +204,15 @@
         }
       }
     },
-    "summons": {
-      "label": "Action Summons",
+    "summon": {
+      "label": "Action Summon",
       "actorUuid": {
         "label": "Summoned Actor",
-        "hint": "Which specific actor should be permanently summoned by this action?"
+        "hint": "Which specific actor should be summoned by this action?"
+      },
+      "permanent": {
+        "label": "Permanent",
+        "hint": "Should this summon persist until killed?"
       }
     },
     "tags": {

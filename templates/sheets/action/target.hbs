@@ -28,8 +28,9 @@
 
     {{#if isSummon}}
     <fieldset>
-        <legend>{{fields.summons.label}}</legend>
-        {{formGroup fields.summons.fields.actorUuid value=action.summons.actorUuid}}
+        <legend>{{fields.summon.label}}</legend>
+        {{formGroup fields.summon.fields.actorUuid value=action.summon.actorUuid}}
+        {{formGroup fields.summon.fields.permanent value=action.summon.permanent}}
     </fieldset>
     {{/if}}
 </section>
