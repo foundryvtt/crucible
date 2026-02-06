@@ -1827,8 +1827,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actionData.outcomes.push(outcomeData);
     }
 
-    if ( this.usage.summons?.length ) {
-      targets = this.usage.summons.map(({actorUuid}) => ({
+    if ( this.target.type === "summon" ) {
+      targets = (this.usage.summons || []).map(({actorUuid}) => ({
         uuid: actorUuid,
         name: fromUuidSync(actorUuid).name ?? "Unknown" // Shouldn't be possible, but just in case
       }));
