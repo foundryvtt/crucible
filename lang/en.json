@@ -204,6 +204,17 @@
         }
       }
     },
+    "summon": {
+      "label": "Action Summon",
+      "actorUuid": {
+        "label": "Summoned Actor",
+        "hint": "Which specific actor should be summoned by this action?"
+      },
+      "permanent": {
+        "label": "Permanent",
+        "hint": "Should this summon persist until killed?"
+      }
+    },
     "tags": {
       "label": "Action Tags",
       "hint": "Add tags which define the requirements, behavior, and modifiers of this action. The order of tags matters as later tags will take priority over earlier ones if they modify the same properties of the action."

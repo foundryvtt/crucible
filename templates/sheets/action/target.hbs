@@ -25,4 +25,12 @@
         {{formGroup fields.target.fields.multiple value=action.target.multiple classes="slim"}}
         {{formGroup fields.target.fields.self value=action.target.self}}
     </fieldset>
+
+    {{#if isSummon}}
+    <fieldset>
+        <legend>{{fields.summon.label}}</legend>
+        {{formGroup fields.summon.fields.actorUuid value=action.summon.actorUuid}}
+        {{formGroup fields.summon.fields.permanent value=action.summon.permanent}}
+    </fieldset>
+    {{/if}}
 </section>

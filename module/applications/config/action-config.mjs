@@ -150,6 +150,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
         return acc;
       }, {}),
       hookPartial: CrucibleActionConfig.HOOK_PARTIAL,
+      isSummon: action.tags.includes("summon"),
       tabs: this.#prepareTabs().sheet,
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
