@@ -662,6 +662,7 @@
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 "ACTION.WarningMinimumRange": "A selected target is closer than the minimum range of {min} feet.",
 "ACTION.WarningMaximumRange": "A selected target is further than the maximum range of {max} feet.",
+"ACTION.WarningMisconfiguredSummon": "The action {action} does not have a properly configured Summon target.",
 "ACTION.WarningNoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
 "ACTION.WarningUnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
 
