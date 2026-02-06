@@ -508,6 +508,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const sections = {
       attack: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsAttack"), actions: []},
       spell: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSpell"), actions: []},
+      summon: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSummon"), actions: []},
       reaction: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
       movement: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
       general: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
@@ -533,7 +534,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         reaction: "reaction",
         spell: "spell",
         iconicSpell: "spell",
-        movement: "movement"
+        movement: "movement",
+        summon: "summon"
       };
       for ( const [tag, sectionId] of Object.entries(tagMapping) ) {
         if ( action.tags.has(tag) ) {

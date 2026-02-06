@@ -476,6 +476,7 @@
       "ActionsMovement": "Movement Actions",
       "ActionsReaction": "Reactions",
       "ActionsSpell": "Spellcraft Actions",
+      "ActionsSummon": "Summon Actions",
       "EffectsDisabled": "Disabled Effects",
       "EffectsPersistent": "Persistent Effects",
       "EffectsTemporary": "Temporary Effects"
