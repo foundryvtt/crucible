@@ -339,10 +339,10 @@ export const TAGS = {
       status.hasMoved = true;
     },
     async confirm(reverse) {
+      const self = this.outcomes.get(this.actor);
 
       // Reverse recorded movement
       if ( reverse ) {
-        const self = this.outcomes.get(this.actor);
         if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
         if ( self.movement === this.actor.system.status.freeMovementId ) {
           Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
@@ -350,9 +350,12 @@ export const TAGS = {
         return;
       }
 
-      // Remove prone condition upon movement confirmation
+      // Remove prone condition upon movement confirmation if non-crawl action
       if ( this.actor.statuses.has("prone") ) {
-        await this.actor.toggleStatusEffect("prone", {active: false});
+        const movementHistory = this.token?.movementHistory ?? [];
+        if ( !movementHistory.every(m => (m.movementId !== self.movement) || (m.action === "crawl")) ) {
+          await this.actor.toggleStatusEffect("prone", {active: false});
+        }
       }
     }
   },
