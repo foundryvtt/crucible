@@ -95,7 +95,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: this.#requiresTemplate || !["self", "none", "summon"].includes(this.action.target.type),
+      hasTargets: this.#requiresTemplate || !["self", "none"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,
       weaponChoice: this.#prepareWeaponChoice(),
       targets: this.#prepareTargets()
@@ -136,6 +136,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {ActionUseTarget[]}
    */
   #prepareTargets() {
+    if ( this.action.usage.summons?.length ) {
+      return this.action.usage.summons.map(({actorUuid}) => ({
+        uuid: actorUuid,
+        name: fromUuidSync(actorUuid)?.name ?? "Unknown" // Shouldn't be possible, but just in case
+      }));
+    }
     const targets = this.#targetTemplate.targets ?? this.action.acquireTargets({strict: false});
     for ( const t of targets ) {
       t.cssClass = t.error ? "unmet" : "";

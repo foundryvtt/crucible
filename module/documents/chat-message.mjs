@@ -120,16 +120,20 @@ export default class CrucibleChatMessage extends ChatMessage {
       }
       else {
         if ( meta ) meta.insertAdjacentHTML("afterbegin", `<i class="unconfirmed fa-solid fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
-        if ( !game.user.isGM ) return;
-        const confirm = foundry.utils.parseHTML(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`);
-        html.appendChild(confirm);
-        confirm.addEventListener("click", event => {
-          const button = event.currentTarget;
-          button.disabled = true;
-          button.firstElementChild.className = "fa-solid fa-spinner fa-spin";
-          CrucibleAction.confirmMessage(message);
-        })
+        if ( game.user.isGM ) {
+          const confirm = foundry.utils.parseHTML(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`);
+          html.appendChild(confirm);
+          confirm.addEventListener("click", event => {
+            const button = event.currentTarget;
+            button.disabled = true;
+            button.firstElementChild.className = "fa-solid fa-spinner fa-spin";
+            CrucibleAction.confirmMessage(message);
+          });
+        }
       }
+
+      // Hide summoned creature names for non-GMs
+      if ( flags.action.tags.includes("summon") && !game.user.isGM ) html.querySelector(".target-template.full-tags")?.remove();
     }
 
     // Initiative Report
