@@ -1827,6 +1827,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actionData.outcomes.push(outcomeData);
     }
 
+    if ( this.target.type === "summon" ) {
+      targets = (this.usage.summons || []).map(({actorUuid}) => ({
+        uuid: actorUuid,
+        name: fromUuidSync(actorUuid).name ?? "Unknown" // Shouldn't be possible, but just in case
+      }));
+    }
+
     // Render HTML template
     const tags = this.getTags();
     const templatePath = "systems/crucible/templates/dice/action-use-chat.hbs";
