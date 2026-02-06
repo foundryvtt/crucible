@@ -1136,7 +1136,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @inheritDoc */
   async _onDragStart(event) {
-    super._onDragStart(event);
+    await super._onDragStart(event);
     const li = event.currentTarget;
     let dragData;
 
