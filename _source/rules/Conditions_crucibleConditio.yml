@@ -60,9 +60,7 @@ pages:
         deadly wounds. Protagonists become Weakened when they reach zero Health.
         Any further damage to Health taken while Weakened increases
         Wounds.</p><p>While a creature is Weakened, it suffers -2 to maximum
-        Action, loses access to a free Movement action, and suffers an
-        additional <strong>2 Vulnerability</strong> to any
-        <strong>Morale</strong> damage sustained.</p>
+        Action and loses access to a free Movement action.</p>
     video:
       controls: true
       volume: 0.5
@@ -79,7 +77,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751302878260
-      modifiedTime: 1770320922494
+      modifiedTime: 1770384752006
       lastModifiedBy: ifaQA7jTJsr3UWFE
     _key: '!journal.pages!crucibleConditio.weakened00000000'
   - sort: 200000
@@ -204,13 +202,11 @@ pages:
         psychological trauma. Protagonists become Broken when they reach zero
         Morale. Any further damage to Morale taken while Broken increases
         Madness.</p><p>While a creature is Broken it cannot expend
-        <strong>Focus</strong>, actions it takes suffer from <strong>+2
-        Banes</strong>, and it suffers an additional <strong>2
-        Vulnerability</strong> to any <strong>Health</strong> damage
-        sustained.</p><p>Creatures which are Broken cannot contribute towards
-        Flanking. Non-player Adversaries which become Broken will attempt to
-        flee the battle unless they lack instincts of self-preservation or
-        escape seems impossible.</p>
+        <strong>Focus</strong> and actions it takes suffer from <strong>+2
+        Banes</strong>.</p><p>Creatures which are Broken cannot contribute
+        towards Flanking. Non-player Adversaries which become Broken will
+        attempt to flee the battle unless they lack instincts of
+        self-preservation or escape seems impossible.</p>
     video:
       controls: true
       volume: 0.5
@@ -223,12 +219,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.351'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751302966644
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1770384772052
+      lastModifiedBy: ifaQA7jTJsr3UWFE
     _key: '!journal.pages!crucibleConditio.broken0000000000'
   - sort: 800000
     name: Insane
@@ -1168,7 +1164,8 @@ pages:
       content: >-
         <p>A creature which is <strong>Silenced </strong>is unable to perform
         any action with the <strong>Vocal</strong> trait or to cast a Spell
-        which includes a metamagic <strong>Inflection</strong>.</p>
+        which includes a metamagic <strong>Inflection</strong>.</p><p>TODO:
+        Implementation of the Vocal trait still to come.</p>
     video:
       controls: true
       volume: 0.5
@@ -1185,7 +1182,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751305324362
-      modifiedTime: 1770322069285
+      modifiedTime: 1770384791978
       lastModifiedBy: ifaQA7jTJsr3UWFE
     _key: '!journal.pages!crucibleConditio.silenced00000000'
   - sort: 1812500
