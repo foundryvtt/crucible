@@ -557,10 +557,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare Summons
     if ( this.summon.actorUuid ) {
-      this.usage.summons = [{
-        actorUuid: this.summon.actorUuid,
-        permanent: this.summon.permanent
-      }];
+      this.usage.summons = [{...this.summon}];
     }
 
     // Reset bonuses
