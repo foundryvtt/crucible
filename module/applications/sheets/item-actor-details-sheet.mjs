@@ -62,9 +62,10 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
-      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level}));
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level}).then(html => ({html, name: talent.name, level})));
     }
-    return Promise.all(promises);
+    const sorted = (await Promise.all(promises)).toSorted((a, b) => (a.level - b.level) || a.name.localeCompare(b.name));
+    return sorted.map(({html}) => html);
   }
 
   /* -------------------------------------------- */
@@ -112,7 +113,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     
     // Handle talent level changes
     if ( submitData.system.talents ) {
-      const updatedTalents = [...this.document.system._source.talents];
+      const updatedTalents = foundry.utils.deepClone(this.document.system._source.talents);
       for ( const [idx, changes] of Object.entries(submitData.system.talents) ) {
         foundry.utils.mergeObject(updatedTalents[idx], changes);
       }
