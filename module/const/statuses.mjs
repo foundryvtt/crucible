@@ -97,7 +97,7 @@ export const statusEffects = [
     name: "ACTIVE_EFFECT.STATUSES.Burrowing",
     img: "icons/svg/burrow.svg",
     hud: nonGroupTypes,
-    // page: TODO
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.burrowing0000000"
   },
   {
     id: "deafened",
@@ -133,6 +133,13 @@ export const statusEffects = [
     img: "icons/svg/invisible.svg",
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.invisible0000000"
+  },
+  {
+    id: "invulnerable",
+    name: "ACTIVE_EFFECT.STATUSES.Invulnerable",
+    img: "systems/crucible/icons/statuses/invulnerable.svg",
+    hud: nonGroupTypes,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.invulnerable0000"
   },
   {
     id: "resolute",
@@ -223,8 +230,8 @@ export const statusEffects = [
     id: "confused",
     name: "ACTIVE_EFFECT.STATUSES.Confused",
     img: "icons/magic/air/air-burst-spiral-pink.webp",
-    hud: false
-    // page: TODO
+    hud: false,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.confused00000000"
   },
   {
     id: "corroding",
@@ -251,8 +258,8 @@ export const statusEffects = [
     id: "entropy",
     name: "ACTIVE_EFFECT.STATUSES.Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",
-    hud: false
-    // page: TODO
+    hud: false,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.entropy000000000"
   },
   {
     id: "irradiated",
