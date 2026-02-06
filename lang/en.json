@@ -1759,7 +1759,8 @@
   },
   "WARNINGS": {
     "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
-    "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast."
+    "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",
+    "CannotUseSilenced": "Cannot use Inflections while Silenced."
   }
 },
 

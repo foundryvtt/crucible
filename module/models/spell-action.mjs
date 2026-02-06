@@ -214,6 +214,16 @@ export default class CrucibleSpellAction extends CrucibleAction {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _canUse() {
+    super._canUse();
+    if ( this.inflection && this.actor.statuses.has("silenced") ) {
+      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced"));
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -317,6 +327,15 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.damage.healing ) tags.action.healing = game.i18n.localize("ACTION.TagHealing");
     else tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
+
+    // Show unmet for inflection if silenced
+    if ( tags.context.inflection && this.actor?.statuses.has("silenced") ) {
+      tags.context.inflection = {
+        label: tags.context.inflection,
+        unmet: true,
+        tooltip: game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced")
+      }
+    }
     return tags;
   }
 }
