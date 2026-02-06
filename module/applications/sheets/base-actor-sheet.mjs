@@ -414,6 +414,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           section = sections.inventory[d.section];
           break;
         case "talent":
+          if ( this.document.type === "adversary" ) d.cssClass = "draggable";
           d.tier = i.system.node?.tier || 0;
           const action = i.actions.at(0);
           if ( action ) {
