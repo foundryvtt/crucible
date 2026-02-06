@@ -280,6 +280,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
+      // TODO: Consider which fields make sense to have configurable via UI
+      summons: new fields.SchemaField({
+        actorUuid: new fields.DocumentUUIDField({type: "Actor"})
+      }),
       effects: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: ""}),
         scope: new fields.NumberField({choices: effectScopes}),
@@ -548,6 +552,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         else if ( effect.duration.rounds ) effect.tags.duration = game.i18n.format("ACTION.DurationRounds", {rounds: effect.duration.rounds});
         else effect.tags.duration = game.i18n.localize("ACTION.DurationUntilEnded");
       }
+    }
+
+    // Prepare Summons
+    if ( this.summons.actorUuid ) {
+      this.usage.summons = [{
+        actorUuid: this.summons.actorUuid,
+        permanent: true
+      }];
     }
 
     // Reset bonuses
