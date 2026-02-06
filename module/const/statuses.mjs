@@ -241,6 +241,13 @@ export const statusEffects = [
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.decaying00000000"
   },
   {
+    id: "dominated",
+    name: "ACTIVE_EFFECT.STATUSES.Dominated",
+    img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
+    hud: false
+    // page: TODO
+  },
+  {
     id: "entropy",
     name: "ACTIVE_EFFECT.STATUSES.Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",

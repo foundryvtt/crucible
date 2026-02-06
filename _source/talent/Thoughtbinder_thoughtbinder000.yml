@@ -6,8 +6,8 @@ system:
     - wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Control. Spells which use
-    this Rune cause the @Condition[restrained] condition on Critical
-    Hits.</p><p>The Restrained effect lasts for <strong>1 Round</strong> and
+    this Rune cause the @Condition[dominated] condition on Critical
+    Hits.</p><p>The Dominated effect lasts for <strong>1 Round</strong> and
     deals your <strong>Wisdom</strong> ability score as additional
     <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
   actions: []

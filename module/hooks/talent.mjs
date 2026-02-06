@@ -720,9 +720,8 @@ HOOKS.thoughtbinder000 = {
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
-    const restrained = SYSTEM.EFFECTS.restrained(this, outcome.target);
-    restrained.duration = {rounds: 1};
-    outcome.effects.push(restrained);
+    const dominated = SYSTEM.EFFECTS.dominated(this, outcome.target);
+    outcome.effects.push(dominated);
   }
 }
 

@@ -253,20 +253,21 @@ export function inspired(actor, target) {
 }
 
 /**
- * Generate a standardized restrained effect.
- * Restrained deals wisdom in psychic damage to Morale.
+ * Generate a standardized dominated effect.
+ * Dominated deals wisdom in psychic damage to Morale.
  * @param {CrucibleActor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function restrained(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
+export function dominated(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
-    _id: getEffectId("Restrained"),
-    name: "Restrained",
-    icon: "icons/magic/control/debuff-chains-shackle-movement-red.webp",
+    _id: getEffectId("Dominated"),
+    name: "Dominated",
+    icon: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     duration: {turns},
     origin: actor.uuid,
+    statuses: ["dominated"],
     system: {
       dot: [{
         amount,
