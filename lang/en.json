@@ -490,6 +490,7 @@
       "ActionsSummon": "Summon Actions",
       "EffectsDisabled": "Disabled Effects",
       "EffectsPersistent": "Persistent Effects",
+      "EffectsSuppressed": "Suppressed Effects",
       "EffectsTemporary": "Temporary Effects"
     },
     "PointsAvailable": "Available",

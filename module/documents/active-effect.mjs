@@ -24,6 +24,15 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  get isSuppressed() {
+    if ( super.isSuppressed ) return true;
+    if ( (this.parent instanceof crucible.api.documents.CrucibleItem) && this.parent.activeEffectsSuppressed ) return true;
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Obtain an object of tags which describe the Effect.
    * @returns {EffectTags}
@@ -65,8 +74,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       tags.activation.duration = "∞";
     }
 
+    // Transfer
+    if ( this.parent instanceof Item ) tags.activation.origin = this.parent.name;
+
     // Disabled Effects
     if ( this.disabled ) tags.context.section = "disabled";
+
+    // Suppressed Effects
+    if ( this.isSuppressed ) tags.context.section = "suppressed";
     return tags;
   }
 }
