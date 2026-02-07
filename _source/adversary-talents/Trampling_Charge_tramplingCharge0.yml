@@ -1,0 +1,88 @@
+name: Trampling Charge
+type: talent
+img: icons/magic/sonic/explosion-impact-shock-wave.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} uses its prodigious size to charge
+    forward, trampling smaller creatures that stand in its way.</p>
+  actions:
+    - id: tramplingCharge
+      name: Trampling Charge
+      img: icons/magic/sonic/explosion-impact-shock-wave.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} moves forward up to twice its
+        <strong>Stride</strong>, attacking the <strong>Reflex</strong> defense
+        of all creatures in its path. Targets who are half the creature's size
+        or smaller are @Condition[stunned] until the end of their next turn as
+        they are slammed aside.</p>
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: ray
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 4
+          result:
+            type: success
+            all: false
+          statuses:
+            - stunned
+          duration:
+            turns: 1
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - movement
+        - melee
+        - natural
+        - reflex
+        - bludgeoning
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 7OugQFMnRfIZEXcY
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1770474128399
+  modifiedTime: 1770474128399
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: tramplingCharge0
+sort: 0
+_key: '!items!tramplingCharge0'

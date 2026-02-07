@@ -11,7 +11,10 @@ system:
     toughness: 4
     dexterity: 2
   talents:
-    - Compendium.crucible.adversary-talents.Item.restrainingChomp
+    - item: Compendium.crucible.adversary-talents.Item.restrainingChomp
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.thrash0000000000
+      level: 2
   skills:
     - athletics
     - awareness
@@ -27,11 +30,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1751142941491
-  modifiedTime: 1751554931239
+  modifiedTime: 1770473230488
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: chomper000000000
 sort: 200000

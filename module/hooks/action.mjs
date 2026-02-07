@@ -890,6 +890,21 @@ HOOKS.steelJawTrigger = {
 
 /* -------------------------------------------- */
 
+HOOKS.tramplingCharge = {
+  prepare() {
+    this.target.size = this.actor.size;
+    this.range.maximum = this.actor.system.movement.stride * 2;
+  },
+  postActivate(outcome) {
+    if ( outcome.self ) return;
+    const halfSize = Math.ceil(this.actor.size / 2);
+    const targetSize = outcome.target.size;
+    if ( targetSize > halfSize ) outcome.effects.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.tuskCharge = {
   prepare() {
     this.range.maximum = this.actor.system.movement.stride;
