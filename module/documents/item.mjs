@@ -43,9 +43,8 @@ export default class CrucibleItem extends foundry.documents.Item {
    * Should this item's effects be suppressed?
    * @type {boolean}
    */
-  get areEffectsSuppressed() {
-    if ( this.system.areEffectsSuppressed ) return true;
-    return false;
+  get activeEffectsSuppressed() {
+    return this.system.activeEffectsSuppressed || false;
   }
 
   /* -------------------------------------------- */

@@ -97,7 +97,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * Should this item's effects be suppressed?
    * @type {boolean}
    */
-  get areEffectsSuppressed() {
+  get activeEffectsSuppressed() {
     if ( !this.constructor.EQUIPABLE ) return false;
     return !this.equipped || (this.requiresInvestment && !this.invested);
   }
