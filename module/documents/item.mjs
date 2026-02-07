@@ -39,6 +39,15 @@ export default class CrucibleItem extends foundry.documents.Item {
     return this.system.currentRank;
   }
 
+  /**
+   * Should this item's effects be suppressed?
+   * @type {boolean}
+   */
+  get areEffectsSuppressed() {
+    if ( this.system.areEffectsSuppressed ) return true;
+    return false;
+  }
+
   /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */

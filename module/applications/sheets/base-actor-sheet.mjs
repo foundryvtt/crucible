@@ -569,11 +569,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const sections = {
       temporary: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsTemporary"), effects: []},
       persistent: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsPersistent"), effects: []},
-      disabled: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsDisabled"), effects: []}
+      disabled: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsDisabled"), effects: []},
+      suppressed: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsSuppressed"), effects: []}
     };
 
     // Categorize and prepare effects
-    for ( const effect of this.actor.effects ) {
+    for ( const effect of this.actor.allApplicableEffects() ) {
       const tags = effect.getTags();
 
       // Add effect to section
@@ -999,8 +1000,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @returns {ActiveEffect}
    */
   #getEventEffect(_event, target) {
-    const effectId = target.closest(".effect")?.dataset.effectId;
-    return this.actor.effects.get(effectId, {strict: true});
+    const effectUuid = target.closest(".effect")?.dataset.uuid;
+    return fromUuidSync(effectUuid);
   }
 
   /* -------------------------------------------- */
