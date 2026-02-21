@@ -951,7 +951,7 @@ export default class CrucibleActor extends Actor {
     // Apply resource updates
     const changes = {};
     for ( let [resourceName, delta] of Object.entries(deltas) ) {
-      if ( !(resourceName in r) ) continue;
+      if ( !(resourceName in r) || (delta === 0) ) continue;
       if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
       if ( reverse ) delta *= -1;
       let resource = r[resourceName];
@@ -972,9 +972,11 @@ export default class CrucibleActor extends Actor {
           if ( this.isIncapacitated ) delta = Math.min(delta, 0);
           break;
         case "health":
+        case "wounds":
           if ( this.statuses.has("diseased") ) delta = Math.min(delta, 0);
           break;
         case "morale":
+        case "madness":
           if ( this.statuses.has("frightened") ) delta = Math.min(delta, 0);
       }
 
@@ -1313,7 +1315,7 @@ export default class CrucibleActor extends Actor {
       if ( !foundry.utils.isEmpty(updates) ) await this.update(updates);
       if ( updateFlanking ) await this.commitFlanking();
     }
-    
+
     // Prompt designated user to pick up dropped items
     // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
     const itemUpdates = [];

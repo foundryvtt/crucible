@@ -1237,8 +1237,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const roll of outcome.rolls ) {
       const damage = roll.data.damage || {};
       const resource = damage.resource ?? "health";
+      const cfg = SYSTEM.RESOURCES[resource];
+      const delta = (damage.total ?? 0) * (damage.restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
       outcome.resources[resource] ??= 0;
-      outcome.resources[resource] += (damage.total ?? 0) * (damage.restoration ? 1 : -1);
+      outcome.resources[resource] += delta;
       if ( roll.isCriticalSuccess ) outcome.criticalSuccess = true;
       else if ( roll.isCriticalFailure) outcome.criticalFailure = true;
     }

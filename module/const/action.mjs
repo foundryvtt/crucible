@@ -996,6 +996,27 @@ export const TAGS = {
     }
   },
 
+  severe: {
+    tag: "severe",
+    label: "ACTION.TagSevere",
+    tooltip: "ACTION.TagSevereTooltip",
+    category: "modifiers",
+    async postActivate(outcome) {
+      const targetResources = outcome.target?.system?.resources;
+      if ( !targetResources ) return;
+      for ( const roll of outcome.rolls ) {
+        if ( !roll.data.damage ) continue;
+        const resource = roll.data.damage.resource ?? "health";
+        if ( (resource === "health") && ("wounds" in targetResources) ) {
+          roll.data.damage.resource = "wounds";
+        }
+        else if ( (resource === "morale") && ("madness" in targetResources) ) {
+          roll.data.damage.resource = "madness";
+        }
+      }
+    }
+  },
+
   /* -------------------------------------------- */
   /*  Defense Modifiers                           */
   /* -------------------------------------------- */
