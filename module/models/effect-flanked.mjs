@@ -14,7 +14,7 @@ export default class CrucibleFlankedActiveEffect extends foundry.abstract.TypeDa
       allies: new fields.NumberField({required: true, integer: true, nullable: false}),
       enemies: new fields.NumberField({required: true, integer: true, nullable: false}),
       flanked: new fields.NumberField({required: true, integer: true, nullable: false})
-    }
+    };
   }
 
   /** @override */

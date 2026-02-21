@@ -9,7 +9,7 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
     id: "crucible-talent-controls",
     window: {
       frame: false,
-      positioned: false,
+      positioned: false
     },
     classes: ['crucible', 'flexrow'],
     actions: {
@@ -22,8 +22,8 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
   static PARTS = {
     controls: {
       root: true,
-      template: 'systems/crucible/templates/hud/talent-tree-controls.hbs',
-    },
+      template: 'systems/crucible/templates/hud/talent-tree-controls.hbs'
+    }
   };
 
   /* -------------------------------------------- */

@@ -44,5 +44,5 @@ export const PROPERTIES = {
   thrown: {
     label: "WEAPON.TAGS.Thrown",
     tooltip: "WEAPON.TAGS.ThrownTooltip"
-  },
+  }
 };

@@ -62,7 +62,7 @@ export const QUALITY_TIERS = {
     bonus: 3,
     rarity: 4
   }
-}
+};
 
 /**
  * The possible enchantment tiers that a physical item can possess.
@@ -93,7 +93,7 @@ export const ENCHANTMENT_TIERS = {
     bonus: 3,
     rarity: 6
   }
-}
+};
 
 /**
  * Standard physical item properties
@@ -172,7 +172,7 @@ export const SCHEMATIC_CATEGORIES = {
   runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.Runeweaving"},
   smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.Smithing"},
   tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.Tailoring"}
-}
+};
 
 /**
  * The boolean properties that a "schematic" is able to have.
@@ -180,4 +180,4 @@ export const SCHEMATIC_CATEGORIES = {
  */
 export const SCHEMATIC_PROPERTIES = {
   common: {id: "common", label: "SCHEMATIC.PROPERTIES.Common"}
-}
+};

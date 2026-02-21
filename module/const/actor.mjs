@@ -159,8 +159,8 @@ export const LEVELS = {
   15: {level: 15, milestones: {required: 7}},
   16: {level: 16, milestones: {required: 7}},
   17: {level: 17, milestones: {required: 8}},
-  18: {level: 18, milestones: {required: 8}},
-}
+  18: {level: 18, milestones: {required: 8}}
+};
 for ( const l of Object.values(LEVELS) ) {
   if ( l.level === 0 ) continue;
   const p = LEVELS[l.level - 1];

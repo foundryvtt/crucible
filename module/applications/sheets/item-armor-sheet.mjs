@@ -17,6 +17,6 @@ export default class CrucibleArmorItemSheet extends CrucibleBaseItemSheet {
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 }

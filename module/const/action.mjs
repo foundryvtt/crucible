@@ -395,7 +395,7 @@ export const TAGS = {
     category: "context",
     canUse() {
       if ( this.actor.inCombat ) throw new Error(`You may not use ${this.name} during Combat.`);
-    },
+    }
   },
 
   // Requires a Flanked Opponent
@@ -408,7 +408,7 @@ export const TAGS = {
       for ( const target of targets ) {
         if ( !target.actor.statuses.has("flanked") ) target.error ??= `${this.name} requires a flanked target. Target "${target.actor.name}" is not flanked.`;
       }
-    },
+    }
   },
 
   // Consumables
@@ -545,7 +545,7 @@ export const TAGS = {
                 "morale.value": worldActor.resources.morale.max,
                 "action.value": worldActor.resources.action.max,
                 "focus.value": worldActor.resources.focus.max
-              },
+              }
             }
           }
         }, summon.tokenData || {});
@@ -941,7 +941,7 @@ export const TAGS = {
     category: "modifiers",
     prepare() {
       this.usage.bonuses.multiplier += 1;
-    },
+    }
   },
 
   difficult: {
@@ -961,7 +961,7 @@ export const TAGS = {
     category: "modifiers",
     prepare() {
       this.usage.bonuses.damageBonus += 6;
-    },
+    }
   },
   accurate: {
     tag: "accurate",
@@ -1007,7 +1007,7 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "fortitude";
-    },
+    }
   },
 
   // Target Reflex
@@ -1017,7 +1017,7 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "reflex";
-    },
+    }
   },
 
   // Target Willpower
@@ -1027,7 +1027,7 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "willpower";
-    },
+    }
   },
 
   /* -------------------------------------------- */
@@ -1074,7 +1074,7 @@ export const TAGS = {
       maintainedEffectData.system.maintenance = {cost: maintainedCost};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 /*  Specialized Damage Type                     */
@@ -1088,7 +1088,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     initialize() {
       this.usage.damageType = id;
     }
-  }
+  };
 }
 
 /* -------------------------------------------- */
@@ -1103,7 +1103,7 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
     initialize() {
       this.usage.bonuses.ability = this.actor.getAbilityBonus([id]);
     }
-  }
+  };
 }
 
 /* -------------------------------------------- */
@@ -1116,9 +1116,9 @@ for ( const resource of ["health", "morale"] ) {
     label: RESOURCES[resource].label,
     category: "resources",
     initialize() {
-      this.usage.resource = resource
+      this.usage.resource = resource;
     }
-  }
+  };
 }
 
 /* -------------------------------------------- */
@@ -1157,7 +1157,7 @@ for ( const {id, abilities, label} of Object.values(SKILLS) ) {
       const roll = await this.actor.skillAttack(this, outcome);
       outcome.rolls.push(roll);
     }
-  }
+  };
 }
 
 /* -------------------------------------------- */
@@ -1176,7 +1176,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     description: "ACTION.DEFAULT_ACTIONS.Cast.Description",
     tags: [],
     target: {
-      type: "none",
+      type: "none"
     }
   },
 
@@ -1246,7 +1246,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       scope: 3
     },
-    tags: ["reaction"], // Added to in #prepareDefaultActions
+    tags: ["reaction"] // Added to in #prepareDefaultActions
   },
 
   // Throw Weapon
@@ -1294,7 +1294,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     tags: ["reload"],
     target: {
-      type: "self",
+      type: "self"
     }
   },
 

@@ -71,7 +71,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
       {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"}
     ]
-  }
+  };
 
   /** @override */
   tabGroups = {
@@ -100,7 +100,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         template: "systems/crucible/templates/sheets/item/item-actions.hbs",
         templates: [this.ACTION_PARTIAL],
         scrollable: [""]
-      }
+      };
       this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.Actions"});
     }
 
@@ -110,7 +110,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         id: "hooks",
         template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
         scrollable: [""]
-      }
+      };
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
     }
   }
@@ -179,7 +179,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             privateSrc,
             privateHTML: await editorCls.enrichHTML(privateSrc, editorOptions),
             privateClass: privateSrc ? "" : "empty"
-          }
+          };
         } else {
           const src = context.source.system.description;
           context.description = {
@@ -187,7 +187,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             field: context.fields.description,
             publicSrc: src,
             publicHTML: await editorCls.enrichHTML(src, editorOptions)
-          }
+          };
         }
         break;
       case "hooks":
@@ -355,7 +355,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const actionData = {id: crucible.api.methods.generateId(this.document.name)};
     if ( actions.length ) {
       actionData.id += suffix;
-      actionData.name = `${this.document.name} ${suffix}`
+      actionData.name = `${this.document.name} ${suffix}`;
     }
 
     // Add data to the actions array
@@ -447,7 +447,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #onHookAdd(event, target) {
-    const hook = target.previousElementSibling.value
+    const hook = target.previousElementSibling.value;
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks ||= [];
     if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {

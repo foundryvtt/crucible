@@ -74,8 +74,8 @@ export default class AttackRoll extends StandardCheck {
     [this.RESULT_TYPES.ARMOR]: "ATTACK.RESULT_TYPES.Armor",
     [this.RESULT_TYPES.RESIST]: "ATTACK.RESULT_TYPES.Resist",
     [this.RESULT_TYPES.GLANCE]: "ATTACK.RESULT_TYPES.Glance",
-    [this.RESULT_TYPES.HIT]: "ATTACK.RESULT_TYPES.Hit",
-  }
+    [this.RESULT_TYPES.HIT]: "ATTACK.RESULT_TYPES.Hit"
+  };
 
   /**
    * The overflow damage amount produced by this attack roll

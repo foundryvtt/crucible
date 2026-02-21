@@ -16,6 +16,6 @@ export default class CrucibleSpellItemSheet extends CrucibleBaseItemSheet {
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 }

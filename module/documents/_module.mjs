@@ -1,4 +1,4 @@
-export {default as CrucibleActor} from "./actor.mjs"
+export {default as CrucibleActor} from "./actor.mjs";
 export {default as CrucibleActiveEffect} from "./active-effect.mjs";
 export {default as CrucibleChatMessage} from "./chat-message.mjs";
 export {default as CrucibleCombat} from "./combat.mjs";

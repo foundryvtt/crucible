@@ -22,7 +22,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
       range: actionSchema.range,
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       target: actionSchema.target
-    }
+    };
   }
 
   /* -------------------------------------------- */

@@ -44,7 +44,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */
@@ -89,7 +89,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
           cssClass: [item.type, equipped ? "equipped" : ""].filterJoin(" "),
           quantity,
           equipped
-        }
+        };
       }));
     }
     return Promise.all(promises);
@@ -114,7 +114,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
         tags: spell.getTags(),
         item: await spell.renderInline({showRemove: this.isEditable}),
         level
-      }
+      };
     });
     return Promise.all(promises);
   }

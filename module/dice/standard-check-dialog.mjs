@@ -26,7 +26,7 @@ export default class StandardCheckDialog extends DialogV2 {
       requestParty: StandardCheckDialog.#onRequestParty,
       requestRemove: StandardCheckDialog.#onRequestRemove,
       rollMode: StandardCheckDialog.#onChangeRollMode,
-      requestSubmit: StandardCheckDialog.#requestSubmit,
+      requestSubmit: StandardCheckDialog.#requestSubmit
     },
     position: {
       width: "auto",
@@ -83,8 +83,8 @@ export default class StandardCheckDialog extends DialogV2 {
     delete options.position?.width; // Ignore default dialog width
     options = super._initializeApplicationOptions(options);
     options.buttons = {
-      roll: {action: "roll", label: game.i18n.localize("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)},
-    }
+      roll: {action: "roll", label: game.i18n.localize("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)}
+    };
     return options;
   }
 
@@ -101,7 +101,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
-    const rollMode = this.rollMode || game.settings.get("core", "rollMode")
+    const rollMode = this.rollMode || game.settings.get("core", "rollMode");
     return Object.assign({}, data, {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
@@ -128,8 +128,8 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( this.request ) buttons.push(
       {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: game.i18n.localize("DICE.REQUESTS.Request")},
       {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: game.i18n.localize("DICE.REQUESTS.ClearRequest")},
-      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: game.i18n.localize("DICE.REQUESTS.AddParty")},
-    )
+      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: game.i18n.localize("DICE.REQUESTS.AddParty")}
+    );
     else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: game.i18n.localize("DICE.REQUESTS.RequestRolls")});
     return buttons;
   }

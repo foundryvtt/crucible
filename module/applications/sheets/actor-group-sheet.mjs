@@ -25,7 +25,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
     },
     form: {
       submitOnChange: true
-    },
+    }
   };
 
   /** @override */
@@ -76,7 +76,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
         quantity: member.quantity,
         hasQuantity: member.quantity > 1,
         hasResources: false,
-        tags: a?.getTags() || {},
+        tags: a?.getTags() || {}
       };
       if ( member.actor ) {
         const {health, morale} = member.actor.system.resources;

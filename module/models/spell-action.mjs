@@ -30,7 +30,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     NONE: 0,
     COMPOSING: 1,
     COMPOSED: 2
-  }
+  };
 
   /** @override */
   static dialogClass = SpellCastDialog;
@@ -91,7 +91,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
       this.name = CrucibleSpellAction.#getName(this);
       this.img = this.rune.img;
-      this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description") // TODO make dynamic
+      this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
     }
 
     // Derived Spell Attributes
@@ -334,7 +334,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
         label: tags.context.inflection,
         unmet: true,
         tooltip: game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced")
-      }
+      };
     }
     return tags;
   }

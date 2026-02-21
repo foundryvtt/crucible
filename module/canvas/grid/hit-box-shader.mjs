@@ -57,7 +57,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
     solidFill: false,    // 0x08
     cellFadeFill: false, // 0x10
     gridRipples: false,  // 0x20
-    radarSweep: false,   // 0x40
+    radarSweep: false   // 0x40
   };
 
   /* -------------------------------------------- */

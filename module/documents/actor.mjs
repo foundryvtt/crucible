@@ -371,7 +371,7 @@ export default class CrucibleActor extends Actor {
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":
-        if ( this.statuses.has("invulnerable") ) r = Infinity
+        if ( this.statuses.has("invulnerable") ) r = Infinity;
         break;
       case "morale":
         if ( this.statuses.has("resolute") || this.statuses.has("asleep") ) r = Infinity;
@@ -633,7 +633,7 @@ export default class CrucibleActor extends Actor {
       banes, boons,
       defenseType,
       dc: target.defenses[defenseType].total
-    }
+    };
 
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
@@ -811,7 +811,7 @@ export default class CrucibleActor extends Actor {
       dc: target.defenses[defenseType].total,
       criticalSuccessThreshold: weapon.system.properties.has("keen") ? 4 : 6,
       criticalFailureThreshold: weapon.system.properties.has("reliable") ? 4 : 6
-    }
+    };
 
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
@@ -1413,7 +1413,7 @@ export default class CrucibleActor extends Actor {
   canLearnIconicSpell(spell) {
     const {iconicSpells, iconicSlots} = this.grimoire;
     if ( iconicSpells.length >= iconicSlots ) {
-      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`)
+      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`);
     }
     if ( this.items.get(spell._id) ) {
       throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
@@ -2216,7 +2216,7 @@ export default class CrucibleActor extends Actor {
           allies: engagement.allies.size,
           flanked: flankedStage
         }
-      }
+      };
       if ( current ) {
         if ( flankedData.name !== current.name ) {
           await current.update(flankedData);
@@ -2607,7 +2607,7 @@ export default class CrucibleActor extends Actor {
       const hasTalent = this.items.has(talent.id);
       if ( level > effectiveLevel && hasTalent ) toDelete.add(talent.id);
       else if ( level <= effectiveLevel && !hasTalent ) toCreate.push(this._cleanItemData(talent));
-      else if ( level <= effectiveLevel ) toKeep.add(talent.id)
+      else if ( level <= effectiveLevel ) toKeep.add(talent.id);
     }
     return {toDelete, toKeep, toCreate};
   }

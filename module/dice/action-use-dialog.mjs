@@ -41,7 +41,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     minimizedSheets: [],
     config: undefined,
     targets: undefined
-  }
+  };
 
   /**
    * Is a MeasuredTemplate required before this dialog can be submitted?
@@ -77,7 +77,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /** @override */
   get title() {
-    return `[${this.actor.name}] ${this.action.name}`
+    return `[${this.actor.name}] ${this.action.name}`;
   }
 
   /* -------------------------------------------- */
@@ -87,7 +87,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type];
-    this.#requiresTemplate = !!targetConfig?.template && !this.action.template
+    this.#requiresTemplate = !!targetConfig?.template && !this.action.template;
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
@@ -263,7 +263,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       object: template,
       origin: {x: template.document.x, y: template.document.y},
       minimizedWindows
-    }
+    };
     this.#activateTemplate(template);
   }
 
@@ -310,8 +310,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.#targetTemplate.events = {
       contextmenu: this.#cancelTemplate.bind(this),
       mousedown: this.#confirmTemplate.bind(this),
-      mousemove: this.#moveTemplate.bind(this),
-    }
+      mousemove: this.#moveTemplate.bind(this)
+    };
     canvas.stage.on("mousemove", this.#targetTemplate.events.mousemove);
     canvas.stage.on("mousedown", this.#targetTemplate.events.mousedown);
     canvas.app.view.addEventListener("contextmenu", this.#targetTemplate.events.contextmenu);

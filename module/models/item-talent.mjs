@@ -66,7 +66,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
       }))
-    }
+    };
   }
 
   /** @override */
@@ -299,7 +299,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     // Test prerequisites
     if ( !actor ) testPrereqs = false;
     let reqs;
-    if ( testPrereqs ) reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites)
+    if ( testPrereqs ) reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites);
     else {
       reqs = foundry.utils.deepClone(talent.system.prerequisites);
       for ( let req in reqs ) reqs[req].met = true;

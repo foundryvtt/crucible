@@ -419,13 +419,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const D = CONST.TOKEN_DISPOSITIONS;
     switch ( this.document.disposition ) {
       case D.SECRET:
-        return {ally: [], enemy: []}
+        return {ally: [], enemy: []};
       case D.HOSTILE:
-        return {ally: [D.HOSTILE], enemy: [D.NEUTRAL, D.FRIENDLY]}
+        return {ally: [D.HOSTILE], enemy: [D.NEUTRAL, D.FRIENDLY]};
       case D.NEUTRAL:
-        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]}
+        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
       case D.FRIENDLY:
-        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]}
+        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
     }
   }
 

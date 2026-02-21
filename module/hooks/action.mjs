@@ -9,12 +9,12 @@ HOOKS.alchemistsFire = {
       standard: {turns: 3, amount: 3},
       fine: {turns: 4, amount: 4},
       superior: {turns: 5, amount: 6},
-      masterwork: {turns: 6, amount: 8},
+      masterwork: {turns: 6, amount: 8}
     };
     const burning = SYSTEM.EFFECTS.burning(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], burning);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -36,7 +36,7 @@ HOOKS.antitoxin = {
       if ( effectsToDelete.length ) await outcome.target.deleteEmbeddedDocuments("ActiveEffect", effectsToDelete);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -59,7 +59,7 @@ HOOKS.assessStrength = {
     if ( !skill ) return;
     await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -69,7 +69,7 @@ HOOKS.beastShapeRevert = {
     const effect = this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
     await effect.delete();
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -88,7 +88,7 @@ HOOKS.berserkStrike = {
       this.usage.bonuses.damageBonus += damageBonus;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -106,7 +106,7 @@ HOOKS.bindArmament = {
       [`flags.crucible.${this.id}`]: mainhandId
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -114,7 +114,7 @@ HOOKS.blastFlask = {
   prepare() {
     this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -140,7 +140,7 @@ HOOKS.bodyBlock = {
     }
     throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -151,12 +151,12 @@ HOOKS.causticPhial = {
       standard: {turns: 3, amount: 3},
       fine: {turns: 4, amount: 4},
       superior: {turns: 5, amount: 6},
-      masterwork: {turns: 6, amount: 8},
+      masterwork: {turns: 6, amount: 8}
     };
     const corroding = SYSTEM.EFFECTS.corroding(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], corroding);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -171,7 +171,7 @@ HOOKS.chokingAmpoule = {
     if ( outcome.self ) return;
     if ( outcome.rolls[0].isCriticalSuccess ) outcome.effects[0].statuses.push("silenced");
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -191,7 +191,7 @@ HOOKS.clarifyIntent = {
       {key: "system.rollBonuses.boons.clarifyIntent.label", mode: 5, value: this.name}
     );
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -202,7 +202,7 @@ HOOKS.conjureArmament = {
     if ( !weapon || weapon.equipped ) return false;
     this.canEquipWeapon(weapon);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -215,15 +215,15 @@ HOOKS.counterspell = {
     });
     if ( this.composition === 0 ) return;
     const none = game.i18n.localize("None");
-    this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none})
-    this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none})
+    this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
+    this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
   preActivate() {
     SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
   },
   async roll(outcome) {
     // TODO: Only use this.usage.targetAction
-    const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction()
+    const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
     const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
@@ -271,7 +271,7 @@ HOOKS.counterspell = {
     await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
     if ( reverse ) await setNegated();
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -280,7 +280,7 @@ HOOKS.decisiveAction = {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
     outcome.resources.action = (outcome.resources.action || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -317,7 +317,7 @@ HOOKS.delay = {
   async confirm() {
     return this.actor.delay(this.outcomes.get(this.actor).metadata.initiativeDelay);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -331,7 +331,7 @@ HOOKS.distract = {
       }
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -349,7 +349,7 @@ HOOKS.feintingStrike = {
     const attack = await this.actor.weaponAttack(this, offhand, outcome);
     outcome.rolls.push(attack);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -365,7 +365,7 @@ HOOKS.fontOfLife = {
     }];
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -377,7 +377,7 @@ HOOKS.healingElixir = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -396,7 +396,7 @@ HOOKS.healingTonic = {
     }];
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -409,7 +409,7 @@ HOOKS.inspireHeroism = {
       {key: "system.rollBonuses.boons.inspireHeroism.label", mode: 5, value: this.name}
     );
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -432,7 +432,7 @@ HOOKS.intuitWeakness = {
     if ( !skill ) return;
     await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -443,10 +443,10 @@ HOOKS.laughingMatter = {
     effect.changes ||= [];
     effect.changes.push(
       {key: "system.rollBonuses.banes.laughingMatter.number", mode: 5, value: 1},
-      {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name},
+      {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name}
     );
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -458,10 +458,10 @@ HOOKS.lastStand = {
     if ( !effect ) return;
     effect.changes ||= [];
     effect.changes.push(
-      {key: "system.defenses.wounds.bonus", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: 2},
+      {key: "system.defenses.wounds.bonus", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: 2}
     );
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -490,7 +490,7 @@ HOOKS.lifebloom = {
       outcome.effects.push(lifebloomEffect);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -503,7 +503,7 @@ HOOKS.executionersStrike = {
     });
     this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -514,7 +514,7 @@ HOOKS.extollDeeds = {
       outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -531,7 +531,7 @@ HOOKS.hamstring = {
       throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -541,7 +541,7 @@ HOOKS.intercept = {
       this.range.maximum = this.actor.system.movement.stride;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -558,9 +558,9 @@ HOOKS.medicinalCompound = {
     outcome.effects[0].system.dot.push(
       {amount, resource: "health", restoration: true},
       {amount, resource: "morale", restoration: true}
-    )
+    );
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -572,7 +572,7 @@ HOOKS.oozeMultiply = {
     foundry.utils.setProperty(outcome.actorUpdates, "system.movement.sizeBonus", newSizeBonus);
     outcome.resources.health = (outcome.resources.health || 0) + healthAmount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -582,7 +582,7 @@ HOOKS.oozeSubdivide = {
     const newSize = this.actor.system.movement.sizeBonus - 1;
     const systemData = {
       advancement: {
-        rank: this.actor.system.advancement.rank === "minion" ? "minion" : "normal",
+        rank: this.actor.system.advancement.rank === "minion" ? "minion" : "normal"
       },
       movement: {
         sizeBonus: newSize
@@ -613,7 +613,7 @@ HOOKS.oozeSubdivide = {
   canUse() {
     if ( this.actor.size < 3 ) throw new Error(`You must be at least size 3 to use ${this.name}`);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -624,7 +624,7 @@ HOOKS.paralyticIngest = {
     poison.duration.turns = turns[this.item.system.quality];
     poison.system.dot.length = 0;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -635,12 +635,12 @@ HOOKS.poisonIngest = {
       standard: {amount: 4, turns: 6},
       fine: {amount: 6, turns: 8},
       superior: {amount: 8, turns: 10},
-      masterwork: {amount: 10, turns: 12},
+      masterwork: {amount: 10, turns: 12}
     };
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], poisoned);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -649,7 +649,7 @@ HOOKS.rallyingCry = {
     const amount = this.actor.abilities.presence.value;
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -661,7 +661,7 @@ HOOKS.rallyingElixir = {
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -680,7 +680,7 @@ HOOKS.rallyingTonic = {
     }];
     outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -690,7 +690,7 @@ HOOKS.reactiveStrike = {
       if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -698,7 +698,7 @@ HOOKS.recover = {
   async confirm() {
     await this.actor.recover();
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -722,7 +722,7 @@ HOOKS.refocus = {
     if ( r.isCriticalSuccess ) focus += 1;
     self.resources.focus = focus;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -733,7 +733,7 @@ HOOKS.reload = {
     if ( a.talentIds.has("pistoleer0000000") && !reloaded ) this.cost.action = 0; // TODO generalize
     this.usage.actorStatus.reloaded = true;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -748,7 +748,7 @@ HOOKS.repercussiveBlock = {
       outcome.statusText.push({text: "Disarmed!", fontSize: 64});
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -756,7 +756,7 @@ HOOKS.rest = {
   async confirm() {
     await this.actor.rest();
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -764,7 +764,7 @@ HOOKS.restrainingChomp = {
   postActivate(outcome) {
     if ( outcome.target.size > this.actor.size ) outcome.effects.length = 0;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -794,7 +794,7 @@ HOOKS.revive = {
       };
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -802,7 +802,7 @@ HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -811,7 +811,7 @@ HOOKS.secondWind = {
     const self = this.outcomes.get(this.actor);
     self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -819,7 +819,7 @@ HOOKS.selfRepair = {
   postActivate(outcome) {
     outcome.resources.health = this.actor.abilities.toughness.value;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -829,7 +829,7 @@ HOOKS.spellband = {
     const amount = 2 + (2 * enchantment.bonus);
     outcome.resources.focus = (outcome.resources.focus || 0) + amount;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -840,7 +840,7 @@ HOOKS.tailSweep = {
   initialize() {
     this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "tail");
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -852,7 +852,7 @@ HOOKS.telecognition = {
     const roll = await this.actor.skillAttack(this, outcome);
     if ( roll ) outcome.rolls.push(roll);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -862,7 +862,7 @@ HOOKS.thrash = {
       if ( !target.actor.statuses.has("restrained") ) target.error ??= `You can only perform ${this.name} against a target that you have Restrained.`;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -877,7 +877,7 @@ HOOKS.threadTheNeedle = {
       }
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -886,7 +886,7 @@ HOOKS.steelJawTrigger = {
     const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
     this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -901,7 +901,7 @@ HOOKS.tramplingCharge = {
     const targetSize = outcome.target.size;
     if ( targetSize > halfSize ) outcome.effects.length = 0;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -909,7 +909,7 @@ HOOKS.tuskCharge = {
   prepare() {
     this.range.maximum = this.actor.system.movement.stride;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -917,7 +917,7 @@ HOOKS.unshakeablePoise = {
   postActivate(outcome) {
     outcome.resources.focus = (outcome.resources.focus || 0) + this.actor.abilities.wisdom.value;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -928,7 +928,7 @@ HOOKS.uppercut = {
       if ( !lastAction?.outcomes.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -957,7 +957,7 @@ HOOKS.vampiricBite = {
       }
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -969,7 +969,7 @@ HOOKS.wildStrike = {
     }
     // TODO somehow require this to use a different weapon than the prior confirmed strike
   }
-}
+};
 
 /* -------------------------------------------- */
 

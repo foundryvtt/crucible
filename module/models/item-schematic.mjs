@@ -83,7 +83,7 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
           item: new fields.DocumentUUIDField({type: "Item", embedded: false, nullable: false}),
           consumed: new fields.BooleanField({initial: true}),
           quantity: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1}),
-          quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS}),
+          quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS})
         })),
         currency: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
         mode: new fields.StringField({required: true, blank: false, choices: CrucibleSchematicItem.#MODES,

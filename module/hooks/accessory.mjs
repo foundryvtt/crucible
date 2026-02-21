@@ -15,7 +15,7 @@ HOOKS.cloakKindlyVisage = {
       action.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -24,7 +24,7 @@ HOOKS.determination = {
     const {quality, enchantment} = item.system.config;
     defenses.willpower.bonus += Math.min(quality.bonus, enchantment.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -33,7 +33,7 @@ HOOKS.evasion = {
     const {quality, enchantment} = item.system.config;
     defenses.dodge.bonus += Math.min(quality.bonus, enchantment.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -42,7 +42,7 @@ HOOKS.expandedToolbelt = {
     const {quality} = item.system.config;
     this.equipment.toolbeltSlots += (1 + quality.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -52,7 +52,7 @@ HOOKS.luminary = {
     const {enchantment} = item.system.config;
     this.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -61,7 +61,7 @@ HOOKS.nimbleness = {
     const {quality, enchantment} = item.system.config;
     defenses.reflex.bonus += Math.min(quality.bonus, enchantment.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -70,7 +70,7 @@ HOOKS.reinforcement = {
     const {quality, enchantment} = item.system.config;
     defenses.armor.bonus += Math.min(quality.bonus, enchantment.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -79,7 +79,7 @@ HOOKS.tenacity = {
     const {quality, enchantment} = item.system.config;
     defenses.fortitude.bonus += Math.min(quality.bonus, enchantment.bonus);
   }
-}
+};
 
 /* -------------------------------------------- */
 

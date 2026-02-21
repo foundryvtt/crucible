@@ -142,7 +142,7 @@ export const RUNES = {
     defense: "willpower",
     scaling: "presence",
     nameFormat: NAME_FORMATS.NOUN
-  },
+  }
 };
 
 /**

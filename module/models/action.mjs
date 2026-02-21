@@ -198,7 +198,7 @@ class CrucibleActionTags extends Set {
 
   add(value) {
     if ( this.has(value) ) return;
-    const tag = SYSTEM.ACTION.TAGS[value]
+    const tag = SYSTEM.ACTION.TAGS[value];
     if ( !tag ) {
       let msg = `Unrecognized tag "${value}" in Action "${this.#action.id}"`;
       if ( this.#action.actor ) msg += ` for Actor "${this.#action.actor.name}" [${this.#action.actor.uuid}]`;
@@ -305,7 +305,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
       }))
-    }
+    };
   }
 
   /**
@@ -496,7 +496,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       };
       const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
       if ( config ) hooks[hook] = new fnClass(...config.argNames, fn);
-      else console.warn(`Invalid Action hook "${hook}" defined by Action "${actionId}"`)
+      else console.warn(`Invalid Action hook "${hook}" defined by Action "${actionId}"`);
     }
 
     // Pre-configured module hooks
@@ -547,7 +547,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( effect.result.all ) result = game.i18n.format("ACTION.AllResult", {existing: result});
         effect.tags.result = result;
       }
-      effect.tags.scope = game.i18n.format("ACTION.AffectsScope", {scope: game.i18n.localize(SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope))})
+      effect.tags.scope = game.i18n.format("ACTION.AffectsScope", {scope: game.i18n.localize(SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope))});
       if ( effect.duration ) {
         if ( effect.duration.turns ) effect.tags.duration = game.i18n.format("ACTION.DurationTurns", {turns: effect.duration.turns});
         else if ( effect.duration.rounds ) effect.tags.duration = game.i18n.format("ACTION.DurationRounds", {rounds: effect.duration.rounds});
@@ -860,7 +860,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       switch ( targetType ) {
         case "none":
-          return []
+          return [];
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
@@ -1064,7 +1064,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       metadata: {},
       self: actor === this.actor,
       isTarget: true,
-      statusText: [],
+      statusText: []
     };
 
     // Non-enumerable outcome specific usage
@@ -1350,7 +1350,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.cost.action && this.actor.isIncapacitated ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotSpendAction", {
         name: this.actor.name
-      }))
+      }));
     }
 
     // Cannot spend focus
@@ -1526,11 +1526,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async confirm({reverse=false}={}) {
     if ( !this._prepared ) throw new Error("A CrucibleAction must be prepared for an Actor before it can be confirmed.");
-    if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`)
+    if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`);
 
     // Custom Action confirmation steps
     for ( const test of this._tests() ) {
-      if ( !(test.confirm instanceof Function) ) continue
+      if ( !(test.confirm instanceof Function) ) continue;
       try {
         await test.confirm.call(this, reverse);
       } catch(err) {
@@ -1600,7 +1600,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( award === 0 ) return;
     for ( const {actor} of game.combat.combatants ) {
       const maxH = actor.system.resources?.heroism?.max || 0;
-      if ( maxH > 0 ) await actor.alterResources({heroism: award})
+      if ( maxH > 0 ) await actor.alterResources({heroism: award});
     }
   }
 
@@ -1711,7 +1711,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const tags = {
       activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: game.i18n.localize("ACTION.TAGS.Activation")}),
       action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: game.i18n.localize("ACTION.TAGS.Action")}),
-      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: game.i18n.localize("ACTION.TAGS.Context")}),
+      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: game.i18n.localize("ACTION.TAGS.Context")})
     };
 
     // Action Tags
@@ -1814,7 +1814,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actor: this.actor.uuid,
       action: this.toObject(false), // Finalized action data rather than source
       confirmed,
-      outcomes: [],
+      outcomes: []
     };
     if ( this.item ) actionData.item = this.item.uuid;
     if ( this.template ) actionData.template = this.template.uuid;

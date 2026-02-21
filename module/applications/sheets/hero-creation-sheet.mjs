@@ -67,7 +67,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       numeral: "I",
       template: "systems/crucible/templates/sheets/creation/ancestry.hbs",
       initialize: CrucibleHeroCreationSheet.#initializeAncestries,
-      prepare: CrucibleHeroCreationSheet.#prepareAncestries,
+      prepare: CrucibleHeroCreationSheet.#prepareAncestries
     },
     background: {
       id: "background",
@@ -120,7 +120,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @type {Partial<CreationState>}
    * @protected
    */
-  _state = {}
+  _state = {};
 
   /**
    * Track completed steps.
@@ -290,7 +290,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
-      const k = crucible.CONFIG.knowledge[knowledgeId]
+      const k = crucible.CONFIG.knowledge[knowledgeId];
       return {text: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: k?.label || k})};
     }));
     if ( knowledgeTags.length ) background.features.push({
@@ -302,7 +302,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const languageTags = Array.from(languages.map(languageId => {
       const l = crucible.CONFIG.languages[languageId];
       return {text: game.i18n.format("ACTOR.LanguageSpecific", {language: l?.label || l})};
-    }))
+    }));
     if ( languageTags.length ) background.features.push({
       label: schema.getField("languages").label,
       tags: languageTags
@@ -311,7 +311,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Skills
     const skillItems = await Promise.all(skills.map(skillId => {
       const uuid = SYSTEM.SKILLS[skillId].talents[1];
-      return this._renderFeatureItem(uuid)
+      return this._renderFeatureItem(uuid);
     }));
     if ( skillItems.length ) background.features.push({
       label: schema.getField("skills").label,
@@ -355,7 +355,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
           icon: item.img,
           summary: await CONFIG.ux.TextEditor.enrichHTML(item.system.description),
           features: []
-        }
+        };
         if ( fn instanceof Function ) await fn.call(this, option);
         options[identifier] = option;
       }
@@ -395,7 +395,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       charname: this._state.name,
       state: this._state,
       tabs: this._prepareTabs("header")
-    }
+    };
 
     // Step-specific preparation
     await this._prepareSteps(context, options);
@@ -580,7 +580,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _canRender(_options) {
     super._canRender(_options);
     if ( !this.#complete && ((this.document.type !== "hero") || (this.document.level > 0)) ) {
-      throw new Error("You may only use the CrucibleHeroCreationSheet for a hero Actor which is level zero.")
+      throw new Error("You may only use the CrucibleHeroCreationSheet for a hero Actor which is level zero.");
     }
   }
 
@@ -590,7 +590,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _configureRenderParts(_options) {
     const parts = foundry.utils.deepClone(this.constructor.PARTS);
     for ( const step of Object.values(this.constructor.STEPS) ) {
-      parts[step.id] = {id: step.id, template: step.template}
+      parts[step.id] = {id: step.id, template: step.template};
     }
     return parts;
   }

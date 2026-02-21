@@ -38,7 +38,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       pace: new fields.StringField({required: true, choices: SYSTEM.ACTOR.TRAVEL_PACES, initial: "normal"}),
       land: new fields.NumberField({required: true, nullable: false, min: 0, initial: 2, step: 0.5}),
       water: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0.5, step: 0.5}),
-      air: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0, step: 0.5}),
+      air: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0, step: 0.5})
     });
 
     // Description
@@ -186,7 +186,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   async removeMember(actor, quantity=1) {
     if ( !((actor instanceof Actor) || (typeof actor === "string")) ) {
-      throw new Error("The Actor to remove must be an Actor document or string ID.")
+      throw new Error("The Actor to remove must be an Actor document or string ID.");
     }
     if ( actor === this.parent ) throw new Error("You cannot remove your own group!");
 
@@ -207,7 +207,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       }
       arr.push(m);
       return arr;
-    }, [])
+    }, []);
 
     // Commit the update
     await this.parent.update({"system.members": members});
@@ -531,7 +531,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
         isCriticalSuccess: roll.isCriticalSuccess,
         isCriticalFailure: roll.isCriticalFailure,
         icon: roll.isSuccess ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
-        hasValue: true,
+        hasValue: true
       });
 
       // Static checks

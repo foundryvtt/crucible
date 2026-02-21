@@ -6,7 +6,7 @@ import * as CRAFTING from "./crafting.mjs";
 import * as DICE from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
-import * as SKILL from "./skills.mjs"
+import * as SKILL from "./skills.mjs";
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
@@ -23,7 +23,7 @@ export const ANCESTRIES = {
   primaryAbilityStart: 3,
   secondaryAbilityStart: 2,
   resistanceAmount: 3
-}
+};
 
 /* -------------------------------------------- */
 
@@ -104,7 +104,7 @@ export const ACTION_HOOKS = Object.freeze({
   },
   canUse: {
     argNames: [],
-    argLabels: [],
+    argLabels: []
   },
   configure: {
     argNames: [],

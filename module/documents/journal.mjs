@@ -20,5 +20,5 @@ const LOCAL_FOLDER_NAME = "Crucible Rules";
  * The collection name of the destination compendium pack where rules should be loaded
  * @type {string}
  */
-const COMPENDIUM_PACK_NAME = "crucible.rules"
+const COMPENDIUM_PACK_NAME = "crucible.rules";
 

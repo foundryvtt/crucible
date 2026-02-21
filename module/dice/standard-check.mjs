@@ -244,7 +244,7 @@ export default class StandardCheck extends Roll {
       outcome: "Unknown",
       pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
       total: this.total
-    }
+    };
 
     // Successes and Failures
     if ( this.data.dc ) {

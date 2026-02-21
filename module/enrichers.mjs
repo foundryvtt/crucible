@@ -76,7 +76,7 @@ export function registerEnrichers() {
       pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
       enricher: enrichRef
     }
-  )
+  );
 }
 
 /* -------------------------------------------- */
@@ -159,7 +159,7 @@ function parseAwardTerms(terms) {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
-  return { currency, each }
+  return { currency, each };
 }
 
 /* -------------------------------------------- */

@@ -91,7 +91,7 @@ async function displayPassiveCheck(event) {
     const roll = actor.getSkillCheck(skillId, {dc, passive: true});
     await roll.evaluate();
     return {roll};
-  }
+  };
 
   // Construct the tooltip
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
@@ -268,7 +268,7 @@ export async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarge
   if ( showAny || !showSpecific || !actors?.length ) {
     const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
       type: "Actor",
-      name: "anyActor",
+      name: "anyActor"
     });
     const anyActor = foundry.applications.fields.createFormGroup({
       label: "DICE.REQUESTS.AnyActor",
@@ -280,7 +280,7 @@ export async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarge
   }
   const result = await foundry.applications.api.DialogV2.input({
     window: {title: dialogTitle, icon: dialogIcon},
-    content,
+    content
   });
   if ( !result ) return new Set();
   const selectedActors = [...(result.specificActor ?? []), ...(result.anyActor ?? [])].reduce((acc, uuid) => {

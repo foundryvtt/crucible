@@ -19,7 +19,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       identifier: new ItemIdentifierField(),
       category: new fields.StringField({choices: SYSTEM.ACTOR.CREATURE_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6});
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateAbilities}),
       movement: new fields.SchemaField({
@@ -40,8 +40,8 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       characteristics: new fields.SchemaField({
         equipment: new fields.BooleanField(),
         spells: new fields.BooleanField()
-      }),
-    }
+      })
+    };
   }
 
   /** @override */
@@ -131,7 +131,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         source.resistances[damageType.id] = {
           value: source.resistances[damageType.id],
           immune: false
-        }
+        };
       }
     }
 

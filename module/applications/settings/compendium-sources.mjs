@@ -15,7 +15,7 @@ export default class CompendiumSourcesConfig extends api.HandlebarsApplicationMi
       closeOnSubmit: true,
       handler: CompendiumSourcesConfig.#onSubmit
     }
-  }
+  };
 
   /** @override */
   static PARTS = {

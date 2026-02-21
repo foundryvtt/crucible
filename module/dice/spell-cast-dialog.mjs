@@ -32,7 +32,7 @@ export default class SpellCastDialog extends ActionUseDialog {
       damageTypes: {
         bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
-        slashing: SYSTEM.DAMAGE_TYPES.slashing.label,
+        slashing: SYSTEM.DAMAGE_TYPES.slashing.label
       }
     });
   }
