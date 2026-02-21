@@ -196,7 +196,7 @@ export const RESOURCES = Object.freeze({
       high: Color.from("#d72828"),
       low: Color.from("#5e0000"),
       heal: Color.from("#48c248")
-    },
+    }
   },
   wounds: {
     id: "wounds",
@@ -207,7 +207,7 @@ export const RESOURCES = Object.freeze({
       high: Color.from("#d72828"),
       low: Color.from("#5e0000"),
       heal: Color.from("#48c248")
-    },
+    }
   },
   morale: {
     id: "morale",
@@ -330,5 +330,5 @@ export const DEFENSES = {
     tooltip: "DEFENSES.TOOLTIPS.Madness",
     type: "threshold"
   }
-}
+};
 

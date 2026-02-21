@@ -20,6 +20,6 @@ export default class CrucibleLootItemSheet extends CrucibleBaseItemSheet {
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 }

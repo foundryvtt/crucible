@@ -35,7 +35,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       id: "components",
       template: "systems/crucible/templates/sheets/item/schematic-components.hbs",
       templates: [this.INPUT_PARTIAL, this.OUTPUT_PARTIAL]
-    }
+    };
     this.TABS.sheet.push({
       id: "components",
       group: "sheet",
@@ -86,7 +86,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       input.ingredients = input.ingredients.map((ingredient, j) => this.#prepareIngredient(ingredient, i, j));
       if ( input.mode === "TEMPLATE" ) {
         for ( const i of input.ingredients ) {
-          templates.push({...i, name: `${i.name} + ${this.document.name}`, fieldPath: ""})
+          templates.push({...i, name: `${i.name} + ${this.document.name}`, fieldPath: ""});
         }
       }
     }
@@ -97,7 +97,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
         products: outputGroup.map((output, j) => this.#prepareOutput(output, i, j)),
         template: false,
         editable: this.isEditable
-      }
+      };
     });
 
     // Include Templates
@@ -105,7 +105,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       products: templates,
       template: true,
       editable: false
-    })
+    });
     return {inputs, outputs};
   }
 
@@ -122,7 +122,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       const parsed = foundry.utils.parseUuid(uuid);
       if ( !(parsed.collection instanceof foundry.documents.collections.CompendiumCollection) ) continue;
       const packId = parsed.collection.collection;
-      const pack = game.packs.get(packId)
+      const pack = game.packs.get(packId);
       if ( pack.has(parsed.id) ) continue;
       toLoad[packId] ||= [];
       toLoad[packId].push(parsed.id);
@@ -170,7 +170,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       img: item.img,
       tags,
       quantity: output.quantity
-    }
+    };
   }
 
   /* -------------------------------------------- */

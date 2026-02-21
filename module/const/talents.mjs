@@ -103,7 +103,7 @@ export const TRAINING_RANKS = Object.freeze({
     id: "proficient",
     rank: 2,
     label: "TALENT.RANKS.Proficient",
-    bonus: 1,
+    bonus: 1
   },
   expert: {
     id: "expert",
@@ -159,4 +159,4 @@ export const TALENT_ID_MIGRATIONS = {
   rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon",
   mechanicalTraini: "Compendium.crucible.talent.Item.mechanicalWeapon",
   projectileTraini: "Compendium.crucible.talent.Item.projectileWeapon"
-}
+};

@@ -32,7 +32,7 @@ HOOKS.aspect = {
     // TODO enable aspect healing
     if ( this.damage.healing ) {
       console.warn("Gesture: Aspect is not configured for healing Runes yet");
-      return
+      return;
     }
   },
   postActivate(outcome) {
@@ -57,7 +57,7 @@ HOOKS.aspect = {
       ]
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -74,7 +74,7 @@ HOOKS.aura = {
       system: {}
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -92,7 +92,7 @@ HOOKS.conjure = {
       system: {}
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -110,7 +110,7 @@ HOOKS.create = {
       system: {}
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -118,7 +118,7 @@ HOOKS.react = {
   prepare() {
     this.tags.add("reaction");
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -127,7 +127,7 @@ HOOKS.reshape = {
     if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
     else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -144,7 +144,7 @@ HOOKS.sense = {
       system: {}
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -152,7 +152,7 @@ HOOKS.step = {
   prepare() {
     this.target.size = this.actor.size;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -163,7 +163,7 @@ HOOKS.strike = {
     this.damage.base = mh.system.damage.base;
     this.usage.strikes = [mh];
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -174,7 +174,7 @@ HOOKS.ward = {
     // TODO: Enable healing wards
     if ( this.damage.healing ) {
       console.warn("Gesture: Ward is not configured for healing Runes yet");
-      return
+      return;
     }
   },
   postActivate(outcome) {
@@ -202,7 +202,7 @@ HOOKS.ward = {
       ]
     });
   }
-}
+};
 
 /* -------------------------------------------- */
 

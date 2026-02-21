@@ -17,13 +17,13 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static PARTS = {
-    ...super.PARTS,
+    ...super.PARTS
 
   };
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */
@@ -38,7 +38,7 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
         arr.push({value, label, disabled: !allowedSlots.includes(Number(value))});
         return arr;
       }, []),
-      usesReload: this.document.config.category.reload,
+      usesReload: this.document.config.category.reload
     });
     return context;
   }

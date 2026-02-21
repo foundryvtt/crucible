@@ -111,7 +111,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       // Draw connecting line
       this.edges.moveTo(0, 0)
         .lineStyle({color: "#502c1a", width: 12}).lineTo(icon.x, icon.y)
-        .lineStyle({color: isOwned ? color : "#24160f", width: 6}).lineTo(0, 0)
+        .lineStyle({color: isOwned ? color : "#24160f", width: 6}).lineTo(0, 0);
     }
   }
 

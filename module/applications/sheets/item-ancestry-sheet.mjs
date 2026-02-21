@@ -14,7 +14,7 @@ export default class CrucibleAncestryItemSheet extends CrucibleActorDetailsItemS
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */

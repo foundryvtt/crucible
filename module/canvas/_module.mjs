@@ -107,7 +107,7 @@ export function configure() {
       costMultiplier: 0,
       speedMultiplier: Infinity,
       canSelect: false,
-      terrainAction: null,
+      terrainAction: null
     }
   };
 

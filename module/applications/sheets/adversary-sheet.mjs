@@ -39,14 +39,14 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       threat: SYSTEM.THREAT_RANKS[threat],
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
-      canLevelDown: level > -5,
+      canLevelDown: level > -5
     });
 
     // Incomplete Tasks
     Object.assign(i, {
       taxonomy: !s.system.details.taxonomy?.name,
       archetype: !s.system.details.archetype?.name
-    })
+    });
     return context;
   }
 

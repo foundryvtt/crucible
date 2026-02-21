@@ -14,7 +14,7 @@ export default class CrucibleBackgroundItemSheet extends CrucibleActorDetailsIte
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */

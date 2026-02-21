@@ -38,7 +38,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       capacity: a.system.capacity,
       knowledgeOptions: this.#prepareKnowledgeOptions(),
       knowledge: this.#prepareKnowledge(),
-      talentTreeButtonText: game.i18n.localize(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`),
+      talentTreeButtonText: game.i18n.localize(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
     // Advancement

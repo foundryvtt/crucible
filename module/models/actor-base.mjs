@@ -101,7 +101,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       obj[resource.id] = new fields.SchemaField({
         value: new fields.NumberField({...requiredInteger, initial, min: 0, max: resource.max})
       }, {label: resource.label});
-      return obj
+      return obj;
     }, {}));
 
     // Movement Attributes
@@ -265,7 +265,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const createOrEmpty = name => {
       this[name] ||= {};
       for ( const k in this[name] ) delete this[name][k];
-    }
+    };
     const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "training", "skills"];
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
@@ -557,7 +557,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       item.updateSource({"system.equipped": false});
       const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
       console.warn(w);
-    }
+    };
 
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
@@ -834,7 +834,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       moralePerLevel: 6,
       moraleMultiplier: level < 1 ? threat : threatFactor,
       woundsMultiplier: 1.5
-    }
+    };
   }
 
   /* -------------------------------------------- */

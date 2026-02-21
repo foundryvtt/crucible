@@ -39,7 +39,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
         resource: "health"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -69,7 +69,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
         resource: "morale"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -92,10 +92,10 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
       dot: [{
         amount,
         damageType: "cold",
-        resource: "health",
+        resource: "health"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -121,7 +121,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
         resource: "morale"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -146,7 +146,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
         resource: "health"
       }]
     }
-  }
+  };
 }
 
 // TODO document
@@ -165,7 +165,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
         resource: "health"
       }]
     }
-  }
+  };
 }
 
 // TODO as above
@@ -184,7 +184,7 @@ export function entropy(actor) {
         resource: "health"
       }]
     }
-  }
+  };
 }
 
 // TODO as above
@@ -206,7 +206,7 @@ export function irradiated(actor) {
         resource: "morale"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -231,7 +231,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
         restoration: true
       }]
     }
-  }
+  };
 }
 
 // TODO as above
@@ -249,7 +249,7 @@ export function inspired(actor, target) {
         restoration: true
       }]
     }
-  }
+  };
 }
 
 /**
@@ -275,7 +275,7 @@ export function dominated(actor, {ability="wisdom", amount, turns=3, damageType=
         resource: "morale"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -301,7 +301,7 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
         resource: "health"
       }]
     }
-  }
+  };
 }
 
 /**
@@ -327,7 +327,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
         resource: "morale"
       }]
     }
-  }
+  };
 }
 
 // TODO as above
@@ -339,5 +339,5 @@ export function staggered(actor, target) {
     duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["staggered"]
-  }
+  };
 }

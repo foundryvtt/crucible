@@ -65,7 +65,7 @@ Hooks.once("init", async function() {
       talentIds: CrucibleTalentNode.talentIds
     },
     hooks
-  }
+  };
 
   /**
    * Configurable properties of the system which affect its behavior.
@@ -86,7 +86,7 @@ Hooks.once("init", async function() {
       ancestry: new Set([SYSTEM.COMPENDIUM_PACKS.ancestry]),
       background: new Set([SYSTEM.COMPENDIUM_PACKS.background]),
       spell: new Set([SYSTEM.COMPENDIUM_PACKS.spell]),
-      talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent]),
+      talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent])
     },
 
     /**
@@ -249,11 +249,11 @@ Hooks.once("init", async function() {
         return `<span class="${classes}" data-crucible-tooltip="tag" data-tag="${id}"${styleString}${tooltipString}>${label}</span>`;
       });
       if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
-      const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`
+      const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`;
       const tagTypeString = tagType ? ` data-tag-type="${foundry.utils.escapeHTML(tagType)}"` : "";
       return new Handlebars.SafeString(`<div class="${enclosingClasses}"${tagTypeString}>${tagSpans.join("")}</div>`);
     }
-  })
+  });
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
@@ -262,7 +262,7 @@ Hooks.once("init", async function() {
   CONFIG.queries.requestSkillCheck = dice.StandardCheck.handle.bind(dice.StandardCheck);
   CONFIG.queries.requestCounterspell = ({actorUuid, ...options}) => {
     return models.CrucibleCounterspellAction.prompt(actorUuid, options);
-  }
+  };
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;
@@ -282,7 +282,7 @@ Hooks.once("init", async function() {
       0: "SETTINGS.AutoConfirmNone",
       1: "SETTINGS.AutoConfirmSelf",
       2: "SETTINGS.AutoConfirmAll"
-    },
+    }
   });
 
   // Migration Required Version
@@ -359,7 +359,7 @@ Hooks.once("init", async function() {
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
       background: [SYSTEM.COMPENDIUM_PACKS.background],
       spell: [SYSTEM.COMPENDIUM_PACKS.spell],
-      talent: [SYSTEM.COMPENDIUM_PACKS.talent],
+      talent: [SYSTEM.COMPENDIUM_PACKS.talent]
     },
     requiresReload: true
   });
@@ -464,7 +464,7 @@ Hooks.once("i18nInit", function() {
   }
 
   // Localize models
-  foundry.helpers.Localization.localizeDataModel(models.CrucibleAction)
+  foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
   foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
 
   // Pre-localize configuration objects
@@ -493,7 +493,7 @@ function preLocalizeConfig() {
         else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
       }
     }
-  }
+  };
   localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
@@ -645,12 +645,12 @@ Hooks.on("getSceneControlButtons", controls => {
     active: false
   };
   flankingTool.onChange = (_event, active) => {
-    CONFIG.debug.flanking = active
+    CONFIG.debug.flanking = active;
     for ( const token of globalThis.canvas.tokens.controlled ) {
       if ( active ) token._visualizeEngagement(token.engagement);
       else token._clearEngagementVisualization();
     }
-  }
+  };
   controls.tokens.tools.debugFlanking = flankingTool;
 });
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
@@ -824,7 +824,7 @@ function enableSpellcheckContext() {
  * @returns {Promise<void>}
  */
 async function syncOwnedItems({force=false, reload=true, talents=true, spells=true}={}) {
-  console.groupCollapsed("Crucible | Talent/Spell Data Synchronization")
+  console.groupCollapsed("Crucible | Talent/Spell Data Synchronization");
   const bar = {n: 0, total: game.actors.size, pct: 0};
   const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
   for ( const actor of game.actors ) {

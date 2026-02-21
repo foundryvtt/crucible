@@ -18,7 +18,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     window: {
       frame: false
     }
-  }
+  };
 
   /** @override */
   static PARTS = {
@@ -90,7 +90,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       id: "prerequisites",
       label: game.i18n.localize("TALENT.Prerequisites"),
       tags: reqTags
-    })
+    });
     return {id: node.id, tagGroups};
   }
 
@@ -121,7 +121,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
       actions: await CrucibleTalentItemSheet.prepareActions(talent),
       prerequisites: reqs
-    }
+    };
   }
 
   /* -------------------------------------------- */

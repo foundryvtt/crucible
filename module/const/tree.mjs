@@ -126,7 +126,7 @@ const TIER_4A = [
   {id: "int4a", abilities: ["intellect"], type: "spell", connected: ["sig3.presence.intellect", "int3a"]},
   {id: "int4b", abilities: ["intellect"], type: "spell", connected: ["int3a", "sig3.intellect", "int4a"]},
   {id: "int4c", abilities: ["intellect"], type: "training", connected: ["sig3.intellect", "int3b", "int4b"]},
-  {id: "int4d", abilities: ["intellect"], type: "utility", connected: ["int3b", "sig3.intellect.dexterity", "int4c"]},
+  {id: "int4d", abilities: ["intellect"], type: "utility", connected: ["int3b", "sig3.intellect.dexterity", "int4c"]}
 ];
 
 const TIER_4B = [

@@ -26,7 +26,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
         ["resources", "focus"]
       ],
       value: []
-    }
+    };
   }
 
   /* -------------------------------------------- */

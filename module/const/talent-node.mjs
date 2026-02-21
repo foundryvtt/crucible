@@ -195,7 +195,7 @@ export default class CrucibleTalentNode {
       iconPrefix: {value: nodeType.icon, writable: false, enumerable: true},
       abilities: {value: new Set(abilities), writable: false, enumerable: true},
       point: {value: point, writable: false, enumerable: true},
-      color: {value: color, writable: false, enumerable: true},
+      color: {value: color, writable: false, enumerable: true}
     });
 
     // Define prerequisites
@@ -348,7 +348,7 @@ export default class CrucibleTalentNode {
       }
       else if ( k === "advancement.level" ) {
         if ( v <= 1 ) return obj;
-        o.label = "Level"
+        o.label = "Level";
       }
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
       else if ( k.startsWith("training.") ) o.label = SYSTEM.TALENT.TRAINING_TYPES[k.split(".")[1]].label;

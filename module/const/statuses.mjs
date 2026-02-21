@@ -9,7 +9,7 @@ export const statusEffects = [
     name: "ACTIVE_EFFECT.STATUSES.Weakened",
     img: "systems/crucible/icons/statuses/weakened.svg",
     hud: nonGroupTypes,
-    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.weakened00000000",
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.weakened00000000"
   },
   {
     id: "dead",
@@ -295,5 +295,5 @@ export const statusEffects = [
     img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     hud: false,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.shocked000000000"
-  },
+  }
 ];

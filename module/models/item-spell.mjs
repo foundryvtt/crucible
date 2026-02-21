@@ -19,7 +19,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
       }))
-    }
+    };
   }
 
   /** @override */

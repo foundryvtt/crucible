@@ -32,5 +32,5 @@ export const CATEGORIES = {
  * @enum {CrucibleItemCategory}
  */
 export const PROPERTIES = {
-  ...foundry.utils.deepClone(ITEM_PROPERTIES),
+  ...foundry.utils.deepClone(ITEM_PROPERTIES)
 };

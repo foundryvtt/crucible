@@ -21,7 +21,7 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
         heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         hands: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: -2, max: 2})
       })
-    }
+    };
   }
 
   /**

@@ -53,7 +53,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   static PARTS = {
     header: {
       id: "header",
-      template: "systems/crucible/templates/sheets/action/header.hbs",
+      template: "systems/crucible/templates/sheets/action/header.hbs"
     },
     tabs: {
       id: "tabs",
@@ -99,7 +99,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       {id: "effects", group: "sheet", icon: "fa-solid fa-hourglass-clock", label: "ACTION.TABS.Effects"},
       {id: "hooks", group: "sheet", icon: "fa-solid fa-code", label: "ACTION.TABS.Hooks"}
     ]
-  }
+  };
 
   /** @override */
   tabGroups = {
@@ -155,7 +155,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       targetTypes: SYSTEM.ACTION.TARGET_TYPES
-    }
+    };
   }
 
   /* -------------------------------------------- */

@@ -80,7 +80,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   #dimensions = {
     width: 12000,
     height: 12000
-  }
+  };
 
   #hudAlignOriginal;
 
@@ -306,7 +306,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     if ( node.id === "origin" ) return; // No connection lines from the origin
     for ( const c of node.connected ) {
       if ( seen.has(c) || (c.tier < 0) || !this.state.get(c).purchased ) continue;
-      this.connections.moveTo(node.point.x, node.point.y)
+      this.connections.moveTo(node.point.x, node.point.y);
       this.connections.lineStyle({color: "#0e0906", width: 12, alpha: 1.0}).lineTo(c.point.x, c.point.y);
       this.connections.lineStyle({color: c.color, width: 6, alpha: 1.0}).lineTo(node.point.x, node.point.y);
     }

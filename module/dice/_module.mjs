@@ -4,5 +4,5 @@ export {default as CounterspellDialog} from "./counterspell-dialog.mjs";
 export {default as InitiativeCheck} from "./initiative-check.mjs";
 export {default as PassiveCheck} from "./passive-check.mjs";
 export {default as SpellCastDialog} from "./spell-cast-dialog.mjs";
-export {default as StandardCheck} from "./standard-check.mjs"
-export {default as StandardCheckDialog} from "./standard-check-dialog.mjs"
+export {default as StandardCheck} from "./standard-check.mjs";
+export {default as StandardCheckDialog} from "./standard-check-dialog.mjs";

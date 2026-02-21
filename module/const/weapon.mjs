@@ -43,7 +43,7 @@ export const TRAINING = Object.freeze({
 const label = (category, hands) => {
   category = game.i18n.localize(category);
   return game.i18n.format("WEAPON.CATEGORIES.CategoryHands", {category, hands});
-}
+};
 
 /**
  * Enumerate the weapon categories which are allowed by the system.
@@ -291,7 +291,7 @@ export const PROPERTIES = {
   },
   intuitive: {
     label: "WEAPON.TAGS.Intuitive",
-    tooltip: "WEAPON.TAGS.IntuitiveTooltip",
+    tooltip: "WEAPON.TAGS.IntuitiveTooltip"
   },
   keen: {
     label: "WEAPON.TAGS.Keen",
@@ -300,7 +300,7 @@ export const PROPERTIES = {
   },
   natural: {
     label: "WEAPON.TAGS.Natural",
-    tooltip: "WEAPON.TAGS.NaturalTooltip",
+    tooltip: "WEAPON.TAGS.NaturalTooltip"
   },
   oversized: {
     label: "WEAPON.TAGS.Oversized",
@@ -360,7 +360,7 @@ export const UNARMED_DATA = {
     damageType: "bludgeoning",
     properties: ["intuitive"]
   }
-}
+};
 
 /**
  * A special weapon configuration used for Nosferatu bite attack.
@@ -377,4 +377,4 @@ export const VAMPIRE_BITE = {
     damageType: "piercing",
     properties: ["natural"]
   }
-}
+};

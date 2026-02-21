@@ -19,7 +19,7 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
       }, {})}),
       nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
       scaling: new fields.StringField({choices: SYSTEM.ABILITIES})
-    }
+    };
   }
 
   /* -------------------------------------------- */
@@ -124,7 +124,7 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
     // Damage Type
     if ( this.damageType ) {
       if ( this.damageType === "physical" ) {
-        tags.push(`${game.i18n.localize("DAMAGE.Physical")} ${game.i18n.localize("DAMAGE.Damage")}`)
+        tags.push(`${game.i18n.localize("DAMAGE.Physical")} ${game.i18n.localize("DAMAGE.Damage")}`);
       }
       else {
         const dt = SYSTEM.DAMAGE_TYPES[this.damageType];

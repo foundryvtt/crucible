@@ -37,7 +37,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       submitOnChange: true
     },
     actor: {
-      type: undefined, // Defined by subclass
+      type: undefined // Defined by subclass
     }
   };
 
@@ -111,7 +111,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       {id: "effects", group: "sheet", label: "ACTOR.TABS.Effects"},
       {id: "biography", group: "sheet", label: "ACTOR.TABS.Biography"}
     ]
-  }
+  };
 
   /**
    * The mapping of Item types to equipment sections they belong to.
@@ -263,7 +263,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       privateSrc,
       privateHTML: await editorCls.enrichHTML(privateSrc, context),
       privateClass: privateSrc ? "private-biography" : "private-biography empty"
-    }
+    };
   }
 
   /* -------------------------------------------- */
@@ -311,7 +311,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
             separator: "+"
           }
         }
-      },
+      }
     };
 
     // Non-physical defenses
@@ -526,7 +526,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         canEdit: !!action.parent,
         favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"} :
           {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"}
-      }
+      };
 
       // Classify actions
       let section = "general";
@@ -585,7 +585,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         tags: tags,
         uuid: effect.uuid,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.ACTIONS.Enable"}
-          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.Disable"},
+          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.Disable"}
       };
       sections[tags.context.section].effects.push(e);
     }
@@ -632,7 +632,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         known: iconicSpells.items,
         emptyLabel: iconicSlots ? "" : game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
       }
-    }
+    };
 
     // Iconic Slot counters
     if ( iconicSlots ) {
@@ -774,7 +774,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       s.tooltips = {
         value: game.i18n.format("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
         passive: game.i18n.localize("SKILL.TooltipPassive")
-      }
+      };
 
       // Add to category
       category.skills ||= {};

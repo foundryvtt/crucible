@@ -114,7 +114,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
     const ownedTalents = tree.actor.system.talentNodes[this.node.id] || [];
-    const nodeTalents = new Set([...this.node.talents, ...ownedTalents])
+    const nodeTalents = new Set([...this.node.talents, ...ownedTalents]);
 
     // Toggle node active state
     if ( !nodeTalents.size ) return this.#onToggleEmptyNode();

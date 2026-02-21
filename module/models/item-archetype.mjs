@@ -17,7 +17,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       description: new fields.HTMLField(),
       identifier: new ItemIdentifierField(),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6});
         return obj;
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
       talents: new fields.ArrayField(new fields.SchemaField({
@@ -33,8 +33,8 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         item: new fields.DocumentUUIDField({type: "Item"}),
         quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1}),
         equipped: new fields.BooleanField()
-      })),
-    }
+      }))
+    };
   }
 
   /** @override */

@@ -17,12 +17,12 @@ export default class CrucibleToolItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static PARTS = {
-    ...super.PARTS,
+    ...super.PARTS
   };
 
   // Initialize subclass options
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */

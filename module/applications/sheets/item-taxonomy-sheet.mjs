@@ -13,7 +13,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   };
 
   static {
-    this._initializeItemSheetClass()
+    this._initializeItemSheetClass();
   }
 
   /* -------------------------------------------- */
@@ -102,7 +102,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     for ( const input of inputs ) {
       if ( selected.includes(input.dataset.damageType) ) {
         input.disabled = true;
-        input.type = "text"
+        input.type = "text";
         input.value = "∞";
       } else {
         input.disabled = false;

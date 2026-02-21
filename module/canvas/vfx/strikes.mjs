@@ -19,7 +19,7 @@ export function configureStrikeVFXEffect(action) {
     Object.assign(references, {
       [targetTokenReference]: `@${token.uuid}`,
       [targetMeshReference]: `^${targetTokenReference}.object.mesh`
-    })
+    });
     let i=1; // Roll
     for ( const roll of outcome.rolls ) {
       const weapon = action.usage.strikes[outcome.rolls[0].data.strike];
@@ -132,4 +132,4 @@ const ATTACK_SOUNDS = {
     hit: ["ArrowHit1.wav", "ArrowHit2.wav", "ArrowHit3.wav", "ArrowHit4.wav"],
     miss: ["ArrowMiss1.wav", "ArrowMiss2.wav", "ArrowMiss3.wav"]
   }
-}
+};

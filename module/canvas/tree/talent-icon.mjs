@@ -146,7 +146,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
         return new PIXI.Circle(0, 0, hs);
       case "hex":
         const borders = [[0, 0.5], [0.25, 0], [0.75, 0], [1, 0.5], [0.75, 1], [0.25, 1]];
-        const width = size * 2 / Math.sqrt(3)
+        const width = size * 2 / Math.sqrt(3);
         const height = size;
         const points = borders.reduce((arr, [ox, oy]) => {
           arr.push((ox * width) - (width / 2));

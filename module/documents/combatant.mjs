@@ -17,7 +17,7 @@ export default class CrucibleCombatant extends Combatant {
   getInitiativeRoll(formula) {
     const boons = {};
     const banes = {};
-    const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes}
+    const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes};
     if ( this.actor ) {
       if ( this.actor.isIncapacitated || !this.actor.abilities.dexterity.value ) rollData.incapacitated = true;
       else if ( this.actor.statuses.has("unaware") ) rollData.unaware = true;

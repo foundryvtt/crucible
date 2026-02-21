@@ -21,7 +21,7 @@ HOOKS.amorphous0000000 = {
     this.statuses.delete("restrained");
     defenses.dodge.bonus += this.getAbilityBonus("toughness");
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -42,7 +42,7 @@ HOOKS.arcanearcher0000 = {
     const lastAction = this.lastConfirmedAction;
     if ( lastAction?.tags.has("strike") ) action.cost.action -= 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -64,7 +64,7 @@ HOOKS.bard000000000000 = {
     if ( !action.tags.has("spell") ) return;
     if ( action.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -79,7 +79,7 @@ HOOKS.battlefocus00000 = {
     self.resources.focus = (self.resources.focus || 0) + 1;
     foundry.utils.setProperty(updates, "system.status.battleFocus", true);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -88,7 +88,7 @@ HOOKS.bestialSenses000 = {
     if ( !(action.tags.has("skill") && (action.usage.skillId === "awareness")) ) return;
     rollData.boons.bestialSenses = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -102,7 +102,7 @@ HOOKS.bloodfrenzy00000 = {
     self.resources.action = (self.resources.action || 0) + 1;
     foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -113,7 +113,7 @@ HOOKS.bloodletter00000 = {
     const dt = action.usage.weapon?.system.damageType;
     if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -136,7 +136,7 @@ HOOKS.bloodSense000000 = {
     if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
     if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -147,7 +147,7 @@ HOOKS.bulwark000000000 = {
     defend.cost.action -= 1;
     defend.usage.actorUpdates["system.status.bulwark"] = true;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -174,7 +174,7 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
       dmg.restoration = true;
       dmg.total = dmg.resistance - unmitigatedTotal;
     }
-  }
+  };
 }
 
 /* -------------------------------------------- */
@@ -188,7 +188,7 @@ HOOKS.cadence000000000 = {
     actorStatus.cadence = (cadence ?? 0) + 1;
     if ( cadence ) rollData.boons.cadence = {label: item.name, number: cadence};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -196,7 +196,7 @@ HOOKS.carefree00000000 = {
   prepareDefenses(_item, defenses) {
     defenses.madness.bonus -= 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -206,7 +206,7 @@ HOOKS.chirurgeon000000 = {
       action.usage.boons[item.id] = {label: item.name, number: 1};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -217,7 +217,7 @@ HOOKS.concussiveblows0 = {
     const dt = action.usage.weapon?.system.damageType;
     if ( dt === "bludgeoning" ) outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -228,7 +228,7 @@ HOOKS.conjurer00000000 = {
     const effectId = effectIds.find(id => !this.effects.has(id)) || effectIds[0];
     action.usage.summons[0].effectId = effectId;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -239,7 +239,7 @@ HOOKS.conserveeffort00 = {
       statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -253,7 +253,7 @@ HOOKS.demolitionist000 = {
       }
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -261,7 +261,7 @@ HOOKS.distancerunner00 = {
   prepareMovement(_item, movement) {
     movement.stride += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -271,7 +271,7 @@ HOOKS.dustbinder000000 = {
     const damageHealth = outcome.resources.health < 0;
     if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -284,7 +284,7 @@ HOOKS.evasiveshot00000 = {
       foundry.utils.setProperty(action.usage.actorStatus, "movement.bonus", movementBonus);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -293,14 +293,14 @@ HOOKS.healer0000000000 = {
     if ( !action.tags.has("spell") ) return;
     if ( action.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
   }
-}
+};
 /* -------------------------------------------- */
 
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
     if ( this.equipment.weapons.shield ) movement.engagement += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -310,7 +310,7 @@ HOOKS.inspirator000000 = {
     const restoreMorale = outcome.resources.morale > 0;
     if ( restoreMorale ) outcome.effects.push(SYSTEM.EFFECTS.inspired(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -321,7 +321,7 @@ HOOKS.intellectualsupe = {
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority = {label: item.name, number: 1};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -329,7 +329,7 @@ HOOKS.irrepressiblespi = {
   startTurn(item, {resourceChanges}) {
     if ( !this.system.isBroken ) resourceChanges.morale = (resourceChanges.morale || 0) + 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -343,7 +343,7 @@ HOOKS.kineturge0000000 = {
     bleeding.duration = {rounds: 1};
     outcome.effects.push(bleeding);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -351,7 +351,7 @@ HOOKS.lesserregenerati = {
   startTurn(item, {resourceChanges}) {
     if ( !this.system.isWeakened ) resourceChanges.health = (resourceChanges.health || 0) + 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -362,7 +362,7 @@ HOOKS.lightbringer0000 = {
     const damageMorale = outcome.resources.morale < 0;
     if ( damageHealth || damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.irradiated(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -372,7 +372,7 @@ HOOKS.mender0000000000 = {
     const restoreHealth = outcome.resources.health > 0;
     if ( restoreHealth ) outcome.effects.push(SYSTEM.EFFECTS.mending(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -383,7 +383,7 @@ HOOKS.mentalfortress00 = {
   prepareDefenses(item, defenses) {
     defenses.willpower.bonus += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -393,7 +393,7 @@ HOOKS.mesmer0000000000 = {
     const damageMorale = outcome.resources.morale < 0;
     if ( damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.confused(this));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -403,7 +403,7 @@ HOOKS.necromancer00000 = {
     const damageHealth = outcome.resources.health < 0;
     if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.decay(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -411,7 +411,7 @@ HOOKS.nosferatu0000000 = {
   prepareResistances(_item, resistances) {
     resistances.radiant.base -= 10;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -425,7 +425,7 @@ HOOKS.operator00000000 = {
       rollData.boons.operator = {label: item.name, number: 1};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -439,7 +439,7 @@ HOOKS.packhunter000000 = {
       };
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -451,7 +451,7 @@ HOOKS.patientdeflectio = {
       defenses.parry.bonus += Math.ceil(wisdom / 2);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -462,7 +462,7 @@ HOOKS.planneddefense00 = {
     const oc = origin.combatant;
     if ( ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense = {label: item.name, number: 1};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -475,7 +475,7 @@ HOOKS.poisoner00000000 = {
     const dt = action.usage.weapon?.system.damageType;
     if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -487,7 +487,7 @@ HOOKS.powerfulphysique = {
     const bulkyBanes = rollData.banes.bulky;
     if ( armor.system.properties.has("bulky") && bulkyBanes ) bulkyBanes.number -= 2;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -497,7 +497,7 @@ HOOKS.powerfulThrow000 = {
       action.range.maximum *= 2;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -509,7 +509,7 @@ HOOKS.preparedness0000 = {
       action.usage.actorStatus.hasMoved = true;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -517,7 +517,7 @@ HOOKS.preternaturalins = {
   prepareInitiativeCheck(item, rollData) {
     rollData.boons.preternaturalInstinct = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -527,7 +527,7 @@ HOOKS.pyromancer000000 = {
     const damageHealth = outcome.resources.health < 0;
     if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.burning(this));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -535,7 +535,7 @@ HOOKS.resilient0000000 = {
   prepareDefenses(_item, defenses) {
     defenses.wounds.bonus -= 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -545,7 +545,7 @@ HOOKS.rimecaller000000 = {
     const damageHealth = outcome.resources.health < 0;
     if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -557,7 +557,7 @@ HOOKS.runewarden000000 = {
       resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -568,7 +568,7 @@ HOOKS.saboteur00000000 = {
       action.usage.boons[item.id] = {label: item.name, number: 1};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -577,7 +577,7 @@ HOOKS.inexorableFlame0 = {
     if ( !grimoire.runes.has("flame") ) return;
     grimoire.runes.set("flame", grimoire.runes.get("flame").clone({scaling: "wisdom"}, {once: true}));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -585,7 +585,7 @@ HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
     movement.engagement += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -593,7 +593,7 @@ HOOKS.shieldward000000 = {
   prepareAction(_item, action) {
     if ( (action.gesture?.id === "ward") && this.equipment.weapons.shield ) action.cost.hands = 0;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -601,7 +601,7 @@ HOOKS.snakeblood000000 = {
   prepareResistances(_item, resistances) {
     resistances.poison.base += 5;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -617,7 +617,7 @@ HOOKS.sorcerer00000000 = {
       this.usage.bonuses.damageBonus += this.grimoire.iconicSlots;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -636,7 +636,7 @@ HOOKS.spellblade000000 = {
     const lastAction = this.lastConfirmedAction;
     if ( lastAction?.tags.has("strike") ) action.cost.action -= 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -650,7 +650,7 @@ HOOKS.spellmute0000000 = {
     }
     delete actions.cast;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -660,7 +660,7 @@ HOOKS.stilllake0000000 = {
     if ( CONFIG.SYSTEM.SKILLS[action.usage.skillId].category !== "soc" ) return;
     rollData.banes.stillLake = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -671,7 +671,7 @@ HOOKS.strikefirst00000 = {
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: item.name, number: 1};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -679,7 +679,7 @@ HOOKS.stronggrip000000 = {
   prepareAction(_item, action) {
     if ( this.equipment.weapons.twoHanded ) action.usage.availableHands += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -690,7 +690,7 @@ HOOKS.surgeweaver00000 = {
     const damageMorale = outcome.resources.morale < 0;
     if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -700,7 +700,7 @@ HOOKS.testudo000000000 = {
       rollData.banes.testudo = {label: item.name, number: 1};
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -710,7 +710,7 @@ HOOKS.thickskin0000000 = {
     resistances.slashing.base += 2;
     resistances.piercing.base += 2;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -723,7 +723,7 @@ HOOKS.thoughtbinder000 = {
     const dominated = SYSTEM.EFFECTS.dominated(this, outcome.target);
     outcome.effects.push(dominated);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -731,7 +731,7 @@ HOOKS.truegrit00000000 = {
   prepareMovement(_item, movement) {
     movement.engagement += 1;
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -743,7 +743,7 @@ HOOKS.unarmedblocking0 = {
       defenses.block.bonus += Math.ceil(toughness / 2);
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -754,7 +754,7 @@ HOOKS.voidcaller000000 = {
     const damageMorale = outcome.resources.morale < 0;
     if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.entropy(this, outcome.target));
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -765,7 +765,7 @@ HOOKS.vowofanimus00000 = {
     if ( !target.effects.has(SYSTEM.EFFECTS.getEffectId(item.actions[0].id)) ) return;
     rollData.boons.vowOfAnimus = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -773,7 +773,7 @@ HOOKS.warmage000000000 = {
   prepareAction(item, action) {
     if ( action.id === "counterspell" ) action.usage.boons.warMage = {label: item.name, number: 2};
   }
-}
+};
 
 /* -------------------------------------------- */
 
