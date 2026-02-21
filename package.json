@@ -11,10 +11,13 @@
     "extract": "node build.mjs extract"
   },
   "devDependencies": {
-    "@foundryvtt/foundryvtt-cli": "^3.0.2",
-    "commander": "^14.0.2",
+    "@foundryvtt/foundryvtt-cli": "^3.0.3",
+    "commander": "^14.0.3",
+    "eslint": "^10.0.1",
+    "eslint-plugin-jsdoc": "^62.7.0",
+    "globals": "^17.3.0",
     "less": "^4.5.1",
-    "rollup": "^4.54.0"
+    "rollup": "^4.58.0"
   },
   "author": "Foundry Gaming, LLC",
   "license": "UNLICENSED"
