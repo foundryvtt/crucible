@@ -462,26 +462,31 @@ async function onClickMilestone(event) {
 
 /**
  * Enrich a hazard test with the format [[/hazard {level} {...tags}]]
- * @param {string} match
- * @param {string} terms
- * @param {string} name
+ * @param {RegExpMatchArray} matchArray
  */
-function enrichHazard([match, terms, name]) {
+function enrichHazard([_match, terms, name]) {
   const [hazard, ...tags] = terms.split(" ");
   const action = crucible.api.models.CrucibleAction.createHazard(undefined, {hazard: Number(hazard), tags});
 
-  // Construct label
+  // Prepare label
   const hazardRank = `Hazard ${hazard}`;
+  const parenthetical = name ? [hazardRank] : [];
+  for ( const t of tags ) {
+    const cfg = SYSTEM.ACTION.TAGS[t];
+    if ( cfg && cfg.label && !cfg.internal ) parenthetical.push(cfg.label);
+  }
+  let label = name || hazardRank;
+  if ( parenthetical.length ) label += ` (${parenthetical.join(", ")})`;
+
+  // Prepare tooltip
   const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing
   ${SYSTEM.DAMAGE_TYPES[action.usage.damageType]?.label} damage to ${SYSTEM.RESOURCES[action.usage.resource]?.label}`;
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("hazard-check");
-  tag.dataset.hazard = hazard;
-  tag.dataset.tags = tags;
-  tag.innerHTML = name ? `${name} (${hazardRank})` : hazardRank;
-  tag.dataset.tooltip = tooltip;
+  Object.assign(tag.dataset, {hazard, tags, tooltip});
+  tag.innerHTML = label;
   return tag;
 }
 
