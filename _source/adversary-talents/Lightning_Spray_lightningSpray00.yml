@@ -1,0 +1,88 @@
+name: Lightning Spray
+type: talent
+img: icons/magic/lightning/bolt-strike-beam-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to produce and expel powerful
+    voltaic discharge.</p>
+  actions:
+    - id: lightningSpray
+      name: Lightning Spray
+      img: icons/magic/lightning/bolt-strike-beam-pink.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} expels a bolt of lighting in a 30 foot
+        ray that is 4 feet wide, attacking the <strong>Reflex</strong> of each
+        target along that path and dealing <strong>Electricity</strong>
+        damage.</p><p>On a <strong>Critical Hit</strong> the attack causes the
+        @Condition[shocked] condition for <strong>3 Turns</strong>.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: ray
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - shocked
+          duration:
+            turns: 3
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - melee
+        - natural
+        - reflex
+        - electricity
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: pfqBQPVP2KV9fQFs
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771691325439
+  modifiedTime: 1771691870143
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: lightningSpray00
+sort: 400000
+_key: '!items!lightningSpray00'

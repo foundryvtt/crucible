@@ -1,0 +1,39 @@
+name: Glider
+type: talent
+img: icons/creatures/birds/raptor-hawk-flying.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can control its movement while falling and
+    may perform the <strong>Move</strong> action up to a maximum distance of its
+    <strong>Stride</strong> for each 20 feet that it falls.</p><p>If it spends
+    Action to Move in this way, it does not suffer falling damage upon
+    landing.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771690067354
+  modifiedTime: 1771690067397
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: glider0000000000
+sort: 200000
+_key: '!items!glider0000000000'

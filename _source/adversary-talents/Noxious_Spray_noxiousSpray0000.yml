@@ -1,0 +1,88 @@
+name: Noxious Spray
+type: talent
+img: icons/magic/light/beam-rays-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to produce and expel toxic
+    discharge in a projected ray.</p>
+  actions:
+    - id: noxiousSpray
+      name: Noxious Spray
+      img: icons/magic/light/beam-rays-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} expels toxic discharge in a 30 foot
+        ray that is 4 feet wide, attacking the <strong>Reflex</strong> of each
+        target along that path and dealing <strong>Poison</strong>
+        damage.</p><p>On a <strong>Critical Hit</strong> the attack causes the
+        @Condition[poisoned] condition for <strong>3 Turns</strong>.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: ray
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - poisoned
+          duration:
+            turns: 3
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - melee
+        - natural
+        - reflex
+        - electricity
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: pfqBQPVP2KV9fQFs
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771691991463
+  modifiedTime: 1771691991463
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: noxiousSpray0000
+sort: 0
+_key: '!items!noxiousSpray0000'

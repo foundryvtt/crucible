@@ -50,12 +50,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1760804485204
-  modifiedTime: 1760804485230
+  modifiedTime: 1771690067397
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: aqueousTransmiss
-sort: 300000
+sort: 800000
 _key: '!items!aqueousTransmiss'

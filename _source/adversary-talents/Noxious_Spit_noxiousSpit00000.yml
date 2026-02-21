@@ -1,23 +1,27 @@
-name: Acid Spit
+name: Noxious Spit
 type: talent
 img: icons/magic/acid/projectile-smoke-glowing.webp
 system:
   nodes: []
-  description: <p>The creature has salivary glands which produce a caustic acid.</p>
+  description: >-
+    <p>The @ref[actor.name]{creature} produces a salivary toxin that it can
+    expel in a projected globule.</p>
   actions:
-    - id: acidSpit
-      name: Acid Spit
+    - id: noxiousSpit
+      name: Noxious Spit
       img: icons/magic/acid/projectile-smoke-glowing.webp
       condition: ''
       description: >-
-        <p>The @ref[actor.name]{creature} spits a glob of acidic bile at a
-        target within 20 feet.</p><p>On a <strong>Critical Hit</strong>, this
-        attack causes the @Condition[corroding] condition for <strong>3
-        Turns</strong>.</p>
+        <p>The @ref[actor.name]{creature} spits globule of toxin at a target
+        creature within 20 feet, attacking its <strong>Reflex</strong> and
+        dealing <strong>Poison </strong>damage.</p><p>On a <strong>Critical
+        Hit</strong> the attack causes the @Condition[poisoned] condition for
+        <strong>3 Turns</strong>.</p>
       cost:
         action: 0
         focus: 1
         heroism: 0
+        hands: 0
         weapon: true
       range:
         minimum: null
@@ -26,24 +30,33 @@ system:
       target:
         type: single
         number: 1
-        scope: 3
+        scope: 4
         self: false
+      summon:
+        actorUuid: null
+        permanent: true
       effects:
-        - name: Acid Spit
-          scope: '3'
+        - name: ''
+          scope: 3
           result:
             type: successCritical
             all: false
           statuses:
-            - corroding
+            - poisoned
           duration:
             turns: 3
             rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
         - reflex
-        - acid
+        - poison
       actionHooks: []
   rune: ''
   gesture: ''
@@ -65,10 +78,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1750875988956
+  systemVersion: 0.8.7
+  createdTime: 1771691870094
   modifiedTime: 1771691870143
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_id: acidSpit00000000
-sort: 100000
-_key: '!items!acidSpit00000000'
+_id: noxiousSpit00000
+sort: 300000
+_key: '!items!noxiousSpit00000'

@@ -17,6 +17,8 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
       level: null
+    - item: Compendium.crucible.adversary-talents.Item.glider0000000000
+      level: null
   skills:
     - awareness
     - stealth
@@ -36,7 +38,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1750876423684
-  modifiedTime: 1770325107114
+  modifiedTime: 1771690081872
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: drakeling0000000
 sort: 0
