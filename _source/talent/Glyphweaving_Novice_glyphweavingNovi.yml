@@ -1,13 +1,13 @@
-name: Runeweaving Novice
+name: Glyphweaving Novice
 folder: nNjAJGgLtLFXtTab
 type: talent
 system:
   node: pre0a
   training:
     rank: 1
-    type: runeweaving
+    type: glyphweaving
   description: >-
-    <p>You have received training in the fundamentals of Runeweaving and are
+    <p>You have received training in the fundamentals of Glyphweaving and are
     capable of working with most common glyphs and engravings.</p><p>You still
     need to reference recipes and books to identify particular glyphs and their
     properties.</p>
@@ -31,5 +31,5 @@ _stats:
   createdTime: 1742954523726
   modifiedTime: 1762041359399
   lastModifiedBy: vke929uLgNzbrY41
-_id: runeweavingNovic
-_key: '!items!runeweavingNovic'
+_id: glyphweavingNovi
+_key: '!items!glyphweavingNovi'

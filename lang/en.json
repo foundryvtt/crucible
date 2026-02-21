@@ -1448,7 +1448,7 @@
     "Enchanting": "Enchanting Glyph",
     "Fletching": "Fletching Draft",
     "Jewelcraft": "Jewelers Graph",
-    "Runeweaving": "Runeweave Arcanum",
+    "Glyphweaving": "Glyphweave Arcanum",
     "Smithing": "Smithing Blueprint",
     "Tailoring": "Tailoring Pattern"
   },
@@ -1585,7 +1585,7 @@
     "tailoring": "Tailoring",
     "fletching": "Fletching",
     "jewelcraft": "Jewelcraft",
-    "runeweaving": "Runeweaving",
+    "glyphweaving": "Glyphweaving",
     "alchemy": "Alchemy",
     "cooking": "Cooking",
     "enchanting": "Enchanting"

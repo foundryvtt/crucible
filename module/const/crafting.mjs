@@ -9,7 +9,7 @@ export const TRAINING = Object.freeze({
   enchanting: {label: "SKILL.LABELS.enchanting"},
   fletching: {label: "SKILL.LABELS.fletching"},
   jewelcraft: {label: "SKILL.LABELS.jewelcraft"},
-  runeweaving: {label: "SKILL.LABELS.runeweaving"},
+  glyphweaving: {label: "SKILL.LABELS.glyphweaving"},
   smithing: {label: "SKILL.LABELS.smithing"},
   tailoring: {label: "SKILL.LABELS.tailoring"}
 });

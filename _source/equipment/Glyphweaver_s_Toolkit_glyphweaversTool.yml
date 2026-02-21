@@ -1,8 +1,8 @@
-name: Runeweaver's Toolkit
+name: Glyphweaver's Toolkit
 img: icons/containers/bags/pack-engraved-leather-blue.webp
 type: tool
 system:
-  identifier: toolKitRuneweaving
+  identifier: toolKitGlyphweaving
   category: crafting
   enchantment: mundane
   quality: standard
@@ -16,7 +16,7 @@ system:
       other ritual materials.</p>
     private: ''
   skills:
-    - runeweaving
+    - glyphweaving
   broken: false
   equipped: false
   invested: false
@@ -39,6 +39,6 @@ _stats:
   createdTime: 1766086393315
   modifiedTime: 1766097022534
   lastModifiedBy: AnoypGxxNIMOS0XY
-_id: runeweaversToolk
+_id: glyphweaversTool
 sort: 100000
-_key: '!items!runeweaversToolk'
+_key: '!items!glyphweaversTool'

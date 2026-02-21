@@ -158,5 +158,9 @@ export const TALENT_ID_MIGRATIONS = {
   lunge00000000000: "Compendium.crucible.talent.Item.lightWeaponTrain",
   rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon",
   mechanicalTraini: "Compendium.crucible.talent.Item.mechanicalWeapon",
-  projectileTraini: "Compendium.crucible.talent.Item.projectileWeapon"
+  projectileTraini: "Compendium.crucible.talent.Item.projectileWeapon",
+
+  // Crafting Trainings
+  runeweavingNovic: "Compendium.crucible.talent.Item.glyphweavingNovi",
+  runeweavingJourn: "Compendium.crucible.talent.Item.glyphweavingJour"
 };

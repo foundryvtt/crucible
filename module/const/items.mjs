@@ -169,7 +169,7 @@ export const SCHEMATIC_CATEGORIES = {
   enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.Enchanting"},
   fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.Fletching"},
   jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.Jewelcraft"},
-  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.Runeweaving"},
+  glyphweaving: {id: "glyphweaving", label: "SCHEMATIC.CATEGORIES.Glyphweaving"},
   smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.Smithing"},
   tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.Tailoring"}
 };

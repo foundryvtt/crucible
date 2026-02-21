@@ -1,14 +1,14 @@
-name: Runeweaving Journeyman
+name: Glyphweaving Journeyman
 folder: nNjAJGgLtLFXtTab
 type: talent
 system:
   node: pre4b
   training:
     rank: 2
-    type: runeweaving
+    type: glyphweaving
   description: >-
     <p>You have a professional degree of experience with the Runic sciences and
-    can work through some of the more advanced runeweaving processes given
+    can work through some of the more advanced glyphweaving processes given
     sufficient time.</p><p>The basic properties of most common Glyphs and their
     phrases are easy for you to remember without reference material, but you
     still need books for rare ideograms and their components.</p>
@@ -32,5 +32,5 @@ _stats:
   createdTime: 1742954600515
   modifiedTime: 1762041397870
   lastModifiedBy: vke929uLgNzbrY41
-_id: runeweavingJourn
-_key: '!items!runeweavingJourn'
+_id: glyphweavingJour
+_key: '!items!glyphweavingJour'

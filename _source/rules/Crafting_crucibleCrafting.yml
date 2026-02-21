@@ -104,7 +104,7 @@ pages:
       content: >-
         <p><strong>Enchanting</strong> is the art of combining existing Glyphs
         (created by
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.runeweaving00000]{Runeweavers})
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweavers})
         with equipment created by other crafters (such as
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smiths},
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailors},
@@ -221,10 +221,10 @@ pages:
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.jewelcraft000000'
   - sort: 600000
-    name: Runeweaving
+    name: Glyphweaving
     type: text
     category: UaoYAtq1fyu6uiPf
-    _id: runeweaving00000
+    _id: glyphweaving0000
     system: {}
     title:
       show: true
@@ -233,15 +233,15 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Runeweaving</strong> is the arcane science of inscribing
+        <p><strong>Glyphweaving</strong> is the arcane science of inscribing
         physical manifestations of metaphysical
         @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes}
         to create Glyphs. Glyphs can be used to imbue magical properties into
         non-magical materials or as a component to aid ritual
         magic.</p><h2>Talents</h2><p>The following talents are available to
-        represent Runeweaver
-        training:</p><p>@UUID[Compendium.crucible.talent.Item.runeweavingNovic]{Runeweaving
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.runeweavingJourn]{Runeweaving
+        represent Glyphweaver
+        training:</p><p>@UUID[Compendium.crucible.talent.Item.glyphweavingNovi]{Glyphweaving
+        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.glyphweavingJour]{Glyphweaving
         Journeyman}</p>
     video:
       controls: true
@@ -261,7 +261,7 @@ pages:
       createdTime: 1760019652880
       modifiedTime: 1762043223896
       lastModifiedBy: vke929uLgNzbrY41
-    _key: '!journal.pages!crucibleCrafting.runeweaving00000'
+    _key: '!journal.pages!crucibleCrafting.glyphweaving0000'
   - sort: 700000
     name: Smithing
     type: text
@@ -555,7 +555,7 @@ pages:
         staves, and
         ammunition</p></td></tr><tr><td><p>@UUID[.jewelcraft000000]</p></td><td><p>Wisdom</p></td><td><p>Strength</p></td><td><p>Jewelry
         and other
-        accessories</p></td></tr><tr><td><p>@UUID[.runeweaving00000]</p></td><td><p>Presence</p></td><td><p>Dexterity</p></td><td><p>Runes
+        accessories</p></td></tr><tr><td><p>@UUID[.glyphweaving0000]</p></td><td><p>Presence</p></td><td><p>Dexterity</p></td><td><p>Runes
         used to
         enchant</p></td></tr><tr><td><p>@UUID[.smithing00000000]</p></td><td><p>Strength</p></td><td><p>Intellect</p></td><td><p>Metal
         arms and
