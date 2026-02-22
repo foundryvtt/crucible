@@ -42,7 +42,7 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
-    if ( ["rune", "gesture", "inflection"].includes(event.target.name) ) {
+    if ( ["rune", "gesture", "inflection", "damageType"].includes(event.target.name) ) {
       this.action.updateSource({[event.target.name]: event.target.value});
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       this._clearTargetTemplate();

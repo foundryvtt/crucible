@@ -2,13 +2,21 @@ import CrucibleAction from "./action.mjs";
 import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
- * Data and functionality that represents a Spell in the Crucible spellcraft system.
- *
+ * @typedef _CrucibleSpellActionData
  * @property {CrucibleSpellcraftRune} rune
  * @property {CrucibleSpellcraftGesture} gesture
  * @property {CrucibleSpellcraftInflection} inflection
  * @property {number} composition
  * @property {string} damageType
+ */
+
+/**
+ * @typedef {CrucibleActionData & _CrucibleSpellActionData} CrucibleSpellActionData
+ */
+
+/**
+ * Data and functionality that represents a Spell in the Crucible spellcraft system.
+ * @mixes CrucibleSpellActionData
  */
 export default class CrucibleSpellAction extends CrucibleAction {
   static defineSchema() {
@@ -74,24 +82,17 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _prepareData() {
     super._prepareData();
+    const {RUNES, GESTURES, INFLECTIONS} = SYSTEM.SPELL;
 
     // Spell Composition
     if ( this.actor ) {
-      this.rune = this.actor.grimoire.runes.get(this.rune) || SYSTEM.SPELL.RUNES[this.rune];
-      this.gesture = this.actor.grimoire.gestures.get(this.gesture) || SYSTEM.SPELL.GESTURES[this.gesture];
-      this.inflection = this.actor.grimoire.inflections.get(this.inflection) || SYSTEM.SPELL.INFLECTIONS[this.inflection];
+      this.rune = this.actor.grimoire.runes.get(this.rune) || RUNES[this.rune];
+      this.gesture = this.actor.grimoire.gestures.get(this.gesture) || GESTURES[this.gesture];
+      this.inflection = this.actor.grimoire.inflections.get(this.inflection) || INFLECTIONS[this.inflection];
     } else {
-      this.rune = SYSTEM.SPELL.RUNES[this.rune];
-      this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
-      this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
-    }
-
-    // Composed Spell
-    if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {
-      this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
-      this.name = CrucibleSpellAction.#getName(this);
-      this.img = this.rune.img;
-      this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
+      this.rune = RUNES[this.rune];
+      this.gesture = GESTURES[this.gesture];
+      this.inflection = INFLECTIONS[this.inflection];
     }
 
     // Derived Spell Attributes
@@ -102,16 +103,22 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
     this.target = {...this.gesture.target};
     this.range = this.gesture.range;
+
+    // Composed Spell
+    if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {
+      this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
+      this.name = CrucibleSpellAction.#getName(this);
+      this.img = this.rune.img;
+      this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
+    }
   }
 
   /* -------------------------------------------- */
 
   /**
    * Create the unique identifier that represents this spell as a combination of rune, gesture, and inflection.
-   * @param rune
-   * @param gesture
-   * @param inflection
-   * @returns {*}
+   * @param {Pick<CrucibleSpellActionData,"rune"|"gesture"|"inflection">} components
+   * @returns {string}
    */
   getSpellId({rune, gesture, inflection}={}) {
     rune ??= (this.rune?.id || "none");
@@ -179,8 +186,16 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * Prepare a default name for the spell if a custom name has not been designated.
    * @type {string}
    */
-  static #getName({rune, gesture, inflection, nameFormat}={}) {
+  static #getName({id, rune, gesture, inflection, nameFormat, damage}={}) {
     let name = "";
+
+    // Custom spell name
+    const custom = SYSTEM.SPELL.COMPOSED_SPELL_NAMES[id];
+    if ( typeof custom === "string" ) name = custom;
+    else if ( typeof custom === "object" ) name = custom[damage.type];
+    if ( name ) return name;
+
+    // Default composed name
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
         name = game.i18n.format("SPELL.NameFormatNoun", {rune, gesture});
@@ -236,7 +251,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  clone(updateData={}, context) {
+  clone(updateData={}, context={}) {
     if ( !this.composition ) updateData.composition = CrucibleSpellAction.COMPOSITION_STATES.COMPOSING;
     return super.clone(updateData, context);
   }
@@ -256,7 +271,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( lastSpell ) {
       try {
         const last = this.fromId(lastSpell, {actor});
-        last._canUse([]);
+        last._canUse();
         return last;
       } catch(err) {
         console.warn(err);
@@ -264,8 +279,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     }
 
     // Cast New Spell
-    const {runes, gestures} = actor.grimoire;
-    const rune = runes.keys().next().value;
+    const rune = actor.grimoire.runes.keys().next().value;
     const gesture = "touch";
     Object.assign(spellData, {
       rune,

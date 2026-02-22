@@ -553,7 +553,7 @@ export const INFLECTIONS = {
   }
 };
 
-export const GESTURE_SUMMONS =  {
+export const GESTURE_SUMMONS = {
   create: {
     death: "Compendium.crucible.summons.Actor.56puGK932Qc0cowe",
     earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
@@ -569,4 +569,30 @@ export const GESTURE_SUMMONS =  {
     lightning: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
     fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
   }
+};
+
+/**
+ * Custom names for specific composed spell combinations.
+ * Keys use format "spell.{rune}.{gesture}.{inflection}" and are either strings or an object with further
+ * differentiation defined by damage type variants (example for Kinesis).
+ * A matching key overrides the dynamically generated name for that composed spell.
+ * @type {Record<string, string|Record<string, string>>}
+ */
+export const COMPOSED_SPELL_NAMES = {
+  "spell.control.aspect.negate": "Curse of Paranoia",
+  "spell.death.aspect.negate": "Curse of Mortality",
+  "spell.earth.aspect.negate": "Curse of Porosity",
+  "spell.flame.aspect.negate": "Curse of Flammability",
+  "spell.frost.aspect.negate": "Curse of Frostbite",
+  "spell.illumination.aspect.negate": "Curse of Radiance",
+  "spell.illusion.aspect.negate": "Curse of Figments",
+  "spell.kinesis.aspect.negate": {
+    bludgeoning: "Curse of Shattering",
+    piercing: "Curse of Perforation",
+    slashing: "Curse of Laceration"
+  },
+  "spell.life.aspect.negate": "Curse of Toxicity",
+  "spell.lightning.aspect.negate": "Curse of Conductivity",
+  "spell.oblivion.aspect.negate": "Curse of Nullification",
+  "spell.soul.aspect.negate": "Curse of Cowardice"
 };
