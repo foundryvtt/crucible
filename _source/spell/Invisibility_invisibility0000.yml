@@ -57,7 +57,7 @@ system:
     - eluding
   actorHooks: []
 effects: []
-folder: null
+folder: QDinq7MTt8Ue7DNC
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -70,8 +70,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1765403193427
-  modifiedTime: 1765651661446
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1771804221253
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: invisibility0000
-sort: 150000
+sort: 500000
 _key: '!items!invisibility0000'

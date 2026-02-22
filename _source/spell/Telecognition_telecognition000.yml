@@ -55,7 +55,7 @@ system:
     - pull
   actorHooks: []
 effects: []
-folder: null
+folder: mEZqKhOzM6HUelNO
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -68,8 +68,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1765403197993
-  modifiedTime: 1765651705219
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1771804255189
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: telecognition000
-sort: 0
+sort: 100000
 _key: '!items!telecognition000'

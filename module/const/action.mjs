@@ -449,6 +449,13 @@ export const TAGS = {
         icon: "fa-solid fa-sparkles",
         tags: {}
       });
+    },
+    prepare() {
+      this.usage.actorStatus.hasCast = true;
+    },
+    async roll(outcome) {
+      const roll = await this.actor.spellAttack(this, outcome);
+      if ( roll ) outcome.rolls.push(roll);
     }
   },
 
@@ -465,13 +472,8 @@ export const TAGS = {
       this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
       if ( this.inflection ) this.usage.context.tags.inflection = game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
-      this.usage.actorStatus.hasCast = true;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
-    },
-    async roll(outcome) {
-      const roll = await this.actor.spellAttack(this, outcome);
-      if ( roll ) outcome.rolls.push(roll);
     }
   },
 
@@ -481,14 +483,7 @@ export const TAGS = {
     label: "ACTION.TagIconicSpell",
     tooltip: "ACTION.TagSpellTooltip",
     category: "spellcraft",
-    priority: 2,
-    prepare() {
-      for ( const gestureId of this.parent.gestures ) {
-        const gesture = SYSTEM.SPELL.GESTURES[gestureId];
-        this.cost.hands = Math.max(this.cost.hands, gesture.hands);
-      }
-      this.usage.actorStatus.hasCast = true;
-    }
+    priority: 2
   },
 
   summon: {

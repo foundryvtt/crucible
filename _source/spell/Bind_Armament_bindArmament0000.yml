@@ -75,7 +75,7 @@ system:
     - pull
   actorHooks: []
 effects: []
-folder: null
+folder: EwXTQS4EtShwquxC
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -88,7 +88,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749247011452
-  modifiedTime: 1765403195009
-  lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 400000
+  modifiedTime: 1771804186385
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 100000
 _key: '!items!bindArmament0000'

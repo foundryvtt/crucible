@@ -131,6 +131,15 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
  * @typedef CrucibleActionData
+ * @property {string} id                    The action identifier
+ * @property {string} name                  The action name
+ * @property {string} img                   An image for the action
+ * @property {string} condition             An optional condition which must be met in order for the action to be used
+ * @property {string} description           Text description of the action
+ * @property {ActionRange} range            Range data for the action
+ * @property {ActionTarget} target          Target data for the action
+ * @property {ActionCost} cost              Cost data for the action
+ * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
  */
 
 /**
@@ -231,15 +240,7 @@ class CrucibleActionTags extends Set {
 
 /**
  * The data schema used for an Action within a talent Item
- * @property {string} id                    The action identifier
- * @property {string} name                  The action name
- * @property {string} img                   An image for the action
- * @property {string} condition             An optional condition which must be met in order for the action to be used
- * @property {string} description           Text description of the action
- * @property {ActionRange} range            Range data for the action
- * @property {ActionTarget} target          Target data for the action
- * @property {ActionCost} cost              Cost data for the action
- * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
+ * @mixes CrucibleActionData
  */
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -1289,6 +1290,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _configureUsage() {
+
+    // Initial logic for whether this action entails a roll, specialized tags or hooks should redefine as necessary
+    this.usage.hasDice = this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
 
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);

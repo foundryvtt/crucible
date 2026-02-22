@@ -50,7 +50,7 @@ system:
     - push
   actorHooks: []
 effects: []
-folder: null
+folder: WPi0Oydvh9ukhafa
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -63,8 +63,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1759877572761
-  modifiedTime: 1765403195009
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1771804215942
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: engulfingDarknes
-sort: 500000
+sort: 100000
 _key: '!items!engulfingDarknes'

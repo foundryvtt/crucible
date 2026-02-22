@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: 'Gesture: Infuence'
+color: null
+sorting: a
+_id: gdzthC77CQ484ilA
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771804245636
+  modifiedTime: 1771804245636
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!gdzthC77CQ484ilA'

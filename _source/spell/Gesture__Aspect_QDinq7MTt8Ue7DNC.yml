@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: 'Gesture: Aspect'
+color: null
+sorting: a
+_id: QDinq7MTt8Ue7DNC
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771804045271
+  modifiedTime: 1771804173005
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!QDinq7MTt8Ue7DNC'

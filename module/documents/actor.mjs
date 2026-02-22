@@ -620,7 +620,7 @@ export default class CrucibleActor extends Actor {
     // TODO get rid of action.usage here in favor of outcome.usage
     const boons = {...spell.usage.boons, ...outcome.usage.boons};
     const banes = {...spell.usage.banes, ...outcome.usage.banes};
-    const defenseType = outcome.usage.defenseType || spell.defense;
+    const defenseType = outcome.usage.defenseType || spell.usage.defenseType;
 
     // Prepare Roll Data
     const rollData = {

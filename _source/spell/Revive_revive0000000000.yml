@@ -62,7 +62,7 @@ system:
     - push
   actorHooks: []
 effects: []
-folder: null
+folder: gdzthC77CQ484ilA
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -75,8 +75,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1765403197235
-  modifiedTime: 1765651692764
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1771804247435
+  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: revive0000000000
-sort: 50000
+sort: 100000
 _key: '!items!revive0000000000'

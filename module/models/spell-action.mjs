@@ -121,8 +121,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
     // Common Attributes
     this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.training = [this.rune.id];
-    this.defense = CrucibleSpellAction.#prepareDefense.call(this);
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
+    this.usage.defenseType ||= CrucibleSpellAction.#prepareDefense.call(this);
 
     // Composed Spells Only
     if ( this.isComposed ) {
@@ -237,8 +237,15 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _configureUsage() {
+    super._configureUsage();
+    this.usage.hasDice ||= ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _prepare() {
-    this.usage.hasDice = true; // Spells involve dice rolls unless configured otherwise
     super._prepare();
 
     // Add Weapon cost
@@ -375,7 +382,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
     if ( this.damage.healing ) tags.action.healing = game.i18n.localize("ACTION.TagHealing");
-    else tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
+    else tags.action.defense = SYSTEM.DEFENSES[this.usage.defenseType].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
 
     // Show unmet for inflection if silenced

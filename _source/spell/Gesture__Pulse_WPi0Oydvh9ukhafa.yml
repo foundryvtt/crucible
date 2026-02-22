@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: 'Gesture: Pulse'
+color: null
+sorting: a
+_id: WPi0Oydvh9ukhafa
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771804212926
+  modifiedTime: 1771804212926
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!WPi0Oydvh9ukhafa'

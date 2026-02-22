@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: 'Gesture: Sense'
+color: null
+sorting: a
+_id: mEZqKhOzM6HUelNO
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771804253634
+  modifiedTime: 1771804253634
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!mEZqKhOzM6HUelNO'

@@ -12,9 +12,9 @@ system:
   description:
     public: >-
       <p>A collapsible wooden box that can be unfolded into a small workbench
-      designed as a work surface for fabricating glyphs. Contains engraving chisels
-      and awls, a lapidary hammer, decorative leather mat and space for storing
-      glyphs and other ritual materials.</p>
+      designed as a work surface for fabricating glyphs. Contains engraving
+      chisels and awls, a lapidary hammer, decorative leather mat and space for
+      storing glyphs and other ritual materials.</p>
     private: ''
   skills:
     - glyphweaving

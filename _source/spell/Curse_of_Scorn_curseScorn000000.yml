@@ -1,0 +1,83 @@
+name: Curse of Scorn
+type: spell
+_id: curseScorn000000
+img: icons/magic/unholy/projectile-helix-blood-red.webp
+system:
+  description: >-
+    <p>You diminish the force of your target's personality, making them less
+    compelling and harder for others to heed in a way that proves permanent.</p>
+  actions:
+    - id: curseScorn
+      name: Curse of Scorn
+      img: icons/magic/unholy/projectile-helix-blood-red.webp
+      condition: ''
+      description: >-
+        <p>Touch the target to wither their force of will with a curse that
+        permanently reduces their <strong>Presence</strong> by 2.</p>
+      cost:
+        action: 3
+        focus: 3
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Curse of Scorn
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - spell
+        - iconicSpell
+        - harmless
+      actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: soul
+      gesture: aspect
+      inflection: negate
+  runes:
+    - soul
+  gestures:
+    - aspect
+  inflections:
+    - negate
+  actorHooks: []
+effects: []
+folder: QDinq7MTt8Ue7DNC
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771718400000
+  modifiedTime: 1771804904132
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 400000
+_key: '!items!curseScorn000000'
