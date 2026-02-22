@@ -2308,14 +2308,18 @@ export default class CrucibleActor extends Actor {
     }
 
     // Automatic Prototype Token configuration
-    updates.prototypeToken = {bar1: {attribute: "resources.health"}, bar2: {attribute: "resources.morale"}};
+    const prototypeTokenDefaults = {"bar1.attribute": "resources.health", "bar2.attribute": "resources.morale"};
     switch ( data.type ) {
       case "hero":
-        Object.assign(updates.prototypeToken, {sight: {enabled: true}, actorLink: true, disposition: 1});
+        Object.assign(prototypeTokenDefaults, {"sight.enabled": true, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        Object.assign(updates.prototypeToken, {sight: {enabled: false}, actorLink: false, disposition: -1});
+        Object.assign(prototypeTokenDefaults, {"sight.enabled": false, actorLink: false, disposition: -1});
         break;
+    }
+    updates.prototypeToken = {};
+    for ( const [k,v] of Object.entries(prototypeTokenDefaults) ) {
+      if ( !foundry.utils.hasProperty(data.prototypeToken, k) ) updates.prototypeToken[k] = v;
     }
     this.updateSource(updates);
   }
