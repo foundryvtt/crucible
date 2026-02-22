@@ -33,7 +33,8 @@ export default class SpellCastDialog extends ActionUseDialog {
         bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
         slashing: SYSTEM.DAMAGE_TYPES.slashing.label
-      }
+      },
+      isComposed: this.action.isComposed
     });
   }
 
@@ -55,9 +56,15 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onRoll(event, button, dialog) {
     const form = event.target;
-    const {rune, gesture, inflection, damageType} = (new FormDataExtended(form)).object;
-    const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
-    this.action.updateSource({composition, rune, gesture, inflection, damageType});
+    const formData = (new FormDataExtended(form)).object;
+    if ( this.action.isComposed ) {
+      const {rune, gesture, inflection, damageType} = formData;
+      const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
+      this.action.updateSource({composition, rune, gesture, inflection, damageType});
+    } else {
+      const {damageType} = formData;
+      if ( damageType !== undefined ) this.action.updateSource({damageType});
+    }
     return super._onRoll(event, button, dialog);
   }
 }
