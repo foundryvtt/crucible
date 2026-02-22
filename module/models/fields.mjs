@@ -9,8 +9,8 @@ const {fields} = foundry.data;
  * A field embedding a CrucibleAction OR subtype thereof as appropriate
  */
 export class CrucibleActionField extends fields.EmbeddedDataField {
-  constructor(options) {
-    super(CrucibleAction, options);
+  constructor(model=CrucibleAction, options={}) {
+    super(model, options);
   }
 
   /** @override */

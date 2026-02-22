@@ -15,25 +15,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   _prepareData() {
-    const {cost: {action, focus}, name, img, target, description, range} = this;
+    const {cost, name, img, target, description, range} = this;
     this.rune ??= this.actor?.grimoire.runes.keys().next().value ?? "lightning";
     this.gesture ??= "touch";
-
     super._prepareData();
-    const cost = {...this.cost, action, focus};
-
-    // Avoid determining hands cost if not actually composing a counterspell
-    if ( !this.composition ) cost.hands = 0;
-
-    // Undo certain changes we don't want done
-    Object.assign(this, {name, img, target, description, range, cost});
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  getSpellId({rune, gesture, inflection}={}) {
-    return "counterspell";
+    Object.assign(this, {name, img, target, description, range, cost}); // Undo upstream changes
   }
 
   /* -------------------------------------------- */
@@ -41,7 +27,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /** @inheritDoc */
   _prepare() {
     super._prepare();
-    this.usage.hasDice = true; // Even if the selected gesture overrides, counterspell always has dice
+    this.usage.hasDice = true; // Counterspell always involves a roll
   }
 
   /* -------------------------------------------- */
@@ -50,7 +36,9 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
-    if ( this.usage.targetAction?.message === null ) return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
+    if ( this.usage.targetAction?.message === null ) {
+      return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
+    }
     const targets = super.acquireTargets(options);
     const target = targets[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});

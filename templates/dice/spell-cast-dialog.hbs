@@ -3,6 +3,7 @@
         {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
     </div>
 
+    {{#if requiresComposition}}
     <div class="form-group spell-component">
         <label>{{localize "SPELL.COMPONENTS.Rune"}}</label>
         <div class="form-fields">
@@ -33,6 +34,7 @@
         </div>
         {{#if inflectionHint}}<p class="hint">{{inflectionHint}}</p>{{/if}}
     </div>
+    {{/if}}
     {{/if}}
 
     {{#if chooseDamageType}}
