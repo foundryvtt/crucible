@@ -1773,6 +1773,22 @@
     "Reshape": "Reshape",
     "ReshapeAdj": "Shaped"
   },
+  "NAMES": {
+    "CurseParanoia": "Curse of Paranoia",
+    "CurseMortality": "Curse of Mortality",
+    "CursePorosity": "Curse of Porosity",
+    "CurseFlammability": "Curse of Flammability",
+    "CurseFrostbite": "Curse of Frostbite",
+    "CurseRadiance": "Curse of Radiance",
+    "CurseFigments": "Curse of Figments",
+    "CurseShattering": "Curse of Shattering",
+    "CursePerforation": "Curse of Perforation",
+    "CurseLaceration": "Curse of Laceration",
+    "CurseToxicity": "Curse of Toxicity",
+    "CurseConductivity": "Curse of Conductivity",
+    "CurseNullification": "Curse of Nullification",
+    "CurseCowardice": "Curse of Cowardice"
+  },
   "WARNINGS": {
     "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
     "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",

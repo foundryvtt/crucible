@@ -191,8 +191,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Custom spell name
     const custom = SYSTEM.SPELL.COMPOSED_SPELL_NAMES[id];
-    if ( typeof custom === "string" ) name = custom;
-    else if ( typeof custom === "object" ) name = custom[damage.type];
+    if ( typeof custom === "string" ) name = game.i18n.localize(custom);
+    else if ( typeof custom === "object" ) name = game.i18n.localize(custom[damage.type]);
     if ( name ) return name;
 
     // Default composed name

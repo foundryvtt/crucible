@@ -572,27 +572,27 @@ export const GESTURE_SUMMONS = {
 };
 
 /**
- * Custom names for specific composed spell combinations.
+ * Custom names for specific composed spell combinations, stored as localization keys.
  * Keys use format "spell.{rune}.{gesture}.{inflection}" and are either strings or an object with further
  * differentiation defined by damage type variants (example for Kinesis).
  * A matching key overrides the dynamically generated name for that composed spell.
  * @type {Record<string, string|Record<string, string>>}
  */
 export const COMPOSED_SPELL_NAMES = {
-  "spell.control.aspect.negate": "Curse of Paranoia",
-  "spell.death.aspect.negate": "Curse of Mortality",
-  "spell.earth.aspect.negate": "Curse of Porosity",
-  "spell.flame.aspect.negate": "Curse of Flammability",
-  "spell.frost.aspect.negate": "Curse of Frostbite",
-  "spell.illumination.aspect.negate": "Curse of Radiance",
-  "spell.illusion.aspect.negate": "Curse of Figments",
+  "spell.control.aspect.negate": "SPELL.NAMES.CurseParanoia",
+  "spell.death.aspect.negate": "SPELL.NAMES.CurseMortality",
+  "spell.earth.aspect.negate": "SPELL.NAMES.CursePorosity",
+  "spell.flame.aspect.negate": "SPELL.NAMES.CurseFlammability",
+  "spell.frost.aspect.negate": "SPELL.NAMES.CurseFrostbite",
+  "spell.illumination.aspect.negate": "SPELL.NAMES.CurseRadiance",
+  "spell.illusion.aspect.negate": "SPELL.NAMES.CurseFigments",
   "spell.kinesis.aspect.negate": {
-    bludgeoning: "Curse of Shattering",
-    piercing: "Curse of Perforation",
-    slashing: "Curse of Laceration"
+    bludgeoning: "SPELL.NAMES.CurseShattering",
+    piercing: "SPELL.NAMES.CursePerforation",
+    slashing: "SPELL.NAMES.CurseLaceration"
   },
-  "spell.life.aspect.negate": "Curse of Toxicity",
-  "spell.lightning.aspect.negate": "Curse of Conductivity",
-  "spell.oblivion.aspect.negate": "Curse of Nullification",
-  "spell.soul.aspect.negate": "Curse of Cowardice"
+  "spell.life.aspect.negate": "SPELL.NAMES.CurseToxicity",
+  "spell.lightning.aspect.negate": "SPELL.NAMES.CurseConductivity",
+  "spell.oblivion.aspect.negate": "SPELL.NAMES.CurseNullification",
+  "spell.soul.aspect.negate": "SPELL.NAMES.CurseCowardice"
 };
