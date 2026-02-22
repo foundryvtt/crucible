@@ -2314,9 +2314,7 @@ export default class CrucibleActor extends Actor {
         Object.assign(prototypeTokenDefaults, {"sight.enabled": true, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        prototypeTokenDefaults["sight.enabled"] = false;
-        prototypeTokenDefaults.actorLink = false;
-        prototypeTokenDefaults.disposition = -1;
+        Object.assign(prototypeTokenDefaults, {"sight.enabled": false, actorLink: false, disposition: -1});
         break;
     }
     updates.prototypeToken = {};
