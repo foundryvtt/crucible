@@ -1,5 +1,6 @@
 import CrucibleSpellItemSheet from "../applications/sheets/item-spell-sheet.mjs";
 import * as crucibleFields from "./fields.mjs";
+import CrucibleSpellAction from "./spell-action.mjs";
 
 /**
  * An Item subtype that defines an Iconic Spell composition.
@@ -11,7 +12,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       description: new fields.HTMLField(),
-      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField(CrucibleSpellAction)),
       runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
       gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
       inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS})),
@@ -51,9 +52,11 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    * @inheritDoc
    */
   _initializeSource(source, options) {
-    super._initializeSource(source, options);
+    source = super._initializeSource(source, options);
     for ( const action of source.actions ) {
-      action.tags.unshift("spell", "iconicSpell");
+      action.rune = source.runes[0]; // TODO eventually support multi-component spell actions?
+      action.gesture = source.gestures[0];
+      action.inflection = source.inflections[0];
     }
     return source;
   }
@@ -106,6 +109,8 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     }
     return tags;
   }
+
+  /* -------------------------------------------- */
 
   /**
    * Render this Iconic Spell as HTML for inline display.
