@@ -1669,7 +1669,6 @@
   "SHEET": {
     "Knowledge": "Required Knowledge"
   },
-
   "Iconic": "Iconic Spell",
   "IconicPl": "Iconic Spells",
   "DamageType": "Damage Type",
@@ -1687,7 +1686,10 @@
     "Inflection": "Metamagic Inflection",
     "InflectionPl": "Metamagic Inflections",
     "InflectionNone": "No Metamagic Inflections known.",
-    "InflectionSpecific": "Inflection: {inflection}"
+    "InflectionSpecific": "Inflection: {inflection}",
+    "MissingRune": "No Rune",
+    "MissingGesture": "No Gesture",
+    "MissingInflection": "No Inflection"
   },
   "COUNTERSPELL": {
     "Detailed": "Counterspell ({details})",
@@ -1793,7 +1795,8 @@
     "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
     "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",
     "CannotUseSilenced": "Cannot use Inflections while Silenced.",
-    "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed."
+    "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed.",
+    "NotConfigured": "This Iconic Spell is not yet fully configured. It requires all three spellcraft components to be defined."
   }
 },
 

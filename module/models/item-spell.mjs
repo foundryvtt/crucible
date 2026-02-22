@@ -13,9 +13,9 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     return {
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField(CrucibleSpellAction)),
-      runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES}), {min: 1}),
-      gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES}), {min: 1}),
-      inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS}), {min: 1}),
+      runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
+      gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
+      inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS})),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
@@ -43,6 +43,14 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   isKnown = false;
 
+  /**
+   * Is this Iconic Spell fully configured or is it missing some required components?
+   */
+  get isConfigured() {
+    const {runes, gestures, inflections} = this._source;
+    return !!(runes.length && gestures.length && inflections.length);
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -53,11 +61,17 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   _initializeSource(source, options) {
     source = super._initializeSource(source, options);
+    const {runes, gestures, inflections} = source;
+
+    // Remove actions if the spell is not fully configured
+    if ( !(runes.length && gestures.length && inflections.length) ) source.actions.length = 0;
+
+    // Configure spell-provided actions
     for ( const action of source.actions ) {
       action.tags.unshift("spell", "iconicSpell");
-      action.rune = source.runes[0]; // TODO eventually support multi-component spell actions?
-      action.gesture = source.gestures[0];
-      action.inflection = source.inflections[0];
+      action.rune = runes[0]; // TODO eventually support multi-component spell actions?
+      action.gesture = gestures[0];
+      action.inflection = inflections[0];
     }
     return source;
   }
@@ -70,6 +84,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    * @returns {boolean}
    */
   canKnowSpell(grimoire) {
+    if ( !this.isConfigured ) return false;
     const ifc = grimoire.iconicFreeComponents;
     let fc = 0;
     for ( const runeId of this.runes ) {
@@ -96,18 +111,19 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
   getTags(scope="full") {
     const tags = {};
     if ( this.parent.parent && !this.isKnown ) tags.known = game.i18n.localize("ITEM.PROPERTIES.NotKnown");
-    for ( const runeId of this.runes ) {
-      const rune = SYSTEM.SPELL.RUNES[runeId];
-      tags[runeId] = rune.name;
-    }
-    for ( const gestureId of this.gestures ) {
-      const gesture = SYSTEM.SPELL.GESTURES[gestureId];
-      tags[gestureId] = gesture.name;
-    }
-    for ( const inflectionId of this.inflections ) {
-      const inflection = SYSTEM.SPELL.INFLECTIONS[inflectionId];
-      tags[inflectionId] = inflection.name;
-    }
+    const {runes, gestures, inflections} = this;
+
+    // Runes
+    if ( !runes.size ) tags.rune = {label: game.i18n.localize("SPELL.COMPONENTS.MissingRune"), unmet: true};
+    else for ( const runeId of runes ) tags[runeId] = SYSTEM.SPELL.RUNES[runeId].name;
+
+    // Gestures
+    if ( !gestures.size ) tags.gesture = {label: game.i18n.localize("SPELL.COMPONENTS.MissingGesture"), unmet: true};
+    else for ( const gestureId of gestures ) tags[gestureId] = SYSTEM.SPELL.GESTURES[gestureId].name;
+
+    // Inflections
+    if ( !inflections.size ) tags.inflection = {label: game.i18n.localize("SPELL.COMPONENTS.MissingInflection"), unmet: true};
+    else for ( const inflectionId of inflections ) tags[inflectionId] = SYSTEM.SPELL.INFLECTIONS[inflectionId].name;
     return tags;
   }
 

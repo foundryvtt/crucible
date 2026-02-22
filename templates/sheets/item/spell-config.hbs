@@ -1,6 +1,8 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
-
+    {{#unless isConfigured}}
+    <p class="notification error">{{localize "SPELL.WARNINGS.NotConfigured"}}</p>
+    {{/unless}}
     <fieldset>
         <legend>{{localize "SPELL.SHEET.Knowledge"}}</legend>
         {{formGroup fields.runes value=source.system.runes options=runeOptions}}
