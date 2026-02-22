@@ -218,13 +218,10 @@ HOOKS.counterspell = {
     this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
     this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
-  preActivate() {
-    SYSTEM.ACTION.TAGS.spell.preActivate.call(this);
-  },
   async roll(outcome) {
     // TODO: Only use this.usage.targetAction
     const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
-    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = targetAction;
+    const {gesture: usedGesture, rune: usedRune} = targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
       this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }

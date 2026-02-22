@@ -34,7 +34,7 @@ export default class SpellCastDialog extends ActionUseDialog {
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
         slashing: SYSTEM.DAMAGE_TYPES.slashing.label
       },
-      isComposed: this.action.isComposed
+      requiresComposition: this.action.isComposed || (this.action.id === "counterspell")
     });
   }
 
@@ -57,13 +57,13 @@ export default class SpellCastDialog extends ActionUseDialog {
   _onRoll(event, button, dialog) {
     const form = event.target;
     const formData = (new FormDataExtended(form)).object;
+    const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
     if ( this.action.isComposed ) {
       const {rune, gesture, inflection, damageType} = formData;
-      const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
       this.action.updateSource({composition, rune, gesture, inflection, damageType});
     } else {
-      const {damageType} = formData;
-      if ( damageType !== undefined ) this.action.updateSource({damageType});
+      const {damageType=""} = formData;
+      this.action.updateSource({composition, damageType});
     }
     return super._onRoll(event, button, dialog);
   }

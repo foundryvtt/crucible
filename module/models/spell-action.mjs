@@ -81,7 +81,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _initializeSource(data, options) {
     data = super._initializeSource(data, options);
-    if ( data.tags?.includes("composed") ) data.id = this.getSpellId(data);
+    if ( data.tags?.includes("composed") ) data.id = this._getSpellId(data);
     return data;
   }
 
@@ -89,8 +89,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /** @inheritDoc */
   updateSource(changes, options) {
-    if ( ("rune" in changes) || ("gesture" in changes) || ("inflection" in changes) ) {
-      changes.id = this.getSpellId(changes);
+    if ( this.isComposed && (("rune" in changes) || ("gesture" in changes) || ("inflection" in changes)) ) {
+      changes.id = this._getSpellId(changes);
     }
     return super.updateSource(changes, options);
   }
@@ -101,6 +101,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _prepareData() {
     super._prepareData();
     const {RUNES, GESTURES, INFLECTIONS} = SYSTEM.SPELL;
+    const STATES = CrucibleSpellAction.COMPOSITION_STATES;
 
     // Spell Components
     if ( this.actor ) {
@@ -113,6 +114,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.inflection = INFLECTIONS[this.inflection];
     }
 
+    // Spells must have both a Rune and a Gesture to be composed
+    if ( this.isIconic ) this.composition = STATES.COMPOSED;
+    if ( !this.rune || !this.gesture ) this.composition = Math.min(this.composition, STATES.COMPOSING);
+
     // Common Attributes
     this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.training = [this.rune.id];
@@ -124,17 +129,12 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.cost = CrucibleSpellAction.#prepareCost.call(this);
       this.target = {...this.gesture.target};
       this.range = this.gesture.range;
-      if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {
+      if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
         this.name = CrucibleSpellAction.#getName(this);
         this.img = this.rune.img;
         this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
       }
-    }
-
-    // Iconic Spells Only
-    if ( this.isIconic ) {
-      this.composition = CrucibleSpellAction.COMPOSITION_STATES.COMPOSED;
     }
   }
 
@@ -144,8 +144,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * Create the unique identifier that represents this spell as a combination of rune, gesture, and inflection.
    * @param {Pick<CrucibleSpellActionData,"rune"|"gesture"|"inflection">} components
    * @returns {string}
+   * @protected
    */
-  getSpellId({rune, gesture, inflection}={}) {
+  _getSpellId({rune, gesture, inflection}={}) {
     rune ??= (this.rune?.id || "none");
     gesture ??= (this.gesture?.id || "none");
     inflection ??= (this.inflection?.id || "none");
@@ -258,11 +259,18 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _canUse() {
     super._canUse();
-    if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
-      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseNotComposed"));
-    }
     if ( this.inflection && this.actor.statuses.has("silenced") ) {
       throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced"));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  async _preActivate(targets) {
+    await super._preActivate(targets);
+    // By the time we are on the far side of the spell cast configuration window, the spell must be fully composed
+    if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
+      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseNotComposed"));
     }
   }
 

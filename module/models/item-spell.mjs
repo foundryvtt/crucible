@@ -13,9 +13,9 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     return {
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField(CrucibleSpellAction)),
-      runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
-      gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
-      inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS})),
+      runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES}), {min: 1}),
+      gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES}), {min: 1}),
+      inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS}), {min: 1}),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
@@ -54,6 +54,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
   _initializeSource(source, options) {
     source = super._initializeSource(source, options);
     for ( const action of source.actions ) {
+      action.tags.unshift("spell", "iconicSpell");
       action.rune = source.runes[0]; // TODO eventually support multi-component spell actions?
       action.gesture = source.gestures[0];
       action.inflection = source.inflections[0];
