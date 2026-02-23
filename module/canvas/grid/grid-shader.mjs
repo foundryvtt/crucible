@@ -20,8 +20,8 @@ export default class CrucibleSelectiveGridShader extends foundry.canvas.renderin
   /** @override */
   static defaultUniforms = {
     ...super.defaultUniforms,
-    positions: new Float32Array(this.MAX_POSITIONS * 2).fill(0), // vec2 per position
-    strides: new Float32Array(this.MAX_POSITIONS).fill(0),       // one float per position
+    positions: new Float32Array(this.MAX_POSITIONS * 2).fill(0), // Vec2 per position
+    strides: new Float32Array(this.MAX_POSITIONS).fill(0),       // One float per position
     numPositions: 0,
     numControlled: 0,
     falloff: 4
@@ -88,15 +88,15 @@ export default class CrucibleSelectiveGridShader extends foundry.canvas.renderin
       const radius = (size / 2) + stride;
 
       // Controlled token center
-      u.positions[posCount * 2] = t.center.x / gs;
-      u.positions[posCount * 2 + 1] = t.center.y / gs;
+      u.positions[(posCount * 2)] = t.center.x / gs;
+      u.positions[(posCount * 2) + 1] = t.center.y / gs;
       u.strides[posCount] = radius;
       posCount++;
 
       // Preview center, if any
       if ( t.hasPreview && t._preview && (posCount < this.constructor.MAX_POSITIONS) ) {
-        u.positions[posCount * 2] = t._preview.center.x / gs;
-        u.positions[posCount * 2 + 1] = t._preview.center.y / gs;
+        u.positions[(posCount * 2)] = t._preview.center.x / gs;
+        u.positions[(posCount * 2) + 1] = t._preview.center.y / gs;
         u.strides[posCount] = radius;
         posCount++;
       }

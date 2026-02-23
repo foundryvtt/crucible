@@ -11,7 +11,6 @@ export const checkDifficulties = {
 };
 
 
-
 export const passiveCheck = 10;
 
 

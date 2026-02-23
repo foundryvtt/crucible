@@ -11,7 +11,7 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
       frame: false,
       positioned: false
     },
-    classes: ['crucible', 'flexrow'],
+    classes: ["crucible", "flexrow"],
     actions: {
       reset: this._onReset,
       closeTree: this._onCloseTree
@@ -22,7 +22,7 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
   static PARTS = {
     controls: {
       root: true,
-      template: 'systems/crucible/templates/hud/talent-tree-controls.hbs'
+      template: "systems/crucible/templates/hud/talent-tree-controls.hbs"
     }
   };
 
@@ -54,10 +54,11 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
     if ( existing ) existing.replaceWith(element);
     else crucible.tree.canvas.insertAdjacentElement("afterend", element);
   }
-  
+
   /* -------------------------------------------- */
 
   /**
+   * Handle the action to close the talent tree.
    * @this {CrucibleTalentTreeControls}
    * @type {ApplicationClickAction}
    */
@@ -66,6 +67,7 @@ export default class CrucibleTalentTreeControls extends HandlebarsApplicationMix
   }
 
   /**
+   * Handle the action to reset all talents for the bound actor.
    * @this {CrucibleTalentTreeControls}
    * @type {ApplicationClickAction}
    */

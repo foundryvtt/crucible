@@ -66,8 +66,8 @@ export default [
       jsdoc: {
         preferredTypes: {
           ".<>": "<>",
-          object: "Object",
-          Object: "object"
+          Object: "object",
+          Function: "function"
         },
         mode: "typescript",
         tagNamePreference: {augments: "extends"}

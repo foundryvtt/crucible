@@ -1,17 +1,17 @@
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
- * @typedef {Object} DiceBoon
+ * @typedef DiceBoon
  * @property {string} [id]                    An identifier for the source of boon or bane. This is auto-populated.
  * @property {string} label                   A string label for the source of the boon or bane.
  * @property {number} number                  The number of boons or banes applied by this source.
  */
 
 /**
- * @typedef {Object} DiceCheckBonuses
- * @property {Object<string, DiceBoon>} [boons] An object of advantageous boons applied to the roll.
+ * @typedef DiceCheckBonuses
+ * @property {Record<string, DiceBoon>} [boons] An object of advantageous boons applied to the roll.
  *                                            Keys of the object are identifiers for sources of boons.
- * @property {Object<string, DiceBoon>} [banes] An object of disadvantageous banes applied to the roll.
+ * @property {Record<string, DiceBoon>} [banes] An object of disadvantageous banes applied to the roll.
  *                                            Keys of the object are identifiers for sources of banes.
  * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
  * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
@@ -148,7 +148,7 @@ export default class StandardCheck extends Roll {
       console.warn("StandardCheck received boons passed as a number instead of an object");
     }
     const current = this.data || foundry.utils.deepClone(this.constructor.defaultData);
-    for ( let [k, v] of Object.entries(data) ) {
+    for ( const [k, v] of Object.entries(data) ) {
       if ( v === undefined ) delete data[k];
     }
     data = foundry.utils.mergeObject(current, data, {insertKeys: false});
@@ -161,7 +161,6 @@ export default class StandardCheck extends Roll {
   /**
    * Configure the provided data used to customize this type of Roll
    * @param {object} data     The initially provided data object
-   * @returns {object}        The configured data object
    */
   static #configureData(data) {
 
@@ -180,7 +179,7 @@ export default class StandardCheck extends Roll {
 
   /**
    * Prepare an object of boons or banes to compute the total which apply to the roll.
-   * @param {Object<string, DiceBoon>} boons    Boons applied to the roll
+   * @param {Record<string, DiceBoon>} boons    Boons applied to the roll
    * @returns {number}                          The total number of applied boons
    */
   static #prepareBoons(boons) {
@@ -299,10 +298,11 @@ export default class StandardCheck extends Roll {
 
   /**
    * Present a Dialog instance for this pool
-   * @param {string} title      The title of the roll request
-   * @param {string} flavor     Any flavor text attached to the roll
-   * @param {boolean} request   Display the request tray
-   * @param {string} rollMode   The requested roll mode
+   * @param {object} [options]           Options for the dialog
+   * @param {string} [options.title]     The title of the roll request
+   * @param {string} [options.flavor]    Any flavor text attached to the roll
+   * @param {boolean} [options.request]  Display the request tray
+   * @param {string} [options.rollMode]  The requested roll mode
    * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
    */
   async dialog({title, flavor, request, rollMode}={}) {
@@ -323,7 +323,7 @@ export default class StandardCheck extends Roll {
    * @returns {StandardCheck}         The constructed check instance
    */
   static fromAction(action) {
-    let {boons, banes, bonuses} = action.usage;
+    const {boons, banes, bonuses} = action.usage;
     return new this({boons, banes, ...bonuses});
   }
 
@@ -372,10 +372,11 @@ export default class StandardCheck extends Roll {
 
   /**
    * Dispatch a request to perform a roll
-   * @param {string} title      The title of the roll request
-   * @param {string} flavor     Any flavor text attached to the roll
-   * @param {User} user         The user making the request
-   * @param {User} actorId      The actor ID for whom the check is being requested (defaults to the current roll actor)
+   * @param {object} [options]            Options for the request
+   * @param {User} [options.user]         The user making the request
+   * @param {string} [options.title]      The title of the roll request
+   * @param {string} [options.flavor]     Any flavor text attached to the roll
+   * @param {string} [options.actorId]    The actor ID for whom the check is being requested
    */
   request({user, title, flavor, actorId}={}) {
     const data = foundry.utils.deepClone(this.data);
@@ -387,9 +388,10 @@ export default class StandardCheck extends Roll {
 
   /**
    * Handle a request to roll a standard check
-   * @param {string} title              The title of the roll request
-   * @param {string} flavor             Any flavor text attached to the roll
-   * @param {StandardCheckData} check   Data for the handled check request
+   * @param {object} [options]                   Options for the handler
+   * @param {string} [options.title]             The title of the roll request
+   * @param {string} [options.flavor]            Any flavor text attached to the roll
+   * @param {StandardCheckData} [options.check]  Data for the handled check request
    */
   static async handle({title, flavor, check}={}) {
     const actor = game.actors.get(check.actorId);

@@ -132,7 +132,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
-   *
+   * Prepare the list of targets for rendering in the action use dialog.
    * @returns {ActionUseTarget[]}
    */
   #prepareTargets() {
@@ -186,6 +186,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * Resolve dialog submission to enact a Roll.
+   * @param {Event} _event
+   * @param {HTMLButtonElement} _button
+   * @param {Dialog} _dialog
    * @returns {StandardCheck}
    * @protected
    */
@@ -271,13 +274,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * Prepare Measured Template data for a certain candidate action
+   * @param {Token} token
+   * @param {number} range
+   * @param {Token} target
+   * @param {object} targetTemplateConfig
    */
   #getTemplateData(token, range, target, targetTemplateConfig) {
     const {x, y} = token?.center ?? canvas.dimensions.rect.center;
     const {id: userId, color: fillColor} = game.user;
 
     // Prepare Template Data
-    let maxRange = range.maximum ?? 0;
+    const maxRange = range.maximum ?? 0;
     let addRange = 0;
     if ( token && targetTemplateConfig.addSize ) addRange = (token.actor.size / 2);
     const templateData = {user: userId, x, y, fillColor, ...targetTemplateConfig};

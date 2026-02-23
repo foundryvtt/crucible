@@ -46,7 +46,7 @@ export function registerEnrichers() {
       onRender: renderSkillCheck
     },
     {
-      id: `crucibleTalent`,
+      id: "crucibleTalent",
       pattern: /\[\[\/talent ([\w.]+)]]/g,
       enricher: enrichTalent
     },
@@ -82,46 +82,50 @@ export function registerEnrichers() {
 /* -------------------------------------------- */
 
 const DND5E_SKILL_MAPPING = {
-  "acr": "athletics",
-  "acrobatics": "athletics",
-  "ani": "wilderness",
-  "animalHandling": "wilderness",
-  "arc": "arcana",
-  "arcana": "arcana",
-  "ath": "athletics",
-  "athletics": "athletics",
-  "dec": "deception",
-  "deception": "deception",
-  "his": "society",
-  "history": "society",
-  "ins": "deception",
-  "insight": "deception",
-  "itm": "intimidation",
-  "intimidation": "intimidation",
-  "inv": "awareness",
-  "investigation": "awareness",
-  "med": "medicine",
-  "medicine": "medicine",
-  "nat": "wilderness",
-  "nature": "wilderness",
-  "prc": "awareness",
-  "perception": "awareness",
-  "prf": "performance",
-  "performance": "performance",
-  "per": "diplomacy",
-  "persuasion": "diplomacy",
-  "rel": "arcana",
-  "religion": "arcana",
-  "slt": "stealth",
-  "sleightOfHand": "stealth",
-  "ste": "stealth",
-  "stealth": "stealth",
-  "sur": "wilderness",
-  "survival": "wilderness"
+  acr: "athletics",
+  acrobatics: "athletics",
+  ani: "wilderness",
+  animalHandling: "wilderness",
+  arc: "arcana",
+  arcana: "arcana",
+  ath: "athletics",
+  athletics: "athletics",
+  dec: "deception",
+  deception: "deception",
+  his: "society",
+  history: "society",
+  ins: "deception",
+  insight: "deception",
+  itm: "intimidation",
+  intimidation: "intimidation",
+  inv: "awareness",
+  investigation: "awareness",
+  med: "medicine",
+  medicine: "medicine",
+  nat: "wilderness",
+  nature: "wilderness",
+  prc: "awareness",
+  perception: "awareness",
+  prf: "performance",
+  performance: "performance",
+  per: "diplomacy",
+  persuasion: "diplomacy",
+  rel: "arcana",
+  religion: "arcana",
+  slt: "stealth",
+  sleightOfHand: "stealth",
+  ste: "stealth",
+  stealth: "stealth",
+  sur: "wilderness",
+  survival: "wilderness"
 };
 
+/**
+ * Enrich a D&D 5e skill check notation and convert it to the equivalent Crucible skill check element.
+ * @param {RegExpMatchArray} matchArray
+ */
 function enrichDND5ESkill([match, terms]) {
-  let [skillId, dc, ...rest] = terms.split(" ");
+  const [skillId, dc, ...rest] = terms.split(" ");
   if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
   const passive = rest.includes("passive");
@@ -168,7 +172,7 @@ function parseAwardTerms(terms) {
  * Transform a currency object (currency key to amount) into a list of HTML entries for well-formatted display
  * @param {Record<string, string>} currency Currency object
  * @param {boolean} [forcePositive=false]   Whether to return positive-formatted text (to avoid double-negatives)
- * @returns
+ * @returns {string[]}
  */
 function formatAwardEntries(currency, forcePositive=false) {
   const entries = [];
@@ -186,8 +190,7 @@ function formatAwardEntries(currency, forcePositive=false) {
 
 /**
  * Enrich an Award with the format [[/award {...awards}]]
- * @param {string} match
- * @param {string} terms
+ * @param {RegExpMatchArray} matchArray
  */
 function enrichAward([match, terms]) {
   let parsed;
@@ -228,6 +231,10 @@ function renderAward(element) {
 
 /* -------------------------------------------- */
 
+/**
+ * Handle a click on an award enriched element, prompting the GM to distribute currency to selected actors.
+ * @param {Event} event
+ */
 async function onClickAward(event) {
   event.preventDefault();
   if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true });
@@ -300,7 +307,7 @@ function parseCounterspellTerms(terms) {
   // TODO: Handle multiple same-component values. Currently, just keeping the last one
   for ( const part of terms.split(" ") ) {
     if ( !part ) continue;
-    let [, component, value] = part.match(pattern) ?? [];
+    const [, component, value] = part.match(pattern) ?? [];
     switch ( component ) {
       case "rune":
         if ( value in SYSTEM.SPELL.RUNES ) matches[component] = value;
@@ -333,8 +340,7 @@ function parseCounterspellTerms(terms) {
 
 /**
  * Enrich a Counterspell with the format [[/counterspell {...config}]]
- * @param {string} match
- * @param {string} terms
+ * @param {RegExpMatchArray} matchArray
  */
 function enrichCounterspell([match, terms]) {
   let parsed;
@@ -374,6 +380,10 @@ function renderCounterspell(element) {
 
 /* -------------------------------------------- */
 
+/**
+ * Handle a click on a counterspell enriched element, prompting eligible actors to attempt a counterspell.
+ * @param {Event} event
+ */
 async function onClickCounterspell(event) {
   event.preventDefault();
   const {rune, gesture, inflection, dc: dcString} = event.currentTarget.dataset;
@@ -381,7 +391,8 @@ async function onClickCounterspell(event) {
   const actor = inferEnricherActor();
 
   // If inferred can counterspell, prompt
-  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
+  if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction
+    .prompt(actor, {rune, gesture, inflection, dc});
 
   // Prompt GM to pick among counterspellable party members
   const actors = crucible.party?.system.members.reduce((acc, {actor}) => {
@@ -430,7 +441,7 @@ function enrichMilestone([_match, term]) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("award", "milestone");
   tag.dataset.quantity = String(quantity);
-  tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.MILESTONE." + plurals.select(quantity))}`;
+  tag.innerHTML = `${quantity} ${game.i18n.localize(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
   tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
@@ -448,6 +459,10 @@ function renderMilestone(element) {
 
 /* -------------------------------------------- */
 
+/**
+ * Handle a click on a milestone enriched element, prompting the GM to award milestones to party members.
+ * @param {Event} event
+ */
 async function onClickMilestone(event) {
   event.preventDefault();
   if ( !crucible.party ) return ui.notifications.warn("WARNING.NoParty", { localize: true });
@@ -502,6 +517,10 @@ function renderHazard(element) {
 
 /* -------------------------------------------- */
 
+/**
+ * Handle a click on a hazard enriched element, executing the hazard check action for the actor.
+ * @param {Event} event
+ */
 async function onClickHazard(event) {
   event.preventDefault();
   const element = event.target;
@@ -527,6 +546,10 @@ async function onClickHazard(event) {
 /*  Conditions                                  */
 /* -------------------------------------------- */
 
+/**
+ * Enrich a condition reference into an interactive element displaying the condition name and tooltip.
+ * @param {RegExpMatchArray} matchArray
+ */
 function enrichCondition([match, conditionId]) {
   const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
   if ( !cfg ) return new Text(match);
@@ -544,7 +567,7 @@ function enrichCondition([match, conditionId]) {
 
 /**
  * Enrich a reference to a specific action using syntax @Action[{actorUUID} {actionId}].
- * @param {RegExpMatchArray} terms
+ * @param {RegExpMatchArray} matchArray
  * @returns {HTMLEnrichedContentElement|string}
  */
 function enrichAction([match, actorUUID, actionId]) {
@@ -564,6 +587,10 @@ function enrichAction([match, actorUUID, actionId]) {
 /* -------------------------------------------- */
 
 
+/**
+ * Enrich a spell reference into an interactive element linking to the spell action.
+ * @param {RegExpMatchArray} matchArray
+ */
 function enrichSpell([match, spellId]) {
   let spell;
   if ( !spellId.startsWith("spell.") ) spellId = `spell.${spellId}`;
@@ -581,11 +608,14 @@ function enrichSpell([match, spellId]) {
 }
 
 
-
 /* -------------------------------------------- */
 /*  Skill Checks                                */
 /* -------------------------------------------- */
 
+/**
+ * Enrich a skill check notation into an interactive element that triggers a skill roll.
+ * @param {RegExpMatchArray} matchArray
+ */
 function enrichSkillCheck([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
   if ( skillId in DND5E_SKILL_MAPPING ) skillId = DND5E_SKILL_MAPPING[skillId];
@@ -598,6 +628,14 @@ function enrichSkillCheck([match, terms]) {
 
 /* -------------------------------------------- */
 
+/**
+ * Create an enriched-content element representing a skill check with the given skill, DC, and options.
+ * @param {object} skill
+ * @param {number} dc
+ * @param {object} options
+ * @param {boolean} options.passive
+ * @param {boolean} options.group
+ */
 function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.category);
@@ -608,13 +646,13 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
 
   // Passive checks only
   if ( passive ) {
-    dcLabel += `, Passive`;
+    dcLabel += ", Passive";
     tag.classList.add("passive-check");
     tag.dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
-  if ( group ) dcLabel += `, Group`;
+  if ( group ) dcLabel += ", Group";
 
   // Create label
   tag.innerHTML = `${skill.label} (${dcLabel})`;
@@ -625,8 +663,7 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
 
 /**
  * Enrich a knowledge check with format [[/knowledge {knowledgeId}]]
- * @param {string} match              The full matched string
- * @param {string} knowledgeId        The matched knowledge ID
+ * @param {RegExpMatchArray} matchArray
  * @returns {HTMLSpanElement|string}
  */
 function enrichKnowledge([match, knowledgeId]) {
@@ -644,8 +681,7 @@ function enrichKnowledge([match, knowledgeId]) {
 
 /**
  * Enrich a talent check with format [[/talent {talentUuid}]]
- * @param {string} match        The full matched string
- * @param {string} talentUuid   The matched talent UUID
+ * @param {RegExpMatchArray} matchArray
  * @returns {HTMLSpanElement|string}
  */
 function enrichTalent([match, talentUuid]) {
@@ -657,14 +693,13 @@ function enrichTalent([match, talentUuid]) {
   tag.dataset.talentUuid = talentUuid;
   tag.innerHTML = `Talent: ${talentIndex.name}`;
   return tag;
-};
+}
 
 /* -------------------------------------------- */
 
 /**
  * Enrich a language check with format [[/language {languageId}]]
- * @param {string} match              The full matched string
- * @param {string} knowledgeId        The matched knowledge ID
+ * @param {RegExpMatchArray} matchArray
  * @returns {HTMLSpanElement|string}
  */
 function enrichLanguage([match, languageId]) {
@@ -682,12 +717,20 @@ function enrichLanguage([match, languageId]) {
 /*  Helpers                                     */
 /* -------------------------------------------- */
 
+/**
+ * Add interactivity to a rendered skill check enrichment.
+ * @param {HTMLElement} element
+ */
 function renderSkillCheck(element) {
   element.addEventListener("click", onClickSkillCheck);
 }
 
 /* -------------------------------------------- */
 
+/**
+ * Handle a click on a skill check enriched element, creating and optionally displaying a skill check roll.
+ * @param {Event} event
+ */
 function onClickSkillCheck(event) {
   event.preventDefault();
   const element = event.currentTarget;
@@ -699,6 +742,9 @@ function onClickSkillCheck(event) {
 
 /* -------------------------------------------- */
 
+/**
+ * Infer the actor associated with the current user for use in enricher click handlers.
+ */
 function inferEnricherActor() {
   if ( canvas.ready && (canvas.tokens.controlled.length === 1) ) {
     const controlledToken = canvas.tokens.controlled[0];
@@ -714,6 +760,11 @@ function inferEnricherActor() {
 /*  Journal Helpers                             */
 /* -------------------------------------------- */
 
+/**
+ * Enrich a reference annotation by resolving a property path on the relative document.
+ * @param {RegExpMatchArray} matchArray
+ * @param {object} options
+ */
 function enrichRef([match, path, fallback], options) {
   const doc = options.relativeTo;
   if ( !doc ) return new Text(fallback || match);

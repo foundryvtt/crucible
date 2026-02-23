@@ -128,7 +128,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     this.rarity = quality.rarity + enchantment.rarity;
 
     // Item Properties
-    for ( let p of this.properties ) {
+    for ( const p of this.properties ) {
       const prop = this.constructor.ITEM_PROPERTIES[p];
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
@@ -161,7 +161,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /**
    * Return an object of string formatted tag data which describes this item type.
    * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
-   * @returns {Object<string, string>}    The tags which describe this item
+   * @returns {Record<string, string>}    The tags which describe this item
    */
   getTags(scope="full") {
     const {QUALITY_TIERS: QT, ENCHANTMENT_TIERS: ET} = SYSTEM.ITEM;
@@ -173,8 +173,8 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     else if ( this.parent.parent && !this.dropped ) tags.equipped = game.i18n.localize("ITEM.PROPERTIES.Unequipped");
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
-    if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label :
-      game.i18n.localize("ITEM.PROPERTIES.NotInvested");
+    if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label
+      : game.i18n.localize("ITEM.PROPERTIES.NotInvested");
     return tags;
   }
 
@@ -182,8 +182,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /**
    * Render this physical item as HTML for a tooltip card.
-   * @param {object} options
-   * @param {CrucibleActor} [options.actor]
    * @returns {Promise<string>}
    */
   async renderCard() {

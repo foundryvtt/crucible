@@ -109,7 +109,7 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${game.i18n.localize(d[1])} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
-      rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
+      rollModes: Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
         return {icon, label, action, active: action === rollMode};
       }),
       showDetails: data.totalBoons + data.totalBanes > 0,
@@ -164,13 +164,13 @@ export default class StandardCheckDialog extends DialogV2 {
   /**
    * Get the text label for a roll DC.
    * @param {number} dc    The difficulty check for the test
-   * @return {{dc: number, label: string, tier: number}}
+   * @returns {{dc: number, label: string, tier: number}}
    * @private
    */
   _getDifficulty(dc) {
     let label = "";
     let tier = 0;
-    for ( let [d, l] of Object.entries(SYSTEM.DICE.checkDifficulties) ) {
+    for ( const [d, l] of Object.entries(SYSTEM.DICE.checkDifficulties) ) {
       if ( dc >= d ) {
         tier = d;
         label = `${l} (DC ${d})`;
@@ -199,6 +199,9 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /**
    * Resolve dialog submission to enact a Roll.
+   * @param {Event} _event
+   * @param {HTMLButtonElement} _button
+   * @param {Dialog} _dialog
    * @returns {StandardCheck}
    * @protected
    */
@@ -215,14 +218,14 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( event.target.name === "difficultyTier" ) {
       const dc = Number(event.target.value) || null;
       if ( Number.isNumeric(dc) ) {
-        event.target.parentElement.querySelector(`input[name="dc"]`).value = dc;
+        event.target.parentElement.querySelector("input[name=\"dc\"]").value = dc;
         this.roll.data.dc = dc;
       }
     }
 
     // Difficulty Class
     else if ( event.target.name === "dc" ) {
-      event.target.parentElement.querySelector(`select[name="difficultyTier"]`).value = "";
+      event.target.parentElement.querySelector("select[name=\"difficultyTier\"]").value = "";
       this.roll.data.dc = event.target.valueAsNumber;
     }
     super._onChangeForm(formConfig, event);
@@ -233,7 +236,6 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   _onClickAction(event, target) {
     const action = target.dataset.action;
-    const form = this.element.querySelector("form");
     const rollData = this.roll.data;
     switch ( action ) {
       case "boon-add":
@@ -255,9 +257,9 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /**
    * Update the boons or banes object by changing the number of "special" boons applied to the roll.
-   * @param {Object<string, DiceBoon>} boons    The initial configuration of boons
+   * @param {Record<string, DiceBoon>} boons    The initial configuration of boons
    * @param {number} delta                      The requested delta change in special boons
-   * @returns {Object<string, DiceBoon>}        The updated boons object
+   * @returns {Record<string, DiceBoon>}        The updated boons object
    */
   static #modifyBoons(boons, delta) {
     boons.special ||= {label: "Special", number: 0};
@@ -352,6 +354,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /**
    * Handle clicks to request rolls made by other players.
+   * @param {Event} _event
+   * @param {HTMLElement} _target
    * @this {StandardCheckDialog}
    */
   static async #requestSubmit(_event, _target) {
@@ -395,6 +399,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /**
    * Handle clicks on a roll mode selection button.
+   * @param {Event} _event
+   * @param {HTMLElement} target
    * @this {StandardCheckDialog}
    */
   static async #onChangeRollMode(_event, target) {

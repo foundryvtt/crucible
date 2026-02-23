@@ -129,63 +129,63 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Track the Actions which this Actor has available to use
-   * @type {Object<string, CrucibleAction>}
+   * @type {Record<string, CrucibleAction>}
    */
-  actions = this["actions"];
+  actions = this.actions;
 
   /**
    * Actor hook functions which apply to this Actor.
-   * @type {Object<string, {item: CrucibleItem, fn: Function}[]>}
+   * @type {Record<string, {item: CrucibleItem, fn: Function}[]>}
    */
-  actorHooks = this["actorHooks"];
+  actorHooks = this.actorHooks;
 
   /**
    * Track the Items which are currently equipped for the Actor.
    * @type {CrucibleActorEquipment}
    */
-  equipment = this["equipment"];
+  equipment = this.equipment;
 
   /**
    * The grimoire of known spellcraft components.
    * @type {CrucibleActorGrimoire}
    */
-  grimoire = this["grimoire"];
+  grimoire = this.grimoire;
 
   /**
    * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
    * @type {Set<string>}
    */
-  permanentTalentIds = this["permanentTalentIds"];
+  permanentTalentIds = this.permanentTalentIds;
 
   /**
    * Temporary roll bonuses this actor has outside the fields of its data model.
-   * @type {{[damage]: Object<string, number>, [boons]: Object<string, DiceBoon>, [banes]: Object<string, DiceBoon>}}
+   * @type {{[damage]: Record<string, number>, [boons]: Record<string, DiceBoon>, [banes]: Record<string, DiceBoon>}}
    */
-  rollBonuses = this["rollBonuses"];
+  rollBonuses = this.rollBonuses;
 
   /**
    * Prepared skill data for the Actor.
    * @type {Record<string, CrucibleActorSkill>}
    */
-  skills = this["skills"];
+  skills = this.skills;
 
   /**
    * The IDs of purchased talents.
    * @type {Set<string>}
    */
-  talentIds = this["talentIds"];
+  talentIds = this.talentIds;
 
   /**
    * The Talents owned by this Actor, organized according to node of the talent tree.
    * @type {Record<string, Set<string>>}
    */
-  talentNodes = this["talentNodes"];
+  talentNodes = this.talentNodes;
 
   /**
    * Prepared training data for the Actor.
    * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
    */
-  training = this["training"];
+  training = this.training;
 
   /* -------------------------------------------- */
   /*  Properties                                  */
@@ -348,7 +348,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const maybePermanentTalentIds = new Set();
     for ( const s of permanentTalentSources ) {
       if ( s?.talents ) {
-        for ( const {item: uuid, level} of s.talents ) {
+        for ( const {item: uuid} of s.talents ) {
           const {documentId} = foundry.utils.parseUuid(uuid);
           maybePermanentTalentIds.add(documentId);
         }
@@ -562,7 +562,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
     const slots = SYSTEM.WEAPON.SLOTS;
-    for ( let w of weaponItems ) {
+    for ( const w of weaponItems ) {
       const {equipped, slot, properties} = w.system;
       if ( !equipped ) continue;
       if ( properties.has("natural") ) equippedWeapons.natural.unshift(w);
@@ -616,7 +616,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !weapons.mainhand && mhOpen ) weapons.mainhand = this._getUnarmedWeapon();
     const mh = weapons.mainhand;
     const mhCategory = mh?.config.category || {};
-    if ( !weapons.offhand && ohOpen ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
+    if ( !weapons.offhand && ohOpen ) weapons.offhand = mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
     const ohCategory = oh?.config.category || {};
     mh?.system.prepareEquippedData();
@@ -695,8 +695,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
     defenses.block = {base: 0, bonus: 0};
     defenses.parry = {base: 0, bonus: 0};
-    for ( let wd of weaponData ) {
-      for ( let d of ["block", "parry"] ) {
+    for ( const wd of weaponData ) {
+      for ( const d of ["block", "parry"] ) {
         defenses[d].base += wd.defense[d];
       }
     }
@@ -715,9 +715,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const penalty = Math.min(this.advancement.level, 0);
 
     // Prepare save defenses
-    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+    for ( const [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( sd.type !== "save" ) continue;
-      let d = this.defenses[k];
+      const d = this.defenses[k];
       d.base = base;
       if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
       d.bonus = penalty;
@@ -1037,6 +1037,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       this.actorHooks[hook] ||= [];
       if ( typeof fn === "string" ) {
         try {
+          // eslint-disable-next-line no-new-func
           fn = new Function("item", ...cfg.argNames, fn);
         } catch(err) {
           throw new Error(`Failed to parse Hook "${hook}" in Item "${item.uuid}"`, {cause: err});

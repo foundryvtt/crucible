@@ -14,7 +14,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   static #voidContainer = new PIXI.Container();
 
   /**
-   * @typedef {Object} CrucibleTokenEngagement
+   * @typedef CrucibleTokenEngagement
    * @property {Set<Token>} allies      Allied tokens which are engaged
    * @property {Set<Token>} enemies     Enemy tokens which are engaged
    * @property {Set<Token>} other       Other tokens which are engaged
@@ -86,7 +86,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _draw(options){
+  async _draw(options) {
     await super._draw(options);
     if ( !canvas.scene.useMicrogrid ) return;
     CrucibleTokenObject.#voidContainer.visible = false;
@@ -264,7 +264,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
-  /** 
+  /**
    * TODO This method extension can be removed in V14 as it will be handled by Foundry core.
    * @inheritDoc
    */
@@ -433,6 +433,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Set the render flag to schedule a flanking refresh.
+   * @param {boolean} commit
    */
   refreshFlanking(commit) {
     const activeGM = game.users.activeGM;
@@ -534,10 +535,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
     // Save and return
     cache.abgr = (
-      ((rgba & 0x000000FF) << 24) |
-      ((rgba & 0x0000FF00) <<  8) |
-      ((rgba & 0x00FF0000) >>> 8) |
-      ((rgba & 0xFF000000) >>> 24)
+      ((rgba & 0x000000FF) << 24)
+      | ((rgba & 0x0000FF00) << 8)
+      | ((rgba & 0x00FF0000) >>> 8)
+      | ((rgba & 0xFF000000) >>> 24)
     ) >>> 0;
     cache.colorRaw = colorRaw;
     return cache.abgr;
@@ -547,8 +548,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Get the hit box data (which is updated lazily if necessary)
-   * @returns {{abgr: number, hitboxCenterX: number, hitboxCenterY: number, hitboxHalfWidth: number, hitboxHalfHeight: number,
-   * trLocalID: number, trParentID: number, gridSize: number, sizeUnits: number, centerX: number, centerY: number, colorRaw: number}}
+   * @returns {{abgr: number, hitboxCenterX: number, hitboxCenterY: number, hitboxHalfWidth: number,
+   *   hitboxHalfHeight: number, trLocalID: number, trParentID: number, gridSize: number,
+   *   sizeUnits: number, centerX: number, centerY: number, colorRaw: number}}
    */
   getHitBoxData() {
     const stage = canvas?.stage;
@@ -579,10 +581,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const zoomY = stage.scale.y || 1.0;
     const halfWorld = (cache.sizeUnits * cache.gridSize) * 0.5;
 
-    cache.hitboxHalfWidth  = halfWorld * zoomX;
+    cache.hitboxHalfWidth = halfWorld * zoomX;
     cache.hitboxHalfHeight = halfWorld * zoomY;
-    cache.hitboxCenterX = st.a * cache.centerX + st.c * cache.centerY + st.tx;
-    cache.hitboxCenterY = st.b * cache.centerX + st.d * cache.centerY + st.ty;
+    cache.hitboxCenterX = (st.a * cache.centerX) + (st.c * cache.centerY) + st.tx;
+    cache.hitboxCenterY = (st.b * cache.centerX) + (st.d * cache.centerY) + st.ty;
     cache.trParentID = trParentID;
     cache.trLocalID = trLocalID;
 
@@ -651,7 +653,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Draw the visualization of Token engagement.
-   * @param engagement
+   * @param {CrucibleTokenEngagement} engagement
    * @internal
    */
   _visualizeEngagement(engagement) {
@@ -677,7 +679,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const e = this.#engagementDebug;
 
     // Movement polygon
-    e.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0}).drawShape(engagement.movePolygon).endFill();
+    e.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0})
+      .drawShape(engagement.movePolygon).endFill();
 
     // Enemy bounds
     e.beginFill(0xFF0000, 0.1).lineStyle({width: 2, color: 0xFF0000, alpha: 1.0});
@@ -721,7 +724,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * TODO: figure out how to use this
-   * @param g
+   * @param {PIXI.Graphics} g
    * @private
    */
   _visualizeOffensiveRange(g) {

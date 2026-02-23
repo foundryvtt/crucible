@@ -13,19 +13,24 @@
 export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shaders.BaseSamplerShader {
 
   static classPluginName = "batchCrucibleHitBox";
+
   static pausable = false;
 
   static batchGeometry = [
-    {id:"aColor", size:4, normalized:true,  type: PIXI.TYPES.UNSIGNED_BYTE},
-    {id:"aAnimationTypes", size:1, normalized:false, type: PIXI.TYPES.FLOAT},
-    {id:"aDashOffsetPx", size:1, normalized:false, type: PIXI.TYPES.FLOAT},
-    {id:"aCenterWorld", size:2, normalized:false, type: PIXI.TYPES.FLOAT},
-    {id:"aObjectCells", size:1, normalized:false, type: PIXI.TYPES.FLOAT},
-    {id:"aCorner", size:2, normalized:false, type: PIXI.TYPES.FLOAT}
+    {id: "aColor", size: 4, normalized: true, type: PIXI.TYPES.UNSIGNED_BYTE},
+    {id: "aAnimationTypes", size: 1, normalized: false, type: PIXI.TYPES.FLOAT},
+    {id: "aDashOffsetPx", size: 1, normalized: false, type: PIXI.TYPES.FLOAT},
+    {id: "aCenterWorld", size: 2, normalized: false, type: PIXI.TYPES.FLOAT},
+    {id: "aObjectCells", size: 1, normalized: false, type: PIXI.TYPES.FLOAT},
+    {id: "aCorner", size: 2, normalized: false, type: PIXI.TYPES.FLOAT}
   ];
 
   static batchVertexSize = 8;
 
+  /**
+   * Default batch render uniforms
+   * @returns {object}
+   */
   static batchDefaultUniforms() {
     return {
       time: 0,
@@ -41,14 +46,15 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       dashCyclePerSecond: 1,
       dashBorderPixels: 2,
       hoverPulsePx: -10,
-      hoverPulseHz:  1.0,
+      hoverPulseHz: 1.0,
       perimPhasePx: 35 // TODO to refine later
     };
   }
 
   /**
    * Bitmask options
-   * @type {{solidStroke: boolean, solidFill: boolean, cellFadeFill: boolean, gridRipples: boolean, radarSweep: boolean}}
+   * @type {{hovered: boolean, controlled: boolean, targeted: boolean, solidFill: boolean, cellFadeFill: boolean,
+   *  gridRipples: boolean, radarSweep: boolean}}
    */
   static STATES = {
     hovered: false,      // 0x01
@@ -68,7 +74,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
     if ( !u ) return;
 
     const stage = canvas?.stage;
-    const grid  = canvas?.grid;
+    const grid = canvas?.grid;
 
     u.time = canvas.app.ticker.lastTime / 1000;
     u.zoomScale = stage?.scale?.x || 1.0;

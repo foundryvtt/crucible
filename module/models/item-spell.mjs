@@ -106,7 +106,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
   /**
    * Return an object of string formatted tag data which describes this item type.
    * @param {"full"|"short"} [scope="full"]   The scope of tags being retrieved, "full" or "short"
-   * @returns {Object<string, string>}        The tags which describe this spell
+   * @returns {Record<string, string>}        The tags which describe this spell
    */
   getTags(scope="full") {
     const tags = {};

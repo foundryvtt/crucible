@@ -57,7 +57,7 @@ export default class CrucibleItem extends foundry.documents.Item {
 
     // Create Identifier
     if ( this.system.schema?.has("identifier") && !data.system?.identifier ) {
-      this.system.updateSource({"identifier": crucible.api.methods.generateId(this.name ?? this._id)});
+      this.system.updateSource({identifier: crucible.api.methods.generateId(this.name ?? this._id)});
     }
 
     // Handle Owned Item Creation
@@ -166,6 +166,7 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /**
    * Display changes to the Item as scrolling combat text.
+   * @param {object} changed
    * @private
    */
   _displayScrollingStatus(changed) {
@@ -176,7 +177,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Equipment changes
     if ( changed.system?.equipped !== undefined ) {
       const text = `${changed.system.equipped ? "+" : "-"}(${this.name})`;
-      for ( let token of tokens ) {
+      for ( const token of tokens ) {
         canvas.interface.createScrollingText(token.center, text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
           direction: CONST.TEXT_ANCHOR_POINTS[changed.system.equipped ? "TOP" : "BOTTOM"],

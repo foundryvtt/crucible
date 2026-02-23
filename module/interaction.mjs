@@ -237,7 +237,7 @@ async function displayFromUuid(event) {
  * @param {object} [options]
  * @param {string} [options.dialogTitle]    The title of the dialog
  * @param {string} [options.dialogIcon]     The FontAwesome classes used for the dialog's Icon
- * @param {CrucibleActor[]} [actors]        Which specific actors to checkboxes for
+ * @param {Actor[]} [options.actors]        Which specific actors to show checkboxes for
  * @param {boolean} [options.showSpecific]  Whether to show checkboxes for specific actors
  * @param {boolean} [options.showAny]       Whether to show the inputs for "any actor"
  * @returns {Promise<Set<CrucibleActor>>} A set of selected actor UUIDs

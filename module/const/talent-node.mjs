@@ -246,7 +246,7 @@ export default class CrucibleTalentNode {
    * This method only verifies node state independent of other nodes.
    * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
-   * @param {Object<number,Set<CrucibleTalentItem>>} [signatures]
+   * @param {Record<number,Set<CrucibleTalentItem>>} [signatures]
    * @returns {CrucibleTalentNodeState}
    */
   getState(actor, signatures) {
@@ -276,7 +276,7 @@ export default class CrucibleTalentNode {
    * Is a signature node banned because the user has selected some other Signature node which shares an ability score.
    * Nodes which have been purchased have already been categorized as purchased.
    * @param {CrucibleActor} actor
-   * @param {Object<number,Set<CrucibleTalentItem>>} signatures
+   * @param {Record<number,Set<CrucibleTalentItem>>} signatures
    * @returns {boolean}
    */
   #isBanned(actor, signatures) {
@@ -318,8 +318,8 @@ export default class CrucibleTalentNode {
 
   /**
    * Test whether two ability score quadrants are adjacent on the tree.
-   * @param ability1
-   * @param ability2
+   * @param {string} ability1
+   * @param {string} ability2
    * @returns {-1|0|1} Is ability1 counter-clockwise of ability2 (-1), clockwise of ability2 (1), or not adjacent (0)
    */
   static areAbilitiesAdjacent(ability1, ability2) {

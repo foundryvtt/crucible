@@ -1,7 +1,12 @@
 import CrucibleAction from "./models/action.mjs";
 
 
-export function addChatMessageContextOptions(html, options)  {
+/**
+ * Add Crucible-specific context menu options to chat messages.
+ * @param {HTMLElement} html
+ * @param {object} options
+ */
+export function addChatMessageContextOptions(html, options) {
   if ( !game.user.isGM ) return;
 
   // Assign difficulty for skill checks

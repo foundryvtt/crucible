@@ -20,7 +20,8 @@ import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
 import Enum from "./enum.mjs";
 
 /**
- * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"simple"|"unarmed"} WeaponTrainingTypes
+ * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"simple"|"unarmed"}
+ *   WeaponTrainingTypes
  */
 
 /**

@@ -1,6 +1,6 @@
-import path from 'path';
-import { Command } from 'commander';
-import {compilePack, extractPack} from '@foundryvtt/foundryvtt-cli';
+import path from "path";
+import {Command} from "commander";
+import {compilePack, extractPack} from "@foundryvtt/foundryvtt-cli";
 
 /* -------------------------------------------- */
 /*  Build Configuration                         */
@@ -21,7 +21,7 @@ const CONFIG = {
     "spell",
     "summons",
     "talent",
-    "taxonomy",
+    "taxonomy"
   ],
   yaml: true
 };
@@ -63,19 +63,19 @@ export async function compile() {
 const startup = new Command();
 
 startup
-  .name('foundrybuild')
-  .description('Module development and packaging tools')
+  .name("foundrybuild")
+  .description("Module development and packaging tools");
 
 /* LevelDB format compiling from extracted plain-text files */
 startup
-  .command('compile')
-  .description('Constructs binary databases from plain-text source files.')
+  .command("compile")
+  .description("Constructs binary databases from plain-text source files.")
   .action(compile);
 
 /* Plain-text format extraction from LevelDB directory */
 startup
-  .command('extract')
-  .description('Unpacks binary databases into plain-text source files.')
+  .command("extract")
+  .description("Unpacks binary databases into plain-text source files.")
   .action(extract);
 
 /* Start program and parse commands */

@@ -66,7 +66,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     if ( spells.length < 2 ) return;
     const uuids = new Set();
     for ( const s of spells ) {
-      if ( uuids.has(s.item) ) throw new Error(`There must not be duplicate spells on an archetype.`);
+      if ( uuids.has(s.item) ) throw new Error("There must not be duplicate spells on an archetype.");
       uuids.add(s.item);
     }
   }

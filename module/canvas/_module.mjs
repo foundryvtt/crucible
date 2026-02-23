@@ -6,8 +6,11 @@ export * as tree from "./tree/_module.mjs";
 export * as grid from "./grid/_module.mjs";
 export * as vfx from "./vfx/_module.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
-export {default as CrucibleTokenRuler} from "./token-ruler.mjs";
+export {CrucibleTokenRuler};
 
+/**
+ * Configure canvas extensions for the Crucible system.
+ */
 export function configure() {
   CONFIG.Token.rulerClass = CrucibleTokenRuler;
   CONFIG.Token.hudClass = CrucibleTokenHUD;

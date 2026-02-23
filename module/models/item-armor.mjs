@@ -100,7 +100,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     }
 
     // Armor Properties
-    for ( let p of this.properties ) {
+    for ( const p of this.properties ) {
       if ( p === "investment" ) continue;
       if ( (p === "natural") && (this.config.category.id === "natural") ) continue;
       tags[p] = ARMOR.PROPERTIES[p].label;
@@ -132,7 +132,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
-    
+
     /** @deprecated since 0.8.5 */
     if ( source.properties?.includes("organic") ) {
       source.properties.findSplice(p => p === "organic", "natural");

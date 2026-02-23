@@ -2,6 +2,10 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+/**
+ * Prepare a summon spell action by configuring token data and tagging the action for summoning.
+ * @param {number} level
+ */
 function prepareSummon(level) {
   this.tags.add("summon");
   this.usage.hasDice = false;

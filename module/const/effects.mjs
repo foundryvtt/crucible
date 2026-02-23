@@ -149,7 +149,14 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   };
 }
 
-// TODO document
+/**
+ * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
+ * @param {Actor} actor
+ * @param {object} options
+ * @param {string} options.ability
+ * @param {number} options.amount
+ * @param {number} options.turns
+ */
 export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
@@ -168,7 +175,10 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   };
 }
 
-// TODO as above
+/**
+ * Generate a standardized entropy effect, applying the frightened status and dealing presence in void damage to Health.
+ * @param {Actor} actor
+ */
 export function entropy(actor) {
   return {
     _id: getEffectId("Entropy"),
@@ -187,7 +197,10 @@ export function entropy(actor) {
   };
 }
 
-// TODO as above
+/**
+ * Generate a standardized irradiated effect, dealing presence in radiant damage to both Health and Morale.
+ * @param {Actor} actor
+ */
 export function irradiated(actor) {
   return {
     _id: getEffectId("Irradiated"),
@@ -234,7 +247,11 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
   };
 }
 
-// TODO as above
+/**
+ * Generate a standardized inspired effect, restoring presence in morale to the target.
+ * @param {Actor} actor
+ * @param {Actor} target
+ */
 export function inspired(actor, target) {
   return {
     _id: getEffectId("Inspired"),
@@ -330,7 +347,11 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
   };
 }
 
-// TODO as above
+/**
+ * Generate a standardized staggered effect, applying the staggered status condition to the target.
+ * @param {Actor} actor
+ * @param {Actor} target
+ */
 export function staggered(actor, target) {
   return {
     _id: getEffectId("Staggered"),

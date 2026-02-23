@@ -34,6 +34,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @type {Record<string, Array<Record<string, ApplicationTab>>>}
    */
   static TABS = foundry.utils.deepClone(super.TABS);
+
   static {
     this.TABS.sheet.push({id: "talents", group: "sheet", icon: "fa-solid fa-bookmark", label: "ITEM.TABS.Talents"});
   }
@@ -62,9 +63,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
-      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level}).then(html => ({html, name: talent.name, level})));
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level})
+        .then(html => ({html, name: talent.name, level})));
     }
-    const sorted = (await Promise.all(promises)).toSorted((a, b) => (a.level - b.level) || a.name.localeCompare(b.name));
+    const sorted = (await Promise.all(promises))
+      .toSorted((a, b) => (a.level - b.level) || a.name.localeCompare(b.name));
     return sorted.map(({html}) => html);
   }
 
@@ -110,7 +113,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /** @inheritDoc */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
-    
+
     // Handle talent level changes
     if ( submitData.system.talents ) {
       const updatedTalents = foundry.utils.deepClone(this.document.system._source.talents);
@@ -154,6 +157,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
+   * Remove a talent entry from the item's granted talents list.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
@@ -170,6 +174,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
+   * Toggle the equipped state of an equipment entry on the item.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
@@ -186,6 +191,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
+   * Remove an equipment entry from the item's included equipment list.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */

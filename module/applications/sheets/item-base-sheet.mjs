@@ -223,6 +223,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Render the properties field as a multi-checkboxes element.
+   * @param {foundry.data.fields.DataField} field
+   * @param {object} groupConfig
+   * @param {object} inputConfig
    * @returns {HTMLMultiCheckboxElement}
    */
   #propertiesWidget(field, groupConfig, inputConfig) {
@@ -237,6 +240,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Render a price field using a HTMLCrucibleCurrencyElement element.
+   * @param {foundry.data.fields.DataField} field
+   * @param {object} inputConfig
    * @returns {HTMLCrucibleCurrencyElement}
    */
   #currencyInput(field, inputConfig) {
@@ -294,22 +299,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       tags: action.getTags(),
       effects: action.effects
     })));
-  }
-
-  /* -------------------------------------------- */
-  /*  HTML Rendering Helpers
-  /* -------------------------------------------- */
-
-  /**
-   * A helper for quickly creating HTML elements.
-   * @returns {HTMLElement}
-   * @internal
-   */
-  static _createElement(tagName, {innerText, className}={}) {
-    const el = document.createElement(tagName);
-    if ( innerText ) el.innerText = innerText;
-    if ( className ) el.className = className;
-    return el;
   }
 
   /* -------------------------------------------- */
@@ -387,7 +376,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const confirm = await api.DialogV2.confirm({
       title: game.i18n.format("ACTION.ACTIONS.Delete", {name: action.name}),
       content: `<p>${game.i18n.format("ACTION.ACTIONS.DeleteConfirm", {
-        name: action.name, 
+        name: action.name,
         parent: this.document.name,
         type: game.i18n.localize(CONFIG.Item.typeLabels[this.document.type])
       })}</p>`
@@ -421,8 +410,10 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
+   * Expand or collapse a sheet section, collapsing sibling sections when expanding.
    * @this {CrucibleBaseItemSheet}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onExpandSection(_event, target) {
@@ -444,6 +435,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * Add a new hooked function to this Talent.
    * @this {CrucibleTalentItemSheet}
    * @param {PointerEvent} event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onHookAdd(event, target) {
@@ -464,6 +456,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * Delete a hooked function from this Talent.
    * @this {CrucibleTalentItemSheet}
    * @param {PointerEvent} event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onHookDelete(event, target) {

@@ -3,21 +3,21 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
- * @typedef {Object} ActionContext
+ * @typedef ActionContext
  * @property {string} label                 A string label providing context info
  * @property {string} icon                  A font awesome icon used to annotate the context
  * @property {Record<string, string>} tags  A record of tags which describe the context
  */
 
 /**
- * @typedef {Object} ActionRange
+ * @typedef ActionRange
  * @property {number} [minimum]             A minimum distance in feet at which the action may be used
  * @property {number} [maximum]             A maximum distance in feet at which the action may be used
  * @property {boolean} weapon               Enforce the maximum range of the used weapon
  */
 
 /**
- * @typedef {Object} ActionTarget
+ * @typedef ActionTarget
  * @property {string} type                  The type of target for the action in ACTION.TARGET_TYPES
  * @property {number} [number]              The number of targets affected or size of target template
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
@@ -59,7 +59,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {Object} ActionCost
+ * @typedef ActionCost
  * @property {number} action                The cost in action points
  * @property {number} focus                 The cost in focus points
  * @property {number} heroism               The cost in heroism points
@@ -76,14 +76,14 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {Object} ActionTags
- * @property {Object<string, string|CrucibleTag>} activation
- * @property {Object<string, string>} action
- * @property {Object<string, string>} context
+ * @typedef ActionTags
+ * @property {Record<string, string|CrucibleTag>} activation
+ * @property {Record<string, string>} action
+ * @property {Record<string, string>} context
  */
 
 /**
- * @typedef {Object} ActionEffect
+ * @typedef ActionEffect
  * @property {string} name
  * @property {number} scope
  * @property {string[]} statuses
@@ -815,7 +815,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * @typedef {Object} ActionUseTarget
+   * @typedef ActionUseTarget
    * @property {CrucibleToken} token
    * @property {CrucibleActor} actor
    * @property {string} name
@@ -1258,7 +1258,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * A generator which provides the test conditions for action lifecycle.
-   * @returns {Generator<Object|*, void, *>}
+   * @yields {Record<string, function>}
    * @protected
    */
   * _tests() {

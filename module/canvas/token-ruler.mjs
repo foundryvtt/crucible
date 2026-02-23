@@ -19,7 +19,7 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
 
     // Measure new segment
     const movement = actor.getMovementActionCost(waypoint.measurement.cost);
-    const deltaCost =  movement.cost - state.priorCost;
+    const deltaCost = movement.cost - state.priorCost;
     state.priorCost = movement.cost;
 
     context.distance.units = grid.units;

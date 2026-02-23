@@ -28,10 +28,10 @@ import {PASSIVE_BASE} from "../const/attributes.mjs";
  *      currency: 150,
  *      mode: "AND"
  *    },
-*    ],
+ *    ],
  *   outputs: [
  *    [{item: healingElixirUUID, quantity: 1}]
-*    ],
+ *    ],
  *   dc: 15,
  *   hours: 4
  * }
