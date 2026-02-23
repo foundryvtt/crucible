@@ -102,7 +102,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
- * @property {object} metadata            Fallback storage for miscellaneous data that persists throughout the action lifecycle
+ * @property {object} metadata            Fallback storage of miscellaneous data persisted through the action lifecycle
  * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
  * @property {string} [movement]          A movement ID that was performed as part of this action
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
@@ -134,35 +134,20 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {string} id                    The action identifier
  * @property {string} name                  The action name
  * @property {string} img                   An image for the action
- * @property {string} condition             An optional condition which must be met in order for the action to be used
  * @property {string} description           Text description of the action
- * @property {ActionRange} range            Range data for the action
- * @property {ActionTarget} target          Target data for the action
- * @property {ActionCost} cost              Cost data for the action
+ * @property {string} condition             An optional condition which must be met in order for the action to be used
  * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
+ * @property {ActionCost} cost              Cost data for the action
+ * @property {ActionTarget} target          Target data for the action
+ * @property {ActionRange} range            Range data for the action
+ * @property {{actorUuid?: string, permanent?: boolean}} summon  Summon configuration embedded in this action
+ * @property {ActionEffect[]} effects       Active effect templates applied when this action is used
+ * @property {{hook: string, fn: string}[]} actionHooks  Inline script hooks invoked during the action lifecycle
  */
 
 /**
  * @typedef {Map<CrucibleActor,CrucibleActionOutcome>} CrucibleActionOutcomes
  */
-
-/**
- * An object used to represent a set of tags.
- */
-class ActionTagGroup {
-  constructor({icon, tooltip}) {
-    Object.defineProperties(this, {
-      icon: {value: icon, enumerable: false},
-      tooltip: {value: tooltip, enumerable: false}
-    });
-  }
-
-  get empty() {
-    return !Object.keys(this).length;
-  }
-}
-
-/* -------------------------------------------- */
 
 /**
  * A special Set that sorts action tags in priority order.
@@ -257,8 +242,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
-      condition: new fields.StringField(),
       description: new fields.HTMLField({required: false, initial: undefined}),
+      condition: new fields.StringField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
@@ -494,7 +479,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( config.deprecated ) {
         console.warn(`Deprecated Action hook "${hook}" used by Action "${actionId}"`);
         continue;
-      };
+      }
       const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
       if ( config ) hooks[hook] = new fnClass(...config.argNames, fn);
       else console.warn(`Invalid Action hook "${hook}" defined by Action "${actionId}"`);
@@ -693,6 +678,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Execute an Action.
    * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {CrucibleActionUsageOptions} [options]    Options which modify action usage
+   * @param {TokenDocument} [options.token]           A specific token performing the action
    * @returns {Promise<CrucibleActionOutcomes|undefined>}
    */
   async use({token, ...options}={}) {
@@ -850,9 +836,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( targetType === "summon" ) return [];
 
     // Acquire Template Targets
-    if ( !!targetCfg.template ) {
-      targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
-    }
+    if ( targetCfg.template ) targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
 
     // Other Target Types
     else {
@@ -1031,7 +1015,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( S.ALL === scope ) return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
 
     // Determine the Actor's disposition
-    let disposition = this.actor.getActiveTokens(true, true)[0]?.disposition ?? this.actor.prototypeToken.disposition;
+    const disposition = this.actor.getActiveTokens(true, true)[0]?.disposition ?? this.actor.prototypeToken.disposition;
 
     // Hostile actors
     if ( disposition === D.HOSTILE ) {
@@ -1117,7 +1101,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Apply the effects caused by an Action to targeted Actors when the result is confirmed.
    * @param {CrucibleActionOutcome} outcome     The outcome being prepared
-   * @returns {object[]}                        An array of Active Effect data to attach to the outcome
    */
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
@@ -1650,7 +1633,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Construct and play a configured VFXEffect on every client after the Action is confirmed.
-   * @param {VFXEffectConfig} vfxConfig
+   * @param {foundry.vfx.VFXEffectConfig} vfxConfig
    * @param {Record<string, any>} references
    * @returns {Promise<void>}
    */
@@ -1721,7 +1704,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     };
 
     // Action Tags
-    for (let t of this.tags) {
+    for ( const t of this.tags ) {
       const tag = SYSTEM.ACTION.TAGS[t];
       if ( tag.internal ) continue;
       else tags.action[tag.tag] = game.i18n.localize(tag.label);
@@ -1750,7 +1733,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cost
     const cost = this._trueCost || this.cost;
-    let ap = cost.action ?? 0;
+    const ap = cost.action ?? 0;
     if ( this.cost.weapon && !this.usage.strikes?.length ) { // Strike sequence not yet determined
       if ( ap === 0 ) tags.activation.ap = game.i18n.localize("ACTION.TagCostWeapon");
       else tags.activation.ap = game.i18n.format("ACTION.TagCostWeaponAction", {action: ap.signedString()});
@@ -1772,8 +1755,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags.activation.hp = {label, unmet};
     }
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) {
-      // e.g. Blood Magic
-      const unmet = cost.health > this.actor?.resources.health.value;
+      const unmet = cost.health > this.actor?.resources.health.value; // Blood Magic, for example
       const label = game.i18n.format("ACTION.TagCostHealth", {health: cost.health});
       tags.activation.health = {label, unmet};
     }
@@ -1807,7 +1789,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Create the ChatMessageData object to be used for an action's chat message creation
-   * @param {AcitonUseTarget[]} targets   Targets affected by this action usage
+   * @param {ActionUseTarget[]} targets   Targets affected by this action usage
    * @param {object} options              Context options for ChatMessage creation
    * @param {boolean} options.confirmed   Were the outcomes auto-confirmed?
    * @returns {Promise<ChatMessageData>}
@@ -1954,11 +1936,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Delete a measured template if the chat message which originated it is deleted.
    * @param {ChatMessage} message     The ChatMessage document that will be deleted
-   * @param {object} options          Options which modify message deletion
-   * @param {string} userId           The ID of the deleting user
+   * @param {object} _options         Options which modify message deletion
+   * @param {string} _userId          The ID of the deleting user
    * @returns {Promise<void>}
    */
-  static async onDeleteChatMessage(message, options, userId) {
+  static async onDeleteChatMessage(message, _options, _userId) {
     const template = message.flags.crucible?.template;
     if ( !template ) return;
     const templateDoc = await fromUuid(template);
@@ -1970,9 +1952,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Create an environmental hazard action.
    * @param {CrucibleActor} actor
-   * @param {object} actionData
-   * @param {string[]} tags
-   * @param {number} [hazard=0]
+   * @param {object} [options={}]
+   * @param {object} [options.actionData]
+   * @param {string[]} [options.tags]
+   * @param {number} [options.hazard=0]
    * @returns {CrucibleAction}
    */
   static createHazard(actor, {hazard=0, tags, ...actionData}={}) {
@@ -1988,5 +1971,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       ...actionData,
       tags
     }, {actor, usage: {hazard}});
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * An object used to represent a set of tags.
+ */
+class ActionTagGroup {
+  constructor({icon, tooltip}) {
+    Object.defineProperties(this, {
+      icon: {value: icon, enumerable: false},
+      tooltip: {value: tooltip, enumerable: false}
+    });
+  }
+
+  get empty() {
+    return !Object.keys(this).length;
   }
 }
