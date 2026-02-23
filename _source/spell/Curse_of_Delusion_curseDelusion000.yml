@@ -39,7 +39,11 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
+          changes:
+            - key: system.abilities.wisdom.bonus
+              value: '-2'
+              mode: 2
+              priority: null
           system:
             dot: []
             maintenance: null
@@ -77,7 +81,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771718400000
-  modifiedTime: 1771804870360
+  modifiedTime: 1771870124021
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 0
 _key: '!items!curseDelusion000'

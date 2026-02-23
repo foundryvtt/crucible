@@ -40,7 +40,11 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
+          changes:
+            - key: system.abilities.intellect.bonus
+              value: '-2'
+              mode: 2
+              priority: null
           system:
             dot: []
             maintenance: null
@@ -78,7 +82,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771718400000
-  modifiedTime: 1771804880767
+  modifiedTime: 1771870130749
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 200000
 _key: '!items!curseDullness000'

@@ -40,7 +40,11 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
+          changes:
+            - key: system.abilities.toughness.bonus
+              value: '-2'
+              mode: 2
+              priority: null
           system:
             dot: []
             maintenance: null
@@ -78,7 +82,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771718400000
-  modifiedTime: 1771804888753
+  modifiedTime: 1771870139244
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: -100000
 _key: '!items!curseExhaustion0'

@@ -39,7 +39,11 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
+          changes:
+            - key: system.abilities.presence.bonus
+              value: '-2'
+              mode: 2
+              priority: null
           system:
             dot: []
             maintenance: null
@@ -77,7 +81,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771718400000
-  modifiedTime: 1771804904132
+  modifiedTime: 1771870153817
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 400000
 _key: '!items!curseScorn000000'

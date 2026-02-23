@@ -40,7 +40,11 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
+          changes:
+            - key: system.abilities.strength.bonus
+              value: '-2'
+              mode: 2
+              priority: null
           system:
             dot: []
             maintenance: null
@@ -79,7 +83,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771718400000
-  modifiedTime: 1771804861430
+  modifiedTime: 1771870090726
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 100000
 _key: '!items!curseAtrophy0000'
