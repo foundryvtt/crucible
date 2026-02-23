@@ -17,14 +17,14 @@ export function getTargetAreaOffsets(origin, shape) {
   const offsets = [originOffset];
   const tested = new Set([k0]);
 
-  const quadrants = [[-1,-1], [1,-1], [1,1], [-1, 1]];
+  const quadrants = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
   for ( const [si, sj] of quadrants ) {
     for ( let di=0; di<Infinity; di++ ) {
       const i = originOffset.i + (di * si);
       let hit = false;
       for ( let dj=0; dj<Infinity; dj++ ) {
         const j = originOffset.j + (dj * sj);
-        const o = {i,j};
+        const o = {i, j};
         const k = (i << 16) | j;
         if ( tested.has(k) ) {
           hit = true;
@@ -63,8 +63,8 @@ export function getLinearRangeCost(attacker, target) {
   }
 
   // Determine origin and target points of the ray
-  const A = {elevation: ae}; // attacker
-  const T = {elevation: te}; // target
+  const A = {elevation: ae}; // Attacker
+  const T = {elevation: te}; // Target
   if ( ab.bottom < tb.top ) {
     A.y = ab.bottom;
     T.y = tb.top;

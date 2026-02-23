@@ -145,7 +145,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}         The updated group Actor
    */
   async addMember(actor, quantity=1) {
-    if ( !(actor instanceof Actor) || !!actor.pack ) throw new Error("You can only add a World Actor");
+    if ( !(actor instanceof Actor) || actor.pack ) throw new Error("You can only add a World Actor");
     if ( actor === this.parent ) throw new Error("You cannot add your own group!");
 
     // Prepare operation data
@@ -233,8 +233,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const recipientHTML = [];
 
     // Verify inputs
-    if ( !Number.isInteger(number) || (number < 1) ) throw new Error("The number of milestones awarded must be a " +
-      "positive integer");
+    if ( !Number.isInteger(number) || (number < 1) ) throw new Error("The number of milestones awarded must be a "
+      + "positive integer");
     const milestones = foundry.utils.deepClone(this._source.advancement.milestones);
     if ( identifier in milestones ) throw new Error(`A milestone with identifier "${identifier}" has already 
     been awarded to group "${this.parent.name}"`);
@@ -245,7 +245,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
-    const label = game.i18n.localize("AWARD.MILESTONE." + plurals.select(number));
+    const label = game.i18n.localize(`AWARD.MILESTONE.${plurals.select(number)}`);
     const groupText = game.i18n.format("AWARD.MILESTONE.GroupAward", {number, label, name: this.parent.name});
     recipientHTML.push(`
     <div class="hex labeled-hex">
@@ -303,9 +303,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
-    const label = game.i18n.localize("AWARD.MILESTONE." + plurals.select(number));
+    const label = game.i18n.localize(`AWARD.MILESTONE.${plurals.select(number)}`);
     const groupText = game.i18n.format("AWARD.MILESTONE.GroupRevoke", {number, label, name: this.parent.name});
-    recipientHTML.push(`<p>${groupText}</p>`, `<ul class="plain">`);
+    recipientHTML.push(`<p>${groupText}</p>`, "<ul class=\"plain\">");
 
     // Configure member awards
     recipientIds ||= Array.from(this.memberIds);
@@ -365,7 +365,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     content.append(
       identifier.toFormGroup({}, {name: "identifier", placeholder: identifierPlaceholder}),
       number.toFormGroup({classes: ["slim"]}, {name: "number", value: options.number || 1, placeholder: "1"}),
-      
+
       // TODO: Can remove this manual localization in v14
       reason.toFormGroup({stacked: true}, {name: "reason", placeholder: game.i18n.localize("ACTOR.GROUP.FIELDS.advancement.milestones.element.reason.placeholder")}),
       recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),

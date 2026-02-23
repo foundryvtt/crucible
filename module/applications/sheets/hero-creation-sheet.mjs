@@ -333,7 +333,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @param {string} itemType
    * @param {Set<string>} packs
-   * @param {Function} [fn]
+   * @param {function} [fn]
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
   static async #initializeItemOptions(itemType, packs, fn) {
@@ -428,6 +428,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Finalize the state of each tab on the header navigation based on creation completion state.
+   * @param {object} context
    */
   _finalizeHeaderTabs(context) {
     const plurals = new Intl.PluralRules(game.i18n.lang);
@@ -449,16 +450,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( step.abilities ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
-        tab.selectionLabel = (ap || !chosen) ?
-          `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}` :
-          chosen.name;
+        tab.selectionLabel = (ap || !chosen)
+          ? `${ap} ${game.i18n.localize(`TALENT.LABELS.Points.${plurals.select(ap)}`)}`
+          : chosen.name;
       }
 
       // Talents
       if ( step.talents ) {
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
-          ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
+          ? `${tp} ${game.i18n.localize(`TALENT.LABELS.Talents.${plurals.select(tp)}`)}`
           : game.i18n.localize("ACTOR.CREATION.Completed");
       }
     }
@@ -494,6 +495,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Perform one-time initialization of context data that is performed upon the first render.
+   * @param {object} context
+   * @param {object} options
    * @returns {Promise<void>}
    * @private
    */
@@ -509,6 +512,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Prepare data for rendering on the ancestry step.
+   * @param {object} context
+   * @param {object} _options
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<void>}
    */
@@ -538,6 +543,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Prepare data for rendering on the background step.
+   * @param {object} context
+   * @param {object} _options
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<void>}
    */
@@ -748,9 +755,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * Handle click events to choose an Ancestry.
+   * Handle click events to increase an ability score during character creation.
    * @this {CrucibleHeroCreationSheet}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onAbilityIncrease(_event, target) {
@@ -762,9 +770,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * Handle click events to choose an Ancestry.
+   * Handle click events to decrease an ability score during character creation.
    * @this {CrucibleHeroCreationSheet}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onAbilityDecrease(_event, target) {
@@ -779,8 +788,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /**
    * Handle click events to choose an Ancestry.
    * @this {CrucibleHeroCreationSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    */
   static #onChooseAncestry(_event, target) {
     const choice = target.closest(".option");
@@ -793,8 +802,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /**
    * Handle click events to choose a Background.
    * @this {CrucibleHeroCreationSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    */
   static #onChooseBackground(_event, target) {
     const choice = target.closest(".option");
@@ -853,7 +862,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
     delete creationData.ownership;
-    creationData.flags.core.sheetClass = '';
+    creationData.flags.core.sheetClass = "";
     creationData.system.advancement.level = 1;
     creationData.system.currency = 25 * 100; // 25gp
   }

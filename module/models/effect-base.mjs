@@ -19,13 +19,13 @@ export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataM
       resource: new fields.StringField({required: true, choices: SYSTEM.RESOURCES, nullable: false}),
       restoration: new fields.BooleanField()
     }), {nullable: false, initial: []});
-    
+
     // Maintained
     // TODO: Do we need anything else?
     schema.maintenance = new fields.SchemaField({
       cost: new fields.NumberField({required: true, integer: true, nullable: false})
     }, {nullable: true, initial: null});
-    
+
     // Scene Regions (currently, Templates)
     // TODO: Once in v14, type: "Region"
     // TODO: Actually track these

@@ -35,7 +35,7 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
 
   /**
    * Return the minimum-tier talent (tier & uuid) which grants the given Rune
-   * @param {string} component 
+   * @param {string} component
    * @returns {tier: number, uuid: string}
    */
   static getGrantingTalent(component) {

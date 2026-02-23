@@ -1,5 +1,3 @@
-import {TARGET_SCOPES} from "../const/action.mjs";
-
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -758,8 +756,9 @@ HOOKS.voidcaller000000 = {
 
 /* -------------------------------------------- */
 
-// TODO: If/when hooks exist on effects, have this be a defendAttack hook which verifies that the origin of the effect is the attacker
+
 HOOKS.vowofanimus00000 = {
+  // TODO would be better handled if hooks can exist on active effects as a defendAttack hook
   prepareAttack(item, action, target, rollData) {
     if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
     if ( !target.effects.has(SYSTEM.EFFECTS.getEffectId(item.actions[0].id)) ) return;

@@ -35,7 +35,7 @@ let party = null;
 /* -------------------------------------------- */
 
 Hooks.once("init", async function() {
-  console.log(`Initializing Crucible Game System`);
+  console.log("Initializing Crucible Game System");
   const crucible = globalThis.crucible = game.system;
   crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
@@ -227,7 +227,7 @@ Hooks.once("init", async function() {
   }
 
   // Font Definitions
-  CONFIG.fontDefinitions["AwerySmallcaps"] = {
+  CONFIG.fontDefinitions.AwerySmallcaps = {
     editor: true,
     fonts: [{urls: ["systems/crucible/fonts/AwerySmallcaps/AwerySmallcaps.ttf"]}]
   };
@@ -237,7 +237,7 @@ Hooks.once("init", async function() {
 
   // Register Handlebars helpers
   Handlebars.registerHelper({
-    "crucibleTags": (tags, options={}) => {
+    crucibleTags: (tags, options={}) => {
       const {enclosed=true, additionalClasses=null, tagType=null} = options.hash ?? {};
       const tagSpans = Object.entries(tags).map(([id, tag]) => {
         let classes = "tag";
@@ -304,7 +304,7 @@ Hooks.once("init", async function() {
         if ( a.type === "group" ) obj[a.id] = a.name;
         return obj;
       }, {"": "-- None -- "})
-    }),
+      }),
     default: null,
     onChange: actorId => party = game.actors.get(actorId)
   });
@@ -317,6 +317,11 @@ Hooks.once("init", async function() {
   });
 
   const fields = foundry.data.fields;
+  /**
+   * Get the schema field for a given document and subtype.
+   * @param {string} documentType
+   * @param {string} type
+   */
   function fieldForType(documentType, type) {
     const getPacks = (documentType, type) => {
       const potentialPacks = {};
@@ -436,7 +441,7 @@ Hooks.once("i18nInit", function() {
     "RESOURCES", "THREAT_RANKS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
-  for ( let c of toLocalize ) {
+  for ( const c of toLocalize ) {
     let key = c;
     let attrs = ["label"];
     if ( Array.isArray(c) ) [key, attrs] = c;
@@ -449,7 +454,7 @@ Hooks.once("i18nInit", function() {
     }
 
     // Other objects
-    for ( let [k, v] of Object.entries(conf) ) {
+    for ( const [k, v] of Object.entries(conf) ) {
       if ( typeof v === "object" ) {
         for ( const attr of attrs ) {
           if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
@@ -487,8 +492,8 @@ Hooks.once("i18nInit", function() {
  */
 function preLocalizeConfig() {
   const localizeConfigObject = (obj, keys) => {
-    for ( let o of Object.values(obj) ) {
-      for ( let k of keys ) {
+    for ( const o of Object.values(obj) ) {
+      for ( const k of keys ) {
         const v = o[k];
         if ( typeof v === "function" ) o[k] = v();
         else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
@@ -677,7 +682,6 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
 });
 
 
-
 /* -------------------------------------------- */
 /*  Convenience Functions                       */
 /* -------------------------------------------- */
@@ -750,6 +754,9 @@ async function standardizeItemIds() {
   await Item.createDocuments(creations, {keepId: true});
 }
 
+/**
+ * Register development-only hooks for debugging and ID management.
+ */
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, _user) => {
     if ( options.keepId === false ) return;
@@ -779,14 +786,14 @@ function registerDevelopmentHooks() {
     }
   });
 
-  Hooks.on("createItem", async (item) => {
+  Hooks.on("createItem", async item => {
     if ( (item.type === "talent") && item.system.nodes.size && crucible.CONFIG.packs.talent.has(item.pack) ) {
       await CrucibleTalentNode.initialize();
       crucible.tree.refresh();
     }
   });
 
-  Hooks.on("updateItem", async (item) => {
+  Hooks.on("updateItem", async item => {
     if ( (item.type === "talent") && item.system.nodes.size && crucible.CONFIG.packs.talent.has(item.pack) ) {
       await CrucibleTalentNode.initialize();
       crucible.tree.refresh();
@@ -879,6 +886,10 @@ async function syncEquipmentPrices() {
     return obj;
   }, {});
 
+  /**
+   * Migrate a single item to pull updated price data from the equipment compendium.
+   * @param {CrucibleItem} item
+   */
   function migrateItem(item) {
     if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
     if ( !item.system.price ) return null;
@@ -919,6 +930,9 @@ async function syncEquipmentPrices() {
 
 /* -------------------------------------------- */
 
+/**
+ * Remove all non-permanent talents from every actor in the world.
+ */
 async function resetAllActorTalents() {
   for ( const actor of game.actors ) {
     const deleteIds = [];
@@ -934,16 +948,8 @@ async function resetAllActorTalents() {
   }
 }
 
-
 /* -------------------------------------------- */
 /*  ESModules API                               */
 /* -------------------------------------------- */
 
-export {SYSTEM} from "./module/const/system.mjs";
-export * as applications from "./module/applications/_module.mjs";
-export * as canvas from "./module/canvas/_module.mjs";
-export * as dice from "./module/dice/_module.mjs";
-export * as documents from "./module/documents/_module.mjs";
-export * as models from "./module/models/_module.mjs";
-export * as audio from "./module/audio.mjs";
-export * as chat from "./module/chat.mjs";
+export {SYSTEM, applications, canvas, dice, documents, models, audio, chat};

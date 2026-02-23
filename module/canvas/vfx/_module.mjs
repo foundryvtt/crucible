@@ -1,1 +1,1 @@
-export * as strikes from './strikes.mjs';
+export * as strikes from "./strikes.mjs";

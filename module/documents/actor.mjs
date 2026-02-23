@@ -199,8 +199,7 @@ export default class CrucibleActor extends Actor {
       if ( action && confirmed ) {
         if ( this.#lastConfirmedAction.messageId !== message.id ) {
           this.#lastConfirmedAction.messageId = message.id;
-          this.#lastConfirmedAction
-           = {messageId: message.id, action: CrucibleAction.fromChatMessage(message)};
+          this.#lastConfirmedAction = {messageId: message.id, action: CrucibleAction.fromChatMessage(message)};
         }
         return this.#lastConfirmedAction.action;
       }
@@ -236,7 +235,7 @@ export default class CrucibleActor extends Actor {
     const items = this.itemTypes;
     this.system.prepareItems(items);
     super.applyActiveEffects();
-  };
+  }
 
   /* -------------------------------------------- */
   /*  Talent Hooks                                */
@@ -447,10 +446,10 @@ export default class CrucibleActor extends Actor {
    * Create a skill check for the Actor.
    * @param {string} skillId
    * @param {object} options
-   * @param [options.banes]
-   * @param [options.boons]
-   * @param [options.dc]
-   * @param [options.passive]
+   * @param {number} [options.banes]
+   * @param {number} [options.boons]
+   * @param {number} [options.dc]
+   * @param {boolean} [options.passive]
    * @returns {PassiveCheck|StandardCheck}
    */
   getSkillCheck(skillId, {banes=0, boons=0, dc=20, passive=false}={}) {
@@ -499,21 +498,21 @@ export default class CrucibleActor extends Actor {
   /**
    * Roll a skill check for a given skill ID.
    *
-   * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
-   * @param {number} [banes]      A number of special banes applied to the roll, default is 0
-   * @param {number} [boons]      A number of special boons applied to the roll, default is 0
-   * @param {number} [dc]         A known target DC
-   * @param {string} [rollMode]   The roll visibility mode to use, default is the current dropdown choice
-   * @param {boolean} [dialog]    Display a dialog window to further configure the roll. Default is false.
-   *
-   * @return {StandardCheck}      The StandardCheck roll instance which was produced.
+   * @param {string} skillId              The ID of the skill to roll a check for, for example "stealth"
+   * @param {object} [options]
+   * @param {number} [options.banes]      A number of special banes applied to the roll, default is 0
+   * @param {number} [options.boons]      A number of special boons applied to the roll, default is 0
+   * @param {number} [options.dc]         A known target DC
+   * @param {string} [options.rollMode]   The roll visibility mode to use, default is the current dropdown choice
+   * @param {boolean} [options.dialog]    Display a dialog window to further configure the roll. Default is false.
+   * @returns {StandardCheck}             The StandardCheck roll instance which was produced.
    */
   async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
-    if ( dialog ){
+    if ( dialog ) {
       const response = await check.dialog({flavor, rollMode});
       if ( response === null ) return null;
     }
@@ -728,7 +727,7 @@ export default class CrucibleActor extends Actor {
     const target = outcome.target;
 
     // TODO get rid of action.usage here in favor of outcome.usage
-    let {bonuses, damageType, restoration, resource, skillId} = action.usage;
+    const {bonuses, damageType, restoration, resource, skillId} = action.usage;
     const boons = {...action.usage.boons, ...outcome.usage.boons};
     const banes = {...action.usage.banes, ...outcome.usage.banes};
     let defenseType = outcome.usage.defenseType || action.usage.defenseType;
@@ -849,10 +848,10 @@ export default class CrucibleActor extends Actor {
       throw new Error(`You may only delay to an initiative value between 1 and ${maximum}`);
     }
     await this.update(foundry.utils.mergeObject(actorUpdates, {"flags.crucible.delay": {
-        round: game.combat.round,
-        from: combatant.initiative,
-        to: initiative
-      }
+      round: game.combat.round,
+      from: combatant.initiative,
+      to: initiative
+    }
     }));
     await game.combat.update({turn: game.combat.turn, combatants: [{_id: combatant.id, initiative}]}, {diff: false});
   }
@@ -925,7 +924,7 @@ export default class CrucibleActor extends Actor {
    */
   #getRecoveryData() {
     const updates = {system: {resources: {}, status: null}};
-    for ( let [id, resource] of Object.entries(this.system.resources) ) {
+    for ( const [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
       if ( !cfg || (cfg.type === "reserve") ) continue;
       updates.system.resources[id] = {value: resource.max};
@@ -938,7 +937,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Alter the resource pools of the actor using an object of change data
-   * @param {Object<string, number>} deltas       Changes where the keys are resource names and the values are deltas
+   * @param {Record<string, number>} deltas       Changes where the keys are resource names and the values are deltas
    * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
    * @param {object} [options]                    Options which are forwarded to the update method
    * @param {boolean} [options.reverse]             Reverse the direction of change?
@@ -954,7 +953,7 @@ export default class CrucibleActor extends Actor {
       if ( !(resourceName in r) || (delta === 0) ) continue;
       if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
       if ( reverse ) delta *= -1;
-      let resource = r[resourceName];
+      const resource = r[resourceName];
 
       // Handle Infinity
       if ( delta === Infinity ) {
@@ -1012,9 +1011,10 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Toggle a named status active effect for the Actor
-   * @param {string} statusId     The status effect ID to toggle
-   * @param {boolean} active      Should the effect be active?
-   * @param {boolean} overlay     Should the effect be an overlay?
+   * @param {string} statusId             The status effect ID to toggle
+   * @param {object} [options]
+   * @param {boolean} [options.active]    Should the effect be active?
+   * @param {boolean} [options.overlay]   Should the effect be an overlay?
    * @returns {Promise<ActiveEffect|undefined>}
    */
   async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
@@ -1290,7 +1290,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * A helper function to return actor updates that should take place upon exiting combat, and whether flanking needs updating
+   * A helper function to return actor updates that should take place upon exiting combat,
+   * and whether flanking needs updating
    * @returns {{updates: object, updateFlanking: boolean}}
    */
   prepareLeaveCombatUpdates() {
@@ -1429,6 +1430,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Toggle display of the Talent Tree.
+   * @param {boolean} active
    */
   async toggleTalentTree(active) {
     if ( this.type !== "hero" ) return;
@@ -1454,7 +1456,7 @@ export default class CrucibleActor extends Actor {
           title: `Reset Talents: ${this.name}`,
           icon: "fa-solid fa-undo"
         },
-        content: `<p>Are you sure you wish to reset all Talents?</p>`,
+        content: "<p>Are you sure you wish to reset all Talents?</p>",
         yes: {
           default: true
         }
@@ -1730,7 +1732,7 @@ export default class CrucibleActor extends Actor {
    * Purchase an ability score increase or decrease for the Actor
    * @param {string} ability      The ability id to increase
    * @param {number} delta        A number in [-1, 1] for the direction of the purchase
-   * @return {Promise}
+   * @returns {Promise}
    */
   async purchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
@@ -1795,6 +1797,7 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
    * @param {boolean} [options.notify=true]     Display a notification about the application result?
+   * @param {boolean} [options.skillTalents]
    * @returns {Promise<void>}
    * @internal
    */
@@ -1857,7 +1860,8 @@ export default class CrucibleActor extends Actor {
       // Grant Talents
       const talents = [
         ...(detail.talents || []),
-        ...(skillTalents ? (detail.skills || []).map(skillId => ({item: SYSTEM.SKILLS[skillId]?.talents[1], level: 0})) : [])
+        ...(skillTalents ? (detail.skills || []).map(skillId => ({item: SYSTEM.SKILLS[skillId]?.talents[1],
+          level: 0})) : [])
       ];
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
       deleteItemIds = deleteItemIds.difference(talentsToKeep);  // Talent already owned
@@ -1976,7 +1980,7 @@ export default class CrucibleActor extends Actor {
    * A generic wrapper around various equip methods.
    * @param {CrucibleItem|string} item      The owned Item id to equip
    * @param {CrucibleEquipItemOptions} [options] Options which configure how the Item is equipped
-   * @return {Promise}                      A Promise which resolves once the Item has been equipped or un-equipped
+   * @returns {Promise}                      A Promise which resolves once the Item has been equipped or un-equipped
    * @throws {Error}                        An Error if the Item cannot be equipped
    */
   async equipItem(item, {slot, dropped=false, equipped=true}={}) {
@@ -2229,7 +2233,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Remove flanked effect
-    else if ( current )  await current.delete();
+    else if ( current ) await current.delete();
   }
 
   /* -------------------------------------------- */
@@ -2318,7 +2322,7 @@ export default class CrucibleActor extends Actor {
         break;
     }
     updates.prototypeToken = {};
-    for ( const [k,v] of Object.entries(prototypeTokenDefaults) ) {
+    for ( const [k, v] of Object.entries(prototypeTokenDefaults) ) {
       if ( !foundry.utils.hasProperty(data.prototypeToken, k) ) updates.prototypeToken[k] = v;
     }
     this.updateSource(updates);
@@ -2405,8 +2409,8 @@ export default class CrucibleActor extends Actor {
     // Refresh display of the active talent tree
     const tree = game.system.tree;
     if ( tree.actor === this ) {
-      const talentChange = foundry.utils.hasProperty(data, "system.advancement.level") ||
-        foundry.utils.hasProperty(data, "system.advancement.talentNodes") || ("items" in data);
+      const talentChange = foundry.utils.hasProperty(data, "system.advancement.level")
+        || foundry.utils.hasProperty(data, "system.advancement.talentNodes") || ("items" in data);
       if ( talentChange ) tree.refresh();
     }
   }
@@ -2434,7 +2438,7 @@ export default class CrucibleActor extends Actor {
   /**
    * Display status text updates above each Token for this Actor upon update.
    * @param {Partial<ActorData>} changed      Data for the Actor which changed
-   * @param {Array<object>} statusText        Status text passed as part of updates
+   * @param {object[]} statusText             Status text passed as part of updates
    */
   #displayUpdateScrollingStatus(changed, statusText) {
     const resources = changed.system?.resources || {};
@@ -2442,7 +2446,7 @@ export default class CrucibleActor extends Actor {
     const texts = [];
 
     // Display resource changes
-    for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
+    for ( const [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
       const resource = SYSTEM.RESOURCES[resourceName];
       const attr = this.system.resources[resourceName];
@@ -2469,6 +2473,10 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Display scrolling text above all Tokens for this Actor.
+   * @param {string[]} texts
+   * @param {object} options
+   * @param {number} options.delayMS
+   * @param {number} options.jitter
    */
   async displayScrollingText(texts, {delayMS=250, jitter=0.5}={}) {
     const tokens = this.getActiveTokens(true);
@@ -2488,7 +2496,7 @@ export default class CrucibleActor extends Actor {
           jitter
         });
       }
-      if ( delayMS ) await new Promise(resolve => window.setTimeout(resolve, delayMS));
+      if ( delayMS ) await new Promise(resolve => { window.setTimeout(resolve, delayMS); });
     }
   }
 
@@ -2519,6 +2527,8 @@ export default class CrucibleActor extends Actor {
    * Update the size of Tokens for this Actor.
    * If the Actor is an unlinked ActorDelta, we only update it's specific Token.
    * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
+   * @param {object} data
+   * @param {object} options
    */
   async #updateSize(data, options) {
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
@@ -2556,6 +2566,8 @@ export default class CrucibleActor extends Actor {
 
   /**
    * If the travel pace of a group actor changed, update its token placements.
+   * @param {object} data
+   * @param {object} options
    */
   async #updatePace(data, options) {
     if ( !data.system?.movement?.pace || (this.type !== "group") || options._crucibleRelatedUpdate ) return;
@@ -2574,8 +2586,9 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Ensure Talents granted by details items (Ancestry and Background for Heroes, Archetype and Taxonomy for Adversaries),
-   * are present if they should be, and not present if they should not be.
+   * Ensure Talents granted by details items (Ancestry and Background for Heroes, Archetype and Taxonomy for
+   * Adversaries) are present if they should be, and not present if they should not be.
+   * @param {object} data
    */
   async #grantDetailTalents(data) {
     if ( !("level" in (data.system?.advancement ?? {})) ) return;

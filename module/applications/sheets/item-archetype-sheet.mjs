@@ -37,6 +37,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /** @inheritDoc */
   static TABS = foundry.utils.deepClone(super.TABS);
+
   static {
     this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase", label: "ITEM.TABS.Equipment"});
     this.TABS.sheet.push({id: "spells", group: "sheet", icon: "fa-solid fa-wand-magic-sparkles", label: "ITEM.TABS.Spells"});
@@ -71,7 +72,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /**
    * Retrieve equipment and prepare for rendering.
-   * @returns {Promise<{uuid: string, name: string, img: string, description: string, tags: object[], quantity: number, equipped: boolean}>}
+   * @returns {Promise<{uuid: string, name: string, img: string, description: string,
+   *   tags: object[], quantity: number, equipped: boolean}>}
    * @protected
    */
   async _prepareEquipment() {
@@ -138,7 +140,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     const group = event.target.closest(".form-group");
-    if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
+    if ( group?.classList.contains("abilities") ) this.#updateAbilitySum();
   }
 
   /* -------------------------------------------- */
@@ -175,7 +177,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     }
 
     // Update Actor detail or permanent Item
-    const updateData = {system: {equipment: [...equipment, {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped}]}};
+    const updateItem = {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped};
+    const updateData = {system: {equipment: [...equipment, updateItem]}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {
       return this._processSubmitData(event, this.form, updateData);
     }
@@ -186,7 +189,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /**
    * Handle drop events for a spell item added to this sheet
-   * @param {DragEvent} event 
+   * @param {DragEvent} event
    * @returns {Promise<*>}
    */
   async #onDropSpell(event) {

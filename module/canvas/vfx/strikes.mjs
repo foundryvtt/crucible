@@ -1,6 +1,6 @@
 /**
  * Configure the data for a VFXEffect
- * @param action
+ * @param {CrucibleAction} action
  * @returns {{components: {}, name, timeline: *[]}|null}
  */
 export function configureStrikeVFXEffect(action) {
@@ -42,8 +42,8 @@ export function configureStrikeVFXEffect(action) {
         },
         projectile: {
           texture: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
-          size: 3, // feet
-          speed: 150 // feet-per-second
+          size: 3, // Feet
+          speed: 150 // Feet-per-second
         },
         impact: {
           texture: impact.texture,

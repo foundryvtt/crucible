@@ -8,9 +8,9 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /* -------------------------------------------- */
 
   /**
-   * @override
    * FIXME bugfix for core https://github.com/foundryvtt/foundryvtt/issues/13095
    * This can be deleted when that bug is closed.
+   * @override
    */
   getCombatantsByActor(actor) {
     const isActor = actor instanceof foundry.documents.Actor;

@@ -56,7 +56,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
     i.progress = !!issues.length;
     if ( i.progress ) {
-      const items = issues.reduce((s, text) => s + `<li>${game.i18n.localize(text)}</li>`, "");
+      const items = issues.reduce((s, text) => `${s}<li>${game.i18n.localize(text)}</li>`, "");
       i.progressTooltip = `<h4>${game.i18n.localize("ACTOR.ProgressionRequirements")}</h4><ol>${items}</ol>`;
     }
 
@@ -89,10 +89,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     for ( const knowledgeId of this.actor.system.details.knowledge ) {
       if ( crucible.CONFIG.knowledge[knowledgeId] ) {
         knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
-      };
-    };
+      }
+    }
     return knowledgeNames;
-  };
+  }
 
   /* -------------------------------------------- */
 

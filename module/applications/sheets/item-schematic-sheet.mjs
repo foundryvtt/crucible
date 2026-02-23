@@ -26,6 +26,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
   };
 
   static INPUT_PARTIAL = "systems/crucible/templates/sheets/item/schematic-input.hbs";
+
   static OUTPUT_PARTIAL = "systems/crucible/templates/sheets/item/schematic-output.hbs";
 
   // Initialize subclass options
@@ -137,6 +138,10 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
 
   /**
    * Prepare an input ingredient to be rendered in the schematic input partial.
+   * @param {object} ingredient
+   * @param {number} i
+   * @param {number} j
+   * @returns {object}
    */
   #prepareIngredient(ingredient, i, j) {
     const item = fromUuidSync(ingredient.item);
@@ -158,6 +163,10 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
 
   /**
    * Prepare an output product to be rendered in the schematic output partial.
+   * @param {object} output
+   * @param {number} i
+   * @param {number} j
+   * @returns {object}
    */
   #prepareOutput(output, i, j) {
     const item = fromUuidSync(output.item);
@@ -202,7 +211,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
 
   /**
    * Handle dropping input or output items on the components tab in particular drop zones.
-   * @param event
+   * @param {DragEvent} event
    */
   async #onDropComponents(event) {
     const data = CONFIG.ux.TextEditor.getDragEventData(event);
@@ -294,7 +303,7 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
     if ( !this.isEditable ) return;
     const {index, field} = target.closest("fieldset").dataset;
     const i = Number(index);
-    const j = Number(target.closest('.line-item').dataset.index);
+    const j = Number(target.closest(".line-item").dataset.index);
     const updateData = {system: {}};
     switch ( field ) {
       case "inputs":

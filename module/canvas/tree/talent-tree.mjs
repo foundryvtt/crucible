@@ -107,15 +107,15 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Create the PIXI Application
     Object.defineProperty(this, "app", {value: new PIXI.Application({
-        view: this.canvas,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        transparent: false,
-        resolution: 1,
-        autoDensity: true,
-        background: 0x0b0909,
-        antialias: false, // Not needed because we use SmoothGraphics
-        powerPreference: "high-performance" // Prefer high performance GPU for devices with dual graphics cards
+      view: this.canvas,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      transparent: false,
+      resolution: 1,
+      autoDensity: true,
+      background: 0x0b0909,
+      antialias: false, // Not needed because we use SmoothGraphics
+      powerPreference: "high-performance" // Prefer high performance GPU for devices with dual graphics cards
     }), writable: false});
     Object.defineProperty(this, "stage", {value: this.app.stage, writable: false});
 
@@ -351,9 +351,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Open the Talent Tree, binding it to a certain Actor
-   * @param {CrucibleActor} actor         The Actor to bind to the talent tree
-   * @param {object} [options]            Options which modify how the talent tree is opened
-   * @param {boolean} [options.resetView]   Reset the view coordinates of the tree to the center?
+   * @param {CrucibleActor} actor                      The Actor to bind to the talent tree
+   * @param {object} [options]                         Options which modify how the talent tree is opened
+   * @param {Application} [options.parentApp]          A parent application that embeds the tree
+   * @param {boolean} [options.resetView]              Reset the view coordinates of the tree to the center?
    */
   async open(actor, {parentApp=null, resetView=true}={}) {
     if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
@@ -457,9 +458,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Pan the visual position of the talent tree canvas.
-   * @param {number} [x]
-   * @param {number} [y]
-   * @param {number} [scale]
+   * @param {object} [options]
+   * @param {number} [options.x]
+   * @param {number} [options.y]
+   * @param {number} [options.scale]
    */
   pan({x, y, scale}={}) {
 
@@ -534,6 +536,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const signatures = CrucibleTalentNode.getSignatureTalents(actor);
 
     // Recursive testing function
+    /**
+     * Recursively update node states starting from a batch of seed nodes.
+     * @param {Map} nodes
+     * @param {boolean} accessible
+     */
     function updateBatch(nodes, accessible=false) {
       const next = [];
       for ( const node of nodes ) {
@@ -586,7 +593,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Window Events
     window.addEventListener("resize", this.#onResize.bind(this));
     window.addEventListener("wheel", this.#onWheel.bind(this), {passive: false});
-    this.#onResize();  // set initial dimensions
+    this.#onResize();  // Set initial dimensions
   }
 
   /* -------------------------------------------- */
@@ -637,7 +644,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #onWheel(event) {
     if ( this.canvas.hidden || (event.target?.id !== "crucible-talent-tree") ) return;
-    let dz = ( event.delta < 0 ) ? 1.05 : 0.95;
+    const dz = ( event.delta < 0 ) ? 1.05 : 0.95;
     this.pan({scale: dz * this.stage.scale.x});
   }
 

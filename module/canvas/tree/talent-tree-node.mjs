@@ -124,7 +124,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
-  /** @internal */
+  /**
+   * Handle pointer-over events to highlight this node.
+   * @param {Event} event
+   * @internal
+   */
   _onPointerOver(event) {
     const tree = crucible.tree;
     if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
@@ -139,7 +143,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
-  /** @internal */
+  /**
+   * Handle pointer-out events to restore this node to its default appearance.
+   * @param {Event} event
+   * @internal
+   */
   _onPointerOut(event) {
     const tree = game.system.tree;
     if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;

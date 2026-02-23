@@ -63,7 +63,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    * @param {{base: number, increases: number, bonus: number}} attr     The attribute value
    */
   static #validateAttribute(attr) {
-    if ( (attr.base + attr.increases) > 12 ) throw new Error(`Attribute base + bonus cannot exceed 12`);
+    if ( (attr.base + attr.increases) > 12 ) throw new Error("Attribute base + bonus cannot exceed 12");
   }
 
   /* -------------------------------------------- */
@@ -173,7 +173,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     // Ability Scores
     let abilityPointsBought = 0;
     let abilityPointsSpent = 0;
-    for ( let a in SYSTEM.ABILITIES ) {
+    for ( const a in SYSTEM.ABILITIES ) {
       const ability = this.abilities[a];
 
       // Configure initial value
@@ -211,13 +211,14 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   _prepareEquipment(items) {
     super._prepareEquipment(items);
     this._prepareCapacity(items);
-  };
+  }
 
   /* -------------------------------------------- */
 
   /**
    * Accumulates the current carrying weight of the character.
    * Total capacity is determined later after active effects are applied.
+   * @param {CrucibleItem[]} items
    * @protected
    */
   _prepareCapacity(items) {
@@ -282,6 +283,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /**
    * Prepare tags displayed about this Hero Actor.
+   * @param {string} scope
    * @returns {Record<string, string>}
    */
   getTags(scope="full") {

@@ -64,7 +64,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     const group = event.target.closest(".form-group");
-    if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
+    if ( group?.classList.contains("abilities") ) this.#updateAbilitySum();
     else if ( group?.classList.contains("resistances") ) {
       this.#updateResistanceSum();
     } else if ( group?.classList.contains("immunities") ) {

@@ -53,6 +53,7 @@ export default class Enum {
 
 /**
  * Deep freeze an enumeration, ensuring it has certain required properties.
+ * @param {object} record
  * @returns {Record<string, object>}
  */
 export function freezeEnum(record) {
@@ -63,7 +64,7 @@ export function freezeEnum(record) {
   }
   Object.defineProperty(record, "choices", {
     get() {
-      Object.values(this).map(v => ({value: v.id, label: v.label, group: v.group}));
+      return Object.values(this).map(v => ({value: v.id, label: v.label, group: v.group}));
     }
   });
   Object.freeze(record);

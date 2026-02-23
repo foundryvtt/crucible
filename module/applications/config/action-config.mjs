@@ -36,7 +36,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     },
     sheetConfig: false
   };
-  
+
   /**
    * A template partial used for rendering an Active Effect inside an Action.
    * @type {string}
@@ -217,6 +217,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * We do this rendering in JavaScript and pass the rendered string into the template to avoid the undesirable
    * auto-indenting caused by rendering this normally as a Handlebars Partial.
    * See https://github.com/handlebars-lang/handlebars.js/issues/858
+   * @param {boolean} disableHooks
    * @returns {Promise<string>}
    */
   async #renderActionHooksHTML(disableHooks) {
@@ -287,7 +288,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     actions[idx] = submitData;
 
     // Update actions array
-    await this.document.update({[`system.actions`]: actions}, {diff: false});
+    await this.document.update({"system.actions": actions}, {diff: false});
     // Updating the Item has re-constructed the CrucibleAction object
     // For continuity of this sheet instance, we update the source of this.action so we can re-render accordingly.
     this.action = this.document.actions[idx];
@@ -301,7 +302,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /**
    * Add an effect to the Action.
    * @this {CrucibleActionConfig}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
    * @returns {Promise<void>}
    */
   static async #onAddEffect(_event, _target) {
@@ -323,7 +325,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /**
    * Delete a status effect from the Action.
    * @this {CrucibleActionConfig}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onDeleteEffect(_event, target) {
@@ -338,7 +341,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /**
    * Add a new hook function to the Action.
    * @this {ActionConfig}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onAddHook(_event, target) {
@@ -362,7 +366,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /**
    * Delete a hook function from the Action.
    * @this {ActionConfig}
-   * @param {PointerEvent} event
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
   static async #onDeleteHook(_event, target) {

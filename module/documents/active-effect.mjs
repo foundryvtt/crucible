@@ -27,7 +27,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritDoc */
   get isSuppressed() {
     if ( super.isSuppressed ) return true;
-    if ( (this.parent instanceof crucible.api.documents.CrucibleItem) && this.parent.activeEffectsSuppressed ) return true;
+    if ( (this.parent instanceof crucible.api.documents.CrucibleItem)
+      && this.parent.activeEffectsSuppressed ) return true;
     return false;
   }
 

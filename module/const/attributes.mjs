@@ -173,7 +173,7 @@ export const DAMAGE_TYPES = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * @typedef {Object}  CrucibleResource    A resource pool available to an Actor within the system
+ * @typedef  CrucibleResource    A resource pool available to an Actor within the system
  * @property {string} id                  The resource id
  * @property {string} label               The localized full label for the resource
  * @property {string} abbreviation        The localized abbreviation for the resource

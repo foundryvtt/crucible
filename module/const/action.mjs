@@ -140,16 +140,16 @@ export const TARGET_TYPES = Object.freeze({
  * @property {string} label
  * @property {string[]} propagate     Propagate this tag to also apply other tags
  * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
- * @property {Function} [prepare]
- * @property {Function} [can]
- * @property {Function} [pre]
- * @property {Function} [roll]
- * @property {Function} [post]
+ * @property {function} [prepare]
+ * @property {function} [can]
+ * @property {function} [pre]
+ * @property {function} [roll]
+ * @property {function} [post]
  */
 
 /**
  * Categories of action tags which are supported by the system.
- * @type {Readonly<Object<string, {label: string}>>}
+ * @type {Readonly<Record<string, {label: string}>>}
  */
 export const TAG_CATEGORIES = Object.freeze({
   attack: {label: "ACTION.TAG_CATEGORIES.Attack"},

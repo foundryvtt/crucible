@@ -42,9 +42,9 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext(_options) {
     const system = this.actor.system;
-    const {milestones, expectedLevel, medianLevel} = system.advancement.milestones;
+    const {expectedLevel} = system.advancement.milestones;
     return {
       actor: this.document,
       system,
@@ -117,6 +117,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Award or revoke a milestone from the group actor.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -129,6 +130,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Remove a member actor from the group.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -141,6 +143,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Open the sheet for a group member actor.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -154,6 +157,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Cycle the travel pace of the group to the next available pace.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -167,6 +171,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Trigger a short recovery for all members of the group.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -177,6 +182,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /* -------------------------------------------- */
 
   /**
+   * Trigger a full rest for all members of the group.
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */

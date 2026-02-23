@@ -1,21 +1,20 @@
-import CrucibleAction from "./action.mjs";
 import CrucibleTalentNode from "../const/talent-node.mjs";
 import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
- * @typedef {Object} TalentData
+ * @typedef TalentData
  * @property {string[]} nodes
  * @property {string} description
  * @property {CrucibleAction[]} actions   The actions which have been unlocked by this talent
  * @property {string} [rune]
  * @property {string} [gesture]
  * @property {string} [inflection]
- * @property {{hook: string, fn: function}} actorHooks
+ * @property {{hook: string, fn: Function}} actorHooks
  */
 
 /**
- * @typedef {Object} TalentRankData
+ * @typedef TalentRankData
  * @property {string} description
  * @property {number} tier
  * @property {number} cost
@@ -25,7 +24,7 @@ import * as crucibleFields from "./fields.mjs";
  */
 
 /**
- * @typedef {Object} AdvancementPrerequisite
+ * @typedef AdvancementPrerequisite
  * @property {number} value       A numeric value that must be satisfied
  * @property {string} [label]     The string label of the prerequisite type
  * @property {string} [tag]       The formatted display for the prerequisite tag
@@ -51,7 +50,8 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     const blankString = {required: true, blank: true, initial: ""};
     return {
-      nodes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: () => CrucibleTalentNode.getChoices()})),
+      nodes: new fields.SetField(new fields.StringField({required: true, blank: false,
+        choices: () => CrucibleTalentNode.getChoices()})),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
       rune: new fields.StringField({...blankString, choices: SYSTEM.SPELL.RUNES}),
@@ -157,11 +157,11 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /**
    * Return an object of string formatted tag data which describes this item type.
-   * @returns {Object<string, string>}    The tags which describe this Talent
+   * @returns {Record<string, string>}    The tags which describe this Talent
    */
   getTags() {
     const tags = {};
-    for ( let [k, v] of Object.entries(this.prerequisites || {}) ) {
+    for ( const [k, v] of Object.entries(this.prerequisites || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
     }
     if ( this.iconicSpells ) {
@@ -181,7 +181,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    */
   static testPrerequisites(actor, prerequisites) {
     const reqs = {};
-    for ( let [k, v] of Object.entries(prerequisites) ) {
+    for ( const [k, v] of Object.entries(prerequisites) ) {
       const current = foundry.utils.getProperty(actor.system, k);
       reqs[k] = v;
       reqs[k].met = current >= v.value;
@@ -233,7 +233,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     }
 
     // Require prerequisite stats
-    for ( let [k, v] of Object.entries(this.prerequisites) ) {
+    for ( const [k, v] of Object.entries(this.prerequisites) ) {
       const current = foundry.utils.getProperty(actor.system, k) ?? 0;
       if ( current < v.value ) {
         const err = game.i18n.format("TALENT.WARNINGS.Locked", {
@@ -256,8 +256,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * Render this Talent as HTML for inline display.
    * @param {object} [options]
    * @param {boolean} [options.showRemove]  Whether to show "Remove Talent" button
-   * @param {boolean} [options.showLevel]   Whether to show the input for what level the Talent is granted at (on a details item)
-   * @param {number} [options.talentIndex]  The index of the currently-rendered Talent - only relevant when displaying level index
+   * @param {boolean} [options.showLevel]   Whether to show the input for what level the Talent is granted at
+   *   (on a details item)
+   * @param {number} [options.talentIndex]  The index of the currently-rendered Talent - only relevant when
+   *   displaying level index
    * @param {number} [options.level]        What level the Talent is granted at (on a details item)
    * @returns {Promise<string>}
    */
@@ -302,7 +304,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     if ( testPrereqs ) reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites);
     else {
       reqs = foundry.utils.deepClone(talent.system.prerequisites);
-      for ( let req in reqs ) reqs[req].met = true;
+      for ( const req in reqs ) reqs[req].met = true;
     }
 
     // Render the card
@@ -339,7 +341,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     container.innerHTML = await this.renderCard();
     if ( config.values.includes("centered") ) container.firstElementChild.classList.add("centered");
     return container;
-  };
+  }
 
   /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */

@@ -124,11 +124,14 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
 
   /**
    * When the CombatTracker is rendered, add a heroism progress bar.
+   * @param {Application} app
+   * @param {jQuery} _html
+   * @param {object} _options
    */
   static onRenderCombatTracker(app, _html, _options) {
     if ( game.combat?.type !== "combat" ) return;
     const header = app.element.querySelector(".combat-tracker-header");
-    const bar = `<div class="heroism-meter"><span class="heroism-bar"></span><span class="heroism-label"></span></div>`;
+    const bar = '<div class="heroism-meter"><span class="heroism-bar"></span><span class="heroism-label"></span></div>';
     header.insertAdjacentHTML("beforeend", bar);
     CrucibleCombatChallenge.refreshCombatTracker();
   }

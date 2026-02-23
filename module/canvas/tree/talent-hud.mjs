@@ -173,7 +173,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     this.target = target;
     const position = {
       left: target.x + (target.width / 2) + 10,
-      top: target.y + - (target.height / 2)
+      top: target.y - (target.height / 2)
     };
     if ( target instanceof CrucibleTalentTreeTalent ) {
       position.left += target.node.x;

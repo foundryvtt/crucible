@@ -64,7 +64,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       id: "attributes",
       template: undefined  // Defined during _initializeActorSheetClass
     },
-    actions:{
+    actions: {
       id: "actions",
       template: "systems/crucible/templates/sheets/actor/actions.hbs"
     },
@@ -85,7 +85,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       id: "spells",
       template: "systems/crucible/templates/sheets/actor/spells.hbs"
     },
-    effects:{
+    effects: {
       id: "effects",
       template: "systems/crucible/templates/sheets/actor/effects.hbs",
       scrollable: [".effects-sections"]
@@ -224,7 +224,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Prepare formatted ability scores for display on the Actor sheet.
-   * @return {object[]}
+   * @returns {object[]}
    */
   #prepareAbilities() {
     const a = this.actor.system.abilities;
@@ -344,18 +344,21 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Up to three weapons
     if ( mh ) {
       const mhTags = mh.getTags("short");
-      featuredEquipment.push({name: mh.name, type: mh.type, uuid: mh.uuid, img: mh.img, tags: [mhTags.damage, mhTags.range]});
+      featuredEquipment.push({name: mh.name, type: mh.type, uuid: mh.uuid, img: mh.img,
+        tags: [mhTags.damage, mhTags.range]});
     }
     if ( oh?.id ) {
       const ohTags = oh.getTags("short");
-      featuredEquipment.push({name: oh.name, type: oh.type, uuid: oh.uuid, img: oh.img, tags: [ohTags.damage, ohTags.range]});
+      featuredEquipment.push({name: oh.name, type: oh.type, uuid: oh.uuid, img: oh.img,
+        tags: [ohTags.damage, ohTags.range]});
     }
     if ( natural.length ) {
       for ( let i=0; i<3-featuredEquipment.length; i++ ) {
         const n = natural[i];
         if ( n ) {
           const tags = n.getTags("short");
-          featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img, tags: [tags.damage, tags.range]});
+          featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img,
+            tags: [tags.damage, tags.range]});
         }
       }
     }
@@ -363,7 +366,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Equipped Armor
     if ( armor.id || (this.actor.system.usesEquipment !== false) ) {
       const armorTags = armor.getTags();
-      featuredEquipment.push({name: armor.name, type: armor.type, uuid: armor.uuid, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
+      featuredEquipment.push({
+        name: armor.name, type: armor.type, uuid: armor.uuid, img: armor.img, tags: [armorTags.armor, armorTags.dodge]
+      });
     }
     return featuredEquipment;
   }
@@ -402,8 +407,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Iterate over items and organize them
     for ( const i of this.document.items ) {
       const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: [], sort: Infinity};
-      let section;
-      let category = SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(i.type) ? "physical" : i.type;
+      let section = "";
+      const category = SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(i.type) ? "physical" : i.type;
       switch ( category ) {
         case "base":
           section = sections.inventory.backpack;
@@ -489,9 +494,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       config.cssClass += " dropped";
       equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: game.i18n.format("ITEM.ACTIONS.Recover", {typeLabel})};
     }
-    else equipAction = item.system.equipped ?
-      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.ACTIONS.UnEquip", {typeLabel})} :
-      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.ACTIONS.Equip", {typeLabel})};
+    else equipAction = item.system.equipped
+      ? {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.ACTIONS.UnEquip", {typeLabel})}
+      : {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.ACTIONS.Equip", {typeLabel})};
     config.actions.push(equipAction);
     if ( (item.type === "weapon") && !item.system.dropped ) {
       config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.ACTIONS.Drop"});
@@ -524,8 +529,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         img: action.img,
         tags: action.getTags().activation,
         canEdit: !!action.parent,
-        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"} :
-          {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"}
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"}
+          : {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"}
       };
 
       // Classify actions
@@ -663,7 +668,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Prepare and format resistance data for rendering.
-   * @return {{physical: object[], elemental: object[], spiritual: object[]}}
+   * @returns {{physical: object[], elemental: object[], spiritual: object[]}}
    */
   #prepareResistances() {
     const resistances = foundry.utils.deepClone(SYSTEM.DAMAGE_CATEGORIES);
@@ -738,7 +743,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Organize skills by category in alphabetical order.
-   * @return {Record<string, {
+   * @returns {Record<string, {
    *   label: string,
    *   defaultIcon: string,
    *   color: Color,
@@ -824,6 +829,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open the configuration sheet for an action owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -837,6 +843,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Toggle the favorite state of an action for the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -861,6 +868,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Trigger the use of an action owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -872,6 +880,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open a dialog to create a new physical item owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -885,6 +894,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open a confirmation dialog to delete an item owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -896,6 +906,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Mark an equipped weapon as dropped and unequipped.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -907,6 +918,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open the item sheet for an item owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -918,6 +930,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Toggle the equipped state of a physical item owned by the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -946,6 +959,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Create a new ActiveEffect on the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -961,6 +975,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open a confirmation dialog to delete an ActiveEffect from the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -972,6 +987,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Open the sheet for an ActiveEffect on the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -983,6 +999,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Toggle the disabled state of an ActiveEffect on the actor.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -1007,6 +1024,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Expand or collapse a sheet section, collapsing sibling sections when expanding.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -1026,6 +1044,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Initiate a skill roll dialog for the clicked skill.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -1036,6 +1055,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Handle clicking a resource pip to adjust the resource value up or down.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
@@ -1065,7 +1085,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editLabel: "ACTOR.ACTIONS.EditEngagement",
       baseLabel: "ACTOR.FIELDS.movement.engagement.base"
     });
-  };
+  }
 
   /* -------------------------------------------- */
 
@@ -1082,7 +1102,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editLabel: "ACTOR.ACTIONS.EditSize",
       baseLabel: "ACTOR.FIELDS.movement.size.base"
     });
-  };
+  }
 
   /* -------------------------------------------- */
 
@@ -1099,7 +1119,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editLabel: "ACTOR.ACTIONS.EditStride",
       baseLabel: "ACTOR.FIELDS.movement.stride.base"
     });
-  };
+  }
 
   /* -------------------------------------------- */
 

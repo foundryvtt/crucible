@@ -1,5 +1,3 @@
-import {shocked} from "./effects.mjs";
-
 const nonGroupTypes = {actorTypes: ["hero", "adversary"]};
 
 
@@ -251,8 +249,8 @@ export const statusEffects = [
     id: "dominated",
     name: "ACTIVE_EFFECT.STATUSES.Dominated",
     img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
-    hud: false
-    // page: TODO
+    hud: false,
+    page: "" // TODO
   },
   {
     id: "entropy",

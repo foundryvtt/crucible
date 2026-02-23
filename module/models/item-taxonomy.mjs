@@ -65,7 +65,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
   /**
    * Validate that resistance scaling for the Taxonomy is balanced.
-   * @param {Object<string, {value: number; immune: boolean}>} resistances                Resistance choices
+   * @param {Record<string, {value: number; immune: boolean}>} resistances                Resistance choices
    * @param {DataFieldValidationOptions} [options={}]   Options which affect validation
    * @throws {Error}                                    An error if the resistance choices are invalid
    */

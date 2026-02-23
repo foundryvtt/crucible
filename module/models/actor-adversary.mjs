@@ -186,8 +186,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /**
    * Scale adversary abilities according to their threat level, taxonomy, and archetype.
-   * @param taxonomy
-   * @param archetype
+   * @param {object} taxonomy
+   * @param {object} archetype
    */
   #scaleAbilities(taxonomy, archetype) {
     const {level, threat} = this.advancement;
@@ -253,9 +253,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Sort remainder
     const tiebreaker = {toughness: 1, strength: 2, dexterity: 3, presence: 4, intellect: 5, wisdom: 6};
     remainder.sort((a, b) => {
-      return (a.needed - b.needed) ||                                               // Fewest points needed
-             (taxonomy.abilities[b.ability] - taxonomy.abilities[a.ability]) ||     // Taxonomy preference
-             (tiebreaker[a.ability] - tiebreaker[b.ability]);                       // Heuristic tiebreaker
+      return (a.needed - b.needed)                                               // Fewest points needed
+             || (taxonomy.abilities[b.ability] - taxonomy.abilities[a.ability])     // Taxonomy preference
+             || (tiebreaker[a.ability] - tiebreaker[b.ability]);                       // Heuristic tiebreaker
     });
     for ( const {ability} of remainder.slice(0, toSpend) ) {
       const a = this.abilities[ability];
@@ -269,7 +269,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /**
    * Scale adversary resistances according to their threat level and taxonomy.
-   * @param taxonomy
+   * @param {object} taxonomy
    */
   #scaleResistances(taxonomy) {
     for ( const [r, res] of Object.entries(this.resistances) ) {
@@ -331,6 +331,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /**
    * Prepare tags displayed about this adversary Actor.
+   * @param {string} scope
    * @returns {Record<string, string>}
    */
   getTags(scope="full") {

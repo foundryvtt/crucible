@@ -25,8 +25,6 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
   /** @override */
   _buildElements() {
-    const isReadonly = this.hasAttribute("readonly");
-
     // Initialize existing raw value
     this._value = Number(this.getAttribute("value") || 0);
     this.removeAttribute("value");
@@ -79,7 +77,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
       input.value = span.innerText = String(v);
       if ( isReadonly ) {
         const isRequired = (this._value === 0) && (crucible.CONFIG.currency[k].multiplier === 1);
-        let canHide = (v === 0) && !isRequired;
+        const canHide = (v === 0) && !isRequired;
         input.classList.toggle("hidden", true);
         span.classList.toggle("hidden", canHide);
         icon.classList.toggle("hidden", canHide);
@@ -114,6 +112,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
   /**
    * Handle changes to a currency input value.
+   * @param {Event} event
    */
   #onChangeInput(event) {
     const input = event.target;

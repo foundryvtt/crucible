@@ -28,7 +28,7 @@ export const NODE_TYPES = Object.freeze({
  * @type {Readonly<Record<"root"|number, {level: number, ability: number}>>}
  */
 export const NODE_TIERS = Object.freeze({
-  "root": {level: 0, ability: 0},
+  root: {level: 0, ability: 0},
   0: {level: 0, ability: 2},
   1: {level: 0, ability: 3},
   2: {level: 2, ability: 4},

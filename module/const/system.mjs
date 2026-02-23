@@ -86,7 +86,7 @@ export const THREAT_RANKS = {
 
 /**
  * Define the Action life-cycle hooks which are supported for an Action.
- * @enum {Readonly<Object<{argNames: string[]}>>}
+ * @enum {Readonly<Record<string, {argNames: string[], argLabels: string[]}>>}
  */
 export const ACTION_HOOKS = Object.freeze({
   initialize: {
@@ -180,7 +180,7 @@ export const SYSTEM = {
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,
   SKILL: {...SKILL},
-  SKILLS: SKILL.SKILLS, // alias
+  SKILLS: SKILL.SKILLS,
   SPELL: {...SPELL},
   TALENT: {...TALENT},
   THREAT_RANKS,

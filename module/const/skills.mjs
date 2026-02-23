@@ -4,19 +4,19 @@
  * @type {Record<string, {label: string, hint: string, defaultIcon: string, color: Color}>}
  */
 export const CATEGORIES = {
-  "exp": {
+  exp: {
     label: "SKILL.CATEGORY.EXPLORATION.label",
     hint: "SKILL.CATEGORY.EXPLORATION.hint",
     defaultIcon: "icons/skills/no-exp.jpg",
     color: Color.from("#81cc44")
   },
-  "kno": {
+  kno: {
     label: "SKILL.CATEGORY.KNOWLEDGE.label",
     hint: "SKILL.CATEGORY.KNOWLEDGE.hint",
     defaultIcon: "icons/skills/no-kno.jpg",
     color: Color.from("#6c6cff")
   },
-  "soc": {
+  soc: {
     label: "SKILL.CATEGORY.SOCIAL.label",
     hint: "SKILL.CATEGORY.SOCIAL.hint",
     defaultIcon: "icons/skills/no-soc.jpg",
@@ -206,7 +206,7 @@ export const SKILLS = Object.freeze({
  * The UUID of the journal entry which provides skill definitions to the system.
  * @type {string}
  */
-export let JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00";
+export const JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00";
 
 /**
  * @typedef CrucibleKnowledgeConfig

@@ -45,7 +45,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     else config.shape = "circle";
 
     // Further configuration based on shape
-    let shape = this.config.shape;
+    const shape = this.config.shape;
     switch (shape ) {
       case "circle":
         config.shape = "circle";

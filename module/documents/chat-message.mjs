@@ -59,9 +59,10 @@ export default class CrucibleChatMessage extends ChatMessage {
 
   /**
    * Returns the most recent action in the chat log
-   * @param {Object} [options]              Options which specify criteria the most recent action must meet to be returned
-   * @param {boolean} [confirmed]           Require the action to be confirmed (true), unconfirmed (false), or either (undefined)
-   * @param {CrucibleActor|string} [actor]  An Actor (or actor ID) who must have performed the most recent action
+   * @param {object} [options]                    Options which specify criteria the most recent action must meet
+   * @param {boolean} [options.confirmed]         Require the action to be confirmed (true), unconfirmed (false),
+   *   or either (undefined)
+   * @param {Actor} [options.actor]               An Actor (or actor ID) who must have performed the most recent action
    * @returns {CrucibleAction|null}
    */
   static getLastAction({confirmed, actor}={}) {
@@ -87,7 +88,7 @@ export default class CrucibleChatMessage extends ChatMessage {
     const html = await super.renderHTML(options);
     if ( this.flags.crucible?.isInitiativeReport ) return html;
     if ( (this.rolls[0] instanceof StandardCheck) && !html.querySelector(".crucible.dice-roll") ) {
-      let rollHTML = [];
+      const rollHTML = [];
       for ( const roll of this.rolls ) {
         rollHTML.push(await roll.render({isPrivate: !this.isContentVisible, message: this}));
       }
@@ -102,6 +103,9 @@ export default class CrucibleChatMessage extends ChatMessage {
   /**
    * Custom alterations to apply when rendering chat message HTML.
    * Currently applied via the renderChatMessageHTML hook
+   * @param {ChatMessage} message
+   * @param {HTMLElement} html
+   * @param {object} _messageData
    */
   static onRenderHTML(message, html, _messageData) {
     const flags = message.flags.crucible || {};
@@ -116,12 +120,12 @@ export default class CrucibleChatMessage extends ChatMessage {
       if ( flags.confirmed ) {
         const target = html.querySelector(".damage-result .target");
         if ( target ) target.classList.add("applied");
-        if ( meta ) meta.insertAdjacentHTML("afterbegin", `<i class="confirmed fa-solid fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
+        if ( meta ) meta.insertAdjacentHTML("afterbegin", "<i class=\"confirmed fa-solid fa-hexagon-check\" data-tooltip=\"ACTION.Confirmed\"></i>");
       }
       else {
-        if ( meta ) meta.insertAdjacentHTML("afterbegin", `<i class="unconfirmed fa-solid fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
+        if ( meta ) meta.insertAdjacentHTML("afterbegin", "<i class=\"unconfirmed fa-solid fa-hexagon-xmark\" data-tooltip=\"ACTION.Unconfirmed\"></i>");
         if ( game.user.isGM ) {
-          const confirm = foundry.utils.parseHTML(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`);
+          const confirm = foundry.utils.parseHTML("<button class=\"confirm frame-brown\" type=\"button\"><i class=\"fas fa-hexagon-check\"></i>Confirm</button>");
           html.appendChild(confirm);
           confirm.addEventListener("click", event => {
             const button = event.currentTarget;

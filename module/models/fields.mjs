@@ -84,7 +84,6 @@ export class ItemIdentifierField extends fields.StringField {
   /**
    * Validate that the identifier meets requirements.
    * @param {string} id
-   * @returns {boolean}
    */
   static #validate(id) {
     if ( !ItemIdentifierField.#IDENTIFIER_REGEX.test(id) ) {

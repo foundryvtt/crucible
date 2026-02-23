@@ -60,8 +60,8 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
    * @returns {Promise<CrucibleItem>}   The updated item
    */
   async consume(uses=1) {
-    let {value, max} = this.uses;
-    let quantity = this.quantity;
+    const {value, max} = this.uses;
+    const quantity = this.quantity;
     const currentUses = (max * (quantity - 1)) + value;
     const newUses = Math.max(currentUses - uses, 0);
     const targetQuantity = this.properties.has("stackable") ? Math.ceil(newUses / max) : 1;
