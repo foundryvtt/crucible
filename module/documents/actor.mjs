@@ -1080,8 +1080,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async #applyOutcomeEffects(outcome, reverse=false) {
-
-    // Create new effects or update existing ones
+    if ( !outcome.effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
