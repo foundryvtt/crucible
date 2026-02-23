@@ -43,7 +43,6 @@ system:
       actionHooks: []
   runes:
     - oblivion
-    - illumination
   gestures:
     - pulse
   inflections:

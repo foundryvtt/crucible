@@ -52,7 +52,6 @@ system:
       actionHooks: []
   runes:
     - illumination
-    - control
   gestures:
     - create
   inflections:
