@@ -99,10 +99,10 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /** @override */
   _prepareBaseMovement() {
+    super._prepareBaseMovement();
     const {size=4, stride=10} = this.details.ancestry.movement;
-    const m = this.movement;
-    m.baseSize = size;
-    m.baseStride = stride;
+    this.movement.baseSize = size;
+    this.movement.baseStride = stride;
   }
 
   /* -------------------------------------------- */
@@ -149,15 +149,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     // Threat level
     const adv = this.advancement;
     Object.assign(adv, {threatFactor: 1, threatLevel: adv.level, threat: adv.level});
-
-    // Base Resistances
-    const res = this.resistances;
-    for ( const r of Object.values(res) ) r.base = 0;
-
-    // Ancestry Resistances
-    const {resistance, vulnerability} = this.details.ancestry.resistances;
-    if ( resistance ) res[resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
-    if ( vulnerability ) res[vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
   }
 
   /* -------------------------------------------- */
@@ -166,7 +157,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    * Prepare abilities data for the Hero subtype specifically.
    * @override
    */
-  _prepareAbilities() {
+  _prepareBaseAbilities() {
     const points = this.points.ability;
     const {primary, secondary} = this.details.ancestry.abilities;
 
@@ -180,7 +171,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       ability.initial = 1;
       if ( a === primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAbilityStart;
       else if ( a === secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAbilityStart;
-      ability.value = Math.clamp(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
 
       // Track points spent
       abilityPointsBought += ability.base;
@@ -193,6 +183,18 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     points.spent = abilityPointsSpent;
     points.available = points.total - abilityPointsSpent;
     points.requireInput = (this.advancement.level === 0) ? (points.pool > 0) : (points.available !== 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareBaseDefenses() {
+    super._prepareBaseDefenses();
+    const res = this.resistances;
+    for ( const r of Object.values(res) ) r.base = 0;
+    const {resistance, vulnerability} = this.details.ancestry.resistances;
+    if ( resistance ) res[resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
+    if ( vulnerability ) res[vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
   }
 
   /* -------------------------------------------- */
@@ -233,8 +235,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _prepareMovement() {
-    super._prepareMovement();
+  _prepareFinalMovement() {
+    super._prepareFinalMovement();
     const c = this.capacity;
     c.max = this.abilities.strength.value * 30;
     c.overflow = c.max - c.value;

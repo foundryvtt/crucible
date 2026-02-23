@@ -129,13 +129,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Track the Actions which this Actor has available to use
-   * @type {Record<string, CrucibleAction>}
+   * @type {Object<string, CrucibleAction>}
    */
   actions = this.actions;
 
   /**
    * Actor hook functions which apply to this Actor.
-   * @type {Record<string, {item: CrucibleItem, fn: Function}[]>}
+   * @type {Object<string, {item: CrucibleItem, fn: Function}[]>}
    */
   actorHooks = this.actorHooks;
 
@@ -159,7 +159,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Temporary roll bonuses this actor has outside the fields of its data model.
-   * @type {{[damage]: Record<string, number>, [boons]: Record<string, DiceBoon>, [banes]: Record<string, DiceBoon>}}
+   * @type {{[damage]: Object<string, number>, [boons]: Object<string, DiceBoon>, [banes]: Object<string, DiceBoon>}}
    */
   rollBonuses = this.rollBonuses;
 
@@ -251,9 +251,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   prepareBaseData() {
     this.#clear();
     this._prepareDetails();
-    this._prepareAbilities();
     this._prepareBaseMovement();
-    this._prepareBaseResources();
+    this.details.progression = this._configureProgression(); // Affected by base size
+    this._prepareBaseAbilities();
+    this._prepareBaseDefenses();
   }
 
   /* -------------------------------------------- */
@@ -285,14 +286,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare basic movement attributes for all Actor subtypes.
-   * @protected
-   */
-  _prepareBaseMovement() {}
-
-  /* -------------------------------------------- */
-
-  /**
    * Prepare creature details for all Actor subtypes.
    * @protected
    */
@@ -301,10 +294,25 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare ability scores for all Actor subtypes.
+   * Configure parameters of progression for this Actor type.
    * @protected
    */
-  _prepareAbilities() {}
+  _configureProgression() {
+    const {level, threat, threatFactor} = this.advancement;
+    return {
+      actionMax: 6,
+      focusBonus: {1.5: 1, 2: 2}[threatFactor] || 0, // TODO unused. Remove this? Or implement it?
+      healthPerLevel: 6,
+      healthMultiplier: level < 1 ? threat : threatFactor,
+      heroismMax: 3,
+      madnessMultiplier: 1.5,
+      moralePerLevel: 6,
+      moraleMultiplier: level < 1 ? threat : threatFactor,
+      woundsMultiplier: 1.5,
+      abilityMin: 0,
+      abilityMax: 12
+    };
+  }
 
   /* -------------------------------------------- */
   /*  Embedded Document Preparation               */
@@ -316,21 +324,15 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareItems(items) {
 
-    // Acquired talents, training, skills
+    // Register Talents
     this.#prepareTalents(items.talent);
     this._prepareTraining();
-    this.#prepareSkills();
 
     // Equipment
     this._prepareEquipment(items);
 
     // Iconic Spells
     this.#prepareSpells(items.spell);
-
-    // Defenses based on current equipment
-    this.#preparePhysicalDefenses();
-    this.#prepareSaveDefenses();
-    this.#prepareHealingThresholds();
   }
 
   /* -------------------------------------------- */
@@ -405,17 +407,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @protected
    */
   _prepareTraining() {}
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare skills data for all Actor subtypes.
-   */
-  #prepareSkills() {
-    for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      this.skills[skillId] = this.#prepareSkill(config);
-    }
-  }
 
   /* -------------------------------------------- */
 
@@ -619,9 +610,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !weapons.offhand && ohOpen ) weapons.offhand = mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
     const ohCategory = oh?.config.category || {};
-    mh?.system.prepareEquippedData();
-    oh?.system.prepareEquippedData();
-    for ( const n of weapons.natural ) n.system.prepareEquippedData();
 
     // Weapon Set Metadata
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
@@ -643,7 +631,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Multi weapon properties
-
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
     weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
@@ -663,10 +650,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @returns {CrucibleItem}
    */
   _getUnarmedWeapon() {
-    const itemCls = getDocumentClass("Item");
+    const itemCls = /** @type {typeof CrucibleItem} */ getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     data.name = game.i18n.localize(data.name);
-    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
+    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine"; // TODO move to talent hook
     const unarmed = new itemCls(data, {parent: this.parent});
     unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
     return unarmed;
@@ -675,65 +662,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Physical Defenses.
+   * Perform derived preparation steps for equipped items that depend on final Actor data like ability
+   * scores or training ranks.
    */
-  #preparePhysicalDefenses() {
-    const {equipment} = this.parent;
-    const {abilities, defenses} = this;
-
-    // Armor and Dodge from equipped Armor
-    const armorData = equipment.armor.system;
-    defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus = armorData.armor.bonus;
-    defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
-
-    // Block and Parry from equipped Weapons
-    const weaponData = [];
-    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
-    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
-    defenses.block = {base: 0, bonus: 0};
-    defenses.parry = {base: 0, bonus: 0};
-    for ( const wd of weaponData ) {
-      for ( const d of ["block", "parry"] ) {
-        defenses[d].base += wd.defense[d];
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare non-physical defenses.
-   */
-  #prepareSaveDefenses() {
-    const {equipment, talentIds} = this.parent;
-
-    // Defense base is the system passive base of 12
-    const base = SYSTEM.PASSIVE_BASE;
-    const penalty = Math.min(this.advancement.level, 0);
-
-    // Prepare save defenses
-    for ( const [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( sd.type !== "save" ) continue;
-      const d = this.defenses[k];
-      d.base = base;
-      if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
-      d.bonus = penalty;
-      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2; // TODO move to talent hooks
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare healing thresholds for Wounds and Madness.
-   */
-  #prepareHealingThresholds() {
-    const defenses = this.defenses;
-    defenses.wounds = {base: SYSTEM.PASSIVE_BASE, bonus: 0};
-    defenses.madness = {base: SYSTEM.PASSIVE_BASE, bonus: 0};
+  #prepareEquippedItems() {
+    const weapons = this.equipment.weapons;
+    weapons.mainhand?.system.prepareEquippedData();
+    weapons.offhand?.system.prepareEquippedData();
+    for ( const w of weapons.natural ) w.system.prepareEquippedData();
   }
 
   /* -------------------------------------------- */
@@ -746,15 +682,22 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareDerivedData() {
 
+    // Ability Scores
+    this.parent.callActorHooks("prepareAbilities", this.abilities);
+    this.#prepareFinalAbilities();
+
     // Movement and Size
-    this._prepareMovement();
     this.parent.callActorHooks("prepareMovement", this.movement);
+    this._prepareFinalMovement();
 
     // Resource pools
+    this.#prepareBaseResources();
     this.parent.callActorHooks("prepareResources", this.resources);
     this.#prepareFinalResources();
 
     // Defenses
+    this.#preparePhysicalDefenses();
+    this.#prepareSaveDefenses();
     this.parent.callActorHooks("prepareDefenses", this.defenses);
     this.#prepareFinalDefenses();
 
@@ -762,26 +705,73 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareResistances", this.resistances);
     this.#prepareFinalResistances();
 
+    // Skills
+    this.#prepareSkills();
+    this.parent.callActorHooks("prepareSkills", this.skills);
+
+    // Prepare Equipped Items
+    this.#prepareEquippedItems();
+
     // Actions
     this.#prepareActions();
     this.parent.callActorHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
+  /*  Ability Preparation                         */
+  /* -------------------------------------------- */
 
   /**
-   * Prepare a single Skill.
-   * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
-   * @returns {CrucibleActorSkill}
+   * Prepare ability scores for all Actor subtypes.
+   * @protected
    */
-  #prepareSkill(config) {
-    const rank = this.training[config.id] ?? 0;
-    const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-    const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
-    const enchantmentBonus = 0;
-    const score = abilityBonus + skillBonus + enchantmentBonus;
-    const passive = SYSTEM.PASSIVE_BASE + score;
-    return {rank, abilityBonus, skillBonus, enchantmentBonus, score, passive};
+  _prepareBaseAbilities() {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare final ability scores as the sum of initial, base, increases, and bonus components.
+   * Scores are clamped between an allowed minimum and maximum value, configured per actor type.
+   */
+  #prepareFinalAbilities() {
+    const {abilityMin, abilityMax} = this.details.progression;
+    for ( const ability of Object.values(this.abilities) ) {
+      const total = ability.initial + ability.base + ability.increases + ability.bonus;
+      ability.value = Math.clamp(total, abilityMin, abilityMax);
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Movement Preparation                        */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare basic movement attributes for all Actor subtypes.
+   * @protected
+   */
+  _prepareBaseMovement() {
+    const m = this.movement;
+    m.baseEngagement = 1;
+    m.sizeBonus = m.strideBonus = m.engagementBonus = 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation of derived movement for all Actor subtypes.
+   */
+  _prepareFinalMovement() {
+    const m = this.movement;
+
+    // Size and Stride
+    m.size = m.baseSize + m.sizeBonus;
+    m.stride = m.free = m.baseStride + m.strideBonus;
+
+    // Engagement
+    const {mainhand, offhand} = this.parent.equipment.weapons;
+    if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
+    if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;
+    m.engagement = m.baseEngagement + m.engagementBonus;
   }
 
   /* -------------------------------------------- */
@@ -790,51 +780,29 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Compute base and bonus values for every resource pool.
-   * @protected
    */
-  _prepareBaseResources() {
+  #prepareBaseResources() {
     const {resources: rs, abilities: a} = this;
     const level = this.advancement.level;
-    const rc = this._configureResourceProgression();
+    const p = this.details.progression;
 
     // Health and Wounds
-    const healthBase = Math.max(level, 1) * rc.healthPerLevel;
-    rs.health.base = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * rc.healthMultiplier);
-    if ( "wounds" in rs ) rs.wounds.base = Math.ceil(rc.woundsMultiplier * rs.health.base);
+    const healthBase = Math.max(level, 1) * p.healthPerLevel;
+    rs.health.base = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * p.healthMultiplier);
+    if ( "wounds" in rs ) rs.wounds.base = Math.ceil(p.woundsMultiplier * rs.health.base);
 
     // Morale and Madness
-    const moraleBase = Math.max(level, 1) * rc.moralePerLevel;
-    rs.morale.base = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * rc.moraleMultiplier);
-    if ( "madness" in rs ) rs.madness.base = Math.ceil(rc.madnessMultiplier * rs.morale.base);
+    const moraleBase = Math.max(level, 1) * p.moralePerLevel;
+    rs.morale.base = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * p.moraleMultiplier);
+    if ( "madness" in rs ) rs.madness.base = Math.ceil(p.madnessMultiplier * rs.morale.base);
 
     // Resources
-    rs.action.base = rc.actionMax;
+    rs.action.base = p.actionMax;
     rs.focus.base = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
-    rs.heroism.base = rc.heroismMax;
+    rs.heroism.base = p.heroismMax;
 
     // Initialize bonuses for each resource
     for ( const r of Object.values(rs) ) r.bonus = 0;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Configure parameters of resource progression for this Actor type.
-   * @protected
-   */
-  _configureResourceProgression() {
-    const {level, threat, threatFactor} = this.advancement;
-    return {
-      actionMax: 6,
-      focusBonus: {1.5: 1, 2: 2}[threatFactor] || 0,
-      healthPerLevel: 6,
-      healthMultiplier: level < 1 ? threat : threatFactor,
-      heroismMax: 3,
-      madnessMultiplier: 1.5,
-      moralePerLevel: 6,
-      moraleMultiplier: level < 1 ? threat : threatFactor,
-      woundsMultiplier: 1.5
-    };
   }
 
   /* -------------------------------------------- */
@@ -877,6 +845,62 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Defense Preparation                         */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare base defense data which may scale depending on actor details.
+   * Initialize bonus values to zero which are eligible as targets for active effect application.
+   * @protected
+   */
+  _prepareBaseDefenses() {
+    for ( const d of Object.values(this.defenses) ) d.base = d.bonus = 0;
+    this.defenses.wounds.base = this.defenses.madness.base = SYSTEM.PASSIVE_BASE;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Physical Defenses.
+   */
+  #preparePhysicalDefenses() {
+    const {equipment} = this.parent;
+    const {abilities, defenses} = this;
+
+    // Armor and Dodge from equipped Armor
+    const armorData = equipment.armor.system;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus += armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus += Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
+
+    // Block and Parry from equipped Weapons
+    const weaponData = [];
+    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
+    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
+    for ( const wd of weaponData ) {
+      for ( const d of ["block", "parry"] ) defenses[d].base += wd.defense[d];
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare non-physical defenses.
+   * Defense base is the system passive base of 12 with a penalty for creatures below level zero.
+   */
+  #prepareSaveDefenses() {
+    const {equipment, talentIds} = this.parent;
+    const base = SYSTEM.PASSIVE_BASE + Math.min(this.advancement.level, 0);
+    for ( const [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( sd.type !== "save" ) continue;
+      const d = this.defenses[k];
+      d.base = base;
+      if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2; // TODO move to talent hooks
+    }
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -926,28 +950,37 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
+  /*  Skill Preparation                           */
+  /* -------------------------------------------- */
 
   /**
-   * Preparation of derived movement for all Actor subtypes.
+   * Prepare skills data for all Actor subtypes.
    */
-  _prepareMovement() {
-    const m = this.movement;
-
-    // Size
-    m.size = m.baseSize + m.sizeBonus;
-
-    // Stride
-    m.stride = m.baseStride + m.strideBonus;
-    m.free = m.stride;
-
-    // Engagement
-    m.baseEngagement = 1;
-    const {mainhand, offhand} = this.parent.equipment.weapons;
-    if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
-    if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;
-    m.engagement = m.baseEngagement + m.engagementBonus;
+  #prepareSkills() {
+    for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
+      this.skills[skillId] = this.#prepareSkill(config);
+    }
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a single Skill.
+   * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
+   * @returns {CrucibleActorSkill}
+   */
+  #prepareSkill(config) {
+    const rank = this.training[config.id] ?? 0;
+    const abilityBonus = this.parent.getAbilityBonus(config.abilities);
+    const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
+    const enchantmentBonus = 0;
+    const score = abilityBonus + skillBonus + enchantmentBonus;
+    const passive = SYSTEM.PASSIVE_BASE + score;
+    return {rank, abilityBonus, skillBonus, enchantmentBonus, score, passive};
+  }
+
+  /* -------------------------------------------- */
+  /*  Action Preparation                          */
   /* -------------------------------------------- */
 
   /**

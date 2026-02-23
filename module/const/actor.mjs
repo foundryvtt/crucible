@@ -299,6 +299,10 @@ export const HOOKS = Object.freeze({
   },
 
   // Data Preparation
+  prepareAbilities: {
+    group: "TALENT.HOOKS.GroupPreparation",
+    argNames: ["abilities"]
+  },
   prepareActions: {
     group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["actions"]
@@ -322,6 +326,10 @@ export const HOOKS = Object.freeze({
   prepareResistances: {
     group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["resistances"]
+  },
+  prepareSkills: {
+    group: "TALENT.HOOKS.GroupPreparation",
+    argNames: ["skills"]
   },
 
   // Equipment Preparation

@@ -232,6 +232,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   applyActiveEffects() {
     // Before applying active effects, apply data based on prepared embedded Item documents
+    // TODO in V14 this can be removed in favor of phased AE application
     const items = this.itemTypes;
     this.system.prepareItems(items);
     super.applyActiveEffects();
