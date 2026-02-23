@@ -1,0 +1,86 @@
+name: Necrotic Bite
+type: talent
+img: icons/magic/unholy/strike-beam-blood-red-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} tears into flesh with a maw that is
+    corrupted by pestilence and undeath.</p>
+  actions:
+    - id: necroticBite
+      name: Necrotic Bite
+      img: icons/magic/unholy/strike-beam-blood-red-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} attacks with a pestilent bite that is
+        <strong>Empowered</strong> and deals <strong>Corruption</strong>
+        damage.</p><p>On a <strong>Critical Success</strong> the attack causes
+        the @Condition[decaying] condition for <strong>3 Turns</strong>.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - decaying
+          duration:
+            turns: 3
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - melee
+        - natural
+        - empowered
+        - corruption
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 9uAW3eV4LNZ2lQ0V
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771704973321
+  modifiedTime: 1771704973321
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: necroticBite0000
+sort: 0
+_key: '!items!necroticBite0000'

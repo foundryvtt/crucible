@@ -1,0 +1,90 @@
+name: Grave Mark
+type: talent
+img: icons/magic/death/undead-skeleton-worn-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>When the @ref[actor.name]{creature} achieves a Critical Hit with a melee
+    attack, it leaves a baleful Grave Mark upon its target.</p>
+  actions:
+    - id: graveMark
+      name: Grave Mark
+      img: icons/magic/death/undead-skeleton-worn-blue.webp
+      condition: When achieving a Critical Hit with a melee attack.
+      description: >-
+        <p>After achieving a <strong>Critical Hit</strong> with a melee attack,
+        the @ref[actor.name]{creature} attacks the target's
+        <strong>Willpower</strong> defense, leaving a Grave Mark upon a success
+        that inflicts the @Condition[exhausted] condition that persists until
+        the target completes a <strong>Rest</strong>.</p><p>If a humanoid
+        creature bearing a Grave Mark dies while under the effects of the mark,
+        it rises from death on its subsequent Turn as a
+        @UUID[Compendium.crucible.taxonomy.Item.ghoul00000000000]{Ghoul}.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - exhausted
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - harmless
+        - willpower
+        - skill
+        - intimidation
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: EDeByOa9cuYSaF8Y
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771792957888
+  modifiedTime: 1771792957888
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+_id: graveMark0000000
+sort: 0
+_key: '!items!graveMark0000000'

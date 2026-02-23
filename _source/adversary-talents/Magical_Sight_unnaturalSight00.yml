@@ -28,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.351'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751480341410
-  modifiedTime: 1753449061430
+  modifiedTime: 1771795520704
   lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 100000
+sort: 600000
 _key: '!items!unnaturalSight00'

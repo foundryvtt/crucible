@@ -1,0 +1,90 @@
+name: Ghoul
+type: taxonomy
+img: icons/magic/death/skull-humanoid-white-blue.webp
+system:
+  description: >-
+    <p>Malevolent and cunning undead who retain enough of their mortal cognition
+    to construct and execute upon plans and schemes to torment or destroy living
+    creatures.</p>
+  identifier: ghoul
+  category: undead
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 3
+    strength: 2
+    toughness: 2
+    dexterity: 3
+  movement:
+    size: 4
+    stride: 10
+  resistances:
+    bludgeoning:
+      value: 1
+      immune: false
+    corruption:
+      value: 2
+      immune: false
+    piercing:
+      value: -1
+      immune: false
+    slashing:
+      value: -1
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 1
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
+      level: null
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.skirmisher000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.rakingTalons0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.necroticBite0000
+      level: 2
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: REYz7fzLYEdBX3A2
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771704244124
+  modifiedTime: 1771794854759
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: ghoul00000000000
+sort: 100000
+_key: '!items!ghoul00000000000'

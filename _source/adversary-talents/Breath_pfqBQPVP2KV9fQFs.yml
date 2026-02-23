@@ -5,7 +5,7 @@ color: null
 sorting: a
 _id: pfqBQPVP2KV9fQFs
 description: ''
-sort: 900000
+sort: 1300000
 flags: {}
 _stats:
   compendiumSource: null
@@ -15,5 +15,5 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   lastModifiedBy: QvBFYpRRXHRBcOfP
-  modifiedTime: 1771690363756
+  modifiedTime: 1771791405924
 _key: '!folders!pfqBQPVP2KV9fQFs'

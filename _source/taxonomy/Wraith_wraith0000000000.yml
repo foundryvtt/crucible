@@ -1,0 +1,98 @@
+name: Wraith
+type: taxonomy
+img: icons/magic/death/skull-energy-light-purple.webp
+system:
+  description: >-
+    <p>Wraiths are incorporeal undead born from souls that refused release -
+    their physical form dissolved entirely into shadow, leaving only spite and
+    sorrow given motion. They ignore conventional defenses, their touch
+    bypassing armor and parry alike to assault the psychic and necrotic
+    vulnerabilities of the living directly. Prolonged exposure to a wraith's
+    presence drains morale as much as health, and those who survive an encounter
+    often find their focus and resolve slow to return.</p>
+  identifier: wraith
+  category: undead
+  abilities:
+    wisdom: 3
+    presence: 3
+    intellect: 2
+    strength: 3
+    toughness: 0
+    dexterity: 1
+  movement:
+    size: 6
+    stride: 12
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: true
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: 1
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: -2
+      immune: false
+    void:
+      value: -2
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.sunlightWeakness
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.corruptionAbsorp
+      level: 4
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.shadowGait000000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.graveMark0000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.gloomSight000000
+      level: null
+  characteristics:
+    equipment: true
+    spells: true
+effects: []
+folder: REYz7fzLYEdBX3A2
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771794854725
+  modifiedTime: 1771796097983
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: wraith0000000000
+sort: 300000
+_key: '!items!wraith0000000000'

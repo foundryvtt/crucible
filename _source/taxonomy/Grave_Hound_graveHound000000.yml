@@ -1,0 +1,91 @@
+name: Grave Hound
+type: taxonomy
+img: icons/magic/death/projectile-skull-animal-green.webp
+system:
+  description: >-
+    <p>Terrible undead canines who have fallen to corruption and become servants
+    of undeath. Grave Hounds are found as guardians of unholy places, companions
+    to the forces of undeath, or as terrible packs dispatched to hunt and
+    terrorize the living.</p>
+  identifier: graveHound
+  category: undead
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 2
+    toughness: 3
+    dexterity: 3
+  movement:
+    size: 4
+    stride: 12
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 2
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: -1
+      immune: false
+    acid:
+      value: -1
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: 1
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 1
+      immune: false
+    radiant:
+      value: -2
+      immune: false
+    void:
+      value: 1
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.shadowGait000000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.sunlightWeakness
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.graveMark0000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.necroticBite0000
+      level: null
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: REYz7fzLYEdBX3A2
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771793029798
+  modifiedTime: 1771794854759
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: graveHound000000
+sort: 400000
+_key: '!items!graveHound000000'

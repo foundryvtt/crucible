@@ -1,0 +1,67 @@
+name: Shadow Gait
+type: talent
+img: icons/creatures/magical/humanoid-silhouette-dashing-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to step into and out of shadow
+    itself to move in nightmarish and unpredictable ways.</p>
+  actions:
+    - id: shadowGait
+      name: Shadow Gait
+      img: icons/creatures/magical/humanoid-silhouette-dashing-blue.webp
+      condition: ''
+      description: >-
+        <p>While in dim light or darkness, the @ref[actor.name] can meld into
+        shadow to disappear from view. It may <strong>Move</strong> and reappear
+        within a different area which is also dim light or darkness. This is a
+        <strong>Displace</strong> movement which provokes no disengagement.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+      tags:
+        - movement
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771791409681
+  modifiedTime: 1771791409681
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: shadowGait000000
+sort: 0
+_key: '!items!shadowGait000000'

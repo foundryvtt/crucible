@@ -1,0 +1,80 @@
+name: Sunlight Weakness
+type: talent
+img: icons/magic/time/day-night-sunset-sunrise.webp
+system:
+  nodes: []
+  description: >-
+    <p>While in sunlight, the @ref[actor.name]{creature} suffers <strong>2
+    Banes</strong> to all actions. </p><p>This mechanic is handled through an
+    <strong>Active Effect</strong> that is easily toggled when applicable.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects:
+  - _id: sunlightWeakness
+    name: Sunlight Weakness
+    img: icons/magic/time/day-night-sunset-sunrise.webp
+    type: base
+    system:
+      dot: []
+      maintenance: null
+      regions: []
+      summons: []
+    changes:
+      - key: system.rollBonuses.banes.sunlightWeakness.number
+        mode: 5
+        value: '2'
+        priority: null
+      - key: system.rollBonuses.banes.sunlightWeakness.label
+        mode: 5
+        value: Sunlight Weakness
+        priority: null
+    disabled: true
+    duration:
+      startTime: null
+      combat: null
+      seconds: null
+      rounds: null
+      turns: null
+      startRound: null
+      startTurn: null
+    description: <p>The creature suffers banes to all actions when exposed to sunlight.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: true
+    statuses: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.7
+      lastModifiedBy: null
+    _key: '!items.effects!sunlightWeakness.sunlightWeakness'
+folder: EDeByOa9cuYSaF8Y
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771791041181
+  modifiedTime: 1771791041181
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: sunlightWeakness
+sort: 0
+_key: '!items!sunlightWeakness'

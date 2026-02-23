@@ -1,0 +1,39 @@
+name: Gloom Sight
+type: talent
+img: icons/magic/perception/eye-slit-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can gaze into the gloom of total darkness
+    and see normally. Magical darkness does not impede the creature's
+    vision.</p><p><strong>System Development</strong>: This feature needs
+    automation to configure vision and detection modes that are unaffected by
+    magical darkness.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771795520670
+  modifiedTime: 1771795520704
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: gloomSight000000
+sort: 300000
+_key: '!items!gloomSight000000'

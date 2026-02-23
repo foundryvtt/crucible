@@ -1,11 +1,11 @@
 type: Item
 folder: null
-name: Beast
+name: Critical Hits
 color: null
 sorting: a
-_id: S1hY0LkzEUHzLoFX
+_id: XbUSvcKVfxu5qw7T
 description: ''
-sort: 200000
+sort: 300000
 flags: {}
 _stats:
   compendiumSource: null
@@ -13,8 +13,8 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765495814573
+  systemVersion: 0.8.7
+  createdTime: 1771705436226
   modifiedTime: 1771791405924
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_key: '!folders!S1hY0LkzEUHzLoFX'
+_key: '!folders!XbUSvcKVfxu5qw7T'

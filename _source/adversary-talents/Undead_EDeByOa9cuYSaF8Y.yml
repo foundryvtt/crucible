@@ -5,7 +5,7 @@ color: null
 sorting: a
 _id: EDeByOa9cuYSaF8Y
 description: ''
-sort: 700000
+sort: 1000000
 flags: {}
 _stats:
   compendiumSource: null
@@ -15,6 +15,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1765333055013
-  modifiedTime: 1765333070307
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1771791405924
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _key: '!folders!EDeByOa9cuYSaF8Y'

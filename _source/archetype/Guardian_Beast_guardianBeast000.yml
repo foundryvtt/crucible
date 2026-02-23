@@ -1,0 +1,48 @@
+name: Guardian Beast
+type: archetype
+img: icons/creatures/mammals/spirit-deer-herd-blue.webp
+system:
+  description: >-
+    <p>Beasts that serve as guardians, standing watch over places or people to
+    whom they are unwaveringly loyal.</p>
+  identifier: guardianBeast
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 4
+    toughness: 3
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: null
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.holdfast00000000
+      level: 3
+  skills:
+    - athletics
+    - awareness
+    - intimidation
+    - wilderness
+  spells: []
+  equipment: []
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771793427005
+  modifiedTime: 1771793427005
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: guardianBeast000
+sort: 0
+_key: '!items!guardianBeast000'
