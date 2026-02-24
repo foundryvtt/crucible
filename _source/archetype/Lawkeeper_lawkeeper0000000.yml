@@ -1,0 +1,59 @@
+name: Lawkeeper
+type: archetype
+img: icons/sundries/misc/lock-steel-blue.webp
+system:
+  description: >-
+    <p>Constables, detectives, investigators, and other officers of the law who
+    are responsible for keeping the peace and hunting down those who break
+    it.</p>
+  identifier: lawkeeper
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 1
+    strength: 2
+    toughness: 2
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.intercept0000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.projectileWeapon
+      level: 1
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.pinningshot00000
+      level: 3
+    - item: Compendium.crucible.talent.Item.disarmingstrike0
+      level: 3
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.markprey00000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+      level: 0
+  skills:
+    - awareness
+    - medicine
+    - society
+    - intimidation
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771961150981
+  modifiedTime: 1771961150981
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: lawkeeper0000000
+sort: 0
+_key: '!items!lawkeeper0000000'

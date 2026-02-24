@@ -69,10 +69,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1761412330344
-  modifiedTime: 1771804204760
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1771871572796
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: dawnBeacon000000
 sort: 100000
 _key: '!items!dawnBeacon000000'

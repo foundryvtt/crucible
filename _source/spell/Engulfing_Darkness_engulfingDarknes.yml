@@ -60,10 +60,10 @@ _stats:
   exportSource: null
   coreVersion: '13.351'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.8.7
   createdTime: 1759877572761
-  modifiedTime: 1771804215942
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1771871528590
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: engulfingDarknes
 sort: 100000
 _key: '!items!engulfingDarknes'

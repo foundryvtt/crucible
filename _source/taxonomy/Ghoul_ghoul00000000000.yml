@@ -67,8 +67,8 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.necroticBite0000
       level: 2
   characteristics:
-    equipment: false
-    spells: false
+    equipment: true
+    spells: true
 effects: []
 folder: REYz7fzLYEdBX3A2
 ownership:
@@ -83,7 +83,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771704244124
-  modifiedTime: 1771794854759
+  modifiedTime: 1771961931755
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: ghoul00000000000
 sort: 100000
