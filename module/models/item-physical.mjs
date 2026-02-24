@@ -1,5 +1,6 @@
 import {SYSTEM} from "../const/system.mjs";
 import * as crucibleFields from "./fields.mjs";
+import CrucibleAffixData from "./item-affix.mjs";
 
 /**
  * @import {CrucibleItemCategory, ItemProperty} from "../const/items.mjs";
@@ -28,7 +29,8 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         private: new fields.HTMLField()
       }),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
-      actorHooks: new crucibleFields.ItemActorHooks()
+      actorHooks: new crucibleFields.ItemActorHooks(),
+      affixes: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAffixData))
     };
   }
 
@@ -63,6 +65,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static EQUIPABLE = true;
 
   /**
+   * Does this item type support embedded affixes?
+   * @type {boolean}
+   */
+  static AFFIXABLE = false;
+
+  /**
    * Which tags should be considered "stateful", appearing in the first row of tags in a tooltip.
    * @type {string[]}
    */
@@ -84,6 +92,13 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {number}
    */
   rarity;
+
+  /**
+   * The budget of affix cost-points available and spent for this item.
+   * Only present on item types where AFFIXABLE is true.
+   * @type {{total: number, spent: number, available: number}|undefined}
+   */
+  affixBudget;
 
   /**
    * Does this item require investment?
@@ -132,6 +147,16 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       const prop = this.constructor.ITEM_PROPERTIES[p];
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
+
+    // Affix Budget
+    if ( this.constructor.AFFIXABLE ) {
+      const affixCost = this.affixes.reduce((sum, a) => sum + a.cost, 0);
+      this.affixBudget = {
+        total: enchantment.budget,
+        spent: affixCost,
+        available: enchantment.budget - affixCost
+      };
+    }
   }
 
   /* -------------------------------------------- */
@@ -154,6 +179,55 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const rarity = this.rarity;
     if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
     else return this.price * Math.pow(rarity + 1, 3);
+  }
+
+  /* -------------------------------------------- */
+  /*  Actor Hooks                                 */
+  /* -------------------------------------------- */
+
+  /**
+   * Get all actor hooks contributed by this item, including hooks from each embedded affix.
+   * For non-affixable item types this returns the item's own actorHooks directly.
+   * For affixable item types this aggregates inline hooks from all affixes and resolves any
+   * module-level hooks registered under crucible.api.hooks.affix for each affix identifier.
+   * @returns {Array<{hook: string, fn: Function|string}>}
+   */
+  getActorHooks() {
+    if ( !this.constructor.AFFIXABLE || !this.affixes.length ) return this.actorHooks;
+    const hooks = [...this.actorHooks];
+    for ( const affix of this.affixes ) {
+      hooks.push(...affix.actorHooks);
+      const moduleHooks = crucible.api.hooks.affix?.[affix.identifier];
+      if ( moduleHooks ) {
+        for ( const [hook, fn] of Object.entries(moduleHooks) ) {
+          if ( hook in SYSTEM.ACTOR.HOOKS ) hooks.push({hook, fn});
+        }
+      }
+    }
+    return hooks;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Compose an item name from the names of its embedded affixes.
+   * Affixes with a namePrefix contribute text before the item category label.
+   * Affixes with a nameSuffix contribute text after "of" at the end of the name.
+   * Returns null if no affixes contribute to the name, indicating that no automatic name applies.
+   * Only available on item types where AFFIXABLE is true.
+   * @returns {string|null}
+   */
+  composeItemName() {
+    if ( !this.constructor.AFFIXABLE ) return null;
+    const prefixes = this.affixes.flatMap(a => a.namePrefix ? [a.namePrefix] : []);
+    const suffixes = this.affixes.flatMap(a => a.nameSuffix ? [a.nameSuffix] : []);
+    if ( !prefixes.length && !suffixes.length ) return null;
+    const base = this.config.category.label;
+    let name = prefixes.length ? prefixes.join(" ") + " " + base : base;
+    if ( suffixes.length ) name += " of " + suffixes.join(" and ");
+    return name;
   }
 
   /* -------------------------------------------- */
