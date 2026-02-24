@@ -1,0 +1,56 @@
+name: Spell Scroll (Legendary)
+type: consumable
+img: icons/sundries/scrolls/scroll-bound-tan-leather.webp
+system:
+  identifier: spellScroll
+  category: scroll
+  quantity: 1
+  weight: 1
+  price: 50
+  quality: masterwork
+  broken: false
+  enchantment: legendary
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A spell scroll is a specialized piece of vellum or parchment upon which
+      are carefully inlaid the glyphs of one or more spellcraft components.
+      Activating this spell scroll temporarily imbues its reader with a deep
+      familiarity with those components as if they have known them for
+      years.</p><p>Spell scrolls come in three tiers, according to their level
+      of Enchantment. More powerful scrolls may simultaneously convey a larger
+      number of spellcraft components.</p><ul><li><p><strong>Minor</strong>: May
+      contain a single spellcraft
+      component</p></li><li><p><strong>Major</strong>: May contain two
+      spellcraft components</p></li><li><p><strong>Legendary</strong>: May
+      contain three spellcraft components</p></li></ul>
+    private: ''
+  actions: []
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: VvUx7vnJ4xF5nSAl
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.7
+  createdTime: 1771975433312
+  modifiedTime: 1771975433334
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: spellScrollLegen
+sort: 200000
+_key: '!items!spellScrollLegen'
