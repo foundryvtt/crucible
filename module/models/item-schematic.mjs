@@ -70,6 +70,7 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
     // Remove fields
     delete schema.actions;      // Schematics cannot provide actions
     delete schema.actorHooks;   // Schematics don't have actor hooks
+    delete schema.affixes;      // Schematics cannot have affixes
     delete schema.broken;       // Schematics cannot be broken
     delete schema.equipped;     // Schematics cannot be equipped
     delete schema.enchantment;  // Schematics cannot be enchanted

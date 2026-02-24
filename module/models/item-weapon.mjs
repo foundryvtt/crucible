@@ -7,6 +7,9 @@ import {SYSTEM} from "../const/system.mjs";
 export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @override */
+  static AFFIXABLE = true;
+
+  /** @override */
   static ITEM_CATEGORIES = SYSTEM.WEAPON.CATEGORIES;
 
   /** @override */

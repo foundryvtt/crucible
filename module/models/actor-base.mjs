@@ -1060,8 +1060,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const H = SYSTEM.ACTOR.HOOKS;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
 
-    // First register inline hooks
-    for ( let {hook, fn} of item.system.actorHooks ) {
+    // First register inline hooks, including any hooks contributed by embedded affixes
+    const actorHooks = item.system.getActorHooks?.() ?? item.system.actorHooks;
+    for ( let {hook, fn} of actorHooks ) {
       const cfg = H[hook];
       if ( !cfg ) {
         console.error(new Error(`Invalid Actor hook name "${hook}" defined by Item "${item.uuid}"`));

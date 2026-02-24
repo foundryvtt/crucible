@@ -18,6 +18,7 @@
  * @property {string} label         A localized label for the enchantment tier
  * @property {number} bonus         The numeric bonus for this enchantment tier
  * @property {number} rarity        The rarity modifier for this enchantment tier
+ * @property {number} budget        The total affix budget available at this enchantment tier
  */
 
 /**
@@ -73,25 +74,29 @@ export const ENCHANTMENT_TIERS = {
     id: "mundane",
     label: "ITEM.EnchantmentMundane",
     bonus: 0,
-    rarity: 0
+    rarity: 0,
+    budget: 0
   },
   minor: {
     id: "minor",
     label: "ITEM.EnchantmentMinor",
     bonus: 1,
-    rarity: 2
+    rarity: 2,
+    budget: 2
   },
   major: {
     id: "major",
     label: "ITEM.EnchantmentMajor",
     bonus: 2,
-    rarity: 4
+    rarity: 4,
+    budget: 4
   },
   legendary: {
     id: "legendary",
     label: "ITEM.EnchantmentLegendary",
     bonus: 3,
-    rarity: 6
+    rarity: 6,
+    budget: 6
   }
 };
 
@@ -157,6 +162,13 @@ export const TOOL_CATEGORIES = {
  * @type {Set<string>}
  */
 export const EQUIPABLE_ITEM_TYPES = new Set();
+
+/**
+ * The item types which support embedded affixes.
+ * Dynamically populated during system initialization.
+ * @type {Set<string>}
+ */
+export const AFFIXABLE_ITEM_TYPES = new Set();
 
 /**
  * The categories of "schematic" items which are allowed.
