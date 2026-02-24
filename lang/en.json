@@ -1002,6 +1002,7 @@
     "Flask": "Flask",
     "Kit": "Kit",
     "Other": "Other",
+    "Scroll": "Spell Scroll",
     "Trap": "Trap"
   },
   "FIELDS": {
@@ -1010,7 +1011,20 @@
       "hint": "Configure a limited number of uses of this consumable item before it becomes depleted.",
       "value.label": "Value",
       "max.label": "Maximum"
+    },
+    "scroll": {
+      "label": "Spell Scroll",
+      "hint": "Configure the spellcraft components that this spell scroll provides temporary knowledge of.",
+      "runes.label": "Runes",
+      "gestures.label": "Gestures",
+      "inflections.label": "Inflections"
     }
+  },
+  "SCROLL": {
+    "ComponentBudget": "This scroll may provide up to {budget} spellcraft component(s). Select which components this scroll provides.",
+    "ComponentBudgetError": "This scroll may only include {budget} spellcraft component(s) total, but {total} were provided.",
+    "ConfigureTitle": "Configure Spell Scroll: {name}",
+    "ScrollName": "Scroll of {scroll}"
   }
 },
 

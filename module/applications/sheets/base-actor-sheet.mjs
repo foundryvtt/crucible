@@ -1240,6 +1240,21 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         return ui.notifications.warn(err.message);
       }
     }
+
+    // Prompt to configure blank spell scrolls
+    if ( (item.type === "consumable") && (item.system.category === "scroll") ) {
+      const {runes, gestures, inflections} = item.system.scroll;
+      if ( !runes.size && !gestures.size && !inflections.size ) {
+        try {
+          const scrollUpdate = await item.system.configureScrollDialog();
+          if ( scrollUpdate === null ) return;
+        } catch(err) {
+          return;
+        }
+      }
+    }
+
+    // Create the new item
     const itemData = this.actor._cleanItemData(item);
     await Item.implementation.create(itemData, {parent: this.actor, keepId: !isPhysical});
   }

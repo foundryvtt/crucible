@@ -25,6 +25,10 @@ export const CATEGORIES = {
     id: "kit",
     label: "CONSUMABLE.CATEGORIES.Kit"
   },
+  scroll: {
+    id: "scroll",
+    label: "CONSUMABLE.CATEGORIES.Scroll"
+  },
   trap: {
     id: "trap",
     label: "CONSUMABLE.CATEGORIES.Trap"

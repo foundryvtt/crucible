@@ -131,7 +131,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.range = this.gesture.range;
       if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
-        this.name = CrucibleSpellAction.#getName(this);
+        this.name = CrucibleSpellAction.getComposedName(this);
         this.img = this.rune.img;
         this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
       }
@@ -209,19 +209,30 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /**
-   * Prepare a default name for the spell if a custom name has not been designated.
-   * @type {string}
+   * Derive a display name for a composed spell from its resolved components.
+   * @param {object} components                 Options for how the spell name is determined
+   * @param {string} [components.id]              A predetermined spell ID string (spell.rune.gesture.inflection)
+   * @param {CrucibleSpellcraftRune} components.rune
+   * @param {CrucibleSpellcraftGesture} components.gesture
+   * @param {CrucibleSpellcraftInflection} [components.inflection]
+   * @param {number} [components.nameFormat]      One of SYSTEM.SPELL.NAME_FORMATS, otherwise rune.nameFormat
+   * @param {{type: string}} [components.damage]  Spell damage configuration, if further disambiguation is needed
+   * @returns {string}
    */
-  static #getName({id, rune, gesture, inflection, nameFormat, damage}={}) {
+  static getComposedName({id, rune, gesture, inflection, nameFormat, damage}={}) {
     let name = "";
+    if ( !rune || !gesture ) return name;
 
     // Custom spell name
-    const custom = SYSTEM.SPELL.COMPOSED_SPELL_NAMES[id];
-    if ( typeof custom === "string" ) name = game.i18n.localize(custom);
-    else if ( typeof custom === "object" ) name = game.i18n.localize(custom[damage.type]);
-    if ( name ) return name;
+    if ( id ) {
+      const custom = SYSTEM.SPELL.COMPOSED_SPELL_NAMES[id];
+      if ( typeof custom === "string" ) name = game.i18n.localize(custom);
+      else if ( typeof custom === "object" ) name = game.i18n.localize(custom[damage?.type || rune.damageType]);
+      if ( name ) return name;
+    }
 
     // Default composed name
+    nameFormat ||= rune.nameFormat;
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
         name = game.i18n.format("SPELL.NameFormatNoun", {rune, gesture});

@@ -13,6 +13,16 @@
         {{formGroup fields.properties value=item.system.properties widget=propertiesWidget}}
     </fieldset>
 
+    {{#if isScroll}}
+    <fieldset class="scroll-config" {{fieldDisabled}}>
+        <legend>{{fields.scroll.label}}</legend>
+        <p class="hint">{{localize "CONSUMABLE.SCROLL.ComponentBudget" budget=scrollBudget}}</p>
+        {{formGroup fields.scroll.fields.runes value=item.system.scroll.runes}}
+        {{formGroup fields.scroll.fields.gestures value=item.system.scroll.gestures}}
+        {{formGroup fields.scroll.fields.inflections value=item.system.scroll.inflections}}
+    </fieldset>
+    {{/if}}
+
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.Equipment"}}</legend>
         {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
