@@ -707,6 +707,7 @@ HOOKS.readScroll = {
     const changes = [];
     for ( const rune of runes ) {
       changes.push({key: "system.grimoire.runeIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: rune});
+      changes.push({key: `system.training.${rune}`, mode: CONST.ACTIVE_EFFECT_MODES.UPGRADE, value: 1});
     }
     for ( const gesture of gestures ) {
       changes.push({key: "system.grimoire.gestureIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: gesture});
@@ -714,11 +715,9 @@ HOOKS.readScroll = {
     for ( const inflection of inflections ) {
       changes.push({key: "system.grimoire.inflectionIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: inflection});
     }
-    outcome.effects.push({
-      name: this.item.name,
-      img: this.item.img,
+    Object.assign(outcome.effects[0], {
       origin: this.item.uuid,
-      duration: {seconds: 3600},
+      duration: {seconds: 600},
       changes
     });
   }

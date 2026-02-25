@@ -1088,6 +1088,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #registerItemActions(item) {
     if ( !item.system.schema.has("actions") ) return;
+    if ( item.system.schema.has("equipped") && !item.system.equipped ) return;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;

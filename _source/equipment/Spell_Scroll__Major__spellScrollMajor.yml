@@ -33,13 +33,16 @@ system:
       img: icons/sundries/scrolls/scroll-bound-tan-leather.webp
       condition: ''
       description: >-
-        <p>Read this spell scroll, temporarily gaining knowledge of its spellcraft
-        components for 1 hour.</p>
+        <p>Read this spell scroll, temporarily gaining knowledge of its
+        spellcraft components for 10 minutes.</p><p>You may only have one spell
+        scroll effect active at a given time. Reading a different scroll
+        replaces any current effect.</p>
       cost:
         action: 2
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -49,10 +52,28 @@ system:
         number: 1
         scope: 4
         self: true
-      effects: []
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            turns: 60
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - consume
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   uses:
     value: 1
     max: 1
@@ -74,7 +95,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771975431542
-  modifiedTime: 1771975433334
+  modifiedTime: 1772029801694
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: spellScrollMajor
 sort: 300000
