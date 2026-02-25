@@ -1,0 +1,93 @@
+<section class="tab {{tabs.equipment.id}} {{tabs.equipment.cssClass}}"
+         data-tab="{{tabs.equipment.id}}" data-group="{{tabs.equipment.group}}">
+
+    <div class="step-selection equipment-filters flexcol">
+        <h4 class="filter-heading divider">{{localize "ACTOR.CREATION.EquipmentType"}}</h4>
+        <ol class="filter-nav plain item-type-nav">
+            <li class="filter-option {{#unless filterType}}active{{/unless}}"
+                data-action="filterEquipmentType"><a>{{localize "ACTOR.CREATION.EquipmentFilterAll"}}</a></li>
+            {{#each filterTypes as |ft|}}
+            <li class="filter-option {{#if ft.active}}active{{/if}}" data-action="filterEquipmentType"
+                data-filter-type="{{ft.id}}"><a>{{ft.label}}</a></li>
+            {{/each}}
+        </ol>
+        {{#if filterCategories}}
+        <h4 class="filter-heading divider">{{localize "ACTOR.CREATION.EquipmentCategory"}}</h4>
+        <ol class="filter-nav plain item-category-nav scrollable">
+            <li class="filter-option {{#unless filterCategory}}active{{/unless}}"
+                data-action="filterEquipmentCategory"><a>{{localize "ACTOR.CREATION.EquipmentFilterAll"}}</a></li>
+            {{#each filterCategories as |fc|}}
+            <li class="filter-option {{#if fc.active}}active{{/if}}" data-action="filterEquipmentCategory"
+                data-filter-category="{{fc.id}}"><a>{{fc.label}}</a></li>
+            {{/each}}
+        </ol>
+        {{/if}}
+    </div>
+
+    <div class="step-details equipment-details flexcol">
+        <h1 class="step-header">{{localize "ACTOR.CREATION.EquipmentAvailable"}}</h1>
+
+        <div class="equipment-filter flexrow">
+            <input type="search" class="equipment-search"
+                   placeholder="{{localize 'ACTOR.CREATION.EquipmentSearch'}}"
+                   autocomplete="off">
+        </div>
+
+        <ol class="items-list equipment-list flexcol scrollable">
+            {{#each equipmentItems as |entry|}}
+            <li class="line-item equipment-entry {{#if entry.unaffordable}}unaffordable{{/if}}"
+                data-uuid="{{entry.uuid}}" data-item-name="{{entry.name}}">
+                <img class="icon" src="{{entry.img}}" alt="{{entry.name}}">
+                <div class="title">
+                    <h4>{{entry.name}}</h4>
+                    <div class="tags">
+                        {{#each entry.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+                <crucible-currency value="{{entry.scaledPrice}}" denomination="gp" readonly></crucible-currency>
+                <div class="item-quantity flexrow">
+                    <button type="button" class="plain icon fa-solid fa-minus" data-action="removeEquipmentItem"
+                            {{#unless entry.quantity}}disabled{{/unless}}
+                            aria-label="Remove one {{entry.name}}"></button>
+                    <span class="quantity">{{entry.quantity}}</span>
+                    <button type="button" class="plain icon fa-solid fa-plus" data-action="addEquipmentItem"
+                            {{#if entry.unaffordable}}disabled{{/if}}
+                            aria-label="Add one {{entry.name}}"></button>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+
+    <aside class="step-sidebar equipment-sidebar flexcol">
+        <h2 class="step-sidebar-header">{{localize "ACTOR.CREATION.EquipmentStarting"}}</h2>
+        <div class="budget-display flexrow">
+            <h4 class="budget-label">{{localize "ACTOR.CREATION.EquipmentRemaining"}}</h4>
+            <crucible-currency value="{{equipmentRemaining}}" denomination="gp" readonly></crucible-currency>
+        </div>
+        {{#if equipmentSelected}}
+        <ol class="items-list equipment-selected flexcol scrollable">
+            {{#each equipmentSelected as |entry|}}
+            <li class="line-item selected-entry" data-uuid="{{entry.uuid}}">
+                <img class="icon" src="{{entry.img}}" alt="{{entry.name}}">
+                <div class="title">
+                    <h4>{{entry.name}}</h4>
+                </div>
+                <crucible-currency value="{{entry.totalCost}}" denomination="gp" readonly></crucible-currency>
+                <div class="item-quantity flexrow">
+                    <button type="button" class="plain icon fa-solid fa-minus" data-action="removeEquipmentItem"
+                            aria-label="Remove one {{entry.name}}"></button>
+                    <span class="quantity">{{entry.quantity}}</span>
+                    <button type="button" class="plain icon fa-solid fa-plus" data-action="addEquipmentItem"
+                            {{#if entry.unaffordable}}disabled{{/if}}
+                            aria-label="Add one {{entry.name}}"></button>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+        {{/if}}
+        <p class="hint">{{localize "ACTOR.CREATION.EquipmentHint"}}</p>
+    </aside>
+</section>

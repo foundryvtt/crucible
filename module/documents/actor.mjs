@@ -2264,13 +2264,20 @@ export default class CrucibleActor extends Actor {
    * Allocate an amount of currency into configured denominations, favoring larger denominations over smaller.
    * This function does not guarantee that the entire input amount is allocated. Depending on the configured
    * denominations which are available, there might be some unallocated remainder.
-   * @param {number} amount
+   * @param {number} amount             The amount in base currency units
+   * @param {string} [denomination]     Prefer allocation in a specific denomination
    * @returns {Record<keyof crucible.CONFIG.currency, number>}
    */
-  static allocateCurrency(amount=0) {
+  static allocateCurrency(amount=0, denomination) {
     const allocated = {};
     const ds = Object.entries(crucible.CONFIG.currency).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
+    let reachedDenomination = false;
     for ( const [k, v] of ds ) {
+      allocated[k] = 0;
+      if ( denomination ) {
+        if ( k === denomination ) reachedDenomination = true;
+        if ( !reachedDenomination ) continue;
+      }
       allocated[k] = Math.floor(amount / v.multiplier);
       amount = (amount % v.multiplier);
     }

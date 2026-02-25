@@ -69,7 +69,8 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
   /** @override */
   _refresh() {
     const isReadonly = this.hasAttribute("readonly");
-    const amounts = crucible.api.documents.CrucibleActor.allocateCurrency(this._value);
+    const denomination = this.getAttribute("denomination");
+    const amounts = crucible.api.documents.CrucibleActor.allocateCurrency(this._value, denomination);
     for ( const [k, v] of Object.entries(amounts) ) {
       const input = this.#inputs[k];
       const span = this.#spans[k];

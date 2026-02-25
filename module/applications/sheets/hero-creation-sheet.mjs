@@ -12,6 +12,10 @@ const {HandlebarsApplicationMixin} = foundry.applications.api;
  * @property {Record<string, CrucibleHeroCreationItem>} backgrounds
  * @property {string} backgroundId
  * @property {Set<string>} talents
+ * @property {{item: CrucibleItem, scaledPrice: number}[]} equipmentItems
+ * @property {Record<string, {item: CrucibleItem, quantity: number, scaledPrice: number}>} equipment
+ * @property {{type: string|null, category: string|null}} equipmentFilter
+ * @property {Record<string, Record<string, string>>} categoriesByType
  */
 
 /**
@@ -52,6 +56,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       restart: CrucibleHeroCreationSheet.#onRestart,
       abilityIncrease: CrucibleHeroCreationSheet.#onAbilityIncrease,
       abilityDecrease: CrucibleHeroCreationSheet.#onAbilityDecrease,
+      addEquipmentItem: CrucibleHeroCreationSheet.#onAddEquipmentItem,
+      removeEquipmentItem: CrucibleHeroCreationSheet.#onRemoveEquipmentItem,
+      filterEquipmentType: CrucibleHeroCreationSheet.#onFilterEquipmentType,
+      filterEquipmentCategory: CrucibleHeroCreationSheet.#onFilterEquipmentCategory,
       complete: CrucibleHeroCreationSheet.#onComplete
     }
   };
@@ -76,16 +84,24 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       numeral: "II",
       template: "systems/crucible/templates/sheets/creation/background.hbs",
       initialize: CrucibleHeroCreationSheet.#initializeBackgrounds,
-      prepare: CrucibleHeroCreationSheet.#prepareBackgrounds,
-      abilities: true
+      prepare: CrucibleHeroCreationSheet.#prepareBackgrounds
     },
     talents: {
       id: "talents",
       label: "TALENT.LABELS.Talents.other",
       order: 3,
       numeral: "III",
-      template: "systems/crucible/templates/sheets/creation/talents.hbs",
-      talents: true
+      template: "systems/crucible/templates/sheets/creation/talents.hbs"
+    },
+    equipment: {
+      id: "equipment",
+      label: "ACTOR.CREATION.Equipment",
+      order: 4,
+      numeral: "IV",
+      template: "systems/crucible/templates/sheets/creation/equipment.hbs",
+      initialize: CrucibleHeroCreationSheet.#initializeEquipment,
+      prepare: CrucibleHeroCreationSheet.#prepareEquipment,
+      scrollable: [".equipment-list", ".equipment-selected"]
     }
   };
 
@@ -137,6 +153,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @type {boolean}
    */
   #complete = false;
+
+  /**
+   * A SearchFilter instance for filtering the equipment list.
+   * @type {foundry.applications.ux.SearchFilter}
+   */
+  #equipmentSearch = new foundry.applications.ux.SearchFilter({
+    inputSelector: ".equipment-search",
+    contentSelector: ".equipment-list",
+    callback: CrucibleHeroCreationSheet.#onEquipmentSearchFilter
+  });
 
   /**
    * The Actor's name, stored only when restarting character creation
@@ -329,6 +355,117 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
+   * Initialize data for the available physical items which may be purchased during character creation.
+   * @this CrucibleHeroCreationSheet
+   * @returns {Promise<void>}
+   */
+  static async #initializeEquipment() {
+    const packs = crucible.CONFIG.packs.equipment;
+    const budget = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET;
+    const items = [];
+    await Promise.allSettled(Array.from(packs).map(async packId => {
+      const pack = game.packs.get(packId);
+      if ( !pack ) {
+        console.warn(`Compendium pack "${packId}" does not exist as a valid compendium ID`);
+        return;
+      }
+      const packItems = await pack.getDocuments();
+      for ( const item of packItems ) {
+        if ( !item.system.price ) continue;
+        const scaledPrice = item.system.price;
+        if ( scaledPrice > budget ) continue;
+        items.push({item, scaledPrice});
+      }
+    }));
+    items.sort((a, b) => a.item.name.localeCompare(b.item.name));
+    this._state.equipmentItems = items;
+    this._state.equipment = {};
+
+    // Build category label map indexed by item type for the filter sidebar
+    const categoriesByType = {};
+    for ( const {item} of items ) {
+      const type = item.type;
+      const catId = item.system.category;
+      if ( !catId ) continue;
+      if ( !(type in categoriesByType) ) categoriesByType[type] = {};
+      if ( !(catId in categoriesByType[type]) ) categoriesByType[type][catId] = item.system.config.category.label;
+    }
+    this._state.categoriesByType = categoriesByType;
+    this._state.equipmentFilter = {type: null, category: null};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare context data for the equipment selection step.
+   * @this CrucibleHeroCreationSheet
+   * @param {object} context
+   * @param {object} _options
+   * @returns {Promise<void>}
+   */
+  static async #prepareEquipment(context, _options) {
+    const budget = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET;
+    const equipment = this._state.equipment;
+    const {type: filterType, category: filterCategory} = this._state.equipmentFilter ?? {type: null, category: null};
+
+    // Calculate spent amount
+    let spent = 0;
+    for ( const {scaledPrice, quantity} of Object.values(equipment) ) {
+      spent += scaledPrice * quantity;
+    }
+    const remaining = budget - spent;
+
+    // Build type filter options from item types present in the pack
+    const seenTypes = new Map();
+    for ( const {item} of this._state.equipmentItems ) {
+      if ( !seenTypes.has(item.type) ) seenTypes.set(item.type, game.i18n.localize(`TYPES.Item.${item.type}`));
+    }
+    context.filterTypes = [...seenTypes.entries()]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .map(([id, label]) => ({id, label, active: filterType === id}));
+    context.filterType = filterType;
+
+    // Build category filter options for the selected item type
+    if ( filterType && this._state.categoriesByType[filterType] ) {
+      context.filterCategories = Object.entries(this._state.categoriesByType[filterType])
+        .sort((a, b) => a[1].localeCompare(b[1]))
+        .map(([id, label]) => ({id, label, active: filterCategory === id}));
+      context.filterCategory = filterCategory;
+    }
+
+    // Apply type and category pre-filters to the item list
+    let sourceItems = this._state.equipmentItems;
+    if ( filterType ) sourceItems = sourceItems.filter(e => e.item.type === filterType);
+    if ( filterCategory ) sourceItems = sourceItems.filter(e => e.item.system.category === filterCategory);
+
+    // Build the available items list with affordability state
+    context.equipmentItems = sourceItems.map(({item, scaledPrice}) => ({
+      uuid: item.uuid,
+      name: item.name,
+      img: item.img,
+      tags: Object.values(item.system.getTags()),
+      scaledPrice,
+      quantity: equipment[item.uuid]?.quantity ?? 0,
+      unaffordable: scaledPrice > remaining && !(item.uuid in equipment)
+    }));
+
+    // Selected items for sidebar
+    context.equipmentSelected = Object.values(equipment).map(({item, quantity, scaledPrice}) => ({
+      uuid: item.uuid,
+      name: item.name,
+      img: item.img,
+      quantity,
+      scaledPrice,
+      totalCost: scaledPrice * quantity,
+      unaffordable: scaledPrice > remaining
+    }));
+
+    context.equipmentRemaining = remaining;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Initialize data for each of the available Background items which may be chosen.
    * @this CrucibleHeroCreationSheet
    * @param {string} itemType
@@ -447,7 +584,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
 
       // Ability Step
-      if ( step.abilities ) {
+      if ( step.id === "abilities" ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
@@ -456,11 +593,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       }
 
       // Talents
-      if ( step.talents ) {
+      if ( step.id === "talents" ) {
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
           ? `${tp} ${game.i18n.localize(`TALENT.LABELS.Talents.${plurals.select(tp)}`)}`
           : game.i18n.localize("ACTOR.CREATION.Completed");
+      }
+
+      // Equipment
+      if ( (step.id === "equipment") && completed ) {
+        tab.selectionLabel = game.i18n.localize("ACTOR.CREATION.Completed");
       }
     }
   }
@@ -597,7 +739,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _configureRenderParts(_options) {
     const parts = foundry.utils.deepClone(this.constructor.PARTS);
     for ( const step of Object.values(this.constructor.STEPS) ) {
-      parts[step.id] = {id: step.id, template: step.template};
+      const part = {id: step.id, template: step.template};
+      if ( step.scrollable ) part.scrollable = step.scrollable;
+      parts[step.id] = part;
     }
     return parts;
   }
@@ -609,6 +753,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     super.changeTab(...args);
     this.element.dataset.step = this.step;
     crucible.api.audio.playClick();
+    if ( (this.step === "equipment") && this._state ) this._completed.equipment = true;
     this.deactivateTalentTree().then(() => {
       this.render({parts: ["header", this.step]});
     });
@@ -640,10 +785,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _onRender(context, options) {
     await super._onRender(context, options);
     this.element.dataset.step = this.step;
-    // Activate talent tree
-    if ( this.step === "talents" ) {
-      await this.activateTalentTree();
-    }
+    if ( this.step === "talents" ) await this.activateTalentTree();
+    if ( options.parts?.includes("equipment") ) this.#equipmentSearch.bind(this.element);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _tearDown(options) {
+    super._tearDown(options);
+    this.#equipmentSearch.unbind();
   }
 
   /* -------------------------------------------- */
@@ -814,6 +965,104 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
+   * Handle search filter input for the equipment list.
+   * @param {KeyboardEvent|null} _event
+   * @param {string} query
+   * @param {RegExp} rgx
+   * @param {HTMLElement} html
+   */
+  static #onEquipmentSearchFilter(_event, query, rgx, html) {
+    if ( !html ) return;
+    for ( const entry of html.querySelectorAll(".equipment-entry") ) {
+      const name = foundry.applications.ux.SearchFilter.cleanQuery(entry.dataset.itemName ?? "");
+      entry.hidden = !!query && !rgx.test(name);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to filter the equipment list by item type.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onFilterEquipmentType(_event, target) {
+    const filterType = target.dataset.filterType ?? null;
+    this._state.equipmentFilter.type = filterType;
+    this._state.equipmentFilter.category = null;
+    crucible.api.audio.playClick();
+    await this.render({parts: ["equipment"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to filter the equipment list by item sub-category.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onFilterEquipmentCategory(_event, target) {
+    const filterCategory = target.dataset.filterCategory ?? null;
+    this._state.equipmentFilter.category = filterCategory;
+    crucible.api.audio.playClick();
+    await this.render({parts: ["equipment"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to add one unit of an equipment item to the starting inventory.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onAddEquipmentItem(_event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    const found = this._state.equipmentItems.find(e => e.item.uuid === uuid);
+    if ( !found ) return;
+    const {item, scaledPrice} = found;
+    const isExisting = uuid in this._state.equipment;
+
+    // Require remaining budget
+    const spent = Object.values(this._state.equipment).reduce((sum, e) => sum + (e.scaledPrice * e.quantity), 0);
+    if ( (spent + scaledPrice) > SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET ) {
+      ui.notifications.warn(game.i18n.format("ACTOR.CREATION.EquipmentInsufficient", {name: item.name}));
+      return;
+    }
+
+    // Increment quantity or add new item
+    if ( isExisting ) this._state.equipment[uuid].quantity++;
+    else this._state.equipment[uuid] = {item, quantity: 1, scaledPrice};
+    crucible.api.audio.playClick();
+    await this.render({parts: ["equipment"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to remove one unit of an equipment item from the starting inventory.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onRemoveEquipmentItem(_event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    if ( !(uuid in this._state.equipment) ) return;
+    this._state.equipment[uuid].quantity--;
+    if ( this._state.equipment[uuid].quantity <= 0 ) delete this._state.equipment[uuid];
+    crucible.api.audio.playClick();
+    await this.render({parts: ["equipment"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Reset the creation process and restart from the beginning.
    * @this {CrucibleHeroCreationSheet}
    * @returns {Promise<void>}
@@ -864,7 +1113,17 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     delete creationData.ownership;
     creationData.flags.core.sheetClass = "";
     creationData.system.advancement.level = 1;
-    creationData.system.currency = 25 * 100; // 25gp
+
+    // Grant purchased equipment items and apply remaining currency
+    let spent = 0;
+    for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
+      if ( quantity <= 0 ) continue;
+      const itemData = this._clone._cleanItemData(item);
+      itemData.system.quantity = quantity;
+      creationData.items.push(itemData);
+      spent += scaledPrice * quantity;
+    }
+    creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
   }
 
   /* -------------------------------------------- */

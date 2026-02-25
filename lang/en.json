@@ -333,6 +333,16 @@
     "Complete": "Complete",
     "Completed": "Completed",
     "CompleteHint": "Complete Creation",
+    "Equipment": "Equipment",
+    "EquipmentAvailable": "Available Items",
+    "EquipmentCategory": "Category",
+    "EquipmentFilterAll": "All",
+    "EquipmentHint": "Browse items on the left and add them to your starting inventory.",
+    "EquipmentInsufficient": "You cannot afford another {name}.",
+    "EquipmentRemaining": "Remaining Gold",
+    "EquipmentSearch": "Search Items",
+    "EquipmentStarting": "Starting Equipment",
+    "EquipmentType": "Item Type",
     "Exit": "Exit",
     "ExitHint": "Exit Creation",
     "Restart": "Restart",
@@ -1553,6 +1563,10 @@
     "background": {
       "label": "Background Sources",
       "hint": "Which packs will be used as sources of backgrounds during character creation."
+    },
+    "equipment": {
+      "label": "Equipment Sources",
+      "hint": "Which packs will be used as sources of starting equipment during character creation."
     },
     "spell": {
       "label": "Spell Sources",

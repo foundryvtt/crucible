@@ -347,6 +347,11 @@
       text-align: center;
       background: url("../ui/journal/h2-separator.png") no-repeat bottom center;
     }
+    .hint {
+      font-size: var(--font-size-14);
+      color: var(--color-text-subtle);
+      opacity: 0.75;
+    }
   }
 
   .step-figure {
@@ -458,12 +463,94 @@
         font-weight: bold;
       }
     }
+  }
 
-    .hint {
-      font-size: var(--font-size-13);
-      color: var(--color-text-subtle);
-      opacity: 0.5;
+  /* -------------------------------------------- */
+  /*  Equipment Selection Step                    */
+  /* -------------------------------------------- */
+
+  .tab.equipment {
+    .step-selection.equipment-filters {
+      overflow: hidden; // .filter-list handles scrolling
+      margin-top: 120px;
+      padding-left: 200px;
+      height: calc(100% - 120px);
+      gap: 1rem;
+      .filter-heading {
+        margin: 0;
+      }
+      .filter-nav {
+        width: 220px;
+        gap: 0.5rem;
+        .filter-option {
+          font-size: var(--font-size-13);
+          color: var(--color-text-secondary);
+          &:hover {
+            color: var(--color-text-emphatic);
+          }
+          &.active {
+            color: var(--color-text-emphatic);
+            text-shadow: 0 0 4px var(--color-text-accent);
+          }
+        }
+        &.item-type-nav { flex: none; }
+        &.item-category-nav { flex: 1; } // Scrollable
+      }
     }
+
+    .step-details.equipment-details {
+      gap: 1rem;
+      overflow: visible; // Scroll .items-list, not full details
+    }
+
+    .items-list {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding: 0;
+      gap: 0.5rem;
+    }
+
+    .line-item {
+      background: var(--color-cool-5-50);
+      border-radius: 8px;
+      &.unaffordable { opacity: 0.4; }
+      &[hidden] { display: none; }
+      crucible-currency {
+        flex: none;
+        margin-right: 1rem;
+      }
+      .item-quantity {
+        .quantity {
+          min-width: 20px;
+          text-align: center;
+        }
+      }
+    }
+
+    .equipment-list {
+      flex: 1 1 0;
+    }
+
+    .equipment-sidebar {
+      gap: 1rem;
+      .budget-display {
+        flex: none;
+        padding: 1rem 1.5rem;
+        background: var(--color-cool-5-50);
+        border-radius: 8px;
+        justify-content: space-between;
+        align-items: center;
+        font-size: var(--font-size-16);
+        h4 {
+          margin: 0;
+        }
+        > * {
+          flex: none;
+          font-size: inherit;
+        }
+      }
+    }
+
   }
 
   /* -------------------------------------------- */

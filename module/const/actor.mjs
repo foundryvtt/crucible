@@ -88,6 +88,12 @@ export const CREATURE_CATEGORIES = {
 };
 
 /**
+ * The starting equipment budget in copper pieces (25 gp).
+ * @type {number}
+ */
+export const STARTING_EQUIPMENT_BUDGET = 25 * 100;
+
+/**
  * @typedef CrucibleCurrencyDenomination
  * @property {string} label                 A human-readable and localized label for the denomination
  * @property {string} abbreviation          A short abbreviation for the denomination

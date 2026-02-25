@@ -85,6 +85,7 @@ Hooks.once("init", async function() {
     packs: {
       ancestry: new Set([SYSTEM.COMPENDIUM_PACKS.ancestry]),
       background: new Set([SYSTEM.COMPENDIUM_PACKS.background]),
+      equipment: new Set([SYSTEM.COMPENDIUM_PACKS.equipment]),
       spell: new Set([SYSTEM.COMPENDIUM_PACKS.spell]),
       talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent])
     },
@@ -265,7 +266,7 @@ Hooks.once("init", async function() {
   };
 
   // Status Effects
-  CONFIG.statusEffects = statusEffects;
+  Object.defineProperty(CONFIG, "statusEffects", {value: statusEffects, configurable: true, enumerable: true});
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";
 
@@ -320,15 +321,17 @@ Hooks.once("init", async function() {
   /**
    * Get the schema field for a given document and subtype.
    * @param {string} documentType
-   * @param {string} type
+   * @param {string|null} type
+   * @param {string} [labelKey]
    */
-  function fieldForType(documentType, type) {
+  function fieldForType(documentType, type, labelKey) {
+    labelKey ??= type;
     const getPacks = (documentType, type) => {
       const potentialPacks = {};
       for (const pack of game.packs) {
         if (pack.metadata.type !== documentType) continue;
         for (const item of pack.index) {
-          if (item.type === type) {
+          if (!type || item.type === type) {
             let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
             if ( pack.metadata.packageType === "system" ) group += game.system.title;
             else if ( pack.metadata.packageType === "world" ) group += game.world.title;
@@ -344,8 +347,8 @@ Hooks.once("init", async function() {
       return potentialPacks;
     };
     return new fields.SetField(new fields.StringField({ required: true, choices: () => getPacks(documentType, type)}), {
-      label: `SETTINGS.COMPENDIUM_SOURCES.${type}.label`,
-      hint: `SETTINGS.COMPENDIUM_SOURCES.${type}.hint`
+      label: `SETTINGS.COMPENDIUM_SOURCES.${labelKey}.label`,
+      hint: `SETTINGS.COMPENDIUM_SOURCES.${labelKey}.hint`
     });
   }
 
@@ -357,12 +360,14 @@ Hooks.once("init", async function() {
     type: new fields.SchemaField({
       ancestry: fieldForType("Item", "ancestry"),
       background: fieldForType("Item", "background"),
+      equipment: fieldForType("Item", null, "equipment"),
       spell: fieldForType("Item", "spell"),
       talent: fieldForType("Item", "talent")
     }),
     default: {
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
       background: [SYSTEM.COMPENDIUM_PACKS.background],
+      equipment: [SYSTEM.COMPENDIUM_PACKS.equipment],
       spell: [SYSTEM.COMPENDIUM_PACKS.spell],
       talent: [SYSTEM.COMPENDIUM_PACKS.talent]
     },
