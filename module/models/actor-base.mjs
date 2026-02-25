@@ -454,11 +454,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Determine which iconic spells are known and register their actor hooks.
-    // Note: iconic spell hook registration occurs here, after Active Effects and most prepareDerivedData
-    // hooks have already been called. As a result, iconic spell actor hooks may miss early-phase hook
-    // events such as prepareAbilities. This is a known wart; iconic spells are expected to influence
-    // actor behavior primarily through Action Hooks and Active Effect Hooks rather than actor-level
-    // preparation hooks.
+    // Iconic spell actor hook registration occurs here, too late to be useful for most derived data hooks which
+    // have already been called. That means the mere knowledge of iconic spells cannot be used to passively modify
+    // actor stats like via the `prepareAbilities` hook.
+    // This is a known flaw, BUT it's also not really intended. Iconic spells are expected to influence
+    // actor behavior primarily through Action Hooks and Active Effect Hooks rather than actor-level hooks.
+    // We don't have active effect hooks yet, but when we do I expect we can remove actor hooks from spells entirely.
     for ( const spell of g.iconicSpells ) {
       spell.system.isKnown = spell.system.canKnowSpell(g);
       this.#registerActorHooks(spell);

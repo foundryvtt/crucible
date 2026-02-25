@@ -517,6 +517,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       summon: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSummon"), actions: []},
       reaction: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
       movement: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
+      consumable: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsConsumable"), actions: []},
       general: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
     };
     const favorites = [];
@@ -541,7 +542,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         spell: "spell",
         iconicSpell: "spell",
         movement: "movement",
-        summon: "summon"
+        summon: "summon",
+        consume: "consumable"
       };
       for ( const [tag, sectionId] of Object.entries(tagMapping) ) {
         if ( action.tags.has(tag) ) {

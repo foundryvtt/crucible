@@ -484,6 +484,7 @@
     "HEADERS": {
       "ActionsAttack": "Attack Actions",
       "ActionsGeneral": "General Actions",
+      "ActionsConsumable": "Consumable Actions",
       "ActionsMovement": "Movement Actions",
       "ActionsReaction": "Reactions",
       "ActionsSpell": "Spellcraft Actions",
