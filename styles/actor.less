@@ -875,7 +875,7 @@
           height: 80px;
           background: url(../ui/resources/health-fill.png) no-repeat center;
           background-size: 60px;
-          clip-path: inset(calc(60px * var(--capacity-pct)) 0px 0px 0px);
+          clip-path: inset(calc(60px * (1 - var(--capacity-pct))) 0px 0px 0px);
           z-index: -1;
         }
       }
