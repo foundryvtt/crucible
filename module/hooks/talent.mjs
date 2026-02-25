@@ -571,9 +571,10 @@ HOOKS.saboteur00000000 = {
 /* -------------------------------------------- */
 
 HOOKS.inexorableFlame0 = {
-  prepareGrimoire(_item, grimoire) {
-    if ( !grimoire.runes.has("flame") ) return;
-    grimoire.runes.set("flame", grimoire.runes.get("flame").clone({scaling: "wisdom"}, {once: true}));
+  prepareSpells(_item, grimoire) {
+    const flame = grimoire.runes.get("flame");
+    if ( !flame ) return;
+    grimoire.runes.set("flame", flame.clone({scaling: "wisdom"}, {once: true}));
   }
 };
 

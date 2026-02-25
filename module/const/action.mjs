@@ -485,7 +485,6 @@ export const TAGS = {
     category: "spellcraft",
     priority: 2,
     prepare() {
-      
       // Unless elsewhere overridden, iconic spells that target someone else require a roll
       this.usage.hasDice ||= this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
     }
@@ -1061,6 +1060,7 @@ export const TAGS = {
     tooltip: "ACTION.TagHealingTooltip",
     category: "damage",
     prepare() {
+      this.usage.hasDice = true;
       this.usage.resource = "health";
       this.usage.defenseType = "wounds";
       this.usage.restoration = true;
@@ -1073,6 +1073,7 @@ export const TAGS = {
     tooltip: "ACTION.TagRallyingTooltip",
     category: "damage",
     prepare() {
+      this.usage.hasDice = true;
       this.usage.resource = "morale";
       this.usage.defenseType = "madness";
       this.usage.restoration = true;

@@ -1272,7 +1272,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Configure aspects of action usage before the action is prepared.
    * @protected
    */
-  _configureUsage() {    
+  _configureUsage() {
+    this.usage.hasDice = false; // Actions don't involve a roll unless otherwise configured
 
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);

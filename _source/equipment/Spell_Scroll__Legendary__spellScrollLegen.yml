@@ -27,7 +27,32 @@ system:
       spellcraft components</p></li><li><p><strong>Legendary</strong>: May
       contain three spellcraft components</p></li></ul>
     private: ''
-  actions: []
+  actions:
+    - id: readScroll
+      name: Read Scroll
+      img: icons/sundries/scrolls/scroll-bound-tan-leather.webp
+      condition: ''
+      description: >-
+        <p>Read this spell scroll, temporarily gaining knowledge of its spellcraft
+        components for 1 hour.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: true
+      effects: []
+      tags:
+        - consume
+      actionHooks: []
   uses:
     value: 1
     max: 1

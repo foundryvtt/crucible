@@ -39,7 +39,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {EffectTags}
    */
   getTags() {
-    const {startRound, rounds, turns} = this.duration;
+    const {startRound, rounds, turns, seconds} = this.duration;
     const elapsed = game.combat ? game.combat.round - startRound : 0;
     const pluralRules = new Intl.PluralRules(game.i18n.lang);
     const tags = {
@@ -53,11 +53,20 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       return obj;
     }, {});
 
+    // Time-based duration
+    if ( Number.isFinite(seconds) ) {
+      tags.context.section = "temporary";
+      const s = Math.max(this.duration.remaining, 0);
+      tags.context.t = s;
+      // Use the calendar "ago" formatter, little hacky should ideally have a custom forward-looking formatter
+      tags.activation.duration = game.time.earthCalendar.format(s, "ago").replace(" ago", "");
+    }
+
     // Turn-based duration
-    if (Number.isFinite(turns)) {
+    else if (Number.isFinite(turns)) {
       tags.context.section = "temporary";
       const remaining = turns - elapsed;
-      tags.context.t = remaining;
+      tags.context.t = 10 * remaining;
       tags.activation.duration = `${remaining} ${game.i18n.localize(`COMBAT.DURATION.TURNS.${pluralRules.select(remaining)}`)}`;
     }
 

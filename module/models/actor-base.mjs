@@ -41,6 +41,9 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
  * @typedef CrucibleActorGrimoire
+ * @property {string[]} runeIds
+ * @property {string[]} gestureIds
+ * @property {string[]} inflectionIds
  * @property {Map<string,CrucibleSpellcraftRune>} runes
  * @property {Map<string,CrucibleSpellcraftGesture>} gestures
  * @property {Map<string,CrucibleSpellcraftInflection>} inflections
@@ -271,10 +274,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
-    this.grimoire ||= {runes: new Map(), gestures: new Map(), inflections: new Map(), iconicSlots: 0, iconicSpells: []};
+    this.grimoire ||= {runes: new Map(), gestures: new Map(), inflections: new Map(),
+      runeIds: [], gestureIds: [], inflectionIds: [], iconicSlots: 0, iconicFreeComponents: 0, iconicSpells: []};
     this.grimoire.runes.clear();
     this.grimoire.gestures.clear();
     this.grimoire.inflections.clear();
+    this.grimoire.runeIds.length = 0;
+    this.grimoire.gestureIds.length = 0;
+    this.grimoire.inflectionIds.length = 0;
     this.grimoire.iconicSlots = this.grimoire.iconicFreeComponents = 0;
     this.grimoire.iconicSpells.length = 0;
     this.permanentTalentIds ||= new Set();
@@ -387,12 +394,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
 
       // Register spellcraft knowledge
-      if ( rune ) {
-        this.grimoire.runes.set(rune, SYSTEM.SPELL.RUNES[rune]);
-        this.grimoire.gestures.set("touch", SYSTEM.SPELL.GESTURES.touch);
-      }
-      if ( gesture ) this.grimoire.gestures.set(gesture, SYSTEM.SPELL.GESTURES[gesture]);
-      if ( inflection ) this.grimoire.inflections.set(inflection, SYSTEM.SPELL.INFLECTIONS[inflection]);
+      if ( rune ) this.grimoire.runeIds.push(rune);
+      if ( gesture ) this.grimoire.gestureIds.push(gesture);
+      if ( inflection ) this.grimoire.inflectionIds.push(inflection);
       if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
     }
 
@@ -411,17 +415,54 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare iconic spells known by this Actor.
+   * Collect iconic spells owned by this Actor into the grimoire for later resolution.
+   * Spellcraft component resolution, isKnown determination, and actor hook registration for iconic
+   * spells all happen later in #finalizeGrimoire, after Active Effects have been applied.
    * @param {CrucibleItem[]} spells
    */
   #prepareSpells(spells) {
-    this.parent.callActorHooks("prepareGrimoire", this.grimoire);
-    for ( const spell of spells ) {
-      spell.system.isKnown = spell.system.canKnowSpell(this.grimoire);
-      this.grimoire.iconicSpells.push(spell);
+    for ( const spell of spells ) this.grimoire.iconicSpells.push(spell);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the final grimoire state after Active Effects and the prepareGrimoire hook have been applied.
+   * Converts intermediate component ID arrays into Maps of component instances, auto-grants the Touch
+   * gesture when any rune is present, determines which iconic spells are known, and registers iconic
+   * spell actor hooks.
+   */
+  #finalizeGrimoire() {
+    const {RUNES, GESTURES, INFLECTIONS} = SYSTEM.SPELL;
+    const g = this.grimoire;
+
+    // Auto-grant the Touch gesture if any rune is known
+    if ( g.runeIds.length ) g.gestureIds.push("touch");
+
+    // Resolve component ID arrays into Maps of component instances (duplicate IDs are naturally deduplicated)
+    for ( const id of g.runeIds ) {
+      const rune = RUNES[id];
+      if ( rune ) g.runes.set(id, rune);
+    }
+    for ( const id of g.gestureIds ) {
+      const gesture = GESTURES[id];
+      if ( gesture ) g.gestures.set(id, gesture);
+    }
+    for ( const id of g.inflectionIds ) {
+      const inflection = INFLECTIONS[id];
+      if ( inflection ) g.inflections.set(id, inflection);
+    }
+
+    // Determine which iconic spells are known and register their actor hooks.
+    // Note: iconic spell hook registration occurs here, after Active Effects and most prepareDerivedData
+    // hooks have already been called. As a result, iconic spell actor hooks may miss early-phase hook
+    // events such as prepareAbilities. This is a known wart; iconic spells are expected to influence
+    // actor behavior primarily through Action Hooks and Active Effect Hooks rather than actor-level
+    // preparation hooks.
+    for ( const spell of g.iconicSpells ) {
+      spell.system.isKnown = spell.system.canKnowSpell(g);
       this.#registerActorHooks(spell);
     }
-    this.parent.callActorHooks("prepareSpells", this.grimoire);
   }
 
   /* -------------------------------------------- */
@@ -708,6 +749,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Skills
     this.#prepareSkills();
     this.parent.callActorHooks("prepareSkills", this.skills);
+
+    // Spellcraft
+    this.parent.callActorHooks("prepareGrimoire", this.grimoire);
+    this.#finalizeGrimoire();
+    this.parent.callActorHooks("prepareSpells", this.grimoire);
 
     // Prepare Equipped Items
     this.#prepareEquippedItems();

@@ -691,6 +691,41 @@ HOOKS.reactiveStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.readScroll = {
+  prepare() {
+    this.name = `Read ${this.item.name}`;
+  },
+  canUse() {
+    const {runes, gestures, inflections} = this.item.system.scroll;
+    if ( !runes.size && !gestures.size && !inflections.size ) {
+      throw new Error(game.i18n.localize("CONSUMABLE.SCROLL.NoComponents"));
+    }
+  },
+  async postActivate(outcome) {
+    if ( !outcome.self ) return;
+    const {runes, gestures, inflections} = this.item.system.scroll;
+    const changes = [];
+    for ( const rune of runes ) {
+      changes.push({key: "system.grimoire.runeIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: rune});
+    }
+    for ( const gesture of gestures ) {
+      changes.push({key: "system.grimoire.gestureIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: gesture});
+    }
+    for ( const inflection of inflections ) {
+      changes.push({key: "system.grimoire.inflectionIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: inflection});
+    }
+    outcome.effects.push({
+      name: this.item.name,
+      img: this.item.img,
+      origin: this.item.uuid,
+      duration: {seconds: 3600},
+      changes
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.recover = {
   async confirm() {
     await this.actor.recover();

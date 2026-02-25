@@ -1024,6 +1024,7 @@
     "ComponentBudget": "This scroll may provide up to {budget} spellcraft component(s). Select which components this scroll provides.",
     "ComponentBudgetError": "This scroll may only include {budget} spellcraft component(s) total, but {total} were provided.",
     "ConfigureTitle": "Configure Spell Scroll: {name}",
+    "NoComponents": "This spell scroll is blank and cannot be read.",
     "ScrollName": "Scroll of {scroll}"
   }
 },
