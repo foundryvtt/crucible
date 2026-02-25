@@ -152,6 +152,26 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare an array of action data for display in a tooltip card or item sheet.
+   * @returns {Promise<object[]>}
+   */
+  async prepareActionsContext() {
+    const editorCls = CONFIG.ux.TextEditor;
+    const editorOptions = {relativeTo: this, secrets: this.isOwner};
+    return Promise.all((this.actions ?? []).map(async action => ({
+      id: action.id,
+      name: action.name,
+      img: action.img,
+      condition: action.condition,
+      description: await editorCls.enrichHTML(action.description, editorOptions),
+      tags: action.getTags(),
+      effects: action.effects
+    })));
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   toAnchor(options={}) {
     const tooltipTypes = ["talent", "spell"];

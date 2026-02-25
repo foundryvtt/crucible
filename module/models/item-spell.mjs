@@ -1,4 +1,3 @@
-import CrucibleSpellItemSheet from "../applications/sheets/item-spell-sheet.mjs";
 import * as crucibleFields from "./fields.mjs";
 import CrucibleSpellAction from "./spell-action.mjs";
 
@@ -190,7 +189,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
       uuid: spell.uuid,
       name: spell.name,
       img: spell.img,
-      actions: await CrucibleSpellItemSheet.prepareActions(spell),
+      actions: await spell.prepareActionsContext(),
       tags: this.getTags(),
       prerequisites: [...runeReqs, ...gestureReqs, ...inflectionReqs]
     });

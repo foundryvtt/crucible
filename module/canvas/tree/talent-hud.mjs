@@ -2,7 +2,7 @@ import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentItem from "../../models/item-talent.mjs";
-import CrucibleTalentItemSheet from "../../applications/sheets/item-talent-sheet.mjs";
+
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
 /**
@@ -119,7 +119,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     return {
       source: talent.toObject(),
       descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
-      actions: await CrucibleTalentItemSheet.prepareActions(talent),
+      actions: await talent.prepareActionsContext(),
       prerequisites: reqs
     };
   }

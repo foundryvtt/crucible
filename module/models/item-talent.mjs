@@ -1,5 +1,4 @@
 import CrucibleTalentNode from "../const/talent-node.mjs";
-import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
@@ -318,7 +317,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       uuid: talent.uuid,
       name: talent.name,
       img: talent.img,
-      actions: await CrucibleTalentItemSheet.prepareActions(talent),
+      actions: await talent.prepareActionsContext(),
       tags: this.getTags(),
       prerequisites: reqs
     });

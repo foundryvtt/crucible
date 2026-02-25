@@ -13,4 +13,52 @@
 
     <div class="description">{{{item.system.description.public}}}</div>
 
+    {{#if actions.length}}
+    <section class="actions">
+        <h3 class="divider">{{localize "ITEM.TABS.Actions"}}</h3>
+        {{#each actions as |action|}}
+        <div class="action line-item" data-action-id="{{this.id}}">
+            <header class="action-header">
+                <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+                <div class="title">
+                    <h4>{{action.name}}</h4>
+                    {{#unless tags.activation.empty}}
+                    {{crucibleTags tags.activation}}
+                    {{/unless}}
+                </div>
+            </header>
+
+            {{#unless tags.action.empty}}
+            {{crucibleTags tags.action tagType="action"}}
+            {{/unless}}
+
+            {{#unless tags.context.empty}}
+            {{crucibleTags tags.context tagType="context"}}
+            {{/unless}}
+
+            {{#if action.condition}}
+            <p class="condition activation">
+                <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
+            </p>
+            {{/if}}
+
+            <div class="description">{{{action.description}}}</div>
+
+            {{#if action.effects.length}}
+            <ol class="effects">
+                {{#each action.effects as |effect|}}
+                <li class="effect line-item">
+                    <div class="title">
+                        <h4>{{localize "ACTION.EffectSpecific" effect=effect.name}}</h4>
+                    </div>
+                    {{crucibleTags effect.tags additionalClasses="effect-tags"}}
+                </li>
+                {{/each}}
+            </ol>
+            {{/if}}
+        </div>
+        {{/each}}
+    </section>
+    {{/if}}
+
 </div>

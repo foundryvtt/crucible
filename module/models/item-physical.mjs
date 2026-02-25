@@ -196,9 +196,11 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         delete preparedTags.permanent[tag];
       }
     }
+    const item = this.parent;
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
-      item: this.parent,
-      tags: preparedTags
+      item,
+      tags: preparedTags,
+      actions: await item.prepareActionsContext()
     });
   }
 }
