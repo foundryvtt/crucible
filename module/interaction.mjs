@@ -10,6 +10,7 @@ export function onPointerEnter(event) {
       return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "equipment":
     case "accessory":
     case "activeEffect":
     case "armor":

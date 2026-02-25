@@ -26,17 +26,15 @@
 
     <div class="step-details equipment-details flexcol">
         <h1 class="step-header">{{localize "ACTOR.CREATION.EquipmentAvailable"}}</h1>
-
         <div class="equipment-filter flexrow">
-            <input type="search" class="equipment-search"
-                   placeholder="{{localize 'ACTOR.CREATION.EquipmentSearch'}}"
+            <input type="search" class="equipment-search" placeholder="{{localize 'ACTOR.CREATION.EquipmentSearch'}}"
                    autocomplete="off">
         </div>
 
-        <ol class="items-list equipment-list flexcol scrollable">
+        <ol class="items-list equipment-list flexcol scrollable" data-tooltip-direction="LEFT">
             {{#each equipmentItems as |entry|}}
             <li class="line-item equipment-entry {{#if entry.unaffordable}}unaffordable{{/if}}"
-                data-uuid="{{entry.uuid}}" data-item-name="{{entry.name}}">
+                data-uuid="{{entry.uuid}}" data-item-name="{{entry.name}}" data-crucible-tooltip="equipment">
                 <img class="icon" src="{{entry.img}}" alt="{{entry.name}}">
                 <div class="title">
                     <h4>{{entry.name}}</h4>
@@ -68,9 +66,9 @@
             <crucible-currency value="{{equipmentRemaining}}" denomination="gp" readonly></crucible-currency>
         </div>
         {{#if equipmentSelected}}
-        <ol class="items-list equipment-selected flexcol scrollable">
+        <ol class="items-list equipment-selected flexcol scrollable" data-tooltip-direction="LEFT">
             {{#each equipmentSelected as |entry|}}
-            <li class="line-item selected-entry" data-uuid="{{entry.uuid}}">
+            <li class="line-item selected-entry" data-uuid="{{entry.uuid}}" data-crucible-tooltip="equipment">
                 <img class="icon" src="{{entry.img}}" alt="{{entry.name}}">
                 <div class="title">
                     <h4>{{entry.name}}</h4>
