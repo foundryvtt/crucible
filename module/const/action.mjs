@@ -483,7 +483,12 @@ export const TAGS = {
     label: "ACTION.TagIconicSpell",
     tooltip: "ACTION.TagSpellTooltip",
     category: "spellcraft",
-    priority: 2
+    priority: 2,
+    prepare() {
+      
+      // Unless elsewhere overridden, iconic spells that target someone else require a roll
+      this.usage.hasDice ||= this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+    }
   },
 
   summon: {
