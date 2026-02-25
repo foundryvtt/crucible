@@ -1272,10 +1272,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Configure aspects of action usage before the action is prepared.
    * @protected
    */
-  _configureUsage() {
-
-    // Initial logic for whether this action entails a roll, specialized tags or hooks should redefine as necessary
-    this.usage.hasDice = this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  _configureUsage() {    
 
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
