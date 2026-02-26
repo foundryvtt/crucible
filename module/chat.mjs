@@ -27,7 +27,7 @@ export function addChatMessageContextOptions(html, options) {
         <div class="form-group slim">
             <label>DC Target</label>
             <div class="form-fields">
-                <input type="number" name="dc" value="${roll.data.dc ?? 15}" autofocus>
+                <input type="number" name="dc" value="${roll.data.dc || 15}" autofocus>
             </div>
         </div>`
       });
