@@ -453,10 +453,11 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.passive]
    * @returns {PassiveCheck|StandardCheck}
    */
-  getSkillCheck(skillId, {banes=0, boons=0, dc=20, passive=false}={}) {
+  getSkillCheck(skillId, {banes=0, boons=0, dc=0, passive=false}={}) {
     const skill = this.system.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
     const {boons: systemBoons={}, banes: systemBanes={}} = this.system.rollBonuses;
+    if ( game.user.isGM ) dc ||= 15;
 
     // Prepare check data
     const rollData = {

@@ -349,7 +349,7 @@ function enrichCounterspell([match, terms]) {
   } catch(err) {
     return new Text(match);
   }
-  const {rune, gesture, inflection, dc="20"} = parsed;
+  const {rune, gesture, inflection, dc="15"} = parsed;
   const dataset = {rune, gesture, dc};
   if ( inflection ) dataset.inflection = inflection;
 

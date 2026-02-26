@@ -56,7 +56,7 @@ export default class StandardCheck extends Roll {
     ability: 0,
     banes: {},
     boons: {},
-    dc: 20,
+    dc: 15,
     enchantment: 0,
     skill: 0,
     type: "general",
