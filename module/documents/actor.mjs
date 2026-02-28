@@ -230,12 +230,12 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  applyActiveEffects() {
+  applyActiveEffects(phase) {
     // Before applying active effects, apply data based on prepared embedded Item documents
     // TODO in V14 this can be removed in favor of phased AE application
     const items = this.itemTypes;
     this.system.prepareItems(items);
-    super.applyActiveEffects();
+    super.applyActiveEffects(phase);
   }
 
   /* -------------------------------------------- */
@@ -308,15 +308,16 @@ export default class CrucibleActor extends Actor {
   _configureActorOutcome(action, outcome) {
     const {boons, banes} = outcome.usage;
     const {isAttack=false} = action.usage;
+    const statuses = CONFIG.statusEffects;
 
     // Global conditions
-    if ( this.statuses.has("broken") ) banes.broken = {label: CONFIG.statusEffects.find(i => i.id === "broken").name, number: 2};
+    if ( this.statuses.has("broken") ) banes.broken = {label: statuses.broken.name, number: 2};
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) banes.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
-      if ( this.statuses.has("prone") ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
-      if ( this.statuses.has("restrained") ) banes.restrained = {label: CONFIG.statusEffects.find(i => i.id === "restrained").name, number: 2};
+      if ( this.statuses.has("blinded") ) banes.blind = {label: statuses.blinded.name, number: 2};
+      if ( this.statuses.has("prone") ) banes.prone = {label: statuses.prone.name, number: 1};
+      if ( this.statuses.has("restrained") ) banes.restrained = {label: statuses.restrained.name, number: 2};
     }
 
     // Temporary boons and banes stored as Actor rollBonuses
@@ -342,18 +343,21 @@ export default class CrucibleActor extends Actor {
   _configureTargetOutcome(action, outcome) {
     const {boons, banes} = outcome.usage;
     const {isAttack=false, isRanged=false} = action.usage;
+    const statuses = CONFIG.statusEffects;
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
-      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) banes.guarded = {label: CONFIG.statusEffects.find(i => i.id === "guarded").name, number: 1};
+      if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
+      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) {
+        banes.guarded = {label: statuses.guarded.name, number: 1};
+      }
       if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
-        else boons.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
+        if ( isRanged ) banes.prone = {label: statuses.prone.name, number: 1};
+        else boons.prone = {label: statuses.prone.name, number: 1};
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: CONFIG.statusEffects.find(i => i.id === "flanked").name, number: ae?.system.flanked ?? 1};
+        boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
   }
@@ -501,21 +505,21 @@ export default class CrucibleActor extends Actor {
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId              The ID of the skill to roll a check for, for example "stealth"
-   * @param {object} [options]
-   * @param {number} [options.banes]      A number of special banes applied to the roll, default is 0
-   * @param {number} [options.boons]      A number of special boons applied to the roll, default is 0
-   * @param {number} [options.dc]         A known target DC
-   * @param {string} [options.rollMode]   The roll visibility mode to use, default is the current dropdown choice
-   * @param {boolean} [options.dialog]    Display a dialog window to further configure the roll. Default is false.
+   * @param {object} [options]            Options which modify how the skill is rolled
+   * @param {number} [options.banes]        A number of special banes applied to the roll, default is 0
+   * @param {number} [options.boons]        A number of special boons applied to the roll, default is 0
+   * @param {number} [options.dc]           A known target DC
+   * @param {string} [options.messageMode]  The roll visibility mode to use, default is the current dropdown choice
+   * @param {boolean} [options.dialog]      Display a dialog window to further configure the roll. Default is false.
    * @returns {StandardCheck}             The StandardCheck roll instance which was produced.
    */
-  async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
+  async rollSkill(skillId, {banes=0, boons=0, dc, messageMode, dialog=false}={}) {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ) {
-      const response = await check.dialog({flavor, rollMode});
+      const response = await check.dialog({flavor, messageMode});
       if ( response === null ) return null;
     }
 
@@ -1020,7 +1024,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<ActiveEffect|undefined>}
    */
   async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
-    const effectData = CONFIG.statusEffects.find(e => e.id === statusId);
+    const effectData = CONFIG.statusEffects[statusId];
     if ( !effectData ) return;
     const existing = this.effects.find(e => e.statuses.has(effectData.id));
 
@@ -1264,7 +1268,7 @@ export default class CrucibleActor extends Actor {
     // Plan actor changes
     const resourceChanges = {};
     const actorUpdates = {};
-    if ( this.flags.crucible?.delay ) foundry.utils.mergeObject(actorUpdates, {"flags.crucible.-=delay": null});
+    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
 
     // Identify expiring effects
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
@@ -1298,7 +1302,7 @@ export default class CrucibleActor extends Actor {
   prepareLeaveCombatUpdates() {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
-    if ( this.flags.crucible?.delay ) updates["flags.crucible.-=delay"] = null;
+    if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
     return {updates, updateFlanking: this.statuses.has("flanked")};
   }
 
@@ -1844,18 +1848,19 @@ export default class CrucibleActor extends Actor {
     }
 
     // Clear the detail data
-    const key = `system.details.==${type}`;
+    const key = `system.details.${type}`;
     const updateData = {};
     let message;
     if ( !item ) {
-      updateData[key] = null;
+      updateData[key] = _replace(null);
       message = game.i18n.format("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
     }
 
     // Add new detail data
     else {
       const itemData = item.toObject();
-      const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      updateData[key] = _replace(detail);
       const updateItems = [];
 
       // Grant Talents
@@ -2216,7 +2221,7 @@ export default class CrucibleActor extends Actor {
         type: "flanked",
         name: `${game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
         description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
-        icon: "systems/crucible/icons/statuses/flanked.svg",
+        img: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         system: {
           enemies: engagement.enemies.size,
@@ -2665,8 +2670,6 @@ export default class CrucibleActor extends Actor {
         this._groups.delete(group);
         continue;
       }
-      // TODO v14 remove conditional https://github.com/foundryvtt/foundryvtt/issues/13722
-      if ( group.sheet.isVisible ) group.sheet.render({force: false});
     }
   }
 

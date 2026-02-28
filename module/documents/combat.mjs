@@ -74,7 +74,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
-    if ( !("type" in data) ) this.updateSource({type: "combat", "==system": {}});
+    if ( !("type" in data) ) this.updateSource({type: "combat", system: _replace({})});
   }
 
   /* -------------------------------------------- */
@@ -153,7 +153,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
       const impetus = {
         _id: impetusId,
         name: "Impetus",
-        icon: "icons/magic/movement/trail-streak-zigzag-yellow.webp",
+        img: "icons/magic/movement/trail-streak-zigzag-yellow.webp",
         statuses: ["hastened"],
         duration: {
           combat: this.id,
