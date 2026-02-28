@@ -237,7 +237,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
   /** @inheritDoc */
   async _onSubmit(target, event) {
     const form = this.element.querySelector("form");
-    const nameInput = form.elements.name
+    const nameInput = form.elements.name;
     nameInput.value ||= nameInput.placeholder;
     return super._onSubmit(target, event);
   }
@@ -253,7 +253,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
     const form = event.target.form;
     const nameInput = form.elements.name;
     if ( event.target === nameInput ) return;
-    const formData = foundry.utils.expandObject(new FormDataExtended(form).object);
+    const formData = foundry.utils.expandObject(new foundry.applications.ux.FormDataExtended(form).object);
     nameInput.placeholder = CrucibleConsumableItem.getScrollName(formData.system.scroll);
   }
 }

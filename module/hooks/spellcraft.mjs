@@ -52,14 +52,16 @@ HOOKS.aspect = {
       outcome.effects.push({
         _id: SYSTEM.EFFECTS.getEffectId(`curse${this.damage.type}`),
         name: this.name,
-        icon: this.rune.img,
+        img: this.rune.img,
         duration: {rounds: 6},
         origin: this.actor.uuid,
-        changes: [{
-          key: `system.resistances.${this.damage.type}.bonus`,
-          value: -2,
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD
-        }]
+        system: {
+          changes: [{
+            key: `system.resistances.${this.damage.type}.bonus`,
+            value: -2,
+            type: "add"
+          }]
+        }
       });
       return;
     }
@@ -69,21 +71,23 @@ HOOKS.aspect = {
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId(`aspect${this.damage.type}`),
       name: this.name,
-      icon: this.gesture.img,
+      img: this.gesture.img,
       duration: {rounds: 6},
       origin: this.actor.uuid,
-      changes: [
-        {
-          key: `system.resistances.${this.damage.type}.bonus`,
-          value: 2,
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD
-        },
-        {
-          key: `system.rollBonuses.damage.${this.damage.type}`,
-          value: 2,
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD
-        }
-      ]
+      system: {
+        changes: [
+          {
+            key: `system.resistances.${this.damage.type}.bonus`,
+            value: 2,
+            type: "add"
+          },
+          {
+            key: `system.rollBonuses.damage.${this.damage.type}`,
+            value: 2,
+            type: "add"
+          }
+        ]
+      }
     });
   }
 };
@@ -98,7 +102,7 @@ HOOKS.aura = {
     if ( !outcome.self ) return;
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
-      icon: this.img,
+      img: this.img,
       name: this.name,
       system: {}
     });
@@ -115,7 +119,7 @@ HOOKS.conjure = {
     if ( !outcome.self ) return;
     outcome.effects.push({
       _id: outcome.summons[0].effectId,
-      icon: this.img,
+      img: this.img,
       name: this.name,
       duration: {rounds: 12},
       system: {}
@@ -133,7 +137,7 @@ HOOKS.create = {
     if ( !outcome.self ) return;
     outcome.effects.push({
       _id: outcome.summons[0].effectId,
-      icon: this.img,
+      img: this.img,
       name: this.name,
       duration: {rounds: 6},
       system: {}
@@ -168,7 +172,7 @@ HOOKS.sense = {
     if ( !outcome.self ) return;
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
-      icon: this.img,
+      img: this.img,
       name: this.name,
       system: {}
     });
@@ -215,16 +219,18 @@ HOOKS.ward = {
     outcome.effects.push({
       _id: SYSTEM.EFFECTS.getEffectId("ward"),
       name: this.name,
-      icon: this.gesture.img,
+      img: this.gesture.img,
       duration: {rounds: 1},
       origin: this.actor.uuid,
-      changes: [
-        {
-          key: `system.resistances.${this.damage.type}.bonus`,
-          value: resistance,
-          mode: CONST.ACTIVE_EFFECT_MODES.ADD
-        }
-      ]
+      system: {
+        changes: [
+          {
+            key: `system.resistances.${this.damage.type}.bonus`,
+            value: resistance,
+            type: "add"
+          }
+        ]
+      }
     });
   }
 };

@@ -28,7 +28,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
   return {
     _id: getEffectId("Bleeding"),
     name: "Bleeding",
-    icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
+    img: "icons/skills/wounds/blood-spurt-spray-red.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["bleeding"],
@@ -54,7 +54,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
   return {
     _id: getEffectId("Burning"),
     name: "Burning",
-    icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
+    img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["burning"],
@@ -84,7 +84,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   return {
     _id: getEffectId("Freezing"),
     name: "Freezing",
-    icon: "icons/magic/water/orb-ice-web.webp",
+    img: "icons/magic/water/orb-ice-web.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["freezing", "slowed"],
@@ -110,7 +110,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
   return {
     _id: getEffectId("Confused"),
     name: "Confused",
-    icon: "icons/magic/air/air-burst-spiral-pink.webp",
+    img: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["confused", "disoriented"],
@@ -136,7 +136,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
-    icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
+    img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {turns},
     origin: actor.uuid,
     system: {
@@ -162,7 +162,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   return {
     _id: getEffectId("Decaying"),
     name: "Decaying",
-    icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
+    img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {turns},
     origin: actor.uuid,
     system: {
@@ -183,7 +183,7 @@ export function entropy(actor) {
   return {
     _id: getEffectId("Entropy"),
     name: "Entropy",
-    icon: "icons/magic/unholy/orb-swirling-teal.webp",
+    img: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["frightened"],
@@ -205,7 +205,7 @@ export function irradiated(actor) {
   return {
     _id: getEffectId("Irradiated"),
     name: "Irradiated",
-    icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
+    img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {turns: 1},
     origin: actor.uuid,
     system: {
@@ -234,7 +234,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
   return {
     _id: getEffectId("Mending"),
     name: "Mending",
-    icon: "icons/magic/life/cross-beam-green.webp",
+    img: "icons/magic/life/cross-beam-green.webp",
     duration: {turns},
     origin: actor.uuid,
     system: {
@@ -256,7 +256,7 @@ export function inspired(actor, target) {
   return {
     _id: getEffectId("Inspired"),
     name: "Inspired",
-    icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
+    img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {turns: 1},
     origin: actor.uuid,
     system: {
@@ -281,7 +281,7 @@ export function dominated(actor, {ability="wisdom", amount, turns=3, damageType=
   return {
     _id: getEffectId("Dominated"),
     name: "Dominated",
-    icon: "icons/magic/control/hypnosis-mesmerism-watch.webp",
+    img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["dominated"],
@@ -307,7 +307,7 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
   return {
     _id: getEffectId("Poisoned"),
     name: "Poisoned",
-    icon: "icons/magic/unholy/orb-smoking-green.webp",
+    img: "icons/magic/unholy/orb-smoking-green.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["poisoned"],
@@ -333,7 +333,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
   return {
     _id: getEffectId("Shocked"),
     name: "Shocked",
-    icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
+    img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     duration: {turns},
     origin: actor.uuid,
     statuses: ["shocked"],
@@ -356,7 +356,7 @@ export function staggered(actor, target) {
   return {
     _id: getEffectId("Staggered"),
     name: "Staggered",
-    icon: "icons/skills/melee/strike-hammer-destructive-orange.webp",
+    img: "icons/skills/melee/strike-hammer-destructive-orange.webp",
     duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["staggered"]
