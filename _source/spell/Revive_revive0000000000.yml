@@ -46,8 +46,9 @@ system:
             - staggered
             - disoriented
           duration:
-            turns: 60
-            rounds: null
+            value: 60
+            units: rounds
+            expiry: turnEnd
           system:
             changes: []
             dot: []

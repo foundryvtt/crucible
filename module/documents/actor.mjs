@@ -1127,10 +1127,10 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * @typedef CrucibleTurnStartConfig
-   * @property {Record<string, number>} resourceChanges
+   * @typedef CrucibleTurnChangeConfig
    * @property {object} actorUpdates
    * @property {toCreate: object[], toUpdate: object[], toDelete: string[]} effectChanges
+   * @property {Record<string, number>} resourceChanges
    * @property {string[]} statusText
    */
 
@@ -1140,7 +1140,7 @@ export default class CrucibleActor extends Actor {
    *
    * Turn start workflows proceed in the following order:
    * 1. Damage-Over-Time effects are applied
-   * 2. Active Effects are expired or gained
+   * 2. Active Effects are modified
    * 3. Resource recovery occurs
    * @returns {Promise<void>}
    */
@@ -1161,64 +1161,53 @@ export default class CrucibleActor extends Actor {
       text: _loc("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
     });
-    const actorUpdates = {
-      system: {status: null},
-      flags: {
-        crucible: {
-          actionHistory: []
-        }
-      }
-    };
 
-    // Identify expiring effects
+    // Plan turn start workflows
+    const actorUpdates = {system: {status: null}, flags: {crucible: {actionHistory: []}}};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    /** @type {CrucibleTurnStartConfig} */
-    const turnStartConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
+    const turnStartConfig = /** @type {CrucibleTurnChangeConfig} */ {
+      resourceChanges,
+      actorUpdates,
+      effectChanges,
+      statusText
+    };
 
     // Actor turn start configuration hook
     await this.#prepareTurnStartConfig(turnStartConfig);
     this.callActorHooks("startTurn", turnStartConfig);
 
     // Apply damage-over-time
-    await this.applyDamageOverTime().catch(cause => { // TODO integrate this with resourceRecovery?
+    try {
+      await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start damage-over-time effects for Actor ${this.id}.`, {cause}));
-    });
+    }
 
-    // Remove round-based Active Effects which expire at the start of a turn
-    await this.#applyActiveEffectChanges(effectChanges).catch(cause => {
+    // Apply active effect changes
+    try {
+      await this.#applyActiveEffectChanges(effectChanges);
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    });
+    }
 
     // Recover resources
-    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
+    try {
+      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start resource recovery for Actor ${this.id}.`, {cause}));
-    });
-
-    // TODO log a turn start summary of resource changes and their sources?
+    }
   }
 
   /* -------------------------------------------- */
 
   /**
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a duration specified in Rounds expire at the beginning of the Actor's turn on the subsequent round.
-   * @param {CrucibleTurnStartConfig} turnStartConfig
+   * Effects with a maintenance cost are checked here; effects without sufficient focus are deleted.
+   * @param {CrucibleTurnChangeConfig} turnStartConfig
    */
   async #prepareTurnStartConfig(turnStartConfig) {
     const {effectChanges, resourceChanges} = turnStartConfig;
-
-    // Identify effect changes
     for ( const effect of this.effects ) {
-
-      // Identify expired effects
-      const {startRound, rounds} = effect.duration;
-      if ( Number.isNumeric(rounds) ) {
-        const elapsed = game.combat.round - startRound;
-        if ( elapsed >= rounds ) {
-          effectChanges.toDelete.push(effect.id);
-          continue;
-        }
-      }
 
       // Identify maintained effects
       const maintainedCost = effect.system.maintenance?.cost;
@@ -1238,7 +1227,6 @@ export default class CrucibleActor extends Actor {
           resourceChanges.focus -= maintainedCost;
         } else {
           effectChanges.toDelete.push(effect.id);
-          continue;
         }
       }
     }
@@ -1251,7 +1239,7 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn end workflows proceed in the following order:
-   * 1. Active Effects are expired or gained
+   * 1. Active Effects are modified
    * 2. Resource recovery occurs
    * @returns {Promise<void>}
    */
@@ -1266,30 +1254,47 @@ export default class CrucibleActor extends Actor {
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
     // Plan actor changes
-    const resourceChanges = {};
     const actorUpdates = {};
-    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
-
-    // Identify expiring effects
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    this.#updateEndTurnEffects(effectChanges);
-
-    // Actor turn start configuration hook
+    const resourceChanges = {};
     const statusText = [];
-    const turnEndConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
+    /** @type {CrucibleTurnChangeConfig} */
+    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {
+      effectChanges,
+      resourceChanges,
+      actorUpdates,
+      statusText
+    };
+
+    // Configure turn end workflows
+    this.#prepareTurnEndConfig(turnEndConfig);
     this.callActorHooks("endTurn", turnEndConfig);
 
-    // Remove active effects which expire at the end of a turn
-    await this.#applyActiveEffectChanges(effectChanges).catch(cause => {
+    // Apply active effect changes
+    try {
+      await this.#applyActiveEffectChanges(effectChanges);
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn end ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    });
+    };
 
     // Recover resources
-    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
+    try {
+      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn end resource recovery for Actor ${this.id}.`, {cause}));
-    });
+    }
+  }
 
-    // TODO turn end summary of resource changes and their sources?
+  /* -------------------------------------------- */
+
+  /**
+   * Identify changes that should occur as part of a turn end workflow.
+   * @param {CrucibleTurnChangeConfig} turnEndConfig
+   */
+  #prepareTurnEndConfig(turnEndConfig) {
+    const {actorUpdates, effectChanges} = turnEndConfig;
+    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
+    if ( this.effects.has("unaware000000000") ) effectChanges.toDelete.push("unaware000000000");
   }
 
   /* -------------------------------------------- */
@@ -1389,24 +1394,6 @@ export default class CrucibleActor extends Actor {
     if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
     if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a duration specified in Turns expire at the end of the Actor's turn once the duration has elapsed.
-   * @param {{toCreate: object[], toUpdate: object[], toDelete: string[]}} [effectChanges]
-   */
-  #updateEndTurnEffects(effectChanges) {
-    for ( const effect of this.effects ) {
-      const {startRound, turns} = effect.duration;
-      if ( !Number.isNumeric(turns) ) continue; // Must have duration in turns
-      const elapsed = game.combat.previous.round - startRound; // Important to reference the previous round
-      if ( elapsed >= turns ) effectChanges.toDelete.push(effect.id);
-      // Workaround until unaware is more automated - it can only ever last one round
-      else if ( effect.id === "unaware000000000" ) effectChanges.toDelete.push(effect.id);
-    }
   }
 
   /* -------------------------------------------- */

@@ -38,8 +38,9 @@ system:
           statuses:
             - corroding
           duration:
-            turns: 3
-            rounds: null
+            value: 3
+            units: rounds
+            expiry: turnEnd
           system:
             changes: []
             dot: []

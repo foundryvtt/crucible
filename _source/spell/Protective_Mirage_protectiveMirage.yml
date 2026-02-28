@@ -32,8 +32,9 @@ system:
             all: false
           statuses: []
           duration:
-            turns: 10
-            rounds: null
+            value: 10
+            units: rounds
+            expiry: turnEnd
           system:
             dot: []
             maintenance: null

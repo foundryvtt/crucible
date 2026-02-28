@@ -59,8 +59,9 @@ system:
           statuses:
             - burning
           duration:
-            turns: 3
-            rounds: null
+            value: 3
+            units: rounds
+            expiry: turnEnd
           result:
             type: success
             all: false

@@ -42,8 +42,9 @@ system:
           statuses:
             - bleeding
           duration:
-            turns: 2
-            rounds: null
+            value: 2
+            units: rounds
+            expiry: turnEnd
           system:
             changes: []
             dot: []

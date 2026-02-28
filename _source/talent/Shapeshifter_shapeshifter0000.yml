@@ -40,8 +40,9 @@ system:
             all: false
           statuses: []
           duration:
-            turns: null
-            rounds: 60
+            value: 60
+            units: rounds
+            expiry: turnStart
           system:
             changes: []
             dot: []

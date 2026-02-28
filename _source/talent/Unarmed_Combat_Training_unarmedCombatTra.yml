@@ -35,8 +35,9 @@ system:
           statuses:
             - restrained
           duration:
-            turns: null
-            rounds: 1
+            value: 1
+            units: rounds
+            expiry: turnStart
           system:
             dot: []
             maintenance: null
@@ -51,8 +52,9 @@ system:
           statuses:
             - restrained
           duration:
-            turns: null
-            rounds: 1
+            value: 1
+            units: rounds
+            expiry: turnStart
           system:
             dot: []
             maintenance: null

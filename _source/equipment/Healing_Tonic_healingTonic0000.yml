@@ -55,8 +55,9 @@ system:
           scope: 4
           statuses: []
           duration:
-            turns: null
-            rounds: 5
+            value: 5
+            units: rounds
+            expiry: turnStart
           result:
             type: success
             all: false
