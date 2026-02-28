@@ -18,7 +18,7 @@ export function addChatMessageContextOptions(html, options) {
       const flags = message.flags.crucible || {};
       return message.isRoll && flags.skill;
     },
-    onClick: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       const roll = message.rolls[0];
       const formData = await foundry.applications.api.DialogV2.input({
@@ -45,7 +45,7 @@ export function addChatMessageContextOptions(html, options) {
       const flags = message.flags.crucible || {};
       return flags.action && !flags.confirmed;
     },
-    onClick: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message);
     }
@@ -60,7 +60,7 @@ export function addChatMessageContextOptions(html, options) {
       const flags = message.flags.crucible || {};
       return flags.action && flags.confirmed;
     },
-    onClick: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message, {reverse: true});
     }

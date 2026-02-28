@@ -468,7 +468,7 @@ HOOKS.lifebloom = {
     const lifebloomEffect = {
       _id: "lifebloom0000000",
       name: this.name,
-      icon: this.img,
+      img: this.img,
       origin: this.actor.uuid,
       duration: {turns: 6},
       system: {

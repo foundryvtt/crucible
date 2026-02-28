@@ -1268,7 +1268,7 @@ export default class CrucibleActor extends Actor {
     // Plan actor changes
     const resourceChanges = {};
     const actorUpdates = {};
-    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del();
+    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
 
     // Identify expiring effects
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
@@ -1302,7 +1302,7 @@ export default class CrucibleActor extends Actor {
   prepareLeaveCombatUpdates() {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
-    if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del();
+    if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
     return {updates, updateFlanking: this.statuses.has("flanked")};
   }
 
