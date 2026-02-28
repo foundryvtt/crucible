@@ -42,8 +42,9 @@ system:
           statuses:
             - dead
           duration:
-            turns: null
-            rounds: null
+            value: null
+            units: seconds
+            expiry: null
           system:
             dot: []
             maintenance: null

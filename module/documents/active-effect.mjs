@@ -39,8 +39,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {EffectTags}
    */
   getTags() {
-    const {startRound, rounds, turns, seconds} = this.duration;
-    const elapsed = game.combat ? game.combat.round - startRound : 0;
+    const {units, expiry, remaining} = this.duration;
     const pluralRules = new Intl.PluralRules(game.i18n.lang);
     const tags = {
       context: {section: "persistent"},
@@ -54,28 +53,21 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     }, {});
 
     // Time-based duration
-    if ( Number.isFinite(seconds) ) {
+    if ( (units === "seconds") && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
-      const s = Math.max(this.duration.remaining, 0);
+      const s = Math.max(remaining, 0);
       tags.context.t = s;
       // Use the calendar "ago" formatter, little hacky should ideally have a custom forward-looking formatter
       tags.activation.duration = game.time.earthCalendar.format(s, "ago").replace(" ago", "");
     }
 
-    // Turn-based duration
-    else if (Number.isFinite(turns)) {
+    // Combat-based duration
+    else if ( (units === "rounds") && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
-      const remaining = turns - elapsed;
-      tags.context.t = 10 * remaining;
-      tags.activation.duration = `${remaining} ${_loc(`COMBAT.DURATION.TURNS.${pluralRules.select(remaining)}`)}`;
-    }
-
-    // Round-based duration
-    else if (Number.isFinite(rounds)) {
-      tags.context.section = "temporary";
-      const remaining = rounds - elapsed;
-      tags.context.t = 1000000 * remaining;
-      tags.activation.duration = `${remaining} ${_loc(`COMBAT.DURATION.ROUNDS.${pluralRules.select(remaining)}`)}`;
+      const r = Math.max(remaining, 0);
+      tags.context.t = 10 * r;
+      const locKey = expiry === "turnEnd" ? "EFFECT.DURATION.TURNS" : "EFFECT.DURATION.ROUNDS";
+      tags.activation.duration = `${r} ${_loc(`${locKey}.${pluralRules.select(r)}`)}`;
     }
 
     // Persistent

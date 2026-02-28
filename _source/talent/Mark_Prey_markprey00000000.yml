@@ -29,8 +29,9 @@ system:
         - name: Marked
           scope: 3
           duration:
-            turns: 3
-            rounds: null
+            value: 3
+            units: rounds
+            expiry: turnEnd
           statuses:
             - exposed
           result:

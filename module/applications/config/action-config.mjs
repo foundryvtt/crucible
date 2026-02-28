@@ -132,6 +132,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     action.name ||= this.document.name;
     action.img ||= this.document.img;
     const disableHooks = !game.user.isGM;
+
     return {
       action,
       actionHookChoices: Object.entries(SYSTEM.ACTION_HOOKS).reduce((obj, [k, v]) => {
@@ -154,7 +155,11 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       tabs: this.#prepareTabs().sheet,
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
-      targetTypes: SYSTEM.ACTION.TARGET_TYPES
+      targetTypes: SYSTEM.ACTION.TARGET_TYPES,
+      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.map(v => {
+        return {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)};
+      }),
+      effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
     };
   }
 
@@ -311,7 +316,9 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       duration: {
-        turns: 1
+        value: 1,
+        units: "rounds",
+        expiry: "turnEnd"
       }
     });
     this.action.updateSource({effects});

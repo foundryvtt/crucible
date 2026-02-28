@@ -38,8 +38,9 @@ system:
           statuses:
             - stunned
           duration:
-            turns: 1
-            rounds: null
+            value: 1
+            units: rounds
+            expiry: turnEnd
           result:
             type: success
             all: false
