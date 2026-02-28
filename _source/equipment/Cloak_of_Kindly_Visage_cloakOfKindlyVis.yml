@@ -65,14 +65,17 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags: []
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
 effects: []
 ownership:
@@ -90,12 +93,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768517320446
-  modifiedTime: 1768517320487
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157762
+  modifiedTime: 1772307157762
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: cloakOfKindlyVis
 sort: 400000
 _key: '!items!cloakOfKindlyVis'

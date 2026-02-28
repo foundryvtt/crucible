@@ -2,7 +2,6 @@ name: 'Gesture: Step'
 type: talent
 img: icons/magic/movement/chevrons-down-yellow.webp
 system:
-  node: dex2b
   description: >-
     <p>You infuse runic power into a movement, crossing physical and spatial
     boundaries.</p><p>The Step gesture scales with <strong>Dexterity</strong>
@@ -17,16 +16,24 @@ system:
   actions: []
   gesture: step
   actorHooks: []
+  nodes:
+    - dex2b
+  rune: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1674842056708
-  modifiedTime: 1762983572022
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.gesturestep00000
   duplicateSource: null
   exportSource: null

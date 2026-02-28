@@ -2,13 +2,22 @@ name: Bulwark
 type: talent
 img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
 system:
-  node: tou0a
   description: >-
     <p>You have expertise in using a <strong>Shield</strong> to defend yourself
     and others.</p><p>Once per Turn while you have a Shield equipped, you may
     use the <strong>Defend</strong> action at a reduced cost of 1 Action
     Point.</p>
   actorHooks: []
+  nodes:
+    - tou0a
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -17,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677209859186
-  modifiedTime: 1763344958854
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.bulwark000000000
   duplicateSource: null
   exportSource: null

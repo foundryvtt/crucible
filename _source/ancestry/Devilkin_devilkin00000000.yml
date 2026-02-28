@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: strength
-  secondary: presence
-  resistance: fire
-  vulnerability: radiant
   description: >-
     <p>You were born with unexpected magical influence over your creation. Your
     physical appearance shows tell-tale signs that the superstitious associate
     with planar beings- crimson flesh, ineffective wings or horns, reptilian
     eyes. Your dislike of light and preternatural resistance to fire does little
     to dissuade people from thinking you are an actual devil.</p>
-  size: 4
-  stride: 10
   identifier: devilkin
   talents:
-    - Compendium.crucible.talent.Item.runeFlame0000000
+    - item: Compendium.crucible.talent.Item.runeFlame0000000
+      level: null
   ui:
     color: '#c72950'
+  abilities:
+    primary: strength
+    secondary: presence
+  resistances:
+    resistance: fire
+    vulnerability: radiant
+  movement:
+    size: 4
+    stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420025
-  modifiedTime: 1763155308739
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157415
+  modifiedTime: 1772307157415
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

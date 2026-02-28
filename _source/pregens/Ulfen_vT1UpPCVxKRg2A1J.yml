@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/HumanBarbarian.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: 5ImsYEoZ5PjW0Ltw
     name: Scale Mail
@@ -293,10 +291,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158958
+      modifiedTime: 1772307158958
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
     ownership:
@@ -336,10 +336,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158959
+      modifiedTime: 1772307158959
     sort: 900000
     ownership:
       default: 0
@@ -383,6 +385,9 @@ items:
             maximum: null
             weapon: false
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -401,10 +406,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158959
+      modifiedTime: 1772307158959
     ownership:
       default: 0
     _key: '!actors.items!vT1UpPCVxKRg2A1J.intimidator00000'
@@ -448,6 +455,9 @@ items:
             maximum: null
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -462,10 +472,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158960
+      modifiedTime: 1772307158960
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
     sort: 0
@@ -512,6 +524,9 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -526,10 +541,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158964
+      modifiedTime: 1772307158964
     folder: yQPNpmhq761VzMZe
     sort: 100000
     ownership:
@@ -577,6 +594,9 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: ''
@@ -591,10 +611,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158965
+      modifiedTime: 1772307158965
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
     sort: -100000
@@ -640,12 +662,12 @@ items:
               duration:
                 turns: null
                 rounds: 1
-              changes: []
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
             - name: Grappling
               scope: 1
               result:
@@ -656,12 +678,12 @@ items:
               duration:
                 turns: null
                 rounds: 1
-              changes: []
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
           tags:
             - difficult
             - harmless
@@ -675,6 +697,9 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: unarmed
@@ -692,10 +717,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158965
+      modifiedTime: 1772307158965
     _id: unarmedCombatTra
     ownership:
       default: 0
@@ -708,12 +735,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307158956
+  modifiedTime: 1772307158956
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: vT1UpPCVxKRg2A1J
 ownership:
   default: 2

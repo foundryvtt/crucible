@@ -26,24 +26,23 @@ effects:
       maintenance: null
       regions: []
       summons: []
-    changes:
-      - key: system.rollBonuses.banes.sunlightWeakness.number
-        mode: 5
-        value: '2'
-        priority: null
-      - key: system.rollBonuses.banes.sunlightWeakness.label
-        mode: 5
-        value: Sunlight Weakness
-        priority: null
+      changes:
+        - key: system.rollBonuses.banes.sunlightWeakness.number
+          value: 2
+          priority: null
+          type: override
+          phase: initial
+        - key: system.rollBonuses.banes.sunlightWeakness.label
+          value: Sunlight Weakness
+          priority: null
+          type: override
+          phase: initial
     disabled: true
     duration:
-      startTime: null
-      combat: null
-      seconds: null
-      rounds: null
-      turns: null
-      startRound: null
-      startTurn: null
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
     description: <p>The creature suffers banes to all actions when exposed to sunlight.</p>
     origin: null
     tint: '#ffffff'
@@ -55,10 +54,15 @@ effects:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.7
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307157341
+      modifiedTime: 1772307157341
+    start: null
+    showIcon: 1
+    folder: null
     _key: '!items.effects!sunlightWeakness.sunlightWeakness'
 folder: EDeByOa9cuYSaF8Y
 ownership:
@@ -69,12 +73,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771791041181
-  modifiedTime: 1771791041181
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157340
+  modifiedTime: 1772307157340
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: sunlightWeakness
 sort: 0
 _key: '!items!sunlightWeakness'

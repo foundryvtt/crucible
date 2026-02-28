@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: toughness
-  secondary: wisdom
-  resistance: acid
-  vulnerability: psychic
   description: >-
     <p>Like your parents before you, you were born with the enduring fortitude
     of the Dwarves. Your stout stature and burly physical appearance are the
     hallmarks of a people born of earth and stone. A legacy of physical
     resilience is yours to inherit, for in your breast beats a heart of
     stone.</p>
-  size: 4
-  stride: 8
   identifier: dwarven
   talents:
-    - Compendium.crucible.talent.Item.secondwind000000
+    - item: Compendium.crucible.talent.Item.secondwind000000
+      level: null
   ui:
     color: '#cb9943'
+  abilities:
+    primary: toughness
+    secondary: wisdom
+  resistances:
+    resistance: acid
+    vulnerability: psychic
+  movement:
+    size: 4
+    stride: 8
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.344'
-  createdTime: 1674942420012
-  modifiedTime: 1748784732004
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157415
+  modifiedTime: 1772307157415
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

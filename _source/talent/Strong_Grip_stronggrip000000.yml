@@ -3,22 +3,30 @@ type: talent
 _id: stronggrip000000
 img: icons/skills/melee/hand-grip-sword-orange.webp
 system:
-  node: str0a
   description: >-
     Your grasp of your weaponry is firm and unyielding. You can perform Actions
     which require a free hand while wielding a two-handed weapon. Attempts to
     Disarm you are made with +2 Banes.
   actions: []
-  requirements: {}
+  nodes:
+    - str0a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1675008661147
-  modifiedTime: 1747840637922
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160150
+  modifiedTime: 1772307160150
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

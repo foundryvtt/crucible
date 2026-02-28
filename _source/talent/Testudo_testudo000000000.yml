@@ -3,7 +3,6 @@ type: talent
 _id: testudo000000000
 img: icons/skills/melee/shield-block-gray-yellow.webp
 system:
-  node: tou0a
   description: >-
     You are highly skilled in using shields to adopt a defensive posture. You
     gain double the benefit of the <strong>Guarded</strong> condition against
@@ -12,15 +11,22 @@ system:
   actorHooks: []
   nodes:
     - tou1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674840825101
-  modifiedTime: 1766941567521
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160152
+  modifiedTime: 1772307160152
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

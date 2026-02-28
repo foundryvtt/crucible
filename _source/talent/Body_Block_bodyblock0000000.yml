@@ -6,7 +6,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: toustr2
   description: >-
     You lean into an attack which was otherwise defended with your Armor,
     converting its result into a Block instead.
@@ -37,13 +36,26 @@ system:
         minimum: null
         maximum: null
         weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - toustr2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420028
-  modifiedTime: 1763344869797
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

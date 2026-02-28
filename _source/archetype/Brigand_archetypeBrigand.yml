@@ -15,17 +15,25 @@ system:
     toughness: 3
     dexterity: 3
   talents:
-    - Compendium.crucible.talent.Item.dualWield0000000
-    - Compendium.crucible.talent.Item.backstab00000000
-    - Compendium.crucible.talent.Item.pinningshot00000
-    - Compendium.crucible.talent.Item.opportunist00000
-    - Compendium.crucible.talent.Item.weakpoints000000
-    - Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.dualWield0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.backstab00000000
+      level: null
+    - item: Compendium.crucible.talent.Item.pinningshot00000
+      level: null
+    - item: Compendium.crucible.talent.Item.opportunist00000
+      level: null
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: null
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
   skills:
     - athletics
     - stealth
     - deception
     - intimidation
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -36,11 +44,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751635335541
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157481
+  modifiedTime: 1772307157481
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 600000
 _key: '!items!archetypeBrigand'

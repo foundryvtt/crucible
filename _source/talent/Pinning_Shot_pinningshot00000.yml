@@ -3,7 +3,6 @@ type: talent
 _id: pinningshot00000
 img: icons/skills/ranged/arrow-strike-glowing-teal.webp
 system:
-  node: dex3a
   description: >-
     You fire a tactically placed shot to pin your target against a nearby
     surface.
@@ -22,10 +21,12 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Pinning Shot
           scope: 3
@@ -33,6 +34,16 @@ system:
             - restrained
           duration:
             turns: 1
+            rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Pinning Shot
       img: icons/skills/ranged/arrow-strike-glowing-teal.webp
       range:
@@ -40,15 +51,28 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674962141351
-  modifiedTime: 1749329303915
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

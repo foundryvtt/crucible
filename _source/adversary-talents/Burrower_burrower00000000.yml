@@ -41,6 +41,9 @@ system:
         - natural
         - empowered
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -59,12 +62,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1767896453753
-  modifiedTime: 1771690067397
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157329
+  modifiedTime: 1772307157329
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: burrower00000000
 sort: 100000
 _key: '!items!burrower00000000'

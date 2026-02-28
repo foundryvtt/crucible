@@ -3,13 +3,21 @@ type: talent
 _id: opportunisticspe
 img: icons/magic/unholy/strike-hand-glow-pink.webp
 system:
-  node: int2b
   description: >-
     <p>Your quick thinking can weave magic to exploit brief windows of
     opportunity. You may make a <strong>Disengagement Attack</strong> using the
     <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - int2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 300000
@@ -19,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1685584334888
-  modifiedTime: 1742935840155
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

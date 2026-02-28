@@ -24,6 +24,7 @@ system:
         focus: 1
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -32,12 +33,16 @@ system:
         type: single
         number: 1
         scope: 4
+        self: false
       effects: []
       tags:
         - reaction
         - melee
         - thrown
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -56,11 +61,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749341304398
-  modifiedTime: 1749342592213
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160136
+  modifiedTime: 1772307160136
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!interruptingDagg'

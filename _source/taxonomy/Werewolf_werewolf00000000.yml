@@ -13,23 +13,48 @@ system:
     toughness: 3
     dexterity: 3
   resistances:
-    bludgeoning: 1
-    corruption: -1
-    piercing: 1
-    slashing: 1
-    poison: 1
-    acid: 0
-    fire: -1
-    cold: -1
-    electricity: -1
-    psychic: 0
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 1
+      immune: false
+    corruption:
+      value: -1
+      immune: false
+    piercing:
+      value: 1
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: 1
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: -1
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   movement:
     size: 6
     stride: 12
   talents:
-    - Compendium.crucible.adversary-talents.Item.pouncingStrike00
+    - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -43,11 +68,12 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  modifiedTime: 1763068995134
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  createdTime: 1772307170601
 _key: '!items!werewolf00000000'

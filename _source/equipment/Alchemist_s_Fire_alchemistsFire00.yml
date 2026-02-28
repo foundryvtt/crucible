@@ -64,12 +64,12 @@ system:
           result:
             type: success
             all: false
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - consume
         - weakened
@@ -77,9 +77,16 @@ system:
         - skill
         - athletics
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   uses:
     value: 1
     max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 effects: []
 folder: 9u3lR2Lbhj3cdjQk
 ownership:
@@ -90,11 +97,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1751637580701
-  modifiedTime: 1770255467379
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157757
+  modifiedTime: 1772307157757
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!alchemistsFire00'

@@ -56,9 +56,12 @@ system:
       value: 0
       immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.restlessDead0000
-    - Compendium.crucible.adversary-talents.Item.repugnantPustule
-    - Compendium.crucible.talent.Item.thickskin0000000
+    - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.repugnantPustule
+      level: null
+    - item: Compendium.crucible.talent.Item.thickskin0000000
+      level: null
   characteristics:
     equipment: true
     spells: true
@@ -73,12 +76,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765550120842
-  modifiedTime: 1771794854759
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170601
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: zombie0000000000
 sort: 500000
 _key: '!items!zombie0000000000'

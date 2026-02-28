@@ -19,6 +19,7 @@ system:
         focus: 1
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: 20
@@ -30,7 +31,7 @@ system:
         self: false
       effects:
         - name: Acid Spit
-          scope: '3'
+          scope: 3
           result:
             type: successCritical
             all: false
@@ -39,12 +40,21 @@ system:
           duration:
             turns: 3
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
         - reflex
         - acid
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -63,12 +73,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1750875988956
-  modifiedTime: 1771691870143
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157327
+  modifiedTime: 1772307157327
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: acidSpit00000000
 sort: 100000
 _key: '!items!acidSpit00000000'

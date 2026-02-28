@@ -3,21 +3,29 @@ type: talent
 _id: preternaturalins
 img: icons/magic/movement/trail-streak-zigzag-teal.webp
 system:
-  node: intdex4
   description: >-
     Your quickness of mind and body are equally impressive. You gain +2 Boons to
     all Initiative checks.
   actions: []
   actorHooks: []
+  nodes:
+    - intdex4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674959752544
-  modifiedTime: 1763348783387
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

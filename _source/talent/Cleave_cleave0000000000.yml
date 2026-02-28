@@ -6,7 +6,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: str1a
   description: >-
     This martial technique is a specialized two-handed fighting maneuver which
     relies upon brute strength to swing your weapon in a wide arc, hitting
@@ -24,10 +23,12 @@ system:
         focus: 0
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: fan
         number: 1
         scope: 4
+        self: false
       effects: []
       name: Cleave
       img: icons/skills/melee/strike-sword-steel-yellow.webp
@@ -37,16 +38,26 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   nodes:
     - str2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674942420032
-  modifiedTime: 1749310463124
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
   exportSource: null

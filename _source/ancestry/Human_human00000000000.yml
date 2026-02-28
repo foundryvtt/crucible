@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: presence
-  secondary: toughness
-  resistance: ''
   description: >-
     <p>Found amid countless conditions and far-flung places, you were born an
     ever-adaptable human. Tall or short, thin, muscular, or rotund, your
     physical appearance is nothing if not varied. Humans are most known for a
     genetic predisposition toward determination, with traditions that drive a
     stubborn will to survive.</p>
-  vulnerability: ''
-  size: 4
-  stride: 10
   identifier: human
   talents:
-    - Compendium.crucible.talent.Item.intercept0000000
+    - item: Compendium.crucible.talent.Item.intercept0000000
+      level: null
   ui:
     color: '#a985d6'
+  abilities:
+    primary: presence
+    secondary: toughness
+  movement:
+    size: 4
+    stride: 10
+  resistances:
+    resistance: ''
+    vulnerability: ''
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1674942420025
-  modifiedTime: 1746803343691
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157416
+  modifiedTime: 1772307157416
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -12,13 +12,22 @@ system:
     toughness: 2
     dexterity: 0
   talents:
-    - Compendium.crucible.talent.Item.gestureinfluence
-    - Compendium.crucible.talent.Item.gestureray000000
-    - Compendium.crucible.talent.Item.runeOblivion0000
-    - Compendium.crucible.talent.Item.runeSoul00000000
-    - Compendium.crucible.talent.Item.talismanWeaponTr
-    - Compendium.crucible.talent.Item.runeDeath0000000
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: null
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeOblivion0000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: null
+    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+      level: null
+    - item: Compendium.crucible.talent.Item.runeDeath0000000
+      level: null
   identifier: occultist
+  skills: []
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 1700000
@@ -28,11 +37,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685738637867
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157485
+  modifiedTime: 1772307157485
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

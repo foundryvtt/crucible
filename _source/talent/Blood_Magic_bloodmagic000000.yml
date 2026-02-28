@@ -3,7 +3,6 @@ type: talent
 _id: bloodmagic000000
 img: icons/skills/wounds/blood-drip-droplet-red.webp
 system:
-  node: str2c
   description: >-
     <p>You rely upon occult techniques to transform physical pain into arcane
     potential. </p><p>You cast spells by spending <strong>Health</strong>
@@ -11,19 +10,25 @@ system:
     costs 10 points of Health instead. Spells you cast cannot restore your own
     <strong>Health</strong>.</p>
   actions: []
-  requirements: {}
   nodes:
     - str2b
   actorHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674957908610
-  modifiedTime: 1763343554544
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -3,7 +3,6 @@ type: talent
 _id: gesturepulse0000
 img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
 system:
-  node: pre2b
   description: >-
     <p>Expel the arcane power of a Rune in a radius that travels outward with
     you at its center.</p><p>The Pulse gesture scales using
@@ -20,6 +19,12 @@ system:
   actorHooks: []
   nodes:
     - pre4d
+  rune: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: rL8CBb8MbQi6PDS6
 sort: 200000
@@ -29,11 +34,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1684686470274
-  modifiedTime: 1763155038110
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160133
+  modifiedTime: 1772307160133
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

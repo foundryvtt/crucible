@@ -6,7 +6,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: intdex1
   description: >-
     <p>A two-weapon technique which makes a feint with your primary weapon,
     exposing your target for an off-hand attack.</p>
@@ -47,13 +46,26 @@ system:
         maximum: null
         weapon: true
         minimum: null
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - intdex1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420023
-  modifiedTime: 1768512445413
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160132
+  modifiedTime: 1772307160132
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

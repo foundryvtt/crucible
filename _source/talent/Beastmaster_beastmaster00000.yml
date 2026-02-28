@@ -2,25 +2,31 @@ name: Beastmaster
 type: talent
 img: icons/creatures/mammals/wolf-shadow-black.webp
 system:
-  node: sig3.dexterity.wisdom
   description: >-
     <p>You have trained your animal companion to aid you in combat. Your
     companion may participate in encounters as an allied combatant.</p>
   actions: []
-  requirements: {}
   nodes:
     - sig3.wisdom
     - sig3.toughness
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675009666381
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
   duplicateSource: null
   exportSource: null

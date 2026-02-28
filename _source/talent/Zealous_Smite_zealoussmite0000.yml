@@ -3,7 +3,6 @@ type: talent
 _id: zealoussmite0000
 img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
 system:
-  node: strwis1
   description: <p>You can imbue righteous power into your blow with a heavy weapon.</p>
   actions:
     - id: zealousSmite
@@ -22,10 +21,12 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       name: Zealous Smite
       img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
@@ -34,16 +35,28 @@ system:
         maximum: null
         weapon: true
         minimum: null
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - strwis1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674952856305
-  modifiedTime: 1749320004925
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160154
+  modifiedTime: 1772307160154
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

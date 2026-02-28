@@ -2,7 +2,6 @@ name: 'Gesture: Ward'
 type: talent
 img: icons/magic/defensive/shield-barrier-glowing-blue.webp
 system:
-  node: tou2b
   description: >-
     <p>You shape the arcane power of a Rune into a protective barrier used to
     shield yourself from harm.</p><p>The Ward gesture scales using
@@ -15,6 +14,14 @@ system:
   actions: []
   gesture: ward
   actorHooks: []
+  nodes:
+    - tou2b
+  rune: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -23,11 +30,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1675654257211
-  modifiedTime: 1762984820492
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.gestureward00000
   duplicateSource: null
   exportSource: null

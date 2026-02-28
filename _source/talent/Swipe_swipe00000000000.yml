@@ -3,7 +3,6 @@ type: talent
 _id: swipe00000000000
 img: icons/skills/melee/strike-axe-red.webp
 system:
-  node: str1a
   description: >-
     You perform a broad swipe with your weapon, hitting two adjacent targets
     within your weapon range.
@@ -20,10 +19,12 @@ system:
         focus: 0
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 2
         scope: 3
+        self: false
       effects: []
       name: Swipe
       img: icons/skills/melee/strike-axe-red.webp
@@ -33,6 +34,19 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - str1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: yQPNpmhq761VzMZe
 sort: -200000
@@ -42,11 +56,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1688230630765
-  modifiedTime: 1747840731898
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160151
+  modifiedTime: 1772307160151
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

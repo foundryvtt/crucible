@@ -15,18 +15,42 @@ system:
     toughness: 2
     dexterity: 4
   resistances:
-    bludgeoning: 0
-    corruption: 0
-    piercing: 0
-    slashing: 0
-    poison: 0
-    acid: 2
-    fire: 2
-    cold: -2
-    electricity: -2
-    psychic: 0
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 2
+      immune: false
+    fire:
+      value: 2
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    electricity:
+      value: -2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   movement:
     size: 3
     stride: 10
@@ -44,11 +68,12 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  modifiedTime: 1751554850141
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  modifiedTime: 1772307170599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  createdTime: 1772307170599
 _key: '!items!canine0000000000'

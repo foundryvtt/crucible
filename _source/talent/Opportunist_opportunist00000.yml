@@ -3,7 +3,6 @@ type: talent
 _id: opportunist00000
 img: icons/skills/melee/spear-tips-three-green.webp
 system:
-  node: intdex2
   description: >-
     <p>You sieze any opportunity you can to capitalize on an enemy who turns
     their back on you. You may make a <strong>Disengagement Attack</strong> even
@@ -11,6 +10,15 @@ system:
     the 2 Boons that would ordinarily apply to such an attack.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - intdex2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 200000
@@ -20,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1685584102660
-  modifiedTime: 1747841771943
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

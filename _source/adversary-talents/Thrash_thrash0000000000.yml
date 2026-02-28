@@ -19,6 +19,7 @@ system:
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: 1
@@ -34,6 +35,9 @@ system:
         - natural
         - deadly
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -52,12 +56,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751142391801
-  modifiedTime: 1751678418815
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157338
+  modifiedTime: 1772307157338
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: thrash0000000000
 sort: 300000
 _key: '!items!thrash0000000000'

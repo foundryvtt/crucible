@@ -3,7 +3,6 @@ type: talent
 _id: stilllake0000000
 img: icons/magic/water/orb-water-transparent.webp
 system:
-  node: wis2a
   description: >-
     <p>Your life experiences provide serenity that allows you to resist the
     attempted manipulation of others.</p><p><strong>Skill Attacks</strong>
@@ -13,6 +12,13 @@ system:
   actorHooks: []
   nodes:
     - wis3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: CZGTdmrVS3xRvahX
 sort: 100000
@@ -22,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685821347312
-  modifiedTime: 1763134979925
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160149
+  modifiedTime: 1772307160149
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

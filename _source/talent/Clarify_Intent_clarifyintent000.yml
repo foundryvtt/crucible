@@ -2,7 +2,6 @@ name: Clarify Intent
 type: talent
 img: icons/skills/targeting/crosshair-arrowhead-blue.webp
 system:
-  node: preint1
   description: >-
     You use apply your situational awareness and persuasiveness to rapidly
     communicate a plan of action to an ally.
@@ -30,7 +29,7 @@ system:
         self: false
       effects:
         - name: Clarify Intent
-          scope: '2'
+          scope: 2
           result:
             type: success
             all: false
@@ -38,6 +37,12 @@ system:
           duration:
             turns: null
             rounds: 1
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp
       condition: ''
@@ -46,8 +51,19 @@ system:
         minimum: null
         maximum: 12
         weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - wispre1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -56,11 +72,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677347458957
-  modifiedTime: 1767294497757
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null

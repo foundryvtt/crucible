@@ -3,22 +3,30 @@ type: talent
 _id: safecracker00000
 img: icons/sundries/misc/lock-open-yellow.webp
 system:
-  node: dex4c
   description: >-
     <p>You are skilled in the arts of disarming traps and picking locks. You
     gain +1 Boon on <strong>Stealth</strong> checks to disable a device or open
     a lock.</p>
   actions: []
-  requirements: {}
+  nodes:
+    - dex4c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.347'
-  createdTime: 1675021250520
-  modifiedTime: 1755979561411
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160144
+  modifiedTime: 1772307160144
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

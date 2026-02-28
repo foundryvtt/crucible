@@ -3,7 +3,6 @@ name: Fulcrum
 type: talent
 img: icons/magic/symbols/chevron-elipse-circle-blue.webp
 system:
-  node: sig3.toughness.intellect
   description: >-
     <p>Balance, positioning, and leverage are your greatest allies in combat.
     You know how to use a foe's momentum against them and that a small
@@ -21,16 +20,35 @@ system:
       cost:
         focus: 1
         action: 0
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 3
+        self: false
       effects: []
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
   actorHooks: []
   nodes:
     - sig3.toughness
     - sig3.intellect
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -39,11 +57,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1685204774844
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160132
+  modifiedTime: 1772307160132
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

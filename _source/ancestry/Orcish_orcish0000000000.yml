@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: strength
-  secondary: toughness
-  resistance: cold
-  vulnerability: fire
   description: >-
     <p>Your birth was marked by the stars and traditions of a proud and enduring
     people. Your tall and well-toned body and natural propensity for toughness
     has origins amid a people exposed to the relentless struggle of a harsh
     northern clime. Your people are known for their strength and resilience
     above all else.</p>
-  size: 4
-  stride: 10
   identifier: orcish
   talents:
-    - Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+      level: null
   ui:
     color: '#c14425'
+  abilities:
+    primary: strength
+    secondary: toughness
+  resistances:
+    resistance: cold
+    vulnerability: fire
+  movement:
+    size: 4
+    stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420029
-  modifiedTime: 1767206559777
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157416
+  modifiedTime: 1772307157416
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

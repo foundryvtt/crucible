@@ -112,8 +112,10 @@ system:
         toughness: 3
         dexterity: 1
       talents:
-        - Compendium.crucible.talent.Item.gesturefan000000
-        - Compendium.crucible.talent.Item.gestureaspect000
+        - item: Compendium.crucible.talent.Item.gesturefan000000
+          level: null
+        - item: Compendium.crucible.talent.Item.gestureaspect000
+          level: null
       skills:
         - athletics
         - intimidation
@@ -121,6 +123,7 @@ system:
       equipment: []
       name: Elemental Visitor
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
+      spells: []
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Fire.</p>
       category: elemental
@@ -175,8 +178,10 @@ system:
         size: 4
         stride: 10
       talents:
-        - Compendium.crucible.talent.Item.runeflame0000000
-        - Compendium.crucible.adversary-talents.Item.fireAbsorption00
+        - item: Compendium.crucible.talent.Item.runeflame0000000
+          level: null
+        - item: Compendium.crucible.adversary-talents.Item.fireAbsorption00
+          level: null
       identifier: fireElemental
       name: Fire Elemental
       img: icons/magic/fire/elemental-fire-flying.webp
@@ -195,12 +200,9 @@ prototypeToken:
     src: systems/crucible/assets/tokens/creations/Flame.webp
     anchorX: 0.5
     anchorY: 0.5
-    offsetX: 0
-    offsetY: 0
     fit: contain
     scaleX: 1
     scaleY: 1
-    rotation: 0
     tint: '#ffffff'
     alphaThreshold: 0.75
   lockRotation: false
@@ -244,7 +246,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   occludable:
     radius: 0
   ring:
@@ -266,6 +268,7 @@ prototypeToken:
   randomImg: false
   appendNumber: false
   prependAdjective: false
+  depth: 4
 items:
   - name: 'Rune: Flame'
     type: talent
@@ -296,10 +299,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159592
+      modifiedTime: 1772307159592
     _id: runeflame0000000
     folder: null
     sort: 0
@@ -333,10 +338,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159593
+      modifiedTime: 1772307159593
     folder: null
     sort: 0
     ownership:
@@ -371,10 +378,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159593
+      modifiedTime: 1772307159593
     _id: gesturefan000000
     folder: null
     sort: 0
@@ -410,12 +419,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      createdTime: 1762720567220
-      modifiedTime: 1762720575931
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      createdTime: 1772307159593
+      modifiedTime: 1772307159593
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _id: n9O5nEIhY2OgZFsO
     folder: null
     sort: 0
@@ -454,12 +463,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      createdTime: 1762720586860
-      modifiedTime: 1762720779509
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      createdTime: 1772307159593
+      modifiedTime: 1772307159593
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _id: RSSqSCjBzvD0z67R
     folder: null
     sort: 0
@@ -503,10 +512,12 @@ items:
       compendiumSource: Compendium.crucible.talent.Item.gestureaspect000
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159594
+      modifiedTime: 1772307159594
     _id: gestureaspect000
     folder: null
     sort: 0
@@ -523,12 +534,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1762720389739
-  modifiedTime: 1762829120042
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159591
+  modifiedTime: 1772307159591
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: AlwoqQKoL1BnnZjd
 sort: 100000
 _key: '!actors!AlwoqQKoL1BnnZjd'

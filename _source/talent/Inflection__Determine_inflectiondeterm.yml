@@ -4,7 +4,6 @@ type: talent
 _id: inflectiondeterm
 img: icons/magic/symbols/runes-triangle-orange-purple.webp
 system:
-  node: preint2
   description: >-
     <p>Enhance a spell to make it more difficult to counter. Any attempt to
     Counter-Spell this spell is made with +2 Banes.</p>
@@ -12,6 +11,13 @@ system:
   inflection: determine
   actorHooks: []
   iconicSpells: 1
+  nodes:
+    - preint2
+  rune: ''
+  gesture: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 sort: 300000
 ownership:
@@ -20,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1686255592536
-  modifiedTime: 1767142001675
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160135
+  modifiedTime: 1772307160135
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

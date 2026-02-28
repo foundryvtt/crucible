@@ -185,9 +185,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/OrcWarlock.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -236,7 +233,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -256,6 +253,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: ZKTHoQXGY0mBBq7B
     name: Greatsword
@@ -292,10 +290,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158968
+      modifiedTime: 1772307158968
     sort: 200000
     ownership:
       default: 0
@@ -334,10 +334,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158968
+      modifiedTime: 1772307158968
     sort: 300000
     ownership:
       default: 0
@@ -369,10 +371,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158968
+      modifiedTime: 1772307158968
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
     sort: 100000
@@ -411,10 +415,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158969
+      modifiedTime: 1772307158969
     ownership:
       default: 0
     _key: '!actors.items!iPMperuo6ZvBLnp9.athleticsNovice0'
@@ -449,10 +455,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158969
+      modifiedTime: 1772307158969
     ownership:
       default: 0
     _key: '!actors.items!iPMperuo6ZvBLnp9.intimidationNovi'
@@ -496,6 +504,9 @@ items:
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
             <strong>Empowered</strong> to deliver additional damage.</p>
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: heavy
@@ -513,10 +524,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158970
+      modifiedTime: 1772307158970
     _id: heavyWeaponTrain
     ownership:
       default: 0
@@ -551,10 +564,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158970
+      modifiedTime: 1772307158970
     _id: gesturearrow0000
     folder: null
     sort: 0
@@ -610,6 +625,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: flame
       actorHooks: []
       nodes:
@@ -627,10 +645,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158970
+      modifiedTime: 1772307158970
     _id: runeFlame0000000
     folder: null
     sort: 0
@@ -646,12 +666,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307158966
+  modifiedTime: 1772307158966
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: iPMperuo6ZvBLnp9
 ownership:
   default: 2

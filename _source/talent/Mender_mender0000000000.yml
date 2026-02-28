@@ -3,7 +3,6 @@ type: talent
 _id: mender0000000000
 img: icons/magic/life/cross-beam-green.webp
 system:
-  node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Life. Spells which use this
     Rune cause the @Condition[mending] condition on Critical Hits.</p><p>The
@@ -12,6 +11,15 @@ system:
     <strong>Health</strong>.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - wis3b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: jpipM4v8QX2Amfpx
 sort: 400000
@@ -21,11 +29,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1682181078484
-  modifiedTime: 1763347712105
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

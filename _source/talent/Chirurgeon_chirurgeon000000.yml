@@ -49,18 +49,21 @@ system:
           duration:
             turns: 3
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - healing
         - skill
         - medicine
         - rallying
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -79,12 +82,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1770257843241
-  modifiedTime: 1770257843241
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: chirurgeon000000
 sort: 0
 _key: '!items!chirurgeon000000'

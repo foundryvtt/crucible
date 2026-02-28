@@ -18,21 +18,47 @@ system:
     size: 10
     stride: 12
   resistances:
-    bludgeoning: 0
-    corruption: 2
-    piercing: 0
-    slashing: 0
-    poison: 2
-    acid: -3
-    fire: 1
-    cold: -1
-    electricity: -3
-    psychic: 2
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 2
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 2
+      immune: false
+    acid:
+      value: -3
+      immune: false
+    fire:
+      value: 1
+      immune: false
+    cold:
+      value: -1
+      immune: false
+    electricity:
+      value: -3
+      immune: false
+    psychic:
+      value: 2
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.immuntableForm00
-    - Compendium.crucible.adversary-talents.Item.selfrepair000000
+    - item: Compendium.crucible.adversary-talents.Item.immuntableForm00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.selfrepair000000
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -47,11 +73,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751491375477
-  modifiedTime: 1751554855585
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170601
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 0
 _key: '!items!taxonomyWarMachi'

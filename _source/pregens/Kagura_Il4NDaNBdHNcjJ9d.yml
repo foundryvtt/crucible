@@ -188,9 +188,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/GiantkinDruid.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -239,7 +236,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -259,6 +256,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 5
 items:
   - folder: uvvY6c0nbJBhAjM6
     name: Ice Staff
@@ -293,10 +291,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159036
+      modifiedTime: 1772307159036
     sort: 500000
     ownership:
       default: 0
@@ -335,10 +335,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159036
+      modifiedTime: 1772307159036
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
     ownership:
@@ -375,10 +377,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159036
+      modifiedTime: 1772307159036
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
     sort: 500000
@@ -415,10 +419,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159037
+      modifiedTime: 1772307159037
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
     sort: 600000
@@ -451,10 +457,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159037
+      modifiedTime: 1772307159037
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
     sort: 150000
@@ -504,7 +512,7 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
-              changes: []
+                changes: []
           tags:
             - healing
             - health
@@ -521,6 +529,9 @@ items:
             auras are automated by the system in Foundry VTT version 14, the
             mechanical implementation of this action will match the
             description.</strong></p>
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 1
       rune: life
@@ -538,10 +549,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159037
+      modifiedTime: 1772307159037
     folder: fOYHlZJEWUukD7yr
     _id: healer0000000000
     sort: 0
@@ -575,10 +588,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159037
+      modifiedTime: 1772307159037
     _id: mentalfortress00
     sort: 100000
     ownership:
@@ -611,10 +626,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159037
+      modifiedTime: 1772307159037
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -649,10 +666,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159038
+      modifiedTime: 1772307159038
     _id: dustbinder000000
     folder: c0nl6X8tp4Of0Y4O
     sort: -100000
@@ -703,6 +722,9 @@ items:
             - harmless
             - rallying
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: talisman
@@ -720,10 +742,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159038
+      modifiedTime: 1772307159038
     _id: talismanWeaponTr
     ownership:
       default: 0
@@ -758,10 +782,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159038
+      modifiedTime: 1772307159038
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
     sort: 306250
@@ -816,6 +842,9 @@ items:
             - skill
             - wilderness
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: ''
       gesture: ''
       inflection: ''
@@ -830,10 +859,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159038
+      modifiedTime: 1772307159038
     _id: wildspeaker00000
     folder: null
     sort: 0
@@ -884,10 +915,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159039
+      modifiedTime: 1772307159039
     _id: JRqc3sRONMGAfSZ0
     folder: null
     sort: 0
@@ -938,10 +971,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159039
+      modifiedTime: 1772307159039
     _id: 7Gh7o63Ny3uN81vM
     folder: null
     sort: 0
@@ -979,10 +1014,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159039
+      modifiedTime: 1772307159039
     _id: versatileTransla
     folder: null
     sort: 0
@@ -1029,6 +1066,9 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - pre2a
       rune: ''
@@ -1045,10 +1085,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159039
+      modifiedTime: 1772307159039
     folder: null
     sort: 0
     ownership:
@@ -1087,10 +1129,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159039
+      modifiedTime: 1772307159039
     folder: null
     sort: 0
     ownership:
@@ -1124,10 +1168,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159040
+      modifiedTime: 1772307159040
     folder: null
     sort: 0
     ownership:
@@ -1161,10 +1207,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159040
+      modifiedTime: 1772307159040
     folder: null
     sort: 0
     ownership:
@@ -1206,10 +1254,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159040
+      modifiedTime: 1772307159040
     folder: null
     sort: 0
     ownership:
@@ -1268,6 +1318,9 @@ items:
             another creature which you can physically touch. You may attempt
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
+          summon:
+            actorUuid: null
+            permanent: true
       rune: soul
       actorHooks: []
       nodes:
@@ -1285,10 +1338,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159041
+      modifiedTime: 1772307159041
     _id: runeSoul00000000
     folder: null
     sort: 0
@@ -1321,10 +1376,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159041
+      modifiedTime: 1772307159041
     _id: irrepressiblespi
     folder: null
     sort: 0
@@ -1357,10 +1414,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159041
+      modifiedTime: 1772307159041
     folder: null
     sort: 0
     ownership:
@@ -1417,6 +1476,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: earth
       actorHooks: []
       nodes:
@@ -1434,10 +1496,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159041
+      modifiedTime: 1772307159041
     _id: runeEarth0000000
     folder: null
     sort: 0
@@ -1493,6 +1557,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: life
       actorHooks: []
       training:
@@ -1510,10 +1577,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159042
+      modifiedTime: 1772307159042
     _id: runeLife00000000
     folder: null
     sort: 0
@@ -1581,12 +1650,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159035
+  modifiedTime: 1772307159035
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: Il4NDaNBdHNcjJ9d
 ownership:
   default: 2

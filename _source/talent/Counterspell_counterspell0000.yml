@@ -2,7 +2,6 @@ name: Counterspell
 type: talent
 img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
 system:
-  node: preint4
   description: >-
     <p>You immediately react to a spell being cast and compose a rune and
     gesture designed to unravel and negate the spellcraft of an enemy
@@ -54,9 +53,20 @@ system:
       rune: lightning
       gesture: touch
       composition: 1
+      summon:
+        actorUuid: null
+        permanent: true
+      inflection: ''
   actorHooks: []
   nodes:
     - preint1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -65,11 +75,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675644858016
-  modifiedTime: 1763159139142
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160129
+  modifiedTime: 1772307160129
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.counterspell0000
   duplicateSource: null
   exportSource: null

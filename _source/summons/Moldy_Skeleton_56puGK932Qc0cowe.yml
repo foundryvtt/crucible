@@ -35,7 +35,6 @@ system:
     madness:
       bonus: 0
   details:
-    level: -1
     archetype:
       description: >-
         <p>Sprites are lesser elementals which are embodiments of their raw
@@ -49,15 +48,17 @@ system:
         toughness: 3
         dexterity: 3
       talents:
-        - Compendium.crucible.adversary-talents.Item.falseAppearance0
-        - Compendium.crucible.talent.Item.gesturefan000000
+        - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+          level: null
+        - item: Compendium.crucible.talent.Item.gesturefan000000
+          level: null
       skills:
         - stealth
         - performance
       equipment: []
       name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
-    stature: small
+      spells: []
     taxonomy:
       description: <p>Undeathly denizens fashioned of bone and sinew.</p>
       category: undead
@@ -69,18 +70,42 @@ system:
         toughness: 4
         dexterity: 2
       resistances:
-        bludgeoning: -2
-        corruption: 0
-        piercing: 1
-        slashing: 1
-        poison: 2
-        acid: 0
-        fire: 0
-        cold: 0
-        electricity: 0
-        psychic: 0
-        radiant: -2
-        void: 0
+        bludgeoning:
+          value: -2
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        piercing:
+          value: 1
+          immune: false
+        slashing:
+          value: 1
+          immune: false
+        poison:
+          value: 2
+          immune: false
+        acid:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: -2
+          immune: false
+        void:
+          value: 0
+          immune: false
       characteristics:
         equipment: true
         spells: true
@@ -90,35 +115,49 @@ system:
       talents: []
       name: Skeleton
       img: icons/magic/death/undead-skeleton-worn-blue.webp
-    threat: minion
+      identifier: 5OXWWeT5JX
     biography:
       public: ''
       private: ''
+      appearance: ''
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 21
@@ -130,52 +169,20 @@ system:
       value: 1
     heroism:
       value: 0
-  skills:
-    awareness:
-      rank: 0
-    pathfinding:
-      rank: 0
-    stealth:
-      rank: 0
-    survival:
-      rank: 0
-    arcana:
-      rank: 0
-    religion:
-      rank: 0
-    naturalism:
-      rank: 0
-    society:
-      rank: 0
-    deception:
-      rank: 0
-    diplomacy:
-      rank: 0
-    intimidation:
-      rank: 0
-    mercantilism:
-      rank: 0
-    beastcraft:
-      rank: 0
-    tradecraft:
-      rank: 0
-    medicine:
-      rank: 0
-    performance:
-      rank: 0
   movement:
-    stride: 4
-    engagement: 1
     sizeBonus: -1
+    strideBonus: 0
+    engagementBonus: 0
   status: null
   advancement:
     level: 1
-    threat: minion
+    rank: minion
   favorites:
     - cast
     - reactiveStrike
     - strike
     - defend
+  currency: 0
 prototypeToken:
   name: Creation of Death
   displayName: 30
@@ -186,16 +193,13 @@ prototypeToken:
     src: systems/crucible/assets/tokens/creations/Death.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 3
-  height: 3
+  width: 4
+  height: 4
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -237,7 +241,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -257,6 +261,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 3
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Deathly Armor
@@ -277,6 +282,13 @@ items:
         base: 4
       dodge:
         base: 10
+      identifier: voZwBQk47a
+      invested: false
+      description:
+        public: ''
+        private: ''
+      actions: []
+      actorHooks: []
     effects: []
     sort: 0
     ownership:
@@ -286,11 +298,11 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1677965383866
-      modifiedTime: 1686181459865
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159588
+      modifiedTime: 1772307159588
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Item.livingflame00000
       duplicateSource: null
       exportSource: null
@@ -301,7 +313,7 @@ items:
     _id: EBS39VwHFZ4jvcMK
     img: icons/magic/death/hand-undead-skeleton-fire-green.webp
     system:
-      category: natural
+      category: simple1
       quantity: 1
       weight: 0
       price: 0
@@ -309,8 +321,18 @@ items:
       broken: false
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - natural
       damageType: slashing
+      identifier: G63t1Pjsjr
+      invested: false
+      description:
+        public: ''
+        private: ''
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
     effects: []
     sort: 0
     ownership:
@@ -320,11 +342,11 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1677965044710
-      modifiedTime: 1686181629480
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159589
+      modifiedTime: 1772307159589
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Item.flametouch000000
       duplicateSource: null
       exportSource: null
@@ -338,16 +360,23 @@ items:
       actions: []
       rune: death
       actorHooks: []
+      nodes: []
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1674698661050
-      modifiedTime: 1686181711374
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159589
+      modifiedTime: 1772307159589
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.runedeath0000000
       duplicateSource: null
       exportSource: null
@@ -369,16 +398,24 @@ items:
       actions: []
       gesture: fan
       actorHooks: []
+      nodes:
+        - int1a
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1674842056708
-      modifiedTime: 1686181719057
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159590
+      modifiedTime: 1772307159590
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.gesturefan000000
       duplicateSource: null
       exportSource: null
@@ -413,10 +450,12 @@ items:
       compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159590
+      modifiedTime: 1772307159590
     folder: null
     sort: 0
     ownership:
@@ -431,11 +470,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1686181185927
-  modifiedTime: 1762829189817
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307159587
+  modifiedTime: 1772307159755
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

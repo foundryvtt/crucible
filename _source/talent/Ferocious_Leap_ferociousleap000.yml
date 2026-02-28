@@ -3,7 +3,6 @@ type: talent
 _id: ferociousleap000
 img: icons/magic/movement/portal-vortex-orange.webp
 system:
-  node: toustr1
   description: >-
     <p>You leap powerfully into battle to deliver a punishing blow to a nearby
     enemy with your mainhand weapon.</p>
@@ -22,10 +21,12 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       name: Ferocious Leap
       img: icons/magic/movement/portal-vortex-orange.webp
@@ -35,18 +36,28 @@ system:
         weapon: false
         minimum: 4
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - str3b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674960403832
-  modifiedTime: 1749320104571
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160132
+  modifiedTime: 1772307160132
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

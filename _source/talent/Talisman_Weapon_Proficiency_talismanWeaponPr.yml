@@ -3,7 +3,6 @@ name: Talisman Weapon Proficiency
 type: talent
 img: icons/weapons/polearms/trident-fork-white.webp
 system:
-  node: pre4b
   description: >-
     <p>You have a fluent education in the use of talismans, orbs, foci, or other
     similar weapons. You gain the <strong>Journeyman</strong> training rank and
@@ -15,6 +14,11 @@ system:
     type: talisman
     rank: 2
   actorHooks: []
+  nodes:
+    - pre4b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 800000
 ownership:
@@ -25,11 +29,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742951519489
-  modifiedTime: 1766941451694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160151
+  modifiedTime: 1772307160151
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: talismanWeaponPr
 _key: '!items!talismanWeaponPr'

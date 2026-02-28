@@ -4,7 +4,6 @@ type: talent
 _id: diplomacyNovice0
 img: systems/crucible/icons/skills/diplomacy.jpg
 system:
-  node: wis0a
   description: >-
     <p>You know the basics of debate and how to use rhetorical devices to make
     your arguments more convincing. You gain the <strong>Novice</strong> rank in
@@ -19,6 +18,11 @@ system:
     type: diplomacy
     rank: 1
   actorHooks: []
+  nodes:
+    - wis0a
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 160000
 ownership:
@@ -29,10 +33,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742762812489
-  modifiedTime: 1763058445261
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160130
+  modifiedTime: 1772307160130
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!diplomacyNovice0'

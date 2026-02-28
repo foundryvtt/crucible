@@ -3,7 +3,6 @@ type: talent
 _id: subtleextricatio
 img: icons/magic/air/wind-stream-blue-gray.webp
 system:
-  node: intdex2
   description: >-
     <p>You understand how to move away from an opponent without exposing
     yourself to the worst attacks in return. Any <strong>Disengagement
@@ -11,6 +10,15 @@ system:
     ordinarily apply to such an attack.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - intdex2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 250000
@@ -20,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1685584801159
-  modifiedTime: 1747842184874
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160150
+  modifiedTime: 1772307160150
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

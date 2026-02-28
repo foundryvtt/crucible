@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/HumanAssassin.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: YBeEb4tg4QxDtNIx
     name: Dagger
@@ -296,10 +294,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158987
+      modifiedTime: 1772307158987
     sort: 1200000
     ownership:
       default: 0
@@ -341,10 +341,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158988
+      modifiedTime: 1772307158988
     sort: 1200000
     ownership:
       default: 0
@@ -382,10 +384,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158988
+      modifiedTime: 1772307158988
     sort: 0
     ownership:
       default: 0
@@ -429,6 +433,9 @@ items:
             minimum: null
             maximum: 30
             weapon: false
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -447,10 +454,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158988
+      modifiedTime: 1772307158988
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.diversionist0000'
@@ -491,6 +500,9 @@ items:
             maximum: 1
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -508,10 +520,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158988
+      modifiedTime: 1772307158988
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
     sort: 100000
@@ -561,6 +575,9 @@ items:
             maximum: null
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -575,10 +592,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158989
+      modifiedTime: 1772307158989
     folder: cW6bwHXBB9pMcwva
     sort: 300000
     ownership:
@@ -626,6 +645,9 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: ''
@@ -640,10 +662,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158989
+      modifiedTime: 1772307158989
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
     sort: -100000
@@ -684,10 +708,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158989
+      modifiedTime: 1772307158989
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.stealthNovice000'
@@ -723,10 +749,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158989
+      modifiedTime: 1772307158989
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.deceptionNovice0'
@@ -773,6 +801,9 @@ items:
             - melee
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: light
@@ -790,10 +821,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158989
+      modifiedTime: 1772307158989
     _id: lightWeaponTrain
     ownership:
       default: 0
@@ -806,12 +839,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307158987
+  modifiedTime: 1772307158987
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: hfOaEbw4ObPXu6Qa
 ownership:
   default: 2

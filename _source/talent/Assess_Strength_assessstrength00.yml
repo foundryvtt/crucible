@@ -22,6 +22,7 @@ system:
         focus: 1
         heroism: 0
         weapon: false
+        hands: 0
       target:
         type: single
         number: 1
@@ -36,6 +37,9 @@ system:
         maximum: null
         weapon: false
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   nodes:
     - wis2c
@@ -43,6 +47,9 @@ system:
   training:
     type: ''
     rank: null
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 folder: 2MFixpDJ379KOogE
 flags: {}
@@ -50,11 +57,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  modifiedTime: 1763138474450
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  modifiedTime: 1772307160126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  createdTime: 1772307160126
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

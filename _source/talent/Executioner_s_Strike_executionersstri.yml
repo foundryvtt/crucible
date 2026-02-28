@@ -3,7 +3,6 @@ type: talent
 _id: executionersstri
 img: icons/skills/melee/strike-axe-blood-red.webp
 system:
-  node: str3a
   description: <p>You deliver a single decisive strike against a wounded enemy.</p>
   actions:
     - id: executionersStrike
@@ -30,7 +29,7 @@ system:
         self: false
       effects:
         - name: Executioner's Strike
-          scope: '3'
+          scope: 3
           result:
             type: success
             all: false
@@ -38,6 +37,12 @@ system:
           duration:
             turns: null
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Executioner's Strike
       img: icons/skills/melee/strike-axe-blood-red.webp
       actionHooks: []
@@ -45,18 +50,28 @@ system:
         maximum: null
         weapon: true
         minimum: null
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - str4b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675011742969
-  modifiedTime: 1763347035263
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

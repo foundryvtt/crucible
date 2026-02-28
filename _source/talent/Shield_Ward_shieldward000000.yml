@@ -3,13 +3,22 @@ type: talent
 _id: shieldward000000
 img: icons/magic/defensive/shield-barrier-blue.webp
 system:
-  node: tou2b
   description: >-
     <p>You have mastered a specialized technique to incorporate a physical
     shield into the <strong>Ward</strong> gesture. You may ignore the free-hand
     requirement for spells using the Ward gesture while you have a
     <strong>Shield</strong> equipped.</p>
   actions: []
+  nodes:
+    - tou2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: Uk4FgmLsNJc62zCJ
 sort: 25000
@@ -19,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1688925702301
-  modifiedTime: 1747841231896
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160146
+  modifiedTime: 1772307160146
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -26,6 +26,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -43,6 +44,9 @@ system:
         - harmless
         - reflex
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -61,11 +65,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751370252375
-  modifiedTime: 1751375141925
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157334
+  modifiedTime: 1772307157334
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 0
 _key: '!items!oozeCorrodeWeapo'

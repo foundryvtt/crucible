@@ -4,7 +4,6 @@ type: talent
 _id: deceptionNovice0
 img: systems/crucible/icons/skills/deception.jpg
 system:
-  node: int0b
   description: >-
     <p>You are a liar and manipulator, and deception is a skill you've
     practiced. You gain the <strong>Novice</strong> rank in the
@@ -19,6 +18,11 @@ system:
     type: deception
     rank: 1
   actorHooks: []
+  nodes:
+    - int0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 120000
 ownership:
@@ -29,10 +33,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742762753121
-  modifiedTime: 1763058444579
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160129
+  modifiedTime: 1772307160129
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!deceptionNovice0'

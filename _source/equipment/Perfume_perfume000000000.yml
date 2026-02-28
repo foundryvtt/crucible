@@ -23,6 +23,10 @@ system:
   uses:
     value: 20
     max: 20
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 folder: B6n3Q73Jl36TvWlr
 effects: []
 ownership:
@@ -34,12 +38,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766086139207
-  modifiedTime: 1766097022534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157771
+  modifiedTime: 1772307157771
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: perfume000000000
 sort: 300000
 _key: '!items!perfume000000000'

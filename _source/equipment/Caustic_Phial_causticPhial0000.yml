@@ -64,12 +64,12 @@ system:
           result:
             type: success
             all: false
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - consume
         - weakened
@@ -77,9 +77,16 @@ system:
         - skill
         - athletics
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   uses:
     value: 1
     max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 effects: []
 folder: 9u3lR2Lbhj3cdjQk
 ownership:
@@ -90,12 +97,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1760799532842
-  modifiedTime: 1770255496684
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157760
+  modifiedTime: 1772307157760
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: causticPhial0000
 sort: 0
 _key: '!items!causticPhial0000'

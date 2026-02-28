@@ -15,13 +15,20 @@ system:
     toughness: 2
     dexterity: 3
   talents:
-    - Compendium.crucible.talent.Item.swashbuckler0000
-    - Compendium.crucible.talent.Item.inspireheroism00
-    - Compendium.crucible.talent.Item.rallyingCry00000
-    - Compendium.crucible.talent.Item.dualWield0000000
-    - Compendium.crucible.talent.Item.lightWeaponTrain
-    - Compendium.crucible.talent.Item.feintingstrike00
-    - Compendium.crucible.talent.Item.mechanicalWeapon
+    - item: Compendium.crucible.talent.Item.swashbuckler0000
+      level: null
+    - item: Compendium.crucible.talent.Item.inspireheroism00
+      level: null
+    - item: Compendium.crucible.talent.Item.rallyingCry00000
+      level: null
+    - item: Compendium.crucible.talent.Item.dualWield0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.feintingstrike00
+      level: null
+    - item: Compendium.crucible.talent.Item.mechanicalWeapon
+      level: null
   skills:
     - athletics
     - wilderness
@@ -40,12 +47,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1767927160901
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157486
+  modifiedTime: 1772307157486
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: swashbuckler0000
 sort: 200000
 _key: '!items!swashbuckler0000'

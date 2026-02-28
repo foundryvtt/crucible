@@ -2,7 +2,6 @@ name: Smithing Novice
 folder: nNjAJGgLtLFXtTab
 type: talent
 system:
-  node: str0b
   training:
     rank: 1
     type: smithing
@@ -16,6 +15,9 @@ system:
   actorHooks: []
   nodes:
     - str0a
+  rune: ''
+  gesture: ''
+  inflection: ''
 img: icons/skills/trades/smithing-anvil-silver-red.webp
 effects: []
 sort: 0
@@ -27,11 +29,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742954523726
-  modifiedTime: 1766941189405
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160147
+  modifiedTime: 1772307160147
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: smithingNovice00
 _key: '!items!smithingNovice00'

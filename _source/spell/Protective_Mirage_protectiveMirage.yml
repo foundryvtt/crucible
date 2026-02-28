@@ -39,7 +39,10 @@ system:
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
       actionHooks: []
@@ -51,6 +54,12 @@ system:
         a number of <strong>Banes</strong> equal to two times your number of
         duplicates remaining. Each time a Strike misses you, one of your
         duplicates disappears.</p>
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: illusion
+      gesture: aspect
+      inflection: eluding
   runes:
     - illusion
   gestures:
@@ -67,12 +76,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1727204769939
-  modifiedTime: 1771804235239
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _id: protectiveMirage
 sort: 600000
