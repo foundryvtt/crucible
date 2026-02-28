@@ -24,6 +24,8 @@ system:
     - stealth
     - deception
   identifier: drakeling
+  spells: []
+  equipment: []
 effects: []
 folder: EzdzEWVNHF3sCVco
 ownership:
@@ -34,12 +36,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1750876423684
-  modifiedTime: 1771690081872
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157482
+  modifiedTime: 1772307157482
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: drakeling0000000
 sort: 0
 _key: '!items!drakeling0000000'

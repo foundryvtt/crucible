@@ -29,6 +29,10 @@ system:
   uses:
     value: 5
     max: 5
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 effects: []
 folder: B6n3Q73Jl36TvWlr
 ownership:
@@ -45,12 +49,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1750031538348
-  modifiedTime: 1766097022534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157770
+  modifiedTime: 1772307157770
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: messengerCoin000
 sort: 100000
 _key: '!items!messengerCoin000'

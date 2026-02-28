@@ -29,7 +29,7 @@ system:
         self: false
       effects:
         - name: Hamstring
-          scope: '3'
+          scope: 3
           result:
             type: success
             all: false
@@ -38,6 +38,12 @@ system:
           duration:
             turns: 3
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Hamstring
       img: icons/skills/melee/strike-axe-blood-red.webp
       actionHooks: []
@@ -45,11 +51,19 @@ system:
         minimum: null
         maximum: null
         weapon: true
-  node: str3a
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   actorHooks: []
   nodes:
     - str1b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -58,12 +72,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1727366264893
-  modifiedTime: 1763347369606
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _id: hamstring0000000
 sort: 0

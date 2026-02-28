@@ -2,7 +2,6 @@ name: Dirty Tricks
 type: talent
 img: icons/magic/earth/projectile-boulder-dust.webp
 system:
-  node: dextou2
   description: >-
     You have pouches of sand and dust that you use to temporarily distract or
     blind an enemy.
@@ -26,6 +25,7 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Dirty Tricks
           scope: 3
@@ -33,6 +33,16 @@ system:
             - blinded
           duration:
             turns: null
+            rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Dirty Tricks
       img: icons/magic/earth/projectile-boulder-dust.webp
       condition: ''
@@ -41,16 +51,29 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dextou2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674963544371
-  modifiedTime: 1749320033331
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160130
+  modifiedTime: 1772307160130
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.dirtytricks00000
   duplicateSource: null
   exportSource: null

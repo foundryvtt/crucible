@@ -3,7 +3,6 @@ type: talent
 _id: intellectualsupe
 img: icons/magic/light/projectile-smoke-blue-light.webp
 system:
-  node: int4b
   description: >-
     It is sometimes a marvel how slowly others around you think. You gain
     <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
@@ -12,6 +11,13 @@ system:
   actorHooks: []
   nodes:
     - int4d
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: -50000
@@ -21,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1684460412134
-  modifiedTime: 1763347569950
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160136
+  modifiedTime: 1772307160136
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

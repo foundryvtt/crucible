@@ -3,22 +3,30 @@ type: talent
 _id: battlefocus00000
 img: icons/skills/melee/maneuver-sword-katana-yellow.webp
 system:
-  node: strwis2
   description: >-
     You find focus and calm within the thrill of battle. When you achieve a
     <strong>Critical Hit</strong> that deals damage to Health or Morale you gain
     +1 Focus. This benefit may occur at most once per Round.
   actions: []
   actorHooks: []
+  nodes:
+    - strwis2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675012071980
-  modifiedTime: 1763342824700
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

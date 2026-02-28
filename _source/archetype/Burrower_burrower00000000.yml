@@ -14,7 +14,8 @@ system:
     toughness: 4
     dexterity: 4
   talents:
-    - Compendium.crucible.adversary-talents.Item.burrower00000000
+    - item: Compendium.crucible.adversary-talents.Item.burrower00000000
+      level: null
   skills:
     - awareness
     - stealth
@@ -31,12 +32,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1767898882072
-  modifiedTime: 1767898882072
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157482
+  modifiedTime: 1772307157482
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: burrower00000000
 sort: 0
 _key: '!items!burrower00000000'

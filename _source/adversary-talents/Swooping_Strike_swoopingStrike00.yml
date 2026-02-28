@@ -43,16 +43,19 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - melee
         - natural
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -71,12 +74,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1750728541887
-  modifiedTime: 1770325211262
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157337
+  modifiedTime: 1772307157337
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: swoopingStrike00
 sort: 0
 _key: '!items!swoopingStrike00'

@@ -4,7 +4,6 @@ type: talent
 _id: performanceNovic
 img: systems/crucible/icons/skills/performance.jpg
 system:
-  node: pre0a
   description: >-
     <p>You have learned the basic practices of art and entertainment. You gain
     the <strong>Novice</strong> rank in the <strong>Performance </strong>skill
@@ -19,6 +18,11 @@ system:
     type: performance
     rank: 1
   actorHooks: []
+  nodes:
+    - pre0a
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 280000
 ownership:
@@ -29,10 +33,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742762964533
-  modifiedTime: 1763058447137
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!performanceNovic'

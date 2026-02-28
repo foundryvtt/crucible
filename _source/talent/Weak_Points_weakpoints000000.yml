@@ -3,22 +3,31 @@ type: talent
 _id: weakpoints000000
 img: icons/skills/melee/strike-sword-stabbed-brown.webp
 system:
-  node: dex0b
   description: >-
     You identify moments of opportunity to strike at an enemy's weak points.
     When attacking a target that is <strong>Unaware</strong>,
     <strong>Flanked</strong>, or <strong>Exposed</strong> using Finesse
     weaponry, you gain +2 damage to any Strike.
   actions: []
+  nodes:
+    - dex0b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1675006594889
-  modifiedTime: 1747841655360
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160154
+  modifiedTime: 1772307160154
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

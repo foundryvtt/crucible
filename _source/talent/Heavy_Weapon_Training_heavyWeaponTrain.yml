@@ -38,6 +38,9 @@ system:
         <p>You unleash a powerful <strong>Strike</strong> with your mainhand
         weapon. The attack is slower to execute, but is
         <strong>Empowered</strong> to deliver additional damage.</p>
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: heavy
@@ -54,12 +57,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766939901383
-  modifiedTime: 1766943627651
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

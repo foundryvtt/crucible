@@ -14,18 +14,26 @@ system:
     toughness: 3
     dexterity: 0
   talents:
-    - Compendium.crucible.talent.Item.justiciar0000000
-    - Compendium.crucible.talent.Item.heavyWeaponTrain
-    - Compendium.crucible.talent.Item.heavyWeaponProfi
-    - Compendium.crucible.talent.Item.zealoussmite0000
-    - Compendium.crucible.talent.Item.vowofanimus00000
-    - Compendium.crucible.talent.Item.uppercut00000000
-    - Compendium.crucible.talent.Item.seasonedveteran0
+    - item: Compendium.crucible.talent.Item.justiciar0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.heavyWeaponProfi
+      level: null
+    - item: Compendium.crucible.talent.Item.zealoussmite0000
+      level: null
+    - item: Compendium.crucible.talent.Item.vowofanimus00000
+      level: null
+    - item: Compendium.crucible.talent.Item.uppercut00000000
+      level: null
+    - item: Compendium.crucible.talent.Item.seasonedveteran0
+      level: null
   skills:
     - athletics
     - intimidation
     - awareness
   equipment: []
+  spells: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -36,12 +44,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765570443478
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157483
+  modifiedTime: 1772307157483
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: justiciar0000000
 sort: 100000
 _key: '!items!justiciar0000000'

@@ -4,7 +4,6 @@ type: talent
 _id: inflectionReshap
 img: icons/skills/targeting/target-glowing-yellow.webp
 system:
-  node: wispre4
   description: >-
     <p>Enhance a Spell by carefully reshaping and controlling its area of effect
     at the cost of <strong>2 Focus</strong>.</p><p>Offensive spells which use a
@@ -15,6 +14,13 @@ system:
   iconicSpells: 1
   actorHooks: []
   inflection: reshape
+  nodes:
+    - wispre4
+  rune: ''
+  gesture: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 sort: 100000
 ownership:
@@ -24,11 +30,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1727280482203
-  modifiedTime: 1767142001675
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160135
+  modifiedTime: 1772307160135
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _key: '!items!inflectionReshap'

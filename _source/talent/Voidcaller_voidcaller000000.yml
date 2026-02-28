@@ -3,7 +3,6 @@ type: talent
 _id: voidcaller000000
 img: icons/magic/unholy/orb-swirling-teal.webp
 system:
-  node: pre3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Oblivion. Spells which use
     this Rune cause the @Condition[entropy] condition on Critical
@@ -15,6 +14,13 @@ system:
   actorHooks: []
   nodes:
     - int3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: jpipM4v8QX2Amfpx
 sort: 1000000
@@ -24,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677358555167
-  modifiedTime: 1763349739574
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -3,7 +3,6 @@ name: Athletics Master
 type: talent
 img: systems/crucible/icons/skills/athletics.jpg
 system:
-  node: none12
   description: >-
     <p>You gain the <strong>Master </strong>rank in the <strong>Athletics
     </strong>skill, providing a <strong>+3 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: athletics
     rank: 4
   actorHooks: []
+  nodes:
+    - none12
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 70000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946660988
-  modifiedTime: 1763057889464
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160126
+  modifiedTime: 1772307160126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: athleticsMaster0
 _key: '!items!athleticsMaster0'

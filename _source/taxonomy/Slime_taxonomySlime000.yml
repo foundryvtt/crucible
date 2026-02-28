@@ -20,23 +20,51 @@ system:
     size: 3
     stride: 6
   resistances:
-    bludgeoning: 0
-    corruption: 0
-    piercing: 2
-    slashing: 0
-    poison: 0
-    acid: 2
-    fire: -2
-    cold: -2
-    electricity: -2
-    psychic: 2
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 2
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 2
+      immune: false
+    fire:
+      value: -2
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    electricity:
+      value: -2
+      immune: false
+    psychic:
+      value: 2
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.amorphous0000000
-    - Compendium.crucible.adversary-talents.Item.oozeSubdivide000
-    - Compendium.crucible.adversary-talents.Item.oozeMultiply0000
-    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.oozeSubdivide000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.oozeMultiply0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -51,11 +79,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751365562637
-  modifiedTime: 1751554912330
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170601
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 0
 _key: '!items!taxonomySlime000'

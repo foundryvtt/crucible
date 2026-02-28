@@ -3,7 +3,6 @@ type: talent
 _id: threadtheneedle0
 img: icons/skills/ranged/projectile-spiral-gray.webp
 system:
-  node: intdex1
   description: >-
     You concentrate to fire a shot into the swirl of melee. This attack benefits
     from <strong>Flanking</strong> as if it were a melee attack.
@@ -34,6 +33,19 @@ system:
       tags:
         - ranged
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - intdex1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 125000
@@ -43,11 +55,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1688235930869
-  modifiedTime: 1763349594980
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160152
+  modifiedTime: 1772307160152
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

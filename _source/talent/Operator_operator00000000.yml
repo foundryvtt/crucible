@@ -3,7 +3,6 @@ type: talent
 _id: operator00000000
 img: icons/magic/water/water-drop-swirl-blue.webp
 system:
-  node: sig3.intellect.dexterity
   description: >-
     <p>You have ice in your veins and remain cool under pressure. Your physical
     toughness and mental acuity allow you to hone the danger of your situation
@@ -13,6 +12,15 @@ system:
     checks when you have less than 25% of your maximum Health remaining.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - sig3.intellect.dexterity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: fOYHlZJEWUukD7yr
 sort: 1400000
@@ -22,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685205248821
-  modifiedTime: 1763348479200
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

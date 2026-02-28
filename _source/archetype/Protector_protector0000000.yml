@@ -27,6 +27,7 @@ system:
     - medicine
     - diplomacy
   equipment: []
+  spells: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -37,12 +38,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1765037016031
-  modifiedTime: 1770235999398
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157486
+  modifiedTime: 1772307157486
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: protector0000000
 sort: 400000
 _key: '!items!protector0000000'

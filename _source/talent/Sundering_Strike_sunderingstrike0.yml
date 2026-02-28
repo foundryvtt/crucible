@@ -5,7 +5,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: str3b
   description: >-
     <p>You know a martial technique to exploit the weakest points of an enemy's
     defenses, exposing them to further harm.</p>
@@ -28,10 +27,12 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 0
+        self: false
       effects:
         - name: Sundered Armor
           scope: 3
@@ -39,21 +40,41 @@ system:
             - exposed
           duration:
             turns: 3
+            rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       actionHooks: []
       range:
         maximum: null
         weapon: true
         minimum: null
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - str3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674942420034
-  modifiedTime: 1749319986662
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160150
+  modifiedTime: 1772307160150
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

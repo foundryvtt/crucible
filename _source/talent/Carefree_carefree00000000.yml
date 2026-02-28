@@ -3,7 +3,6 @@ type: talent
 _id: carefree00000000
 img: icons/commodities/flowers/clover.webp
 system:
-  node: pre2a
   description: >-
     <p>You are able to compartmentalize and brush off setbacks, providing a
     remarkable ability to recover from damage to your Morale.</p>
@@ -12,6 +11,15 @@ system:
     easier to heal.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - pre2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: 4Ll3b4Q4us2mp4Fu
 sort: -75000
@@ -21,11 +29,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1684359825428
-  modifiedTime: 1763345663323
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

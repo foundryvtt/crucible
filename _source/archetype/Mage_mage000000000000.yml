@@ -11,18 +11,27 @@ system:
     toughness: 2
     dexterity: 0
   talents:
-    - Compendium.crucible.talent.Item.gesturefan000000
-    - Compendium.crucible.talent.Item.gesturearrow0000
-    - Compendium.crucible.talent.Item.counterspell0000
-    - Compendium.crucible.talent.Item.recognizespellcr
-    - Compendium.crucible.talent.Item.runeFlame0000000
-    - Compendium.crucible.talent.Item.runeLightning000
-    - Compendium.crucible.talent.Item.talismanWeaponTr
+    - item: Compendium.crucible.talent.Item.gesturefan000000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: null
+    - item: Compendium.crucible.talent.Item.counterspell0000
+      level: null
+    - item: Compendium.crucible.talent.Item.recognizespellcr
+      level: null
+    - item: Compendium.crucible.talent.Item.runeFlame0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeLightning000
+      level: null
+    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+      level: null
   identifier: mage
   skills:
     - awareness
     - arcana
     - science
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -32,11 +41,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685656712818
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157484
+  modifiedTime: 1772307157484
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

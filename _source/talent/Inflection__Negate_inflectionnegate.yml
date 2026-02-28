@@ -2,7 +2,6 @@ name: 'Inflection: Negate'
 type: talent
 img: icons/magic/unholy/orb-beam-pink.webp
 system:
-  node: preint2
   description: >-
     <p>Invert the effect of a spell. An Inverted Life Touch spell which normally
     heals a target deals Poison damage instead. An Inverted Death Ward spell
@@ -15,16 +14,23 @@ system:
   inflection: negate
   actorHooks: []
   iconicSpells: 1
+  nodes:
+    - preint2
+  rune: ''
+  gesture: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675017043175
-  modifiedTime: 1767142001675
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160135
+  modifiedTime: 1772307160135
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.inflectionnegate
   duplicateSource: null
   exportSource: null

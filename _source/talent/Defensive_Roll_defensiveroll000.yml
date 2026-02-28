@@ -6,7 +6,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: dex2a
   description: >-
     <p>You are a nimble skirmisher, always in movement to stay one step ahead of
     your enemies in combat.</p>
@@ -27,24 +26,38 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       actionHooks: []
       range:
         minimum: null
         maximum: null
         weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
+  nodes:
+    - dex2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1674942420027
-  modifiedTime: 1747842031958
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160130
+  modifiedTime: 1772307160130
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

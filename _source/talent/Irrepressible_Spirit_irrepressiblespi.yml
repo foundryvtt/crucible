@@ -2,14 +2,20 @@ name: Irrepressible Spirit
 type: talent
 img: icons/magic/light/projectile-smoke-pink.webp
 system:
-  node: wis2c
   description: >-
     Your tenacity gives you an irrepressible spirit which resists the onset of
     despair. At the start of your turn if you are not Broken you gain 1 Morale.
   actions: []
-  requirements: {}
   nodes:
     - wis2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -18,11 +24,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677211979198
-  modifiedTime: 1763135738510
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160137
+  modifiedTime: 1772307160137
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.irrepressiblespi
   duplicateSource: null
   exportSource: null

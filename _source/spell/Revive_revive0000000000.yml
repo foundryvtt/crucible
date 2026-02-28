@@ -38,7 +38,7 @@ system:
         self: false
       effects:
         - name: Revived
-          scope: '4'
+          scope: 4
           result:
             type: success
             all: false
@@ -48,11 +48,25 @@ system:
           duration:
             turns: 60
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
         - healing
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: control
+      gesture: influence
+      inflection: push
   runes:
     - control
     - life
@@ -71,12 +85,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765403197235
-  modifiedTime: 1771804247435
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: revive0000000000
 sort: 100000
 _key: '!items!revive0000000000'

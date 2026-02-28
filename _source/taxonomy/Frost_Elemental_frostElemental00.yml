@@ -15,19 +15,40 @@ system:
   resistances:
     bludgeoning:
       value: -2
-    corruption: 0
-    piercing: 0
-    slashing: 1
-    poison: 0
-    acid: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
     fire:
       value: -2
+      immune: false
     cold:
       immune: true
-    electricity: 0
-    psychic: 0
-    radiant: -2
-    void: 1
+      value: 0
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: -2
+      immune: false
+    void:
+      value: 1
+      immune: false
   characteristics:
     spells: true
     equipment: false
@@ -35,10 +56,14 @@ system:
     size: 4
     stride: 10
   talents:
-    - Compendium.crucible.adversary-talents.Item.coldAbsorption00
-    - Compendium.crucible.adversary-talents.Item.amorphous0000000
-    - Compendium.crucible.talent.Item.runeFrost0000000
-    - Compendium.crucible.adversary-talents.Item.aqueousTransmiss
+    - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeFrost0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
+      level: null
   identifier: frostElemental
 effects: []
 ownership:
@@ -48,12 +73,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  modifiedTime: 1767205982867
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  modifiedTime: 1772307170600
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
+  createdTime: 1772307170600
 _id: frostElemental00
 sort: 400000
 _key: '!items!frostElemental00'

@@ -3,23 +3,29 @@ type: talent
 _id: iramancer0000000
 img: icons/magic/unholy/hand-claw-glow-orange.webp
 system:
-  node: pre2a
   description: >-
     Your feats of arcana are fueled by anger. While Enraged you may still spend
     Focus and you deal 2 additional damage to all spell attacks.
   actions: []
-  requirements: {}
   nodes:
     - pre2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.344'
-  createdTime: 1674938709075
-  modifiedTime: 1748552528562
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160137
+  modifiedTime: 1772307160137
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

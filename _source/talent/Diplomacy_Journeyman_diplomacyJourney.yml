@@ -3,7 +3,6 @@ name: Diplomacy Journeyman
 type: talent
 img: systems/crucible/icons/skills/diplomacy.jpg
 system:
-  node: wis4b
   description: >-
     <p>You gain the <strong>Journeyman </strong>rank in the <strong>Diplomacy
     </strong>skill, providing a <strong>+1 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: diplomacy
     rank: 2
   actorHooks: []
+  nodes:
+    - wis4b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 170000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946628503
-  modifiedTime: 1763058444938
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160130
+  modifiedTime: 1772307160130
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: diplomacyJourney
 _key: '!items!diplomacyJourney'

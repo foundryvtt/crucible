@@ -2,7 +2,6 @@ name: Enchanting Novice
 folder: nNjAJGgLtLFXtTab
 type: talent
 system:
-  node: int0b
   training:
     rank: 1
     type: enchanting
@@ -14,6 +13,11 @@ system:
   actions: []
   iconicSpells: 0
   actorHooks: []
+  nodes:
+    - int0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 img: icons/magic/symbols/runes-triangle-blue.webp
 effects: []
 sort: 0
@@ -25,11 +29,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742954523726
-  modifiedTime: 1762041534333
-  lastModifiedBy: vke929uLgNzbrY41
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: enchantingNovice
 _key: '!items!enchantingNovice'

@@ -27,6 +27,8 @@ system:
     - athletics
     - intimidation
     - performance
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 1800000
@@ -36,11 +38,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.7
-  coreVersion: '13.351'
-  createdTime: 1685831675455
-  modifiedTime: 1770235990351
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157483
+  modifiedTime: 1772307157483
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

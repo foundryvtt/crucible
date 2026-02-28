@@ -58,8 +58,10 @@ system:
       value: 0
       immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.venomousBite0000
-    - Compendium.crucible.adversary-talents.Item.webSpinner000000
+    - item: Compendium.crucible.adversary-talents.Item.venomousBite0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.webSpinner000000
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -73,12 +75,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1763321699313
-  modifiedTime: 1763322114276
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170599
+  modifiedTime: 1772307170599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: arachnid00000000
 sort: 0
 _key: '!items!arachnid00000000'

@@ -39,6 +39,9 @@ system:
         reduced-cost follow-up <strong>Strike</strong> against the same target
         using a different <strong>Natural</strong> weapon that you have access
         to.</p>
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: natural
@@ -58,12 +61,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766942793666
-  modifiedTime: 1766942793666
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: naturalWeaponTra
 sort: 0
 _key: '!items!naturalWeaponTra'

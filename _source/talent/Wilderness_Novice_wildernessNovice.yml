@@ -4,7 +4,6 @@ type: talent
 _id: wildernessNovice
 img: systems/crucible/icons/skills/wilderness.jpg
 system:
-  node: tou0b
   description: >-
     <p>You have received training in the basics of wilderness survival and
     traversal. You gain the <strong>Novice</strong> rank in the
@@ -20,6 +19,11 @@ system:
     type: wilderness
     rank: 1
   actorHooks: []
+  nodes:
+    - tou0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 440000
 ownership:
@@ -30,10 +34,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742761908046
-  modifiedTime: 1763058449859
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160154
+  modifiedTime: 1772307160154
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!wildernessNovice'
