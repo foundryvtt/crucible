@@ -1961,6 +1961,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags
     }, {actor, usage: {hazard}});
   }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @override */
+  static migrateData(source) {
+    for ( const effect of source.effects ?? [] ) {
+      foundry.documents.ActiveEffect.migrateData(effect);
+    }
+    return source;
+  }
 }
 
 /* -------------------------------------------- */
