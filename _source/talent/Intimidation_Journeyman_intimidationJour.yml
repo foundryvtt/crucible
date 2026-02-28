@@ -3,7 +3,6 @@ name: Intimidation Journeyman
 type: talent
 img: systems/crucible/icons/skills/intimidation.jpg
 system:
-  node: pre4b
   description: >-
     <p>You gain the <strong>Journeyman </strong>rank in the <strong>Intimidation
     </strong>skill, providing a <strong>+1 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: intimidation
     rank: 2
   actorHooks: []
+  nodes:
+    - pre4b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 210000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946628503
-  modifiedTime: 1763058445524
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160136
+  modifiedTime: 1772307160136
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: intimidationJour
 _key: '!items!intimidationJour'

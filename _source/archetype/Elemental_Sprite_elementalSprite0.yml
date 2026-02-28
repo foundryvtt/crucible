@@ -15,12 +15,15 @@ system:
     toughness: 3
     dexterity: 3
   talents:
-    - Compendium.crucible.adversary-talents.Item.falseAppearance0
-    - Compendium.crucible.talent.Item.gesturefan000000
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturefan000000
+      level: null
   skills:
     - stealth
     - performance
   equipment: []
+  spells: []
 effects: []
 folder: aM53nJVqmTrIHXyE
 sort: 100000
@@ -32,10 +35,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1760803475184
-  modifiedTime: 1760894285257
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157483
+  modifiedTime: 1772307157483
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!elementalSprite0'

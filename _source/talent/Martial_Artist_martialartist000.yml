@@ -3,21 +3,29 @@ type: talent
 _id: martialartist000
 img: icons/skills/melee/unarmed-punch-fist-yellow-red.webp
 system:
-  node: strwis4
   description: >-
     You have honed your body into a dangerous weapon. Your bare fists are
     treated as weapons of Fine quality, increasing their damage by +1.
   actions: []
-  requirements: {}
+  nodes:
+    - strwis4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1674942709284
-  modifiedTime: 1742939522863
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160138
+  modifiedTime: 1772307160138
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

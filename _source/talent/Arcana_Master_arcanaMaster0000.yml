@@ -3,7 +3,6 @@ name: Arcana Master
 type: talent
 img: systems/crucible/icons/skills/arcana.jpg
 system:
-  node: none12
   description: >-
     <p>You gain the <strong>Master </strong>rank in the <strong>Arcana
     </strong>skill, providing a <strong>+3 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: arcana
     rank: 4
   actorHooks: []
+  nodes:
+    - none12
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 30000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946660988
-  modifiedTime: 1763057842899
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160125
+  modifiedTime: 1772307160125
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: arcanaMaster0000
 _key: '!items!arcanaMaster0000'

@@ -13,8 +13,10 @@ system:
     - arcana
     - medicine
   talents:
-    - Compendium.crucible.talent.Item.talismanWeaponTr
-    - Compendium.crucible.talent.Item.runeSoul00000000
+    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+      level: null
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: null
   identifier: acolyte
   ui:
     color: '#84c9e6'
@@ -25,11 +27,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1674942420032
-  modifiedTime: 1762817270819
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157532
+  modifiedTime: 1772307157532
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

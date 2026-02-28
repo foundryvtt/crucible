@@ -14,8 +14,10 @@ system:
     - arcana
     - science
   talents:
-    - Compendium.crucible.talent.Item.mechanicalWeapon
-    - Compendium.crucible.talent.Item.runeKinesis00000
+    - item: Compendium.crucible.talent.Item.mechanicalWeapon
+      level: null
+    - item: Compendium.crucible.talent.Item.runeKinesis00000
+      level: null
   identifier: scholar
   ui:
     color: '#7ad6d0'
@@ -26,11 +28,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420028
-  modifiedTime: 1767206345025
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157533
+  modifiedTime: 1772307157533
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

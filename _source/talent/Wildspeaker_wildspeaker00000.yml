@@ -28,6 +28,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -43,6 +44,9 @@ system:
         - skill
         - wilderness
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -61,12 +65,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1760232452583
-  modifiedTime: 1760233244639
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160154
+  modifiedTime: 1772307160154
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: wildspeaker00000
 sort: 0
 _key: '!items!wildspeaker00000'

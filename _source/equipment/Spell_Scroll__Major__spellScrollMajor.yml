@@ -62,12 +62,12 @@ system:
           duration:
             turns: 60
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - consume
       actionHooks: []
@@ -91,12 +91,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771975431542
-  modifiedTime: 1772029801694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157779
+  modifiedTime: 1772307157779
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: spellScrollMajor
 sort: 300000
 _key: '!items!spellScrollMajor'

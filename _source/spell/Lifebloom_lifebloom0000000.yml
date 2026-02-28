@@ -47,7 +47,7 @@ system:
         size: 30
       effects:
         - name: Lifebloom
-          scope: '1'
+          scope: 1
           result:
             type: any
             all: false
@@ -55,11 +55,25 @@ system:
           duration:
             turns: 6
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
         - maintained
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: life
+      gesture: aura
+      inflection: extend
   runes:
     - life
     - soul
@@ -78,12 +92,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765403194971
-  modifiedTime: 1771804231227
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: lifebloom0000000
 sort: 100000
 _key: '!items!lifebloom0000000'

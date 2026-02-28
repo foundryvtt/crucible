@@ -2,9 +2,6 @@ name: Dread Lord
 type: talent
 img: icons/magic/death/skull-horned-worn-fire-blue.webp
 system:
-  node:
-    - sig3.presence
-    - sig3.toughness
   description: >-
     <p>You exude a terrible presence on the battlefield which tests the morale
     of nearby enemies that behold you, breaking the resolve of the
@@ -28,6 +25,7 @@ system:
         focus: 2
         heroism: 0
         weapon: false
+        hands: 0
       target:
         type: pulse
         number: 1
@@ -42,6 +40,15 @@ system:
           duration:
             turns: null
             rounds: 1
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       img: icons/magic/death/skull-horned-worn-fire-blue.webp
       condition: ''
       range:
@@ -49,10 +56,20 @@ system:
         maximum: null
         weapon: false
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   nodes:
     - sig3.presence
     - sig3.toughness
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -61,11 +78,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.348'
-  createdTime: 1675737631782
-  modifiedTime: 1757528404295
-  lastModifiedBy: R0gVyyuhVNAYjuaY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.dreadlord0000000
   duplicateSource: null
   exportSource: null

@@ -3,7 +3,6 @@ type: talent
 _id: twinnedshot00000
 img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
 system:
-  node: dex1a
   description: <p>You prepare two shots to fire simultaneously at a single target.</p>
   actions:
     - id: twinnedShot
@@ -16,6 +15,7 @@ system:
         focus: 0
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
@@ -35,6 +35,19 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: 2nepH1RWurpMYAjw
 sort: 200000
@@ -44,11 +57,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1687615283427
-  modifiedTime: 1753534728617
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160152
+  modifiedTime: 1772307160152
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

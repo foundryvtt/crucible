@@ -2,7 +2,6 @@ name: Provocateur
 type: talent
 img: icons/magic/control/mouth-smile-deception-purple.webp
 system:
-  node: wis1a
   description: >-
     You specialize in barbed repartee crafted to highlight your opponent's
     shortcomings. In combat you can launch quips which provoke your foes.
@@ -24,19 +23,49 @@ system:
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 10
         scope: 3
+        self: false
       effects:
         - duration:
             rounds: 1
+            turns: null
           statuses:
             - enraged
-  requirements: {}
+          name: ''
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
   nodes:
     - wis2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -45,11 +74,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676927134720
-  modifiedTime: 1763138482830
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160142
+  modifiedTime: 1772307160142
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null

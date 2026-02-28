@@ -19,6 +19,9 @@ system:
     - item: Compendium.crucible.talent.Item.projectileWeapon
       level: null
   identifier: archer
+  skills: []
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 2100000
@@ -28,11 +31,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.7
-  coreVersion: '13.351'
-  createdTime: 1685738036284
-  modifiedTime: 1770233960482
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157481
+  modifiedTime: 1772307157481
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

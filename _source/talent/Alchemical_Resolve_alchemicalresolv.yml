@@ -23,6 +23,7 @@ system:
         focus: 0
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
@@ -36,10 +37,19 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
-  node: int2a
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - int2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -48,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677354070473
-  modifiedTime: 1763136447171
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160125
+  modifiedTime: 1772307160125
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.alchemicalresolv
   duplicateSource: null
   exportSource: null

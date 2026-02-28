@@ -50,6 +50,9 @@ system:
         - spell
         - harmless
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: frost
   nodes:
     - wis0b
@@ -67,12 +70,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1763088779428
-  modifiedTime: 1766422507142
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160143
+  modifiedTime: 1772307160143
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

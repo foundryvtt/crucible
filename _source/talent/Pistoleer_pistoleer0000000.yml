@@ -3,7 +3,6 @@ type: talent
 _id: pistoleer0000000
 img: icons/skills/targeting/crosshair-bars-yellow.webp
 system:
-  node: sig3.intellect.dexterity
   description: >-
     <p>Your familiarity with mechanical firearms is unmatched. You can perform
     the Reload action for free once per Round.</p>
@@ -23,12 +22,34 @@ system:
       cost:
         action: 2
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         multiple: 3
-        distance: 1
         scope: 0
+        number: 1
+        self: false
       effects: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
+  nodes:
+    - sig3.intellect.dexterity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: fOYHlZJEWUukD7yr
 sort: 1100000
@@ -38,11 +59,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1685814629967
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

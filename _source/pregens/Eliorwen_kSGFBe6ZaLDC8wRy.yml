@@ -189,9 +189,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -240,7 +237,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -260,6 +257,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: WYw63RWi2vcIPylm
     name: Longbow
@@ -296,10 +294,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158983
+      modifiedTime: 1772307158983
     sort: 50000
     ownership:
       default: 0
@@ -338,10 +338,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158983
+      modifiedTime: 1772307158983
     sort: 900000
     ownership:
       default: 0
@@ -379,10 +381,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158984
+      modifiedTime: 1772307158984
     sort: 0
     ownership:
       default: 0
@@ -415,10 +419,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158984
+      modifiedTime: 1772307158984
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.perspicacity0000'
@@ -462,12 +468,12 @@ items:
               result:
                 type: success
                 all: false
-              changes: []
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
           name: Pinning Shot
           img: icons/skills/ranged/arrow-strike-glowing-teal.webp
           range:
@@ -475,6 +481,9 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -491,10 +500,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158984
+      modifiedTime: 1772307158984
     folder: k2H23tobHffCMQCj
     sort: 300000
     ownership:
@@ -532,10 +543,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158985
+      modifiedTime: 1772307158985
     folder: null
     sort: 0
     ownership:
@@ -599,6 +612,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: illusion
       actorHooks: []
       nodes:
@@ -616,10 +632,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158985
+      modifiedTime: 1772307158985
     _id: runeIllusion0000
     folder: null
     sort: 0
@@ -664,6 +682,9 @@ items:
             - ranged
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: projectile
@@ -680,10 +701,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158985
+      modifiedTime: 1772307158985
     _id: projectileWeapon
     folder: null
     sort: 0
@@ -726,6 +749,9 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - dex1a
       rune: ''
@@ -740,10 +766,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158985
+      modifiedTime: 1772307158985
     folder: null
     sort: 0
     ownership:
@@ -757,12 +785,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307158982
+  modifiedTime: 1772307158982
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: kSGFBe6ZaLDC8wRy
 ownership:
   default: 2

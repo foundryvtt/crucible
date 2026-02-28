@@ -20,6 +20,8 @@ system:
     - awareness
     - stealth
   identifier: chomper
+  spells: []
+  equipment: []
 effects: []
 folder: qAL3mvNAtEIemAia
 ownership:
@@ -30,12 +32,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1751142941491
-  modifiedTime: 1770473230488
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157482
+  modifiedTime: 1772307157482
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: chomper000000000
 sort: 200000
 _key: '!items!chomper000000000'

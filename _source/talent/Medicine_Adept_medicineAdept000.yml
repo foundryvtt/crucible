@@ -3,7 +3,6 @@ name: Medicine Adept
 type: talent
 img: systems/crucible/icons/skills/medicine.jpg
 system:
-  node: none8
   description: >-
     <p>You gain the <strong>Adept </strong>rank in the <strong>Medicine
     </strong>skill, providing a <strong>+2 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: medicine
     rank: 3
   actorHooks: []
+  nodes:
+    - none8
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 260000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946655217
-  modifiedTime: 1763058445994
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160138
+  modifiedTime: 1772307160138
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: medicineAdept000
 _key: '!items!medicineAdept000'

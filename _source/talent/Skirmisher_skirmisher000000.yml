@@ -3,20 +3,30 @@ type: talent
 _id: skirmisher000000
 img: icons/skills/movement/arrow-upward-yellow.webp
 system:
-  node: dex3b
   description: >-
     <p>You are adept at entering and exiting the fray. When moving out of the
     <strong>Engagement</strong> radius of an enemy, that enemy has 2 Banes to
-    any <strong>Disengagement Strike</strong> against you.
+    any <strong>Disengagement Strike</strong> against you.</p>
+  nodes:
+    - dex3b
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1674841504645
-  modifiedTime: 1742939232829
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160146
+  modifiedTime: 1772307160146
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

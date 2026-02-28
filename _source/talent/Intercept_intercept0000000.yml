@@ -5,7 +5,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: dextou1
   description: >-
     You protect your allies, intercepting blows that might otherwise be directed
     towards your companions.
@@ -41,14 +40,26 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dextou1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674702266686
-  modifiedTime: 1763347613981
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160136
+  modifiedTime: 1772307160136
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

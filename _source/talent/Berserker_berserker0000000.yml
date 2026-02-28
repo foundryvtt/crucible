@@ -2,7 +2,6 @@ name: Berserker
 type: talent
 img: icons/magic/unholy/silhouette-evil-horned-giant.webp
 system:
-  node: sig3.toughness.strength
   description: >-
     <p>You revel in the thrill of combat, hurling yourself into the fray with
     reckless abandon.</p>
@@ -21,30 +20,64 @@ system:
       cost:
         action: 1
         focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: self
         scope: 1
         number: 1
-        distance: 1
+        self: false
       effects:
         - scope: 1
-          changes:
-            - key: rollBonuses.damage.melee
-              value: 4
-              mode: 2
           statuses:
             - enraged
-  requirements: {}
+          system:
+            changes:
+              - key: rollBonuses.damage.melee
+                value: 4
+                type: add
+                phase: initial
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+          name: ''
+          result:
+            type: success
+            all: false
+          duration:
+            turns: null
+            rounds: null
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
+  nodes:
+    - sig3.toughness.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674936288328
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.berserker0000000
   duplicateSource: null
   exportSource: null

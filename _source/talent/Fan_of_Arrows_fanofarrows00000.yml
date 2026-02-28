@@ -5,7 +5,6 @@ img: icons/skills/ranged/bow-arrows-blue.webp
 effects: []
 flags: {}
 system:
-  node: dex3a
   description: >-
     This difficult ranged weaponry technique allows you to fire a multiple shots
     with your weapon in a sweeping cone, each targeting a different enemy in the
@@ -23,6 +22,7 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       range:
         maximum: null
         weapon: true
@@ -37,13 +37,26 @@ system:
         - ranged
         - difficult
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1674942420029
-  modifiedTime: 1753646668186
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

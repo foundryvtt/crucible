@@ -46,12 +46,12 @@ system:
           duration:
             turns: 3
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - melee
         - natural
@@ -76,12 +76,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771690366193
-  modifiedTime: 1771691870143
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157333
+  modifiedTime: 1772307157333
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: lightningSpit000
 sort: 200000
 _key: '!items!lightningSpit000'

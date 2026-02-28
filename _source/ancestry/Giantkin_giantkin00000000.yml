@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: wisdom
-  secondary: toughness
-  resistance: acid
-  vulnerability: electricity
   description: >-
     <p>Elemental forces presided over your birth, instilling you with
     supernatural vigor. Your large frame and muscular build often lead others to
     believe you are an unthinking mass of muscle, but yours is a people known
     most for their physical resilience and the deep well of their knowledge. You
     have inherited the strength of mountains.</p>
-  size: 5
-  stride: 10
   identifier: giantkin
   talents:
-    - Compendium.crucible.talent.Item.runeEarth0000000
+    - item: Compendium.crucible.talent.Item.runeEarth0000000
+      level: null
   ui:
     color: '#acd7dd'
+  abilities:
+    primary: wisdom
+    secondary: toughness
+  resistances:
+    resistance: acid
+    vulnerability: electricity
+  movement:
+    size: 5
+    stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420030
-  modifiedTime: 1767206160545
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157416
+  modifiedTime: 1772307157416
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -2,7 +2,6 @@ name: Powerful Physique
 type: talent
 img: icons/skills/social/intimidation-impressing.webp
 system:
-  node: str2a
   description: >-
     You can wield weapons with the Slow trait and wear Armor with the Bulky
     trait without suffering Banes to your Initiative rolls.
@@ -10,16 +9,23 @@ system:
   actorHooks: []
   nodes:
     - str2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675014203613
-  modifiedTime: 1763348722106
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.powerfulphysique
   duplicateSource: null
   exportSource: null

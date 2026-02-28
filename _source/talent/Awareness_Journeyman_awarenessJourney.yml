@@ -3,7 +3,6 @@ name: Awareness Journeyman
 type: talent
 img: systems/crucible/icons/skills/awareness.jpg
 system:
-  node: int4c
   description: >-
     <p>You gain the <strong>Journeyman </strong>rank in the <strong>Awareness
     </strong>skill, providing a <strong>+1 Skill Bonus</strong>.</p>
@@ -13,6 +12,11 @@ system:
     type: awareness
     rank: 2
   actorHooks: []
+  nodes:
+    - int4c
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 90000
 ownership:
@@ -23,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742946628503
-  modifiedTime: 1763057916641
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160126
+  modifiedTime: 1772307160126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: awarenessJourney
 _key: '!items!awarenessJourney'

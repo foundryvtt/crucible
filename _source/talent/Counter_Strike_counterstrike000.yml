@@ -5,7 +5,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: tou2a
   description: >-
     <p>You are trained to transition between defending with your shield and a
     swift counter-attack.</p>
@@ -27,24 +26,38 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       actionHooks: []
       range:
         weapon: true
         minimum: null
         maximum: null
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
+  nodes:
+    - tou2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674942420025
-  modifiedTime: 1749319647645
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160129
+  modifiedTime: 1772307160129
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.counterstrike000
   duplicateSource: null
   exportSource: null

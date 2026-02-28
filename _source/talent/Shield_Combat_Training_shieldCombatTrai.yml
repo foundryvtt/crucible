@@ -33,7 +33,7 @@ system:
         self: false
       effects:
         - name: Shield Bash
-          scope: '3'
+          scope: 3
           result:
             type: success
             all: false
@@ -42,11 +42,20 @@ system:
           duration:
             turns: 1
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - shield
         - afterStrike
         - offhand
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: shield
@@ -63,12 +72,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766941450332
-  modifiedTime: 1766941638861
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160146
+  modifiedTime: 1772307160146
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

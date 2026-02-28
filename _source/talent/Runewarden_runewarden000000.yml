@@ -2,9 +2,6 @@ name: Runewarden
 type: talent
 img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
 system:
-  node:
-    - sig3.wisdom
-    - sig3.toughness
   description: >-
     <p>Your mastery of the arcane makes you more resilient to elemental and
     spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
@@ -18,6 +15,12 @@ system:
   nodes:
     - sig3.toughness
     - sig3.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -26,11 +29,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675735561453
-  modifiedTime: 1763349195106
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160144
+  modifiedTime: 1772307160144
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.runewarden000000
   duplicateSource: null
   exportSource: null

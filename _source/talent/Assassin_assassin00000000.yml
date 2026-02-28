@@ -2,7 +2,6 @@ name: Assassin
 type: talent
 img: icons/magic/death/skull-humanoid-white-blue.webp
 system:
-  node: sig3.intellect.dexterity
   description: >-
     <p>You specialize in bringing death the the unwary. Any Strike or Spell
     attack against an <strong>Unaware</strong> target becomes
@@ -23,13 +22,33 @@ system:
       cost:
         action: 0
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
   actorHooks: []
+  nodes:
+    - sig3.intellect.dexterity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -38,11 +57,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675624985133
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160126
+  modifiedTime: 1772307160126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.assassin00000000
   duplicateSource: null
   exportSource: null

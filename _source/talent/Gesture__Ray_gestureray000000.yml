@@ -2,7 +2,6 @@ name: 'Gesture: Ray'
 type: talent
 img: icons/magic/light/beam-rays-blue.webp
 system:
-  node: wis1b
   description: >-
     <p>You funnel the arcane power of a Rune into a point and project it
     outwards in a beam.</p><p>The Ray gesture scales using
@@ -14,6 +13,14 @@ system:
   actions: []
   gesture: ray
   actorHooks: []
+  nodes:
+    - wis1b
+  rune: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -22,11 +29,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1675608839856
-  modifiedTime: 1762983260943
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.gestureray000000
   duplicateSource: null
   exportSource: null

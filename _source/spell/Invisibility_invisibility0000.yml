@@ -35,7 +35,7 @@ system:
         self: false
       effects:
         - name: Invisibility
-          scope: '1'
+          scope: 1
           result:
             type: any
             all: false
@@ -43,11 +43,25 @@ system:
           duration:
             turns: null
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
         - maintained
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: illumination
+      gesture: aspect
+      inflection: eluding
   runes:
     - illumination
     - illusion
@@ -66,12 +80,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765403193427
-  modifiedTime: 1771804221253
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: invisibility0000
 sort: 500000
 _key: '!items!invisibility0000'

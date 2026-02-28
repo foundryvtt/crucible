@@ -3,7 +3,6 @@ type: talent
 _id: soothe0000000000
 img: icons/magic/life/heart-cross-strong-blue.webp
 system:
-  node: pre2c
   description: >-
     You administer a soothing Performance which rallies your allies, restoring
     Morale.
@@ -23,11 +22,13 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: pulse
         number: 1
         scope: 2
         size: 12
+        self: false
       effects: []
       name: Soothe
       img: icons/magic/life/heart-cross-strong-blue.webp
@@ -37,18 +38,28 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - pre2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675017944331
-  modifiedTime: 1763136086799
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160148
+  modifiedTime: 1772307160148
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

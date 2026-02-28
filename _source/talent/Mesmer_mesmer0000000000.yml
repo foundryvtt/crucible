@@ -3,7 +3,6 @@ type: talent
 _id: mesmer0000000000
 img: icons/magic/air/air-burst-spiral-pink.webp
 system:
-  node: int3a
   description: >-
     <p>You are highly skilled in weaving the Rune of Illusion. Spells which use
     this Rune cause @Condition[confused] on Critical Hits.</p><p>The Confused
@@ -15,6 +14,13 @@ system:
   actorHooks: []
   nodes:
     - int3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: jpipM4v8QX2Amfpx
 sort: 500000
@@ -24,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677357449776
-  modifiedTime: 1763347783481
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

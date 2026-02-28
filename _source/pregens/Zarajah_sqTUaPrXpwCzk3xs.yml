@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/DevilkinSorcerer.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - folder: uvvY6c0nbJBhAjM6
     name: Flame Staff
@@ -292,10 +290,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158973
+      modifiedTime: 1772307158973
     sort: 300000
     ownership:
       default: 0
@@ -334,10 +334,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158973
+      modifiedTime: 1772307158973
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
     ownership:
@@ -386,17 +388,20 @@ items:
               result:
                 type: success
                 all: false
-              changes: []
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
           range:
             maximum: null
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -411,10 +416,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158973
+      modifiedTime: 1772307158973
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
     ownership:
@@ -451,10 +458,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158974
+      modifiedTime: 1772307158974
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
     sort: 500000
@@ -504,6 +513,9 @@ items:
             - melee
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: light
@@ -521,10 +533,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158974
+      modifiedTime: 1772307158974
     _id: lightWeaponTrain
     ownership:
       default: 0
@@ -581,6 +595,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: oblivion
       actorHooks: []
       nodes:
@@ -598,10 +615,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158975
+      modifiedTime: 1772307158975
     _id: runeOblivion0000
     folder: null
     sort: 0
@@ -657,6 +676,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: flame
       actorHooks: []
       nodes:
@@ -674,10 +696,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158975
+      modifiedTime: 1772307158975
     _id: runeFlame0000000
     folder: null
     sort: 0
@@ -714,10 +738,12 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307158975
+      modifiedTime: 1772307158975
     _id: gesturearrow0000
     folder: null
     sort: 0
@@ -733,12 +759,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307158971
+  modifiedTime: 1772307158971
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: sqTUaPrXpwCzk3xs
 ownership:
   default: 2

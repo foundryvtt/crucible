@@ -14,8 +14,10 @@ system:
     - deception
     - performance
   talents:
-    - Compendium.crucible.talent.Item.lightWeaponTrain
-    - Compendium.crucible.talent.Item.inspireheroism00
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.inspireheroism00
+      level: null
   identifier: performer
   ui:
     color: '#e26ce4'
@@ -26,11 +28,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.347'
-  createdTime: 1674942420030
-  modifiedTime: 1756083991940
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157533
+  modifiedTime: 1772307157533
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

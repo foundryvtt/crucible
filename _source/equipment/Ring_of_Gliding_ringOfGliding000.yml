@@ -59,6 +59,9 @@ system:
         - reaction
         - movement
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
 effects: []
 folder: dNk8eE87Ep8GtNse
@@ -70,12 +73,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765578152594
-  modifiedTime: 1765578152632
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157776
+  modifiedTime: 1772307157776
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: ringOfGliding000
 sort: 400000
 _key: '!items!ringOfGliding000'
