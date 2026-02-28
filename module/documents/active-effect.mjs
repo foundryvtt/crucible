@@ -48,7 +48,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     };
     // Status tooltip tags
     tags.statuses = this.statuses.reduce((obj, conditionId) => {
-      const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
+      const cfg = CONFIG.statusEffects[conditionId];
       if (cfg) obj[conditionId] = game.i18n.localize(cfg.name);
       return obj;
     }, {});

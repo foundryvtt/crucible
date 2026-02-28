@@ -176,7 +176,7 @@ async function displayLanguageCheck(event) {
  */
 async function displayCondition(event) {
   const element = event.target;
-  const cfg = CONFIG.statusEffects.find(c => c.id === element.dataset.condition);
+  const cfg = CONFIG.statusEffects[element.dataset.condition];
   if ( !cfg ) return;
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation

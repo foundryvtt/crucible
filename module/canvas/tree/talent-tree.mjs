@@ -208,7 +208,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const textStyle = CONFIG.canvasTextStyle.clone();
     textStyle.fontFamily = "AwerySmallcaps";
     for ( const [i, abilityId] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
-      const text = this.addChild(new PreciseText("12", textStyle));
+      const text = this.addChild(new foundry.canvas.containers.PreciseText("12", textStyle));
       text.anchor.set(0.5, 0.5);
       const angle = 30 + (i * 60);
       const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), 220);

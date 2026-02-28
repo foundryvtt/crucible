@@ -299,7 +299,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     "${identifier}" on group "${this.parent.name}"`);
     const number = milestones[identifier].number;
     delete milestones[identifier];
-    actorUpdates.push({_id: this.parent.id, system: {advancement: {"==milestones": milestones}}}); // ForcedDeletion
+    actorUpdates.push({_id: this.parent.id, system: {advancement: {milestones: _replace(milestones)}}}); // ForcedDeletion
 
     // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
@@ -365,9 +365,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     content.append(
       identifier.toFormGroup({}, {name: "identifier", placeholder: identifierPlaceholder}),
       number.toFormGroup({classes: ["slim"]}, {name: "number", value: options.number || 1, placeholder: "1"}),
-
-      // TODO: Can remove this manual localization in v14
-      reason.toFormGroup({stacked: true}, {name: "reason", placeholder: game.i18n.localize("ACTOR.GROUP.FIELDS.advancement.milestones.element.reason.placeholder")}),
+      reason.toFormGroup({stacked: true}, {name: "reason"}),
       recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
         sort: true})
     );

@@ -16,7 +16,7 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
  * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
  * @property {number} [enchantment=0]         An enchantment bonus which modifies the roll, up to a maximum of 6
- * @property {string} [rollMode]              The rollMode which should be used if this check is displayed in chat
+ * @property {string} [messageMode]           The messageMode which should be used if this check is displayed in chat
  */
 
 /**
@@ -62,7 +62,7 @@ export default class StandardCheck extends Roll {
     type: "general",
     criticalSuccessThreshold: undefined,
     criticalFailureThreshold: undefined,
-    rollMode: undefined
+    messageMode: undefined
   };
 
   /* -------------------------------------------- */
@@ -298,19 +298,19 @@ export default class StandardCheck extends Roll {
 
   /**
    * Present a Dialog instance for this pool
-   * @param {object} [options]           Options for the dialog
-   * @param {string} [options.title]     The title of the roll request
-   * @param {string} [options.flavor]    Any flavor text attached to the roll
-   * @param {boolean} [options.request]  Display the request tray
-   * @param {string} [options.rollMode]  The requested roll mode
-   * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
+   * @param {object} [options]              Options for the dialog
+   * @param {string} [options.title]        The title of the roll request
+   * @param {string} [options.flavor]       Any flavor text attached to the roll
+   * @param {boolean} [options.request]     Display the request tray
+   * @param {string} [options.messageMode]  The requested message mode
+   * @returns {Promise<{roll:StandardCheck, messageMode: string}|null>}
    */
-  async dialog({title, flavor, request, rollMode}={}) {
+  async dialog({title, flavor, request, messageMode}={}) {
     return this.constructor.dialogClass.prompt({
       window: {title},
       flavor,
       request,
-      rollMode,
+      messageMode,
       roll: this
     });
   }
@@ -342,7 +342,7 @@ export default class StandardCheck extends Roll {
 
   /** @inheritdoc */
   async toMessage(messageData, options={}) {
-    options.rollMode = options.rollMode || this.data.rollMode;
+    options.messageMode = options.messageMode || this.data.messageMode;
     messageData.content ||= "";
     this.#addDiceSoNiceEffects();
     return super.toMessage(messageData, options);

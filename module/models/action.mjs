@@ -37,7 +37,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
- * @property {string} [rollMode]            A dice roll mode to apply to the message
+ * @property {string} [messageMode]         A message mode to apply to the message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             A skill ID that is being used
  * @property {CrucibleItem} [weapon]        A specific weapon item being used
@@ -87,7 +87,6 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {string} name
  * @property {number} scope
  * @property {string[]} statuses
- * @property {object[]} changes
  * @property {{rounds: number, turns: number}} duration
  * @property {{type: string, all: boolean}} result
  * @property {object} system
@@ -118,7 +117,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @typedef CrucibleActionUsageOptions
  * @property {CrucibleTokenObject} [token]  A specific Token which is performing the action
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
- * @property {string} [rollMode]            Which roll mode to apply to the resulting message?
+ * @property {string} [messageMode]         Which message mode to apply to the resulting message?
  */
 
 
@@ -232,12 +231,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
     const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
     delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
-    const statusEffectsObj = game.release.generation >= 14
-      ? {...CONFIG.statusEffects}
-      : CONFIG.statusEffects.reduce((acc, s) => ({...acc, [s.id]: s}), {});
-    const changesField = game.release.generation >= 14
-      ? foundry.data.ActiveEffectTypeDataModel.defineSchema().changes
-      : foundry.documents.ActiveEffect.defineSchema().changes;
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -278,8 +271,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
           all: new fields.BooleanField({initial: false})
         }),
-        statuses: new fields.SetField(new fields.StringField({choices: statusEffectsObj})),
-        changes: changesField,
+        statuses: new fields.SetField(new fields.StringField({choices: {...CONFIG.statusEffects}})),
         duration: new fields.SchemaField({
           turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
           rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
@@ -576,7 +568,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   clone(updateData={}, context={}) {
     const actionData = foundry.utils.mergeObject(this.toObject(), updateData, {
       insertKeys: false,
-      performDeletions: true,
+      applyOperators: true,
       inplace: true
     });
     context.parent = this.parent;
@@ -777,14 +769,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       delete templateData._id;
       const cls = getDocumentClass("MeasuredTemplate");
       this.template = await cls.create(templateData, {parent: canvas.scene});
-      await this.template.object.draw();
     }
 
     // Record action history and create a ChatMessage to confirm the action
     const message = await this.toMessage(targets, {
       ...chatMessageOptions,
       confirmed: false,
-      rollMode: this.usage.rollMode
+      messageMode: this.usage.messageMode
     });
 
     // Persist action usage flags immediately rather than waiting for action confirmation
@@ -918,7 +909,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !this.target.limit ) return targets;
 
     // If the target type is limited in the number of enemies it can affect, sort on proximity to the template origin
-    for ( const t of targets ) t._distance = new Ray({x, y}, t.token.center).distance;
+    for ( const t of targets ) t._distance = new foundry.canvas.geometry.Ray({x, y}, t.token.center).distance;
     targets.sort((a, b) => a._distance - b._distance);
     return targets.slice(0, this.target.limit);
   }
@@ -1105,16 +1096,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const effectData of this.effects ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {name, changes, duration, statuses: origStatuses, system} = effectData;
+      const {name, duration, statuses: origStatuses, system} = effectData;
       const statuses = new Set(origStatuses);
 
       // Prepare effect data
       const effect = {
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
         name: name || this.name,
-        changes,
         description: this.description,
-        icon: this.img,
+        img: this.img,
         origin: this.actor.uuid,
         duration,
         system

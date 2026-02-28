@@ -1,7 +1,7 @@
 /**
  * Active Effect subtype containing crucible-specific system schema.
  */
-export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataModel {
+export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectTypeDataModel {
 
   /* -------------------------------------------- */
   /*                  Data Schema                 */
@@ -10,7 +10,7 @@ export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataM
   /** @inheritDoc */
   static defineSchema() {
     const fields = foundry.data.fields;
-    const schema = {};
+    const schema = super.defineSchema();
 
     // Damage Over Time
     schema.dot = new fields.ArrayField(new fields.SchemaField({
@@ -26,10 +26,9 @@ export default class CrucibleBaseActiveEffect extends foundry.abstract.TypeDataM
       cost: new fields.NumberField({required: true, integer: true, nullable: false})
     }, {nullable: true, initial: null});
 
-    // Scene Regions (currently, Templates)
-    // TODO: Once in v14, type: "Region"
+    // Scene Regions
     // TODO: Actually track these
-    schema.regions = new fields.SetField(new fields.DocumentUUIDField({nullable: false}), {initial: []});
+    schema.regions = new fields.SetField(new fields.DocumentUUIDField({nullable: false, type: "Region"}), {initial: []});
 
     // Summons
     schema.summons = new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false}), {initial: []});
