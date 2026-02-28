@@ -57,8 +57,8 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
   /** @inheritDoc */
   _initialize() {
     super._initialize();
-    this.adjective = game.i18n.localize(`${this.name}Adj`);
-    this.name = game.i18n.localize(this.name);
+    this.adjective = _loc(`${this.name}Adj`);
+    this.name = _loc(this.name);
   }
 
   /* -------------------------------------------- */

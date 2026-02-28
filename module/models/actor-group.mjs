@@ -245,8 +245,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
-    const label = game.i18n.localize(`AWARD.MILESTONE.${plurals.select(number)}`);
-    const groupText = game.i18n.format("AWARD.MILESTONE.GroupAward", {number, label, name: this.parent.name});
+    const label = _loc(`AWARD.MILESTONE.${plurals.select(number)}`);
+    const groupText = _loc("AWARD.MILESTONE.GroupAward", {number, label, name: this.parent.name});
     recipientHTML.push(`
     <div class="hex labeled-hex">
       <span class="value large">${number}</span>
@@ -303,8 +303,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
-    const label = game.i18n.localize(`AWARD.MILESTONE.${plurals.select(number)}`);
-    const groupText = game.i18n.format("AWARD.MILESTONE.GroupRevoke", {number, label, name: this.parent.name});
+    const label = _loc(`AWARD.MILESTONE.${plurals.select(number)}`);
+    const groupText = _loc("AWARD.MILESTONE.GroupRevoke", {number, label, name: this.parent.name});
     recipientHTML.push(`<p>${groupText}</p>`, "<ul class=\"plain\">");
 
     // Configure member awards
@@ -352,14 +352,14 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const {SetField, StringField} = foundry.data.fields;
     const content = document.createElement("div");
     const identifier = new StringField({
-      label: game.i18n.localize("AWARD.MILESTONE.Identifier"),
-      hint: game.i18n.localize("AWARD.MILESTONE.IdentifierHint")
+      label: _loc("AWARD.MILESTONE.Identifier"),
+      hint: _loc("AWARD.MILESTONE.IdentifierHint")
     });
     const number = this.schema.getField("advancement.milestones.element.number");
     const reason = this.schema.getField("advancement.milestones.element.reason");
     const recipients = new SetField(new StringField({required: true, blank: false, choices: heroes}), {
-      label: game.i18n.localize("AWARD.MILESTONE.Recipients"),
-      hint: game.i18n.localize("AWARD.MILESTONE.RecipientsHint")
+      label: _loc("AWARD.MILESTONE.Recipients"),
+      hint: _loc("AWARD.MILESTONE.RecipientsHint")
     });
     const identifierPlaceholder = `milestone${Object.keys(this.advancement.milestones).length+1}`;
     content.append(
@@ -372,8 +372,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Create confirmation dialog
     const response = await foundry.applications.api.DialogV2.input({
-      window: {title: game.i18n.localize("AWARD.MILESTONE.Award"), icon: "fa-solid fa-star"},
-      ok: {label: game.i18n.localize("AWARD.LABELS.Award"), icon: "fa-solid fa-arrow-up"},
+      window: {title: _loc("AWARD.MILESTONE.Award"), icon: "fa-solid fa-star"},
+      ok: {label: _loc("AWARD.LABELS.Award"), icon: "fa-solid fa-arrow-up"},
       content
     });
     if ( !response ) return;
@@ -412,14 +412,14 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const {SetField, StringField} = foundry.data.fields;
     const content = document.createElement("div");
     const identifier = new StringField({
-      label: game.i18n.localize("AWARD.MILESTONE.Identifier"),
-      hint: game.i18n.localize("AWARD.MILESTONE.IdentifierHint"),
+      label: _loc("AWARD.MILESTONE.Identifier"),
+      hint: _loc("AWARD.MILESTONE.IdentifierHint"),
       choices: identifiers,
       blank: true
     });
     const recipients = new SetField(new StringField({required: true, blank: false, choices: heroes}), {
-      label: game.i18n.localize("AWARD.MILESTONE.Recipients"),
-      hint: game.i18n.localize("AWARD.MILESTONE.RecipientsHint")
+      label: _loc("AWARD.MILESTONE.Recipients"),
+      hint: _loc("AWARD.MILESTONE.RecipientsHint")
     });
     content.append(
       identifier.toFormGroup({}, {name: "identifier"}),
@@ -429,8 +429,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Create confirmation dialog
     const response = await foundry.applications.api.DialogV2.input({
-      window: {title: game.i18n.localize("AWARD.MILESTONE.Revoke"), icon: "fa-solid fa-star"},
-      ok: {label: game.i18n.localize("AWARD.LABELS.Revoke"), icon: "fa-solid fa-arrow-down"},
+      window: {title: _loc("AWARD.MILESTONE.Revoke"), icon: "fa-solid fa-star"},
+      ok: {label: _loc("AWARD.LABELS.Revoke"), icon: "fa-solid fa-arrow-down"},
       content
     });
     if ( !response?.identifier ) return;
@@ -451,11 +451,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Member Count
     const membersLabel = `ACTOR.GROUP.FIELDS.members.${plurals.select(this.members.length)}`;
-    tags.members = `${this.members.length} ${game.i18n.localize(membersLabel)}`;
+    tags.members = `${this.members.length} ${_loc(membersLabel)}`;
 
     // Median Level
     if ( this.members.length ) {
-      tags.level = `${game.i18n.localize("ACTOR.GROUP.LABELS.medianLevel")} ${this.advancement.medianLevel}`;
+      tags.level = `${_loc("ACTOR.GROUP.LABELS.medianLevel")} ${this.advancement.medianLevel}`;
     }
     return tags;
   }

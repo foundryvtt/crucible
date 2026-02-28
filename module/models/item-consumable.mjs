@@ -57,7 +57,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       components += (data.scroll?.[c]?.length || 0);
     }
     if ( components > budget ) {
-      throw new Error(game.i18n.format("CONSUMABLE.SCROLL.ComponentBudgetError", {total: components, budget}));
+      throw new Error(_loc("CONSUMABLE.SCROLL.ComponentBudgetError", {total: components, budget}));
     }
   }
 
@@ -129,12 +129,12 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       quality: this.config.quality.label,
       ...parentTags
     };
-    if ( this.isDepleted ) tags.uses = game.i18n.localize("ITEM.PROPERTIES.Depleted");
+    if ( this.isDepleted ) tags.uses = _loc("ITEM.PROPERTIES.Depleted");
     else {
       const {value, max} = this.uses;
       const plurals = new Intl.PluralRules(game.i18n.lang);
       const usesLabel = `CONSUMABLE.USES.Tag${value === max ? "Max" : "Partial"}.${plurals.select(max)}`;
-      tags.uses = game.i18n.format(usesLabel, {value, max});
+      tags.uses = _loc(usesLabel, {value, max});
     }
     return tags;
   }
@@ -172,7 +172,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
     }
 
     // Return final scroll name
-    return game.i18n.format("CONSUMABLE.SCROLL.ScrollName", {scroll: name});
+    return _loc("CONSUMABLE.SCROLL.ScrollName", {scroll: name});
   }
 }
 
@@ -188,7 +188,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
   /** @inheritDoc */
   _initializeApplicationOptions({item, ...options}={}) {
     options.window ||= {};
-    options.window.title = game.i18n.format("CONSUMABLE.SCROLL.ConfigureTitle", {name: item.name});
+    options.window.title = _loc("CONSUMABLE.SCROLL.ConfigureTitle", {name: item.name});
     options.content = CrucibleScrollConfigDialog.#buildContent(item);
     return super._initializeApplicationOptions(options);
   }
@@ -207,7 +207,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
     const hint = document.createElement("p");
     hint.className = "hint";
     const budget = item.system.config.enchantment.bonus;
-    hint.textContent = game.i18n.format("CONSUMABLE.SCROLL.ComponentBudget", {budget});
+    hint.textContent = _loc("CONSUMABLE.SCROLL.ComponentBudget", {budget});
     div.append(hint);
 
     // Name field

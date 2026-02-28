@@ -267,8 +267,8 @@ export default class StandardCheck extends Roll {
     if ( damage ) {
       damage.display = Number.isNumeric(damage?.total) && !damage.harmless; // Was damage intended?
       if ( damage.display ) {
-        damage.label = game.i18n.localize(damage.restoration ? "DICE.Healing" : "DICE.Damage");
-        damage.baseLabel = game.i18n.format("DICE.DamageBase", {type: damage.label});
+        damage.label = _loc(damage.restoration ? "DICE.Healing" : "DICE.Damage");
+        damage.baseLabel = _loc("DICE.DamageBase", {type: damage.label});
         damage.hasMultiplier = damage?.multiplier !== 1;
         if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
         else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
@@ -400,7 +400,7 @@ export default class StandardCheck extends Roll {
       check.boons = check.totalBoons;
       check.banes = check.totalBanes;
       const pool = skill ? actor.getSkillCheck(skill.id, check) : new this(check);
-      if ( skill ) flavor ??= game.i18n.format("SKILL.RollFlavor", {name: actor.name, skill: skill.label});
+      if ( skill ) flavor ??= _loc("SKILL.RollFlavor", {name: actor.name, skill: skill.label});
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
       return pool.toMessage({flavor});

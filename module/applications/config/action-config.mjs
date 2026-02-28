@@ -110,7 +110,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
 
   /** @override */
   get title() {
-    return `${game.i18n.localize("ACTION.SHEET.Title")}: ${this.action.name}`;
+    return `${_loc("ACTION.SHEET.Title")}: ${this.action.name}`;
   }
 
   /* -------------------------------------------- */
