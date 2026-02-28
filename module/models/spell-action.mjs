@@ -250,7 +250,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _configureUsage() {
     super._configureUsage();
-    this.usage.hasDice ||= ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
+    this.usage.hasDice ||= this.isComposed
+      || ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
   }
 
   /* -------------------------------------------- */
