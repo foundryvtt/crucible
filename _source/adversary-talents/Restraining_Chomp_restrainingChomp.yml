@@ -22,6 +22,7 @@ system:
         focus: 1
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -39,10 +40,22 @@ system:
           duration:
             turns: null
             rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -61,12 +74,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751142389739
-  modifiedTime: 1751678418815
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157336
+  modifiedTime: 1772307157336
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: restrainingChomp
 sort: 100000
 _key: '!items!restrainingChomp'

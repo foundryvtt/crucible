@@ -3,7 +3,6 @@ type: talent
 _id: vowofanimus00000
 img: icons/magic/death/skull-humanoid-white-red.webp
 system:
-  node: strwis2
   description: >-
     You swear a vow to destroy a specific character or creature. You gain +2
     Boons to Strike or Spell attacks against to subject of your vow. You may
@@ -22,6 +21,7 @@ system:
         focus: 2
         weapon: false
         heroism: 0
+        hands: 0
       range:
         maximum: 20
         weapon: false
@@ -30,24 +30,48 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects:
         - name: Vow of Animus
           scope: 3
           statuses: []
           duration:
             turns: 60
+            rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - harmless
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - strwis2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1675012907813
-  modifiedTime: 1727320902724
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

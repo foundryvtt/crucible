@@ -3,13 +3,21 @@ name: Blood Frenzy
 type: talent
 img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
 system:
-  node: str4a
   description: >-
     <p>Your battle lust spurs you to feats of heightened action. When you
     achieve a <strong>Critical Hit</strong> that deals damage to Health you
     immediately gain +1 Action. This benefit may only happen once per Round.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - str4a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -18,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676156132430
-  modifiedTime: 1763343268668
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.bloodfrenzy00000
   duplicateSource: null
   exportSource: null

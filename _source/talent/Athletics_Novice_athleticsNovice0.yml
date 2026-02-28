@@ -4,7 +4,6 @@ type: talent
 _id: athleticsNovice0
 img: systems/crucible/icons/skills/athletics.jpg
 system:
-  node: str0b
   description: >-
     <p>You have received training in basic athletics. You gain the
     <strong>Novice</strong> rank in the <strong>Athletics</strong> skill and are
@@ -19,6 +18,11 @@ system:
     type: athletics
     rank: 1
   actorHooks: []
+  nodes:
+    - str0b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 40000
 ownership:
@@ -29,10 +33,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742761822347
-  modifiedTime: 1763057862095
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160126
+  modifiedTime: 1772307160126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!athleticsNovice0'

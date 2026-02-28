@@ -3,7 +3,6 @@ name: Natural Weapon Proficiency
 type: talent
 img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
 system:
-  node: tou4b
   description: >-
     <p>You have a fluent familiarity with the use of natural bodily weapons. You
     gain the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
@@ -14,6 +13,11 @@ system:
     type: natural
     rank: 2
   actorHooks: []
+  nodes:
+    - tou4b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 400000
 ownership:
@@ -24,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742951519489
-  modifiedTime: 1766941451694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: naturalWeaponPro
 _key: '!items!naturalWeaponPro'

@@ -2,7 +2,6 @@ name: Healer
 type: talent
 img: icons/magic/life/heart-hand-gold-green-light.webp
 system:
-  node: sig3.wisdom.presence
   description: >-
     <p>You are unparalleled at manipulating vital arcana to treat injuries. You
     learn <strong>Rune: Life</strong> if you do not already know it. When
@@ -42,7 +41,7 @@ system:
             maintenance: null
             regions: []
             summons: []
-          changes: []
+            changes: []
       tags:
         - healing
         - health
@@ -58,9 +57,19 @@ system:
         effects to those within the initial range. When auras are automated by
         the system in Foundry VTT version 14, the mechanical implementation of
         this action will match the description.</strong></p>
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   iconicSpells: 1
   rune: life
+  nodes:
+    - sig3.wisdom.presence
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -70,12 +79,12 @@ flags:
 _stats:
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1727311608001
-  modifiedTime: 1770256591719
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 folder: fOYHlZJEWUukD7yr
 _id: healer0000000000

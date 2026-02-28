@@ -12,18 +12,42 @@ system:
     toughness: 3
     dexterity: 1
   resistances:
-    bludgeoning: 0
-    corruption: 1
-    piercing: 0
-    slashing: 0
-    poison: -2
-    acid: 0
-    fire: 0
-    cold: 1
-    electricity: -1
-    psychic: 1
-    radiant: -2
-    void: 2
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 1
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: -2
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: 1
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 1
+      immune: false
+    radiant:
+      value: -2
+      immune: false
+    void:
+      value: 2
+      immune: false
   talents: []
   characteristics:
     equipment: false
@@ -42,11 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  modifiedTime: 1751554917788
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  modifiedTime: 1772307170600
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  createdTime: 1772307170600
 _id: harbinger0000000
 sort: 0
 _key: '!items!harbinger0000000'

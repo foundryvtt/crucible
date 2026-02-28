@@ -2,7 +2,6 @@ name: Dustbinder
 type: talent
 img: icons/magic/earth/orb-stone-smoke-teal.webp
 system:
-  node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Earth. Spells which use
     this Rune cause the @Condition[corroding] condition on Critical
@@ -11,6 +10,15 @@ system:
     <strong>Health</strong> each Round.</p>
   actions: []
   actorHooks: []
+  nodes:
+    - wis3b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -19,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676596843579
-  modifiedTime: 1763346779981
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.dustbinder000000
   duplicateSource: null
   exportSource: null

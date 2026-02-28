@@ -35,6 +35,9 @@ system:
         maximum: null
         weapon: true
         minimum: null
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   nodes:
     - dex1b
@@ -42,6 +45,9 @@ system:
   training:
     type: ''
     rank: null
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 flags:
   core: {}
@@ -49,12 +55,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1748638326991
-  modifiedTime: 1766942272135
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160131
+  modifiedTime: 1772307160131
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 folder: cW6bwHXBB9pMcwva
 ownership:
   default: 0

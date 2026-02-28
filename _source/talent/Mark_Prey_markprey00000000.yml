@@ -2,7 +2,6 @@ name: Mark Prey
 type: talent
 img: icons/skills/targeting/crosshair-mark-rough-pink.webp
 system:
-  node: dex2a
   description: >-
     <p>You fire a special shot which deals no damage, but explodes in luminous
     powder clearly marking your target.</p>
@@ -20,17 +19,29 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Marked
           scope: 3
           duration:
             turns: 3
+            rounds: null
           statuses:
             - exposed
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Mark Prey
       img: icons/skills/targeting/crosshair-mark-rough-pink.webp
       condition: ''
@@ -39,16 +50,29 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex2a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674962663358
-  modifiedTime: 1767117381607
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160138
+  modifiedTime: 1772307160138
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null
   exportSource: null

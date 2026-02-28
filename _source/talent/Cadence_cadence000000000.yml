@@ -2,17 +2,22 @@ name: Cadence
 type: talent
 img: icons/skills/melee/strikes-sword-triple-gray.webp
 system:
-  node: str1b
   description: >-
     <p>You are drilled in performing sequences of melee attacks with rhythmic
     precision. When you <strong>Strike</strong> multiple times in sequence using
     a one-handed melee weapon you gain a stacking <strong>+1 Boon</strong> for
     each successive attack.</p><p></p>
   actions: []
-  requirements: {}
   actorHooks: []
   nodes:
     - str2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -21,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1677208371269
-  modifiedTime: 1763345139324
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.cadence000000000
   duplicateSource: null
   exportSource: null

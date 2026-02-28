@@ -14,8 +14,10 @@ system:
     toughness: 2
     dexterity: 3
   talents:
-    - Compendium.crucible.adversary-talents.Item.servitor00000000
-    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+    - item: Compendium.crucible.adversary-talents.Item.servitor00000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: null
   skills:
     - awareness
     - stealth
@@ -33,12 +35,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1767897471793
-  modifiedTime: 1767897471793
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157486
+  modifiedTime: 1772307157486
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: servitor00000000
 sort: 0
 _key: '!items!servitor00000000'

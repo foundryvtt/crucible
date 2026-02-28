@@ -23,6 +23,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -36,6 +37,9 @@ system:
       tags:
         - noncombat
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -54,11 +58,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751677645787
-  modifiedTime: 1771690067397
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157339
+  modifiedTime: 1772307157339
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 500000
 _key: '!items!webSpinner000000'

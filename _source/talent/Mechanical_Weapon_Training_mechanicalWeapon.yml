@@ -35,6 +35,9 @@ system:
       tags:
         - reload
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: mechanical
@@ -51,12 +54,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766943398064
-  modifiedTime: 1766943398064
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160138
+  modifiedTime: 1772307160138
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

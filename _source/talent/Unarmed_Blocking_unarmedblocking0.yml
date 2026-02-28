@@ -3,7 +3,6 @@ type: talent
 _id: unarmedblocking0
 img: icons/magic/earth/strike-fist-stone-light.webp
 system:
-  node: tou3a
   description: >-
     Your honed reflexes and physical toughness allow you to block enemy blows
     using your bare arms. While <strong>Unarmed</strong>, half your Toughness
@@ -12,15 +11,22 @@ system:
   actorHooks: []
   nodes:
     - tou1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674959487279
-  modifiedTime: 1766948240745
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

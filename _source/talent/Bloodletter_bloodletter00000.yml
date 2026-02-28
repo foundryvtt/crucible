@@ -2,7 +2,6 @@ name: Bloodletter
 type: talent
 img: icons/skills/wounds/blood-spurt-spray-red.webp
 system:
-  node: dex4c
   description: >-
     <p>Your precision with weapons which deal Slashing or Piercing damage can
     cause the Bleeding condition on Critical Hits which deal damage to
@@ -12,6 +11,13 @@ system:
   actorHooks: []
   nodes:
     - dex4d
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -20,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676687155877
-  modifiedTime: 1763343738887
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160127
+  modifiedTime: 1772307160127
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.bloodletter00000
   duplicateSource: null
   exportSource: null

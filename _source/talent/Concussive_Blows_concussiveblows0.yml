@@ -3,7 +3,6 @@ type: talent
 _id: concussiveblows0
 img: icons/skills/melee/strike-hammer-destructive-orange.webp
 system:
-  node: str2b
   description: >-
     <p>Your physical power wielding melee weapons which deal Bludgeoning damage
     can cause the <strong>Staggered</strong> condition on Critical Hits which
@@ -15,6 +14,13 @@ system:
   actorHooks: []
   nodes:
     - str4a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: c0nl6X8tp4Of0Y4O
 sort: 0
@@ -24,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676756257189
-  modifiedTime: 1763345761356
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

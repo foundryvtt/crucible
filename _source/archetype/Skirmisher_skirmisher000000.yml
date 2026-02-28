@@ -14,12 +14,20 @@ system:
     toughness: 3
     dexterity: 4
   talents:
-    - Compendium.crucible.talent.Item.flurry0000000000
-    - Compendium.crucible.talent.Item.skirmisher000000
-    - Compendium.crucible.talent.Item.lightWeaponTrain
-    - Compendium.crucible.talent.Item.dualWield0000000
-    - Compendium.crucible.talent.Item.defensiveroll000
+    - item: Compendium.crucible.talent.Item.flurry0000000000
+      level: null
+    - item: Compendium.crucible.talent.Item.skirmisher000000
+      level: null
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: null
+    - item: Compendium.crucible.talent.Item.dualWield0000000
+      level: null
+    - item: Compendium.crucible.talent.Item.defensiveroll000
+      level: null
   identifier: skirmisher
+  skills: []
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 1600000
@@ -29,11 +37,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1686145201526
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157486
+  modifiedTime: 1772307157486
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

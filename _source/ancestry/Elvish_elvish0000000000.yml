@@ -6,30 +6,34 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: intellect
-  secondary: dexterity
-  resistance: radiant
-  vulnerability: corruption
   description: >-
     <p>Graceful in movement and swift in thought, you were born a long-lived
     elf. Your slight and nimble frame and sculpted features are the inherited
     traits of a people for whom elegance is a way of life. Your predisposition
     toward quick-thinking and precise movement the evolutionary results of
     hundreds of years of tradition.</p>
-  stride: 10
-  size: 4
   identifier: elvish
   talents:
-    - Compendium.crucible.talent.Item.runeIllusion0000
+    - item: Compendium.crucible.talent.Item.runeIllusion0000
+      level: null
   ui:
     color: '#51d277'
+  abilities:
+    primary: intellect
+    secondary: dexterity
+  resistances:
+    resistance: radiant
+    vulnerability: corruption
+  movement:
+    size: 4
+    stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1674942420031
-  modifiedTime: 1762817230624
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157415
+  modifiedTime: 1772307157415
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -23,6 +23,7 @@ system:
         focus: 1
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -41,6 +42,9 @@ system:
         - harmless
         - disarm
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -59,10 +63,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  modifiedTime: 1751385819234
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  modifiedTime: 1772307160142
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  createdTime: 1772307160142
 sort: 0
 _key: '!items!repercussiveBloc'

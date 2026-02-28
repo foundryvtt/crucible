@@ -14,16 +14,23 @@ system:
     toughness: 3
     dexterity: 1
   talents:
-    - Compendium.crucible.talent.Item.spellblade000000
-    - Compendium.crucible.talent.Item.gesturestrike000
-    - Compendium.crucible.talent.Item.opportunisticspe
-    - Compendium.crucible.talent.Item.stronggrip000000
-    - Compendium.crucible.talent.Item.gesturearrow0000
+    - item: Compendium.crucible.talent.Item.spellblade000000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturestrike000
+      level: null
+    - item: Compendium.crucible.talent.Item.opportunisticspe
+      level: null
+    - item: Compendium.crucible.talent.Item.stronggrip000000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: null
   skills:
     - athletics
     - arcana
     - intimidation
   identifier: spellblade
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -34,11 +41,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749246074533
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157481
+  modifiedTime: 1772307157481
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 900000
 _key: '!items!archetypeSpellbl'

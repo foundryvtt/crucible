@@ -2,7 +2,6 @@ name: Strategic Repositioning
 type: talent
 img: icons/sundries/gaming/chess-knight-white.webp
 system:
-  node: int2c
   description: >-
     <p>You are always thinking ahead about where to position yourself should
     danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
@@ -10,9 +9,16 @@ system:
     direction.</p><p>If multiple combatants have this feature, repositioning
     occurs in reverse order of Initiative.</p>
   actions: []
-  requirements: {}
   nodes:
     - int3b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -21,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1675741470187
-  modifiedTime: 1763136416225
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160149
+  modifiedTime: 1772307160149
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.strategicreposit
   duplicateSource: null
   exportSource: null

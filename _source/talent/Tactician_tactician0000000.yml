@@ -3,7 +3,6 @@ type: talent
 _id: tactician0000000
 img: icons/sundries/flags/banner-symbol-axe-red.webp
 system:
-  node: sig3.presence.intellect
   description: >-
     <p>You are a cunning battlefield tactician, able to organize and direct your
     allies to act with increased effectiveness.</p>
@@ -20,22 +19,43 @@ system:
       cost:
         action: 2
         focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
-  requirements: {}
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
+  nodes:
+    - sig3.presence.intellect
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675020119928
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160151
+  modifiedTime: 1772307160151
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

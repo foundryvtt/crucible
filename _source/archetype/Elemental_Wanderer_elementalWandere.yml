@@ -19,15 +19,20 @@ system:
     toughness: 3
     dexterity: 2
   talents:
-    - Compendium.crucible.talent.Item.gestureaspect000
-    - Compendium.crucible.talent.Item.gesturestep00000
-    - Compendium.crucible.talent.Item.gesturestrike000
-    - Compendium.crucible.talent.Item.gesturepulse0000
+    - item: Compendium.crucible.talent.Item.gestureaspect000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturestep00000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturestrike000
+      level: null
+    - item: Compendium.crucible.talent.Item.gesturepulse0000
+      level: null
   skills:
     - athletics
     - intimidation
     - performance
   equipment: []
+  spells: []
 effects: []
 sort: 0
 ownership:
@@ -38,10 +43,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1760896169436
-  modifiedTime: 1760896468001
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157483
+  modifiedTime: 1772307157483
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!elementalWandere'

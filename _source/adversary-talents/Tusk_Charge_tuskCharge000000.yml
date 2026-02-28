@@ -28,7 +28,7 @@ system:
         self: false
       effects:
         - name: Tusk Charge
-          scope: '3'
+          scope: 3
           result:
             type: success
             all: false
@@ -37,6 +37,12 @@ system:
           duration:
             turns: null
             rounds: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       name: Tusk Charge
       img: icons/skills/movement/arrow-upward-blue.webp
       condition: ''
@@ -45,9 +51,18 @@ system:
         maximum: null
         weapon: false
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
-  node: ''
   iconicSpells: 0
+  nodes: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -57,12 +72,12 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1727362018628
-  modifiedTime: 1763324600657
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157338
+  modifiedTime: 1772307157338
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _id: tuskCharge000000
 sort: 100000

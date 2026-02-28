@@ -8,11 +8,17 @@ system:
     attribute. When you achieve a Critical Hit, all nearby allies who can see
     you gain Morale equal to your Presence attribute.</p>
   actions: []
-  requirements: {}
-  node: sig3.dexterity.presence
   nodes:
     - sig3.presence
     - sig3.dexterity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -21,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675626189295
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160150
+  modifiedTime: 1772307160150
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.swashbuckler0000
   duplicateSource: null
   exportSource: null

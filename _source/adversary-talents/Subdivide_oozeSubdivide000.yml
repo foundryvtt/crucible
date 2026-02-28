@@ -25,6 +25,7 @@ system:
         focus: 1
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: 3
@@ -38,6 +39,9 @@ system:
       tags:
         - summon
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -56,11 +60,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751364855030
-  modifiedTime: 1751419846490
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157334
+  modifiedTime: 1772307157334
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 0
 _key: '!items!oozeSubdivide000'

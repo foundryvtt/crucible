@@ -15,18 +15,42 @@ system:
     toughness: 4
     dexterity: 1
   resistances:
-    bludgeoning: 2
-    corruption: 0
-    piercing: -2
-    slashing: 2
-    poison: 0
-    acid: 0
-    fire: -2
-    cold: 0
-    electricity: 0
-    psychic: 0
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 2
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: -2
+      immune: false
+    slashing:
+      value: 2
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -2
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   movement:
     size: 4
     stride: 10
@@ -44,11 +68,12 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  modifiedTime: 1751554845730
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  modifiedTime: 1772307170599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  createdTime: 1772307170599
 _key: '!items!boar000000000000'

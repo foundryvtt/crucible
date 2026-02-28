@@ -43,9 +43,17 @@ system:
       tags:
         - spell
         - iconicSpell
+        - spell
+        - iconicSpell
         - harmless
         - willpower
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: control
+      gesture: sense
+      inflection: pull
   runes:
     - control
     - soul
@@ -64,12 +72,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765403197993
-  modifiedTime: 1771804255189
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: telecognition000
 sort: 100000
 _key: '!items!telecognition000'

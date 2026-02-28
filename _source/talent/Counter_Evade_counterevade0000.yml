@@ -6,7 +6,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: dex2c
   description: >-
     <p>You are practiced in evasive fighting styles which use an enemy's missed
     attack to devise an opening to counter-attack.</p>
@@ -27,24 +26,38 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       actionHooks: []
       range:
         maximum: 1
         weapon: true
         minimum: null
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1674942420019
-  modifiedTime: 1749319615947
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160129
+  modifiedTime: 1772307160129
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

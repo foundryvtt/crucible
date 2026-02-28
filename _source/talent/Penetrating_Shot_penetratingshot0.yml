@@ -3,7 +3,6 @@ type: talent
 _id: penetratingshot0
 img: icons/skills/ranged/projectile-explosion-black-orange.webp
 system:
-  node: dex1a
   description: >-
     You load special ammunition which deals less damage but penetrates directly
     through a line of targets.
@@ -18,10 +17,12 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: ray
         number: 1
         scope: 3
+        self: false
       effects: []
       name: Penetrating Shot
       img: icons/skills/ranged/projectile-explosion-black-orange.webp
@@ -34,6 +35,19 @@ system:
         weapon: true
         minimum: null
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 200000
@@ -43,11 +57,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1687616511078
-  modifiedTime: 1749329302327
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

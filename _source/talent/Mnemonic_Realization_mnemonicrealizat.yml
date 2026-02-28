@@ -3,7 +3,6 @@ type: talent
 _id: mnemonicrealizat
 img: icons/magic/perception/eye-ringed-green.webp
 system:
-  node: int1b
   description: >-
     <p>Your sharpened mind is full of secrets and techniques to remember them.
     Once per Day you may focus your thoughts and attempt to recall a word that
@@ -23,10 +22,12 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: self
         number: 0
         scope: 1
+        self: false
       effects: []
       name: Mnemonic Realization
       img: icons/magic/perception/eye-ringed-green.webp
@@ -36,7 +37,19 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - int1b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 folder: F5y85kE9ocaa5R4R
 sort: 50000
@@ -46,11 +59,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1684460628269
-  modifiedTime: 1742936489364
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

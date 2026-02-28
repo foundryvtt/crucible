@@ -55,9 +55,12 @@ system:
       value: 0
       immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.bestialSenses000
-    - Compendium.crucible.talent.Item.skirmisher000000
-    - Compendium.crucible.talent.Item.defensiveroll000
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: null
+    - item: Compendium.crucible.talent.Item.skirmisher000000
+      level: null
+    - item: Compendium.crucible.talent.Item.defensiveroll000
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -71,12 +74,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1765549208310
-  modifiedTime: 1765549208310
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170601
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: rodent0000000000
 sort: 0
 _key: '!items!rodent0000000000'
