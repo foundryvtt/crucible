@@ -164,8 +164,8 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       tags[k] = `${v.label} ${v.value}`;
     }
     if ( this.iconicSpells ) {
-      tags.iconicSpells = this.iconicSpells === 1 ? game.i18n.localize("SPELL.Iconic")
-        : `${this.iconicSpells} ${game.i18n.localize("SPELL.IconicPl")}`;
+      tags.iconicSpells = this.iconicSpells === 1 ? _loc("SPELL.Iconic")
+        : `${this.iconicSpells} ${_loc("SPELL.IconicPl")}`;
     }
     return tags;
   }
@@ -201,14 +201,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
     // Ensure the Talent is not already owned
     if ( actor.items.find(i => (i.type === "talent") && (i.name === this.parent.name)) ) {
-      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.AlreadyOwned", {name: this.parent.name}));
+      if ( strict ) throw new Error(_loc("TALENT.WARNINGS.AlreadyOwned", {name: this.parent.name}));
       else return false;
     }
 
     // Require available talent points
     const points = actor.points.talent;
     if ( points.available < 1 ) {
-      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.CannotAfford", {
+      if ( strict ) throw new Error(_loc("TALENT.WARNINGS.CannotAfford", {
         name: this.parent.name,
         cost: 1
       }));
@@ -223,11 +223,11 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       if ( s.banned && (state.banned !== false) ) state.banned = true;
     }
     if ( state.banned ) {
-      if ( strict ) throw new Error(game.i18n.localize("TALENT.WARNINGS.Banned"));
+      if ( strict ) throw new Error(_loc("TALENT.WARNINGS.Banned"));
       return false;
     }
     if ( !state.accessible ) {
-      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.Inaccessible", {name: this.parent.name}));
+      if ( strict ) throw new Error(_loc("TALENT.WARNINGS.Inaccessible", {name: this.parent.name}));
       return false;
     }
 
@@ -235,7 +235,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const [k, v] of Object.entries(this.prerequisites) ) {
       const current = foundry.utils.getProperty(actor.system, k) ?? 0;
       if ( current < v.value ) {
-        const err = game.i18n.format("TALENT.WARNINGS.Locked", {
+        const err = _loc("TALENT.WARNINGS.Locked", {
           name: this.parent.name,
           requirement: v.label,
           requires: v.value

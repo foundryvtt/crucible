@@ -14,7 +14,7 @@ export default class CrucibleJournalEntrySheet extends foundry.applications.shee
   /** @override */
   get title() {
     let title = super.title;
-    if ( this.document.pack === "crucible.rules" ) title = `${game.i18n.localize("CRUCIBLE.Rules")}: ${title}`;
+    if ( this.document.pack === "crucible.rules" ) title = `${_loc("CRUCIBLE.Rules")}: ${title}`;
     return title;
   }
 }

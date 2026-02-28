@@ -72,10 +72,10 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     if ( state.banned ) nodeTags.push({label: "Banned", class: "unmet"});
     else if ( !state.unlocked ) nodeTags.push({label: "Locked", class: "unmet"});
     if ( !node.talents.size ) nodeTags.push({label: "Empty", class: "unmet"});
-    const nodeType = game.i18n.localize(`TALENT.NODES.${node.type.capitalize()}`);
+    const nodeType = _loc(`TALENT.NODES.${node.type.capitalize()}`);
     tagGroups.push({
       id: node.type,
-      label: game.i18n.format("TALENT.NodeSpecific", {nodeType}),
+      label: _loc("TALENT.NodeSpecific", {nodeType}),
       tags: nodeTags
     });
 
@@ -88,7 +88,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     }
     tagGroups.push({
       id: "prerequisites",
-      label: game.i18n.localize("TALENT.Prerequisites"),
+      label: _loc("TALENT.Prerequisites"),
       tags: reqTags
     });
     return {id: node.id, tagGroups};

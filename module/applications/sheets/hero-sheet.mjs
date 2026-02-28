@@ -33,18 +33,18 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
     // Expand Context
     Object.assign(context, {
-      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.Choose"),
-      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.Choose"),
+      ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
+      backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
       knowledgeOptions: this.#prepareKnowledgeOptions(),
       knowledge: this.#prepareKnowledge(),
-      talentTreeButtonText: game.i18n.localize(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
+      talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
     // Advancement
     const adv = a.system.advancement;
     i.level = isL0 ? !i.progress : (adv.pct === 100);
-    context.advancementTooltip = game.i18n.format("ADVANCEMENT.MilestoneTooltip", adv);
+    context.advancementTooltip = _loc("ADVANCEMENT.MilestoneTooltip", adv);
 
     // Progression Issues
     const issues = [];
@@ -56,8 +56,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
     i.progress = !!issues.length;
     if ( i.progress ) {
-      const items = issues.reduce((s, text) => `${s}<li>${game.i18n.localize(text)}</li>`, "");
-      i.progressTooltip = `<h4>${game.i18n.localize("ACTOR.ProgressionRequirements")}</h4><ol>${items}</ol>`;
+      const items = issues.reduce((s, text) => `${s}<li>${_loc(text)}</li>`, "");
+      i.progressTooltip = `<h4>${_loc("ACTOR.ProgressionRequirements")}</h4><ol>${items}</ol>`;
     }
 
     // Allow extension of sheet context

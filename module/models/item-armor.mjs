@@ -92,11 +92,11 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     const actor = this.parent.parent;
 
     // Defenses
-    tags.armor = game.i18n.format("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
-    if ( !actor ) tags.dodge = game.i18n.format("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base});
+    tags.armor = _loc("ITEM.PROPERTIES.Armor", {armor: this.armor.base + this.armor.bonus});
+    if ( !actor ) tags.dodge = _loc("ITEM.PROPERTIES.DodgeBase", {dodge: this.dodge.base});
     else {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
-      tags.dodge = game.i18n.format("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
+      tags.dodge = _loc("ITEM.PROPERTIES.Dodge", {dodge: this.dodge.base + dodgeBonus});
     }
 
     // Armor Properties
@@ -119,7 +119,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
   static getUnarmoredArmor(actor) {
     const itemCls = /** @type Constructor<CrucibleItem> */ getDocumentClass("Item");
     const itemData = foundry.utils.deepClone(ARMOR.UNARMORED_DATA);
-    itemData.name = game.i18n.localize(itemData.name);
+    itemData.name = _loc(itemData.name);
     const armor = new itemCls(itemData, {parent: actor});
     armor.prepareData(); // Needs to be explicitly called since we may be in the midst of Actor preparation.
     return armor;

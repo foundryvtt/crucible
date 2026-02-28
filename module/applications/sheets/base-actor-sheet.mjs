@@ -318,7 +318,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type === "physical" ) continue;
       const d = foundry.utils.mergeObject(defense, data[id], {inplace: false});
-      d.tooltip = game.i18n.format(d.tooltip, {base: SYSTEM.PASSIVE_BASE});
+      d.tooltip = _loc(d.tooltip, {base: SYSTEM.PASSIVE_BASE});
       d.id = id;
       if ( d.bonus !== 0 ) {
         const sign = d.bonus > 0 ? "+" : "-";
@@ -382,26 +382,26 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const {accessorySlots, toolbeltSlots} = this.actor.equipment;
     const sections = {
       talents: {
-        signature: {label: game.i18n.localize("ACTOR.SECTIONS.SIGNATURE.header"), items: []},
-        active: {label: game.i18n.localize("ACTOR.SECTIONS.ACTIVE.header"), items: []},
-        passive: {label: game.i18n.localize("ACTOR.SECTIONS.PASSIVE.header"), items: []},
-        training: {label: game.i18n.localize("ACTOR.SECTIONS.TRAINING.header"), items: []},
-        spell: {label: game.i18n.localize("ACTOR.SECTIONS.SPELL.header"), items: []}
+        signature: {label: _loc("ACTOR.SECTIONS.SIGNATURE.header"), items: []},
+        active: {label: _loc("ACTOR.SECTIONS.ACTIVE.header"), items: []},
+        passive: {label: _loc("ACTOR.SECTIONS.PASSIVE.header"), items: []},
+        training: {label: _loc("ACTOR.SECTIONS.TRAINING.header"), items: []},
+        spell: {label: _loc("ACTOR.SECTIONS.SPELL.header"), items: []}
       },
       inventory: {
-        weapon: {label: game.i18n.localize("ACTOR.SECTIONS.WEAPON.header"), items: [],
-          empty: game.i18n.localize("ACTOR.SECTIONS.WEAPON.empty")},
-        armor: {label: game.i18n.localize("ACTOR.SECTIONS.ARMOR.header"), items: [],
-          empty: game.i18n.localize("ACTOR.SECTIONS.ARMOR.empty")},
-        accessory: {label: game.i18n.localize("ACTOR.SECTIONS.ACCESSORY.header"), items: [],
-          counter: accessorySlots, empty: game.i18n.format("ACTOR.SECTIONS.ACCESSORY.empty", {slots: accessorySlots})},
-        toolbelt: {label: game.i18n.localize("ACTOR.SECTIONS.TOOLBELT.header"), items: [], counter: toolbeltSlots,
-          empty: game.i18n.format("ACTOR.SECTIONS.TOOLBELT.empty", {slots: toolbeltSlots})},
-        backpack: {label: game.i18n.localize("ACTOR.SECTIONS.BACKPACK.header"), items: [],
-          empty: game.i18n.localize("ACTOR.SECTIONS.BACKPACK.empty")}
+        weapon: {label: _loc("ACTOR.SECTIONS.WEAPON.header"), items: [],
+          empty: _loc("ACTOR.SECTIONS.WEAPON.empty")},
+        armor: {label: _loc("ACTOR.SECTIONS.ARMOR.header"), items: [],
+          empty: _loc("ACTOR.SECTIONS.ARMOR.empty")},
+        accessory: {label: _loc("ACTOR.SECTIONS.ACCESSORY.header"), items: [],
+          counter: accessorySlots, empty: _loc("ACTOR.SECTIONS.ACCESSORY.empty", {slots: accessorySlots})},
+        toolbelt: {label: _loc("ACTOR.SECTIONS.TOOLBELT.header"), items: [], counter: toolbeltSlots,
+          empty: _loc("ACTOR.SECTIONS.TOOLBELT.empty", {slots: toolbeltSlots})},
+        backpack: {label: _loc("ACTOR.SECTIONS.BACKPACK.header"), items: [],
+          empty: _loc("ACTOR.SECTIONS.BACKPACK.empty")}
       },
-      iconicSpells: {label: game.i18n.localize("ACTOR.SECTIONS.ICONIC.header"), items: [],
-        empty: game.i18n.localize("ACTOR.SECTIONS.ICONIC.empty")}
+      iconicSpells: {label: _loc("ACTOR.SECTIONS.ICONIC.header"), items: [],
+        empty: _loc("ACTOR.SECTIONS.ICONIC.empty")}
     };
 
     // Iterate over items and organize them
@@ -488,15 +488,15 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     config.dropped = item.system.dropped;
     config.equipped = item.system.equipped;
     config.cssClass = item.system.equipped ? "equipped" : "unequipped";
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     let equipAction;
     if ( item.system.dropped ) {
       config.cssClass += " dropped";
-      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: game.i18n.format("ITEM.ACTIONS.Recover", {typeLabel})};
+      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: _loc("ITEM.ACTIONS.Recover", {typeLabel})};
     }
     else equipAction = item.system.equipped
-      ? {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: game.i18n.format("ITEM.ACTIONS.UnEquip", {typeLabel})}
-      : {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: game.i18n.format("ITEM.ACTIONS.Equip", {typeLabel})};
+      ? {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: _loc("ITEM.ACTIONS.UnEquip", {typeLabel})}
+      : {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: _loc("ITEM.ACTIONS.Equip", {typeLabel})};
     config.actions.push(equipAction);
     if ( (item.type === "weapon") && !item.system.dropped ) {
       config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.ACTIONS.Drop"});
@@ -512,13 +512,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActions() {
     const sections = {
-      attack: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsAttack"), actions: []},
-      spell: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSpell"), actions: []},
-      summon: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsSummon"), actions: []},
-      reaction: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
-      movement: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
-      consumable: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsConsumable"), actions: []},
-      general: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
+      attack: {label: _loc("ACTOR.SHEET.HEADERS.ActionsAttack"), actions: []},
+      spell: {label: _loc("ACTOR.SHEET.HEADERS.ActionsSpell"), actions: []},
+      summon: {label: _loc("ACTOR.SHEET.HEADERS.ActionsSummon"), actions: []},
+      reaction: {label: _loc("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
+      movement: {label: _loc("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
+      consumable: {label: _loc("ACTOR.SHEET.HEADERS.ActionsConsumable"), actions: []},
+      general: {label: _loc("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
     };
     const favorites = [];
 
@@ -574,10 +574,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActiveEffects() {
     const sections = {
-      temporary: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsTemporary"), effects: []},
-      persistent: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsPersistent"), effects: []},
-      disabled: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsDisabled"), effects: []},
-      suppressed: {label: game.i18n.localize("ACTOR.SHEET.HEADERS.EffectsSuppressed"), effects: []}
+      temporary: {label: _loc("ACTOR.SHEET.HEADERS.EffectsTemporary"), effects: []},
+      persistent: {label: _loc("ACTOR.SHEET.HEADERS.EffectsPersistent"), effects: []},
+      disabled: {label: _loc("ACTOR.SHEET.HEADERS.EffectsDisabled"), effects: []},
+      suppressed: {label: _loc("ACTOR.SHEET.HEADERS.EffectsSuppressed"), effects: []}
     };
 
     // Categorize and prepare effects
@@ -620,24 +620,24 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const {runes, gestures, inflections, iconicSlots} = this.actor.grimoire;
     const spells = {
       runes: {
-        label: game.i18n.localize("SPELL.COMPONENTS.RunePl"),
+        label: _loc("SPELL.COMPONENTS.RunePl"),
         known: runes.values(),
-        emptyLabel: runes.size ? "" : game.i18n.localize("SPELL.COMPONENTS.RuneNone")
+        emptyLabel: runes.size ? "" : _loc("SPELL.COMPONENTS.RuneNone")
       },
       gestures: {
-        label: game.i18n.localize("SPELL.COMPONENTS.GesturePl"),
+        label: _loc("SPELL.COMPONENTS.GesturePl"),
         known: gestures.values(),
-        emptyLabel: gestures.size ? "" : game.i18n.localize("SPELL.COMPONENTS.GestureNone")
+        emptyLabel: gestures.size ? "" : _loc("SPELL.COMPONENTS.GestureNone")
       },
       inflections: {
-        label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl"),
+        label: _loc("SPELL.COMPONENTS.InflectionPl"),
         known: inflections.values(),
-        emptyLabel: inflections.size ? "" : game.i18n.localize("SPELL.COMPONENTS.InflectionNone")
+        emptyLabel: inflections.size ? "" : _loc("SPELL.COMPONENTS.InflectionNone")
       },
       iconicSpells: {
-        label: game.i18n.format(iconicSpells.label, {slots: iconicSlots}),
+        label: _loc(iconicSpells.label, {slots: iconicSlots}),
         known: iconicSpells.items,
-        emptyLabel: iconicSlots ? "" : game.i18n.localize("ACTOR.SECTIONS.ICONIC.none")
+        emptyLabel: iconicSlots ? "" : _loc("ACTOR.SECTIONS.ICONIC.none")
       }
     };
 
@@ -645,7 +645,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( iconicSlots ) {
       spells.iconicSpells.label += ` (${iconicSpells.items.length}/${iconicSlots})`;
       if ( !iconicSpells.items.length ) {
-        spells.iconicSpells.emptyLabel = game.i18n.localize("ACTOR.SECTIONS.ICONIC.empty");
+        spells.iconicSpells.emptyLabel = _loc("ACTOR.SECTIONS.ICONIC.empty");
       }
     }
     return spells;
@@ -779,8 +779,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
       // Tooltips
       s.tooltips = {
-        value: game.i18n.format("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
-        passive: game.i18n.localize("SKILL.TooltipPassive")
+        value: _loc("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
+        passive: _loc("SKILL.TooltipPassive")
       };
 
       // Add to category
@@ -968,7 +968,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static async #onEffectCreate() {
     const cls = getDocumentClass("ActiveEffect");
     await cls.create({
-      name: game.i18n.localize("ACTIVE_EFFECT.ACTIONS.New"),
+      name: _loc("ACTIVE_EFFECT.ACTIONS.New"),
       img: CONFIG.controlIcons.effects,
       type: "base"
     }, {parent: this.actor, renderSheet: true});
@@ -1143,7 +1143,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const minBonus = minValue - baseValue;
 
     // Structure form content
-    const baseGroup = bonusField.toFormGroup({label: game.i18n.localize(baseLabel), classes: ["slim"]},
+    const baseGroup = bonusField.toFormGroup({label: _loc(baseLabel), classes: ["slim"]},
       {name: "", value: baseValue, disabled: true});
     const bonusGroup = bonusField.toFormGroup({classes: ["slim"]}, {value: bonusValue, min: minBonus, step: 1});
     bonusGroup.querySelector("input").toggleAttribute("autofocus", true);
@@ -1151,7 +1151,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     content.append(baseGroup, bonusGroup);
 
     // Process user-input dialog
-    const title = `${game.i18n.localize(editLabel)}: ${this.actor.name}`;
+    const title = `${_loc(editLabel)}: ${this.actor.name}`;
     const formData = await foundry.applications.api.DialogV2.input({window: {title}, content});
     if (formData) await this.actor.update(formData);
   }
