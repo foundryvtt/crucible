@@ -3,21 +3,29 @@ type: talent
 _id: gladiator0000000
 img: icons/skills/melee/spear-tips-triple-orange.webp
 system:
-  node: sig3.dexterity.toughness
   description: >-
     <p>Once per Round, you can make a Reaction which incorporates a Strike
     attack without spending any Focus.</p>
   actions: []
-  requirements: {}
+  nodes:
+    - sig3.dexterity.toughness
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675132246363
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

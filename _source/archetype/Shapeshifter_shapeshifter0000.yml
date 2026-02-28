@@ -14,16 +14,22 @@ system:
     toughness: 2
     dexterity: 1
   talents:
-    - Compendium.crucible.talent.Item.shapeshifter0000
-    - Compendium.crucible.talent.Item.naturalWeaponTra
-    - Compendium.crucible.talent.Item.assessstrength00
-    - Compendium.crucible.talent.Item.steadfast0000000
+    - item: Compendium.crucible.talent.Item.shapeshifter0000
+      level: null
+    - item: Compendium.crucible.talent.Item.naturalWeaponTra
+      level: null
+    - item: Compendium.crucible.talent.Item.assessstrength00
+      level: null
+    - item: Compendium.crucible.talent.Item.steadfast0000000
+      level: null
   skills:
     - athletics
     - awareness
     - stealth
     - wilderness
   identifier: shapeshifter
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -34,12 +40,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749917418749
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157486
+  modifiedTime: 1772307157486
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: shapeshifter0000
 sort: 1400000
 _key: '!items!shapeshifter0000'

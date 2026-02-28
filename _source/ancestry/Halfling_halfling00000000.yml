@@ -6,32 +6,33 @@ effects: []
 folder: cvTY534vgfLqkvXj
 flags: {}
 system:
-  primary: dexterity
-  secondary: wisdom
-  resistance: psychic
-  vulnerability: cold
   description: >-
     <p>You were raised in a creche surrounded by other halflings. Your
     lilliputian stature, thick-soled hairy feet, and the swiftness of your mind
     and body are what your people are most known for. Yours is a people for whom
     education and tradition are paramount.</p>
-  size: 3
-  stride: 8
   identifier: halfling
   abilities:
     secondary: presence
     primary: dexterity
   talents:
-    - Compendium.crucible.talent.Item.runeSoul00000000
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: null
   ui:
     color: '#bff58a'
+  resistances:
+    resistance: psychic
+    vulnerability: cold
+  movement:
+    size: 3
+    stride: 8
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1674942420028
-  modifiedTime: 1762817242258
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157416
+  modifiedTime: 1772307157416
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

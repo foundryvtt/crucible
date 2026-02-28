@@ -5,7 +5,6 @@ img: icons/skills/movement/arrow-upward-white.webp
 effects: []
 flags: {}
 system:
-  node: toustr1
   description: >-
     <p>A defensive technique in which you drive forward, slamming and pushing
     foes out of your path. You charge up to 20 feet in a straight line and
@@ -45,16 +44,26 @@ system:
         maximum: 20
         weapon: false
         minimum: null
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
   nodes:
     - toustr2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420012
-  modifiedTime: 1769026257002
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160146
+  modifiedTime: 1772307160146
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -30,6 +30,7 @@ system:
         focus: 1
         weapon: true
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
@@ -41,6 +42,9 @@ system:
         maximum: null
         weapon: true
         minimum: null
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - str3a
   rune: ''
@@ -55,12 +59,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749391871615
-  modifiedTime: 1751385845355
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160130
+  modifiedTime: 1772307160130
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 folder: ePNIUQxdOsY7GSKo
 ownership:
   default: 0

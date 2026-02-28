@@ -27,6 +27,7 @@ system:
         focus: 2
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -39,8 +40,16 @@ system:
         size: 20
       effects: []
       tags:
+        - spell
+        - iconicSpell
         - iconicSpell
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: oblivion
+      gesture: pulse
+      inflection: push
   runes:
     - oblivion
   gestures:
@@ -58,12 +67,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1759877572761
-  modifiedTime: 1771871528590
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: engulfingDarknes
 sort: 100000
 _key: '!items!engulfingDarknes'

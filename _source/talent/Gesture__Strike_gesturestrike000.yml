@@ -2,7 +2,6 @@ name: 'Gesture: Strike'
 type: talent
 img: icons/magic/fire/dagger-rune-enchant-flame-red.webp
 system:
-  node: str2c
   description: >-
     <p>You empower a direct close-range attack with the arcane essence of a
     Rune, performing a Strike with your equipped weapon.</p><p>The Strike
@@ -15,16 +14,22 @@ system:
   actorHooks: []
   nodes:
     - str2b
+  rune: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1674842056708
-  modifiedTime: 1762984114805
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160134
+  modifiedTime: 1772307160134
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.gesturearrowcopy
   duplicateSource: null
   exportSource: null

@@ -3,7 +3,6 @@ name: Resilient
 type: talent
 img: icons/magic/life/cross-embers-glow-yellow-purple.webp
 system:
-  node: tou0b
   description: >-
     <p>Your body responds eagerly to healing, demonstrating a remarkable ability
     to recover from wounds.</p>
@@ -14,6 +13,13 @@ system:
   actorHooks: []
   nodes:
     - tou2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -22,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1684358834488
-  modifiedTime: 1763348849792
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160142
+  modifiedTime: 1772307160142
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

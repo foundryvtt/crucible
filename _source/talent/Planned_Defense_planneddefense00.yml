@@ -3,7 +3,6 @@ type: talent
 _id: planneddefense00
 img: icons/magic/defensive/shield-barrier-blades-teal.webp
 system:
-  node: wis2a
   description: >-
     You exert strong battlefield judgment to prepare your defenses against the
     attacks of your foes. Any enemy which acts after you in
@@ -13,6 +12,13 @@ system:
   actorHooks: []
   nodes:
     - wis3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: 50000
@@ -22,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685214851183
-  modifiedTime: 1763134934928
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

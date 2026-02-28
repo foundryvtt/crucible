@@ -46,12 +46,12 @@ system:
           duration:
             turns: 1
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - movement
         - melee
@@ -77,12 +77,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1770474128399
-  modifiedTime: 1770474128399
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157338
+  modifiedTime: 1772307157338
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: tramplingCharge0
 sort: 0
 _key: '!items!tramplingCharge0'

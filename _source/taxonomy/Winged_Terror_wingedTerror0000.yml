@@ -16,22 +16,49 @@ system:
     size: 6
     stride: 16
   resistances:
-    bludgeoning: 0
-    corruption: 0
-    piercing: 0
-    slashing: 0
-    poison: 0
-    acid: 0
-    fire: 0
-    cold: 0
-    electricity: 0
-    psychic: 0
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   talents:
-    - Compendium.crucible.adversary-talents.Item.swoopingStrike00
-    - Compendium.crucible.adversary-talents.Item.elusiveFlight000
-    - Compendium.crucible.adversary-talents.Item.rakingTalons0000
+    - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.elusiveFlight000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.rakingTalons0000
+      level: null
   characteristics:
     equipment: false
     spells: false
@@ -46,11 +73,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751479684955
-  modifiedTime: 1763068954068
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170601
+  modifiedTime: 1772307170601
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 300000
 _key: '!items!wingedTerror0000'

@@ -40,6 +40,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: 1
@@ -54,9 +55,16 @@ system:
         - consume
         - rallying
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   uses:
     value: 1
     max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 effects: []
 folder: WqUGvC0ubhjrpvz9
 ownership:
@@ -67,12 +75,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1750025335068
-  modifiedTime: 1766097022534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157774
+  modifiedTime: 1772307157774
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: rallyingElixir00
 sort: 400000
 _key: '!items!rallyingElixir00'

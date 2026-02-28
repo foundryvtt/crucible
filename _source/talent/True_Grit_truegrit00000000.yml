@@ -3,7 +3,6 @@ type: talent
 _id: truegrit00000000
 img: icons/magic/symbols/mask-yellow-orange.webp
 system:
-  node: tou1a
   description: >-
     <p>Your physical tenacity allows you to remain composed while surrounded by
     foes. Your <strong>Engagement</strong> increases by +1, allowing you to
@@ -12,6 +11,13 @@ system:
   actorHooks: []
   nodes:
     - tou0b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 275000
@@ -21,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1685824842320
-  modifiedTime: 1766941629397
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160152
+  modifiedTime: 1772307160152
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

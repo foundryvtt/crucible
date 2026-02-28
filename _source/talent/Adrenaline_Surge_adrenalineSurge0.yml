@@ -34,7 +34,7 @@ system:
         self: false
       effects:
         - name: Adrenaline Surge
-          scope: '1'
+          scope: 1
           result:
             type: any
             all: false
@@ -42,8 +42,17 @@ system:
           duration:
             turns: null
             rounds: 3
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags: []
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -62,12 +71,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766951705301
-  modifiedTime: 1766951705301
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160124
+  modifiedTime: 1772307160124
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: adrenalineSurge0
 sort: 0
 _key: '!items!adrenalineSurge0'

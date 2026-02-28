@@ -13,12 +13,15 @@ system:
     toughness: 3
     dexterity: 4
   talents:
-    - Compendium.crucible.adversary-talents.Item.packhunter000000
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: null
   skills:
     - awareness
     - stealth
     - wilderness
   identifier: packMember
+  spells: []
+  equipment: []
 effects: []
 sort: 100000
 ownership:
@@ -27,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1685217713904
-  modifiedTime: 1751554935859
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157485
+  modifiedTime: 1772307157485
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

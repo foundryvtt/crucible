@@ -23,6 +23,7 @@ system:
         focus: 1
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -39,6 +40,9 @@ system:
         - empowered
         - fire
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -57,11 +61,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751636168488
-  modifiedTime: 1751636224215
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160132
+  modifiedTime: 1772307160132
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 0
 _key: '!items!flamingArrow0000'

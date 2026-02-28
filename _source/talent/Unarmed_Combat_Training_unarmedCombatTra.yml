@@ -37,12 +37,12 @@ system:
           duration:
             turns: null
             rounds: 1
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
         - name: Grappling
           scope: 1
           result:
@@ -53,12 +53,12 @@ system:
           duration:
             turns: null
             rounds: 1
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - difficult
         - harmless
@@ -72,6 +72,9 @@ system:
         <strong>Athletics</strong> skill attack against an adjacent target. If
         successful, both you and your target are @Condition[restrained] for 1
         Round.</p>
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: unarmed
@@ -88,12 +91,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766940604912
-  modifiedTime: 1768579062618
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

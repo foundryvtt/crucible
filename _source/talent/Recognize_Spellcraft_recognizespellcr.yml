@@ -8,8 +8,16 @@ system:
     begins casting a spell, you can identify its Rune if you also know that
     Rune.</p>
   actions: []
-  requirements: {}
-  node: int2b
+  nodes:
+    - int2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -18,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1675644092055
-  modifiedTime: 1762830571047
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160142
+  modifiedTime: 1772307160142
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.recognizespellcr
   duplicateSource: null
   exportSource: null

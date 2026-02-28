@@ -7,9 +7,16 @@ system:
     arcane energy as physical form. You can maintain up to 3 such creations
     simultaneously rather than only one.</p>
   actions: []
-  requirements: {}
-  node: sig3.wisdom.presence
   iconicSpells: 2
+  nodes:
+    - sig3.wisdom.presence
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -18,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675740927729
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160128
+  modifiedTime: 1772307160128
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.conjurer00000000
   duplicateSource: null
   exportSource: null

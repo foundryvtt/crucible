@@ -3,7 +3,6 @@ name: Shapeshifter
 type: talent
 img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
 system:
-  node: sig3.toughness.wisdom
   description: >-
     <p>You possess supernatural ability to transform your body into the shapes
     of beasts.</p><p>You undergo a transformation where you assume the form of a
@@ -35,7 +34,7 @@ system:
         self: false
       effects:
         - name: Beast Shape
-          scope: '1'
+          scope: 1
           result:
             type: any
             all: false
@@ -43,6 +42,12 @@ system:
           duration:
             turns: null
             rounds: 60
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
       actionHooks: []
       condition: ''
@@ -50,6 +55,9 @@ system:
         minimum: null
         maximum: null
         weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
     - id: beastShapeRevert
       name: Revert Shape
       description: >-
@@ -75,10 +83,20 @@ system:
         minimum: null
         maximum: null
         weapon: false
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - sig3.toughness
     - sig3.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -87,11 +105,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676167347186
-  modifiedTime: 1766003060087
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160146
+  modifiedTime: 1772307160146
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
   exportSource: null

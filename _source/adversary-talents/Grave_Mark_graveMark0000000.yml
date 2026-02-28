@@ -49,12 +49,12 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - harmless
         - willpower
@@ -76,12 +76,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771792957888
-  modifiedTime: 1771792957888
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157332
+  modifiedTime: 1772307157332
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3

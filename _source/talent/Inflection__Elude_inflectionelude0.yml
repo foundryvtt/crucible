@@ -4,7 +4,6 @@ type: talent
 _id: inflectionelude0
 img: icons/magic/movement/trail-streak-zigzag-teal.webp
 system:
-  node: dex2b
   description: >-
     <p>Enhance a spell to make it more difficult for an enemy to retaliate
     against its casting. This spell does not provide any opportunity to make
@@ -14,6 +13,13 @@ system:
   inflection: eluding
   actorHooks: []
   iconicSpells: 1
+  nodes:
+    - dex2b
+  rune: ''
+  gesture: ''
+  training:
+    type: ''
+    rank: null
 effects: []
 sort: 400000
 ownership:
@@ -22,11 +28,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1686255677273
-  modifiedTime: 1767142001675
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160135
+  modifiedTime: 1772307160135
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

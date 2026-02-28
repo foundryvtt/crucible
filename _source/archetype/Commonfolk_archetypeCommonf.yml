@@ -16,6 +16,8 @@ system:
     dexterity: 2
   talents: []
   skills: []
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -26,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751632014391
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157481
+  modifiedTime: 1772307157481
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 700000
 _key: '!items!archetypeCommonf'

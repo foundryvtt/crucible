@@ -15,12 +15,15 @@ system:
     toughness: 4
     dexterity: 3
   talents:
-    - Compendium.crucible.adversary-talents.Item.tuskCharge000000
+    - item: Compendium.crucible.adversary-talents.Item.tuskCharge000000
+      level: null
   skills:
     - athletics
     - awareness
     - wilderness
   identifier: tusker
+  spells: []
+  equipment: []
 effects: []
 sort: 300000
 ownership:
@@ -29,11 +32,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1685230805102
-  modifiedTime: 1751554940218
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307157487
+  modifiedTime: 1772307157487
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

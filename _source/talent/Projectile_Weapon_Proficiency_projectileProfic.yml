@@ -3,7 +3,6 @@ name: Projectile Weapon Proficiency
 type: talent
 img: icons/weapons/bows/shortbow-white.webp
 system:
-  node: dex4b
   description: >-
     <p>You have a fluent education in the use of projectile weaponry. You gain
     the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
@@ -14,6 +13,11 @@ system:
     type: projectile
     rank: 2
   actorHooks: []
+  nodes:
+    - dex4b
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 1500000
 ownership:
@@ -24,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742952113940
-  modifiedTime: 1766941451694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160141
+  modifiedTime: 1772307160141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: projectileProfic
 _key: '!items!projectileProfic'

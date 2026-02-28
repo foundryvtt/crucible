@@ -29,6 +29,7 @@ system:
         focus: 0
         heroism: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -47,9 +48,26 @@ system:
           duration:
             turns: 1
             rounds: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
+        - spell
+        - iconicSpell
         - iconicSpell
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: illumination
+      gesture: create
+      inflection: pull
   runes:
     - illumination
   gestures:
@@ -67,12 +85,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1761412330344
-  modifiedTime: 1771871572796
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: dawnBeacon000000
 sort: 100000
 _key: '!items!dawnBeacon000000'

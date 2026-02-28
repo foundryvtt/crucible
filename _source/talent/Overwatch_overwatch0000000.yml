@@ -2,7 +2,6 @@ name: Overwatch
 type: talent
 img: icons/skills/targeting/target-strike-triple-blue.webp
 system:
-  node: sig3.dexterity.wisdom
   description: >-
     <p>You are an expert in combat against magic users. You know how to conserve
     energy and strike at the precise moment to thwart their incantation.</p>
@@ -22,16 +21,35 @@ system:
       cost:
         action: 0
         focus: 2
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
-  requirements: {}
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
   nodes:
     - sig3.dexterity
     - sig3.intellect
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -40,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675561152244
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.overwatch0000000
   duplicateSource: null
   exportSource: null

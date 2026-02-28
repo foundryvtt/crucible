@@ -14,17 +14,24 @@ system:
     toughness: 1
     dexterity: 2
   talents:
-    - Compendium.crucible.talent.Item.bard000000000000
-    - Compendium.crucible.talent.Item.inspireheroism00
-    - Compendium.crucible.talent.Item.extolldeeds00000
-    - Compendium.crucible.talent.Item.runeSoul00000000
-    - Compendium.crucible.talent.Item.inspirator000000
+    - item: Compendium.crucible.talent.Item.bard000000000000
+      level: null
+    - item: Compendium.crucible.talent.Item.inspireheroism00
+      level: null
+    - item: Compendium.crucible.talent.Item.extolldeeds00000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: null
+    - item: Compendium.crucible.talent.Item.inspirator000000
+      level: null
   skills:
     - society
     - deception
     - diplomacy
     - performance
   identifier: bard
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -35,12 +42,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749922573051
-  modifiedTime: 1767927161067
-  lastModifiedBy: QPs9IwGEu5DxD700
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157482
+  modifiedTime: 1772307157482
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: bard000000000000
 sort: 1100000
 _key: '!items!bard000000000000'

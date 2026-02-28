@@ -3,7 +3,6 @@ name: Mental Fortress
 type: talent
 img: icons/magic/holy/barrier-shield-winged-blue.webp
 system:
-  node: pre2a
   description: >-
     <p>Your strong will makes you exceedingly difficult to influence. You gain
     +1 to your <strong>Willpower</strong> defense and +5 resistance to
@@ -12,6 +11,13 @@ system:
   actorHooks: []
   nodes:
     - pre3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -20,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676169451542
-  modifiedTime: 1763136065565
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160139
+  modifiedTime: 1772307160139
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.mentalfortress00
   duplicateSource: null
   exportSource: null

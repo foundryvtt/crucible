@@ -8,9 +8,16 @@ system:
     countering an enemy spell, even if you do not recognize the spell being
     cast. You gain +2 Boons to any Counterspell attempt.</p>
   actions: []
-  requirements: {}
-  node: sig3.presence.intellect
   iconicSpells: 2
+  nodes:
+    - sig3.presence.intellect
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -19,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675644340947
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.warmage000000000
   duplicateSource: null
   exportSource: null

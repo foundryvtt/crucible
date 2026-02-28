@@ -49,6 +49,9 @@ system:
         Evoke may only affect yourself or another creature which you can
         physically touch. You may attempt other uses similar those above, the
         effectiveness of which is decided by the Gamemaster.</p>
+      summon:
+        actorUuid: null
+        permanent: true
   rune: soul
   actorHooks: []
   nodes:
@@ -66,12 +69,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1763002983715
-  modifiedTime: 1763349128636
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160144
+  modifiedTime: 1772307160144
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

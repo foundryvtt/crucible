@@ -3,7 +3,6 @@ name: Tumble Through
 type: talent
 img: icons/skills/movement/ball-spinning-blue.webp
 system:
-  node: dex2c
   description: >-
     <p>You can use your athleticism in dangerous situations to escape harm or
     bypass enemy combatants.</p>
@@ -27,10 +26,12 @@ system:
         focus: 0
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: single
         number: 1
         scope: 2
+        self: false
       effects: []
       img: icons/skills/movement/ball-spinning-blue.webp
       condition: ''
@@ -39,7 +40,19 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - dex2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -48,11 +61,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.342'
-  createdTime: 1677967995645
-  modifiedTime: 1742939186737
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160152
+  modifiedTime: 1772307160152
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.tumblethrough000
   duplicateSource: null
   exportSource: null

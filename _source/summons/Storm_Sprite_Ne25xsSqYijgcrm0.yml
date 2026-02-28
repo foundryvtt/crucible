@@ -36,7 +36,6 @@ system:
     madness:
       bonus: 0
   details:
-    level: -1
     archetype:
       description: >-
         <p>Sprites are lesser elementals which are embodiments of their raw
@@ -50,14 +49,17 @@ system:
         toughness: 3
         dexterity: 3
       talents:
-        - Compendium.crucible.adversary-talents.Item.falseAppearance0
-        - Compendium.crucible.talent.Item.gesturefan000000
+        - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+          level: null
+        - item: Compendium.crucible.talent.Item.gesturefan000000
+          level: null
       skills:
         - stealth
         - performance
       equipment: []
       name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
+      spells: []
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Lightning.</p>
       category: elemental
@@ -112,41 +114,55 @@ system:
         size: 4
         stride: 10
       talents:
-        - Compendium.crucible.talent.Item.runelightning000
-        - Compendium.crucible.adversary-talents.Item.electricityAbsor
+        - item: Compendium.crucible.talent.Item.runelightning000
+          level: null
+        - item: Compendium.crucible.adversary-talents.Item.electricityAbsor
+          level: null
       identifier: stormElemental
       name: Storm Elemental
       img: icons/magic/lightning/bolt-strike-clouds-blue.webp
-    threat: minion
     biography:
       public: ''
       private: ''
-    stature: small
+      appearance: ''
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
+      immune: false
     piercing:
       bonus: 0
+      immune: false
     slashing:
       bonus: 0
+      immune: false
     poison:
       bonus: 0
+      immune: false
     acid:
       bonus: 0
+      immune: false
     fire:
       bonus: 0
+      immune: false
     psychic:
       bonus: 0
+      immune: false
     radiant:
       bonus: 0
+      immune: false
     void:
       bonus: 0
+      immune: false
     corruption:
       bonus: 0
+      immune: false
     cold:
       bonus: 0
+      immune: false
     electricity:
       bonus: 0
+      immune: false
   resources:
     health:
       value: 11
@@ -158,50 +174,20 @@ system:
       value: 5
     heroism:
       value: 0
-  skills:
-    acrobatics:
-      rank: 0
-    perception:
-      rank: 0
-    stealth:
-      rank: 0
-    survival:
-      rank: 0
-    arcana:
-      rank: 0
-    investigation:
-      rank: 0
-    lore:
-      rank: 0
-    religion:
-      rank: 0
-    bartering:
-      rank: 0
-    deception:
-      rank: 0
-    diplomacy:
-      rank: 0
-    intimidation:
-      rank: 0
-    animal:
-      rank: 0
-    craftsmanship:
-      rank: 0
-    medicine:
-      rank: 0
-    performance:
-      rank: 0
   status: null
   advancement:
     level: 1
-    threat: minion
+    rank: minion
   movement:
     sizeBonus: -1
+    strideBonus: 0
+    engagementBonus: 0
   favorites:
     - cast
     - reactiveStrike
     - strike
     - defend
+  currency: 0
 prototypeToken:
   name: Creation of Storm
   displayName: 30
@@ -212,16 +198,13 @@ prototypeToken:
     src: systems/crucible/assets/tokens/creations/Storm.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 3
-  height: 3
+  width: 4
+  height: 4
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -263,7 +246,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -283,6 +266,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 3
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Elemental Armor
@@ -303,6 +287,13 @@ items:
         base: 3
       dodge:
         base: 10
+      identifier: 6UYKFds6zt
+      invested: false
+      description:
+        public: ''
+        private: ''
+      actions: []
+      actorHooks: []
     effects: []
     sort: 0
     ownership:
@@ -312,11 +303,11 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1677965383866
-      modifiedTime: 1677966347928
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159602
+      modifiedTime: 1772307159602
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Item.livingflame00000
       duplicateSource: null
       exportSource: null
@@ -327,7 +318,7 @@ items:
     _id: Qu8kL7eiBNkcOXpn
     img: icons/magic/lightning/projectile-orb-blue.webp
     system:
-      category: natural
+      category: simple1
       quantity: 1
       weight: 0
       price: 0
@@ -335,8 +326,18 @@ items:
       broken: false
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - natural
       damageType: electricity
+      identifier: NY9SsFwA6L
+      invested: false
+      description:
+        public: ''
+        private: ''
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
     effects: []
     sort: 0
     ownership:
@@ -346,11 +347,11 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1677965044710
-      modifiedTime: 1682175456965
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159602
+      modifiedTime: 1772307159602
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Item.flametouch000000
       duplicateSource: null
       exportSource: null
@@ -369,16 +370,25 @@ items:
       actions: []
       requirements: {}
       gesture: arrow
+      nodes:
+        - int1b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1674842056708
-      modifiedTime: 1677966374363
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159602
+      modifiedTime: 1772307159602
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.gesturearrow0000
       duplicateSource: null
       exportSource: null
@@ -400,16 +410,24 @@ items:
       actions: []
       requirements: {}
       rune: lightning
+      nodes: []
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: 1674698661050
-      modifiedTime: 1677966377392
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.-alpha
+      coreVersion: '14.355'
+      createdTime: 1772307159602
+      modifiedTime: 1772307159602
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.runelightning000
       duplicateSource: null
       exportSource: null
@@ -447,10 +465,12 @@ items:
       compendiumSource: Compendium.crucible.adversary-talents.Item.electricityAbsor
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159603
+      modifiedTime: 1772307159603
     folder: null
     sort: 0
     ownership:
@@ -480,10 +500,12 @@ items:
       compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159603
+      modifiedTime: 1772307159603
     folder: null
     sort: 0
     ownership:
@@ -518,10 +540,12 @@ items:
       compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
+      systemVersion: 0.9.-alpha
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1772307159603
+      modifiedTime: 1772307159603
     _id: gesturefan000000
     folder: null
     sort: 0
@@ -533,11 +557,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
-  createdTime: 1677963742821
-  modifiedTime: 1762829247741
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307159601
+  modifiedTime: 1772307159768
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -16,18 +16,42 @@ system:
     toughness: 3
     dexterity: 1
   resistances:
-    bludgeoning: 0
-    corruption: 0
-    piercing: 0
-    slashing: 0
-    poison: 0
-    acid: 0
-    fire: 2
-    cold: 0
-    electricity: 0
-    psychic: -2
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 2
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: -2
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   characteristics:
     equipment: true
     spells: true
@@ -45,11 +69,12 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  modifiedTime: 1751554895725
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  modifiedTime: 1772307170600
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  createdTime: 1772307170600
 _key: '!items!hobgoblin0000000'

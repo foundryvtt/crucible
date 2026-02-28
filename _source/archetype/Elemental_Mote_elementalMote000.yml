@@ -18,11 +18,13 @@ system:
     toughness: 2
     dexterity: 5
   talents:
-    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: null
   skills:
     - stealth
     - performance
   equipment: []
+  spells: []
 effects: []
 sort: 0
 ownership:
@@ -33,10 +35,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1760894330390
-  modifiedTime: 1760894581524
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157483
+  modifiedTime: 1772307157483
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!elementalMote000'

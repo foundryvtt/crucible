@@ -44,16 +44,19 @@ system:
           duration:
             turns: null
             rounds: null
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - movement
         - reaction
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -72,12 +75,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1767823565219
-  modifiedTime: 1771690067397
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157336
+  modifiedTime: 1772307157336
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: sacrificeSelf000
 sort: 400000
 _key: '!items!sacrificeSelf000'

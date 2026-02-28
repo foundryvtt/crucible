@@ -3,7 +3,6 @@ name: Unarmed Combat Proficiency
 type: talent
 img: icons/skills/melee/unarmed-punch-fist-white.webp
 system:
-  node: str4c
   description: >-
     <p>You have a fluent education  in hand-to-hand combat and other martial
     arts.  You gain the <strong>Journeyman</strong> training rank and a
@@ -15,6 +14,11 @@ system:
     type: unarmed
     rank: 2
   actorHooks: []
+  nodes:
+    - str4c
+  rune: ''
+  gesture: ''
+  inflection: ''
 effects: []
 sort: 1000000
 ownership:
@@ -25,11 +29,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1742951519489
-  modifiedTime: 1766941451694
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160153
+  modifiedTime: 1772307160153
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: unarmedCombatPro
 _key: '!items!unarmedCombatPro'

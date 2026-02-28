@@ -40,17 +40,20 @@ system:
           duration:
             turns: null
             rounds: null
-          changes:
-            - key: system.abilities.dexterity.bonus
-              value: '-2'
-              mode: 2
-              priority: null
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes:
+              - key: system.abilities.dexterity.bonus
+                value: -2
+                priority: null
+                type: add
+                phase: initial
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
         - harmless
@@ -78,11 +81,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771718400000
-  modifiedTime: 1771870147474
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159357
+  modifiedTime: 1772307159357
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 300000
 _key: '!items!curseLethargy000'

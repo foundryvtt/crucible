@@ -24,18 +24,42 @@ system:
     size: 6
     stride: 16
   resistances:
-    bludgeoning: 0
-    corruption: 0
-    piercing: -1
-    slashing: 1
-    poison: 0
-    acid: 0
-    fire: 0
-    cold: 0
-    electricity: 0
-    psychic: 0
-    radiant: 0
-    void: 0
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: -1
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
   talents:
     - item: Compendium.crucible.adversary-talents.Item.packhunter000000
       level: null
@@ -57,12 +81,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1750730886197
-  modifiedTime: 1770324569467
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307170599
+  modifiedTime: 1772307170599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: drake00000000000
 sort: 0
 _key: '!items!drake00000000000'

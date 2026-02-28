@@ -2,7 +2,6 @@ name: Arcane Archer
 type: talent
 img: icons/skills/ranged/arrows-flying-salvo-blue-light.webp
 system:
-  node: sig3.intellect.dexterity
   description: >-
     <p>Your skill with archery can shape your spellcraft, partially substituting
     for the somatic gestures of traditional spellcasting.</p><p>While using a
@@ -14,6 +13,15 @@ system:
     cost reduced by 1.</p>
   actions: []
   iconicSpells: 1
+  nodes:
+    - sig3.intellect.dexterity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -22,11 +30,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1676830120357
-  modifiedTime: 1752287103390
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160125
+  modifiedTime: 1772307160125
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.arcanearcher0000
   duplicateSource: null
   exportSource: null

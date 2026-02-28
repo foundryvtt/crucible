@@ -37,7 +37,15 @@ system:
         - iconicSpell
         - spell
         - iconicSpell
+        - spell
+        - iconicSpell
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: control
+      gesture: strike
+      inflection: pull
     - id: conjureArmament
       name: Conjure Armament
       img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
@@ -60,12 +68,20 @@ system:
       tags:
         - spell
         - iconicSpell
+        - spell
+        - iconicSpell
       actionHooks: []
       condition: ''
       description: >-
         <p>You call your bound armament back into your grasp. As long as you
         have sufficient free hands to hold it, the weapon returns
         instantaneously to you and is no longer <strong>Disarmed</strong>.</p>
+      summon:
+        actorUuid: null
+        permanent: true
+      rune: control
+      gesture: strike
+      inflection: pull
   runes:
     - control
     - kinesis
@@ -84,11 +100,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1749247011452
-  modifiedTime: 1771804186385
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307159356
+  modifiedTime: 1772307159356
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!bindArmament0000'

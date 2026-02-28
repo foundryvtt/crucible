@@ -3,7 +3,6 @@ name: Nosferatu
 type: talent
 img: icons/magic/death/mouth-bite-fangs-vampire.webp
 system:
-  node: sig3.dexterity.toughness
   description: >-
     <p>You are afflicted with a rare blood mutation which allows your wounds to
     rapidly heal through hematophagy.</p><p>You can restore your Health by
@@ -38,7 +37,19 @@ system:
         minimum: null
         maximum: null
         weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
   actorHooks: []
+  nodes:
+    - sig3.dexterity.toughness
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 ownership:
   default: 0
@@ -47,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676157758719
-  modifiedTime: 1763348125824
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null

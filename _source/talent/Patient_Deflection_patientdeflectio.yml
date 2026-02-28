@@ -5,7 +5,6 @@ effects: []
 flags:
   core: {}
 system:
-  node: wis2a
   description: >-
     Your expertise with martial arts allows you to dodge or deflect blows as
     effectively as a heavily armored fighter. While unarmed, half your Wisdom
@@ -14,13 +13,20 @@ system:
   actorHooks: []
   nodes:
     - wis3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1674942420013
-  modifiedTime: 1763348518762
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160140
+  modifiedTime: 1772307160140
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

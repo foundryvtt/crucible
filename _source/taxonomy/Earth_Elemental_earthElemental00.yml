@@ -15,27 +15,40 @@ system:
   resistances:
     bludgeoning:
       value: 0
+      immune: false
     corruption:
       value: 0
+      immune: false
     piercing:
       value: -2
+      immune: false
     slashing:
       value: 0
+      immune: false
     poison:
       value: 1
+      immune: false
     acid:
       value: 0
       immune: true
     fire:
       value: 1
+      immune: false
     cold:
       value: -2
-    electricity: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
     psychic:
       value: 0
-    radiant: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
     void:
       value: -2
+      immune: false
   characteristics:
     spells: true
     equipment: false
@@ -43,8 +56,10 @@ system:
     size: 4
     stride: 10
   talents:
-    - Compendium.crucible.talent.Item.runeEarth0000000
-    - Compendium.crucible.adversary-talents.Item.acidAbsorption00
+    - item: Compendium.crucible.talent.Item.runeEarth0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
+      level: null
   identifier: earthElemental
 effects: []
 ownership:
@@ -54,12 +69,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  modifiedTime: 1767205860892
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  modifiedTime: 1772307170599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
+  createdTime: 1772307170599
 _id: earthElemental00
 sort: 100000
 _key: '!items!earthElemental00'

@@ -3,7 +3,6 @@ type: talent
 _id: inquisitor000000
 img: icons/magic/holy/projectiles-blades-salvo-yellow.webp
 system:
-  node: sig3.strength.presence
   description: >-
     <p>You are an expert in combat against magic users. You know how to conserve
     energy and strike at the precise moment to thwart their incantation.</p>
@@ -22,25 +21,44 @@ system:
       cost:
         action: 0
         focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
-  requirements: {}
+      img: null
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      actionHooks: []
   nodes:
     - sig3.presence
     - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.345'
-  createdTime: 1675136660798
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160136
+  modifiedTime: 1772307160136
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

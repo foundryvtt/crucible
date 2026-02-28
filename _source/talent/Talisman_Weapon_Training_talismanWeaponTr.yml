@@ -42,6 +42,9 @@ system:
         - harmless
         - rallying
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   iconicSpells: 0
   training:
     type: talisman
@@ -58,12 +61,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1766945371452
-  modifiedTime: 1766945371452
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307160151
+  modifiedTime: 1772307160151
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

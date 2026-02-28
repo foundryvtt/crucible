@@ -13,14 +13,17 @@ system:
     a <strong>Strike</strong> with a melee weapon, you may cast a spell with its
     <strong>Action</strong> cost reduced by 1.</p>
   actions: []
-  requirements: {}
-  node:
-    - sig3.strength
-    - sig3.intellect
   iconicSpells: 1
   nodes:
     - sig3.intellect
     - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -29,11 +32,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.346'
-  createdTime: 1676174105935
-  modifiedTime: 1752287404534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.-alpha
+  coreVersion: '14.355'
+  createdTime: 1772307160148
+  modifiedTime: 1772307160148
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.spellblade000000
   duplicateSource: null
   exportSource: null

@@ -30,6 +30,8 @@ system:
     - stealth
     - wilderness
   identifier: scout
+  spells: []
+  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -40,11 +42,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.355'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1751388804848
-  modifiedTime: 1770236128679
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  systemVersion: 0.9.-alpha
+  createdTime: 1772307157481
+  modifiedTime: 1772307157481
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 800000
 _key: '!items!archetypeScout00'
