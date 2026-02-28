@@ -588,7 +588,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareWeapons(weaponItems) {
     const slotInUse = (item, type) => {
       item.updateSource({"system.equipped": false});
-      const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
+      const w = _loc("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
       console.warn(w);
     };
 
@@ -694,7 +694,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _getUnarmedWeapon() {
     const itemCls = /** @type {typeof CrucibleItem} */ getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
-    data.name = game.i18n.localize(data.name);
+    data.name = _loc(data.name);
     if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine"; // TODO move to talent hook
     const unarmed = new itemCls(data, {parent: this.parent});
     unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation

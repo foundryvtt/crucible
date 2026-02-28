@@ -11,7 +11,7 @@ export function addChatMessageContextOptions(html, options) {
 
   // Assign difficulty for skill checks
   options.push({
-    label: game.i18n.localize("DICE.SetDifficulty"),
+    label: _loc("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
@@ -22,7 +22,7 @@ export function addChatMessageContextOptions(html, options) {
       const message = game.messages.get(li.dataset.messageId);
       const roll = message.rolls[0];
       const formData = await foundry.applications.api.DialogV2.input({
-        window: {title: game.i18n.localize("DICE.SetDifficulty")},
+        window: {title: _loc("DICE.SetDifficulty")},
         content: `\
         <div class="form-group slim">
             <label>DC Target</label>
@@ -38,7 +38,7 @@ export function addChatMessageContextOptions(html, options) {
 
   // Confirm Action usage
   options.push({
-    label: game.i18n.localize("DICE.Confirm"),
+    label: _loc("DICE.Confirm"),
     icon: '<i class="fas fa-hexagon-check"></i>',
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
@@ -53,7 +53,7 @@ export function addChatMessageContextOptions(html, options) {
 
   // Reverse damage
   options.push({
-    label: game.i18n.localize("DICE.Reverse"),
+    label: _loc("DICE.Reverse"),
     icon: '<i class="fas fa-hexagon-xmark"></i>',
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
