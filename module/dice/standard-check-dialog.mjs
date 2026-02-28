@@ -5,11 +5,11 @@ const {DialogV2} = foundry.applications.api;
  * @extends {DialogV2}
  */
 export default class StandardCheckDialog extends DialogV2 {
-  constructor({request=false, roll, rollMode, ...options}={}) {
+  constructor({request=false, roll, messageMode, ...options}={}) {
     super(options);
     this.request = request && game.user.isGM;
     this.roll = roll;
-    this.rollMode = rollMode;
+    this.messageMode = messageMode;
     if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
   }
 
@@ -25,7 +25,7 @@ export default class StandardCheckDialog extends DialogV2 {
       requestClear: StandardCheckDialog.#onRequestClear,
       requestParty: StandardCheckDialog.#onRequestParty,
       requestRemove: StandardCheckDialog.#onRequestRemove,
-      rollMode: StandardCheckDialog.#onChangeRollMode,
+      messageMode: StandardCheckDialog.#onChangeMessageMode,
       requestSubmit: StandardCheckDialog.#requestSubmit
     },
     position: {
@@ -59,10 +59,10 @@ export default class StandardCheckDialog extends DialogV2 {
   roll;
 
   /**
-   * The selected roll mode for this particular roll.
+   * The selected message mode for this particular roll.
    * @type {string}
    */
-  rollMode;
+  messageMode;
 
   /** @override */
   get title() {
@@ -101,7 +101,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
-    const rollMode = this.rollMode || game.settings.get("core", "rollMode");
+    const messageMode = this.messageMode || game.settings.get("core", "messageMode");
     return Object.assign({}, data, {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
@@ -109,8 +109,8 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${game.i18n.localize(d[1])} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
-      rollModes: Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
-        return {icon, label, action, active: action === rollMode};
+      messageModes: Object.entries(CONFIG.ChatMessage.modes).map(([action, { label, icon }]) => {
+        return {icon, label, action, active: action === messageMode};
       }),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.DICE.MAX_BOONS,
@@ -206,7 +206,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
-    this.roll.data.rollMode = this.rollMode;
+    this.roll.data.messageMode = this.messageMode;
     return this.roll;
   }
 
@@ -292,7 +292,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @private
    */
   _updatePool(form, updates={}) {
-    const fd = new FormDataExtended(form);
+    const fd = new foundry.applications.ux.FormDataExtended(form);
     updates = foundry.utils.mergeObject(fd.object, updates);
     this.roll.initialize(updates);
   }
@@ -326,14 +326,26 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  static async #onRequestClear(event) {
+  /**
+   * Handle clicks to clear requested actors
+   * @this StandardCheckDialog
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onRequestClear(_event) {
     this.#requestActors.clear();
     await this.render({window: {title: this.title}});
   }
 
   /* -------------------------------------------- */
 
-  static async #onRequestParty(event) {
+  /**
+   * Handle clicks to add party to requested actors
+   * @this StandardCheckDialog
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onRequestParty(_event) {
     if ( !crucible.party ) return;
     for ( const member of crucible.party.system.members ) {
       if ( member.actor ) this.#requestActors.add(member.actor);
@@ -343,6 +355,13 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle clicks to remove a requested actor
+   * @this StandardCheckDialog
+   * @param {Event} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
   static async #onRequestRemove(_event, target) {
     const actorId = target.closest(".line-item").dataset.actorId;
     const actor = game.actors.get(actorId);
@@ -398,15 +417,16 @@ export default class StandardCheckDialog extends DialogV2 {
   /* -------------------------------------------- */
 
   /**
-   * Handle clicks on a roll mode selection button.
+   * Handle clicks on a message mode selection button.
+   * @this {StandardCheckDialog}
    * @param {Event} _event
    * @param {HTMLElement} target
-   * @this {StandardCheckDialog}
+   * @returns {Promise<void>}
    */
-  static async #onChangeRollMode(_event, target) {
-    this.rollMode = target.dataset.rollMode;
+  static async #onChangeMessageMode(_event, target) {
+    this.messageMode = target.dataset.messageMode;
     for ( const button of target.parentElement.children ) {
-      button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
+      button.setAttribute("aria-pressed", button.dataset.messageMode === this.messageMode);
     }
   }
 

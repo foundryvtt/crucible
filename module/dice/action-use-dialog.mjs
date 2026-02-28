@@ -193,7 +193,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
-    this.action.usage.rollMode = this.rollMode;
+    this.action.usage.messageMode = this.messageMode;
     if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
     if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
     return this.action;
@@ -397,7 +397,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Identify the mouse cursor position
     let cursor = event.getLocalPosition(canvas.templates);
-    const ray = new Ray(origin, {x: cursor.x, y: cursor.y});
+    const ray = new foundry.canvas.geometry.Ray(origin, {x: cursor.x, y: cursor.y});
     if ( Number.isNumeric(config.distance) ) {
       const maxDistance = (config.distance * s);
       if ( ray.distance > maxDistance ) cursor = ray.project((config.distance * s) / ray.distance);

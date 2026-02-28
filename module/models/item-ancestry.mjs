@@ -121,7 +121,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       },
       talents
     };
-    return this.parent.clone({type: "taxonomy", "==system": system}, {keepId: true, save: false});
+    return this.parent.clone({type: "taxonomy", system: _replace(system)}, {keepId: true, save: false});
   }
 
   /* -------------------------------------------- */

@@ -118,25 +118,4 @@ export function configure() {
   for ( const [id, cfg] of Object.entries(TRAVEL_PACES) ) {
     CONFIG.Token.movement.actions[id] = {...cfg, canSelect: groupOnly};
   }
-
-  // TODO this can be removed in V14
-  if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
-    const doubleCost = () => cost => cost * 2;
-    const noCost = () => () => 0;
-    const walkTerrain = ({walk}) => walk;
-    const noTerrain = () => 1;
-    const actions = CONFIG.Token.movement.actions;
-    actions.step.getCostFunction = doubleCost;
-    actions.step.deriveTerrainDifficulty = walkTerrain;
-    actions.crawl.getCostFunction = doubleCost;
-    actions.crawl.deriveTerrainDifficulty = walkTerrain;
-    actions.jump.getCostFunction = doubleCost;
-    actions.climb.getCostFunction = doubleCost;
-    actions.climb.deriveTerrainDifficulty = walkTerrain;
-    actions.swim.getCostFunction = doubleCost;
-    actions.blink.deriveTerrainDifficulty = noTerrain;
-    actions.displace.deriveTerrainDifficulty = noTerrain;
-    actions.displace.getCostFunction = noCost;
-    actions.displace.canSelect = () => false;
-  }
 }

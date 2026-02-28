@@ -23,6 +23,9 @@ export default [
           return obj;
         }, {}),
         ...[
+          "_del",
+          "_loc",
+          "_replace",
           "ActiveEffect",
           "Actor",
           "canvas",
@@ -33,7 +36,6 @@ export default [
           "CONFIG",
           "CONST",
           "Folder",
-          "FormDataExtended",
           "foundry",
           "fromUuid",
           "fromUuidSync",
@@ -45,9 +47,7 @@ export default [
           "JournalEntry",
           "Macro",
           "PIXI",
-          "PreciseText",
           "ProseMirror",
-          "Ray",
           "Roll",
           "Scene",
           "TokenDocument",

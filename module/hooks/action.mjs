@@ -185,10 +185,10 @@ HOOKS.clarifyIntent = {
     }
     const effect = outcome.effects[0];
     if ( !effect ) return;
-    effect.changes ||= [];
-    effect.changes.push(
-      {key: "system.rollBonuses.boons.clarifyIntent.number", mode: 5, value: 1},
-      {key: "system.rollBonuses.boons.clarifyIntent.label", mode: 5, value: this.name}
+    effect.system.changes ||= [];
+    effect.system.changes.push(
+      {key: "system.rollBonuses.boons.clarifyIntent.number", type: "override", value: 1},
+      {key: "system.rollBonuses.boons.clarifyIntent.label", type: "override", value: this.name}
     );
   }
 };
@@ -400,10 +400,10 @@ HOOKS.healingTonic = {
 HOOKS.inspireHeroism = {
   preActivate() {
     const effect = this.effects[0];
-    effect.changes ||= [];
-    effect.changes.push(
-      {key: "system.rollBonuses.boons.inspireHeroism.number", mode: 5, value: 1},
-      {key: "system.rollBonuses.boons.inspireHeroism.label", mode: 5, value: this.name}
+    effect.system.changes ||= [];
+    effect.system.changes.push(
+      {key: "system.rollBonuses.boons.inspireHeroism.number", type: "override", value: 1},
+      {key: "system.rollBonuses.boons.inspireHeroism.label", type: "override", value: this.name}
     );
   }
 };
@@ -437,10 +437,10 @@ HOOKS.laughingMatter = {
   postActivate(outcome) {
     if ( outcome.target === this.actor ) return;
     const effect = outcome.effects[0];
-    effect.changes ||= [];
-    effect.changes.push(
-      {key: "system.rollBonuses.banes.laughingMatter.number", mode: 5, value: 1},
-      {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name}
+    effect.system.changes ||= [];
+    effect.system.changes.push(
+      {key: "system.rollBonuses.banes.laughingMatter.number", type: "override", value: 1},
+      {key: "system.rollBonuses.banes.laughingMatter.label", type: "override", value: this.name}
     );
   }
 };
@@ -453,9 +453,9 @@ HOOKS.lastStand = {
     outcome.resources.health += (this.actor.abilities.toughness.value * 2);
     const effect = outcome.effects[0];
     if ( !effect ) return;
-    effect.changes ||= [];
-    effect.changes.push(
-      {key: "system.defenses.wounds.bonus", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: 2}
+    effect.system.changes ||= [];
+    effect.system.changes.push(
+      {key: "system.defenses.wounds.bonus", type: "add", value: 2}
     );
   }
 };
@@ -706,19 +706,19 @@ HOOKS.readScroll = {
     const {runes, gestures, inflections} = this.item.system.scroll;
     const changes = [];
     for ( const rune of runes ) {
-      changes.push({key: "system.grimoire.runeIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: rune});
-      changes.push({key: `system.training.${rune}`, mode: CONST.ACTIVE_EFFECT_MODES.UPGRADE, value: 1});
+      changes.push({key: "system.grimoire.runeIds", type: "add", value: rune});
+      changes.push({key: `system.training.${rune}`, type: "upgrade", value: 1});
     }
     for ( const gesture of gestures ) {
-      changes.push({key: "system.grimoire.gestureIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: gesture});
+      changes.push({key: "system.grimoire.gestureIds", type: "add", value: gesture});
     }
     for ( const inflection of inflections ) {
-      changes.push({key: "system.grimoire.inflectionIds", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: inflection});
+      changes.push({key: "system.grimoire.inflectionIds", type: "add", value: inflection});
     }
     Object.assign(outcome.effects[0], {
       origin: this.item.uuid,
       duration: {seconds: 600},
-      changes
+      system: {changes}
     });
   }
 };
