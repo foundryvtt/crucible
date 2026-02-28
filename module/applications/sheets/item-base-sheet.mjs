@@ -291,7 +291,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @protected
    */
   _getSubmitData(event) {
-    const fd = new FormDataExtended(this.element);
+    const fd = new foundry.applications.ux.FormDataExtended(this.element);
     return this._prepareSubmitData(event, this.element, fd);
   }
 
