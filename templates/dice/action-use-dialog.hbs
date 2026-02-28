@@ -20,9 +20,9 @@
 
     <footer class="form-footer">
         <div class="split-button">
-            {{#each rollModes as |mode|}}
-            <button type="button" class="ui-control icon {{mode.icon}}" data-action="rollMode"
-                    data-roll-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
+            {{#each messageModes as |mode|}}
+            <button type="button" class="ui-control icon {{mode.icon}}" data-action="messageMode"
+                    data-message-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
                     data-tooltip aria-label="{{localize mode.label}}"></button>
             {{/each}}
         </div>

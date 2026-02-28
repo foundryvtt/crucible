@@ -11,14 +11,14 @@ export function addChatMessageContextOptions(html, options) {
 
   // Assign difficulty for skill checks
   options.push({
-    name: game.i18n.localize("DICE.SetDifficulty"),
+    label: game.i18n.localize("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return message.isRoll && flags.skill;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       const roll = message.rolls[0];
       const formData = await foundry.applications.api.DialogV2.input({
@@ -38,14 +38,14 @@ export function addChatMessageContextOptions(html, options) {
 
   // Confirm Action usage
   options.push({
-    name: game.i18n.localize("DICE.Confirm"),
+    label: game.i18n.localize("DICE.Confirm"),
     icon: '<i class="fas fa-hexagon-check"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && !flags.confirmed;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message);
     }
@@ -53,14 +53,14 @@ export function addChatMessageContextOptions(html, options) {
 
   // Reverse damage
   options.push({
-    name: game.i18n.localize("DICE.Reverse"),
+    label: game.i18n.localize("DICE.Reverse"),
     icon: '<i class="fas fa-hexagon-xmark"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && flags.confirmed;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message, {reverse: true});
     }

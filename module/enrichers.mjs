@@ -551,7 +551,7 @@ async function onClickHazard(event) {
  * @param {RegExpMatchArray} matchArray
  */
 function enrichCondition([match, conditionId]) {
-  const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
+  const cfg = CONFIG.statusEffects[conditionId];
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.innerHTML = game.i18n.localize(cfg.name);
