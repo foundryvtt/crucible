@@ -219,34 +219,20 @@ HOOKS.counterspell = {
     this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
   async roll(outcome) {
-    // TODO: Only use this.usage.targetAction
-    const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
-    const {gesture: usedGesture, rune: usedRune} = targetAction;
-    if ( this.rune.id === usedRune?.opposed ) {
-      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
-    }
-    if ( this.gesture.id === usedGesture?.id ) {
-      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
-    }
-    if ( !targetAction.message ) {
-      const dc = this.usage.dc;
-      const rollData = {
-        actorId: this.actor.id,
-        banes: {...this.actor.system.rollBonuses.banes, ...this.usage.banes},
-        boons: {...this.actor.system.rollBonuses.boons, ...this.usage.boons},
-        dc,
-        ability: this.usage.bonuses.ability,
-        skill: this.usage.bonuses.skill,
-        enchantment: this.usage.bonuses.enchantment
-      };
-      this.actor.callActorHooks("prepareStandardCheck", rollData);
-      const roll = await new crucible.api.dice.StandardCheck(rollData).evaluate();
-      if ( roll ) outcome.rolls.push(roll);
-    } else {
-      outcome.usage.defenseType = "willpower"; // Maybe changed later
-      const roll = await this.actor.spellAttack(this, outcome);
-      if ( roll ) outcome.rolls.push(roll);
-    }
+    if ( this.usage.targetAction.message ) return;
+    const dc = this.usage.dc;
+    const rollData = {
+      actorId: this.actor.id,
+      banes: {...this.actor.system.rollBonuses.banes, ...this.usage.banes},
+      boons: {...this.actor.system.rollBonuses.boons, ...this.usage.boons},
+      dc,
+      ability: this.usage.bonuses.ability,
+      skill: this.usage.bonuses.skill,
+      enchantment: this.usage.bonuses.enchantment
+    };
+    this.actor.callActorHooks("prepareStandardCheck", rollData);
+    const roll = await new crucible.api.dice.StandardCheck(rollData).evaluate();
+    if ( roll ) outcome.rolls.push(roll);
   },
   async confirm(reverse) {
     if ( this.outcomes.size === 1 ) return;
@@ -799,23 +785,11 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
-// TODO: consider moving scaling & bonuses logic into iconicSpell tag hook
 HOOKS.revive = {
-  prepare() {
-    this.usage.hasDice = true;
-    const runeScaling = this.parent.runes.map(r => SYSTEM.SPELL.RUNES[r].scaling);
-    const gestureScaling = this.parent.gestures.map(g => SYSTEM.SPELL.GESTURES[g].scaling);
-    this.scaling = Array.from(runeScaling.union(gestureScaling));
-    this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
-  },
   acquireTargets(targets) {
     for ( const target of targets ) {
       if ( !target.actor.system.isDead ) target.error ??= `${this.name} requires a Dead target.`;
     }
-  },
-  async roll(outcome) {
-    const roll = await this.actor.skillAttack(this, outcome);
-    if ( roll ) outcome.rolls.push(roll);
   },
   postActivate(outcome) {
     if ( !outcome.self && outcome.rolls[0].isSuccess ) {
@@ -870,18 +844,6 @@ HOOKS.tailSweep = {
   },
   initialize() {
     this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "tail");
-  }
-};
-
-/* -------------------------------------------- */
-
-HOOKS.telecognition = {
-  prepare() {
-    this.usage.hasDice = true;
-  },
-  async roll(outcome) {
-    const roll = await this.actor.skillAttack(this, outcome);
-    if ( roll ) outcome.rolls.push(roll);
   }
 };
 
