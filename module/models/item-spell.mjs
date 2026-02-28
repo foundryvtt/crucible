@@ -109,19 +109,19 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
    */
   getTags(scope="full") {
     const tags = {};
-    if ( this.parent.parent && !this.isKnown ) tags.known = game.i18n.localize("ITEM.PROPERTIES.NotKnown");
+    if ( this.parent.parent && !this.isKnown ) tags.known = _loc("ITEM.PROPERTIES.NotKnown");
     const {runes, gestures, inflections} = this;
 
     // Runes
-    if ( !runes.size ) tags.rune = {label: game.i18n.localize("SPELL.COMPONENTS.MissingRune"), unmet: true};
+    if ( !runes.size ) tags.rune = {label: _loc("SPELL.COMPONENTS.MissingRune"), unmet: true};
     else for ( const runeId of runes ) tags[runeId] = SYSTEM.SPELL.RUNES[runeId].name;
 
     // Gestures
-    if ( !gestures.size ) tags.gesture = {label: game.i18n.localize("SPELL.COMPONENTS.MissingGesture"), unmet: true};
+    if ( !gestures.size ) tags.gesture = {label: _loc("SPELL.COMPONENTS.MissingGesture"), unmet: true};
     else for ( const gestureId of gestures ) tags[gestureId] = SYSTEM.SPELL.GESTURES[gestureId].name;
 
     // Inflections
-    if ( !inflections.size ) tags.inflection = {label: game.i18n.localize("SPELL.COMPONENTS.MissingInflection"), unmet: true};
+    if ( !inflections.size ) tags.inflection = {label: _loc("SPELL.COMPONENTS.MissingInflection"), unmet: true};
     else for ( const inflectionId of inflections ) tags[inflectionId] = SYSTEM.SPELL.INFLECTIONS[inflectionId].name;
     return tags;
   }

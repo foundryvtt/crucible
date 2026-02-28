@@ -49,8 +49,8 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
   /** @inheritDoc */
   _initialize() {
     super._initialize();
-    this.adjective = game.i18n.localize(`${this.name}Adj`);
-    this.name = game.i18n.localize(this.name);
+    this.adjective = _loc(`${this.name}Adj`);
+    this.name = _loc(this.name);
   }
 
   /* -------------------------------------------- */
@@ -124,17 +124,17 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
     // Damage Type
     if ( this.damageType ) {
       if ( this.damageType === "physical" ) {
-        tags.push(`${game.i18n.localize("DAMAGE.Physical")} ${game.i18n.localize("DAMAGE.Damage")}`);
+        tags.push(`${_loc("DAMAGE.Physical")} ${_loc("DAMAGE.Damage")}`);
       }
       else {
         const dt = SYSTEM.DAMAGE_TYPES[this.damageType];
-        tags.push(`${dt.label} ${game.i18n.localize("DAMAGE.Damage")}`);
+        tags.push(`${dt.label} ${_loc("DAMAGE.Damage")}`);
       }
     }
 
     // Restoration
     if ( this.restoration ) {
-      tags.push(game.i18n.localize("DAMAGE.Restoration"));
+      tags.push(_loc("DAMAGE.Restoration"));
     }
     return tags;
   }

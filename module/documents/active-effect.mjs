@@ -49,7 +49,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     // Status tooltip tags
     tags.statuses = this.statuses.reduce((obj, conditionId) => {
       const cfg = CONFIG.statusEffects[conditionId];
-      if (cfg) obj[conditionId] = game.i18n.localize(cfg.name);
+      if (cfg) obj[conditionId] = _loc(cfg.name);
       return obj;
     }, {});
 
@@ -67,7 +67,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       tags.context.section = "temporary";
       const remaining = turns - elapsed;
       tags.context.t = 10 * remaining;
-      tags.activation.duration = `${remaining} ${game.i18n.localize(`COMBAT.DURATION.TURNS.${pluralRules.select(remaining)}`)}`;
+      tags.activation.duration = `${remaining} ${_loc(`COMBAT.DURATION.TURNS.${pluralRules.select(remaining)}`)}`;
     }
 
     // Round-based duration
@@ -75,7 +75,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       tags.context.section = "temporary";
       const remaining = rounds - elapsed;
       tags.context.t = 1000000 * remaining;
-      tags.activation.duration = `${remaining} ${game.i18n.localize(`COMBAT.DURATION.ROUNDS.${pluralRules.select(remaining)}`)}`;
+      tags.activation.duration = `${remaining} ${_loc(`COMBAT.DURATION.ROUNDS.${pluralRules.select(remaining)}`)}`;
     }
 
     // Persistent

@@ -42,8 +42,8 @@ export const TRAINING = Object.freeze({
 
 // Helper function for labeling categories
 const label = (category, hands) => {
-  category = game.i18n.localize(category);
-  return game.i18n.format("WEAPON.CATEGORIES.CategoryHands", {category, hands});
+  category = _loc(category);
+  return _loc("WEAPON.CATEGORIES.CategoryHands", {category, hands});
 };
 
 /**

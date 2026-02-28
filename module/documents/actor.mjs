@@ -422,8 +422,8 @@ export default class CrucibleActor extends Actor {
     for ( const a of actions ) {
       const cfg = CONFIG.Token.movement.actions[a];
       if ( !cfg ) continue;
-      const label = game.i18n.localize(cfg.label);
-      const desc = game.i18n.localize(`TOKEN.MOVEMENT.ACTIONS.${a}.description`);
+      const label = _loc(cfg.label);
+      const desc = _loc(`TOKEN.MOVEMENT.ACTIONS.${a}.description`);
       actionLabels.push(label);
       actionDescriptions.push(`<p><strong>${label}:</strong> ${desc}</p>`);
     }
@@ -517,7 +517,7 @@ export default class CrucibleActor extends Actor {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
-    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
+    const flavor = _loc("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ) {
       const response = await check.dialog({flavor, messageMode});
       if ( response === null ) return null;
@@ -1039,7 +1039,7 @@ export default class CrucibleActor extends Actor {
     else if ( active ) {
       const createData = foundry.utils.mergeObject(effectData, {
         _id: SYSTEM.EFFECTS.getEffectId(statusId),
-        name: game.i18n.localize(effectData.name),
+        name: _loc(effectData.name),
         statuses: [statusId]
       }, {inplace: false});
       if ( overlay ) createData["flags.core.overlay"] = true;
@@ -1158,7 +1158,7 @@ export default class CrucibleActor extends Actor {
     const statusText = [];
     const resourceChanges = {action: Infinity};
     if ( this.statuses.has("unaware") ) statusText.push({
-      text: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Unaware"),
+      text: _loc("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
     });
     const actorUpdates = {
@@ -1332,7 +1332,7 @@ export default class CrucibleActor extends Actor {
     if ( !this.isIncapacitated && droppedItems.length ) {
       const pickUp = await DialogV2.query(designatedUser ?? game.user, "confirm", {
         window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
-        content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
+        content: _loc("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
       });
       if ( pickUp ) itemUpdates.push(...droppedItems.map(i => ({
         _id: i.id,
@@ -1611,11 +1611,11 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
-      let content = game.i18n.format("TALENT.ACTIONS.Purchase", {name: talent.name});
+      let content = _loc("TALENT.ACTIONS.Purchase", {name: talent.name});
       try {
         const canUse = this.canUtilizeTalent(talent);
         if ( (canUse === false) && warnUnusable ) {
-          content += `<div class="notification warning">${game.i18n.localize("TALENT.WARNINGS.CannotUse")}</div>`;
+          content += `<div class="notification warning">${_loc("TALENT.WARNINGS.CannotUse")}</div>`;
         }
       } catch(err) {
         if ( warnUnusable ) {
@@ -1623,7 +1623,7 @@ export default class CrucibleActor extends Actor {
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: game.i18n.format("TALENT.ACTIONS.PurchaseTitle", {name: talent.name})},
+        window: {title: _loc("TALENT.ACTIONS.PurchaseTitle", {name: talent.name})},
         content,
         yes: {default: true},
         no: {default: false}
@@ -1697,7 +1697,7 @@ export default class CrucibleActor extends Actor {
   canUtilizeTalent(talent) {
     // Can't use a Gesture or Inflection without a Rune
     if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
-      throw new Error(game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+      throw new Error(_loc(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
     }
 
     return true;
@@ -1853,7 +1853,7 @@ export default class CrucibleActor extends Actor {
     let message;
     if ( !item ) {
       updateData[key] = _replace(null);
-      message = game.i18n.format("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
+      message = _loc("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
     }
 
     // Add new detail data
@@ -1895,7 +1895,7 @@ export default class CrucibleActor extends Actor {
 
       // Include granted items in Actor update
       if ( updateItems.length ) updateData.items = updateItems;
-      message = game.i18n.format("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
+      message = _loc("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
 
     // Update locally (for example during character creation)
@@ -2027,7 +2027,7 @@ export default class CrucibleActor extends Actor {
     if ( !item.system.equipped ) return null;
     let ap = dropped ? 0 : 1;
     if ( item.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
       name: dropped ? `Drop ${typeLabel}` : `Un-equip ${typeLabel}`,
@@ -2057,13 +2057,13 @@ export default class CrucibleActor extends Actor {
     if ( !item.system.dropped && item.system.properties.has("ambush") ) ap -= 1;
 
     // Create the action
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
-      name: game.i18n.format(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
+      name: _loc(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
       img: item.img,
       cost: {action: ap, hands: this.inCombat ? 1 : 0},
-      description: game.i18n.format(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
+      description: _loc(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
       target: {type: "self", scope: 1}
     }, {actor: this});
 
@@ -2095,7 +2095,7 @@ export default class CrucibleActor extends Actor {
     // Taxonomies which cannot use equipment must have the natural tag
     if ( (this.type === "adversary") && !this.system.usesEquipment ) {
       const canEquip = ["armor", "weapon"].includes(item.type) && item.system.properties.has("natural");
-      if ( !canEquip ) throw new Error(game.i18n.format("WARNING.CannotEquipTaxonomy",
+      if ( !canEquip ) throw new Error(_loc("WARNING.CannotEquipTaxonomy",
         {actor: this.name, item: item.name, taxonomy: this.system.details.taxonomy.name}));
     }
 
@@ -2108,14 +2108,14 @@ export default class CrucibleActor extends Actor {
       case "armor":
         const {armor} = this.equipment;
         if ( equipped && armor.id ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize("TYPES.Item.armor")
+            type: _loc("TYPES.Item.armor")
           }));
         }
         if ( this.inCombat ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipInCombat", {
+          throw new Error(_loc("WARNING.CannotEquipInCombat", {
             actor: this.name,
             item: item.name
           }));
@@ -2125,10 +2125,10 @@ export default class CrucibleActor extends Actor {
       case "accessory":
         const {accessories, accessorySlots} = this.equipment;
         if ( equipped && (accessories.length >= accessorySlots) ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize("TYPES.Item.accessory")
+            type: _loc("TYPES.Item.accessory")
           }));
         }
         result.slot = null;
@@ -2137,10 +2137,10 @@ export default class CrucibleActor extends Actor {
       case "tool":
         const {toolbelt, toolbeltSlots} = this.equipment;
         if ( equipped && (toolbelt.length === toolbeltSlots) ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize(`TYPES.Item.${item.type}`)
+            type: _loc(`TYPES.Item.${item.type}`)
           }));
         }
         result.slot = null;
@@ -2191,10 +2191,10 @@ export default class CrucibleActor extends Actor {
     }
 
     // Throw an error if equipment is not possible
-    if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+    if ( occupied ) throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
       actor: this.name,
       item: weapon.name,
-      type: game.i18n.localize(slots.label(slot))
+      type: _loc(slots.label(slot))
     }));
     return slot;
   }
@@ -2219,8 +2219,8 @@ export default class CrucibleActor extends Actor {
       const flankedData = {
         _id: flankedId,
         type: "flanked",
-        name: `${game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
-        description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
+        name: `${_loc("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
+        description: _loc("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
         img: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         system: {

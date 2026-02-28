@@ -222,7 +222,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( requisiteTalents.length ) {
       const addRequisites = await foundry.applications.api.Dialog.confirm({
         window: {title: "SPELL.SHEET.Knowledge"},
-        content: game.i18n.format("ARCHETYPE.SHEET.RequiredComponents", {spell: spell.name})
+        content: _loc("ARCHETYPE.SHEET.RequiredComponents", {spell: spell.name})
       });
       if ( addRequisites ) {
         updateData.system.talents = [...talents, ...requisiteTalents];
