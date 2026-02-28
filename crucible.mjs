@@ -332,7 +332,7 @@ Hooks.once("init", async function() {
         if (pack.metadata.type !== documentType) continue;
         for (const item of pack.index) {
           if (!type || item.type === type) {
-            let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
+            let group = `${_loc(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
             if ( pack.metadata.packageType === "system" ) group += game.system.title;
             else if ( pack.metadata.packageType === "world" ) group += game.world.title;
             else group += game.modules.get(pack.metadata.packageName).title;
@@ -454,7 +454,7 @@ Hooks.once("i18nInit", function() {
 
     // Special handling for enums
     if ( conf instanceof Enum ) {
-      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = game.i18n.localize(l);
+      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = _loc(l);
       continue;
     }
 
@@ -463,12 +463,12 @@ Hooks.once("i18nInit", function() {
       if ( typeof v === "object" ) {
         for ( const attr of attrs ) {
           if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
-          else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
+          else if ( typeof v[attr] === "string" ) v[attr] = _loc(v[attr]);
         }
       }
       else {
         if ( typeof v === "function" ) conf[k] = v();
-        else if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+        else if ( typeof v === "string" ) conf[k] = _loc(v);
       }
     }
   }
@@ -501,7 +501,7 @@ function preLocalizeConfig() {
       for ( const k of keys ) {
         const v = o[k];
         if ( typeof v === "function" ) o[k] = v();
-        else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
+        else if ( typeof v === "string" ) o[k] = _loc(v);
       }
     }
   };

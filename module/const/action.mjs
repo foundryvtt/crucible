@@ -369,7 +369,7 @@ export const TAGS = {
     canUse() {
       if ( !this.actor.inCombat ) return false;
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
-      if ( !this.actor.abilities.dexterity.value ) throw new Error(game.i18n.format("ACTION.WarningNoAbility", {
+      if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WarningNoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.dexterity.label,
         action: this.name
@@ -468,9 +468,9 @@ export const TAGS = {
     priority: 2,
     initialize() {
       if ( this.composition === 0 ) return;
-      this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune.name});
-      this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
-      if ( this.inflection ) this.usage.context.tags.inflection = game.i18n.format("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
+      this.usage.context.tags.rune = _loc("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune.name});
+      this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
+      if ( this.inflection ) this.usage.context.tags.inflection = _loc("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
@@ -497,7 +497,7 @@ export const TAGS = {
     category: "special",
     canUse() {
       if ( !this.usage.summons?.length || this.usage.summons.some(s => !s.actorUuid) ) {
-        throw new Error(game.i18n.format("ACTION.WarningMisconfiguredSummon", { action: this.name }));
+        throw new Error(_loc("ACTION.WarningMisconfiguredSummon", { action: this.name }));
       }
     },
     async postActivate(outcome) {

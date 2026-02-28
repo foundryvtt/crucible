@@ -69,10 +69,10 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
-    let label = skill ? game.i18n.format("ACTION.SkillCheck", {skill: skill.label}) : game.i18n.localize("ACTION.StandardCheck");
+    let label = skill ? _loc("ACTION.SkillCheck", {skill: skill.label}) : _loc("ACTION.StandardCheck");
     const actor = this.#requestActors.first();
     if ( actor && (this.#requestActors.size === 1) ) label += `: ${actor.name}`;
-    else if ( this.request ) label = game.i18n.format("ACTION.RequestRollsSuffix", {label});
+    else if ( this.request ) label = _loc("ACTION.RequestRollsSuffix", {label});
     return label;
   }
 
@@ -83,7 +83,7 @@ export default class StandardCheckDialog extends DialogV2 {
     delete options.position?.width; // Ignore default dialog width
     options = super._initializeApplicationOptions(options);
     options.buttons = {
-      roll: {action: "roll", label: game.i18n.localize("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)}
+      roll: {action: "roll", label: _loc("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)}
     };
     return options;
   }
@@ -106,7 +106,7 @@ export default class StandardCheckDialog extends DialogV2 {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
-      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${game.i18n.localize(d[1])} (DC ${d[0]})`})),
+      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
       messageModes: Object.entries(CONFIG.ChatMessage.modes).map(([action, { label, icon }]) => {
@@ -126,11 +126,11 @@ export default class StandardCheckDialog extends DialogV2 {
     const buttons = [];
     for ( const b of Object.values(this.options.buttons) ) buttons.push({type: "submit", ...b});
     if ( this.request ) buttons.push(
-      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: game.i18n.localize("DICE.REQUESTS.Request")},
-      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: game.i18n.localize("DICE.REQUESTS.ClearRequest")},
-      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: game.i18n.localize("DICE.REQUESTS.AddParty")}
+      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: _loc("DICE.REQUESTS.Request")},
+      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: _loc("DICE.REQUESTS.ClearRequest")},
+      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: _loc("DICE.REQUESTS.AddParty")}
     );
-    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: game.i18n.localize("DICE.REQUESTS.RequestRolls")});
+    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: _loc("DICE.REQUESTS.RequestRolls")});
     return buttons;
   }
 

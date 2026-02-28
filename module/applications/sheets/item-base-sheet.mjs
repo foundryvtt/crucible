@@ -150,7 +150,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       context.isPhysical = true;
       context.propertiesWidget = this.#propertiesWidget.bind(this);
       context.currencyInput = this.#currencyInput.bind(this);
-      context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.ScaledPrice")});
+      context.scaledPriceField = new foundry.data.fields.StringField({label: _loc("ITEM.SHEET.ScaledPrice")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
     }
     return context;
@@ -195,7 +195,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actorHookChoices = Object.entries(SYSTEM.ACTOR.HOOKS).map(([hookId, cfg]) => ({
           value: hookId,
           label: hookId,
-          group: game.i18n.localize(cfg.group),
+          group: _loc(cfg.group),
           disabled: hookId in context.actorHooks
         }));
         break;
@@ -353,11 +353,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
     // Prompt for confirmation
     const confirm = await api.DialogV2.confirm({
-      title: game.i18n.format("ACTION.ACTIONS.Delete", {name: action.name}),
-      content: `<p>${game.i18n.format("ACTION.ACTIONS.DeleteConfirm", {
+      title: _loc("ACTION.ACTIONS.Delete", {name: action.name}),
+      content: `<p>${_loc("ACTION.ACTIONS.DeleteConfirm", {
         name: action.name,
         parent: this.document.name,
-        type: game.i18n.localize(CONFIG.Item.typeLabels[this.document.type])
+        type: _loc(CONFIG.Item.typeLabels[this.document.type])
       })}</p>`
     });
     if ( !confirm ) return;

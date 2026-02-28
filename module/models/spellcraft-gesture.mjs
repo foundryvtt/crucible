@@ -52,7 +52,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
   /** @inheritDoc */
   _initialize() {
     super._initialize();
-    this.name = game.i18n.localize(this.name);
+    this.name = _loc(this.name);
     this.target.scope = SYSTEM.ACTION.TARGET_TYPES[this.target.type].scope;
   }
 
@@ -96,7 +96,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     const tags = [SYSTEM.ABILITIES[this.scaling].label];
 
     // Damage
-    if ( this.damage.base ) tags.push(game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.base}));
+    if ( this.damage.base ) tags.push(_loc("ITEM.PROPERTIES.Damage", {damage: this.damage.base}));
 
     // Target
     if ( this.target.type !== "none" ) {
@@ -106,7 +106,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     }
 
     // Range
-    if ( this.range.maximum ) tags.push(game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range.maximum}));
+    if ( this.range.maximum ) tags.push(_loc("ITEM.PROPERTIES.Range", {range: this.range.maximum}));
 
     // Cost
     if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);

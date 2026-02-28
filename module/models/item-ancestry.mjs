@@ -55,7 +55,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     if ( options.partial === true ) return;
     const {primary, secondary} = abilities;
     if ( !(primary && secondary) ) return;
-    if ( primary === secondary ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.Abilities"));
+    if ( primary === secondary ) throw new Error(_loc("ANCESTRY.WARNINGS.Abilities"));
   }
 
   /* -------------------------------------------- */
@@ -70,8 +70,8 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     if ( options.partial === true ) return;
     const {resistance: res, vulnerability: vuln} = resistances;
     if ( !res && !vuln ) return;
-    if ( res === vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ResistancesDifferent"));
-    if ( !res !== !vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ResistancesBoth"));
+    if ( res === vuln ) throw new Error(_loc("ANCESTRY.WARNINGS.ResistancesDifferent"));
+    if ( !res !== !vuln ) throw new Error(_loc("ANCESTRY.WARNINGS.ResistancesBoth"));
   }
 
   /* -------------------------------------------- */
@@ -134,7 +134,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     const tags = {};
     if ( this.abilities.primary ) tags.a1 = SYSTEM.ABILITIES[this.abilities.primary].label;
     if ( this.abilities.secondary ) tags.a2 = SYSTEM.ABILITIES[this.abilities.secondary].label;
-    tags.size = game.i18n.format("ACTOR.SizeSpecific", {size: this.movement.size});
+    tags.size = _loc("ACTOR.SizeSpecific", {size: this.movement.size});
     return tags;
   }
 

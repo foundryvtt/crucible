@@ -159,7 +159,7 @@ function parseAwardTerms(terms) {
     else invalid.push(part);
   }
 
-  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
+  if ( invalid.length ) throw new Error(_loc("AWARD.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
@@ -206,7 +206,7 @@ function enrichAward([match, terms]) {
   for ( const [currencyKey, amount] of Object.entries(currency) ) dataset[`currency.${currencyKey}`] = amount;
   dataset.each = each;
   const entries = formatAwardEntries(currency);
-  if ( entries.length && each ) entries.push(game.i18n.localize("AWARD.Each"));
+  if ( entries.length && each ) entries.push(_loc("AWARD.Each"));
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
@@ -214,7 +214,7 @@ function enrichAward([match, terms]) {
   tag.classList.add("currencies-inline");
   Object.assign(tag.dataset, dataset);
   tag.innerHTML = entries.join(" ");
-  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Currency"));
+  tag.setAttribute("aria-label", _loc("AWARD.TOOLTIPS.Currency"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
@@ -253,7 +253,7 @@ async function onClickAward(event) {
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
 
   const targets = await chooseActorsDialog({
-    dialogTitle: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
+    dialogTitle: _loc(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
     dialogIcon: "fa-solid fa-trophy"
   });
   if (!targets.size) return;
@@ -262,7 +262,7 @@ async function onClickAward(event) {
   if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
   if ( currencyEach < 0 ) {
     const cannotAfford = targets.filter(a => a.system.currency < -currencyEach).map(a => a.name);
-    if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
+    if ( cannotAfford.size ) return ui.notifications.warn(_loc("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
   }
   for ( const actor of targets ) {
     const startingCurrency = actor.system.currency;
@@ -278,7 +278,7 @@ async function onClickAward(event) {
     content: `
     <section class="crucible">
       <div class="currencies-inline">
-        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
+        ${_loc(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
       <ul class="plain">${Array.from(targets.map(a => `<li>${a.name}</li>`)).join("")}</ul>
     </section>
@@ -329,11 +329,11 @@ function parseCounterspellTerms(terms) {
     }
   }
 
-  if ( invalid.length ) throw new Error(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
+  if ( invalid.length ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
-  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
+  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
 
   return matches;
 }
@@ -361,8 +361,8 @@ function enrichCounterspell([match, terms]) {
   innerElements.push(SYSTEM.SPELL.RUNES[rune].name);
   innerElements.push(SYSTEM.SPELL.GESTURES[gesture].name);
   if ( inflection ) innerElements.push(SYSTEM.SPELL.INFLECTIONS[inflection].name);
-  innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
-  tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
+  innerElements.push(_loc("DICE.DCSpecific", {dc}));
+  tag.innerHTML = _loc("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
   tag.dataset.crucibleTooltip = "talentCheck";
   tag.dataset.talentUuid = "Compendium.crucible.talent.Item.counterspell0000";
   return tag;
@@ -409,7 +409,7 @@ async function onClickCounterspell(event) {
   // Iterate over actor targets
   for ( const actor of targets ) {
     if ( !actor?.actions.counterspell ) {
-      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
+      ui.notifications.warn(_loc("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
       continue;
     }
     // TODO: Consider whether to prompt multiple users
@@ -420,7 +420,7 @@ async function onClickCounterspell(event) {
     });
     if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid: actor.uuid, rune, gesture, inflection, dc});
     else {
-      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
+      ui.notifications.warn(_loc("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
       crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
     }
   }
@@ -441,8 +441,8 @@ function enrichMilestone([_match, term]) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("award", "milestone");
   tag.dataset.quantity = String(quantity);
-  tag.innerHTML = `${quantity} ${game.i18n.localize(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
-  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
+  tag.innerHTML = `${quantity} ${_loc(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
+  tag.setAttribute("aria-label", _loc("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
@@ -554,7 +554,7 @@ function enrichCondition([match, conditionId]) {
   const cfg = CONFIG.statusEffects[conditionId];
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
-  tag.innerHTML = game.i18n.localize(cfg.name);
+  tag.innerHTML = _loc(cfg.name);
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
   tag.classList.add("condition");
@@ -673,7 +673,7 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.classList.add("knowledge-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
-  tag.innerHTML = game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledge.label});
+  tag.innerHTML = _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledge.label});
   return tag;
 }
 
@@ -709,7 +709,7 @@ function enrichLanguage([match, languageId]) {
   tag.classList.add("language-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "languageCheck";
   tag.dataset.languageId = languageId;
-  tag.innerHTML = game.i18n.format("ACTOR.LanguageSpecific", {language: language.label});
+  tag.innerHTML = _loc("ACTOR.LanguageSpecific", {language: language.label});
   return tag;
 }
 

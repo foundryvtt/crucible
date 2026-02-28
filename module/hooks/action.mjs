@@ -51,7 +51,7 @@ HOOKS.assessStrength = {
     this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
       const knowledgeLabel = crucible.CONFIG.knowledge[knowledge].label;
-      this.usage.boons.assessStrength = {label: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
+      this.usage.boons.assessStrength = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
   async roll(outcome) {
@@ -209,24 +209,24 @@ HOOKS.conjureArmament = {
 HOOKS.counterspell = {
   initialize() {
     Object.assign(this.usage.context, {
-      label: game.i18n.localize("SPELL.COUNTERSPELL.Tags"),
+      label: _loc("SPELL.COUNTERSPELL.Tags"),
       icon: "fa-solid fa-sparkles",
       tags: {}
     });
     if ( this.composition === 0 ) return;
-    const none = game.i18n.localize("None");
-    this.usage.context.tags.rune = game.i18n.format("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
-    this.usage.context.tags.gesture = game.i18n.format("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
+    const none = _loc("None");
+    this.usage.context.tags.rune = _loc("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
+    this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
   async roll(outcome) {
     // TODO: Only use this.usage.targetAction
     const targetAction = this.usage.targetAction ?? ChatMessage.implementation.getLastAction();
     const {gesture: usedGesture, rune: usedRune} = targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
-      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
+      this.usage.boons.counterspellRune = {label: _loc("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
     if ( this.gesture.id === usedGesture?.id ) {
-      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
+      this.usage.boons.counterspellGesture = {label: _loc("SPELL.COUNTERSPELL.SameGesture"), number: 2};
     }
     if ( !targetAction.message ) {
       const dc = this.usage.dc;
@@ -257,8 +257,8 @@ HOOKS.counterspell = {
     const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
     if ( !targetMessage ) return;
     if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
-      const desiredChange = game.i18n.localize(`DICE.${reverse ? "Reverse" : "Confirm"}`);
-      const problemState = game.i18n.localize(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
+      const desiredChange = _loc(`DICE.${reverse ? "Reverse" : "Confirm"}`);
+      const problemState = _loc(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
       const errorText = `Cannot ${desiredChange} a counterspell if the targeted spell is already ${problemState}!`;
       ui.notifications.warn(errorText);
       throw new Error(errorText);
@@ -298,9 +298,9 @@ HOOKS.delay = {
       window: { title: "ACTION.DelayTitle" },
       content: `<form class="delay-turn" autocomplete="off">
             <div class="form-group">
-                <label>${game.i18n.localize("ACTION.DelayLabel")}</label>
+                <label>${_loc("ACTION.DelayLabel")}</label>
                 <input name="initiative" type="number" min="1" value="${maximum - 1}" max="${maximum}" step="1">
-                <p class="hint">${game.i18n.format("ACTION.DelayHint", {maximum})}</p>
+                <p class="hint">${_loc("ACTION.DelayHint", {maximum})}</p>
             </div>
         </form>`,
       ok: {
@@ -421,7 +421,7 @@ HOOKS.intuitWeakness = {
     this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
       const knowledgeLabel = crucible.CONFIG.knowledge[knowledge].label;
-      this.usage.boons.intuitWeakness = {label: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
+      this.usage.boons.intuitWeakness = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
   async roll(outcome) {
@@ -698,7 +698,7 @@ HOOKS.readScroll = {
   canUse() {
     const {runes, gestures, inflections} = this.item.system.scroll;
     if ( !runes.size && !gestures.size && !inflections.size ) {
-      throw new Error(game.i18n.localize("CONSUMABLE.SCROLL.NoComponents"));
+      throw new Error(_loc("CONSUMABLE.SCROLL.NoComponents"));
     }
   },
   async postActivate(outcome) {
@@ -904,7 +904,7 @@ HOOKS.threadTheNeedle = {
       outcome.usage.boons ||= {};
       if ( target.statuses.has("flanked") ) {
         const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        outcome.usage.boons.flanked = {label: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
+        outcome.usage.boons.flanked = {label: _loc("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
       }
     }
   }
@@ -967,7 +967,7 @@ HOOKS.vampiricBite = {
   prepare() {
     const cls = getDocumentClass("Item");
     const biteData = foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE);
-    biteData.name = game.i18n.localize(biteData.name);
+    biteData.name = _loc(biteData.name);
     const bite = new cls(biteData, {parent: this.actor});
     this.usage.weapon = bite;
     this.usage.context.tags.vampiricBite = this.name;

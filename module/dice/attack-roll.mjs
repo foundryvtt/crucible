@@ -107,7 +107,7 @@ export default class AttackRoll extends StandardCheck {
     else cardData.defenseType = "DC";
 
     // Outcome label
-    cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
+    cardData.outcome = _loc(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
     return cardData;
   }
 

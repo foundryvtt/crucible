@@ -174,7 +174,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
       window: {
         title: "TALENT.ACTIONS.PurchaseNodeTitle"
       },
-      content: `<p>${game.i18n.format(msgKey, {node: this.node.id})}</p>`
+      content: `<p>${_loc(msgKey, {node: this.node.id})}</p>`
     });
     if ( !confirm ) return;
     if ( purchased ) talents.delete(this.node.id);

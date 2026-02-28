@@ -44,7 +44,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
     const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
     if ( !wasSpell ) {
-      const error = game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.BadTarget");
+      const error = _loc("SPELL.COUNTERSPELL.WARNINGS.BadTarget");
       if ( target ) target.error = error;
       if ( options.strict ) throw new Error(error);
     }
