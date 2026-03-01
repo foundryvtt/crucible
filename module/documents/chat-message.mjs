@@ -1,4 +1,5 @@
 import StandardCheck from "../dice/standard-check.mjs";
+import GroupCheck from "../dice/group-check.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
@@ -143,6 +144,11 @@ export default class CrucibleChatMessage extends ChatMessage {
     // Initiative Report
     if ( flags.isInitiativeReport ) {
       crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
+    }
+
+    // Group Check Card
+    if ( flags[GroupCheck.CONFIG.FLAG_KEY] ) {
+      GroupCheck.onRenderGroupCheck(message, html, flags[GroupCheck.CONFIG.FLAG_KEY]);
     }
 
     // Target Hover

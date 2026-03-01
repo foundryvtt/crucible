@@ -1,0 +1,73 @@
+<section class="crucible group-check-result themed theme-dark">
+    <p>{{title}}</p>
+    <div class="group-check-actors flexcol">
+        {{#each actors as |entry|}}
+        {{#if entry.isComplete}}
+        <div class="crucible dice-roll standard-check group-check-row expanded {{entry.cssClass}}" data-action="expandRoll" data-actor-id="{{entry.actorId}}">
+            <div class="dice-result">
+                <h4 class="dice-total check-result">
+                    <span class="outcome">{{entry.actorName}}</span>
+                    <span class="result hex">{{entry.result.total}}</span>
+                    <span class="target">{{entry.outcomeLabel}}</span>
+                </h4>
+                {{#if entry.rollContext}}
+                <div class="dice-tooltip check-tooltip flexcol">
+                    {{#if entry.rollContext.hasDetails}}
+                    <section class="details flexcol">
+                        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" entry.rollContext.data}}
+                    </section>
+                    {{/if}}
+                    <div class="pool flexrow">
+                        {{#each entry.rollContext.pool}}
+                        <div class="die {{this.denom}}">
+                            <span class="result">{{this.result}}</span>
+                            <h4 class="label">{{this.denom}}</h4>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="roll-breakdown flexcol">
+                        <div class="counter">
+                            <label>{{localize "DICE.DiceTotal"}}</label>
+                            <span class="tag">{{entry.rollContext.diceTotal}}</span>
+                        </div>
+                        <div class="counter">
+                            <label>{{localize "DICE.AbilityBonus"}}</label>
+                            <span class="tag">{{entry.rollContext.ability}}</span>
+                        </div>
+                        <div class="counter">
+                            <label>{{localize "DICE.SkillBonus"}}</label>
+                            <span class="tag">{{entry.rollContext.skill}}</span>
+                        </div>
+                        <div class="counter">
+                            <label>{{localize "DICE.EnchantmentBonus"}}</label>
+                            <span class="tag">{{entry.rollContext.enchantment}}</span>
+                        </div>
+                        <div class="counter total">
+                            <label>{{localize "DICE.RollTotal"}}</label>
+                            <span class="hex">{{entry.result.total}}</span>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{else}}
+        <div class="group-check-row line-item {{entry.cssClass}}" data-actor-id="{{entry.actorId}}">
+            <img class="icon" src="{{entry.actorImg}}" alt="{{entry.actorName}}">
+            <div class="title">
+                <h4>{{entry.actorName}}</h4>
+            </div>
+            {{#if finalized}}
+            <span class="tag">—</span>
+            {{else if entry.isPending}}
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            {{else if entry.isAborted}}
+            <i class="fa-solid fa-circle-xmark" data-tooltip="{{entry.statusLabel}}"></i>
+            {{else if entry.isSkipped}}
+            <i class="fa-solid fa-forward" data-tooltip="{{entry.statusLabel}}"></i>
+            {{/if}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</section>

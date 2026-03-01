@@ -302,14 +302,16 @@ export default class StandardCheck extends Roll {
    * @param {string} [options.title]     The title of the roll request
    * @param {string} [options.flavor]    Any flavor text attached to the roll
    * @param {boolean} [options.request]  Display the request tray
+   * @param {CrucibleActor[]} [options.requestedActors] An array of actors to request rolls from in a group check context
    * @param {string} [options.rollMode]  The requested roll mode
    * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
    */
-  async dialog({title, flavor, request, rollMode}={}) {
+  async dialog({title, flavor, request, requestedActors, rollMode}={}) {
     return this.constructor.dialogClass.prompt({
       window: {title},
       flavor,
       request,
+      requestedActors,
       rollMode,
       roll: this
     });
@@ -363,6 +365,29 @@ export default class StandardCheck extends Roll {
         specialEffect: "PlayAnimationDark",
         options: {muteSound: true}
       };
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Show Dice So Nice animation for this roll. Respects module availability.
+   * By default the animation is whispered to the current user only.
+   * @param {object} [options={}] - Additional options
+   * @param {User} [options.user] - The user who rolled (defaults to current user)
+   * @param {boolean} [options.blind=false] - Whether this is a blind roll
+   * @param {boolean} [options.synchronize=false] - Whether to synchronize the animation across clients
+   * @returns {Promise<void>}
+   */
+  async showDiceSoNice({user, blind=false, synchronize=false}={}) {
+    if ( !game.dice3d ) return;
+    user ??= game.user;
+    const whisper = [game.user.id];
+    try {
+      await game.dice3d.showForRoll(this, user, synchronize, whisper, blind);
+    }
+    catch (err) {
+      console.warn("Dice So Nice error:", err);
     }
   }
 
