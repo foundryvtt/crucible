@@ -2187,7 +2187,6 @@
 "WARNING.CannotEquipActionCost": "You cannot equip weaponry because you have no Action points available.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
 "WARNING.NoParty": "You must have a primary party configured for this.",
-"WARNING.NoPartyMembers": "The configured party has no members.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
 
 "WALKTHROUGH.AddAncestry": "Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
