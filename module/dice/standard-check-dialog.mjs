@@ -58,7 +58,7 @@ export default class StandardCheckDialog extends DialogV2 {
       requestParty: StandardCheckDialog.#onRequestParty,
       requestRemove: StandardCheckDialog.#onRequestRemove,
       rollMode: StandardCheckDialog.#onChangeRollMode,
-      requestSubmit: StandardCheckDialog.#requestSubmit,
+      requestSubmit: StandardCheckDialog.#requestSubmit
     },
     position: {
       width: "auto",
