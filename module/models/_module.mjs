@@ -22,6 +22,7 @@ export {default as CrucibleExplorationChallenge} from "./combat-exploration.mjs"
 export {default as CrucibleSocialChallenge} from "./combat-social.mjs";
 
 // Item
+export {default as CrucibleAffixData} from "./item-affix.mjs";
 export {default as CrucibleAccessoryItem} from "./item-accessory.mjs";
 export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
 export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";

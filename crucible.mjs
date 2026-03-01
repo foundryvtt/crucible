@@ -174,10 +174,12 @@ Hooks.once("init", async function() {
     if ( foundry.utils.isSubclass(model, models.CruciblePhysicalItem) ) {
       SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.add(type);
       if ( model.EQUIPABLE ) SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.add(type);
+      if ( model.AFFIXABLE ) SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES.add(type);
     }
   }
   Object.freeze(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES);
   Object.freeze(SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES);
+  Object.freeze(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES);
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;

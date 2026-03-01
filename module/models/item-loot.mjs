@@ -26,6 +26,7 @@ export default class CrucibleLootItem extends CruciblePhysicalItem {
   static defineSchema() {
     const schema = super.defineSchema();
     delete schema.actorHooks; // Loot don't have actor hooks
+    delete schema.affixes;    // Loot cannot have affixes
     delete schema.equipped;   // Loot cannot be equipped
     delete schema.invested;   // Loot cannot be invested
     delete schema.actions;    // Loot cannot provide actions
