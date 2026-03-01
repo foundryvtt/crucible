@@ -338,7 +338,7 @@ HOOKS.kineturge0000000 = {
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
     const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability: "presence"});
-    bleeding.duration = {rounds: 1};
+    bleeding.duration = {value: 1, units: "rounds", expiry: "turnStart"};
     outcome.effects.push(bleeding);
   }
 };

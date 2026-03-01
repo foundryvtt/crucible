@@ -40,8 +40,9 @@ system:
           statuses:
             - staggered
           duration:
-            turns: 1
-            rounds: null
+            value: 1
+            units: rounds
+            expiry: turnEnd
           system:
             dot: []
             maintenance: null

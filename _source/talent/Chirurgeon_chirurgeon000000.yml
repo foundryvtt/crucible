@@ -47,8 +47,9 @@ system:
             - mending
             - inspired
           duration:
-            turns: 3
-            rounds: null
+            value: 3
+            units: rounds
+            expiry: turnEnd
           system:
             dot: []
             maintenance: null

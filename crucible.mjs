@@ -133,6 +133,7 @@ Hooks.once("init", async function() {
     base: models.CrucibleBaseActiveEffect,
     flanked: models.CrucibleFlankedActiveEffect
   };
+  CONFIG.ActiveEffect.expiryAction = "delete";
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -475,6 +476,7 @@ Hooks.once("i18nInit", function() {
 
   // Localize models
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
+  foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
   foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
   foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
 

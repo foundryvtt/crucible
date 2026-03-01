@@ -47,8 +47,9 @@ system:
             type: success
             all: false
           duration:
-            turns: null
-            rounds: null
+            value: null
+            units: seconds
+            expiry: null
       img: null
       range:
         minimum: null

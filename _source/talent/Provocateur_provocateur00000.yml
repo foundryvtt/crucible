@@ -33,8 +33,9 @@ system:
         self: false
       effects:
         - duration:
-            rounds: 1
-            turns: null
+            value: 1
+            units: rounds
+            expiry: turnStart
           statuses:
             - enraged
           name: ''

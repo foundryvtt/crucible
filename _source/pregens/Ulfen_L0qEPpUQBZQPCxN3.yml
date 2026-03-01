@@ -633,8 +633,9 @@ items:
                 type: success
                 all: false
               duration:
-                turns: null
-                rounds: null
+                value: null
+                units: seconds
+                expiry: null
               system:
                 dot: []
                 maintenance: null
@@ -796,8 +797,9 @@ items:
                 all: false
               statuses: []
               duration:
-                turns: null
-                rounds: null
+                value: null
+                units: seconds
+                expiry: null
               system:
                 dot: []
                 maintenance: null
@@ -1121,8 +1123,9 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
+                value: 1
+                units: rounds
+                expiry: turnStart
               system:
                 dot: []
                 maintenance: null
@@ -1137,8 +1140,9 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
+                value: 1
+                units: rounds
+                expiry: turnStart
               system:
                 dot: []
                 maintenance: null
@@ -1229,8 +1233,9 @@ items:
               statuses:
                 - exposed
               duration:
-                turns: 3
-                rounds: null
+                value: 3
+                units: rounds
+                expiry: turnEnd
               result:
                 type: success
                 all: false
@@ -1611,8 +1616,9 @@ items:
                 all: false
               statuses: []
               duration:
-                turns: null
-                rounds: 3
+                value: 3
+                units: rounds
+                expiry: turnStart
               system:
                 dot: []
                 maintenance: null

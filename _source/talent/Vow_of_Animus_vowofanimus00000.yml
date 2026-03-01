@@ -36,8 +36,9 @@ system:
           scope: 3
           statuses: []
           duration:
-            turns: 60
-            rounds: null
+            value: 60
+            units: rounds
+            expiry: turnEnd
           result:
             type: success
             all: false
