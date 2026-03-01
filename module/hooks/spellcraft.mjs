@@ -39,7 +39,7 @@ HOOKS.aspect = {
       this.range = {maximum: 1}; // Touch
       this.usage.hasDice = true;
       return;
-    }
+    } else this.usage.hasDice = false;
 
     // TODO enable aspect healing
     if ( this.damage.healing ) console.warn("Gesture: Aspect is not configured for healing Runes yet");

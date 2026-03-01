@@ -63,6 +63,25 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   }
 
   /* -------------------------------------------- */
+  /*  Action Lifecycle Methods                    */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _roll(outcome) {
+    // TODO: Ensure this is set earlier
+    this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
+    const {gesture: usedGesture, rune: usedRune} = this.usage.targetAction;
+    if ( this.rune.id === usedRune?.opposed ) {
+      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
+    }
+    if ( this.gesture.id === usedGesture?.id ) {
+      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
+    }
+    if ( this.usage.targetAction.message ) this.usage.defenseType = "willpower";
+    await super._roll(outcome);
+  }
+
+  /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
@@ -97,7 +116,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     const tags = actor.inCombat ? counterspellAction.tags : Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat");
     const action = counterspellAction.clone({tags});
     action.usage.dc = dc;
-    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection});
+    action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection, tags: ["composed"]});
     return action.use();
   }
 }

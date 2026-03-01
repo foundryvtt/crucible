@@ -250,7 +250,16 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _configureUsage() {
     super._configureUsage();
-    this.usage.hasDice ||= ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
+
+    // Composed spells have dice by default that are disabled per-Gesture
+    this.usage.hasDice ||= this.isComposed;
+
+    // Iconic spells have dice by default only if they have an actionable target
+    if ( this.isIconic && !this.usage.hasDice ) {
+      const targetOther = this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+      const healSelf = ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
+      this.usage.hasDice = targetOther || healSelf;
+    }
   }
 
   /* -------------------------------------------- */
