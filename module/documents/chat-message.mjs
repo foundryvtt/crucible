@@ -1,4 +1,5 @@
 import StandardCheck from "../dice/standard-check.mjs";
+import StandardCheckDialog from "../dice/standard-check-dialog.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
@@ -145,10 +146,83 @@ export default class CrucibleChatMessage extends ChatMessage {
       crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
     }
 
+    // Group Check Card
+    if ( flags[StandardCheckDialog.GROUP_CHECK.FLAG_KEY] ) {
+      CrucibleChatMessage.#onRenderGroupCheck(message, html, flags[StandardCheckDialog.GROUP_CHECK.FLAG_KEY]);
+    }
+
     // Target Hover
     for ( const el of html.querySelectorAll(".target-link") ) {
       el.addEventListener("pointerover", onChatTargetLinkHover);
       el.addEventListener("pointerout", onChatTargetLinkHover);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Attach event listeners for group check chat card controls.
+   * Binds resend, roll-on-behalf, skip, and finalize buttons to their respective handlers.
+   * @param {ChatMessage} message - The chat message being rendered
+   * @param {HTMLElement} html - The rendered HTML element
+   * @param {GroupCheckFlags} groupCheckFlags - The group check flags data
+   */
+  static #onRenderGroupCheck(message, html, groupCheckFlags) {
+    const {ACTOR_STATUS} = StandardCheckDialog.GROUP_CHECK;
+
+    for ( const row of html.querySelectorAll(".group-check-row.dice-roll") ) {
+      row.addEventListener("click", event => {
+        if ( event.target.closest("button, .controls") ) return;
+        row.classList.toggle("expanded");
+      });
+    }
+
+    if ( !game.user.isGM || groupCheckFlags.finalized ) return;
+
+    for ( const row of html.querySelectorAll(".group-check-row.line-item") ) {
+      const actorId = row.dataset.actorId;
+      const entry = groupCheckFlags.actors?.[actorId];
+      if ( !entry || entry.status === ACTOR_STATUS.COMPLETE || entry.status === ACTOR_STATUS.SKIPPED ) continue;
+      const controls = document.createElement("div");
+      controls.classList.add("controls");
+
+      const resend = foundry.utils.parseHTML(`<button type="button" class="icon frame-brown fa-solid fa-rotate-right" data-tooltip="${game.i18n.localize("DICE.GROUP_CHECK.Resend")}"></button>`);
+      resend.addEventListener("click", async event => {
+        event.preventDefault();
+        await StandardCheckDialog.resendGroupCheckRequest(message, actorId);
+      });
+      controls.appendChild(resend);
+
+      const rollBehalf = foundry.utils.parseHTML(`<button type="button" class="icon frame-brown fa-solid fa-dice" data-tooltip="${game.i18n.localize("DICE.GROUP_CHECK.RollOnBehalf")}"></button>`);
+      rollBehalf.addEventListener("click", async event => {
+        event.preventDefault();
+        await StandardCheckDialog.rollOnBehalfGroupCheck(message, actorId);
+      });
+      controls.appendChild(rollBehalf);
+
+      const skip = foundry.utils.parseHTML(`<button type="button" class="icon frame-brown fa-solid fa-forward" data-tooltip="${game.i18n.localize("DICE.GROUP_CHECK.Skip")}"></button>`);
+      skip.addEventListener("click", async event => {
+        event.preventDefault();
+        await StandardCheckDialog.skipGroupCheckActor(message, actorId);
+      });
+      controls.appendChild(skip);
+
+      row.appendChild(controls);
+    }
+
+    const section = html.querySelector(".group-check-result");
+    if ( section ) {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("flexrow");
+      const finalize = foundry.utils.parseHTML(`<button class="confirm frame-brown" type="button"><i class="fa-solid fa-check"></i> ${game.i18n.localize("DICE.GROUP_CHECK.Finalize")}</button>`);
+      finalize.addEventListener("click", async event => {
+        event.preventDefault();
+        finalize.disabled = true;
+        finalize.querySelector("i")?.classList.add("fa-spinner", "fa-spin");
+        await StandardCheckDialog.finalizeGroupCheck(message);
+      });
+      wrapper.appendChild(finalize);
+      section.appendChild(wrapper);
     }
   }
 }

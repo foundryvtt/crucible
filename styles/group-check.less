@@ -1,0 +1,41 @@
+// Proficiency pips shared between skill picker and roll dialog.
+.ranks.flexrow {
+  justify-content: center;
+  gap: 1px;
+  .pip {
+    flex: 0 0 8px;
+    height: 8px;
+    border: 1px solid var(--color-frame);
+    border-radius: 4px;
+  }
+  .trained::before {
+    display: block;
+    content: "";
+    width: 4px;
+    height: 4px;
+    margin: 1px;
+    background: var(--skill-color);
+    border-radius: 2px;
+  }
+}
+
+.group-check-skill-picker {
+  .party-members {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .member-avatar {
+    img {
+      border: 1px solid var(--color-frame);
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .ranks {
+      gap: 1px;
+    }
+  }
+}
+

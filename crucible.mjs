@@ -261,6 +261,7 @@ Hooks.once("init", async function() {
 
   // Queries
   CONFIG.queries.requestSkillCheck = dice.StandardCheck.handle.bind(dice.StandardCheck);
+  CONFIG.queries.requestGroupCheck = dice.StandardCheck.handleGroupCheckRequest.bind(dice.StandardCheck);
   CONFIG.queries.requestCounterspell = ({actorUuid, ...options}) => {
     return models.CrucibleCounterspellAction.prompt(actorUuid, options);
   };
@@ -391,6 +392,13 @@ Hooks.once("init", async function() {
     editable: [{key: "KeyX"}],
     restricted: true,
     onDown: chat.onKeyboardConfirmAction
+  });
+  game.keybindings.register("crucible", "groupCheck", {
+    name: "KEYBINDINGS.GroupCheck",
+    hint: "KEYBINDINGS.GroupCheckHint",
+    editable: [{key: "KeyG"}],
+    restricted: true,
+    onDown: () => dice.GroupCheckSkillPicker.pick()
   });
 
   // Patch door sound radius - can we do this better elsewhere?

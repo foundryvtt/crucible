@@ -1,0 +1,27 @@
+<div class="standard-check flexcol scrollable">
+    {{#each categories as |category catId|}}
+    <div class="sheet-section item-section flexcol">
+        <h3 class="section-header">{{category.label}}</h3>
+        <ol class="items-list" style="--skill-color:{{category.color}}">
+            {{#each category.skills as |skill|}}
+            <li class="skill line-item" data-skill="{{skill.id}}" data-action="selectSkill" data-skill-id="{{skill.id}}">
+                <img class="icon" src="{{skill.icon}}" alt="{{skill.label}}">
+                <div class="title">
+                    <h4><a>{{skill.label}}</a></h4>
+                </div>
+                <div class="party-members">
+                    {{#each skill.members as |member|}}
+                    <div class="flexcol" data-tooltip="{{member.name}}">
+                        <img src="{{member.img}}" alt="{{member.name}}" width="32" height="32">
+                        <div class="ranks flexrow">
+                            {{#each member.pips}}<span class="pip {{this}}"></span>{{/each}}
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
+</div>

@@ -1162,6 +1162,20 @@
   "RequestRolls": "Request Rolls"
 },
 
+"DICE.GROUP_CHECK": {
+  "Title": "Group Check",
+  "ChatTitle": "{skill} Check (DC {dc})",
+  "NoUserForActor": "No active user found for: {name}",
+  "RequiresGM": "Only the Gamemaster can initiate group checks.",
+  "StatusAborted": "Aborted",
+  "StatusSkipped": "Skipped",
+  "Resend": "Resend Request",
+  "RollOnBehalf": "Roll on Behalf",
+  "Skip": "Skip Actor",
+  "Finalize": "Reveal to Players",
+  "SkillPickerTitle": "Group Skill Check"
+},
+
 "ACTIVE_EFFECT": {
   "ACTIONS": {
     "New": "New Effect",
@@ -1393,6 +1407,8 @@
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
+"KEYBINDINGS.GroupCheck": "Request Group Check",
+"KEYBINDINGS.GroupCheckHint": "Open the skill picker to initiate a group skill check from multiple actors.",
 
 "KNOWLEDGE": {
   "Alchemy": "Alchemy",
@@ -2171,6 +2187,7 @@
 "WARNING.CannotEquipActionCost": "You cannot equip weaponry because you have no Action points available.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
 "WARNING.NoParty": "You must have a primary party configured for this.",
+"WARNING.NoPartyMembers": "The configured party has no members.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
 
 "WALKTHROUGH.AddAncestry": "Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",

@@ -734,7 +734,23 @@ function renderSkillCheck(element) {
 function onClickSkillCheck(event) {
   event.preventDefault();
   const element = event.currentTarget;
+  const isGroupCheck = element.classList.contains("group-check");
+  if ( isGroupCheck && !game.user.isGM ) return ui.notifications.warn("DICE.GROUP_CHECK.RequiresGM", {localize: true});
   const {skillId, dc} = element.dataset;
+
+  if ( isGroupCheck ) {
+    const partyActors = crucible.party?.system.members.map(m => m.actor).filter(a => a) ?? [];
+    const check = new crucible.api.dice.StandardCheck({type: skillId, dc});
+    const skill = SYSTEM.SKILLS[skillId];
+    return check.dialog({
+      title: game.i18n.format("ACTION.RequestRollsSuffix", {
+        label: game.i18n.format("ACTION.SkillCheck", {skill: skill?.label ?? skillId})
+      }),
+      request: true,
+      requestActors: partyActors
+    });
+  }
+
   const actor = inferEnricherActor();
   const check = actor ? actor.getSkillCheck(skillId, {dc}) : new crucible.api.dice.StandardCheck({type: skillId, dc});
   check.dialog({request: game.user.isGM && !actor});

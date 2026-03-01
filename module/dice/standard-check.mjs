@@ -305,11 +305,12 @@ export default class StandardCheck extends Roll {
    * @param {string} [options.rollMode]  The requested roll mode
    * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
    */
-  async dialog({title, flavor, request, rollMode}={}) {
+  async dialog({title, flavor, request, requestActors, rollMode}={}) {
     return this.constructor.dialogClass.prompt({
       window: {title},
       flavor,
       request,
+      requestActors,
       rollMode,
       roll: this
     });
@@ -404,6 +405,80 @@ export default class StandardCheck extends Roll {
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
       return pool.toMessage({flavor});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a group check request dispatched via user.query("requestGroupCheck").
+   * Opens a StandardCheck dialog for the player, evaluates the roll, shows DSN animation,
+   * and returns the result without posting a chat message.
+   * @param {object} params - The query payload
+   * @param {string} params.checkId - Unique ID for this group check session
+   * @param {string} params.actorId - The actor ID for whom the check is requested
+   * @param {string} params.skillId - The skill being checked
+   * @param {number} params.dc - The difficulty class
+   * @param {number} params.sharedBoons - GM-assigned shared boons
+   * @param {number} params.sharedBanes - GM-assigned shared banes
+   * @param {string} params.title - The dialog title
+   * @returns {Promise<{rollData: object, result: GroupCheckActorResult}|{aborted: boolean}>}
+   */
+  static async handleGroupCheckRequest({checkId, actorId, skillId, dc, sharedBoons, sharedBanes, title}={}) {
+    const actor = game.actors.get(actorId);
+    if ( !actor ) return {aborted: true};
+    if ( !actor.testUserPermission(game.user, "OBSERVER") ) return {aborted: true};
+
+    const skill = SYSTEM.SKILLS[skillId];
+    const checkData = {dc};
+    if ( sharedBoons ) checkData.boons = sharedBoons;
+    if ( sharedBanes ) checkData.banes = sharedBanes;
+    const pool = skill ? actor.getSkillCheck(skill.id, checkData) : new this({...checkData, type: skillId, actorId});
+
+    const response = await pool.dialog({title});
+    if ( response === null ) return {aborted: true};
+
+    await pool.evaluate();
+
+    await StandardCheck.showDiceSoNice(pool);
+
+    // Build the result
+    /** @type {GroupCheckActorResult} */
+    const result = {
+      total: pool.total,
+      dc,
+      isSuccess: pool.isSuccess,
+      isCriticalSuccess: pool.isCriticalSuccess,
+      isCriticalFailure: pool.isCriticalFailure
+    };
+
+    return {
+      rollData: pool.toJSON(),
+      result
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Show Dice So Nice animation for a roll. Respects module availability.
+   * In a group check context, the roll is shown only to the current user.
+   * @param {Roll} roll - The roll to display
+   * @param {object} [options={}] - Additional options
+   * @param {User} [options.user] - The user who rolled (defaults to current user)
+   * @param {boolean} [options.blind=false] - Whether this is a blind roll
+   * @returns {Promise<void>}
+   */
+  static async showDiceSoNice(roll, {user, blind=false}={}) {
+    if ( !game.dice3d ) return;
+    user ??= game.user;
+    const synchronize = false;
+    const whisper = [game.user.id];
+    try {
+      await game.dice3d.showForRoll(roll, user, synchronize, whisper, blind);
+    }
+    catch (err) {
+      console.warn("Dice So Nice error during group check:", err);
     }
   }
 }
