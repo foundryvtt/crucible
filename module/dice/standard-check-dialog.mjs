@@ -334,10 +334,13 @@ export default class StandardCheckDialog extends DialogV2 {
   /* -------------------------------------------- */
 
   static async #onRequestParty(event) {
-    if ( !crucible.party ) return;
-    for ( const member of crucible.party.system.members ) {
-      if ( member.actor ) this.#requestActors.add(member.actor);
+    const members = crucible.party?.system.actors;
+    if ( !members?.size ) {
+      ui.notifications.warn("WARNING.NoParty", {localize: true});
+      return;
     }
+    for ( const m of members ) this.#requestActors.add(m);
+
     await this.render({window: {title: this.title}});
   }
 
