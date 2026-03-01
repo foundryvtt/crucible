@@ -192,16 +192,11 @@ export default class StandardCheckDialog extends DialogV2 {
 
   #prepareRequest() {
     if ( !this.request ) return null;
-    const skillId = this.roll.data.type;
-    const skill = SYSTEM.SKILLS[skillId];
-    const skillColor = skill ? SYSTEM.SKILL.CATEGORIES[skill.category]?.color?.css : null;
     const actors = [];
     for ( const actor of this.#requestActors ) {
-      const rank = actor.system.skills[skillId]?.rank ?? 0;
-      const pips = Array.fromRange(4).map((v, i) => i < rank ? "trained" : "untrained");
-      actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short"), pips, rank});
+      actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short")});
     }
-    return {actors, skillColor};
+    return {actors};
   }
 
   /* -------------------------------------------- */

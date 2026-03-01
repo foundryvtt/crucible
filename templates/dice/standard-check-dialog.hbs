@@ -35,9 +35,6 @@
                     {{#each actor.tags as |label tag|}}
                     <span class="tag">{{label}}</span>
                     {{/each}}
-                    <span class="tag ranks flexrow" {{#if ../request.skillColor}}style="--skill-color:{{../request.skillColor}}"{{/if}}>
-                        {{#each actor.pips}}<span class="pip {{this}}"></span>{{/each}}
-                    </span>
                 </div>
             </div>
             <div class="controls">
