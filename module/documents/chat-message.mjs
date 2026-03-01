@@ -146,11 +146,6 @@ export default class CrucibleChatMessage extends ChatMessage {
       crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
     }
 
-    // Group Check Card
-    if ( flags[StandardCheckDialog.GROUP_CHECK.FLAG_KEY] ) {
-      CrucibleChatMessage.#onRenderGroupCheck(message, html, flags[StandardCheckDialog.GROUP_CHECK.FLAG_KEY]);
-    }
-
     // Target Hover
     for ( const el of html.querySelectorAll(".target-link") ) {
       el.addEventListener("pointerover", onChatTargetLinkHover);

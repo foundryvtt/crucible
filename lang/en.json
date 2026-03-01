@@ -1162,20 +1162,6 @@
   "RequestRolls": "Request Rolls"
 },
 
-"DICE.GROUP_CHECK": {
-  "Title": "Group Check",
-  "ChatTitle": "{skill} Check (DC {dc})",
-  "NoUserForActor": "No active user found for: {name}",
-  "RequiresGM": "Only the Gamemaster can initiate group checks.",
-  "StatusAborted": "Aborted",
-  "StatusSkipped": "Skipped",
-  "Resend": "Resend Request",
-  "RollOnBehalf": "Roll on Behalf",
-  "Skip": "Skip Actor",
-  "Finalize": "Reveal to Players",
-  "SkillPickerTitle": "Group Skill Check"
-},
-
 "ACTIVE_EFFECT": {
   "ACTIONS": {
     "New": "New Effect",

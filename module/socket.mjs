@@ -7,7 +7,6 @@
 export function handleSocketEvent({action=null, data={}}={}) {
   switch (action) {
     case "diceContest":
-      break;
     case "diceGroupCheck":
       return;
   }
