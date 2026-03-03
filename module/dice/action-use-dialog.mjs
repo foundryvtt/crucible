@@ -110,19 +110,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #prepareWeaponChoice() {
     if ( !this.action.allowWeaponChoice ) return null;
-    const {mainhand: mh, offhand: oh, natural} = this.action.actor.equipment.weapons;
-    const choices = {};
-    if ( mh ) {
-      const mainhandId = mh.id || "mainhandUnarmed";
-      choices[mainhandId] = `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`;
-    }
-    if ( oh ) {
-      const offhandId = oh.id || "offhandUnarmed";
-      choices[offhandId] = `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`;
-    }
-    for ( const n of natural ) {
-      choices[n.id] = `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`;
-    }
+    const validChoices = this.action.getValidWeaponChoices(true);
+    if ( validChoices.length <= 1 ) return null;
+    const choices = validChoices.reduce((acc, {id, label}) => ({...acc, [id]: label}), {});
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
       label: "Weapon", hint: "You may choose which weapon to use for this Action."});
     weapon.name = "weapon";
@@ -178,6 +168,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       else weapon = this.action.actor.items.get(c);
       this.action.usage.weapon = weapon;
       this.action.reset();
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       this.render();
     }
   }

@@ -1339,7 +1339,7 @@ export default class CrucibleActor extends Actor {
     // Reload any equipped weapons
     const {mainhand, offhand} = this.equipment.weapons;
     for ( const weapon of [mainhand, offhand] ) {
-      if ( weapon?.config.category.reload && !weapon.system.loaded ) {
+      if ( weapon?.system.needsReload ) {
         itemUpdates.push({
           _id: weapon.id,
           "system.loaded": true

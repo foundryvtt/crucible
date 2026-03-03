@@ -1253,6 +1253,39 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Get all equipped weapons which fulfil the requirements for this action, optionally excluding those which are
+   * valid generally, but are not currently due to a lack of resource or being unloaded
+   * @param {boolean} [strict] If true, will not return items which cannot be used due to some transient condition
+   * @returns {{item: CrucibleWeaponItem, label: string}[]}
+   */
+  getValidWeaponChoices(strict=false) {
+    const choices = [];
+    if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
+    const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+    const isValidChoice = weapon => {
+      if ( this.tags.has("ranged") && (!weapon.config.category.ranged || (strict && weapon.system.needsReload)) ) return false;
+      if ( this.tags.has("melee") && weapon.config.category.ranged ) return false;
+      if ( this.tags.has("reload") && !weapon.system.needsReload ) return false;
+      return !strict || (this.cost.action + weapon.system.actionCost <= this.actor.resources.action.value);
+    };
+    const isNatural = this.tags.has("natural");
+    if ( mh && !isNatural && isValidChoice(mh) ) {
+      choices.push({item: mh, id: mh.id || "mainhandUnarmed", label: `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`});
+    }
+    if ( oh && !isNatural && isValidChoice(oh) ) {
+      choices.push({item: oh, id: oh.id || "offhandUnarmed", label: `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`});
+    }
+    if ( !this.tags.has("ranged") ) {
+      for ( const n of natural ) {
+        choices.push({item: n, id: n.id, label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`});
+      }
+    }
+    return choices;
+  }
+
+  /* -------------------------------------------- */
   /*  Action Lifecycle Methods                    */
   /* -------------------------------------------- */
 
@@ -1683,8 +1716,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const original = this.actor.actions[this.id];
     if ( !original ) return false;
     const {cost, tags} = original._source;
-    if ( !cost.weapon ) return false;
-    if ( ["mainhand", "offhand", "twohand", "natural"].some(t => tags.includes(t)) ) return false;
+    if ( !(cost.weapon || tags.includes("reload")) ) return false;
+    if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
     return this.actor?.equipment.weapons.hasChoice;
   }
 
