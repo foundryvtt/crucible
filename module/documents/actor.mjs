@@ -1365,7 +1365,7 @@ export default class CrucibleActor extends Actor {
       // Categorize damage
       const damage = {};
       for ( let {amount, damageType, resource, restoration} of dot ) {
-        if ( !restoration ) amount = -Math.clamp(amount - this.resistances[damageType].total, 0, 2 * amount);
+        if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
         damage[resource] ??= 0;
         damage[resource] += amount;
       }
