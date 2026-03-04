@@ -1266,10 +1266,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
     const trueCost = this.cost.action - (this.usage.weapon ? this.usage.weapon.system.actionCost : 0);
     const isValidChoice = weapon => {
-      if ( this.tags.has("ranged") && (!weapon.config.category.ranged || (strict && weapon.system.needsReload)) ) return false;
-      if ( this.tags.has("melee") && weapon.config.category.ranged ) return false;
       if ( this.tags.has("reload") ) return weapon.system.needsReload;
-      return !strict || (trueCost + weapon.system.actionCost <= this.actor.resources.action.value);
+      let isValid = this.tags.has("ranged") && weapon.config.category.ranged && !(strict && weapon.system.needsReload);
+      isValid ||= this.tags.has("melee") && !weapon.config.category.ranged;
+      if ( strict ) isValid &&= trueCost + weapon.system.actionCost <= this.actor.resources.action.value;
+      return isValid;
     };
     const isNatural = this.tags.has("natural");
     if ( mh && !isNatural && isValidChoice(mh) ) {
