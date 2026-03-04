@@ -850,9 +850,9 @@ export const TAGS = {
       if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
         roll.data.damage = {
           overflow: roll.overflow,
-          multiplier: 1,
-          base: 0,
-          bonus: 0,
+          multiplier: bonuses.multiplier,
+          base: bonuses.base ?? 0,
+          bonus: bonuses.damageBonus,
           resistance: target.getResistance(resource, damageType),
           type: damageType,
           resource: resource,

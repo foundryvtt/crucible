@@ -766,7 +766,7 @@ export default class CrucibleActor extends Actor {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: bonuses.multiplier,
-        base: bonuses.skill + (bonuses.base ?? 0),
+        base: bonuses.base ?? 0,
         bonus: bonuses.damageBonus,
         resistance: target.getResistance(resource, damageType, restoration),
         type: damageType,
