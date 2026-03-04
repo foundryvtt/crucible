@@ -847,18 +847,19 @@ export const TAGS = {
 
       // Compute the final result against defenses
       const r = roll.data.result = target.testDefense(defenseType, roll);
-      if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: 1,
-        base: 0,
-        bonus: 0,
-        resistance: target.getResistance(resource, damageType),
-        type: damageType,
-        resource: resource,
-        restoration: false
-      };
-      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
+        roll.data.damage = {
+          overflow: roll.overflow,
+          multiplier: 1,
+          base: 0,
+          bonus: 0,
+          resistance: target.getResistance(resource, damageType),
+          type: damageType,
+          resource: resource,
+          restoration: false
+        };
+        roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      }
       outcome.rolls.push(roll);
     }
   },
