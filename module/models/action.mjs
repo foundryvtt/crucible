@@ -1125,7 +1125,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const fn = SYSTEM.EFFECTS[status];
         if ( typeof fn !== "function" ) continue;
         const statusEffect = fn(this.actor, {ability: this.scaling});
-        if ( statusEffect.system?.dot ) effect.system.dot ||= statusEffect.system.dot;
+        if ( statusEffect.system?.dot && !effect.system.dot?.length ) effect.system.dot = statusEffect.system.dot;
         if ( statusEffect.statuses ) {
           for ( const s of statusEffect.statuses ) statuses.add(s);
         }
@@ -1250,6 +1250,42 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Constrain total damage between 0 and 2x the pre-mitigation value
     return Math.clamp(postMitigation, 0, 2 * preMitigation);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get all equipped weapons which fulfil the requirements for this action, optionally excluding those which are
+   * valid generally, but are not currently due to a lack of resource or being unloaded
+   * @param {object} [options]              Additional options
+   * @param {boolean} [options.strict]      Whether to filter out items which can't be used due to a transient condition
+   * @param {number|null} [options.maxCost] If provided, filter out weapons with greater action cost
+   * @returns {{item: CrucibleWeaponItem, label: string}[]}
+   */
+  getValidWeaponChoices({strict=false, maxCost=null}={}) {
+    const choices = [];
+    if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
+    const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+    const isValidChoice = weapon => {
+      if ( this.tags.has("reload") ) return weapon.system.needsReload;
+      let isValid = this.tags.has("ranged") && weapon.config.category.ranged && !(strict && weapon.system.needsReload);
+      isValid ||= this.tags.has("melee") && !weapon.config.category.ranged;
+      if ( maxCost !== null ) isValid &&= weapon.system.actionCost <= maxCost;
+      return isValid;
+    };
+    const isNatural = this.tags.has("natural");
+    if ( mh && !isNatural && isValidChoice(mh) ) {
+      choices.push({item: mh, id: mh.id || "mainhandUnarmed", label: `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`});
+    }
+    if ( oh && !isNatural && isValidChoice(oh) ) {
+      choices.push({item: oh, id: oh.id || "offhandUnarmed", label: `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`});
+    }
+    if ( !this.tags.has("ranged") ) {
+      for ( const n of natural ) {
+        choices.push({item: n, id: n.id, label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`});
+      }
+    }
+    return choices;
   }
 
   /* -------------------------------------------- */
@@ -1683,8 +1719,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const original = this.actor.actions[this.id];
     if ( !original ) return false;
     const {cost, tags} = original._source;
-    if ( !cost.weapon ) return false;
-    if ( ["mainhand", "offhand", "twohand", "natural"].some(t => tags.includes(t)) ) return false;
+    if ( !(cost.weapon || tags.includes("reload")) ) return false;
+    if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
     return this.actor?.equipment.weapons.hasChoice;
   }
 

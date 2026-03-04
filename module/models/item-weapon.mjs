@@ -201,12 +201,22 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /**
    * Can this weapon be thrown?
-   * @returns {boolean}
+   * @type {boolean}
    */
-  canThrow() {
+  get canThrow() {
     const category = this.config.category;
     if ( (category.id === "unarmed") || category.ranged || this.properties.has("natural") ) return false;
     return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this weapon require reloading before it can be used?
+   * @type {boolean}
+   */
+  get needsReload() {
+    return this.config.category.reload && !this.loaded;
   }
 
   /* -------------------------------------------- */
@@ -275,7 +285,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
     // Damage and Range
     tags.damage = game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
-    if ( this.config.category.reload && !this.loaded ) tags.damage = game.i18n.localize("WEAPON.TAGS.Reload");
+    if ( this.needsReload ) tags.damage = game.i18n.localize("WEAPON.TAGS.Reload");
     tags.range = game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range});
 
     // Weapon Properties

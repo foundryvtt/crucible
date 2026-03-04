@@ -849,7 +849,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     rs.heroism.base = p.heroismMax;
 
     // Initialize bonuses for each resource
-    for ( const r of Object.values(rs) ) r.bonus = 0;
+    for ( const r of Object.values(rs) ) r.bonus ??= 0;
   }
 
   /* -------------------------------------------- */
@@ -1059,7 +1059,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
           if ( !w.reload ) continue;
           break;
         case "throwWeapon":
-          if ( !(w.mainhand?.system.canThrow() || w.offhand?.system.canThrow()) ) continue;
+          if ( !(w.mainhand?.system.canThrow || w.offhand?.system.canThrow) ) continue;
           break;
       }
 

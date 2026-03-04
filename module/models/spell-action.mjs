@@ -122,7 +122,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.training = [this.rune.id];
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
-    this.usage.defenseType ||= CrucibleSpellAction.#prepareDefense.call(this);
+    this.usage.defenseType = CrucibleSpellAction.#prepareDefense.call(this);
 
     // Composed Spells Only
     if ( this.isComposed ) {

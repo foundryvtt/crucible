@@ -579,6 +579,11 @@ export const TAGS = {
       this.usage.strikes = []; // Reset strike sequence
     },
     prepare() {
+      if ( !this.usage.weapon ) {
+        const valid = this.getValidWeaponChoices();
+        valid.sort((a, b) => a.item.system.actionCost - b.item.system.actionCost);
+        this.usage.weapon = valid[0]?.item;
+      }
       const {strikes, weapon} = this.usage;
 
       // Default weapon-based strikes
@@ -639,6 +644,14 @@ export const TAGS = {
         roll.data.strike = i; // TODO handle this better?
         outcome.rolls.push(roll);
       }
+    },
+    preActivate(_targets) {
+      for ( const w of this.usage.strikes ) {
+        if ( w.config.category.reload ) {
+          this.usage.actorUpdates.items ||= [];
+          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
+        }
+      }
     }
   },
 
@@ -653,21 +666,6 @@ export const TAGS = {
     canUse() {
       if ( !this.actor.equipment.weapons.melee ) {
         throw new Error("You must have melee weapons equipped to use this action.");
-      }
-    },
-    prepare() {
-      if ( !this.usage.weapon ) {
-        const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
-        if ( mh && !mh.system.config.category.ranged ) this.usage.weapon = mh;
-        else if ( oh && !oh.system.config.category.ranged ) this.usage.weapon = oh;
-        else {
-          for ( const n of natural ) {
-            if ( !n.system.config.category.ranged ) {
-              this.usage.weapon = n;
-              break;
-            }
-          }
-        }
       }
     }
   },
@@ -684,32 +682,16 @@ export const TAGS = {
       if ( !this.actor.equipment.weapons.ranged ) {
         throw new Error("This action requires a ranged weapon equipped.");
       }
-      if ( this.usage.strikes.some(w => w.config.category.reload && !w.system.loaded && !this.tags.has("reload")) ) {
+      if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
         throw new Error("Your weapon requires reloading in order to use this action.");
       }
     },
     prepare() {
       this.usage.actorStatus.rangedAttack = true;
       if ( !this.usage.weapon ) {
-        const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
-        if ( mh && mh.system.config.category.ranged ) this.usage.weapon = mh;
-        else if ( oh && oh.system.config.category.ranged ) this.usage.weapon = oh;
-        else {
-          for ( const n of natural ) {
-            if ( n.system.config.category.ranged ) {
-              this.usage.weapon = n;
-              break;
-            }
-          }
-        }
-      }
-    },
-    preActivate(_targets) {
-      for ( const w of this.usage.strikes ) {
-        if ( w.config.category.reload ) {
-          this.usage.actorUpdates.items ||= [];
-          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
-        }
+        const valid = this.getValidWeaponChoices({strict: true});
+        valid.sort((a, b) => a.item.system.actionCost - b.item.system.actionCost);
+        this.usage.weapon = valid[0]?.item;
       }
     }
   },
@@ -774,7 +756,7 @@ export const TAGS = {
     propagate: ["melee"],
     canUse() {
       for ( const w of this.usage.strikes ) {
-        if ( !w.system.canThrow() ) throw new Error("You cannot throw this weapon.");
+        if ( !w.system.canThrow ) throw new Error("You cannot throw this weapon.");
       }
     },
     prepare() {
@@ -784,7 +766,7 @@ export const TAGS = {
     preActivate(_targets) {
       if ( !this.usage.strikes?.length ) return;
       for ( const weapon of this.usage.strikes ) {
-        if ( !weapon.system.canThrow() ) throw new Error("You cannot throw this weapon.");
+        if ( !weapon.system.canThrow ) throw new Error("You cannot throw this weapon.");
         this.usage.actorUpdates.items ||= [];
         this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
@@ -865,18 +847,19 @@ export const TAGS = {
 
       // Compute the final result against defenses
       const r = roll.data.result = target.testDefense(defenseType, roll);
-      if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: 1,
-        base: 0,
-        bonus: 0,
-        resistance: target.getResistance(resource, damageType),
-        type: damageType,
-        resource: resource,
-        restoration: false
-      };
-      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
+        roll.data.damage = {
+          overflow: roll.overflow,
+          multiplier: bonuses.multiplier ?? 1,
+          base: bonuses.base ?? 0,
+          bonus: bonuses.damageBonus ?? 0,
+          resistance: target.getResistance(resource, damageType),
+          type: damageType,
+          resource: resource,
+          restoration: false
+        };
+        roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      }
       outcome.rolls.push(roll);
     }
   },
@@ -890,18 +873,15 @@ export const TAGS = {
     category: "special",
     canUse() {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
-      if ( !reload || (m.system.loaded && (!o || o.system.loaded)) ) {
+      if ( !reload || (!m.system.needsReload && !o?.system.needsReload) ) {
         throw new Error("Your weapons do not require reloading");
       }
     },
-    prepare() {
-      const {mainhand: m, offhand: o} = this.actor.equipment.weapons;
+    preActivate() {
       this.usage.actorUpdates.items ||= [];
-      if (m.config.category.reload && !m.system.loaded) {
-        this.usage.actorUpdates.items.push({_id: m.id, "system.loaded": true});
-      }
-      else if (o?.config.category.reload && !o.system.loaded) {
-        this.usage.actorUpdates.items.push({_id: o.id, "system.loaded": true});
+      this.usage.weapon ??= this.getValidWeaponChoices()[0]?.item;
+      if ( this.usage.weapon ) {
+        this.usage.actorUpdates.items.push({_id: this.usage.weapon.id, "system.loaded": true});
       }
     }
   },

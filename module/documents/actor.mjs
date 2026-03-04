@@ -766,7 +766,7 @@ export default class CrucibleActor extends Actor {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: bonuses.multiplier,
-        base: bonuses.skill + (bonuses.base ?? 0),
+        base: bonuses.base ?? 0,
         bonus: bonuses.damageBonus,
         resistance: target.getResistance(resource, damageType, restoration),
         type: damageType,
@@ -1339,7 +1339,7 @@ export default class CrucibleActor extends Actor {
     // Reload any equipped weapons
     const {mainhand, offhand} = this.equipment.weapons;
     for ( const weapon of [mainhand, offhand] ) {
-      if ( weapon?.config.category.reload && !weapon.system.loaded ) {
+      if ( weapon?.system.needsReload ) {
         itemUpdates.push({
           _id: weapon.id,
           "system.loaded": true
@@ -1365,7 +1365,7 @@ export default class CrucibleActor extends Actor {
       // Categorize damage
       const damage = {};
       for ( let {amount, damageType, resource, restoration} of dot ) {
-        if ( !restoration ) amount = -Math.clamp(amount - this.resistances[damageType].total, 0, 2 * amount);
+        if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
         damage[resource] ??= 0;
         damage[resource] += amount;
       }
