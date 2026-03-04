@@ -689,7 +689,7 @@ export const TAGS = {
     prepare() {
       this.usage.actorStatus.rangedAttack = true;
       if ( !this.usage.weapon ) {
-        const valid = this.getValidWeaponChoices(true);
+        const valid = this.getValidWeaponChoices({strict: true});
         valid.sort((a, b) => a.item.system.actionCost - b.item.system.actionCost);
         this.usage.weapon = valid[0]?.item;
       }
@@ -850,9 +850,9 @@ export const TAGS = {
       if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
         roll.data.damage = {
           overflow: roll.overflow,
-          multiplier: bonuses.multiplier,
+          multiplier: bonuses.multiplier ?? 1,
           base: bonuses.base ?? 0,
-          bonus: bonuses.damageBonus,
+          bonus: bonuses.damageBonus ?? 0,
           resistance: target.getResistance(resource, damageType),
           type: damageType,
           resource: resource,

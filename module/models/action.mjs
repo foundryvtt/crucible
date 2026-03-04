@@ -1257,19 +1257,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Get all equipped weapons which fulfil the requirements for this action, optionally excluding those which are
    * valid generally, but are not currently due to a lack of resource or being unloaded
-   * @param {boolean} [strict] If true, will not return items which cannot be used due to some transient condition
+   * @param {object} [options]              Additional options
+   * @param {boolean} [options.strict]      Whether to filter out items which can't be used due to a transient condition
+   * @param {number|null} [options.maxCost] If provided, filter out weapons with greater action cost
    * @returns {{item: CrucibleWeaponItem, label: string}[]}
    */
-  getValidWeaponChoices(strict=false) {
+  getValidWeaponChoices({strict=false, maxCost=null}={}) {
     const choices = [];
     if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
     const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
-    const trueCost = this.cost.action - (this.usage.weapon ? this.usage.weapon.system.actionCost : 0);
     const isValidChoice = weapon => {
       if ( this.tags.has("reload") ) return weapon.system.needsReload;
       let isValid = this.tags.has("ranged") && weapon.config.category.ranged && !(strict && weapon.system.needsReload);
       isValid ||= this.tags.has("melee") && !weapon.config.category.ranged;
-      if ( strict ) isValid &&= trueCost + weapon.system.actionCost <= this.actor.resources.action.value;
+      if ( maxCost !== null ) isValid &&= weapon.system.actionCost <= maxCost;
       return isValid;
     };
     const isNatural = this.tags.has("natural");
