@@ -1105,12 +1105,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     for ( const [i, effectData] of this.effects.entries() ) {
       if ( !this.#applyOutcomeEffect(outcome, effectData) ) continue;
-      const {name, changes, duration, statuses: origStatuses, system} = effectData;
+      const {_id, name, changes, duration, statuses: origStatuses, system} = effectData;
       const statuses = new Set(origStatuses);
 
       // Prepare effect data
       const effect = {
-        _id: crucible.api.methods.generateId(this.id, 15) + i,
+        _id: _id || `${crucible.api.methods.generateId(this.id, 15)}${i}`,
         name: name || this.name,
         changes,
         description: this.description,
