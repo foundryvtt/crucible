@@ -241,6 +241,16 @@ HOOKS.conserveeffort00 = {
 
 /* -------------------------------------------- */
 
+HOOKS.deftgrip00000000 = {
+  prepareAction(_item, action) {
+    const isTwoHanded = this.equipment.weapons.twoHanded;
+    const isRanged = this.equipment.weapons.ranged;
+    if ( isTwoHanded && isRanged ) action.usage.availableHands += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.demolitionist000 = {
   prepareAction(item, action) {
     if ( action.item?.config?.category.id === "bomb" ) {

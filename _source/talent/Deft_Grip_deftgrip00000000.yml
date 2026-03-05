@@ -1,0 +1,37 @@
+folder: 2nepH1RWurpMYAjw
+name: Deft Grip
+type: talent
+_id: deftgrip00000000
+img: icons/skills/melee/unarmed-punch-fist.webp
+system:
+  nodes:
+    - dex0a
+  description: >-
+    Your grasp of your weaponry is fluid and precise. You can perform Actions
+    which require a free hand while wielding a two-handed ranged weapon.
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  iobhrakkle3Lyj0G: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.8
+  createdTime: 1772713232009
+  modifiedTime: 1772714219955
+  lastModifiedBy: iobhrakkle3Lyj0G
+_key: '!items!deftgrip00000000'
