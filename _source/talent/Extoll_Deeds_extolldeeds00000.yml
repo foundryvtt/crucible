@@ -26,6 +26,8 @@ system:
       tags:
         - reaction
         - rallying
+        - auditory
+        - vocal
       cost:
         action: 1
         focus: 1
