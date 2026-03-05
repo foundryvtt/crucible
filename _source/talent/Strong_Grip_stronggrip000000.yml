@@ -6,8 +6,8 @@ system:
   node: str0a
   description: >-
     Your grasp of your weaponry is firm and unyielding. You can perform Actions
-    which require a free hand while wielding a two-handed weapon. Attempts to
-    Disarm you are made with +2 Banes.
+    which require a free hand while wielding a two-handed melee weapon. Attempts
+    to Disarm you are made with +2 Banes.
   actions: []
   requirements: {}
 effects: []

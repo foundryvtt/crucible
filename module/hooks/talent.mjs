@@ -676,7 +676,15 @@ HOOKS.strikefirst00000 = {
 
 HOOKS.stronggrip000000 = {
   prepareAction(_item, action) {
-    if ( this.equipment.weapons.twoHanded ) action.usage.availableHands += 1;
+    const isTwoHanded = this.equipment.weapons.twoHanded;
+    const isMelee = !this.equipment.weapons.ranged;
+    if ( isTwoHanded && isMelee ) action.usage.availableHands += 1;
+  },
+  defendAttack(item, action, _origin, rollData) {
+    const isDisarm = action.tags.has("disarm");
+    const isTwoHanded = this.equipment.weapons.twoHanded;
+    const isMelee = !this.equipment.weapons.ranged;
+    if ( isDisarm && isTwoHanded && isMelee ) rollData.banes.strongGrip = {label: item.name, number: 2};
   }
 };
 
