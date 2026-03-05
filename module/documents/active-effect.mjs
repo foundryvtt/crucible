@@ -10,6 +10,48 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    const allowed = await super._preCreate(data, options, user);
+    if ( allowed === false ) return false;
+
+    // Set start combatant to targeted actor's combatant, if present. If turn start/end expiry, remove start turn and
+    // adjust duration according to whether target combatant has yet acted this round
+    if ( this.parent instanceof Actor && this.start?.combat.started && ["turnStart", "turnEnd"].includes(this.duration.expiry) ) {
+      const combatant = this.start.combat.getCombatantsByActor(this.parent)[0];
+      if ( combatant ) {
+        const effectUpdate = {start: {combatant: combatant.id, turn: null}};
+        if ( this.duration.units === "rounds" ) {
+          const combatantHasGone = combatant.turnNumber < this.start.combat.turn;
+          switch ( this.duration.expiry ) {
+            case "turnStart":
+              if ( combatantHasGone ) effectUpdate.duration = {value: this.duration.value + 1};
+              break;
+            case "turnEnd":
+              if ( !combatantHasGone ) effectUpdate.duration = {value: this.duration.value - 1};
+              break;
+          }
+        }
+        this.updateSource(effectUpdate);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  isExpiryEvent(event, context) {
+    if ( event !== "turnEnd" || event !== this.duration.expiry ) return super.isExpiryEvent(event, context);
+    const combat = context.combat ?? game.combat;
+    if ( !combat?.started ) return false;
+    const combatantId = combat === this.start.combat
+      ? this.start.combatant
+      : combat.getCombatantsByActor(this.actor ?? "")[0]?.id;
+    return combat.previous.combatantId === combatantId;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Render this ActiveEffect as HTML for a tooltip card.
    * @returns {Promise<string>}
@@ -52,13 +94,17 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       return obj;
     }, {});
 
+
+    // TODO: Temporary, clean up prior to actual PR
+    tags.activation.duration = this.duration.label;
+
     // Time-based duration
     if ( (units === "seconds") && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
       const s = Math.max(remaining, 0);
       tags.context.t = s;
       // Use the calendar "ago" formatter, little hacky should ideally have a custom forward-looking formatter
-      tags.activation.duration = game.time.earthCalendar.format(s, "ago").replace(" ago", "");
+      // tags.activation.duration = game.time.earthCalendar.format(s, "ago").replace(" ago", "");
     }
 
     // Combat-based duration
@@ -66,8 +112,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       tags.context.section = "temporary";
       const r = Math.max(remaining, 0);
       tags.context.t = 10 * r;
-      const locKey = expiry === "turnEnd" ? "EFFECT.DURATION.TURNS" : "EFFECT.DURATION.ROUNDS";
-      tags.activation.duration = `${r} ${_loc(`${locKey}.${pluralRules.select(r)}`)}`;
+      // const locKey = expiry === "turnEnd" ? "EFFECT.DURATION.TURNS" : "EFFECT.DURATION.ROUNDS";
+      // tags.activation.duration = `${r} ${_loc(`${locKey}.${pluralRules.select(r)}`)}`;
     }
 
     // Persistent
