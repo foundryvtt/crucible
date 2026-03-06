@@ -26,7 +26,7 @@
                 <h4 class="label" data-tooltip="{{resources.action.tooltip}}">{{resources.action.label}}</h4>
                 <div class="points flexrow">
                     {{formInput fields.resources.fields.action.fields.value value=resources.action.value type="number"}}
-                    <div class="pips flexrow">
+                    <div class="crucible-rank-pips flexrow">
                         {{#each resources.action.pips as |pip i|}}
                         <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="action" data-index="{{i}}"></a>
                         {{/each}}
@@ -39,7 +39,7 @@
                 <h4 class="label" data-tooltip="{{resources.focus.tooltip}}">{{resources.focus.label}}</h4>
                 <div class="points flexrow">
                     {{formInput fields.resources.fields.focus.fields.value value=resources.focus.value type="number"}}
-                    <div class="pips flexrow">
+                    <div class="crucible-rank-pips flexrow">
                         {{#each resources.focus.pips as |pip i|}}
                         <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="focus" data-index="{{i}}"></a>
                         {{/each}}
@@ -52,7 +52,7 @@
                 <h4 class="label" data-tooltip="{{resources.heroism.tooltip}}">{{resources.heroism.label}}</h4>
                 <div class="points flexrow">
                     {{formInput fields.resources.fields.heroism.fields.value value=resources.heroism.value type="number"}}
-                    <div class="pips flexrow">
+                    <div class="crucible-rank-pips flexrow">
                         {{#each resources.heroism.pips as |pip i|}}
                             <a class="pip {{pip.cssClass}}" data-action="resourcePip" data-resource="heroism" data-index="{{i}}"></a>
                         {{/each}}
