@@ -327,11 +327,10 @@ export const TAGS = {
     category: "requirements",
     preActivate(targets) {
       // Remove targets which are deafened
-      targets.splice(
-        0,
-        targets.length,
-        ...targets.filter(t => !t.actor.statuses.has("deafened"))
-      );
+      for ( let i=targets.length-1; i>=0; i-- ) {
+        const t = targets[i];
+        if ( t.actor.statuses.has("deafened") ) targets.splice(i, 1);
+      }
     }
   },
 
