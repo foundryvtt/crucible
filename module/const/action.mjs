@@ -307,6 +307,32 @@ export const TAGS = {
       }
     }
   },
+  
+  // Requires the ability to speak
+  vocal: {
+    tag: "vocal",
+    label: "ACTION.TagVocal",
+    tooltip: "ACTION.TagVocalTooltip",
+    category: "requirements",
+    canUse() {
+      return !this.actor.statuses.has("silenced");
+    }
+  },
+  
+  // Requires the ability to hear
+  auditory: {
+    tag: "auditory",
+    label: "ACTION.TagAuditory",
+    tooltip: "ACTION.TagAuditoryTooltip",
+    category: "requirements",
+    preActivate(targets) {
+      // Remove targets which are deafened
+      for ( let i=targets.length-1; i>=0; i-- ) {
+        const t = targets[i];
+        if ( t.actor.statuses.has("deafened") ) targets.splice(i, 1);
+      }
+    }
+  },
 
   /* -------------------------------------------- */
   /*  Context Requirements                        */
