@@ -441,28 +441,10 @@
               text-align: center;
             }
           }
-          .pips {
+          .crucible-rank-pips {
             flex: 0 0 100px;
             justify-content: center;
             gap: 4px 0;
-            .pip {
-              flex: 0 0 14px;
-              height: 14px;
-              border: 1px solid var(--color-frame);
-              border-radius: 7px;
-              &.double {
-                border-color: var(--resource-color);
-              }
-            }
-            .full::before {
-              display: block;
-              content: "";
-              width: 8px;
-              height: 8px;
-              margin: 2px;
-              background: var(--resource-color);
-              border-radius: 4px;
-            }
           }
         }
         .action {
@@ -942,26 +924,6 @@
       justify-content: center;
       span:first-child {
         color: var(--color-text-emphatic);
-      }
-    }
-
-    // Skill ranks
-    .ranks {
-      justify-content: space-between;
-      .pip {
-        flex: 0 0 14px;
-        height: 14px;
-        border: 1px solid var(--color-frame);
-        border-radius: 7px;
-      }
-      .trained::before {
-        display: block;
-        content: "";
-        width: 8px;
-        height: 8px;
-        margin: 2px;
-        background: var(--skill-color);
-        border-radius: 4px;
       }
     }
 

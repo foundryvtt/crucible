@@ -3,7 +3,7 @@
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
         <h3 class="section-header">{{localize "SKILL.CategoryHeader" category=category.label}}</h3>
-        <ol class="items-list" style="--skill-color:{{category.color.css}}">
+        <ol class="items-list" style="--resource-color:{{category.color.css}}">
             {{#each category.skills as |skill skillId|}}
             <li class="skill line-item" data-skill="{{skillId}}">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.label}}">
@@ -19,7 +19,7 @@
                     <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
                     <span class="passive" data-tooltip="{{localize "SKILL.PassiveSpecific" passive=skill.tooltips.passive}}">{{skill.passive}}</span>
                 </div>
-                <div class="ranks flexrow">
+                <div class="crucible-rank-pips flexrow">
                     {{#each skill.pips}}<span class="pip {{this}}"></span>{{/each}}
                 </div>
                 <div class="tags training">

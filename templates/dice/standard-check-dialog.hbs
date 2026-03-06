@@ -25,7 +25,7 @@
 {{#if request}}
 <aside class="request-form standard-form">
     <h3 class="divider">{{localize "ACTION.RequestedActors"}}</h3>
-    <div class="requested-actors flexcol droppable scrollable">
+    <div class="requested-actors flexcol droppable scrollable" {{#if request.resourceColor}}style="--resource-color:{{request.resourceColor}}"{{/if}}>
         {{#each request.actors as |actor|}}
         <div class="line-item member" data-actor-id="{{actor.id}}">
             <img class="icon" src="{{actor.img}}">
@@ -35,6 +35,9 @@
                     {{#each actor.tags as |label tag|}}
                     <span class="tag">{{label}}</span>
                     {{/each}}
+                    <div class="crucible-rank-pips flexrow" data-tooltip="{{actor.rankTooltip}}">
+                        {{#each actor.pips}}<span class="pip {{this}}"></span>{{/each}}
+                    </div>
                 </div>
             </div>
             <div class="controls">

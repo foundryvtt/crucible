@@ -420,6 +420,34 @@
       bottom: -0.5rem;
     }
   }
+
+  .crucible-rank-pips {
+    justify-content: space-between;
+    --pip-size: 14px;
+    --pip-border: 1px;
+    --pip-dot-margin: 2px;
+
+    .pip {
+      flex: 0 0 var(--pip-size);
+      height: var(--pip-size);
+      border: var(--pip-border) solid var(--color-frame);
+      border-radius: calc(var(--pip-size) / 2);
+      &.double {
+        border-color: var(--resource-color);
+      }
+    }
+
+    .full::before {
+      --dot-size: calc(var(--pip-size) - 2 * var(--pip-border) - 2 * var(--pip-dot-margin));
+      display: block;
+      content: "";
+      width: var(--dot-size);
+      height: var(--dot-size);
+      margin: var(--pip-dot-margin);
+      background: var(--resource-color);
+      border-radius: calc(var(--dot-size) / 2);
+    }
+  }
 }
 
 /** ----------------------------------------- *
