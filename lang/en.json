@@ -175,14 +175,7 @@
     "effects": {
       "element": {
         "duration": {
-          "label": "Duration",
-          "hint": "Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.",
-          "rounds": {
-            "label": "Rounds"
-          },
-          "turns": {
-            "label": "Turns"
-          }
+          "label": "Duration"
         },
         "name": {
           "label": "Effect Name"
@@ -655,8 +648,8 @@
 "ACTION.DelayTitle": "Delay Turn",
 "ACTION.DelayLabel": "Delayed Initiative",
 "ACTION.DelayHint": "Choose an initiative value between 1 and {maximum} when you wish to act.",
-"ACTION.DurationRounds": "{rounds}R",
-"ACTION.DurationTurns": "{turns}T",
+"ACTION.DurationRounds": "{value}R",
+"ACTION.DurationSeconds": "{value}S",
 "ACTION.DurationUntilEnded": "Until Ended",
 "ACTION.EffectSpecific": "Effect: {effect}",
 "ACTION.NoTargets": "No Targets",

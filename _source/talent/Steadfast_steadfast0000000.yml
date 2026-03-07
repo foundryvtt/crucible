@@ -32,8 +32,9 @@ system:
           statuses:
             - resolute
           duration:
-            turns: null
-            rounds: null
+            value: null
+            units: seconds
+            expiry: null
           result:
             type: success
             all: false

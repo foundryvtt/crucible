@@ -18,15 +18,10 @@
             </label>
         </div>
     </div>
-    {{formGroup fields.statuses name=(concat effect.fieldPath ".statuses") value=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
-    <div class="form-group">
-        <label>{{fields.duration.label}}</label>
-        <div class="form-fields">
-            {{formInput fields.duration.fields.turns name=(concat effect.fieldPath ".duration.turns") value=effect.duration.turns}}
-            <label>{{fields.duration.fields.turns.label}}</label>
-            {{formInput fields.duration.fields.rounds name=(concat effect.fieldPath ".duration.rounds") value=effect.duration.rounds}}
-            <label>{{fields.duration.fields.rounds.label}}</label>
-        </div>
-        <p class="hint">{{fields.duration.hint}}</p>
-    </div>
+    {{formGroup fields.statuses name=(concat effect.fieldPath ".statuses") value=effect.statuses valueAttr="id" labelAttr="name"}}
+    {{formGroup fields.duration.fields.value name=(concat effect.fieldPath ".duration.value") value=effect.duration.value}}
+    {{formGroup fields.duration.fields.units name=(concat effect.fieldPath ".duration.units")
+                value=effect.duration.units options=effectDurations}}
+    {{formGroup fields.duration.fields.expiry name=(concat effect.fieldPath ".duration.expiry")
+                value=effect.duration.expiry options=effectExpiryEvents}}
 </fieldset>

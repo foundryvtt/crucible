@@ -5,6 +5,9 @@
         <span>{{localize "ACTION.EFFECTS.Add"}}</span>
     </button>
     {{#each effects as |effect|}}
-    {{> (lookup @root "effectPartial") effect=effect fields=@root/fields.effects.element.fields placeholder=@root/action.name}}
+    {{> (lookup @root "effectPartial") effect=effect placeholder=@root/action.name
+            fields=@root/fields.effects.element.fields
+            effectDurations=@root/effectDurations
+            effectExpiryEvents=@root/effectExpiryEvents}}
     {{/each}}
 </section>

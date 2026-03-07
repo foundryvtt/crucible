@@ -456,7 +456,7 @@ HOOKS.lifebloom = {
       name: this.name,
       img: this.img,
       origin: this.actor.uuid,
-      duration: {turns: 6},
+      duration: {value: 6, units: "rounds", expiry: "turnEnd"},
       system: {
         dot: [{
           amount: wisdom,
@@ -604,7 +604,10 @@ HOOKS.paralyticIngest = {
   preActivate() {
     const poison = this.effects[0];
     const turns = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: null};
-    poison.duration.turns = turns[this.item.system.quality];
+    const turnCount = turns[this.item.system.quality];
+    poison.duration = turnCount !== null
+      ? {value: turnCount, units: "rounds", expiry: "turnEnd"}
+      : {value: null, units: "seconds", expiry: null};
     poison.system.dot.length = 0;
   }
 };
@@ -703,7 +706,7 @@ HOOKS.readScroll = {
     }
     Object.assign(outcome.effects[0], {
       origin: this.item.uuid,
-      duration: {seconds: 600},
+      duration: {value: 600, units: "seconds", expiry: null},
       system: {changes}
     });
   }

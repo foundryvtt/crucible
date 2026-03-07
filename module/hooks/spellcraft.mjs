@@ -53,7 +53,7 @@ HOOKS.aspect = {
         _id: SYSTEM.EFFECTS.getEffectId(`curse${this.damage.type}`),
         name: this.name,
         img: this.rune.img,
-        duration: {rounds: 6},
+        duration: {value: 6, units: "rounds", expiry: "turnEnd"},
         origin: this.actor.uuid,
         system: {
           changes: [{
@@ -72,7 +72,7 @@ HOOKS.aspect = {
       _id: SYSTEM.EFFECTS.getEffectId(`aspect${this.damage.type}`),
       name: this.name,
       img: this.gesture.img,
-      duration: {rounds: 6},
+      duration: {value: 6, units: "rounds", expiry: "turnEnd"},
       origin: this.actor.uuid,
       system: {
         changes: [
