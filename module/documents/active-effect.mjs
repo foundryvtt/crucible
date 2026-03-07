@@ -94,26 +94,23 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       return obj;
     }, {});
 
-
-    // TODO: Temporary, clean up prior to actual PR
     tags.activation.duration = this.duration.label;
 
     // Time-based duration
-    if ( (units === "seconds") && Number.isFinite(remaining) ) {
+    // TODO: Set tags.context.t according to converted-to-seconds duration, not raw value
+    if ( CONST.ACTIVE_EFFECT_TIME_DURATION_UNITS.includes(units) && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
       const s = Math.max(remaining, 0);
       tags.context.t = s;
-      // Use the calendar "ago" formatter, little hacky should ideally have a custom forward-looking formatter
-      // tags.activation.duration = game.time.earthCalendar.format(s, "ago").replace(" ago", "");
     }
 
     // Combat-based duration
-    else if ( (units === "rounds") && Number.isFinite(remaining) ) {
+    // TODO: Determine how to sort turns duration units
+    // TODO: Determine ideal labeling for combat-duration effect "remaining" values, if different from default
+    else if ( ["rounds", "turns"].includes(units) && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
       const r = Math.max(remaining, 0);
       tags.context.t = 10 * r;
-      // const locKey = expiry === "turnEnd" ? "EFFECT.DURATION.TURNS" : "EFFECT.DURATION.ROUNDS";
-      // tags.activation.duration = `${r} ${_loc(`${locKey}.${pluralRules.select(r)}`)}`;
     }
 
     // Persistent
