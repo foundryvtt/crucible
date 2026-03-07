@@ -23,7 +23,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       minimizable: true
     },
     actions: {
-      placeTemplate: ActionUseDialog.#onPlaceTemplate
+      placeRegion: ActionUseDialog.#onPlaceRegion
     }
   };
 
@@ -31,23 +31,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
   static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
 
   /**
-   * Track data related to a MeasuredTemplate preview for this Action.
-   * @type {{object: MeasuredTemplate, activeLayer: CanvasLayer, minimizedSheets: Application[], config: object}}
+   * Targets acquired from the most recently placed region for this Action.
+   * @type {ActionUseTarget[]|null}
    */
-  #targetTemplate = {
-    activeLayer: undefined,
-    document: undefined,
-    object: undefined,
-    minimizedSheets: [],
-    config: undefined,
-    targets: undefined
-  };
+  #regionTargets = null;
 
   /**
-   * Is a MeasuredTemplate required before this dialog can be submitted?
+   * Is a Region placement required before this dialog can be submitted?
    * @type {boolean}
    */
-  #requiresTemplate = false;
+  #requiresRegion = false;
 
   /**
    * The Action being performed
@@ -87,7 +80,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type];
-    this.#requiresTemplate = !!targetConfig?.template && !this.action.template;
+    this.#requiresRegion = !!targetConfig?.region && !this.action.region;
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
@@ -95,8 +88,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: this.#requiresTemplate || !["self", "none"].includes(this.action.target.type),
-      requiresTemplate: this.#requiresTemplate,
+      hasTargets: this.#requiresRegion || !["self", "none"].includes(this.action.target.type),
+      requiresRegion: this.#requiresRegion,
       weaponChoice: this.#prepareWeaponChoice(),
       targets: this.#prepareTargets()
     });
@@ -133,7 +126,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
         name: fromUuidSync(actorUuid)?.name ?? "Unknown" // Shouldn't be possible, but just in case
       }));
     }
-    const targets = this.#targetTemplate.targets ?? this.action.acquireTargets({strict: false});
+    const targets = this.#regionTargets ?? this.action.acquireTargets({strict: false});
     for ( const t of targets ) {
       t.cssClass = t.error ? "unmet" : "";
       t.tooltip = t.error ?? null;
@@ -205,219 +198,163 @@ export default class ActionUseDialog extends StandardCheckDialog {
   }, 20);
 
   /* -------------------------------------------- */
-  /*  Measured Template Management                */
+  /*  Region Management                           */
   /* -------------------------------------------- */
 
   /**
-   * Handle left-click events to begin the template targeting workflow
+   * Handle left-click events to begin the region targeting workflow.
    * @this {ActionUseDialog}
    * @param {Event} event
    * @returns {Promise<void>}
    */
-  static async #onPlaceTemplate(event) {
-
-    // Deactivate any previous template preview
-    this.#deactivateTemplate(event);
-
-    // Reference required data
+  static async #onPlaceRegion(event) {
     const {range, token, target} = this.action;
-    const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type]?.template;
-    if ( !targetConfig ) return;
-    const activeLayer = canvas.activeLayer;
+    const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type];
+    if ( !targetConfig.region ) return;
+    const regionConfig = targetConfig?.region;
 
-    // TODO find a better place for this?
+    // Resolve the size of the first summon if applicable
     if ( (target.type === "summon") && this.action.usage.summons.length ) {
       const summon1 = await fromUuid(this.action.usage.summons[0].actorUuid);
       if ( summon1 ) target.size = summon1.size;
     }
 
-    // Create a temporary Measured Template document and PlaceableObject
-    const templateData = await this.#getTemplateData(token.object, range, target, targetConfig);
-    const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
-    template.document._object = template; // FIXME this is a bit of a hack
+    // Build initial region document data
+    const origin = token?.object?.center ?? canvas.dimensions.rect.center;
+    const regionData = this.#getRegionData(origin, range, target, regionConfig);
 
     // Minimize open windows
     const minimizedWindows = [];
-    for ( const app of Object.values(ui.windows) ) {
-      if ( !app.minimized ) {
-        minimizedWindows.push(app);
-      }
-    }
     for ( const app of foundry.applications.instances.values() ) {
-      if ( !app.minimized ) {
-        minimizedWindows.push(app);
-      }
+      if ( !app.minimized ) minimizedWindows.push(app);
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
-    // Store preview template data
-    this.#targetTemplate = {
-      activeLayer,
-      config: Object.assign({}, targetConfig, target),
-      document: template.document,
-      object: template,
-      origin: {x: template.document.x, y: template.document.y},
-      minimizedWindows
-    };
-    this.#activateTemplate(template);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare Measured Template data for a certain candidate action
-   * @param {Token} token
-   * @param {number} range
-   * @param {Token} target
-   * @param {object} targetTemplateConfig
-   */
-  #getTemplateData(token, range, target, targetTemplateConfig) {
-    const {x, y} = token?.center ?? canvas.dimensions.rect.center;
-    const {id: userId, color: fillColor} = game.user;
-
-    // Prepare Template Data
-    const maxRange = range.maximum ?? 0;
-    let addRange = 0;
-    if ( token && targetTemplateConfig.addSize ) addRange = (token.actor.size / 2);
-    const templateData = {user: userId, x, y, fillColor, ...targetTemplateConfig};
-
-    // Shape Specific Overrides
-    switch ( targetTemplateConfig.t ) {
-      case "circle":
-        templateData.distance = (target.size ?? maxRange) + addRange;
-        break;
-      case "cone":
-        templateData.distance = (target.size ?? maxRange) + addRange;
-        break;
-      case "ray":
-        templateData.distance = maxRange + addRange;
-        templateData.width = target.size ?? targetTemplateConfig.width;
-        break;
-      case "rect":
-        templateData.distance = Math.sqrt(2) * ((target.size ?? 1) + addRange);
-        break;
-    }
-    return templateData;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Register interactivity for the preview template placement
-   */
-  #activateTemplate() {
-    this.#targetTemplate.events = {
-      contextmenu: this.#cancelTemplate.bind(this),
-      mousedown: this.#confirmTemplate.bind(this),
-      mousemove: this.#moveTemplate.bind(this)
-    };
-    canvas.stage.on("mousemove", this.#targetTemplate.events.mousemove);
-    canvas.stage.on("mousedown", this.#targetTemplate.events.mousedown);
-    canvas.app.view.addEventListener("contextmenu", this.#targetTemplate.events.contextmenu);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Deactivate the preview template placement workflow.
-   * @param {Event} event     An initiating event that leads to workflow deactivation
-   */
-  #deactivateTemplate(event) {
-    const {document, object, events, activeLayer} = this.#targetTemplate;
-    if ( !object ) return;
-    canvas.templates._onDragLeftCancel(event);
-    document._object = object; // FIXME workaround
-
-    // Deactivate mouse events
-    canvas.stage.off("mousemove", events.mousemove);
-    canvas.stage.off("mousedown", events.mousedown);
-    canvas.app.view.removeEventListener("contextmenu", events.contextmenu);
-
-    // Restore the original canvas layer
-    activeLayer.activate(event);
-
-    // Maximize prior UI windows
-    for ( const app of this.#targetTemplate.minimizedWindows ) app.maximize();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Cancel the template placement workflow on right-click.
-   * @param {Event} event     The contextmenu event
-   */
-  #cancelTemplate(event) {
-    event.preventDefault();
-    this.#deactivateTemplate(event);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Conclude the template placement workflow on left-click.
-   * @param {Event} event     The mousedown event
-   */
-  #confirmTemplate(event) {
-    event.stopPropagation();
-    this.action.template = this.#targetTemplate.document;
-    const targets = this.#targetTemplate.targets = this.action.acquireTargets({strict: false});
-    if ( targets.length ) {
-      for ( const [i, {token}] of targets.entries() ) {
-        token.setTarget(true, {releaseOthers: i === 0, groupSelection: i < targets.length - 1});
+    // Build the onMove callback
+    const onMove = ({shape, position, snap}) => {
+      switch (regionConfig.anchor) {
+        case "self": // Lock position and rotate based on mouse position
+          if ( regionConfig.directionDelta ) {
+            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+            const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
+            shape.updateSource({rotation: snappedAngle});
+          }
+          break;
+        case "vertex": // Constrain placement within maximum range
+          const maxDistance = range.maximum ?? 0;
+          if ( maxDistance === 0 ) Object.assign(position, origin);
+          else {
+            const d = canvas.grid.measurePath([origin, position]).distance;
+            if ( d > maxDistance ) {
+              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+              position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
+            }
+            shape.move(position, {snap: true});
+          }
+          break;
       }
-    } else game.user.targets.clear();
-    this.#deactivateTemplate(event);
+    };
+
+    // Place the region and record its created data
+    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
+    for ( const app of minimizedWindows ) app.maximize();
+    if ( !region ) return; // User cancelled with right-click
+    this.action.region = region.toObject();
+
+    // Store shape data on the action and acquire targets
+    const targets = this.#regionTargets = this.action.acquireTargets({strict: false});
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.id));
+    else game.user.targets.clear();
     this.render();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Move the position of the template during mousemove
-   * @param {Event} event     The mousemove event
+   * Build the initial RegionDocument data for a placement workflow.
+   * @param {Point} origin                     The origin point in canvas pixels
+   * @param {ActionRange} range                The action's range configuration
+   * @param {ActionTarget} target              The action's target configuration
+   * @param {ActionTargetRegion} regionConfig  The region config for this target type
+   * @returns {object}                         RegionDocument data with a single shape
    */
-  #moveTemplate(event) {
-    event.stopPropagation();
-    const {config, moveTime, object, origin} = this.#targetTemplate;
-    const s = canvas.dimensions.size;
-    const update = {};
+  #getRegionData(origin, range, target, regionConfig) {
+    const d = canvas.dimensions.distancePixels;
+    const maxRange = range.maximum ?? 0;
+    const addRange = regionConfig.addSize ? (this.actor.size / 2) : 0;
 
-    // Apply a 16ms throttle
-    const now = Date.now();
-    if ( now - (moveTime || 0) <= 16 ) return;
-    this.#targetTemplate.moveTime = now;
-
-    // Identify the mouse cursor position
-    let cursor = event.getLocalPosition(canvas.templates);
-    const ray = new foundry.canvas.geometry.Ray(origin, {x: cursor.x, y: cursor.y});
-    if ( Number.isNumeric(config.distance) ) {
-      const maxDistance = (config.distance * s);
-      if ( ray.distance > maxDistance ) cursor = ray.project((config.distance * s) / ray.distance);
+    let shape;
+    switch ( regionConfig.shape ) {
+      case "circle":
+        shape = {
+          type: "circle",
+          x: origin.x,
+          y: origin.y,
+          radius: ((target.size ? target.size : maxRange) + addRange) * d
+        };
+        break;
+      case "cone":
+        shape = {
+          type: "cone",
+          x: origin.x,
+          y: origin.y,
+          radius: ((target.size ? target.size : maxRange) + addRange) * d,
+          angle: regionConfig.angle ?? 60,
+          rotation: 0,
+          curvature: (regionConfig.angle ?? 60) <= 90 ? "flat" : "round"
+        };
+        break;
+      case "line":
+        shape = {
+          type: "line",
+          x: origin.x,
+          y: origin.y,
+          length: (maxRange + addRange) * d,
+          width: (regionConfig.width ?? 1) * d,
+          rotation: 0
+        };
+        break;
+      case "rectangle":
+        if ( target.type === "summon" ) {
+          const size = (target.size ?? regionConfig.size ?? 1) * d;
+          shape = {
+            type: "rectangle",
+            x: origin.x,
+            y: origin.y,
+            width: size,
+            height: size,
+            anchorX: 0,
+            anchorY: 0,
+            rotation: regionConfig.direction ?? 0
+          };
+        } else {
+          shape = {
+            type: "rectangle",
+            x: origin.x,
+            y: origin.y,
+            width: (regionConfig.width ?? 1) * d,
+            height: maxRange * d,
+            anchorX: 0.5,
+            anchorY: 0.5,
+            rotation: 0
+          };
+        }
+        break;
+      default:
+        throw new Error(`Unsupported region shape "${regionConfig.shape}" for action ${this.action.id}`);
     }
-
-    // Identify the resulting template coordinates
-    let p;
-    if ( config.anchor === "vertex" ) p = canvas.grid.getTopLeftPoint(cursor);
-    else if ( config.anchor === "center" ) p = canvas.grid.getCenterPoint(cursor);
-    if ( p !== undefined ) Object.assign(update, p);
-
-    // Update the pending template and re-render
-    if ( config.directionDelta ) update.direction = Math.toDegrees(ray.angle).toNearest(config.directionDelta);
-    object.document.updateSource(update);
-    object.renderFlags.set({refresh: true});
+    return {shapes: [shape]};
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Expose an internal method that subclasses can use to clear a target template.
+   * Expose an internal method that subclasses can use to clear a target region.
    * @internal
    */
-  _clearTargetTemplate() {
-    if ( this.action.template ) {
-      this.#targetTemplate = {};
-      this.action.template = null;
-      game.user.targets.clear();
-    }
+  _clearTargetRegion() {
+    this.#regionTargets = null;
+    this.action.region = null;
+    game.user.targets.clear();
   }
 }

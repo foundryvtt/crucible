@@ -654,7 +654,7 @@
 "ACTION.EffectSpecific": "Effect: {effect}",
 "ACTION.NoTargets": "No Targets",
 "ACTION.Overview": "Action Overview",
-"ACTION.PlaceTemplate": "Place Template",
+"ACTION.PlaceRegion": "Place Region",
 "ACTION.RemoveActor": "Remove Actor",
 "ACTION.RequestActorsHint": "Drag individual Actors or groups here to request they participate in this roll.",
 "ACTION.RequestRollsSuffix": "{label}: Request Rolls",
