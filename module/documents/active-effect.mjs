@@ -15,26 +15,24 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
 
+    // Disallow turns- and months-unit durations
+    if ( ["months", "turns"].includes(this.duration.units) ) {
+      console.warn("The Crucible system does not support durations of unit \"turns\" or \"months\"!");
+      return false;
+    }
+
     // Set start combatant to targeted actor's combatant, if present. If turn start/end expiry, remove start turn and
     // adjust duration according to whether target combatant has yet acted this round
-    if ( this.parent instanceof Actor && this.start?.combat.started && ["turnStart", "turnEnd"].includes(this.duration.expiry) ) {
-      const combatant = this.start.combat.getCombatantsByActor(this.parent)[0];
-      if ( combatant ) {
-        const effectUpdate = {start: {combatant: combatant.id, turn: null}};
-        if ( this.duration.units === "rounds" ) {
-          const combatantHasGone = combatant.turnNumber < this.start.combat.turn;
-          switch ( this.duration.expiry ) {
-            case "turnStart":
-              if ( combatantHasGone ) effectUpdate.duration = {value: this.duration.value + 1};
-              break;
-            case "turnEnd":
-              if ( !combatantHasGone ) effectUpdate.duration = {value: this.duration.value - 1};
-              break;
-          }
-        }
-        this.updateSource(effectUpdate);
-      }
+    if ( !(this.parent instanceof Actor) || !this.start?.combat.started || !["turnEnd", "turnStart"].includes(this.duration.expiry) ) return;
+    const combatant = this.start.combat.getCombatantsByActor(this.parent)[0];
+    if ( !combatant ) return;
+    const effectUpdate = {start: {combatant: combatant.id, turn: null}};
+    if ( this.duration.units === "rounds" ) {
+      let decreaseDuration = combatant.turnNumber > this.start.combat.turn;
+      if ( this.duration.expiry === "turnEnd" ) decreaseDuration ||= combatant.turnNumber === this.start.combat.turn;
+      if ( decreaseDuration ) effectUpdate.duration = {value: this.duration.value - 1};
     }
+    this.updateSource(effectUpdate);
   }
 
   /* -------------------------------------------- */
@@ -81,7 +79,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {EffectTags}
    */
   getTags() {
-    const {units, remaining} = this.duration;
+    const {units, remaining, expiry} = this.duration;
     const tags = {
       context: {section: "persistent"},
       activation: {}
@@ -96,20 +94,25 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     tags.activation.duration = this.duration.label;
 
     // Time-based duration
-    // TODO: Set tags.context.t according to converted-to-seconds duration, not raw value
     if ( CONST.ACTIVE_EFFECT_TIME_DURATION_UNITS.includes(units) && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
-      const s = Math.max(remaining, 0);
+      const s = Math.max(game.time.calendar.componentsToTime({[units.slice(0, -1)]: remaining}), 0);
       tags.context.t = s;
     }
 
     // Combat-based duration
-    // TODO: Determine how to sort turns duration units
-    // TODO: Determine ideal labeling for combat-duration effect "remaining" values, if different from default
-    else if ( ["rounds", "turns"].includes(units) && Number.isFinite(remaining) ) {
+    else if ( units === "rounds" && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
       const r = Math.max(remaining, 0);
-      tags.context.t = 10 * r;
+      tags.context.t = SYSTEM.TIME.roundSeconds * r;
+      const {combat, combatant} = this.start;
+      if ( combat?.started && combat.combatants.has(combatant) ) {
+        let addTurn = combat.combatants.get(combatant).turnNumber > combat.turn;
+        if ( expiry === "turnEnd" ) addTurn ||= combat.combatant.id === combatant;
+        const turnsRemaining = remaining + (addTurn ? 1 : 0);
+        const pluralRule = game.i18n.pluralRules.select(turnsRemaining);
+        tags.activation.duration = _loc(`EFFECT.DURATION.TURNS.${pluralRule}`, {turns: turnsRemaining});
+      }
     }
 
     // Persistent

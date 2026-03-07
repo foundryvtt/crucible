@@ -1234,7 +1234,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     effects: [
       {
-        duration: { rounds: 1 },
+        duration: {value: 1, units: "rounds", expiry: "turnStart"},
         statuses: ["guarded"]
       }
     ]
