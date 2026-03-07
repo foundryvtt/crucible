@@ -88,7 +88,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {number} scope
  * @property {string[]} statuses
  * @property {object[]} changes
- * @property {{rounds: number, turns: number}} duration
+ * @property {EffectDurationData} duration
  * @property {{type: string, all: boolean}} result
  * @property {object} system
  */
@@ -230,6 +230,7 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+    const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
     const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
     delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
     return {
@@ -273,10 +274,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           all: new fields.BooleanField({initial: false})
         }),
         statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
-        duration: new fields.SchemaField({
-          turns: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0}),
-          rounds: new fields.NumberField({nullable: true, initial: null, integer: true, min: 0})
-        }),
+        duration: aeDuration,
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
@@ -528,9 +526,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       effect.tags.scope = _loc("ACTION.AffectsScope", {scope: _loc(SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope))});
       if ( effect.duration ) {
-        if ( effect.duration.turns ) effect.tags.duration = _loc("ACTION.DurationTurns", {turns: effect.duration.turns});
-        else if ( effect.duration.rounds ) effect.tags.duration = _loc("ACTION.DurationRounds", {rounds: effect.duration.rounds});
-        else effect.tags.duration = _loc("ACTION.DurationUntilEnded");
+        const {units, value} = effect.duration;
+        if ( !Number.isFinite(value) ) effect.tags.duration = _loc("ACTION.DurationUntilEnded");
+        if ( units === "seconds" ) effect.tags.duration = _loc("ACTION.DurationSeconds", {value});
+        else if ( units === "rounds" ) effect.tags.duration = _loc("ACTION.DurationRounds", {value});
       }
     }
 

@@ -490,8 +490,9 @@ items:
               statuses:
                 - staggered
               duration:
-                turns: 1
-                rounds: null
+                value: 1
+                units: rounds
+                expiry: turnEnd
               result:
                 type: success
                 all: false
@@ -725,8 +726,9 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
+                value: 1
+                units: rounds
+                expiry: turnStart
               system:
                 dot: []
                 maintenance: null
@@ -741,8 +743,9 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
+                value: 1
+                units: rounds
+                expiry: turnStart
               system:
                 dot: []
                 maintenance: null
