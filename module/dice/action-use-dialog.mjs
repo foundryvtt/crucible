@@ -256,7 +256,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Store shape data on the action and acquire targets
     const targets = this.#regionTargets = this.action.acquireTargets({strict: false});
-    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.id));
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
     else game.user.targets.clear();
     this.render();
   }

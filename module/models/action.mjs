@@ -49,7 +49,6 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionSummonConfiguration
  * @property {string} actorUuid
- * @property {string} [templateUuid]
  * @property {object} [tokenData={}]
  * @property {boolean} [combatant=true]
  * @property {number} [initiative=1]
@@ -1529,8 +1528,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Confirm action outcomes, applying actor and active effect changes as a result.
-   * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
+   * Confirm an action, enacting its outcomes to apply Actor changes, create ActiveEffects, or manage RegionDocuments.
+   * Action confirmation happens after ChatMessage persistence and after the action has been recreated via
+   * `CrucibleAction.fromChatMessage`.
    * @param {object} [options]                  Options which affect the confirmation workflow
    * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
    * @returns {Promise<boolean>}                false if not actually confirmed/reversed, otherwise true

@@ -553,7 +553,7 @@ export const TAGS = {
     async postActivate(outcome) {
       if ( (outcome.target !== this.actor) || !outcome.summons?.length ) return;
       for ( const summon of outcome.summons ) {
-        const position = this.template || this.token;
+        const position = this.region?.shapes[0] || this.token;
         summon.tokenData ||= {};
         summon.tokenData.x ??= position.x;
         summon.tokenData.y ??= position.y;
