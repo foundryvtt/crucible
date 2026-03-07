@@ -62,8 +62,9 @@ system:
           statuses:
             - poisoned
           duration:
-            turns: 6
-            rounds: null
+            value: 6
+            units: rounds
+            expiry: turnEnd
           result:
             type: success
             all: false

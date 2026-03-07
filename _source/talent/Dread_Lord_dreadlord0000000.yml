@@ -38,8 +38,9 @@ system:
           statuses:
             - frightened
           duration:
-            turns: null
-            rounds: 1
+            value: 1
+            units: rounds
+            expiry: turnStart
           result:
             type: success
             all: false
