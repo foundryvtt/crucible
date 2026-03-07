@@ -156,9 +156,10 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
-      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.map(v => {
-        return {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)};
-      }),
+      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.reduce((acc, v) => {
+        if ( ["months", "turns"].includes(v) ) return acc;
+        return [...acc, {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)}];
+      }, []),
       effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
     };
   }
