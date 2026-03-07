@@ -81,8 +81,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {EffectTags}
    */
   getTags() {
-    const {units, expiry, remaining} = this.duration;
-    const pluralRules = new Intl.PluralRules(game.i18n.lang);
+    const {units, remaining} = this.duration;
     const tags = {
       context: {section: "persistent"},
       activation: {}
