@@ -42,91 +42,119 @@ export const TARGET_SCOPES = new Enum({
 });
 
 /**
+ * @typedef ActionTargetType
+ * @property {string} label                     Localization key for the target type label
+ * @property {ActionTargetRegion|null} region   Region placement config, or null
+ * @property {number} scope                     The TARGET_SCOPES value for this type
+ */
+
+/**
+ * @typedef ActionTargetRegion
+ * @property {string} shape             The Region shape type from BaseShapeData.TYPES
+ * @property {boolean} ephemeral        Default behavior: true if no RegionDocument is created.
+ *                                      Individual actions may override this default.
+ * @property {"self"|"vertex"} anchor   Placement position: "self" (token center) or "vertex" (snapped to grid corner)
+ * @property {number} [angle]           Interior angle in degrees, for cone shapes
+ * @property {number} [width]           Width in grid units, for line and rectangle shapes
+ * @property {number} [size]            Size in grid units, for rectangle shapes
+ * @property {number} [direction]       Initial rotation direction in degrees
+ * @property {number} [directionDelta]  Snap increment in degrees for rotation
+ * @property {boolean} [addSize]        Whether to add the acting token's size to the shape radius
+ */
+
+/**
  * The allowed target types which an Action may have.
- * @enum {{label: string}}
+ * @type {Readonly<Record<string, ActionTargetType>>}
  */
 export const TARGET_TYPES = Object.freeze({
   none: {
     label: "ACTION.TARGET_TYPES.None",
-    template: null,
+    region: null,
     scope: TARGET_SCOPES.NONE
   },
   self: {
     label: "ACTION.TARGET_TYPES.Self",
-    template: null,
+    region: null,
     scope: TARGET_SCOPES.SELF
   },
   single: {
     label: "ACTION.TARGET_TYPES.Single",
-    template: null,
+    region: null,
     scope: TARGET_SCOPES.ALL
   },
   cone: {
     label: "ACTION.TARGET_TYPES.Cone",
-    template: {
-      t: "cone",
+    region: {
+      shape: "cone",
       angle: 60,
       directionDelta: 15,
       anchor: "self",
-      addSize: true
+      addSize: true,
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },
   fan: {
     label: "ACTION.TARGET_TYPES.Fan",
-    template: {
-      t: "cone",
+    region: {
+      shape: "cone",
       angle: 210,
       directionDelta: 15,
       anchor: "self",
-      addSize: true
+      addSize: true,
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },
   pulse: {
     label: "ACTION.TARGET_TYPES.Pulse",
-    template: {
-      t: "circle",
+    region: {
+      shape: "circle",
       anchor: "self",
-      addSize: true
+      addSize: true,
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },
   blast: {
     label: "ACTION.TARGET_TYPES.Blast",
-    template: {
-      t: "circle",
-      anchor: "vertex"
+    region: {
+      shape: "circle",
+      anchor: "vertex",
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },
   ray: {
     label: "ACTION.TARGET_TYPES.Ray",
-    template: {
-      t: "ray",
+    region: {
+      shape: "line",
       width: 1,
       directionDelta: 3,
       anchor: "self",
-      addSize: true
+      addSize: true,
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },
   summon: {
     label: "ACTION.TARGET_TYPES.Summon",
-    template: {
-      t: "rect",
-      direction: 45, // Square
+    region: {
+      shape: "rectangle",
+      direction: 45,
       size: 3,
-      anchor: "vertex"
+      anchor: "vertex",
+      ephemeral: true
     },
     scope: TARGET_SCOPES.SELF
   },
   wall: {
     label: "ACTION.TARGET_TYPES.Wall",
-    template: {
-      t: "ray",
+    region: {
+      shape: "rectangle",
       width: 2,
-      anchor: "center"
+      anchor: "center",
+      ephemeral: false
     },
     scope: TARGET_SCOPES.ALL
   }
@@ -307,7 +335,7 @@ export const TAGS = {
       }
     }
   },
-  
+
   // Requires the ability to speak
   vocal: {
     tag: "vocal",
@@ -318,7 +346,7 @@ export const TAGS = {
       return !this.actor.statuses.has("silenced");
     }
   },
-  
+
   // Requires the ability to hear
   auditory: {
     tag: "auditory",
