@@ -14,38 +14,30 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   async _preCreate(data, options, user) {
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
-
-    // Disallow turns- and months-unit durations
     if ( ["months", "turns"].includes(this.duration.units) ) {
-      console.warn("The Crucible system does not support durations of unit \"turns\" or \"months\"!");
+      console.warn("The Crucible system does not support effect durations of unit \"turns\" or \"months\"!");
       return false;
     }
+    if ( !(this.parent instanceof foundry.documents.Actor) || !this.start?.combat?.started ) return;
 
-    // Set start combatant to targeted actor's combatant, if present. If turn start/end expiry, remove start turn and
-    // adjust duration according to whether target combatant has yet acted this round
-    if ( !(this.parent instanceof Actor) || !this.start?.combat.started || !["turnEnd", "turnStart"].includes(this.duration.expiry) ) return;
-    const combatant = this.start.combat.getCombatantsByActor(this.parent)[0];
-    if ( !combatant ) return;
-    const effectUpdate = {start: {combatant: combatant.id, turn: null}};
-    if ( this.duration.units === "rounds" ) {
-      let decreaseDuration = combatant.turnNumber > this.start.combat.turn;
-      if ( this.duration.expiry === "turnEnd" ) decreaseDuration ||= combatant.turnNumber === this.start.combat.turn;
-      if ( decreaseDuration ) effectUpdate.duration = {value: this.duration.value - 1};
+    // Set start combatant to targeted actor's combatant, if present.
+    // Adjust the duration of round-based effects depending on the current turn order.
+    // If the target combatant has not acted yet (or is currently acting) we may need to decrease the duration.
+    const effectUpdate = {};
+    const combat = this.start.combat;
+    const combatant = combat.getCombatantsByActor(this.parent)[0];
+    if ( combatant?.turnNumber ) {
+      effectUpdate.start = {combatant: combatant.id};
+      const {units, value, expiry} = this.duration;
+      if ( (units === "rounds") && ["turnStart", "turnEnd"].includes(expiry) ) {
+        const isTurn = combatant.turnNumber === this.start.combat.turn;
+        const upcoming = combatant.turnNumber > this.start.combat.turn;
+        const decreaseDuration = upcoming || ((expiry === "turnEnd") && isTurn);
+        if ( decreaseDuration ) effectUpdate.duration = {value: value-1};
+
+      }
     }
     this.updateSource(effectUpdate);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  isExpiryEvent(event, context) {
-    if ( event !== "turnEnd" || event !== this.duration.expiry ) return super.isExpiryEvent(event, context);
-    const combat = context.combat ?? game.combat;
-    if ( !combat?.started ) return false;
-    const combatantId = combat === this.start.combat
-      ? this.start.combatant
-      : combat.getCombatantsByActor(this.actor ?? "")[0]?.id;
-    return combat.previous.combatantId === combatantId;
   }
 
   /* -------------------------------------------- */
@@ -76,7 +68,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /**
    * Obtain an object of tags which describe the Effect.
-   * @returns {EffectTags}
+   * @returns {ActionTags}
    */
   getTags() {
     const {units, remaining, expiry} = this.duration;
@@ -96,12 +88,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     // Time-based duration
     if ( CONST.ACTIVE_EFFECT_TIME_DURATION_UNITS.includes(units) && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
-      const s = Math.max(game.time.calendar.componentsToTime({[units.slice(0, -1)]: remaining}), 0);
-      tags.context.t = s;
+      tags.context.t = Math.max(game.time.calendar.componentsToTime({[units.slice(0, -1)]: remaining}), 0);
     }
 
     // Combat-based duration
-    else if ( units === "rounds" && Number.isFinite(remaining) ) {
+    else if ( (units === "rounds") && Number.isFinite(remaining) ) {
       tags.context.section = "temporary";
       const r = Math.max(remaining, 0);
       tags.context.t = SYSTEM.TIME.roundSeconds * r;
