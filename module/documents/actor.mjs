@@ -1146,8 +1146,7 @@ export default class CrucibleActor extends Actor {
    */
   async onStartTurn() {
 
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
+    // Re-render the actor sheet
     this._sheet?.render(false);
 
     // Skip cases where the actor delayed, and it is now their turn again
@@ -1245,8 +1244,7 @@ export default class CrucibleActor extends Actor {
    */
   async onEndTurn() {
 
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
+    // Re-render the actor sheet
     this._sheet?.render(false);
 
     // Skip cases where the turn is over because the actor delayed
