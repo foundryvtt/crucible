@@ -37,12 +37,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #regionTargets = null;
 
   /**
-   * Is a Region placement required before this dialog can be submitted?
-   * @type {boolean}
-   */
-  #requiresRegion = false;
-
-  /**
    * The Action being performed
    * @type {CrucibleAction}
    */
@@ -79,8 +73,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
-    const targetConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type];
-    this.#requiresRegion = !!targetConfig?.region && !this.action.region;
+    const requiresRegion = this.action.requiresRegion;
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
@@ -88,8 +81,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: this.#requiresRegion || !["self", "none"].includes(this.action.target.type),
-      requiresRegion: this.#requiresRegion,
+      hasTargets: requiresRegion || !["self", "none"].includes(this.action.target.type),
+      requiresRegion: requiresRegion,
       weaponChoice: this.#prepareWeaponChoice(),
       targets: this.#prepareTargets()
     });
@@ -259,7 +252,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
     for ( const app of minimizedWindows ) app.maximize();
     if ( !region ) return; // User cancelled with right-click
-    this.action.region = region.toObject();
+    Object.defineProperty(this.action, "region", {value: region, configurable: true});
 
     // Store shape data on the action and acquire targets
     const targets = this.#regionTargets = this.action.acquireTargets({strict: false});
@@ -354,7 +347,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   _clearTargetRegion() {
     this.#regionTargets = null;
-    this.action.region = null;
+    Object.defineProperty(this.action, "region", {value: null, configurable: true});
     game.user.targets.clear();
   }
 }
