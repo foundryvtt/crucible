@@ -162,19 +162,6 @@ export const TARGET_TYPES = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * @typedef ActionTag
- * @property {string} tag
- * @property {string} label
- * @property {string[]} propagate     Propagate this tag to also apply other tags
- * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
- * @property {function} [prepare]
- * @property {function} [can]
- * @property {function} [pre]
- * @property {function} [roll]
- * @property {function} [post]
- */
-
-/**
  * Categories of action tags which are supported by the system.
  * @type {Readonly<Record<string, {label: string}>>}
  */
@@ -195,8 +182,25 @@ export const TAG_CATEGORIES = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * @typedef ActionTag
+ * @property {string} tag             The tag identifier
+ * @property {string} label           A short label for this tag
+ * @property {string} [tooltip]       A tooltip displayed when this tag is hovered
+ * @property {string[]} propagate     Propagate this tag to also apply other tags
+ * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
+ * @property {number} [category]      A priority that this tag should be resolved in. Lower values are higher priority
+ * @property {(this: CrucibleAction) => void} [configure]
+ * @property {(this: CrucibleAction) => void} [prepare]
+ * @property {(this: CrucibleAction) => void} [canUse]
+ * @property {(this: CrucibleAction, targets: ActionUseTarget[]) => void} [preActivate]
+ * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [postActivate]
+ * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [roll]
+ * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ */
+
+/**
  * Define special logic for action tag types
- * @enum {ActionTag}
+ * @type {Record<string, ActionTag>}
  */
 export const TAGS = {
 
@@ -396,11 +400,12 @@ export const TAGS = {
     },
     async confirm(reverse) {
       const self = this.outcomes.get(this.actor);
+      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
 
       // Reverse movement
       if ( reverse ) {
-        if ( this.movement?.state === "planned" ) await this.token?.document.stopMovement();
-        else if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
+        if ( this.movement?.state === "planned" ) await this.token.stopMovement();
+        else if ( self.movement ) await this.token.revertRecordedMovement(self.movement);
         if ( self.movement === this.actor.system.status.freeMovementId ) {
           Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
         }
@@ -409,13 +414,14 @@ export const TAGS = {
 
       // Execute planned movement
       if ( this.movement?.state === "planned" ) {
-        this.token.document._confirmedMovements.add(this.movement.id);
-        await this.token.document.startMovement(this.movement.id);
+        this.token._confirmedMovements ||= new Set();
+        this.token._confirmedMovements.add(this.movement.id);
+        await this.token.startMovement(this.movement.id);
       }
 
       // Remove prone condition upon movement confirmation if non-crawl action
       if ( this.actor.statuses.has("prone") ) {
-        const movementHistory = this.token?.movementHistory ?? [];
+        const movementHistory = this.token.movementHistory ?? [];
         if ( !movementHistory.every(m => (m.movementId !== self.movement) || (m.action === "crawl")) ) {
           await this.actor.toggleStatusEffect("prone", {active: false});
         }
