@@ -121,7 +121,7 @@ export const TARGET_TYPES = Object.freeze({
     region: {
       shape: "circle",
       anchor: "vertex",
-      ephemeral: true
+      ephemeral: false
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -141,7 +141,6 @@ export const TARGET_TYPES = Object.freeze({
     label: "ACTION.TARGET_TYPES.Summon",
     region: {
       shape: "rectangle",
-      direction: 45,
       size: 3,
       anchor: "vertex",
       ephemeral: true
@@ -151,9 +150,9 @@ export const TARGET_TYPES = Object.freeze({
   wall: {
     label: "ACTION.TARGET_TYPES.Wall",
     region: {
-      shape: "rectangle",
+      shape: "line",
       width: 2,
-      anchor: "center",
+      anchor: "vertex",
       ephemeral: false
     },
     scope: TARGET_SCOPES.ALL

@@ -214,7 +214,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Build initial region document data
     const origin = token?.object?.center ?? canvas.dimensions.rect.center;
-    const regionData = this.#getRegionData(origin, range, target, regionConfig);
+    const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
 
     // Minimize open windows
     const minimizedWindows = [];
@@ -252,6 +252,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
     for ( const app of minimizedWindows ) app.maximize();
     if ( !region ) return; // User cancelled with right-click
+
+    // Enable wall restriction before acquiring targets so wall geometry is respected
+    region.updateSource({restriction: {enabled: true, type: "move"}});
+    region.updateSource({_shapeConstraints: region._computeShapeConstraints()});
     Object.defineProperty(this.action, "region", {value: region, configurable: true});
 
     // Store shape data on the action and acquire targets
@@ -266,16 +270,28 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /**
    * Build the initial RegionDocument data for a placement workflow.
    * @param {Point} origin                     The origin point in canvas pixels
+   * @param {CrucibleToken} token              The token performing the action
    * @param {ActionRange} range                The action's range configuration
    * @param {ActionTarget} target              The action's target configuration
-   * @param {ActionTargetRegion} regionConfig  The region config for this target type
-   * @returns {object}                         RegionDocument data with a single shape
+   * @param {ActionTargetType} targetConfig    The region config for this target type
+   * @returns {Partial<RegionData>}            RegionDocument data with a single shape
    */
-  #getRegionData(origin, range, target, regionConfig) {
+  #getRegionData(origin, token, range, target, targetConfig) {
+    const regionConfig = targetConfig.region;
     const d = canvas.dimensions.distancePixels;
+
+    // Determine relevant ranges
     const maxRange = range.maximum ?? 0;
+    const baseRange = target.size ? target.size : maxRange;
     const addRange = regionConfig.addSize ? (this.actor.size / 2) : 0;
 
+    // Get token data
+    const levels = token?.level ? [token.level] : [];
+    const tokenElevation = token?.elevation ?? 0;
+    const tokenDepth = token?.depth ?? 0;
+    const elevation = {bottom: tokenElevation, top: tokenElevation + tokenDepth};
+
+    // Common configurations based on the shape
     let shape;
     switch ( regionConfig.shape ) {
       case "circle":
@@ -283,15 +299,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
           type: "circle",
           x: origin.x,
           y: origin.y,
-          radius: ((target.size ? target.size : maxRange) + addRange) * d
+          radius: (baseRange + addRange) * d
         };
+        elevation.bottom -= baseRange;
+        elevation.top += baseRange;
         break;
       case "cone":
         shape = {
           type: "cone",
           x: origin.x,
           y: origin.y,
-          radius: ((target.size ? target.size : maxRange) + addRange) * d,
+          radius: (baseRange + addRange) * d,
           angle: regionConfig.angle ?? 60,
           rotation: 0,
           curvature: (regionConfig.angle ?? 60) <= 90 ? "flat" : "round"
@@ -308,35 +326,46 @@ export default class ActionUseDialog extends StandardCheckDialog {
         };
         break;
       case "rectangle":
-        if ( target.type === "summon" ) {
-          const size = (target.size ?? regionConfig.size ?? 1) * d;
-          shape = {
-            type: "rectangle",
-            x: origin.x,
-            y: origin.y,
-            width: size,
-            height: size,
-            anchorX: 0,
-            anchorY: 0,
-            rotation: regionConfig.direction ?? 0
-          };
-        } else {
-          shape = {
-            type: "rectangle",
-            x: origin.x,
-            y: origin.y,
-            width: (regionConfig.width ?? 1) * d,
-            height: maxRange * d,
-            anchorX: 0.5,
-            anchorY: 0.5,
-            rotation: 0
-          };
-        }
+        const size = regionConfig.width ?? 1;
+        shape = {
+          type: "rectangle",
+          x: origin.x,
+          y: origin.y,
+          width: size * d,
+          height: maxRange * d,
+          anchorX: 0.5,
+          anchorY: 0.5,
+          rotation: 0
+        };
+        elevation.top = elevation.bottom + size;
         break;
       default:
         throw new Error(`Unsupported region shape "${regionConfig.shape}" for action ${this.action.id}`);
     }
-    return {name: this.action.name, shapes: [shape]};
+
+    // Custom configurations based on the target type
+    switch ( target.type ) {
+      case "summon":
+        const size = (target.size ?? regionConfig.size ?? 1);
+        shape.height = shape.width = size * d;
+        shape.anchorX = shape.anchorY = 0;
+        elevation.top = elevation.bottom + size;
+        break;
+      case "wall":
+        elevation.top = elevation.bottom = null; // Span the full level
+        break;
+    }
+
+    // Return the RegionData
+    return {
+      name: this.action.name,
+      color: game.user.color,
+      displayMeasurements: true,
+      restriction: {enabled: false, type: "move"},
+      elevation,
+      levels,
+      shapes: [shape]
+    };
   }
 
   /* -------------------------------------------- */
