@@ -307,7 +307,7 @@ export const TAGS = {
       }
     }
   },
-  
+
   // Requires the ability to speak
   vocal: {
     tag: "vocal",
@@ -318,7 +318,7 @@ export const TAGS = {
       if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WarningSilenced"));
     }
   },
-  
+
   // Requires the ability to hear
   auditory: {
     tag: "auditory",
@@ -604,6 +604,11 @@ export const TAGS = {
     initialize() {
       this.usage.strikes = []; // Reset strike sequence
     },
+    canUse() {
+      if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
+        throw new Error("Your weapon requires reloading in order to use this action.");
+      }
+    },
     prepare() {
       if ( !this.usage.weapon ) {
         const valid = this.getValidWeaponChoices();
@@ -707,9 +712,6 @@ export const TAGS = {
     canUse() {
       if ( !this.actor.equipment.weapons.ranged ) {
         throw new Error("This action requires a ranged weapon equipped.");
-      }
-      if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
-        throw new Error("Your weapon requires reloading in order to use this action.");
       }
     },
     prepare() {
