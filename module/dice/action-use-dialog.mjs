@@ -261,7 +261,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     };
 
     // Place the region and record its created data
+    const canvasLayer = canvas.activeLayer;
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
+    canvasLayer.activate();
     for ( const app of minimizedWindows ) app.maximize();
     if ( !region ) return; // User cancelled with right-click
 
