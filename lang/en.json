@@ -655,6 +655,7 @@
 "ACTION.NoTargets": "No Targets",
 "ACTION.Overview": "Action Overview",
 "ACTION.PlaceRegion": "Place Region",
+"ACTION.RequiresRegion": "You must place a Region before this action can be used.",
 "ACTION.RemoveActor": "Remove Actor",
 "ACTION.RequestActorsHint": "Drag individual Actors or groups here to request they participate in this roll.",
 "ACTION.RequestRollsSuffix": "{label}: Request Rolls",

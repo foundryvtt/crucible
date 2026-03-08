@@ -121,7 +121,7 @@ export const TARGET_TYPES = Object.freeze({
     region: {
       shape: "circle",
       anchor: "vertex",
-      ephemeral: false
+      ephemeral: true
     },
     scope: TARGET_SCOPES.ALL
   },

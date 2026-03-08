@@ -162,6 +162,18 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onSubmit(target, event) {
+    if ( this.action.requiresRegion ) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+    await super._onSubmit(target, event);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Resolve dialog submission to enact a Roll.
    * @param {Event} _event
