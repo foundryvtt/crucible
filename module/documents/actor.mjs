@@ -2435,7 +2435,7 @@ export default class CrucibleActor extends Actor {
 
   /** @inheritdoc */
   async onUpdateEffectDurations(effects, event, context) {
-    this._sheet?.render(false);
+    this._sheet?.render();
   }
 
   /* -------------------------------------------- */
