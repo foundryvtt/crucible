@@ -137,7 +137,7 @@ export default class CrucibleChatMessage extends ChatMessage {
       }
 
       // Hide summoned creature names for non-GMs
-      if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-template.full-tags")?.remove();
+      if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-region.full-tags")?.remove();
     }
 
     // Initiative Report

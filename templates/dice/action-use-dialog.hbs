@@ -18,7 +18,7 @@
     {{/if}}
     {{/if}}
 
-    <footer class="form-footer">
+    <footer class="form-footer" {{#if requiresRegion}}data-tooltip="ACTION.RequiresRegion"{{/if}}>
         <div class="split-button">
             {{#each messageModes as |mode|}}
             <button type="button" class="ui-control icon {{mode.icon}}" data-action="messageMode"
@@ -26,7 +26,7 @@
                     data-tooltip aria-label="{{localize mode.label}}"></button>
             {{/each}}
         </div>
-        <button type="submit" class="dialog-button frame-brown" data-action="roll">
+        <button type="submit" class="dialog-button frame-brown" data-action="roll" {{disabled requiresRegion}}>
             <i class="fas fa-dice"></i>
             <label>{{localize "ACTION.UseAction"}}</label>
         </button>

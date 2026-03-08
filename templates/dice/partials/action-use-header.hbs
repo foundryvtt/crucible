@@ -25,22 +25,15 @@
 {{/if}}
 
 {{#if hasTargets}}
-<div class="target-template full-tags">
-    {{#if template}}
-    <label class="tag-icon" data-tooltip="{{localize "ACTION.TemplateTargets"}}" data-tooltip-direction="LEFT"
-           data-template-uuid="{{template.uuid}}">
-        <i class="fa-solid fa-ruler-combined"></i>
-    </label>
-    {{else}}
+<div class="target-region full-tags">
     <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bullseye"></i>
     </label>
-    {{/if}}
     <div class="tags" data-tag-type="target">
-        {{#if requiresTemplate}}
-        <button class="place-template frame-brown" type="button" data-action="placeTemplate">
+        {{#if requiresRegion}}
+        <button class="place-region frame-brown" type="button" data-action="placeRegion">
             <i class="fa-solid fa-ruler-combined"></i>
-            {{localize "ACTION.PlaceTemplate"}}
+            {{localize "ACTION.PlaceRegion"}}
         </button>
         {{else}}
         {{#each targets}}
