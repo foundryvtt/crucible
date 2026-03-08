@@ -799,7 +799,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareBaseMovement() {
     const m = this.movement;
     m.baseEngagement = 1;
-    m.sizeBonus = m.strideBonus = m.engagementBonus = 0;
   }
 
   /* -------------------------------------------- */
