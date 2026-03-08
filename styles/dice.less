@@ -354,7 +354,7 @@
       flex: 1;
       height: 32px;
     }
-    button {
+    button:not(:disabled) {
       opacity: 1.0;
     }
     button.icon {
@@ -363,12 +363,13 @@
     }
   }
 
-  // Template placement prompt
-  button.place-template {
+  // Region placement prompt
+  button.place-region {
     flex: 0 0 140px;
     background: none;
     line-height: 20px;
     height: auto;
+    opacity: 1.0;
   }
 
 

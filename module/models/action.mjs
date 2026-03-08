@@ -23,7 +23,6 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
  * @property {number} [limit]               Limit the effect to a certain number of targets.
  * @property {number} [scope]               The scope of creatures affected by an action
- * @property {MeasuredTemplate} [template]  A temporary template document that helps to identify AOE targets
  */
 
 /**
@@ -50,7 +49,6 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionSummonConfiguration
  * @property {string} actorUuid
- * @property {string} [templateUuid]
  * @property {object} [tokenData={}]
  * @property {boolean} [combatant=true]
  * @property {number} [initiative=1]
@@ -332,10 +330,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   token = this.token; // Defined during constructor
 
   /**
-   * A temporary MeasuredTemplate object used to establish targets for this action.
-   * @type {MeasuredTemplateDocument|null}
+   * A specific RegionDocument, either persisted or ephemeral, used to establish area of effect for this action.
+   * @type {RegionDocument|null}
    */
-  template = this.template; // Defined during constructor
+  region = this.region; // Defined during constructor
 
   /**
    * The training types which can provide a skill bonus to use of this action.
@@ -381,11 +379,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
-   * Does this Action require a Template target
+   * Does this Action require a region placement to establish its targets?
    * @type {boolean}
    */
-  get requiresTemplate() {
-    return !!SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.template;
+  get requiresRegion() {
+    return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region && !this.region;
   }
 
   /* -------------------------------------------- */
@@ -394,21 +392,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * One-time configuration of the CrucibleAction as part of construction.
-   * @param {object} [options]            Options passed to the constructor context
-   * @param {CrucibleActor} [options.actor]   A specific Actor to whom this Action is bound
-   * @param {CrucibleItem} [options.item]     A specific Item that provided this Action
-   * @param {MeasuredTemplateDocument} [options.template] A specific MeasuredTemplate that belongs to this Action
-   * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
+   * @param {object} [options]                    Options passed to the constructor context
+   * @param {CrucibleActor} [options.actor]         A specific Actor to whom this Action is bound
+   * @param {CrucibleItem} [options.item]           A specific Item that provided this Action
+   * @param {RegionDocument} [options.region]       A RegionDocument associated with this Action
+   * @param {CrucibleTokenObject} [options.token]   A specific token performing this Action
    * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
-   * @param {ActionUsage} [options.usage]     Pre-configured action usage data
+   * @param {ActionUsage} [options.usage]           Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, template=null, token=null, message=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, region=null, token=null, message=null, usage={}, ...options}) {
     super._configure(options);
-    Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
-    Object.defineProperty(this, "item", {value: item ?? this.parent?.parent, writable: false, configurable: true});
-    Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
-    this.template = template instanceof foundry.documents.MeasuredTemplateDocument ? template : null;
-    Object.defineProperty(this, "message", {value: message, writable: false, configurable: true});
+    Object.defineProperties(this, {
+      actor: {value: actor, writable: false, configurable: true},
+      item: {value: item ?? this.parent?.parent, writable: false, configurable: true},
+      token: {value: token, writable: false, configurable: true},
+      region: {value: region, writable: false, configurable: true},
+      message: {value: message, writable: false, configurable: true}
+    });
 
     /**
      * Dice roll bonuses which modify the usage of this action.
@@ -575,7 +575,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.usage = this.usage;
     context.actor ??= this.actor;
     context.token ??= this.token;
-    context.template ??= this.template;
+    context.region ??= this.region;
     context.message ??= this.message;
     const clone = new this.constructor(actionData, context);
 
@@ -763,12 +763,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.#finalizeOutcome(outcome);
     }
 
-    // Create any Measured Template for the action
-    if ( this.template ) {
-      const templateData = this.template.toObject();
-      delete templateData._id;
-      const cls = getDocumentClass("MeasuredTemplate");
-      this.template = await cls.create(templateData, {parent: canvas.scene});
+    // Persist the RegionDocument if not ephemeral
+    if ( this.region && !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral ) {
+      const regionData = this.region.toObject();
+      regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
+      regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
+      const region = await this.region.constructor.create(regionData, {parent: canvas.scene, keepId: true});
+      Object.defineProperty(this, "region", {value: region, configurable: true});
     }
 
     // Record action history and create a ChatMessage to confirm the action
@@ -826,8 +827,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
     if ( targetType === "summon" ) return [];
 
-    // Acquire Template Targets
-    if ( targetCfg.template ) targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
+    // Acquire Region Targets
+    if ( targetCfg.region ) targets = this.#acquireTargetsFromRegion();
 
     // Other Target Types
     else {
@@ -838,7 +839,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "none":
           return [];
         case "self":
-          const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
+          const tokenTargets = this.actor.getActiveTokens(true, true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
             ? [tokenTargets[0]]
             : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
@@ -869,48 +870,48 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Convert a Token into a ActionUseTarget data structure.
-   * @param {Token} token
+   * @param {CrucibleToken|CrucibleTokenObject} token
    * @returns {ActionUseTarget}
    */
   static #getTargetFromToken(token) {
-    return {token, actor: token.actor, uuid: token.actor.uuid, name: token.name};
+    if ( token instanceof foundry.canvas.placeables.Token ) token = token.document;
+    const {actor, name} = token;
+    return {token, actor, uuid: actor?.uuid, name};
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Acquire target tokens using a temporary measured template.
+   * Acquire target tokens from a placed region using RegionDocument#tokens.
+   * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
    * @returns {ActionUseTarget[]}
    */
-  #acquireTargetsFromTemplate() {
-    const template = this.template;
-    if ( !template ) return [];
-    const {bounds, shape} = template.object;
-    const shapePoly = shape instanceof PIXI.Polygon ? shape : shape.toPolygon();
-
-    // Get targets from quadtree
-    const {x, y} = template;
+  #acquireTargetsFromRegion() {
+    if ( !this.region ) return [];
+    const potentialTokens = canvas.tokens.quadtree.getObjects(this.region.bounds);
     const targetDispositions = this.#getTargetDispositions();
-    const tokens = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
-      if ( !this.target.self && (token.actor === this.actor) ) return false;
-      if ( !targetDispositions.includes(token.document.disposition) ) return false;
-      if ( token.document.hidden ) return false;
-      const hit = token.getHitRectangle();
-      hit.x -= x;
-      hit.y -= y;
-      const ix = shapePoly.intersectRectangle(hit);
-      return ix.points.length > 0;
-    }});
 
-    // Convert to target data structure
-    const targets = Array.from(tokens).map(CrucibleAction.#getTargetFromToken);
+    // Identify tokens contained within the region which match the correct disposition and visibility
+    const targets = [];
+    for ( const token of potentialTokens ) {
+      const tokenDoc = token.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;   // Exclude self
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;     // Require correct disposition
+      if ( tokenDoc.hidden ) continue;                                        // Ignore hidden
+      if ( !tokenDoc.testInsideRegion(this.region) ) continue;                // Require region containment
+      targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
+    }
 
     // Unlimited targets
     if ( !this.target.limit ) return targets;
 
-    // If the target type is limited in the number of enemies it can affect, sort on proximity to the template origin
-    for ( const t of targets ) t._distance = new foundry.canvas.geometry.Ray({x, y}, t.token.center).distance;
-    targets.sort((a, b) => a._distance - b._distance);
+    // If the target type is limited in the number it can affect, sort on proximity to the region origin
+    const origin = this.region.shapes[0];
+    for ( const t of targets ) {
+      const c = t.token.getCenterPoint();
+      t._d2 = Math.pow(c.x - origin.x, 2) + Math.pow(c.y - origin.y, 2);
+    }
+    targets.sort((a, b) => a._d2 - b._d2);
     return targets.slice(0, this.target.limit);
   }
 
@@ -1531,8 +1532,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Confirm action outcomes, applying actor and active effect changes as a result.
-   * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
+   * Confirm an action, enacting its outcomes to apply Actor changes, create ActiveEffects, or manage RegionDocuments.
+   * Action confirmation happens after ChatMessage persistence and after the action has been recreated via
+   * `CrucibleAction.fromChatMessage`.
    * @param {object} [options]                  Options which affect the confirmation workflow
    * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
    * @returns {Promise<boolean>}                false if not actually confirmed/reversed, otherwise true
@@ -1551,14 +1553,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         return false;
       }
     }
-
     const isNegated = this.message?.getFlag("crucible", "isNegated");
+
+    // Reveal placed region to all players
+    if ( this.region && !isNegated ) {
+      await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+    }
 
     // Additional Actor-specific consequences
     if ( !isNegated ) this.actor.onDealDamage(this, this.outcomes);
-
-    // Delete any Measured Template that was placed
-    if ( this.template ) await this.template.delete();
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {
@@ -1829,7 +1832,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes: []
     };
     if ( this.item ) actionData.item = this.item.uuid;
-    if ( this.template ) actionData.template = this.template.uuid;
+    if ( this.region?.persisted ) actionData.region = this.region.uuid;
     if ( this.token ) actionData.token = this.token.uuid;
     actionData.vfxConfig = this.configureVFXEffect();
 
@@ -1869,7 +1872,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes: this.outcomes,
       tags,
       targets,
-      template: this.template
+      region: this.region
     });
 
     // Return message data
@@ -1923,19 +1926,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       item: itemUuid,
       token: tokenUuid,
       action: actionData,
-      template: templateUuid,
+      region: regionUuid,
       outcomes
     } = message.flags.crucible || {};
     if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
 
     const actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
     const item = fromUuidSync(itemUuid);
-    const template = fromUuidSync(templateUuid);
     const token = fromUuidSync(tokenUuid);
+    const region = fromUuidSync(regionUuid);
 
     // Rebuild action from explicit data
     const actionId = actionData.id;
-    const actionContext = {parent: item?.system, actor, item, token, template, message, lazy: true};
+    const actionContext = {parent: item?.system, actor, item, token, region, message, lazy: true};
     let action;
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {
@@ -1958,17 +1961,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Delete a measured template if the chat message which originated it is deleted.
+   * Handle cleanup when a chat message representing an action is deleted.
    * @param {ChatMessage} message     The ChatMessage document that will be deleted
    * @param {object} _options         Options which modify message deletion
    * @param {string} _userId          The ID of the deleting user
    * @returns {Promise<void>}
    */
   static async onDeleteChatMessage(message, _options, _userId) {
-    const template = message.flags.crucible?.template;
-    if ( !template ) return;
-    const templateDoc = await fromUuid(template);
-    if ( templateDoc ) await templateDoc.delete();
+    const regionUuid = message.flags.crucible?.region;
+    const region = await fromUuid(regionUuid);
+    if ( region ) await region.delete();
   }
 
   /* -------------------------------------------- */
