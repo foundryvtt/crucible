@@ -262,6 +262,7 @@ Hooks.once("init", async function() {
 
   // Queries
   CONFIG.queries.requestSkillCheck = dice.StandardCheck.handle.bind(dice.StandardCheck);
+  CONFIG.queries.requestGroupCheck = dice.GroupCheck.handle.bind(dice.GroupCheck);
   CONFIG.queries.requestCounterspell = ({actorUuid, ...options}) => {
     return models.CrucibleCounterspellAction.prompt(actorUuid, options);
   };
@@ -488,6 +489,8 @@ Hooks.once("i18nInit", function() {
     "systems/crucible/templates/dice/partials/action-use-header.hbs",
     "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
     "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs",
+    "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs",
     "systems/crucible/templates/sheets/item/talent-summary.hbs"
   ]);
 });
