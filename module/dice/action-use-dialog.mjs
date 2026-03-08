@@ -336,7 +336,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       default:
         throw new Error(`Unsupported region shape "${regionConfig.shape}" for action ${this.action.id}`);
     }
-    return {shapes: [shape]};
+    return {name: this.action.name, shapes: [shape]};
   }
 
   /* -------------------------------------------- */

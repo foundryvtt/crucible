@@ -883,18 +883,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from a placed region using RegionDocument#tokens.
+   * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
    * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromRegion() {
     if ( !this.region ) return [];
+    const potentialTokens = canvas.tokens.quadtree.getObjects(this.region.bounds);
     const targetDispositions = this.#getTargetDispositions();
 
-    // Filter tokens by disposition and visibility
+    // Identify tokens contained within the region which match the correct disposition and visibility
     const targets = [];
-    for ( const tokenDoc of this.region.tokens ) {
-      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;
-      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;
-      if ( tokenDoc.hidden ) continue;
+    for ( const token of potentialTokens ) {
+      const tokenDoc = token.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;   // Exclude self
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;     // Require correct disposition
+      if ( tokenDoc.hidden ) continue;                                        // Ignore hidden
+      if ( !tokenDoc.testInsideRegion(this.region) ) continue;                // Require region containment
       targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
     }
 
