@@ -402,29 +402,33 @@ export const TAGS = {
       const self = this.outcomes.get(this.actor);
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
 
+      // Determine whether a planned movement is still pending for this action.
+      // The token's current movement must still match the stored ID and bi in "planned" state to be valid.
+      const movementId = self.movement;
+      const isPlanned = !!movementId && (this.token.movement?.id === movementId)
+        && (this.token.movement?.state === "planned");
+
       // Reverse movement
       if ( reverse ) {
-        if ( this.movement?.state === "planned" ) await this.token.stopMovement();
-        else if ( self.movement ) await this.token.revertRecordedMovement(self.movement);
-        if ( self.movement === this.actor.system.status.freeMovementId ) {
+        if ( isPlanned ) await this.token.stopMovement();
+        else if ( movementId ) await this.token.revertRecordedMovement(movementId);
+        if ( movementId === this.actor.system.status.freeMovementId ) {
           Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
         }
         return;
       }
 
-      // Execute planned movement
-      if ( this.movement?.state === "planned" ) {
-        this.token._confirmedMovements ||= new Set();
-        this.token._confirmedMovements.add(this.movement.id);
-        await this.token.startMovement(this.movement.id);
+      // Remove prone condition upon movement confirmation if movement is not exclusively crawling
+      if ( this.actor.statuses.has("prone") ) {
+        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
+          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
+        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
 
-      // Remove prone condition upon movement confirmation if non-crawl action
-      if ( this.actor.statuses.has("prone") ) {
-        const movementHistory = this.token.movementHistory ?? [];
-        if ( !movementHistory.every(m => (m.movementId !== self.movement) || (m.action === "crawl")) ) {
-          await this.actor.toggleStatusEffect("prone", {active: false});
-        }
+      // Execute planned movement
+      if ( isPlanned ) {
+        (this.token._confirmedMovements ??= new Set()).add(movementId);
+        await this.token.startMovement(movementId);
       }
     }
   },

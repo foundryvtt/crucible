@@ -432,9 +432,8 @@ export default class CrucibleActor extends Actor {
     const move = this.actions.move;
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
-      description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`,
-      movement
-    });
+      description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
+    }, {movement});
     await action.use(useOptions);
   }
 

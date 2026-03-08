@@ -1848,6 +1848,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes: []
     };
     if ( this.item ) actionData.item = this.item.uuid;
+    if ( this.movement ) actionData.movement = this.movement.id;
     if ( this.region?.persisted ) actionData.region = this.region.uuid;
     if ( this.token ) actionData.token = this.token.uuid;
     actionData.vfxConfig = this.configureVFXEffect();
@@ -1940,6 +1941,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {
       actor: actorUuid,
       item: itemUuid,
+      movement: movementId,
       token: tokenUuid,
       action: actionData,
       region: regionUuid,
@@ -1947,14 +1949,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } = message.flags.crucible || {};
     if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
 
+    // Reference linked documents
     const actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
     const item = fromUuidSync(itemUuid);
     const token = fromUuidSync(tokenUuid);
     const region = fromUuidSync(regionUuid);
 
+    // Reference current movement or recover past movement data
+    let movement = null;
+    if ( movementId && token ) {
+      if ( token.movement?.id === movementId ) movement = token.movement;
+      else {
+        const waypoints = token.movementHistory.filter(w => w.movementId === movementId);
+        if ( waypoints.length ) movement = {
+          id: movementId,
+          state: "stopped",
+          passed: {waypoints, cost: waypoints.reduce((t, w) => t + (w.cost ?? 0), 0)},
+          pending: {waypoints: [], cost: 0}
+        };
+      }
+    }
+
     // Rebuild action from explicit data
     const actionId = actionData.id;
-    const actionContext = {parent: item?.system, actor, item, token, region, message, lazy: true};
+    const actionContext = {parent: item?.system, actor, item, token, region, movement, message, lazy: true};
     let action;
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {

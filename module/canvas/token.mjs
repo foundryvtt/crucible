@@ -230,6 +230,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _getDragLeftDropUpdateOptions() {
+    const options = super._getDragLeftDropUpdateOptions();
+    if ( crucible.api.dice.ActionUseDialog.isMovementPlanningActive(this.document) ) {
+      options.planned = true;
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _getMovementCostFunction(options) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};

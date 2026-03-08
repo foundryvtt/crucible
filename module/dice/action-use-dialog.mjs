@@ -53,6 +53,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #planMovementHookId = null;
 
   /**
+   * Tracks whether the dialog was submitted successfully via _onRoll.
+   * Used by #clearMovementPlan to avoid cancelling planned movement on a successful submission,
+   * since _onClose fires for both cancellation and submission.
+   * @type {boolean}
+   */
+  #submitted = false;
+
+  /**
    * The Action being performed
    * @type {CrucibleAction}
    */
@@ -216,6 +224,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
+    this.#submitted = true;
     this.action.usage.messageMode = this.messageMode;
     if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
     if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
@@ -479,13 +488,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const movement = token.movement;
     if ( movement?.state === "planned" ) {
       Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
-
-      // For the basic move action, recompute AP cost from the planned distance
-      if ( this.action.id === "move" ) {
-        const {cost} = this.actor.getMovementActionCost(movement.passed.cost + movement.pending.cost);
-        this.action.cost.action = cost;
-        this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
-      }
+      this.action.prepare(); // Re-prepare to update action cost based on the planned distance
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
     }
 
     // Restore minimized windows and re-render
@@ -504,7 +508,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#planMovementHookId = null;
     }
     ActionUseDialog.#movementPlans.delete(this.action.token?.id);
-    if ( this.action.movement?.state === "planned" ) {
+    if ( !this.#submitted && (this.action.movement?.state === "planned") ) {
       this.action.token.stopMovement();
       Object.defineProperty(this.action, "movement", {value: null, configurable: true});
     }
