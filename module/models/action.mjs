@@ -876,7 +876,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static #getTargetFromToken(token) {
     if ( token instanceof foundry.canvas.placeables.Token ) token = token.document;
     const {actor, name} = token;
-    return {token, actor, uuid: actor.uuid, name};
+    return {token, actor, uuid: actor?.uuid, name};
   }
 
   /* -------------------------------------------- */

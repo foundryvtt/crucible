@@ -13,7 +13,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritDoc */
   async _onDelete(options, userId) {
     await super._onDelete(options, userId);
-    if ( game.user !== game.users.activeGM ) return;
+    if ( !game.user.isActiveGM ) return;
     for ( const uuid of this.system.regions ) {
       const region = await fromUuid(uuid);
       if ( region ) await region.delete();
