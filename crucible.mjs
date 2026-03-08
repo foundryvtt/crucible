@@ -486,6 +486,7 @@ Hooks.once("i18nInit", function() {
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
     "systems/crucible/templates/dice/partials/action-use-header.hbs",
+    "systems/crucible/templates/dice/partials/action-use-footer.hbs",
     "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
     "systems/crucible/templates/dice/partials/standard-check-details.hbs",
     "systems/crucible/templates/sheets/item/talent-summary.hbs"

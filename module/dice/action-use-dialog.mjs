@@ -23,7 +23,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       minimizable: true
     },
     actions: {
-      placeRegion: ActionUseDialog.#onPlaceRegion
+      placeRegion: ActionUseDialog.#onPlaceRegion,
+      planMovement: ActionUseDialog.#onPlanMovement
     }
   };
 
@@ -31,10 +32,25 @@ export default class ActionUseDialog extends StandardCheckDialog {
   static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
 
   /**
+   * A registry of ActionUseDialog instances that are currently in a movement planning state.
+   * @type {Map<string, ActionUseDialog>}
+   */
+  static #movementPlans = new Map();
+
+  /* -------------------------------------------- */
+
+  /**
    * Targets acquired from the most recently placed region for this Action.
    * @type {ActionUseTarget[]|null}
    */
   #regionTargets = null;
+
+  /**
+   * The Hooks ID for a pending planToken listener registered during movement planning.
+   * Stored so it can be cleaned up if the dialog closes before planning completes.
+   * @type {number|null}
+   */
+  #planMovementHookId = null;
 
   /**
    * The Action being performed
@@ -73,18 +89,35 @@ export default class ActionUseDialog extends StandardCheckDialog {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
+    const targets = this.#prepareTargets();
     const requiresRegion = this.action.requiresRegion;
+    const requiresMovement = this.action.requiresMovement;
+    let submitTooltip = [
+      requiresRegion ? _loc("ACTION.RequiresRegion") : "",
+      requiresMovement ? _loc("ACTION.RequiresMovement") : ""
+    ].filterJoin("</p><p>");
+    if ( submitTooltip ) submitTooltip = `<p>${submitTooltip}</p>`;
+    const involvesRegion = requiresRegion || this.action.region;
+    const involvesMovement = requiresMovement || this.action.movement;
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
       tags,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
+      hasTargetTags: !["self", "none"].includes(this.action.target.type) || involvesRegion || involvesMovement,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: requiresRegion || !["self", "none"].includes(this.action.target.type),
-      requiresRegion: requiresRegion,
-      weaponChoice: this.#prepareWeaponChoice(),
-      targets: this.#prepareTargets()
+      involvesRegion,
+      involvesMovement,
+      requiresRegion,
+      requiresMovement,
+      tagRegion: this.action.region && !targets.length,
+      tagMovement: this.action.movement,
+      targets,
+      submitDisabled: requiresRegion || requiresMovement,
+      submitLabel: _loc("ACTION.UseAction"),
+      submitTooltip,
+      weaponChoice: this.#prepareWeaponChoice()
     });
   }
 
@@ -164,7 +197,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /** @inheritDoc */
   async _onSubmit(target, event) {
-    if ( this.action.requiresRegion ) {
+    if ( this.action.requiresRegion || this.action.requiresMovement ) {
       event.preventDefault();
       event.stopImmediatePropagation();
       return;
@@ -392,5 +425,96 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
     game.user.targets.clear();
+  }
+
+  /* -------------------------------------------- */
+  /*  Movement Planning                           */
+  /* -------------------------------------------- */
+
+  /**
+   * Is there an active movement planning dialog for the given token?
+   * @param {CrucibleToken|string} token    The token document or its ID
+   * @returns {boolean}
+   */
+  static isMovementPlanningActive(token) {
+    const id = typeof token === "string" ? token : token.id;
+    return ActionUseDialog.#movementPlans.has(id);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle left-click events to begin the movement planning workflow.
+   * @this {ActionUseDialog}
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onPlanMovement(_event) {
+    const {token} = this.action;
+
+    // Register this dialog as actively planning movement for this token
+    ActionUseDialog.#movementPlans.set(token.id, this);
+
+    // Minimize open windows
+    const minimizedWindows = [];
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( !app.minimized ) minimizedWindows.push(app);
+    }
+    await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
+
+    // Await the planToken hook for this specific token
+    await new Promise(resolve => {
+      this.#planMovementHookId = Hooks.on("planToken", document => {
+        if ( document !== token ) return;
+        Hooks.off("planToken", this.#planMovementHookId);
+        this.#planMovementHookId = null;
+        resolve();
+      });
+    });
+
+    // Deregister from the planning map
+    ActionUseDialog.#movementPlans.delete(token.id);
+
+    // Store the planned movement on the action
+    const movement = token.movement;
+    if ( movement?.state === "planned" ) {
+      Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
+
+      // For the basic move action, recompute AP cost from the planned distance
+      if ( this.action.id === "move" ) {
+        const {cost} = this.actor.getMovementActionCost(movement.passed.cost + movement.pending.cost);
+        this.action.cost.action = cost;
+        this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      }
+    }
+
+    // Restore minimized windows and re-render
+    for ( const app of minimizedWindows ) app.maximize();
+    this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear any in-progress movement plan, cancelling a planned token movement if one exists.
+   */
+  #clearMovementPlan() {
+    if ( this.#planMovementHookId !== null ) {
+      Hooks.off("planToken", this.#planMovementHookId);
+      this.#planMovementHookId = null;
+    }
+    ActionUseDialog.#movementPlans.delete(this.action.token?.id);
+    if ( this.action.movement?.state === "planned" ) {
+      this.action.token.stopMovement();
+      Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onClose(options) {
+    this.#clearMovementPlan();
+    super._onClose(options);
   }
 }

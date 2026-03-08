@@ -34,7 +34,9 @@ export default class SpellCastDialog extends ActionUseDialog {
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
         slashing: SYSTEM.DAMAGE_TYPES.slashing.label
       },
-      requiresComposition: this.action.isComposed || (this.action.id === "counterspell")
+      requiresComposition: this.action.isComposed || (this.action.id === "counterspell"),
+      showDetails: true,
+      submitLabel: _loc("ACTION.DEFAULT_ACTIONS.Cast.Name")
     });
   }
 
