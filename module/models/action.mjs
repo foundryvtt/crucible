@@ -1110,7 +1110,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Prepare effect data
       const effect = {
-        _id: _id || `${crucible.api.methods.generateId(this.id, 15)}${i}`,
+        _id: _id || `${crucible.api.methods.generateId(this.id, 16 - String(i).length)}${i}`,
         name: name || this.name,
         changes,
         description: this.description,
