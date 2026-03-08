@@ -29,6 +29,21 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  */
 
 /**
+ * @typedef {object} DiceResultContext
+ * @property {string} outcome                 The localization key shown on the primary result line.
+ * @property {number} total                   The overall roll total.
+ * @property {StandardCheckData} data         The configured roll data.
+ * @property {{denom: string, result: number}[]} pool The rendered dice pool.
+ * @property {number} diceTotal               The sum of the dice before bonuses.
+ * @property {object|undefined} [damage]      The rendered damage breakdown.
+ * @property {string} targetLabel             Secondary text shown on the primary result line.
+ * @property {number} dc                      The difficulty class the roll is checked against.
+ * @property {string} defenseType             The defense type label shown alongside the target value.
+ * @property {string} formula                 The rendered roll formula.
+ * @property {string} cssClass                CSS classes applied to the rendered dice check wrapper.
+ */
+
+/**
  * The standard 3d8 dice pool check used by the system.
  * The rolled formula is determined by:
  *
@@ -80,6 +95,14 @@ export default class StandardCheck extends Roll {
    * @type {string}
    */
   static CHAT_TEMPLATE = "systems/crucible/templates/dice/standard-check-chat.hbs";
+
+  /* -------------------------------------------- */
+
+  /**
+   * The defense type label used when rendering this check.
+   * @type {string}
+   */
+  static DEFENSE_TYPE = "DC";
 
   /* -------------------------------------------- */
 
@@ -226,60 +249,93 @@ export default class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare damage data for chat rendering.
+   * @returns {object|undefined}
+   */
+  prepareRenderedDamage() {
+    let damage = this.data.damage;
+    if ( !damage ) return undefined;
+    damage = foundry.utils.deepClone(damage);
+    damage.display = Number.isNumeric(damage?.total) && !damage.harmless;
+    if ( !damage.display ) return damage;
+
+    damage.label = _loc(damage.restoration ? "DICE.Healing" : "DICE.Damage");
+    damage.baseLabel = _loc("DICE.DamageBase", {type: damage.label});
+    damage.hasMultiplier = damage?.multiplier !== 1;
+    if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
+    else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
+    damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability" : "DICE.DamageResistance";
+    damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
+    damage.cssClass = "";
+    if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
+    else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
+    if ( damage.total === 0 ) damage.cssClass += " ineffective";
+    return damage;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the localized outcome key and CSS classes for this evaluated check.
+   * @returns {{outcome: string, classes: string[]}}
+   */
+  prepareOutcome() {
+    if ( !this.data.dc ) return {outcome: "Unknown", classes: []};
+    let outcome = "ACTION.EFFECT_RESULT_TYPES.";
+    const classes = [];
+    if ( this.isCriticalSuccess || this.isCriticalFailure ) {
+      outcome += "Critical";
+      classes.push("critical");
+    }
+    if ( this.isSuccess ) {
+      outcome += "Success";
+      classes.push("success");
+    }
+    else {
+      outcome += "Failure";
+      classes.push("failure");
+    }
+    return {outcome, classes};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Shared dice result data used when rendering this check.   
+   * @param {string} [options.targetLabel=""] The secondary result label.
+    * @returns {DiceResultContext}
+   */
+  prepareDiceResultContext({targetLabel}={}) {
+    const {outcome, classes} = this.prepareOutcome();
+    const dc = this.data.dc;
+    const defenseType = this.constructor.DEFENSE_TYPE;
+    return {
+      outcome,
+      total: this.total,
+      data: this.data,
+      pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
+      diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
+      damage: this.prepareRenderedDamage(),
+      dc,
+      defenseType,
+      formula: this.formula,
+      cssClass: ["crucible", "dice-roll", "standard-check", ...classes].join(" "),
+      targetLabel: targetLabel ?? (game.user.isGM ? `${defenseType} ${dc}` : "")
+    };
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
-    const damage = foundry.utils.deepClone(this.data.damage);
+    const rollContext = this.prepareDiceResultContext();
     const cardData = {
-      cssClass: ["crucible", "dice-roll", "standard-check"],
-      data: this.data,
-      damage,
-      defenseType: "DC",
-      defenseValue: this.data.dc,
-      diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
       isPrivate,
       isGM: game.user.isGM,
       flavor,
-      formula: this.formula,
-      outcome: "Unknown",
-      pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
-      total: this.total
+      ...rollContext
     };
-
-    // Successes and Failures
-    if ( this.data.dc ) {
-      cardData.outcome = "ACTION.EFFECT_RESULT_TYPES.";
-      if ( this.isCriticalSuccess || this.isCriticalFailure ) {
-        cardData.outcome += "Critical";
-        cardData.cssClass.push("critical");
-      }
-      if ( this.isSuccess ) {
-        cardData.outcome += "Success";
-        cardData.cssClass.push("success");
-      }
-      else {
-        cardData.outcome += "Failure";
-        cardData.cssClass.push("failure");
-      }
-    }
-    cardData.cssClass = cardData.cssClass.join(" ");
-
-    // Damage, Resistance, and Vulnerability
-    if ( damage ) {
-      damage.display = Number.isNumeric(damage?.total) && !damage.harmless; // Was damage intended?
-      if ( damage.display ) {
-        damage.label = _loc(damage.restoration ? "DICE.Healing" : "DICE.Damage");
-        damage.baseLabel = _loc("DICE.DamageBase", {type: damage.label});
-        damage.hasMultiplier = damage?.multiplier !== 1;
-        if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
-        else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
-        damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
-        damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
-        damage.cssClass = "";
-        if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
-        else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
-        if ( damage.total === 0 ) damage.cssClass += " ineffective";
-      }
-    }
     return cardData;
   }
 
@@ -298,21 +354,33 @@ export default class StandardCheck extends Roll {
 
   /**
    * Present a Dialog instance for this pool
-   * @param {object} [options]            Options for the dialog
-   * @param {string} [options.title]        The title of the roll request
-   * @param {string} [options.flavor]       Any flavor text attached to the roll
-   * @param {boolean} [options.request]     Display the request tray
+   * @param {object} [options]           Options for the dialog
+   * @param {string} [options.title]     The title of the roll request
+   * @param {string} [options.flavor]    Any flavor text attached to the roll
+   * @param {boolean} [options.request]  Display the request tray
+   * @param {CrucibleActor[]} [options.requestedActors] An array of actors to request rolls from in a group check context
    * @param {string} [options.messageMode]  The requested message mode
    * @returns {Promise<{roll:StandardCheck, messageMode: string}|null>}
    */
-  async dialog({title, flavor, request, messageMode}={}) {
+  async dialog({title, ...options}={}) {
     return this.constructor.dialogClass.prompt({
       window: {title},
-      flavor,
-      request,
-      messageMode,
+      ...options,
       roll: this
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Submit this check as a queried group check for the provided actors.
+   * @param {object} [options={}]
+   * @param {CrucibleActor[]} [options.requestedActors] Actors to include in the group check
+   * @returns {Promise<void>}
+   */
+  async requestGroupCheck({requestedActors}={}) {
+    const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.data));
+    return groupCheckInstance.requestSubmit({requestedActors});
   }
 
   /* -------------------------------------------- */

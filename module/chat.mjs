@@ -10,7 +10,9 @@ export const TEMPLATES = {
   actionHeader: "systems/crucible/templates/dice/partials/action-use-header.hbs",
   actionFooter: "systems/crucible/templates/dice/partials/action-use-footer.hbs",
   rollDice: "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
-  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs"
+  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+  checkBreakdown: "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs",
+  checkResult: "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"
 };
 
 /**

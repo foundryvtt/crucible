@@ -1,0 +1,16 @@
+<div class="dice-result">
+    <h4 class="dice-total check-result">
+        <span class="outcome">{{localize outcome}}</span>
+        <span class="result hex">{{total}}</span>
+        <span class="target">{{targetLabel}}</span>
+    </h4>
+    {{#if damage.display}}
+    <h4 class="dice-total damage-result {{damage.cssClass}}">
+        <span class="outcome">{{damage.label}}</span>
+        <span class="result hex">{{damage.total}}</span>
+        <span class="target">{{damage.typeLabel}}</span>
+    </h4>
+    {{/if}}
+
+    {{> "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs" this}}
+</div>
