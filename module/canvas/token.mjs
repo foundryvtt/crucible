@@ -230,9 +230,39 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  constrainMovementPath(waypoints, options) {
+    const [path, constrained] = super.constrainMovementPath(waypoints, options);
+    if ( !options?.preview ) return [path, constrained];
+
+    // If we are in an action movement plan, constrain according to range limits
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( !dialog ) return [path, constrained];
+    const {minimum: minRange, maximum: maxRange} = dialog.action.range;
+    if ( !minRange && !maxRange ) return [path, constrained];
+    const measurement = this.measureMovementPath(path);
+
+    // Below minimum range: treat the entire path as unreachable
+    if ( minRange && (measurement.cost < minRange) ) return [[path[0]], true];
+
+    // Above maximum range: truncate at the first waypoint that exceeds the budget
+    if ( maxRange && (measurement.cost > maxRange) ) {
+      for ( let i = 1; i < measurement.waypoints.length; i++ ) {
+        if ( measurement.waypoints[i].cost > maxRange ) {
+          path.length = i;
+          break;
+        }
+      }
+      return [path, true];
+    }
+    return [path, constrained];
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _getDragLeftDropUpdateOptions() {
     const options = super._getDragLeftDropUpdateOptions();
-    if ( crucible.api.dice.ActionUseDialog.isMovementPlanningActive(this.document) ) {
+    if ( crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
       options.planned = true;
     }
     return options;
@@ -245,6 +275,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};
     const actor = this.actor;
+
+    // Construct and return cost function
     return (from, to, distance, segment) => {
 
       // Step 1: Apply condition-based cost modifiers
@@ -264,6 +296,28 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         ??= segment.actionConfig.getCostFunction(this.document, options);
       return calculateActionCost(terrainCost, from, to, distance, segment);
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _shouldPreventDragLeftDrop(event) {
+    if ( super._shouldPreventDragLeftDrop(event) ) return true;
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( !dialog ) return false;
+    const {minimum: minRange, maximum: maxRange} = dialog.action.range;
+    const context = event.interactionData?.contexts?.[this.id];
+    const foundPath = context?.foundPath ?? [];
+    const cost = foundPath.length > 1 ? this.measureMovementPath(foundPath).cost : 0;
+    if ( minRange && (cost < minRange) ) {
+      ui.notifications.warn(_loc("ACTION.MovementTooShort"));
+      return true;
+    }
+    if ( maxRange && context?.unreachableWaypoints?.length ) {
+      ui.notifications.warn(_loc("ACTION.MovementTooFar"));
+      return true;
+    }
+    return false;
   }
 
   /* -------------------------------------------- */

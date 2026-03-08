@@ -658,6 +658,8 @@
 "ACTION.PlanMovement": "Plan Movement",
 "ACTION.PlannedMovement": "Movement Planned",
 "ACTION.PlannedRegion": "Region Placed",
+"ACTION.MovementTooFar": "The planned movement path exceeds the maximum range allowed by this action.",
+"ACTION.MovementTooShort": "The planned movement path does not meet the minimum range required by this action.",
 "ACTION.RequiresMovement": "You must plan a movement path before this action can be used.",
 "ACTION.RequiresRegion": "You must place a Region before this action can be used.",
 "ACTION.RemoveActor": "Remove Actor",

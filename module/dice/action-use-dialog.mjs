@@ -441,13 +441,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
-   * Is there an active movement planning dialog for the given token?
+   * Get the active movement planning dialog for the given token, if any.
    * @param {CrucibleToken|string} token    The token document or its ID
-   * @returns {boolean}
+   * @returns {ActionUseDialog|null}
    */
-  static isMovementPlanningActive(token) {
+  static getActiveMovementPlan(token) {
     const id = typeof token === "string" ? token : token.id;
-    return ActionUseDialog.#movementPlans.has(id);
+    return ActionUseDialog.#movementPlans.get(id) ?? null;
   }
 
   /* -------------------------------------------- */
