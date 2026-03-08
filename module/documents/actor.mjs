@@ -2433,6 +2433,13 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /** @inheritdoc */
+  async onUpdateEffectDurations(effects, event, context) {
+    this._sheet?.render(false);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Display status text updates above each Token for this Actor upon update.
    * @param {Partial<ActorData>} changed      Data for the Actor which changed
