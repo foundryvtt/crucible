@@ -318,6 +318,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   item = this.item; // Defined during constructor
 
   /**
+   * The message representing this action, if applicable
+   * @type {CrucibleChatMessage|null}
+   */
+  message = this.message; // Defined during constructor
+
+  /**
+   * A planned or realized token movement associated with this action, used for movement-tagged actions.
+   * @type {TokenMovementData|TokenMovementOperation|null}
+   */
+  movement = this.movement; // Defined during constructor
+
+  /**
+   * A mapping of outcomes which occurred from this action, arranged by target.
+   * @type {CrucibleActionOutcomes}
+   */
+  outcomes = new Map();
+
+  /**
+   * A specific RegionDocument, either persisted or ephemeral, used to establish area of effect for this action.
+   * @type {RegionDocument|null}
+   */
+  region = this.region; // Defined during constructor
+
+  /**
    * The ability scores which cause this action to scale.
    * @type {string[]}
    */
@@ -330,28 +354,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   token = this.token; // Defined during constructor
 
   /**
-   * A specific RegionDocument, either persisted or ephemeral, used to establish area of effect for this action.
-   * @type {RegionDocument|null}
-   */
-  region = this.region; // Defined during constructor
-
-  /**
    * The training types which can provide a skill bonus to use of this action.
    * @type {string[]}
    */
   training = this.training; // Defined during _prepareData
-
-  /**
-   * A mapping of outcomes which occurred from this action, arranged by target.
-   * @type {CrucibleActionOutcomes}
-   */
-  outcomes = new Map();
-
-  /**
-   * The message representing this action, if applicable
-   * @type {CrucibleChatMessage|null}
-   */
-  message = this.message; // Defined during constructor
 
   /**
    * A sheet used to configure this Action.
@@ -379,6 +385,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
+   * Does this action require movement planning before it can be used?
+   * @type {boolean}
+   */
+  get requiresMovement() {
+    return this.tags.has("movement") && !!this.token && !this.movement;
+  }
+
+  /**
    * Does this Action require a region placement to establish its targets?
    * @type {boolean}
    */
@@ -400,13 +414,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
    * @param {ActionUsage} [options.usage]           Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, region=null, token=null, message=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, usage={}, ...options}) {
     super._configure(options);
     Object.defineProperties(this, {
       actor: {value: actor, writable: false, configurable: true},
       item: {value: item ?? this.parent?.parent, writable: false, configurable: true},
       token: {value: token, writable: false, configurable: true},
       region: {value: region, writable: false, configurable: true},
+      movement: {value: movement, writable: false, configurable: true},
       message: {value: message, writable: false, configurable: true}
     });
 
@@ -576,6 +591,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.actor ??= this.actor;
     context.token ??= this.token;
     context.region ??= this.region;
+    context.movement ??= this.movement;
     context.message ??= this.message;
     const clone = new this.constructor(actionData, context);
 
