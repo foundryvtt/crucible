@@ -428,20 +428,13 @@ export default class CrucibleActor extends Actor {
       actionDescriptions.push(`<p><strong>${label}:</strong> ${desc}</p>`);
     }
 
-    // Record movement usage
-    const usage = {
-      id: movement?.id || null,
-      actions,
-      ...this.getMovementActionCost(costFeet, {useFreeMove})
-    };
-
     // Adjust action name and description
     const move = this.actions.move;
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
-      description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
+      description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`,
+      movement
     });
-    action.usage.movement = usage;
     await action.use(useOptions);
   }
 

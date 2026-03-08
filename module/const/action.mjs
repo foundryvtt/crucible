@@ -376,31 +376,41 @@ export const TAGS = {
     },
     prepare() {
       const stride = this.actor.system.movement.stride;
-      const movement = this.usage.movement || this.actor.getMovementActionCost(stride);
-      if ( movement.useFreeMove ) this.usage.freeMove = true;
-      if ( this.id === "move" ) this.cost.action = movement.cost; // Standard movement cost
-      else if ( movement.useFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1); // Reduce cost of movement action
+      const costFeet = this.movement
+        ? (this.movement.passed.cost + this.movement.pending.cost)
+        : stride;
+      const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
+      if ( useFreeMove ) this.usage.freeMove = true;
+      if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
+      else if ( useFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1); // Reduce cost of movement action
     },
     postActivate(outcome) {
       if ( !outcome.self ) return;
-      const {movement, freeMove} = this.usage;
+      const {freeMove} = this.usage;
       const status = outcome.actorUpdates.system.status;
-      if ( movement?.id ) {
-        outcome.movement = movement.id;
-        if ( freeMove ) status.freeMovementId = movement.id;
+      if ( this.movement?.id ) {
+        outcome.movement = this.movement.id;
+        if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
     },
     async confirm(reverse) {
       const self = this.outcomes.get(this.actor);
 
-      // Reverse recorded movement
+      // Reverse movement
       if ( reverse ) {
-        if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
+        if ( this.movement?.state === "planned" ) await this.token?.document.stopMovement();
+        else if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
         if ( self.movement === this.actor.system.status.freeMovementId ) {
           Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
         }
         return;
+      }
+
+      // Execute planned movement
+      if ( this.movement?.state === "planned" ) {
+        this.token.document._confirmedMovements.add(this.movement.id);
+        await this.token.document.startMovement(this.movement.id);
       }
 
       // Remove prone condition upon movement confirmation if non-crawl action
