@@ -441,6 +441,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
+   * Is any movement planning workflow currently active?
+   * @type {boolean}
+   */
+  static get activeMovementPlan() {
+    return ActionUseDialog.#movementPlans.size > 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Get the active movement planning dialog for the given token, if any.
    * @param {CrucibleToken|string} token    The token document or its ID
    * @returns {ActionUseDialog|null}

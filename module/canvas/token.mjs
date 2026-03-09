@@ -230,6 +230,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _canDragLeftStart(user, event, {notify=true}={}) {
+    if ( crucible.api.dice.ActionUseDialog.activeMovementPlan
+      && !crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
+      if ( notify ) ui.notifications.warn(_loc("ACTION.WrongMovementToken"));
+      return false;
+    }
+    return super._canDragLeftStart(user, event, {notify});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   constrainMovementPath(waypoints, options) {
     const [path, constrained] = super.constrainMovementPath(waypoints, options);
     if ( !options?.preview ) return [path, constrained];
