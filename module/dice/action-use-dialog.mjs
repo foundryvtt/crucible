@@ -306,7 +306,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const canvasLayer = canvas.activeLayer;
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
     canvasLayer.activate();
-    for ( const app of minimizedWindows ) app.maximize();
+    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
     if ( !region ) return; // User cancelled with right-click
 
     // Enable wall restriction before acquiring targets so wall geometry is respected
@@ -503,7 +503,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Restore minimized windows and re-render
-    for ( const app of minimizedWindows ) app.maximize();
+    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
     this.render();
   }
 

@@ -188,7 +188,7 @@ export const TAG_CATEGORIES = Object.freeze({
  * @property {string} [tooltip]       A tooltip displayed when this tag is hovered
  * @property {string[]} propagate     Propagate this tag to also apply other tags
  * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
- * @property {number} [category]      A priority that this tag should be resolved in. Lower values are higher priority
+ * @property {number} [category]      A category that determines how this tag is grouped and sorted
  * @property {(this: CrucibleAction) => void} [configure]
  * @property {(this: CrucibleAction) => void} [prepare]
  * @property {(this: CrucibleAction) => void} [canUse]
