@@ -239,7 +239,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !dialog ) return [path, constrained];
     const {minimum: minRange, maximum: maxRange} = dialog.action.range;
     if ( !minRange && !maxRange ) return [path, constrained];
-    const measurement = this.measureMovementPath(path);
+    const measurement = this.measureMovementPath(path, {...options.measureOptions, preview: options.preview});
 
     // Below minimum range: treat the entire path as unreachable
     if ( minRange && (measurement.cost < minRange) ) return [[path[0]], true];
@@ -308,7 +308,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const {minimum: minRange, maximum: maxRange} = dialog.action.range;
     const context = event.interactionData?.contexts?.[this.id];
     const foundPath = context?.foundPath ?? [];
-    const cost = foundPath.length > 1 ? this.measureMovementPath(foundPath).cost : 0;
+    const cost = foundPath.reduce((total, {cost}) => total + cost, 0);
     if ( minRange && (cost < minRange) ) {
       ui.notifications.warn(_loc("ACTION.MovementTooShort"));
       return true;
