@@ -225,7 +225,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Build initial region document data
-    const origin = token?.object?.center ?? canvas.dimensions.rect.center;
+    const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.rect.center;
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
 
     // Minimize open windows
@@ -301,8 +301,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Get token data
     const levels = token?.level ? [token.level] : [];
-    const tokenElevation = token?.elevation ?? 0;
-    const tokenDepth = token?.depth ?? 0;
+    const tokenElevation = token?._source.elevation ?? 0;
+    const tokenDepth = token?._source.depth ?? 0;
     const elevation = {bottom: tokenElevation, top: tokenElevation + tokenDepth};
 
     // Common configurations based on the shape

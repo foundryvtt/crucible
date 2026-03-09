@@ -895,10 +895,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = [];
     for ( const token of potentialTokens ) {
       const tokenDoc = token.document;
-      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;   // Exclude self
-      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;     // Require correct disposition
-      if ( tokenDoc.hidden ) continue;                                        // Ignore hidden
-      if ( !tokenDoc.testInsideRegion(this.region) ) continue;                // Require region containment
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;       // Exclude self
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;         // Require correct disposition
+      if ( tokenDoc.hidden ) continue;                                            // Ignore hidden
+      if ( !tokenDoc.testInsideRegion(this.region, tokenDoc._source) ) continue;  // Require region containment
       targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
     }
 
@@ -908,7 +908,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // If the target type is limited in the number it can affect, sort on proximity to the region origin
     const origin = this.region.shapes[0];
     for ( const t of targets ) {
-      const c = t.token.getCenterPoint();
+      const c = t.token.getCenterPoint(t.token._source);
       t._d2 = Math.pow(c.x - origin.x, 2) + Math.pow(c.y - origin.y, 2);
     }
     targets.sort((a, b) => a._d2 - b._d2);
