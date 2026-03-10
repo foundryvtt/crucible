@@ -1,5 +1,6 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
+import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import Enum from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
@@ -176,6 +177,7 @@ export const TAG_CATEGORIES = Object.freeze({
   skills: {label: "ACTION.TAG_CATEGORIES.Skills"},
   requirements: {label: "ACTION.TAG_CATEGORIES.Requirements"},
   context: {label: "ACTION.TAG_CATEGORIES.Context"},
+  movement: {label: "ACTION.TAG_CATEGORIES.Movement"},
   modifiers: {label: "ACTION.TAG_CATEGORIES.Modifiers"},
   defenses: {label: "ACTION.TAG_CATEGORIES.Defenses"},
   damage: {label: "ACTION.TAG_CATEGORIES.Damage"},
@@ -373,70 +375,6 @@ export const TAGS = {
   /* -------------------------------------------- */
   /*  Context Requirements                        */
   /* -------------------------------------------- */
-
-  // Involves Movement
-  movement: {
-    tag: "movement",
-    label: "ACTION.TagMovement",
-    tooltip: "ACTION.TagMovementTooltip",
-    category: "context",
-    canUse() {
-      if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
-    },
-    prepare() {
-      const stride = this.actor.system.movement.stride;
-      const costFeet = this.movement
-        ? (this.movement.passed.cost + this.movement.pending.cost)
-        : stride;
-      const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
-      if ( useFreeMove ) this.usage.freeMove = true;
-      if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
-      else if ( useFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1); // Reduce cost of movement action
-    },
-    postActivate(outcome) {
-      if ( !outcome.self ) return;
-      const {freeMove} = this.usage;
-      const status = outcome.actorUpdates.system.status;
-      if ( this.movement?.id ) {
-        outcome.movement = this.movement.id;
-        if ( freeMove ) status.freeMovementId = this.movement.id;
-      }
-      status.hasMoved = true;
-    },
-    async confirm(reverse) {
-      const self = this.outcomes.get(this.actor);
-      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
-
-      // Determine whether a planned movement is still pending for this action.
-      // The token's current movement must still match the stored ID and bi in "planned" state to be valid.
-      const movementId = self.movement;
-      const isPlanned = !!movementId && (this.token.movement?.id === movementId)
-        && (this.token.movement?.state === "planned");
-
-      // Reverse movement
-      if ( reverse ) {
-        if ( isPlanned ) await this.token.stopMovement();
-        else if ( movementId ) await this.token.revertRecordedMovement(movementId);
-        if ( movementId === this.actor.system.status.freeMovementId ) {
-          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
-        }
-        return;
-      }
-
-      // Remove prone condition upon movement confirmation if movement is not exclusively crawling
-      if ( this.actor.statuses.has("prone") ) {
-        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
-          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
-        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
-      }
-
-      // Execute planned movement
-      if ( isPlanned ) {
-        (this.token._confirmedMovements ??= new Set()).add(movementId);
-        await this.token.startMovement(movementId);
-      }
-    }
-  },
 
   // Requires Reaction
   reaction: {
@@ -1151,8 +1089,92 @@ export const TAGS = {
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       maintainedEffectData.system.maintenance = {cost: maintainedCost};
     }
+  },
+
+  /* -------------------------------------------- */
+  /*  Movement Actions                            */
+  /* -------------------------------------------- */
+
+  movement: {
+    tag: "movement",
+    label: "ACTION.TagMovement",
+    tooltip: "ACTION.TagMovementTooltip",
+    category: "movement",
+    canUse() {
+      if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
+    },
+    prepare() {
+      const stride = this.actor.system.movement.stride;
+      const costFeet = this.movement
+        ? (this.movement.passed.cost + this.movement.pending.cost)
+        : stride;
+      const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
+      if ( useFreeMove ) this.usage.freeMove = true;
+      if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
+      else this.cost.action += cost; // Add movement cost to this action's base cost (0 if free move was consumed)
+    },
+    postActivate(outcome) {
+      if ( !outcome.self ) return;
+      const {freeMove} = this.usage;
+      const status = outcome.actorUpdates.system.status;
+      if ( this.movement?.id ) {
+        outcome.movement = this.movement.id;
+        if ( freeMove ) status.freeMovementId = this.movement.id;
+      }
+      status.hasMoved = true;
+    },
+    async confirm(reverse) {
+      const self = this.outcomes.get(this.actor);
+      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
+
+      // Determine whether a planned movement is still pending for this action.
+      // The token's current movement must still match the stored ID and bi in "planned" state to be valid.
+      const movementId = self.movement;
+      const isPlanned = !!movementId && (this.token.movement?.id === movementId)
+        && (this.token.movement?.state === "planned");
+
+      // Reverse movement
+      if ( reverse ) {
+        if ( isPlanned ) await this.token.stopMovement();
+        else if ( movementId ) await this.token.revertRecordedMovement(movementId);
+        if ( movementId === this.actor.system.status.freeMovementId ) {
+          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
+        }
+        return;
+      }
+
+      // Remove prone condition upon movement confirmation if movement is not exclusively crawling
+      if ( this.actor.statuses.has("prone") ) {
+        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
+          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
+        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
+      }
+
+      // Execute planned movement
+      if ( isPlanned ) {
+        (this.token._confirmedMovements ??= new Set()).add(movementId);
+        await this.token.startMovement(movementId);
+      }
+    }
   }
 };
+
+/* -------------------------------------------- */
+/*  Movement Actions                            */
+/* -------------------------------------------- */
+
+for ( const id of Object.keys(MOVEMENT_ACTIONS) ) {
+  TAGS[id] = {
+    tag: id,
+    label: `ACTION.TagMovement${id[0].toUpperCase()}${id.slice(1)}`,
+    tooltip: `ACTION.TagMovement${id[0].toUpperCase()}${id.slice(1)}Tooltip`,
+    category: "movement",
+    propagate: ["movement"],
+    prepare() {
+      this.usage.movement.action = id;
+    }
+  };
+}
 
 /* -------------------------------------------- */
 /*  Specialized Damage Type                     */

@@ -232,7 +232,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _addDragWaypoint(point, options) {
     const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
-    if ( dialog?.action.usage.movement.direct ) {
+    if ( dialog?.action.usage.movement.direct !== false ) {
       ui.notifications.warn(_loc("ACTION.WarningDirectMovementOnly"));
       return;
     }
@@ -357,7 +357,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const context = event.interactionData?.contexts?.[this.id];
     const foundPath = context?.foundPath ?? [];
     const cost = foundPath.reduce((total, {cost}) => total + cost, 0);
-    if ( movement.direct && context?.waypoints?.length ) {
+    if ( (movement.direct !== false) && context?.waypoints?.length ) {
       ui.notifications.warn(_loc("ACTION.WarningDirectMovementOnly"));
       return true;
     }

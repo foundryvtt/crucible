@@ -50,7 +50,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]        Force all waypoints in the planned path to use a specific movement action
- * @property {boolean} [direct]       Require the planned path to be a single direct segment with no intermediate waypoints
+ * @property {boolean} [direct=true]  Require the planned path to be a single direct segment with no intermediate waypoints. Defaults to true; set false to allow a multi-segment path.
  * @property {boolean} [ignoreWalls]  Allow the planned movement to pass through walls
  */
 

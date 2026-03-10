@@ -177,6 +177,83 @@ LEVELS[18].milestones.next = Infinity;
 foundry.utils.deepFreeze(LEVELS);
 
 /**
+ * The token movement actions supported by the Crucible system.
+ * This constant is the shared source of truth used both to populate CONFIG.Token.movement.actions
+ * and to register the corresponding action tags.
+ * @type {Record<string, Partial<TokenMovementActionConfigDescriptor>>}
+ */
+export const MOVEMENT_ACTIONS = Object.freeze({
+  walk: {
+    order: 0,
+    label: "TOKEN.MOVEMENT.ACTIONS.walk.label",
+    icon: "fa-solid fa-person-walking",
+    img: "icons/svg/walk.svg",
+    costMultiplier: 1,
+    speedMultiplier: 1
+  },
+  step: {
+    order: 1,
+    label: "TOKEN.MOVEMENT.ACTIONS.step.label",
+    icon: "fa-solid fa-diamond-exclamation",
+    img: "icons/svg/hazard.svg",
+    costMultiplier: 2,
+    speedMultiplier: 0.5,
+    terrainAction: "walk"
+  },
+  crawl: {
+    order: 2,
+    label: "TOKEN.MOVEMENT.ACTIONS.crawl.label",
+    icon: "fa-solid fa-person-praying",
+    img: "icons/svg/leg.svg",
+    costMultiplier: 2,
+    speedMultiplier: 0.25,
+    terrainAction: "walk"
+  },
+  jump: {
+    order: 3,
+    label: "TOKEN.MOVEMENT.ACTIONS.jump.label",
+    icon: "fa-solid fa-person-running-fast",
+    img: "icons/svg/jump.svg",
+    costMultiplier: 2,
+    speedMultiplier: 1.5,
+    deriveTerrainDifficulty: ({walk, fly}) => Math.max(walk, fly)
+  },
+  climb: {
+    order: 4,
+    label: "TOKEN.MOVEMENT.ACTIONS.climb.label",
+    icon: "fa-solid fa-person-through-window",
+    img: "icons/svg/ladder.svg",
+    costMultiplier: 2,
+    speedMultiplier: 0.25,
+    terrainAction: "walk"
+  },
+  swim: {
+    order: 5,
+    label: "TOKEN.MOVEMENT.ACTIONS.swim.label",
+    icon: "fa-solid fa-person-swimming",
+    img: "icons/svg/whale.svg",
+    costMultiplier: 2,
+    speedMultiplier: 0.5
+  },
+  fly: {
+    order: 6,
+    label: "TOKEN.MOVEMENT.ACTIONS.fly.label",
+    icon: "fa-solid fa-person-fairy",
+    img: "icons/svg/wing.svg",
+    speedMultiplier: 1.5
+  },
+  blink: {
+    order: 7,
+    label: "TOKEN.MOVEMENT.ACTIONS.blink.label",
+    icon: "fa-solid fa-person-from-portal",
+    img: "icons/svg/teleport.svg",
+    teleport: true,
+    speedMultiplier: Infinity,
+    terrainAction: null
+  }
+});
+
+/**
  * The travel paces which are possible for group actors.
  * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", Partial<TokenMovementActionConfig>>}
  */

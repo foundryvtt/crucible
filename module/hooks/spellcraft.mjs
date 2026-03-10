@@ -95,7 +95,7 @@ HOOKS.aspect = {
 /* -------------------------------------------- */
 
 HOOKS.aura = {
-  prepare() {
+  initialize() {
     this.tags.add("maintained");
   },
   postActivate(outcome) {
@@ -148,7 +148,7 @@ HOOKS.create = {
 /* -------------------------------------------- */
 
 HOOKS.react = {
-  prepare() {
+  initialize() {
     this.tags.add("reaction");
   }
 };
@@ -165,7 +165,7 @@ HOOKS.reshape = {
 /* -------------------------------------------- */
 
 HOOKS.sense = {
-  prepare() {
+  initialize() {
     this.tags.add("maintained");
   },
   postActivate(outcome) {
@@ -182,9 +182,9 @@ HOOKS.sense = {
 /* -------------------------------------------- */
 
 HOOKS.step = {
-  prepare() {
-    this.usage.movement.action = "blink";
-    this.usage.movement.direct = true;
+  initialize() {
+    this.tags.add("movement");
+    this.tags.add("blink");
   }
 };
 
