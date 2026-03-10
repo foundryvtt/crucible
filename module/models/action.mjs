@@ -348,7 +348,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   scaling = this.scaling; // Defined during _prepareData
 
   /**
-   * A specific Token that is performing this Action in the context of a Scene.
+   * A specific Token document that is performing this Action in the context of a Scene.
+   * This is the TokenDocument instance (CrucibleToken), not the canvas placeable (CrucibleTokenObject).
    * @type {CrucibleToken}
    */
   token = this.token; // Defined during constructor
@@ -860,6 +861,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
             ? [tokenTargets[0]]
             : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
+        case "movement":
+          targets = canvas.ready ? this.#acquireTargetsFromMovement() : [];
+          break;
         case "single":
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
@@ -893,6 +897,59 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( token instanceof foundry.canvas.placeables.Token ) token = token.document;
     const {actor, name} = token;
     return {token, actor, uuid: actor?.uuid, name};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire target tokens from the actor's planned movement path.
+   * Tokens whose grid footprint overlaps any portion of the swept path become targets.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireTargetsFromMovement() {
+    if ( !this.movement ) return [];
+    const waypoints = this.movement.pending.waypoints;
+    if ( waypoints.length < 2 ) return [];
+
+    // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
+    const visitedSpaces = new Set();
+    let minI = Infinity;
+    let minJ = Infinity;
+    let maxI = -Infinity;
+    let maxJ = -Infinity;
+    for ( let w = 1; w < waypoints.length; w++ ) {
+      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
+        visitedSpaces.add(`${i},${j},${k}`);
+        if ( i < minI ) minI = i;
+        if ( j < minJ ) minJ = j;
+        if ( i > maxI ) maxI = i;
+        if ( j > maxJ ) maxJ = j;
+      }
+    }
+
+    // Remove spaces occupied by the token's starting position
+    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[0]) ) {
+      visitedSpaces.delete(`${i},${j},${k}`);
+    }
+
+    // Identify Token targets by filtering the quadtree result for movement bounds
+    const {x: x0, y: y0} = canvas.grid.getTopLeftPoint({i: minI, j: minJ});
+    const {x: x1, y: y1} = canvas.grid.getTopLeftPoint({i: maxI + 1, j: maxJ + 1});
+    const movementBounds = new PIXI.Rectangle(x0, y0, x1 - x0, y1 - y0);
+    const targetDispositions = this.#getTargetDispositions();
+    const hitTokens = canvas.tokens.quadtree.getObjects(movementBounds, {collisionTest: o => {
+      const tokenDoc = o.t.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
+      if ( tokenDoc.hidden ) return false;
+      const spaces = tokenDoc.getOccupiedGridSpaceOffsets(tokenDoc._source);
+      return spaces.some(({i, j, k}) => visitedSpaces.has(`${i},${j},${k}`));
+    }});
+
+    // Return the array of targets
+    const targets = [];
+    for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
+    return targets;
   }
 
   /* -------------------------------------------- */
@@ -1317,6 +1374,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _configureUsage() {
     this.usage.hasDice = false; // Actions don't involve a roll unless otherwise configured
+
+    // Configure tags
+    if ( this.target.type === "movement" ) this.tags.add("movement");
 
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);

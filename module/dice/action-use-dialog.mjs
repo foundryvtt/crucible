@@ -502,6 +502,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
     }
 
+    // Acquire targets from the planned movement path and highlight on canvas
+    const targets = this.action.acquireTargets({strict: false});
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
+    else game.user.targets.clear();
+
     // Restore minimized windows and re-render
     await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
     this.render();
