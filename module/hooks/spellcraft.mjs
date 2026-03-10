@@ -181,14 +181,6 @@ HOOKS.sense = {
 
 /* -------------------------------------------- */
 
-HOOKS.step = {
-  prepare() {
-    this.target.size = this.actor.size;
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.strike = {
   prepare() {
     const mh = this.actor.equipment.weapons.mainhand;
