@@ -28,7 +28,7 @@ system:
         maximum: null
         weapon: false
       target:
-        type: ray
+        type: movement
         number: 1
         scope: 4
         self: false

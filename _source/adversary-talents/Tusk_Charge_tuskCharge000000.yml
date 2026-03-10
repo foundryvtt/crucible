@@ -13,6 +13,7 @@ system:
         the first creature you encounter. If successful, the target is knocked
         Prone.</p>
       tags:
+        - movement
         - melee
         - natural
       cost:
@@ -22,7 +23,7 @@ system:
         weapon: true
         hands: 0
       target:
-        type: ray
+        type: movement
         number: 1
         scope: 3
         self: false

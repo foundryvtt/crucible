@@ -30,10 +30,9 @@ system:
         heroism: 0
         hands: 0
       target:
-        type: ray
+        type: movement
         number: 1
         scope: 3
-        size: 3
         self: false
       effects: []
       name: Shield Charge
