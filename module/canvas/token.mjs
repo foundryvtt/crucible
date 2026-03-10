@@ -356,7 +356,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const {minimum: minRange, maximum: maxRange} = dialog.action.range;
     const context = event.interactionData?.contexts?.[this.id];
     const foundPath = context?.foundPath ?? [];
-    const cost = foundPath.reduce((total, {cost}) => total + cost, 0);
+    const cost = foundPath.length > 1 ? this.measureMovementPath(foundPath).cost : 0;
     if ( (movement.direct !== false) && context?.waypoints?.length ) {
       ui.notifications.warn(_loc("ACTION.WarningDirectMovementOnly"));
       return true;
@@ -365,7 +365,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       ui.notifications.warn(_loc("ACTION.WarningMovementTooShort"));
       return true;
     }
-    if ( maxRange && context?.unreachableWaypoints?.length ) {
+    if ( maxRange && ((cost > maxRange) || context?.unreachableWaypoints?.length) ) {
       ui.notifications.warn(_loc("ACTION.WarningMovementTooFar"));
       return true;
     }
