@@ -203,4 +203,23 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       actions: await item.prepareActionsContext()
     });
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, _options) {
+    const container = document.createElement("section");
+
+    // Description only
+    if ( config.values.includes("description") ) {
+      container.innerHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description.public);
+      return container;
+    }
+
+    // Embedded Item card
+    container.classList = "crucible item-embed";
+    container.innerHTML = await this.renderCard();
+    if ( config.values.includes("centered") ) container.firstElementChild.classList.add("centered");
+    return container;
+  }
 }

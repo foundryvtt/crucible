@@ -194,4 +194,23 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
       prerequisites: [...runeReqs, ...gestureReqs, ...inflectionReqs]
     });
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, _options) {
+    const container = document.createElement("section");
+
+    // Description only
+    if ( config.values.includes("description") ) {
+      container.innerHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description);
+      return container;
+    }
+
+    // Embedded Talent card
+    container.classList = "crucible item-embed";
+    container.innerHTML = await this.renderCard();
+    if ( config.values.includes("centered") ) container.firstElementChild.classList.add("centered");
+    return container;
+  }
 }
