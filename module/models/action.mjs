@@ -35,6 +35,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
@@ -44,6 +45,13 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {CrucibleAction} [targetAction]  An action being "responded" to by this action
+ */
+
+/**
+ * @typedef ActionMovementUsage
+ * @property {string} [action]        Force all waypoints in the planned path to use a specific movement action
+ * @property {boolean} [direct]       Require the planned path to be a single direct segment with no intermediate waypoints
+ * @property {boolean} [ignoreWalls]  Allow the planned movement to pass through walls
  */
 
 /**
@@ -440,10 +448,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
+      hasDice: false,
       isAttack: false,
-      isRanged: false,
       isMelee: false,
-      hasDice: false
+      isRanged: false,
+      movement: {}
     }, {inplace: true, overwrite: false})});
   }
 
@@ -908,7 +917,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #acquireTargetsFromMovement() {
     if ( !this.movement ) return [];
-    const waypoints = this.movement.pending.waypoints;
+    const waypoints = this.#getMovementWaypoints();
     if ( waypoints.length < 2 ) return [];
 
     // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
@@ -950,6 +959,36 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = [];
     for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
     return targets;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the effective waypoints for the planned movement path.
+   * For most movement actions this is the literal array of `pending.waypoints`.
+   * For blink, `pending.waypoints` contains only the destination waypoint since it is a teleport.
+   * For the purposes of targeting, fill the intermediate waypoints that would have been visited for a normal move.
+   * @returns {TokenMovementWaypoint[]}
+   */
+  #getMovementWaypoints() {
+    const waypoints = this.movement.pending.waypoints;
+    if ( !waypoints.length || (waypoints[0].action !== "blink") ) return waypoints;
+    const token = this.token;
+    const dimensions = {width: token.width, height: token.height, shape: token._source.shape};
+    const expanded = [];
+    let w0 = token._positionToGridOffset({...this.movement.origin, ...dimensions});
+    expanded.push(this.movement.origin);
+    for ( const point of waypoints ) {
+      const w1 = token._positionToGridOffset({...point, ...dimensions});
+      const steps = canvas.grid.getDirectPath([w0, w1]);
+      for ( let s=1; s<steps.length-1; s++ ) {
+        const {x, y} = token._gridOffsetToPosition(steps[s], dimensions);
+        expanded.push({x, y, elevation: point.elevation, action: "blink"});
+      }
+      expanded.push(point);
+      w0 = w1;
+    }
+    return expanded;
   }
 
   /* -------------------------------------------- */

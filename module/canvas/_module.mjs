@@ -97,7 +97,6 @@ export function configure() {
       terrainAction: null,
       canSelect: notGroup
     },
-
     displace: {
       order: 999,
       label: coreActions.displace.label,

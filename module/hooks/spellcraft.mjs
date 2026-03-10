@@ -181,6 +181,15 @@ HOOKS.sense = {
 
 /* -------------------------------------------- */
 
+HOOKS.step = {
+  prepare() {
+    this.usage.movement.action = "blink";
+    this.usage.movement.direct = true;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.strike = {
   prepare() {
     const mh = this.actor.equipment.weapons.mainhand;
