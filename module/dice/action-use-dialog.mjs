@@ -300,6 +300,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
           }
           break;
       }
+      return false;
     };
 
     // Place the region and record its created data
