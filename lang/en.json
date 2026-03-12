@@ -1189,6 +1189,22 @@
   "RequestRolls": "Request Rolls"
 },
 
+"DICE.GROUP_CHECK": {
+  "Title": "Group Check",
+  "ChatTitle": "{skill} Check (DC {dc})",
+  "DialogTitle": "{skill} Check: {name}",
+  "NoUserForActor": "No active user found for: {name}",
+  "Status": {
+    "pending": "Pending",
+    "aborted": "Aborted",
+    "skipped": "Skipped"
+  },
+  "Resend": "Resend Request",
+  "RollOnBehalf": "Roll on Behalf",
+  "Skip": "Skip Actor",
+  "Finalize": "Reveal to Players"
+},
+
 "ACTIVE_EFFECT": {
   "ACTIONS": {
     "New": "New Effect",
