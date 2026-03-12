@@ -38,7 +38,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const effectUpdate = {};
     const combat = this.start.combat;
     const combatant = combat.getCombatantsByActor(this.parent)[0];
-    if ( combatant?.turnNumber ) {
+    if ( combatant && (combatant.turnNumber !== null) ) {
       effectUpdate.start = {combatant: combatant.id};
       const {units, value, expiry} = this.duration;
       if ( (units === "rounds") && ["turnStart", "turnEnd"].includes(expiry) ) {
