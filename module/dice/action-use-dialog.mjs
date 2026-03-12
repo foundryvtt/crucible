@@ -285,6 +285,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
             const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
             const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
             shape.updateSource({rotation: snappedAngle});
+            return false; // Don't handle core moves
           }
           break;
         case "vertex": // Constrain placement within maximum range
@@ -296,11 +297,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
               const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
               position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
             }
-            shape.move(position, {snap: true});
           }
           break;
       }
-      return false;
     };
 
     // Place the region and record its created data

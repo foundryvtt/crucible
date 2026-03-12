@@ -667,7 +667,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token?.document || null);
+      const outcome = this.#createOutcome(actor, token || null);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
@@ -1763,10 +1763,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Configure a VFXEffect instance for this Action.
-   * @returns {foundry.vfx.VFXEffect|null}
+   * @returns {foundry.canvas.vfx.VFXEffect|null}
    */
   configureVFXEffect() {
-    if ( !crucible.vfxEnabled ) return null;
     if ( this.tags.has("strike") ) return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this);
     return null;
   }
@@ -1775,18 +1774,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Construct and play a configured VFXEffect on every client after the Action is confirmed.
-   * @param {foundry.vfx.VFXEffectConfig} vfxConfig
+   * @param {foundry.canvas.vfx.VFXEffectData} vfxConfig
    * @param {Record<string, any>} references
    * @returns {Promise<void>}
    */
   async playVFXEffect(vfxConfig, references) {
-    if ( !crucible.vfxEnabled ) return;
     if ( !this.token?.parent.isView ) return;
 
     // Construct the VFXEffect instance
     let vfxEffect;
     try {
-      vfxEffect = new foundry.vfx.VFXEffect(vfxConfig);
+      vfxEffect = new foundry.canvas.vfx.VFXEffect(vfxConfig);
     } catch(cause) {
       console.warn(new Error(`Failed to construct provided Action VFX config for Action "${this.id}"`));
       return;

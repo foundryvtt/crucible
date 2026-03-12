@@ -16,6 +16,9 @@ export function configure() {
   CONFIG.Token.hudClass = CrucibleTokenHUD;
   CONFIG.Token.movement.defaultSpeed = 20;
 
+  // TODO enable experimental VFX framework
+  CONFIG.Canvas.vfx.enabled = true;
+
   // Movement Actions
   const groupOnly = token => token.actor?.type === "group";
   const notGroup = token => token.actor?.type !== "group";
