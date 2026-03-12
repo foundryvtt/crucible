@@ -72,7 +72,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     const {cost} = this.actor.getMovementActionCost(movement.passed.cost + movement.pending.cost);
     const isUnconstrained = game.user.isGM && ui.controls.controls.tokens.tools.unconstrainedMovement.active;
     if ( (cost > this.actor.resources.action.value) && !isUnconstrained ) {
-      ui.notifications.warn(_loc("ACTION.WarningCannotAffordMove", {name: this.actor.name, cost,
+      ui.notifications.warn(_loc("ACTION.WARNINGS.CannotAffordMove", {name: this.actor.name, cost,
         action: this.actor.actions.move.name}));
       return false;
     }

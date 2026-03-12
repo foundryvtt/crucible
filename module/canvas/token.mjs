@@ -233,7 +233,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _addDragWaypoint(point, options) {
     const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
     if ( dialog?.action.usage.movement.direct !== false ) {
-      ui.notifications.warn(_loc("ACTION.WarningDirectMovementOnly"));
+      ui.notifications.warn(_loc("ACTION.WARNINGS.DirectMovementOnly"));
       return;
     }
     return super._addDragWaypoint(point, options);
@@ -245,7 +245,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _canDragLeftStart(user, event, {notify=true}={}) {
     if ( crucible.api.dice.ActionUseDialog.activeMovementPlan
       && !crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
-      if ( notify ) ui.notifications.warn(_loc("ACTION.WarningWrongMovementToken"));
+      if ( notify ) ui.notifications.warn(_loc("ACTION.WARNINGS.WrongMovementToken"));
       return false;
     }
     return super._canDragLeftStart(user, event, {notify});
@@ -358,15 +358,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const foundPath = context?.foundPath ?? [];
     const cost = foundPath.length > 1 ? this.measureMovementPath(foundPath).cost : 0;
     if ( (movement.direct !== false) && context?.waypoints?.length ) {
-      ui.notifications.warn(_loc("ACTION.WarningDirectMovementOnly"));
+      ui.notifications.warn(_loc("ACTION.WARNINGS.DirectMovementOnly"));
       return true;
     }
     if ( minRange && (cost < minRange) ) {
-      ui.notifications.warn(_loc("ACTION.WarningMovementTooShort"));
+      ui.notifications.warn(_loc("ACTION.WARNINGS.MovementTooShort"));
       return true;
     }
     if ( maxRange && ((cost > maxRange) || context?.unreachableWaypoints?.length) ) {
-      ui.notifications.warn(_loc("ACTION.WarningMovementTooFar"));
+      ui.notifications.warn(_loc("ACTION.WARNINGS.MovementTooFar"));
       return true;
     }
     return false;
