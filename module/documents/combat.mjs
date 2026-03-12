@@ -24,7 +24,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async previousRound() {
     if ( !game.user.isGM ) {
-      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      ui.notifications.warn("COMBAT.WARNINGS.CannotChangeRound", {localize: true});
       return this;
     }
     return super.previousRound();
@@ -35,7 +35,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async nextRound() {
     if ( !game.user.isGM ) {
-      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      ui.notifications.warn("COMBAT.WARNINGS.CannotChangeRound", {localize: true});
       return this;
     }
     return super.nextRound();

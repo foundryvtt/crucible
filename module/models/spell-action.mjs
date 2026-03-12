@@ -401,7 +401,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
-    if ( this.damage.healing ) tags.action.healing = _loc("ACTION.TagHealing");
+    if ( this.damage.healing ) tags.action.healing = _loc("ACTION.TAG.Healing");
     else tags.action.defense = SYSTEM.DEFENSES[this.usage.defenseType].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
 

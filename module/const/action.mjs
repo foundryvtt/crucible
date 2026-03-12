@@ -218,8 +218,8 @@ export const TAGS = {
   // Requires Dual-Wield
   dualwield: {
     tag: "dualwield",
-    label: "ACTION.TagDualWield",
-    tooltip: "ACTION.TagDualWieldTooltip",
+    label: "ACTION.TAG.DualWield",
+    tooltip: "ACTION.TAG.DualWieldTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.weapons.dualWield;
@@ -229,8 +229,8 @@ export const TAGS = {
   // Requires One-Handed weapon
   onehand: {
     tag: "onehand",
-    label: "ACTION.TagOneHand",
-    tooltip: "ACTION.TagOneHandTooltip",
+    label: "ACTION.TAG.OneHand",
+    tooltip: "ACTION.TAG.OneHandTooltip",
     category: "requirements",
     canUse() {
       return !this.actor.equipment.weapons.twoHanded;
@@ -240,8 +240,8 @@ export const TAGS = {
   // Requires Dexterity Weapon
   finesse: {
     tag: "finesse",
-    label: "ACTION.TagFinesse",
-    tooltip: "ACTION.TagFinesseTooltip",
+    label: "ACTION.TAG.Finesse",
+    tooltip: "ACTION.TAG.FinesseTooltip",
     category: "requirements",
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
@@ -253,8 +253,8 @@ export const TAGS = {
   // Requires Strength Weapon
   brute: {
     tag: "brute",
-    label: "ACTION.TagBrute",
-    tooltip: "ACTION.TagBruteTooltip",
+    label: "ACTION.TAG.Brute",
+    tooltip: "ACTION.TAG.BruteTooltip",
     category: "requirements",
     priority: 5,
     canUse() {
@@ -267,8 +267,8 @@ export const TAGS = {
   // Requires a Projectile Weapon
   projectile: {
     tag: "projectile",
-    label: "ACTION.TagProjectile",
-    tooltip: "ACTION.TagProjectileTooltip",
+    label: "ACTION.TAG.Projectile",
+    tooltip: "ACTION.TAG.ProjectileTooltip",
     category: "requirements",
     propagate: ["ranged"],
     canUse() {
@@ -281,8 +281,8 @@ export const TAGS = {
   // Requires a Mechanical Weapon
   mechanical: {
     tag: "mechanical",
-    label: "ACTION.TagMechanical",
-    tooltip: "ACTION.TagMechanicalTooltip",
+    label: "ACTION.TAG.Mechanical",
+    tooltip: "ACTION.TAG.MechanicalTooltip",
     category: "requirements",
     propagate: ["ranged"],
     canUse() {
@@ -295,8 +295,8 @@ export const TAGS = {
   // Requires Shield
   shield: {
     tag: "shield",
-    label: "ACTION.TagShield",
-    tooltip: "ACTION.TagShieldTooltip",
+    label: "ACTION.TAG.Shield",
+    tooltip: "ACTION.TAG.ShieldTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.weapons.shield;
@@ -306,8 +306,8 @@ export const TAGS = {
   // Requires Unarmed
   unarmed: {
     tag: "unarmed",
-    label: "ACTION.TagUnarmed",
-    tooltip: "ACTION.TagUnarmedTooltip",
+    label: "ACTION.TAG.Unarmed",
+    tooltip: "ACTION.TAG.UnarmedTooltip",
     category: "requirements",
     propagate: ["melee"],
     canUse() {
@@ -318,8 +318,8 @@ export const TAGS = {
   // Requires Unarmored
   unarmored: {
     tag: "unarmored",
-    label: "ACTION.TagUnarmored",
-    tooltip: "ACTION.TagUnarmoredTooltip",
+    label: "ACTION.TAG.Unarmored",
+    tooltip: "ACTION.TAG.UnarmoredTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.unarmored;
@@ -329,8 +329,8 @@ export const TAGS = {
   // After a Basic Strike
   afterStrike: {
     tag: "afterStrike",
-    label: "ACTION.TagAfterStrike",
-    tooltip: "ACTION.TagActorStrikeTooltip",
+    label: "ACTION.TAG.AfterStrike",
+    tooltip: "ACTION.TAG.ActorStrikeTooltip",
     category: "requirements",
     canUse() {
       const lastAction = this.actor.lastConfirmedAction;
@@ -349,19 +349,19 @@ export const TAGS = {
   // Requires the ability to speak
   vocal: {
     tag: "vocal",
-    label: "ACTION.TagVocal",
-    tooltip: "ACTION.TagVocalTooltip",
+    label: "ACTION.TAG.Vocal",
+    tooltip: "ACTION.TAG.VocalTooltip",
     category: "requirements",
     canUse() {
-      if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WarningSilenced"));
+      if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WARNINGS.Silenced"));
     }
   },
 
   // Requires the ability to hear
   auditory: {
     tag: "auditory",
-    label: "ACTION.TagAuditory",
-    tooltip: "ACTION.TagAuditoryTooltip",
+    label: "ACTION.TAG.Auditory",
+    tooltip: "ACTION.TAG.AuditoryTooltip",
     category: "requirements",
     preActivate(targets) {
       // Remove targets which are deafened
@@ -379,13 +379,13 @@ export const TAGS = {
   // Requires Reaction
   reaction: {
     tag: "reaction",
-    label: "ACTION.TagReaction",
-    tooltip: "ACTION.TagReactionTooltip",
+    label: "ACTION.TAG.Reaction",
+    tooltip: "ACTION.TAG.ReactionTooltip",
     category: "context",
     canUse() {
       if ( !this.actor.inCombat ) return false;
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
-      if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WarningNoAbility", {
+      if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.dexterity.label,
         action: this.name
@@ -406,8 +406,8 @@ export const TAGS = {
   // Non-Combat Actions
   noncombat: {
     tag: "noncombat",
-    label: "ACTION.TagNonCombat",
-    tooltip: "ACTION.TagNonCombatTooltip",
+    label: "ACTION.TAG.NonCombat",
+    tooltip: "ACTION.TAG.NonCombatTooltip",
     category: "context",
     canUse() {
       if ( this.actor.inCombat ) throw new Error(`You may not use ${this.name} during Combat.`);
@@ -417,8 +417,8 @@ export const TAGS = {
   // Requires a Flanked Opponent
   flanking: {
     tag: "flanking",
-    label: "ACTION.TagFlanking",
-    tooltip: "ACTION.TagFlankingTooltip",
+    label: "ACTION.TAG.Flanking",
+    tooltip: "ACTION.TAG.FlankingTooltip",
     category: "context",
     acquireTargets(targets) {
       for ( const target of targets ) {
@@ -430,8 +430,8 @@ export const TAGS = {
   // Consumables
   consume: {
     tag: "consume",
-    label: "ACTION.TagConsume",
-    tooltip: "ACTION.TagConsumeTooltip",
+    label: "ACTION.TAG.Consume",
+    tooltip: "ACTION.TAG.ConsumeTooltip",
     category: "special",
     initialize() {
       if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
@@ -454,8 +454,8 @@ export const TAGS = {
 
   spell: {
     tag: "spell",
-    label: "ACTION.TagSpell",
-    tooltip: "ACTION.TagSpellTooltip",
+    label: "ACTION.TAG.Spell",
+    tooltip: "ACTION.TAG.SpellTooltip",
     category: "spellcraft",
     priority: 1,
     initialize() {
@@ -478,8 +478,8 @@ export const TAGS = {
   // Composed Spells
   composed: {
     tag: "composed",
-    label: "ACTION.TagComposed",
-    tooltip: "ACTION.TagComposedTooltip",
+    label: "ACTION.TAG.Composed",
+    tooltip: "ACTION.TAG.ComposedTooltip",
     category: "spellcraft",
     priority: 2,
     initialize() {
@@ -496,20 +496,20 @@ export const TAGS = {
   // Iconic Spell
   iconicSpell: {
     tag: "iconicSpell",
-    label: "ACTION.TagIconicSpell",
-    tooltip: "ACTION.TagSpellTooltip",
+    label: "ACTION.TAG.IconicSpell",
+    tooltip: "ACTION.TAG.SpellTooltip",
     category: "spellcraft",
     priority: 2
   },
 
   summon: {
     tag: "summon",
-    label: "ACTION.TagSummon",
-    tooltip: "ACTION.TagSummonTooltip",
+    label: "ACTION.TAG.Summon",
+    tooltip: "ACTION.TAG.SummonTooltip",
     category: "special",
     canUse() {
       if ( !this.usage.summons?.length || this.usage.summons.some(s => !s.actorUuid) ) {
-        throw new Error(_loc("ACTION.WarningMisconfiguredSummon", { action: this.name }));
+        throw new Error(_loc("ACTION.WARNINGS.MisconfiguredSummon", { action: this.name }));
       }
     },
     async postActivate(outcome) {
@@ -679,8 +679,8 @@ export const TAGS = {
   // Requires a Melee Weapon
   melee: {
     tag: "melee",
-    label: "ACTION.TagMelee",
-    tooltip: "ACTION.TagMeleeTooltip",
+    label: "ACTION.TAG.Melee",
+    tooltip: "ACTION.TAG.MeleeTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 1,
@@ -694,8 +694,8 @@ export const TAGS = {
   // Requires a Ranged Weapon
   ranged: {
     tag: "ranged",
-    label: "ACTION.TagRanged",
-    tooltip: "ACTION.TagRangedTooltip",
+    label: "ACTION.TAG.Ranged",
+    tooltip: "ACTION.TAG.RangedTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 1,
@@ -716,8 +716,8 @@ export const TAGS = {
 
   mainhand: {
     tag: "mainhand",
-    label: "ACTION.TagMainHand",
-    tooltip: "ACTION.TagMainHandTooltip",
+    label: "ACTION.TAG.MainHand",
+    tooltip: "ACTION.TAG.MainHandTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -730,8 +730,8 @@ export const TAGS = {
 
   twohand: {
     tag: "twohand",
-    label: "ACTION.TagTwoHanded",
-    tooltip: "ACTION.TagTwoHandedTooltip",
+    label: "ACTION.TAG.TwoHanded",
+    tooltip: "ACTION.TAG.TwoHandedTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -749,8 +749,8 @@ export const TAGS = {
 
   offhand: {
     tag: "offhand",
-    label: "ACTION.TagOffHand",
-    tooltip: "ACTION.TagOffHandTooltip",
+    label: "ACTION.TAG.OffHand",
+    tooltip: "ACTION.TAG.OffHandTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -768,8 +768,8 @@ export const TAGS = {
 
   thrown: {
     tag: "thrown",
-    label: "ACTION.TagThrown",
-    tooltip: "ACTION.TagThrownTooltip",
+    label: "ACTION.TAG.Thrown",
+    tooltip: "ACTION.TAG.ThrownTooltip",
     category: "attack",
     propagate: ["melee"],
     canUse() {
@@ -795,8 +795,8 @@ export const TAGS = {
   natural: {
     tag: "natural",
     category: "attack",
-    label: "ACTION.TagNatural",
-    tooltip: "ACTION.TagNaturalTooltip",
+    label: "ACTION.TAG.Natural",
+    tooltip: "ACTION.TAG.NaturalTooltip",
     propagate: ["melee"],
     priority: 9,
     canUse() {
@@ -836,8 +836,8 @@ export const TAGS = {
 
   generic: {
     tag: "generic",
-    label: "ACTION.TagGeneric",
-    tooltip: "ACTION.TagGenericTooltip",
+    label: "ACTION.TAG.Generic",
+    tooltip: "ACTION.TAG.GenericTooltip",
     category: "special",
     priority: 9,
     prepare() {
@@ -886,8 +886,8 @@ export const TAGS = {
 
   reload: {
     tag: "reload",
-    label: "ACTION.TagReload",
-    tooltip: "ACTION.TagReloadTooltip",
+    label: "ACTION.TAG.Reload",
+    tooltip: "ACTION.TAG.ReloadTooltip",
     category: "special",
     canUse() {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
@@ -908,8 +908,8 @@ export const TAGS = {
 
   disarm: {
     tag: "disarm",
-    label: "ACTION.TagDisarm",
-    tooltip: "ACTION.TagDisarmTooltip",
+    label: "ACTION.TAG.Disarm",
+    tooltip: "ACTION.TAG.DisarmTooltip",
     category: "special",
     postActivate(outcome) {
       if ( outcome.target === this.actor ) return;
@@ -929,8 +929,8 @@ export const TAGS = {
 
   deadly: {
     tag: "deadly",
-    label: "ACTION.TagDeadly",
-    tooltip: "ACTION.TagDeadlyTooltip",
+    label: "ACTION.TAG.Deadly",
+    tooltip: "ACTION.TAG.DeadlyTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.multiplier += 1;
@@ -939,18 +939,18 @@ export const TAGS = {
 
   difficult: {
     tag: "difficult",
-    label: "ACTION.TagDifficult",
-    tooltip: "ACTION.TagDifficultTooltip",
+    label: "ACTION.TAG.Difficult",
+    tooltip: "ACTION.TAG.DifficultTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.banes.difficult = {label: "ACTION.TagDifficult", number: 1};
+      this.usage.banes.difficult = {label: "ACTION.TAG.Difficult", number: 1};
     }
   },
 
   empowered: {
     tag: "empowered",
-    label: "ACTION.TagEmpowered",
-    tooltip: "ACTION.TagEmpoweredTooltip",
+    label: "ACTION.TAG.Empowered",
+    tooltip: "ACTION.TAG.EmpoweredTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.damageBonus += 6;
@@ -958,17 +958,17 @@ export const TAGS = {
   },
   accurate: {
     tag: "accurate",
-    label: "ACTION.TagAccurate",
-    tooltip: "ACTION.TagAccurateTooltip",
+    label: "ACTION.TAG.Accurate",
+    tooltip: "ACTION.TAG.AccurateTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.boons.accurate = {label: "ACTION.TagAccurate", number: 2};
+      this.usage.boons.accurate = {label: "ACTION.TAG.Accurate", number: 2};
     }
   },
   harmless: {
     tag: "harmless",
-    label: "ACTION.TagHarmless",
-    tooltip: "ACTION.TagHarmlessTooltip",
+    label: "ACTION.TAG.Harmless",
+    tooltip: "ACTION.TAG.HarmlessTooltip",
     category: "modifiers",
     async postActivate(outcome) {
       for ( const roll of outcome.rolls ) {
@@ -981,8 +981,8 @@ export const TAGS = {
   },
   weakened: {
     tag: "weakened",
-    label: "ACTION.TagWeakened",
-    tooltip: "ACTION.TagWeakenedTooltip",
+    label: "ACTION.TAG.Weakened",
+    tooltip: "ACTION.TAG.WeakenedTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.damageBonus -= 6;
@@ -991,8 +991,8 @@ export const TAGS = {
 
   severe: {
     tag: "severe",
-    label: "ACTION.TagSevere",
-    tooltip: "ACTION.TagSevereTooltip",
+    label: "ACTION.TAG.Severe",
+    tooltip: "ACTION.TAG.SevereTooltip",
     category: "modifiers",
     async postActivate(outcome) {
       const targetResources = outcome.target?.system?.resources;
@@ -1050,8 +1050,8 @@ export const TAGS = {
 
   healing: {
     tag: "healing",
-    label: "ACTION.TagHealing",
-    tooltip: "ACTION.TagHealingTooltip",
+    label: "ACTION.TAG.Healing",
+    tooltip: "ACTION.TAG.HealingTooltip",
     category: "damage",
     prepare() {
       this.usage.hasDice = true;
@@ -1063,8 +1063,8 @@ export const TAGS = {
 
   rallying: {
     tag: "rallying",
-    label: "ACTION.TagRallying",
-    tooltip: "ACTION.TagRallyingTooltip",
+    label: "ACTION.TAG.Rallying",
+    tooltip: "ACTION.TAG.RallyingTooltip",
     category: "damage",
     prepare() {
       this.usage.hasDice = true;
@@ -1080,8 +1080,8 @@ export const TAGS = {
 
   maintained: {
     tag: "maintained",
-    label: "ACTION.TagMaintained",
-    tooltip: "ACTION.TagMaintainedTooltip",
+    label: "ACTION.TAG.Maintained",
+    tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
     async postActivate(outcome) {
       if ( !outcome.self ) return;
@@ -1097,8 +1097,8 @@ export const TAGS = {
 
   movement: {
     tag: "movement",
-    label: "ACTION.TagMovement",
-    tooltip: "ACTION.TagMovementTooltip",
+    label: "ACTION.TAG.Movement",
+    tooltip: "ACTION.TAG.MovementTooltip",
     category: "movement",
     canUse() {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
@@ -1166,8 +1166,8 @@ export const TAGS = {
 for ( const id of Object.keys(MOVEMENT_ACTIONS) ) {
   TAGS[id] = {
     tag: id,
-    label: `ACTION.TagMovement${id[0].toUpperCase()}${id.slice(1)}`,
-    tooltip: `ACTION.TagMovement${id[0].toUpperCase()}${id.slice(1)}Tooltip`,
+    label: `ACTION.TAG.Movement${id[0].toUpperCase()}${id.slice(1)}`,
+    tooltip: `ACTION.TAG.Movement${id[0].toUpperCase()}${id.slice(1)}Tooltip`,
     category: "movement",
     propagate: ["movement"],
     prepare() {
@@ -1228,7 +1228,7 @@ for ( const resource of ["health", "morale"] ) {
 // All Skill Attacks
 TAGS.skill = {
   tag: "skill",
-  label: "ACTION.TagSkill",
+  label: "ACTION.TAG.Skill",
   category: "skills"
 };
 

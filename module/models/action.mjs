@@ -877,7 +877,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
         default:
-          ui.notifications.warn(_loc("ACTION.WarningUnimplementedTarget", {type: this.target.type, name: this.name}));
+          ui.notifications.warn(_loc("ACTION.WARNINGS.UnimplementedTarget", {type: this.target.type, name: this.name}));
           targets = Array.from(game.user.targets).map(CrucibleAction.#getTargetFromToken);
           break;
       }
@@ -1040,7 +1040,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Too few targets
     if ( tokens.size < 1 ) {
-      if ( strict ) throw new Error(_loc("ACTION.WarningInvalidTarget", {
+      if ( strict ) throw new Error(_loc("ACTION.WARNINGS.InvalidTarget", {
         number: this.target.number,
         type: this.target.type,
         action: this.name
@@ -1050,7 +1050,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Too many targets
     if ( tokens.size > this.target.number ) {
-      errorAll = _loc("ACTION.WarningIncorrectTargets", {
+      errorAll = _loc("ACTION.WARNINGS.IncorrectTargets", {
         number: this.target.number,
         type: this.target.type,
         action: this.name
@@ -1065,15 +1065,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       targets.push(t);
       if ( !this.token ) continue;
       if ( (token === this.token) && !this.damage?.restoration ) {
-        t.error = _loc("ACTION.WarningCannotTargetSelf");
+        t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
         continue;
       }
       const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);
       if ( this.range.minimum && (range < this.range.minimum) ) {
-        t.error ||= _loc("ACTION.WarningMinimumRange", {min: this.range.minimum});
+        t.error ||= _loc("ACTION.WARNINGS.MinimumRange", {min: this.range.minimum});
       }
       if ( this.range.maximum && (range > this.range.maximum) ) {
-        t.error ||= _loc("ACTION.WarningMaximumRange", {max: this.range.maximum});
+        t.error ||= _loc("ACTION.WARNINGS.MaximumRange", {max: this.range.maximum});
       }
     }
     return targets;
@@ -1477,7 +1477,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot spend action
     if ( this.cost.action && this.actor.isIncapacitated ) {
-      throw new Error(_loc("ACTION.WarningCannotSpendAction", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotSpendAction", {
         name: this.actor.name
       }));
     }
@@ -1488,7 +1488,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const allowEnragedFocus = this.actor.talentIds.has("iramancer0000000") || this.tags.has("strike");
       if ( statuses.has("broken") ) focusBlock = "broken";
       else if ( statuses.has("enraged") && !allowEnragedFocus ) focusBlock = "enraged";
-      if ( focusBlock ) throw new Error(_loc("ACTION.WarningCannotSpendFocus", {
+      if ( focusBlock ) throw new Error(_loc("ACTION.WARNINGS.CannotSpendFocus", {
         name: this.actor.name,
         status: _loc(`ACTIVE_EFFECT.STATUSES.${focusBlock.titleCase()}`)
       }));
@@ -1496,7 +1496,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford action cost
     if ( this.cost.action > r.action.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.action.label,
         action: this.name
@@ -1505,7 +1505,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford focus cost
     if ( this.cost.focus > r.focus.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.focus.label,
         action: this.name
@@ -1514,7 +1514,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford heroism cost
     if ( this.cost.heroism > r.heroism.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.heroism.label,
         action: this.name
@@ -1524,7 +1524,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cannot afford hands cost
     if ( this.cost.hands > this.usage.availableHands ) {
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WarningCannotAffordHands";
+      const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WARNINGS.CannotAffordHands";
       throw new Error(_loc(`${error}.${plurals.select(this.cost.hands)}`, {
         name: this.actor.name,
         hands: this.cost.hands,
@@ -1534,7 +1534,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot use physical scaling
     if ( !this.actor.abilities.strength.value && this.scaling.length && this.scaling.every(s => ["strength", "toughness", "dexterity"].includes(s)) ) {
-      throw new Error(_loc("ACTION.WarningNoAbility", {
+      throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.strength.label,
         action: this.name
@@ -1543,7 +1543,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot use mental scaling
     if ( !this.actor.abilities.wisdom.value && this.scaling.length && this.scaling.every(s => ["wisdom", "presence", "intellect"].includes(s)) ) {
-      throw new Error(_loc("ACTION.WarningNoAbility", {
+      throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.wisdom.label,
         action: this.name
@@ -1563,7 +1563,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         errorOptions = {cause: err};
       }
       if ( errorReason ) {
-        throw new Error(_loc("ACTION.WarningCannotUse", {
+        throw new Error(_loc("ACTION.WARNINGS.CannotUse", {
           name: this.actor.name,
           action: this.name,
           reason: errorReason
@@ -1875,10 +1875,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const cost = this._trueCost || this.cost;
     const ap = cost.action ?? 0;
     if ( this.cost.weapon && !this.usage.strikes?.length ) { // Strike sequence not yet determined
-      if ( ap === 0 ) tags.activation.ap = _loc("ACTION.TagCostWeapon");
-      else tags.activation.ap = _loc("ACTION.TagCostWeaponAction", {action: ap.signedString()});
+      if ( ap === 0 ) tags.activation.ap = _loc("ACTION.TAG.CostWeapon");
+      else tags.activation.ap = _loc("ACTION.TAG.CostWeaponAction", {action: ap.signedString()});
     }
-    else tags.activation.ap = _loc("ACTION.TagCostAction", {action: ap});
+    else tags.activation.ap = _loc("ACTION.TAG.CostAction", {action: ap});
     if ( ap ) {
       const unmet = ap > this.actor?.resources.action.value;
       const label = tags.activation.ap;
@@ -1886,24 +1886,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) {
       const unmet = cost.focus > this.actor?.resources.focus.value;
-      const label = _loc("ACTION.TagCostFocus", {focus: cost.focus});
+      const label = _loc("ACTION.TAG.CostFocus", {focus: cost.focus});
       tags.activation.fp = {label, unmet};
     }
     if ( Number.isFinite(cost.heroism) && cost.heroism ) {
       const unmet = cost.heroism > this.actor?.resources.heroism.value;
-      const label = _loc("ACTION.TagCostHeroism", {heroism: cost.heroism});
+      const label = _loc("ACTION.TAG.CostHeroism", {heroism: cost.heroism});
       tags.activation.hp = {label, unmet};
     }
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) {
       const unmet = cost.health > this.actor?.resources.health.value; // Blood Magic, for example
-      const label = _loc("ACTION.TagCostHealth", {health: cost.health});
+      const label = _loc("ACTION.TAG.CostHealth", {health: cost.health});
       tags.activation.health = {label, unmet};
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
       const unmet = cost.hands > this.usage.availableHands;
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const label = _loc(`ACTION.TagCostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
+      const label = _loc(`ACTION.TAG.CostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
       tags.activation.hands = {label, unmet};
     }
     return tags;
