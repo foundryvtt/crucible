@@ -617,7 +617,7 @@ HOOKS.snakeblood000000 = {
 HOOKS.sorcerer00000000 = {
   useAction(item, action) {
     if ( action.tags.has("iconicSpell") ) {
-      throw new Error(`As a ${item.name}, you cannot cast Iconic Spells.`);
+      throw new Error(_loc("SPELL.WARNINGS.SorcererNoIconic", {talent: item.name}));
     }
   },
   preActivateAction(item, action) {

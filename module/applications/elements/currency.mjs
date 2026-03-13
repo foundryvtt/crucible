@@ -136,7 +136,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
       }
       const d = crucible.api.documents.CrucibleActor.convertCurrency({[input.dataset.denomination]: delta});
       if ( (this._value + d) < 0 ) {
-        ui.notifications.warn(`Insufficient currency to deduct ${delta} ${cfg.label}.`);
+        ui.notifications.warn(_loc("ACTOR.WARNINGS.InsufficientCurrency", {delta, denom: cfg.label}));
         input.value = amounts[d];
         return;
       }

@@ -245,7 +245,7 @@ export const TAGS = {
     category: "requirements",
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
-        throw new Error("Every weapon used in this action must scale using dexterity.");
+        throw new Error(_loc("ACTION.WARNINGS.MustScaleDex"));
       }
     }
   },
@@ -259,7 +259,7 @@ export const TAGS = {
     priority: 5,
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
-        throw new Error("Every weapon used in this action must scale using strength.");
+        throw new Error(_loc("ACTION.WARNINGS.MustScaleStrength"));
       }
     }
   },
@@ -335,12 +335,12 @@ export const TAGS = {
     canUse() {
       const lastAction = this.actor.lastConfirmedAction;
       if ( lastAction?.id !== "strike" ) {
-        throw new Error(`You may only perform the ${this.name} action after a basic Strike action.`);
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowStrike", {action: this.name}));
       }
       for ( const outcome of lastAction.outcomes.values() ) {
         if ( outcome.target === this.actor ) continue;
         if ( outcome.rolls.some(r => r.isCriticalFailure) ) {
-          throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
+          throw new Error(_loc("ACTION.WARNINGS.LastCriticallyMissed", {action: this.name}));
         }
       }
     }
@@ -384,7 +384,7 @@ export const TAGS = {
     category: "context",
     canUse() {
       if ( !this.actor.inCombat ) return false;
-      if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
+      if ( this.actor.statuses.has("unaware") ) throw new Error(_loc("ACTION.WARNINGS.ReactionUnaware"));
       if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.dexterity.label,
@@ -410,7 +410,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.NonCombatTooltip",
     category: "context",
     canUse() {
-      if ( this.actor.inCombat ) throw new Error(`You may not use ${this.name} during Combat.`);
+      if ( this.actor.inCombat ) throw new Error(_loc("ACTION.WARNINGS.NonCombat", {action: this.name}));
     }
   },
 
@@ -422,7 +422,7 @@ export const TAGS = {
     category: "context",
     acquireTargets(targets) {
       for ( const target of targets ) {
-        if ( !target.actor.statuses.has("flanked") ) target.error ??= `${this.name} requires a flanked target. Target "${target.actor.name}" is not flanked.`;
+        if ( !target.actor.statuses.has("flanked") ) target.error ??= _loc("ACTION.WARNINGS.NotFlanked", {action: this.name, target: target.actor.name});
       }
     }
   },
@@ -438,9 +438,9 @@ export const TAGS = {
     },
     canUse() {
       const item = this.usage.consumable;
-      if ( !item ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
+      if ( !item ) throw new Error(_loc("ACTION.WARNINGS.NoConsumable", {action: this.id}));
       if ( item.system.isDepleted ) {
-        throw new Error(`Consumable item "${item.name}" has no uses remaining for Action "${this.id}"`);
+        throw new Error(_loc("ACTION.WARNINGS.NoConsumableUses", {item: item.name, action: this.id}));
       }
     },
     async confirm(reverse) {
@@ -519,8 +519,7 @@ export const TAGS = {
         summon.tokenData ||= {};
         summon.tokenData.x ??= position.x;
         summon.tokenData.y ??= position.y;
-        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(`ActiveEffect data must be 
-          defined to track the non-permanent summon created by the action "${this.id}"`);
+        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
       }
     },
     async confirm(reverse) {
@@ -596,7 +595,7 @@ export const TAGS = {
     },
     canUse() {
       if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
-        throw new Error("Your weapon requires reloading in order to use this action.");
+        throw new Error(_loc("ACTION.WARNINGS.MustReload"));
       }
     },
     prepare() {
@@ -686,7 +685,7 @@ export const TAGS = {
     priority: 1,
     canUse() {
       if ( !this.actor.equipment.weapons.melee ) {
-        throw new Error("You must have melee weapons equipped to use this action.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresMelee"));
       }
     }
   },
@@ -701,7 +700,7 @@ export const TAGS = {
     priority: 1,
     canUse() {
       if ( !this.actor.equipment.weapons.ranged ) {
-        throw new Error("This action requires a ranged weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresRanged"));
       }
     },
     prepare() {
@@ -742,7 +741,7 @@ export const TAGS = {
     },
     canUse() {
       if ( !this.actor.equipment.weapons.twoHanded ) {
-        throw new Error("This action requires a two-handed weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresTwoHanded"));
       }
     }
   },
@@ -761,7 +760,7 @@ export const TAGS = {
     },
     canUse() {
       if ( !this.actor.equipment.weapons.offhand ) {
-        throw new Error("This action requires an offhand weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresOffhand"));
       }
     }
   },
@@ -774,7 +773,7 @@ export const TAGS = {
     propagate: ["melee"],
     canUse() {
       for ( const w of this.usage.strikes ) {
-        if ( !w.system.canThrow ) throw new Error("You cannot throw this weapon.");
+        if ( !w.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
       }
     },
     prepare() {
@@ -784,7 +783,7 @@ export const TAGS = {
     preActivate(_targets) {
       if ( !this.usage.strikes?.length ) return;
       for ( const weapon of this.usage.strikes ) {
-        if ( !weapon.system.canThrow ) throw new Error("You cannot throw this weapon.");
+        if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
         this.usage.actorUpdates.items ||= [];
         this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
@@ -801,7 +800,7 @@ export const TAGS = {
     priority: 9,
     canUse() {
       if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
-        throw new Error("This action requires use of a natural weapon.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresNatural"));
       }
     },
     prepare() {
@@ -892,7 +891,7 @@ export const TAGS = {
     canUse() {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
       if ( !reload || (!m.system.needsReload && !o?.system.needsReload) ) {
-        throw new Error("Your weapons do not require reloading");
+        throw new Error(_loc("ACTION.WARNINGS.NoReloadRequired"));
       }
     },
     preActivate() {
@@ -918,7 +917,7 @@ export const TAGS = {
         if ( !mainhand?.id ) return;
         outcome.actorUpdates.items ||= [];
         outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
-        outcome.statusText.push({text: "Disarmed!", fontSize: 64});
+        outcome.statusText.push({text: _loc("ACTOR.DisarmedStatus"), fontSize: 64});
       }
     }
   },
@@ -1101,7 +1100,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MovementTooltip",
     category: "movement",
     canUse() {
-      if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
+      if ( this.actor.statuses.has("restrained") ) throw new Error(_loc("ACTION.WARNINGS.Restrained"));
     },
     prepare() {
       const stride = this.actor.system.movement.stride;

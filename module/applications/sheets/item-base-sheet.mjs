@@ -422,7 +422,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks ||= [];
     if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {
-      ui.notifications.warn(`${this.document.name} already declares a function for the "${hook}" hook.`);
+      ui.notifications.warn(_loc("ITEM.WARNINGS.HookAlreadyExists", {item: this.document.name, hook}));
       return;
     }
     submitData.system.actorHooks.push({hook, fn: "// Hook code here"});

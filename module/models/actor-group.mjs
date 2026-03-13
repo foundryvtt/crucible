@@ -145,8 +145,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}         The updated group Actor
    */
   async addMember(actor, quantity=1) {
-    if ( !(actor instanceof Actor) || actor.pack ) throw new Error("You can only add a World Actor");
-    if ( actor === this.parent ) throw new Error("You cannot add your own group!");
+    if ( !(actor instanceof Actor) || actor.pack ) throw new Error(_loc("ACTOR.GROUP.WARNINGS.NotWorldActor"));
+    if ( actor === this.parent ) throw new Error(_loc("ACTOR.GROUP.WARNINGS.NoAddSelf"));
 
     // Prepare operation data
     const toJoin = new Map();
@@ -233,11 +233,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const recipientHTML = [];
 
     // Verify inputs
-    if ( !Number.isInteger(number) || (number < 1) ) throw new Error("The number of milestones awarded must be a "
-      + "positive integer");
+    if ( !Number.isInteger(number) || (number < 1) ) throw new Error(_loc("AWARD.WARNINGS.InvalidMilestoneNumber"));
     const milestones = foundry.utils.deepClone(this._source.advancement.milestones);
-    if ( identifier in milestones ) throw new Error(`A milestone with identifier "${identifier}" has already 
-    been awarded to group "${this.parent.name}"`);
+    if ( identifier in milestones ) {
+      throw new Error(_loc("AWARD.WARNINGS.DuplicateMilestone", {identifier, group: this.parent.name}));
+    }
 
     // Configure group award
     milestones[identifier] = {number, reason};
@@ -259,7 +259,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     recipientIds ||= Array.from(this.memberIds);
     for ( const id of recipientIds ) {
       const actor = game.actors.get(id);
-      if ( !actor || (actor.type !== "hero") ) throw new Error(`Actor ID "${id}" cannot be awarded a milestone`);
+      if ( !actor || (actor.type !== "hero") ) throw new Error(_loc("AWARD.WARNINGS.InvalidMilestoneRecipient", {id}));
       recipientHTML.push(`<li>${actor.name}</li>`);
       const actorMilestones = actor.system._source.advancement.milestones + number;
       actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});
@@ -295,8 +295,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Configure group award
     const milestones = foundry.utils.deepClone(this._source.advancement.milestones);
-    if ( !(identifier in milestones) ) throw new Error(`There is no milestone award with identifier 
-    "${identifier}" on group "${this.parent.name}"`);
+    if ( !(identifier in milestones) ) {
+      throw new Error(_loc("AWARD.WARNINGS.CannotRevokeMilestone", {identifier, group: this.parent.name}));
+    }
     const number = milestones[identifier].number;
     delete milestones[identifier];
     actorUpdates.push({_id: this.parent.id, system: {advancement: {milestones: _replace(milestones)}}});
@@ -311,7 +312,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     recipientIds ||= Array.from(this.memberIds);
     for ( const id of recipientIds ) {
       const actor = game.actors.get(id);
-      if ( !actor || (actor.type !== "hero") ) throw new Error(`Actor ID "${id}" have a milestone revoked`);
+      if ( !actor || (actor.type !== "hero") ) throw new Error(_loc("AWARD.WARNINGS.InvalidMilestoneRevokee", {id}));
       recipientHTML.push(`<li>${actor.name}</li>`);
       const actorMilestones = Math.max(actor.system._source.advancement.milestones - number, 0);
       actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});
@@ -340,7 +341,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}
    */
   async awardMilestoneDialog(options={}) {
-    if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to award milestones.");
+    if ( !game.user.isGM ) throw new Error(_loc("AWARD.WARNINGS.RequiresGM"));
 
     // Prepare form data
     const heroes = this.members.reduce((obj, {actor}) => {
@@ -396,7 +397,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}
    */
   async revokeMilestoneDialog() {
-    if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to revoke milestones.");
+    if ( !game.user.isGM ) throw new Error(_loc("AWARD.WARNINGS.RequiresGM"));
 
     // Prepare form data
     const heroes = this.members.reduce((obj, {actor}) => {

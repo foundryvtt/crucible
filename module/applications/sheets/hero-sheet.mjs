@@ -183,7 +183,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         break;
       case "talent":
         if ( !crucible.developmentMode ) {
-          ui.notifications.error("ACTOR.WARNINGS.NoDragTalent", {localize: true});
+          ui.notifications.error(_loc("ACTOR.WARNINGS.NoDragTalent"));
           return;
         }
     }

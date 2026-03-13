@@ -51,7 +51,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
   static #validateAbilities(abilities, options) {
     if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    if ( sum !== 12 ) throw new Error(`The sum of ability scaling values must equal 12. Currently ${sum}`);
+    if ( sum !== 12 ) throw new Error(_loc("ARCHETYPE.WARNINGS.InvalidAbilities", {sum}));
   }
 
   /* -------------------------------------------- */
@@ -66,7 +66,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     if ( spells.length < 2 ) return;
     const uuids = new Set();
     for ( const s of spells ) {
-      if ( uuids.has(s.item) ) throw new Error("There must not be duplicate spells on an archetype.");
+      if ( uuids.has(s.item) ) throw new Error(_loc("ARCHETYPE.WARNINGS.InvalidSpells"));
       uuids.add(s.item);
     }
   }

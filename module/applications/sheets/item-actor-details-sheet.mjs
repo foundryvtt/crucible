@@ -139,11 +139,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talents.some(({item}) => item === data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) {
-      ui.notifications.warn("ITEM.WARNINGS.NotTalent", {localize: true});
+      ui.notifications.warn(_loc("ITEM.WARNINGS.NotTalent"));
       return;
     }
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
-      return ui.notifications.error("BACKGROUND.ERRORS.TalentTier", {localize: true});
+      return ui.notifications.error(_loc("BACKGROUND.ERRORS.TalentTier"));
     }
     const tier = talent.system.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
     const updateData = {

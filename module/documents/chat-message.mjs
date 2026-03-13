@@ -125,7 +125,7 @@ export default class CrucibleChatMessage extends ChatMessage {
       else {
         if ( meta ) meta.insertAdjacentHTML("afterbegin", "<i class=\"unconfirmed fa-solid fa-hexagon-xmark\" data-tooltip=\"ACTION.Unconfirmed\"></i>");
         if ( game.user.isGM ) {
-          const confirm = foundry.utils.parseHTML("<button class=\"confirm frame-brown\" type=\"button\"><i class=\"fas fa-hexagon-check\"></i>Confirm</button>");
+          const confirm = foundry.utils.parseHTML(`<button class=\"confirm frame-brown\" type=\"button\"><i class=\"fas fa-hexagon-check\"></i>${_loc("DICE.Confirm")}</button>`);
           html.appendChild(confirm);
           confirm.addEventListener("click", event => {
             const button = event.currentTarget;

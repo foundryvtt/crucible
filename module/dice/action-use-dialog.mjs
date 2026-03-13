@@ -142,7 +142,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const choices = this.action.getValidWeaponChoices({strict: true, maxCost});
     if ( choices.length <= 1 ) return null;
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
-      label: "Weapon", hint: "You may choose which weapon to use for this Action."});
+      label: _loc("ACTION.ChooseWeaponLabel"), hint: _loc("ACTION.ChooseWeaponHint")});
     weapon.name = "weapon";
     return {field: weapon, value: this.#weaponChoice};
   }

@@ -822,7 +822,7 @@ function enableSpellcheckContext() {
 async function syncOwnedItems({force=false, reload=true, talents=true, spells=true}={}) {
   console.groupCollapsed("Crucible | Talent/Spell Data Synchronization");
   const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
+  const progress = ui.notifications.info(_loc("CRUCIBLE.Syncing"), {console: true, progress: true});
   for ( const actor of game.actors ) {
     bar.n++;
     bar.pct = bar.n / bar.total;
