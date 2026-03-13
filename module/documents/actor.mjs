@@ -1421,7 +1421,7 @@ export default class CrucibleActor extends Actor {
     }
 
     const resourcesContent = `
-      <table>
+      <table class="change-table">
         <thead>
           <tr>
             <th colspan=2>
@@ -1440,7 +1440,7 @@ export default class CrucibleActor extends Actor {
       </table>
     `;
     const effectsContent = `
-      <table>
+      <table class="change-table">
         <thead>
           <tr>
             <th colspan=2>${_loc("COMBAT.SUMMARY.TableTitleEffects")}</th>
