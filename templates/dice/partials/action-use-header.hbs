@@ -9,7 +9,7 @@
 
     {{#if hasActionTags}}
     <div class="action-tags full-tags">
-        <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
+        <label class="tag-icon" data-tooltip="{{tags.action.tooltip}}" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bolt"></i>
         </label>
         {{crucibleTags tags.action tagType="action"}}
@@ -18,7 +18,7 @@
 
     {{#if hasContextTags}}
     <div class="context-tags full-tags">
-        <label class="tag-icon" data-tooltip="{{tags.context.label}}" data-tooltip-direction="LEFT">
+        <label class="tag-icon" data-tooltip="{{tags.context.tooltip}}" data-tooltip-direction="LEFT">
             <i class="{{tags.context.icon}}"></i>
         </label>
         {{crucibleTags tags.context tagType="context"}}

@@ -172,7 +172,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
     const item = await fromUuid(data.uuid);
     if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) {
-      ui.notifications.warn("ARCHETYPE.WARNINGS.NotEquipment", {localize: true});
+      ui.notifications.warn(_loc("ARCHETYPE.WARNINGS.NotEquipment"));
       return;
     }
 
@@ -198,7 +198,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( (data.type !== "Item") || spells.some(s => s.item === data.uuid) ) return;
     const spell = await fromUuid(data.uuid);
     if ( !(spell?.system instanceof crucible.api.models.CrucibleSpellItem) ) {
-      ui.notifications.warn("ARCHETYPE.WARNINGS.NotSpell", {localize: true});
+      ui.notifications.warn(_loc("ARCHETYPE.WARNINGS.NotSpell"));
       return;
     }
 

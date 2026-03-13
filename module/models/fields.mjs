@@ -87,8 +87,7 @@ export class ItemIdentifierField extends fields.StringField {
    */
   static #validate(id) {
     if ( !ItemIdentifierField.#IDENTIFIER_REGEX.test(id) ) {
-      throw new Error(`Invalid Crucible identifier value "${id}" which must be alphanumeric without spaces or 
-      special characters`);
+      throw new Error(_loc("ITEM.WARNINGS.InvalidIdentifier", {id}));
     }
   }
 }

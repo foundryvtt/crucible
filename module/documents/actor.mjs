@@ -599,10 +599,10 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   static async macroAction(actor, actionId) {
-    if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
+    if ( !actor ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.MacroNoToken"));
     let action = actor.actions[actionId];
     if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpellAction.fromId(actionId, {actor});
-    if ( !action ) return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
+    if ( !action ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoAction", {actor: actor.name, action: actionId}));
     await action.use();
   }
 
@@ -1403,13 +1403,13 @@ export default class CrucibleActor extends Actor {
   canLearnIconicSpell(spell) {
     const {iconicSpells, iconicSlots} = this.grimoire;
     if ( iconicSpells.length >= iconicSlots ) {
-      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNoSlots", {actor: this.name}));
     }
     if ( this.items.get(spell._id) ) {
-      throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicAlreadyKnown", {actor: this.name, spell: spell.name}));
     }
     if ( !spell.system.canKnowSpell(this.system.grimoire) ) {
-      throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNotSatisfied", {actor: this.name, spell: spell.name}));
     }
   }
 
@@ -1704,7 +1704,7 @@ export default class CrucibleActor extends Actor {
         !this.points.ability.requireInput,
         !this.points.talent.available
       ];
-      if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
+      if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
     }
 
     // Commit the update
@@ -1728,7 +1728,7 @@ export default class CrucibleActor extends Actor {
 
     // Can the ability be purchased?
     if ( !this.canPurchaseAbility(ability, delta) ) {
-      return ui.notifications.warn(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`, {localize: true});
+      return ui.notifications.warn(_loc(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`));
     }
 
     // Modify the ability

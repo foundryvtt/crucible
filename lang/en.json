@@ -380,6 +380,18 @@
       "Wall": "Wall"
     },
     "WARNINGS": {
+      "SPECIFIC": {
+        "BODY_BLOCK": {
+          "AlreadyConfirmed": "The attack against you has already been confirmed and can no longer be blocked.",
+          "InvalidOutcome": "You may only use Body Block after an attack against you is defended by Armor or a Glance.",
+          "MeleeOnly": "You may only use Body Block against an incoming melee attack."
+        },
+        "DELAY": {
+          "AlreadyDelayed": "You may not delay your turn again this combat round.",
+          "WrongTurn": "You may only use the Delay action on your own turn in combat."
+        }
+      },
+      "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
       "CannotAffordHands.one": "{name} must have {hands} free hand to use {action}!",
       "CannotAffordHands.other": "{name} must have {hands} free hands to use {action}!",
@@ -387,17 +399,39 @@
       "CannotSpendAction": "{name} cannot spend Action because they are Incapacitated!",
       "CannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
       "CannotTargetSelf": "You cannot target yourself with this Action!",
+      "CannotThrow": "You cannot throw this weapon.",
       "CannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
+      "LastCriticallyMissed": "You may only perform {action} after a basic Strike which did not critically miss.",
       "MaximumRange": "A selected target is further than the maximum range of {max} feet.",
       "MinimumRange": "A selected target is closer than the minimum range of {min} feet.",
+      "MinimumSize": "You must be at least size {size} to use {action}",
       "MisconfiguredSummon": "The action {action} does not have a properly configured Summon target.",
+      "MissingSummonEffect": "ActiveEffect data must be defined to track the non-permanent summon created by the action \"{action}\"",
       "MovementTooFar": "The planned movement path exceeds the maximum range allowed by this action.",
       "MovementTooShort": "The planned movement path does not meet the minimum range required by this action.",
+      "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
+      "MustReload": "Your weapon requires reloading in order to use this action.",
+      "MustScaleDex": "Every weapon used in this action must scale using dexterity.",
+      "MustScaleStrength": "Every weapon used in this action must scale using strength.",
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
+      "NoConsumable": "No consumable Item identified for action \"{action}\"",
+      "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
+      "NonCombat": "You may not use {action} during Combat.",
+      "NoReloadRequired": "Your weapons do not require reloading",
+      "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
+      "ReactionUnaware": "You may not use a reaction while Unaware!",
+      "RequiresMelee": "You must have melee weapons equipped to use this action.",
+      "RequiresNatural": "This action requires use of a natural weapon.",
+      "RequiresOffhand": "This action requires an offhand weapon equipped.",
+      "RequiresRanged": "This action requires a ranged weapon equipped.",
+      "RequiresSlashingMelee": "{action} requires a melee weapon which deals slashing damage.",
+      "RequiresTalisman": "{action} requires use of a Talisman weapon.",
+      "RequiresTwoHanded": "This action requires a two-handed weapon equipped.",
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
+      "Restrained": "You may not move while Restrained!",
       "Silenced": "You cannot use this action while Silenced.",
       "UnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
       "WrongMovementToken": "You must move the token performing this action."
@@ -405,6 +439,8 @@
     "Action": "Action",
     "AffectsScope": "Affects {scope}",
     "AllResult": "{existing} (All)",
+    "ChooseWeaponLabel": "Weapon",
+    "ChooseWeaponHint": "You may choose which weapon to use for this Action.",
     "Condition": "Condition",
     "Confirmed": "Confirmed",
     "DelayHint": "Choose an initiative value between 1 and {maximum} when you wish to act.",
@@ -646,6 +682,10 @@
         "medianLevel": "Median Level",
         "recover": "Recover",
         "rest": "Rest"
+      },
+      "WARNINGS": {
+        "NoAddSelf": "You cannot add your own group!",
+        "NotWorldActor": "You can only add a World Actor"
       }
     },
     "LABELS": {
@@ -733,6 +773,9 @@
       "Talents": "Talents"
     },
     "WARNINGS": {
+      "InsufficientCurrency": "Insufficient currency to deduct {delta} {denom}",
+      "MacroNoToken": "You must have a Token controlled to use this Macro",
+      "NoAction": "Actor \"{actor}\" does not have the action \"{action}\"",
       "NoAncestry": "Choose an Ancestry",
       "NoBackground": "Choose a Background",
       "NoDragTalent": "Talents can only be added to a Hero Actor via the Talent Tree.",
@@ -742,6 +785,7 @@
       "UnderspentTalent": "Spend Talent Points"
     },
     "Details": "Details",
+    "DisarmedStatus": "Disarmed!",
     "KnowledgeSpecific": "Knowledge: {knowledge}",
     "LanguageSpecific": "Language: {language}",
     "LevelSpecific": "Level {level}",
@@ -871,6 +915,8 @@
       "Skills": "Skill Progression"
     },
     "WARNINGS": {
+      "InvalidAbilities": "The sum of ability scaling values must equal 12. Currently {sum}",
+      "InvalidSpells": "There must not be duplicate spells on an archetype.",
       "NotEquipment": "The dropped document must be Equipment.",
       "NotSpell": "The dropped document must be an Iconic Spell."
     }
@@ -961,6 +1007,11 @@
     },
     "WARNINGS": {
       "CannotAfford": "The following actors cannot afford the cost of this enricher: {actors}",
+      "CannotRevokeMilestone": "There is no milestone award with identifier \"{identifier}\" on group \"{group}\"",
+      "DuplicateMilestone": "A milestone with identifier \"{identifier}\" has already been awarded to group \"{group}\"",
+      "InvalidMilestoneNumber": "The number of milestones awarded must be a positive integer",
+      "InvalidMilestoneRecipient": "Actor ID \"{id}\" cannot be awarded a milestone",
+      "InvalidMilestoneRevokee": "Actor ID \"{id}\" cannot have a milestone revoked",
       "InvalidTerms": "Unable to parse {terms} as valid award terms.",
       "RequiresGM": "You must be a Gamemaster to use Award enrichers."
     },
@@ -1058,9 +1109,16 @@
     }
   },
   "COMBAT": {
+    "INITIATIVE": {
+      "Combatant": "Combatant",
+      "Result": "Result",
+      "Round": "Initiative - Round {round}"
+    },
     "WARNINGS": {
       "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
-    }
+    },
+    "HeroismPct": "Heroism {pct}%",
+    "HeroismTooltip": "Progress to next Heroism point"
   },
   "CONSUMABLE": {
     "CATEGORIES": {
@@ -1128,7 +1186,8 @@
     "Bonus": "Bonus",
     "Rules": "Crucible Rules",
     "Scaled": "Scaled",
-    "Scaling": "Scaling"
+    "Scaling": "Scaling",
+    "Syncing": "Synchronizing Talents & Spells"
   },
   "CURRENCY_DENOMINATIONS": {
     "CP": {
@@ -1224,6 +1283,8 @@
     "DamageTotal": "Damage Total",
     "DamageVulnerability": "Damage Vulnerability",
     "DC": "DC",
+    "DCAdditionalPassive": "{dcLabel}, Passive",
+    "DCAdditionalGroup": "{dcLabel}, Group",
     "DCSpecific": "DC {dc}",
     "DiceTotal": "Dice Total",
     "Enchantment": "Enchantment",
@@ -1354,6 +1415,8 @@
       "Talents": "Talents"
     },
     "WARNINGS": {
+      "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
+      "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent."
     },
     "EnchantmentLegendary": "Legendary",
@@ -1664,6 +1727,7 @@
     "COUNTERSPELL": {
       "WARNINGS": {
         "BadTarget": "You can only Counterspell the caster of the last action, and that action must be a spell.",
+        "CannotConfirm": "Cannot {change} a Counterspell if the targeted spell is already {state}",
         "InvalidTerms": "Unable to parse {terms} as valid Counterspell terms.",
         "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture.",
         "NoTalent": "{actor} does not have the Counterspell talent.",
@@ -1786,11 +1850,17 @@
       "Knowledge": "Required Knowledge"
     },
     "WARNINGS": {
+      "BindArmamentAlreadyBound": "weapon is already bound",
+      "BindArmamentNoMainhand": "no mainhand weapon",
       "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
       "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",
       "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed.",
       "CannotUseSilenced": "Cannot use Inflections while Silenced.",
-      "NotConfigured": "This Iconic Spell is not yet fully configured. It requires all three spellcraft components to be defined."
+      "IconicAlreadyKnown": "Actor {actor} already knows the {spell} Iconic Spell.",
+      "IconicNoSlots": "Actor {actor} does not have any available Iconic Spell slots.",
+      "IconicNotSatisfied": "Actor {actor} does not satisfy the knowledge requirements to learn the {spell} Iconic Spell.", 
+      "NotConfigured": "This Iconic Spell is not yet fully configured. It requires all three spellcraft components to be defined.",
+      "SorcererNoIconic": "As a {talent}, you cannot cast Iconic Spells."
     },
     "DamageType": "Damage Type",
     "Iconic": "Iconic Spell",
@@ -1976,6 +2046,10 @@
       "Clear": "Clear Taxonomy",
       "Physiology": "Physiology",
       "Stature": "Taxonomy Stature"
+    },
+    "WARNINGS": {
+      "InvalidAbilities": "The sum of initial ability values must equal 12. Currently {sum}",
+      "InvalidResistances": "The sum of resistance scaling values must equal zero. Currently {sum}"
     }
   },
   "TOKEN": {

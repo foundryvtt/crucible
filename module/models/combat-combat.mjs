@@ -80,8 +80,8 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
       <table class="initiative-table" data-combat-id="${this.parent.id}">
         <thead>
           <tr>
-              <th class="initiative-name">Combatant</th>
-              <th class="initiative-value" colspan="2">Result</th>
+              <th class="initiative-name">${_loc("COMBAT.INITIATIVE.Combatant")}</th>
+              <th class="initiative-value" colspan="2">${_loc("COMBAT.INITIATIVE.Result")}</th>
           </tr>
         </thead>
         <tbody>
@@ -90,7 +90,7 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
       </table>
       </section>`,
       rolls,
-      speaker: {user: game.user, alias: `Initiative - Round ${round}`},
+      speaker: {user: game.user, alias: _loc("COMBAT.INITIATIVE.Round", {round})},
       "flags.crucible.isInitiativeReport": true
     });
   }
@@ -146,13 +146,14 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     const meters = [ui.combat.element.querySelector(".heroism-meter")];
     if ( ui.combat.popout?.rendered ) meters.push(ui.combat.popout.element.querySelector(".heroism-meter"));
     const heroism = game.combat.system.heroism;
-    const pct = `${Math.round(heroism.pct * 100)}%`;
+    const pct = Math.round(heroism.pct * 100);
     for ( const meter of meters ) {
       if ( !meter ) continue;
       const [bar, label] = meter.children;
       bar.style.width = pct;
-      label.innerText = `Heroism ${pct}`;
-      meter.dataset.tooltip = "Progress to next Heroism point";
+      label.innerText = _loc("COMBAT.HeroismPct", {pct});
+      meter.dataset.tooltip = "";
+      meter.ariaLabel = _loc("COMBAT.HeroismTooltip");
     }
   }
 }
