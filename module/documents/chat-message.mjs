@@ -86,7 +86,7 @@ export default class CrucibleChatMessage extends ChatMessage {
   /** @inheritDoc */
   async renderHTML(options) {
     const html = await super.renderHTML(options);
-    if ( this.flags.crucible?.isInitiativeReport ) return html;
+    if ( ["isInitiativeReport", "isTurnChangeSummary"].some(f => f in (this.flags.crucible ?? {})) ) return html;
     if ( (this.rolls[0] instanceof StandardCheck) && !html.querySelector(".crucible.dice-roll") ) {
       const rollHTML = [];
       for ( const roll of this.rolls ) {

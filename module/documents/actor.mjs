@@ -234,7 +234,8 @@ export default class CrucibleActor extends Actor {
     // Before applying active effects, apply data based on prepared embedded Item documents
     // TODO in V14 this can be removed in favor of phased AE application
     const items = this.itemTypes;
-    this.system.prepareItems(items);
+    // TODO: This is a temporary fix for double item prep
+    if ( phase !== "final" ) this.system.prepareItems(items);
     super.applyActiveEffects(phase);
   }
 
@@ -1127,7 +1128,7 @@ export default class CrucibleActor extends Actor {
    * @typedef CrucibleTurnChangeConfig
    * @property {object} actorUpdates
    * @property {toCreate: object[], toUpdate: object[], toDelete: string[]} effectChanges
-   * @property {Record<string, number>} resourceChanges
+   * @property {Record<string, {label: string|null, amount: number}[]>} resourceChanges
    * @property {string[]} statusText
    */
 
@@ -1136,15 +1137,12 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn start workflows proceed in the following order:
-   * 1. Damage-Over-Time effects are applied
-   * 2. Active Effects are modified
-   * 3. Resource recovery occurs
+   * 1. Active Effects are modified
+   * 2. Resource recovery (& modification, in the case of Damage-Over-Time effects) occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onStartTurn() {
-
-    // Re-render the actor sheet
-    this._sheet?.render(false);
+  async onStartTurn(context) {
 
     // Skip cases where the actor delayed, and it is now their turn again
     const {round, from, to} = this.flags.crucible?.delay || {};
@@ -1152,7 +1150,8 @@ export default class CrucibleActor extends Actor {
 
     // Plan actor changes
     const statusText = [];
-    const resourceChanges = {action: Infinity};
+    const resourceChanges = {action: [{label: null, amount: Infinity}]};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] ??= [];
     if ( this.statuses.has("unaware") ) statusText.push({
       text: _loc("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
@@ -1170,14 +1169,17 @@ export default class CrucibleActor extends Actor {
 
     // Actor turn start configuration hook
     await this.#prepareTurnStartConfig(turnStartConfig);
-    this.callActorHooks("startTurn", turnStartConfig);
+    this.callActorHooks("startTurn", turnStartConfig, context);
 
-    // Apply damage-over-time
+    // Calculate damage-over-time
     try {
-      await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+      await this.applyDamageOverTime(turnStartConfig);
     } catch(cause) {
       console.error(new Error(`Failed to apply turn start damage-over-time effects for Actor ${this.id}.`, {cause}));
     }
+
+    // Gather to-be-removed effect names prior to their deletion
+    const expiredEffectNames = effectChanges.toDelete.map(i => this.effects.get(i)?.name).filter(Boolean);
 
     // Apply active effect changes
     try {
@@ -1186,12 +1188,26 @@ export default class CrucibleActor extends Actor {
       console.error(new Error(`Failed to apply turn start ActiveEffect changes for Actor ${this.id}.`, {cause}));
     }
 
-    // Recover resources
+    // Gather effects which are about to expire naturally
+    for ( const effect of this.effects ) {
+      if ( effect.updateDuration(context).remaining > 0 || !effect.isExpiryEvent("turnStart", context) ) continue;
+      expiredEffectNames.push(effect.name);
+    }
+
+    // Recover resources (and apply damage-over-time)
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
     try {
-      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
     } catch(cause) {
       console.error(new Error(`Failed to apply turn start resource recovery for Actor ${this.id}.`, {cause}));
     }
+
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    await this.postTurnChangeSummary(true, turnStartConfig, expiredEffectNames);
   }
 
   /* -------------------------------------------- */
@@ -1219,8 +1235,10 @@ export default class CrucibleActor extends Actor {
           content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
         });
         if ( confirm ) {
-          resourceChanges.focus ??= 0;
-          resourceChanges.focus -= maintainedCost;
+          resourceChanges.focus.push({
+            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
+            amount: -maintainedCost
+          });
         } else {
           effectChanges.toDelete.push(effect.id);
         }
@@ -1237,12 +1255,10 @@ export default class CrucibleActor extends Actor {
    * Turn end workflows proceed in the following order:
    * 1. Active Effects are modified
    * 2. Resource recovery occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onEndTurn() {
-
-    // Re-render the actor sheet
-    this._sheet?.render(false);
+  async onEndTurn(context) {
 
     // Skip cases where the turn is over because the actor delayed
     const {round, from, to} = this.flags.crucible?.delay || {};
@@ -1252,6 +1268,7 @@ export default class CrucibleActor extends Actor {
     const actorUpdates = {};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
     const resourceChanges = {};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] = [];
     const statusText = [];
     /** @type {CrucibleTurnChangeConfig} */
     const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {
@@ -1263,21 +1280,139 @@ export default class CrucibleActor extends Actor {
 
     // Configure turn end workflows
     this.#prepareTurnEndConfig(turnEndConfig);
-    this.callActorHooks("endTurn", turnEndConfig);
+    this.callActorHooks("endTurn", turnEndConfig, context);
+
+    // Gather to-be-removed effect names prior to their deletion
+    const expiredEffectNames = effectChanges.toDelete.map(i => this.effects.get(i)?.name).filter(Boolean);
 
     // Apply active effect changes
     try {
       await this.#applyActiveEffectChanges(effectChanges);
     } catch(cause) {
       console.error(new Error(`Failed to apply turn end ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    };
+    }
+
+    // Gather effects which are about to expire naturally
+    for ( const effect of this.effects ) {
+      if ( effect.updateDuration(context).remaining > 0 || !effect.isExpiryEvent("turnEnd", context) ) continue;
+      expiredEffectNames.push(effect.name);
+    }
 
     // Recover resources
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
     try {
-      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
     } catch(cause) {
       console.error(new Error(`Failed to apply turn end resource recovery for Actor ${this.id}.`, {cause}));
     }
+
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    await this.postTurnChangeSummary(false, turnEndConfig, expiredEffectNames);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Post a chat message with a summary of any effect creation/deletion or atypical resource changes
+   * @param {boolean} isStart
+   * @param {CrucibleTurnChangeConfig} turnChangeConfig
+   * @param {string[]} expiredEffectNames
+   */
+  postTurnChangeSummary(isStart, turnChangeConfig, expiredEffectNames) {
+    const {effectChanges, resourceChanges} = turnChangeConfig;
+    const tableRows = {resources: "", effects: ""};
+    const pipColors = new Set([]);
+
+    tableRows.resources = Object.entries(resourceChanges).flatMap(([resource, entries]) => {
+      const {label: resourceLabel=resource, color} = SYSTEM.RESOURCES[resource] ?? {};
+      return entries.map(({label, amount}) => {
+        if ( !label ) return "";
+        let resourceColor;
+        if ( color ) {
+          if ( foundry.utils.isPlainObject(color) ) resourceColor = (amount > 0) ? color.heal : color.high;
+          else resourceColor = color;
+          pipColors.add(color.high?.css ?? color.css);
+        }
+        return `
+          <tr>
+            <td>${label}</td>
+            <td class="change-cell" style="--resource-color:${resourceColor.toRGBA(0.25) ?? "gray"};">
+              <div class="resource">
+                ${amount.signedString()} ${resourceLabel}
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }).filterJoin("");
+
+    for ( const deleted of expiredEffectNames ) {
+      tableRows.effects += `
+        <tr>
+          <td>${deleted}</td>
+          <td class="effect change-cell">${_loc("COMBAT.SUMMARY.EffectExpired")}</td>  
+        </tr>
+      `;
+    }
+
+    for ( const created of effectChanges.toCreate ) {
+      const showDuration = created.duration.units === "rounds";
+      const duration = showDuration ? _loc("ACTION.DurationRounds", {value: created.duration.value}) : "";
+      tableRows.effects += `
+        <tr>
+          <td>${created.name}</td>
+          <td class="effect change-cell">
+            ${_loc(`COMBAT.SUMMARY.EffectGained${showDuration ? "Duration" : ""}`, {duration})}
+          </td>
+        </tr>
+      `;
+    }
+
+    const resourcesContent = `
+      <table>
+        <thead>
+          <tr>
+            <th colspan=2>
+              <div class="flexrow">
+                ${_loc("COMBAT.SUMMARY.TableTitleResources")}
+                <div class="crucible-rank-pips flexrow">
+                  ${Array.from(pipColors).map(c => `<span class="pip full" style="--resource-color:${c}"></span>`).join("")}
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.resources}
+        </tbody>
+      </table>
+    `;
+    const effectsContent = `
+      <table>
+        <thead>
+          <tr>
+            <th colspan=2>${_loc("COMBAT.SUMMARY.TableTitleEffects")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.effects}
+        </tbody>
+      </table>
+    `;
+
+    if ( tableRows.resources.length || tableRows.effects.length ) return ChatMessage.implementation.create({
+      content: `
+      <section class="crucible turn-change-summary">
+        ${tableRows.resources.length ? resourcesContent : ""}
+        ${tableRows.effects.length ? effectsContent : ""}
+      </section>`,
+      speaker: {user: game.user, alias: _loc(`COMBAT.SUMMARY.Header${isStart ? "Start" : "End"}`, {actor: this.name})},
+      "flags.crucible.isTurnChangeSummary": true
+    });
   }
 
   /* -------------------------------------------- */
@@ -1356,25 +1491,24 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Apply damage over time effects which are currently active on the Actor.
-   * Positive damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
-   * Negative damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * Apply damage over time effects which are currently active on the Actor to the turn start config.
+   * Normal damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
+   * Restoration damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * @param {CrucibleTurnChangeConfig} turnStartConfig  The turn start config to be mutated
    * @returns {Promise<void>}
    */
-  async applyDamageOverTime() {
+  async applyDamageOverTime(turnStartConfig) {
     for ( const effect of this.effects ) {
       const dot = effect.system.dot;
       if ( !dot?.length ) continue;
 
       // Categorize damage
-      const damage = {};
       for ( let {amount, damageType, resource, restoration} of dot ) {
         if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
-        damage[resource] ??= 0;
-        damage[resource] += amount;
+        turnStartConfig.resourceChanges[resource].push({label: effect.name, amount});
       }
-      const status = {text: effect.label, fillColor: SYSTEM.RESOURCES.health.color.high.css};
-      await this.alterResources(damage, {}, {statusText: [status]});
+      const status = {text: effect.name, fillColor: SYSTEM.RESOURCES.health.color.high.css};
+      turnStartConfig.statusText.push(status);
     }
   }
 
@@ -1388,7 +1522,7 @@ export default class CrucibleActor extends Actor {
   async #applyActiveEffectChanges({toCreate, toUpdate, toDelete}) {
     if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
+    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
   }
 
   /* -------------------------------------------- */
@@ -2072,7 +2206,7 @@ export default class CrucibleActor extends Actor {
     if ( dropped ) equipped = false;
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
-    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
+    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return {};
 
     // Taxonomies which cannot use equipment must have the natural tag
     if ( (this.type === "adversary") && !this.system.usesEquipment ) {
