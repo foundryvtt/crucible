@@ -285,21 +285,23 @@ export default class ActionUseDialog extends StandardCheckDialog {
             const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
             const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
             shape.updateSource({rotation: snappedAngle});
-            return false; // Don't handle core moves
           }
           break;
         case "vertex": // Constrain placement within maximum range
           const maxDistance = range.maximum ?? 0;
           if ( maxDistance === 0 ) Object.assign(position, origin);
           else {
-            const d = canvas.grid.measurePath([origin, position]).distance;
-            if ( d > maxDistance ) {
-              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-              position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
-            }
+            const d = canvas.grid.measurePath([position, origin]).distance;
+            if ( d <= maxDistance ) return;
+            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+            position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
+            shape.move(position, {snap: true});
           }
           break;
+        default:
+          return; // Don't handle core moves
       }
+      return false;
     };
 
     // Place the region and record its created data
