@@ -61,11 +61,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   createdTime: 1772307160136
-  modifiedTime: 1772307160136
+  modifiedTime: 1773514792588
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!interruptingDagg'

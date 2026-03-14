@@ -26,11 +26,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751504854502
-  modifiedTime: 1765494964375
+  modifiedTime: 1773514792183
   lastModifiedBy: QPs9IwGEu5DxD700
 sort: 0
 _key: '!items!immuntableForm00'

@@ -48,11 +48,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771961150981
-  modifiedTime: 1771961150981
+  modifiedTime: 1773514792219
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: lawkeeper0000000
 sort: 0

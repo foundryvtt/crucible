@@ -30,9 +30,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.-alpha
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   createdTime: 1772307160134
-  modifiedTime: 1772307160134
+  modifiedTime: 1773514792580
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.gestureray000000
   duplicateSource: null

@@ -293,15 +293,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159003
-      modifiedTime: 1772307159003
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
     ownership:
@@ -338,15 +338,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159003
-      modifiedTime: 1772307159003
     sort: 900000
     ownership:
       default: 0
@@ -408,15 +408,15 @@ items:
     sort: -100000
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159003
-      modifiedTime: 1772307159003
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.intimidator00000'
@@ -474,15 +474,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159003
-      modifiedTime: 1772307159003
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
     sort: 0
@@ -543,15 +543,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159003
-      modifiedTime: 1772307159003
     folder: yQPNpmhq761VzMZe
     sort: 100000
     ownership:
@@ -579,15 +579,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159004
-      modifiedTime: 1772307159004
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
     sort: 0
@@ -628,6 +628,16 @@ items:
             - scope: 1
               statuses:
                 - enraged
+              system:
+                changes:
+                  - key: rollBonuses.damage.melee
+                    value: 4
+                    type: add
+                    phase: initial
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
               name: ''
               result:
                 type: success
@@ -636,48 +646,39 @@ items:
                 value: null
                 units: seconds
                 expiry: null
-              system:
-                dot: []
-                maintenance: null
-                regions: []
-                summons: []
-                changes:
-                  - key: rollBonuses.damage.melee
-                    value: 4
-                    type: add
-                    phase: initial
+                expired: false
           img: null
           range:
             minimum: null
             maximum: null
             weapon: false
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
+          actionHooks: []
       nodes:
         - sig3.toughness.strength
       rune: ''
       gesture: ''
       inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159004
-      modifiedTime: 1772307159004
     _id: berserker0000000
     folder: fOYHlZJEWUukD7yr
     sort: 400000
@@ -691,31 +692,31 @@ items:
     system:
       description: >-
         Your grasp of your weaponry is firm and unyielding. You can perform
-        Actions which require a free hand while wielding a two-handed weapon.
-        Attempts to Disarm you are made with +2 Banes.
+        Actions which require a free hand while wielding a two-handed melee
+        weapon. Attempts to Disarm you are made with +2 Banes.
       actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
       nodes:
         - str0a
       rune: ''
       gesture: ''
       inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159004
-      modifiedTime: 1772307159004
     folder: yQPNpmhq761VzMZe
     sort: -100000
     ownership:
@@ -746,15 +747,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159004
-      modifiedTime: 1772307159004
     _id: bloodfrenzy00000
     sort: 100000
     ownership:
@@ -800,12 +801,13 @@ items:
                 value: null
                 units: seconds
                 expiry: null
+                expired: false
               system:
+                changes: []
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
-                changes: []
           name: Executioner's Strike
           img: icons/skills/melee/strike-axe-blood-red.webp
           actionHooks: []
@@ -816,28 +818,28 @@ items:
           summon:
             actorUuid: null
             permanent: true
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
       nodes:
         - str4b
       rune: ''
       gesture: ''
       inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159004
-      modifiedTime: 1772307159004
     folder: yQPNpmhq761VzMZe
     sort: 0
     ownership:
@@ -866,15 +868,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159005
-      modifiedTime: 1772307159005
     _id: unshakeablestanc
     folder: SMe30RkoLutLr4ef
     sort: 0
@@ -935,15 +937,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159005
-      modifiedTime: 1772307159005
     folder: MqZKCMx5KrZQffGU
     sort: -300000
     ownership:
@@ -1000,15 +1002,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159005
-      modifiedTime: 1772307159005
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
     sort: -100000
@@ -1071,15 +1073,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1773512717031
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159005
-      modifiedTime: 1772307159005
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
     sort: -100000
@@ -1126,6 +1128,7 @@ items:
                 value: 1
                 units: rounds
                 expiry: turnStart
+                expired: false
               system:
                 dot: []
                 maintenance: null
@@ -1143,6 +1146,7 @@ items:
                 value: 1
                 units: rounds
                 expiry: turnStart
+                expired: false
               system:
                 dot: []
                 maintenance: null
@@ -1179,15 +1183,15 @@ items:
     sort: 0
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1773512717031
+      createdTime: 1773512717031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159005
-      modifiedTime: 1772307159005
     _id: unarmedCombatTra
     ownership:
       default: 0
@@ -1236,15 +1240,16 @@ items:
                 value: 3
                 units: rounds
                 expiry: turnEnd
+                expired: false
               result:
                 type: success
                 all: false
               system:
+                changes: []
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
-                changes: []
           actionHooks: []
           range:
             maximum: null
@@ -1264,15 +1269,15 @@ items:
         rank: null
       actorHooks: []
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159006
-      modifiedTime: 1772307159006
     _id: sunderingstrike0
     folder: null
     sort: 0
@@ -1334,15 +1339,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159006
-      modifiedTime: 1772307159006
     _id: heavyWeaponTrain
     folder: null
     sort: 0
@@ -1372,15 +1377,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159006
-      modifiedTime: 1772307159006
     _id: heavyWeaponProfi
     folder: null
     sort: 0
@@ -1409,15 +1414,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159006
-      modifiedTime: 1772307159006
     _id: thickskin0000000
     folder: null
     sort: 0
@@ -1447,15 +1452,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159006
-      modifiedTime: 1772307159006
     _id: armoredefficienc
     folder: null
     sort: 0
@@ -1512,15 +1517,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159007
-      modifiedTime: 1772307159007
     _id: penetratingThrow
     folder: null
     sort: 0
@@ -1559,15 +1564,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159007
-      modifiedTime: 1772307159007
     _id: WTzwacTfNem5ilp9
     folder: 3BDkyJ5nPk8nVa81
     sort: 100000
@@ -1619,12 +1624,13 @@ items:
                 value: 3
                 units: rounds
                 expiry: turnStart
+                expired: false
               system:
+                changes: []
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
-                changes: []
           tags: []
           actionHooks: []
           summon:
@@ -1641,15 +1647,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1773512717031
+      modifiedTime: 1773512717031
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.-alpha
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159007
-      modifiedTime: 1772307159007
     _id: adrenalineSurge0
     folder: null
     sort: 0
@@ -1661,117 +1667,27 @@ flags:
   core: {}
   crucible:
     actionHistory:
-      - id: grapple
-        messageId: HXhZ9TsoUEo2pzW5
-        combat: null
-      - id: adrenalineSurge
-        messageId: W8qSB55tiAvKxTHf
-        combat: null
-      - id: strike
-        messageId: 33D30TDgdhzTZcw5
-        combat: null
-      - id: strike
-        messageId: WJoPLA82IjN8CoNn
-        combat: null
-      - id: strike
-        messageId: BfrR6JLpcRj27mCu
-        combat: null
-      - id: strike
-        messageId: pjUEfzhhH8vhSdJK
-        combat: null
-      - id: strike
-        messageId: xHZjzBRNDAxZvcSf
+      - id: move
+        messageId: vpOPJDKcRZ5usJ4A
         combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: oawUXnzhHxidIUKC
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: M3adexfNhhEmMzWs
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: h2CUF45LYAXawJao
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: fYbY1ob4TDLMY4jV
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: kcBFxPSKh7J0qG9P
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: KH1glLCeCPXEXv6x
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: zuXaY8uqJGhGyiHm
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: uppercut
-        messageId: KVNAopa9qyn3iWwc
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
-      - id: strike
-        messageId: WjqgnhorJogMnjda
-        combat:
-          id: aMZW0tDX8iqQUFLr
-          round: 2
-          turn: 0
-          combatantId: 0H2mmcCEWlgzIuqa
-          tokenId: S0OUibvJlsQz6m1W
+          id: GDW24yIHQm7DsHcp
+          round: 9
+          turn: 2
+          combatantId: 9OhW0GfLeDPN6scA
+          tokenId: ml1efMTNhGS9kbqS
 _stats:
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1773512717031
+  modifiedTime: 1773514792434
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '14.355'
-  systemId: crucible
-  systemVersion: 0.9.-alpha
-  createdTime: 1772307159002
-  modifiedTime: 1772307159002
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: L0qEPpUQBZQPCxN3
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
+  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!L0qEPpUQBZQPCxN3'

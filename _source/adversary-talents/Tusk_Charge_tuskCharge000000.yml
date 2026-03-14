@@ -74,11 +74,11 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.9.-alpha
   createdTime: 1772307157338
-  modifiedTime: 1772307157338
+  modifiedTime: 1773514792192
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _id: tuskCharge000000

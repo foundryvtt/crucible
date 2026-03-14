@@ -38,7 +38,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302615865
       modifiedTime: 1751303679699
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -75,7 +75,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302878260
       modifiedTime: 1770384752006
       lastModifiedBy: ifaQA7jTJsr3UWFE
@@ -112,7 +112,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302896661
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -146,7 +146,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302917151
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -180,7 +180,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302934912
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -221,7 +221,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302966644
       modifiedTime: 1770384772052
       lastModifiedBy: ifaQA7jTJsr3UWFE
@@ -1636,11 +1636,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751302467753
-  modifiedTime: 1760019535362
+  modifiedTime: 1773514792336
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 300000
 _key: '!journal!crucibleConditio'

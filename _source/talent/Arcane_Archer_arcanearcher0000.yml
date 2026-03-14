@@ -30,10 +30,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.-alpha
-  coreVersion: '14.355'
+  systemVersion: 0.9.0
+  coreVersion: '14.356'
   createdTime: 1772307160125
-  modifiedTime: 1772307160125
+  modifiedTime: 1773514792555
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.arcanearcher0000
   duplicateSource: null
