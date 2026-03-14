@@ -286,6 +286,15 @@ Hooks.once("init", async function() {
     }
   });
 
+  game.settings.register("crucible", "enableVFX", {
+    name: "SETTINGS.EnableVFXName",
+    hint: "SETTINGS.EnableVFXHint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true
+  });
+
   // Migration Required Version
   game.settings.register("crucible", "migrationVersion", {
     scope: "world",

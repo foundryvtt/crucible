@@ -1620,7 +1620,9 @@
     "AutoConfirmNone": "No Auto-Confirmation",
     "AutoConfirmSelf": "Self-Target Actions Only",
     "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists.",
-    "CruciblePartyLabel": "Primary Adventuring Party"
+    "CruciblePartyLabel": "Primary Adventuring Party",
+    "EnableVFXHint": "Play visual effects animations on the canvas when actions are confirmed.",
+    "EnableVFXName": "Enable Action Visual Effects"
   },
   "SKILL": {
     "CATEGORY": {

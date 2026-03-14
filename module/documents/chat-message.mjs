@@ -32,6 +32,7 @@ export default class CrucibleChatMessage extends ChatMessage {
    * @returns {Promise<void>}
    */
   async #playVFXEffect() {
+    if ( !game.settings.get("crucible", "enableVFX") ) return;
     const action = CrucibleAction.fromChatMessage(this);
     if ( this.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(this.id);
     const {references, ...vfxConfig} = this.flags.crucible.vfxConfig;
