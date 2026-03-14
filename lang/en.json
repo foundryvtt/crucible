@@ -1114,6 +1114,16 @@
       "Result": "Result",
       "Round": "Initiative - Round {round}"
     },
+    "SUMMARY": {
+      "EffectExpired": "Expired",
+      "EffectGained": "Gained",
+      "EffectGainedDuration": "Gained ({duration})",
+      "HeaderEnd": "{actor} - Turn End",
+      "HeaderStart": "{actor} - Turn Start",
+      "Maintaining": "{effect} (Maintaining)",
+      "TableTitleEffects": "Effect Changes",
+      "TableTitleResources": "Resource Changes"
+    },
     "WARNINGS": {
       "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
     },
@@ -1858,7 +1868,7 @@
       "CannotUseSilenced": "Cannot use Inflections while Silenced.",
       "IconicAlreadyKnown": "Actor {actor} already knows the {spell} Iconic Spell.",
       "IconicNoSlots": "Actor {actor} does not have any available Iconic Spell slots.",
-      "IconicNotSatisfied": "Actor {actor} does not satisfy the knowledge requirements to learn the {spell} Iconic Spell.", 
+      "IconicNotSatisfied": "Actor {actor} does not satisfy the knowledge requirements to learn the {spell} Iconic Spell.",
       "NotConfigured": "This Iconic Spell is not yet fully configured. It requires all three spellcraft components to be defined.",
       "SorcererNoIconic": "As a {talent}, you cannot cast Iconic Spells."
     },

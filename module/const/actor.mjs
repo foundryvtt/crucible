@@ -446,10 +446,10 @@ export const HOOKS = Object.freeze({
   // Turn Events
   startTurn: {
     group: "TALENT.HOOKS.GroupCombat",
-    argNames: ["turnStartConfig"]
+    argNames: ["turnStartConfig", "turnContext"]
   },
   endTurn: {
     group: "TALENT.HOOKS.GroupCombat",
-    argNames: ["turnEndConfig"]
+    argNames: ["turnEndConfig", "turnContext"]
   }
 });

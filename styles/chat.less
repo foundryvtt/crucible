@@ -63,6 +63,57 @@
       margin: 0.5rem 0;
     }
   }
+
+  // Turn start/end summary cards
+  .turn-change-summary {
+    .change-table {
+
+    }
+  }
+
+  // Initiative Report and Turn Change Report
+  .report-table {
+    margin: 0.25rem 0 0;
+    td, th {
+      font-size: var(--font-size-12);
+      line-height: 1.5em;
+      padding-inline: 0; // Tight layout
+    }
+    .report-value {
+      text-align: right;
+    }
+
+    // Turn Change Report
+    &.turn-report-table {
+      .crucible-rank-pips {
+        display: flex;
+        justify-content: end;
+      }
+      .resource {
+        background-color: var(--resource-color);
+        width: max-content;
+        justify-self: end;
+        padding: 0 4px;
+        border-radius: 3px;
+        color: var(--color-text-emphatic);
+      }
+    }
+
+    // Initiative Report
+    &.initiative-report-table {
+      tr.combatant.secret {
+        color: #8e80ff;
+      }
+      .boons i {
+        font-size: 10px;
+        color: var(--color-result-verygood);
+      }
+      .banes i {
+        font-size: 10px;
+        color: var(--color-result-verybad);
+      }
+    }
+  }
 }
 
 

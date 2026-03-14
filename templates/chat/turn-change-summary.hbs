@@ -1,0 +1,45 @@
+<section class="crucible turn-change-summary">
+    {{#if resources}}
+    <table class="report-table turn-report-table">
+        <thead>
+            <tr>
+                <th class="report-label flexrow">
+                    {{resourcesTitle}}
+                </th>
+                <th class="report-value">
+                    <div class="crucible-rank-pips flexrow">
+                        {{#each pipColors}}<span class="pip full" style="--resource-color:{{this}}"></span>{{/each}}
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each resources}}
+            <tr>
+                <td class="report-label">{{sourceLabel}}</td>
+                <td class="report-value" style="--resource-color:{{colorStyle}};">
+                    <span class="resource">{{amount}} {{resourceLabel}}</span>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+    </table>
+    {{/if}}
+    {{#if effects}}
+    <table class="report-table turn-report-table">
+        <thead>
+            <tr>
+                <th colspan="2">{{effectsTitle}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each effects}}
+            <tr>
+                <td class="report-label">{{name}}</td>
+                <td class="report-value">{{changeLabel}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</section>
