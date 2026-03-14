@@ -271,7 +271,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
 
     // Clear existing targets before placement begins
-    game.user.targets.clear();
+    canvas.tokens.setTargets([]);
 
     // Minimize open windows
     const minimizedWindows = [];
@@ -288,7 +288,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       Object.defineProperty(action, "region", {value: document, configurable: true});
       const targets = this.#regionTargets = action.acquireTargets({strict: false});
       if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
-      else game.user.targets.clear();
+      else canvas.tokens.setTargets([]);
     };
 
     // Build the onMove callback
@@ -325,7 +325,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Handle user workflow cancellation
     if ( !region ) {
       this.#regionTargets = null;
-      game.user.targets.clear();
+      canvas.tokens.setTargets([]);
       return;
     }
 
@@ -447,7 +447,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _clearTargetRegion() {
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
-    game.user.targets.clear();
+    canvas.tokens.setTargets([]);
   }
 
   /* -------------------------------------------- */
@@ -519,7 +519,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Acquire targets from the planned movement path and highlight on canvas
     const targets = this.action.acquireTargets({strict: false});
     if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
-    else game.user.targets.clear();
+    else canvas.tokens.setTargets([]);
 
     // Restore minimized windows and re-render
     await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
