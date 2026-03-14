@@ -270,12 +270,26 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.rect.center;
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
 
+    // Clear existing targets before placement begins
+    game.user.targets.clear();
+
     // Minimize open windows
     const minimizedWindows = [];
     for ( const app of foundry.applications.instances.values() ) {
       if ( !app.minimized ) minimizedWindows.push(app);
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
+
+    // Create a lazy clone of the action for use during preview target acquisition
+    const previewAction = this.action.clone({}, {lazy: true});
+
+    // Build the onChange callback - fires after each position update with fresh constraints
+    const onChange = ({action=previewAction, document}) => {
+      Object.defineProperty(action, "region", {value: document, configurable: true});
+      const targets = this.#regionTargets = action.acquireTargets({strict: false});
+      if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
+      else game.user.targets.clear();
+    };
 
     // Build the onMove callback
     const onMove = ({shape, position, document, snap}) => {
@@ -304,20 +318,20 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Place the region and record its created data
     const canvasLayer = canvas.activeLayer;
-    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
+    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange});
     canvasLayer.activate();
     await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
-    if ( !region ) return; // User cancelled with right-click
 
-    // Enable wall restriction before acquiring targets so wall geometry is respected
-    region.updateSource({restriction: {enabled: true, type: "move"}});
-    region.updateSource({_shapeConstraints: region._computeShapeConstraints()});
-    Object.defineProperty(this.action, "region", {value: region, configurable: true});
+    // Handle user workflow cancellation
+    if ( !region ) {
+      this.#regionTargets = null;
+      game.user.targets.clear();
+      return;
+    }
 
-    // Store shape data on the action and acquire targets
-    const targets = this.#regionTargets = this.action.acquireTargets({strict: false});
-    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
-    else game.user.targets.clear();
+    // Acquire targets for the final region
+    region.updateShapeConstraints();
+    onChange({action: this.action, document: region});
     this.render();
   }
 
@@ -417,7 +431,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       name: this.action.name,
       color: game.user.color,
       displayMeasurements: true,
-      restriction: {enabled: false, type: "move"},
+      restriction: {enabled: true, type: "move"},
       elevation,
       levels,
       shapes: [shape]
