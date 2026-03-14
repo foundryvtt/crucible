@@ -1,7 +1,10 @@
+import {TEMPLATES} from "../chat.mjs";
+
 /**
  * A system sub-type of the Combat document used for combat challenges.
  */
 export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataModel {
+  /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -51,59 +54,50 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
    * @param {object[]} results
    * @returns {Promise<ChatMessage>}
    */
-  postInitiativeMessage(round, results) {
+  async postInitiativeMessage(round, results) {
     results.sort(this.parent._sortCombatants);
 
-    // Format table rows
+    // Prepare context data
     const rolls = [];
-    const rows = results.map(i => {
+    const combatants = results.map(i => {
       rolls.push(i.roll);
       const rd = i.roll.data;
-      const boons = Object.values(rd.boons).reduce((t, b) => t + b.number, 0);
-      const banes = Object.values(rd.banes).reduce((t, b) => t + b.number, 0);
-      const modifiers = [
-        boons > 0 ? `<span class="boons"><i class="fa-solid fa-caret-up" inert></i> ${boons}</span>` : "",
-        banes > 0 ? `<span class="banes"><i class="fa-solid fa-caret-down" inert></i> ${banes}</span>` : "",
-        `(${rd.ability.signedString()})`
-      ].filterJoin(" ");
-      return `<tr class="combatant" data-combatant-id="${i.id}">
-        <td class="report-label initiative-name">${i.name}</td>
-        <td class="report-value initiative-modifiers">${modifiers}</td>
-        <td class="report-value initiative-value">${i.initiative}</td>
-      </tr>`;
-    }).join("");
-
-    // Create the Chat Message
-    return ChatMessage.create({
-      content: `
-      <section class="crucible dice-roll initiative">
-      <table class="report-table initiative-report-table" data-combat-id="${this.parent.id}">
-        <thead>
-          <tr>
-              <th class="report-label initiative-name">${_loc("COMBAT.INITIATIVE.Combatant")}</th>
-              <th class="report-value initiative-value" colspan="2">${_loc("COMBAT.INITIATIVE.Result")}</th>
-          </tr>
-        </thead>
-        <tbody>
-            ${rows}
-        </tbody>
-      </table>
-      </section>`,
-      rolls,
-      speaker: {user: game.user, alias: _loc("COMBAT.INITIATIVE.Round", {round})},
-      "flags.crucible.isInitiativeReport": true
+      return {
+        id: i.id,
+        name: i.name,
+        boons: Object.values(rd.boons).reduce((t, b) => t + b.number, 0),
+        banes: Object.values(rd.banes).reduce((t, b) => t + b.number, 0),
+        ability: rd.ability.signedString(),
+        initiative: i.initiative
+      };
     });
+
+    // Render template and create the Chat Message
+    const content = await foundry.applications.handlebars.renderTemplate(TEMPLATES.initiativeReport, {
+      combatId: this.parent.id,
+      combatantLabel: _loc("COMBAT.INITIATIVE.Combatant"),
+      resultLabel: _loc("COMBAT.INITIATIVE.Result"),
+      combatants
+    });
+    const speaker = ChatMessage.getSpeaker();
+    speaker.alias = _loc("COMBAT.INITIATIVE.Round", {round});
+    return ChatMessage.create({content, rolls, speaker, "flags.crucible.isInitiativeReport": true});
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * After rendering a chat message, apply dynamic filtering to the produced table.
+   * @param {ChatMessage} message
+   * @param {HTMLElement} html
+   */
   static onRenderInitiativeReport(message, html) {
 
     // Remove rolls
     html.querySelector(".dice-rolls")?.remove();
 
     // Hide combatants which are not visible
-    const table = html.querySelector(".initiative-table");
+    const table = html.querySelector(".initiative-report-table");
     const combat = game.combats.get(table?.dataset.combatId);
     if ( !combat ) return;
 

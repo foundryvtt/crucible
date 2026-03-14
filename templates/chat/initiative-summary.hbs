@@ -1,0 +1,23 @@
+<section class="crucible dice-roll initiative">
+    <table class="report-table initiative-report-table" data-combat-id="{{combatId}}">
+        <thead>
+            <tr>
+                <th class="report-label initiative-name">{{combatantLabel}}</th>
+                <th class="report-value initiative-value" colspan="2">{{resultLabel}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each combatants}}
+            <tr class="combatant" data-combatant-id="{{id}}">
+                <td class="report-label initiative-name">{{name}}</td>
+                <td class="report-value initiative-modifiers">
+                    {{#if boons}}<span class="boons"><i class="fa-solid fa-caret-up" inert></i> {{boons}}</span>{{/if}}
+                    {{#if banes}}<span class="banes"><i class="fa-solid fa-caret-down" inert></i> {{banes}}</span>{{/if}}
+                    <span>({{ability}})</span>
+                </td>
+                <td class="report-value initiative-value">{{initiative}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
