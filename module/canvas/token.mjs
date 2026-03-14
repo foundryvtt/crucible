@@ -134,6 +134,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _refreshRuler() {
+    super._refreshRuler();
+    if ( !canvas.scene.useMicrogrid ) return;
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( dialog ) dialog._onPreviewMovement(this._plannedMovement[game.user.id]);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   drawBars() {
     super.drawBars();
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;

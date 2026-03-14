@@ -53,6 +53,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #planMovementHookId = null;
 
   /**
+   * A lazy action clone used for per-frame target preview during movement planning.
+   * Only set when the action has target.type === "movement". Cleared after planning ends.
+   * @type {CrucibleAction|null}
+   */
+  #previewMovementAction = null;
+
+  /**
    * Tracks whether the dialog was submitted successfully via _onRoll.
    * Used by #clearMovementPlan to avoid cancelling planned movement on a successful submission,
    * since _onClose fires for both cancellation and submission.
@@ -483,7 +490,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlanMovement(_event) {
-    const {token} = this.action;
+    const {token, target} = this.action;
 
     // Register this dialog as actively planning movement for this token
     ActionUseDialog.#movementPlans.set(token.id, this);
@@ -495,6 +502,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
+    // Initialize real-time target preview for movement-type actions
+    if ( target.type === "movement" ) {
+      canvas.tokens.setTargets([]);
+      this.#previewMovementAction = this.action.clone({}, {lazy: true});
+    }
+
     // Await the planToken hook for this specific token
     await new Promise(resolve => {
       this.#planMovementHookId = Hooks.on("planToken", document => {
@@ -504,6 +517,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
         resolve();
       });
     });
+    this.#previewMovementAction = null;
 
     // Deregister from the planning map
     ActionUseDialog.#movementPlans.delete(token.id);
@@ -529,6 +543,31 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
+   * Handle per-frame movement preview updates during the movement planning workflow.
+   * Called by CrucibleTokenObject#_refreshRuler when this dialog has an active movement plan.
+   * Simulate target acquisition based on the planned movement.
+   * @param {object|undefined} plannedMovement    Current _plannedMovement for the user
+   * @internal
+   */
+  _onPreviewMovement(plannedMovement) {
+    if ( !this.#previewMovementAction ) return;
+    if ( !plannedMovement?.foundPath?.length ) {
+      canvas.tokens.setTargets([]);
+      return;
+    }
+    const foundPath = plannedMovement.foundPath;
+    const isBlink = (foundPath.length > 1) && (foundPath[1].action === "blink");
+    const pendingWaypoints = isBlink ? foundPath.slice(1) : foundPath;
+    const previewMovement = {origin: foundPath[0], pending: {waypoints: pendingWaypoints}};
+    Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
+    const targets = this.#previewMovementAction.acquireTargets({strict: false});
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
+    else canvas.tokens.setTargets([]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Clear any in-progress movement plan, cancelling a planned token movement if one exists.
    */
   #clearMovementPlan() {
@@ -536,10 +575,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
       Hooks.off("planToken", this.#planMovementHookId);
       this.#planMovementHookId = null;
     }
+    this.#previewMovementAction = null;
     ActionUseDialog.#movementPlans.delete(this.action.token?.id);
-    if ( !this.#submitted && (this.action.movement?.state === "planned") ) {
-      this.action.token.stopMovement();
-      Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+    if ( !this.#submitted ) {
+      if ( this.action.movement?.state === "planned" ) {
+        this.action.token.stopMovement();
+        Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+      }
+      canvas.tokens.setTargets([]);
     }
   }
 
