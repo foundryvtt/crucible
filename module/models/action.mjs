@@ -49,9 +49,21 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
  * @typedef ActionMovementUsage
- * @property {string} [action]        Force all waypoints in the planned path to use a specific movement action
- * @property {boolean} [direct=true]  Require the planned path to be a single direct segment with no intermediate waypoints. Defaults to true; set false to allow a multi-segment path.
- * @property {boolean} [ignoreWalls]  Allow the planned movement to pass through walls
+ * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
+ * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
+ *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
+ * @property {boolean} [ignoreWalls]        Allow the planned movement to pass through walls
+ */
+
+/**
+ * @typedef ActionRegionUsage
+ * @property {Color|string} [color]         Override the region visualization color. (default game.user.color))
+ * @property {boolean} [ephemeral]          Override whether the region is ephemeral (true) or persisted (false).
+ *                                          Default behavior depends on the target type configuration.
+ * @property {{bottom: number, top: number}} [elevation]  Override the region elevation range. If defined, must specify
+ *                                          both bottom and top. Default behavior depends on the target type
+ *                                          configuration.
+ * @property {boolean} [wallRestriction]    Whether the region restricts token movement. (default true)
  */
 
 /**
@@ -452,7 +464,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       isAttack: false,
       isMelee: false,
       isRanged: false,
-      movement: {}
+      movement: {},
+      region: {}
     }, {inplace: true, overwrite: false})});
   }
 
@@ -789,8 +802,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.#finalizeOutcome(outcome);
     }
 
-    // Persist the RegionDocument if not ephemeral
-    if ( this.region && !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral ) {
+    // Create the RegionDocument, visible to GMs and the placing user
+    if ( this.region ) {
       const regionData = this.region.toObject();
       regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
@@ -1670,9 +1683,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     const isNegated = this.message?.getFlag("crucible", "isNegated");
 
-    // Reveal placed region to all players
-    if ( this.region && !isNegated ) {
-      await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+    // Update or remove the placed region on confirmation
+    if ( this.region ) {
+      const isEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
+      if ( isEphemeral ) await this.region.delete();
+      else if ( !isNegated ) {
+        await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+      }
     }
 
     // Additional Actor-specific consequences

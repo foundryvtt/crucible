@@ -60,6 +60,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #previewMovementAction = null;
 
   /**
+   * The canvas preview object created after region placement, kept alive for the dialog's lifetime.
+   * @type {RegionObject|null}
+   */
+  #regionPreview = null;
+
+  /**
    * Tracks whether the dialog was submitted successfully via _onRoll.
    * Used by #clearMovementPlan to avoid cancelling planned movement on a successful submission,
    * since _onClose fires for both cancellation and submission.
@@ -262,6 +268,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlaceRegion(event) {
+    this.#clearRegionPreview();
     const {range, token, target} = this.action;
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type];
     if ( !targetConfig.region ) return;
@@ -339,6 +346,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Acquire targets for the final region
     region.updateShapeConstraints();
     onChange({action: this.action, document: region});
+
+    // Keep the placed region visible as a canvas preview for the remainder of the dialog
+    this.#regionPreview = await canvas.regions._createPreview(region.toObject(), {renderSheet: false});
     this.render();
   }
 
@@ -366,7 +376,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const levels = token?.level ? [token.level] : [];
     const tokenElevation = token?._source.elevation ?? 0;
     const tokenDepth = token?._source.depth ?? 0;
-    const elevation = {bottom: tokenElevation, top: tokenElevation + tokenDepth};
+    const elevation = this.action.usage.region.elevation ?? {bottom: tokenElevation, top: tokenElevation + tokenDepth};
 
     // Common configurations based on the shape
     let shape;
@@ -436,9 +446,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Return the RegionData
     return {
       name: this.action.name,
-      color: game.user.color,
+      color: this.action.usage.region.color ?? game.user.color,
       displayMeasurements: true,
-      restriction: {enabled: true, type: "move"},
+      restriction: {enabled: this.action.usage.region.wallRestriction ?? true, type: "move"},
       elevation,
       levels,
       shapes: [shape]
@@ -452,9 +462,20 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @internal
    */
   _clearTargetRegion() {
+    this.#clearRegionPreview();
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
     canvas.tokens.setTargets([]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Destroy the current canvas region preview, if one exists.
+   */
+  #clearRegionPreview() {
+    this.#regionPreview?.destroy({children: true});
+    this.#regionPreview = null;
   }
 
   /* -------------------------------------------- */
@@ -591,6 +612,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /** @inheritDoc */
   _onClose(options) {
     this.#clearMovementPlan();
+    this.#clearRegionPreview();
     super._onClose(options);
   }
 }
