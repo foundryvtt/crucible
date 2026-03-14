@@ -2,6 +2,7 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 import {SYSTEM} from "../const/system.mjs";
+import {TEMPLATES} from "../chat.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -1161,13 +1162,8 @@ export default class CrucibleActor extends Actor {
     // Plan turn start workflows
     const actorUpdates = {system: {status: null}, flags: {crucible: {actionHistory: []}}};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
-    const turnStartConfig = /** @type {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} */ {
-      resourceChanges,
-      actorUpdates,
-      effectChanges,
-      statusText,
-      dot: []
-    };
+    const turnStartConfig = /** @type {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} */ {resourceChanges,
+      actorUpdates, effectChanges, statusText, dot: []};
 
     // Actor turn start configuration hook
     await this.#prepareTurnStartConfig(turnStartConfig, context);
@@ -1185,13 +1181,13 @@ export default class CrucibleActor extends Actor {
 
     // Calculate damage-over-time
     try {
-      await this.#applyDamageOverTime(turnStartConfig);
+      await this.#applyDamageOverTime(turnStartConfig); // Applies on its final turn before expiring!
     } catch(cause) {
       console.error(new Error(`Failed to apply turn start damage-over-time effects for Actor ${this.id}.`, {cause}));
     }
 
     // Generate summary chat card data prior to effect deletion
-    const summaryChatData = this.#createTurnChangeSummaryData(true, turnStartConfig);
+    const summaryChatData = await this.#createTurnChangeSummaryData(true, turnStartConfig);
 
     // Apply active effect changes
     try {
@@ -1288,13 +1284,8 @@ export default class CrucibleActor extends Actor {
     const resourceChanges = {};
     for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] = [];
     const statusText = [];
-    /** @type {CrucibleTurnChangeConfig} */
-    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {
-      effectChanges,
-      resourceChanges,
-      actorUpdates,
-      statusText
-    };
+    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {effectChanges, resourceChanges, actorUpdates,
+      statusText};
 
     // Configure turn end workflows
     this.#prepareTurnEndConfig(turnEndConfig, context);
@@ -1310,15 +1301,15 @@ export default class CrucibleActor extends Actor {
       if ( newRemaining > 0 ) effectChanges.toExpire.findSplice(i => i === effectUpdate._id);
     }
 
+    // Generate summary chat card data prior to effect deletion
+    const summaryChatData = await this.#createTurnChangeSummaryData(false, turnEndConfig);
+
     // Apply active effect changes
     try {
       await this.#applyActiveEffectChanges(effectChanges);
     } catch(cause) {
       console.error(new Error(`Failed to apply turn end ActiveEffect changes for Actor ${this.id}.`, {cause}));
     }
-
-    // Generate summary chat card data prior to effect deletion
-    const summaryChatData = this.#createTurnChangeSummaryData(false, turnEndConfig);
 
     // Recover resources
     const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
@@ -1368,100 +1359,59 @@ export default class CrucibleActor extends Actor {
    * Post a chat message with a summary of any effect creation/deletion or atypical resource changes
    * @param {boolean} isStart
    * @param {CrucibleTurnChangeConfig} turnChangeConfig
-   * @returns {ChatMessageData|null}
+   * @returns {Promise<Partial<ChatMessageData>|null>}
    */
-  #createTurnChangeSummaryData(isStart, turnChangeConfig) {
+  async #createTurnChangeSummaryData(isStart, turnChangeConfig) {
     const {effectChanges, resourceChanges} = turnChangeConfig;
-    const tableRows = {resources: "", effects: ""};
-    const pipColors = new Set([]);
+    const pipColors = new Set();
 
-    tableRows.resources = Object.entries(resourceChanges).flatMap(([resource, entries]) => {
-      const {label: resourceLabel=resource, color} = SYSTEM.RESOURCES[resource] ?? {};
-      return entries.map(({label, amount}) => {
-        if ( !label ) return "";
-        let resourceColor;
-        if ( color ) {
-          if ( foundry.utils.isPlainObject(color) ) resourceColor = (amount > 0) ? color.heal : color.high;
-          else resourceColor = color;
-          pipColors.add(color.high?.css ?? color.css);
+    // Prepare resource context entries
+    const resources = [];
+    for ( const [resource, entries] of Object.entries(resourceChanges) ) {
+      const cfg = SYSTEM.RESOURCES[resource];
+      if ( !cfg ) continue;
+      for ( const {label, amount} of entries ) {
+        if ( !label ) continue;
+        let color;
+        if ( typeof cfg.color === "object" ) {
+          color = amount > 0 ? cfg.color.heal : cfg.color.high;
+          pipColors.add(cfg.color.high.css);
+        } else {
+          color = cfg.color;
+          pipColors.add(color.css);
         }
-        return `
-          <tr>
-            <td>${label}</td>
-            <td class="change-cell" style="--resource-color:${resourceColor.toRGBA(0.25) ?? "gray"};">
-              <div class="resource">
-                ${amount.signedString()} ${resourceLabel}
-              </div>
-            </td>
-          </tr>
-        `;
-      });
-    }).filterJoin("");
-
-    for ( const deletedId of [...effectChanges.toDelete, ...effectChanges.toExpire] ) {
-      tableRows.effects += `
-        <tr>
-          <td>${this.effects.get(deletedId)?.name ?? deletedId}</td>
-          <td class="effect change-cell">${_loc("COMBAT.SUMMARY.EffectExpired")}</td>  
-        </tr>
-      `;
+        resources.push({sourceLabel: label, amount: amount.signedString(), resourceLabel: cfg.label,
+          colorStyle: color.toRGBA(0.25)});
+      }
     }
 
+    // Prepare effect context entries
+    const effects = [];
+    for ( const deletedId of [...effectChanges.toDelete, ...effectChanges.toExpire] ) {
+      effects.push({name: this.effects.get(deletedId)?.name ?? deletedId,
+        changeLabel: _loc("COMBAT.SUMMARY.EffectExpired")});
+    }
     for ( const created of effectChanges.toCreate ) {
       const showDuration = created.duration.units === "rounds";
       const duration = showDuration ? _loc("ACTION.DurationRounds", {value: created.duration.value}) : "";
-      tableRows.effects += `
-        <tr>
-          <td>${created.name}</td>
-          <td class="effect change-cell">
-            ${_loc(`COMBAT.SUMMARY.EffectGained${showDuration ? "Duration" : ""}`, {duration})}
-          </td>
-        </tr>
-      `;
+      effects.push({name: created.name,
+        changeLabel: _loc(`COMBAT.SUMMARY.EffectGained${showDuration ? "Duration" : ""}`, {duration})});
     }
 
-    const resourcesContent = `
-      <table class="change-table">
-        <thead>
-          <tr>
-            <th colspan=2>
-              <div class="flexrow">
-                ${_loc("COMBAT.SUMMARY.TableTitleResources")}
-                <div class="crucible-rank-pips flexrow">
-                  ${Array.from(pipColors).map(c => `<span class="pip full" style="--resource-color:${c}"></span>`).join("")}
-                </div>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.resources}
-        </tbody>
-      </table>
-    `;
-    const effectsContent = `
-      <table class="change-table">
-        <thead>
-          <tr>
-            <th colspan=2>${_loc("COMBAT.SUMMARY.TableTitleEffects")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.effects}
-        </tbody>
-      </table>
-    `;
+    // Bail out if there are no changes to track
+    if ( !resources.length && !effects.length ) return null;
 
-    if ( !tableRows.resources.length && !tableRows.effects.length ) return null;
-    return {
-      content: `
-      <section class="crucible turn-change-summary">
-        ${tableRows.resources.length ? resourcesContent : ""}
-        ${tableRows.effects.length ? effectsContent : ""}
-      </section>`,
-      speaker: {user: game.user, alias: _loc(`COMBAT.SUMMARY.Header${isStart ? "Start" : "End"}`, {actor: this.name})},
-      "flags.crucible.isTurnChangeSummary": true
-    };
+    // Render template and prepare final ChatMessageData
+    const content = await foundry.applications.handlebars.renderTemplate(TEMPLATES.turnSummary, {
+      resources,
+      pipColors,
+      effects,
+      resourcesTitle: _loc("COMBAT.SUMMARY.TableTitleResources"),
+      effectsTitle: _loc("COMBAT.SUMMARY.TableTitleEffects")
+    });
+    const speaker = ChatMessage.getSpeaker({actor: this});
+    speaker.alias = _loc(`COMBAT.SUMMARY.Header${isStart ? "Start" : "End"}`, {actor: this.name});
+    return {content, speaker, "flags.crucible.isTurnChangeSummary": true};
   }
 
   /* -------------------------------------------- */

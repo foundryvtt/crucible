@@ -67,9 +67,9 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
         `(${rd.ability.signedString()})`
       ].filterJoin(" ");
       return `<tr class="combatant" data-combatant-id="${i.id}">
-        <td class="initiative-name">${i.name}</td>
-        <td class="initiative-modifiers">${modifiers}</td>
-        <td class="initiative-value">${i.initiative}</td>
+        <td class="report-label initiative-name">${i.name}</td>
+        <td class="report-value initiative-modifiers">${modifiers}</td>
+        <td class="report-value initiative-value">${i.initiative}</td>
       </tr>`;
     }).join("");
 
@@ -77,11 +77,11 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     return ChatMessage.create({
       content: `
       <section class="crucible dice-roll initiative">
-      <table class="initiative-table" data-combat-id="${this.parent.id}">
+      <table class="report-table initiative-report-table" data-combat-id="${this.parent.id}">
         <thead>
           <tr>
-              <th class="initiative-name">${_loc("COMBAT.INITIATIVE.Combatant")}</th>
-              <th class="initiative-value" colspan="2">${_loc("COMBAT.INITIATIVE.Result")}</th>
+              <th class="report-label initiative-name">${_loc("COMBAT.INITIATIVE.Combatant")}</th>
+              <th class="report-value initiative-value" colspan="2">${_loc("COMBAT.INITIATIVE.Result")}</th>
           </tr>
         </thead>
         <tbody>

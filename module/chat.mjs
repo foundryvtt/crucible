@@ -1,5 +1,16 @@
 import CrucibleAction from "./models/action.mjs";
 
+/**
+ * Handlebars template paths used for chat message rendering
+ * @type {{turnSummary: string}}
+ */
+export const TEMPLATES = {
+  turnSummary: "systems/crucible/templates/chat/turn-change-summary.hbs",
+  actionHeader: "systems/crucible/templates/dice/partials/action-use-header.hbs",
+  actionFooter: "systems/crucible/templates/dice/partials/action-use-footer.hbs",
+  rollDice: "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
+  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs"
+};
 
 /**
  * Add Crucible-specific context menu options to chat messages.
