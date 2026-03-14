@@ -278,27 +278,27 @@ export default class ActionUseDialog extends StandardCheckDialog {
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
     // Build the onMove callback
-    const onMove = ({shape, position, snap}) => {
+    const onMove = ({shape, position, document, snap}) => {
       switch (regionConfig.anchor) {
         case "self": // Lock position and rotate based on mouse position
           if ( regionConfig.directionDelta ) {
             const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
             const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
             shape.updateSource({rotation: snappedAngle});
-            return false; // Don't handle core moves
           }
-          break;
-        case "vertex": // Constrain placement within maximum range
+          return false; // Prevent core handling
+        case "vertex":
           const maxDistance = range.maximum ?? 0;
           if ( maxDistance === 0 ) Object.assign(position, origin);
           else {
-            const d = canvas.grid.measurePath([origin, position]).distance;
-            if ( d > maxDistance ) {
-              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-              position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
-            }
+            origin.elevation ??= 0;
+            const elevation = Math.clamp(origin.elevation, document.elevation.bottom, document.elevation.top);
+            const d = canvas.grid.measurePath([origin, {elevation, ...position}]).distance;
+            if ( d <= maxDistance ) return;
+            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+            Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
           }
-          break;
+          break; // Allow core handling
       }
     };
 
