@@ -1,0 +1,96 @@
+name: Net
+type: consumable
+img: icons/tools/fishing/net-simple-tan.webp
+system:
+  identifier: net
+  category: trap
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - thrown
+  description:
+    public: >-
+      <p>These thickly woven fibers are reinforced for use in combat to entrap
+      and entangle even the most dangerous foes, rendering them vulnerable.</p>
+    private: ''
+  actions:
+    - id: net
+      name: Throw Net
+      img: icons/tools/fishing/net-simple-tan.webp
+      description: >-
+        <p>The target captured by the thrown net is @Condition[restrained] until
+        they can get free.</p>
+      condition: ''
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: Netted
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - restrained
+          duration:
+            turns: null
+            rounds: null
+          changes: []
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - melee
+        - thrown
+        - reflex
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: gSADApbBEeo51EEP
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.351'
+  systemId: crucible
+  systemVersion: 0.8.8
+  createdTime: 1773525617759
+  modifiedTime: 1773525617759
+  lastModifiedBy: QPs9IwGEu5DxD700
+_id: net0000000000000
+sort: 0
+_key: '!items!net0000000000000'
