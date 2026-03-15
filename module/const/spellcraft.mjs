@@ -17,7 +17,7 @@ export const RUNES = {
     damageType: "psychic",
     opposed: "kinesis",
     defense: "willpower",
-    scaling: "intellect",
+    scaling: "wisdom",
     nameFormat: NAME_FORMATS.NOUN
   },
   death: {
