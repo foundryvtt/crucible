@@ -1,11 +1,6 @@
 import StandardCheck from "./standard-check.mjs";
 
 /**
- * @typedef {object} SerializedStandardCheckData
- * JSON-serialized StandardCheck roll data.
- */
-
-/**
  * @typedef GroupCheckFlags
  * @property {string} checkId                        Unique group check ID
  * @property {string} skillId                        The skill being checked
@@ -23,7 +18,7 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} actorImg                       Image path (cached)
  * @property {string|null} userId                    User ID responsible for rolling
  * @property {string} status                         Actor status enum value
- * @property {SerializedStandardCheckData|null} rollData Serialized StandardCheck data (after completion)
+ * @property {object|null} rollData                  Serialized StandardCheck data (after completion)
  */
 
 /**
@@ -35,9 +30,9 @@ import StandardCheck from "./standard-check.mjs";
 
 /**
  * @typedef {GroupCheckActorEntry & object} GroupCheckActorTemplateData
- * @property {boolean} showRollResult                Whether the expanded roll result layout should be rendered
+ * @property {boolean} showRollResult                     Whether the expanded roll result layout should be rendered
  * @property {GroupCheckStatusDisplay|null} statusDisplay Prepared status indicator for non-complete rows
- * @property {DiceResultContext|null} rollContext    Prepared roll context for the dice result partial
+ * @property {DiceResultContext|null} rollContext         Prepared roll context for the dice result partial
  */
 
 /**
@@ -47,21 +42,21 @@ import StandardCheck from "./standard-check.mjs";
  */
 export default class GroupCheck extends StandardCheck {
   /**
- * The template path used to render group check chat cards.
- * @type {string}
- */
+   * The template path used to render group check chat cards.
+   * @type {string}
+   */
   static #GROUP_CHECK_TEMPLATE = "systems/crucible/templates/dice/group-check-chat.hbs";
 
   /**
- * Key used for ChatMessage flags.
- * @type {string}
- */
+   * Key used for ChatMessage flags.
+   * @type {string}
+   */
   static FLAG_KEY = "groupCheck";
 
   /**
- * Possible status values for an actor in a group check.
- * @enum {string}
- */
+   * Possible status values for an actor in a group check.
+   * @enum {string}
+   */
   static #STATUSES = Object.freeze({
     PENDING: "pending",
     COMPLETE: "complete",
@@ -73,26 +68,14 @@ export default class GroupCheck extends StandardCheck {
   static #UPDATE_QUEUES = new Map();
 
   /* -------------------------------------------- */
-  /*  Helpers                                      */
-  /* -------------------------------------------- */
-
-  /**
-   * Get the localized label for a skill, falling back to the raw skill ID.
-   * @param {string} skillId - The skill identifier
-   * @returns {string} The localized skill label
-   */
-  static #getSkillLabel(skillId) {
-    const skill = SYSTEM.SKILLS[skillId];
-    return skill ? _loc(skill.label) : skillId;
-  }
-
+  /*  Helpers                                     */
   /* -------------------------------------------- */
 
   /**
    * Apply the group DC to serialized roll data before it is stored by the GM.
-   * @param {object} rollData - Serialized roll data returned from a player or local roll
-   * @param {number} dc - The group check DC
-   * @returns {object} Normalized serialized roll data
+   * @param {object} rollData     Serialized roll data returned from a player or local roll
+   * @param {number} dc           The group check DC
+   * @returns {object}            Normalized serialized roll data
    */
   static #applyGroupCheckDC(rollData, dc) {
     const roll = Roll.fromData(rollData);
@@ -104,8 +87,8 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Recreate a GroupCheck instance from persisted flags for rendering updates.
-   * @param {GroupCheckFlags} flags - The persisted group check state
-   * @returns {GroupCheck} A configured group check instance
+   * @param {GroupCheckFlags} flags     The persisted group check state
+   * @returns {GroupCheck}              A configured group check instance
    */
   static #fromFlags(flags) {
     const data = {
@@ -122,19 +105,15 @@ export default class GroupCheck extends StandardCheck {
   /**
    * Find the best active user to roll for a given actor.
    * Prefers users whose assigned character matches, then falls back to any owner.
-   * @param {CrucibleActor} actor - The actor to find a user for
-   * @returns {User|undefined} The matched user, or undefined if none found
+   * @param {CrucibleActor} actor     The actor to find a user for
+   * @returns {User|undefined}        The matched user, or undefined if none found
    */
   static #findUserForActor(actor) {
-    const users = [];
-    for ( const user of game.users ) {
-      if ( !user.active ) continue;
-      if ( user.character === actor ) users.push({user, priority: 1});
-      else if ( user.isGM ) users.push({user, priority: 3});
-      else if ( actor.testUserPermission(user, "OWNER") ) users.push({user, priority: 2});
-    }
-    users.sort((a, b) => a.priority - b.priority);
-    return users[0]?.user ?? null;
+    return game.users.getDesignatedUser(user => {
+      if ( !user.active || user.isGM ) return false;
+      if ( user.character === actor ) return true;
+      return actor.testUserPermission(user, "OWNER");
+    }) ?? game.users.activeGM;
   }
 
   /* -------------------------------------------- */
@@ -142,21 +121,20 @@ export default class GroupCheck extends StandardCheck {
   /**
    * Show Dice So Nice animation for a group check roll.
    * By default the animation is whispered to the current user only.
-   * @param {Roll} roll - The evaluated roll to animate
-   * @param {object} [options={}] - Additional options
-   * @param {User} [options.user] - The user who rolled (defaults to current user)
-   * @param {boolean} [options.blind=false] - Whether this is a blind roll
-   * @param {boolean} [options.synchronize=false] - Whether to synchronize the animation across clients
+   * @param {Roll} roll                           The evaluated roll to animate
+   * @param {object} [options={}]                 Additional options
+   * @param {User} [options.user]                 The user who rolled (defaults to current user)
+   * @param {boolean} [options.blind=false]       Whether this is a blind roll
+   * @param {boolean} [options.synchronize=false] Whether to synchronize the animation across clients
    * @returns {Promise<void>}
    */
-  static async #showDiceSoNice(roll, {user, blind=false, synchronize=false}={}) {
+  static async #showDiceSoNice(roll, {user=game.user, blind=false, synchronize=false}={}) {
     if ( !game.dice3d ) return;
-    user ??= game.user;
-    const whisper = [game.user.id];
+    const whisper = [user.id];
     try {
       await game.dice3d.showForRoll(roll, user, synchronize, whisper, blind);
     }
-    catch (err) {
+    catch(err) {
       console.warn("Dice So Nice error:", err);
     }
   }
@@ -164,24 +142,26 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-    * Prepare a StandardCheck roll for an actor, present the dialog, and evaluate it.
+   * Prepare a StandardCheck roll for an actor, present the dialog, and evaluate it.
    * Optionally shows a Dice So Nice animation.
-   * @param {CrucibleActor} actor - The actor performing the check
+   * @param {CrucibleActor} actor The actor performing the check
    * @param {object} options
-   * @param {string} options.skillId - The skill being checked
-   * @param {number} [options.dc=15] - The difficulty class for the check
-   * @param {number} [options.sharedBoons=0] - GM-assigned shared boons
-   * @param {number} [options.sharedBanes=0] - GM-assigned shared banes
-   * @param {string} [options.title] - The dialog title
-   * @param {boolean} [options.showDSN=true] - Whether to show a Dice So Nice animation
-    * @returns {Promise<StandardCheck|null>} The evaluated roll, or null if the dialog was cancelled
+   * @param {string} options.skillId            The skill being checked
+   * @param {number} [options.dc=15]            The difficulty class for the check
+   * @param {number} [options.sharedBoons=0]    GM-assigned shared boons
+   * @param {number} [options.sharedBanes=0]    GM-assigned shared banes
+   * @param {string} [options.title]            The dialog title
+   * @param {boolean} [options.showDSN=true]    Whether to show a Dice So Nice animation
+   * @returns {Promise<StandardCheck|null>}    The evaluated roll, or null if the dialog was cancelled
    */
   static async #prepareAndRoll(actor, {skillId, dc=15, sharedBoons=0, sharedBanes=0, title, showDSN=true}={}) {
     const skill = SYSTEM.SKILLS[skillId];
     const checkData = {dc};
     if ( sharedBoons ) checkData.boons = sharedBoons;
     if ( sharedBanes ) checkData.banes = sharedBanes;
-    const pool = skill ? actor.getSkillCheck(skill.id, checkData) : new this({...checkData, type: skillId, actorId: actor.id});
+    const pool = skill
+      ? actor.getSkillCheck(skill.id, checkData)
+      : new this({...checkData, type: skillId, actorId: actor.id});
 
     const response = await pool.dialog({title});
     if ( response === null ) return null;
@@ -203,7 +183,7 @@ export default class GroupCheck extends StandardCheck {
    * @returns {Promise<void>}
    */
   async requestSubmit({requestedActors}={}) {
-    if ( !requestedActors || requestedActors.length === 0 ) return;
+    if ( !requestedActors?.length ) return;
 
     const checkId = foundry.utils.randomID();
     const skillId = this.data.type;
@@ -235,12 +215,10 @@ export default class GroupCheck extends StandardCheck {
     };
 
     const content = await this.#renderGroupCheckCard(groupCheckFlags);
-
-    const gmUserIds = game.users.filter(u => u.isGM).map(u => u.id);
-    const message = await ChatMessage.create({
+    const message = await ChatMessage.implementation.create({
       content,
-      whisper: gmUserIds,
-      speaker: ChatMessage.getSpeaker({alias: _loc("DICE.GROUP_CHECK.Title")}),
+      whisper: game.users.filter(u => u.isGM).map(u => u.id),
+      speaker: ChatMessage.implementation.getSpeaker({alias: _loc("DICE.GROUP_CHECK.Title")}),
       flags: {crucible: {[GroupCheck.FLAG_KEY]: groupCheckFlags }}
     });
 
@@ -264,15 +242,15 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Update a single actor's status in the group check ChatMessage flags and re-render.
-   * @param {ChatMessage} message - The group check ChatMessage
-   * @param {string} actorId - The actor ID to update
-   * @param {string} status - The new status value
-   * @param {object} [extra={}] - Additional data to merge into the actor entry
-   * @param {object} [options={}] - Additional update guards
-   * @param {string} [options.expectedStatus] - Require the actor to currently have this status before updating
-   * @returns {Promise<boolean>} True if the update was applied
+   * @param {ChatMessage} message             The group check ChatMessage
+   * @param {string} actorId                  The actor ID to update
+   * @param {string} status                   The new status value
+   * @param {object} [extra={}]               Additional data to merge into the actor entry
+   * @param {object} [options={}]             Additional update guards
+   * @param {string} [options.expectedStatus] Require the actor to currently have this status before updating
+   * @returns {Promise<boolean>}              True if the update was applied
    */
-  static async #markActorStatus(message, actorId, status, extra = {}, {expectedStatus}={}) {
+  static async #markActorStatus(message, actorId, status, extra={}, {expectedStatus}={}) {
     return this.#updateGroupCheckMessage(message, flags => {
       if ( !flags.actors?.[actorId] ) return false;
       if ( expectedStatus && (flags.actors[actorId].status !== expectedStatus) ) return false;
@@ -284,18 +262,19 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Dispatch a single group check query to a player and handle the response.
-   * @param {object} options - Dispatch options
-   * @param {ChatMessage} options.message - The group check ChatMessage
-   * @param {string} options.checkId - The unique check ID
-   * @param {GroupCheckActorEntry} options.entry - The actor entry
-   * @param {User} options.user - The target user
-   * @param {string} options.skillId - The skill being checked
-   * @param {number} options.sharedBoons - GM-assigned shared boons
-   * @param {number} options.sharedBanes - GM-assigned shared banes
+   * @param {object} options                 Dispatch options
+   * @param {ChatMessage} options.message    The group check ChatMessage
+   * @param {string} options.checkId         The unique check ID
+   * @param {GroupCheckActorEntry} options.entry The actor entry
+   * @param {User} options.user              The target user
+   * @param {string} options.skillId         The skill being checked
+   * @param {number} options.sharedBoons     GM-assigned shared boons
+   * @param {number} options.sharedBanes     GM-assigned shared banes
    * @returns {Promise<void>}
    */
   static async #dispatchGroupCheckQuery({message, checkId, entry, user, skillId, sharedBoons, sharedBanes}) {
-    const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill: this.#getSkillLabel(skillId), name: entry.actorName});
+    const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
+    const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: entry.actorName});
     try {
       const response = await user.query("requestGroupCheck", {
         checkId,
@@ -317,12 +296,16 @@ export default class GroupCheck extends StandardCheck {
         });
       }
       else {
-        await this.#markActorStatus(message, entry.actorId, this.#STATUSES.ABORTED, {}, {expectedStatus: this.#STATUSES.PENDING});
+        await this.#markActorStatus(
+          message, entry.actorId, this.#STATUSES.ABORTED, {}, {expectedStatus: this.#STATUSES.PENDING}
+        );
       }
     }
-    catch (err) {
+    catch(err) {
       console.warn(`Group check query failed for ${entry.actorName}:`, err);
-      await this.#markActorStatus(message, entry.actorId, this.#STATUSES.ABORTED, {}, {expectedStatus: this.#STATUSES.PENDING});
+      await this.#markActorStatus(
+        message, entry.actorId, this.#STATUSES.ABORTED, {}, {expectedStatus: this.#STATUSES.PENDING}
+      );
     }
   }
 
@@ -331,8 +314,8 @@ export default class GroupCheck extends StandardCheck {
   /**
    * Prepare a single actor entry from flags data into a template-ready object.
    * Derives row classes, display status data, outcome, and roll context.
-   * @param {GroupCheckActorEntry} entry - The raw actor entry from flags
-   * @param {boolean} [finalized=false] - Whether the group check has been finalized
+   * @param {GroupCheckActorEntry} entry    The raw actor entry from flags
+   * @param {boolean} [finalized=false]     Whether the group check has been finalized
    * @returns {GroupCheckActorTemplateData} The enriched entry for the Handlebars template
    */
   #prepareActorTemplateData(entry, finalized=false) {
@@ -349,7 +332,7 @@ export default class GroupCheck extends StandardCheck {
             const roll = Roll.fromData(entry.rollData);
             rollContext = roll.prepareDiceResultContext({targetLabel: entry.actorName});
           }
-          catch (err) {
+          catch(err) {
             console.warn("Failed to reconstruct roll for group check actor:", err);
           }
         }
@@ -382,12 +365,12 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Render the group check chat card HTML from the current flags state.
-   * @param {GroupCheckFlags} flags - The group check flags data
-   * @returns {Promise<string>} The rendered HTML content
+   * @param {GroupCheckFlags} flags     The group check flags data
+   * @returns {Promise<string>}         The rendered HTML content
    */
   async #renderGroupCheckCard(flags) {
-    const skillLabel = GroupCheck.#getSkillLabel(this.data.type);
-    const title = _loc("DICE.GROUP_CHECK.ChatTitle", {skill: skillLabel, dc: this.data.dc});
+    const skill = SYSTEM.SKILLS[this.data.type]?.label ?? this.data.type;
+    const title = _loc("DICE.GROUP_CHECK.ChatTitle", {skill, dc: this.data.dc});
     const actors = Object.values(flags.actors).map(entry => this.#prepareActorTemplateData(entry, flags.finalized));
     const templateData = {title, actors};
     return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, templateData);
@@ -401,14 +384,14 @@ export default class GroupCheck extends StandardCheck {
    * Handle a group check request dispatched via user.query("requestGroupCheck").
    * Opens a StandardCheck dialog for the player, evaluates the roll, shows DSN animation,
    * and returns the result without posting a chat message.
-   * @param {object} [params={}] - The query payload
-   * @param {string} params.checkId - Unique ID for this group check session
-   * @param {string} params.actorId - The actor ID for whom the check is requested
-   * @param {string} params.skillId - The skill being checked
-   * @param {number} params.sharedBoons - GM-assigned shared boons
-   * @param {number} params.sharedBanes - GM-assigned shared banes
-   * @param {string} params.title - The dialog title
-  * @returns {Promise<SerializedStandardCheckData|{aborted: true}>}
+   * @param {object} [params={}]          The query payload
+   * @param {string} params.checkId       Unique ID for this group check session
+   * @param {string} params.actorId       The actor ID for whom the check is requested
+   * @param {string} params.skillId       The skill being checked
+   * @param {number} params.sharedBoons   GM-assigned shared boons
+   * @param {number} params.sharedBanes   GM-assigned shared banes
+   * @param {string} params.title         The dialog title
+   * @returns {Promise<object>}
    */
   static async handle({checkId, actorId, skillId, sharedBoons, sharedBanes, title}={}) {
     const actor = game.actors.get(actorId);
@@ -426,10 +409,10 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Serialize group check message updates so concurrent responses do not clobber each other.
-   * @param {ChatMessage} message - The group check ChatMessage
+   * @param {ChatMessage} message     The group check ChatMessage
    * @param {(flags: GroupCheckFlags, current: ChatMessage) => (false|void|object|Promise<false|void|object>)} mutator
    * Mutates the latest flags state and may return additional message update data, or false to skip updating.
-   * @returns {Promise<boolean>} True if an update was applied
+   * @returns {Promise<boolean>}      True if an update was applied
    */
   static async #updateGroupCheckMessage(message, mutator) {
     const key = message.id;
@@ -443,7 +426,7 @@ export default class GroupCheck extends StandardCheck {
       if ( result === false ) return false;
 
       const content = await this.#fromFlags(flags).#renderGroupCheckCard(flags);
-      const updateData = (result && (typeof result === "object") && !Array.isArray(result)) ? result : {};
+      const updateData = foundry.utils.isPlainObject(result) ? result : {};
       await current.update({content, [`flags.crucible.${this.FLAG_KEY}`]: flags, ...updateData});
       return true;
     });
@@ -460,21 +443,22 @@ export default class GroupCheck extends StandardCheck {
   /**
    * Attach event listeners for group check chat card controls.
    * Binds resend, roll-on-behalf, skip, and finalize buttons to their respective handlers.
-   * @param {ChatMessage} message - The chat message being rendered
-   * @param {HTMLElement} html - The rendered HTML element
-   * @param {GroupCheckFlags} groupCheckFlags - The group check flags data
+   * @param {ChatMessage} message             The chat message being rendered
+   * @param {HTMLElement} html                The rendered HTML element
+   * @param {GroupCheckFlags} groupCheckFlags The group check flags data
    */
   static onRenderGroupCheck(message, html, groupCheckFlags) {
     if ( !game.user.isGM || groupCheckFlags.finalized ) return;
 
-    const makeButton = (icon, descriptionKey, handler, isIconButton = true) => {
+    const makeButton = (icon, descriptionKey, handler, isIconButton=true) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.classList.add("frame-brown");
 
       if ( isIconButton ) {
         btn.classList.add("icon", "fa-solid", icon);
-        btn.dataset.tooltip = descriptionKey;
+        btn.dataset.tooltip = "";
+        btn.ariaLabel = _loc(descriptionKey);
       }
       else {
         const iconElement = document.createElement("i");
@@ -489,7 +473,9 @@ export default class GroupCheck extends StandardCheck {
     for ( const row of html.querySelectorAll(".group-check-row.line-item") ) {
       const actorId = row.dataset.actorId;
       const entry = groupCheckFlags.actors?.[actorId];
-      if ( !entry || [this.#STATUSES.COMPLETE, this.#STATUSES.ABORTED, this.#STATUSES.SKIPPED].includes(entry.status) ) continue;
+      if (
+        !entry || [this.#STATUSES.COMPLETE, this.#STATUSES.ABORTED, this.#STATUSES.SKIPPED].includes(entry.status)
+      ) continue;
       const controls = document.createElement("div");
       controls.classList.add("controls");
       controls.append(
@@ -515,8 +501,8 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Open a StandardCheck dialog for the GM to roll on behalf of a non-responding player.
-   * @param {ChatMessage} message - The group check ChatMessage
-   * @param {string} actorId - The actor ID to roll for
+   * @param {ChatMessage} message     The group check ChatMessage
+   * @param {string} actorId          The actor ID to roll for
    * @returns {Promise<void>}
    */
   static async #rollOnBehalfGroupCheck(message, actorId) {
@@ -528,10 +514,14 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     if ( !actor ) return;
 
-    const skillLabel = this.#getSkillLabel(flags.skillId);
-    const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill: skillLabel, name: actor.name});
+    const skillId = flags.skillId;
+    const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
+    const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: actor.name});
 
-    const pool = await this.#prepareAndRoll(actor, {skillId: flags.skillId, dc: flags.dc, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title});
+    const pool = await this.#prepareAndRoll(
+      actor,
+      {skillId, dc: flags.dc, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title}
+    );
     if ( !pool ) return;
 
     await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE, {
@@ -541,8 +531,8 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Skip (abort) an actor in a group check, marking them as skipped.
-   * @param {ChatMessage} message - The group check ChatMessage
-   * @param {string} actorId - The actor ID to skip
+   * @param {ChatMessage} message     The group check ChatMessage
+   * @param {string} actorId          The actor ID to skip
    * @returns {Promise<void>}
    */
   static async #skipGroupCheckActor(message, actorId) {
@@ -553,7 +543,7 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Finalize a group check: remove whisper restriction to make the card public, and broadcast completion.
-   * @param {ChatMessage} message - The group check ChatMessage
+   * @param {ChatMessage} message     The group check ChatMessage
    * @returns {Promise<void>}
    */
   static async #finalizeGroupCheck(message) {
@@ -565,8 +555,8 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Resend a group check request for a specific actor (e.g. on disconnect).
-   * @param {ChatMessage} message - The group check ChatMessage
-   * @param {string} actorId - The actor ID to resend to
+   * @param {ChatMessage} message     The group check ChatMessage
+   * @param {string} actorId          The actor ID to resend to
    * @returns {Promise<void>}
    */
   static async #resendGroupCheckRequest(message, actorId) {
@@ -584,7 +574,9 @@ export default class GroupCheck extends StandardCheck {
       return;
     }
 
-    const updated = await this.#markActorStatus(message, actorId, this.#STATUSES.PENDING, {userId: user.id}, {expectedStatus: entry.status});
+    const updated = await this.#markActorStatus(
+      message, actorId, this.#STATUSES.PENDING, {userId: user.id}, {expectedStatus: entry.status}
+    );
     if ( !updated ) return;
 
     this.#dispatchGroupCheckQuery({

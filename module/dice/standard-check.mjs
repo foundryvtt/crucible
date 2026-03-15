@@ -30,17 +30,17 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
  * @typedef {object} DiceResultContext
- * @property {string} outcome                 The localization key shown on the primary result line.
- * @property {number} total                   The overall roll total.
- * @property {StandardCheckData} data         The configured roll data.
+ * @property {string} outcome                         The localization key shown on the primary result line.
+ * @property {number} total                           The overall roll total.
+ * @property {StandardCheckData} data                 The configured roll data.
  * @property {{denom: string, result: number}[]} pool The rendered dice pool.
- * @property {number} diceTotal               The sum of the dice before bonuses.
- * @property {object|undefined} [damage]      The rendered damage breakdown.
- * @property {string} targetLabel             Secondary text shown on the primary result line.
- * @property {number} dc                      The difficulty class the roll is checked against.
- * @property {string} defenseType             The defense type label shown alongside the target value.
- * @property {string} formula                 The rendered roll formula.
- * @property {string} cssClass                CSS classes applied to the rendered dice check wrapper.
+ * @property {number} diceTotal                       The sum of the dice before bonuses.
+ * @property {object|undefined} damage                The rendered damage breakdown, or undefined if not applicable.
+ * @property {string} targetLabel                     Secondary text shown on the primary result line.
+ * @property {number} dc                              The difficulty class the roll is checked against.
+ * @property {string} defenseType                     The defense type label shown alongside the target value.
+ * @property {string} formula                         The rendered roll formula.
+ * @property {string} cssClass                        CSS classes applied to the rendered dice check wrapper.
  */
 
 /**
@@ -254,15 +254,14 @@ export default class StandardCheck extends Roll {
    * @returns {object|undefined}
    */
   prepareRenderedDamage() {
-    let damage = this.data.damage;
-    if ( !damage ) return undefined;
-    damage = foundry.utils.deepClone(damage);
-    damage.display = Number.isNumeric(damage?.total) && !damage.harmless;
+    if ( !this.data.damage ) return;
+    const damage = foundry.utils.deepClone(this.data.damage);
+    damage.display = Number.isNumeric(damage.total) && !damage.harmless;
     if ( !damage.display ) return damage;
 
     damage.label = _loc(damage.restoration ? "DICE.Healing" : "DICE.Damage");
     damage.baseLabel = _loc("DICE.DamageBase", {type: damage.label});
-    damage.hasMultiplier = damage?.multiplier !== 1;
+    damage.hasMultiplier = damage.multiplier !== 1;
     if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
     else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
     damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability" : "DICE.DamageResistance";
@@ -302,9 +301,10 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
-   * Shared dice result data used when rendering this check.   
-   * @param {string} [options.targetLabel=""] The secondary result label.
-    * @returns {DiceResultContext}
+   * Shared dice result data used when rendering this check.
+   * @param {object} [options]             Options for the context preparation.
+   * @param {string} [options.targetLabel] The secondary result label.
+   * @returns {DiceResultContext}
    */
   prepareDiceResultContext({targetLabel}={}) {
     const {outcome, classes} = this.prepareOutcome();
@@ -358,7 +358,8 @@ export default class StandardCheck extends Roll {
    * @param {string} [options.title]     The title of the roll request
    * @param {string} [options.flavor]    Any flavor text attached to the roll
    * @param {boolean} [options.request]  Display the request tray
-   * @param {CrucibleActor[]} [options.requestedActors] An array of actors to request rolls from in a group check context
+   * @param {CrucibleActor[]} [options.requestedActors] An array of actors to request rolls
+   *                                     from in a group check context
    * @param {string} [options.messageMode]  The requested message mode
    * @returns {Promise<{roll:StandardCheck, messageMode: string}|null>}
    */
