@@ -72,20 +72,6 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-   * Apply the group DC to serialized roll data before it is stored by the GM.
-   * @param {object} rollData     Serialized roll data returned from a player or local roll
-   * @param {number} dc           The group check DC
-   * @returns {object}            Normalized serialized roll data
-   */
-  static #applyGroupCheckDC(rollData, dc) {
-    const roll = Roll.fromData(rollData);
-    roll.data.dc = dc;
-    return roll.toJSON();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Recreate a GroupCheck instance from persisted flags for rendering updates.
    * @param {GroupCheckFlags} flags     The persisted group check state
    * @returns {GroupCheck}              A configured group check instance
@@ -276,7 +262,7 @@ export default class GroupCheck extends StandardCheck {
     const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
     const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: entry.actorName});
     try {
-      const response = await user.query("requestGroupCheck", {
+      const rollData = await user.query("requestGroupCheck", {
         checkId,
         actorId: entry.actorId,
         skillId,
@@ -285,10 +271,10 @@ export default class GroupCheck extends StandardCheck {
         title
       });
 
-      if (response && !response.aborted) {
+      if (rollData && !rollData.aborted) {
         await this.#updateGroupCheckMessage(message, flags => {
           if ( flags.actors?.[entry.actorId]?.status !== this.#STATUSES.PENDING ) return false;
-          const rollData = this.#applyGroupCheckDC(response, flags.dc);
+          rollData.data.dc = flags.dc;
           flags.actors[entry.actorId] = foundry.utils.mergeObject(flags.actors[entry.actorId], {
             status: this.#STATUSES.COMPLETE,
             rollData
@@ -521,15 +507,14 @@ export default class GroupCheck extends StandardCheck {
     const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
     const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: actor.name});
 
-    const pool = await this.#prepareAndRoll(
+    const rollData = await this.#prepareAndRoll(
       actor,
       {skillId, dc: flags.dc, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title}
     );
-    if ( !pool ) return;
+    if ( !rollData ) return;
 
-    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE, {
-      rollData: this.#applyGroupCheckDC(pool.toJSON(), flags.dc)
-    }, {expectedStatus: entry.status});
+    rollData.data.dc = flags.dc;
+    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE, {rollData}, {expectedStatus: entry.status});
   }
 
   /**
