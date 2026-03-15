@@ -1376,7 +1376,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {object} [options]              Additional options
    * @param {boolean} [options.strict]      Whether to filter out invalid items or only mark them invalid
    * @param {number|null} [options.maxCost] If provided, consider weapons with greater action cost invalid
-   * @returns {{item: CrucibleWeaponItem, label: string}[]}
+   * @returns {{item: CrucibleWeaponItem, label: string, id: string, isValid: boolean}[]}
    */
   getValidWeaponChoices({strict=false, maxCost=null}={}) {
     const choices = [];
