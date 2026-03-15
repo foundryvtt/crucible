@@ -64,8 +64,8 @@ export default class GroupCheck extends StandardCheck {
     SKIPPED: "skipped"
   });
 
-  /** @type {Map<string, Promise<void>>} */
-  static #UPDATE_QUEUES = new Map();
+  /** @type {Map<string, foundry.utils.Semaphore>} */
+  static #UPDATE_SEMAPHORES = new Map();
 
   /* -------------------------------------------- */
   /*  Helpers                                     */
@@ -416,8 +416,13 @@ export default class GroupCheck extends StandardCheck {
    */
   static async #updateGroupCheckMessage(message, mutator) {
     const key = message.id;
-    const previous = this.#UPDATE_QUEUES.get(key) ?? Promise.resolve();
-    const queued = previous.catch(() => {}).then(async () => {
+    let semaphore = this.#UPDATE_SEMAPHORES.get(key);
+    if ( !semaphore ) {
+      semaphore = new foundry.utils.Semaphore(1);
+      this.#UPDATE_SEMAPHORES.set(key, semaphore);
+    }
+
+    return semaphore.add(async () => {
       const current = game.messages.get(message.id) ?? message;
       const flags = foundry.utils.deepClone(current.flags.crucible?.[this.FLAG_KEY]);
       if ( !flags ) return false;
@@ -429,13 +434,11 @@ export default class GroupCheck extends StandardCheck {
       const updateData = foundry.utils.isPlainObject(result) ? result : {};
       await current.update({content, [`flags.crucible.${this.FLAG_KEY}`]: flags, ...updateData});
       return true;
+    }).finally(() => {
+      if ( (this.#UPDATE_SEMAPHORES.get(key) === semaphore) && !semaphore.active && !semaphore.remaining ) {
+        this.#UPDATE_SEMAPHORES.delete(key);
+      }
     });
-
-    this.#UPDATE_QUEUES.set(key, queued);
-    queued.finally(() => {
-      if ( this.#UPDATE_QUEUES.get(key) === queued ) this.#UPDATE_QUEUES.delete(key);
-    });
-    return queued;
   }
 
   /* -------------------------------------------- */
