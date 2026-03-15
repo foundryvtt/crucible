@@ -40,7 +40,6 @@ Hooks.once("init", async function() {
   crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
   crucible.developmentMode = game.data.options.debug;
-  crucible.vfxEnabled = !!game.modules.get("foundryvtt-vfx")?.active;
 
   // Expose the system API
   crucible.api = {
@@ -288,6 +287,15 @@ Hooks.once("init", async function() {
     }
   });
 
+  game.settings.register("crucible", "enableVFX", {
+    name: "SETTINGS.EnableVFXName",
+    hint: "SETTINGS.EnableVFXHint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true
+  });
+
   // Migration Required Version
   game.settings.register("crucible", "migrationVersion", {
     scope: "world",
@@ -491,6 +499,7 @@ Hooks.once("i18nInit", function() {
     "systems/crucible/templates/dice/partials/standard-check-details.hbs",
     "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs",
     "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs",
+    ...Object.values(chat.TEMPLATES),
     "systems/crucible/templates/sheets/item/talent-summary.hbs"
   ]);
 });
@@ -825,7 +834,7 @@ function enableSpellcheckContext() {
 async function syncOwnedItems({force=false, reload=true, talents=true, spells=true}={}) {
   console.groupCollapsed("Crucible | Talent/Spell Data Synchronization");
   const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
+  const progress = ui.notifications.info(_loc("CRUCIBLE.Syncing"), {console: true, progress: true});
   for ( const actor of game.actors ) {
     bar.n++;
     bar.pct = bar.n / bar.total;

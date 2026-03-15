@@ -33,10 +33,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   createdTime: 1772307160130
-  modifiedTime: 1772307160130
+  modifiedTime: 1773514792570
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!diplomacyNovice0'

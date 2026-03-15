@@ -41,11 +41,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1767730980381
-  modifiedTime: 1767730980381
+  modifiedTime: 1773514792277
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: luminaryBand0000
 sort: 0

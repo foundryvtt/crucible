@@ -140,7 +140,7 @@ export default class StandardCheckDialog extends DialogV2 {
       {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: _loc("DICE.REQUESTS.ClearRequest")},
       {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: _loc("DICE.REQUESTS.AddParty")}
     );
-    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: _loc("DICE.REQUESTS.RequestRolls")});
+    else if ( game.user.isGM )buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: _loc("DICE.REQUESTS.RequestRolls")});
     return buttons;
   }
 
@@ -364,7 +364,7 @@ export default class StandardCheckDialog extends DialogV2 {
   static async #onRequestParty(_event) {
     const members = crucible.party?.system.actors;
     if ( !members?.size ) {
-      ui.notifications.warn("WARNING.NoParty", {localize: true});
+      ui.notifications.warn(_loc("WARNING.NoParty"));
       return;
     }
     for ( const m of members ) this.#requestActors.add(m);

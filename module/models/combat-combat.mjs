@@ -1,7 +1,10 @@
+import {TEMPLATES} from "../chat.mjs";
+
 /**
  * A system sub-type of the Combat document used for combat challenges.
  */
 export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataModel {
+  /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -51,59 +54,50 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
    * @param {object[]} results
    * @returns {Promise<ChatMessage>}
    */
-  postInitiativeMessage(round, results) {
+  async postInitiativeMessage(round, results) {
     results.sort(this.parent._sortCombatants);
 
-    // Format table rows
+    // Prepare context data
     const rolls = [];
-    const rows = results.map(i => {
+    const combatants = results.map(i => {
       rolls.push(i.roll);
       const rd = i.roll.data;
-      const boons = Object.values(rd.boons).reduce((t, b) => t + b.number, 0);
-      const banes = Object.values(rd.banes).reduce((t, b) => t + b.number, 0);
-      const modifiers = [
-        boons > 0 ? `<span class="boons"><i class="fa-solid fa-caret-up" inert></i> ${boons}</span>` : "",
-        banes > 0 ? `<span class="banes"><i class="fa-solid fa-caret-down" inert></i> ${banes}</span>` : "",
-        `(${rd.ability.signedString()})`
-      ].filterJoin(" ");
-      return `<tr class="combatant" data-combatant-id="${i.id}">
-        <td class="initiative-name">${i.name}</td>
-        <td class="initiative-modifiers">${modifiers}</td>
-        <td class="initiative-value">${i.initiative}</td>
-      </tr>`;
-    }).join("");
-
-    // Create the Chat Message
-    return ChatMessage.create({
-      content: `
-      <section class="crucible dice-roll initiative">
-      <table class="initiative-table" data-combat-id="${this.parent.id}">
-        <thead>
-          <tr>
-              <th class="initiative-name">Combatant</th>
-              <th class="initiative-value" colspan="2">Result</th>
-          </tr>
-        </thead>
-        <tbody>
-            ${rows}
-        </tbody>
-      </table>
-      </section>`,
-      rolls,
-      speaker: {user: game.user, alias: `Initiative - Round ${round}`},
-      "flags.crucible.isInitiativeReport": true
+      return {
+        id: i.id,
+        name: i.name,
+        boons: Object.values(rd.boons).reduce((t, b) => t + b.number, 0),
+        banes: Object.values(rd.banes).reduce((t, b) => t + b.number, 0),
+        ability: rd.ability.signedString(),
+        initiative: i.initiative
+      };
     });
+
+    // Render template and create the Chat Message
+    const content = await foundry.applications.handlebars.renderTemplate(TEMPLATES.initiativeReport, {
+      combatId: this.parent.id,
+      combatantLabel: _loc("COMBAT.INITIATIVE.Combatant"),
+      resultLabel: _loc("COMBAT.INITIATIVE.Result"),
+      combatants
+    });
+    const speaker = ChatMessage.getSpeaker();
+    speaker.alias = _loc("COMBAT.INITIATIVE.Round", {round});
+    return ChatMessage.create({content, rolls, speaker, "flags.crucible.isInitiativeReport": true});
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * After rendering a chat message, apply dynamic filtering to the produced table.
+   * @param {ChatMessage} message
+   * @param {HTMLElement} html
+   */
   static onRenderInitiativeReport(message, html) {
 
     // Remove rolls
     html.querySelector(".dice-rolls")?.remove();
 
     // Hide combatants which are not visible
-    const table = html.querySelector(".initiative-table");
+    const table = html.querySelector(".initiative-report-table");
     const combat = game.combats.get(table?.dataset.combatId);
     if ( !combat ) return;
 
@@ -146,13 +140,14 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     const meters = [ui.combat.element.querySelector(".heroism-meter")];
     if ( ui.combat.popout?.rendered ) meters.push(ui.combat.popout.element.querySelector(".heroism-meter"));
     const heroism = game.combat.system.heroism;
-    const pct = `${Math.round(heroism.pct * 100)}%`;
+    const pct = Math.round(heroism.pct * 100);
     for ( const meter of meters ) {
       if ( !meter ) continue;
       const [bar, label] = meter.children;
       bar.style.width = pct;
-      label.innerText = `Heroism ${pct}`;
-      meter.dataset.tooltip = "Progress to next Heroism point";
+      label.innerText = _loc("COMBAT.HeroismPct", {pct});
+      meter.dataset.tooltip = "";
+      meter.ariaLabel = _loc("COMBAT.HeroismTooltip");
     }
   }
 }

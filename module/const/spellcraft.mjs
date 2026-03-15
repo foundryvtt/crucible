@@ -387,8 +387,7 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
-      type: "ray",
-      size: 1
+      type: "movement"
     }
   },
   strike: {

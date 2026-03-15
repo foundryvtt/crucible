@@ -23,7 +23,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       minimizable: true
     },
     actions: {
-      placeRegion: ActionUseDialog.#onPlaceRegion
+      placeRegion: ActionUseDialog.#onPlaceRegion,
+      planMovement: ActionUseDialog.#onPlanMovement
     }
   };
 
@@ -31,10 +32,46 @@ export default class ActionUseDialog extends StandardCheckDialog {
   static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
 
   /**
+   * A registry of ActionUseDialog instances that are currently in a movement planning state.
+   * @type {Map<string, ActionUseDialog>}
+   */
+  static #movementPlans = new Map();
+
+  /* -------------------------------------------- */
+
+  /**
    * Targets acquired from the most recently placed region for this Action.
    * @type {ActionUseTarget[]|null}
    */
   #regionTargets = null;
+
+  /**
+   * The Hooks ID for a pending planToken listener registered during movement planning.
+   * Stored so it can be cleaned up if the dialog closes before planning completes.
+   * @type {number|null}
+   */
+  #planMovementHookId = null;
+
+  /**
+   * A lazy action clone used for per-frame target preview during movement planning.
+   * Only set when the action has target.type === "movement". Cleared after planning ends.
+   * @type {CrucibleAction|null}
+   */
+  #previewMovementAction = null;
+
+  /**
+   * The canvas preview object created after region placement, kept alive for the dialog's lifetime.
+   * @type {RegionObject|null}
+   */
+  #regionPreview = null;
+
+  /**
+   * Tracks whether the dialog was submitted successfully via _onRoll.
+   * Used by #clearMovementPlan to avoid cancelling planned movement on a successful submission,
+   * since _onClose fires for both cancellation and submission.
+   * @type {boolean}
+   */
+  #submitted = false;
 
   /**
    * The Action being performed
@@ -73,18 +110,35 @@ export default class ActionUseDialog extends StandardCheckDialog {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
+    const targets = this.#prepareTargets();
     const requiresRegion = this.action.requiresRegion;
+    const requiresMovement = this.action.requiresMovement;
+    let submitTooltip = [
+      requiresRegion ? _loc("ACTION.RequiresRegion") : "",
+      requiresMovement ? _loc("ACTION.RequiresMovement") : ""
+    ].filterJoin("</p><p>");
+    if ( submitTooltip ) submitTooltip = `<p>${submitTooltip}</p>`;
+    const involvesRegion = requiresRegion || this.action.region;
+    const involvesMovement = requiresMovement || this.action.movement;
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
       tags,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
+      hasTargetTags: !["self", "none"].includes(this.action.target.type) || involvesRegion || involvesMovement,
       hasDice: this.action.usage.hasDice ?? false,
-      hasTargets: requiresRegion || !["self", "none"].includes(this.action.target.type),
-      requiresRegion: requiresRegion,
-      weaponChoice: this.#prepareWeaponChoice(),
-      targets: this.#prepareTargets()
+      involvesRegion,
+      involvesMovement,
+      requiresRegion,
+      requiresMovement,
+      tagRegion: this.action.region && !targets.length,
+      tagMovement: this.action.movement,
+      targets,
+      submitDisabled: requiresRegion || requiresMovement,
+      submitLabel: _loc("ACTION.UseAction"),
+      submitTooltip,
+      weaponChoice: this.#prepareWeaponChoice()
     });
   }
 
@@ -101,7 +155,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const choices = this.action.getValidWeaponChoices({strict: true, maxCost});
     if ( choices.length <= 1 ) return null;
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
-      label: "Weapon", hint: "You may choose which weapon to use for this Action."});
+      label: _loc("ACTION.ChooseWeaponLabel"), hint: _loc("ACTION.ChooseWeaponHint")});
     weapon.name = "weapon";
     return {field: weapon, value: this.#weaponChoice};
   }
@@ -164,7 +218,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /** @inheritDoc */
   async _onSubmit(target, event) {
-    if ( this.action.requiresRegion ) {
+    if ( this.action.requiresRegion || this.action.requiresMovement ) {
       event.preventDefault();
       event.stopImmediatePropagation();
       return;
@@ -183,6 +237,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
+    this.#submitted = true;
     this.action.usage.messageMode = this.messageMode;
     if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
     if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
@@ -213,6 +268,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlaceRegion(event) {
+    this.#clearRegionPreview();
     const {range, token, target} = this.action;
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type];
     if ( !targetConfig.region ) return;
@@ -225,8 +281,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Build initial region document data
-    const origin = token?.object?.center ?? canvas.dimensions.rect.center;
+    const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.rect.center;
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
+
+    // Clear existing targets before placement begins
+    canvas.tokens.setTargets([]);
 
     // Minimize open windows
     const minimizedWindows = [];
@@ -235,8 +294,19 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
+    // Create a lazy clone of the action for use during preview target acquisition
+    const previewAction = this.action.clone({}, {lazy: true});
+
+    // Build the onChange callback - fires after each position update with fresh constraints
+    const onChange = ({action=previewAction, document}) => {
+      Object.defineProperty(action, "region", {value: document, configurable: true});
+      const targets = this.#regionTargets = action.acquireTargets({strict: false});
+      if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
+      else canvas.tokens.setTargets([]);
+    };
+
     // Build the onMove callback
-    const onMove = ({shape, position, snap}) => {
+    const onMove = ({shape, position, document, snap}) => {
       switch (regionConfig.anchor) {
         case "self": // Lock position and rotate based on mouse position
           if ( regionConfig.directionDelta ) {
@@ -244,38 +314,41 @@ export default class ActionUseDialog extends StandardCheckDialog {
             const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
             shape.updateSource({rotation: snappedAngle});
           }
-          break;
-        case "vertex": // Constrain placement within maximum range
+          return false; // Prevent core handling
+        case "vertex":
           const maxDistance = range.maximum ?? 0;
           if ( maxDistance === 0 ) Object.assign(position, origin);
           else {
-            const d = canvas.grid.measurePath([origin, position]).distance;
-            if ( d > maxDistance ) {
-              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-              position = canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance);
-            }
-            shape.move(position, {snap: true});
+            origin.elevation ??= 0;
+            const elevation = Math.clamp(origin.elevation, document.elevation.bottom, document.elevation.top);
+            const d = canvas.grid.measurePath([origin, {elevation, ...position}]).distance;
+            if ( d <= maxDistance ) return;
+            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+            Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
           }
-          break;
+          break; // Allow core handling
       }
     };
 
     // Place the region and record its created data
     const canvasLayer = canvas.activeLayer;
-    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove});
+    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange});
     canvasLayer.activate();
-    for ( const app of minimizedWindows ) app.maximize();
-    if ( !region ) return; // User cancelled with right-click
+    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
 
-    // Enable wall restriction before acquiring targets so wall geometry is respected
-    region.updateSource({restriction: {enabled: true, type: "move"}});
-    region.updateSource({_shapeConstraints: region._computeShapeConstraints()});
-    Object.defineProperty(this.action, "region", {value: region, configurable: true});
+    // Handle user workflow cancellation
+    if ( !region ) {
+      this.#regionTargets = null;
+      canvas.tokens.setTargets([]);
+      return;
+    }
 
-    // Store shape data on the action and acquire targets
-    const targets = this.#regionTargets = this.action.acquireTargets({strict: false});
-    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
-    else game.user.targets.clear();
+    // Acquire targets for the final region
+    region.updateShapeConstraints();
+    onChange({action: this.action, document: region});
+
+    // Keep the placed region visible as a canvas preview for the remainder of the dialog
+    this.#regionPreview = await canvas.regions._createPreview(region.toObject(), {renderSheet: false});
     this.render();
   }
 
@@ -301,9 +374,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Get token data
     const levels = token?.level ? [token.level] : [];
-    const tokenElevation = token?.elevation ?? 0;
-    const tokenDepth = token?.depth ?? 0;
-    const elevation = {bottom: tokenElevation, top: tokenElevation + tokenDepth};
+    const tokenElevation = token?._source.elevation ?? 0;
+    const tokenDepth = token?._source.depth ?? 0;
+    const elevation = this.action.usage.region.elevation ?? {bottom: tokenElevation, top: tokenElevation + tokenDepth};
 
     // Common configurations based on the shape
     let shape;
@@ -373,9 +446,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Return the RegionData
     return {
       name: this.action.name,
-      color: game.user.color,
+      color: this.action.usage.region.color ?? game.user.color,
       displayMeasurements: true,
-      restriction: {enabled: false, type: "move"},
+      restriction: {enabled: this.action.usage.region.wallRestriction ?? true, type: "move"},
       elevation,
       levels,
       shapes: [shape]
@@ -389,8 +462,157 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @internal
    */
   _clearTargetRegion() {
+    this.#clearRegionPreview();
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
-    game.user.targets.clear();
+    canvas.tokens.setTargets([]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Destroy the current canvas region preview, if one exists.
+   */
+  #clearRegionPreview() {
+    this.#regionPreview?.destroy({children: true});
+    this.#regionPreview = null;
+  }
+
+  /* -------------------------------------------- */
+  /*  Movement Planning                           */
+  /* -------------------------------------------- */
+
+  /**
+   * Is any movement planning workflow currently active?
+   * @type {boolean}
+   */
+  static get activeMovementPlan() {
+    return ActionUseDialog.#movementPlans.size > 0;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the active movement planning dialog for the given token, if any.
+   * @param {CrucibleToken|string} token    The token document or its ID
+   * @returns {ActionUseDialog|null}
+   */
+  static getActiveMovementPlan(token) {
+    const id = typeof token === "string" ? token : token.id;
+    return ActionUseDialog.#movementPlans.get(id) ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle left-click events to begin the movement planning workflow.
+   * @this {ActionUseDialog}
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onPlanMovement(_event) {
+    const {token, target} = this.action;
+
+    // Register this dialog as actively planning movement for this token
+    ActionUseDialog.#movementPlans.set(token.id, this);
+
+    // Minimize open windows
+    const minimizedWindows = [];
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( !app.minimized ) minimizedWindows.push(app);
+    }
+    await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
+
+    // Initialize real-time target preview for movement-type actions
+    if ( target.type === "movement" ) {
+      canvas.tokens.setTargets([]);
+      this.#previewMovementAction = this.action.clone({}, {lazy: true});
+    }
+
+    // Await the planToken hook for this specific token
+    await new Promise(resolve => {
+      this.#planMovementHookId = Hooks.on("planToken", document => {
+        if ( document !== token ) return;
+        Hooks.off("planToken", this.#planMovementHookId);
+        this.#planMovementHookId = null;
+        resolve();
+      });
+    });
+    this.#previewMovementAction = null;
+
+    // Deregister from the planning map
+    ActionUseDialog.#movementPlans.delete(token.id);
+
+    // Store the planned movement on the action
+    const movement = token.movement;
+    if ( movement?.state === "planned" ) {
+      Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
+      this.action.prepare(); // Re-prepare to update action cost based on the planned distance
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    }
+
+    // Acquire targets from the planned movement path and highlight on canvas
+    const targets = this.action.acquireTargets({strict: false});
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
+    else canvas.tokens.setTargets([]);
+
+    // Restore minimized windows and re-render
+    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
+    this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle per-frame movement preview updates during the movement planning workflow.
+   * Called by CrucibleTokenObject#_refreshRuler when this dialog has an active movement plan.
+   * Simulate target acquisition based on the planned movement.
+   * @param {object|undefined} plannedMovement    Current _plannedMovement for the user
+   * @internal
+   */
+  _onPreviewMovement(plannedMovement) {
+    if ( !this.#previewMovementAction ) return;
+    if ( !plannedMovement?.foundPath?.length ) {
+      canvas.tokens.setTargets([]);
+      return;
+    }
+    const foundPath = plannedMovement.foundPath;
+    const isBlink = (foundPath.length > 1) && (foundPath[1].action === "blink");
+    const pendingWaypoints = isBlink ? foundPath.slice(1) : foundPath;
+    const previewMovement = {origin: foundPath[0], pending: {waypoints: pendingWaypoints}};
+    Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
+    const targets = this.#previewMovementAction.acquireTargets({strict: false});
+    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
+    else canvas.tokens.setTargets([]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear any in-progress movement plan, cancelling a planned token movement if one exists.
+   */
+  #clearMovementPlan() {
+    if ( this.#planMovementHookId !== null ) {
+      Hooks.off("planToken", this.#planMovementHookId);
+      this.#planMovementHookId = null;
+    }
+    this.#previewMovementAction = null;
+    ActionUseDialog.#movementPlans.delete(this.action.token?.id);
+    if ( !this.#submitted ) {
+      if ( this.action.movement?.state === "planned" ) {
+        this.action.token.stopMovement();
+        Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+      }
+      canvas.tokens.setTargets([]);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onClose(options) {
+    this.#clearMovementPlan();
+    this.#clearRegionPreview();
+    super._onClose(options);
   }
 }

@@ -32,12 +32,13 @@ const CONFIG = {
 
 /**
  * Extract LevelDB databases to YAML files
+ * @param {{volatile: boolean}} options
  */
-export async function extract() {
+export async function extract({volatile=false}={}) {
   for ( const db of CONFIG.databases ) {
     const dbPath = path.join(CONFIG.dataPath, db);
     const sourcePath = path.join(CONFIG.sourcePath, db);
-    await extractPack(dbPath, sourcePath, {yaml: CONFIG.yaml, clean: true, omitVolatile: true} );
+    await extractPack(dbPath, sourcePath, {yaml: CONFIG.yaml, clean: true, omitVolatile: !volatile} );
     console.log(`Extracted database: ${db}`);
   }
   console.log(`Successfully extracted ${CONFIG.databases.length} databases.`);
@@ -76,6 +77,7 @@ startup
 startup
   .command("extract")
   .description("Unpacks binary databases into plain-text source files.")
+  .option("--volatile", "Keep volatile fields in extracted data (default: omit them)")
   .action(extract);
 
 /* Start program and parse commands */

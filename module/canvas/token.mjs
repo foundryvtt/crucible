@@ -134,6 +134,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _refreshRuler() {
+    super._refreshRuler();
+    if ( !canvas.scene.useMicrogrid ) return;
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( dialog ) dialog._onPreviewMovement(this._plannedMovement[game.user.id]);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   drawBars() {
     super.drawBars();
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
@@ -230,10 +240,100 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _addDragWaypoint(point, options) {
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( dialog?.action.usage.movement.direct !== false ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.DirectMovementOnly"));
+      return;
+    }
+    return super._addDragWaypoint(point, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDragLeftStart(user, event, {notify=true}={}) {
+    if ( crucible.api.dice.ActionUseDialog.activeMovementPlan
+      && !crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
+      if ( notify ) ui.notifications.warn(_loc("ACTION.WARNINGS.WrongMovementToken"));
+      return false;
+    }
+    return super._canDragLeftStart(user, event, {notify});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  constrainMovementPath(waypoints, options) {
+    const [path, constrained] = super.constrainMovementPath(waypoints, options);
+    if ( !options?.preview ) return [path, constrained];
+
+    // If we are in an action movement plan, constrain according to range limits
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( !dialog ) return [path, constrained];
+    const {minimum: minRange, maximum: maxRange} = dialog.action.range;
+    if ( !minRange && !maxRange ) return [path, constrained];
+    const measurement = this.measureMovementPath(path, {...options.measureOptions, preview: options.preview});
+
+    // Below minimum range: treat the entire path as unreachable
+    if ( minRange && (measurement.cost < minRange) ) return [[path[0]], true];
+
+    // Above maximum range: truncate at the first waypoint that exceeds the budget
+    if ( maxRange && (measurement.cost > maxRange) ) {
+      for ( let i = 1; i < measurement.waypoints.length; i++ ) {
+        if ( measurement.waypoints[i].cost > maxRange ) {
+          path.length = i;
+          break;
+        }
+      }
+      return [path, true];
+    }
+    return [path, constrained];
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getDragConstrainOptions() {
+    const options = super._getDragConstrainOptions();
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( dialog ) {
+      const {movement} = dialog.action.usage;
+      if ( movement.ignoreWalls ) options.ignoreWalls = true;
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getDragLeftDropUpdateOptions() {
+    const options = super._getDragLeftDropUpdateOptions();
+    if ( crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
+      options.planned = true;
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getDragMovementAction() {
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    const forcedAction = dialog?.action.usage.movement.action;
+    if ( forcedAction ) return forcedAction;
+    return super._getDragMovementAction();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _getMovementCostFunction(options) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};
     const actor = this.actor;
+
+    // Construct and return cost function
     return (from, to, distance, segment) => {
 
       // Step 1: Apply condition-based cost modifiers
@@ -253,6 +353,33 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         ??= segment.actionConfig.getCostFunction(this.document, options);
       return calculateActionCost(terrainCost, from, to, distance, segment);
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _shouldPreventDragLeftDrop(event) {
+    if ( super._shouldPreventDragLeftDrop(event) ) return true;
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( !dialog ) return false;
+    const {movement} = dialog.action.usage;
+    const {minimum: minRange, maximum: maxRange} = dialog.action.range;
+    const context = event.interactionData?.contexts?.[this.id];
+    const foundPath = context?.foundPath ?? [];
+    const cost = foundPath.length > 1 ? this.measureMovementPath(foundPath).cost : 0;
+    if ( (movement.direct !== false) && context?.waypoints?.length ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.DirectMovementOnly"));
+      return true;
+    }
+    if ( minRange && (cost < minRange) ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.MovementTooShort"));
+      return true;
+    }
+    if ( maxRange && ((cost > maxRange) || context?.unreachableWaypoints?.length) ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.MovementTooFar"));
+      return true;
+    }
+    return false;
   }
 
   /* -------------------------------------------- */

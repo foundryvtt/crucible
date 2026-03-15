@@ -237,7 +237,7 @@ function renderAward(element) {
  */
 async function onClickAward(event) {
   event.preventDefault();
-  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true });
+  if ( !game.user.isGM ) return ui.notifications.warn(_loc("AWARD.WARNINGS.RequiresGM"));
 
   const { currency, each: eachString } = foundry.utils.expandObject({...event.currentTarget.dataset});
   const each = eachString === "true";
@@ -465,7 +465,7 @@ function renderMilestone(element) {
  */
 async function onClickMilestone(event) {
   event.preventDefault();
-  if ( !crucible.party ) return ui.notifications.warn("WARNING.NoParty", { localize: true });
+  if ( !crucible.party ) return ui.notifications.warn(_loc("WARNING.NoParty"));
 
   const quantity = event.currentTarget.dataset.quantity;
   await crucible.party.system.awardMilestoneDialog(quantity);
@@ -642,17 +642,17 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   if ( group ) tag.classList.add("group-check");
   tag.dataset.skillId = skill.id;
   tag.dataset.dc = dc;
-  let dcLabel = `DC ${dc}`;
+  let dcLabel = _loc("DICE.DCSpecific", {dc});
 
   // Passive checks only
   if ( passive ) {
-    dcLabel += ", Passive";
+    dcLabel = _loc("DICE.DCAdditionalPassive", {dcLabel});
     tag.classList.add("passive-check");
     tag.dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
-  if ( group ) dcLabel += ", Group";
+  if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
   // Create label
   tag.innerHTML = `${skill.label} (${dcLabel})`;

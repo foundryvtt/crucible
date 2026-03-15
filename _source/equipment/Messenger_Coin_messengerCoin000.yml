@@ -49,11 +49,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.9.-alpha
   createdTime: 1772307157770
-  modifiedTime: 1772307157770
+  modifiedTime: 1773514792278
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: messengerCoin000
 sort: 100000

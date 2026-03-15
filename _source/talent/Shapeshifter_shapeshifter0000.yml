@@ -106,10 +106,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.-alpha
-  coreVersion: '14.355'
+  systemVersion: 0.9.0
+  coreVersion: '14.356'
   createdTime: 1772307160146
-  modifiedTime: 1772307160146
+  modifiedTime: 1773514792612
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null

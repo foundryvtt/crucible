@@ -2,6 +2,7 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 import {SYSTEM} from "../const/system.mjs";
+import {TEMPLATES} from "../chat.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -234,7 +235,8 @@ export default class CrucibleActor extends Actor {
     // Before applying active effects, apply data based on prepared embedded Item documents
     // TODO in V14 this can be removed in favor of phased AE application
     const items = this.itemTypes;
-    this.system.prepareItems(items);
+    // TODO: This is a temporary fix for double item prep
+    if ( phase !== "final" ) this.system.prepareItems(items);
     super.applyActiveEffects(phase);
   }
 
@@ -428,20 +430,12 @@ export default class CrucibleActor extends Actor {
       actionDescriptions.push(`<p><strong>${label}:</strong> ${desc}</p>`);
     }
 
-    // Record movement usage
-    const usage = {
-      id: movement?.id || null,
-      actions,
-      ...this.getMovementActionCost(costFeet, {useFreeMove})
-    };
-
     // Adjust action name and description
     const move = this.actions.move;
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
       description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
-    });
-    action.usage.movement = usage;
+    }, {movement});
     await action.use(useOptions);
   }
 
@@ -590,7 +584,12 @@ export default class CrucibleActor extends Actor {
   async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-    return action.use({dialog: true, ...options, token: this.token});
+    let token = this.token || null;
+    if ( !token ) {
+      const speaker = ChatMessage.getSpeaker({actor: this});
+      if ( speaker.scene && speaker.token ) token = game.scenes.get(speaker.scene).tokens.get(speaker.token);
+    }
+    return action.use({dialog: true, ...options, token});
   }
 
   /* -------------------------------------------- */
@@ -602,10 +601,10 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   static async macroAction(actor, actionId) {
-    if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
+    if ( !actor ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.MacroNoToken"));
     let action = actor.actions[actionId];
     if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpellAction.fromId(actionId, {actor});
-    if ( !action ) return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
+    if ( !action ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoAction", {actor: actor.name, action: actionId}));
     await action.use();
   }
 
@@ -1129,8 +1128,8 @@ export default class CrucibleActor extends Actor {
   /**
    * @typedef CrucibleTurnChangeConfig
    * @property {object} actorUpdates
-   * @property {toCreate: object[], toUpdate: object[], toDelete: string[]} effectChanges
-   * @property {Record<string, number>} resourceChanges
+   * @property {toCreate: object[], toUpdate: object[], toDelete: string[], toExpire: string[]} effectChanges
+   * @property {Record<string, {label: string|null, amount: number}[]>} resourceChanges
    * @property {string[]} statusText
    */
 
@@ -1139,15 +1138,13 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn start workflows proceed in the following order:
-   * 1. Damage-Over-Time effects are applied
+   * 1. Damage-Over-Time values are collected
    * 2. Active Effects are modified
-   * 3. Resource recovery occurs
+   * 3. Resource recovery (& modification, in the case of Damage-Over-Time effects) occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onStartTurn() {
-
-    // Re-render the actor sheet
-    this._sheet?.render(false);
+  async onStartTurn(context) {
 
     // Skip cases where the actor delayed, and it is now their turn again
     const {round, from, to} = this.flags.crucible?.delay || {};
@@ -1155,7 +1152,8 @@ export default class CrucibleActor extends Actor {
 
     // Plan actor changes
     const statusText = [];
-    const resourceChanges = {action: Infinity};
+    const resourceChanges = {action: [{label: null, amount: Infinity}]};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] ??= [];
     if ( this.statuses.has("unaware") ) statusText.push({
       text: _loc("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
@@ -1163,24 +1161,33 @@ export default class CrucibleActor extends Actor {
 
     // Plan turn start workflows
     const actorUpdates = {system: {status: null}, flags: {crucible: {actionHistory: []}}};
-    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    const turnStartConfig = /** @type {CrucibleTurnChangeConfig} */ {
-      resourceChanges,
-      actorUpdates,
-      effectChanges,
-      statusText
-    };
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
+    const turnStartConfig = /** @type {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} */ {resourceChanges,
+      actorUpdates, effectChanges, statusText, dot: []};
 
     // Actor turn start configuration hook
-    await this.#prepareTurnStartConfig(turnStartConfig);
-    this.callActorHooks("startTurn", turnStartConfig);
+    await this.#prepareTurnStartConfig(turnStartConfig, context);
+    this.callActorHooks("startTurn", turnStartConfig, context);
 
-    // Apply damage-over-time
+    // Remove any no-longer-expiring effects from `effectChanges.toExpire`
+    for ( const effectUpdate of effectChanges.toUpdate ) {
+      const currEffect = this.effects.get(effectUpdate._id);
+      if ( !currEffect ) continue;
+      if ( !effectChanges.toExpire.includes(effectUpdate._id) ) continue;
+      const {value=0, remaining=0} = currEffect.duration;
+      const newRemaining = (effectUpdate.duration?.value ?? 0) - value + remaining;
+      if ( newRemaining > 0 ) effectChanges.toExpire.findSplice(i => i === effectUpdate._id);
+    }
+
+    // Calculate damage-over-time
     try {
-      await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+      await this.#applyDamageOverTime(turnStartConfig); // Applies on its final turn before expiring!
     } catch(cause) {
       console.error(new Error(`Failed to apply turn start damage-over-time effects for Actor ${this.id}.`, {cause}));
     }
+
+    // Generate summary chat card data prior to effect deletion
+    const summaryChatData = await this.#createTurnChangeSummaryData(true, turnStartConfig);
 
     // Apply active effect changes
     try {
@@ -1189,24 +1196,44 @@ export default class CrucibleActor extends Actor {
       console.error(new Error(`Failed to apply turn start ActiveEffect changes for Actor ${this.id}.`, {cause}));
     }
 
-    // Recover resources
+    // Recover resources (and apply damage-over-time)
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
     try {
-      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
     } catch(cause) {
       console.error(new Error(`Failed to apply turn start resource recovery for Actor ${this.id}.`, {cause}));
     }
+
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    if ( summaryChatData ) await ChatMessage.implementation.create(summaryChatData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a maintenance cost are checked here; effects without sufficient focus are deleted.
-   * @param {CrucibleTurnChangeConfig} turnStartConfig
+   * Damage-over-time effects are identified.
+   * Effects which core will expire are identified.
+   * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
+   * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
+   * @param {CombatTurnEventContext} context
    */
-  async #prepareTurnStartConfig(turnStartConfig) {
-    const {effectChanges, resourceChanges} = turnStartConfig;
+  async #prepareTurnStartConfig(turnStartConfig, context) {
+    const {effectChanges, resourceChanges, dot} = turnStartConfig;
     for ( const effect of this.effects ) {
+
+      // Gather damage-over-time effects
+      if ( effect.system.dot?.length ) dot.push(effect);
+
+      // Gather effects which are about to expire naturally
+      if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnStart", context) ) {
+        effectChanges.toExpire.push(effect.id);
+        continue; // No need to maintain an effect which is about to expire naturally
+      }
 
       // Identify maintained effects
       const maintainedCost = effect.system.maintenance?.cost;
@@ -1222,8 +1249,10 @@ export default class CrucibleActor extends Actor {
           content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
         });
         if ( confirm ) {
-          resourceChanges.focus ??= 0;
-          resourceChanges.focus -= maintainedCost;
+          resourceChanges.focus.push({
+            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
+            amount: -maintainedCost
+          });
         } else {
           effectChanges.toDelete.push(effect.id);
         }
@@ -1240,12 +1269,10 @@ export default class CrucibleActor extends Actor {
    * Turn end workflows proceed in the following order:
    * 1. Active Effects are modified
    * 2. Resource recovery occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onEndTurn() {
-
-    // Re-render the actor sheet
-    this._sheet?.render(false);
+  async onEndTurn(context) {
 
     // Skip cases where the turn is over because the actor delayed
     const {round, from, to} = this.flags.crucible?.delay || {};
@@ -1253,46 +1280,138 @@ export default class CrucibleActor extends Actor {
 
     // Plan actor changes
     const actorUpdates = {};
-    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
     const resourceChanges = {};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] = [];
     const statusText = [];
-    /** @type {CrucibleTurnChangeConfig} */
-    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {
-      effectChanges,
-      resourceChanges,
-      actorUpdates,
-      statusText
-    };
+    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {effectChanges, resourceChanges, actorUpdates,
+      statusText};
 
     // Configure turn end workflows
-    this.#prepareTurnEndConfig(turnEndConfig);
-    this.callActorHooks("endTurn", turnEndConfig);
+    this.#prepareTurnEndConfig(turnEndConfig, context);
+    this.callActorHooks("endTurn", turnEndConfig, context);
+
+    // Remove any no-longer-expiring effects from `effectChanges.toExpire`
+    for ( const effectUpdate of effectChanges.toUpdate ) {
+      const currEffect = this.effects.get(effectUpdate._id);
+      if ( !currEffect ) continue;
+      if ( !effectChanges.toExpire.includes(effectUpdate._id) ) continue;
+      const {value=0, remaining=0} = currEffect.duration;
+      const newRemaining = (effectUpdate.duration?.value ?? 0) - value + remaining;
+      if ( newRemaining > 0 ) effectChanges.toExpire.findSplice(i => i === effectUpdate._id);
+    }
+
+    // Generate summary chat card data prior to effect deletion
+    const summaryChatData = await this.#createTurnChangeSummaryData(false, turnEndConfig);
 
     // Apply active effect changes
     try {
       await this.#applyActiveEffectChanges(effectChanges);
     } catch(cause) {
       console.error(new Error(`Failed to apply turn end ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    };
+    }
 
     // Recover resources
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
     try {
-      await this.alterResources(resourceChanges, actorUpdates, {statusText});
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
     } catch(cause) {
       console.error(new Error(`Failed to apply turn end resource recovery for Actor ${this.id}.`, {cause}));
     }
+
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    if ( summaryChatData ) await ChatMessage.implementation.create(summaryChatData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Identify changes that should occur as part of a turn end workflow.
+   * Delay flag is reset.
+   * Effects which core will expire are identified.
+   * Unaware effect is primed for deletion.
    * @param {CrucibleTurnChangeConfig} turnEndConfig
+   * @param {CombatTurnEventContext} context
    */
-  #prepareTurnEndConfig(turnEndConfig) {
+  #prepareTurnEndConfig(turnEndConfig, context) {
     const {actorUpdates, effectChanges} = turnEndConfig;
     if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
-    if ( this.effects.has("unaware000000000") ) effectChanges.toDelete.push("unaware000000000");
+    for ( const effect of this.effects ) {
+
+      // Gather effects which are about to expire naturally
+      if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnEnd", context) ) {
+        effectChanges.toExpire.push(effect.id);
+        continue; // No need to manually delete an effect which is about to expire naturally
+      }
+
+      // Remove unaware
+      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) effectChanges.toDelete.push(effect.id);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Post a chat message with a summary of any effect creation/deletion or atypical resource changes
+   * @param {boolean} isStart
+   * @param {CrucibleTurnChangeConfig} turnChangeConfig
+   * @returns {Promise<Partial<ChatMessageData>|null>}
+   */
+  async #createTurnChangeSummaryData(isStart, turnChangeConfig) {
+    const {effectChanges, resourceChanges} = turnChangeConfig;
+    const pipColors = new Set();
+
+    // Prepare resource context entries
+    const resources = [];
+    for ( const [resource, entries] of Object.entries(resourceChanges) ) {
+      const cfg = SYSTEM.RESOURCES[resource];
+      if ( !cfg ) continue;
+      for ( const {label, amount} of entries ) {
+        if ( !label ) continue;
+        let color;
+        if ( typeof cfg.color === "object" ) {
+          color = amount > 0 ? cfg.color.heal : cfg.color.high;
+          pipColors.add(cfg.color.high.css);
+        } else {
+          color = cfg.color;
+          pipColors.add(color.css);
+        }
+        resources.push({sourceLabel: label, amount: amount.signedString(), resourceLabel: cfg.label,
+          colorStyle: color.toRGBA(0.25)});
+      }
+    }
+
+    // Prepare effect context entries
+    const effects = [];
+    for ( const deletedId of [...effectChanges.toDelete, ...effectChanges.toExpire] ) {
+      effects.push({name: this.effects.get(deletedId)?.name ?? deletedId,
+        changeLabel: _loc("COMBAT.SUMMARY.EffectExpired")});
+    }
+    for ( const created of effectChanges.toCreate ) {
+      const showDuration = created.duration.units === "rounds";
+      const duration = showDuration ? _loc("ACTION.DurationRounds", {value: created.duration.value}) : "";
+      effects.push({name: created.name,
+        changeLabel: _loc(`COMBAT.SUMMARY.EffectGained${showDuration ? "Duration" : ""}`, {duration})});
+    }
+
+    // Bail out if there are no changes to track
+    if ( !resources.length && !effects.length ) return null;
+
+    // Render template and prepare final ChatMessageData
+    const content = await foundry.applications.handlebars.renderTemplate(TEMPLATES.turnSummary, {
+      resources,
+      pipColors,
+      effects,
+      resourcesTitle: _loc("COMBAT.SUMMARY.TableTitleResources"),
+      effectsTitle: _loc("COMBAT.SUMMARY.TableTitleEffects")
+    });
+    const speaker = ChatMessage.getSpeaker({actor: this});
+    speaker.alias = _loc(`COMBAT.SUMMARY.Header${isStart ? "Start" : "End"}`, {actor: this.name});
+    return {content, speaker, "flags.crucible.isTurnChangeSummary": true};
   }
 
   /* -------------------------------------------- */
@@ -1359,25 +1478,24 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Apply damage over time effects which are currently active on the Actor.
-   * Positive damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
-   * Negative damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * Apply damage over time effects which are currently active on the Actor to the turn start config.
+   * Normal damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
+   * Restoration damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * @param {CrucibleTurnChangeConfig} turnStartConfig  The turn start config to be mutated
    * @returns {Promise<void>}
    */
-  async applyDamageOverTime() {
-    for ( const effect of this.effects ) {
+  async #applyDamageOverTime(turnStartConfig) {
+    for ( const effect of turnStartConfig.dot ) {
       const dot = effect.system.dot;
       if ( !dot?.length ) continue;
 
       // Categorize damage
-      const damage = {};
       for ( let {amount, damageType, resource, restoration} of dot ) {
         if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
-        damage[resource] ??= 0;
-        damage[resource] += amount;
+        turnStartConfig.resourceChanges[resource].push({label: effect.name, amount});
       }
-      const status = {text: effect.label, fillColor: SYSTEM.RESOURCES.health.color.high.css};
-      await this.alterResources(damage, {}, {statusText: [status]});
+      const status = {text: effect.name, fillColor: SYSTEM.RESOURCES.health.color.high.css};
+      turnStartConfig.statusText.push(status);
     }
   }
 
@@ -1391,7 +1509,7 @@ export default class CrucibleActor extends Actor {
   async #applyActiveEffectChanges({toCreate, toUpdate, toDelete}) {
     if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
+    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
   }
 
   /* -------------------------------------------- */
@@ -1406,13 +1524,13 @@ export default class CrucibleActor extends Actor {
   canLearnIconicSpell(spell) {
     const {iconicSpells, iconicSlots} = this.grimoire;
     if ( iconicSpells.length >= iconicSlots ) {
-      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNoSlots", {actor: this.name}));
     }
     if ( this.items.get(spell._id) ) {
-      throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicAlreadyKnown", {actor: this.name, spell: spell.name}));
     }
     if ( !spell.system.canKnowSpell(this.system.grimoire) ) {
-      throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNotSatisfied", {actor: this.name, spell: spell.name}));
     }
   }
 
@@ -1707,7 +1825,7 @@ export default class CrucibleActor extends Actor {
         !this.points.ability.requireInput,
         !this.points.talent.available
       ];
-      if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
+      if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
     }
 
     // Commit the update
@@ -1731,7 +1849,7 @@ export default class CrucibleActor extends Actor {
 
     // Can the ability be purchased?
     if ( !this.canPurchaseAbility(ability, delta) ) {
-      return ui.notifications.warn(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`, {localize: true});
+      return ui.notifications.warn(_loc(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`));
     }
 
     // Modify the ability
@@ -2075,7 +2193,7 @@ export default class CrucibleActor extends Actor {
     if ( dropped ) equipped = false;
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
-    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
+    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return {};
 
     // Taxonomies which cannot use equipment must have the natural tag
     if ( (this.type === "adversary") && !this.system.usesEquipment ) {

@@ -56,9 +56,9 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.9.-alpha
-  coreVersion: '14.355'
+  coreVersion: '14.356'
   createdTime: 1772307160127
-  modifiedTime: 1772307160127
+  modifiedTime: 1773514792559
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

@@ -121,7 +121,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1761697191065
       modifiedTime: 1768862309118
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -204,7 +204,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1761697210522
       modifiedTime: 1762036065810
       lastModifiedBy: vke929uLgNzbrY41
@@ -282,7 +282,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1761697235112
       modifiedTime: 1762098125781
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -428,7 +428,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1761771265716
       modifiedTime: 1768862328846
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -1025,10 +1025,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1761697111327
-  modifiedTime: 1761697321659
+  modifiedTime: 1773514792335
   lastModifiedBy: vke929uLgNzbrY41
 _key: '!journal!characterMechani'

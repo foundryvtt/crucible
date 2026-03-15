@@ -27,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1767142001548
-  modifiedTime: 1767142025215
+  modifiedTime: 1773514792584
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: inflectionReact0
 sort: 200000

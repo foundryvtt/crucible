@@ -96,8 +96,8 @@ HOOKS.bindArmament = {
   canUse() {
     const boundArmamentId = this.actor.getFlag("crucible", this.id);
     const mainhandId = this.actor.equipment.weapons.mainhand.id;
-    if ( !mainhandId ) throw new Error("no mainhand weapon");
-    else if ( mainhandId === boundArmamentId ) throw new Error("weapon is already bound");
+    if ( !mainhandId ) throw new Error(_loc("SPELL.WARNINGS.BindArmamentNoMainhand"));
+    else if ( mainhandId === boundArmamentId ) throw new Error(_loc("SPELL.WARNINGS.BindArmamentAlreadyBound"));
   },
   preActivate() {
     const mainhandId = this.actor.equipment.weapons.mainhand.id;
@@ -124,10 +124,10 @@ HOOKS.bodyBlock = {
     for ( const outcome of targetAction.outcomes.values() ) {
       if ( outcome.target.uuid !== this.actor.uuid ) continue;
       if ( !targetAction.tags.has("melee") ) {
-        throw new Error("You may only use Body Block against an incoming melee attack.");
+        throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.MeleeOnly"));
       }
       if ( targetAction.message.flags.crucible.confirmed ) {
-        throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
+        throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.AlreadyConfirmed"));
       }
       const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
       for ( const r of outcome.rolls ) {
@@ -138,7 +138,7 @@ HOOKS.bodyBlock = {
         }
       }
     }
-    throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
+    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.InvalidOutcome"));
   }
 };
 
@@ -245,7 +245,7 @@ HOOKS.counterspell = {
     if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
       const desiredChange = _loc(`DICE.${reverse ? "Reverse" : "Confirm"}`);
       const problemState = _loc(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
-      const errorText = `Cannot ${desiredChange} a counterspell if the targeted spell is already ${problemState}!`;
+      const errorText = _loc("SPELL.COUNTERSPELL.WARNINGS.CannotConfirm", {change: desiredChange, state: problemState});
       ui.notifications.warn(errorText);
       throw new Error(errorText);
     }
@@ -270,10 +270,10 @@ HOOKS.decisiveAction = {
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
-      throw new Error("You may only use the Delay action on your own turn in combat.");
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.WrongTurn"));
     }
     if ( this.actor.flags.crucible?.delay ) {
-      throw new Error("You may not delay your turn again this combat round.");
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.AlreadyDelayed"));
     }
   },
   // TODO refactor to roll()?
@@ -506,12 +506,12 @@ HOOKS.hamstring = {
     const mh = this.actor.equipment.weapons.mainhand;
     const oh = this.actor.equipment.weapons.offhand;
     if ( ![mh.system.damageType, oh.system.damageType].includes("slashing") ) {
-      throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
+      throw new Error(_loc("ACTION.WARNINGS.RequiresSlashingMelee", {action: this.name}));
     }
   },
   preActivate(targets) {
     if ( this.usage.weapon.system.damageType !== "slashing" ) {
-      throw new Error(`${this.name} requires a melee weapon which deals slashing damage.`);
+      throw new Error(_loc("ACTION.WARNINGS.RequiresSlashingMelee", {action: this.name}));
     }
   }
 };
@@ -594,7 +594,7 @@ HOOKS.oozeSubdivide = {
     foundry.utils.mergeObject(this.usage.actorUpdates, {system: systemData});
   },
   canUse() {
-    if ( this.actor.size < 3 ) throw new Error(`You must be at least size 3 to use ${this.name}`);
+    if ( this.actor.size < 3 ) throw new Error(_loc("ACTION.WARNINGS.MinimumSize", {size: 3, action: this.name}));
   }
 };
 
@@ -673,7 +673,10 @@ HOOKS.rallyingTonic = {
 HOOKS.reactiveStrike = {
   canUse() {
     for ( const s of ["unaware", "flanked"] ) {
-      if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
+      if ( this.actor.statuses.has(s) ) {
+        const statusLabel = _loc(CONFIG.statusEffects[s]?.name ?? s);
+        throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
+      }
     }
   }
 };
@@ -730,7 +733,7 @@ HOOKS.refocus = {
   },
   preActivate(_targets) {
     if ( !["talisman1", "talisman2"].includes(this.usage.weapon?.category) ) {
-      throw new Error(`${this.name} requires use of a Talisman weapon.`);
+      throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
     }
   },
   async confirm() {

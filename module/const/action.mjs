@@ -1,5 +1,6 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
+import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import Enum from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
@@ -156,23 +157,15 @@ export const TARGET_TYPES = Object.freeze({
       ephemeral: false
     },
     scope: TARGET_SCOPES.ALL
+  },
+  movement: {
+    label: "ACTION.TARGET_TYPES.Movement",
+    region: null,
+    scope: TARGET_SCOPES.ALL
   }
 });
 
 /* -------------------------------------------- */
-
-/**
- * @typedef ActionTag
- * @property {string} tag
- * @property {string} label
- * @property {string[]} propagate     Propagate this tag to also apply other tags
- * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
- * @property {function} [prepare]
- * @property {function} [can]
- * @property {function} [pre]
- * @property {function} [roll]
- * @property {function} [post]
- */
 
 /**
  * Categories of action tags which are supported by the system.
@@ -184,6 +177,7 @@ export const TAG_CATEGORIES = Object.freeze({
   skills: {label: "ACTION.TAG_CATEGORIES.Skills"},
   requirements: {label: "ACTION.TAG_CATEGORIES.Requirements"},
   context: {label: "ACTION.TAG_CATEGORIES.Context"},
+  movement: {label: "ACTION.TAG_CATEGORIES.Movement"},
   modifiers: {label: "ACTION.TAG_CATEGORIES.Modifiers"},
   defenses: {label: "ACTION.TAG_CATEGORIES.Defenses"},
   damage: {label: "ACTION.TAG_CATEGORIES.Damage"},
@@ -195,8 +189,25 @@ export const TAG_CATEGORIES = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * @typedef ActionTag
+ * @property {string} tag             The tag identifier
+ * @property {string} label           A short label for this tag
+ * @property {string} [tooltip]       A tooltip displayed when this tag is hovered
+ * @property {string[]} propagate     Propagate this tag to also apply other tags
+ * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
+ * @property {number} [category]      A category that determines how this tag is grouped and sorted
+ * @property {(this: CrucibleAction) => void} [initialize]
+ * @property {(this: CrucibleAction) => void} [prepare]
+ * @property {(this: CrucibleAction) => void} [canUse]
+ * @property {(this: CrucibleAction, targets: ActionUseTarget[]) => void} [preActivate]
+ * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [postActivate]
+ * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [roll]
+ * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ */
+
+/**
  * Define special logic for action tag types
- * @enum {ActionTag}
+ * @type {Record<string, ActionTag>}
  */
 export const TAGS = {
 
@@ -207,8 +218,8 @@ export const TAGS = {
   // Requires Dual-Wield
   dualwield: {
     tag: "dualwield",
-    label: "ACTION.TagDualWield",
-    tooltip: "ACTION.TagDualWieldTooltip",
+    label: "ACTION.TAG.DualWield",
+    tooltip: "ACTION.TAG.DualWieldTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.weapons.dualWield;
@@ -218,8 +229,8 @@ export const TAGS = {
   // Requires One-Handed weapon
   onehand: {
     tag: "onehand",
-    label: "ACTION.TagOneHand",
-    tooltip: "ACTION.TagOneHandTooltip",
+    label: "ACTION.TAG.OneHand",
+    tooltip: "ACTION.TAG.OneHandTooltip",
     category: "requirements",
     canUse() {
       return !this.actor.equipment.weapons.twoHanded;
@@ -229,12 +240,12 @@ export const TAGS = {
   // Requires Dexterity Weapon
   finesse: {
     tag: "finesse",
-    label: "ACTION.TagFinesse",
-    tooltip: "ACTION.TagFinesseTooltip",
+    label: "ACTION.TAG.Finesse",
+    tooltip: "ACTION.TAG.FinesseTooltip",
     category: "requirements",
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
-        throw new Error("Every weapon used in this action must scale using dexterity.");
+        throw new Error(_loc("ACTION.WARNINGS.MustScaleDex"));
       }
     }
   },
@@ -242,13 +253,13 @@ export const TAGS = {
   // Requires Strength Weapon
   brute: {
     tag: "brute",
-    label: "ACTION.TagBrute",
-    tooltip: "ACTION.TagBruteTooltip",
+    label: "ACTION.TAG.Brute",
+    tooltip: "ACTION.TAG.BruteTooltip",
     category: "requirements",
     priority: 5,
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
-        throw new Error("Every weapon used in this action must scale using strength.");
+        throw new Error(_loc("ACTION.WARNINGS.MustScaleStrength"));
       }
     }
   },
@@ -256,8 +267,8 @@ export const TAGS = {
   // Requires a Projectile Weapon
   projectile: {
     tag: "projectile",
-    label: "ACTION.TagProjectile",
-    tooltip: "ACTION.TagProjectileTooltip",
+    label: "ACTION.TAG.Projectile",
+    tooltip: "ACTION.TAG.ProjectileTooltip",
     category: "requirements",
     propagate: ["ranged"],
     canUse() {
@@ -270,8 +281,8 @@ export const TAGS = {
   // Requires a Mechanical Weapon
   mechanical: {
     tag: "mechanical",
-    label: "ACTION.TagMechanical",
-    tooltip: "ACTION.TagMechanicalTooltip",
+    label: "ACTION.TAG.Mechanical",
+    tooltip: "ACTION.TAG.MechanicalTooltip",
     category: "requirements",
     propagate: ["ranged"],
     canUse() {
@@ -284,8 +295,8 @@ export const TAGS = {
   // Requires Shield
   shield: {
     tag: "shield",
-    label: "ACTION.TagShield",
-    tooltip: "ACTION.TagShieldTooltip",
+    label: "ACTION.TAG.Shield",
+    tooltip: "ACTION.TAG.ShieldTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.weapons.shield;
@@ -295,8 +306,8 @@ export const TAGS = {
   // Requires Unarmed
   unarmed: {
     tag: "unarmed",
-    label: "ACTION.TagUnarmed",
-    tooltip: "ACTION.TagUnarmedTooltip",
+    label: "ACTION.TAG.Unarmed",
+    tooltip: "ACTION.TAG.UnarmedTooltip",
     category: "requirements",
     propagate: ["melee"],
     canUse() {
@@ -307,8 +318,8 @@ export const TAGS = {
   // Requires Unarmored
   unarmored: {
     tag: "unarmored",
-    label: "ACTION.TagUnarmored",
-    tooltip: "ACTION.TagUnarmoredTooltip",
+    label: "ACTION.TAG.Unarmored",
+    tooltip: "ACTION.TAG.UnarmoredTooltip",
     category: "requirements",
     canUse() {
       return this.actor.equipment.unarmored;
@@ -318,18 +329,18 @@ export const TAGS = {
   // After a Basic Strike
   afterStrike: {
     tag: "afterStrike",
-    label: "ACTION.TagAfterStrike",
-    tooltip: "ACTION.TagActorStrikeTooltip",
+    label: "ACTION.TAG.AfterStrike",
+    tooltip: "ACTION.TAG.ActorStrikeTooltip",
     category: "requirements",
     canUse() {
       const lastAction = this.actor.lastConfirmedAction;
       if ( lastAction?.id !== "strike" ) {
-        throw new Error(`You may only perform the ${this.name} action after a basic Strike action.`);
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowStrike", {action: this.name}));
       }
       for ( const outcome of lastAction.outcomes.values() ) {
         if ( outcome.target === this.actor ) continue;
         if ( outcome.rolls.some(r => r.isCriticalFailure) ) {
-          throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
+          throw new Error(_loc("ACTION.WARNINGS.LastCriticallyMissed", {action: this.name}));
         }
       }
     }
@@ -338,19 +349,19 @@ export const TAGS = {
   // Requires the ability to speak
   vocal: {
     tag: "vocal",
-    label: "ACTION.TagVocal",
-    tooltip: "ACTION.TagVocalTooltip",
+    label: "ACTION.TAG.Vocal",
+    tooltip: "ACTION.TAG.VocalTooltip",
     category: "requirements",
     canUse() {
-      if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WarningSilenced"));
+      if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WARNINGS.Silenced"));
     }
   },
 
   // Requires the ability to hear
   auditory: {
     tag: "auditory",
-    label: "ACTION.TagAuditory",
-    tooltip: "ACTION.TagAuditoryTooltip",
+    label: "ACTION.TAG.Auditory",
+    tooltip: "ACTION.TAG.AuditoryTooltip",
     category: "requirements",
     preActivate(targets) {
       // Remove targets which are deafened
@@ -365,64 +376,16 @@ export const TAGS = {
   /*  Context Requirements                        */
   /* -------------------------------------------- */
 
-  // Involves Movement
-  movement: {
-    tag: "movement",
-    label: "ACTION.TagMovement",
-    tooltip: "ACTION.TagMovementTooltip",
-    category: "context",
-    canUse() {
-      if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
-    },
-    prepare() {
-      const stride = this.actor.system.movement.stride;
-      const movement = this.usage.movement || this.actor.getMovementActionCost(stride);
-      if ( movement.useFreeMove ) this.usage.freeMove = true;
-      if ( this.id === "move" ) this.cost.action = movement.cost; // Standard movement cost
-      else if ( movement.useFreeMove ) this.cost.action = Math.max(0, this.cost.action - 1); // Reduce cost of movement action
-    },
-    postActivate(outcome) {
-      if ( !outcome.self ) return;
-      const {movement, freeMove} = this.usage;
-      const status = outcome.actorUpdates.system.status;
-      if ( movement?.id ) {
-        outcome.movement = movement.id;
-        if ( freeMove ) status.freeMovementId = movement.id;
-      }
-      status.hasMoved = true;
-    },
-    async confirm(reverse) {
-      const self = this.outcomes.get(this.actor);
-
-      // Reverse recorded movement
-      if ( reverse ) {
-        if ( self.movement ) await this.token?.revertRecordedMovement(self.movement);
-        if ( self.movement === this.actor.system.status.freeMovementId ) {
-          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
-        }
-        return;
-      }
-
-      // Remove prone condition upon movement confirmation if non-crawl action
-      if ( this.actor.statuses.has("prone") ) {
-        const movementHistory = this.token?.movementHistory ?? [];
-        if ( !movementHistory.every(m => (m.movementId !== self.movement) || (m.action === "crawl")) ) {
-          await this.actor.toggleStatusEffect("prone", {active: false});
-        }
-      }
-    }
-  },
-
   // Requires Reaction
   reaction: {
     tag: "reaction",
-    label: "ACTION.TagReaction",
-    tooltip: "ACTION.TagReactionTooltip",
+    label: "ACTION.TAG.Reaction",
+    tooltip: "ACTION.TAG.ReactionTooltip",
     category: "context",
     canUse() {
       if ( !this.actor.inCombat ) return false;
-      if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
-      if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WarningNoAbility", {
+      if ( this.actor.statuses.has("unaware") ) throw new Error(_loc("ACTION.WARNINGS.ReactionUnaware"));
+      if ( !this.actor.abilities.dexterity.value ) throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.dexterity.label,
         action: this.name
@@ -443,23 +406,23 @@ export const TAGS = {
   // Non-Combat Actions
   noncombat: {
     tag: "noncombat",
-    label: "ACTION.TagNonCombat",
-    tooltip: "ACTION.TagNonCombatTooltip",
+    label: "ACTION.TAG.NonCombat",
+    tooltip: "ACTION.TAG.NonCombatTooltip",
     category: "context",
     canUse() {
-      if ( this.actor.inCombat ) throw new Error(`You may not use ${this.name} during Combat.`);
+      if ( this.actor.inCombat ) throw new Error(_loc("ACTION.WARNINGS.NonCombat", {action: this.name}));
     }
   },
 
   // Requires a Flanked Opponent
   flanking: {
     tag: "flanking",
-    label: "ACTION.TagFlanking",
-    tooltip: "ACTION.TagFlankingTooltip",
+    label: "ACTION.TAG.Flanking",
+    tooltip: "ACTION.TAG.FlankingTooltip",
     category: "context",
     acquireTargets(targets) {
       for ( const target of targets ) {
-        if ( !target.actor.statuses.has("flanked") ) target.error ??= `${this.name} requires a flanked target. Target "${target.actor.name}" is not flanked.`;
+        if ( !target.actor.statuses.has("flanked") ) target.error ??= _loc("ACTION.WARNINGS.NotFlanked", {action: this.name, target: target.actor.name});
       }
     }
   },
@@ -467,17 +430,17 @@ export const TAGS = {
   // Consumables
   consume: {
     tag: "consume",
-    label: "ACTION.TagConsume",
-    tooltip: "ACTION.TagConsumeTooltip",
+    label: "ACTION.TAG.Consume",
+    tooltip: "ACTION.TAG.ConsumeTooltip",
     category: "special",
     initialize() {
       if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
     },
     canUse() {
       const item = this.usage.consumable;
-      if ( !item ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
+      if ( !item ) throw new Error(_loc("ACTION.WARNINGS.NoConsumable", {action: this.id}));
       if ( item.system.isDepleted ) {
-        throw new Error(`Consumable item "${item.name}" has no uses remaining for Action "${this.id}"`);
+        throw new Error(_loc("ACTION.WARNINGS.NoConsumableUses", {item: item.name, action: this.id}));
       }
     },
     async confirm(reverse) {
@@ -491,8 +454,8 @@ export const TAGS = {
 
   spell: {
     tag: "spell",
-    label: "ACTION.TagSpell",
-    tooltip: "ACTION.TagSpellTooltip",
+    label: "ACTION.TAG.Spell",
+    tooltip: "ACTION.TAG.SpellTooltip",
     category: "spellcraft",
     priority: 1,
     initialize() {
@@ -515,8 +478,8 @@ export const TAGS = {
   // Composed Spells
   composed: {
     tag: "composed",
-    label: "ACTION.TagComposed",
-    tooltip: "ACTION.TagComposedTooltip",
+    label: "ACTION.TAG.Composed",
+    tooltip: "ACTION.TAG.ComposedTooltip",
     category: "spellcraft",
     priority: 2,
     initialize() {
@@ -533,20 +496,20 @@ export const TAGS = {
   // Iconic Spell
   iconicSpell: {
     tag: "iconicSpell",
-    label: "ACTION.TagIconicSpell",
-    tooltip: "ACTION.TagSpellTooltip",
+    label: "ACTION.TAG.IconicSpell",
+    tooltip: "ACTION.TAG.SpellTooltip",
     category: "spellcraft",
     priority: 2
   },
 
   summon: {
     tag: "summon",
-    label: "ACTION.TagSummon",
-    tooltip: "ACTION.TagSummonTooltip",
+    label: "ACTION.TAG.Summon",
+    tooltip: "ACTION.TAG.SummonTooltip",
     category: "special",
     canUse() {
       if ( !this.usage.summons?.length || this.usage.summons.some(s => !s.actorUuid) ) {
-        throw new Error(_loc("ACTION.WarningMisconfiguredSummon", { action: this.name }));
+        throw new Error(_loc("ACTION.WARNINGS.MisconfiguredSummon", { action: this.name }));
       }
     },
     async postActivate(outcome) {
@@ -556,8 +519,7 @@ export const TAGS = {
         summon.tokenData ||= {};
         summon.tokenData.x ??= position.x;
         summon.tokenData.y ??= position.y;
-        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(`ActiveEffect data must be 
-          defined to track the non-permanent summon created by the action "${this.id}"`);
+        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
       }
     },
     async confirm(reverse) {
@@ -633,7 +595,7 @@ export const TAGS = {
     },
     canUse() {
       if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
-        throw new Error("Your weapon requires reloading in order to use this action.");
+        throw new Error(_loc("ACTION.WARNINGS.MustReload"));
       }
     },
     prepare() {
@@ -716,14 +678,14 @@ export const TAGS = {
   // Requires a Melee Weapon
   melee: {
     tag: "melee",
-    label: "ACTION.TagMelee",
-    tooltip: "ACTION.TagMeleeTooltip",
+    label: "ACTION.TAG.Melee",
+    tooltip: "ACTION.TAG.MeleeTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 1,
     canUse() {
       if ( !this.actor.equipment.weapons.melee ) {
-        throw new Error("You must have melee weapons equipped to use this action.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresMelee"));
       }
     }
   },
@@ -731,14 +693,14 @@ export const TAGS = {
   // Requires a Ranged Weapon
   ranged: {
     tag: "ranged",
-    label: "ACTION.TagRanged",
-    tooltip: "ACTION.TagRangedTooltip",
+    label: "ACTION.TAG.Ranged",
+    tooltip: "ACTION.TAG.RangedTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 1,
     canUse() {
       if ( !this.actor.equipment.weapons.ranged ) {
-        throw new Error("This action requires a ranged weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresRanged"));
       }
     },
     prepare() {
@@ -753,8 +715,8 @@ export const TAGS = {
 
   mainhand: {
     tag: "mainhand",
-    label: "ACTION.TagMainHand",
-    tooltip: "ACTION.TagMainHandTooltip",
+    label: "ACTION.TAG.MainHand",
+    tooltip: "ACTION.TAG.MainHandTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -767,8 +729,8 @@ export const TAGS = {
 
   twohand: {
     tag: "twohand",
-    label: "ACTION.TagTwoHanded",
-    tooltip: "ACTION.TagTwoHandedTooltip",
+    label: "ACTION.TAG.TwoHanded",
+    tooltip: "ACTION.TAG.TwoHandedTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -779,15 +741,15 @@ export const TAGS = {
     },
     canUse() {
       if ( !this.actor.equipment.weapons.twoHanded ) {
-        throw new Error("This action requires a two-handed weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresTwoHanded"));
       }
     }
   },
 
   offhand: {
     tag: "offhand",
-    label: "ACTION.TagOffHand",
-    tooltip: "ACTION.TagOffHandTooltip",
+    label: "ACTION.TAG.OffHand",
+    tooltip: "ACTION.TAG.OffHandTooltip",
     category: "attack",
     propagate: ["strike"],
     priority: 9,
@@ -798,20 +760,20 @@ export const TAGS = {
     },
     canUse() {
       if ( !this.actor.equipment.weapons.offhand ) {
-        throw new Error("This action requires an offhand weapon equipped.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresOffhand"));
       }
     }
   },
 
   thrown: {
     tag: "thrown",
-    label: "ACTION.TagThrown",
-    tooltip: "ACTION.TagThrownTooltip",
+    label: "ACTION.TAG.Thrown",
+    tooltip: "ACTION.TAG.ThrownTooltip",
     category: "attack",
     propagate: ["melee"],
     canUse() {
       for ( const w of this.usage.strikes ) {
-        if ( !w.system.canThrow ) throw new Error("You cannot throw this weapon.");
+        if ( !w.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
       }
     },
     prepare() {
@@ -821,7 +783,7 @@ export const TAGS = {
     preActivate(_targets) {
       if ( !this.usage.strikes?.length ) return;
       for ( const weapon of this.usage.strikes ) {
-        if ( !weapon.system.canThrow ) throw new Error("You cannot throw this weapon.");
+        if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
         this.usage.actorUpdates.items ||= [];
         this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
@@ -832,13 +794,13 @@ export const TAGS = {
   natural: {
     tag: "natural",
     category: "attack",
-    label: "ACTION.TagNatural",
-    tooltip: "ACTION.TagNaturalTooltip",
+    label: "ACTION.TAG.Natural",
+    tooltip: "ACTION.TAG.NaturalTooltip",
     propagate: ["melee"],
     priority: 9,
     canUse() {
       if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
-        throw new Error("This action requires use of a natural weapon.");
+        throw new Error(_loc("ACTION.WARNINGS.RequiresNatural"));
       }
     },
     prepare() {
@@ -873,8 +835,8 @@ export const TAGS = {
 
   generic: {
     tag: "generic",
-    label: "ACTION.TagGeneric",
-    tooltip: "ACTION.TagGenericTooltip",
+    label: "ACTION.TAG.Generic",
+    tooltip: "ACTION.TAG.GenericTooltip",
     category: "special",
     priority: 9,
     prepare() {
@@ -923,13 +885,13 @@ export const TAGS = {
 
   reload: {
     tag: "reload",
-    label: "ACTION.TagReload",
-    tooltip: "ACTION.TagReloadTooltip",
+    label: "ACTION.TAG.Reload",
+    tooltip: "ACTION.TAG.ReloadTooltip",
     category: "special",
     canUse() {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
       if ( !reload || (!m.system.needsReload && !o?.system.needsReload) ) {
-        throw new Error("Your weapons do not require reloading");
+        throw new Error(_loc("ACTION.WARNINGS.NoReloadRequired"));
       }
     },
     preActivate() {
@@ -945,8 +907,8 @@ export const TAGS = {
 
   disarm: {
     tag: "disarm",
-    label: "ACTION.TagDisarm",
-    tooltip: "ACTION.TagDisarmTooltip",
+    label: "ACTION.TAG.Disarm",
+    tooltip: "ACTION.TAG.DisarmTooltip",
     category: "special",
     postActivate(outcome) {
       if ( outcome.target === this.actor ) return;
@@ -955,7 +917,7 @@ export const TAGS = {
         if ( !mainhand?.id ) return;
         outcome.actorUpdates.items ||= [];
         outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
-        outcome.statusText.push({text: "Disarmed!", fontSize: 64});
+        outcome.statusText.push({text: _loc("ACTOR.DisarmedStatus"), fontSize: 64});
       }
     }
   },
@@ -966,8 +928,8 @@ export const TAGS = {
 
   deadly: {
     tag: "deadly",
-    label: "ACTION.TagDeadly",
-    tooltip: "ACTION.TagDeadlyTooltip",
+    label: "ACTION.TAG.Deadly",
+    tooltip: "ACTION.TAG.DeadlyTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.multiplier += 1;
@@ -976,18 +938,18 @@ export const TAGS = {
 
   difficult: {
     tag: "difficult",
-    label: "ACTION.TagDifficult",
-    tooltip: "ACTION.TagDifficultTooltip",
+    label: "ACTION.TAG.Difficult",
+    tooltip: "ACTION.TAG.DifficultTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.banes.difficult = {label: "ACTION.TagDifficult", number: 1};
+      this.usage.banes.difficult = {label: "ACTION.TAG.Difficult", number: 1};
     }
   },
 
   empowered: {
     tag: "empowered",
-    label: "ACTION.TagEmpowered",
-    tooltip: "ACTION.TagEmpoweredTooltip",
+    label: "ACTION.TAG.Empowered",
+    tooltip: "ACTION.TAG.EmpoweredTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.damageBonus += 6;
@@ -995,17 +957,17 @@ export const TAGS = {
   },
   accurate: {
     tag: "accurate",
-    label: "ACTION.TagAccurate",
-    tooltip: "ACTION.TagAccurateTooltip",
+    label: "ACTION.TAG.Accurate",
+    tooltip: "ACTION.TAG.AccurateTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.boons.accurate = {label: "ACTION.TagAccurate", number: 2};
+      this.usage.boons.accurate = {label: "ACTION.TAG.Accurate", number: 2};
     }
   },
   harmless: {
     tag: "harmless",
-    label: "ACTION.TagHarmless",
-    tooltip: "ACTION.TagHarmlessTooltip",
+    label: "ACTION.TAG.Harmless",
+    tooltip: "ACTION.TAG.HarmlessTooltip",
     category: "modifiers",
     async postActivate(outcome) {
       for ( const roll of outcome.rolls ) {
@@ -1018,8 +980,8 @@ export const TAGS = {
   },
   weakened: {
     tag: "weakened",
-    label: "ACTION.TagWeakened",
-    tooltip: "ACTION.TagWeakenedTooltip",
+    label: "ACTION.TAG.Weakened",
+    tooltip: "ACTION.TAG.WeakenedTooltip",
     category: "modifiers",
     prepare() {
       this.usage.bonuses.damageBonus -= 6;
@@ -1028,8 +990,8 @@ export const TAGS = {
 
   severe: {
     tag: "severe",
-    label: "ACTION.TagSevere",
-    tooltip: "ACTION.TagSevereTooltip",
+    label: "ACTION.TAG.Severe",
+    tooltip: "ACTION.TAG.SevereTooltip",
     category: "modifiers",
     async postActivate(outcome) {
       const targetResources = outcome.target?.system?.resources;
@@ -1087,8 +1049,8 @@ export const TAGS = {
 
   healing: {
     tag: "healing",
-    label: "ACTION.TagHealing",
-    tooltip: "ACTION.TagHealingTooltip",
+    label: "ACTION.TAG.Healing",
+    tooltip: "ACTION.TAG.HealingTooltip",
     category: "damage",
     prepare() {
       this.usage.hasDice = true;
@@ -1100,8 +1062,8 @@ export const TAGS = {
 
   rallying: {
     tag: "rallying",
-    label: "ACTION.TagRallying",
-    tooltip: "ACTION.TagRallyingTooltip",
+    label: "ACTION.TAG.Rallying",
+    tooltip: "ACTION.TAG.RallyingTooltip",
     category: "damage",
     prepare() {
       this.usage.hasDice = true;
@@ -1117,8 +1079,8 @@ export const TAGS = {
 
   maintained: {
     tag: "maintained",
-    label: "ACTION.TagMaintained",
-    tooltip: "ACTION.TagMaintainedTooltip",
+    label: "ACTION.TAG.Maintained",
+    tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
     async postActivate(outcome) {
       if ( !outcome.self ) return;
@@ -1126,8 +1088,92 @@ export const TAGS = {
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       maintainedEffectData.system.maintenance = {cost: maintainedCost};
     }
+  },
+
+  /* -------------------------------------------- */
+  /*  Movement Actions                            */
+  /* -------------------------------------------- */
+
+  movement: {
+    tag: "movement",
+    label: "ACTION.TAG.Movement",
+    tooltip: "ACTION.TAG.MovementTooltip",
+    category: "movement",
+    canUse() {
+      if ( this.actor.statuses.has("restrained") ) throw new Error(_loc("ACTION.WARNINGS.Restrained"));
+    },
+    prepare() {
+      const stride = this.actor.system.movement.stride;
+      const costFeet = this.movement
+        ? (this.movement.passed.cost + this.movement.pending.cost)
+        : stride;
+      const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
+      if ( useFreeMove ) this.usage.freeMove = true;
+      if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
+      else this.cost.action += cost; // Add movement cost to this action's base cost (0 if free move was consumed)
+    },
+    postActivate(outcome) {
+      if ( !outcome.self ) return;
+      const {freeMove} = this.usage;
+      const status = outcome.actorUpdates.system.status;
+      if ( this.movement?.id ) {
+        outcome.movement = this.movement.id;
+        if ( freeMove ) status.freeMovementId = this.movement.id;
+      }
+      status.hasMoved = true;
+    },
+    async confirm(reverse) {
+      const self = this.outcomes.get(this.actor);
+      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
+
+      // Determine whether a planned movement is still pending for this action.
+      // The token's current movement must still match the stored ID and bi in "planned" state to be valid.
+      const movementId = self.movement;
+      const isPlanned = !!movementId && (this.token.movement?.id === movementId)
+        && (this.token.movement?.state === "planned");
+
+      // Reverse movement
+      if ( reverse ) {
+        if ( isPlanned ) await this.token.stopMovement();
+        else if ( movementId ) await this.token.revertRecordedMovement(movementId);
+        if ( movementId === this.actor.system.status.freeMovementId ) {
+          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
+        }
+        return;
+      }
+
+      // Remove prone condition upon movement confirmation if movement is not exclusively crawling
+      if ( this.actor.statuses.has("prone") ) {
+        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
+          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
+        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
+      }
+
+      // Execute planned movement
+      if ( isPlanned ) {
+        (this.token._confirmedMovements ??= new Set()).add(movementId);
+        await this.token.startMovement(movementId);
+      }
+    }
   }
 };
+
+/* -------------------------------------------- */
+/*  Movement Actions                            */
+/* -------------------------------------------- */
+
+for ( const id of Object.keys(MOVEMENT_ACTIONS) ) {
+  TAGS[id] = {
+    tag: id,
+    label: `ACTION.TAG.Movement${id[0].toUpperCase()}${id.slice(1)}`,
+    tooltip: `ACTION.TAG.Movement${id[0].toUpperCase()}${id.slice(1)}Tooltip`,
+    category: "movement",
+    propagate: ["movement"],
+    prepare() {
+      this.usage.movement.action = id;
+    }
+  };
+}
 
 /* -------------------------------------------- */
 /*  Specialized Damage Type                     */
@@ -1181,7 +1227,7 @@ for ( const resource of ["health", "morale"] ) {
 // All Skill Attacks
 TAGS.skill = {
   tag: "skill",
-  label: "ACTION.TagSkill",
+  label: "ACTION.TAG.Skill",
   category: "skills"
 };
 

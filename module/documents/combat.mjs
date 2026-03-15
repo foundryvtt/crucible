@@ -24,7 +24,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async previousRound() {
     if ( !game.user.isGM ) {
-      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      ui.notifications.warn(_loc("COMBAT.WARNINGS.CannotChangeRound"));
       return this;
     }
     return super.previousRound();
@@ -35,7 +35,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async nextRound() {
     if ( !game.user.isGM ) {
-      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      ui.notifications.warn(_loc("COMBAT.WARNINGS.CannotChangeRound"));
       return this;
     }
     return super.nextRound();
@@ -120,10 +120,10 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /* -------------------------------------------- */
 
   /** @override */
-  async _onStartTurn(combatant) {
-    await super._onStartTurn(combatant);
+  async _onStartTurn(combatant, context) {
+    await super._onStartTurn(combatant, context);
     // TODO forward turn events to the system subtype
-    return combatant.actor.onStartTurn();
+    return combatant.actor.onStartTurn(context);
   }
 
   /* -------------------------------------------- */
@@ -147,30 +147,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     }
     const lastActor = lastCombatant?.actor;
 
-    // Impetus
-    const impetusId = "impetus000000000";
-    if ( firstActor?.talentIds.has(impetusId) ) {
-      const impetus = {
-        _id: impetusId,
-        name: "Impetus",
-        img: "icons/magic/movement/trail-streak-zigzag-yellow.webp",
-        statuses: ["hastened"],
-        duration: {
-          combat: this.id,
-          rounds: 1
-        }
-      };
-      if ( firstActor.effects.has(impetusId) ) await firstActor.updateEmbeddedDocuments("ActiveEffect", [impetus]);
-      else await ActiveEffect.create(impetus, {parent: firstActor, keepId: true});
-      firstCombatant.updateResource();
-    }
-
-    // Focused Anticipation TODO refactor elsewhere
-    if ( firstActor?.talentIds.has("focusedanticipat") ) {
-      const status = {text: "Focused Anticipation", fillColor: SYSTEM.RESOURCES.focus.color.css};
-      await firstActor.alterResources({focus: 1}, {}, {statusText: [status]});
-    }
-
     // Morale Escalation
     if ( this.round > 6 ) {
       await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: "Escalation"}]});
@@ -181,9 +157,9 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _onEndTurn(combatant) {
-    await super._onEndTurn(combatant);
-    await combatant.actor.onEndTurn();
+  async _onEndTurn(combatant, context) {
+    await super._onEndTurn(combatant, context);
+    await combatant.actor.onEndTurn(context);
     // FIXME determine whether these lines are still required
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed

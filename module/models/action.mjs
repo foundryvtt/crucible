@@ -35,6 +35,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
@@ -44,6 +45,25 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {CrucibleAction} [targetAction]  An action being "responded" to by this action
+ */
+
+/**
+ * @typedef ActionMovementUsage
+ * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
+ * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
+ *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
+ * @property {boolean} [ignoreWalls]        Allow the planned movement to pass through walls
+ */
+
+/**
+ * @typedef ActionRegionUsage
+ * @property {Color|string} [color]         Override the region visualization color. (default game.user.color))
+ * @property {boolean} [ephemeral]          Override whether the region is ephemeral (true) or persisted (false).
+ *                                          Default behavior depends on the target type configuration.
+ * @property {{bottom: number, top: number}} [elevation]  Override the region elevation range. If defined, must specify
+ *                                          both bottom and top. Default behavior depends on the target type
+ *                                          configuration.
+ * @property {boolean} [wallRestriction]    Whether the region restricts token movement. (default true)
  */
 
 /**
@@ -318,28 +338,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   item = this.item; // Defined during constructor
 
   /**
-   * The ability scores which cause this action to scale.
-   * @type {string[]}
+   * The message representing this action, if applicable
+   * @type {CrucibleChatMessage|null}
    */
-  scaling = this.scaling; // Defined during _prepareData
+  message = this.message; // Defined during constructor
 
   /**
-   * A specific Token that is performing this Action in the context of a Scene.
-   * @type {CrucibleToken}
+   * A planned or realized token movement associated with this action, used for movement-tagged actions.
+   * @type {TokenMovementData|TokenMovementOperation|null}
    */
-  token = this.token; // Defined during constructor
-
-  /**
-   * A specific RegionDocument, either persisted or ephemeral, used to establish area of effect for this action.
-   * @type {RegionDocument|null}
-   */
-  region = this.region; // Defined during constructor
-
-  /**
-   * The training types which can provide a skill bonus to use of this action.
-   * @type {string[]}
-   */
-  training = this.training; // Defined during _prepareData
+  movement = this.movement; // Defined during constructor
 
   /**
    * A mapping of outcomes which occurred from this action, arranged by target.
@@ -348,10 +356,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   outcomes = new Map();
 
   /**
-   * The message representing this action, if applicable
-   * @type {CrucibleChatMessage|null}
+   * A specific RegionDocument, either persisted or ephemeral, used to establish area of effect for this action.
+   * @type {RegionDocument|null}
    */
-  message = this.message; // Defined during constructor
+  region = this.region; // Defined during constructor
+
+  /**
+   * The ability scores which cause this action to scale.
+   * @type {string[]}
+   */
+  scaling = this.scaling; // Defined during _prepareData
+
+  /**
+   * A specific Token document that is performing this Action in the context of a Scene.
+   * This is the TokenDocument instance (CrucibleToken), not the canvas placeable (CrucibleTokenObject).
+   * @type {CrucibleToken}
+   */
+  token = this.token; // Defined during constructor
+
+  /**
+   * The training types which can provide a skill bonus to use of this action.
+   * @type {string[]}
+   */
+  training = this.training; // Defined during _prepareData
 
   /**
    * A sheet used to configure this Action.
@@ -379,6 +406,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
+   * Does this action require movement planning before it can be used?
+   * @type {boolean}
+   */
+  get requiresMovement() {
+    return this.tags.has("movement") && !!this.token && !this.movement;
+  }
+
+  /**
    * Does this Action require a region placement to establish its targets?
    * @type {boolean}
    */
@@ -400,13 +435,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
    * @param {ActionUsage} [options.usage]           Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, region=null, token=null, message=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, usage={}, ...options}) {
     super._configure(options);
     Object.defineProperties(this, {
       actor: {value: actor, writable: false, configurable: true},
       item: {value: item ?? this.parent?.parent, writable: false, configurable: true},
       token: {value: token, writable: false, configurable: true},
       region: {value: region, writable: false, configurable: true},
+      movement: {value: movement, writable: false, configurable: true},
       message: {value: message, writable: false, configurable: true}
     });
 
@@ -424,10 +460,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
+      hasDice: false,
       isAttack: false,
-      isRanged: false,
       isMelee: false,
-      hasDice: false
+      isRanged: false,
+      movement: {},
+      region: {}
     }, {inplace: true, overwrite: false})});
   }
 
@@ -576,6 +614,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.actor ??= this.actor;
     context.token ??= this.token;
     context.region ??= this.region;
+    context.movement ??= this.movement;
     context.message ??= this.message;
     const clone = new this.constructor(actionData, context);
 
@@ -641,7 +680,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token?.document || null);
+      const outcome = this.#createOutcome(actor, token || null);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
@@ -763,8 +802,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.#finalizeOutcome(outcome);
     }
 
-    // Persist the RegionDocument if not ephemeral
-    if ( this.region && !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral ) {
+    // Create the RegionDocument, visible to GMs and the placing user
+    if ( this.region ) {
       const regionData = this.region.toObject();
       regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
@@ -844,11 +883,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
             ? [tokenTargets[0]]
             : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
+        case "movement":
+          targets = canvas.ready ? this.#acquireTargetsFromMovement() : [];
+          break;
         case "single":
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
         default:
-          ui.notifications.warn(_loc("ACTION.WarningUnimplementedTarget", {type: this.target.type, name: this.name}));
+          ui.notifications.warn(_loc("ACTION.WARNINGS.UnimplementedTarget", {type: this.target.type, name: this.name}));
           targets = Array.from(game.user.targets).map(CrucibleAction.#getTargetFromToken);
           break;
       }
@@ -882,6 +924,89 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Acquire target tokens from the actor's planned movement path.
+   * Tokens whose grid footprint overlaps any portion of the swept path become targets.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireTargetsFromMovement() {
+    if ( !this.movement ) return [];
+    const waypoints = this.#getMovementWaypoints();
+    if ( waypoints.length < 2 ) return [];
+
+    // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
+    const visitedSpaces = new Set();
+    let minI = Infinity;
+    let minJ = Infinity;
+    let maxI = -Infinity;
+    let maxJ = -Infinity;
+    for ( let w = 1; w < waypoints.length; w++ ) {
+      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
+        visitedSpaces.add(`${i},${j},${k}`);
+        if ( i < minI ) minI = i;
+        if ( j < minJ ) minJ = j;
+        if ( i > maxI ) maxI = i;
+        if ( j > maxJ ) maxJ = j;
+      }
+    }
+
+    // Remove spaces occupied by the token's starting position
+    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[0]) ) {
+      visitedSpaces.delete(`${i},${j},${k}`);
+    }
+
+    // Identify Token targets by filtering the quadtree result for movement bounds
+    const {x: x0, y: y0} = canvas.grid.getTopLeftPoint({i: minI, j: minJ});
+    const {x: x1, y: y1} = canvas.grid.getTopLeftPoint({i: maxI + 1, j: maxJ + 1});
+    const movementBounds = new PIXI.Rectangle(x0, y0, x1 - x0, y1 - y0);
+    const targetDispositions = this.#getTargetDispositions();
+    const hitTokens = canvas.tokens.quadtree.getObjects(movementBounds, {collisionTest: o => {
+      const tokenDoc = o.t.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
+      if ( tokenDoc.hidden ) return false;
+      const spaces = tokenDoc.getOccupiedGridSpaceOffsets(tokenDoc._source);
+      return spaces.some(({i, j, k}) => visitedSpaces.has(`${i},${j},${k}`));
+    }});
+
+    // Return the array of targets
+    const targets = [];
+    for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
+    return targets;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the effective waypoints for the planned movement path.
+   * For most movement actions this is the literal array of `pending.waypoints`.
+   * For blink, `pending.waypoints` contains only the destination waypoint since it is a teleport.
+   * For the purposes of targeting, fill the intermediate waypoints that would have been visited for a normal move.
+   * @returns {TokenMovementWaypoint[]}
+   */
+  #getMovementWaypoints() {
+    const waypoints = this.movement.pending.waypoints;
+    if ( !waypoints.length || (waypoints[0].action !== "blink") ) return waypoints;
+    const token = this.token;
+    const dimensions = {width: token.width, height: token.height, shape: token._source.shape};
+    const expanded = [];
+    let w0 = token._positionToGridOffset({...this.movement.origin, ...dimensions});
+    expanded.push(this.movement.origin);
+    for ( const point of waypoints ) {
+      const w1 = token._positionToGridOffset({...point, ...dimensions});
+      const steps = canvas.grid.getDirectPath([w0, w1]);
+      for ( let s=1; s<steps.length-1; s++ ) {
+        const {x, y} = token._gridOffsetToPosition(steps[s], dimensions);
+        expanded.push({x, y, elevation: point.elevation, action: "blink"});
+      }
+      expanded.push(point);
+      w0 = w1;
+    }
+    return expanded;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Acquire target tokens from a placed region using RegionDocument#tokens.
    * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
    * @returns {ActionUseTarget[]}
@@ -895,10 +1020,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = [];
     for ( const token of potentialTokens ) {
       const tokenDoc = token.document;
-      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;   // Exclude self
-      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;     // Require correct disposition
-      if ( tokenDoc.hidden ) continue;                                        // Ignore hidden
-      if ( !tokenDoc.testInsideRegion(this.region) ) continue;                // Require region containment
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;       // Exclude self
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;         // Require correct disposition
+      if ( tokenDoc.hidden ) continue;                                            // Ignore hidden
+      if ( !tokenDoc.testInsideRegion(this.region, tokenDoc._source) ) continue;  // Require region containment
       targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
     }
 
@@ -908,7 +1033,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // If the target type is limited in the number it can affect, sort on proximity to the region origin
     const origin = this.region.shapes[0];
     for ( const t of targets ) {
-      const c = t.token.getCenterPoint();
+      const c = t.token.getCenterPoint(t.token._source);
       t._d2 = Math.pow(c.x - origin.x, 2) + Math.pow(c.y - origin.y, 2);
     }
     targets.sort((a, b) => a._d2 - b._d2);
@@ -928,7 +1053,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Too few targets
     if ( tokens.size < 1 ) {
-      if ( strict ) throw new Error(_loc("ACTION.WarningInvalidTarget", {
+      if ( strict ) throw new Error(_loc("ACTION.WARNINGS.InvalidTarget", {
         number: this.target.number,
         type: this.target.type,
         action: this.name
@@ -938,7 +1063,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Too many targets
     if ( tokens.size > this.target.number ) {
-      errorAll = _loc("ACTION.WarningIncorrectTargets", {
+      errorAll = _loc("ACTION.WARNINGS.IncorrectTargets", {
         number: this.target.number,
         type: this.target.type,
         action: this.name
@@ -953,15 +1078,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       targets.push(t);
       if ( !this.token ) continue;
       if ( (token === this.token) && !this.damage?.restoration ) {
-        t.error = _loc("ACTION.WarningCannotTargetSelf");
+        t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
         continue;
       }
       const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);
       if ( this.range.minimum && (range < this.range.minimum) ) {
-        t.error ||= _loc("ACTION.WarningMinimumRange", {min: this.range.minimum});
+        t.error ||= _loc("ACTION.WARNINGS.MinimumRange", {min: this.range.minimum});
       }
       if ( this.range.maximum && (range > this.range.maximum) ) {
-        t.error ||= _loc("ACTION.WarningMaximumRange", {max: this.range.maximum});
+        t.error ||= _loc("ACTION.WARNINGS.MaximumRange", {max: this.range.maximum});
       }
     }
     return targets;
@@ -1302,6 +1427,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   _configureUsage() {
     this.usage.hasDice = false; // Actions don't involve a roll unless otherwise configured
 
+    // Configure tags
+    if ( this.target.type === "movement" ) this.tags.add("movement");
+
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training);
@@ -1362,7 +1490,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot spend action
     if ( this.cost.action && this.actor.isIncapacitated ) {
-      throw new Error(_loc("ACTION.WarningCannotSpendAction", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotSpendAction", {
         name: this.actor.name
       }));
     }
@@ -1373,7 +1501,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const allowEnragedFocus = this.actor.talentIds.has("iramancer0000000") || this.tags.has("strike");
       if ( statuses.has("broken") ) focusBlock = "broken";
       else if ( statuses.has("enraged") && !allowEnragedFocus ) focusBlock = "enraged";
-      if ( focusBlock ) throw new Error(_loc("ACTION.WarningCannotSpendFocus", {
+      if ( focusBlock ) throw new Error(_loc("ACTION.WARNINGS.CannotSpendFocus", {
         name: this.actor.name,
         status: _loc(`ACTIVE_EFFECT.STATUSES.${focusBlock.titleCase()}`)
       }));
@@ -1381,7 +1509,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford action cost
     if ( this.cost.action > r.action.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.action.label,
         action: this.name
@@ -1390,7 +1518,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford focus cost
     if ( this.cost.focus > r.focus.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.focus.label,
         action: this.name
@@ -1399,7 +1527,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot afford heroism cost
     if ( this.cost.heroism > r.heroism.value ) {
-      throw new Error(_loc("ACTION.WarningCannotAffordCost", {
+      throw new Error(_loc("ACTION.WARNINGS.CannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.heroism.label,
         action: this.name
@@ -1409,7 +1537,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cannot afford hands cost
     if ( this.cost.hands > this.usage.availableHands ) {
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WarningCannotAffordHands";
+      const error = this.tags.has("spell") ? "SPELL.WARNINGS.CannotAffordHands" : "ACTION.WARNINGS.CannotAffordHands";
       throw new Error(_loc(`${error}.${plurals.select(this.cost.hands)}`, {
         name: this.actor.name,
         hands: this.cost.hands,
@@ -1419,7 +1547,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot use physical scaling
     if ( !this.actor.abilities.strength.value && this.scaling.length && this.scaling.every(s => ["strength", "toughness", "dexterity"].includes(s)) ) {
-      throw new Error(_loc("ACTION.WarningNoAbility", {
+      throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.strength.label,
         action: this.name
@@ -1428,7 +1556,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot use mental scaling
     if ( !this.actor.abilities.wisdom.value && this.scaling.length && this.scaling.every(s => ["wisdom", "presence", "intellect"].includes(s)) ) {
-      throw new Error(_loc("ACTION.WarningNoAbility", {
+      throw new Error(_loc("ACTION.WARNINGS.NoAbility", {
         actor: this.actor.name,
         ability: SYSTEM.ABILITIES.wisdom.label,
         action: this.name
@@ -1448,7 +1576,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         errorOptions = {cause: err};
       }
       if ( errorReason ) {
-        throw new Error(_loc("ACTION.WarningCannotUse", {
+        throw new Error(_loc("ACTION.WARNINGS.CannotUse", {
           name: this.actor.name,
           action: this.name,
           reason: errorReason
@@ -1555,9 +1683,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     const isNegated = this.message?.getFlag("crucible", "isNegated");
 
-    // Reveal placed region to all players
-    if ( this.region && !isNegated ) {
-      await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+    // Update or remove the placed region on confirmation
+    if ( this.region ) {
+      const isEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
+      if ( isEphemeral ) await this.region.delete();
+      else if ( !isNegated ) {
+        await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+      }
     }
 
     // Additional Actor-specific consequences
@@ -1648,10 +1780,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Configure a VFXEffect instance for this Action.
-   * @returns {foundry.vfx.VFXEffect|null}
+   * @returns {foundry.canvas.vfx.VFXEffect|null}
    */
   configureVFXEffect() {
-    if ( !crucible.vfxEnabled ) return null;
     if ( this.tags.has("strike") ) return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this);
     return null;
   }
@@ -1660,18 +1791,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Construct and play a configured VFXEffect on every client after the Action is confirmed.
-   * @param {foundry.vfx.VFXEffectConfig} vfxConfig
+   * @param {foundry.canvas.vfx.VFXEffectData} vfxConfig
    * @param {Record<string, any>} references
    * @returns {Promise<void>}
    */
   async playVFXEffect(vfxConfig, references) {
-    if ( !crucible.vfxEnabled ) return;
     if ( !this.token?.parent.isView ) return;
 
     // Construct the VFXEffect instance
     let vfxEffect;
     try {
-      vfxEffect = new foundry.vfx.VFXEffect(vfxConfig);
+      vfxEffect = new foundry.canvas.vfx.VFXEffect(vfxConfig);
     } catch(cause) {
       console.warn(new Error(`Failed to construct provided Action VFX config for Action "${this.id}"`));
       return;
@@ -1762,10 +1892,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const cost = this._trueCost || this.cost;
     const ap = cost.action ?? 0;
     if ( this.cost.weapon && !this.usage.strikes?.length ) { // Strike sequence not yet determined
-      if ( ap === 0 ) tags.activation.ap = _loc("ACTION.TagCostWeapon");
-      else tags.activation.ap = _loc("ACTION.TagCostWeaponAction", {action: ap.signedString()});
+      if ( ap === 0 ) tags.activation.ap = _loc("ACTION.TAG.CostWeapon");
+      else tags.activation.ap = _loc("ACTION.TAG.CostWeaponAction", {action: ap.signedString()});
     }
-    else tags.activation.ap = _loc("ACTION.TagCostAction", {action: ap});
+    else tags.activation.ap = _loc("ACTION.TAG.CostAction", {action: ap});
     if ( ap ) {
       const unmet = ap > this.actor?.resources.action.value;
       const label = tags.activation.ap;
@@ -1773,24 +1903,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) {
       const unmet = cost.focus > this.actor?.resources.focus.value;
-      const label = _loc("ACTION.TagCostFocus", {focus: cost.focus});
+      const label = _loc("ACTION.TAG.CostFocus", {focus: cost.focus});
       tags.activation.fp = {label, unmet};
     }
     if ( Number.isFinite(cost.heroism) && cost.heroism ) {
       const unmet = cost.heroism > this.actor?.resources.heroism.value;
-      const label = _loc("ACTION.TagCostHeroism", {heroism: cost.heroism});
+      const label = _loc("ACTION.TAG.CostHeroism", {heroism: cost.heroism});
       tags.activation.hp = {label, unmet};
     }
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) {
       const unmet = cost.health > this.actor?.resources.health.value; // Blood Magic, for example
-      const label = _loc("ACTION.TagCostHealth", {health: cost.health});
+      const label = _loc("ACTION.TAG.CostHealth", {health: cost.health});
       tags.activation.health = {label, unmet};
     }
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
       const unmet = cost.hands > this.usage.availableHands;
       const plurals = new Intl.PluralRules(game.i18n.lang);
-      const label = _loc(`ACTION.TagCostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
+      const label = _loc(`ACTION.TAG.CostHand.${plurals.select(cost.hands)}`, {hands: cost.hands});
       tags.activation.hands = {label, unmet};
     }
     return tags;
@@ -1832,6 +1962,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes: []
     };
     if ( this.item ) actionData.item = this.item.uuid;
+    if ( this.movement ) actionData.movement = this.movement.id;
     if ( this.region?.persisted ) actionData.region = this.region.uuid;
     if ( this.token ) actionData.token = this.token.uuid;
     actionData.vfxConfig = this.configureVFXEffect();
@@ -1924,6 +2055,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {
       actor: actorUuid,
       item: itemUuid,
+      movement: movementId,
       token: tokenUuid,
       action: actionData,
       region: regionUuid,
@@ -1931,14 +2063,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } = message.flags.crucible || {};
     if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
 
+    // Reference linked documents
     const actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
     const item = fromUuidSync(itemUuid);
     const token = fromUuidSync(tokenUuid);
     const region = fromUuidSync(regionUuid);
 
+    // Reference current movement or recover past movement data
+    let movement = null;
+    if ( movementId && token ) {
+      if ( token.movement?.id === movementId ) movement = token.movement;
+      else {
+        const waypoints = token.movementHistory.filter(w => w.movementId === movementId);
+        if ( waypoints.length ) movement = {
+          id: movementId,
+          state: "stopped",
+          passed: {waypoints, cost: waypoints.reduce((t, w) => t + (w.cost ?? 0), 0)},
+          pending: {waypoints: [], cost: 0}
+        };
+      }
+    }
+
     // Rebuild action from explicit data
     const actionId = actionData.id;
-    const actionContext = {parent: item?.system, actor, item, token, region, message, lazy: true};
+    const actionContext = {parent: item?.system, actor, item, token, region, movement, message, lazy: true};
     let action;
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {

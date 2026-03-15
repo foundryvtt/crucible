@@ -233,7 +233,7 @@ HOOKS.conjurer00000000 = {
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceChanges, statusText}) {
     if ( this.resources.action.value ) {
-      resourceChanges.focus = (resourceChanges.focus || 0) + 1;
+      resourceChanges.focus.push({label: item.name, amount: 1});
       statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
     }
   }
@@ -296,17 +296,54 @@ HOOKS.evasiveshot00000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.focusedanticipat = {
+  startTurn(item, {resourceChanges, statusText}, {turn}) {
+    if ( turn > 0 ) return;
+    resourceChanges.focus.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.healer0000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
     if ( action.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
   }
 };
+
 /* -------------------------------------------- */
 
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
     if ( this.equipment.weapons.shield ) movement.engagement += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.impetus000000000 = {
+  startTurn(item, {effectChanges}, {turn}) {
+    if ( turn > 0 ) return;
+    const effectData = {
+      _id: SYSTEM.EFFECTS.getEffectId("impetus"),
+      name: item.name,
+      img: item.img,
+      statuses: ["hastened"],
+      duration: {
+        units: "rounds",
+        expiry: "turnStart",
+        value: 1
+      }
+    };
+    const existingEffect = this.effects.get(effectData._id);
+    if ( existingEffect ) {
+      effectData.duration.value += existingEffect.duration.value;
+      effectChanges.toUpdate.push(effectData);
+    } else {
+      effectChanges.toCreate.push(effectData);
+    }
   }
 };
 
@@ -334,8 +371,10 @@ HOOKS.intellectualsupe = {
 /* -------------------------------------------- */
 
 HOOKS.irrepressiblespi = {
-  startTurn(item, {resourceChanges}) {
-    if ( !this.system.isBroken ) resourceChanges.morale = (resourceChanges.morale || 0) + 1;
+  startTurn(item, {resourceChanges, statusText}) {
+    if ( this.system.isBroken ) return;
+    resourceChanges.morale.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.heal.css});
   }
 };
 
@@ -356,8 +395,10 @@ HOOKS.kineturge0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.lesserregenerati = {
-  startTurn(item, {resourceChanges}) {
-    if ( !this.system.isWeakened ) resourceChanges.health = (resourceChanges.health || 0) + 1;
+  startTurn(item, {resourceChanges, statusText}) {
+    if ( this.system.isWeakened ) return;
+    resourceChanges.health.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.health.color.heal.css});
   }
 };
 
@@ -617,7 +658,7 @@ HOOKS.snakeblood000000 = {
 HOOKS.sorcerer00000000 = {
   useAction(item, action) {
     if ( action.tags.has("iconicSpell") ) {
-      throw new Error(`As a ${item.name}, you cannot cast Iconic Spells.`);
+      throw new Error(_loc("SPELL.WARNINGS.SorcererNoIconic", {talent: item.name}));
     }
   },
   preActivateAction(item, action) {

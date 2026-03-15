@@ -88,7 +88,7 @@ pages:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.346'
       createdTime: null
       modifiedTime: 1751122914999
@@ -184,7 +184,7 @@ pages:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1686356373225
@@ -306,7 +306,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.351'
       createdTime: 1684374473225
       modifiedTime: 1766422403634
@@ -352,7 +352,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.350'
       createdTime: 1684374509565
       modifiedTime: 1763154338884
@@ -858,9 +858,9 @@ pages:
 _stats:
   systemId: crucible
   systemVersion: 0.8.6
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   createdTime: 1676601214201
-  modifiedTime: 1760019535362
+  modifiedTime: 1773514792334
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

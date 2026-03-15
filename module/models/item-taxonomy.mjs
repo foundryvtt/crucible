@@ -58,7 +58,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   static #validateAbilities(abilities, options) {
     if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    if ( sum !== 12 ) throw new Error(`The sum of initial ability values must equal 12. Currently ${sum}`);
+    if ( sum !== 12 ) throw new Error(_loc("TAXONOMY.WARNINGS.InvalidAbilities", {sum}));
   }
 
   /* -------------------------------------------- */
@@ -72,7 +72,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   static #validateResistances(resistances, options) {
     if ( options.partial === true ) return;
     const sum = Object.values(resistances).reduce((t, n) => t + (n.immune ? 4 : n.value), 0);
-    if ( sum !== 0 ) throw new Error(`The sum of resistance scaling values must equal zero. Currently ${sum}`);
+    if ( sum !== 0 ) throw new Error(_loc("TAXONOMY.WARNINGS.InvalidResistances", {sum}));
   }
 
   /* -------------------------------------------- */
