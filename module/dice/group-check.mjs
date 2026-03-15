@@ -64,8 +64,8 @@ export default class GroupCheck extends StandardCheck {
     SKIPPED: "skipped"
   });
 
-  /** @type {Map<string, foundry.utils.Semaphore>} */
-  static #UPDATE_SEMAPHORES = new Map();
+  /** @type {foundry.utils.Semaphore} */
+  static #UPDATE_SEMAPHORE = new foundry.utils.Semaphore(1);
 
   /* -------------------------------------------- */
   /*  Helpers                                     */
@@ -401,14 +401,7 @@ export default class GroupCheck extends StandardCheck {
    * @returns {Promise<boolean>}      True if an update was applied
    */
   static async #updateGroupCheckMessage(message, mutator) {
-    const key = message.id;
-    let semaphore = this.#UPDATE_SEMAPHORES.get(key);
-    if ( !semaphore ) {
-      semaphore = new foundry.utils.Semaphore(1);
-      this.#UPDATE_SEMAPHORES.set(key, semaphore);
-    }
-
-    return semaphore.add(async () => {
+    return this.#UPDATE_SEMAPHORE.add(async () => {
       const current = game.messages.get(message.id) ?? message;
       const flags = foundry.utils.deepClone(current.flags.crucible?.[this.FLAG_KEY]);
       if ( !flags ) return false;
@@ -420,10 +413,6 @@ export default class GroupCheck extends StandardCheck {
       const updateData = foundry.utils.isPlainObject(result) ? result : {};
       await current.update({content, [`flags.crucible.${this.FLAG_KEY}`]: flags, ...updateData});
       return true;
-    }).finally(() => {
-      if ( (this.#UPDATE_SEMAPHORES.get(key) === semaphore) && !semaphore.active && !semaphore.remaining ) {
-        this.#UPDATE_SEMAPHORES.delete(key);
-      }
     });
   }
 
