@@ -1,0 +1,26 @@
+<section class="crucible group-check-result themed theme-dark">
+    <p>{{title}}</p>
+    <div class="group-check-actors flexcol">
+        {{#each actors as |entry|}}
+        <div
+            class="group-check-row {{#if entry.showRollResult}}{{entry.rollContext.cssClass}}{{else}}line-item {{entry.status}}{{/if}}"
+            data-action="expandRoll"
+            data-actor-id="{{entry.actorId}}"
+        >
+            {{#if entry.showRollResult}}
+            {{#if entry.rollContext}}
+            {{> "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs" entry.rollContext}}
+            {{/if}}
+            {{else}}
+            <img class="icon" src="{{entry.actorImg}}" alt="{{entry.actorName}}">
+            <div class="title">
+                <h4 class="ellipsis" data-tooltip="{{entry.actorName}}">{{entry.actorName}}</h4>
+            </div>
+            {{#if entry.statusDisplay}}
+            <span class="{{entry.statusDisplay.classes}}"{{#if entry.statusDisplay.tooltip}} data-tooltip="{{entry.statusDisplay.tooltip}}"{{/if}}>{{entry.statusDisplay.text}}</span>
+            {{/if}}
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</section>
