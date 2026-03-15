@@ -269,7 +269,7 @@ export default class GroupCheck extends StandardCheck {
         sharedBoons,
         sharedBanes,
         title
-      });
+      }, {timeout: this.QUERY_TIMEOUT});
 
       if (rollData && !rollData.aborted) {
         await this.#updateGroupCheckMessage(message, flags => {

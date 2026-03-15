@@ -107,6 +107,14 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
+   * Default timeout for remote roll requests.
+   * @type {number}
+   */
+  static QUERY_TIMEOUT = 120_000;
+
+  /* -------------------------------------------- */
+
+  /**
    * The Actor performing the check.
    * @type {CrucibleActor}
    */
@@ -450,7 +458,7 @@ export default class StandardCheck extends Roll {
   request({user, title, flavor, actorId}={}) {
     const data = foundry.utils.deepClone(this.data);
     if ( actorId ) data.actorId = actorId;
-    return user.query("requestSkillCheck", {title, flavor, check: data});
+    return user.query("requestSkillCheck", {title, flavor, check: data}, {timeout: this.constructor.QUERY_TIMEOUT});
   }
 
   /* -------------------------------------------- */

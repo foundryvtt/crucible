@@ -155,7 +155,8 @@ export default class StandardCheckDialog extends DialogV2 {
     for ( const actor of this.#requestActors ) {
       const rank = actor.system.skills[skillId]?.rank ?? 0;
       const pips = Array.fromRange(4).map(i => i < rank ? "full" : "");
-      const rankTooltip = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank]?.label ?? SYSTEM.TALENT.TRAINING_RANKS.untrained.label;
+      const rankTooltip = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank]?.label
+        ?? SYSTEM.TALENT.TRAINING_RANKS.untrained.label;
       actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short"), pips, rank, rankTooltip});
     }
     return {actors, resourceColor};
