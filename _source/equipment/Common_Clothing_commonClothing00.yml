@@ -1,41 +1,43 @@
+folder: D03SIA37tnsn3qBB
 name: Common Clothing
+type: armor
+_id: commonClothing00
 img: icons/equipment/chest/shirt-collared-brown.webp
-type: accessory
 system:
   identifier: clothingCommon
-  category: clothing
-  enchantment: mundane
-  quality: standard
-  price: 20
+  category: unarmored
   quantity: 1
   weight: 1
+  price: 20
+  quality: standard
+  broken: false
+  enchantment: mundane
   equipped: false
   invested: false
+  properties: []
   description:
     public: >-
       <p>A shirt, pair of pants, undergarments, socks and shoes or boots
-      suitable for menial labour or travel, cannot be worn with armor.</p>
+      suitable for menial labor or travel.</p>
     private: ''
-  broken: false
-  properties: []
   actions: []
   actorHooks: []
-folder: GVbpo5LtAY44QZPD
+  armor:
+    base: 0
 effects: []
+sort: 0
 ownership:
   default: 0
-  ifaQA7jTJsr3UWFE: 3
+  4uFKaoDjEQwkkXjq: 3
 flags: {}
 _stats:
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1773691189137
+  modifiedTime: 1773691215429
+  lastModifiedBy: 4uFKaoDjEQwkkXjq
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768583216182
-  modifiedTime: 1773514792263
-  lastModifiedBy: ifaQA7jTJsr3UWFE
-_id: commonClothing00
-sort: 100000
 _key: '!items!commonClothing00'
