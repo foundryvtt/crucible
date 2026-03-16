@@ -1586,12 +1586,13 @@ export default class CrucibleActor extends Actor {
    * Re-sync all Talent data on this actor with updated source data.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
-   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[]}>}
+   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[], actorUpdates: object}>}
    */
   async syncTalents({performUpdates=true}={}) {
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
+    const actorUpdates = {};
     const packs = [];
     const migrations = SYSTEM.TALENT.TALENT_ID_MIGRATIONS;
     for ( const packId of crucible.CONFIG.packs.talent ) {
@@ -1631,14 +1632,35 @@ export default class CrucibleActor extends Actor {
       }
     }
 
+    // Ensure all details "items" are using migrated versions of uuids
+    const detailItemTypes = ["ancestry", "archetype", "background", "taxonomy"];
+    for ( const detailType of detailItemTypes ) {
+      const oldTalents = this.system.details[detailType]?.talents;
+      if ( !oldTalents ) continue;
+      const talents = [];
+      let needsUpdate = false;
+      for ( const {item, level} of oldTalents ) {
+        const talentId = item.slice(-16);
+        const migratedId = migrations[talentId]?.slice(-16);
+        if ( migratedId ) {
+          needsUpdate ||= true;
+          talents.push({item: item.replace(talentId, migratedId), level});
+          continue;
+        }
+        talents.push({item, level});
+      }
+      if ( needsUpdate ) foundry.utils.setProperty(actorUpdates, `system.details.${detailType}.talents`, talents);
+    }
+
     // Create, update, and delete talents
     if ( performUpdates ) {
       if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
       if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
         {diff: false, recursive: false, noHook: true});
       if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+      if ( !foundry.utils.isEmpty(actorUpdates) ) await this.update(actorUpdates);
     }
-    return {toCreate, toUpdate, toDelete};
+    return {toCreate, toUpdate, toDelete, actorUpdates};
   }
 
   /* -------------------------------------------- */
