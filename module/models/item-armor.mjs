@@ -7,6 +7,9 @@ import * as ARMOR from "../const/armor.mjs";
 export default class CrucibleArmorItem extends CruciblePhysicalItem {
 
   /** @override */
+  static AFFIXABLE = true;
+
+  /** @override */
   static ITEM_CATEGORIES = ARMOR.CATEGORIES;
 
   /** @override */

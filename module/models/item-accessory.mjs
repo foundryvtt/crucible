@@ -7,6 +7,9 @@ import * as ACCESSORY from "../const/accessory.mjs";
 export default class CrucibleAccessoryItem extends CruciblePhysicalItem {
 
   /** @override */
+  static AFFIXABLE = true;
+
+  /** @override */
   static ITEM_CATEGORIES = ACCESSORY.CATEGORIES;
 
   /** @override */
