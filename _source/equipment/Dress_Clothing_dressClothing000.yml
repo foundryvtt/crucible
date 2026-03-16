@@ -1,16 +1,20 @@
+folder: D03SIA37tnsn3qBB
 name: Dress Clothing
+type: armor
+_id: dressClothing000
 img: icons/equipment/chest/robe-layered-red.webp
-type: accessory
 system:
   identifier: clothingDress
-  category: clothing
-  enchantment: mundane
-  quality: standard
-  price: 60
+  category: unarmored
   quantity: 1
   weight: 2
+  price: 60
+  quality: standard
+  broken: false
+  enchantment: mundane
   equipped: false
   invested: false
+  properties: []
   description:
     public: >-
       <p>A regal set of fine vestments fit for attending celebrations and high
@@ -18,26 +22,24 @@ system:
       fine shirt or corset, a vest or bodice, trousers or petticoat, belt or
       braces, stockings and fine shoes.</p>
     private: ''
-  broken: false
-  properties: []
   actions: []
   actorHooks: []
-folder: GVbpo5LtAY44QZPD
+  armor:
+    base: 0
 effects: []
+sort: 0
 ownership:
   default: 0
-  ifaQA7jTJsr3UWFE: 3
+  4uFKaoDjEQwkkXjq: 3
 flags: {}
 _stats:
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1773691236008
+  modifiedTime: 1773691264240
+  lastModifiedBy: 4uFKaoDjEQwkkXjq
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768583364829
-  modifiedTime: 1773514792265
-  lastModifiedBy: ifaQA7jTJsr3UWFE
-_id: dressClothing000
-sort: 200000
 _key: '!items!dressClothing000'
