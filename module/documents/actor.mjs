@@ -1632,6 +1632,7 @@ export default class CrucibleActor extends Actor {
       }
     }
 
+    // Ensure all details "items" are using migrated versions of uuids
     const detailItemTypes = ["ancestry", "archetype", "background", "taxonomy"];
     for ( const detailType of detailItemTypes ) {
       const oldTalents = this.system.details[detailType]?.talents;
