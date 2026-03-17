@@ -4,10 +4,11 @@ _id: weakpoints000000
 img: icons/skills/melee/strike-sword-stabbed-brown.webp
 system:
   description: >-
-    You identify moments of opportunity to strike at an enemy's weak points.
+    <p>You identify moments of opportunity to strike at an enemy's weak points.
     When attacking a target that is <strong>Unaware</strong>,
-    <strong>Flanked</strong>, or <strong>Exposed</strong> using Finesse
-    weaponry, you gain +2 damage to any Strike.
+    <strong>Flanked</strong>, or <strong>Exposed</strong> using a weapon which
+    scales with <strong>Dexterity</strong>, you gain +2 damage to any
+    Strike.</p>
   actions: []
   nodes:
     - dex0b
@@ -26,8 +27,8 @@ _stats:
   systemVersion: 0.9.0
   coreVersion: '14.356'
   createdTime: 1772307160154
-  modifiedTime: 1773514792627
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1773776889263
+  lastModifiedBy: 4uFKaoDjEQwkkXjq
   compendiumSource: null
   duplicateSource: null
   exportSource: null
