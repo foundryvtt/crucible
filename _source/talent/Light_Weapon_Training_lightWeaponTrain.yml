@@ -15,8 +15,8 @@ system:
       condition: ''
       description: >-
         <p>You dart forward nimbly, making a strike with sudden and unexpected
-        swiftness to perform a <strong>Strike </strong>with a
-        <strong>Finesse</strong> weapon against a single target with an
+        swiftness to perform a <strong>Strike </strong>with a weapon which
+        scales using <strong>Dexterity</strong> against a single target, with an
         increased range of <strong>+2 feet</strong>.</p><p>The attack is
         <strong>Difficult</strong>, but you do not move from your current
         position nor does this attack provoke Disengagement.</p>
@@ -62,10 +62,10 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   createdTime: 1772307160138
-  modifiedTime: 1773514792593
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1773776810356
+  lastModifiedBy: 4uFKaoDjEQwkkXjq
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

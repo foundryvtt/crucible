@@ -250,13 +250,13 @@
       "Deadly": "Deadly",
       "DeadlyTooltip": "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
       "Difficult": "Difficult",
-      "DifficultTooltip": "This action is complicated or challenging to perform. You incur 2 additional banes when attempting the action.",
+      "DifficultTooltip": "This action is complicated or challenging to perform. You incur 1 additional bane when attempting the action.",
       "Disarm": "Disarm",
       "DisarmTooltip": "This action, if successful, causes the target's weapon to be dropped.",
       "DualWield": "Dual Wield",
       "DualWieldTooltip": "This action requires wielding two separate weapons or being entirely unarmed to perform.",
       "Empowered": "Empowered",
-      "EmpoweredTooltip": "This action is powerful and deals additional damage, gaining a +2 damage bonus if successful.",
+      "EmpoweredTooltip": "This action is powerful and deals additional damage, gaining a +6 damage bonus if successful.",
       "Finesse": "Finesse",
       "FinesseTooltip": "This action requires a certain amount of finesse to perform. You must be wielding a weapon which scales using Dexterity.",
       "Flanking": "Flanking",
@@ -337,7 +337,7 @@
       "Vocal": "Vocal",
       "VocalTooltip": "This action requires its user to speak or otherwise vocalize sound.",
       "Weakened": "Weakened",
-      "WeakenedTooltip": "This action is weaker than normal attacks and has a -2 damage bonus."
+      "WeakenedTooltip": "This action is weaker than normal attacks and has a -6 damage bonus."
     },
     "TAG_CATEGORIES": {
       "Attack": "Attack",

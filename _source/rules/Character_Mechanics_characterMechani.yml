@@ -332,27 +332,26 @@ pages:
         below.</p><h2 class="divider">Strength</h2><p>Strength is a physical
         power attribute describing a creature's potency, brawn and might.
         Strength affects <strong>Fortitude</strong> defense, carrying
-        <strong>Capacity</strong>, and the use of weaponry with the
-        <strong>Brute</strong> trait. Each point of Strength increases base
-        <strong>Health</strong> by 2.</p><section class="gameplay"><p>Characters
-        with high Strength are typically capable of feats of physical prowess.
-        They may wield oversized or heavy weaponry, wear heavy suits of armor,
-        or use their brawn to physically subdue their
-        opponents.</p></section><p>Creatures with zero Strength are incapable of
-        exerting physical influence on the world around them. They may not
-        possess equipment nor can they physically interact with objects. They
-        may not perform any Action which scales only using the physical ability
-        scores of Strength, Toughness, and Dexterity.</p><h2
-        class="divider">Toughness</h2><p>Toughness is a physical resilience
-        attribute describing physical hardiness and tenacity. Toughness affects
-        the <strong>Fortitude</strong> defense. Each point of Toughness
-        increases base <strong>Health</strong> by 4.</p><section
-        class="gameplay"><p>Characters with high Toughness can typically
-        withstand considerable physical strain, demonstrating both grit and
-        endurance in demanding situations. They may thrive amidst the center of
-        danger, using their tenacity to hold or break the frontlines of
-        combat.</p></section><p>Creatures with zero Toughness are incorporeal or
-        otherwise have no meaningful physical form. They have no
+        <strong>Capacity</strong>, and the use of weaponry which scales with
+        Strength. Each point of Strength increases base <strong>Health</strong>
+        by 2.</p><section class="gameplay"><p>Characters with high Strength are
+        typically capable of feats of physical prowess. They may wield oversized
+        or heavy weaponry, wear heavy suits of armor, or use their brawn to
+        physically subdue their opponents.</p></section><p>Creatures with zero
+        Strength are incapable of exerting physical influence on the world
+        around them. They may not possess equipment nor can they physically
+        interact with objects. They may not perform any Action which scales only
+        using the physical ability scores of Strength, Toughness, and
+        Dexterity.</p><h2 class="divider">Toughness</h2><p>Toughness is a
+        physical resilience attribute describing physical hardiness and
+        tenacity. Toughness affects the <strong>Fortitude</strong> defense. Each
+        point of Toughness increases base <strong>Health</strong> by
+        4.</p><section class="gameplay"><p>Characters with high Toughness can
+        typically withstand considerable physical strain, demonstrating both
+        grit and endurance in demanding situations. They may thrive amidst the
+        center of danger, using their tenacity to hold or break the frontlines
+        of combat.</p></section><p>Creatures with zero Toughness are incorporeal
+        or otherwise have no meaningful physical form. They have no
         <strong>Health</strong> pool and can become neither @Condition[weakened]
         nor @Condition[dead]. Any amount of Health they would have possessed
         contributes to their <strong>Morale</strong> pool instead. The creature
@@ -361,16 +360,15 @@ pages:
         attribute that reflects agility and precision of movement. Dexterity
         affects <strong>Initiative</strong> in taking action, the
         <strong>Dodge</strong> component of Physical Defense,
-        <strong>Reflex</strong> defense, and the use of weaponry with the
-        <strong>Finesse</strong> trait.</p><section
-        class="gameplay"><p>Characters with high Dexterity typically act
-        swiftly, favoring quickness and precision of movement over pure power.
-        They may wield weapons that allow for nimble movement or offer ranged
-        capabilities, seeking to outmaneuver their foes before they even get a
-        chance to act.</p></section><p>Creatures with zero Dexterity are
-        inherently sluggish or ponderous. Their <strong>Initiative</strong> is
-        always zero and they may not perform any actions with the
-        <strong>Reaction</strong> tag.</p><h2
+        <strong>Reflex</strong> defense, and the use of weaponry which scales
+        with Dexterity.</p><section class="gameplay"><p>Characters with high
+        Dexterity typically act swiftly, favoring quickness and precision of
+        movement over pure power. They may wield weapons that allow for nimble
+        movement or offer ranged capabilities, seeking to outmaneuver their foes
+        before they even get a chance to act.</p></section><p>Creatures with
+        zero Dexterity are inherently sluggish or ponderous. Their
+        <strong>Initiative</strong> is always zero and they may not perform any
+        actions with the <strong>Reaction</strong> tag.</p><h2
         class="divider">Wisdom</h2><p>Wisdom is a mental power attribute
         describing a creature's force of conviction, depth of knowledge, and
         patience. Wisdom affects <strong>Willpower</strong> defense and size of
@@ -426,12 +424,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.356'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761771265716
-      modifiedTime: 1768862328846
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1773776410891
+      lastModifiedBy: 4uFKaoDjEQwkkXjq
     _key: '!journal.pages!characterMechani.abilityScores000'
   - _id: talents000000000
     name: Talents
