@@ -5,9 +5,8 @@
     <label class="action-label">{{localize action.label}}</label>
     {{/if}}
 
+    {{#if cost.displayCost}}
     <span class="total-measurement">{{distance.total}}{{distance.units}}</span>
-    {{#if distance.delta}}
-    <span class="delta-measurement">({{distance.delta}})</span>
     {{/if}}
 
     {{#if displayElevation}}
@@ -17,11 +16,9 @@
     <span class="delta-elevation">({{elevation.delta}})</span>
     {{/if}}
     {{/if}}
-
-    <span class="total-measurement delta-cost">{{cost.delta}}{{cost.units}}</span>
-    {{#if cost.showTotal}}
-    <span class="delta-measurement sep">=</span>
-    <span class="total-measurement total-cost">[{{cost.total}}{{cost.units}}]</span>
+    {{#if cost.displayCost}}
+    <span class="delta-measurement sep">|</span>
+    <span class="total-measurement total-cost">{{cost.delta}}{{cost.units}}</span>
     {{/if}}
     {{#if secret}}
     <i class="icon fa-solid fa-eye-slash"></i>
