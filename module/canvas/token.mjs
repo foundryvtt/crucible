@@ -242,7 +242,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _addDragWaypoint(point, options) {
     const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
-    if ( dialog?.action.usage.movement.direct !== false ) {
+    if ( dialog?.action.usage.movement.direct ) {
       ui.notifications.warn(_loc("ACTION.WARNINGS.DirectMovementOnly"));
       return;
     }
@@ -312,6 +312,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
       options.planned = true;
     }
+
+    // TODO: Determine if there are times when we may NOT want to split
+    options.split = true;
     return options;
   }
 

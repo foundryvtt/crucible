@@ -14,19 +14,54 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     const grid = canvas.scene?.grid;
     if ( !grid || (grid.distance !== 1) || (grid.units !== "ft") ) return;
 
-    // Recover prior cost (potentially across chains)
-    state.priorCost ??= actor.getMovementActionCost(waypoint.previous?.measurement.cost || 0).cost;
+    // Get measurement of prior subpath, if on new subpath
+    state.priorCost ??= 0;
+    state.priorDistance ??= 0;
+    if ( state.priorSubpathId !== waypoint.subpathId ) {
+      let previous = waypoint.previous;
+      while ( previous ) {
+        if ( previous.subpathId !== waypoint.subpathId ) break;
+        previous = previous.previous;
+      }
+      state.priorCost = waypoint.previous?.measurement.cost || 0;
+      state.priorDistance = waypoint.previous?.measurement.distance || 0;
+      state.priorSubpathId = waypoint.subpathId;
+    }
 
-    // Measure new segment
-    const movement = actor.getMovementActionCost(waypoint.measurement.cost);
-    const deltaCost = movement.cost - state.priorCost;
-    state.priorCost = movement.cost;
+    // Do not draw waypoint label for non-meaningful waypoints. Meaningful waypoints:
+    // - Are the final waypoint of a subpath
+    // - Change movement action
+    // - Change elevation
+    const isFinalOfSubpath = waypoint.next?.subpathId !== waypoint.subpathId;
+    const sameAction = waypoint.previous?.action === waypoint.action;
+    const sameElevation = waypoint.previous?.elevation === waypoint.elevation;
+    if ( !isFinalOfSubpath && sameElevation && sameAction) return;
 
-    context.distance.units = grid.units;
-    context.cost = {units: "A", delta: deltaCost};
-    context.cost.total = Number.isFinite(movement.cost) ? movement.cost : "Impossible";
-    context.cost.showTotal = !waypoint.next;
-    context.displayElevation = context.elevation && !context.elevation.hidden;
+    // Calculate cost of this subpath & set context appropriately
+    const movement = actor.getMovementActionCost(waypoint.measurement.cost - state.priorCost);
+    const freeMovementId = actor.system.status.freeMovementId;
+    const deltaCost = movement.cost - ((freeMovementId && (freeMovementId === waypoint.subpathId)) ? 1 : 0);
+    Object.assign(context.distance, {
+      units: grid.units,
+      total: (context.distance.total - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
+    });
+    context.cost = {
+      units: "A",
+      delta: Number.isFinite(deltaCost) ? deltaCost : "Impossible",
+      displayCost: isFinalOfSubpath
+    };
+    context.displayElevation = context.elevation && !context.elevation.hidden && (!sameElevation || waypoint.elevation);
     return context;
+  }
+
+  /** @override */
+  _getWaypointStyle(waypoint) {
+    const style = super._getWaypointStyle(waypoint);
+
+    // Undo core's treatment of starting waypoint as translucent, size-down intermediate waypoints
+    // TODO: If #11895 goes in, modify shape of intermediate waypoints to diamonds
+    if ( !waypoint.previous ) style.alpha = 1;
+    else if ( waypoint.next?.subpathId === waypoint.subpathId ) style.radius /= 2;
+    return style;
   }
 }
