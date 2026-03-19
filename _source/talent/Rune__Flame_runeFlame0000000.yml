@@ -4,8 +4,8 @@ img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
 system:
   description: >-
     <p>The chaotic force of elemental, thermal energy. The Flame rune governs
-    fire and heat.</p><p>The Flame rune scales using Intellect, targets
-    <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
+    fire and heat.</p><p>The Flame rune scales using <strong>Intellect</strong>,
+    targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
     <strong>Health</strong>. It is opposed by the orderly rune of
     <strong>Frost</strong>.</p>
   actions:
