@@ -52,7 +52,23 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
- * @property {boolean} [ignoreWalls]        Allow the planned movement to pass through walls
+ * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
+ */
+
+/**
+ * @typedef CrucibleActionMovement
+ * The normalized movement data attached to a movement-tagged CrucibleAction.
+ * Both the planned movement (from ActionUseDialog) and the reactive movement (from Actor#useMove) conform to this shape.
+ * The waypoints array never includes the origin; it contains only the steps taken after the starting position.
+ * @property {string} [id]                  The movement plan ID
+ * @property {TokenPosition} origin         The starting position of the movement
+ * @property {TokenMovementWaypoint[]} waypoints  The movement path steps, not including the origin
+ * @property {number} [cost]                The measured cost of the path in feet
+ * @property {object} [plan]                The resolved result of Token#planMovement, present when movement was planned
+ *                                          via ActionUseDialog. TODO: upstream V14 has no named typedef for this return
+ *                                          type; raise an issue requesting one.
+ * @property {TokenMovementOperation} [operation]  The TokenMovementOperation provided to Actor#useMove, present when
+ *                                                 movement was actualized via a drag event
  */
 
 /**
@@ -345,7 +361,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * A planned or realized token movement associated with this action, used for movement-tagged actions.
-   * @type {TokenMovementData|TokenMovementOperation|null}
+   * @type {CrucibleActionMovement|null}
    */
   movement = this.movement; // Defined during constructor
 
@@ -930,8 +946,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #acquireTargetsFromMovement() {
     if ( !this.movement ) return [];
-    const waypoints = this.#getMovementWaypoints();
-    if ( waypoints.length < 2 ) return [];
+    const sparseWaypoints = this.movement.waypoints;
+    if ( !sparseWaypoints.length ) return [];
+
+    // Expand sparse waypoints into every intermediate grid cell traversed.
+    // Blink is a teleport action which getCompleteMovementPath would not expand, treat it as walk instead.
+    const expandedWaypoints = sparseWaypoints.map(w => (w.action === "blink" ? {...w, action: "walk"} : w));
+    const waypoints = this.token.getCompleteMovementPath([this.movement.origin, ...expandedWaypoints]).slice(1);
 
     // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
     const visitedSpaces = new Set();
@@ -939,7 +960,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let minJ = Infinity;
     let maxI = -Infinity;
     let maxJ = -Infinity;
-    for ( let w = 1; w < waypoints.length; w++ ) {
+    for ( let w = 0; w < waypoints.length; w++ ) {
       for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
         visitedSpaces.add(`${i},${j},${k}`);
         if ( i < minI ) minI = i;
@@ -950,7 +971,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Remove spaces occupied by the token's starting position
-    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[0]) ) {
+    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(this.movement.origin) ) {
       visitedSpaces.delete(`${i},${j},${k}`);
     }
 
@@ -972,36 +993,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = [];
     for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
     return targets;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the effective waypoints for the planned movement path.
-   * For most movement actions this is the literal array of `pending.waypoints`.
-   * For blink, `pending.waypoints` contains only the destination waypoint since it is a teleport.
-   * For the purposes of targeting, fill the intermediate waypoints that would have been visited for a normal move.
-   * @returns {TokenMovementWaypoint[]}
-   */
-  #getMovementWaypoints() {
-    const waypoints = this.movement.pending.waypoints;
-    if ( !waypoints.length || (waypoints[0].action !== "blink") ) return waypoints;
-    const token = this.token;
-    const dimensions = {width: token.width, height: token.height, shape: token._source.shape};
-    const expanded = [];
-    let w0 = token._positionToGridOffset({...this.movement.origin, ...dimensions});
-    expanded.push(this.movement.origin);
-    for ( const point of waypoints ) {
-      const w1 = token._positionToGridOffset({...point, ...dimensions});
-      const steps = canvas.grid.getDirectPath([w0, w1]);
-      for ( let s=1; s<steps.length-1; s++ ) {
-        const {x, y} = token._gridOffsetToPosition(steps[s], dimensions);
-        expanded.push({x, y, elevation: point.elevation, action: "blink"});
-      }
-      expanded.push(point);
-      w0 = w1;
-    }
-    return expanded;
   }
 
   /* -------------------------------------------- */
@@ -1426,6 +1417,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _configureUsage() {
     this.usage.hasDice = false; // Actions don't involve a roll unless otherwise configured
+
+    // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs
+    const sc = this._source.cost;
+    this.cost.action = sc.action;
+    this.cost.focus = sc.focus;
+    this.cost.heroism = sc.heroism;
+    this.cost.hands = sc.hands;
 
     // Configure tags
     if ( this.target.type === "movement" ) this.tags.add("movement");
@@ -2069,18 +2067,36 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const token = fromUuidSync(tokenUuid);
     const region = fromUuidSync(regionUuid);
 
-    // Reference current movement or recover past movement data
+    // Rebuild movement data for the action
     let movement = null;
     if ( movementId && token ) {
-      if ( token.movement?.id === movementId ) movement = token.movement;
+      let waypoints;
+      let origin;
+      if ( token.movement?.id === movementId ) {  // Use most recent movement data
+        const m = token.movement;
+        waypoints = [...(m.passed.waypoints ?? []), ...(m.pending.waypoints ?? [])];
+        origin = m.origin;
+      }
+
+      // Reconstruct movement data from history
+      // Unfortunately requires double iteration, first to find the subpathId then to reconstruct it
+      // The movement origin is the last waypoint prior to this movement, unless this is the first movement
       else {
-        const waypoints = token.movementHistory.filter(w => w.movementId === movementId);
-        if ( waypoints.length ) movement = {
-          id: movementId,
-          state: "stopped",
-          passed: {waypoints, cost: waypoints.reduce((t, w) => t + (w.cost ?? 0), 0)},
-          pending: {waypoints: [], cost: 0}
-        };
+        const subpathId = token.movementHistory.find(w => w.movementId === movementId)?.subpathId;
+        let firstIdx;
+        waypoints = token.movementHistory.filter((w, i) => {
+          if ( w.subpathId === subpathId ) {
+            firstIdx ??= i;
+            return true;
+          }
+          return false;
+        });
+        origin = token.movementHistory[firstIdx - 1] || waypoints[0];
+      }
+      if ( waypoints.length ) {
+        const movementCost = waypoints.reduce((t, w) => t + (w.cost ?? 0), 0);
+        // FIXME we have a design problem here, there could be multiple movementIds in the waypoints for a subpath
+        movement = /** @type {CrucibleActionMovement} */ {id: movementId, origin, waypoints, cost: movementCost};
       }
     }
 

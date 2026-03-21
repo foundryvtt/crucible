@@ -92,9 +92,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
       this._confirmedMovements.delete(movement.id);
       return;
     }
-    const actions = new Set();
-    for ( const w of movement.passed.waypoints ) actions.add(w.action);
-    for ( const w of movement.pending.waypoints ) actions.add(w.action);
-    this.actor.useMove(movement.passed.cost + movement.pending.cost, {dialog: false, movement: movement, actions});
+    const costFeet = movement.passed.cost + movement.pending.cost;
+    this.actor.useMove(costFeet, {dialog: false, movement});
   }
 }
