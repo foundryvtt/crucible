@@ -32,25 +32,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
   static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
 
   /**
-   * A registry of ActionUseDialog instances that are currently in a movement planning state.
-   * @type {Map<string, ActionUseDialog>}
-   */
-  static #movementPlans = new Map();
-
-  /* -------------------------------------------- */
-
-  /**
    * Targets acquired from the most recently placed region for this Action.
    * @type {ActionUseTarget[]|null}
    */
   #regionTargets = null;
-
-  /**
-   * The Hooks ID for a pending planToken listener registered during movement planning.
-   * Stored so it can be cleaned up if the dialog closes before planning completes.
-   * @type {number|null}
-   */
-  #planMovementHookId = null;
 
   /**
    * A lazy action clone used for per-frame target preview during movement planning.
@@ -483,23 +468,18 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
-   * Is any movement planning workflow currently active?
-   * @type {boolean}
-   */
-  static get activeMovementPlan() {
-    return ActionUseDialog.#movementPlans.size > 0;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Get the active movement planning dialog for the given token, if any.
+   * Returns non-null only while the movement drag is in flight (not after the plan is confirmed).
    * @param {CrucibleToken|string} token    The token document or its ID
    * @returns {ActionUseDialog|null}
    */
   static getActiveMovementPlan(token) {
     const id = typeof token === "string" ? token : token.id;
-    return ActionUseDialog.#movementPlans.get(id) ?? null;
+    if ( canvas.tokens._movementPlanningContext?.object?.document?.id !== id ) return null;
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( (app instanceof ActionUseDialog) && (app.action.token?.id === id) ) return app;
+    }
+    return null;
   }
 
   /* -------------------------------------------- */
@@ -511,10 +491,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlanMovement(_event) {
-    const {token, target} = this.action;
-
-    // Register this dialog as actively planning movement for this token
-    ActionUseDialog.#movementPlans.set(token.id, this);
+    const {token, target, usage} = this.action;
+    const movementUsage = usage.movement;
 
     // Minimize open windows
     const minimizedWindows = [];
@@ -529,36 +507,38 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the planToken hook for this specific token
-    await new Promise(resolve => {
-      this.#planMovementHookId = Hooks.on("planToken", document => {
-        if ( document !== token ) return;
-        Hooks.off("planToken", this.#planMovementHookId);
-        this.#planMovementHookId = null;
-        resolve();
-      });
+    // Await the movement plan
+    const plan = await token.object.planMovement({
+      allowedActions: movementUsage.action ? [movementUsage.action] : null,
+      minCost: this.action.range?.minimum ?? undefined,
+      maxCost: this.action.range?.maximum ?? undefined,
+      direct: movementUsage.direct ?? true,
+      constrainOptions: movementUsage.ignoreWalls ? {ignoreWalls: true} : undefined
     });
     this.#previewMovementAction = null;
 
-    // Deregister from the planning map
-    ActionUseDialog.#movementPlans.delete(token.id);
+    // Restore minimized windows
+    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
 
-    // Store the planned movement on the action
-    const movement = token.movement;
-    if ( movement?.state === "planned" ) {
-      Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
-      this.action.prepare(); // Re-prepare to update action cost based on the planned distance
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    // Handle user cancellation
+    if ( !plan ) {
+      canvas.tokens.setTargets([]);
+      await this.render();
+      return;
     }
+
+    // Measure the cost of the planned path, then store the movement on the action
+    const {cost} = token.object.measureMovementPath([plan.origin, ...plan.waypoints]);
+    const movement = {id: plan.id, origin: plan.origin, waypoints: plan.waypoints, cost};
+    Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
+    this.action.prepare();
+    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
 
     // Acquire targets from the planned movement path and highlight on canvas
     const targets = this.action.acquireTargets({strict: false});
     if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
     else canvas.tokens.setTargets([]);
-
-    // Restore minimized windows and re-render
-    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
-    this.render();
+    await this.render();
   }
 
   /* -------------------------------------------- */
@@ -578,8 +558,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
     const foundPath = plannedMovement.foundPath;
     const isBlink = (foundPath.length > 1) && (foundPath[1].action === "blink");
-    const pendingWaypoints = isBlink ? foundPath.slice(1) : foundPath;
-    const previewMovement = {origin: foundPath[0], pending: {waypoints: pendingWaypoints}};
+    const waypoints = isBlink ? foundPath.slice(1) : foundPath;
+    const previewMovement = {origin: foundPath[0], waypoints};
     Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
     const targets = this.#previewMovementAction.acquireTargets({strict: false});
     if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
@@ -592,19 +572,21 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * Clear any in-progress movement plan, cancelling a planned token movement if one exists.
    */
   #clearMovementPlan() {
-    if ( this.#planMovementHookId !== null ) {
-      Hooks.off("planToken", this.#planMovementHookId);
-      this.#planMovementHookId = null;
-    }
     this.#previewMovementAction = null;
-    ActionUseDialog.#movementPlans.delete(this.action.token?.id);
-    if ( !this.#submitted ) {
-      if ( this.action.movement?.state === "planned" ) {
-        this.action.token.stopMovement();
-        Object.defineProperty(this.action, "movement", {value: null, configurable: true});
-      }
-      canvas.tokens.setTargets([]);
+    if ( this.#submitted ) return;
+    const token = this.action.token;
+
+    // Cancel in-flight planning if this dialog's token is the active planner
+    if ( canvas.tokens._movementPlanningContext?.object?.document === token ) {
+      canvas.tokens._cancelMovementPlanning();
     }
+
+    // Cancel any already-confirmed movement stored on this action
+    if ( this.action.movement ) {
+      token?.stopMovement();
+      Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+    }
+    canvas.tokens.setTargets([]);
   }
 
   /* -------------------------------------------- */
