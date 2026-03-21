@@ -251,6 +251,17 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
+    // The base class resets cost fields from _source, but for composed spells the action cost is computed
+    // dynamically from gesture and inflection components and is not stored in _source (which retains schema
+    // defaults). Re-apply the computed cost so that hooks in _prepare() start from the correct baseline.
+    if ( this.isComposed && this.gesture ) {
+      const cost = CrucibleSpellAction.#prepareCost.call(this);
+      this.cost.action = cost.action;
+      this.cost.focus = cost.focus;
+      this.cost.heroism = cost.heroism;
+      this.cost.hands = cost.hands;
+    }
+
     // Composed spells have dice by default that are disabled per-Gesture
     this.usage.hasDice ||= this.isComposed;
 

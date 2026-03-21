@@ -1104,9 +1104,7 @@ export const TAGS = {
     },
     prepare() {
       const stride = this.actor.system.movement.stride;
-      const costFeet = this.movement
-        ? (this.movement.passed.cost + this.movement.pending.cost)
-        : stride;
+      const costFeet = this.movement ? this.movement.cost : stride;
       const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
       if ( useFreeMove ) this.usage.freeMove = true;
       if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
@@ -1144,8 +1142,7 @@ export const TAGS = {
 
       // Remove prone condition upon movement confirmation if movement is not exclusively crawling
       if ( this.actor.statuses.has("prone") ) {
-        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
-          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
+        const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
 
