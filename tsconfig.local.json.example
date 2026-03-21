@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@crucible/*": ["./module/*"],
+      "@common/*": ["<path-to-foundryvtt>/common/*"],
+      "@client/*": ["<path-to-foundryvtt>/client/*"]
+    }
+  }
+}

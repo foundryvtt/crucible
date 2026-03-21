@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.local.json",
+  "include": [
+    "crucible.mjs",
+    "module/**/*.mjs"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "checkJs": false,
+    "noEmit": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": true,
+    "target": "ESNext"
+  }
+}

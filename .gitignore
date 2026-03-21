@@ -1,6 +1,7 @@
 # IDE
 .idea/
 .vs/
+tsconfig.local.json
 
 # Node Modules
 node_modules/
@@ -14,3 +15,8 @@ signature.json
 packs/
 crucible-compiled.mjs
 styles/crucible.css
+
+# Generated Docs
+_dts/
+_docs/
+_typedoc/
