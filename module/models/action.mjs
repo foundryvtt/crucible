@@ -978,13 +978,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Get the effective waypoints for the planned movement path.
-   * For most movement actions this is the literal array of `pending.waypoints`.
-   * For blink, `pending.waypoints` contains only the destination waypoint since it is a teleport.
+   * For most movement actions this is the literal array of `movement.waypoints`.
+   * For blink, `movement.waypoints` contains only the destination waypoint since it is a teleport.
    * For the purposes of targeting, fill the intermediate waypoints that would have been visited for a normal move.
    * @returns {TokenMovementWaypoint[]}
    */
   #getMovementWaypoints() {
-    const waypoints = this.movement.pending.waypoints;
+    const waypoints = this.movement.waypoints;
     if ( !waypoints.length || (waypoints[0].action !== "blink") ) return waypoints;
     const token = this.token;
     const dimensions = {width: token.width, height: token.height, shape: token._source.shape};

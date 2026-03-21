@@ -7,6 +7,7 @@ const {DialogV2} = foundry.applications.api;
 
 /**
  * @import {TRAINING_TYPES} from "../const/talents.mjs";
+ * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
  */
 
 /**
@@ -408,14 +409,29 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Use the Movement action to travel a certain measured distance.
-   * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
-   * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
-   * @param {boolean} [options.useFreeMove]       Consume a free move, if available
-   * @param {TokenMovementOperation} [options.movement] A recorded movement ID in Token movement history
-   * @param {Set<string>} [options.actions]       The movement actions used as part of this move
-   * @returns {CrucibleAction}    The performed Action
+   * @param {number} costFeet                                 The cost of the movement in feet, inclusive of terrain
+   *                                                          modifiers.
+   * @param {object & CrucibleActionUsageOptions} [options]   Options which configure the movement action usage.
+   * @param {TokenMovementOperation} options.movement           The movement operation from which waypoints and
+   *                                                            actions are derived.
+   * @param {Set<string>} [options.actions]                     The movement action types used. Derived from the
+   *                                                            operation waypoints if not provided.
+   * @returns {Promise<void>}
    */
-  async useMove(costFeet, {useFreeMove=true, movement, actions, ...useOptions}={}) {
+  async useMove(costFeet, {movement, actions, ...useOptions}={}) {
+
+    // Build the Crucible-shaped movement object and derive actions from the TokenMovementOperation.
+    const waypoints = [];
+    const derivedActions = new Set();
+    for ( const w of movement.passed.waypoints ) {
+      waypoints.push(w);
+      derivedActions.add(w.action);
+    }
+    for ( const w of movement.pending.waypoints ) {
+      waypoints.push(w);
+      derivedActions.add(w.action);
+    }
+    actions ??= derivedActions;
 
     // Annotate movement actions.
     actions ||= new Set(["walk"]);
@@ -432,10 +448,11 @@ export default class CrucibleActor extends Actor {
 
     // Adjust action name and description
     const move = this.actions.move;
+    const crucibleMovement = {id: movement.id, origin: movement.origin, waypoints, cost: costFeet};
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
       description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
-    }, {movement});
+    }, {movement: crucibleMovement});
     await action.use(useOptions);
   }
 
