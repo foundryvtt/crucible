@@ -18,7 +18,7 @@
             </label>
         </div>
     </div>
-    {{formGroup fields.statuses name=(concat effect.fieldPath ".statuses") value=effect.statuses valueAttr="id" labelAttr="name"}}
+    {{formGroup fields.statuses name=(concat effect.fieldPath ".statuses") value=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
     {{formGroup fields.duration.fields.value name=(concat effect.fieldPath ".duration.value") value=effect.duration.value}}
     {{formGroup fields.duration.fields.units name=(concat effect.fieldPath ".duration.units")
                 value=effect.duration.units options=effectDurations}}
