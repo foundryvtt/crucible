@@ -213,7 +213,7 @@ HOOKS.concussiveblows0 = {
     const damageHealth = outcome.resources.health < 0;
     if ( !damageHealth ) return;
     const dt = action.usage.weapon?.system.damageType;
-    if ( dt === "bludgeoning" ) outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
+    if ( dt === "bludgeoning" ) outcome.effects.push(SYSTEM.EFFECTS.staggered(this));
   }
 };
 
@@ -353,7 +353,7 @@ HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
     if ( action.rune?.id !== "soul" ) return;
     const restoreMorale = outcome.resources.morale > 0;
-    if ( restoreMorale ) outcome.effects.push(SYSTEM.EFFECTS.inspired(this, outcome.target));
+    if ( restoreMorale ) outcome.effects.push(SYSTEM.EFFECTS.inspired(this));
   }
 };
 

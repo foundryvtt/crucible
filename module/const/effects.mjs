@@ -252,7 +252,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
  * @param {Actor} actor
  * @param {Actor} target
  */
-export function inspired(actor, target) {
+export function inspired(actor) {
   return {
     _id: getEffectId("Inspired"),
     name: "Inspired",
@@ -352,7 +352,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
  * @param {Actor} actor
  * @param {Actor} target
  */
-export function staggered(actor, target) {
+export function staggered(actor) {
   return {
     _id: getEffectId("Staggered"),
     name: "Staggered",
