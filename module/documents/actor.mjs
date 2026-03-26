@@ -2113,9 +2113,7 @@ export default class CrucibleActor extends Actor {
     slot = (equipped && !stowDropped) ? result.slot : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
-    else if ( action.usage.actorUpdates.items.length ) {
-      await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
-    }
+    else await this.update(action.usage.actorUpdates);
   }
 
   /* -------------------------------------------- */
@@ -2173,7 +2171,18 @@ export default class CrucibleActor extends Actor {
     // Equip the weapon as a follow-up actor update
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
-    const update = {_id: item.id, system: {dropped: false, equipped: true}};
+    const update = {_id: item.id};
+    if ( item.system.quantity > 1 ) {
+      update.system = {quantity: item.system.quantity - 1};
+      const splitOff = item.toObject();
+      splitOff.system.quantity = 1;
+      splitOff.system.dropped = false;
+      splitOff.system.equipped = true;
+      delete splitOff._id;
+      action.usage.actorUpdates.items.push(splitOff);
+    } else {
+      update.system = {dropped: false, equipped: true};
+    }
     if ( slot !== undefined ) update.slot = slot;
     else update.system.equipped = false;
     action.usage.actorUpdates.items.push(update);
