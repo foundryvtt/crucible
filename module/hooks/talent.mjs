@@ -409,7 +409,7 @@ HOOKS.lightbringer0000 = {
     if ( action.rune?.id !== "illumination" ) return;
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
-    if ( damageHealth || damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.irradiated(this, outcome.target));
+    if ( damageHealth || damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.irradiated(this));
   }
 };
 
@@ -419,7 +419,7 @@ HOOKS.mender0000000000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
     if ( action.rune?.id !== "life" ) return;
     const restoreHealth = outcome.resources.health > 0;
-    if ( restoreHealth ) outcome.effects.push(SYSTEM.EFFECTS.mending(this, outcome.target));
+    if ( restoreHealth ) outcome.effects.push(SYSTEM.EFFECTS.mending(this));
   }
 };
 
@@ -450,7 +450,7 @@ HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action, outcome, _self) {
     if ( action.rune?.id !== "death" ) return;
     const damageHealth = outcome.resources.health < 0;
-    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.decay(this, outcome.target));
+    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.decay(this));
   }
 };
 
@@ -522,7 +522,7 @@ HOOKS.poisoner00000000 = {
     if ( !hasEffect ) return;
     if ( !action.tags.has("melee") ) return;
     const dt = action.usage.weapon?.system.damageType;
-    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
+    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this));
   }
 };
 
@@ -778,7 +778,7 @@ HOOKS.thoughtbinder000 = {
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
     if ( !(damageHealth || damageMorale) ) return;
-    const dominated = SYSTEM.EFFECTS.dominated(this, outcome.target);
+    const dominated = SYSTEM.EFFECTS.dominated(this);
     outcome.effects.push(dominated);
   }
 };
@@ -810,7 +810,7 @@ HOOKS.voidcaller000000 = {
     if ( action.rune?.id !== "oblivion" ) return;
     const damageHealth = outcome.resources.health < 0;
     const damageMorale = outcome.resources.morale < 0;
-    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.entropy(this, outcome.target));
+    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.entropy(this));
   }
 };
 
