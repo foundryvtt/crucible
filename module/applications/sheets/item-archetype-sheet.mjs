@@ -253,8 +253,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     // Force replace ability progression
     if ( fields.abilities.validate(submitData.system.abilities) === undefined ) {
       submitData.system.abilities = _replace(submitData.system.abilities);
+    } else {
+      delete submitData.system.abilities;
     }
-    delete submitData.system.abilities;
     return submitData;
   }
 }
