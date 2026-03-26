@@ -152,10 +152,8 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 /**
  * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
  * @param {Actor} actor
- * @param {object} options
- * @param {string} options.ability
- * @param {number} options.amount
- * @param {number} options.turns
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
@@ -179,6 +177,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
  * Generate a standardized entropy effect, applying the frightened status and dealing presence in void damage to Health.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function entropy(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
@@ -203,6 +202,7 @@ export function entropy(actor, {ability="presence", amount, turns=1}={}) {
  * Generate a standardized irradiated effect, dealing presence in radiant damage to both Health and Morale.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
@@ -255,6 +255,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
  * Generate a standardized inspired effect, restoring presence in morale to the target.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function inspired(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
@@ -356,6 +357,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
  * Generate a standardized staggered effect, applying the staggered status condition to the target.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function staggered(actor, {turns=1}={}) {
   return {
