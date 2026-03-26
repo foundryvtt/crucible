@@ -2249,7 +2249,7 @@ export default class CrucibleActor extends Actor {
       case "tool":
         const {toolbelt, toolbeltSlots} = this.equipment;
         const currentQuantity = toolbelt.reduce((acc, item) => acc + item.system.quantity, 0);
-        if ( equipped && (currentQuantity + item.system.quantity > toolbeltSlots) ) {
+        if ( equipped && (currentQuantity >= toolbeltSlots) ) {
           throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
