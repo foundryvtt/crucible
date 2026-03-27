@@ -208,4 +208,15 @@ export default class CrucibleItem extends foundry.documents.Item {
       }
     }
   }
+
+  toCleanData() {
+    const data = this.toObject();
+    delete data._id;
+    delete data._stats;
+    delete data.system.quantity;
+    if (!data.system.dropped) {
+      data.system.dropped = false;
+    }
+    return data;
+  }
 }

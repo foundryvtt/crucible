@@ -2174,12 +2174,18 @@ export default class CrucibleActor extends Actor {
     const update = {_id: item.id};
     if ( item.system.quantity > 1 ) {
       update.system = {quantity: item.system.quantity - 1};
-      const splitOff = item.toObject();
-      splitOff.system.quantity = 1;
-      splitOff.system.dropped = false;
-      splitOff.system.equipped = true;
-      delete splitOff._id;
-      action.usage.actorUpdates.items.push(splitOff);
+      const splitOff = item.toCleanData();
+      Object.assign(splitOff.system, {dropped: false, equipped: true});
+      const mergableItem = this.items.find(candidate =>
+        JSON.stringify(candidate.toCleanData()) === JSON.stringify(splitOff)
+      );
+      console.log(mergableItem);
+      if (mergableItem) {
+        const mergeUpdate = {_id: mergableItem._id, system: {quantity: mergableItem.system.quantity + 1}};
+        action.usage.actorUpdates.items.push(mergeUpdate);
+      } else {
+        action.usage.actorUpdates.items.push(splitOff);
+      }
     } else {
       update.system = {dropped: false, equipped: true};
     }
