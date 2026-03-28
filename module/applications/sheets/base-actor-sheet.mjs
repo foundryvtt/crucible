@@ -449,8 +449,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Sort inventory
     for ( const heading of Object.values(sections.inventory) ) {
-      const totalQuantity = heading.items.reduce((acc, item) => acc + item.quantity, 0);
-      if ( heading.counter ) heading.label += ` (${totalQuantity}/${heading.counter})`;
+      if ( heading.counter ) {
+        const totalQuantity = heading.items.reduce((acc, item) => acc + item.quantity, 0);
+        heading.label += ` (${totalQuantity}/${heading.counter})`;
+      }
       heading.items.sort((a, b) => (a.sort - b.sort) || a.name.localeCompare(b.name));
     }
 
