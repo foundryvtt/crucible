@@ -56,7 +56,7 @@ effects:
       exportSource: null
       coreVersion: '14.355'
       systemId: crucible
-      systemVersion: 0.9.-alpha
+      systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       createdTime: 1772307157341
       modifiedTime: 1772307157341
@@ -75,7 +75,7 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   createdTime: 1772307157340
   modifiedTime: 1773514792189
   lastModifiedBy: WRGzDgYAt3ZuX6TU

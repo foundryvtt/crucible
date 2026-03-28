@@ -29,7 +29,7 @@ system:
     vulnerability: ''
 _stats:
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   coreVersion: '14.356'
   createdTime: 1772307157416
   modifiedTime: 1773514792205
