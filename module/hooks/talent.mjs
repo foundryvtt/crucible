@@ -48,7 +48,7 @@ HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;
     const offhand = this.equipment.weapons.offhand;
-    if ( offhand.category !== "shieldHeavy" ) return;
+    if ( offhand?.category !== "shieldHeavy" ) return;
     const halfArmor = Math.ceil(defenses.armor.base / 2);
     defenses.armor.base -= halfArmor;
     defenses.block.bonus += halfArmor;
@@ -222,7 +222,7 @@ HOOKS.concussiveblows0 = {
 HOOKS.conjurer00000000 = {
   prepareAction(_item, action) {
     if ( action.gesture?.id !== "create" ) return;
-    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId(`conjurercreate${i}`));
+    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId("conjurercreate", String(i)));
     const effectId = effectIds.find(id => !this.effects.has(id)) || effectIds[0];
     action.usage.summons[0].effectId = effectId;
   }

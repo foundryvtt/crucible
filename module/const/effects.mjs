@@ -10,10 +10,11 @@
 /**
  * Get a standardized 16 character ID that can be used for the ActiveEffect.
  * @param {string} label    The active effect label
+ * @param {string} [suffix] A suffix with which to end the returned ID
  * @returns {string}        The standardized ID
  */
-export function getEffectId(label) {
-  return label.slugify({replacement: "", lowercase: false, strict: true}).slice(0, 16).padEnd(16, "0");
+export function getEffectId(label, suffix="") {
+  return `${crucible.api.methods.generateId(label, 16 - suffix.length)}${suffix}`;
 }
 
 /**

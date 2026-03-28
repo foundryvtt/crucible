@@ -505,7 +505,7 @@ HOOKS.hamstring = {
   canUse() {
     const mh = this.actor.equipment.weapons.mainhand;
     const oh = this.actor.equipment.weapons.offhand;
-    if ( ![mh.system.damageType, oh.system.damageType].includes("slashing") ) {
+    if ( ![mh.system.damageType, oh?.system.damageType].includes("slashing") ) {
       throw new Error(_loc("ACTION.WARNINGS.RequiresSlashingMelee", {action: this.name}));
     }
   },
@@ -937,6 +937,7 @@ HOOKS.vampiricBite = {
     const biteData = foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE);
     biteData.name = _loc(biteData.name);
     const bite = new cls(biteData, {parent: this.actor});
+    bite.system.prepareEquippedData();
     this.usage.weapon = bite;
     this.usage.context.tags.vampiricBite = this.name;
     foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
