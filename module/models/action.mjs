@@ -1218,7 +1218,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Prepare effect data
       const effect = {
-        _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, String(i)),
+        _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
         name: name || this.name,
         description: this.description,
         img: this.img,

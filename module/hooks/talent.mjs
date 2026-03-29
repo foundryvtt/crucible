@@ -222,7 +222,7 @@ HOOKS.concussiveblows0 = {
 HOOKS.conjurer00000000 = {
   prepareAction(_item, action) {
     if ( action.gesture?.id !== "create" ) return;
-    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId("conjurercreate", String(i)));
+    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId("conjurercreate", {suffix: String(i)}));
     const effectId = effectIds.find(id => !this.effects.has(id)) || effectIds[0];
     action.usage.summons[0].effectId = effectId;
   }
