@@ -1390,7 +1390,7 @@ export default class CrucibleActor extends Actor {
       for ( const {label, amount} of entries ) {
         if ( !label ) continue;
         let color;
-        if ( typeof cfg.color === "object" ) {
+        if ( foundry.utils.isPlainObject(cfg.color) ) {
           color = amount > 0 ? cfg.color.heal : cfg.color.high;
           pipColors.add(cfg.color.high.css);
         } else {
