@@ -741,7 +741,7 @@ async function packageCompendium(documentName, packName, folder) {
  */
 function generateId(title, length) {
   const id = title.split(" ").map((w, i) => {
-    const p = w.slugify({replacement: "", strict: true});
+    const p = w.slugify({replacement: "", lowercase: false, strict: true});
     return i ? p.titleCase() : p;
   }).join("");
   return Number.isNumeric(length) ? id.slice(0, length).padEnd(length, "0") : id;
