@@ -837,7 +837,7 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
         const batchCreate = [];
         const batchUpdate = [];
         const batchDelete = [];
-        const actorUpdate = {_id: actor.id, "_stats.systemVersion": game.system.version};
+        const actorUpdate = {"_stats.systemVersion": game.system.version};
         if ( talents ) {
           const {toCreate, toUpdate, toDelete, actorUpdates} = await actor.syncTalents({performUpdates: false});
           batchCreate.push(...toCreate);
@@ -851,34 +851,12 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
           batchUpdate.push(...toUpdate);
           batchDelete.push(...toDelete);
         }
-        const batchOperation = [{
-          action: "update",
-          documentName: "Actor",
-          updates: [actorUpdate]
-        }];
-        if ( batchDelete.length ) batchOperation.push({
-          action: "delete",
-          documentName: "Item",
-          parent: actor,
-          ids: batchDelete
+        const batchOperations = actor.defineBatchOperations(actorUpdate, {
+          createItems: {changes: batchCreate, options: {keepId: true}},
+          updateItems: {changes: batchUpdate, options: {diff: false, recursive: false, noHook: true}},
+          deleteItems: batchDelete
         });
-        if ( batchUpdate.length ) batchOperation.push({
-          action: "update",
-          documentName: "Item",
-          parent: actor,
-          updates: batchUpdate,
-          diff: false,
-          recursive: false,
-          noHook: true
-        });
-        if ( batchCreate.length ) batchOperation.push({
-          action: "create",
-          documentName: "Item",
-          parent: actor,
-          data: batchCreate,
-          keepId: true
-        });
-        await foundry.documents.modifyBatch(batchOperation);
+        await foundry.documents.modifyBatch(batchOperations);
       } catch(err) {
         console.warn(`Crucible | Item synchronization failed for Actor "${actor.name}": ${err.message}`);
       } finally {
