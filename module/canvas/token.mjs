@@ -245,7 +245,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
       options.planned = true;
     }
-    options.split = true; // Always split movement subpaths for discrete drag operations
     return options;
   }
 
