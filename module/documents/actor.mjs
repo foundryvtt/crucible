@@ -1640,11 +1640,13 @@ export default class CrucibleActor extends Actor {
       const talents = [];
       let needsUpdate = false;
       for ( const {item, level} of oldTalents ) {
-        const talentId = item.slice(-16);
-        const migratedId = migrations[talentId]?.slice(-16);
-        if ( migratedId ) {
+        const talentId = foundry.utils.parseUuid(item).id;
+        const migratedUuid = migrations[talentId];
+
+        // If undefined, no migration. If null, talent was deleted, and we should remove. Otherwise use new uuid
+        if ( migratedUuid !== undefined ) {
           needsUpdate ||= true;
-          talents.push({item: item.replace(talentId, migratedId), level});
+          if ( migratedUuid ) talents.push({item: migratedUuid, level});
           continue;
         }
         talents.push({item, level});
@@ -1654,11 +1656,36 @@ export default class CrucibleActor extends Actor {
 
     // Create, update, and delete talents
     if ( performUpdates ) {
-      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-        {diff: false, recursive: false, noHook: true});
-      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
-      if ( !foundry.utils.isEmpty(actorUpdates) ) await this.update(actorUpdates);
+      const batchOperation = [];
+      if ( toDelete.length ) batchOperation.push({
+        action: "delete",
+        documentName: "Item",
+        parent: this,
+        ids: toDelete
+      });
+      if ( toUpdate.length ) batchOperation.push({
+        action: "update",
+        documentName: "Item",
+        parent: this,
+        updates: toUpdate,
+        diff: false,
+        recursive: false,
+        noHook: true
+      });
+      if ( toCreate.length ) batchOperation.push({
+        action: "create",
+        documentName: "Item",
+        parent: this,
+        data: toCreate,
+        keepId: true
+      });
+      if ( !foundry.utils.isEmpty(actorUpdates) ) batchOperation.push({
+        action: "update",
+        documentName: "Actor",
+        parent: this.parent,
+        updates: [{_id: this.id, ...actorUpdates}]
+      });
+      if ( batchOperation.length ) await foundry.documents.modifyBatch(batchOperation);
     }
     return {toCreate, toUpdate, toDelete, actorUpdates};
   }
