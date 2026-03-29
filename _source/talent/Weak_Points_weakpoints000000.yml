@@ -5,10 +5,9 @@ img: icons/skills/melee/strike-sword-stabbed-brown.webp
 system:
   description: >-
     <p>You identify moments of opportunity to strike at an enemy's weak points.
-    When attacking a target that is <strong>Unaware</strong>,
-    <strong>Flanked</strong>, or <strong>Exposed</strong> using a weapon which
-    scales with <strong>Dexterity</strong>, you gain +2 damage to any
-    Strike.</p>
+    When attacking a target that is @Condition[unaware], @Condition[flanked], or
+    @Condition[exposed] using a weapon which scales with
+    <strong>Dexterity</strong>, you gain +2 damage to any Strike.</p>
   actions: []
   nodes:
     - dex0b
@@ -25,9 +24,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
+  coreVersion: '14.358'
   createdTime: 1772307160154
-  modifiedTime: 1773776889263
+  modifiedTime: 1774794070385
   lastModifiedBy: 4uFKaoDjEQwkkXjq
   compendiumSource: null
   duplicateSource: null
