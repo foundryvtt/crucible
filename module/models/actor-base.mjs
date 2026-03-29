@@ -676,7 +676,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
     weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
-    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0) || (weapons.melee && weapons.ranged);
+    weapons.hasChoice = (weapons.natural.length > 0) || !weapons.twoHanded;
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
