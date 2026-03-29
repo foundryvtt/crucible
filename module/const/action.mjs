@@ -601,6 +601,8 @@ export const TAGS = {
     prepare() {
       if ( !this.usage.weapon ) {
         const valid = this.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
+
+        // Prefer mainhand weapon -> offhand weapon -> natural weapons
         for ( const weapon of valid ) {
           if ( !weapon.isValid ) continue;
           this.usage.weapon = weapon.item;

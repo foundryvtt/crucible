@@ -1386,7 +1386,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( this.tags.has("reload") ) return weapon.system.needsReload;
       let isValid = this.tags.has("ranged") && weapon.config.category.ranged && !weapon.system.needsReload;
       isValid ||= this.tags.has("melee") && !weapon.config.category.ranged;
-      if ( maxCost !== null ) isValid &&= weapon.system.actionCost <= maxCost;
+      if ( maxCost !== null ) isValid &&= (weapon.system.actionCost <= maxCost);
       return isValid;
     };
     const isNatural = this.tags.has("natural");
@@ -1410,7 +1410,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( !this.tags.has("ranged") ) {
       for ( const n of natural ) {
-        choices.push({item: n, id: n.id, label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`, isValid: true});
+        const isValid = (maxCost !== null) ? (n.system.actionCost <= maxCost) : true;
+        if ( strict && !isValid ) continue;
+        choices.push({
+          item: n,
+          id: n.id,
+          label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`,
+          isValid
+        });
       }
     }
     return choices;
