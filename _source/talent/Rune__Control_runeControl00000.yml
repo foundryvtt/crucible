@@ -5,7 +5,7 @@ system:
   description: >-
     <p>The orderly force of discipline and permanence. The Control rune governs
     thought, reason, and persistence.</p><p>The Control rune scales using
-    <strong>Intellect</strong>, targets <strong>Willpower</strong>, and deals
+    <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and deals
     <strong>Psychic</strong> damage to <strong>Morale</strong>. It is opposed by
     the chaotic rune of <strong>Kinesis</strong>.</p>
   actions:
