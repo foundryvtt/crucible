@@ -488,21 +488,21 @@ pages:
         describes the breadth of the wall and a <strong>Distance</strong> which
         describes the maximum range at which the center of the wall may be
         placed.</p><h2 class="divider">Action Tags</h2><table><thead><tr><th
-        style="width:30%">Tag</th><th>Rules
-        Effect</th></tr></thead><tbody><tr><td><p>Dual
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Dual
         Wield</p></td><td><p>Requires one-handed or unarmed weapons equipped in
         both hands.</p></td></tr><tr><td><p>One Handed</p></td><td><p>Requires
         use of a one-handed
         weapon.</p></td></tr><tr><td><p>Finesse</p></td><td><p>Requires use of a
-        melee weapon that scales using
-        Dexterity.</p></td></tr><tr><td><p>Heavy</p></td><td><p>Requires use of
-        a melee weapon that scales using
+        weapon that scales using
+        Dexterity.</p></td></tr><tr><td><p>Brute</p></td><td><p>Requires use of
+        a weapon that scales using
         Strength.</p></td></tr><tr><td><p>Melee</p></td><td><p>Requires use of a
-        melee weapon.</p></td></tr><tr><td><p>Ranged</p></td><td><p>Requires use
-        of a ranged
-        weapon.</p></td></tr><tr><td><p>Shield</p></td><td><p>Requires a shield
-        equipped.</p></td></tr><tr><td><p>Unarmed</p></td><td><p>Requires both
-        hands to be
+        melee weapon or being
+        unarmed.</p></td></tr><tr><td><p>Ranged</p></td><td><p>Requires use of a
+        ranged weapon.</p></td></tr><tr><td><p>Shield</p></td><td><p>Requires a
+        shield equipped.</p></td></tr><tr><td><p>Unarmed</p></td><td><p>Requires
+        both hands to be
         empty.</p></td></tr><tr><td><p>Unarmored</p></td><td><p>Requires no
         armor to be
         equipped.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves
@@ -510,19 +510,19 @@ pages:
         turn.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
         performed on some other creature's
         turn.</p></td></tr><tr><td><p>Spell</p></td><td><p>Involves casting a
-        spell.</p></td></tr><tr><td><p>Mainhand</p></td><td><p>Involves
-        performing a weapon attack with the mainhand-equipped
-        weapon.</p></td></tr><tr><td><p>Twohand</p></td><td><p>Involves
+        spell.</p></td></tr><tr><td><p>Main-Hand</p></td><td><p>Involves
+        performing a weapon attack with the main-hand-equipped
+        weapon.</p></td></tr><tr><td><p>Two-Handed</p></td><td><p>Involves
         performing a weapon attack with a two-handed equipped
-        weapon.</p></td></tr><tr><td><p>Offhand</p></td><td><p>Involves
-        performing a weapon attack with the offhand-equipped
+        weapon.</p></td></tr><tr><td><p>Off-Hand</p></td><td><p>Involves
+        performing a weapon attack with the off-hand-equipped
         weapon.</p></td></tr><tr><td><p>Reload</p></td><td><p>Reloads a ranged
         weapon that requires
         reloading.</p></td></tr><tr><td><p>Deadly</p></td><td><p>Gains a +1
-        damage overflow
+        damage
         multiplier.</p></td></tr><tr><td><p>Difficult</p></td><td><p>Incurs +1
         Bane.</p></td></tr><tr><td><p>Empowered</p></td><td><p>Increases base
-        damage by +6.</p></td></tr><tr><td><p>Exposing</p></td><td><p>Adds +2
+        damage by +6.</p></td></tr><tr><td><p>Accurate</p></td><td><p>Adds +2
         Boons.</p></td></tr><tr><td><p>Harmless</p></td><td><p>Always deals zero
         damage.</p></td></tr><tr><td><p>Weakened</p></td><td><p>Reduces base
         damage by -6.</p></td></tr><tr><td><p>Fortitude</p></td><td><p>Targets
@@ -551,10 +551,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.6
-      coreVersion: '13.342'
+      coreVersion: '14.356'
       createdTime: 1684374854931
-      modifiedTime: 1684721315135
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1773778941668
+      lastModifiedBy: 4uFKaoDjEQwkkXjq
       compendiumSource: null
       duplicateSource: null
       exportSource: null
