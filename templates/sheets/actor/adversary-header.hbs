@@ -5,9 +5,11 @@
             <span><i class="threat-icon {{threat.icon}}"></i> Level</span>
             <div class="controls flexcol">
                 <button type="button" class="icon fa-solid fa-caret-up {{#unless canLevelUp}}inactive{{/unless}}"
-                        data-tooltip="Increase Level" data-action="levelIncrease"></button>
+                        data-tooltip aria-label="{{localize 'ACTOR.ADVERSARY.ACTIONS.IncreaseLevel'}}"
+                        data-action="levelIncrease"></button>
                 <button type="button" class="icon fa-solid fa-caret-down {{#unless canLevelDown}}inactive{{/unless}}"
-                        data-tooltip="Decrease Level" data-action="levelDecrease"></button>
+                        data-tooltip aria-label="{{localize 'ACTOR.ADVERSARY.ACTIONS.DecreaseLevel'}}"
+                        data-action="levelDecrease"></button>
             </div>
         </div>
         <input type="text" class="level" value="{{levelDisplay}}" disabled>

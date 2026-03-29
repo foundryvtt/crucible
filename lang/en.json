@@ -357,6 +357,7 @@
       "Action": "Action Tags",
       "Activation": "Activation Tags",
       "Context": "Context Tags",
+      "Target": "Target Tags",
       "TargetLimit": "Limit {limit}"
     },
     "TARGET_SCOPES": {
@@ -541,6 +542,18 @@
       "TalentTreeClose": "Close Talent Tree",
       "TalentTreeOpen": "Open Talent Tree",
       "ToggleTree": "Toggle Talent Tree"
+    },
+    "ADVERSARY": {
+      "ACTIONS": {
+        "DecreaseLevel": "Decrease Level",
+        "IncreaseLevel": "Increase Level"
+      },
+      "THREAT_RANKS": {
+        "Boss": "Boss",
+        "Elite": "Elite",
+        "Minion": "Minion",
+        "Normal": "Normal"
+      }
     },
     "CREATION": {
       "AbandonContent": "Discard creation progress and exit the creator?",
@@ -801,14 +814,6 @@
     "MilestoneAward": "Award Milestones",
     "MilestoneTooltip": "{progress} of {required} milestones until next level",
     "Progress": "Milestone Progress"
-  },
-  "ADVERSARY": {
-    "THREAT_RANKS": {
-      "Boss": "Boss",
-      "Elite": "Elite",
-      "Minion": "Minion",
-      "Normal": "Normal"
-    }
   },
   "ANCESTRY": {
     "FIELDS": {
@@ -1582,6 +1587,7 @@
       "InputDrop": "Drop Input Item",
       "InputRemove": "Remove Input Group",
       "Inputs": "Inputs",
+      "ItemRemove": "Remove Input Item",
       "OutputAdd": "Add Output Group",
       "OutputDrop": "Drop Output Item",
       "OutputRemove": "Remove Output Group",
@@ -1893,7 +1899,8 @@
       "PurchaseNode": "Spend talent point to purchase empty node \"{node}\"?",
       "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
       "PurchaseNodeTitle": "Purchase Talent Node?",
-      "PurchaseTitle": "Purchase Talent: {name}"
+      "PurchaseTitle": "Purchase Talent: {name}",
+      "Reset": "Reset"
     },
     "FIELDS": {
       "actions": {
