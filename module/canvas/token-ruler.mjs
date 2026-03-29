@@ -18,11 +18,6 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     state.priorCost ??= 0;
     state.priorDistance ??= 0;
     if ( state.priorSubpathId !== waypoint.subpathId ) {
-      let previous = waypoint.previous;
-      while ( previous ) {
-        if ( previous.subpathId !== waypoint.subpathId ) break;
-        previous = previous.previous;
-      }
       state.priorCost = waypoint.previous?.measurement.cost || 0;
       state.priorDistance = waypoint.previous?.measurement.distance || 0;
       state.priorSubpathId = waypoint.subpathId;
@@ -35,9 +30,11 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     const isFinalOfSubpath = waypoint.next?.subpathId !== waypoint.subpathId;
     const sameAction = waypoint.previous?.action === waypoint.action;
     const sameElevation = waypoint.previous?.elevation === waypoint.elevation;
-    if ( !isFinalOfSubpath && sameElevation && sameAction) return;
+    if ( !isFinalOfSubpath && sameElevation && sameAction ) return;
 
-    // Calculate cost of this subpath & set context appropriately
+    // Calculate cost of this subpath & set context appropriately - free movement will be included in
+    // getMovementActionCost if the actor has not yet used their free movement, otherwise it will be applied
+    // retroactively by comparing freeMovementId against the subpath ID
     const movement = actor.getMovementActionCost(waypoint.measurement.cost - state.priorCost);
     const freeMovementId = actor.system.status.freeMovementId;
     const deltaCost = movement.cost - ((freeMovementId && (freeMovementId === waypoint.subpathId)) ? 1 : 0);
@@ -50,7 +47,15 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
       delta: Number.isFinite(deltaCost) ? deltaCost : "Impossible",
       displayCost: isFinalOfSubpath
     };
-    context.displayElevation = context.elevation && !context.elevation.hidden && (!sameElevation || waypoint.elevation);
+
+    // Display elevation when it changes or when different from the level.elevation.bottom
+    if ( context.elevation ) {
+      // TODO: Remove/adjust this modification after core implements
+      if ( game.release.build < 359 ) {
+        if ( Number.isFinite(canvas.level.elevation.bottom) ) context.elevation.total -= canvas.level.elevation.bottom;
+      }
+      context.displayElevation = !context.elevation.hidden && (!sameElevation || context.elevation.total);
+    }
     return context;
   }
 
