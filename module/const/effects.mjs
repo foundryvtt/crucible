@@ -152,10 +152,8 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 /**
  * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
  * @param {Actor} actor
- * @param {object} options
- * @param {string} options.ability
- * @param {number} options.amount
- * @param {number} options.turns
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
@@ -178,18 +176,21 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
 /**
  * Generate a standardized entropy effect, applying the frightened status and dealing presence in void damage to Health.
  * @param {Actor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function entropy(actor) {
+export function entropy(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Entropy"),
     name: "Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",
-    duration: {value: 1, units: "rounds", expiry: "turnStart"},
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["frightened"],
     system: {
       dot: [{
-        amount: Math.floor(actor.system.abilities.presence.value / 2),
+        amount,
         damageType: "void",
         resource: "health"
       }]
@@ -200,21 +201,24 @@ export function entropy(actor) {
 /**
  * Generate a standardized irradiated effect, dealing presence in radiant damage to both Health and Morale.
  * @param {Actor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function irradiated(actor) {
+export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Irradiated"),
     name: "Irradiated",
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
-    duration: {value: 1, units: "rounds", expiry: "turnStart"},
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
-        amount: actor.system.abilities.presence.value,
+        amount,
         damageType: "radiant",
         resource: "health"
       }, {
-        amount: actor.system.abilities.presence.value,
+        amount,
         damageType: "radiant",
         resource: "morale"
       }]
@@ -250,18 +254,20 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
 /**
  * Generate a standardized inspired effect, restoring presence in morale to the target.
  * @param {Actor} actor
- * @param {Actor} target
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function inspired(actor, target) {
+export function inspired(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Inspired"),
     name: "Inspired",
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
-    duration: {value: 1, units: "rounds", expiry: "turnStart"},
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
-        amount: actor.system.abilities.presence.value,
+        amount,
         resource: "morale",
         restoration: true
       }]
@@ -276,7 +282,7 @@ export function inspired(actor, target) {
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function dominated(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
+export function dominated(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Dominated"),
@@ -288,7 +294,7 @@ export function dominated(actor, {ability="wisdom", amount, turns=3, damageType=
     system: {
       dot: [{
         amount,
-        damageType,
+        damageType: "psychic",
         resource: "morale"
       }]
     }
@@ -350,14 +356,15 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
 /**
  * Generate a standardized staggered effect, applying the staggered status condition to the target.
  * @param {Actor} actor
- * @param {Actor} target
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function staggered(actor, target) {
+export function staggered(actor, {turns=1}={}) {
   return {
     _id: getEffectId("Staggered"),
     name: "Staggered",
     img: "icons/skills/melee/strike-hammer-destructive-orange.webp",
-    duration: {value: 1, units: "rounds", expiry: "turnStart"},
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["staggered"]
   };
