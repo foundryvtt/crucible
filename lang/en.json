@@ -1276,10 +1276,10 @@
       "ChatTitle": "{skill} Check (DC {dc})",
       "DialogTitle": "{skill} Check: {name}",
       "NoUserForActor": "No active user found for: {name}",
-      "Status": {
-        "pending": "Pending",
-        "aborted": "Aborted",
-        "skipped": "Skipped"
+      "STATUSES": {
+        "Pending": "Pending",
+        "Aborted": "Aborted",
+        "Skipped": "Skipped"
       },
       "Resend": "Resend Request",
       "RollOnBehalf": "Roll on Behalf",

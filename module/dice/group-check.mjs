@@ -143,8 +143,8 @@ export default class GroupCheck extends StandardCheck {
   static async #prepareAndRoll(actor, {skillId, dc=15, sharedBoons=0, sharedBanes=0, title, showDSN=true}={}) {
     const skill = SYSTEM.SKILLS[skillId];
     const checkData = {dc};
-    if ( sharedBoons ) checkData.boons = sharedBoons;
-    if ( sharedBanes ) checkData.banes = sharedBanes;
+    if ( sharedBoons ) checkData.boons = {special: {label: "Special", number: sharedBoons}};
+    if ( sharedBanes ) checkData.banes = {special: {label: "Special", number: sharedBanes}};
     const pool = skill
       ? actor.getSkillCheck(skill.id, checkData)
       : new this({...checkData, type: skillId, actorId: actor.id});
@@ -186,7 +186,7 @@ export default class GroupCheck extends StandardCheck {
         status: GroupCheck.#STATUSES.PENDING,
         rollData: null
       };
-      if (!user) unrequested.push(actor.id);
+      if ( !user ) unrequested.push(actor.id);
     }
 
     /** @type {GroupCheckFlags} */
@@ -271,7 +271,7 @@ export default class GroupCheck extends StandardCheck {
         title
       }, {timeout: this.QUERY_TIMEOUT});
 
-      if (rollData && !rollData.aborted) {
+      if ( rollData && !rollData.aborted ) {
         await this.#updateGroupCheckMessage(message, flags => {
           if ( flags.actors?.[entry.actorId]?.status !== this.#STATUSES.PENDING ) return false;
           rollData.data.dc = flags.dc;
@@ -304,11 +304,11 @@ export default class GroupCheck extends StandardCheck {
    * @param {boolean} [finalized=false]     Whether the group check has been finalized
    * @returns {GroupCheckActorTemplateData} The enriched entry for the Handlebars template
    */
-  #prepareActorTemplateData(entry, finalized=false) {
+  static #prepareActorTemplateData(entry, finalized=false) {
     let showRollResult = false;
     let statusDisplay = null;
     let rollContext = null;
-    const statusTooltip = `DICE.GROUP_CHECK.Status.${entry.status}`;
+    const statusTooltip = `DICE.GROUP_CHECK.STATUSES.${entry.status.titleCase()}`;
 
     switch ( entry.status ) {
       case GroupCheck.#STATUSES.COMPLETE:
@@ -337,7 +337,7 @@ export default class GroupCheck extends StandardCheck {
         break;
     }
 
-    if ( finalized ) statusDisplay = {classes: "tag", text: "-"};
+    if ( finalized && !showRollResult ) statusDisplay = {classes: "tag", text: "-"};
 
     return {
       ...entry,
@@ -357,7 +357,7 @@ export default class GroupCheck extends StandardCheck {
   async #renderGroupCheckCard(flags) {
     const skill = SYSTEM.SKILLS[this.data.type]?.label ?? this.data.type;
     const title = _loc("DICE.GROUP_CHECK.ChatTitle", {skill, dc: this.data.dc});
-    const actors = Object.values(flags.actors).map(entry => this.#prepareActorTemplateData(entry, flags.finalized));
+    const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, flags.finalized));
     const templateData = {title, actors};
     return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, templateData);
   }
@@ -451,9 +451,7 @@ export default class GroupCheck extends StandardCheck {
     for ( const row of html.querySelectorAll(".group-check-row.line-item") ) {
       const actorId = row.dataset.actorId;
       const entry = groupCheckFlags.actors?.[actorId];
-      if (
-        !entry || [this.#STATUSES.COMPLETE, this.#STATUSES.ABORTED, this.#STATUSES.SKIPPED].includes(entry.status)
-      ) continue;
+      if ( !entry || (entry.status !== GroupCheck.#STATUSES.PENDING) ) continue;
       const controls = document.createElement("div");
       controls.classList.add("controls");
       controls.append(
@@ -515,7 +513,7 @@ export default class GroupCheck extends StandardCheck {
   static async #skipGroupCheckActor(message, actorId) {
     const entry = message.flags.crucible?.[this.FLAG_KEY]?.actors?.[actorId];
     if ( !entry ) return;
-    await this.#markActorStatus(message, actorId, this.#STATUSES.SKIPPED, {}, {expectedStatus: entry.status});
+    await this.#markActorStatus(message, actorId, this.#STATUSES.SKIPPED, {}, {expectedStatus: GroupCheck.#STATUSES.PENDING});
   }
 
   /**
@@ -556,7 +554,7 @@ export default class GroupCheck extends StandardCheck {
     );
     if ( !updated ) return;
 
-    this.#dispatchGroupCheckQuery({
+    await this.#dispatchGroupCheckQuery({
       message,
       checkId: flags.checkId,
       entry: {...entry, userId: user.id},
