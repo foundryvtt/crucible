@@ -600,9 +600,15 @@ export const TAGS = {
     },
     prepare() {
       if ( !this.usage.weapon ) {
-        const valid = this.getValidWeaponChoices();
-        valid.sort((a, b) => a.item.system.actionCost - b.item.system.actionCost);
-        this.usage.weapon = valid[0]?.item;
+        const valid = this.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
+
+        // Prefer mainhand weapon -> offhand weapon -> natural weapons
+        for ( const weapon of valid ) {
+          if ( !weapon.isValid ) continue;
+          this.usage.weapon = weapon.item;
+          break;
+        }
+        this.usage.weapon ??= valid[0]?.item;
       }
       const {strikes, weapon} = this.usage;
 
@@ -634,6 +640,8 @@ export const TAGS = {
           if ( !weaponRange ) weaponRange = weapon.system.range;
           else weaponRange = Math.min(weaponRange, weapon.system.range);
         }
+        contextTags[weapon.id] ||= {id: weapon.id, name: weapon.name, count: 0};
+        contextTags[weapon.id].count += 1;
         if ( i === 0 ) Object.assign(this.usage.bonuses, weapon.system.actionBonuses);
       }
 
@@ -649,7 +657,8 @@ export const TAGS = {
       // Context tags
       Object.assign(this.usage.context, {label: "Strikes", icon: "fa-solid fa-swords", tags: {}});
       for ( const v of Object.values(contextTags) ) {
-        this.usage.context.tags[`weapon.${v.id}`] = v.count > 1 ? `${v.name} (x${v.count})` : v.name;
+        const count = v.count * n;
+        this.usage.context.tags[`weapon.${v.id}`] = count > 1 ? `${v.name} (x${count})` : v.name;
       }
 
       // Configure action range
@@ -1104,9 +1113,7 @@ export const TAGS = {
     },
     prepare() {
       const stride = this.actor.system.movement.stride;
-      const costFeet = this.movement
-        ? (this.movement.passed.cost + this.movement.pending.cost)
-        : stride;
+      const costFeet = this.movement ? this.movement.cost : stride;
       const {cost, useFreeMove} = this.actor.getMovementActionCost(costFeet);
       if ( useFreeMove ) this.usage.freeMove = true;
       if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
@@ -1144,8 +1151,7 @@ export const TAGS = {
 
       // Remove prone condition upon movement confirmation if movement is not exclusively crawling
       if ( this.actor.statuses.has("prone") ) {
-        const isNonCrawlMovement = this.movement?.pending?.waypoints?.some(w => w.action !== "crawl")
-          || this.movement?.passed?.waypoints?.some(w => w.action !== "crawl");
+        const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
 

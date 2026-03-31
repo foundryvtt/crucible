@@ -5,7 +5,7 @@ system:
   description: >-
     <p>The orderly force of discipline and permanence. The Control rune governs
     thought, reason, and persistence.</p><p>The Control rune scales using
-    <strong>Intellect</strong>, targets <strong>Willpower</strong>, and deals
+    <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and deals
     <strong>Psychic</strong> damage to <strong>Morale</strong>. It is opposed by
     the chaotic rune of <strong>Kinesis</strong>.</p>
   actions:
@@ -71,7 +71,7 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.-alpha
+  systemVersion: 0.9.0
   createdTime: 1772307160143
   modifiedTime: 1773514792606
   lastModifiedBy: WRGzDgYAt3ZuX6TU

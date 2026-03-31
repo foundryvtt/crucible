@@ -1121,7 +1121,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       baseAttribute: "baseStride",
       bonusAttribute: "strideBonus",
       minValue: 0,
-      editLabel: "ACTOR.ACTIONS.EditStride",
+      editLabel: "ACTOR.ACTIONS.EditMovement",
       baseLabel: "ACTOR.FIELDS.movement.stride.base"
     });
   }

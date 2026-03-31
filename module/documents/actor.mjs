@@ -7,6 +7,7 @@ const {DialogV2} = foundry.applications.api;
 
 /**
  * @import {TRAINING_TYPES} from "../const/talents.mjs";
+ * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
  */
 
 /**
@@ -408,17 +409,29 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Use the Movement action to travel a certain measured distance.
-   * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
-   * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
-   * @param {boolean} [options.useFreeMove]       Consume a free move, if available
-   * @param {TokenMovementOperation} [options.movement] A recorded movement ID in Token movement history
-   * @param {Set<string>} [options.actions]       The movement actions used as part of this move
-   * @returns {CrucibleAction}    The performed Action
+   * @param {number} costFeet                                 The cost of the movement in feet, inclusive of terrain
+   *                                                          modifiers.
+   * @param {object & CrucibleActionUsageOptions} [options]   Options which configure the movement action usage.
+   * @param {TokenMovementOperation} options.movement           The movement operation from which waypoints and
+   *                                                            actions are derived.
+   * @returns {Promise<void>}
    */
-  async useMove(costFeet, {useFreeMove=true, movement, actions, ...useOptions}={}) {
+  async useMove(costFeet, {movement, ...useOptions}={}) {
 
-    // Annotate movement actions.
-    actions ||= new Set(["walk"]);
+    // Build the Crucible-shaped movement object and derive actions from the TokenMovementOperation.
+    const waypoints = [];
+    const actions = new Set();
+    for ( const w of movement.passed.waypoints ) {
+      waypoints.push(w);
+      actions.add(w.action);
+    }
+    for ( const w of movement.pending.waypoints ) {
+      waypoints.push(w);
+      actions.add(w.action);
+    }
+
+    // Annotate movement actions
+    if ( !actions.size ) actions.add("walk"); // Should never happen?
     const actionLabels = [];
     const actionDescriptions = [];
     for ( const a of actions ) {
@@ -432,10 +445,11 @@ export default class CrucibleActor extends Actor {
 
     // Adjust action name and description
     const move = this.actions.move;
+    const crucibleMovement = {id: movement.id, origin: movement.origin, waypoints, cost: costFeet, operation: movement};
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
       description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
-    }, {movement});
+    }, {movement: crucibleMovement});
     await action.use(useOptions);
   }
 
@@ -1099,9 +1113,12 @@ export default class CrucibleActor extends Actor {
       else if ( shouldDelete ) toDelete.push(effectData._id);
       else if ( !reverse ) toCreate.push(effectData);
     }
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
-    await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
+    const batchOperations = this.defineBatchOperations({}, {
+      createEffects: {changes: toCreate, options: {keepId: true}},
+      updateEffects: toUpdate,
+      deleteEffects: toDelete
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */
@@ -1373,7 +1390,7 @@ export default class CrucibleActor extends Actor {
       for ( const {label, amount} of entries ) {
         if ( !label ) continue;
         let color;
-        if ( typeof cfg.color === "object" ) {
+        if ( foundry.utils.isPlainObject(cfg.color) ) {
           color = amount > 0 ? cfg.color.heal : cfg.color.high;
           pipColors.add(cfg.color.high.css);
         } else {
@@ -1507,9 +1524,12 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async #applyActiveEffectChanges({toCreate, toUpdate, toDelete}) {
-    if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
-    if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
+    const batchOperations = this.defineBatchOperations({}, {
+      createEffects: {changes: toCreate, options: {keepId: true}},
+      updateEffects: toUpdate,
+      deleteEffects: toDelete
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */
@@ -1586,12 +1606,13 @@ export default class CrucibleActor extends Actor {
    * Re-sync all Talent data on this actor with updated source data.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
-   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[]}>}
+   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[], actorUpdates: object}>}
    */
   async syncTalents({performUpdates=true}={}) {
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
+    const actorUpdates = {};
     const packs = [];
     const migrations = SYSTEM.TALENT.TALENT_ID_MIGRATIONS;
     for ( const packId of crucible.CONFIG.packs.talent ) {
@@ -1631,14 +1652,38 @@ export default class CrucibleActor extends Actor {
       }
     }
 
+    // Ensure all details "items" are using migrated versions of uuids
+    const detailItemTypes = ["ancestry", "archetype", "background", "taxonomy"];
+    for ( const detailType of detailItemTypes ) {
+      const oldTalents = this.system.details[detailType]?.talents;
+      if ( !oldTalents ) continue;
+      const talents = [];
+      let needsUpdate = false;
+      for ( const {item, level} of oldTalents ) {
+        const talentId = foundry.utils.parseUuid(item).id;
+        const migratedUuid = migrations[talentId];
+
+        // If undefined, no migration. If null, talent was deleted, and we should remove. Otherwise use new uuid
+        if ( migratedUuid !== undefined ) {
+          needsUpdate ||= true;
+          if ( migratedUuid ) talents.push({item: migratedUuid, level});
+          continue;
+        }
+        talents.push({item, level});
+      }
+      if ( needsUpdate ) foundry.utils.setProperty(actorUpdates, `system.details.${detailType}.talents`, talents);
+    }
+
     // Create, update, and delete talents
     if ( performUpdates ) {
-      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-        {diff: false, recursive: false, noHook: true});
-      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+      const batchOperations = this.defineBatchOperations(actorUpdates, {
+        createItems: {changes: toCreate, options: {keepId: true}},
+        updateItems: {changes: toUpdate, options: {diff: false, recursive: false, noHook: true}},
+        deleteItems: toDelete
+      });
+      if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
     }
-    return {toCreate, toUpdate, toDelete};
+    return {toCreate, toUpdate, toDelete, actorUpdates};
   }
 
   /* -------------------------------------------- */
@@ -1683,10 +1728,12 @@ export default class CrucibleActor extends Actor {
 
     // Create, update, and delete spells
     if ( performUpdates ) {
-      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-        {diff: false, recursive: false, noHook: true});
-      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+      const batchOperations = this.defineBatchOperations({}, {
+        createItems: {changes: toCreate, options: {keepId: true}},
+        updateItems: {changes: toUpdate, options: {diff: false, recursive: false, noHook: true}},
+        deleteItems: toDelete
+      });
+      if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
     }
     return {toCreate, toUpdate, toDelete};
   }
@@ -2009,6 +2056,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // FIXME workaround for unlinked token delta problem, maybe fixed in v14?
+    // TODO: Convert to using modifyBatch once figured out
     if ( this.isToken && ("items" in updateData) ) {
       for ( const item of updateData.items ) {
         if ( this.items.has(item._id) ) deleteItemIds.add(item._id);
@@ -2575,6 +2623,56 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * @typedef {"createItems"|"updateItems"|"deleteItems"|"createEffects"|"updateEffects"
+   * |"deleteEffects"} BatchOperationKey
+   */
+
+  /**
+   * @typedef {Record<BatchOperationKey, Array|{changes: Array, options: object}} BatchOperationEmbeddedChanges
+   */
+
+  /**
+   * Create a batch operation list to be used with modifyBatch
+   * @param {object} actorUpdates                           Direct actor updates to include in the batch operation
+   * @param {BatchOperationEmbeddedChanges} embeddedChanges Embedded document changes to include in the batch operation
+   * @returns {DatabaseWriteOperation[]}
+   */
+  defineBatchOperations(actorUpdates, embeddedChanges) {
+    const allOperations = [
+      {action: "create", key: "createItems", documentName: "Item", fieldName: "data"},
+      {action: "update", key: "updateItems", documentName: "Item", fieldName: "updates"},
+      {action: "delete", key: "deleteItems", documentName: "Item", fieldName: "ids"},
+      {action: "create", key: "createEffects", documentName: "ActiveEffect", fieldName: "data"},
+      {action: "update", key: "updateEffects", documentName: "ActiveEffect", fieldName: "updates"},
+      {action: "delete", key: "deleteEffects", documentName: "ActiveEffect", fieldName: "ids"}
+    ];
+    const batchOperation = [];
+    if ( !foundry.utils.isEmpty(actorUpdates) ) batchOperation.push({
+      action: "update",
+      documentName: "Actor",
+      parent: this.parent,
+      updates: [{_id: this.id, ...actorUpdates}]
+    });
+    for ( const {action, key, documentName, fieldName} of allOperations ) {
+      const specificChanges = embeddedChanges[key];
+      if ( !specificChanges ) continue;
+      const options = ("changes" in specificChanges) ? specificChanges.options : {};
+      const changes = ("changes" in specificChanges) ? specificChanges.changes : specificChanges;
+      if ( !changes.length ) continue;
+      batchOperation.push({
+        action,
+        documentName,
+        parent: this,
+        [fieldName]: changes,
+        ...options
+      });
+    }
+    return batchOperation;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Display status text updates above each Token for this Actor upon update.
    * @param {Partial<ActorData>} changed      Data for the Actor which changed
    * @param {object[]} statusText             Status text passed as part of updates
@@ -2742,8 +2840,11 @@ export default class CrucibleActor extends Actor {
       // Ensure no duplicate talents from multiple detail items
       createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
     }
-    if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-    if ( createItems.length ) await this.createEmbeddedDocuments("Item", createItems, {keepId: true});
+    const batchOperations = this.defineBatchOperations({}, {
+      createItems: {changes: createItems, options: {keepId: true}},
+      deleteItems: Array.from(deleteItemIds)
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */

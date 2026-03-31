@@ -9,8 +9,10 @@ export const TEMPLATES = {
   turnSummary: "systems/crucible/templates/chat/turn-change-summary.hbs",
   actionHeader: "systems/crucible/templates/dice/partials/action-use-header.hbs",
   actionFooter: "systems/crucible/templates/dice/partials/action-use-footer.hbs",
+  rollBreakdown: "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs",
+  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs",
   rollDice: "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
-  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs"
+  rollDiceResult: "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"
 };
 
 /**

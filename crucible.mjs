@@ -261,6 +261,7 @@ Hooks.once("init", async function() {
 
   // Queries
   CONFIG.queries.requestSkillCheck = dice.StandardCheck.handle.bind(dice.StandardCheck);
+  CONFIG.queries.requestGroupCheck = dice.GroupCheck.handle.bind(dice.GroupCheck);
   CONFIG.queries.requestCounterspell = ({actorUuid, ...options}) => {
     return models.CrucibleCounterspellAction.prompt(actorUuid, options);
   };
@@ -741,7 +742,7 @@ async function packageCompendium(documentName, packName, folder) {
  */
 function generateId(title, length) {
   const id = title.split(" ").map((w, i) => {
-    const p = w.slugify({replacement: "", strict: true});
+    const p = w.slugify({replacement: "", lowercase: false, strict: true});
     return i ? p.titleCase() : p;
   }).join("");
   return Number.isNumeric(length) ? id.slice(0, length).padEnd(length, "0") : id;
@@ -837,11 +838,13 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
         const batchCreate = [];
         const batchUpdate = [];
         const batchDelete = [];
+        const actorUpdate = {"_stats.systemVersion": game.system.version};
         if ( talents ) {
-          const {toCreate, toUpdate, toDelete} = await actor.syncTalents({performUpdates: false});
+          const {toCreate, toUpdate, toDelete, actorUpdates} = await actor.syncTalents({performUpdates: false});
           batchCreate.push(...toCreate);
           batchUpdate.push(...toUpdate);
           batchDelete.push(...toDelete);
+          Object.assign(actorUpdate, actorUpdates);
         }
         if ( spells ) {
           const {toCreate, toUpdate, toDelete} = await actor.syncIconicSpells({performUpdates: false});
@@ -849,11 +852,12 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
           batchUpdate.push(...toUpdate);
           batchDelete.push(...toDelete);
         }
-        if ( batchDelete.length ) await actor.deleteEmbeddedDocuments("Item", batchDelete);
-        if ( batchUpdate.length ) await actor.updateEmbeddedDocuments("Item", batchUpdate,
-          {diff: false, recursive: false, noHook: true});
-        if ( batchCreate.length ) await actor.createEmbeddedDocuments("Item", batchCreate, {keepId: true});
-        await actor.update({"_stats.systemVersion": game.system.version});
+        const batchOperations = actor.defineBatchOperations(actorUpdate, {
+          createItems: {changes: batchCreate, options: {keepId: true}},
+          updateItems: {changes: batchUpdate, options: {diff: false, recursive: false, noHook: true}},
+          deleteItems: batchDelete
+        });
+        await foundry.documents.modifyBatch(batchOperations);
       } catch(err) {
         console.warn(`Crucible | Item synchronization failed for Actor "${actor.name}": ${err.message}`);
       } finally {

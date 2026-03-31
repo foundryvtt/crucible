@@ -1,0 +1,53 @@
+name: Geomancer
+type: archetype
+_id: geomancer0000000
+img: icons/magic/earth/barrier-lava-stone-orange.webp
+system:
+  description: <p>Mages that specialize in the runes of Earth and Flame.</p>
+  identifier: geomancer
+  abilities:
+    wisdom: 4
+    presence: 3
+    intellect: 2
+    strength: 1
+    toughness: 1
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.talent.Item.runeFlame0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeEarth0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.gesturestrike000
+      level: 2
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: 0
+    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+      level: 0
+  skills:
+    - wilderness
+    - arcana
+    - science
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.357'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1774708620340
+  modifiedTime: 1774708621815
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 200000
+_key: '!items!geomancer0000000'

@@ -105,6 +105,7 @@ export default class AttackRoll extends StandardCheck {
     if ( dt in SYSTEM.DEFENSES ) cardData.defenseType = SYSTEM.DEFENSES[dt].label;
     else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
     else cardData.defenseType = "DC";
+    if ( game.user.isGM ) cardData.targetLabel = `${cardData.defenseType} ${cardData.dc}`;
 
     // Outcome label
     cardData.outcome = _loc(this.constructor.RESULT_TYPE_LABELS[this.data.result]);

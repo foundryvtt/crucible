@@ -50,7 +50,7 @@ HOOKS.luminary = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !action.inflection?.id ) return;
     const {enchantment} = item.system.config;
-    this.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
+    action.usage.boons[item.system.identifier] = {label: item.name, number: enchantment.bonus};
   }
 };
 

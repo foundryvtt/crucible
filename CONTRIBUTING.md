@@ -2,7 +2,8 @@
 Code contributions to `foundryvtt/crucible` are accepted subject to the following conditions and expectations.
 
 ## License and Property Rights
-Crucible game system code is not currently offered under a traditional open-source license. Please read the [LICENSE](LICENSE) file and make sure you understand its terms.
+Crucible game system code is not currently offered under a traditional open-source license. Please read the 
+[LICENSE](LICENSE) file and make sure you understand its terms.
 
 By making a pull request to this repository, you agree that contributed code becomes property of Foundry Gaming LLC
 and that you retain no property rights over that contributed code aside from those granted in the Crucible game system
@@ -25,8 +26,16 @@ Changes of the following type are *not* currently supported for contributions.
 - Localization to languages other than English. Eventually, this may be a goal, but for now the system is changing too rapidly for this to be productive.
 - Adoption of Typescript.
 
+## AI Usage
+AI tools may be used to assist with design planning, code review, code quality improvements, documentation generation, 
+automated testing, or other productivity-enhancing tasks. Use of these tools can help contributors to efficiently 
+iterate and create the highest quality game system implementation possible. Code contributions which were authored 
+directly by AI models will be rejected.
+
 ## Local Development Environment
-It is expected that contributors to the Crucible game system are already minimally familiar with the process for game system development in Foundry Virtual Tabletop. This is not a good choice of project to contribute to as a learning process.
+It is expected that contributors to the Crucible game system are already minimally familiar with the process for game 
+system development in Foundry Virtual Tabletop. This is not a good choice of project to contribute to as a learning 
+process.
 
 Abbreviated instructions for setting up a local development environment for Crucible are:
 ```sh
