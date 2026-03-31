@@ -63,10 +63,11 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
   _getWaypointStyle(waypoint) {
     const style = super._getWaypointStyle(waypoint);
 
-    // Undo core's treatment of starting waypoint as translucent, size-down intermediate waypoints
-    // TODO: If #11895 goes in, modify shape of intermediate waypoints to diamonds
-    if ( !waypoint.previous ) style.alpha = 1;
-    else if ( waypoint.next?.subpathId === waypoint.subpathId ) style.radius /= 2;
+    // Modify size & shape of intermediate waypoints to slightly smaller diamonds
+    if ( waypoint.previous && (waypoint.next?.subpathId === waypoint.subpathId) ) {
+      style.radius /= 1.5;
+      style.shape = "diamond";
+    }
     return style;
   }
 }
