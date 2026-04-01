@@ -267,7 +267,7 @@ HOOKS.demolitionist000 = {
 
 HOOKS.distancerunner00 = {
   prepareMovement(_item, movement) {
-    movement.stride += 1;
+    movement.strideBonus += 1;
   }
 };
 
@@ -317,7 +317,7 @@ HOOKS.healer0000000000 = {
 
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
-    if ( this.equipment.weapons.shield ) movement.engagement += 1;
+    if ( this.equipment.weapons.shield ) movement.engagementBonus += 1;
   }
 };
 
@@ -633,7 +633,7 @@ HOOKS.inexorableFlame0 = {
 
 HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
-    movement.engagement += 1;
+    movement.engagementBonus += 1;
   }
 };
 
@@ -787,7 +787,7 @@ HOOKS.thoughtbinder000 = {
 
 HOOKS.truegrit00000000 = {
   prepareMovement(_item, movement) {
-    movement.engagement += 1;
+    movement.engagementBonus += 1;
   }
 };
 
