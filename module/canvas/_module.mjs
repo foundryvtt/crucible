@@ -14,7 +14,8 @@ export {CrucibleTokenRuler};
 export function configure() {
   CONFIG.Token.rulerClass = CrucibleTokenRuler;
   CONFIG.Token.hudClass = CrucibleTokenHUD;
-  CONFIG.Token.movement.defaultSpeed = 20;
+  // Stride of 10, 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
+  CONFIG.Token.movement.defaultSpeed = (10 * 6) * 2 / 10;
 
   // TODO enable experimental VFX framework
   CONFIG.Canvas.vfx.enabled = true;

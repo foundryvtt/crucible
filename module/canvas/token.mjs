@@ -281,8 +281,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
-  _getAnimationMovementSpeed(options) {
-    return this.actor ? this.actor.system.movement.stride * 2 : CONFIG.Token.movement.defaultSpeed;
+  _getAnimationMovementSpeed(_options) {
+    const stride = this.actor?.system.movement?.stride;
+    if ( !Number.isFinite(stride) ) return CONFIG.Token.movement.defaultSpeed;
+    // Assume 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
+    return (stride * 6) * 2 / (canvas.dimensions.distance * CONFIG.time.roundTime);
   }
 
   /* -------------------------------------------- */
