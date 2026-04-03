@@ -1275,6 +1275,7 @@
       "Title": "Group Check",
       "ChatTitle": "{skill} Check (DC {dc})",
       "DialogTitle": "{skill} Check: {name}",
+      "QuickSelection": "Group Check Quick Selection",
       "NoUserForActor": "No active user found for: {name}",
       "STATUSES": {
         "Pending": "Pending",
@@ -1461,7 +1462,9 @@
   },
   "KEYBINDINGS": {
     "ConfirmAction": "Confirm Action",
-    "ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken."
+    "ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
+    "GroupCheckQuickSelection": "Group Check Quick Selection",
+    "GroupCheckQuickSelectionHint": "Open the group check quick selection window for the current party."
   },
   "KNOWLEDGE": {
     "Alchemy": "Alchemy",

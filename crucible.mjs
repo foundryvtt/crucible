@@ -22,6 +22,7 @@ import * as hooks from "./module/hooks/_module.mjs";
 import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
+import {registerKeybindings} from "./module/hotkeys.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/const/enum.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
@@ -395,13 +396,7 @@ Hooks.once("init", async function() {
   });
 
   // Register keybindings
-  game.keybindings.register("crucible", "confirm", {
-    name: "KEYBINDINGS.ConfirmAction",
-    hint: "KEYBINDINGS.ConfirmActionHint",
-    editable: [{key: "KeyX"}],
-    restricted: true,
-    onDown: chat.onKeyboardConfirmAction
-  });
+  registerKeybindings();
 
   // Patch door sound radius - can we do this better elsewhere?
   Object.defineProperty(foundry.canvas.placeables.Wall.prototype, "soundRadius", {

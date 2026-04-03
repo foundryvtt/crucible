@@ -39,3 +39,5 @@ export {default as CrucibleCombatTracker} from "./sidebar/combat-tracker.mjs";
 // Canvas Apps
 export {default as CrucibleTokenHUD} from "./hud/token-hud.mjs";
 
+// Tool Apps
+export {default as GroupCheckQuickSelection} from "./tools/group-check-quick-selection.mjs";

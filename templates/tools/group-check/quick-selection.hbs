@@ -1,0 +1,30 @@
+<div class="scrollable">
+    <div class="flexcol">
+        {{#if partyActors.length}}
+        <div class="tags flexrow">
+            {{#each partyActors as |actor|}}
+            <span class="tag flex0">{{actor.name}}</span>
+            {{/each}}
+        </div>
+        {{else}}
+        <p class="hint">{{localize "WARNING.NoParty"}}</p>
+        {{/if}}
+    </div>
+
+    {{#each skillCategories as |category|}}
+    <section class="sheet-section item-section flexcol" style="--resource-color: {{category.color.css}};">
+        <h3>{{localize "SKILL.CategoryHeader" category=category.label}}</h3>
+        <p class="hint">{{localize category.hint}}</p>
+        <div class="asbestos">
+            {{#each category.skills as |skill|}}
+            <div class="framed button flexcol" data-action="selectSkill" data-skill-id="{{skill.id}}">
+                <div class="icon-frame">
+                    <img class="icon" src="{{skill.icon}}" alt="{{localize skill.label}}">
+                </div>
+                <span>{{localize skill.label}}</span>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+    {{/each}}
+</div>

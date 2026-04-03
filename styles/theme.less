@@ -318,6 +318,15 @@
     }
   }
 
+  .asbestos {
+    --asbestos-min: 40px;
+    --asbestos-max: 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--asbestos-min), var(--asbestos-max)));
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
   // Form Elements
   textarea {
     padding: 0.5rem;
