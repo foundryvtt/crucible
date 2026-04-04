@@ -482,17 +482,25 @@ pages:
         at the inner-most ring, and contain talents that are often prerequisites
         for later talents in the tree. These starter talents are best thought of
         as the first steps in defining what makes your character different from
-        another in terms of their specific set of special abilities.</p><h2
-        class="divider">Talents</h2><p>Talents are the smallest unit of the
-        talent tree. Each talent grants your character-specific abilities or
-        bonuses. Many Talents have requirements which must be met before they
-        can be purchased, such as attaining a certain level of Ability bonus or
-        degree of training in a Skill.</p><h2 class="divider">Training
-        Talents</h2><p>Training talents are specific types of talent nodes that
-        grant advancements to Skills, or progress Weapon or Tradecraft training.
-        Weapon or Tradecraft Training Talents authorize your character to use
-        particular weapons or to craft particular types of schematics, Skill
-        Training Talents award the following benefits:</p><table><tbody><tr><th
+        another in terms of their specific set of special abilities.</p><p>Each
+        Node has a categorical type which indicates general style of talents
+        that it contains. The current node types are: Attack, Defense, Healing,
+        Magic, Melee, Movement, Ranged, Skill, Spellcraft, and Utility. This
+        type determines both the node's visual appearance on the tree as well as
+        suggests the functionality of talents that it offers. Some nodes are
+        also categorized as "Passive", meaning the talents offered at that node
+        provide automatic benefits without requiring the usage of any specific
+        action.</p><h2 class="divider">Talents</h2><p>Talents are the smallest
+        unit of the talent tree. Each talent grants your character-specific
+        abilities or bonuses. Many Talents have requirements which must be met
+        before they can be purchased, such as attaining a certain level of
+        Ability bonus or degree of training in a Skill.</p><h2
+        class="divider">Training Talents</h2><p>Training talents are specific
+        types of talent nodes that grant advancements to Skills, or progress
+        Weapon or Tradecraft training. Weapon or Tradecraft Training Talents
+        authorize your character to use particular weapons or to craft
+        particular types of schematics, Skill Training Talents award the
+        following benefits:</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
