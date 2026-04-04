@@ -28,14 +28,14 @@ pages:
         equal to the Physical Defense total, it is assigned a type of miss based
         on the proportional mixture of Physical Defense
         components.</p><dl><dt><p>Armor</p></dt><dd><p>Protection offered by
-        worn equipment or organic attributes like scales or chitin. Strikes
-        which fail to hit and are defended by Armor assume the
-        <strong>Deflected</strong> outcome. Unlike other physical defense
-        outcomes, Deflection still results in some damage as long as the attack
-        roll was not a Critical Failure; more than 6 less than the Physical
-        Defense target. The residual damage dealt from a Deflection is also
-        called a <strong>Glancing
-        Blow.</strong></p></dd><dt><p>Dodge</p></dt><dd><p>Protection offered by
+        worn equipment or organic attributes like scales or chitin. When a
+        strike fails to hit and is not Dodged, Parried, or Blocked, the Armor
+        defense determines the final outcome. If the attack was not a Critical
+        Failure, it results in a <strong>Glance</strong> - a grazing hit that
+        still deals reduced damage based on the Overflow below the Defense
+        target. If the attack was a Critical Failure, it is fully absorbed by
+        the <strong>Armor</strong> and deals no
+        damage.</p></dd><dt><p>Dodge</p></dt><dd><p>Protection offered by
         physical quickness and agility. Strikes which fail to hit and are
         defended by the Dodge defense assume the <strong>Dodged</strong>
         outcome. Dodged attacks deal no damage and provide opportunity for
