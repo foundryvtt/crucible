@@ -179,15 +179,20 @@ pages:
         typically longer — combat encounters allowing you to narratively unleash
         your most powerful abilities once the tension of battle has
         peaked!</p></dd></dl><h2 class="divider">Recovering
-        Resources</h2><p>During Combat, Health and Morale may only be recovered
-        by Actions or Talents which provide <strong>Restoration</strong>.
-        Outside of Combat, it is possible to use the <strong>Recover</strong>
-        action which consumes 10 minutes of time and fully replenishes your
-        Health, Morale, Action, and Focus pools.</p><p>In order to reduce the
-        accumulation of Wounds or Madness, long-term <strong>Rest</strong> is
-        required. Rest mechanics are not implemented in Playtest One. The means
-        and rate at which Wounds and Madness are reduced will be more fully
-        articulated in a later phase of development.</p>
+        Resources</h2><p>During combat, Health and Morale may only be recovered
+        by actions or talents which provide <strong>Restoration</strong>.
+        Outside of combat, two actions are available to restore your character's
+        resources.</p><p>The
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 recover]
+        action consumes 10 minutes of in-game time and fully replenishes your
+        Health, Morale, Action, and Focus pools. It also removes temporary
+        effects with a short duration. Recover does not reduce Wounds or
+        Madness.</p><p>The
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 rest] action
+        consumes 10 hours of in-game time and fully replenishes all active
+        resource pools. Additionally, heroes reduce their accumulated Wounds and
+        Madness by an amount equal to their character level. Rest also removes
+        temporary effects with a longer duration.</p>
     video:
       controls: true
       volume: 0.5
