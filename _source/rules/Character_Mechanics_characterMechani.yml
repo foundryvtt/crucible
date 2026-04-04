@@ -991,9 +991,15 @@ pages:
         case where a character's trained skill rank is sufficient to exceed the
         DC of a roll by adding 12 to it, the check is considered successful
         without a need to roll.</p><p></p><h2 class="divider">Group Skill
-        Checks</h2><section class="foundryvtt"><p>Crucible's handling of Group
-        Skill Checks is a work in progress at this time, please look forward to
-        a future update that adds this functionality.</p></section><p></p>
+        Checks</h2><p>Sometimes the GM may call for a group skill check when the
+        entire party attempts a task together. The GM initiates the group check
+        from the skill check dialog by selecting which actors should
+        participate, setting the Difficulty Class, and optionally assigning
+        shared Boons or Banes that apply to all participants. Each player is
+        prompted to configure and roll their own check. The GM can skip or
+        re-request rolls for individual participants, and can roll on behalf of
+        actors whose owners are not online. Once all rolls are submitted, the GM
+        finalizes the results, which are posted to the chat log.</p>
     video:
       controls: true
       volume: 0.5
