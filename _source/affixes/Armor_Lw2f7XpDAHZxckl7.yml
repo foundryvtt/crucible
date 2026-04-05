@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: 1t1h4vquJCypCfA4
+name: Armor
+color: null
+sorting: a
+_id: Lw2f7XpDAHZxckl7
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775405269242
+  modifiedTime: 1775405269242
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!Lw2f7XpDAHZxckl7'

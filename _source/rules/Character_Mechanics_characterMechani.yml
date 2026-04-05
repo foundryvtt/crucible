@@ -993,25 +993,26 @@ pages:
         up <strong>6</strong>, <strong>4</strong>, and <strong>7</strong> for a
         total of <strong>17</strong> and a far cry from the needed 24. However,
         Albert's Toughness is quite high at <strong>8</strong>, and his Wisdom
-        is <strong>6</strong>, so the average of the two abilities adds an
-        Ability bonus of <strong>7</strong>. Albert's Master rank in Wilderness
-        adds a Skill bonus of <strong>+3</strong>, and he also happens to have a
+        is <strong>6</strong>, so the composite Ability Bonus for a dual-scaling
+        skill adds <strong>+4</strong>. Albert's Master rank in Wilderness adds
+        a Skill bonus of <strong>+3</strong>, and he also happens to have a
         magical set of nautical charts which grant a +2 enchantment bonus,
-        pushing the result of the roll to <strong>29</strong>.</p></section><h2
-        class="divider">Passive Skill Checks</h2><p>Crucible allows any skill
-        check to be considered passive at the discretion of the gamemaster. In a
-        case where a character's trained skill rank is sufficient to exceed the
-        DC of a roll by adding 12 to it, the check is considered successful
-        without a need to roll.</p><p></p><h2 class="divider">Group Skill
-        Checks</h2><p>Sometimes the GM may call for a group skill check when the
-        entire party attempts a task together. The GM initiates the group check
-        from the skill check dialog by selecting which actors should
-        participate, setting the Difficulty Class, and optionally assigning
-        shared Boons or Banes that apply to all participants. Each player is
-        prompted to configure and roll their own check. The GM can skip or
-        re-request rolls for individual participants, and can roll on behalf of
-        actors whose owners are not online. Once all rolls are submitted, the GM
-        finalizes the results, which are posted to the chat log.</p>
+        pushing the result of the roll to <strong>26</strong>, a narrow
+        success.</p></section><h2 class="divider">Passive Skill
+        Checks</h2><p>Crucible allows any skill check to be considered passive
+        at the discretion of the gamemaster. In a case where a character's
+        trained skill rank is sufficient to exceed the DC of a roll by adding 12
+        to it, the check is considered successful without a need to
+        roll.</p><p></p><h2 class="divider">Group Skill Checks</h2><p>Sometimes
+        the GM may call for a group skill check when the entire party attempts a
+        task together. The GM initiates the group check from the skill check
+        dialog by selecting which actors should participate, setting the
+        Difficulty Class, and optionally assigning shared Boons or Banes that
+        apply to all participants. Each player is prompted to configure and roll
+        their own check. The GM can skip or re-request rolls for individual
+        participants, and can roll on behalf of actors whose owners are not
+        online. Once all rolls are submitted, the GM finalizes the results,
+        which are posted to the chat log.</p>
     video:
       controls: true
       volume: 0.5

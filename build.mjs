@@ -11,6 +11,7 @@ const CONFIG = {
   sourcePath: "_source",
   databases: [
     "adversary-talents",
+    "affixes",
     "ancestry",
     "archetype",
     "background",

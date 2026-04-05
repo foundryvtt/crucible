@@ -31,7 +31,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
 
-    // Affix enforcement
+    // Affix effects specifically
     if ( this.type === "affix" ) {
       const rejection = this.#validateAffix();
       if ( rejection ) {
@@ -39,8 +39,9 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         return false;
       }
       const _id = CrucibleAffixActiveEffect.generateId(this.system.identifier);
-      this.updateSource({_id, duration: {units: "none"}});
+      this.updateSource({_id, duration: {value: null}}); // Enforce infinite duration
       options.keepId = true;
+      return;
     }
 
     if ( ["months", "turns"].includes(this.duration.units) ) {
@@ -75,18 +76,16 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   async _preUpdate(changes, options, user) {
     const allowed = await super._preUpdate(changes, options, user);
     if ( allowed === false ) return false;
-    if ( this.type === "affix" ) {
 
-      // Prevent changing the identifier of an existing affix
+    // Affix effects specifically
+    if ( this.type === "affix" ) {
       if ( ("system" in changes) && ("identifier" in changes.system) ) {
         if ( changes.system.identifier !== this.system.identifier ) {
           console.warn("The identifier of an existing affix cannot be changed.");
           return false;
         }
       }
-
-      // Enforce indefinite duration
-      if ( "duration" in changes ) changes.duration = {units: "none"};
+      if ( "duration" in changes ) changes.duration = {value: null};
     }
   }
 
@@ -109,6 +108,12 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     // The item type must support affixes
     if ( !parent.system.constructor.AFFIXABLE ) {
       return `Item type "${parent.type}" does not support affixes.`;
+    }
+
+    // The affix must be allowed for this item type (empty set means any affixable type)
+    const itemTypes = this.system.itemTypes;
+    if ( itemTypes.size && !itemTypes.has(parent.type) ) {
+      return `Affix "${this.system.identifier}" cannot be applied to item type "${parent.type}".`;
     }
 
     // Prevent duplicate affix identifiers on the same item

@@ -822,6 +822,10 @@
         "label": "Identifier",
         "hint": "A unique programmatic identifier for this affix, used to resolve hook functions."
       },
+      "itemTypes": {
+        "label": "Item Types",
+        "hint": "Which item types this affix can be applied to. Leave empty to allow any affixable type."
+      },
       "tier": {
         "label": "Tier",
         "hint": "The power tier of this affix, which determines its capacity cost and effect potency.",
@@ -2189,7 +2193,8 @@
   },
   "TYPES": {
     "ActiveEffect": {
-      "flanked": "Flanked Active Effect"
+      "affix": "Affix",
+      "flanked": "Flanked"
     },
     "Actor": {
       "adversary": "Adversary",

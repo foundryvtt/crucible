@@ -16,12 +16,24 @@ HOOKS.keen = {
 /* -------------------------------------------- */
 
 /**
- * Tenacity: Increase Fortitude defense. The bonus equals the affix tier.
+ * Tenacity: Increase Fortitude defense by the affix tier.
  */
 HOOKS.tenacity = {
   prepareDefenses(item, defenses) {
     const tier = item.system.affixes.tenacity.system.tier.value;
     defenses.fortitude.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Weapon Potency: Increase the enchantment bonus to attack rolls by the affix tier.
+ */
+HOOKS.weaponPotency = {
+  prepareWeapons(item, weapons) {
+    const tier = item.system.affixes.weaponPotency.system.tier.value;
+    item.system.actionBonuses.enchantment += tier;
   }
 };
 
