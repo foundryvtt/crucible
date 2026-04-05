@@ -84,14 +84,13 @@ pages:
         in very rare cases multiple) of the following special properties. Each
         of these properties adds a +1 Rarity modifier to the weapon.</p><section
         class="construction"><p>Several of the following properties, denoted
-        with an <strong>*</strong> after their name, are not yet fully automated
-        in the first Crucible Playtest system
-        yet.</p></section><h4>Oversized</h4><p>This weapon is large for its
-        category and is unwieldy in combat without special training. The weapon
-        gains an additional +2 bonus to base damage but is slow and provides +2
-        Banes to Initiative rolls.</p><h4>Reach</h4><p>This weapon is lengthy
-        and offers an expanded attack range. The range of melee weapons is
-        increased by +2 feet. Ranged weapons are expanded by +20
+        with an <strong>*</strong> after their name, are not yet fully
+        automated.</p></section><h4>Oversized</h4><p>This weapon is large for
+        its category and is unwieldy in combat without special training. The
+        weapon gains an additional +2 bonus to base damage but is slow and
+        provides +2 Banes to Initiative rolls.</p><h4>Reach</h4><p>This weapon
+        is lengthy and offers an expanded attack range. The range of melee
+        weapons is increased by +2 feet. Ranged weapons are expanded by +20
         feet.</p><h4>Parrying</h4><p>This weapon provides a bonus to Parry
         defense while equipped and not Broken. The bonus is +1 for one-handed
         weapons and +2 for two-handed weapons, plus the enchantment bonus of the

@@ -28,14 +28,14 @@ pages:
         equal to the Physical Defense total, it is assigned a type of miss based
         on the proportional mixture of Physical Defense
         components.</p><dl><dt><p>Armor</p></dt><dd><p>Protection offered by
-        worn equipment or organic attributes like scales or chitin. Strikes
-        which fail to hit and are defended by Armor assume the
-        <strong>Deflected</strong> outcome. Unlike other physical defense
-        outcomes, Deflection still results in some damage as long as the attack
-        roll was not a Critical Failure; more than 6 less than the Physical
-        Defense target. The residual damage dealt from a Deflection is also
-        called a <strong>Glancing
-        Blow.</strong></p></dd><dt><p>Dodge</p></dt><dd><p>Protection offered by
+        worn equipment or organic attributes like scales or chitin. When a
+        strike fails to hit and is not Dodged, Parried, or Blocked, the Armor
+        defense determines the final outcome. If the attack was not a Critical
+        Failure, it results in a <strong>Glance</strong> - a grazing hit that
+        still deals reduced damage based on the Overflow below the Defense
+        target. If the attack was a Critical Failure, it is fully absorbed by
+        the <strong>Armor</strong> and deals no
+        damage.</p></dd><dt><p>Dodge</p></dt><dd><p>Protection offered by
         physical quickness and agility. Strikes which fail to hit and are
         defended by the Dodge defense assume the <strong>Dodged</strong>
         outcome. Dodged attacks deal no damage and provide opportunity for
@@ -179,15 +179,20 @@ pages:
         typically longer — combat encounters allowing you to narratively unleash
         your most powerful abilities once the tension of battle has
         peaked!</p></dd></dl><h2 class="divider">Recovering
-        Resources</h2><p>During Combat, Health and Morale may only be recovered
-        by Actions or Talents which provide <strong>Restoration</strong>.
-        Outside of Combat, it is possible to use the <strong>Recover</strong>
-        action which consumes 10 minutes of time and fully replenishes your
-        Health, Morale, Action, and Focus pools.</p><p>In order to reduce the
-        accumulation of Wounds or Madness, long-term <strong>Rest</strong> is
-        required. Rest mechanics are not implemented in Playtest One. The means
-        and rate at which Wounds and Madness are reduced will be more fully
-        articulated in a later phase of development.</p>
+        Resources</h2><p>During combat, Health and Morale may only be recovered
+        by actions or talents which provide <strong>Restoration</strong>.
+        Outside of combat, two actions are available to restore your character's
+        resources.</p><p>The
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 recover]
+        action consumes 10 minutes of in-game time and fully replenishes your
+        Health, Morale, Action, and Focus pools. It also removes temporary
+        effects with a short duration. Recover does not reduce Wounds or
+        Madness.</p><p>The
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 rest] action
+        consumes 10 hours of in-game time and fully replenishes all active
+        resource pools. Additionally, heroes reduce their accumulated Wounds and
+        Madness by an amount equal to their character level. Rest also removes
+        temporary effects with a longer duration.</p>
     video:
       controls: true
       volume: 0.5
@@ -477,17 +482,25 @@ pages:
         at the inner-most ring, and contain talents that are often prerequisites
         for later talents in the tree. These starter talents are best thought of
         as the first steps in defining what makes your character different from
-        another in terms of their specific set of special abilities.</p><h2
-        class="divider">Talents</h2><p>Talents are the smallest unit of the
-        talent tree. Each talent grants your character-specific abilities or
-        bonuses. Many Talents have requirements which must be met before they
-        can be purchased, such as attaining a certain level of Ability bonus or
-        degree of training in a Skill.</p><h2 class="divider">Training
-        Talents</h2><p>Training talents are specific types of talent nodes that
-        grant advancements to Skills, or progress Weapon or Tradecraft training.
-        Weapon or Tradecraft Training Talents authorize your character to use
-        particular weapons or to craft particular types of schematics, Skill
-        Training Talents award the following benefits:</p><table><tbody><tr><th
+        another in terms of their specific set of special abilities.</p><p>Each
+        Node has a categorical type which indicates general style of talents
+        that it contains. The current node types are: Attack, Defense, Healing,
+        Magic, Melee, Movement, Ranged, Skill, Spellcraft, and Utility. This
+        type determines both the node's visual appearance on the tree as well as
+        suggests the functionality of talents that it offers. Some nodes are
+        also categorized as "Passive", meaning the talents offered at that node
+        provide automatic benefits without requiring the usage of any specific
+        action.</p><h2 class="divider">Talents</h2><p>Talents are the smallest
+        unit of the talent tree. Each talent grants your character-specific
+        abilities or bonuses. Many Talents have requirements which must be met
+        before they can be purchased, such as attaining a certain level of
+        Ability bonus or degree of training in a Skill.</p><h2
+        class="divider">Training Talents</h2><p>Training talents are specific
+        types of talent nodes that grant advancements to Skills, or progress
+        Weapon or Tradecraft training. Weapon or Tradecraft Training Talents
+        authorize your character to use particular weapons or to craft
+        particular types of schematics, Skill Training Talents award the
+        following benefits:</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
@@ -667,7 +680,7 @@ pages:
         Trade</td><td>Society,
         Diplomacy</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
+        @UUID[Compendium.crucible.talent.Item.preparedness0000]{Preparedness}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
         Rituals</td><td>Deception,Performance</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.inspireheroism00]{Inspire
@@ -675,24 +688,24 @@ pages:
         Undeath</td><td>Medicine,
         Science</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.runelife00000000]{Rune:
+        @UUID[Compendium.crucible.talent.Item.runeLife00000000]{Rune:
         Life}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.scholar000000000]{Scholar}</td><td>Artifacts,
         Legends</td><td>Arcana,
-        Science</td><td>@UUID[Compendium.crucible.talent.Item.mechanicalTraini]{Mechanical
+        Science</td><td>@UUID[Compendium.crucible.talent.Item.mechanicalWeapon]{Mechanical
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.runekinesis00000]{Rune:
+        @UUID[Compendium.crucible.talent.Item.runeKinesis00000]{Rune:
         Kinesis}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.soldier000000000]{Soldier}</td><td>Machines,
         Warfare</td><td>Athletics,
         Intimidation</td><td>@UUID[Compendium.crucible.talent.Item.heavyWeaponTrain]{Heavy
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.heavystrike00000]{Heavy
-        Strike}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
+        @UUID[Compendium.crucible.talent.Item.truegrit00000000]{True
+        Grit}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
         Tracking</td><td>Stealth,
         Deception</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
         Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
+        @UUID[Compendium.crucible.talent.Item.backstab00000000]{Backstab}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
         Tracking</td><td>Athletics,
-        Wilderness</td><td>@UUID[Compendium.crucible.talent.Item.projectileTraini]{Projectile
+        Wilderness</td><td>@UUID[Compendium.crucible.talent.Item.projectileWeapon]{Projectile
         Weapon Training},
         @UUID[Compendium.crucible.talent.Item.precisionshot000]{Precision
         Shot}</td></tr></tbody></table><p>As a Game Master and storyteller, you
@@ -942,10 +955,14 @@ pages:
         name.</p></section><p>Skill checks use the same equation for calculation
         that a
         @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
-        Check} does.</p><p>A character's skill rank is determined by their
-        degree of training, adding a bonus to checks made for that skill. Each
-        skill has 4 ranks as well as an 'untrained'
-        rank.</p><table><tbody><tr><th
+        Check} does. Like all Standard Checks, skill checks can result in a
+        <strong>Critical Success</strong> if the total exceeds the DC by more
+        than 6, or a <strong>Critical Failure</strong> if the total falls below
+        the DC by more than 6. The GM may choose to apply additional
+        consequences or benefits based on these critical outcomes.</p><p>A
+        character's skill rank is determined by their degree of training, adding
+        a bonus to checks made for that skill. Each skill has 4 ranks as well as
+        an 'untrained' rank.</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
@@ -967,28 +984,34 @@ pages:
         class="value">Skill Check</p><p class="equals">=</p><p
         class="equation">3d8[Boons,Banes] + Average of Ability Bonuses (Round
         Up) + Skill Bonus + Enchantment Bonus</p></section><section
-        class="gameplay"><h4>Example: Rolling a Skill Check</h4><p>Albert, our
-        storied naval captain from a previous example, is faced with a dilemma.
-        His ship is about to be imperilled by a storm, and his crew is looking
-        to him to safely navigate out of the harbor. As a Master Cartographer,
-        Albert taps into his extremely strong knowledge of long-distance travel.
-        This will be a Challenging (DC 25) roll; Albert rolls his Skill check.
-        Unluckily, Albert's dice total turn up <strong>6</strong>,
-        <strong>4</strong>, and <strong>7</strong>— a total of
-        <strong>17</strong> and a far cry from the needed 25. However, Albert's
-        ability score for Strength is quite high at <strong>8</strong>, and his
-        Dexterity is <strong>6, </strong>so the average of the two abilities
-        adds an Ability bonus of <strong>7</strong>. Albert also happens to have
-        a magical set of nautical charts which grant a +2 enchantment bonus,
-        pushing the result of the roll to <strong>26</strong>.</p></section><h2
+        class="gameplay"><h4>Example: Rolling a Skill Check</h4><p>Albert, a
+        seasoned naval captain, is faced with a dilemma. His ship is about to be
+        imperiled by a storm, and his crew is looking to him to safely navigate
+        out of the harbor. As a Master of the Wilderness skill, Albert taps into
+        his extensive knowledge of seafaring. This will be a Difficult (DC 24)
+        roll; Albert rolls his Skill check. Unluckily, Albert's dice total turn
+        up <strong>6</strong>, <strong>4</strong>, and <strong>7</strong> for a
+        total of <strong>17</strong> and a far cry from the needed 24. However,
+        Albert's Toughness is quite high at <strong>8</strong>, and his Wisdom
+        is <strong>6</strong>, so the average of the two abilities adds an
+        Ability bonus of <strong>7</strong>. Albert's Master rank in Wilderness
+        adds a Skill bonus of <strong>+3</strong>, and he also happens to have a
+        magical set of nautical charts which grant a +2 enchantment bonus,
+        pushing the result of the roll to <strong>29</strong>.</p></section><h2
         class="divider">Passive Skill Checks</h2><p>Crucible allows any skill
         check to be considered passive at the discretion of the gamemaster. In a
         case where a character's trained skill rank is sufficient to exceed the
         DC of a roll by adding 12 to it, the check is considered successful
         without a need to roll.</p><p></p><h2 class="divider">Group Skill
-        Checks</h2><section class="foundryvtt"><p>Crucible's handling of Group
-        Skill Checks is a work in progress at this time, please look forward to
-        a future update that adds this functionality.</p></section><p></p>
+        Checks</h2><p>Sometimes the GM may call for a group skill check when the
+        entire party attempts a task together. The GM initiates the group check
+        from the skill check dialog by selecting which actors should
+        participate, setting the Difficulty Class, and optionally assigning
+        shared Boons or Banes that apply to all participants. Each player is
+        prompted to configure and roll their own check. The GM can skip or
+        re-request rolls for individual participants, and can roll on behalf of
+        actors whose owners are not online. Once all rolls are submitted, the GM
+        finalizes the results, which are posted to the chat log.</p>
     video:
       controls: true
       volume: 0.5

@@ -667,7 +667,11 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
  * @returns {HTMLSpanElement|string}
  */
 function enrichKnowledge([match, knowledgeId]) {
-  const knowledge = crucible.CONFIG.knowledge[knowledgeId];
+  let knowledge = crucible.CONFIG.knowledge[knowledgeId];
+  if ( !knowledge ) {
+    const alias = Object.entries(crucible.CONFIG.knowledge).find(([, v]) => v.aliases?.includes(knowledgeId));
+    if ( alias ) [knowledgeId, knowledge] = alias;
+  }
   if ( !knowledge ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("knowledge-check", "passive-check", "group-check");

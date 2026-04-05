@@ -57,9 +57,13 @@ pages:
         maintain a satisfying pace to combat encounters.</p><h4>Incapacitated
         Combatants</h4><p>Combatants who are <strong>Incapacitated</strong> or
         <strong>Dead</strong> are automatically placed at Initiative 0 and their
-        turns come last in each Round.</p><h4>Tiebreaking Procedures</h4><p>Ties
-        in initiative are resolved by applying the following tiebreaking
-        criteria in order:</p><ol><li><p>Combatants with a higher passive
+        turns come last in each Round.</p><h4>Unaware
+        Combatants</h4><p>Combatants who are @Condition[Unaware] act at
+        Initiative 1, last aside from Incapacitated creatures. Once a creature
+        is no longer Unaware, it rolls Initiative and acts as normal for
+        subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
+        initiative are resolved by applying the following tiebreaking criteria
+        in order:</p><ol><li><p>Combatants with a higher passive
         <strong>Initiative</strong> bonus.</p></li><li><p>Combatants with more
         maximum
         <strong>Action</strong>.</p></li><li><p><strong>Adversaries</strong> act
@@ -129,7 +133,7 @@ pages:
         if the result of the Attack Roll exceeds the Defense score of the
         target. If the result of the attack roll is less than the Defense score,
         the attack is ineffective. For attacks which target Physical Defense the
-        nature of the miss (Deflected, Blocked, Dodged, or Parried) is further
+        nature of the miss (a Glance, Blocked, Dodged, or Parried) is further
         determined by the component Physical Defense scores of the target
         creature.</p><h2 class="divider">Overflow and Damage</h2><p>The amount
         by which the Attack Roll exceeded the Defense score is called
@@ -213,8 +217,9 @@ pages:
         intuitive areas of effect.</p><section class="foundryvtt"><p>Distances
         in the Crucible system are defined in feet. The grid size of Scenes in
         Foundry Virtual Tabletop will be automatically adjusted to have a
-        subgrid with distance units of <strong>1
-        foot</strong>.</p><p>Measurement distance is computed using the
+        subgrid with distance units of <strong>1 foot</strong>. Scenes must use
+        a <strong>5 foot</strong> grid size for the subgrid to display
+        correctly.</p><p>Measurement distance is computed using the
         <strong>Exact √2</strong> diagonal measurement
         mode.</p></section><p>Many combat actions a character can perform
         involve the <strong>Movement</strong> tag. Such actions allow you to
@@ -252,32 +257,35 @@ pages:
         halved.</p><h4>Restrained</h4><p>Movement is impossible.</p><h3
         class="divider">Movement Types</h3><p>The following <strong>Movement
         Types</strong> are supported:</p><h4>Walk</h4><p>No change to Effective
-        Distance.</p><h4>Step</h4><p>You move carefully and do not provoke
-        <strong>Disengagement</strong>, but your <strong>Effective
-        Distance</strong> traveled is doubled.</p><h4>Crawl</h4><p>You move
-        while <strong>Prone</strong> and your <strong>Effective
-        Distance</strong> traveled is doubled.</p><h4>Jump</h4><p>Equivalent to
-        <strong>Walk</strong>, but required by certain actions or to surmount
-        certain obstacles.</p><h4>Swim</h4><p>Used while moving in waist-deep or
-        deeper water, your <strong>Effective Distance</strong> traveled is
-        doubled.</p><h4>Fly</h4><p>Equivalent to <strong>Walk</strong>, but used
-        by creatures which can fly or hover.</p><h2 class="divider">Free
+        Distance.</p><h4>Step</h4><p>You move carefully, but your
+        <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Crawl</h4><p>You move while <strong>Prone</strong> and
+        your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Jump</h4><p>Your <strong>Effective Distance</strong>
+        traveled is doubled, but required by certain actions or to surmount
+        certain obstacles.</p><h4>Climb</h4><p>Used while scaling vertical
+        surfaces, your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
+        water, your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Fly</h4><p>Used by creatures which can fly or hover.
+        Movement while flying is faster than
+        walking.</p><h4>Blink</h4><p>Magical teleportation that ignores terrain
+        and movement cost entirely.</p><h2 class="divider">Free
         Movement</h2><p>Each creature has the opportunity to perform one free
         <strong>Movement</strong> action per round of Combat. This means that
         the first Action performed each round which involves the Movement tag is
         discounted at -1 Action cost. This will typically make the action free
         to perform, but in some cases may simply reduce its overall
-        cost.</p><p>Free Movement is not available to creatures wearing
-        <strong>Heavy </strong>armor or those who are <strong>Prone</strong>.
-        Additionally, the <strong>Slowed</strong> condition increases the cost
-        of Movement actions, however the first such movement per round is still
-        discounted.</p><h2 class="divider">Terrain</h2><section
-        class="construction"><p>Crucible will eventually support declaring
-        certain grid spaces as difficult terrain which slow movement while
-        traversing them. Movement costs are doubled within difficult terrain.
-        Until automation for this feature is added, difficult terrain can be
-        applied manually to movement costs however the current Alpha Playtest
-        ignores the presence of difficult terrain.</p></section><h2
+        cost.</p><p>Free Movement is not available to creatures that are
+        @Condition[Weakened], @Condition[Prone], or @Condition[Slowed].
+        Creatures wearing <strong>Heavy</strong> armor also lose access to free
+        Movement unless they have the
+        @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
+        Efficiency} talent.</p><h2 class="divider">Terrain</h2><p>Difficult
+        terrain increases the cost of movement while traversing it. Difficult
+        terrain can be defined using Foundry VTT Scene Regions with the
+        <strong>Modify Movement Cost</strong> behavior, which is fully
+        integrated with Crucible movement cost computation.</p><h2
         class="divider">Cover</h2><p>Certain terrain or obstacles can be counted
         as Cover - providing additional protection from incoming Spell or Weapon
         attacks. When a direct single-target attack passes through such an
@@ -291,10 +299,10 @@ pages:
         Banes</p></td></tr><tr><td><p>Soft Cover</p></td><td><p>+1
         Banes</p></td></tr></tbody></table><p>Area of effect attacks from
         abilities with target types like Cone, Blast, or Pulse ignore the
-        effects of Cover.</p><section class="construction"><p>In the future,
-        definition of cover and automation of banes occurring from cover may be
-        automated in the Crucible system. For the time being, Banes added due to
-        Cover should be added manually when attack rolls are made.</p></section>
+        effects of Cover.</p><section class="construction"><p>Automation of
+        cover detection and the resulting Banes is planned for a future update.
+        For the time being, Banes added due to Cover should be applied manually
+        when attack rolls are made.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -330,11 +338,12 @@ pages:
         <p><strong>Skill Attacks</strong> are Actions which involve use of one
         of Crucible's 12
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills}
-        in a tactical way during combat. Actions which use a Skill in this way
-        perform the Skill Attack by rolling a Skill Test opposed by the target's
-        passive score in the same Skill.</p><section class="gameplay"><p>Krag
-        wants to use his intimidating demeanor to break the Morale of some
-        attacking Goblins. Krag, an Adept in the Intimidation skill, uses the
+        in a tactical way during combat. Skill Attacks roll a Skill Test against
+        a defense specified by the action, which may be a named defense such as
+        Willpower or Fortitude, or the target's passive score in a
+        Skill.</p><section class="gameplay"><p>Krag wants to use his
+        intimidating demeanor to break the Morale of some attacking Goblins.
+        Krag, an Adept in the Intimidation skill, uses the
         <strong>Intimidate</strong> Action targeting a nearby Goblin and rolls
         the Skill Attack, producing a total result of <strong>27</strong>
         compared to the Goblin's passive Intimidation score of
@@ -375,13 +384,13 @@ pages:
       content: >-
         <p><strong>Reactions</strong> are a special type of Action which can
         only be taken on some other creature's turn in combat. Reactions have
-        specific triggering conditions like <em>you dodge an melee Strike
-        attack<strong> </strong></em>or <em>an ally you can see achieves a
-        critical hit</em>. Reactions require spending Action or Focus points,
-        and therefore cannot be performed if you do not have the required
-        resources - even if the condition for the reaction is otherwise
-        met.</p><p>A creature is unable to perform Reactions if they are
-        <strong>Unaware</strong> or <strong>Incapacitated</strong>.</p>
+        specific triggering conditions like <em>you dodge a melee Strike
+        attack</em> or <em>an ally you can see achieves a critical hit</em>.
+        Reactions require spending Action or Focus points, and therefore cannot
+        be performed if you do not have the required resources - even if the
+        condition for the reaction is otherwise met.</p><p>A creature is unable
+        to perform Reactions if they are <strong>Unaware</strong> or
+        <strong>Incapacitated</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -426,7 +435,13 @@ pages:
         combat.</p><h4>Focus Cost</h4><p>Some actions may incur a cost in
         <strong>Focus Points</strong>. Focus Points signify and represent the
         mental energy and concentration needed to perform exceptional feats of
-        heroism, spellcraft, or martial prowess.</p><h4>Action Tags</h4><p>The
+        heroism, spellcraft, or martial prowess.</p><h4>Heroism
+        Cost</h4><p>Certain powerful actions require spending
+        <strong>Heroism</strong> to activate, representing the extraordinary
+        effort needed to perform them.</p><h4>Weapon Cost</h4><p>Some actions
+        add the equipped weapon's Action Point cost to their own cost. Heavier
+        or more complex weapons carry a higher action cost, making them slower
+        to use but often more powerful.</p><h4>Action Tags</h4><p>The
         functionality of Actions relies on a large set of tags which describe
         how that action behaves. Each tag can change certain aspects of the
         Action like it's prerequisites, it's target, the type of damage it
@@ -438,56 +453,65 @@ pages:
         provided in the following section.</p><h4>Target Scope</h4><p>In
         addition to the range and area of effect of the Action described by the
         target type, each Action defines a target scope which defines which
-        creature dispositions it can affect. Action scopes include "all
-        creatures", "allies only", "enemies only", "self
-        only".</p><h4>Activation Condition</h4><p>Certain actions may require a
-        specific triggering condition to be met in order for the action to be
-        eligible for use. If present, this prerequisite condition will be listed
-        on the action, for example, the <strong>Defensive Roll</strong> action
-        has an activation condition <em>You Dodge an incoming melee
-        Strike</em>.</p><h4>Applied Effects</h4><p>Certain Actions may apply
-        Active Effects to creatures they affect. Any effects applied by the
-        Action will be listed on its card with a stated duration in combat Turns
-        or Rounds. Some effects last until otherwise removed, having unlimited
-        duration.</p><h2 class="divider">Target Types</h2><h4>Blast</h4><p>This
-        action affects creatures within a circular area of effect centered on a
-        grid space chosen by the character performing the action. The Blast
-        action also specifies a <strong>Size</strong> which describes the radius
-        of effect and a <strong>Distance</strong> which describes the maximum
-        range between the originating character and the chosen center-point of
-        the blast.</p><h4>Cone</h4><p>This action affects creatures within a
-        narrow cone of effect. The Cone originates at the center of the grid
-        space of the character performing the action. The Cone has an angle of
-        60 degrees and a specified <strong>Distance</strong> which describes the
-        range of the ability in grid spaces. Cone templates may be placed at 45
-        degree increments only.</p><h4>Fan</h4><p>This action affects creatures
-        with a broad cone of effect. The Fan originates at the center of the
-        grid space of the character performing the action. The Fan has an angle
-        of 120 degrees and a specified <strong>Distance</strong> which describes
-        the range of the ability in grid spaces. Fan templates may be placed at
-        45 degree increments only.</p><h4>None</h4><p>This action has no
+        creature dispositions it can affect. Action scopes include "All
+        Creatures", "Allies Only", "Enemies Only", "Self Only", and "None" for
+        actions that have no specific target disposition.</p><h4>Activation
+        Condition</h4><p>Certain actions may require a specific triggering
+        condition to be met in order for the action to be eligible for use. If
+        present, this prerequisite condition will be listed on the action, for
+        example, the <strong>Defensive Roll</strong> action has an activation
+        condition <em>You Dodge an incoming melee Strike</em>.</p><h4>Applied
+        Effects</h4><p>Certain Actions may apply Active Effects to creatures
+        they affect. Any effects applied by the Action will be listed on its
+        card with a stated duration in combat Rounds. Some effects last until
+        otherwise removed, having unlimited duration.</p><h2
+        class="divider">Target Types</h2><h4>Blast</h4><p>This action affects
+        creatures within a circular area of effect centered on a grid space
+        chosen by the character performing the action. The Blast action also
+        specifies a <strong>Size</strong> which describes the radius of effect
+        and a <strong>Distance</strong> which describes the maximum range
+        between the originating character and the chosen center-point of the
+        blast.</p><h4>Cone</h4><p>This action affects creatures within a narrow
+        cone of effect. The Cone originates at the center of the grid space of
+        the character performing the action. The Cone has an angle of 60 degrees
+        and a specified <strong>Distance</strong> which describes the range of
+        the ability in grid spaces. Cone templates may be rotated in 15-degree
+        increments.</p><h4>Fan</h4><p>This action affects creatures within a
+        broad cone of effect. The Fan originates at the center of the grid space
+        of the character performing the action. The Fan has an angle of 210
+        degrees and a specified <strong>Distance</strong> which describes the
+        range of the ability in grid spaces. Fan templates may be rotated in
+        15-degree increments.</p><h4>Pulse</h4><p>This action affects creatures
+        in a circular area of effect centered on the character performing the
+        action. The Pulse has a specified <strong>Distance</strong> which
+        describes the radius of the ability in grid
+        spaces.</p><h4>Ray</h4><p>This action affects creatures in a straight
+        line originating from the character performing the action. The Ray has a
+        specified <strong>Distance</strong> which describes the length of its
+        effect in grid spaces.</p><h4>Self</h4><p>This action only involves or
+        affects the character or creature which performs it. Self-target
+        abilities affect no other creatures and have no range
+        requirement.</p><h4>Single</h4><p>This action targets some number of
+        individual creatures other than the creature which performs it. Single
+        target actions also specify a <strong>Number</strong> which describes
+        the number of creatures targeted and a <strong>Distance</strong> which
+        describes the range of the ability in grid
+        spaces.</p><h4>Wall</h4><p>This action targets creatures in a straight
+        line perpendicular to the character performing the action. Actions of
+        the Wall type also specify a <strong>Size</strong> which describes the
+        breadth of the wall and a <strong>Distance</strong> which describes the
+        maximum range at which the center of the wall may be
+        placed.</p><h4>Summon</h4><p>This action summons one or more creatures
+        to the battlefield. The summoned creatures are placed within a
+        rectangular area near the character performing the
+        action.</p><h4>Movement</h4><p>This action involves movement across the
+        battlefield. The character plans a movement path and the action resolves
+        based on the distance traveled.</p><h4>None</h4><p>This action has no
         specific target. It may cause certain effects to occur but those effects
-        are not specific to any particular creature. This target type is not
-        typically used.</p><h4>Pulse</h4><p>This action affects creatures in a
-        circular area of effect centered on the character performing the action.
-        The Pulse has a specified <strong>Distance</strong> which describes the
-        radius of the ability in grid spaces.</p><h4>Ray</h4><p>This action
-        affects creatures in a straight line originating from the character
-        performing the action. The Ray has a specified <strong>Distance</strong>
-        which describes the length of its effect in grid
-        spaces.</p><h4>Self</h4><p>This action only involves or affects the
-        character or creature which performs it. Self-target abilities affect no
-        other creatures and have no range requirement.</p><h4>Single</h4><p>This
-        action targets some number of individual creatures other than the
-        creature which performs it. Single target actions also specify a
-        <strong>Number</strong> which describes the number of creatures targeted
-        and a <strong>Distance</strong> which describes the range of the ability
-        in grid spaces.</p><h4>Wall</h4><p>This action targets creatures in a
-        straight line perpendicular to the character performing the action.
-        Actions of the Wall type also specify a <strong>Size</strong> which
-        describes the breadth of the wall and a <strong>Distance</strong> which
-        describes the maximum range at which the center of the wall may be
-        placed.</p><h2 class="divider">Action Tags</h2><table><thead><tr><th
+        are not specific to any particular creature.</p><h2
+        class="divider">Action Tags</h2><p>The functionality of Actions relies
+        on a set of tags organized into the following
+        categories.</p><h3>Equipment Requirements</h3><table><thead><tr><th
         style="width:30%"><p>Tag</p></th><th><p>Rules
         Effect</p></th></tr></thead><tbody><tr><td><p>Dual
         Wield</p></td><td><p>Requires one-handed or unarmed weapons equipped in
@@ -497,48 +521,89 @@ pages:
         weapon that scales using
         Dexterity.</p></td></tr><tr><td><p>Brute</p></td><td><p>Requires use of
         a weapon that scales using
-        Strength.</p></td></tr><tr><td><p>Melee</p></td><td><p>Requires use of a
-        melee weapon or being
-        unarmed.</p></td></tr><tr><td><p>Ranged</p></td><td><p>Requires use of a
-        ranged weapon.</p></td></tr><tr><td><p>Shield</p></td><td><p>Requires a
-        shield equipped.</p></td></tr><tr><td><p>Unarmed</p></td><td><p>Requires
-        both hands to be
+        Strength.</p></td></tr><tr><td><p>Projectile</p></td><td><p>Requires use
+        of a projectile ranged
+        weapon.</p></td></tr><tr><td><p>Mechanical</p></td><td><p>Requires use
+        of a mechanical ranged
+        weapon.</p></td></tr><tr><td><p>Shield</p></td><td><p>Requires a shield
+        equipped.</p></td></tr><tr><td><p>Unarmed</p></td><td><p>Requires both
+        hands to be
         empty.</p></td></tr><tr><td><p>Unarmored</p></td><td><p>Requires no
-        armor to be
-        equipped.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves
-        movement and benefits from reduced movement cost once per
-        turn.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
-        performed on some other creature's
-        turn.</p></td></tr><tr><td><p>Spell</p></td><td><p>Involves casting a
-        spell.</p></td></tr><tr><td><p>Main-Hand</p></td><td><p>Involves
-        performing a weapon attack with the main-hand-equipped
-        weapon.</p></td></tr><tr><td><p>Two-Handed</p></td><td><p>Involves
-        performing a weapon attack with a two-handed equipped
-        weapon.</p></td></tr><tr><td><p>Off-Hand</p></td><td><p>Involves
-        performing a weapon attack with the off-hand-equipped
-        weapon.</p></td></tr><tr><td><p>Reload</p></td><td><p>Reloads a ranged
-        weapon that requires
-        reloading.</p></td></tr><tr><td><p>Deadly</p></td><td><p>Gains a +1
-        damage
+        armor to be equipped.</p></td></tr></tbody></table><h3>Context
+        Requirements</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Vocal</p></td><td><p>Requires
+        the ability to speak. Cannot be used while
+        Silenced.</p></td></tr><tr><td><p>Auditory</p></td><td><p>Requires
+        targets to hear. Deafened targets are excluded from the
+        action.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
+        performed on another creature's turn as a
+        reaction.</p></td></tr><tr><td><p>Non-Combat</p></td><td><p>Can only be
+        used outside of
+        combat.</p></td></tr><tr><td><p>Flanking</p></td><td><p>Requires the
+        target to be Flanked.</p></td></tr></tbody></table><h3>Attack
+        Tags</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Melee</p></td><td><p>Requires
+        use of a melee weapon or being
+        unarmed.</p></td></tr><tr><td><p>Ranged</p></td><td><p>Requires use of a
+        ranged weapon.</p></td></tr><tr><td><p>Main-Hand</p></td><td><p>Attacks
+        with the main-hand-equipped
+        weapon.</p></td></tr><tr><td><p>Two-Handed</p></td><td><p>Attacks with a
+        two-handed equipped
+        weapon.</p></td></tr><tr><td><p>Off-Hand</p></td><td><p>Attacks with the
+        off-hand-equipped
+        weapon.</p></td></tr><tr><td><p>Thrown</p></td><td><p>Throws the
+        equipped melee weapon as a ranged
+        attack.</p></td></tr><tr><td><p>Natural</p></td><td><p>Attacks with the
+        creature's natural weapon.</p></td></tr></tbody></table><h3>Attack
+        Modifiers</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Deadly</p></td><td><p>Gains
+        a +1 damage
         multiplier.</p></td></tr><tr><td><p>Difficult</p></td><td><p>Incurs +1
-        Bane.</p></td></tr><tr><td><p>Empowered</p></td><td><p>Increases base
+        Bane to the attack
+        roll.</p></td></tr><tr><td><p>Empowered</p></td><td><p>Increases base
         damage by +6.</p></td></tr><tr><td><p>Accurate</p></td><td><p>Adds +2
-        Boons.</p></td></tr><tr><td><p>Harmless</p></td><td><p>Always deals zero
+        Boons to the attack
+        roll.</p></td></tr><tr><td><p>Harmless</p></td><td><p>Always deals zero
         damage.</p></td></tr><tr><td><p>Weakened</p></td><td><p>Reduces base
-        damage by -6.</p></td></tr><tr><td><p>Fortitude</p></td><td><p>Targets
+        damage by 6.</p></td></tr><tr><td><p>Severe</p></td><td><p>Converts
+        Health damage to Wounds and Morale damage to
+        Madness.</p></td></tr></tbody></table><h3>Defense
+        Tags</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Fortitude</p></td><td><p>Targets
         Fortitude defense.</p></td></tr><tr><td><p>Reflex</p></td><td><p>Targets
         Reflex defense.</p></td></tr><tr><td><p>Willpower</p></td><td><p>Targets
-        Willpower
-        defense.</p></td></tr><tr><td><p>Healing</p></td><td><p>Targets Wounds
-        Threshold defense and restores damage as healing to
-        Health.</p></td></tr><tr><td><p>Rallying</p></td><td><p>Targets Madness
-        Threshold defense and restores damage as healing to
-        Morale.</p></td></tr><tr><td><p>&lt;Damage Type&gt;</p></td><td><p>Deals
-        damage as &lt;Damage
-        Type&gt;.</p></td></tr><tr><td><p>&lt;Resource&gt;</p></td><td><p>Applies
-        damage or healing to
-        &lt;Resource&gt;.</p></td></tr><tr><td><p>&lt;Skill&gt;</p></td><td><p>Performs
-        a skill attack using &lt;Skill&gt;.</p></td></tr></tbody></table>
+        Willpower defense.</p></td></tr></tbody></table><h3>Damage and Resource
+        Tags</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Healing</p></td><td><p>Restores
+        Health, targeting the Wounds
+        threshold.</p></td></tr><tr><td><p>Rallying</p></td><td><p>Restores
+        Morale, targeting the Madness
+        threshold.</p></td></tr><tr><td><p>&lt;Damage
+        Type&gt;</p></td><td><p>Deals damage of the specified type (e.g. Fire,
+        Cold,
+        Psychic).</p></td></tr><tr><td><p>&lt;Resource&gt;</p></td><td><p>Applies
+        damage or healing to the specified resource (Health or
+        Morale).</p></td></tr></tbody></table><h3>Other
+        Tags</h3><table><thead><tr><th
+        style="width:30%"><p>Tag</p></th><th><p>Rules
+        Effect</p></th></tr></thead><tbody><tr><td><p>Spell</p></td><td><p>Involves
+        casting a
+        spell.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves movement
+        across the battlefield. The first Movement action each turn benefits
+        from a reduced
+        cost.</p></td></tr><tr><td><p>Reload</p></td><td><p>Reloads a ranged
+        weapon that requires
+        reloading.</p></td></tr><tr><td><p>Disarm</p></td><td><p>On a successful
+        hit, drops and unequips the target's mainhand
+        weapon.</p></td></tr><tr><td><p>Maintained</p></td><td><p>Requires
+        sustained Focus expenditure each turn to maintain the
+        effect.</p></td></tr><tr><td><p>&lt;Skill&gt;</p></td><td><p>Performs a
+        skill attack using the specified Skill.</p></td></tr></tbody></table>
     video:
       controls: true
       volume: 0.5
@@ -574,7 +639,7 @@ pages:
       content: >-
         <p><strong>Engagement</strong> describes the total number of opposing
         Combatants that you can simultaneously battle against without becoming
-        more vulnerable. The base Engagement for <strong>Protagonist</strong>
+        more vulnerable. The base Engagement for <strong>Hero</strong>
         characters is <strong>1</strong>, while the base Engagement for
         <strong>Adversary</strong> characters is equal to their <strong>Size -
         2</strong> with a minimum of <strong>1</strong>.</p><p>When a character
@@ -625,24 +690,17 @@ pages:
         against the Flanked creature.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,
-        allowing you to perform a <strong>Disengagement Strike</strong>, an
-        attack with your mainhand weapon which costs 1 Focus point to perform.
-        You may not make a Disengagement Attack if you are
-        <strong>Unaware</strong> of the enemy moving away or if you are
-        <strong>Flanked</strong> by other remaining opponents.</p><section
-        class="gameplay"><p>The Goblins in our previous example have decided
-        that Krag is too tough and it is advisable to disengage in search of
-        more vulnerable prey. Two of the four goblins may move away from Krag
-        without reciprocity, because Krag is otherwise <strong>Fully
-        Engaged</strong> and therefore cannot retaliate. When the third goblin
-        moves away, however, Krag spends 1 Focus point to perform a
-        <strong>Disengagement Strike</strong>, burying his battle axe in the
-        back of the retreating evildoer!</p></section><p>There is a safe means
-        of retreating from melee combat, which is to <strong>Move
-        Cautiously</strong>. This mode of movement only permits you to move a
-        single space, but it denies enemies with whom you were previously
-        engaged the opportunity to perform a <strong>Disengagement
-        Attack</strong>.</p>
+        allowing you to perform a <strong>Reactive Strike</strong>, a weapon
+        attack as a Reaction. You may not make a Reactive Strike if you are
+        @Condition[Unaware] or @Condition[Flanked] by other remaining
+        opponents.</p><section class="gameplay"><p>The Goblins in our previous
+        example have decided that Krag is too tough and it is advisable to
+        disengage in search of more vulnerable prey. Two of the four goblins may
+        move away from Krag without reciprocity, because Krag is otherwise
+        <strong>Fully Engaged</strong> and therefore cannot retaliate. When the
+        third goblin moves away, however, Krag performs a <strong>Reactive
+        Strike</strong>, burying his battle axe in the back of the retreating
+        evildoer!</p></section>
     video:
       controls: true
       volume: 0.5
@@ -723,25 +781,25 @@ pages:
       format: 1
       content: >-
         <p>Actions taken during Combat generate <strong>Heroism</strong> which
-        accumulates until it reaches a threshold at which point every
-        <strong>Hero</strong> in the Combat encounter gains a <strong>Heroism
-        Point</strong>. Heroism is a resource that allows protagonists to
-        perform legendary or iconic feats of power or resilience.</p><p>Heroism
-        is accumulated by any Action which applies healing, damage, or effects
-        to some other character. Actions which only target yourself, like
-        <strong>Move</strong> or <strong>Defend</strong> do not contribute
-        towards Heroism. The actions of both allies and adversaries count
-        towards Heroism accumulation. The amount of Heroism accumulated by each
-        Action is equal to its<strong> Action</strong> cost.</p><section
-        class="foundryvtt"><p>The progress of Heroism accumulation is visualized
-        at the top of the Combat Tracker. A customizable game setting exists to
-        configure whether this progress bar is visible to all players or only to
-        Gamemasters. If you are new to the Crucible system, we encourage you to
-        allow this progress bar to be visible to everyone, but once you are used
-        to the rules of the system concealing it from players can help reduce
-        metagaming that may occur from players trying to precisely anticipate
-        the award of their next Heroism point.</p></section><p>The number of
-        <strong>Action Points</strong> that need to be spent in order to yield a
+        accumulates until it reaches a threshold at which point every combatant
+        in the encounter gains a <strong>Heroism Point</strong>. Heroism is a
+        resource that allows combatants to perform legendary or iconic feats of
+        power or resilience.</p><p>Heroism is accumulated by any Action which
+        applies healing, damage, or effects to some other character. Actions
+        which only target yourself, like <strong>Move</strong> or
+        <strong>Defend</strong> do not contribute towards Heroism. The actions
+        of both allies and adversaries count towards Heroism accumulation. The
+        amount of Heroism accumulated by each Action is equal to its<strong>
+        Action</strong> cost.</p><section class="foundryvtt"><p>The progress of
+        Heroism accumulation is visualized at the top of the Combat Tracker. A
+        customizable game setting exists to configure whether this progress bar
+        is visible to all players or only to Gamemasters. If you are new to the
+        Crucible system, we encourage you to allow this progress bar to be
+        visible to everyone, but once you are used to the rules of the system
+        concealing it from players can help reduce metagaming that may occur
+        from players trying to precisely anticipate the award of their next
+        Heroism point.</p></section><p>The number of <strong>Action
+        Points</strong> that need to be spent in order to yield a
         <strong>Heroism Point</strong> depends on the number of Hero characters
         in the Combat encounter:</p><section class="formula"><p
         class="value">Action per Heroism</p><p class="equals">=</p><p

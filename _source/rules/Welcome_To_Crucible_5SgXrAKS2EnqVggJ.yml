@@ -12,65 +12,81 @@ pages:
     text:
       format: 1
       content: >-
-        <figure><img class="noborder"
-        src="systems/crucible/ui/crucible-text-dark.png"
-        /></figure><p><strong>Crucible</strong> is an innovative and modern
-        role-playing game (RPG) system built exclusively for <strong>Foundry
-        Virtual Tabletop</strong> as a digital platform.</p><p>Crucible is
-        designed from the ground up to leverage the unique capabilities of
-        Foundry Virtual Tabletop to create exciting and fast-paced gameplay that
-        allow gamemasters and players to focus on what matters most: <em>telling
-        a compelling story</em>.</p><p>At the heart of Crucible is meaningful
-        and empowering character advancement through a class-less system with
-        multiple pillars of character progression. The system’s dice mechanics
-        allow for crunchy and tactically rich encounters featuring combat,
-        exploration, or social challenges.</p><p>Crucible is both a role-playing
-        game and a software engine. The game system offers a deep level of
-        mechanical sophistication, but its rules are entirely encoded to be
-        applied with consistency and automation. The system is built
-        intentionally to eliminate the cumbersome bookkeeping that is prevalent
-        in high-crunch pen-and-paper systems.</p><h2 class="divider">Development
-        Status</h2><p>Crucible is now available for its <strong>Alpha
-        Playtest</strong> which provides the community with a first look at the
-        system, design pillars, and intended direction. The system is moderately
-        functional, but still early in development. All areas of the system are
-        works-in-progress and some areas are not yet developed at all. This
-        playtest offers a chance for us to collect early feedback and share our
-        work with the community. Please approach it with an open mind and an
-        understanding that what you are seeing is still a long way from a
-        finished product.</p><section class="construction"><p>Blocks like this
-        one in the system documentation highlight areas of the system that still
-        require substantial development. These are intended to make you aware of
-        areas that are intentionally unfinished at this
-        time.</p></section><p>Development of Crucible is two-pronged with an
-        equal focus on developing the system mechanics of the roleplaying game
-        and the software implementation of those mechanics simultaneously. As
-        the game mechanics evolve, new developments of the game system will
-        enable those features for use in testing. The playtest process allows us
-        to solicit and benefit from feedback that helps us iterate on the game
-        rules and the user experience in Foundry Virtual Tabletop. We anticipate
-        hosting multiple rounds of feedback, each focusing on a different aspect
-        of the game experience.</p><h2 class="divider">Playtest One</h2><p>The
-        first playtest,
+        <figure>
+            <img src="systems/crucible/ui/banner-full.webp">
+        </figure>
+
+        <p><strong>Crucible</strong> is an innovative and modern role-playing
+        game (RPG) system built exclusively for <strong>Foundry Virtual
+        Tabletop</strong> as a digital platform.</p>
+
+        <p>Crucible is designed from the ground up to leverage the unique
+        capabilities of Foundry Virtual Tabletop to create exciting and
+        fast-paced gameplay that allow gamemasters and players to focus on what
+        matters most: <em>telling a compelling story</em>.</p>
+
+        <p>At the heart of Crucible is meaningful and empowering character
+        advancement through a class-less system with multiple pillars of
+        character progression. The system’s dice mechanics allow for crunchy and
+        tactically rich encounters featuring combat, exploration, or social
+        challenges.</p>
+
+        <p>Crucible is both a role-playing game and a software engine. The game
+        system offers a deep level of mechanical sophistication, but its rules
+        are entirely encoded to be applied with consistency and automation. The
+        system is built intentionally to eliminate the cumbersome bookkeeping
+        that is prevalent in high-crunch pen-and-paper systems.</p>
+
+        <h2 class="divider">Development Status</h2>
+
+        <p>Crucible is currently under development and available as a
+        <strong>playtest</strong>, providing the community with an opportunity
+        to experience the system, its design pillars, and intended direction.
+        The system is functional in many areas, but still a work in progress.
+        Some areas are not yet developed at all. This playtest offers a chance
+        for us to collect early feedback and share our work with the community.
+        Please approach it with an open mind and an understanding that what you
+        are seeing is not yet a finished product.</p>
+
+        <section class="construction">
+            <p>Blocks like this one in the system documentation highlight areas of the system that still require substantial development. These are intended to make you aware of areas that are intentionally unfinished at this time.</p>
+        </section>
+
+        <p>Development of Crucible is two-pronged with an equal focus on
+        developing the system mechanics of the roleplaying game and the software
+        implementation of those mechanics simultaneously. As the game mechanics
+        evolve, new developments of the game system will enable those features
+        for use in testing. The playtest process allows us to solicit and
+        benefit from feedback that helps us iterate on the game rules and the
+        user experience in Foundry Virtual Tabletop.</p>
+
+        <h2 class="divider">Current Playtest</h2>
+
+        <p>The
         @UUID[Compendium.crucible.playtest.Adventure.F8AILycmdj2kuOVa]{Playtest
-        1 - The Ring of Valor}, is focused on
+        1 - The Ring of Valor} adventure is included with the Crucible game
+        system and provides an introduction to
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
         Creation} and
         @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c]{Combat
-        Encounters}. This playtest provides an abbreviated introduction to the
-        Crucible game system, covering character creation, dice mechanics,
-        combat encounters, and level advancement. The playtest begins at level 1
-        and advances characters through level 6 allowing them to evolve and
-        advance their character between each challenge of the test.</p><section
-        class="construction"><p>Please note that the rules and mechanics
-        featured in this playtest are not final. Most talents, skills, and rules
-        will be further refined during later phases of
-        development.</p></section><h2 class="divider">Ember</h2><p>There is far
-        more Crucible content available as part of our original setting and epic
-        adventure <a href="https://foundryvtt.com/ember">Ember</a>, which is now
-        in Kickstarter Beta testing phase. Ember is available for pre-order, and
-        will contain an immense campaign for Crucible spanning several years of
-        gameplay taking your party from character level 1 to 12 (or beyond).</p>
+        Encounters}. This playtest covers character creation, dice mechanics,
+        combat encounters, and level advancement. It begins at level 1 and
+        advances characters through level 6, allowing them to evolve and advance
+        between each challenge.</p>
+
+        <section class="construction">
+            <p>Please note that the rules and mechanics featured in the Crucible playtest are not final and will continue to be refined during ongoing development.</p>
+        </section>
+
+        <h2 class="divider">Ember</h2>
+
+        <p>There is far more Crucible content available as part of our original
+        setting and epic adventure <a
+        href="https://foundryvtt.com/ember">Ember</a>, a digital roleplaying
+        game from the creators of Foundry Virtual Tabletop. Ember is available
+        now in Early Access and features an immersive open-world campaign for
+        Crucible spanning several years of gameplay, taking your party from
+        character level 1 to 12 (or beyond).</p>
     video:
       controls: true
       volume: 0.5
@@ -83,10 +99,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.359'
       createdTime: 1684020732888
-      modifiedTime: 1762095478911
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1775310690252
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -177,22 +193,19 @@ pages:
     text:
       format: 1
       content: >-
-        <p>As part of the playtest process, we ask users to submit feedback on
-        their experience with Crucible. This data will be collected and collated
-        to help us identify areas of the game which need improvement, collect
-        bugs that need to be fixed, and help us prioritize the development of
-        new features.</p><h3 class="divider">Formal Feedback via Google
-        Forms</h3><section class="construction"><p>We are not collecting
-        feedback form responses <em>at this time</em> but will be re-opening the
-        feedback form as part of a subsequent playtest update.</p></section><h3
-        class="divider">General Feedback via Discord</h3><p>The Foundry Virtual
-        Tabletop community <a href="https://discord.gg/foundryvtt">Discord</a>
-        server is a primary hub for discussion and feedback for Foundry Virtual
-        Tabletop, and we've configured a dedicated channel for playtest
-        feedback. We have a dedicated channel for playtest feedback, and we
-        encourage users to join the server and participate in the discussion.
-        Please join the discussion in the <strong>#crucible</strong> channel of
-        our Discord server.</p>
+        <p>We welcome feedback on your experience with Crucible. This data helps
+        us identify areas of the game which need improvement, collect bugs that
+        need to be fixed, and prioritize the development of new features.</p><h3
+        class="divider">Discord</h3><p>The Foundry Virtual Tabletop community <a
+        href="https://discord.gg/foundryvtt">Discord</a> server is a primary hub
+        for discussion and feedback. We have a dedicated channel for Crucible
+        feedback, and we encourage users to join the server and participate in
+        the discussion. Please join the discussion in the
+        <strong>#crucible</strong> channel of our Discord server.</p><h3
+        class="divider">GitHub</h3><p>Reproducible bug reports and clearly
+        articulated feature requests can be submitted to the <a
+        href="https://github.com/foundryvtt/crucible/issues">Crucible issue
+        tracker</a> on GitHub.</p>
     video:
       controls: true
       volume: 0.5
@@ -277,17 +290,15 @@ pages:
     text:
       format: 1
       content: >-
-        <p>At the time of this playtest, Crucible is being released exclusively
-        to a select group of Foundry Virtual Tabletop users including our
-        Patreon membership and a number of hand-picked users from our
-        community.</p><p>During these initial playtests, Crucible does not
-        provide a license which can be used to create third party content or to
-        modify the system or its rules.</p><p>It is our intent in the future to
-        provide a favourable license which others may use both for creating
-        addons and third-party content that they may share for both commercial
-        and non-commercial purposes. The codebase for the system will be a
-        separate license from the license for producing content using the
-        system.</p>
+        <p>Crucible is currently available exclusively to Foundry Virtual
+        Tabletop users including our Patreon membership and select community
+        members.</p><p>At this time, Crucible does not provide a license which
+        can be used to create third party content or to modify the system or its
+        rules.</p><p>It is our intent in the future to provide a favourable
+        license which others may use both for creating addons and third-party
+        content that they may share for both commercial and non-commercial
+        purposes. The codebase for the system will be a separate license from
+        the license for producing content using the system.</p>
       markdown: ''
     video:
       controls: true
@@ -324,21 +335,19 @@ pages:
       content: >-
         <p>As with any game system in Foundry Virtual Tabletop, Modules can
         enhance and augment the quality of gameplay experience. We do, however,
-        request that testers of the initial Crucible Playtest try out the game
-        system in a module-light environment in order to ensure that your
-        experience and your feedback is appropriate and specific to the
-        functionality of the Crucible system. Your playtest feedback will be
-        more useful to us if you have fewer modules installed.</p><h2
+        recommend playing Crucible in a module-light environment in order to
+        ensure that your experience and any feedback you provide is specific to
+        the functionality of the Crucible system.</p><h2
         class="divider">Ember</h2><p>There is far more Crucible content
         available as part of our original setting and epic adventure <a
-        href="https://foundryvtt.com/ember">Ember</a>, which is now in
-        Kickstarter Beta testing phase. Ember is available for pre-order, and
-        will contain an immense campaign for Crucible spanning several years of
-        gameplay taking your party from character level 1 to 12 (or
-        beyond).</p><figure><img class="noborder"
+        href="https://foundryvtt.com/ember">Ember</a>, a digital roleplaying
+        game from the creators of Foundry Virtual Tabletop. Ember is available
+        now in Early Access and features an immersive open-world campaign for
+        Crucible spanning several years of gameplay, taking your party from
+        character level 1 to 12 (or beyond).</p><figure><img class="noborder"
         src="systems/crucible/assets/banners/ember-banner.webp"
-        /><figcaption>Ember, currently in Beta testing, will be the definite way
-        to experience the Crucible game system.</figcaption></figure><h2
+        /><figcaption>Ember, now in Early Access, is the definitive way to
+        experience the Crucible game system.</figcaption></figure><h2
         class="divider">Dice So Nice</h2><p>The Crucible game system is designed
         with use of the <a href="https://foundryvtt.com/packages/dice-so-nice/"
         target="_blank">Dice So Nice</a> module in mind. When rolling, Crucible
