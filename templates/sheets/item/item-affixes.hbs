@@ -2,10 +2,7 @@
          data-tab="{{tabs.affixes.id}}" data-group="{{tabs.affixes.group}}">
     {{#if hasAffixCapacity}}
     <fieldset>
-        <legend>
-            <span>{{localize "AFFIX.Prefixes"}}</span>
-            <span class="capacity">{{affixCapacity.prefix.spent}} / {{affixCapacity.prefix.total}}</span>
-        </legend>
+        <legend>{{localize "AFFIX.Prefixes"}} ({{affixCapacity.prefix.spent}} / {{affixCapacity.prefix.total}})</legend>
         {{#each prefixes as |affix|}}
         {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
         {{/each}}
@@ -14,10 +11,7 @@
         {{/unless}}
     </fieldset>
     <fieldset>
-        <legend>
-            <span>{{localize "AFFIX.Suffixes"}}</span>
-            <span class="capacity">{{affixCapacity.suffix.spent}} / {{affixCapacity.suffix.total}}</span>
-        </legend>
+        <legend>{{localize "AFFIX.Suffixes"}} ({{affixCapacity.suffix.spent}} / {{affixCapacity.suffix.total}})</legend>
         {{#each suffixes as |affix|}}
         {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
         {{/each}}

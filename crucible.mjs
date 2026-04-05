@@ -133,7 +133,10 @@ Hooks.once("init", async function() {
     base: models.CrucibleBaseActiveEffect,
     flanked: models.CrucibleFlankedActiveEffect
   };
-  CONFIG.ActiveEffect.expiryAction = "delete";
+  Object.assign(CONFIG.ActiveEffect, {
+    compendiumIndexFields: ["system.identifier", "system.affixType"],
+    expiryAction: "delete"
+  });
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -219,6 +222,8 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, "crucible", applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
   sheets.registerSheet(Item, "crucible", applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
   sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+
+  sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleAffixEffectSheet, {types: ["affix"], label: "CRUCIBLE.SHEETS.Affix", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 

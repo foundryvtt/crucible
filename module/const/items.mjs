@@ -177,11 +177,11 @@ export const AFFIXABLE_ITEM_TYPES = new Set();
  * The allowed affix type categories.
  * Prefix affixes contribute their name before the item category label.
  * Suffix affixes contribute their name after "of" in the composed item name.
- * @enum {{label: string}}
+ * @enum {string}
  */
 export const AFFIX_TYPES = Object.freeze({
-  prefix: {label: "AFFIX.TypePrefix"},
-  suffix: {label: "AFFIX.TypeSuffix"}
+  prefix: "AFFIX.TypePrefix",
+  suffix: "AFFIX.TypeSuffix"
 });
 
 /**

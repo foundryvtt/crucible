@@ -812,39 +812,41 @@
     "FIELDS": {
       "adjective": {
         "label": "Adjective",
-        "hint": "An optional adjective used when composing the item name. Falls back to the effect name if blank."
+        "hint": "An optional adjective used when composing an item name."
       },
       "affixType": {
         "label": "Affix Type",
-        "hint": "Whether this affix is a prefix (before the item name) or a suffix (after \"of\")."
+        "hint": "Affixes must either be of the prefix or suffix type."
       },
       "identifier": {
         "label": "Identifier",
-        "hint": "A unique programmatic identifier for this affix, used to resolve hook functions."
+        "hint": "A unique string identifier for this affix (max 16 characters) used to declare hook functions and to determine affix IDs when applied to an item."
       },
       "itemTypes": {
         "label": "Item Types",
-        "hint": "Which item types this affix can be applied to. Leave empty to allow any affixable type."
+        "hint": "Which item types this affix can be applied to. If no specific types are checked, then all item types are allowed."
       },
       "tier": {
         "label": "Tier",
-        "hint": "The power tier of this affix, which determines its capacity cost and effect potency.",
+        "hint": "The allowed range of power tiers for this affix. Each tier consumes one point of prefix or suffix capacity.",
         "min": {
-          "label": "Minimum Tier",
-          "hint": "The minimum tier at which this affix can be applied."
+          "label": "Minimum Tier"
         },
         "max": {
-          "label": "Maximum Tier",
-          "hint": "The maximum tier at which this affix can be applied."
+          "label": "Maximum Tier"
         },
         "value": {
-          "label": "Current Tier",
-          "hint": "The current tier of this affix on the item."
+          "label": "Affix Tier",
+          "hint": "The tier of this affix applied to the item."
         }
       }
     },
+    "ConfigIdentity": "Affix Identity",
+    "ConfigTier": "Tier Configuration",
+    "TierRestriction": "Tier Range",
     "Prefixes": "Prefixes",
     "Suffixes": "Suffixes",
+    "TierDisplay": "Tier {value} / {max}",
     "TypePrefix": "Prefix",
     "TypeSuffix": "Suffix"
   },
@@ -1220,7 +1222,9 @@
   },
   "CRUCIBLE": {
     "SHEETS": {
+      "Accessory": "Crucible Accessory Sheet",
       "Adversary": "Crucible Adversary Sheet",
+      "Affix": "Crucible Affix Sheet",
       "Ancestry": "Crucible Ancestry Sheet",
       "Archetype": "Crucible Archetype Sheet",
       "Armor": "Crucible Armor Sheet",
