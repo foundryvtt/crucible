@@ -1,3 +1,4 @@
+import CrucibleItem from "./item.mjs";
 import CrucibleAffixActiveEffect from "../models/effect-affix.mjs";
 
 /**
@@ -107,7 +108,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       if ( doc.type === "affix" ) source.effects.push(doc.toObject());
     }
     try {
-      CrucibleActiveEffect.#validateItemAffixes(source);
+      CrucibleItem.validateJoint(source);
     } catch(err) {
       ui.notifications.warn(err.message);
       return false;
@@ -134,23 +135,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       if ( idx >= 0 ) foundry.utils.mergeObject(source.effects[idx], update);
     }
     try {
-      CrucibleActiveEffect.#validateItemAffixes(source);
+      CrucibleItem.validateJoint(source);
     } catch(err) {
       ui.notifications.warn(err.message);
       return false;
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Validate the affix composition of an Item using the same logic as CrucibleItem.validateJoint.
-   * @param {object} itemSource     The Item source data with proposed effects
-   * @throws {Error}                An error if the affix composition is invalid
-   */
-  static #validateItemAffixes(itemSource) {
-    const {CrucibleItem} = crucible.api.documents;
-    CrucibleItem.validateJoint(itemSource);
   }
 
   /* -------------------------------------------- */

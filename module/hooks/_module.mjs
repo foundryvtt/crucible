@@ -3,7 +3,6 @@ export {default as action} from "./action.mjs";
 export {default as talent} from "./talent.mjs";
 export {default as spell} from "./spell.mjs";
 export {default as spellcraft} from "./spellcraft.mjs";
-
 export {default as affix} from "./affix.mjs";
 export const weapon = {};
 export const armor = {};

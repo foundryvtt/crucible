@@ -40,12 +40,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   };
 
   /**
-   * Roman numeral representations for affix tiers.
-   * @type {Record<number, string>}
-   */
-  static #ROMAN_NUMERALS = {1: "I", 2: "II", 3: "III"};
-
-  /**
    * A template path used to render a single action.
    * @type {string}
    */
@@ -271,7 +265,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         img: affix.img,
         description: affix.description,
         tier: tierValue,
-        tierRoman: CrucibleBaseItemSheet.#ROMAN_NUMERALS[tierValue] ?? tierValue
+        tierRoman: ["", "I", "II", "III"][tierValue] ?? tierValue
       };
       if ( affix.system.affixType === "prefix" ) prefixes.push(data);
       else suffixes.push(data);

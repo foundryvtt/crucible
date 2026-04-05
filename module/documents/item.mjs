@@ -60,11 +60,7 @@ export default class CrucibleItem extends foundry.documents.Item {
   /* -------------------------------------------- */
 
   /**
-   * Validate the composition of affix ActiveEffects against the item's type and quality capacity.
-   * The validateJoint workflow occurs client-side for Item updates (e.g., item.update({effects: [...]})) but does NOT
-   * currently fire for embedded document operations due to https://github.com/foundryvtt/foundryvtt/issues/14133.
-   * When that is resolved, the lifecycle hook workarounds in _preCreate/_preUpdate on CrucibleActiveEffect and
-   * _preCreateDescendantDocuments/_preUpdateDescendantDocuments on CrucibleItem can be removed.
+   * Validate the composition of affix effects against their parent item's type and enchantment capacity.
    * @param {Partial<ItemData>} data    Candidate Item data to persist
    * @throws {Error}                    An error if the composition of affixes is disallowed
    */

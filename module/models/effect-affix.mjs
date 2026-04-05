@@ -2,16 +2,18 @@ import {SYSTEM} from "../const/system.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
- * @typedef CrucibleAffixSummary
- * @property {string} identifier      The affix identifier
- * @property {string} affixType       "prefix" or "suffix"
- * @property {number} tierValue       The tier value (capacity cost)
- * @property {Set<string>} itemTypes  Allowed item types (empty means any)
+ * @typedef CrucibleAffixEffectData
+ * @property {string} identifier              A unique identifier for the affix, max 16 characters
+ * @property {string} adjective               An adjective used when composing the enchanted item name
+ * @property {string} affixType               The affix category, "prefix" or "suffix"
+ * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
+ * @property {{min: number, max: number, value: number}} tier   The power tier with configurable range (1-3)
  */
 
 /**
  * An ActiveEffect subtype data model representing an affix embedded on an equipment item.
  * Affixes extend item behavior through module-level hook functions registered in crucible.api.hooks.affix.
+ * @extends {foundry.data.ActiveEffectTypeDataModel<CrucibleAffixEffectData>}
  */
 export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffectTypeDataModel {
 
@@ -46,123 +48,6 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
    */
   static generateId(identifier) {
     return identifier.padEnd(16, "0");
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Validate the proposed set of affixes for an item.
-   * This is the single point of affix composition validation, called by all lifecycle hooks.
-   * In a future world where ClientDatabaseBackend invokes parent.validate({joint: true}) for embedded
-   * document operations, this method could be called from CrucibleItem.validateJoint instead.
-   * @param {CrucibleItem} item                       The parent item document
-   * @param {CrucibleAffixSummary[]} proposedAffixes  The full proposed set of affixes after the operation
-   * @returns {string|void}     A rejection reason, or undefined if the composition is valid
-   */
-  static validateAffixes(item, proposedAffixes) {
-
-    // The item type must support affixes
-    if ( !item.system.constructor.AFFIXABLE ) {
-      return `Item type "${item.type}" does not support affixes.`;
-    }
-
-    // Validate each individual affix and accumulate budget
-    const identifiers = new Set();
-    let prefixSpent = 0;
-    let suffixSpent = 0;
-    for ( const affix of proposedAffixes ) {
-
-      // No duplicate identifiers
-      if ( identifiers.has(affix.identifier) ) {
-        return `Duplicate affix identifier "${affix.identifier}" on item "${item.name}".`;
-      }
-      identifiers.add(affix.identifier);
-
-      // Item type restriction
-      if ( affix.itemTypes.size && !affix.itemTypes.has(item.type) ) {
-        return `Affix "${affix.identifier}" cannot be applied to item type "${item.type}".`;
-      }
-
-      // Accumulate budget by type
-      if ( affix.affixType === "prefix" ) prefixSpent += affix.tierValue;
-      else suffixSpent += affix.tierValue;
-    }
-
-    // Check budget
-    const quality = SYSTEM.ITEM.QUALITY_TIERS[item.system.quality] ?? SYSTEM.ITEM.QUALITY_TIERS.standard;
-    const halfCapacity = quality.capacity / 2;
-    if ( prefixSpent > halfCapacity ) {
-      return `Prefix affixes (cost ${prefixSpent}) exceed the available prefix capacity of ${halfCapacity}.`;
-    }
-    if ( suffixSpent > halfCapacity ) {
-      return `Suffix affixes (cost ${suffixSpent}) exceed the available suffix capacity of ${halfCapacity}.`;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Build an affix summary from an ActiveEffect document instance.
-   * @param {CrucibleActiveEffect} effect
-   * @returns {CrucibleAffixSummary}
-   */
-  static summarizeEffect(effect) {
-    return {
-      identifier: effect.system.identifier,
-      affixType: effect.system.affixType,
-      tierValue: effect.system.tier.value,
-      itemTypes: effect.system.itemTypes
-    };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Build an affix summary from raw creation or update data, falling back to an existing effect for missing fields.
-   * @param {object} data                           The creation data or update changes
-   * @param {CrucibleActiveEffect} [existing]       The existing effect being updated, if any
-   * @returns {CrucibleAffixSummary}
-   */
-  static summarizeData(data, existing) {
-    return {
-      identifier: data.system?.identifier ?? existing?.system.identifier,
-      affixType: data.system?.affixType ?? existing?.system.affixType,
-      tierValue: data.system?.tier?.value ?? existing?.system.tier.value ?? 1,
-      itemTypes: data.system?.itemTypes ? new Set(data.system.itemTypes) : (existing?.system.itemTypes ?? new Set())
-    };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Build the proposed affix set for an item, starting from its current affixes and applying modifications.
-   * @param {CrucibleItem} item       The parent item
-   * @param {object} [options]
-   * @param {object[]} [options.create]   New affix data being created
-   * @param {object[]} [options.update]   Update changes being applied to existing affixes
-   * @param {string[]} [options.delete]   IDs of affixes being deleted
-   * @returns {CrucibleAffixSummary[]}
-   */
-  static buildProposedAffixes(item, {create=[], update=[], delete: del=[]}={}) {
-    const deleteIds = new Set(del);
-    const updateMap = new Map(update.map(u => [u._id, u]));
-
-    // Start with current affixes, applying updates and filtering deletions
-    const proposed = [];
-    for ( const effect of item.effects ) {
-      if ( effect.type !== "affix" ) continue;
-      if ( deleteIds.has(effect.id) ) continue;
-      const changes = updateMap.get(effect.id);
-      if ( changes ) proposed.push(CrucibleAffixActiveEffect.summarizeData(changes, effect));
-      else proposed.push(CrucibleAffixActiveEffect.summarizeEffect(effect));
-    }
-
-    // Add new affixes
-    for ( const data of create ) {
-      if ( data.type !== "affix" ) continue;
-      proposed.push(CrucibleAffixActiveEffect.summarizeData(data));
-    }
-    return proposed;
   }
 
   /* -------------------------------------------- */

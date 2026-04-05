@@ -2,7 +2,6 @@ const {api, sheets} = foundry.applications;
 
 /**
  * A specialized sheet for configuring affix-type ActiveEffects.
- * Styled to match Crucible item sheets with a tabbed Description/Configuration layout.
  */
 export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationMixin(sheets.ActiveEffectConfig) {
 

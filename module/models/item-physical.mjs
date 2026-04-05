@@ -154,11 +154,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
 
-    // Affix Capacity and Rarity
-    // Capacity is split evenly between prefix and suffix budgets.
-    // For affixable items with affixes, rarity is derived from quality + total affix tier.
-    // For affixable items without affixes, rarity falls back to quality + enchantment (legacy bridge).
-    // For non-affixable items, rarity includes the enchantment contribution directly.
+    // Compute affix capacity and current affix consumption
     if ( this.constructor.AFFIXABLE ) {
       const affixes = this.affixes = {};
       let prefixSpent = 0;
@@ -208,10 +204,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
-   * Get all actor hooks contributed by this item, including hooks from each affix ActiveEffect.
-   * For non-affixable item types this returns the item's own actorHooks directly.
-   * For affixable item types this aggregates inline hooks from all affix AEs and resolves any
-   * module-level hooks registered under crucible.api.hooks.affix for each affix identifier.
+   * Provide all actor hooks contributed by this item, both from the base item and from each of its affixes.
    * @returns {Array<{hook: string, fn: Function|string}>}
    */
   getActorHooks() {
@@ -234,25 +227,22 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
-   * Compose an item name from the adjectives of its embedded affix ActiveEffects.
-   * Prefix affixes contribute text before the item category label.
-   * Suffix affixes contribute text after "of" at the end of the name.
-   * Returns null if no affixes are present, indicating that no automatic name applies.
-   * Only available on item types where AFFIXABLE is true.
+   * Compose a deterministic name for an item based on a base item name and its applied affixes.
+   * TODO use localization format or Intl.ListFormatter somehow
+   * @param {string} baseName
+   * @param {CrucibleAffixEffectData[]} affixes
    * @returns {string|null}
    */
-  composeItemName() {
-    if ( !this.constructor.AFFIXABLE ) return null;
+  static composeItemName(baseName, affixes) {
     const prefixes = [];
     const suffixes = [];
-    for ( const affix of foundry.utils.iterateValues(this.affixes) ) {
+    for ( const affix of foundry.utils.iterateValues(affixes) ) {
       const adj = affix.system.adjective || affix.name;
       if ( affix.system.affixType === "prefix" ) prefixes.push(adj);
       else suffixes.push(adj);
     }
     if ( !prefixes.length && !suffixes.length ) return null;
-    const base = this.config.category.label;
-    let name = prefixes.length ? prefixes.join(" ") + " " + base : base;
+    let name = prefixes.length ? prefixes.join(" ") + " " + baseName : baseName;
     if ( suffixes.length ) name += " of " + suffixes.join(" ");
     return name;
   }
