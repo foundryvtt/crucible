@@ -57,9 +57,13 @@ pages:
         maintain a satisfying pace to combat encounters.</p><h4>Incapacitated
         Combatants</h4><p>Combatants who are <strong>Incapacitated</strong> or
         <strong>Dead</strong> are automatically placed at Initiative 0 and their
-        turns come last in each Round.</p><h4>Tiebreaking Procedures</h4><p>Ties
-        in initiative are resolved by applying the following tiebreaking
-        criteria in order:</p><ol><li><p>Combatants with a higher passive
+        turns come last in each Round.</p><h4>Unaware
+        Combatants</h4><p>Combatants who are @Condition[Unaware] act at
+        Initiative 1, last aside from Incapacitated creatures. Once a creature
+        is no longer Unaware, it rolls Initiative and acts as normal for
+        subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
+        initiative are resolved by applying the following tiebreaking criteria
+        in order:</p><ol><li><p>Combatants with a higher passive
         <strong>Initiative</strong> bonus.</p></li><li><p>Combatants with more
         maximum
         <strong>Action</strong>.</p></li><li><p><strong>Adversaries</strong> act
