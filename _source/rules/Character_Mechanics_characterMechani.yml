@@ -955,10 +955,14 @@ pages:
         name.</p></section><p>Skill checks use the same equation for calculation
         that a
         @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
-        Check} does.</p><p>A character's skill rank is determined by their
-        degree of training, adding a bonus to checks made for that skill. Each
-        skill has 4 ranks as well as an 'untrained'
-        rank.</p><table><tbody><tr><th
+        Check} does. Like all Standard Checks, skill checks can result in a
+        <strong>Critical Success</strong> if the total exceeds the DC by more
+        than 6, or a <strong>Critical Failure</strong> if the total falls below
+        the DC by more than 6. The GM may choose to apply additional
+        consequences or benefits based on these critical outcomes.</p><p>A
+        character's skill rank is determined by their degree of training, adding
+        a bonus to checks made for that skill. Each skill has 4 ranks as well as
+        an 'untrained' rank.</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
@@ -980,20 +984,20 @@ pages:
         class="value">Skill Check</p><p class="equals">=</p><p
         class="equation">3d8[Boons,Banes] + Average of Ability Bonuses (Round
         Up) + Skill Bonus + Enchantment Bonus</p></section><section
-        class="gameplay"><h4>Example: Rolling a Skill Check</h4><p>Albert, our
-        storied naval captain from a previous example, is faced with a dilemma.
-        His ship is about to be imperilled by a storm, and his crew is looking
-        to him to safely navigate out of the harbor. As a Master Cartographer,
-        Albert taps into his extremely strong knowledge of long-distance travel.
-        This will be a Challenging (DC 25) roll; Albert rolls his Skill check.
-        Unluckily, Albert's dice total turn up <strong>6</strong>,
-        <strong>4</strong>, and <strong>7</strong>— a total of
-        <strong>17</strong> and a far cry from the needed 25. However, Albert's
-        ability score for Strength is quite high at <strong>8</strong>, and his
-        Dexterity is <strong>6, </strong>so the average of the two abilities
-        adds an Ability bonus of <strong>7</strong>. Albert also happens to have
-        a magical set of nautical charts which grant a +2 enchantment bonus,
-        pushing the result of the roll to <strong>26</strong>.</p></section><h2
+        class="gameplay"><h4>Example: Rolling a Skill Check</h4><p>Albert, a
+        seasoned naval captain, is faced with a dilemma. His ship is about to be
+        imperiled by a storm, and his crew is looking to him to safely navigate
+        out of the harbor. As a Master of the Wilderness skill, Albert taps into
+        his extensive knowledge of seafaring. This will be a Difficult (DC 24)
+        roll; Albert rolls his Skill check. Unluckily, Albert's dice total turn
+        up <strong>6</strong>, <strong>4</strong>, and <strong>7</strong> for a
+        total of <strong>17</strong> and a far cry from the needed 24. However,
+        Albert's Toughness is quite high at <strong>8</strong>, and his Wisdom
+        is <strong>6</strong>, so the average of the two abilities adds an
+        Ability bonus of <strong>7</strong>. Albert's Master rank in Wilderness
+        adds a Skill bonus of <strong>+3</strong>, and he also happens to have a
+        magical set of nautical charts which grant a +2 enchantment bonus,
+        pushing the result of the roll to <strong>29</strong>.</p></section><h2
         class="divider">Passive Skill Checks</h2><p>Crucible allows any skill
         check to be considered passive at the discretion of the gamemaster. In a
         case where a character's trained skill rank is sufficient to exceed the
