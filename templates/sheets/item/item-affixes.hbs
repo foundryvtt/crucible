@@ -1,0 +1,34 @@
+<section class="tab sheet-body flexcol scrollable {{tabs.affixes.cssClass}}"
+         data-tab="{{tabs.affixes.id}}" data-group="{{tabs.affixes.group}}">
+    {{#if hasAffixCapacity}}
+    <fieldset>
+        <legend>
+            <span>{{localize "AFFIX.Prefixes"}}</span>
+            <span class="capacity">{{affixCapacity.prefix.spent}} / {{affixCapacity.prefix.total}}</span>
+        </legend>
+        {{#each prefixes as |affix|}}
+        {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
+        {{/each}}
+        {{#unless prefixes.length}}
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixes"}}</p>
+        {{/unless}}
+    </fieldset>
+    <fieldset>
+        <legend>
+            <span>{{localize "AFFIX.Suffixes"}}</span>
+            <span class="capacity">{{affixCapacity.suffix.spent}} / {{affixCapacity.suffix.total}}</span>
+        </legend>
+        {{#each suffixes as |affix|}}
+        {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
+        {{/each}}
+        {{#unless suffixes.length}}
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixes"}}</p>
+        {{/unless}}
+    </fieldset>
+    {{else}}
+    <fieldset>
+        <legend>{{localize "ITEM.SHEET.NoAffixCapacityTitle"}}</legend>
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixCapacity"}}</p>
+    </fieldset>
+    {{/if}}
+</section>

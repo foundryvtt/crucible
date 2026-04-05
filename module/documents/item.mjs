@@ -48,6 +48,69 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
+  /*  Validation                                  */
+  /* -------------------------------------------- */
+
+  /** @override */
+  static validateJoint(data) {
+    const itemModel = CONFIG.Item.dataModels[data.type];
+    if ( itemModel?.AFFIXABLE ) CrucibleItem.#validateAffixes(data);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate the composition of affix ActiveEffects against the item's type and quality capacity.
+   * The validateJoint workflow occurs client-side for Item updates (e.g., item.update({effects: [...]})) but does NOT
+   * currently fire for embedded document operations due to https://github.com/foundryvtt/foundryvtt/issues/14133.
+   * When that is resolved, the lifecycle hook workarounds in _preCreate/_preUpdate on CrucibleActiveEffect and
+   * _preCreateDescendantDocuments/_preUpdateDescendantDocuments on CrucibleItem can be removed.
+   * @param {Partial<ItemData>} data    Candidate Item data to persist
+   * @throws {Error}                    An error if the composition of affixes is disallowed
+   */
+  static #validateAffixes(data) {
+    const AffixModel = CONFIG.ActiveEffect.dataModels.affix;
+
+    // Build affix summaries from raw source effects
+    const proposedAffixes = [];
+    for ( const effect of (data.effects ?? []) ) {
+      if ( effect.type !== "affix" ) continue;
+      proposedAffixes.push({
+        identifier: effect.system?.identifier,
+        affixType: effect.system?.affixType,
+        tierValue: effect.system?.tier?.value ?? 1,
+        itemTypes: new Set(effect.system?.itemTypes ?? [])
+      });
+    }
+    if ( !proposedAffixes.length ) return;
+
+    // Validate the proposed affix composition
+    const TIERS = crucible.CONST.ITEM.QUALITY_TIERS;
+    const quality = TIERS[data.system?.quality] ?? TIERS.standard;
+    const halfCapacity = quality.capacity / 2;
+    const identifiers = new Set();
+    let prefixSpent = 0;
+    let suffixSpent = 0;
+    for ( const affix of proposedAffixes ) {
+      if ( identifiers.has(affix.identifier) ) {
+        throw new Error(`Duplicate affix identifier "${affix.identifier}".`);
+      }
+      identifiers.add(affix.identifier);
+      if ( affix.itemTypes.size && !affix.itemTypes.has(data.type) ) {
+        throw new Error(`Affix "${affix.identifier}" cannot be applied to item type "${data.type}".`);
+      }
+      if ( affix.affixType === "prefix" ) prefixSpent += affix.tierValue;
+      else suffixSpent += affix.tierValue;
+    }
+    if ( prefixSpent > halfCapacity ) {
+      throw new Error(`Prefix affixes (cost ${prefixSpent}) exceed the available prefix capacity of ${halfCapacity}.`);
+    }
+    if ( suffixSpent > halfCapacity ) {
+      throw new Error(`Suffix affixes (cost ${suffixSpent}) exceed the available suffix capacity of ${halfCapacity}.`);
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
@@ -104,56 +167,18 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( isStackable ) return;
     const currQuantity = data.system?.quantity ?? this.system.quantity;
     foundry.utils.setProperty(data, "system.quantity", Math.clamp(currQuantity, 0, 1));
-  }
 
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _preCreateDescendantDocuments(parent, collection, data, options, userId) {
-    await super._preCreateDescendantDocuments(parent, collection, data, options, userId);
-    if ( collection === "effects" ) this.#validateAffixBudget(data);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _preUpdateDescendantDocuments(parent, collection, changes, options, userId) {
-    await super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
-    if ( collection === "effects" ) this.#validateAffixBudget(changes);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Validate that the set of affix effects on this item does not exceed the prefix or suffix budget.
-   * Mutates the provided array in-place, removing entries that would exceed capacity.
-   * @param {object[]} affixData      The array of creation data or update changes
-   */
-  #validateAffixBudget(affixData) {
-    if ( !this.system.constructor.AFFIXABLE ) return;
-    const capacity = this.system.affixCapacity;
-    if ( !capacity ) return;
-    const remaining = {
-      prefix: capacity.prefix.available,
-      suffix: capacity.suffix.available
-    };
-    for ( let i = affixData.length - 1; i >= 0; i-- ) {
-      const d = affixData[i];
-      if ( d.type !== "affix" ) continue;
-      const existing = this.effects.get(d._id);
-      const affixType = d.system?.affixType ?? existing?.system.affixType;
-      const tierValue = d.system?.tier?.value ?? existing?.system.tier.value ?? 0;
-      if ( !affixType ) continue;
-
-      // For updates, account for the current tier being replaced
-      if ( existing?.type === "affix" ) remaining[affixType] += existing.system.tier.value;
-
-      // Check budget
-      if ( tierValue > remaining[affixType] ) {
-        console.warn(`Affix "${d.name || d._id}" exceeds ${affixType} capacity.`);
-        affixData.splice(i, 1);
+    // Prevent quality reduction if affixes require the current capacity
+    if ( data.system?.quality && this.system.constructor.AFFIXABLE ) {
+      const newQuality = crucible.CONST.ITEM.QUALITY_TIERS[data.system.quality];
+      const capacity = this.system.affixCapacity;
+      if ( newQuality && capacity ) {
+        const newHalf = newQuality.capacity / 2;
+        if ( (capacity.prefix.spent > newHalf) || (capacity.suffix.spent > newHalf) ) {
+          ui.notifications.warn(_loc("ITEM.WARNINGS.QualityReductionBlocked", {name: this.name}));
+          delete data.system.quality;
+        }
       }
-      else remaining[affixType] -= tierValue;
     }
   }
 

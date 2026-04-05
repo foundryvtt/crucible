@@ -1,0 +1,15 @@
+<div class="affix line-item" data-effect-id="{{affix.id}}">
+    <img class="icon" src="{{affix.img}}" alt="{{affix.name}}">
+    <div class="title">
+        <h4>{{affix.name}} {{affix.tierRoman}}</h4>
+    </div>
+    {{#if isEditable}}
+    <div class="controls">
+        <a class="button icon fa-solid fa-edit" data-action="affixEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></a>
+        <a class="button icon fa-solid fa-trash" data-action="affixDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></a>
+    </div>
+    {{/if}}
+    {{#if affix.description}}
+    <div class="description">{{{affix.description}}}</div>
+    {{/if}}
+</div>

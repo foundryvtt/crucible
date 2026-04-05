@@ -18,6 +18,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionAdd: CrucibleBaseItemSheet.#onActionAdd,
       actionDelete: CrucibleBaseItemSheet.#onActionDelete,
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
+      affixDelete: CrucibleBaseItemSheet.#onAffixDelete,
+      affixEdit: CrucibleBaseItemSheet.#onAffixEdit,
       hookAdd: CrucibleBaseItemSheet.#onHookAdd,
       hookDelete: CrucibleBaseItemSheet.#onHookDelete,
       expandSection: CrucibleBaseItemSheet.#onExpandSection
@@ -28,6 +30,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     item: {
       type: undefined, // Defined by subclass
       includesActions: false,
+      includesAffixes: false,
       includesHooks: false,
       hasAdvancedDescription: false
     },
@@ -37,10 +40,22 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   };
 
   /**
+   * Roman numeral representations for affix tiers.
+   * @type {Record<number, string>}
+   */
+  static #ROMAN_NUMERALS = {1: "I", 2: "II", 3: "III"};
+
+  /**
    * A template path used to render a single action.
    * @type {string}
    */
   static ACTION_PARTIAL = "systems/crucible/templates/sheets/item/included-action.hbs";
+
+  /**
+   * A template path used to render a single affix.
+   * @type {string}
+   */
+  static AFFIX_PARTIAL = "systems/crucible/templates/sheets/item/included-affix.hbs";
 
   /** @override */
   static PARTS = {
@@ -92,6 +107,18 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     // Item Type Configuration
     this.DEFAULT_OPTIONS.classes = [this.DEFAULT_OPTIONS.item.type];
     this.PARTS.config.template = `systems/crucible/templates/sheets/item/${item.type}-config.hbs`;
+
+    // Includes Affixes
+    if ( item.includesAffixes ) {
+      this.PARTS.affixes = {
+        id: "affixes",
+        template: "systems/crucible/templates/sheets/item/item-affixes.hbs",
+        templates: [this.AFFIX_PARTIAL],
+        scrollable: [""]
+      };
+      this.TABS.sheet.push({id: "affixes", group: "sheet", icon: "fa-solid fa-sparkles",
+        label: "ITEM.TABS.Affixes"});
+    }
 
     // Includes Actions
     if ( item.includesActions ) {
@@ -165,6 +192,14 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actionPartial = this.constructor.ACTION_PARTIAL;
         context.actions = await this.document.prepareActionsContext();
         break;
+      case "affixes":
+        context.affixPartial = this.constructor.AFFIX_PARTIAL;
+        Object.assign(context, this.#prepareAffixes());
+        context.affixCapacity = this.document.system.affixCapacity;
+        const hasAffixes = (context.prefixes.length + context.suffixes.length) > 0;
+        context.hasAffixCapacity = hasAffixes
+          || ((context.affixCapacity.prefix.total + context.affixCapacity.suffix.total) > 0);
+        break;
       case "description":
         const editorCls = CONFIG.ux.TextEditor;
         const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
@@ -217,6 +252,31 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       hooks[h.hook] = {label, ...h};
     }
     return hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare affix data for display in the affixes tab, split into prefix and suffix groups.
+   * @returns {{prefixes: object[], suffixes: object[]}}
+   */
+  #prepareAffixes() {
+    const prefixes = [];
+    const suffixes = [];
+    for ( const affix of Object.values(this.document.system.affixes) ) {
+      const tierValue = affix.system.tier.value;
+      const data = {
+        id: affix.id,
+        name: affix.name,
+        img: affix.img,
+        description: affix.description,
+        tier: tierValue,
+        tierRoman: CrucibleBaseItemSheet.#ROMAN_NUMERALS[tierValue] ?? tierValue
+      };
+      if ( affix.system.affixType === "prefix" ) prefixes.push(data);
+      else suffixes.push(data);
+    }
+    return {prefixes, suffixes};
   }
 
   /* -------------------------------------------- */
@@ -443,5 +503,36 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks.findSplice(h => h.hook === hook);
     await this.document.update(submitData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit an affix ActiveEffect on the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onAffixEdit(event, button) {
+    const effectId = button.closest(".affix").dataset.effectId;
+    const effect = this.document.effects.get(effectId);
+    await effect.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an affix ActiveEffect from the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onAffixDelete(event, button) {
+    const effectId = button.closest(".affix").dataset.effectId;
+    const effect = this.document.effects.get(effectId);
+    if ( !effect ) return;
+    await effect.deleteDialog();
   }
 }

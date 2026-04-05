@@ -33,13 +33,13 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
     // Affix effects specifically
     if ( this.type === "affix" ) {
-      const rejection = this.#validateAffix();
-      if ( rejection ) {
-        console.warn(rejection);
+      if ( !this.parent ) return; // Compendium-level AE, no parent restrictions
+      if ( !(this.parent instanceof foundry.documents.Item) ) {
+        console.warn("Affix effects can only be applied to Item documents.");
         return false;
       }
       const _id = CrucibleAffixActiveEffect.generateId(this.system.identifier);
-      this.updateSource({_id, duration: {value: null}}); // Enforce infinite duration
+      this.updateSource({_id, duration: {value: null}});
       options.keepId = true;
       return;
     }
@@ -79,11 +79,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
     // Affix effects specifically
     if ( this.type === "affix" ) {
-      if ( ("system" in changes) && ("identifier" in changes.system) ) {
-        if ( changes.system.identifier !== this.system.identifier ) {
-          console.warn("The identifier of an existing affix cannot be changed.");
-          return false;
-        }
+      if ( ("system" in changes) && ("identifier" in changes.system)
+        && (changes.system.identifier !== this.system.identifier) ) {
+        console.warn("The identifier of an existing affix cannot be changed.");
+        return false;
       }
       if ( "duration" in changes ) changes.duration = {value: null};
     }
@@ -92,36 +91,66 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
-   * Validate that an affix ActiveEffect can be created on its parent document.
-   * Compendium-level affix AEs (no parent) are always allowed.
-   * @returns {string|void}     A rejection reason, or undefined if the affix is valid
+   * Pre-create operation for ActiveEffects. Validates the proposed affix composition on the parent Item.
+   * TODO: https://github.com/foundryvtt/foundryvtt/issues/14133 - consolidate to CrucibleItem.validateJoint
+   * @override
    */
-  #validateAffix() {
-    const parent = this.parent;
-    if ( !parent ) return; // Compendium-level AE, no parent restrictions
-
-    // Affix effects can only be embedded on Item documents, not Actors
-    if ( !(parent instanceof foundry.documents.Item) ) {
-      return "Affix effects can only be applied to Item documents.";
+  static async _preCreateOperation(documents, operation, user) {
+    const allowed = await super._preCreateOperation(documents, operation, user);
+    if ( allowed === false ) return false;
+    const parent = operation.parent;
+    if ( !(parent instanceof foundry.documents.Item) || !parent.system.constructor.AFFIXABLE ) return;
+    const hasAffixes = documents.some(d => d.type === "affix");
+    if ( !hasAffixes ) return;
+    const source = parent.toObject();
+    for ( const doc of documents ) {
+      if ( doc.type === "affix" ) source.effects.push(doc.toObject());
     }
-
-    // The item type must support affixes
-    if ( !parent.system.constructor.AFFIXABLE ) {
-      return `Item type "${parent.type}" does not support affixes.`;
+    try {
+      CrucibleActiveEffect.#validateItemAffixes(source);
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return false;
     }
+  }
 
-    // The affix must be allowed for this item type (empty set means any affixable type)
-    const itemTypes = this.system.itemTypes;
-    if ( itemTypes.size && !itemTypes.has(parent.type) ) {
-      return `Affix "${this.system.identifier}" cannot be applied to item type "${parent.type}".`;
-    }
+  /* -------------------------------------------- */
 
-    // Prevent duplicate affix identifiers on the same item
-    const identifier = this.system.identifier;
-    const existing = parent.effects.find(e => (e.type === "affix") && (e.system.identifier === identifier));
-    if ( existing ) {
-      return `An affix with identifier "${identifier}" already exists on this item.`;
+  /**
+   * Pre-update operation for ActiveEffects. Validates the proposed affix composition on the parent Item.
+   * TODO: https://github.com/foundryvtt/foundryvtt/issues/14133 - consolidate to CrucibleItem.validateJoint
+   * @override
+   */
+  static async _preUpdateOperation(documents, operation, user) {
+    const allowed = await super._preUpdateOperation(documents, operation, user);
+    if ( allowed === false ) return false;
+    const parent = operation.parent;
+    if ( !(parent instanceof foundry.documents.Item) || !parent.system.constructor.AFFIXABLE ) return;
+    const hasAffixes = documents.some(d => d.type === "affix");
+    if ( !hasAffixes ) return;
+    const source = parent.toObject();
+    for ( const update of operation.updates ) {
+      const idx = source.effects.findIndex(e => e._id === update._id);
+      if ( idx >= 0 ) foundry.utils.mergeObject(source.effects[idx], update);
     }
+    try {
+      CrucibleActiveEffect.#validateItemAffixes(source);
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return false;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate the affix composition of an Item using the same logic as CrucibleItem.validateJoint.
+   * @param {object} itemSource     The Item source data with proposed effects
+   * @throws {Error}                An error if the affix composition is invalid
+   */
+  static #validateItemAffixes(itemSource) {
+    const {CrucibleItem} = crucible.api.documents;
+    CrucibleItem.validateJoint(itemSource);
   }
 
   /* -------------------------------------------- */
