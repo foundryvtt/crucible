@@ -338,11 +338,12 @@ pages:
         <p><strong>Skill Attacks</strong> are Actions which involve use of one
         of Crucible's 12
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills}
-        in a tactical way during combat. Actions which use a Skill in this way
-        perform the Skill Attack by rolling a Skill Test opposed by the target's
-        passive score in the same Skill.</p><section class="gameplay"><p>Krag
-        wants to use his intimidating demeanor to break the Morale of some
-        attacking Goblins. Krag, an Adept in the Intimidation skill, uses the
+        in a tactical way during combat. Skill Attacks roll a Skill Test against
+        a defense specified by the action, which may be a named defense such as
+        Willpower or Fortitude, or the target's passive score in a
+        Skill.</p><section class="gameplay"><p>Krag wants to use his
+        intimidating demeanor to break the Morale of some attacking Goblins.
+        Krag, an Adept in the Intimidation skill, uses the
         <strong>Intimidate</strong> Action targeting a nearby Goblin and rolls
         the Skill Attack, producing a total result of <strong>27</strong>
         compared to the Goblin's passive Intimidation score of
@@ -383,13 +384,13 @@ pages:
       content: >-
         <p><strong>Reactions</strong> are a special type of Action which can
         only be taken on some other creature's turn in combat. Reactions have
-        specific triggering conditions like <em>you dodge an melee Strike
-        attack<strong> </strong></em>or <em>an ally you can see achieves a
-        critical hit</em>. Reactions require spending Action or Focus points,
-        and therefore cannot be performed if you do not have the required
-        resources - even if the condition for the reaction is otherwise
-        met.</p><p>A creature is unable to perform Reactions if they are
-        <strong>Unaware</strong> or <strong>Incapacitated</strong>.</p>
+        specific triggering conditions like <em>you dodge a melee Strike
+        attack</em> or <em>an ally you can see achieves a critical hit</em>.
+        Reactions require spending Action or Focus points, and therefore cannot
+        be performed if you do not have the required resources - even if the
+        condition for the reaction is otherwise met.</p><p>A creature is unable
+        to perform Reactions if they are <strong>Unaware</strong> or
+        <strong>Incapacitated</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -780,25 +781,25 @@ pages:
       format: 1
       content: >-
         <p>Actions taken during Combat generate <strong>Heroism</strong> which
-        accumulates until it reaches a threshold at which point every
-        <strong>Hero</strong> in the Combat encounter gains a <strong>Heroism
-        Point</strong>. Heroism is a resource that allows protagonists to
-        perform legendary or iconic feats of power or resilience.</p><p>Heroism
-        is accumulated by any Action which applies healing, damage, or effects
-        to some other character. Actions which only target yourself, like
-        <strong>Move</strong> or <strong>Defend</strong> do not contribute
-        towards Heroism. The actions of both allies and adversaries count
-        towards Heroism accumulation. The amount of Heroism accumulated by each
-        Action is equal to its<strong> Action</strong> cost.</p><section
-        class="foundryvtt"><p>The progress of Heroism accumulation is visualized
-        at the top of the Combat Tracker. A customizable game setting exists to
-        configure whether this progress bar is visible to all players or only to
-        Gamemasters. If you are new to the Crucible system, we encourage you to
-        allow this progress bar to be visible to everyone, but once you are used
-        to the rules of the system concealing it from players can help reduce
-        metagaming that may occur from players trying to precisely anticipate
-        the award of their next Heroism point.</p></section><p>The number of
-        <strong>Action Points</strong> that need to be spent in order to yield a
+        accumulates until it reaches a threshold at which point every combatant
+        in the encounter gains a <strong>Heroism Point</strong>. Heroism is a
+        resource that allows combatants to perform legendary or iconic feats of
+        power or resilience.</p><p>Heroism is accumulated by any Action which
+        applies healing, damage, or effects to some other character. Actions
+        which only target yourself, like <strong>Move</strong> or
+        <strong>Defend</strong> do not contribute towards Heroism. The actions
+        of both allies and adversaries count towards Heroism accumulation. The
+        amount of Heroism accumulated by each Action is equal to its<strong>
+        Action</strong> cost.</p><section class="foundryvtt"><p>The progress of
+        Heroism accumulation is visualized at the top of the Combat Tracker. A
+        customizable game setting exists to configure whether this progress bar
+        is visible to all players or only to Gamemasters. If you are new to the
+        Crucible system, we encourage you to allow this progress bar to be
+        visible to everyone, but once you are used to the rules of the system
+        concealing it from players can help reduce metagaming that may occur
+        from players trying to precisely anticipate the award of their next
+        Heroism point.</p></section><p>The number of <strong>Action
+        Points</strong> that need to be spent in order to yield a
         <strong>Heroism Point</strong> depends on the number of Hero characters
         in the Combat encounter:</p><section class="formula"><p
         class="value">Action per Heroism</p><p class="equals">=</p><p
