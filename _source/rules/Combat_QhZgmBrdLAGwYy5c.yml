@@ -217,8 +217,9 @@ pages:
         intuitive areas of effect.</p><section class="foundryvtt"><p>Distances
         in the Crucible system are defined in feet. The grid size of Scenes in
         Foundry Virtual Tabletop will be automatically adjusted to have a
-        subgrid with distance units of <strong>1
-        foot</strong>.</p><p>Measurement distance is computed using the
+        subgrid with distance units of <strong>1 foot</strong>. Scenes must use
+        a <strong>5 foot</strong> grid size for the subgrid to display
+        correctly.</p><p>Measurement distance is computed using the
         <strong>Exact √2</strong> diagonal measurement
         mode.</p></section><p>Many combat actions a character can perform
         involve the <strong>Movement</strong> tag. Such actions allow you to
@@ -256,32 +257,35 @@ pages:
         halved.</p><h4>Restrained</h4><p>Movement is impossible.</p><h3
         class="divider">Movement Types</h3><p>The following <strong>Movement
         Types</strong> are supported:</p><h4>Walk</h4><p>No change to Effective
-        Distance.</p><h4>Step</h4><p>You move carefully and do not provoke
-        <strong>Disengagement</strong>, but your <strong>Effective
-        Distance</strong> traveled is doubled.</p><h4>Crawl</h4><p>You move
-        while <strong>Prone</strong> and your <strong>Effective
-        Distance</strong> traveled is doubled.</p><h4>Jump</h4><p>Equivalent to
-        <strong>Walk</strong>, but required by certain actions or to surmount
-        certain obstacles.</p><h4>Swim</h4><p>Used while moving in waist-deep or
-        deeper water, your <strong>Effective Distance</strong> traveled is
-        doubled.</p><h4>Fly</h4><p>Equivalent to <strong>Walk</strong>, but used
-        by creatures which can fly or hover.</p><h2 class="divider">Free
+        Distance.</p><h4>Step</h4><p>You move carefully, but your
+        <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Crawl</h4><p>You move while <strong>Prone</strong> and
+        your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Jump</h4><p>Your <strong>Effective Distance</strong>
+        traveled is doubled, but required by certain actions or to surmount
+        certain obstacles.</p><h4>Climb</h4><p>Used while scaling vertical
+        surfaces, your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
+        water, your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Fly</h4><p>Used by creatures which can fly or hover.
+        Movement while flying is faster than
+        walking.</p><h4>Blink</h4><p>Magical teleportation that ignores terrain
+        and movement cost entirely.</p><h2 class="divider">Free
         Movement</h2><p>Each creature has the opportunity to perform one free
         <strong>Movement</strong> action per round of Combat. This means that
         the first Action performed each round which involves the Movement tag is
         discounted at -1 Action cost. This will typically make the action free
         to perform, but in some cases may simply reduce its overall
-        cost.</p><p>Free Movement is not available to creatures wearing
-        <strong>Heavy </strong>armor or those who are <strong>Prone</strong>.
-        Additionally, the <strong>Slowed</strong> condition increases the cost
-        of Movement actions, however the first such movement per round is still
-        discounted.</p><h2 class="divider">Terrain</h2><section
-        class="construction"><p>Crucible will eventually support declaring
-        certain grid spaces as difficult terrain which slow movement while
-        traversing them. Movement costs are doubled within difficult terrain.
-        Until automation for this feature is added, difficult terrain can be
-        applied manually to movement costs however the current Alpha Playtest
-        ignores the presence of difficult terrain.</p></section><h2
+        cost.</p><p>Free Movement is not available to creatures that are
+        @Condition[Weakened], @Condition[Prone], or @Condition[Slowed].
+        Creatures wearing <strong>Heavy</strong> armor also lose access to free
+        Movement unless they have the
+        @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
+        Efficiency} talent.</p><h2 class="divider">Terrain</h2><p>Difficult
+        terrain increases the cost of movement while traversing it. Difficult
+        terrain can be defined using Foundry VTT Scene Regions with the
+        <strong>Modify Movement Cost</strong> behavior, which is fully
+        integrated with Crucible movement cost computation.</p><h2
         class="divider">Cover</h2><p>Certain terrain or obstacles can be counted
         as Cover - providing additional protection from incoming Spell or Weapon
         attacks. When a direct single-target attack passes through such an
@@ -295,10 +299,10 @@ pages:
         Banes</p></td></tr><tr><td><p>Soft Cover</p></td><td><p>+1
         Banes</p></td></tr></tbody></table><p>Area of effect attacks from
         abilities with target types like Cone, Blast, or Pulse ignore the
-        effects of Cover.</p><section class="construction"><p>In the future,
-        definition of cover and automation of banes occurring from cover may be
-        automated in the Crucible system. For the time being, Banes added due to
-        Cover should be added manually when attack rolls are made.</p></section>
+        effects of Cover.</p><section class="construction"><p>Automation of
+        cover detection and the resulting Banes is planned for a future update.
+        For the time being, Banes added due to Cover should be applied manually
+        when attack rolls are made.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -634,7 +638,7 @@ pages:
       content: >-
         <p><strong>Engagement</strong> describes the total number of opposing
         Combatants that you can simultaneously battle against without becoming
-        more vulnerable. The base Engagement for <strong>Protagonist</strong>
+        more vulnerable. The base Engagement for <strong>Hero</strong>
         characters is <strong>1</strong>, while the base Engagement for
         <strong>Adversary</strong> characters is equal to their <strong>Size -
         2</strong> with a minimum of <strong>1</strong>.</p><p>When a character
@@ -685,24 +689,17 @@ pages:
         against the Flanked creature.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,
-        allowing you to perform a <strong>Disengagement Strike</strong>, an
-        attack with your mainhand weapon which costs 1 Focus point to perform.
-        You may not make a Disengagement Attack if you are
-        <strong>Unaware</strong> of the enemy moving away or if you are
-        <strong>Flanked</strong> by other remaining opponents.</p><section
-        class="gameplay"><p>The Goblins in our previous example have decided
-        that Krag is too tough and it is advisable to disengage in search of
-        more vulnerable prey. Two of the four goblins may move away from Krag
-        without reciprocity, because Krag is otherwise <strong>Fully
-        Engaged</strong> and therefore cannot retaliate. When the third goblin
-        moves away, however, Krag spends 1 Focus point to perform a
-        <strong>Disengagement Strike</strong>, burying his battle axe in the
-        back of the retreating evildoer!</p></section><p>There is a safe means
-        of retreating from melee combat, which is to <strong>Move
-        Cautiously</strong>. This mode of movement only permits you to move a
-        single space, but it denies enemies with whom you were previously
-        engaged the opportunity to perform a <strong>Disengagement
-        Attack</strong>.</p>
+        allowing you to perform a <strong>Reactive Strike</strong>, a weapon
+        attack as a Reaction. You may not make a Reactive Strike if you are
+        @Condition[Unaware] or @Condition[Flanked] by other remaining
+        opponents.</p><section class="gameplay"><p>The Goblins in our previous
+        example have decided that Krag is too tough and it is advisable to
+        disengage in search of more vulnerable prey. Two of the four goblins may
+        move away from Krag without reciprocity, because Krag is otherwise
+        <strong>Fully Engaged</strong> and therefore cannot retaliate. When the
+        third goblin moves away, however, Krag performs a <strong>Reactive
+        Strike</strong>, burying his battle axe in the back of the retreating
+        evildoer!</p></section>
     video:
       controls: true
       volume: 0.5
