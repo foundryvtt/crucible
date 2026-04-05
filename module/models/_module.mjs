@@ -7,6 +7,7 @@ export {default as CrucibleCounterspellAction} from "./counterspell-action.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";
 
 // ActiveEffect
+export {default as CrucibleAffixActiveEffect} from "./effect-affix.mjs";
 export {default as CrucibleBaseActiveEffect} from "./effect-base.mjs";
 export {default as CrucibleFlankedActiveEffect} from "./effect-flanked.mjs";
 
@@ -22,7 +23,6 @@ export {default as CrucibleExplorationChallenge} from "./combat-exploration.mjs"
 export {default as CrucibleSocialChallenge} from "./combat-social.mjs";
 
 // Item
-export {default as CrucibleAffixData} from "./item-affix.mjs";
 export {default as CrucibleAccessoryItem} from "./item-accessory.mjs";
 export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
 export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";

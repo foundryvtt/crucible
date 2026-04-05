@@ -1,3 +1,5 @@
+import CrucibleAffixActiveEffect from "../models/effect-affix.mjs";
+
 /**
  * An active effect subclass which handles system specific logic for active effects.
  */
@@ -28,6 +30,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   async _preCreate(data, options, user) {
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
+
+    // Affix enforcement
+    if ( this.type === "affix" ) {
+      const rejection = this.#validateAffix();
+      if ( rejection ) {
+        console.warn(rejection);
+        return false;
+      }
+      const _id = CrucibleAffixActiveEffect.generateId(this.system.identifier);
+      this.updateSource({_id, duration: {units: "none"}});
+      options.keepId = true;
+    }
+
     if ( ["months", "turns"].includes(this.duration.units) ) {
       console.warn("The Crucible system does not support effect durations of unit \"turns\" or \"months\"!");
       return false;
@@ -52,6 +67,56 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       }
     }
     this.updateSource(effectUpdate);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if ( allowed === false ) return false;
+    if ( this.type === "affix" ) {
+
+      // Prevent changing the identifier of an existing affix
+      if ( ("system" in changes) && ("identifier" in changes.system) ) {
+        if ( changes.system.identifier !== this.system.identifier ) {
+          console.warn("The identifier of an existing affix cannot be changed.");
+          return false;
+        }
+      }
+
+      // Enforce indefinite duration
+      if ( "duration" in changes ) changes.duration = {units: "none"};
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate that an affix ActiveEffect can be created on its parent document.
+   * Compendium-level affix AEs (no parent) are always allowed.
+   * @returns {string|void}     A rejection reason, or undefined if the affix is valid
+   */
+  #validateAffix() {
+    const parent = this.parent;
+    if ( !parent ) return; // Compendium-level AE, no parent restrictions
+
+    // Affix effects can only be embedded on Item documents, not Actors
+    if ( !(parent instanceof foundry.documents.Item) ) {
+      return "Affix effects can only be applied to Item documents.";
+    }
+
+    // The item type must support affixes
+    if ( !parent.system.constructor.AFFIXABLE ) {
+      return `Item type "${parent.type}" does not support affixes.`;
+    }
+
+    // Prevent duplicate affix identifiers on the same item
+    const identifier = this.system.identifier;
+    const existing = parent.effects.find(e => (e.type === "affix") && (e.system.identifier === identifier));
+    if ( existing ) {
+      return `An affix with identifier "${identifier}" already exists on this item.`;
+    }
   }
 
   /* -------------------------------------------- */

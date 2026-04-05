@@ -108,6 +108,57 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _preCreateDescendantDocuments(parent, collection, data, options, userId) {
+    await super._preCreateDescendantDocuments(parent, collection, data, options, userId);
+    if ( collection === "effects" ) this.#validateAffixBudget(data);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdateDescendantDocuments(parent, collection, changes, options, userId) {
+    await super._preUpdateDescendantDocuments(parent, collection, changes, options, userId);
+    if ( collection === "effects" ) this.#validateAffixBudget(changes);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate that the set of affix effects on this item does not exceed the prefix or suffix budget.
+   * Mutates the provided array in-place, removing entries that would exceed capacity.
+   * @param {object[]} affixData      The array of creation data or update changes
+   */
+  #validateAffixBudget(affixData) {
+    if ( !this.system.constructor.AFFIXABLE ) return;
+    const capacity = this.system.affixCapacity;
+    if ( !capacity ) return;
+    const remaining = {
+      prefix: capacity.prefix.available,
+      suffix: capacity.suffix.available
+    };
+    for ( let i = affixData.length - 1; i >= 0; i-- ) {
+      const d = affixData[i];
+      if ( d.type !== "affix" ) continue;
+      const existing = this.effects.get(d._id);
+      const affixType = d.system?.affixType ?? existing?.system.affixType;
+      const tierValue = d.system?.tier?.value ?? existing?.system.tier.value ?? 0;
+      if ( !affixType ) continue;
+
+      // For updates, account for the current tier being replaced
+      if ( existing?.type === "affix" ) remaining[affixType] += existing.system.tier.value;
+
+      // Check budget
+      if ( tierValue > remaining[affixType] ) {
+        console.warn(`Affix "${d.name || d._id}" exceeds ${affixType} capacity.`);
+        affixData.splice(i, 1);
+      }
+      else remaining[affixType] -= tierValue;
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);

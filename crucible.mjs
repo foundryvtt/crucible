@@ -129,6 +129,7 @@ Hooks.once("init", async function() {
   // Active Effect document configuration
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
   CONFIG.ActiveEffect.dataModels = {
+    affix: models.CrucibleAffixActiveEffect,
     base: models.CrucibleBaseActiveEffect,
     flanked: models.CrucibleFlankedActiveEffect
   };

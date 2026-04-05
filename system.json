@@ -158,6 +158,7 @@
   ],
   "documentTypes": {
     "ActiveEffect": {
+      "affix": {},
       "flanked": {}
     },
     "Actor": {

@@ -1,6 +1,5 @@
 import {SYSTEM} from "../const/system.mjs";
 import * as crucibleFields from "./fields.mjs";
-import CrucibleAffixData from "./item-affix.mjs";
 
 /**
  * @import {CrucibleItemCategory, ItemProperty} from "../const/items.mjs";
@@ -20,7 +19,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       price: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
       quality: new fields.StringField({required: true, choices: SYSTEM.ITEM.QUALITY_TIERS, initial: "standard"}),
       broken: new fields.BooleanField({initial: false}),
-      enchantment: new fields.StringField({required: true, choices: SYSTEM.ITEM.ENCHANTMENT_TIERS, initial: "mundane"}),
+      enchantment: new fields.StringField({required: true, choices: SYSTEM.ITEM.ENCHANTMENT_TIERS, initial: "mundane"}), // TODO: derive from affixes instead of storing directly
       equipped: new fields.BooleanField(),
       invested: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
@@ -29,8 +28,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         private: new fields.HTMLField()
       }),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
-      actorHooks: new crucibleFields.ItemActorHooks(),
-      affixes: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAffixData))
+      actorHooks: new crucibleFields.ItemActorHooks()
     };
   }
 
@@ -94,11 +92,19 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   rarity;
 
   /**
-   * The budget of affix cost-points available and spent for this item.
+   * The affix capacity for this item, split between prefix and suffix budgets.
+   * Each half of the item's quality capacity is allocated to one affix type.
    * Only present on item types where AFFIXABLE is true.
-   * @type {{total: number, spent: number, available: number}|undefined}
+   * @type {{prefix: {total: number, spent: number, available: number}, suffix: {total: number, spent: number, available: number}}|undefined}
    */
-  affixBudget;
+  affixCapacity;
+
+  /**
+   * A mapping of affix ActiveEffects on this item, keyed by their unique identifier.
+   * Populated during prepareBaseData for affixable item types.
+   * @type {Record<string, CrucibleActiveEffect>}
+   */
+  affixes = {};
 
   /**
    * Does this item require investment?
@@ -140,7 +146,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
     // Item Configuration
     this.config = {category, quality, enchantment};
-    this.rarity = quality.rarity + enchantment.rarity;
+    this.rarity = quality.rarity;
 
     // Item Properties
     for ( const p of this.properties ) {
@@ -148,15 +154,31 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
 
-    // Affix Budget
+    // Affix Capacity and Rarity
+    // Capacity is split evenly between prefix and suffix budgets.
+    // For affixable items with affixes, rarity is derived from quality + total affix tier.
+    // For affixable items without affixes, rarity falls back to quality + enchantment (legacy bridge).
+    // For non-affixable items, rarity includes the enchantment contribution directly.
     if ( this.constructor.AFFIXABLE ) {
-      const affixCost = this.affixes.reduce((sum, a) => sum + a.cost, 0);
-      this.affixBudget = {
-        total: enchantment.budget,
-        spent: affixCost,
-        available: enchantment.budget - affixCost
+      const affixes = this.affixes = {};
+      let prefixSpent = 0;
+      let suffixSpent = 0;
+      for ( const effect of this.parent.effects ) {
+        if ( effect.type === "affix" ) {
+          affixes[effect.system.identifier] = effect;
+          if ( effect.system.affixType === "prefix" ) prefixSpent += effect.system.tier.value;
+          else suffixSpent += effect.system.tier.value;
+        }
+      }
+      const halfCapacity = quality.capacity / 2;
+      this.affixCapacity = {
+        prefix: {total: halfCapacity, spent: prefixSpent, available: halfCapacity - prefixSpent},
+        suffix: {total: halfCapacity, spent: suffixSpent, available: halfCapacity - suffixSpent}
       };
+      const totalTier = prefixSpent + suffixSpent;
+      this.rarity += totalTier || enchantment.rarity;
     }
+    else this.rarity += enchantment.rarity;
   }
 
   /* -------------------------------------------- */
@@ -186,18 +208,18 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
-   * Get all actor hooks contributed by this item, including hooks from each embedded affix.
+   * Get all actor hooks contributed by this item, including hooks from each affix ActiveEffect.
    * For non-affixable item types this returns the item's own actorHooks directly.
-   * For affixable item types this aggregates inline hooks from all affixes and resolves any
+   * For affixable item types this aggregates inline hooks from all affix AEs and resolves any
    * module-level hooks registered under crucible.api.hooks.affix for each affix identifier.
    * @returns {Array<{hook: string, fn: Function|string}>}
    */
   getActorHooks() {
-    if ( !this.constructor.AFFIXABLE || !this.affixes.length ) return this.actorHooks;
+    const affixes = this.constructor.AFFIXABLE ? Object.values(this.affixes) : [];
+    if ( !affixes.length ) return this.actorHooks;
     const hooks = [...this.actorHooks];
-    for ( const affix of this.affixes ) {
-      hooks.push(...affix.actorHooks);
-      const moduleHooks = crucible.api.hooks.affix?.[affix.identifier];
+    for ( const affix of affixes ) {
+      const moduleHooks = crucible.api.hooks.affix?.[affix.system.identifier];
       if ( moduleHooks ) {
         for ( const [hook, fn] of Object.entries(moduleHooks) ) {
           if ( hook in SYSTEM.ACTOR.HOOKS ) hooks.push({hook, fn});
@@ -212,21 +234,26 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
-   * Compose an item name from the names of its embedded affixes.
-   * Affixes with a namePrefix contribute text before the item category label.
-   * Affixes with a nameSuffix contribute text after "of" at the end of the name.
-   * Returns null if no affixes contribute to the name, indicating that no automatic name applies.
+   * Compose an item name from the adjectives of its embedded affix ActiveEffects.
+   * Prefix affixes contribute text before the item category label.
+   * Suffix affixes contribute text after "of" at the end of the name.
+   * Returns null if no affixes are present, indicating that no automatic name applies.
    * Only available on item types where AFFIXABLE is true.
    * @returns {string|null}
    */
   composeItemName() {
     if ( !this.constructor.AFFIXABLE ) return null;
-    const prefixes = this.affixes.flatMap(a => a.namePrefix ? [a.namePrefix] : []);
-    const suffixes = this.affixes.flatMap(a => a.nameSuffix ? [a.nameSuffix] : []);
+    const prefixes = [];
+    const suffixes = [];
+    for ( const affix of foundry.utils.iterateValues(this.affixes) ) {
+      const adj = affix.system.adjective || affix.name;
+      if ( affix.system.affixType === "prefix" ) prefixes.push(adj);
+      else suffixes.push(adj);
+    }
     if ( !prefixes.length && !suffixes.length ) return null;
     const base = this.config.category.label;
     let name = prefixes.length ? prefixes.join(" ") + " " + base : base;
-    if ( suffixes.length ) name += " of " + suffixes.join(" and ");
+    if ( suffixes.length ) name += " of " + suffixes.join(" ");
     return name;
   }
 

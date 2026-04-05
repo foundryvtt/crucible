@@ -808,6 +808,40 @@
     "StrideSpecific": "Stride {stride}",
     "VulnerabilitySpecific": "Vulnerability: {vulnerability}"
   },
+  "AFFIX": {
+    "FIELDS": {
+      "adjective": {
+        "label": "Adjective",
+        "hint": "An optional adjective used when composing the item name. Falls back to the effect name if blank."
+      },
+      "affixType": {
+        "label": "Affix Type",
+        "hint": "Whether this affix is a prefix (before the item name) or a suffix (after \"of\")."
+      },
+      "identifier": {
+        "label": "Identifier",
+        "hint": "A unique programmatic identifier for this affix, used to resolve hook functions."
+      },
+      "tier": {
+        "label": "Tier",
+        "hint": "The power tier of this affix, which determines its capacity cost and effect potency.",
+        "min": {
+          "label": "Minimum Tier",
+          "hint": "The minimum tier at which this affix can be applied."
+        },
+        "max": {
+          "label": "Maximum Tier",
+          "hint": "The maximum tier at which this affix can be applied."
+        },
+        "value": {
+          "label": "Current Tier",
+          "hint": "The current tier of this affix on the item."
+        }
+      }
+    },
+    "TypePrefix": "Prefix",
+    "TypeSuffix": "Suffix"
+  },
   "ADVANCEMENT": {
     "ExpectedLevel": "Expected Level",
     "Level": "Level",

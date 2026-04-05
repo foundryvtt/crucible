@@ -10,6 +10,7 @@
  * @property {string} label         A localized label for the quality tier
  * @property {number} bonus         The numeric bonus for this quality tier
  * @property {number} rarity        The rarity modifier for this quality tier
+ * @property {number} capacity      The total affix capacity available at this quality tier
  */
 
 /**
@@ -18,7 +19,6 @@
  * @property {string} label         A localized label for the enchantment tier
  * @property {number} bonus         The numeric bonus for this enchantment tier
  * @property {number} rarity        The rarity modifier for this enchantment tier
- * @property {number} budget        The total affix budget available at this enchantment tier
  */
 
 /**
@@ -26,6 +26,8 @@
  * @property {string} id            The category id
  * @property {string} label         The localized label for the category
  * @property {number} [rarity]      A rarity modifier that this property adds
+ * @property {boolean} [deprecated] If true, this property is deprecated in favor of an affix and should be hidden
+ *                                  from the UI when assigning new properties
  */
 
 /**
@@ -37,31 +39,36 @@ export const QUALITY_TIERS = {
     id: "shoddy",
     label: "ITEM.QualityShoddy",
     bonus: -2,
-    rarity: -1
+    rarity: -1,
+    capacity: 0
   },
   standard: {
     id: "standard",
     label: "ITEM.QualityStandard",
     bonus: 0,
-    rarity: 0
+    rarity: 0,
+    capacity: 0
   },
   fine: {
     id: "fine",
     label: "ITEM.QualityFine",
     bonus: 1,
-    rarity: 1
+    rarity: 1,
+    capacity: 2
   },
   superior: {
     id: "superior",
     label: "ITEM.QualitySuperior",
     bonus: 2,
-    rarity: 2
+    rarity: 2,
+    capacity: 4
   },
   masterwork: {
     id: "masterwork",
     label: "ITEM.QualityMasterwork",
     bonus: 3,
-    rarity: 4
+    rarity: 4,
+    capacity: 6
   }
 };
 
@@ -74,29 +81,25 @@ export const ENCHANTMENT_TIERS = {
     id: "mundane",
     label: "ITEM.EnchantmentMundane",
     bonus: 0,
-    rarity: 0,
-    budget: 0
+    rarity: 0
   },
   minor: {
     id: "minor",
     label: "ITEM.EnchantmentMinor",
     bonus: 1,
-    rarity: 2,
-    budget: 2
+    rarity: 2
   },
   major: {
     id: "major",
     label: "ITEM.EnchantmentMajor",
     bonus: 2,
-    rarity: 4,
-    budget: 4
+    rarity: 4
   },
   legendary: {
     id: "legendary",
     label: "ITEM.EnchantmentLegendary",
     bonus: 3,
-    rarity: 6,
-    budget: 6
+    rarity: 6
   }
 };
 
@@ -169,6 +172,17 @@ export const EQUIPABLE_ITEM_TYPES = new Set();
  * @type {Set<string>}
  */
 export const AFFIXABLE_ITEM_TYPES = new Set();
+
+/**
+ * The allowed affix type categories.
+ * Prefix affixes contribute their name before the item category label.
+ * Suffix affixes contribute their name after "of" in the composed item name.
+ * @enum {{label: string}}
+ */
+export const AFFIX_TYPES = Object.freeze({
+  prefix: {label: "AFFIX.TypePrefix"},
+  suffix: {label: "AFFIX.TypeSuffix"}
+});
 
 /**
  * The categories of "schematic" items which are allowed.

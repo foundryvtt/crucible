@@ -297,7 +297,8 @@ export const PROPERTIES = {
   keen: {
     label: "WEAPON.TAGS.Keen",
     tooltip: "WEAPON.TAGS.KeenTooltip",
-    rarity: 1
+    rarity: 1,
+    deprecated: true
   },
   natural: {
     label: "WEAPON.TAGS.Natural",
