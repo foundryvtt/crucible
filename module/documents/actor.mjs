@@ -2161,9 +2161,7 @@ export default class CrucibleActor extends Actor {
     slot = (equipped && !stowDropped) ? result.slot : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
-    else if ( action.usage.actorUpdates.items.length ) {
-      await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
-    }
+    else await this.update(action.usage.actorUpdates);
   }
 
   /* -------------------------------------------- */
@@ -2221,7 +2219,24 @@ export default class CrucibleActor extends Actor {
     // Equip the weapon as a follow-up actor update
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
-    const update = {_id: item.id, system: {dropped: false, equipped: true}};
+    const update = {_id: item.id};
+    if ( item.system.quantity > 1 ) {
+      update.system = {quantity: item.system.quantity - 1};
+      const splitOff = item.toCleanData();
+      Object.assign(splitOff.system, {dropped: false, equipped: true});
+      const mergableItem = this.items.find(candidate =>
+        JSON.stringify(candidate.toCleanData()) === JSON.stringify(splitOff)
+      );
+      console.log(mergableItem);
+      if (mergableItem) {
+        const mergeUpdate = {_id: mergableItem._id, system: {quantity: mergableItem.system.quantity + 1}};
+        action.usage.actorUpdates.items.push(mergeUpdate);
+      } else {
+        action.usage.actorUpdates.items.push(splitOff);
+      }
+    } else {
+      update.system = {dropped: false, equipped: true};
+    }
     if ( slot !== undefined ) update.slot = slot;
     else update.system.equipped = false;
     action.usage.actorUpdates.items.push(update);
@@ -2287,7 +2302,8 @@ export default class CrucibleActor extends Actor {
       case "consumable":
       case "tool":
         const {toolbelt, toolbeltSlots} = this.equipment;
-        if ( equipped && (toolbelt.length === toolbeltSlots) ) {
+        const currentQuantity = toolbelt.reduce((acc, item) => acc + item.system.quantity, 0);
+        if ( equipped && (currentQuantity >= toolbeltSlots) ) {
           throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
