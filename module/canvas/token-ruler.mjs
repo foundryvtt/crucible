@@ -49,13 +49,8 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     };
 
     // Display elevation when it changes or when different from the level.elevation.bottom
-    if ( context.elevation ) {
-      // TODO: Remove/adjust this modification after core implements
-      if ( game.release.build < 359 ) {
-        if ( Number.isFinite(canvas.level.elevation.bottom) ) context.elevation.total -= canvas.level.elevation.bottom;
-      }
-      context.displayElevation = !context.elevation.hidden && (!sameElevation || context.elevation.total);
-    }
+    context.displayElevation = context.elevation && !context.elevation.hidden
+      && (!sameElevation || context.elevation.total);
     return context;
   }
 
@@ -63,10 +58,11 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
   _getWaypointStyle(waypoint) {
     const style = super._getWaypointStyle(waypoint);
 
-    // Undo core's treatment of starting waypoint as translucent, size-down intermediate waypoints
-    // TODO: If #11895 goes in, modify shape of intermediate waypoints to diamonds
-    if ( !waypoint.previous ) style.alpha = 1;
-    else if ( waypoint.next?.subpathId === waypoint.subpathId ) style.radius /= 2;
+    // Modify size & shape of intermediate waypoints to slightly smaller diamonds
+    if ( waypoint.previous && (waypoint.next?.subpathId === waypoint.subpathId) ) {
+      style.radius /= 1.5;
+      style.shape = "diamond";
+    }
     return style;
   }
 }
