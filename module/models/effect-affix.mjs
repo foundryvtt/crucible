@@ -56,7 +56,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
   prepareBaseData() {
     const ae = this.parent;
     ae.transfer = false;
-    ae.changes = [];
+    this.changes = [];
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
   }
 }
