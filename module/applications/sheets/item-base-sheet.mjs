@@ -199,7 +199,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     switch ( partId ) {
       case "actions":
         context.actionPartial = this.constructor.ACTION_PARTIAL;
-        context.actions = await this.document.prepareActionsContext();
+        context.actionGroups = await this.#prepareActionGroups();
         break;
       case "affixes":
         context.isUnique = this.document.system.properties.has("unique");
@@ -259,6 +259,47 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         break;
     }
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare action groups for the actions tab, separating item-level actions from affix-provided actions.
+   * @returns {Promise<object[]>}
+   */
+  async #prepareActionGroups() {
+    const editorCls = CONFIG.ux.TextEditor;
+    const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
+    const enrichAction = async action => ({
+      id: action.id, name: action.name, img: action.img, condition: action.condition,
+      description: await editorCls.enrichHTML(action.description, editorOptions),
+      tags: action.getTags(), effects: action.effects
+    });
+
+    // Item-level actions
+    const sourceActions = this.document.system.schema.has("actions") ? this.document.system._source.actions : [];
+    const itemActionIds = new Set(sourceActions.map(a => a.id));
+    const groups = [{
+      legend: null,
+      canAdd: true,
+      isEditable: this.isEditable,
+      actions: await Promise.all(
+        this.document.system.actions.filter(a => itemActionIds.has(a.id)).map(enrichAction)
+      )
+    }];
+
+    // Affix-provided action groups
+    const affixes = this.document.system.constructor.AFFIXABLE ? this.document.system.affixes : {};
+    for ( const affix of Object.values(affixes) ) {
+      if ( !affix.system.actions?.length ) continue;
+      groups.push({
+        legend: affix.name,
+        canAdd: false,
+        isEditable: false,
+        actions: await Promise.all(affix.system.actions.map(enrichAction))
+      });
+    }
+    return groups;
   }
 
   /* -------------------------------------------- */

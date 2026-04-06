@@ -189,7 +189,30 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * Prepare derived data used by all physical items.
    */
   prepareDerivedData() {
+    if ( this.constructor.AFFIXABLE ) this.#prepareAffixActions();
     this.price = this._preparePrice();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Absorb actions provided by affixes, appending them to the item's own actions array.
+   * Affix actions with IDs that collide with item-level actions are skipped with a warning.
+   */
+  #prepareAffixActions() {
+    const itemActionIds = new Set(this.actions.map(a => a.id));
+    for ( const affix of Object.values(this.affixes) ) {
+      if ( !affix.system.actions?.length ) continue;
+      for ( const action of affix.system.actions ) {
+        if ( itemActionIds.has(action.id) ) {
+          console.warn(`${this.parent.name}: Affix "${affix.name}" action "${action.id}" `
+            + `ignored because it overlaps with an item-level action.`);
+          continue;
+        }
+        itemActionIds.add(action.id);
+        this.actions.push(action);
+      }
+    }
   }
 
   /* -------------------------------------------- */

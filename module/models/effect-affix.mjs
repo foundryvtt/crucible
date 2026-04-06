@@ -8,6 +8,7 @@ import * as crucibleFields from "./fields.mjs";
  * @property {string} affixType               The affix category, "prefix" or "suffix"
  * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
  * @property {{min: number, max: number, value: number}} tier   The power tier with configurable range (1-3)
+ * @property {CrucibleActionData[]} actions   Actions granted to items that bear this affix
  */
 
 /**
@@ -32,6 +33,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
       max: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 3}),
       value: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 1})
     });
+    schema.actions = new fields.ArrayField(new crucibleFields.CrucibleActionField());
     return schema;
   }
 

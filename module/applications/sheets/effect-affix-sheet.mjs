@@ -15,6 +15,9 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       height: "auto"
     },
     actions: {
+      actionAdd: CrucibleAffixEffectSheet.#onActionAdd,
+      actionDelete: CrucibleAffixEffectSheet.#onActionDelete,
+      actionEdit: CrucibleAffixEffectSheet.#onActionEdit,
       hookToggleSource: CrucibleAffixEffectSheet.#onHookToggleSource
     },
     form: {
@@ -25,6 +28,12 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       resizable: true
     }
   };
+
+  /**
+   * The template partial used to render a single action.
+   * @type {string}
+   */
+  static ACTION_PARTIAL = "systems/crucible/templates/sheets/item/included-action.hbs";
 
   /** @override */
   static PARTS = {
@@ -45,6 +54,12 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       template: "systems/crucible/templates/sheets/effect/affix-config.hbs",
       scrollable: [""]
     },
+    actions: {
+      id: "actions",
+      template: "systems/crucible/templates/sheets/item/item-actions.hbs",
+      templates: [CrucibleAffixEffectSheet.ACTION_PARTIAL],
+      scrollable: [""]
+    },
     hooks: {
       id: "hooks",
       template: "systems/crucible/templates/sheets/effect/affix-hooks.hbs",
@@ -59,6 +74,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       tabs: [
         {id: "description", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
         {id: "config", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"},
+        {id: "actions", icon: "fa-solid fa-bolt", label: "ITEM.TABS.Actions"},
         {id: "hooks", icon: "fa-solid fa-code", label: "ITEM.TABS.Hooks"}
       ],
       initial: "description"
@@ -101,6 +117,25 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         context.itemTypeOptions = Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES).map(t => ({
           value: t, label: _loc(CONFIG.Item.typeLabels[t] ?? t)
         }));
+        break;
+      case "actions":
+        context.actionPartial = this.constructor.ACTION_PARTIAL;
+        const editorCls = CONFIG.ux.TextEditor;
+        const editorOptions = {relativeTo: effect, secrets: effect.isOwner};
+        context.actionGroups = [{
+          legend: null,
+          canAdd: true,
+          isEditable: this.isEditable,
+          actions: await Promise.all((effect.system.actions ?? []).map(async action => ({
+            id: action.id,
+            name: action.name,
+            img: action.img,
+            condition: action.condition,
+            description: await editorCls.enrichHTML(action.description, editorOptions),
+            tags: action.getTags(),
+            effects: action.effects
+          })))
+        }];
         break;
       case "hooks":
         const affixHookFns = crucible.api.hooks.affix?.[effect.system.identifier];
@@ -145,6 +180,72 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
     if ( this.#expandedHooks.has(hookId) ) this.#expandedHooks.delete(hookId);
     else this.#expandedHooks.add(hookId);
     this.render({parts: ["hooks"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new Action to the Affix.
+   * @this {CrucibleAffixEffectSheet}
+   * @param {PointerEvent} _event
+   */
+  static async #onActionAdd(_event) {
+    const effect = this.document;
+    const actions = effect.system.toObject().actions;
+    const suffix = actions.length ? actions.length + 1 : "";
+    const actionData = {id: crucible.api.methods.generateId(effect.name)};
+    if ( actions.length ) {
+      actionData.id += suffix;
+      actionData.name = `${effect.name} ${suffix}`;
+    }
+    const action = new crucible.api.models.CrucibleAction(actionData, {parent: effect.system});
+    actions.push(action.toObject());
+    await effect.update({"system.actions": actions}, {diff: false});
+    const created = effect.system.actions.at(-1);
+    await created.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an Action from the Affix.
+   * @this {CrucibleAffixEffectSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLAnchorElement} button
+   */
+  static async #onActionDelete(_event, button) {
+    const effect = this.document;
+    const actionId = button.closest(".action").dataset.actionId;
+    const action = effect.system.actions.find(a => a.id === actionId);
+    if ( !action ) throw new Error(`Invalid Action id "${actionId}" requested for deletion`);
+    const confirm = await api.DialogV2.confirm({
+      title: _loc("ACTION.ACTIONS.Delete", {name: action.name}),
+      content: `<p>${_loc("ACTION.ACTIONS.DeleteConfirm", {
+        name: action.name,
+        parent: effect.name,
+        type: _loc("AFFIX.Affix")
+      })}</p>`
+    });
+    if ( !confirm ) return;
+    if ( action.sheet.rendered ) action.sheet.close();
+    const actions = effect.system.toObject().actions;
+    const idx = actions.findIndex(a => a.id === actionId);
+    actions.splice(idx, 1);
+    await effect.update({"system.actions": actions}, {diff: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit an Action belonging to the Affix.
+   * @this {CrucibleAffixEffectSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLAnchorElement} button
+   */
+  static async #onActionEdit(_event, button) {
+    const actionId = button.closest(".action").dataset.actionId;
+    const action = this.document.system.actions.find(a => a.id === actionId);
+    await action.sheet.render(true);
   }
 
 }
