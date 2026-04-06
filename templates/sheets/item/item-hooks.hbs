@@ -1,4 +1,8 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.hooks.cssClass}}" data-tab="{{tabs.hooks.id}}" data-group="{{tabs.hooks.group}}">
+    {{#each moduleHooks}}
+    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{/each}}
+
     {{#each actorHooks as |hook i|}}
     <fieldset class="hook">
         <div class="form-group stacked">

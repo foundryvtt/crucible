@@ -1,5 +1,6 @@
 const {api, sheets} = foundry.applications;
 import CruciblePhysicalItem from "../../models/item-physical.mjs";
+import {formatHookContext} from "../../hooks/_module.mjs";
 
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
@@ -22,6 +23,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       affixEdit: CrucibleBaseItemSheet.#onAffixEdit,
       hookAdd: CrucibleBaseItemSheet.#onHookAdd,
       hookDelete: CrucibleBaseItemSheet.#onHookDelete,
+      hookToggleSource: CrucibleBaseItemSheet.#onHookToggleSource,
       expandSection: CrucibleBaseItemSheet.#onExpandSection
     },
     form: {
@@ -87,6 +89,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     sheet: "description"
   };
 
+  /**
+   * Track which module hooks have their source expanded.
+   * @type {Set<string>}
+   */
+  #expandedHooks = new Set();
+
   /* -------------------------------------------- */
 
   /**
@@ -130,6 +138,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       this.PARTS.hooks = {
         id: "hooks",
         template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
+        templates: ["systems/crucible/templates/sheets/partials/hook.hbs"],
         scrollable: [""]
       };
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
@@ -227,6 +236,15 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
           group: _loc(cfg.group),
           disabled: hookId in context.actorHooks
         }));
+        const identifier = this.document.system.identifier || this.document.id;
+        const moduleHookFns = crucible.api.hooks[this.document.type]?.[identifier];
+        context.moduleHooks = [];
+        if ( moduleHookFns ) {
+          for ( const h of formatHookContext(moduleHookFns, SYSTEM.ACTOR.HOOKS) ) {
+            h.expanded = this.#expandedHooks.has(h.hookId);
+            context.moduleHooks.push(h);
+          }
+        }
         break;
     }
     return context;
@@ -242,7 +260,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const hooks = {};
     for ( const h of this.document.system.actorHooks ) {
       const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
-      const label = `${h.hook}(item, ${cfg.argNames.join(", ")})`;
+      const label = `${h.hook}(${cfg.argLabels.join(", ")})`;
       hooks[h.hook] = {label, ...h};
     }
     return hooks;
@@ -497,6 +515,22 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks.findSplice(h => h.hook === hook);
     await this.document.update(submitData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle the display of a module-defined hook function source.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} _event         The initiating click event
+   * @param {HTMLElement} target           The clicked button element
+   */
+  static #onHookToggleSource(_event, target) {
+    const fieldset = target.closest(".module-hook");
+    const hookId = fieldset.dataset.hookId;
+    if ( this.#expandedHooks.has(hookId) ) this.#expandedHooks.delete(hookId);
+    else this.#expandedHooks.add(hookId);
+    this.render({parts: ["hooks"]});
   }
 
   /* -------------------------------------------- */

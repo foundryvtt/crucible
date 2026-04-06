@@ -327,129 +327,157 @@ export const LANGUAGES = {
 
 /**
  * Define the actor preparation hooks which are supported for Talent configuration.
- * @enum {{signature: string, argNames: string[]}}
+ * @enum {{group: string, argNames: string[], argLabels: string[]}}
  */
 export const HOOKS = Object.freeze({
 
   // Action Usage
   prepareAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action"]
+    argNames: ["action"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
   },
   useAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action"]
+    argNames: ["action"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
   },
   preActivateAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "targets"]
+    argNames: ["action", "targets"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "targets: ActionUseTarget[]"]
   },
   rollAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "target", "rolls"]
+    argNames: ["action", "target", "rolls"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: ActionUseTarget", "rolls: StandardCheck[]"]
   },
   finalizeAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome"]
+    argNames: ["action", "outcome"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome"]
   },
   confirmAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome", "options"]
+    argNames: ["action", "outcome", "options"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome", "options: object"]
   },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["rollData"]
+    argNames: ["rollData"],
+    argLabels: ["item: CrucibleItem", "rollData: object"]
   },
   applyCriticalEffects: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome", "self"]
+    argNames: ["action", "outcome", "self"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome", "self: boolean"]
   },
   defendAttack: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "origin", "rollData"]
+    argNames: ["action", "origin", "rollData"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "origin: CrucibleActor", "rollData: object"]
   },
   receiveAttack: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "roll"]
+    argNames: ["action", "roll"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "roll: AttackRoll"]
   },
   prepareAttack: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "target", "rollData"]
+    argNames: ["action", "target", "rollData"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: ActionUseTarget", "rollData: object"]
   },
   prepareSkillCheck: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["skill", "rollData"]
+    argNames: ["skill", "rollData"],
+    argLabels: ["item: CrucibleItem", "skill: string", "rollData: object"]
   },
 
   // Data Preparation
   prepareAbilities: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["abilities"]
+    argNames: ["abilities"],
+    argLabels: ["item: CrucibleItem", "abilities: object"]
   },
   prepareActions: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["actions"]
+    argNames: ["actions"],
+    argLabels: ["item: CrucibleItem", "actions: CrucibleAction[]"]
   },
   prepareResources: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["resources"]
+    argNames: ["resources"],
+    argLabels: ["item: CrucibleItem", "resources: object"]
   },
   prepareDefenses: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["defenses"]
+    argNames: ["defenses"],
+    argLabels: ["item: CrucibleItem", "defenses: object"]
   },
   prepareInitiativeCheck: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["rollData"]
+    argNames: ["rollData"],
+    argLabels: ["item: CrucibleItem", "rollData: object"]
   },
   prepareMovement: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["movement"]
+    argNames: ["movement"],
+    argLabels: ["item: CrucibleItem", "movement: object"]
   },
   prepareResistances: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["resistances"]
+    argNames: ["resistances"],
+    argLabels: ["item: CrucibleItem", "resistances: object"]
   },
   prepareSkills: {
     group: "TALENT.HOOKS.GroupPreparation",
-    argNames: ["skills"]
+    argNames: ["skills"],
+    argLabels: ["item: CrucibleItem", "skills: object"]
   },
 
   // Equipment Preparation
   prepareArmor: {
     group: "TALENT.HOOKS.GroupEquipment",
-    argNames: ["armor"]
+    argNames: ["armor"],
+    argLabels: ["item: CrucibleItem", "armor: object"]
   },
   prepareWeapons: {
     group: "TALENT.HOOKS.GroupEquipment",
-    argNames: ["weapons"]
+    argNames: ["weapons"],
+    argLabels: ["item: CrucibleItem", "weapons: object"]
   },
   prepareAccessories: {
     group: "TALENT.HOOKS.GroupEquipment",
-    argNames: ["accessories"]
+    argNames: ["accessories"],
+    argLabels: ["item: CrucibleItem", "accessories: object"]
   },
   prepareToolbelt: {
     group: "TALENT.HOOKS.GroupEquipment",
-    argNames: ["toolbelt"]
+    argNames: ["toolbelt"],
+    argLabels: ["item: CrucibleItem", "toolbelt: object"]
   },
 
   // Spell Preparation
   prepareGrimoire: {
     group: "TALENT.HOOKS.GroupSpellcraft",
-    argNames: ["grimoire"]
+    argNames: ["grimoire"],
+    argLabels: ["item: CrucibleItem", "grimoire: object"]
   },
   prepareSpells: {
     group: "TALENT.HOOKS.GroupSpellcraft",
-    argNames: ["grimoire"]
+    argNames: ["grimoire"],
+    argLabels: ["item: CrucibleItem", "grimoire: object"]
   },
 
   // Turn Events
   startTurn: {
     group: "TALENT.HOOKS.GroupCombat",
-    argNames: ["turnStartConfig", "turnContext"]
+    argNames: ["turnStartConfig", "turnContext"],
+    argLabels: ["item: CrucibleItem", "turnStartConfig: object", "turnContext: object"]
   },
   endTurn: {
     group: "TALENT.HOOKS.GroupCombat",
-    argNames: ["turnEndConfig", "turnContext"]
+    argNames: ["turnEndConfig", "turnContext"],
+    argLabels: ["item: CrucibleItem", "turnEndConfig: object", "turnContext: object"]
   }
 });

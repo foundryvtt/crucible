@@ -1384,6 +1384,10 @@
       }
     }
   },
+  "HOOKS": {
+    "NoModuleHooks": "No module hooks are registered for this identifier.",
+    "ToggleSource": "Toggle Source"
+  },
   "ITEM": {
     "ACTIONS": {
       "Create": "Create Item",

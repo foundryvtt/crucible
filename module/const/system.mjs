@@ -92,52 +92,52 @@ export const THREAT_RANKS = {
 export const ACTION_HOOKS = Object.freeze({
   initialize: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   prepare: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   displayOnSheet: {
     argNames: [],
-    argLabels: [],
+    argLabels: ["this: CrucibleAction"],
     deprecated: true /** @deprecated */
   },
   canUse: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   configure: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   acquireTargets: {
     argNames: ["targets"],
-    argLabels: ["targets: ActionUseTarget[]"]
+    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"]
   },
   preActivate: {
     argNames: ["targets"],
-    argLabels: ["targets: ActionUseTarget[]"],
+    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"],
     async: true
   },
   roll: {
     argNames: ["outcome"],
-    argLabels: ["outcome: CrucibleActionOutcome"],
+    argLabels: ["this: CrucibleAction", "outcome: CrucibleActionOutcome"],
     async: true
   },
   postActivate: {
     argNames: ["outcome"],
-    argLabels: ["outcome: CrucibleActionOutcome"],
+    argLabels: ["this: CrucibleAction", "outcome: CrucibleActionOutcome"],
     async: true
   },
   confirm: {
     argNames: ["reverse"],
-    argLabels: ["reverse: boolean"],
+    argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
   },
   summon: {
     argNames: ["reverse"],
-    argLabels: ["reverse: boolean"],
+    argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
   }
 });
