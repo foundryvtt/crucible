@@ -2,7 +2,7 @@ name: Periapt of Determination
 type: accessory
 img: icons/equipment/neck/amulet-round-engraved-blue.webp
 system:
-  identifier: determination
+  identifier: amuletDetermination
   category: jewelry
   quantity: 1
   weight: 0
@@ -18,22 +18,61 @@ system:
     public: >-
       <blockquote><p>A graceful silver amulet embedded with blue jewels imbues
       you with a feeling of steadfastness while you clutch it, prepared to
-      weather any challenge.</p></blockquote><p>This amulet provides a bonus to
-      <strong>Willpower </strong>defense equal to the minimum of its
-      <strong>Quality</strong> and <strong>Enchantment</strong>
-      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
-      </strong>enchantment: <strong>+1
-      Willpower</strong></p></li><li><p><strong>Superior </strong>quality and
-      <strong>Major </strong>enchantment: <strong>+2
-      Willpower</strong></p></li><li><p><strong>Masterwork </strong>quality and
-      <strong>Legendary </strong>enchantment: <strong>+3
-      Willpower</strong></p></li></ul>
+      weather any challenge.</p></blockquote><p>This enchanted periapt provides
+      a bonus to <strong>Willpower</strong> defense.</p>
     private: >-
-      <p>This item is presented as an amulet, but it can be any type of
-      accessory like a ring, cloak, bracers, or other type of trinket.</p>
+      <p>This item is presented as an example of a Fine Periapt with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.determination000]{Determination}
+      suffix.</p><p>This affix can be applied to any armor or accessory and this
+      periapt could be further enchanted with a Tier 1 prefix.</p>
   actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Determination
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Determination
+      identifier: determination
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+    _id: determination000
+    img: icons/magic/defensive/shield-barrier-blades-teal.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase <strong>Willpower</strong> defense by 1 for each
+      <strong>Tier</strong> of this suffix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: -300000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.determination000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!periaptOfDetermi.determination000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -43,12 +82,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1759602532948
-  modifiedTime: 1773514792279
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1775481906547
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: periaptOfDetermi
 sort: 300000
 _key: '!items!periaptOfDetermi'

@@ -2,6 +2,7 @@ name: Ring of Evasion
 type: accessory
 img: icons/equipment/finger/ring-ball-silver.webp
 system:
+  identifier: ringEvasion
   category: jewelry
   quantity: 1
   weight: 0
@@ -17,23 +18,61 @@ system:
     public: >-
       <blockquote><p>This elegant ornamented ring feels slightly slick and
       difficult to grasp. While held it vibrates almost
-      imperceptibly.</p></blockquote><p>This ring provides a bonus to
-      <strong>Dodge</strong> defense equal to the minimum of its
-      <strong>Quality</strong> and <strong>Enchantment</strong>
-      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
-      </strong>enchantment: <strong>+1
-      Dodge</strong></p></li><li><p><strong>Superior </strong>quality and
-      <strong>Major </strong>enchantment: <strong>+2
-      Dodge</strong></p></li><li><p><strong>Masterwork </strong>quality and
-      <strong>Legendary </strong>enchantment: <strong>+3
-      Dodge</strong></p></li></ul>
+      imperceptibly.</p></blockquote><p>This enchanted ring provides a bonus to
+      <strong>Dodge</strong> defense.</p>
     private: >-
-      <p>This item is presented as a ring, but it can be any type of accessory
-      like an amulet, cloak, bracers, or other type of trinket.</p>
+      <p>This item is presented as an example of a Fine Ring with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.evasion000000000]{Evasion}
+      suffix.</p><p>This affix can be applied to any armor or accessory and this
+      ring could be further enchanted with a Tier 1 prefix.</p>
   actions: []
   actorHooks: []
-  identifier: evasion
-effects: []
+effects:
+  - name: Evasion
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Evasion
+      identifier: evasion
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+    _id: evasion000000000
+    img: icons/magic/movement/trail-streak-pink.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase <strong>Dodge</strong> defense by 1 for each
+      <strong>Tier</strong> of this suffix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: -200000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.evasion000000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!ringOfEvasion000.evasion000000000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -43,12 +82,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1749823361663
-  modifiedTime: 1773514792284
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1775481404399
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: ringOfEvasion000
 sort: 600000
 _key: '!items!ringOfEvasion000'

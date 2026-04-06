@@ -65,5 +65,72 @@ HOOKS.weaponPotency = {
 };
 
 /* -------------------------------------------- */
+/*  Accessory and Armor Affixes                 */
+/* -------------------------------------------- */
+
+HOOKS.determination = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.determination.system.tier.value;
+    defenses.willpower.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.evasion = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.evasion.system.tier.value;
+    defenses.dodge.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.nimbleness = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.nimbleness.system.tier.value;
+    defenses.reflex.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.reinforcement = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.reinforcement.system.tier.value;
+    defenses.armor.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+/*  Accessory-Only Affixes                      */
+/* -------------------------------------------- */
+
+HOOKS.kindlyVisage = {
+  prepareSkillCheck(item, skill, rollData) {
+    if ( rollData.type === "diplomacy" ) {
+      const tier = item.system.affixes.kindlyVisage.system.tier.value;
+      rollData.boons[item.system.identifier] = {label: item.name, number: tier};
+    }
+  },
+  preActivateAction(item, action, _targets) {
+    if ( action.tags.has("diplomacy") ) {
+      const tier = item.system.affixes.kindlyVisage.system.tier.value;
+      action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.luminary = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("composed") || !action.inflection?.id ) return;
+    const tier = item.system.affixes.luminary.system.tier.value;
+    action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
+  }
+};
+
+/* -------------------------------------------- */
 
 export default HOOKS;

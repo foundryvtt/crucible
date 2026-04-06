@@ -2,7 +2,7 @@ name: Ring of Gliding
 type: accessory
 img: icons/equipment/finger/ring-band-engraved-scrolls-silver.webp
 system:
-  identifier: ringOfGliding
+  identifier: ringGliding
   category: jewelry
   quantity: 1
   weight: 0
@@ -73,11 +73,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157776
-  modifiedTime: 1773514792284
+  modifiedTime: 1775481886215
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: ringOfGliding000
 sort: 400000
