@@ -13,7 +13,6 @@ system:
   enchantment: mundane
   equipped: false
   properties:
-    - keen
     - versatile
   description:
     public: >-

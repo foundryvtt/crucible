@@ -12,8 +12,7 @@ system:
   quality: standard
   enchantment: mundane
   equipped: false
-  properties:
-    - reach
+  properties: []
   description:
     public: >-
       <p>A tall, self-bow often taller than the archer who draws it, the longbow

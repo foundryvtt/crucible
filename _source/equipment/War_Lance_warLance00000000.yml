@@ -14,7 +14,6 @@ system:
   equipped: false
   properties:
     - oversized
-    - reach
   description:
     public: >-
       <p>Designed for mounted combat, the war lance is a long, tapered weapon
