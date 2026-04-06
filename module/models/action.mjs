@@ -348,6 +348,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   actor = this.actor; // Defined during constructor
 
   /**
+   * The Affix ActiveEffect that provides this Action. Null if the Action is defined directly on an Item.
+   * @type {ActiveEffect|null}
+   */
+  affix = this.affix; // Defined during constructor
+
+  /**
    * The specific Item which contributed this Action. May be undefined if the Action did not originate from an Item.
    * @type {CrucibleItem}
    */
@@ -453,8 +459,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @inheritDoc */
   _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, usage={}, ...options}) {
     super._configure(options);
+    const AffixModel = crucible.api.models.CrucibleAffixActiveEffect;
+    const affix = (this.parent instanceof AffixModel) ? this.parent.parent : null;
     Object.defineProperties(this, {
       actor: {value: actor, writable: false, configurable: true},
+      affix: {value: affix, writable: false, configurable: true},
       item: {value: item ?? this.parent?.parent, writable: false, configurable: true},
       token: {value: token, writable: false, configurable: true},
       region: {value: region, writable: false, configurable: true},

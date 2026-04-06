@@ -844,6 +844,16 @@ HOOKS.spellband = {
 
 /* -------------------------------------------- */
 
+HOOKS.focusing = {
+  postActivate(outcome) {
+    const tier = this.affix.system.tier.value;
+    const amount = 2 + (2 * tier);
+    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.tailSweep = {
   canUse() {
     return this.usage.weapon.system.identifier === "tail";

@@ -16,6 +16,57 @@ system:
     value: 1
   itemTypes:
     - accessory
+  actions:
+    - id: kindlyVisage
+      name: Kindly Visage
+      img: icons/skills/social/handshake.webp
+      condition: ''
+      description: >-
+        <p>You assume an illusory appearance once per rest which alters your
+        appearance as well as your attire. The illusion cannot alter your
+        ancestry, but can change other aspects of your anatomy including your
+        apparent gender. The cloak itself does not change in appearance and
+        remains visible.</p><p>The illusion persists indefinitely and can be
+        dismissed at-will. Once activated, the cloak cannot produce another
+        illusion in this way until 24 hours have passed.</p>
+      cost:
+        action: 6
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 24
+            units: hours
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags: []
+      actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
 _id: kindlyVisage0000
 img: icons/skills/social/handshake.webp
 disabled: false
