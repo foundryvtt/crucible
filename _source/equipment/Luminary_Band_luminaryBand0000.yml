@@ -6,7 +6,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -87,7 +87,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1767730980381
-  modifiedTime: 1775481899696
+  modifiedTime: 1775482888834
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: luminaryBand0000
 sort: 0

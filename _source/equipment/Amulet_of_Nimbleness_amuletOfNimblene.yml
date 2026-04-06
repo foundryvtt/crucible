@@ -6,7 +6,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -87,7 +87,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1759603295903
-  modifiedTime: 1775481404399
+  modifiedTime: 1775482776250
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: amuletOfNimblene
 sort: 100000

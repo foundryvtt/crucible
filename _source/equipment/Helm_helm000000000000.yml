@@ -1,0 +1,41 @@
+name: Helm
+type: accessory
+img: icons/equipment/head/helm-norman-simple-leather.webp
+system:
+  identifier: helm
+  category: clothing
+  quantity: 1
+  weight: 1
+  price: 50
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: <p>A basic open-faced helm of hardened leather.</p>
+    private: >-
+      <p>This is a base accessory template intended for quality upgrades and
+      enchantment with affixes.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: GVbpo5LtAY44QZPD
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775502000000
+  modifiedTime: 1775482707774
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: helm000000000000
+sort: 0
+_key: '!items!helm000000000000'

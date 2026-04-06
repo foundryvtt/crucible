@@ -6,7 +6,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -86,7 +86,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1759602532948
-  modifiedTime: 1775481906547
+  modifiedTime: 1775482881739
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: periaptOfDetermi
 sort: 300000

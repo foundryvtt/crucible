@@ -1,0 +1,41 @@
+name: Ring
+type: accessory
+img: icons/equipment/finger/ring-band-copper.webp
+system:
+  identifier: ring
+  category: jewelry
+  quantity: 1
+  weight: 0
+  price: 20
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: <p>A simple unadorned ring of common metal.</p>
+    private: >-
+      <p>This is a base accessory template intended for quality upgrades and
+      enchantment with affixes.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: dNk8eE87Ep8GtNse
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775502000000
+  modifiedTime: 1775482910545
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: ring000000000000
+sort: 0
+_key: '!items!ring000000000000'
