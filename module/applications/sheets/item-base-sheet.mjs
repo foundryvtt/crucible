@@ -182,6 +182,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: _loc("ITEM.SHEET.ScaledPrice")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
+      const cfg = this.document.system.config;
+      context.enchantment = {
+        value: cfg.enchantmentDerived ? cfg.enchantment.id : source.system.enchantment,
+        disabled: cfg.enchantmentDerived ?? false,
+        hint: cfg.enchantmentDerived ? _loc("ITEM.SHEET.EnchantmentDerivedHint") : ""
+      };
     }
     return context;
   }

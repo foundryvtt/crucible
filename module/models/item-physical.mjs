@@ -172,7 +172,13 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         suffix: {total: halfCapacity, spent: suffixSpent, available: halfCapacity - suffixSpent}
       };
       const totalTier = prefixSpent + suffixSpent;
-      this.rarity += totalTier || enchantment.rarity;
+      if ( totalTier > 0 ) {
+        const derived = CruciblePhysicalItem.deriveEnchantmentTier(totalTier);
+        this.config.enchantment = derived;
+        this.config.enchantmentDerived = true;
+        this.rarity += derived.rarity;
+      }
+      else this.rarity += enchantment.rarity;
     }
     else this.rarity += enchantment.rarity;
   }
@@ -233,6 +239,21 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @param {CrucibleAffixEffectData[]} affixes
    * @returns {string|null}
    */
+  /**
+   * Derive an enchantment tier from a total affix tier value.
+   * @param {number} totalAffixTier     The sum of all affix tier values on the item
+   * @returns {ItemEnchantmentTier}
+   */
+  static deriveEnchantmentTier(totalAffixTier) {
+    const ET = SYSTEM.ITEM.ENCHANTMENT_TIERS;
+    if ( totalAffixTier >= 5 ) return ET.legendary;
+    if ( totalAffixTier >= 3 ) return ET.major;
+    if ( totalAffixTier >= 1 ) return ET.minor;
+    return ET.mundane;
+  }
+
+  /* -------------------------------------------- */
+
   static composeItemName(baseName, affixes) {
     const prefixes = [];
     const suffixes = [];
@@ -255,11 +276,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @returns {Record<string, string>}    The tags which describe this item
    */
   getTags(scope="full") {
-    const {QUALITY_TIERS: QT, ENCHANTMENT_TIERS: ET} = SYSTEM.ITEM;
+    const {QUALITY_TIERS: QT} = SYSTEM.ITEM;
     const tags = {};
     tags.category = this.config.category.label;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
-    if ( this.enchantment && (this.enchantment !== "mundane") ) tags.quality = ET[this.enchantment].label;
+    if ( this.config.enchantment.id !== "mundane" ) tags.quality = this.config.enchantment.label;
+    if ( this.constructor.AFFIXABLE && this.properties.has("unique") ) tags.unique = _loc("ITEM.PROPERTIES.Unique");
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     else if ( this.parent.parent && !this.dropped ) tags.equipped = _loc("ITEM.PROPERTIES.Unequipped");

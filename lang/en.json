@@ -1475,6 +1475,7 @@
       "NoAffixes": "Drag an affix from the Affixes compendium to apply one.",
       "UniqueItemTitle": "Unique Item",
       "UniqueItemNoAffixes": "This item is unique and cannot be enchanted with affixes. Its magical properties are defined by module hooks.",
+      "EnchantmentDerivedHint": "Enchantment tier is derived from the total tier of applied affixes.",
       "Equipment": "Equipment Details",
       "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
       "EquipmentRemove": "Remove Equipment",
