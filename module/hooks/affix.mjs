@@ -27,9 +27,36 @@ HOOKS.tenacity = {
 
 /* -------------------------------------------- */
 
-/**
- * Weapon Potency: Increase the enchantment bonus to attack rolls by the affix tier.
- */
+HOOKS.reach = {
+  prepareWeapons(item, weapons) {
+    const tier = item.system.affixes.reach.system.tier.value;
+    const category = item.system.config.category;
+    item.system.range += category.ranged ? (10 * tier) : tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.reliable = {
+  prepareAttack(item, action, target, rollData) {
+    const tier = item.system.affixes.reliable.system.tier.value;
+    rollData.criticalFailureThreshold = 6 - tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.returning = {
+  preActivateAction(item, action, _targets) {
+    const updates = action.usage.actorUpdates.items;
+    if ( !updates ) return;
+    const update = updates.find(u => (u._id === item.id) && u.system?.dropped);
+    if ( update ) delete update.system.dropped;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.weaponPotency = {
   prepareWeapons(item, weapons) {
     const tier = item.system.affixes.weaponPotency.system.tier.value;

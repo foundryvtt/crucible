@@ -130,7 +130,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const hasAffixes = documents.some(d => d.type === "affix");
     if ( !hasAffixes ) return;
     const source = parent.toObject();
-    for ( const update of operation.updates ) {
+    for ( const update of (operation.updates ?? []) ) {
       const idx = source.effects.findIndex(e => e._id === update._id);
       if ( idx >= 0 ) foundry.utils.mergeObject(source.effects[idx], update);
     }

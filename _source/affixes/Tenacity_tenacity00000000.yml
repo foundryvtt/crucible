@@ -6,7 +6,7 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Tenacious
+  adjective: Tenacity
   identifier: tenacity
   changes: []
   affixType: suffix
@@ -37,7 +37,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1775402686228
-  modifiedTime: 1775405293817
+  modifiedTime: 1775441110532
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

@@ -314,17 +314,20 @@ export const PROPERTIES = {
   },
   reach: {
     label: "WEAPON.TAGS.Reach",
-    tooltip: "WEAPON.TAGS.ReachTooltip"
+    tooltip: "WEAPON.TAGS.ReachTooltip",
+    deprecated: true
   },
   reliable: {
     label: "WEAPON.TAGS.Reliable",
     tooltip: "WEAPON.TAGS.ReliableTooltip",
-    rarity: 1
+    rarity: 1,
+    deprecated: true
   },
   returning: {
     label: "WEAPON.TAGS.Returning",
     tooltip: "WEAPON.TAGS.ReturningTooltip",
-    rarity: 1
+    rarity: 1,
+    deprecated: true
   },
   thrown: {
     label: "WEAPON.TAGS.Thrown",
