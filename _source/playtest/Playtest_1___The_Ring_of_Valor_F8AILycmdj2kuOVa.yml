@@ -305,7 +305,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -347,7 +347,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -431,7 +431,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.adversary-talents.Item.tuskCharge000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -448,7 +448,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -751,7 +751,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -792,7 +792,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -827,7 +827,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.adversary-talents.Item.packhunter000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -845,7 +845,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -906,7 +906,7 @@ actors:
           talents:
             - item: Compendium.crucible.talent.Item.powerfulphysique
               level: null
-            - item: Compendium.crucible.talent.Item.wrestler00000000
+            - item: Compendium.crucible.talent.Item.unarmedCombatTra
               level: null
             - item: Compendium.crucible.talent.Item.legsweep00000000
               level: null
@@ -1159,7 +1159,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -1195,16 +1195,16 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          slot: 0
-          actions: []
           identifier: greatclub
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -1238,7 +1238,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -1327,7 +1327,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -1369,7 +1369,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.concussiveblows0
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -1403,7 +1403,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -1469,7 +1469,7 @@ actors:
         _stats:
           compendiumSource: Item.hammertoss000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -1538,7 +1538,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -1643,7 +1643,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -1663,7 +1663,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -1795,7 +1795,7 @@ actors:
             equipment: true
             spells: true
           talents:
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
           movement:
             size: 4
@@ -1968,8 +1968,8 @@ actors:
           enchantment: mundane
           equipped: true
           properties:
-            - intuitive
             - thrown
+            - intuitive
           description:
             public: >-
               <p>Compact and deadly, the hand axe is a one-handed chopper with a
@@ -1978,16 +1978,16 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          slot: 2
-          actions: []
           identifier: handAxe
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 2
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2031,7 +2031,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2068,7 +2068,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2138,7 +2138,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2223,7 +2223,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2294,7 +2294,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2361,7 +2361,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.dualWield0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2407,7 +2407,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -2426,7 +2426,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -2490,7 +2490,7 @@ actors:
             toughness: 2
             dexterity: 0
           talents:
-            - item: Compendium.crucible.talent.Item.runedeath0000000
+            - item: Compendium.crucible.talent.Item.runeDeath0000000
               level: null
             - item: Compendium.crucible.talent.Item.gestureinfluence
               level: null
@@ -2733,23 +2733,23 @@ actors:
           equipped: true
           properties: []
           damageType: corruption
+          identifier: skullFetish
+          invested: false
           description:
             public: >-
               <p>This macabre talisman invokes the fear and energies of death to
               aid spellcaft or afflict enemies with corrupting influence.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: skullFetish
-          invested: false
           actorHooks: []
           dropped: false
+          slot: 1
         effects: []
         flags: {}
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2791,7 +2791,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2831,7 +2831,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2869,7 +2869,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2916,7 +2916,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2957,7 +2957,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -2994,7 +2994,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -3031,7 +3031,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectionpush00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -3108,7 +3108,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -3176,7 +3176,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -3217,7 +3217,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -3302,7 +3302,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeOblivion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -3387,7 +3387,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -3473,7 +3473,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeDeath0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -3518,7 +3518,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -3538,7 +3538,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -3841,7 +3841,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -3874,16 +3874,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          actions: []
-          slot: 0
           identifier: shortbow
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -3945,7 +3945,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -3982,7 +3982,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -4050,7 +4050,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileWeapon
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -4069,7 +4069,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -4378,7 +4378,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4403,7 +4403,6 @@ actors:
           enchantment: mundane
           equipped: true
           properties:
-            - reach
             - versatile
           description:
             public: >-
@@ -4413,16 +4412,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          actions: []
-          slot: 0
           identifier: spear
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 1
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4458,7 +4457,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -4495,7 +4494,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -4584,7 +4583,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -4613,10 +4612,11 @@ actors:
               description: >-
                 <p>You dart forward nimbly, making a strike with sudden and
                 unexpected swiftness to perform a <strong>Strike </strong>with a
-                <strong>Finesse</strong> weapon against a single target with an
-                increased range of <strong>+2 feet</strong>.</p><p>The attack is
-                <strong>Difficult</strong>, but you do not move from your
-                current position nor does this attack provoke Disengagement.</p>
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
               cost:
                 action: 0
                 focus: 0
@@ -4657,7 +4657,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -4676,7 +4676,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -4737,7 +4737,7 @@ actors:
             toughness: 4
             dexterity: 2
           talents:
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
             - item: Compendium.crucible.talent.Item.thickskin0000000
               level: null
@@ -4992,7 +4992,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -5036,7 +5036,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -5070,7 +5070,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5159,7 +5159,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5228,7 +5228,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5264,7 +5264,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5300,7 +5300,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5337,7 +5337,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5405,7 +5405,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ferociousleap000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5444,7 +5444,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.naturalWeaponPro
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -5532,7 +5532,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.berserker0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -5576,7 +5576,7 @@ actors:
           compendiumSource: Item.flametouch000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -5642,7 +5642,7 @@ actors:
           compendiumSource: Item.frenziedClaws000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -5728,7 +5728,7 @@ actors:
           compendiumSource: Compendium.crucible.adversary-talents.Item.pouncingStrike00
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -5797,7 +5797,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -5817,7 +5817,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -6119,7 +6119,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6161,7 +6161,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6201,7 +6201,7 @@ actors:
         _stats:
           compendiumSource: Item.voidchitin000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -6288,7 +6288,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -6327,7 +6327,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -6374,7 +6374,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -6409,7 +6409,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectionpull00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -6495,7 +6495,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeOblivion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -6581,7 +6581,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeDeath0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -6599,7 +6599,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -6901,7 +6901,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6941,7 +6941,7 @@ actors:
         _stats:
           compendiumSource: Item.voidchitin000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -7028,7 +7028,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -7092,7 +7092,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -7108,7 +7108,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -7413,7 +7413,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -7453,7 +7453,7 @@ actors:
         _stats:
           compendiumSource: Item.voidchitin000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -7539,7 +7539,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -7623,7 +7623,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -7639,7 +7639,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -7914,6 +7914,7 @@ actors:
         _id: 5HWc3RX8F46IJt9g
         img: icons/weapons/staves/staff-engraved-red.webp
         system:
+          identifier: flameStaff
           category: talisman2
           quantity: 1
           weight: 4
@@ -7922,25 +7923,24 @@ actors:
           broken: false
           enchantment: mundane
           equipped: true
+          invested: false
           properties: []
-          damageType: fire
           description:
             public: >-
               <p>This mage staff is a talisman to assist with spellcraft or hurl
               gouts of arcane flame at enemies.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: flameStaff
-          invested: false
           actorHooks: []
+          damageType: fire
           dropped: false
+          slot: 3
         effects: []
         flags: {}
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -7983,7 +7983,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -8066,7 +8066,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8107,7 +8107,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8137,10 +8137,11 @@ actors:
               description: >-
                 <p>You dart forward nimbly, making a strike with sudden and
                 unexpected swiftness to perform a <strong>Strike </strong>with a
-                <strong>Finesse</strong> weapon against a single target with an
-                increased range of <strong>+2 feet</strong>.</p><p>The attack is
-                <strong>Difficult</strong>, but you do not move from your
-                current position nor does this attack provoke Disengagement.</p>
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
               cost:
                 action: 0
                 focus: 0
@@ -8182,7 +8183,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -8265,7 +8266,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeOblivion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -8282,10 +8283,10 @@ actors:
         system:
           description: >-
             <p>The chaotic force of elemental, thermal energy. The Flame rune
-            governs fire and heat.</p><p>The Flame rune scales using Intellect,
-            targets <strong>Reflex</strong>, and deals <strong>Fire</strong>
-            damage to <strong>Health</strong>. It is opposed by the orderly rune
-            of <strong>Frost</strong>.</p>
+            governs fire and heat.</p><p>The Flame rune scales using
+            <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+            deals <strong>Fire</strong> damage to <strong>Health</strong>. It is
+            opposed by the orderly rune of <strong>Frost</strong>.</p>
           actions:
             - id: enkindle
               name: Enkindle
@@ -8346,7 +8347,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -8387,7 +8388,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -8406,7 +8407,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -8480,7 +8481,7 @@ actors:
             for their strength and resilience above all else.</p>
           identifier: orcish
           talents:
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
           ui:
             color: '#c14425'
@@ -8509,7 +8510,7 @@ actors:
               level: null
             - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
           identifier: soldier
           ui:
@@ -8709,7 +8710,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -8745,7 +8746,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cadence000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8786,7 +8787,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8831,7 +8832,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.spellblade000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8867,7 +8868,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8907,7 +8908,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturestrike000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -8943,7 +8944,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9013,7 +9014,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterriposte00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9080,7 +9081,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9116,7 +9117,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9142,8 +9143,7 @@ actors:
           quality: standard
           enchantment: mundane
           equipped: true
-          properties:
-            - reach
+          properties: []
           description:
             public: >-
               <p>A polearm with a curved, sword-like blade affixed to the end of
@@ -9152,16 +9152,16 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          actions: []
-          slot: 0
           identifier: glaive
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9203,7 +9203,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -9242,7 +9242,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -9310,7 +9310,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -9348,7 +9348,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9390,7 +9390,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9425,7 +9425,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsJourney
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -9461,7 +9461,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponProfi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9549,7 +9549,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9588,7 +9588,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9632,7 +9632,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9720,7 +9720,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLightning000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9737,10 +9737,10 @@ actors:
         system:
           description: >-
             <p>The chaotic force of elemental, thermal energy. The Flame rune
-            governs fire and heat.</p><p>The Flame rune scales using Intellect,
-            targets <strong>Reflex</strong>, and deals <strong>Fire</strong>
-            damage to <strong>Health</strong>. It is opposed by the orderly rune
-            of <strong>Frost</strong>.</p>
+            governs fire and heat.</p><p>The Flame rune scales using
+            <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+            deals <strong>Fire</strong> damage to <strong>Health</strong>. It is
+            opposed by the orderly rune of <strong>Frost</strong>.</p>
           actions:
             - id: enkindle
               name: Enkindle
@@ -9801,7 +9801,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -9840,7 +9840,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -9942,7 +9942,7 @@ actors:
               level: null
             - item: Compendium.crucible.talent.Item.lightWeaponTrain
               level: null
-            - item: Compendium.crucible.talent.Item.lunge00000000000
+            - item: Compendium.crucible.talent.Item.lightWeaponTrain
               level: null
           identifier: urchin
           ui:
@@ -10144,16 +10144,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          actions: []
-          slot: 0
           identifier: dagger
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 2
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -10199,7 +10199,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -10241,7 +10241,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -10310,7 +10310,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.diversionist0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10376,7 +10376,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10447,7 +10447,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10484,7 +10484,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10553,7 +10553,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterevade0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10589,7 +10589,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10624,7 +10624,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.preternaturalins
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10691,7 +10691,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.defensiveroll000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10728,7 +10728,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10797,7 +10797,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.backstab00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10836,7 +10836,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.impetus000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10864,10 +10864,11 @@ actors:
               description: >-
                 <p>You dart forward nimbly, making a strike with sudden and
                 unexpected swiftness to perform a <strong>Strike </strong>with a
-                <strong>Finesse</strong> weapon against a single target with an
-                increased range of <strong>+2 feet</strong>.</p><p>The attack is
-                <strong>Difficult</strong>, but you do not move from your
-                current position nor does this attack provoke Disengagement.</p>
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
               cost:
                 action: 0
                 focus: 0
@@ -10909,7 +10910,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -10976,7 +10977,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -11022,7 +11023,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -11063,7 +11064,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -11085,7 +11086,6 @@ actors:
           equipped: true
           properties:
             - ambush
-            - keen
             - intuitive
           damageType: piercing
           identifier: stiletto
@@ -11099,14 +11099,14 @@ actors:
           actions: []
           actorHooks: []
           dropped: false
-          slot: 0
+          slot: 1
         effects: []
         flags: {}
         _stats:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11191,7 +11191,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11279,7 +11279,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11356,18 +11356,18 @@ actors:
                     - poisoned
                   duration:
                     value: 6
-                    units: turns
-                    expiry: null
+                    units: rounds
+                    expiry: turnEnd
                     expired: false
                   result:
                     type: success
                     all: false
                   system:
+                    changes: []
                     dot: []
                     maintenance: null
                     regions: []
                     summons: []
-                    changes: []
               tags:
                 - harmless
                 - fortitude
@@ -11423,7 +11423,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11466,7 +11466,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.medicineNovice00
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11551,7 +11551,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.flashOfSteel0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11619,7 +11619,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.anticipateharm00
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11687,7 +11687,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.assassin00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11760,7 +11760,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.interruptingDagg
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11796,7 +11796,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponProfi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11839,7 +11839,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -11857,7 +11857,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -12165,7 +12165,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -12236,7 +12236,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12298,7 +12298,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12341,7 +12341,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureward00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12411,7 +12411,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.bodyblock0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -12478,7 +12478,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterstrike000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12570,7 +12570,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.dreadlord0000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12660,7 +12660,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12698,7 +12698,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12736,7 +12736,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.testudo000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12774,7 +12774,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.holdfast00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -12817,7 +12817,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -12856,7 +12856,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -12962,7 +12962,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -13030,7 +13030,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -13068,7 +13068,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.shieldward000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13136,7 +13136,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13177,7 +13177,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13216,7 +13216,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.armoredShell0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13301,7 +13301,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.shieldCombatTrai
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13338,7 +13338,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.shieldCombatProf
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13379,7 +13379,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13464,7 +13464,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13510,7 +13510,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13603,7 +13603,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13646,7 +13646,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runewarden000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13685,12 +13685,12 @@ actors:
           actions: []
           actorHooks: []
           dropped: false
-          slot: 0
+          slot: 2
         _stats:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13735,7 +13735,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -13885,7 +13885,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -14181,8 +14181,7 @@ actors:
           quality: standard
           enchantment: mundane
           equipped: true
-          properties:
-            - reach
+          properties: []
           description:
             public: >-
               <p>A tall, self-bow often taller than the archer who draws it, the
@@ -14191,16 +14190,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          slot: 0
-          actions: []
           identifier: longbow
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14243,7 +14242,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14285,7 +14284,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14369,7 +14368,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pinningshot00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14411,7 +14410,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.arcanearcher0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14429,27 +14428,28 @@ actors:
         img: icons/skills/melee/strike-sword-stabbed-brown.webp
         system:
           description: >-
-            You identify moments of opportunity to strike at an enemy's weak
-            points. When attacking a target that is <strong>Unaware</strong>,
-            <strong>Flanked</strong>, or <strong>Exposed</strong> using Finesse
-            weaponry, you gain +2 damage to any Strike.
+            <p>You identify moments of opportunity to strike at an enemy's weak
+            points. When attacking a target that is @Condition[unaware],
+            @Condition[flanked], or @Condition[exposed] using a weapon which
+            scales with <strong>Dexterity</strong>, you gain +2 damage to any
+            Strike.</p>
           actions: []
-          iconicSpells: 0
-          actorHooks: []
-          training:
-            type: ''
-            rank: null
           nodes:
             - dex0b
           rune: ''
           gesture: ''
           inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
         effects: []
         flags: {}
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14533,7 +14533,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.markprey00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14571,7 +14571,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14611,7 +14611,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14675,7 +14675,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -14719,7 +14719,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14785,7 +14785,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.fanofarrows00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14853,7 +14853,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.twinnedshot00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14889,7 +14889,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileProfic
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14933,7 +14933,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturestep00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -14971,7 +14971,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15039,7 +15039,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.diversionist0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15078,7 +15078,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.surgeweaver00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15121,7 +15121,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15211,7 +15211,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeIllusion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -15249,7 +15249,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.subtleextricatio
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15285,7 +15285,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.focusedanticipat
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15350,16 +15350,16 @@ actors:
                 type: blast
                 number: 1
                 scope: 4
-                self: false
+                self: true
                 size: 4
               effects: []
               tags:
+                - consume
                 - reflex
                 - fire
                 - dexterity
                 - skill
                 - athletics
-                - consume
               actionHooks: []
               summon:
                 actorUuid: null
@@ -15383,7 +15383,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15471,7 +15471,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLightning000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15539,7 +15539,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileWeapon
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15562,7 +15562,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -15869,7 +15869,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15896,6 +15896,8 @@ actors:
           equipped: true
           properties: []
           damageType: electricity
+          identifier: arcaneOrb
+          invested: false
           description:
             public: >-
               <p>A sphere of crystal or glass that — in the palm of a capable
@@ -15904,17 +15906,15 @@ actors:
               electrifying force.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: arcaneOrb
-          invested: false
           actorHooks: []
           dropped: false
+          slot: 2
         effects: []
         flags: {}
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -15938,7 +15938,9 @@ actors:
           equipped: true
           properties: []
           damageType: bludgeoning
-          slot: 0
+          slot: 1
+          identifier: grimoire
+          invested: false
           description:
             public: >-
               <p>This heavy tome is used as a repository of knowledge as well as
@@ -15947,8 +15949,6 @@ actors:
               target.</p>
             private: ''
           actions: []
-          identifier: grimoire
-          invested: false
           actorHooks: []
           dropped: false
         effects: []
@@ -15958,7 +15958,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16026,7 +16026,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intuitweakness00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16066,7 +16066,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16113,7 +16113,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16151,7 +16151,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16188,7 +16188,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16228,7 +16228,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.rimecaller000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16266,7 +16266,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16356,7 +16356,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterspell0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -16423,7 +16423,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.tactician0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16498,7 +16498,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16589,7 +16589,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeIllusion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16629,7 +16629,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.surgeweaver00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16669,7 +16669,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mesmer0000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16756,7 +16756,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLightning000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16849,7 +16849,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -16934,7 +16934,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17008,7 +17008,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17074,7 +17074,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mechanicalWeapon
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -17140,7 +17140,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unshakeablePoise
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17190,7 +17190,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureConjure00
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17284,7 +17284,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -17562,6 +17562,7 @@ actors:
         _id: teHqGUKkPcrk8Pvm
         img: icons/weapons/staves/staff-ornate-engraved-blue.webp
         system:
+          identifier: iceStaff
           category: talisman2
           quantity: 1
           weight: 4
@@ -17570,25 +17571,24 @@ actors:
           broken: false
           enchantment: mundane
           equipped: true
+          invested: false
           properties: []
-          damageType: cold
           description:
             public: >-
               <p>This mage staff is a talisman to assist with spellcraft or hurl
               blasts of frigid ice towards enemies.</p>
             private: ''
           actions: []
-          slot: 0
-          dropped: false
-          identifier: iceStaff
-          invested: false
           actorHooks: []
+          damageType: cold
+          dropped: false
+          slot: 3
         effects: []
         flags: {}
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17632,7 +17632,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -17673,7 +17673,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17714,7 +17714,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17751,7 +17751,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conserveeffort00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17844,7 +17844,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.healer0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17882,7 +17882,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.mentalfortress00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17919,7 +17919,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -17959,7 +17959,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.dustbinder000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -18036,7 +18036,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -18077,7 +18077,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runewarden000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -18153,7 +18153,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18208,7 +18208,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18263,7 +18263,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18305,7 +18305,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.versatileTransla
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18375,7 +18375,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.soothe0000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18419,7 +18419,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18457,7 +18457,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.inspirator000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18495,7 +18495,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mender0000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18542,7 +18542,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.arcanaNovice0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18626,7 +18626,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18663,7 +18663,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.irrepressiblespi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18701,7 +18701,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.eyeofthestorm000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18784,7 +18784,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeEarth0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18867,7 +18867,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -18882,8 +18882,38 @@ actors:
     flags:
       core: {}
       crucible:
-        lastSpell: spell.life.ray.compose
+        lastSpell: spell.soul.ray
         actionHistory:
+          - id: spell.soul.ray
+            messageId: 2oOXpkfLTza7mBCw
+            combat: null
+          - id: spell.earth.ray
+            messageId: iusRD1ApsgbigcAJ
+            combat: null
+          - id: spell.earth.ray
+            messageId: eQ5sn8eBHZhlnOxT
+            combat: null
+          - id: spell.earth.ray
+            messageId: HEfjCzrCM1xDQG7C
+            combat: null
+          - id: spell.earth.ray
+            messageId: 7g0JQhQrnEMjZ0eb
+            combat: null
+          - id: spell.earth.ray
+            messageId: HVjUbhnvIYtfdYpo
+            combat: null
+          - id: spell.soul.ray
+            messageId: I18q0Cb461cQMWA2
+            combat: null
+          - id: spell.earth.ray.compose
+            messageId: h379SjmKSN7zFajD
+            combat: null
+          - id: spell.earth.ray.compose
+            messageId: nSTqavsBcI8eRbVF
+            combat: null
+          - id: spell.earth.ray.compose
+            messageId: J3k0KQFSqu5AnGPm
+            combat: null
           - id: spell.life.ray.compose
             messageId: Vmc7g8PK174KGyxg
             combat: null
@@ -18941,7 +18971,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -19250,7 +19280,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -19285,16 +19315,16 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          actions: []
-          slot: 0
-          dropped: false
           identifier: greataxe
           invested: false
+          actions: []
           actorHooks: []
+          dropped: false
+          slot: 3
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -19364,7 +19394,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19430,7 +19460,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19498,7 +19528,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19533,7 +19563,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19623,7 +19653,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.berserker0000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19660,7 +19690,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19698,7 +19728,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19781,7 +19811,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.executionersstri
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19817,7 +19847,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.unshakeablestanc
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19885,7 +19915,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -19949,7 +19979,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -20020,7 +20050,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -20129,7 +20159,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -20215,7 +20245,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20284,7 +20314,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20322,7 +20352,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponProfi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20358,7 +20388,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20395,7 +20425,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20459,7 +20489,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20484,7 +20514,6 @@ actors:
           equipped: false
           properties:
             - ambush
-            - keen
             - intuitive
           damageType: piercing
           identifier: stiletto
@@ -20505,7 +20534,7 @@ actors:
           compendiumSource: null
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20588,7 +20617,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.adrenalineSurge0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20615,7 +20644,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -20895,6 +20924,7 @@ actors:
         _id: 5HWc3RX8F46IJt9g
         img: icons/weapons/staves/staff-engraved-red.webp
         system:
+          identifier: flameStaff
           category: talisman2
           quantity: 1
           weight: 4
@@ -20903,25 +20933,24 @@ actors:
           broken: false
           enchantment: mundane
           equipped: true
+          invested: false
           properties: []
-          damageType: fire
           description:
             public: >-
               <p>This mage staff is a talisman to assist with spellcraft or hurl
               gouts of arcane flame at enemies.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: flameStaff
-          invested: false
           actorHooks: []
+          damageType: fire
           dropped: false
+          slot: 3
         effects: []
         flags: {}
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -20964,7 +20993,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21047,7 +21076,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21088,7 +21117,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21127,7 +21156,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.warmage000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21168,7 +21197,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21207,7 +21236,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.impetus000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21244,7 +21273,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21280,7 +21309,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21327,7 +21356,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -21354,10 +21383,11 @@ actors:
               description: >-
                 <p>You dart forward nimbly, making a strike with sudden and
                 unexpected swiftness to perform a <strong>Strike </strong>with a
-                <strong>Finesse</strong> weapon against a single target with an
-                increased range of <strong>+2 feet</strong>.</p><p>The attack is
-                <strong>Difficult</strong>, but you do not move from your
-                current position nor does this attack provoke Disengagement.</p>
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
               cost:
                 action: 0
                 focus: 0
@@ -21399,7 +21429,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -21445,7 +21475,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.arcanaNovice0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21484,7 +21514,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.strategicreposit
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21524,7 +21554,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightbringer0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21567,7 +21597,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21608,7 +21638,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.versatileTransla
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21693,7 +21723,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeOblivion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21730,7 +21760,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.iramancer0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21819,7 +21849,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.counterspell0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -21836,10 +21866,10 @@ actors:
         system:
           description: >-
             <p>The chaotic force of elemental, thermal energy. The Flame rune
-            governs fire and heat.</p><p>The Flame rune scales using Intellect,
-            targets <strong>Reflex</strong>, and deals <strong>Fire</strong>
-            damage to <strong>Health</strong>. It is opposed by the orderly rune
-            of <strong>Frost</strong>.</p>
+            governs fire and heat.</p><p>The Flame rune scales using
+            <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+            deals <strong>Fire</strong> damage to <strong>Health</strong>. It is
+            opposed by the orderly rune of <strong>Frost</strong>.</p>
           actions:
             - id: enkindle
               name: Enkindle
@@ -21900,7 +21930,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -21940,7 +21970,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.flameProficiency
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -22032,7 +22062,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -22076,7 +22106,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -22104,7 +22134,7 @@ actors:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -22178,7 +22208,7 @@ actors:
             for their strength and resilience above all else.</p>
           identifier: orcish
           talents:
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
           ui:
             color: '#c14425'
@@ -22207,7 +22237,7 @@ actors:
               level: null
             - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
-            - item: Compendium.crucible.talent.Item.heavystrike00000
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
               level: null
           identifier: soldier
           ui:
@@ -22388,8 +22418,7 @@ actors:
           quality: standard
           enchantment: mundane
           equipped: true
-          properties:
-            - reach
+          properties: []
           description:
             public: >-
               <p>Longer and heavier than a standard longsword, the greatsword is
@@ -22398,16 +22427,16 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          actions: []
-          slot: 0
           identifier: greatsword
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22450,7 +22479,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22486,7 +22515,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cadence000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -22530,7 +22559,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -22569,7 +22598,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -22637,7 +22666,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -22676,7 +22705,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -22693,10 +22722,10 @@ actors:
         system:
           description: >-
             <p>The chaotic force of elemental, thermal energy. The Flame rune
-            governs fire and heat.</p><p>The Flame rune scales using Intellect,
-            targets <strong>Reflex</strong>, and deals <strong>Fire</strong>
-            damage to <strong>Health</strong>. It is opposed by the orderly rune
-            of <strong>Frost</strong>.</p>
+            governs fire and heat.</p><p>The Flame rune scales using
+            <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+            deals <strong>Fire</strong> damage to <strong>Health</strong>. It is
+            opposed by the orderly rune of <strong>Frost</strong>.</p>
           actions:
             - id: enkindle
               name: Enkindle
@@ -22757,7 +22786,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -22776,7 +22805,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -22878,7 +22907,7 @@ actors:
               level: null
             - item: Compendium.crucible.talent.Item.lightWeaponTrain
               level: null
-            - item: Compendium.crucible.talent.Item.lunge00000000000
+            - item: Compendium.crucible.talent.Item.lightWeaponTrain
               level: null
           identifier: urchin
           ui:
@@ -23074,16 +23103,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          actions: []
-          slot: 0
           identifier: dagger
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 2
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -23120,16 +23149,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          actions: []
-          slot: 0
           identifier: dagger
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 1
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -23171,7 +23200,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -23240,7 +23269,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.diversionist0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -23306,7 +23335,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -23377,7 +23406,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -23447,7 +23476,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -23493,7 +23522,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -23534,7 +23563,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -23560,10 +23589,11 @@ actors:
               description: >-
                 <p>You dart forward nimbly, making a strike with sudden and
                 unexpected swiftness to perform a <strong>Strike </strong>with a
-                <strong>Finesse</strong> weapon against a single target with an
-                increased range of <strong>+2 feet</strong>.</p><p>The attack is
-                <strong>Difficult</strong>, but you do not move from your
-                current position nor does this attack provoke Disengagement.</p>
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
               cost:
                 action: 0
                 focus: 0
@@ -23605,7 +23635,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -23621,7 +23651,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -23920,7 +23950,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -23955,16 +23985,16 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          actions: []
-          slot: 0
           identifier: heaterShield
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 2
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24008,7 +24038,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24079,7 +24109,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -24163,7 +24193,7 @@ actors:
         _stats:
           compendiumSource: null
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -24228,7 +24258,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -24274,7 +24304,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -24313,7 +24343,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -24419,7 +24449,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -24487,7 +24517,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -24525,7 +24555,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -24543,7 +24573,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -24830,8 +24860,7 @@ actors:
           quality: standard
           enchantment: mundane
           equipped: true
-          properties:
-            - reach
+          properties: []
           description:
             public: >-
               <p>A tall, self-bow often taller than the archer who draws it, the
@@ -24840,16 +24869,16 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          slot: 0
-          actions: []
           identifier: longbow
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24892,7 +24921,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24934,7 +24963,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24971,7 +25000,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -25054,7 +25083,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pinningshot00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -25098,7 +25127,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -25188,7 +25217,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeIllusion0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -25256,7 +25285,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileWeapon
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -25320,7 +25349,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -25337,7 +25366,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -25640,7 +25669,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25667,6 +25696,8 @@ actors:
           equipped: true
           properties: []
           damageType: electricity
+          identifier: arcaneOrb
+          invested: false
           description:
             public: >-
               <p>A sphere of crystal or glass that — in the palm of a capable
@@ -25675,17 +25706,15 @@ actors:
               electrifying force.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: arcaneOrb
-          invested: false
           actorHooks: []
           dropped: false
+          slot: 2
         effects: []
         flags: {}
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25709,7 +25738,9 @@ actors:
           equipped: true
           properties: []
           damageType: bludgeoning
-          slot: 0
+          slot: 1
+          identifier: grimoire
+          invested: false
           description:
             public: >-
               <p>This heavy tome is used as a repository of knowledge as well as
@@ -25718,8 +25749,6 @@ actors:
               target.</p>
             private: ''
           actions: []
-          identifier: grimoire
-          invested: false
           actorHooks: []
           dropped: false
         effects: []
@@ -25729,7 +25758,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25769,7 +25798,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -25817,7 +25846,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -25905,7 +25934,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLightning000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -25998,7 +26027,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26083,7 +26112,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26149,7 +26178,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mechanicalWeapon
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26168,7 +26197,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -26444,6 +26473,7 @@ actors:
         _id: teHqGUKkPcrk8Pvm
         img: icons/weapons/staves/staff-ornate-engraved-blue.webp
         system:
+          identifier: iceStaff
           category: talisman2
           quantity: 1
           weight: 4
@@ -26452,25 +26482,24 @@ actors:
           broken: false
           enchantment: mundane
           equipped: true
+          invested: false
           properties: []
-          damageType: cold
           description:
             public: >-
               <p>This mage staff is a talisman to assist with spellcraft or hurl
               blasts of frigid ice towards enemies.</p>
             private: ''
           actions: []
-          slot: 0
-          identifier: iceStaff
-          invested: false
           actorHooks: []
+          damageType: cold
           dropped: false
+          slot: 3
         effects: []
         flags: {}
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26514,7 +26543,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26555,7 +26584,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -26632,7 +26661,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -26671,7 +26700,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -26756,7 +26785,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26840,7 +26869,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeEarth0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26923,7 +26952,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           createdTime: null
@@ -26942,7 +26971,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -27246,7 +27275,7 @@ actors:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -27281,16 +27310,16 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          actions: []
-          slot: 0
           identifier: greataxe
           invested: false
+          actions: []
           actorHooks: []
           dropped: false
+          slot: 3
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -27360,7 +27389,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -27426,7 +27455,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -27494,7 +27523,7 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           modifiedTime: null
@@ -27564,7 +27593,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -27673,7 +27702,7 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           systemId: crucible
           systemVersion: 0.9.0
           lastModifiedBy: null
@@ -27689,7 +27718,7 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -27764,7 +27793,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -27846,7 +27875,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -27916,7 +27945,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -27996,7 +28025,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -28063,7 +28092,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -28135,7 +28164,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -28228,7 +28257,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -28270,7 +28299,7 @@ journal:
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
-          coreVersion: '14.356'
+          coreVersion: '14.359'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -28286,7 +28315,7 @@ journal:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -28484,7 +28513,7 @@ scenes:
         sort: 2
         _id: ymBOx6ffIsc29s5H
         delta: null
-        x: 5440
+        x: 5480
         'y': 4400
         elevation: 0
         locked: false
@@ -30904,7 +30933,7 @@ macros:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -30934,7 +30963,7 @@ macros:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -30962,7 +30991,7 @@ macros:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -30986,7 +31015,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31005,7 +31034,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31024,7 +31053,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31043,7 +31072,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31062,7 +31091,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31081,7 +31110,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31100,7 +31129,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31119,7 +31148,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31138,7 +31167,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31156,7 +31185,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31176,7 +31205,7 @@ folders:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31196,7 +31225,7 @@ folders:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -31216,7 +31245,7 @@ folders:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: null
@@ -31231,7 +31260,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.359'
-  modifiedTime: 1773514490873
+  modifiedTime: 1775444377151
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

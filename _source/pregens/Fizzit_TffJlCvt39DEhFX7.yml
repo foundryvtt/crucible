@@ -289,9 +289,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      coreVersion: '14.359'
+      createdTime: 1775444403818
+      modifiedTime: 1775444403818
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -325,7 +325,7 @@ items:
           force.</p>
         private: ''
       actions: []
-      slot: 0
+      slot: 2
       identifier: arcaneOrb
       invested: false
       actorHooks: []
@@ -335,9 +335,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      coreVersion: '14.359'
+      createdTime: 1775444403818
+      modifiedTime: 1775444403818
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -360,7 +360,7 @@ items:
       equipped: true
       properties: []
       damageType: bludgeoning
-      slot: 0
+      slot: 1
       description:
         public: >-
           <p>This heavy tome is used as a repository of knowledge as well as an
@@ -379,9 +379,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      coreVersion: '14.359'
+      createdTime: 1775444403818
+      modifiedTime: 1775444403818
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -418,12 +418,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716923
+      modifiedTime: 1775444403818
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716923
+      createdTime: 1775444403818
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -465,12 +465,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716923
+      modifiedTime: 1775444403819
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716923
+      createdTime: 1775444403819
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -553,11 +553,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      createdTime: 1775444403819
+      modifiedTime: 1775444403819
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -644,11 +644,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      createdTime: 1775444403819
+      modifiedTime: 1775444403819
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -729,11 +729,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      createdTime: 1775444403819
+      modifiedTime: 1775444403819
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -796,11 +796,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716923
-      modifiedTime: 1773512716923
+      createdTime: 1775444403820
+      modifiedTime: 1775444403820
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -819,9 +819,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1773512716923
-  modifiedTime: 1773514792435
+  coreVersion: '14.359'
+  createdTime: 1775444403817
+  modifiedTime: 1775444403817
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
@@ -829,6 +829,5 @@ _stats:
 _id: TffJlCvt39DEhFX7
 ownership:
   default: 2
-  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!TffJlCvt39DEhFX7'
