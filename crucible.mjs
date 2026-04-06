@@ -555,6 +555,16 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
+  // Cull deprecated item properties that have been fully migrated
+  const mv = game.settings.get("crucible", "migrationVersion");
+  for ( const model of Object.values(CONFIG.Item.dataModels) ) {
+    const properties = model.ITEM_PROPERTIES;
+    if ( !properties ) continue;
+    for ( const [id, prop] of Object.entries(properties) ) {
+      if ( prop.deprecated && !foundry.utils.isNewerVersion(prop.deprecated, mv) ) delete properties[id];
+    }
+  }
+
   // Deep freeze CONST
   foundry.utils.deepFreeze(SYSTEM);
 

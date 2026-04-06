@@ -298,7 +298,7 @@ export const PROPERTIES = {
     label: "WEAPON.TAGS.Keen",
     tooltip: "WEAPON.TAGS.KeenTooltip",
     rarity: 1,
-    deprecated: true
+    deprecated: "0.9.1"
   },
   natural: {
     label: "WEAPON.TAGS.Natural",
@@ -315,19 +315,19 @@ export const PROPERTIES = {
   reach: {
     label: "WEAPON.TAGS.Reach",
     tooltip: "WEAPON.TAGS.ReachTooltip",
-    deprecated: true
+    deprecated: "0.9.1"
   },
   reliable: {
     label: "WEAPON.TAGS.Reliable",
     tooltip: "WEAPON.TAGS.ReliableTooltip",
     rarity: 1,
-    deprecated: true
+    deprecated: "0.9.1"
   },
   returning: {
     label: "WEAPON.TAGS.Returning",
     tooltip: "WEAPON.TAGS.ReturningTooltip",
     rarity: 1,
-    deprecated: true
+    deprecated: "0.9.1"
   },
   thrown: {
     label: "WEAPON.TAGS.Thrown",

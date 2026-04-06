@@ -26,8 +26,8 @@
  * @property {string} id            The category id
  * @property {string} label         The localized label for the category
  * @property {number} [rarity]      A rarity modifier that this property adds
- * @property {boolean} [deprecated] If true, this property is deprecated in favor of an affix and should be hidden
- *                                  from the UI when assigning new properties
+ * @property {string} [deprecated]  The system version in which this property was replaced by an affix. Once the
+ *                                  world migration version reaches this value, the property is removed from choices.
  */
 
 /**
