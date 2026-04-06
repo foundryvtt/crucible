@@ -196,12 +196,15 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actions = await this.document.prepareActionsContext();
         break;
       case "affixes":
-        context.affixPartial = this.constructor.AFFIX_PARTIAL;
-        Object.assign(context, this.#prepareAffixes());
-        context.affixCapacity = this.document.system.affixCapacity;
-        const hasAffixes = (context.prefixes.length + context.suffixes.length) > 0;
-        context.hasAffixCapacity = hasAffixes
-          || ((context.affixCapacity.prefix.total + context.affixCapacity.suffix.total) > 0);
+        context.isUnique = this.document.system.properties.has("unique");
+        if ( !context.isUnique ) {
+          context.affixPartial = this.constructor.AFFIX_PARTIAL;
+          Object.assign(context, this.#prepareAffixes());
+          context.affixCapacity = this.document.system.affixCapacity;
+          const hasAffixes = (context.prefixes.length + context.suffixes.length) > 0;
+          context.hasAffixCapacity = hasAffixes
+            || ((context.affixCapacity.prefix.total + context.affixCapacity.suffix.total) > 0);
+        }
         break;
       case "description":
         const editorCls = CONFIG.ux.TextEditor;

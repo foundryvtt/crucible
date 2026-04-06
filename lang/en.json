@@ -1465,13 +1465,16 @@
       "Parry": "Parry {parry}",
       "Range": "Range {range}",
       "Stackable": "Stackable",
-      "Unequipped": "Unequipped"
+      "Unequipped": "Unequipped",
+      "Unique": "Unique"
     },
     "SHEET": {
       "Details": "Item Details",
       "NoAffixCapacity": "This item's quality is too low to support affixes. Upgrade to Fine or better quality.",
       "NoAffixCapacityTitle": "Enchantment Not Possible",
       "NoAffixes": "Drag an affix from the Affixes compendium to apply one.",
+      "UniqueItemTitle": "Unique Item",
+      "UniqueItemNoAffixes": "This item is unique and cannot be enchanted with affixes. Its magical properties are defined by module hooks.",
       "Equipment": "Equipment Details",
       "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
       "EquipmentRemove": "Remove Equipment",
@@ -1500,7 +1503,8 @@
       "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent.",
-      "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity."
+      "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
+      "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first."
     },
     "EnchantmentLegendary": "Legendary",
     "EnchantmentMajor": "Major",

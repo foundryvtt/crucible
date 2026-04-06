@@ -115,6 +115,10 @@ export const PROPERTIES = Object.freeze({
   stackable: {
     id: "stackable",
     label: "ITEM.PROPERTIES.Stackable"
+  },
+  unique: {
+    id: "unique",
+    label: "ITEM.PROPERTIES.Unique"
   }
 });
 

@@ -80,6 +80,12 @@ export default class CrucibleItem extends foundry.documents.Item {
     }
     if ( !proposedAffixes.length ) return;
 
+    // Unique items cannot have affixes
+    const properties = new Set(data.system?.properties ?? []);
+    if ( properties.has("unique") ) {
+      throw new Error("Unique items cannot be enchanted with affixes.");
+    }
+
     // Validate the proposed affix composition
     const TIERS = crucible.CONST.ITEM.QUALITY_TIERS;
     const quality = TIERS[data.system?.quality] ?? TIERS.standard;
@@ -163,6 +169,16 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( isStackable ) return;
     const currQuantity = data.system?.quantity ?? this.system.quantity;
     foundry.utils.setProperty(data, "system.quantity", Math.clamp(currQuantity, 0, 1));
+
+    // Prevent marking an item as unique if it has affixes
+    if ( data.system?.properties && this.system.constructor.AFFIXABLE ) {
+      const newProperties = new Set(data.system.properties);
+      const hasAffixes = this.effects.some(e => e.type === "affix");
+      if ( newProperties.has("unique") && !this.system.properties.has("unique") && hasAffixes ) {
+        ui.notifications.warn(_loc("ITEM.WARNINGS.UniqueWithAffixes", {name: this.name}));
+        return false;
+      }
+    }
 
     // Prevent quality reduction if affixes require the current capacity
     if ( data.system?.quality && this.system.constructor.AFFIXABLE ) {

@@ -155,7 +155,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     }
 
     // Compute affix capacity and current affix consumption
-    if ( this.constructor.AFFIXABLE ) {
+    if ( this.constructor.AFFIXABLE && !this.properties.has("unique") ) {
       const affixes = this.affixes = {};
       let prefixSpent = 0;
       let suffixSpent = 0;

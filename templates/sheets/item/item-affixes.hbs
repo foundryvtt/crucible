@@ -1,6 +1,11 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.affixes.cssClass}}"
          data-tab="{{tabs.affixes.id}}" data-group="{{tabs.affixes.group}}">
-    {{#if hasAffixCapacity}}
+    {{#if isUnique}}
+    <fieldset>
+        <legend>{{localize "ITEM.SHEET.UniqueItemTitle"}}</legend>
+        <p class="hint">{{localize "ITEM.SHEET.UniqueItemNoAffixes"}}</p>
+    </fieldset>
+    {{else if hasAffixCapacity}}
     <fieldset>
         <legend>{{localize "AFFIX.Prefixes"}} ({{affixCapacity.prefix.spent}} / {{affixCapacity.prefix.total}})</legend>
         {{#each prefixes as |affix|}}
