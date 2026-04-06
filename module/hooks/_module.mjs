@@ -25,7 +25,7 @@ export function* formatHookContext(hooks, hookConfig) {
       hookId,
       isModule: true,
       label: `${prefix}${hookId}(${cfg.argLabels.join(", ")})`,
-      source: _dedent(fn.toString())
+      source: _formatBody(fn.toString())
     };
   }
 }
@@ -33,15 +33,19 @@ export function* formatHookContext(hooks, hookConfig) {
 /* -------------------------------------------- */
 
 /**
- * Remove common leading whitespace from a multi-line string.
- * @param {string} text
+ * Extract the function body from a stringified function and remove common leading whitespace.
+ * @param {string} text     The result of Function.prototype.toString()
  * @returns {string}
  */
-function _dedent(text) {
-  const lines = text.split("\n");
-  if ( lines.length <= 1 ) return text;
-  const indents = lines.slice(1).filter(l => l.trim()).map(l => l.match(/^(\s*)/)[1].length);
+function _formatBody(text) {
+  const first = text.indexOf("{");
+  const last = text.lastIndexOf("}");
+  if ( (first === -1) || (last === -1) || (first >= last) ) return text;
+  let lines = text.slice(first + 1, last).split("\n");
+  while ( lines.length && !lines[0].trim() ) lines.shift();
+  while ( lines.length && !lines.at(-1).trim() ) lines.pop();
+  if ( !lines.length ) return "";
+  const indents = lines.filter(l => l.trim()).map(l => l.match(/^(\s*)/)[1].length);
   const min = Math.min(...indents);
-  if ( min === 0 ) return text;
-  return lines.map((l, i) => (i === 0) ? l : l.slice(min)).join("\n");
+  return lines.map(l => l.slice(min)).join("\n").trimEnd();
 }
