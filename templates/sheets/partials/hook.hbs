@@ -1,4 +1,5 @@
 <fieldset class="hook {{#if isModule}}module-hook{{/if}}" {{#if isModule}}data-hook-id="{{hookId}}"{{/if}}>
+    {{#if legend}}<legend>{{legend}}</legend>{{/if}}
     <div class="form-group stacked">
         <label class="flexrow">
             <code>{{label}}</code>
@@ -13,7 +14,7 @@
         {{/if}}
         {{else}}
         {{#unless disableHooks}}
-        <button type="button" class="icon frame-brown fa-solid fa-times" data-action="deleteHook"></button>
+        <button type="button" class="icon frame-brown fa-solid fa-times" data-action="hookDelete"></button>
         {{/unless}}
         <input type="hidden" name="{{namePrefix}}.{{i}}.hook" value="{{hookName}}">
         <code-mirror class="hook-editor" name="{{namePrefix}}.{{i}}.fn" language="javascript">

@@ -21,8 +21,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
       affixDelete: CrucibleBaseItemSheet.#onAffixDelete,
       affixEdit: CrucibleBaseItemSheet.#onAffixEdit,
-      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
       hookDelete: CrucibleBaseItemSheet.#onHookDelete,
+      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
       hookToggleSource: CrucibleBaseItemSheet.#onHookToggleSource,
       expandSection: CrucibleBaseItemSheet.#onExpandSection
     },
@@ -238,12 +238,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         }
         break;
       case "hooks":
-        context.actorHooks = this.#prepareActorHooks();
+        const actorHooks = this.#prepareActorHooks();
+        const registeredHooks = new Set(actorHooks.map(h => h.hookName));
         context.actorHookChoices = Object.entries(SYSTEM.ACTOR.HOOKS).map(([hookId, cfg]) => ({
           value: hookId,
           label: hookId,
           group: _loc(cfg.group),
-          disabled: hookId in context.actorHooks
+          disabled: registeredHooks.has(hookId)
         }));
         const identifier = this.document.system.identifier || this.document.id;
         const moduleHookFns = crucible.api.hooks[this.document.type]?.[identifier];
@@ -254,6 +255,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             context.moduleHooks.push(h);
           }
         }
+        context.allHooks = actorHooks.concat(this.#prepareAffixHooks());
         break;
     }
     return context;
@@ -263,14 +265,43 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Prepare data for the actor hooks currently registered by this item.
-   * @returns {Record<string, {label: string, signature: string, argNames: string[]}>}
+   * @returns {object[]}
    */
   #prepareActorHooks() {
-    const hooks = {};
-    for ( const h of this.document.system.actorHooks ) {
+    const hooks = [];
+    for ( const [i, h] of this.document.system.actorHooks.entries() ) {
       const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
-      const label = `${h.hook}(${cfg.argLabels.join(", ")})`;
-      hooks[h.hook] = {label, ...h};
+      const prefix = cfg.async ? "async " : "";
+      hooks.push({
+        label: `${prefix}${h.hook}(${cfg.argLabels.join(", ")})`,
+        hookName: h.hook,
+        fn: h.fn,
+        namePrefix: "system.actorHooks",
+        i
+      });
+    }
+    return hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare affix-provided hooks for display on the hooks tab.
+   * @returns {object[]}
+   */
+  #prepareAffixHooks() {
+    const hooks = [];
+    const affixes = this.document.system.constructor.AFFIXABLE ? this.document.system.affixes : {};
+    for ( const affix of Object.values(affixes) ) {
+      const hookFns = crucible.api.hooks.affix?.[affix.system.identifier];
+      if ( !hookFns ) continue;
+      for ( const h of formatHookContext(hookFns, SYSTEM.ACTOR.HOOKS) ) {
+        const expandKey = `${affix.system.identifier}.${h.hookId}`;
+        h.hookId = expandKey;
+        h.expanded = this.#expandedHooks.has(expandKey);
+        h.legend = affix.name;
+        hooks.push(h);
+      }
     }
     return hooks;
   }

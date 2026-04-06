@@ -30,7 +30,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
       addHook: CrucibleActionConfig.#onAddHook,
-      deleteHook: CrucibleActionConfig.#onDeleteHook,
+      hookDelete: CrucibleActionConfig.#onDeleteHook,
       hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
     form: {
