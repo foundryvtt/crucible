@@ -65,6 +65,24 @@ HOOKS.weaponPotency = {
 };
 
 /* -------------------------------------------- */
+
+HOOKS.deflection = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.deflection.system.tier.value;
+    defenses.parry.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.guarding = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.guarding.system.tier.value;
+    defenses.block.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
 /*  Accessory and Armor Affixes                 */
 /* -------------------------------------------- */
 
@@ -99,6 +117,22 @@ HOOKS.reinforcement = {
   prepareDefenses(item, defenses) {
     const tier = item.system.affixes.reinforcement.system.tier.value;
     defenses.armor.bonus += tier;
+  }
+};
+
+HOOKS.hale = {
+  prepareResources(item, resources) {
+    const tier = item.system.affixes.hale.system.tier.value;
+    resources.health.bonus += (6 * tier);
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.spirited = {
+  prepareResources(item, resources) {
+    const tier = item.system.affixes.spirited.system.tier.value;
+    resources.morale.bonus += (6 * tier);
   }
 };
 

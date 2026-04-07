@@ -834,17 +834,16 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
-HOOKS.spellband = {
+HOOKS.affixActivating = {
   postActivate(outcome) {
-    const enchantment = this.item.config.enchantment;
-    const amount = 2 + (2 * enchantment.bonus);
-    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+    const tier = this.affix.system.tier.value;
+    outcome.resources.action = (outcome.resources.action || 0) + tier;
   }
 };
 
 /* -------------------------------------------- */
 
-HOOKS.focusing = {
+HOOKS.affixFocusing = {
   postActivate(outcome) {
     const tier = this.affix.system.tier.value;
     const amount = 2 + (2 * tier);

@@ -1,0 +1,44 @@
+name: Deflection
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Deflection
+  identifier: deflection
+  changes: []
+  affixType: suffix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: deflection000000
+img: icons/skills/melee/swords-parry-block-blue.webp
+disabled: false
+start: null
+description: >-
+  <p>Increase <strong>Parry</strong> defense by 1 for each <strong>Tier</strong>
+  of this suffix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: 64872phWO5b24xSh
+sort: 200000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775559065019
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!deflection000000'

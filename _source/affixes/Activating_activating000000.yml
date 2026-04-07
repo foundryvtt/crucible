@@ -1,4 +1,4 @@
-name: Focusing
+name: Activating
 type: affix
 duration:
   value: null
@@ -6,8 +6,8 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Focusing
-  identifier: focusing
+  adjective: Activating
+  identifier: activating
   changes: []
   affixType: prefix
   tier:
@@ -17,21 +17,21 @@ system:
   itemTypes:
     - accessory
   actions:
-    - id: affixFocusing
-      name: Replenish Focus
-      img: icons/magic/control/orb-web-hold.webp
+    - id: affixActivating
+      name: Replenish Action
+      img: icons/magic/lightning/bolt-strike-streak-yellow.webp
       condition: ''
       description: >-
-        <p>In moments of duress you can withdraw an additional reserve of
-        <strong>Focus</strong> from this item. The amount of Focus restored
+        <p>In moments of duress you can draw upon an additional reserve of
+        <strong>Action</strong> from this item. The amount of Action restored
         depends on the <strong>Tier</strong> of this
-        prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>4
-        Focus</strong></p></li><li><p><strong>Tier 2:</strong> <strong>6
-        Focus</strong></p></li><li><p><strong>Tier 3:</strong> <strong>8
-        Focus</strong></p></li></ul>
+        affix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1
+        Action</strong></p></li><li><p><strong>Tier 2:</strong> <strong>2
+        Action</strong></p></li><li><p><strong>Tier 3:</strong> <strong>3
+        Action</strong></p></li></ul>
       cost:
-        action: 2
-        focus: 0
+        action: 0
+        focus: 1
         heroism: 1
         hands: 0
         weapon: false
@@ -50,30 +50,30 @@ system:
       summon:
         actorUuid: null
         permanent: true
-_id: focusing00000000
-img: icons/magic/control/orb-web-hold.webp
+_id: activating000000
+img: icons/magic/lightning/bolt-strike-streak-yellow.webp
 disabled: false
 start: null
 description: >-
-  <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer to
-  restore <strong>Focus</strong> in moments of duress. The amount restored
-  scales with the <strong>Tier</strong> of this affix.</p>
+  <p>Grants the <strong>Replenish Action</strong> action, allowing the bearer to
+  restore <strong>Action</strong> in moments of duress. The amount restored
+  scales with the <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
 statuses: []
 showIcon: 1
 folder: hd7WNbghiYX3GDXN
-sort: 200000
+sort: 100000
 flags: {}
 _stats:
   coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1775502000000
-  modifiedTime: 1775559025754
+  modifiedTime: 1775559019010
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!effects!focusing00000000'
+_key: '!effects!activating000000'
