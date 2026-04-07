@@ -1,4 +1,20 @@
+import {DAMAGE_TYPES} from "../const/attributes.mjs";
+
 const HOOKS = {};
+
+/* -------------------------------------------- */
+/*  Damage Type Affixes                         */
+/* -------------------------------------------- */
+
+for ( const type of Object.keys(DAMAGE_TYPES) ) {
+  const id = `${type}Dmg`;
+  HOOKS[id] = {
+    prepareWeapons(item) {
+      const tier = item.system.affixes[id].system.tier.value;
+      item.system.damage.bonus += (2 * tier);
+    }
+  };
+}
 
 /* -------------------------------------------- */
 
