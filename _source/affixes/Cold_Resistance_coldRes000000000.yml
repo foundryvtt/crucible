@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Frost-Warding
-  identifier: coldRes
+  identifier: coldResistance
   changes: []
   affixType: prefix
   tier:

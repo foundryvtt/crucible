@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Venomous
-  identifier: poisonConv
+  identifier: poisonConversion
   changes: []
   affixType: prefix
   tier:

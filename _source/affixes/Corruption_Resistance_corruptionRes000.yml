@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Corruption-Warding
-  identifier: corruptionRes
+  identifier: corruptionResistance
   changes: []
   affixType: prefix
   tier:

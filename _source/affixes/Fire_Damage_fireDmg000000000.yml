@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Flame
-  identifier: fireDmg
+  identifier: fireDamage
   changes: []
   affixType: suffix
   tier:

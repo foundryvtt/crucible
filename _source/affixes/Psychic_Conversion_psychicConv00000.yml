@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Tormenting
-  identifier: psychicConv
+  identifier: psychicConversion
   changes: []
   affixType: prefix
   tier:

@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Soul Potency
-  identifier: soulPtcy
+  identifier: soulPotency
   changes: []
   affixType: suffix
   tier:

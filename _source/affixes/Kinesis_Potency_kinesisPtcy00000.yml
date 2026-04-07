@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Kinesis Potency
-  identifier: kinesisPtcy
+  identifier: kinesisPotency
   changes: []
   affixType: suffix
   tier:

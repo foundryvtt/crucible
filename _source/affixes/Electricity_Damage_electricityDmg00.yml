@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Lightning
-  identifier: electricityDmg
+  identifier: electricityDamage
   changes: []
   affixType: suffix
   tier:

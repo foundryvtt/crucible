@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Shocking
-  identifier: electricityConv
+  identifier: electricityConversion
   changes: []
   affixType: prefix
   tier:

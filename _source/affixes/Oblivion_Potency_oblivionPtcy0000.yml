@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Oblivion Potency
-  identifier: oblivionPtcy
+  identifier: oblivionPotency
   changes: []
   affixType: suffix
   tier:

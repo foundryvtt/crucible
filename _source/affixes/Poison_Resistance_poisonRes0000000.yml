@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Poison-Warding
-  identifier: poisonRes
+  identifier: poisonResistance
   changes: []
   affixType: prefix
   tier:

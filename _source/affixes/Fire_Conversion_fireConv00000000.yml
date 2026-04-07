@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Flaming
-  identifier: fireConv
+  identifier: fireConversion
   changes: []
   affixType: prefix
   tier:

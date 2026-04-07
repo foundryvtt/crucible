@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Radiant
-  identifier: radiantConv
+  identifier: radiantConversion
   changes: []
   affixType: prefix
   tier:

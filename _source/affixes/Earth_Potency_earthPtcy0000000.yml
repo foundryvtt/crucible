@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Earth Potency
-  identifier: earthPtcy
+  identifier: earthPotency
   changes: []
   affixType: suffix
   tier:

@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Radiance
-  identifier: radiantDmg
+  identifier: radiantDamage
   changes: []
   affixType: suffix
   tier:

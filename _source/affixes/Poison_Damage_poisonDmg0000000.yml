@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Venom
-  identifier: poisonDmg
+  identifier: poisonDamage
   changes: []
   affixType: suffix
   tier:

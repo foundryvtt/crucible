@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Acid-Warding
-  identifier: acidRes
+  identifier: acidResistance
   changes: []
   affixType: prefix
   tier:

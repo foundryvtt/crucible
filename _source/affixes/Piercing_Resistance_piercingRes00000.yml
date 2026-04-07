@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Pierce-Warding
-  identifier: piercingRes
+  identifier: piercingResistance
   changes: []
   affixType: prefix
   tier:

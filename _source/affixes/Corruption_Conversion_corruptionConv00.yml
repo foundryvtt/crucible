@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Corrupting
-  identifier: corruptionConv
+  identifier: corruptionConversion
   changes: []
   affixType: prefix
   tier:

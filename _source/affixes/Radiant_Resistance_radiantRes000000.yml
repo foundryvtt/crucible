@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Radiance-Warding
-  identifier: radiantRes
+  identifier: radiantResistance
   changes: []
   affixType: prefix
   tier:

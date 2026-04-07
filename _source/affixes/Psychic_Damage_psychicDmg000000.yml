@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Anguish
-  identifier: psychicDmg
+  identifier: psychicDamage
   changes: []
   affixType: suffix
   tier:

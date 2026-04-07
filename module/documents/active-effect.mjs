@@ -1,5 +1,4 @@
 import CrucibleItem from "./item.mjs";
-import CrucibleAffixActiveEffect from "../models/effect-affix.mjs";
 
 /**
  * An active effect subclass which handles system specific logic for active effects.
@@ -39,8 +38,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         console.warn("Affix effects can only be applied to Item documents.");
         return false;
       }
-      const _id = CrucibleAffixActiveEffect.generateId(this.system.identifier);
-      this.updateSource({_id, duration: {value: null}});
+      this.updateSource({duration: {value: null}});
       options.keepId = true;
       return;
     }

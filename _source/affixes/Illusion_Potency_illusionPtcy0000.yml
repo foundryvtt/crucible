@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Illusion Potency
-  identifier: illusionPtcy
+  identifier: illusionPotency
   changes: []
   affixType: suffix
   tier:

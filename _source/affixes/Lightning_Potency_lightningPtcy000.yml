@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Lightning Potency
-  identifier: lightningPtcy
+  identifier: lightningPotency
   changes: []
   affixType: suffix
   tier:

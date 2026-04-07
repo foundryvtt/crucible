@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Piercing
-  identifier: piercingDmg
+  identifier: piercingDamage
   changes: []
   affixType: suffix
   tier:

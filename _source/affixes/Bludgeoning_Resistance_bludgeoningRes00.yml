@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Bludgeon-Warding
-  identifier: bludgeoningRes
+  identifier: bludgeoningResistance
   changes: []
   affixType: prefix
   tier:

@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Illumination Potency
-  identifier: illuminationPtcy
+  identifier: illuminationPotency
   changes: []
   affixType: suffix
   tier:

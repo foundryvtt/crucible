@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Frost
-  identifier: coldDmg
+  identifier: coldDamage
   changes: []
   affixType: suffix
   tier:

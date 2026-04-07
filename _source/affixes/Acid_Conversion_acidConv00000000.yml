@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Caustic
-  identifier: acidConv
+  identifier: acidConversion
   changes: []
   affixType: prefix
   tier:

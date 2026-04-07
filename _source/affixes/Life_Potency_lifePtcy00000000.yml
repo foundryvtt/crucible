@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Life Potency
-  identifier: lifePtcy
+  identifier: lifePotency
   changes: []
   affixType: suffix
   tier:

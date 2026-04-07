@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Psyche-Warding
-  identifier: psychicRes
+  identifier: psychicResistance
   changes: []
   affixType: prefix
   tier:

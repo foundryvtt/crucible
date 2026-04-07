@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Impact
-  identifier: bludgeoningDmg
+  identifier: bludgeoningDamage
   changes: []
   affixType: suffix
   tier:

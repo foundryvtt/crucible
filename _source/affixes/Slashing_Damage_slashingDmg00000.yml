@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Rending
-  identifier: slashingDmg
+  identifier: slashingDamage
   changes: []
   affixType: suffix
   tier:

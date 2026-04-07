@@ -3,7 +3,7 @@ import * as crucibleFields from "./fields.mjs";
 
 /**
  * @typedef CrucibleAffixEffectData
- * @property {string} identifier              A unique identifier for the affix, max 16 characters
+ * @property {string} identifier              A unique identifier for the affix
  * @property {string} adjective               An adjective used when composing the enchanted item name
  * @property {string} affixType               The affix category, "prefix" or "suffix"
  * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
@@ -22,7 +22,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
   static defineSchema() {
     const fields = foundry.data.fields;
     const schema = super.defineSchema();
-    schema.identifier = new crucibleFields.ItemIdentifierField({maxLength: 16});
+    schema.identifier = new crucibleFields.ItemIdentifierField();
     schema.adjective = new fields.StringField({required: false, blank: true, initial: ""});
     schema.affixType = new fields.StringField({required: true, blank: false,
       choices: SYSTEM.ITEM.AFFIX_TYPES, initial: "prefix"});
@@ -39,18 +39,6 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "AFFIX"];
-
-  /* -------------------------------------------- */
-
-  /**
-   * Generate a deterministic document ID from an affix identifier.
-   * The identifier is padded with trailing zeros to reach exactly 16 characters.
-   * @param {string} identifier     The affix identifier
-   * @returns {string}              A 16-character document ID
-   */
-  static generateId(identifier) {
-    return identifier.padEnd(16, "0");
-  }
 
   /* -------------------------------------------- */
 

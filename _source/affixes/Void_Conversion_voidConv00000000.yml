@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Voidal
-  identifier: voidConv
+  identifier: voidConversion
   changes: []
   affixType: prefix
   tier:

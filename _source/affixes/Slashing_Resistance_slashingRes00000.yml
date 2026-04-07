@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Slash-Warding
-  identifier: slashingRes
+  identifier: slashingResistance
   changes: []
   affixType: prefix
   tier:

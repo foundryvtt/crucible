@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Flame-Warding
-  identifier: fireRes
+  identifier: fireResistance
   changes: []
   affixType: prefix
   tier:

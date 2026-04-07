@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Corrosion
-  identifier: acidDmg
+  identifier: acidDamage
   changes: []
   affixType: suffix
   tier:

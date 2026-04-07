@@ -8,14 +8,14 @@ const HOOKS = {};
 /* -------------------------------------------- */
 
 for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
-  const dmgId = `${type}Dmg`;
+  const dmgId = `${type}Damage`;
   HOOKS[dmgId] = {
     prepareWeapons(item) {
       const tier = item.system.affixes[dmgId].system.tier.value;
       item.system.damage.bonus += (2 * tier);
     }
   };
-  const resId = `${type}Res`;
+  const resId = `${type}Resistance`;
   HOOKS[resId] = {
     prepareResistances(item, resistances) {
       const tier = item.system.affixes[resId].system.tier.value;
@@ -23,7 +23,7 @@ for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
     }
   };
   if ( !["bludgeoning", "piercing", "slashing"].includes(type) ) {
-    const convId = `${type}Conv`;
+    const convId = `${type}Conversion`;
     HOOKS[convId] = {
       prepareWeapons(item) {
         item.system.damageType = type;
@@ -37,7 +37,7 @@ for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
 /* -------------------------------------------- */
 
 for ( const runeId of Object.keys(RUNES) ) {
-  const id = `${runeId}Ptcy`;
+  const id = `${runeId}Potency`;
   HOOKS[id] = {
     prepareAttack(item, action, target, rollData) {
       if ( action.rune?.id !== runeId ) return;

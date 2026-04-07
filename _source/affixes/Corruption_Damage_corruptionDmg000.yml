@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Corruption
-  identifier: corruptionDmg
+  identifier: corruptionDamage
   changes: []
   affixType: suffix
   tier:

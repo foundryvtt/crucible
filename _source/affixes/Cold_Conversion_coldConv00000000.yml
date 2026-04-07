@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Freezing
-  identifier: coldConv
+  identifier: coldConversion
   changes: []
   affixType: prefix
   tier:

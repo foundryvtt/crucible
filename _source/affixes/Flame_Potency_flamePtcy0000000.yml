@@ -7,7 +7,7 @@ duration:
   expired: false
 system:
   adjective: Flame Potency
-  identifier: flamePtcy
+  identifier: flamePotency
   changes: []
   affixType: suffix
   tier:
