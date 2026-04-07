@@ -36,6 +36,7 @@ export const COMPENDIUM_PACKS = Object.freeze({
   ancestry: "crucible.ancestry",
   archetype: "crucible.archetype",
   background: "crucible.background",
+  affix: "crucible.affixes",
   equipment: "crucible.equipment",
   spell: "crucible.spell",
   talent: "crucible.talent",

@@ -376,6 +376,7 @@ Hooks.once("init", async function() {
     scope: "world",
     config: false,
     type: new fields.SchemaField({
+      affix: fieldForType("ActiveEffect", "affix"),
       ancestry: fieldForType("Item", "ancestry"),
       background: fieldForType("Item", "background"),
       equipment: fieldForType("Item", null, "equipment"),
@@ -383,6 +384,7 @@ Hooks.once("init", async function() {
       talent: fieldForType("Item", "talent")
     }),
     default: {
+      affix: [SYSTEM.COMPENDIUM_PACKS.affix],
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
       background: [SYSTEM.COMPENDIUM_PACKS.background],
       equipment: [SYSTEM.COMPENDIUM_PACKS.equipment],

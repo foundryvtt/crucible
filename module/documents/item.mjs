@@ -148,27 +148,30 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Resolve the base item
     const baseItem = await fromUuid(baseUuid);
     if ( !baseItem ) throw new Error(`Base item "${baseUuid}" not found.`);
-    // Resolve affix documents from the compendium
+    // Resolve affix documents from configured compendium packs
     const affixEffects = [];
     if ( affixes.length ) {
-      const affixPack = game.packs.get("crucible.affixes");
-      if ( !affixPack.indexed ) await affixPack.getIndex();
-      const toLoad = [];
+      const affixPacks = Array.from(crucible.CONFIG.packs.affix).map(id => game.packs.get(id)).filter(Boolean);
       const identifiers = new Set(affixes.map(a => a.id));
-      for ( const idx of affixPack.index.values() ) {
-        if ( !identifiers.size ) break;
-        if ( identifiers.has(idx.system.identifier) ) {
-          toLoad.push(idx._id);
-          identifiers.delete(idx.system.identifier);
+      const toLoad = new Map();
+      for ( const pack of affixPacks ) {
+        if ( !pack.indexed ) await pack.getIndex();
+        if ( !toLoad.has(pack) ) toLoad.set(pack, []);
+        for ( const idx of pack.index.values() ) {
+          if ( !identifiers.size ) break;
+          if ( identifiers.has(idx.system?.identifier) ) {
+            toLoad.get(pack).push(idx._id);
+            identifiers.delete(idx.system.identifier);
+          }
         }
       }
       if ( identifiers.size ) {
         throw new Error(`Requested Affixes not found in compendium: ${Array.from(identifiers).join(", ")}`);
       }
       const affixData = {};
-      await Promise.all(toLoad.map(async id => {
-        const doc = await affixPack.getDocument(id);
-        affixData[doc.system.identifier] = doc.toObject();
+      await Promise.all(toLoad.entries().map(async ([pack, ids]) => {
+        const docs = await pack.getDocuments({_id__in: ids});
+        for ( const doc of docs ) affixData[doc.system.identifier] = doc.toObject();
       }));
       for ( const {id, tier} of affixes ) {
         const ae = affixData[id];
@@ -426,12 +429,17 @@ export default class CrucibleItem extends foundry.documents.Item {
     }
     const affixableTypes = crucible.CONST.ITEM.AFFIXABLE_ITEM_TYPES;
 
-    // Load all equipment items and all affixes
-    const equipPack = game.packs.get(crucible.CONST.COMPENDIUM_PACKS.equipment);
-    const affixPack = game.packs.get("crucible.affixes");
-    if ( !affixPack.indexed ) await affixPack.getIndex();
-    const allEquipment = await equipPack.getDocuments();
-    const allAffixes = await affixPack.getDocuments();
+    // Load all equipment items and all affixes from configured packs
+    const allEquipment = [];
+    for ( const packId of crucible.CONFIG.packs.equipment ) {
+      const pack = game.packs.get(packId);
+      if ( pack ) allEquipment.push(...await pack.getDocuments());
+    }
+    const allAffixes = [];
+    for ( const packId of crucible.CONFIG.packs.affix ) {
+      const pack = game.packs.get(packId);
+      if ( pack ) allAffixes.push(...await pack.getDocuments());
+    }
 
     // Filter base item candidates
     let candidates;

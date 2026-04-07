@@ -826,18 +826,23 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   // Build the loot configuration
   const config = {baseUuid, affixes, quality, name: displayName || null};
 
-  // Compose a display name by resolving affix documents from the compendium
+  // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
   if ( !label && affixes.length ) {
-    const affixPack = game.packs.get("crucible.affixes");
-    if ( !affixPack.indexed ) await affixPack.getIndex();
-    const affixIndex = affixPack.index;
+    const affixPacks = Array.from(crucible.CONFIG.packs.affix).map(id => game.packs.get(id)).filter(Boolean);
     const affixDocs = [];
     for ( const {id} of affixes ) {
-      const entry = affixIndex.find(e => e.system?.identifier === id);
-      if ( !entry ) return new Text(match);
-      const doc = await affixPack.getDocument(entry._id);
-      affixDocs.push(doc);
+      let found = false;
+      for ( const pack of affixPacks ) {
+        if ( !pack.indexed ) await pack.getIndex();
+        const entry = pack.index.find(e => e.system?.identifier === id);
+        if ( entry ) {
+          affixDocs.push(await pack.getDocument(entry._id));
+          found = true;
+          break;
+        }
+      }
+      if ( !found ) return new Text(match);
     }
     const CPI = crucible.api.models.CruciblePhysicalItem;
     label = CPI.composeItemName(baseItem.name, affixDocs) || baseItem.name;

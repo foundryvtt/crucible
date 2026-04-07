@@ -1681,6 +1681,10 @@
   },
   "SETTINGS": {
     "COMPENDIUM_SOURCES": {
+      "affix": {
+        "hint": "Which packs will be used as sources of item affixes for enchantment.",
+        "label": "Affix Sources"
+      },
       "ancestry": {
         "hint": "Which packs will be used as sources of ancestries during character creation.",
         "label": "Ancestry Sources"
