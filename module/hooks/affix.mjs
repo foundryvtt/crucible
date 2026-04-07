@@ -7,11 +7,18 @@ const HOOKS = {};
 /* -------------------------------------------- */
 
 for ( const type of Object.keys(DAMAGE_TYPES) ) {
-  const id = `${type}Dmg`;
-  HOOKS[id] = {
+  const dmgId = `${type}Dmg`;
+  HOOKS[dmgId] = {
     prepareWeapons(item) {
-      const tier = item.system.affixes[id].system.tier.value;
+      const tier = item.system.affixes[dmgId].system.tier.value;
       item.system.damage.bonus += (2 * tier);
+    }
+  };
+  const resId = `${type}Res`;
+  HOOKS[resId] = {
+    prepareResistances(item, resistances) {
+      const tier = item.system.affixes[resId].system.tier.value;
+      resistances[type].bonus += (3 * tier);
     }
   };
 }

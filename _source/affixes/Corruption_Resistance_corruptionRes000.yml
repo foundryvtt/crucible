@@ -1,0 +1,45 @@
+name: Corruption Resistance
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Corruption-Warding
+  identifier: corruptionRes
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - armor
+    - accessory
+_id: corruptionRes000
+img: icons/magic/unholy/hand-claw-fire-blue.webp
+disabled: false
+start: null
+description: >-
+  <p>Increase <strong>Corruption</strong> resistance by 3 for each
+  <strong>Tier</strong> of this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: ye7FSz6vOcgm2RY8
+sort: 1000000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!corruptionRes000'
