@@ -75,6 +75,12 @@ export function registerEnrichers() {
       id: "reference",
       pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
       enricher: enrichRef
+    },
+    {
+      id: "crucibleEnchanted",
+      pattern: /@Enchanted\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      enricher: enrichEnchanted,
+      onRender: renderEnchanted
     }
   );
 }
@@ -777,4 +783,95 @@ function enrichRef([match, path, fallback], options) {
   if ( !doc ) return new Text(fallback || match);
   const attr = foundry.utils.getProperty(doc, path);
   return new Text(attr || fallback || match);
+}
+
+/* -------------------------------------------- */
+/*  Enchanted Items                             */
+/* -------------------------------------------- */
+
+/**
+ * Enrich an enchanted item reference into a draggable link that materializes a composed item on drop.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier) or quality=tierName.
+ * @param {RegExpMatchArray} matchArray
+ * @returns {Promise<HTMLAnchorElement|Text>}
+ * @example Explicit name and quality
+ * ```html
+ * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
+ * ```
+ * @example Auto-generated name and auto-selected quality
+ * ```html
+ * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen fireDamage=2]
+ * ```
+ * @example Multiple affixes with mixed tiers
+ * ```html
+ * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
+ * ```
+ */
+async function enrichEnchanted([match, baseUuid, tokenString, displayName]) {
+  const baseItem = fromUuidSync(baseUuid);
+  if ( !baseItem ) return new Text(match);
+
+  // Parse tokens
+  const affixes = [];
+  let quality = null;
+  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
+    const [key, value] = token.split("=");
+    if ( key === "quality" ) {
+      quality = value;
+    } else {
+      affixes.push({id: key, tier: value ? Number(value) : 1});
+    }
+  }
+
+  // Build the enchanted configuration
+  const config = {baseUuid, affixes, quality, name: displayName || null};
+
+  // Compose a display name by resolving affix documents from the compendium
+  let label = displayName;
+  if ( !label && affixes.length ) {
+    const affixPack = game.packs.get("crucible.affixes");
+    if ( !affixPack.indexed ) await affixPack.getIndex();
+    const affixIndex = affixPack.index;
+    const affixDocs = [];
+    for ( const {id} of affixes ) {
+      const entry = affixIndex.find(e => e.system?.identifier === id);
+      if ( !entry ) return new Text(match);
+      const doc = await affixPack.getDocument(entry._id);
+      affixDocs.push(doc);
+    }
+    const CPI = crucible.api.models.CruciblePhysicalItem;
+    label = CPI.composeItemName(baseItem.name, affixDocs) || baseItem.name;
+  }
+  if ( !label ) label = baseItem.name;
+
+  // Create a draggable link element that mirrors a standard content-link
+  const a = document.createElement("a");
+  a.classList.add("content-link");
+  a.draggable = true;
+  a.dataset.link = "";
+  a.dataset.uuid = baseUuid;
+  a.dataset.enchanted = JSON.stringify(config);
+  a.dataset.tooltip = label;
+  a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
+  return a;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add drag interactivity to a rendered enchanted item enrichment.
+ * @param {HTMLElement} element
+ */
+function renderEnchanted(element) {
+  const a = element.querySelector("a[data-enchanted]");
+  if ( !a ) return;
+  a.addEventListener("dragstart", event => {
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.enchanted);
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+      type: "Item",
+      uuid: config.baseUuid,
+      enchanted: config
+    }));
+  });
 }

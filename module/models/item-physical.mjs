@@ -173,12 +173,10 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       };
       const totalTier = prefixSpent + suffixSpent;
       if ( totalTier > 0 ) {
-        const derived = CruciblePhysicalItem.deriveEnchantmentTier(totalTier);
-        this.config.enchantment = derived;
+        this.config.enchantment = CruciblePhysicalItem.#deriveEnchantmentTier(totalTier);
         this.config.enchantmentDerived = true;
-        this.rarity += derived.rarity;
       }
-      else this.rarity += enchantment.rarity;
+      this.rarity += totalTier;
     }
     else this.rarity += enchantment.rarity;
   }
@@ -223,9 +221,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @protected
    */
   _preparePrice() {
-    const rarity = this.rarity;
-    if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
-    else return this.price * Math.pow(rarity + 1, 3);
+    return CruciblePhysicalItem.computePrice(this.price, this.rarity);
   }
 
   /* -------------------------------------------- */
@@ -264,15 +260,43 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   /**
    * Derive an enchantment tier from a total affix tier value.
-   * @param {number} totalAffixTier     The sum of all affix tier values on the item
+   * @param {number} affixTiers     The sum of all affix tier values on the item
    * @returns {ItemEnchantmentTier}
    */
-  static deriveEnchantmentTier(totalAffixTier) {
+  static #deriveEnchantmentTier(affixTiers) {
     const ET = SYSTEM.ITEM.ENCHANTMENT_TIERS;
-    if ( totalAffixTier >= 5 ) return ET.legendary;
-    if ( totalAffixTier >= 3 ) return ET.major;
-    if ( totalAffixTier >= 1 ) return ET.minor;
+    if ( affixTiers >= 5 ) return ET.legendary;
+    if ( affixTiers >= 3 ) return ET.major;
+    if ( affixTiers >= 1 ) return ET.minor;
     return ET.mundane;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the rarity score for an item given its quality, cumulative affix tier, and broken state.
+   * @param {string} quality          The quality tier id (e.g., "fine", "masterwork")
+   * @param {number} affixTiers       The sum of all affix tier values
+   * @param {object} [options]
+   * @param {boolean} [options.broken]  Whether the item is broken
+   * @returns {number}
+   */
+  static computeRarity(quality, affixTiers, {broken=false}={}) {
+    const qr = SYSTEM.ITEM.QUALITY_TIERS[quality]?.rarity ?? 0;
+    return qr + affixTiers + (broken ? -2 : 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the scaled price for an item given its base price and rarity score.
+   * @param {number} basePrice        The base price of the item at standard quality
+   * @param {number} rarity           The computed rarity score
+   * @returns {number}
+   */
+  static computePrice(basePrice, rarity) {
+    if ( rarity < 0 ) return Math.floor(basePrice / Math.abs(rarity - 1));
+    return basePrice * Math.pow(rarity + 1, 3);
   }
 
   /* -------------------------------------------- */

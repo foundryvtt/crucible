@@ -1505,7 +1505,8 @@
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent.",
       "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
-      "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first."
+      "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first.",
+      "EnchantedDropError": "Failed to create enchanted item \"{name}\". {reason}"
     },
     "EnchantmentLegendary": "Legendary",
     "EnchantmentMajor": "Major",

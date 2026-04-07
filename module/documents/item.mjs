@@ -113,6 +113,102 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
+  /*  Drop Data                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static async fromDropData(data) {
+    if ( data.enchanted ) return CrucibleItem.#fromEnchantedDropData(data);
+    return super.fromDropData(data);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compose an enchanted item from drop data containing a base item UUID and affix configuration.
+   * @param {object} data                        The drop data
+   * @param {string} data.uuid                   The UUID of the base item
+   * @param {object} data.enchanted              The enchanted item configuration
+   * @param {string} data.enchanted.baseUuid     The UUID of the base item
+   * @param {{id: string, tier: number}[]} data.enchanted.affixes  Affix identifiers and tiers
+   * @param {string|null} data.enchanted.quality Explicit quality tier, or null for auto-selection
+   * @param {string|null} data.enchanted.name    Optional display name override
+   * @returns {Promise<CrucibleItem>}
+   */
+  static async #fromEnchantedDropData(data) {
+    const {baseUuid, affixes, quality, name} = data.enchanted;
+
+    // Resolve the base item
+    const baseItem = await fromUuid(baseUuid);
+    if ( !baseItem ) throw new Error(`Base item "${baseUuid}" not found.`);
+
+    // Resolve affix documents from the compendium
+    const affixPack = game.packs.get("crucible.affixes");
+    const affixIndex = affixPack.index;
+    const affixEffects = [];
+    for ( const {id, tier} of affixes ) {
+      const indexEntry = affixIndex.find(e => e.system?.identifier === id);
+      if ( !indexEntry ) throw new Error(`Affix "${id}" not found in the affixes compendium.`);
+      const affixDoc = await affixPack.getDocument(indexEntry._id);
+      const affixData = affixDoc.toObject();
+      affixData.system.tier.value = Math.clamp(tier, affixData.system.tier.min, affixData.system.tier.max);
+      affixEffects.push(affixData);
+    }
+
+    // Determine quality tier
+    let selectedQuality = quality;
+    if ( !selectedQuality ) {
+      const QT = crucible.CONST.ITEM.QUALITY_TIERS;
+      let prefixCost = 0;
+      let suffixCost = 0;
+      for ( let i = 0; i < affixEffects.length; i++ ) {
+        const ae = affixEffects[i];
+        if ( ae.system.affixType === "prefix" ) prefixCost += ae.system.tier.value;
+        else suffixCost += ae.system.tier.value;
+      }
+      for ( const tier of Object.values(QT) ) {
+        const half = tier.capacity / 2;
+        if ( (prefixCost <= half) && (suffixCost <= half) ) {
+          selectedQuality = tier.id;
+          break;
+        }
+      }
+      if ( !selectedQuality ) selectedQuality = "masterwork";
+    }
+
+    // Clone the base item with enchanted modifications
+    const itemData = baseItem.toObject();
+    itemData.system.quality = selectedQuality;
+    itemData.effects = [...(itemData.effects || []), ...affixEffects];
+
+    // Compose the item name
+    if ( name ) {
+      itemData.name = name;
+    } else {
+      const CPI = crucible.api.models.CruciblePhysicalItem;
+      const composed = CPI.composeItemName(baseItem.name, affixEffects.map(ae => ({
+        name: ae.name,
+        system: ae.system
+      })));
+      if ( composed ) itemData.name = composed;
+    }
+
+    // Flag compendium source
+    itemData._stats ??= {};
+    itemData._stats.compendiumSource = baseUuid;
+    delete itemData._id;
+
+    // Construct and validate the composed item
+    try {
+      return new Item.implementation(itemData);
+    } catch(err) {
+      const reason = err.cause?.message || err.message;
+      ui.notifications.error(game.i18n.format("ITEM.WARNINGS.EnchantedDropError", {name: itemData.name, reason}));
+      throw err;
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
