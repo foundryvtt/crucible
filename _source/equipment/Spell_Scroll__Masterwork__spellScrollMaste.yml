@@ -1,4 +1,4 @@
-name: Spell Scroll (Minor)
+name: Spell Scroll (Masterwork)
 type: consumable
 img: icons/sundries/scrolls/scroll-bound-tan-leather.webp
 system:
@@ -7,9 +7,8 @@ system:
   quantity: 1
   weight: 1
   price: 50
-  quality: fine
+  quality: masterwork
   broken: false
-  enchantment: minor
   equipped: false
   invested: false
   properties: []
@@ -19,12 +18,11 @@ system:
       are carefully inlaid the glyphs of one or more spellcraft components.
       Activating this spell scroll temporarily imbues its reader with a deep
       familiarity with those components as if they have known them for
-      years.</p><p>Spell scrolls come in three tiers, according to their level
-      of Enchantment. More powerful scrolls may simultaneously convey a larger
-      number of spellcraft components.</p><ul><li><p><strong>Minor</strong>: May
-      contain a single spellcraft
-      component</p></li><li><p><strong>Major</strong>: May contain two
-      spellcraft components</p></li><li><p><strong>Legendary</strong>: May
+      years.</p><p>The number of spellcraft components a scroll can contain
+      depends on the quality of its
+      construction.</p><ul><li><p><strong>Fine</strong>: May contain a single
+      spellcraft component</p></li><li><p><strong>Superior</strong>: May contain
+      two spellcraft components</p></li><li><p><strong>Masterwork</strong>: May
       contain three spellcraft components</p></li></ul>
     private: ''
   actions:
@@ -94,10 +92,10 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.1
   createdTime: 1772307157779
-  modifiedTime: 1773514792290
+  modifiedTime: 1775502000000
   lastModifiedBy: WRGzDgYAt3ZuX6TU
-_id: spellScrollMinor
-sort: 250000
-_key: '!items!spellScrollMinor'
+_id: spellScrollMaste
+sort: 450000
+_key: '!items!spellScrollMaste'

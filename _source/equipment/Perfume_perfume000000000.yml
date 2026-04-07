@@ -4,7 +4,6 @@ type: consumable
 system:
   identifier: perfume
   category: other
-  enchantment: mundane
   quality: standard
   price: 10
   quantity: 1

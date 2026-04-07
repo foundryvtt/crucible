@@ -4,7 +4,6 @@ type: consumable
 system:
   identifier: survivalJug
   category: other
-  enchantment: mundane
   quality: standard
   price: 30
   quantity: 1

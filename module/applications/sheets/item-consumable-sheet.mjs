@@ -31,7 +31,7 @@ export default class CrucibleConsumableItemSheet extends CrucibleBaseItemSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.isScroll = this.document.system.category === "scroll";
-    context.scrollBudget = this.document.system.config.enchantment.bonus;
+    context.scrollBudget = this.document.system.config.quality.bonus;
     return context;
   }
 }
