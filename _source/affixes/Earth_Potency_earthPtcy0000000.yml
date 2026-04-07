@@ -1,4 +1,4 @@
-name: Evasion
+name: Earth Potency
 type: affix
 duration:
   value: null
@@ -6,8 +6,8 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Evasion
-  identifier: evasion
+  adjective: Earth Potency
+  identifier: earthPtcy
   changes: []
   affixType: suffix
   tier:
@@ -15,31 +15,31 @@ system:
     max: 3
     value: 1
   itemTypes:
-    - accessory
-    - armor
-_id: evasion000000000
-img: icons/magic/movement/trail-streak-pink.webp
+    - weapon
+_id: earthPtcy0000000
+img: icons/magic/earth/projectile-boulder-debris.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Dodge</strong> defense by 1 for each <strong>Tier</strong>
-  of this suffix.</p>
+  <p>Increase the <strong>Enchantment Bonus</strong> for spells using the
+  <strong>Earth</strong> rune by 1 for each <strong>Tier</strong> of this
+  suffix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
 statuses: []
 showIcon: 1
-folder: rDiDk5TRu7DssbvD
-sort: 200000
+folder: 6XKTYakZQeajGdau
+sort: 300000
 flags: {}
 _stats:
   coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775562911210
+  modifiedTime: 1775502000000
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!effects!evasion000000000'
+_key: '!effects!earthPtcy0000000'

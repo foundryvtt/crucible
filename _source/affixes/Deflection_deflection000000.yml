@@ -28,15 +28,15 @@ tint: '#ffffff'
 transfer: false
 statuses: []
 showIcon: 1
-folder: 64872phWO5b24xSh
-sort: 200000
+folder: q4zOBuJNljvYZnOG
+sort: 100000
 flags: {}
 _stats:
   coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775559065019
+  modifiedTime: 1775562896390
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

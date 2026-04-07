@@ -1,4 +1,5 @@
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
+import {RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
 
@@ -29,6 +30,21 @@ for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
       }
     };
   }
+}
+
+/* -------------------------------------------- */
+/*  Rune Potency Affixes                        */
+/* -------------------------------------------- */
+
+for ( const runeId of Object.keys(RUNES) ) {
+  const id = `${runeId}Ptcy`;
+  HOOKS[id] = {
+    prepareAttack(item, action, target, rollData) {
+      if ( action.rune?.id !== runeId ) return;
+      const tier = item.system.affixes[id].system.tier.value;
+      rollData.enchantment = Math.max(rollData.enchantment, tier);
+    }
+  };
 }
 
 /* -------------------------------------------- */

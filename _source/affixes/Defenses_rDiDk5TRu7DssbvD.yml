@@ -1,9 +1,9 @@
 type: ActiveEffect
-folder: null
-name: Suffixes
-color: '#62160e'
+folder: Lw2f7XpDAHZxckl7
+name: Defenses
+color: null
 sorting: a
-_id: 1t1h4vquJCypCfA4
+_id: rDiDk5TRu7DssbvD
 description: ''
 sort: 0
 flags: {}
@@ -11,10 +11,10 @@ _stats:
   coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.0
-  createdTime: 1775403036748
-  modifiedTime: 1775562951784
+  createdTime: 1775562907840
+  modifiedTime: 1775562907840
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!folders!1t1h4vquJCypCfA4'
+_key: '!folders!rDiDk5TRu7DssbvD'
