@@ -1,0 +1,55 @@
+name: Acid Conversion
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Caustic
+  identifier: acidConv
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: acidConv00000000
+img: icons/magic/earth/projectile-boulder-debris.webp
+disabled: false
+start: null
+description: >-
+  <p>A portion of the damage dealt by strikes with this weapon is converted
+  to <strong>Acid</strong> damage. The proportion converted depends on
+  the <strong>Tier</strong> of this
+  prefix.</p><ul><li><p><strong>Tier 1:</strong> 33% of damage
+  converted</p></li><li><p><strong>Tier 2:</strong> 66% of damage
+  converted</p></li><li><p><strong>Tier 3:</strong> 100% of damage
+  converted</p></li></ul><h3 class="divider">Playtest Notes</h3><p>The
+  infrastructure for splitting a single attack into multiple typed damage
+  components does not yet exist. Until it does, all tiers of this affix
+  convert 100% of the weapon's damage to <strong>Acid</strong>. Once
+  multi-type damage is supported, lower tiers will convert only a fraction
+  of the total damage, leaving the remainder as the weapon's original
+  type.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: YXtd0GrgHFuC4A7n
+sort: 200000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!acidConv00000000'

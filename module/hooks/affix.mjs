@@ -6,7 +6,7 @@ const HOOKS = {};
 /*  Damage Type Affixes                         */
 /* -------------------------------------------- */
 
-for ( const type of Object.keys(DAMAGE_TYPES) ) {
+for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
   const dmgId = `${type}Dmg`;
   HOOKS[dmgId] = {
     prepareWeapons(item) {
@@ -21,6 +21,14 @@ for ( const type of Object.keys(DAMAGE_TYPES) ) {
       resistances[type].bonus += (3 * tier);
     }
   };
+  if ( !["bludgeoning", "piercing", "slashing"].includes(type) ) {
+    const convId = `${type}Conv`;
+    HOOKS[convId] = {
+      prepareWeapons(item) {
+        item.system.damageType = type;
+      }
+    };
+  }
 }
 
 /* -------------------------------------------- */
