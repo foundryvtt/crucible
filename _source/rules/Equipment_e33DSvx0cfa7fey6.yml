@@ -17,15 +17,16 @@ pages:
         Crucible system provides the basic rules for creating and classifying
         weapons, and also provides an array of pre-defined weapon types which
         are typically observed in a fantasy role-playing game. These weapons can
-        be browsed in the <strong>Weapons </strong>Compendium
-        pack.</p><p>Weapons all have the following attributes, in addition to
-        those shared by all items:</p><h4>Category</h4><p>The category of a
-        weapon establishes certain parameters about how that weapon may be used.
-        How many hands does it require to wield? Is it a melee weapon or a
-        ranged weapon? Does it require ammunition? Which ability scores modify
-        its usage? And more. The possible weapon categories are listed in the
-        table below.</p><h4>Damage Type</h4><p>Each weapon deals a specific
-        damage type when it inflicts damage in combat.</p><h4>Weapon
+        be browsed in the <strong>Weapons </strong>Compendium pack.</p><h2
+        class="divider">Weapon Properties</h2><p>Weapons all have the following
+        attributes, in addition to those shared by all
+        items:</p><h4>Category</h4><p>The category of a weapon establishes
+        certain parameters about how that weapon may be used. How many hands
+        does it require to wield? Is it a melee weapon or a ranged weapon? Does
+        it require ammunition? Which ability scores modify its usage? And more.
+        The possible weapon categories are listed in the table
+        below.</p><h4>Damage Type</h4><p>Each weapon deals a specific damage
+        type when it inflicts damage in combat.</p><h4>Weapon
         Properties</h4><p>Weapons may have a number of special properties which
         instill that item with special rules functionality described in the
         table below.</p><h2 class="divider">Weapon Categories</h2><p>The
@@ -128,7 +129,7 @@ pages:
       systemVersion: 0.9.0
       coreVersion: '14.359'
       createdTime: 1775568473272
-      modifiedTime: 1775568477313
+      modifiedTime: 1775572791370
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -148,32 +149,47 @@ pages:
       content: >-
         <p><strong>Equipment</strong> refers to the belongings, weaponry, armor,
         potions, adventuring equipment, and other types of items which could be
-        carried by a character or found somewhere within the
-        world.</p><p>Equipment types share a few properties in common across all
-        types:</p><h4>Weight</h4><p>Each item has a per-unit weight, expressed
-        in pounds.</p><h4>Base Cost</h4><p>The base cost of an item establishes
-        the basis for any cost scaling which later applies. For some items the
-        base cost and scaled cost are always the same, but some items can have a
-        true value many times greater than the item's base cost.</p><h4>Physical
-        Quality</h4><p>Many items may be assigned a quality tier which reflects
-        the manufacturing quality or natural rarity of a certain
-        commodity.</p><h4>Enchantment Tier</h4><p>Items which can be augmented
-        with magic have an enchantment tier which reflects the potency of magic
-        that is imbued into the item.</p><h4>Rarity</h4><p>Item rarity
-        quantifies the uniqueness of the item relative to it's most common form.
-        Items with higher manufactured quality, stronger magical enchantment, or
-        rare properties will have a higher rarity value and therefore a greater
-        value.</p><h2 class="divider">Item Value Scaling</h2><p>The base cost of
-        a weapon is defined by its Standard quality, Mundane enchantment
-        variety. The currency cost of the weapon scales with its Rarity score
-        according to the following formula:</p><section class="formula"><p
-        class="value">Item Value</p><p class="equals">=</p><p
-        class="equation">(1 + (Rarity^3) × Base Cost</p></section><section
-        class="gameplay"><p>Suppose a <strong>Standard</strong> quality and
-        unenchanted <strong>Mundane</strong> Longsword has a base cost of 50.
-        The same type of weapon crafted at <strong>Masterwork</strong> quality
-        would cost 3200. If a <strong>Legendary</strong> enchantment were added
-        to the weapon, it would then cost 25,650. A true fortune!</p></section>
+        carried by a character or found somewhere within the world. Equipment of
+        all types is provided and can be browsed in the <strong>Crucible &gt;
+        Items &gt; Equipment</strong> compendium pack.</p><h2
+        class="divider">Equipment Properties</h2><p>Equipment items share a few
+        properties in common across all types:</p><h4>Weight</h4><p>Each item
+        has a per-unit weight, expressed in pounds.</p><h4>Base Cost</h4><p>The
+        base cost of an item establishes the basis for any cost scaling which
+        later applies. For some items the base cost and scaled cost are always
+        the same, but some items can have a true value many times greater than
+        the item's base cost.</p><h4>Physical Quality</h4><p>Many items may be
+        assigned a quality tier which reflects the manufacturing quality or
+        natural rarity of a certain commodity.</p><h4>Enchantment
+        Tier</h4><p>Weapons, armor, and accessories can be augmented with magic
+        through @UUID[.Affixes000000000]{Affixes}. The enchantment tier of an
+        item reflects the potency of its magical imbuement and is derived
+        automatically from the affixes applied to it. Consumable items do not
+        have an enchantment tier and scale based on quality
+        alone.</p><h4>Rarity</h4><p>Item rarity quantifies the uniqueness of the
+        item relative to its most common form. Items with higher manufactured
+        quality, stronger magical enchantment, or special properties will have a
+        higher rarity value and therefore a greater
+        value.</p><h4>Investment</h4><p>Some items, particularly accessories,
+        require the bearer to <strong>invest</strong> in them before their
+        magical effects become active. An invested item must be both equipped
+        and invested to function. A character may invest in any number of
+        equipped items.</p><h4>Unique Items</h4><p>Some items are designated as
+        <strong>Unique</strong>, representing one-of-a-kind artifacts or items
+        of singular craftsmanship. Unique items cannot be enchanted with affixes
+        and instead retain a manually assigned enchantment tier.</p><h2
+        class="divider">Item Value Scaling</h2><p>The base cost of an item is
+        defined by its Standard quality, Mundane enchantment variety. The
+        currency cost of the item scales with its Rarity score according to the
+        following formula:</p><section class="formula"><p class="value">Item
+        Value</p><p class="equals">=</p><p class="equation">(1 + Rarity^3) x
+        Base Cost</p></section><section class="gameplay"><p>Suppose a
+        <strong>Standard</strong> quality and unenchanted
+        <strong>Mundane</strong> Longsword has a base cost of 50. The same type
+        of weapon crafted at <strong>Masterwork</strong> quality would cost
+        3200. If a <strong>Legendary</strong> enchantment were added to the
+        weapon through affixes, it would then cost 25,650. A true
+        fortune!</p></section>
     video:
       controls: true
       volume: 0.5
@@ -186,10 +202,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.359'
       createdTime: 1684891238587
-      modifiedTime: 1762098944262
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1775572774062
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -218,14 +234,15 @@ pages:
         physical protection does it afford? How capable of nimble movement is
         someone while wearing it? Supported Armor categories are listed in a
         table below. The following table lists the categories of Armor supported
-        in the Crucible game system.</p><table><thead><tr><th>Armor
-        Category</th><th>Base Armor</th><th>Base Dodge</th><th>Scaling
-        Threshold</th></tr></thead><tbody><tr><td>Unarmored</td><td>0</td><td>8</td><td>0
-        Dex</td></tr><tr><td>Light</td><td>4-8</td><td>6-8</td><td>4
-        Dex</td></tr><tr><td>Medium</td><td>9-13</td><td>3-5</td><td>6
-        Dex</td></tr><tr><td>Heavy</td><td>14-18</td><td>0-2</td><td>8
-        Dex</td></tr><tr><td>Natural</td><td>0-18</td><td>0-8</td><td>0
-        Dex</td></tr></tbody></table><p>The total <strong>Physical
+        in the Crucible game system.</p><table><thead><tr><th><p>Armor
+        Category</p></th><th><p>Base Armor</p></th><th><p>Base
+        Dodge</p></th><th><p>Scaling
+        Threshold</p></th></tr></thead><tbody><tr><td><p>Unarmored</p></td><td><p>0</p></td><td><p>8</p></td><td><p>0
+        Dex</p></td></tr><tr><td><p>Light</p></td><td><p>4-8</p></td><td><p>6-8</p></td><td><p>4
+        Dex</p></td></tr><tr><td><p>Medium</p></td><td><p>9-13</p></td><td><p>3-5</p></td><td><p>6
+        Dex</p></td></tr><tr><td><p>Heavy</p></td><td><p>14-18</p></td><td><p>0-2</p></td><td><p>8
+        Dex</p></td></tr><tr><td><p>Natural</p></td><td><p>0-18</p></td><td><p>0-8</p></td><td><p>0
+        Dex</p></td></tr></tbody></table><p>The total <strong>Physical
         Defense</strong> contributed by the piece of Armor is equal to the sum
         of Armor and Dodge components.</p><section class="formula"><p
         class="value">Physical Defense</p><p class="equals">=</p><p
@@ -274,23 +291,25 @@ pages:
         provide an additional bonus to Armor defense and increase item rarity.
         The quality tier of Armor is established at its time of initial creation
         and can never be increased after that
-        point.</p><table><thead><tr><th>Quality Tier</th><th>Bonus
-        Armor</th><th>Rarity
-        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><h2
+        point.</p><table><thead><tr><th><p>Quality Tier</p></th><th><p>Bonus
+        Armor</p></th><th><p>Rarity
+        Modifier</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>-2</p></td><td><p>-1</p></td></tr><tr><td><p>Standard</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Fine</p></td><td><p>+1</p></td><td><p>+1</p></td></tr><tr><td><p>Superior</p></td><td><p>+2</p></td><td><p>+2</p></td></tr><tr><td><p>Masterwork</p></td><td><p>+3</p></td><td><p>+4</p></td></tr></tbody></table><h2
         class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
         Armor describes its level of magical imbuement. Enchantment provides
         further increases to Bonus Dodge defense and increases item rarity.
         Armor can be enchanted after its original creation or have its
-        enchantment improved.</p><table><thead><tr><th>Enchantment
-        Tier</th><th>Bonus Dodge</th><th>Rarity
-        Modifier</th></tr></thead><tbody><tr><td>Mundane</td><td>0</td><td>0</td></tr><tr><td>Minor</td><td>+1</td><td>+2</td></tr><tr><td>Major</td><td>+2</td><td>+4</td></tr><tr><td>Legendary</td><td>+3</td><td>+6</td></tr></tbody></table><h2
+        enchantment improved.</p><table><thead><tr><th><p>Enchantment
+        Tier</p></th><th><p>Bonus Dodge</p></th><th><p>Rarity
+        Modifier</p></th></tr></thead><tbody><tr><td><p>Mundane</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Minor</p></td><td><p>+1</p></td><td><p>+2</p></td></tr><tr><td><p>Major</p></td><td><p>+2</p></td><td><p>+4</p></td></tr><tr><td><p>Legendary</p></td><td><p>+3</p></td><td><p>+6</p></td></tr></tbody></table><h2
         class="divider">Broken Armor</h2><p>During the course of use, or over
         the passage of time, Armor may become <strong>Broken</strong>. Armor
         which is Broken only benefits from half its normal Armor Defense.</p><h2
-        class="divider">Special Properties</h2><p>Some Armor may have one (or in
-        very rare cases multiple) of the following special properties. Each of
-        these properties adds a +1 Rarity modifier to the
-        Armor.</p><h4>Bulky</h4><p>Armor that is <strong>Bulky</strong> is
+        class="divider">Armor Properties</h2><p>Some Armor may have one or
+        multiple of the following special properties. Each property describes
+        some physical characteristic of the armor. While all properties provide
+        some benefit, some also come with a tradeoff to ensure that they are not
+        strictly superior to armor which lacks that
+        property.</p><h4>Bulky</h4><p>Armor that is <strong>Bulky</strong> is
         cumbersome to wield and conveys a penalty of +2 Banes to all Initiative
         rolls.</p>
     video:
@@ -305,15 +324,255 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.359'
       createdTime: 1685633109339
-      modifiedTime: 1763154535498
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1775572804205
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     category: null
     _key: '!journal.pages!e33DSvx0cfa7fey6.JTsl6ENdxSDW765Q'
+  - sort: 300000
+    name: Affixes
+    type: text
+    _id: Affixes000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Affixes</strong> are magical effects that can be applied to
+        @UUID[.LYj7sghAMoQj9FFR]{Weapons}, @UUID[.JTsl6ENdxSDW765Q]{Armor}, or
+        @UUID[.Accessories00000]{Accessories} to augment them with enchantments.
+        A browsable compendium of available affixes is provided in the
+        <strong>Crucible &gt; Items &gt; Affixes</strong> compendium
+        pack.</p><p>Items discovered in the world may already contain affixes,
+        or you can customize items by applying new affixes through crafting
+        using the
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
+        and
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
+        tradeskills.</p><h2 class="divider">Prefix and Suffix</h2><p>Every affix
+        is categorized as either a <strong>Prefix</strong> or a
+        <strong>Suffix</strong>. This categorization determines how the affix
+        contributes to the item's enchantment budget and how it modifies the
+        item's name.</p><p>Crafted items can (optionally) be automatically named
+        based on their affixes. A <strong>Prefix</strong> affix contributes an
+        adjective that is prepended to the item name (e.g., a <em>Keen</em>
+        Longsword). A <strong>Suffix</strong> affix contributes a noun that is
+        appended with "of" (e.g., a Longsword of <em>Potency</em>). An item with
+        both might be named a <em>Keen</em> Longsword of
+        <em>Potency</em>.</p><h2 class="divider">Affix Properties</h2><p>Each
+        affix has the following properties:</p><dl><dt><p>Affix
+        Type</p></dt><dd><p>Specifies whether the affix is a
+        <strong>Prefix</strong> or a
+        <strong>Suffix</strong>.</p></dd></dl><dl><dt><p></p></dt><dt><p>Tier</p></dt><dd><p>The
+        power level of the affix, ranging from 1 to 3. Higher tiers produce
+        stronger effects but consume more of the item's enchantment budget. Many
+        affixes scale their mechanical effect linearly with
+        tier.</p></dd><dt><p>Item Types</p></dt><dd><p>Which equipment types the
+        affix can be applied to. Some affixes work on any affixable item, while
+        others are restricted to specific types such as weapons only or armor
+        and accessories.</p></dd></dl><dl><dt><p>Adjective</p></dt><dd><p>The
+        word used when composing the enchanted item name. For prefixes this is
+        prepended as an adjective; for suffixes it is appended as a noun with
+        "of".</p></dd></dl><dl><dt><p></p></dt><dt><p>Actions</p></dt><dd><p>Some
+        affixes grant usable actions to the bearer. These actions appear on the
+        item alongside any actions the item natively provides and can be
+        activated during combat or exploration.</p></dd></dl><h2
+        class="divider">Enchantment Budget</h2><p>The total affix capacity of an
+        item is determined by its <strong>Quality</strong> tier. This capacity
+        is split equally between prefixes and suffixes. Each affix's tier value
+        counts against the budget for its
+        category.</p><table><thead><tr><th><p>Quality</p></th><th><p>Total
+        Capacity</p></th><th><p>Prefix Budget</p></th><th><p>Suffix
+        Budget</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>0</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Standard</p></td><td><p>0</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Fine</p></td><td><p>2</p></td><td><p>1</p></td><td><p>1</p></td></tr><tr><td><p>Superior</p></td><td><p>4</p></td><td><p>2</p></td><td><p>2</p></td></tr><tr><td><p>Masterwork</p></td><td><p>6</p></td><td><p>3</p></td><td><p>3</p></td></tr></tbody></table><p>An
+        item cannot have duplicate affixes. You can mix and match affixes freely
+        within the budget. For example, a <strong>Fine</strong> item could have
+        one Tier 1 prefix and one Tier 1 suffix. A <strong>Masterwork</strong>
+        item could have one Tier 3 prefix and three Tier 1 suffixes, or one Tier
+        2 prefix, one Tier 1 prefix, and a Tier 3 suffix, among many other
+        combinations.</p><p>The item's <strong>Enchantment Tier</strong> is
+        derived automatically from the total tier value of its affixes. Items
+        with no affixes are considered <strong>Mundane</strong>.</p><h2
+        class="divider">Unique Items</h2><p>Items designated as
+        @UUID[.6QxbcLoOhUkXTbAj]{Unique} cannot be enchanted with affixes. These
+        are one-of-a-kind artifacts with manually assigned enchantment tiers
+        that exist outside the standard affix system.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775570460951
+      modifiedTime: 1775573135388
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!e33DSvx0cfa7fey6.Affixes000000000'
+  - sort: 250000
+    name: Accessories
+    type: text
+    _id: Accessories00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Accessories</strong> are wearable items that provide magical
+        or practical benefits to the bearer. Accessories can be browsed in the
+        <strong>Crucible &gt; Items &gt; Equipment</strong> compendium
+        pack.</p><p>Characters have 3 accessory slots by default. Each accessory
+        must be equipped to one of these slots to function. Most accessories
+        also require @UUID[.6QxbcLoOhUkXTbAj]{Investment}, meaning they must be
+        both equipped and invested before their magical effects become
+        active.</p><p>Like weapons and armor, accessories have a physical
+        <strong>Quality</strong> tier and a magical <strong>Enchantment</strong>
+        tier. The enchantment tier is derived from
+        @UUID[.Affixes000000000]{Affixes} applied to the item. Higher quality
+        accessories can support more powerful affix combinations.</p><h2
+        class="divider">Accessory Categories</h2><p>Accessories are organized
+        into the following
+        categories:</p><dl><dt><p>Clothing</p></dt><dd><p>Wearable garments such
+        as cloaks, capes, boots, and gloves. Clothing accessories are typically
+        visible and may carry enchantments related to protection or
+        mobility.</p></dd><dt><p>Jewelry</p></dt><dd><p>Rings, amulets, bracers,
+        and other ornamental items. Jewelry is the most common vehicle for
+        magical enchantment and frequently carries powerful
+        affixes.</p></dd><dt><p>Trinket</p></dt><dd><p>Small objects such as
+        charms, tokens, or talismans. Trinkets are often unique or unusual items
+        with specialized
+        effects.</p></dd><dt><p>Other</p></dt><dd><p>Accessories that do not fit
+        neatly into other categories.</p></dd></dl><h2 class="divider">Accessory
+        Properties</h2><p>Accessories may have the following special
+        properties:</p><h4>Investment</h4><p>This accessory requires
+        <strong>Investment</strong> to function. The item must be both equipped
+        and invested before its magical effects become active. See
+        @UUID[.6QxbcLoOhUkXTbAj]{Equipment Overview} for more details.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775570527021
+      modifiedTime: 1775572829429
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!e33DSvx0cfa7fey6.Accessories00000'
+  - sort: 275000
+    name: Consumables
+    type: text
+    _id: Text000000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Consumables</strong> are single-use or limited-use items that
+        are expended when activated. Consumables can be browsed in the
+        <strong>Crucible &gt; Items &gt; Equipment</strong> compendium
+        pack.</p><p>Unlike weapons, armor, and accessories, consumable items do
+        not have an enchantment tier. Their effectiveness scales based on
+        <strong>Quality</strong> alone. Higher quality consumables are more
+        potent but also more expensive.</p><p>Characters have 3 toolbelt slots
+        by default. Consumable items and tools must be equipped to a toolbelt
+        slot to be readily available for use during combat.</p><h2
+        class="divider">Consumable Categories</h2><p>Consumables are organized
+        into the following
+        categories:</p><dl><dt><p>Ammunition</p></dt><dd><p>Projectiles and
+        other expendable materials used by ranged weapons. Ammunition is
+        consumed automatically when the associated weapon is
+        used.</p></dd><dt><p>Bomb</p></dt><dd><p>Explosive or volatile
+        substances that can be thrown at a target area. Bombs typically deal
+        area damage and may apply status
+        effects.</p></dd><dt><p>Flask</p></dt><dd><p>Drinkable liquids including
+        healing elixirs, tonics, and other alchemical preparations. Flasks
+        provide immediate effects when
+        consumed.</p></dd><dt><p>Kit</p></dt><dd><p>Collections of tools or
+        supplies that enable specific activities such as crafting, healing, or
+        field work.</p></dd><dt><p>Scroll</p></dt><dd><p>Enchanted parchments
+        containing spellcraft components. See the <strong>Spell Scrolls</strong>
+        section below for detailed
+        rules.</p></dd><dt><p>Trap</p></dt><dd><p>Mechanical or magical devices
+        that can be placed to trigger when a creature enters their
+        area.</p></dd><dt><p>Other</p></dt><dd><p>Consumables that do not fit
+        neatly into other categories.</p></dd></dl><h2
+        class="divider">Consumable Properties</h2><p>Consumables may have the
+        following special properties:</p><h4>Thrown</h4><p>This consumable can
+        be used at range, typically by throwing it at a target or target area.
+        The effective range depends on the specific item.</p><h2
+        class="divider">Spell Scrolls</h2><p>A <strong>Spell Scroll</strong> is
+        a specialized piece of vellum or parchment upon which are carefully
+        inlaid the glyphs of one or more spellcraft components. Activating a
+        spell scroll temporarily imbues its reader with familiarity with those
+        components as if they have known them for years.</p><p>The number of
+        spellcraft components a scroll can contain depends on the quality of its
+        construction:</p><table><thead><tr><th><p>Quality</p></th><th><p>Components</p></th></tr></thead><tbody><tr><td><p>@UUID[Compendium.crucible.equipment.Item.spellScrollFine0]{Spell
+        Scroll
+        (Fine)}</p></td><td><p>1</p></td></tr><tr><td><p>@UUID[Compendium.crucible.equipment.Item.spellScrollSuper]{Spell
+        Scroll
+        (Superior)}</p></td><td><p>2</p></td></tr><tr><td><p>@UUID[Compendium.crucible.equipment.Item.spellScrollMaste]{Spell
+        Scroll
+        (Masterwork)}</p></td><td><p>3</p></td></tr></tbody></table><p>Spellcraft
+        components include <strong>Runes</strong> (which determine the elemental
+        school of a spell), <strong>Gestures</strong> (which determine the
+        physical form of a spell), and <strong>Inflections</strong> (which
+        modify how a spell behaves). A scroll may contain any combination of
+        these component types up to its capacity.</p><p>Scrolls can be activated
+        with the @Action[Compendium.crucible.equipment.Item.spellScrollFine0
+        readScroll] Action, which grants the reader with temporary knowledge of
+        its components. Only one spell scroll effect may be active at a time;
+        reading a different scroll replaces any current effect. The scroll is
+        consumed upon use.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775570681740
+      modifiedTime: 1775572952448
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!e33DSvx0cfa7fey6.Text000000000000'
 folder: MMeWpMmsLOblp07U
 flags:
   crucible:
