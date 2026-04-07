@@ -77,10 +77,10 @@ export function registerEnrichers() {
       enricher: enrichRef
     },
     {
-      id: "crucibleEnchanted",
-      pattern: /@Enchanted\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
-      enricher: enrichEnchanted,
-      onRender: renderEnchanted
+      id: "crucibleLoot",
+      pattern: /@Loot\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      enricher: enrichLoot,
+      onRender: renderLoot
     }
   );
 }
@@ -786,28 +786,28 @@ function enrichRef([match, path, fallback], options) {
 }
 
 /* -------------------------------------------- */
-/*  Enchanted Items                             */
+/*  Loot Items                                  */
 /* -------------------------------------------- */
 
 /**
- * Enrich an enchanted item reference into a draggable link that materializes a composed item on drop.
+ * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
  * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier) or quality=tierName.
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|Text>}
  * @example Explicit name and quality
  * ```html
- * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
  * ```
  * @example Auto-generated name and auto-selected quality
  * ```html
- * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen fireDamage=2]
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen fireDamage=2]
  * ```
  * @example Multiple affixes with mixed tiers
  * ```html
- * @Enchanted[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
  * ```
  */
-async function enrichEnchanted([match, baseUuid, tokenString, displayName]) {
+async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   const baseItem = fromUuidSync(baseUuid);
   if ( !baseItem ) return new Text(match);
 
@@ -823,7 +823,7 @@ async function enrichEnchanted([match, baseUuid, tokenString, displayName]) {
     }
   }
 
-  // Build the enchanted configuration
+  // Build the loot configuration
   const config = {baseUuid, affixes, quality, name: displayName || null};
 
   // Compose a display name by resolving affix documents from the compendium
@@ -850,7 +850,7 @@ async function enrichEnchanted([match, baseUuid, tokenString, displayName]) {
   a.draggable = true;
   a.dataset.link = "";
   a.dataset.uuid = baseUuid;
-  a.dataset.enchanted = JSON.stringify(config);
+  a.dataset.loot = JSON.stringify(config);
   a.dataset.tooltip = label;
   a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
   return a;
@@ -859,19 +859,29 @@ async function enrichEnchanted([match, baseUuid, tokenString, displayName]) {
 /* -------------------------------------------- */
 
 /**
- * Add drag interactivity to a rendered enchanted item enrichment.
+ * Add click and drag interactivity to a rendered loot item enrichment.
  * @param {HTMLElement} element
  */
-function renderEnchanted(element) {
-  const a = element.querySelector("a[data-enchanted]");
+function renderLoot(element) {
+  const a = element.querySelector("a[data-loot]");
   if ( !a ) return;
+  a.addEventListener("click", async event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.loot);
+    const {baseUuid, affixes, ...options} = config;
+    const item = await Item.implementation.fromDropData({
+      type: "Item", uuid: baseUuid, loot: config
+    });
+    if ( item ) item.sheet.render(true);
+  });
   a.addEventListener("dragstart", event => {
     event.stopPropagation();
-    const config = JSON.parse(a.dataset.enchanted);
+    const config = JSON.parse(a.dataset.loot);
     event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       uuid: config.baseUuid,
-      enchanted: config
+      loot: config
     }));
   });
 }

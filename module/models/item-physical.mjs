@@ -153,6 +153,15 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       const prop = this.constructor.ITEM_PROPERTIES[p];
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived data used by all physical items.
+   * Affix computation occurs here because it requires embedded documents to be initialized.
+   */
+  prepareDerivedData() {
 
     // Compute affix capacity and current affix consumption
     if ( this.constructor.AFFIXABLE && !this.properties.has("unique") ) {
@@ -166,7 +175,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
           else suffixSpent += effect.system.tier.value;
         }
       }
-      const halfCapacity = quality.capacity / 2;
+      const halfCapacity = this.config.quality.capacity / 2;
       this.affixCapacity = {
         prefix: {total: halfCapacity, spent: prefixSpent, available: halfCapacity - prefixSpent},
         suffix: {total: halfCapacity, spent: suffixSpent, available: halfCapacity - suffixSpent}
@@ -177,17 +186,11 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         this.config.enchantmentDerived = true;
       }
       this.rarity += totalTier;
+      this.#prepareAffixActions();
     }
-    else this.rarity += enchantment.rarity;
-  }
+    else this.rarity += this.config.enchantment.rarity;
 
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare derived data used by all physical items.
-   */
-  prepareDerivedData() {
-    if ( this.constructor.AFFIXABLE ) this.#prepareAffixActions();
+    // Compute scaled price
     this.price = this._preparePrice();
   }
 
@@ -301,7 +304,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /* -------------------------------------------- */
 
-  static composeItemName(baseName, affixes) {
+  static composeItemName(baseName, affixes, {quality}={}) {
     const prefixes = [];
     const suffixes = [];
     for ( const affix of foundry.utils.iterateValues(affixes) ) {
@@ -309,8 +312,10 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       if ( affix.system.affixType === "prefix" ) prefixes.push(adj);
       else suffixes.push(adj);
     }
-    if ( !prefixes.length && !suffixes.length ) return null;
-    let name = prefixes.length ? prefixes.join(" ") + " " + baseName : baseName;
+    if ( !prefixes.length && !suffixes.length && !quality ) return null;
+    let name = baseName;
+    if ( prefixes.length ) name = prefixes.join(" ") + " " + name;
+    else if ( quality ) name = _loc(quality.label) + " " + name;
     if ( suffixes.length ) name += " of " + suffixes.join(" ");
     return name;
   }
@@ -327,7 +332,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const tags = {};
     tags.category = this.config.category.label;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
-    if ( this.config.enchantment.id !== "mundane" ) tags.quality = this.config.enchantment.label;
+    if ( this.config.enchantment.id !== "mundane" ) tags.enchantment = this.config.enchantment.label;
     if ( this.constructor.AFFIXABLE && this.properties.has("unique") ) tags.unique = _loc("ITEM.PROPERTIES.Unique");
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;

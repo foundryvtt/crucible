@@ -1506,7 +1506,18 @@
       "NotTalent": "The dropped document must be a Talent.",
       "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
       "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first.",
-      "EnchantedDropError": "Failed to create enchanted item \"{name}\". {reason}"
+      "LootDropError": "Failed to create loot item \"{name}\". {reason}"
+    },
+    "RANDOMIZE": {
+      "Title": "Randomize Enchanted Item",
+      "PriceMin": "Minimum Price",
+      "PriceMax": "Maximum Price",
+      "BaseItem": "Base Item",
+      "ItemTypes": "Item Types",
+      "Quality": "Quality Tier",
+      "QualityAny": "Any",
+      "Generate": "Generate",
+      "GMOnly": "Only a Gamemaster may generate randomized items."
     },
     "EnchantmentLegendary": "Legendary",
     "EnchantmentMajor": "Major",
