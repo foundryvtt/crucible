@@ -5,8 +5,9 @@
 # Node Modules
 node_modules/
 
-# Photoshop files
+# Working Files
 *.psd
+_todo/
 
 # Foundry VTT
 crucible.lock
