@@ -199,6 +199,50 @@ HOOKS.spirited = {
 };
 
 /* -------------------------------------------- */
+/*  Armor-Only Affixes                          */
+/* -------------------------------------------- */
+
+HOOKS.mending = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.mending.system.tier.value;
+    defenses.wounds.bonus -= tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.nonchalant = {
+  defendAttack(item, action, attacker, rollData) {
+    const resource = action.usage?.resource || action.rune?.resource || "health";
+    if ( resource === "morale" ) {
+      const tier = item.system.affixes.nonchalant.system.tier.value;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.rallying = {
+  prepareDefenses(item, defenses) {
+    const tier = item.system.affixes.rallying.system.tier.value;
+    defenses.madness.bonus -= tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.unshakeable = {
+  defendAttack(item, action, attacker, rollData) {
+    const resource = action.usage?.resource || action.rune?.resource || "health";
+    if ( resource === "health" ) {
+      const tier = item.system.affixes.unshakeable.system.tier.value;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+    }
+  }
+};
+
+/* -------------------------------------------- */
 /*  Accessory-Only Affixes                      */
 /* -------------------------------------------- */
 
