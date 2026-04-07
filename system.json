@@ -66,6 +66,12 @@
       "type": "Item"
     },
     {
+      "name": "macros",
+      "label": "System Macros",
+      "path": "packs/macros",
+      "type": "Macro"
+    },
+    {
       "name": "rules",
       "label": "System Rules",
       "path": "packs/rules",
@@ -152,7 +158,8 @@
       ],
       "packs": [
         "rules",
-        "playtest"
+        "playtest",
+        "macros"
       ]
     }
   ],
