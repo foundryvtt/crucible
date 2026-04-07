@@ -31,41 +31,45 @@ pages:
         table below.</p><h2 class="divider">Weapon Categories</h2><p>The
         following table lists the categories of weapons supported in the
         Crucible game system.</p><table><thead><tr><th
-        style="width:30%">One-Handed Melee</th><th
-        style="width:20%">Scaling</th><th style="width:10%">Range</th><th
-        style="width:10%">Action</th><th
-        style="width:10%">Damage</th><th>Special</th></tr></thead><tbody><tr><td>Natural</td><td>STR</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Unarmed</td><td>STR,DEX</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Light
-        (1h)</td><td>DEX</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Simple
-        (1h)</td><td>STR</td><td>1</td><td>2</td><td>4</td><td>Offhand</td></tr><tr><td>Balanced
-        (1h)</td><td>STR,
-        DEX</td><td>2</td><td>2</td><td>4</td><td>Offhand</td></tr><tr><td>Heavy
-        (1h)</td><td>STR</td><td>2</td><td>3</td><td>6</td><td></td></tr><tr><th>Two-Handed
-        Melee</th><th style="width:20%">Scaling</th><th
-        style="width:10%">Range</th><th style="width:10%">Action</th><th
-        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Simple
-        (2h)</td><td>STR</td><td>2</td><td>3</td><td>6</td><td></td></tr><tr><td>Balanced
-        (2h)</td><td>STR,DEX</td><td>3</td><td>3</td><td>6</td><td></td></tr><tr><td>Heavy
-        (2h)</td><td>STR</td><td>3</td><td>4</td><td>8</td><td></td></tr><tr><th>Ranged</th><th
-        style="width:20%">Scaling</th><th style="width:10%">Range</th><th
-        style="width:10%">Action</th><th
-        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Projectile
-        (1h)</td><td>STR,DEX</td><td>60</td><td>2</td><td>4</td><td></td></tr><tr><td>Talisman
-        (1h)</td><td>PRE</td><td>30</td><td>2</td><td>2</td><td>Refocus</td></tr><tr><td>Mechanical
-        (1h)</td><td>DEX</td><td>60</td><td>2</td><td>4</td><td>Reload</td></tr><tr><td>Projectile
-        (2h)</td><td>STR,DEX</td><td>120</td><td>3</td><td>6</td><td></td></tr><tr><td>Talisman
-        (2h)</td><td>PRE</td><td>30</td><td>3</td><td>3</td><td>Refocus</td></tr><tr><td>Mechanical
-        (2h)</td><td>DEX</td><td>120</td><td>2</td><td>6</td><td>Reload</td></tr><tr><th>Offhand
-        Only</th><th style="width:20%">Scaling</th><th
-        style="width:10%">Range</th><th style="width:10%">Action</th><th
-        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Light
-        Shield</td><td>DEX</td><td>1</td><td>2</td><td>2</td><td>Block</td></tr><tr><td>Heavy
-        Shield</td><td>STR</td><td>1</td><td>2</td><td>3</td><td>Block</td></tr></tbody></table><h2
+        style="width:30%"><p>One-Handed Melee</p></th><th
+        style="width:20%"><p>Scaling</p></th><th
+        style="width:10%"><p>Range</p></th><th
+        style="width:10%"><p>Action</p></th><th
+        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr></thead><tbody><tr><td><p>Natural</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Unarmed</p></td><td><p>STR,DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Light
+        (1h)</p></td><td><p>DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Simple
+        (1h)</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>4</p></td><td><p>Offhand</p></td></tr><tr><td><p>Balanced
+        (1h)</p></td><td><p>STR,
+        DEX</p></td><td><p>2</p></td><td><p>2</p></td><td><p>4</p></td><td><p>Offhand</p></td></tr><tr><td><p>Heavy
+        (1h)</p></td><td><p>STR</p></td><td><p>2</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><th><p>Two-Handed
+        Melee</p></th><th style="width:20%"><p>Scaling</p></th><th
+        style="width:10%"><p>Range</p></th><th
+        style="width:10%"><p>Action</p></th><th
+        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Simple
+        (2h)</p></td><td><p>STR</p></td><td><p>2</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><td><p>Balanced
+        (2h)</p></td><td><p>STR,DEX</p></td><td><p>3</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><td><p>Heavy
+        (2h)</p></td><td><p>STR</p></td><td><p>3</p></td><td><p>4</p></td><td><p>8</p></td><td><p></p></td></tr><tr><th><p>Ranged</p></th><th
+        style="width:20%"><p>Scaling</p></th><th
+        style="width:10%"><p>Range</p></th><th
+        style="width:10%"><p>Action</p></th><th
+        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Projectile
+        (1h)</p></td><td><p>STR,DEX</p></td><td><p>60</p></td><td><p>2</p></td><td><p>4</p></td><td><p></p></td></tr><tr><td><p>Talisman
+        (1h)</p></td><td><p>PRE</p></td><td><p>30</p></td><td><p>2</p></td><td><p>2</p></td><td><p>Refocus</p></td></tr><tr><td><p>Mechanical
+        (1h)</p></td><td><p>DEX</p></td><td><p>60</p></td><td><p>2</p></td><td><p>4</p></td><td><p>Reload</p></td></tr><tr><td><p>Projectile
+        (2h)</p></td><td><p>STR,DEX</p></td><td><p>120</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><td><p>Talisman
+        (2h)</p></td><td><p>PRE</p></td><td><p>30</p></td><td><p>3</p></td><td><p>3</p></td><td><p>Refocus</p></td></tr><tr><td><p>Mechanical
+        (2h)</p></td><td><p>DEX</p></td><td><p>120</p></td><td><p>2</p></td><td><p>6</p></td><td><p>Reload</p></td></tr><tr><th><p>Offhand
+        Only</p></th><th style="width:20%"><p>Scaling</p></th><th
+        style="width:10%"><p>Range</p></th><th
+        style="width:10%"><p>Action</p></th><th
+        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Light
+        Shield</p></td><td><p>DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>2</p></td><td><p>Block</p></td></tr><tr><td><p>Heavy
+        Shield</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Block</p></td></tr></tbody></table><h2
         class="divider">Quality Tier</h2><p><strong>Quality</strong> of a Weapon
         describes its craftsmanship, materials, and condition. Quality tiers
         provide an additional bonus to the base damage of the weapon and
-        contribute towards its Rarity score.</p><table><thead><tr><th>Quality
-        Tier</th><th>Damage Bonus</th><th>Rarity
-        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><p>The
+        contribute towards its Rarity score.</p><table><thead><tr><th><p>Quality
+        Tier</p></th><th><p>Damage Bonus</p></th><th><p>Rarity
+        Modifier</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>-2</p></td><td><p>-1</p></td></tr><tr><td><p>Standard</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Fine</p></td><td><p>+1</p></td><td><p>+1</p></td></tr><tr><td><p>Superior</p></td><td><p>+2</p></td><td><p>+2</p></td></tr><tr><td><p>Masterwork</p></td><td><p>+3</p></td><td><p>+4</p></td></tr></tbody></table><p>The
         quality tier of a weapon is established at its time of initial creation
         and can never be increased after that point.</p><h4>Broken
         Weapons</h4><p>During the course of use, or over the passage of time,
@@ -77,44 +81,39 @@ pages:
         class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
         a Weapon describes its level of magical imbuement. Enchantment tiers
         provide an additional bonus to attack rolls of the weapon and contribute
-        towards its Rarity score.</p><table><thead><tr><th>Enchantment
-        Tier</th><th>Attack Bonus</th><th>Rarity
-        Modifier</th></tr></thead><tbody><tr><td>Mundane</td><td>0</td><td>0</td></tr><tr><td>Minor</td><td>+1</td><td>+2</td></tr><tr><td>Major</td><td>+2</td><td>+4</td></tr><tr><td>Legendary</td><td>+3</td><td>+6</td></tr></tbody></table><h2
-        class="divider">Special Properties</h2><p>Some weapons may have one (or
-        in very rare cases multiple) of the following special properties. Each
-        of these properties adds a +1 Rarity modifier to the weapon.</p><section
-        class="construction"><p>Several of the following properties, denoted
-        with an <strong>*</strong> after their name, are not yet fully
-        automated.</p></section><h4>Oversized</h4><p>This weapon is large for
-        its category and is unwieldy in combat without special training. The
-        weapon gains an additional +2 bonus to base damage but is slow and
-        provides +2 Banes to Initiative rolls.</p><h4>Reach</h4><p>This weapon
-        is lengthy and offers an expanded attack range. The range of melee
-        weapons is increased by +2 feet. Ranged weapons are expanded by +20
-        feet.</p><h4>Parrying</h4><p>This weapon provides a bonus to Parry
-        defense while equipped and not Broken. The bonus is +1 for one-handed
-        weapons and +2 for two-handed weapons, plus the enchantment bonus of the
-        weapon.</p><h4>Blocking</h4><p>This weapon provides a bonus to Block
-        defense while equipped and not Broken. The bonus is +1 for one-handed
-        weapons and +2 for two-handed weapons, plus the enchantment bonus of the
-        weapon.</p><h4>Versatile*</h4><p>This normally one-handed weapon can be
-        used effectively with two hands. While equipped without any item in the
-        off-hand its base damage is increased by +2 and Action cost is increased
-        by +1.</p><h4>Thrown*</h4><p>This weapon can be used to Strike at range
-        up to a distance of 20 feet. When used to Strike a target that is not
-        within melee range, the Weapon becomes unequipped and must be retrieved
-        before it can be used again.</p><h4>Keen</h4><p>This weapon is capable
-        of achieving particularly deadly strikes. The critical hit threshold of
-        the weapon is reduced by 2 making it more likely that successful Strikes
-        yield a critical hit.</p><h4>Reliable</h4><p>This weapon is trustworthy
-        and almost never produces spectacularly bad outcomes. The critical
-        failure threshold of the weapon is reduced by 2 making it less likely
-        that unsuccessful Strikes yield a critical
-        miss.</p><h4>Ambush</h4><p>This weapon can be easily concealed and
+        towards its Rarity score.</p><table><thead><tr><th><p>Enchantment
+        Tier</p></th><th><p>Attack Bonus</p></th><th><p>Rarity
+        Modifier</p></th></tr></thead><tbody><tr><td><p>Mundane</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Minor</p></td><td><p>+1</p></td><td><p>+2</p></td></tr><tr><td><p>Major</p></td><td><p>+2</p></td><td><p>+4</p></td></tr><tr><td><p>Legendary</p></td><td><p>+3</p></td><td><p>+6</p></td></tr></tbody></table><h2
+        class="divider">Special Properties</h2><p>Some weapons may have one or
+        multiple of the following special properties. Each property describes
+        some physical characteristic of the weapon. While all properties provide
+        some benefit, some also come with a tradeoff to ensure that they are not
+        strictly superior to weapons which lack that
+        property.</p><h4>Ambush</h4><p>This weapon can be easily concealed and
         retrieved quickly. This weapon may be drawn for free during your own
-        turn or as part of a Reaction.</p><h4>Engaging</h4><p>This weapon is
-        designed to better allow you to combat multiple foes, increasing your
-        Engagement by +1.</p>
+        turn or as part of a Reaction. Its compact size reduces its effective
+        range by 1 foot for melee weapons or 10 feet for ranged
+        weapons.</p><h4>Blocking</h4><p>This weapon provides +1 to Block defense
+        while equipped and not Broken. The weapon's defensive design reduces its
+        base damage by 1 for one-handed weapons or 2 for two-handed
+        weapons.</p><h4>Engaging</h4><p>This weapon is designed to better allow
+        you to combat multiple foes, increasing your Engagement by +1. The
+        weapon's defensive design reduces its base damage by 1 for one-handed
+        weapons or 2 for two-handed weapons.</p><h4>Oversized</h4><p>This weapon
+        is large for its category and is unwieldy in combat without special
+        training. The weapon gains +1 base damage for one-handed weapons or +2
+        for two-handed weapons, but is slow and provides +2 Banes to Initiative
+        rolls.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
+        while equipped and not Broken. The weapon's defensive balance increases
+        the critical hit threshold for Strikes made with this weapon by +1,
+        making critical hits harder to achieve.</p><h4>Versatile</h4><p>This
+        normally one-handed weapon can be used effectively with two hands. While
+        equipped without any item in the off-hand its base damage is increased
+        by +2 and Action cost is increased by +1.</p><h4>Thrown</h4><p>This
+        weapon can be used to Strike at range up to a distance of 20 feet. When
+        used to Strike a target that is not within melee range, the Weapon
+        becomes unequipped and must be retrieved before it can be used
+        again.</p>
       markdown: ''
     video:
       controls: true
@@ -127,10 +126,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.342'
-      createdTime: null
-      modifiedTime: 1727548475512
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      coreVersion: '14.359'
+      createdTime: 1775568473272
+      modifiedTime: 1775568477313
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null

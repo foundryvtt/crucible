@@ -827,8 +827,8 @@ export default class CrucibleActor extends Actor {
       banes, boons,
       defenseType,
       dc: target.defenses[defenseType].total,
-      criticalSuccessThreshold: weapon.system.properties.has("keen") ? 4 : 6,
-      criticalFailureThreshold: weapon.system.properties.has("reliable") ? 4 : 6
+      criticalSuccessThreshold: weapon.system.damage.criticalSuccessThreshold,
+      criticalFailureThreshold: weapon.system.damage.criticalFailureThreshold
     };
 
     // Call talent hooks
