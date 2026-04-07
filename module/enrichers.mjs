@@ -75,6 +75,12 @@ export function registerEnrichers() {
       id: "reference",
       pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
       enricher: enrichRef
+    },
+    {
+      id: "crucibleLoot",
+      pattern: /@Loot\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      enricher: enrichLoot,
+      onRender: renderLoot
     }
   );
 }
@@ -566,18 +572,21 @@ function enrichCondition([match, conditionId]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a reference to a specific action using syntax @Action[{actorUUID} {actionId}].
+ * Enrich a reference to a specific action using syntax @Action[{ownerUUID} {actionId}].
+ * The owner may be an Actor (actions keyed by id) or an Item (actions array searched by id).
  * @param {RegExpMatchArray} matchArray
  * @returns {HTMLEnrichedContentElement|string}
  */
-function enrichAction([match, actorUUID, actionId]) {
-  const actor = fromUuidSync(actorUUID);
-  if ( !actor ) return match;
-  const action = actor.actions[actionId];
+function enrichAction([match, ownerUUID, actionId]) {
+  const owner = fromUuidSync(ownerUUID);
+  if ( !owner ) return match;
+  let action;
+  if ( owner instanceof Actor ) action = owner.actions[actionId];
+  else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
   tag.classList.add("action");
-  tag.dataset.uuid = actorUUID;
+  tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
   tag.innerText = action.name;
@@ -774,4 +783,110 @@ function enrichRef([match, path, fallback], options) {
   if ( !doc ) return new Text(fallback || match);
   const attr = foundry.utils.getProperty(doc, path);
   return new Text(attr || fallback || match);
+}
+
+/* -------------------------------------------- */
+/*  Loot Items                                  */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier) or quality=tierName.
+ * @param {RegExpMatchArray} matchArray
+ * @returns {Promise<HTMLAnchorElement|Text>}
+ * @example Explicit name and quality
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
+ * ```
+ * @example Auto-generated name and auto-selected quality
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen fireDamage=2]
+ * ```
+ * @example Multiple affixes with mixed tiers
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
+ * ```
+ */
+async function enrichLoot([match, baseUuid, tokenString, displayName]) {
+  const baseItem = fromUuidSync(baseUuid);
+  if ( !baseItem ) return new Text(match);
+
+  // Parse tokens
+  const affixes = [];
+  let quality = null;
+  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
+    const [key, value] = token.split("=");
+    if ( key === "quality" ) {
+      quality = value;
+    } else {
+      affixes.push({id: key, tier: value ? Number(value) : 1});
+    }
+  }
+
+  // Build the loot configuration
+  const config = {baseUuid, affixes, quality, name: displayName || null};
+
+  // Compose a display name by resolving affix documents from configured packs
+  let label = displayName;
+  if ( !label && affixes.length ) {
+    const affixPacks = Array.from(crucible.CONFIG.packs.affix).map(id => game.packs.get(id)).filter(Boolean);
+    const affixDocs = [];
+    for ( const {id} of affixes ) {
+      let found = false;
+      for ( const pack of affixPacks ) {
+        if ( !pack.indexed ) await pack.getIndex();
+        const entry = pack.index.find(e => e.system?.identifier === id);
+        if ( entry ) {
+          affixDocs.push(await pack.getDocument(entry._id));
+          found = true;
+          break;
+        }
+      }
+      if ( !found ) return new Text(match);
+    }
+    const CPI = crucible.api.models.CruciblePhysicalItem;
+    label = CPI.composeItemName(baseItem.name, affixDocs) || baseItem.name;
+  }
+  if ( !label ) label = baseItem.name;
+
+  // Create a draggable link element that mirrors a standard content-link
+  const a = document.createElement("a");
+  a.classList.add("content-link");
+  a.draggable = true;
+  a.dataset.link = "";
+  a.dataset.uuid = baseUuid;
+  a.dataset.loot = JSON.stringify(config);
+  a.dataset.tooltip = label;
+  a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
+  return a;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add click and drag interactivity to a rendered loot item enrichment.
+ * @param {HTMLElement} element
+ */
+function renderLoot(element) {
+  const a = element.querySelector("a[data-loot]");
+  if ( !a ) return;
+  a.addEventListener("click", async event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.loot);
+    const {baseUuid, affixes, ...options} = config;
+    const item = await Item.implementation.fromDropData({
+      type: "Item", uuid: baseUuid, loot: config
+    });
+    if ( item ) item.sheet.render(true);
+  });
+  a.addEventListener("dragstart", event => {
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.loot);
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+      type: "Item",
+      uuid: config.baseUuid,
+      loot: config
+    }));
+  });
 }

@@ -56,8 +56,8 @@ export class ItemIdentifierField extends fields.StringField {
       blank: false,
       nullable: false,
       required: true,
-      initial: ItemIdentifierField.#getInitial,
-      validate: ItemIdentifierField.#validate
+      maxLength: Infinity,
+      initial: ItemIdentifierField.#getInitial
     });
   }
 
@@ -81,13 +81,13 @@ export class ItemIdentifierField extends fields.StringField {
 
   /* -------------------------------------------- */
 
-  /**
-   * Validate that the identifier meets requirements.
-   * @param {string} id
-   */
-  static #validate(id) {
-    if ( !ItemIdentifierField.#IDENTIFIER_REGEX.test(id) ) {
-      throw new Error(_loc("ITEM.WARNINGS.InvalidIdentifier", {id}));
+  /** @override */
+  _validateType(value) {
+    if ( !ItemIdentifierField.#IDENTIFIER_REGEX.test(value) ) {
+      throw new Error(_loc("ITEM.WARNINGS.InvalidIdentifier", {id: value}));
+    }
+    if ( value.length > this.maxLength ) {
+      throw new Error(`Identifier "${value}" exceeds the maximum length of ${this.maxLength} characters.`);
     }
   }
 }

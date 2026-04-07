@@ -1,0 +1,46 @@
+name: Deception
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Deceptive
+  identifier: deceptionSkill
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - accessory
+    - armor
+_id: deceptionSkill00
+img: systems/crucible/icons/skills/deception.jpg
+disabled: false
+start: null
+description: >-
+  <p>Increase the <strong>Enchantment Bonus</strong> for
+  <strong>Deception</strong> skill checks by 1 for each <strong>Tier</strong> of
+  this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: Z5Wpk76q0YDN7RIJ
+sort: 900000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775502000000
+  modifiedTime: 1775566472886
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!deceptionSkill00'

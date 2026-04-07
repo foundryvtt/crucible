@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: L3dyA14Cx45bjiQY
+name: Accessory
+color: null
+sorting: a
+_id: hd7WNbghiYX3GDXN
+description: ''
+sort: 200000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!hd7WNbghiYX3GDXN'

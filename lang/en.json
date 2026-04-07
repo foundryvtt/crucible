@@ -808,6 +808,48 @@
     "StrideSpecific": "Stride {stride}",
     "VulnerabilitySpecific": "Vulnerability: {vulnerability}"
   },
+  "AFFIX": {
+    "FIELDS": {
+      "adjective": {
+        "label": "Adjective",
+        "hint": "An optional adjective used when composing an item name."
+      },
+      "affixType": {
+        "label": "Affix Type",
+        "hint": "Affixes must either be of the prefix or suffix type."
+      },
+      "identifier": {
+        "label": "Identifier",
+        "hint": "A unique string identifier for this affix (max 16 characters) used to declare hook functions and to determine affix IDs when applied to an item."
+      },
+      "itemTypes": {
+        "label": "Item Types",
+        "hint": "Which item types this affix can be applied to. If no specific types are checked, then all item types are allowed."
+      },
+      "tier": {
+        "label": "Tier",
+        "hint": "The allowed range of power tiers for this affix. Each tier consumes one point of prefix or suffix capacity.",
+        "min": {
+          "label": "Minimum Tier"
+        },
+        "max": {
+          "label": "Maximum Tier"
+        },
+        "value": {
+          "label": "Affix Tier",
+          "hint": "The tier of this affix applied to the item."
+        }
+      }
+    },
+    "ConfigIdentity": "Affix Identity",
+    "ConfigTier": "Tier Configuration",
+    "TierRestriction": "Tier Range",
+    "Prefixes": "Prefixes",
+    "Suffixes": "Suffixes",
+    "TierDisplay": "Tier {value} / {max}",
+    "TypePrefix": "Prefix",
+    "TypeSuffix": "Suffix"
+  },
   "ADVANCEMENT": {
     "ExpectedLevel": "Expected Level",
     "Level": "Level",
@@ -1180,7 +1222,9 @@
   },
   "CRUCIBLE": {
     "SHEETS": {
+      "Accessory": "Crucible Accessory Sheet",
       "Adversary": "Crucible Adversary Sheet",
+      "Affix": "Crucible Affix Sheet",
       "Ancestry": "Crucible Ancestry Sheet",
       "Archetype": "Crucible Archetype Sheet",
       "Armor": "Crucible Armor Sheet",
@@ -1340,6 +1384,10 @@
       }
     }
   },
+  "HOOKS": {
+    "NoModuleHooks": "No module hooks are registered for this identifier.",
+    "ToggleSource": "Toggle Source"
+  },
   "ITEM": {
     "ACTIONS": {
       "Create": "Create Item",
@@ -1417,10 +1465,17 @@
       "Parry": "Parry {parry}",
       "Range": "Range {range}",
       "Stackable": "Stackable",
-      "Unequipped": "Unequipped"
+      "Unequipped": "Unequipped",
+      "Unique": "Unique"
     },
     "SHEET": {
       "Details": "Item Details",
+      "NoAffixCapacity": "This item's quality is too low to support affixes. Upgrade to Fine or better quality.",
+      "NoAffixCapacityTitle": "Enchantment Not Possible",
+      "NoAffixes": "Drag an affix from the Affixes compendium to apply one.",
+      "UniqueItemTitle": "Unique Item",
+      "UniqueItemNoAffixes": "This item is unique and cannot be enchanted with affixes. Its magical properties are defined by module hooks.",
+      "EnchantmentDerivedHint": "Enchantment tier is derived from the total tier of applied affixes.",
       "Equipment": "Equipment Details",
       "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
       "EquipmentRemove": "Remove Equipment",
@@ -1436,6 +1491,7 @@
     },
     "TABS": {
       "Actions": "Actions",
+      "Affixes": "Affixes",
       "Configuration": "Configuration",
       "Description": "Description",
       "Equipment": "Equipment",
@@ -1447,7 +1503,21 @@
     "WARNINGS": {
       "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
-      "NotTalent": "The dropped document must be a Talent."
+      "NotTalent": "The dropped document must be a Talent.",
+      "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
+      "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first.",
+      "LootDropError": "Failed to create loot item \"{name}\". {reason}"
+    },
+    "RANDOMIZE": {
+      "Title": "Randomize Enchanted Item",
+      "PriceMin": "Minimum Price",
+      "PriceMax": "Maximum Price",
+      "BaseItem": "Base Item",
+      "ItemTypes": "Item Types",
+      "Quality": "Quality Tier",
+      "QualityAny": "Any",
+      "Generate": "Generate",
+      "GMOnly": "Only a Gamemaster may generate randomized items."
     },
     "EnchantmentLegendary": "Legendary",
     "EnchantmentMajor": "Major",
@@ -1611,6 +1681,10 @@
   },
   "SETTINGS": {
     "COMPENDIUM_SOURCES": {
+      "affix": {
+        "hint": "Which packs will be used as sources of item affixes for enchantment.",
+        "label": "Affix Sources"
+      },
       "ancestry": {
         "hint": "Which packs will be used as sources of ancestries during character creation.",
         "label": "Ancestry Sources"
@@ -2155,7 +2229,8 @@
   },
   "TYPES": {
     "ActiveEffect": {
-      "flanked": "Flanked Active Effect"
+      "affix": "Affix",
+      "flanked": "Flanked"
     },
     "Actor": {
       "adversary": "Adversary",

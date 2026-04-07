@@ -19,7 +19,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       price: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
       quality: new fields.StringField({required: true, choices: SYSTEM.ITEM.QUALITY_TIERS, initial: "standard"}),
       broken: new fields.BooleanField({initial: false}),
-      enchantment: new fields.StringField({required: true, choices: SYSTEM.ITEM.ENCHANTMENT_TIERS, initial: "mundane"}),
+      enchantment: new fields.StringField({required: true, choices: SYSTEM.ITEM.ENCHANTMENT_TIERS, initial: "mundane"}), // TODO: derive from affixes instead of storing directly
       equipped: new fields.BooleanField(),
       invested: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
@@ -63,6 +63,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static EQUIPABLE = true;
 
   /**
+   * Does this item type support embedded affixes?
+   * @type {boolean}
+   */
+  static AFFIXABLE = false;
+
+  /**
    * Which tags should be considered "stateful", appearing in the first row of tags in a tooltip.
    * @type {string[]}
    */
@@ -84,6 +90,21 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {number}
    */
   rarity;
+
+  /**
+   * The affix capacity for this item, split between prefix and suffix budgets.
+   * Each half of the item's quality capacity is allocated to one affix type.
+   * Only present on item types where AFFIXABLE is true.
+   * @type {{prefix: {total: number, spent: number, available: number}, suffix: {total: number, spent: number, available: number}}|undefined}
+   */
+  affixCapacity;
+
+  /**
+   * A mapping of affix ActiveEffects on this item, keyed by their unique identifier.
+   * Populated during prepareBaseData for affixable item types.
+   * @type {Record<string, CrucibleActiveEffect>}
+   */
+  affixes = {};
 
   /**
    * Does this item require investment?
@@ -125,7 +146,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
     // Item Configuration
     this.config = {category, quality, enchantment};
-    this.rarity = quality.rarity + enchantment.rarity;
+    this.rarity = quality.rarity;
 
     // Item Properties
     for ( const p of this.properties ) {
@@ -138,9 +159,61 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /**
    * Prepare derived data used by all physical items.
+   * Affix computation occurs here because it requires embedded documents to be initialized.
    */
   prepareDerivedData() {
+
+    // Compute affix capacity and current affix consumption
+    if ( this.constructor.AFFIXABLE && !this.properties.has("unique") ) {
+      const affixes = this.affixes = {};
+      let prefixSpent = 0;
+      let suffixSpent = 0;
+      for ( const effect of this.parent.effects ) {
+        if ( effect.type === "affix" ) {
+          affixes[effect.system.identifier] = effect;
+          if ( effect.system.affixType === "prefix" ) prefixSpent += effect.system.tier.value;
+          else suffixSpent += effect.system.tier.value;
+        }
+      }
+      const halfCapacity = this.config.quality.capacity / 2;
+      this.affixCapacity = {
+        prefix: {total: halfCapacity, spent: prefixSpent, available: halfCapacity - prefixSpent},
+        suffix: {total: halfCapacity, spent: suffixSpent, available: halfCapacity - suffixSpent}
+      };
+      const totalTier = prefixSpent + suffixSpent;
+      if ( totalTier > 0 ) {
+        this.config.enchantment = CruciblePhysicalItem.#deriveEnchantmentTier(totalTier);
+        this.config.enchantmentDerived = true;
+      }
+      this.rarity += totalTier;
+      this.#prepareAffixActions();
+    }
+    else this.rarity += this.config.enchantment.rarity;
+
+    // Compute scaled price
     this.price = this._preparePrice();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Absorb actions provided by affixes, appending them to the item's own actions array.
+   * Affix actions with IDs that collide with item-level actions are skipped with a warning.
+   */
+  #prepareAffixActions() {
+    const itemActionIds = new Set(this.actions.map(a => a.id));
+    for ( const affix of Object.values(this.affixes) ) {
+      if ( !affix.system.actions?.length ) continue;
+      for ( const action of affix.system.actions ) {
+        if ( itemActionIds.has(action.id) ) {
+          console.warn(`${this.parent.name}: Affix "${affix.name}" action "${action.id}" `
+            + `ignored because it overlaps with an item-level action.`);
+          continue;
+        }
+        itemActionIds.add(action.id);
+        this.actions.push(action);
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -151,9 +224,100 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @protected
    */
   _preparePrice() {
-    const rarity = this.rarity;
-    if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
-    else return this.price * Math.pow(rarity + 1, 3);
+    return CruciblePhysicalItem.computePrice(this.price, this.rarity);
+  }
+
+  /* -------------------------------------------- */
+  /*  Actor Hooks                                 */
+  /* -------------------------------------------- */
+
+  /**
+   * Provide all actor hooks contributed by this item, both from the base item and from each of its affixes.
+   * @returns {Array<{hook: string, fn: Function|string}>}
+   */
+  getActorHooks() {
+    const affixes = this.constructor.AFFIXABLE ? Object.values(this.affixes) : [];
+    if ( !affixes.length ) return this.actorHooks;
+    const hooks = [...this.actorHooks];
+    for ( const affix of affixes ) {
+      const moduleHooks = crucible.api.hooks.affix?.[affix.system.identifier];
+      if ( moduleHooks ) {
+        for ( const [hook, fn] of Object.entries(moduleHooks) ) {
+          if ( hook in SYSTEM.ACTOR.HOOKS ) hooks.push({hook, fn});
+        }
+      }
+    }
+    return hooks;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Compose a deterministic name for an item based on a base item name and its applied affixes.
+   * TODO use localization format or Intl.ListFormatter somehow
+   * @param {string} baseName
+   * @param {CrucibleAffixEffectData[]} affixes
+   * @returns {string|null}
+   */
+  /**
+   * Derive an enchantment tier from a total affix tier value.
+   * @param {number} affixTiers     The sum of all affix tier values on the item
+   * @returns {ItemEnchantmentTier}
+   */
+  static #deriveEnchantmentTier(affixTiers) {
+    const ET = SYSTEM.ITEM.ENCHANTMENT_TIERS;
+    if ( affixTiers >= 5 ) return ET.legendary;
+    if ( affixTiers >= 3 ) return ET.major;
+    if ( affixTiers >= 1 ) return ET.minor;
+    return ET.mundane;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the rarity score for an item given its quality, cumulative affix tier, and broken state.
+   * @param {string} quality          The quality tier id (e.g., "fine", "masterwork")
+   * @param {number} affixTiers       The sum of all affix tier values
+   * @param {object} [options]
+   * @param {boolean} [options.broken]  Whether the item is broken
+   * @returns {number}
+   */
+  static computeRarity(quality, affixTiers, {broken=false}={}) {
+    const qr = SYSTEM.ITEM.QUALITY_TIERS[quality]?.rarity ?? 0;
+    return qr + affixTiers + (broken ? -2 : 0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the scaled price for an item given its base price and rarity score.
+   * @param {number} basePrice        The base price of the item at standard quality
+   * @param {number} rarity           The computed rarity score
+   * @returns {number}
+   */
+  static computePrice(basePrice, rarity) {
+    if ( rarity < 0 ) return Math.floor(basePrice / Math.abs(rarity - 1));
+    return basePrice * Math.pow(rarity + 1, 3);
+  }
+
+  /* -------------------------------------------- */
+
+  static composeItemName(baseName, affixes, {quality}={}) {
+    const prefixes = [];
+    const suffixes = [];
+    for ( const affix of foundry.utils.iterateValues(affixes) ) {
+      const adj = affix.system.adjective || affix.name;
+      if ( affix.system.affixType === "prefix" ) prefixes.push(adj);
+      else suffixes.push(adj);
+    }
+    if ( !prefixes.length && !suffixes.length && !quality ) return null;
+    let name = baseName;
+    if ( prefixes.length ) name = prefixes.join(" ") + " " + name;
+    else if ( quality ) name = _loc(quality.label) + " " + name;
+    if ( suffixes.length ) name += " of " + suffixes.join(" ");
+    return name;
   }
 
   /* -------------------------------------------- */
@@ -164,11 +328,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @returns {Record<string, string>}    The tags which describe this item
    */
   getTags(scope="full") {
-    const {QUALITY_TIERS: QT, ENCHANTMENT_TIERS: ET} = SYSTEM.ITEM;
+    const {QUALITY_TIERS: QT} = SYSTEM.ITEM;
     const tags = {};
     tags.category = this.config.category.label;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
-    if ( this.enchantment && (this.enchantment !== "mundane") ) tags.quality = ET[this.enchantment].label;
+    if ( this.config.enchantment.id !== "mundane" ) tags.enchantment = this.config.enchantment.label;
+    if ( this.constructor.AFFIXABLE && this.properties.has("unique") ) tags.unique = _loc("ITEM.PROPERTIES.Unique");
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     else if ( this.parent.parent && !this.dropped ) tags.equipped = _loc("ITEM.PROPERTIES.Unequipped");

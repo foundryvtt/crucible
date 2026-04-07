@@ -1,14 +1,18 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.actions.cssClass}}"
          data-tab="{{tabs.actions.id}}" data-group="{{tabs.actions.group}}">
+    {{#each actionGroups}}
     <fieldset>
         <legend>
-            <span>Actions</span>
+            <span>{{#if this.legend}}{{this.legend}}{{else}}Actions{{/if}}</span>
+            {{#if this.canAdd}}
             <a class="button icon" data-action="actionAdd" aria-label="{{localize "TALENT.ACTIONS.ActionAdd"}}" data-tooltip>
                 <i class="fa-solid fa-plus"></i>
             </a>
+            {{/if}}
         </legend>
-        {{#each actions as |action|}}
-        {{> (lookup @root "actionPartial") action=action isEditable=@root.isEditable}}
+        {{#each this.actions as |action|}}
+        {{> (lookup @root "actionPartial") action=action isEditable=../isEditable}}
         {{/each}}
     </fieldset>
+    {{/each}}
 </section>

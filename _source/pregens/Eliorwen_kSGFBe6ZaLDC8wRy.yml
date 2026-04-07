@@ -274,8 +274,7 @@ items:
       quality: standard
       enchantment: mundane
       equipped: true
-      properties:
-        - reach
+      properties: []
       description:
         public: >-
           <p>A tall, self-bow often taller than the archer who draws it, the
@@ -284,7 +283,7 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      slot: 0
+      slot: 3
       actions: []
       identifier: longbow
       invested: false
@@ -293,9 +292,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716914
-      modifiedTime: 1773512716914
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -337,9 +336,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716914
-      modifiedTime: 1773512716914
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -380,9 +379,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716914
-      modifiedTime: 1773512716914
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -416,12 +415,12 @@ items:
     sort: -275000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716914
+      modifiedTime: 1775444403812
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716914
+      createdTime: 1775444403812
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -499,12 +498,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716914
+      modifiedTime: 1775444403813
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716914
+      createdTime: 1775444403813
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -542,11 +541,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716914
-      modifiedTime: 1773512716914
+      createdTime: 1775444403815
+      modifiedTime: 1775444403815
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -631,12 +630,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716914
-      createdTime: 1773512716914
+      modifiedTime: 1775444403816
+      createdTime: 1775444403816
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -700,11 +699,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716914
-      modifiedTime: 1773512716914
+      createdTime: 1775444403816
+      modifiedTime: 1775444403816
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -765,12 +764,12 @@ items:
         rank: null
       actorHooks: []
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716914
-      createdTime: 1773512716914
+      modifiedTime: 1775444403816
+      createdTime: 1775444403816
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -786,9 +785,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1773512716914
-  modifiedTime: 1773514792439
+  coreVersion: '14.359'
+  createdTime: 1775444403810
+  modifiedTime: 1775444403810
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
@@ -796,6 +795,5 @@ _stats:
 _id: kSGFBe6ZaLDC8wRy
 ownership:
   default: 2
-  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!kSGFBe6ZaLDC8wRy'

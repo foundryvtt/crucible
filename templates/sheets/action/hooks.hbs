@@ -1,5 +1,8 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.hooks.cssClass}}"
          data-group="{{tabs.hooks.group}}" data-tab="{{tabs.hooks.id}}">
+    {{#each moduleHooks}}
+    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{/each}}
     {{{actionHooksHTML}}}
     {{#unless disableHooks}}
     <fieldset class="add-hook">

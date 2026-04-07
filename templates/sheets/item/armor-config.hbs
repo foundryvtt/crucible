@@ -5,7 +5,7 @@
         {{formGroup fields.identifier value=source.system.identifier}}
         {{formGroup fields.category value=source.system.category}}
         {{formGroup fields.quality value=source.system.quality}}
-        {{formGroup fields.enchantment value=source.system.enchantment}}
+        {{formGroup fields.enchantment value=enchantment.value disabled=enchantment.disabled hint=enchantment.hint}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>

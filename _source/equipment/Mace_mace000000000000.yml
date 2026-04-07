@@ -12,8 +12,7 @@ system:
   enchantment: mundane
   equipped: false
   invested: false
-  properties:
-    - reliable
+  properties: []
   description:
     public: >-
       <p>A one-handed blunt weapon that features a heavy head, typically forged

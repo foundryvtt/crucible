@@ -9,7 +9,6 @@ system:
   price: 400
   quality: standard
   broken: false
-  enchantment: mundane
   equipped: false
   invested: false
   properties: []

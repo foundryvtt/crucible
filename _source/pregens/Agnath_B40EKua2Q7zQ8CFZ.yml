@@ -61,7 +61,7 @@ system:
         strength and resilience above all else.</p>
       identifier: orcish
       talents:
-        - item: Compendium.crucible.talent.Item.heavystrike00000
+        - item: Compendium.crucible.talent.Item.heavyWeaponTrain
           level: null
       ui:
         color: '#c14425'
@@ -89,7 +89,7 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.heavyWeaponTrain
           level: null
-        - item: Compendium.crucible.talent.Item.heavystrike00000
+        - item: Compendium.crucible.talent.Item.heavyWeaponTrain
           level: null
       identifier: soldier
       ui:
@@ -287,11 +287,11 @@ items:
       invested: false
       actorHooks: []
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415444
+      modifiedTime: 1775444415444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -324,12 +324,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415444
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -366,12 +366,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -412,12 +412,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -449,12 +449,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -489,12 +489,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -526,12 +526,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -597,12 +597,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415446
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -665,12 +665,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415446
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -702,12 +702,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415446
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -731,8 +731,7 @@ items:
       quality: standard
       enchantment: mundane
       equipped: true
-      properties:
-        - reach
+      properties: []
       description:
         public: >-
           <p>A polearm with a curved, sword-like blade affixed to the end of a
@@ -742,17 +741,17 @@ items:
       damageType: slashing
       broken: false
       actions: []
-      slot: 0
+      slot: 3
       identifier: glaive
       invested: false
       actorHooks: []
       dropped: false
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415446
+      modifiedTime: 1775444415446
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -790,12 +789,12 @@ items:
     sort: 40000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716956
-      createdTime: 1773512716956
+      modifiedTime: 1775444415446
+      createdTime: 1775444415446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -830,12 +829,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716956
-      createdTime: 1773512716956
+      modifiedTime: 1775444415447
+      createdTime: 1775444415447
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -899,12 +898,12 @@ items:
     sort: 150000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716956
-      createdTime: 1773512716956
+      modifiedTime: 1775444415447
+      createdTime: 1775444415447
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -937,12 +936,12 @@ items:
     sort: 300000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415447
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415447
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -979,12 +978,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415447
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415447
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1015,12 +1014,12 @@ items:
     sort: 50000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716956
+      modifiedTime: 1775444415447
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716956
+      createdTime: 1775444415447
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1051,11 +1050,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415447
+      modifiedTime: 1775444415447
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1139,11 +1138,11 @@ items:
         rank: null
       actorHooks: []
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415448
+      modifiedTime: 1775444415448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1179,11 +1178,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415448
+      modifiedTime: 1775444415448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1224,11 +1223,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415448
+      modifiedTime: 1775444415448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1312,11 +1311,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415448
+      modifiedTime: 1775444415448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1333,10 +1332,10 @@ items:
     system:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using Intellect,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Frost</strong>.</p>
+        governs fire and heat.</p><p>The Flame rune scales using
+        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
+        by the orderly rune of <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -1393,11 +1392,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716956
-      modifiedTime: 1773512716956
+      createdTime: 1775444415448
+      modifiedTime: 1775444415448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1434,11 +1433,11 @@ flags:
           combatantId: h5BoLzXPp70rdtTJ
           tokenId: dADEtTB8iYFSmMKd
 _stats:
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.0
-  createdTime: 1773512716956
-  modifiedTime: 1773514792431
+  createdTime: 1775444415443
+  modifiedTime: 1775444415443
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
@@ -1446,6 +1445,5 @@ _stats:
 _id: B40EKua2Q7zQ8CFZ
 ownership:
   default: 2
-  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!B40EKua2Q7zQ8CFZ'

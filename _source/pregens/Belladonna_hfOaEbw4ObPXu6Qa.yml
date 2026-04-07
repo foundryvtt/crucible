@@ -89,7 +89,7 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.lightWeaponTrain
           level: null
-        - item: Compendium.crucible.talent.Item.lunge00000000000
+        - item: Compendium.crucible.talent.Item.lightWeaponTrain
           level: null
       identifier: urchin
       ui:
@@ -285,7 +285,7 @@ items:
       damageType: piercing
       broken: false
       actions: []
-      slot: 0
+      slot: 2
       identifier: dagger
       invested: false
       actorHooks: []
@@ -293,9 +293,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716899
-      modifiedTime: 1773512716899
+      coreVersion: '14.359'
+      createdTime: 1775444403821
+      modifiedTime: 1775444403821
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,7 +332,7 @@ items:
       damageType: piercing
       broken: false
       actions: []
-      slot: 0
+      slot: 1
       identifier: dagger
       invested: false
       actorHooks: []
@@ -340,9 +340,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716899
-      modifiedTime: 1773512716899
+      coreVersion: '14.359'
+      createdTime: 1775444403821
+      modifiedTime: 1775444403821
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -383,9 +383,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716899
-      modifiedTime: 1773512716899
+      coreVersion: '14.359'
+      createdTime: 1775444403822
+      modifiedTime: 1775444403822
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -451,12 +451,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716899
+      modifiedTime: 1775444403822
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716899
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -517,12 +517,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716899
+      modifiedTime: 1775444403822
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716899
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -589,12 +589,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716899
+      modifiedTime: 1775444403822
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716899
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -659,12 +659,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716899
-      createdTime: 1773512716899
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -705,12 +705,12 @@ items:
     sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716899
-      createdTime: 1773512716899
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -746,12 +746,12 @@ items:
     sort: 120000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716899
-      createdTime: 1773512716899
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -776,10 +776,11 @@ items:
           description: >-
             <p>You dart forward nimbly, making a strike with sudden and
             unexpected swiftness to perform a <strong>Strike </strong>with a
-            <strong>Finesse</strong> weapon against a single target with an
-            increased range of <strong>+2 feet</strong>.</p><p>The attack is
-            <strong>Difficult</strong>, but you do not move from your current
-            position nor does this attack provoke Disengagement.</p>
+            weapon which scales using <strong>Dexterity</strong> against a
+            single target, with an increased range of <strong>+2
+            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
+            you do not move from your current position nor does this attack
+            provoke Disengagement.</p>
           cost:
             action: 0
             focus: 0
@@ -818,12 +819,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716899
-      createdTime: 1773512716899
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -838,9 +839,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1773512716899
-  modifiedTime: 1773514792436
+  coreVersion: '14.359'
+  createdTime: 1775444403820
+  modifiedTime: 1775444403820
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
@@ -848,6 +849,5 @@ _stats:
 _id: hfOaEbw4ObPXu6Qa
 ownership:
   default: 2
-  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!hfOaEbw4ObPXu6Qa'

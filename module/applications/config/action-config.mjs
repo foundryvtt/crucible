@@ -1,21 +1,22 @@
-const {api} = foundry.applications;
+const {HandlebarsApplicationMixin, DocumentSheetV2} = foundry.applications.api;
 import CrucibleItem from "../../documents/item.mjs";
+import {formatHookContext} from "../../hooks/_module.mjs";
 
 /**
- * A configuration application used to configure an Action inside a Talent.
- * This application is used to configure an Action that is owned by an Item.
+ * A configuration application used to configure an Action belonging to an Item or an Affix ActiveEffect.
  * @extends {DocumentSheetV2}
  * @mixes {HandlebarsApplication}
  */
-export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
+export default class CrucibleActionConfig extends HandlebarsApplicationMixin(DocumentSheetV2) {
   constructor({action, ...options}={}) {
-    const document = action.item;
-    if ( !(document instanceof CrucibleItem) ) {
-      throw new Error("You may only use the CrucibleActionConfig sheet to configure an Action that belongs to an Item.");
-    }
-    super({document, ...options});
+    const parent = action.parent;
+    const document = parent?.parent;
+    const isItem = document instanceof CrucibleItem;
+    const isAffix = (document instanceof foundry.documents.ActiveEffect) && (document.type === "affix");
+    if ( !isItem && !isAffix ) throw new Error("CrucibleActionConfig requires an Action belonging to a CrucibleItem"
+      + " or an ActiveEffect with the affix type.");
+    super({document: parent.parent, ...options});
     this.action = action;
-    this.talent = action.parent; // TODO is this right? What about actions on Weapons?
   }
 
   /* -------------------------------------------- */
@@ -29,7 +30,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
       addHook: CrucibleActionConfig.#onAddHook,
-      deleteHook: CrucibleActionConfig.#onDeleteHook
+      hookDelete: CrucibleActionConfig.#onDeleteHook,
+      hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
     form: {
       submitOnChange: true
@@ -47,7 +49,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * A template partial used for rendering a Hook inside an Action.
    * @type {string}
    */
-  static HOOK_PARTIAL = "systems/crucible/templates/sheets/action/hook.hbs";
+  static HOOK_PARTIAL = "systems/crucible/templates/sheets/partials/hook.hbs";
 
   /** @override */
   static PARTS = {
@@ -106,6 +108,12 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     sheet: "description"
   };
 
+  /**
+   * Track which module hooks have their source expanded.
+   * @type {Set<string>}
+   */
+  #expandedHooks = new Set();
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -141,6 +149,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       }, {}),
       actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
       disableHooks,
+      moduleHooks: this.#formatModuleHooks(),
       editable: this.isEditable,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
@@ -230,8 +239,15 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     const hookHTML = [];
     for ( const [i, h] of this.action.actionHooks.entries() ) {
       const cfg = SYSTEM.ACTION_HOOKS[h.hook];
-      const label = this.#getHookLabel(h.hook, cfg);
-      const ctx = {i, hook: {label, ...h}, disableHooks};
+      const prefix = cfg.async ? "async " : "";
+      const ctx = {
+        label: `${prefix}${h.hook}(${cfg.argLabels.join(", ")})`,
+        hookName: h.hook,
+        fn: h.fn,
+        namePrefix: "actionHooks",
+        i,
+        disableHooks
+      };
       const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, ctx);
       hookHTML.push(html);
     }
@@ -240,9 +256,19 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
 
   /* -------------------------------------------- */
 
-  #getHookLabel(hookId, cfg) {
-    const argLabels = ["this: CrucibleAction", ...cfg.argLabels].join(", ");
-    return `${cfg.async ? "async " : ""}${hookId}(${argLabels})`;
+  /**
+   * Format module-defined hooks for display on the action hooks tab.
+   * @returns {{hookId: string, label: string, source: string, expanded: boolean}[]}
+   */
+  #formatModuleHooks() {
+    const moduleHookFns = crucible.api.hooks.action[this.action.id];
+    if ( !moduleHookFns ) return [];
+    const result = [];
+    for ( const h of formatHookContext(moduleHookFns, SYSTEM.ACTION_HOOKS) ) {
+      h.expanded = this.#expandedHooks.has(h.hookId);
+      result.push(h);
+    }
+    return result;
   }
 
   /* -------------------------------------------- */
@@ -289,15 +315,16 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     const actions = this.document.system.toObject().actions;
     const idx = actions.findIndex(a => a.id === this.action.id);
     if ( idx === -1 ) {
-      throw new Error(`Action "${this.action.id}" not identified in the actions array for Item "${this.document.id}"`);
+      throw new Error(`Action "${this.action.id}" not found in the actions array for "${this.document.name}"`);
     }
     actions[idx] = submitData;
 
     // Update actions array
     await this.document.update({"system.actions": actions}, {diff: false});
-    // Updating the Item has re-constructed the CrucibleAction object
-    // For continuity of this sheet instance, we update the source of this.action so we can re-render accordingly.
-    this.action = this.document.actions[idx];
+
+    // The update has re-constructed the CrucibleAction object.
+    // For continuity of this sheet instance, update the reference so we can re-render accordingly.
+    this.action = this.document.system.actions[idx];
     await this.render();
   }
 
@@ -355,13 +382,14 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    */
   static async #onAddHook(_event, target) {
     const hookId = target.previousElementSibling.value;
+    const cfg = SYSTEM.ACTION_HOOKS[hookId];
+    const prefix = cfg.async ? "async " : "";
     const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, {
-      i: foundry.utils.randomID(), // Could be anything
-      hook: {
-        label: this.#getHookLabel(hookId, SYSTEM.ACTION_HOOKS[hookId]),
-        hook: hookId,
-        fn: "// Hook code here"
-      }
+      label: `${prefix}${hookId}(${cfg.argLabels.join(", ")})`,
+      hookName: hookId,
+      fn: "// Hook code here",
+      namePrefix: "actionHooks",
+      i: foundry.utils.randomID()
     });
     const section = target.closest("fieldset");
     section.insertAdjacentHTML("beforebegin", html);
@@ -383,5 +411,21 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     hook.remove();
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle the display of a module-defined hook function source.
+   * @this {CrucibleActionConfig}
+   * @param {PointerEvent} _event         The initiating click event
+   * @param {HTMLElement} target           The clicked button element
+   */
+  static #onHookToggleSource(_event, target) {
+    const fieldset = target.closest(".module-hook");
+    const hookId = fieldset.dataset.hookId;
+    if ( this.#expandedHooks.has(hookId) ) this.#expandedHooks.delete(hookId);
+    else this.#expandedHooks.add(hookId);
+    this.render({parts: ["hooks"]});
   }
 }

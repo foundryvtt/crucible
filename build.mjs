@@ -11,10 +11,12 @@ const CONFIG = {
   sourcePath: "_source",
   databases: [
     "adversary-talents",
+    "affixes",
     "ancestry",
     "archetype",
     "background",
     "equipment",
+    "macros",
     "playtest",
     "pregens",
     "rules",

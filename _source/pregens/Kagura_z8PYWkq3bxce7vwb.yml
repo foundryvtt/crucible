@@ -278,7 +278,7 @@ items:
           blasts of frigid ice towards enemies.</p>
         private: ''
       actions: []
-      slot: 0
+      slot: 3
       identifier: iceStaff
       invested: false
       actorHooks: []
@@ -288,9 +288,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716931
-      modifiedTime: 1773512716931
+      coreVersion: '14.359'
+      createdTime: 1775444403802
+      modifiedTime: 1775444403802
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,9 +332,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.356'
-      createdTime: 1773512716931
-      modifiedTime: 1773512716931
+      coreVersion: '14.359'
+      createdTime: 1775444403802
+      modifiedTime: 1775444403802
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -372,12 +372,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716931
+      modifiedTime: 1775444403802
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716931
+      createdTime: 1775444403802
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -448,12 +448,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1773512716931
-      createdTime: 1773512716931
+      modifiedTime: 1775444403802
+      createdTime: 1775444403802
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -488,12 +488,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      modifiedTime: 1773512716931
+      modifiedTime: 1775444403803
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1773512716931
+      createdTime: 1775444403803
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -573,11 +573,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716931
-      modifiedTime: 1773512716931
+      createdTime: 1775444403803
+      modifiedTime: 1775444403803
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -656,11 +656,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716931
-      modifiedTime: 1773512716931
+      createdTime: 1775444403803
+      modifiedTime: 1775444403803
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -737,11 +737,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.356'
+      coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1773512716931
-      modifiedTime: 1773512716931
+      createdTime: 1775444403804
+      modifiedTime: 1775444403804
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -760,9 +760,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1773512716931
-  modifiedTime: 1773514792444
+  coreVersion: '14.359'
+  createdTime: 1775444403801
+  modifiedTime: 1775444403801
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
@@ -770,6 +770,5 @@ _stats:
 _id: z8PYWkq3bxce7vwb
 ownership:
   default: 2
-  WRGzDgYAt3ZuX6TU: 3
 sort: 0
 _key: '!actors!z8PYWkq3bxce7vwb'

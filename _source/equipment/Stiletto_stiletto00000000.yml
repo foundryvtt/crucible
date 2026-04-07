@@ -13,7 +13,6 @@ system:
   equipped: false
   properties:
     - ambush
-    - keen
     - intuitive
   damageType: piercing
   identifier: stiletto

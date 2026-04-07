@@ -1,0 +1,8 @@
+<section class="tab sheet-body flexcol {{tab.cssClass}}"
+         data-tab="{{tab.id}}" data-group="{{tab.group}}">
+    {{#if isEditable}}
+    {{formInput descriptionField value=descriptionValue enriched=descriptionHTML toggled=true}}
+    {{else}}
+    <article class="editor-content scrollable">{{{descriptionHTML}}}</article>
+    {{/if}}
+</section>

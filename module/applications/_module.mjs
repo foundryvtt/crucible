@@ -14,6 +14,9 @@ export {default as AdversarySheet} from "./sheets/adversary-sheet.mjs";
 export {default as HeroSheet} from "./sheets/hero-sheet.mjs";
 export {default as CrucibleHeroCreationSheet} from "./sheets/hero-creation-sheet.mjs";
 
+// Effect Sheets
+export {default as CrucibleAffixEffectSheet} from "./sheets/effect-affix-sheet.mjs";
+
 // Item Sheets
 export {default as CrucibleBaseItemSheet} from "./sheets/item-base-sheet.mjs";
 export {default as CrucibleAccessoryItemSheet} from "./sheets/item-accessory-sheet.mjs";

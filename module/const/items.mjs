@@ -10,6 +10,7 @@
  * @property {string} label         A localized label for the quality tier
  * @property {number} bonus         The numeric bonus for this quality tier
  * @property {number} rarity        The rarity modifier for this quality tier
+ * @property {number} capacity      The total affix capacity available at this quality tier
  */
 
 /**
@@ -25,6 +26,8 @@
  * @property {string} id            The category id
  * @property {string} label         The localized label for the category
  * @property {number} [rarity]      A rarity modifier that this property adds
+ * @property {string} [deprecated]  The system version in which this property was replaced by an affix. Once the
+ *                                  world migration version reaches this value, the property is removed from choices.
  */
 
 /**
@@ -36,31 +39,36 @@ export const QUALITY_TIERS = {
     id: "shoddy",
     label: "ITEM.QualityShoddy",
     bonus: -2,
-    rarity: -1
+    rarity: -1,
+    capacity: 0
   },
   standard: {
     id: "standard",
     label: "ITEM.QualityStandard",
     bonus: 0,
-    rarity: 0
+    rarity: 0,
+    capacity: 0
   },
   fine: {
     id: "fine",
     label: "ITEM.QualityFine",
     bonus: 1,
-    rarity: 1
+    rarity: 1,
+    capacity: 2
   },
   superior: {
     id: "superior",
     label: "ITEM.QualitySuperior",
     bonus: 2,
-    rarity: 2
+    rarity: 2,
+    capacity: 4
   },
   masterwork: {
     id: "masterwork",
     label: "ITEM.QualityMasterwork",
     bonus: 3,
-    rarity: 4
+    rarity: 4,
+    capacity: 6
   }
 };
 
@@ -107,6 +115,10 @@ export const PROPERTIES = Object.freeze({
   stackable: {
     id: "stackable",
     label: "ITEM.PROPERTIES.Stackable"
+  },
+  unique: {
+    id: "unique",
+    label: "ITEM.PROPERTIES.Unique"
   }
 });
 
@@ -157,6 +169,24 @@ export const TOOL_CATEGORIES = {
  * @type {Set<string>}
  */
 export const EQUIPABLE_ITEM_TYPES = new Set();
+
+/**
+ * The item types which support embedded affixes.
+ * Dynamically populated during system initialization.
+ * @type {Set<string>}
+ */
+export const AFFIXABLE_ITEM_TYPES = new Set();
+
+/**
+ * The allowed affix type categories.
+ * Prefix affixes contribute their name before the item category label.
+ * Suffix affixes contribute their name after "of" in the composed item name.
+ * @enum {string}
+ */
+export const AFFIX_TYPES = Object.freeze({
+  prefix: "AFFIX.TypePrefix",
+  suffix: "AFFIX.TypeSuffix"
+});
 
 /**
  * The categories of "schematic" items which are allowed.

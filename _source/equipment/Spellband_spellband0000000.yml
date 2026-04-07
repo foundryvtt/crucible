@@ -2,11 +2,11 @@ name: Spellband
 type: accessory
 img: icons/equipment/finger/ring-stone-leaves-grey.webp
 system:
-  identifier: spellband
+  identifier: ringFocusing
   category: jewelry
   quantity: 1
   weight: 1
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -16,47 +16,99 @@ system:
     - investment
   description:
     public: >-
-      <p>This ring made of an opaque stone that has been carefully carved with
-      graceful, sweeping layers evoking an ancient aesthetic. The ring serves as
-      a powerful spellcasting focus for the <strong>Invested</strong>
-      wearer.</p>
-    private: ''
-  actions:
-    - id: spellband
-      name: Spellband
-      img: icons/equipment/finger/ring-stone-leaves-grey.webp
-      condition: ''
-      description: >-
-        <p>In moments of duress you can withdraw an additional reserve of
-        <strong>Focus</strong> from this band. The amount of Focus restored
-        depends on the enchantment bonus of the
-        ring.</p><ul><li><p><strong>Minor </strong>enchantment: <strong>4
-        Focus</strong></p></li><li><p><strong>Major </strong>enchantment:
-        <strong>6 Focus</strong></p></li><li><p><strong>Legendary
-        </strong>enchantment: <strong>8 Focus</strong></p></li></ul>
-      cost:
-        action: 2
-        focus: 0
-        heroism: 1
-        weapon: false
-        hands: 0
-      range:
-        minimum: null
-        maximum: null
-        weapon: false
-      target:
-        type: self
-        number: 1
-        scope: 1
-        self: false
-      effects: []
-      tags: []
-      actionHooks: []
-      summon:
-        actorUuid: null
-        permanent: true
+      <blockquote><p>This ring made of an opaque stone that has been carefully
+      carved with graceful, sweeping layers evoking an ancient aesthetic. The
+      ring serves as a powerful spellcasting focus for the
+      <strong>Invested</strong> wearer.</p></blockquote><p>This enchanted ring
+      grants the ability to withdraw an additional reserve of
+      <strong>Focus</strong> in moments of duress.</p>
+    private: >-
+      <p>This item is presented as an example of a Fine Ring with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Reserved
+      Focus} prefix.</p><p>This affix can be applied to any accessory and this
+      ring could be further enchanted with a Tier 1 suffix.</p>
+  actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Focusing
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Focusing
+      identifier: focusing
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+      actions:
+        - id: affixFocus
+          name: Replenish Focus
+          img: icons/magic/control/orb-web-hold.webp
+          condition: ''
+          description: >-
+            <p>In moments of duress you can withdraw an additional reserve of
+            <strong>Focus</strong> from this item. The amount of Focus restored
+            depends on the <strong>Tier</strong> of this
+            prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>4
+            Focus</strong></p></li><li><p><strong>Tier 2:</strong> <strong>6
+            Focus</strong></p></li><li><p><strong>Tier 3:</strong> <strong>8
+            Focus</strong></p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags: []
+          actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
+    _id: focusing00000000
+    img: icons/magic/control/orb-web-hold.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer
+      to restore <strong>Focus</strong> in moments of duress. The amount
+      restored scales with the <strong>Tier</strong> of this prefix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: hd7WNbghiYX3GDXN
+    sort: 200000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775556444179
+      modifiedTime: 1775556444179
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.focusing00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!spellband0000000.focusing00000000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -66,11 +118,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157779
-  modifiedTime: 1773514792290
+  modifiedTime: 1775490971280
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: spellband0000000
 sort: 500000

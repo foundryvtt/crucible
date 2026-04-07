@@ -31,6 +31,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static defineSchema() {
     const schema = super.defineSchema();
     delete schema.actorHooks; // Consumables don't provide actor hooks
+    delete schema.enchantment; // Consumables cannot be enchanted
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(schema, {
       uses: new fields.SchemaField({
@@ -51,7 +52,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static validateJoint(data) {
     super.validateJoint(data);
     if ( data.category !== "scroll" ) return;
-    const budget = SYSTEM.ITEM.ENCHANTMENT_TIERS[data.enchantment]?.bonus ?? 0;
+    const budget = SYSTEM.ITEM.QUALITY_TIERS[data.quality]?.bonus ?? 0;
     let components = 0;
     for ( const c in this.schema.fields.scroll.fields ) {
       components += (data.scroll?.[c]?.length || 0);
@@ -206,7 +207,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
     // Budget hint
     const hint = document.createElement("p");
     hint.className = "hint";
-    const budget = item.system.config.enchantment.bonus;
+    const budget = item.system.config.quality.bonus;
     hint.textContent = _loc("CONSUMABLE.SCROLL.ComponentBudget", {budget});
     div.append(hint);
 

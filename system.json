@@ -30,6 +30,12 @@
       "type": "Item"
     },
     {
+      "name": "affixes",
+      "label": "Affixes",
+      "path": "packs/affixes",
+      "type": "ActiveEffect"
+    },
+    {
       "name": "ancestry",
       "label": "Ancestries",
       "path": "packs/ancestry",
@@ -58,6 +64,12 @@
       "label": "Equipment",
       "path": "packs/equipment",
       "type": "Item"
+    },
+    {
+      "name": "macros",
+      "label": "System Macros",
+      "path": "packs/macros",
+      "type": "Macro"
     },
     {
       "name": "rules",
@@ -138,6 +150,7 @@
           "name": "Items",
           "color": "#380d05",
           "packs": [
+            "affixes",
             "crafting",
             "equipment"
           ]
@@ -145,7 +158,8 @@
       ],
       "packs": [
         "rules",
-        "playtest"
+        "playtest",
+        "macros"
       ]
     }
   ],
@@ -158,6 +172,7 @@
   ],
   "documentTypes": {
     "ActiveEffect": {
+      "affix": {},
       "flanked": {}
     },
     "Actor": {

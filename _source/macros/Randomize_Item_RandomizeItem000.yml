@@ -1,0 +1,24 @@
+_id: RandomizeItem000
+name: Randomize Item
+type: script
+author: WRGzDgYAt3ZuX6TU
+img: icons/sundries/gaming/dice-runed-brown.webp
+scope: global
+command: await crucible.api.documents.CrucibleItem.randomizeDialog()
+folder: null
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775594209309
+  modifiedTime: 1775594236674
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 300000
+_key: '!macros!RandomizeItem000'

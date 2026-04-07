@@ -1,5 +1,6 @@
 const {api, sheets} = foundry.applications;
 import CruciblePhysicalItem from "../../models/item-physical.mjs";
+import {formatHookContext} from "../../hooks/_module.mjs";
 
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
@@ -18,8 +19,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionAdd: CrucibleBaseItemSheet.#onActionAdd,
       actionDelete: CrucibleBaseItemSheet.#onActionDelete,
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
-      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
+      affixDelete: CrucibleBaseItemSheet.#onAffixDelete,
+      affixEdit: CrucibleBaseItemSheet.#onAffixEdit,
       hookDelete: CrucibleBaseItemSheet.#onHookDelete,
+      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
+      hookToggleSource: CrucibleBaseItemSheet.#onHookToggleSource,
       expandSection: CrucibleBaseItemSheet.#onExpandSection
     },
     form: {
@@ -28,6 +32,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     item: {
       type: undefined, // Defined by subclass
       includesActions: false,
+      includesAffixes: false,
       includesHooks: false,
       hasAdvancedDescription: false
     },
@@ -41,6 +46,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @type {string}
    */
   static ACTION_PARTIAL = "systems/crucible/templates/sheets/item/included-action.hbs";
+
+  /**
+   * A template path used to render a single affix.
+   * @type {string}
+   */
+  static AFFIX_PARTIAL = "systems/crucible/templates/sheets/item/included-affix.hbs";
 
   /** @override */
   static PARTS = {
@@ -78,6 +89,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     sheet: "description"
   };
 
+  /**
+   * Track which module hooks have their source expanded.
+   * @type {Set<string>}
+   */
+  #expandedHooks = new Set();
+
   /* -------------------------------------------- */
 
   /**
@@ -92,6 +109,18 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     // Item Type Configuration
     this.DEFAULT_OPTIONS.classes = [this.DEFAULT_OPTIONS.item.type];
     this.PARTS.config.template = `systems/crucible/templates/sheets/item/${item.type}-config.hbs`;
+
+    // Includes Affixes
+    if ( item.includesAffixes ) {
+      this.PARTS.affixes = {
+        id: "affixes",
+        template: "systems/crucible/templates/sheets/item/item-affixes.hbs",
+        templates: [this.AFFIX_PARTIAL],
+        scrollable: [""]
+      };
+      this.TABS.sheet.push({id: "affixes", group: "sheet", icon: "fa-solid fa-sparkles",
+        label: "ITEM.TABS.Affixes"});
+    }
 
     // Includes Actions
     if ( item.includesActions ) {
@@ -109,6 +138,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       this.PARTS.hooks = {
         id: "hooks",
         template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
+        templates: ["systems/crucible/templates/sheets/partials/hook.hbs"],
         scrollable: [""]
       };
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
@@ -152,6 +182,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: _loc("ITEM.SHEET.ScaledPrice")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
+      const cfg = this.document.system.config;
+      context.enchantment = {
+        value: cfg.enchantmentDerived ? cfg.enchantment.id : source.system.enchantment,
+        disabled: cfg.enchantmentDerived ?? false,
+        hint: cfg.enchantmentDerived ? _loc("ITEM.SHEET.EnchantmentDerivedHint") : ""
+      };
     }
     return context;
   }
@@ -163,7 +199,18 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     switch ( partId ) {
       case "actions":
         context.actionPartial = this.constructor.ACTION_PARTIAL;
-        context.actions = await this.document.prepareActionsContext();
+        context.actionGroups = await this.#prepareActionGroups();
+        break;
+      case "affixes":
+        context.isUnique = this.document.system.properties.has("unique");
+        if ( !context.isUnique ) {
+          context.affixPartial = this.constructor.AFFIX_PARTIAL;
+          Object.assign(context, this.#prepareAffixes());
+          context.affixCapacity = this.document.system.affixCapacity;
+          const hasAffixes = (context.prefixes.length + context.suffixes.length) > 0;
+          context.hasAffixCapacity = hasAffixes
+            || ((context.affixCapacity.prefix.total + context.affixCapacity.suffix.total) > 0);
+        }
         break;
       case "description":
         const editorCls = CONFIG.ux.TextEditor;
@@ -191,13 +238,24 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         }
         break;
       case "hooks":
-        context.actorHooks = this.#prepareActorHooks();
+        const actorHooks = this.#prepareActorHooks();
+        const registeredHooks = new Set(actorHooks.map(h => h.hookName));
         context.actorHookChoices = Object.entries(SYSTEM.ACTOR.HOOKS).map(([hookId, cfg]) => ({
           value: hookId,
           label: hookId,
           group: _loc(cfg.group),
-          disabled: hookId in context.actorHooks
+          disabled: registeredHooks.has(hookId)
         }));
+        const identifier = this.document.system.identifier || this.document.id;
+        const moduleHookFns = crucible.api.hooks[this.document.type]?.[identifier];
+        context.moduleHooks = [];
+        if ( moduleHookFns ) {
+          for ( const h of formatHookContext(moduleHookFns, SYSTEM.ACTOR.HOOKS) ) {
+            h.expanded = this.#expandedHooks.has(h.hookId);
+            context.moduleHooks.push(h);
+          }
+        }
+        context.allHooks = actorHooks.concat(this.#prepareAffixHooks());
         break;
     }
     return context;
@@ -206,17 +264,112 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
+   * Prepare action groups for the actions tab, separating item-level actions from affix-provided actions.
+   * @returns {Promise<object[]>}
+   */
+  async #prepareActionGroups() {
+    const editorCls = CONFIG.ux.TextEditor;
+    const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
+    const enrichAction = async action => ({
+      id: action.id, name: action.name, img: action.img, condition: action.condition,
+      description: await editorCls.enrichHTML(action.description, editorOptions),
+      tags: action.getTags(), effects: action.effects
+    });
+
+    // Item-level actions
+    const sourceActions = this.document.system.schema.has("actions") ? this.document.system._source.actions : [];
+    const itemActionIds = new Set(sourceActions.map(a => a.id));
+    const groups = [{
+      legend: null,
+      canAdd: true,
+      isEditable: this.isEditable,
+      actions: await Promise.all(
+        this.document.system.actions.filter(a => itemActionIds.has(a.id)).map(enrichAction)
+      )
+    }];
+
+    // Affix-provided action groups
+    const affixes = this.document.system.constructor.AFFIXABLE ? this.document.system.affixes : {};
+    for ( const affix of Object.values(affixes) ) {
+      if ( !affix.system.actions?.length ) continue;
+      groups.push({
+        legend: affix.name,
+        canAdd: false,
+        isEditable: false,
+        actions: await Promise.all(affix.system.actions.map(enrichAction))
+      });
+    }
+    return groups;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare data for the actor hooks currently registered by this item.
-   * @returns {Record<string, {label: string, signature: string, argNames: string[]}>}
+   * @returns {object[]}
    */
   #prepareActorHooks() {
-    const hooks = {};
-    for ( const h of this.document.system.actorHooks ) {
+    const hooks = [];
+    for ( const [i, h] of this.document.system.actorHooks.entries() ) {
       const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
-      const label = `${h.hook}(item, ${cfg.argNames.join(", ")})`;
-      hooks[h.hook] = {label, ...h};
+      const prefix = cfg.async ? "async " : "";
+      hooks.push({
+        label: `${prefix}${h.hook}(${cfg.argLabels.join(", ")})`,
+        hookName: h.hook,
+        fn: h.fn,
+        namePrefix: "system.actorHooks",
+        i
+      });
     }
     return hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare affix-provided hooks for display on the hooks tab.
+   * @returns {object[]}
+   */
+  #prepareAffixHooks() {
+    const hooks = [];
+    const affixes = this.document.system.constructor.AFFIXABLE ? this.document.system.affixes : {};
+    for ( const affix of Object.values(affixes) ) {
+      const hookFns = crucible.api.hooks.affix?.[affix.system.identifier];
+      if ( !hookFns ) continue;
+      for ( const h of formatHookContext(hookFns, SYSTEM.ACTOR.HOOKS) ) {
+        const expandKey = `${affix.system.identifier}.${h.hookId}`;
+        h.hookId = expandKey;
+        h.expanded = this.#expandedHooks.has(expandKey);
+        h.legend = affix.name;
+        hooks.push(h);
+      }
+    }
+    return hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare affix data for display in the affixes tab, split into prefix and suffix groups.
+   * @returns {{prefixes: object[], suffixes: object[]}}
+   */
+  #prepareAffixes() {
+    const prefixes = [];
+    const suffixes = [];
+    for ( const affix of Object.values(this.document.system.affixes) ) {
+      const tierValue = affix.system.tier.value;
+      const data = {
+        id: affix.id,
+        name: affix.name,
+        img: affix.img,
+        description: affix.description,
+        tier: tierValue,
+        tierRoman: ["", "I", "II", "III"][tierValue] ?? tierValue
+      };
+      if ( affix.system.affixType === "prefix" ) prefixes.push(data);
+      else suffixes.push(data);
+    }
+    return {prefixes, suffixes};
   }
 
   /* -------------------------------------------- */
@@ -443,5 +596,52 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks.findSplice(h => h.hook === hook);
     await this.document.update(submitData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle the display of a module-defined hook function source.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} _event         The initiating click event
+   * @param {HTMLElement} target           The clicked button element
+   */
+  static #onHookToggleSource(_event, target) {
+    const fieldset = target.closest(".module-hook");
+    const hookId = fieldset.dataset.hookId;
+    if ( this.#expandedHooks.has(hookId) ) this.#expandedHooks.delete(hookId);
+    else this.#expandedHooks.add(hookId);
+    this.render({parts: ["hooks"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit an affix ActiveEffect on the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onAffixEdit(event, button) {
+    const effectId = button.closest(".affix").dataset.effectId;
+    const effect = this.document.effects.get(effectId);
+    await effect.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an affix ActiveEffect from the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onAffixDelete(event, button) {
+    const effectId = button.closest(".affix").dataset.effectId;
+    const effect = this.document.effects.get(effectId);
+    if ( !effect ) return;
+    await effect.deleteDialog();
   }
 }

@@ -7,6 +7,9 @@ import {SYSTEM} from "../const/system.mjs";
 export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @override */
+  static AFFIXABLE = true;
+
+  /** @override */
   static ITEM_CATEGORIES = SYSTEM.WEAPON.CATEGORIES;
 
   /** @override */
@@ -147,9 +150,13 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       base: category.damage,
       bonus: 0,
       quality: quality.bonus,
-      weapon: 0
+      weapon: 0,
+      criticalSuccessThreshold: 6,
+      criticalFailureThreshold: 6
     };
-    if ( this.properties.has("oversized") ) damage.base += 2;
+    if ( this.properties.has("oversized") ) damage.base += category.hands;
+    if ( this.properties.has("blocking") || this.properties.has("engaging") ) damage.base -= category.hands;
+    if ( this.properties.has("parrying") ) damage.criticalSuccessThreshold += 1;
     return damage;
   }
 
@@ -172,12 +179,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     };
 
     // Parrying and Blocking properties
-    if ( this.properties.has("parrying") ) {
-      defense.parry += (category.hands + this.config.enchantment.bonus);
-    }
-    if ( this.properties.has("blocking") ) {
-      defense.block += (category.hands + this.config.enchantment.bonus);
-    }
+    if ( this.properties.has("parrying") ) defense.parry += 1;
+    if ( this.properties.has("blocking") ) defense.block += 1;
     return defense;
   }
 
@@ -190,7 +193,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   #prepareRange() {
     const category = this.config.category;
     let range = category.range;
-    if ( this.properties.has("reach") ) range += category.ranged ? 20 : 2;
     if ( this.properties.has("ambush") ) range = Math.max(range - (category.ranged ? 10 : 1), 1);
     return range;
   }

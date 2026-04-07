@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: 64872phWO5b24xSh
+name: Damage
+color: null
+sorting: a
+_id: sKYiTVan8lpxYFeS
+description: ''
+sort: 400000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!sKYiTVan8lpxYFeS'

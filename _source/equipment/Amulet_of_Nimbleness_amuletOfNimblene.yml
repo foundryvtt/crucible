@@ -2,11 +2,11 @@ name: Amulet of Nimbleness
 type: accessory
 img: icons/equipment/neck/necklace-runed-sowelu-teal.webp
 system:
-  identifier: nimbleness
+  identifier: amuletNimbleness
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -19,22 +19,61 @@ system:
       <blockquote><p>This brightly colored necklace holds a stone amulet that
       glows with a rune that crackles faintly with electrical resonance. While
       holding it you have the surreal sensation of the world around you slowing
-      down ever so slightly.</p></blockquote><p>This amulet provides a bonus to
-      <strong>Reflex</strong> defense equal to the minimum of its
-      <strong>Quality</strong> and <strong>Enchantment</strong>
-      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
-      </strong>enchantment: <strong>+1
-      Reflex</strong></p></li><li><p><strong>Superior </strong>quality and
-      <strong>Major </strong>enchantment: <strong>+2
-      Reflex</strong></p></li><li><p><strong>Masterwork </strong>quality and
-      <strong>Legendary </strong>enchantment: <strong>+3
-      Reflex</strong></p></li></ul>
+      down ever so slightly.</p></blockquote><p>This enchanted amulet provides a
+      bonus to <strong>Reflex</strong> defense.</p>
     private: >-
-      <p>This item is presented as an amulet, but it can be any type of
-      accessory like a ring, cloak, bracers, or other type of trinket.</p>
+      <p>This item is presented as an example of a Fine Amulet with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.nimbleness000000]{Nimbleness}
+      suffix.</p><p>This affix can be applied to any armor or accessory and this
+      amulet could be further enchanted with a Tier 1 prefix.</p>
   actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Nimbleness
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Nimbleness
+      identifier: nimbleness
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+    _id: nimbleness000000
+    img: icons/magic/movement/abstract-ribbons-red-orange.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase <strong>Reflex</strong> defense by 1 for each
+      <strong>Tier</strong> of this suffix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: -100000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.nimbleness000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!amuletOfNimblene.nimbleness000000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -44,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1759603295903
-  modifiedTime: 1773514792257
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1775482776250
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: amuletOfNimblene
 sort: 100000
 _key: '!items!amuletOfNimblene'

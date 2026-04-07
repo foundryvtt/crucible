@@ -4,7 +4,6 @@ type: consumable
 system:
   identifier: soap
   category: other
-  enchantment: mundane
   quality: standard
   price: 1
   quantity: 1

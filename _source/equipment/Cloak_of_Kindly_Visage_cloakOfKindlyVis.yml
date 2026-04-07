@@ -3,11 +3,11 @@ name: Cloak of Kindly Visage
 type: accessory
 img: icons/equipment/back/cloak-collared-grey.webp
 system:
-  quantity: 1
   identifier: cloakKindlyVisage
   category: clothing
+  quantity: 1
   weight: 0
-  price: 105
+  price: 50
   quality: fine
   broken: false
   enchantment: minor
@@ -17,68 +17,161 @@ system:
     - investment
   description:
     public: >-
-      <p>A nondescript black cloak that seems as if it would match with almost
-      any outfit.</p><p></p>
+      <blockquote><p>A nondescript black cloak that seems as if it would match
+      with almost any outfit.</p></blockquote><p>This enchanted cloak provides
+      an enchantment bonus to <strong>Diplomacy</strong> skill checks and grants
+      the ability to assume an illusory <strong>Disguise</strong>.</p>
     private: >-
-      <p>While equipped and <strong>Invested</strong>, its wearer gains the
-      <strong>Kindly Visage</strong> action and a benefit to all Diplomacy
-      checks depending on the enchantment tier of the
-      item.</p><ul><li><p><strong>Minor</strong> enchantment: <strong>+1
-      Boon</strong></p></li><li><p><strong>Major </strong>enchantment:
-      <strong>+2 Boons</strong></p></li><li><p><strong>Legendary</strong>
-      enchantment: <strong>+3 Boons</strong></p></li></ul>
-  actions:
-    - id: kindlyVisage
-      name: Kindly Visage
-      img: icons/equipment/back/cloak-collared-grey.webp
-      condition: ''
-      description: >-
-        <p>You assume an illusory appearance once per rest which alters your
-        appearance as well as your attire. The illusion cannot alter your
-        ancestry, but can change other aspects of your anatomy including your
-        apparent gender. The cloak itself does not change in appearance and
-        remains visible.</p><p>The illusion persists indefinitely and can be
-        dismissed at-will. Once activated, the cloak cannot produce another
-        illusion in this way until 24 hours have passed.</p>
-      cost:
-        action: 6
-        focus: 1
-        heroism: 0
-        hands: 0
-        weapon: false
-      range:
-        minimum: null
-        maximum: null
-        weapon: false
-      target:
-        type: single
-        number: 1
-        scope: 1
-        self: false
-      effects:
-        - name: ''
-          scope: 1
-          result:
-            type: any
-            all: false
-          statuses: []
-          duration:
-            value: null
-            units: seconds
-            expiry: null
-          system:
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            changes: []
-      tags: []
-      actionHooks: []
-      summon:
-        actorUuid: null
-        permanent: true
+      <p>This item is presented as an example of a Fine Cloak with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.diplomacySkill00]{Diplomacy}
+      prefix and the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.disguise00000000]{Disguise}
+      suffix.</p>
+  actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Disguise
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Disguise
+      identifier: disguise
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 1
+        value: 1
+      itemTypes:
+        - accessory
+      actions:
+        - id: affixDisguise
+          name: Disguise
+          img: icons/equipment/head/mask-carved-bird-grey-pink.webp
+          condition: ''
+          description: >-
+            <p>You assume an illusory appearance once per rest which alters your
+            appearance as well as your attire. The illusion cannot alter your
+            ancestry, but can change other aspects of your anatomy including
+            your apparent gender. The item itself does not change in appearance
+            and remains visible.</p><p>The illusion persists indefinitely and
+            can be dismissed at-will. Once activated, this item cannot produce
+            another illusion in this way until 24 hours have passed.</p>
+          cost:
+            action: 6
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: ''
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: 24
+                units: hours
+                expiry: null
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+          tags: []
+          actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
+    _id: disguise00000000
+    img: icons/equipment/head/mask-carved-bird-grey-pink.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Grants the <strong>Disguise</strong> action, allowing the bearer to
+      assume an illusory appearance once per rest.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775566553679
+      modifiedTime: 1775566553679
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.disguise00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!cloakOfKindlyVis.disguise00000000'
+  - name: Diplomacy
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Diplomatic
+      identifier: diplomacySkill
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+      actions: []
+    _id: diplomacySkill00
+    img: systems/crucible/icons/skills/diplomacy.jpg
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase the <strong>Enchantment Bonus</strong> for
+      <strong>Diplomacy</strong> skill checks by 1 for each
+      <strong>Tier</strong> of this prefix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Z5Wpk76q0YDN7RIJ
+    sort: 1000000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775566556663
+      modifiedTime: 1775566556663
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.diplomacySkill00
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!cloakOfKindlyVis.diplomacySkill00'
 ownership:
   default: 0
   mRyoRp6afxulGiE1: 3
@@ -94,11 +187,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.1
   createdTime: 1772307157762
-  modifiedTime: 1773514792262
+  modifiedTime: 1775502000000
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: cloakOfKindlyVis
 sort: 400000

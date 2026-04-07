@@ -4,7 +4,6 @@ type: consumable
 system:
   identifier: survivalWetskin
   category: other
-  enchantment: mundane
   quality: standard
   price: 20
   quantity: 1

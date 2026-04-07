@@ -1,3 +1,5 @@
+import CrucibleItem from "./item.mjs";
+
 /**
  * An active effect subclass which handles system specific logic for active effects.
  */
@@ -28,6 +30,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   async _preCreate(data, options, user) {
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
+
+    // Affix effects specifically
+    if ( this.type === "affix" ) {
+      if ( !this.parent ) return; // Compendium-level AE, no parent restrictions
+      if ( !(this.parent instanceof foundry.documents.Item) ) {
+        console.warn("Affix effects can only be applied to Item documents.");
+        return false;
+      }
+      this.updateSource({duration: {value: null}});
+      options.keepId = true;
+      return;
+    }
+
     if ( ["months", "turns"].includes(this.duration.units) ) {
       console.warn("The Crucible system does not support effect durations of unit \"turns\" or \"months\"!");
       return false;
@@ -52,6 +67,77 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       }
     }
     this.updateSource(effectUpdate);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if ( allowed === false ) return false;
+
+    // Affix effects specifically
+    if ( this.type === "affix" ) {
+      if ( ("system" in changes) && ("identifier" in changes.system)
+        && (changes.system.identifier !== this.system.identifier) ) {
+        console.warn("The identifier of an existing affix cannot be changed.");
+        return false;
+      }
+      if ( "duration" in changes ) changes.duration = {value: null};
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pre-create operation for ActiveEffects. Validates the proposed affix composition on the parent Item.
+   * TODO: https://github.com/foundryvtt/foundryvtt/issues/14133 - consolidate to CrucibleItem.validateJoint
+   * @override
+   */
+  static async _preCreateOperation(documents, operation, user) {
+    const allowed = await super._preCreateOperation(documents, operation, user);
+    if ( allowed === false ) return false;
+    const parent = operation.parent;
+    if ( !(parent instanceof foundry.documents.Item) || !parent.system.constructor.AFFIXABLE ) return;
+    const hasAffixes = documents.some(d => d.type === "affix");
+    if ( !hasAffixes ) return;
+    const source = parent.toObject();
+    for ( const doc of documents ) {
+      if ( doc.type === "affix" ) source.effects.push(doc.toObject());
+    }
+    try {
+      CrucibleItem.validateJoint(source);
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return false;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pre-update operation for ActiveEffects. Validates the proposed affix composition on the parent Item.
+   * TODO: https://github.com/foundryvtt/foundryvtt/issues/14133 - consolidate to CrucibleItem.validateJoint
+   * @override
+   */
+  static async _preUpdateOperation(documents, operation, user) {
+    const allowed = await super._preUpdateOperation(documents, operation, user);
+    if ( allowed === false ) return false;
+    const parent = operation.parent;
+    if ( !(parent instanceof foundry.documents.Item) || !parent.system.constructor.AFFIXABLE ) return;
+    const hasAffixes = documents.some(d => d.type === "affix");
+    if ( !hasAffixes ) return;
+    const source = parent.toObject();
+    for ( const update of (operation.updates ?? []) ) {
+      const idx = source.effects.findIndex(e => e._id === update._id);
+      if ( idx >= 0 ) foundry.utils.mergeObject(source.effects[idx], update);
+    }
+    try {
+      CrucibleItem.validateJoint(source);
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return false;
+    }
   }
 
   /* -------------------------------------------- */

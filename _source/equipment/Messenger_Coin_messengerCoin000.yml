@@ -9,7 +9,6 @@ system:
   price: 10
   quality: fine
   broken: false
-  enchantment: minor
   equipped: false
   invested: false
   properties: []

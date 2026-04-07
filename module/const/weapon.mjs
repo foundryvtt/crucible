@@ -274,65 +274,27 @@ export const CATEGORIES = Object.freeze({
 
 /**
  * The boolean properties which a Weapon may have.
- * @enum {{label: string, tooltip: string, [rarity]: number}}
+ * @enum {{label: string, tooltip: string, deprecated?: string}}
  */
 export const PROPERTIES = {
   ...foundry.utils.deepClone(ITEM_PROPERTIES),
-  ambush: {
-    label: "WEAPON.TAGS.Ambush",
-    tooltip: "WEAPON.TAGS.AmbushTooltip"
-  },
-  blocking: {
-    label: "WEAPON.TAGS.Blocking",
-    tooltip: "WEAPON.TAGS.BlockingTooltip"
-  },
-  engaging: {
-    label: "WEAPON.TAGS.Engaging",
-    tooltip: "WEAPON.TAGS.EngagingTooltip"
-  },
-  intuitive: {
-    label: "WEAPON.TAGS.Intuitive",
-    tooltip: "WEAPON.TAGS.IntuitiveTooltip"
-  },
-  keen: {
-    label: "WEAPON.TAGS.Keen",
-    tooltip: "WEAPON.TAGS.KeenTooltip",
-    rarity: 1
-  },
-  natural: {
-    label: "WEAPON.TAGS.Natural",
-    tooltip: "WEAPON.TAGS.NaturalTooltip"
-  },
-  oversized: {
-    label: "WEAPON.TAGS.Oversized",
-    tooltip: "WEAPON.TAGS.OversizedTooltip"
-  },
-  parrying: {
-    label: "WEAPON.TAGS.Parrying",
-    tooltip: "WEAPON.TAGS.ParryingTooltip"
-  },
-  reach: {
-    label: "WEAPON.TAGS.Reach",
-    tooltip: "WEAPON.TAGS.ReachTooltip"
-  },
-  reliable: {
-    label: "WEAPON.TAGS.Reliable",
-    tooltip: "WEAPON.TAGS.ReliableTooltip",
-    rarity: 1
-  },
-  returning: {
-    label: "WEAPON.TAGS.Returning",
-    tooltip: "WEAPON.TAGS.ReturningTooltip",
-    rarity: 1
-  },
-  thrown: {
-    label: "WEAPON.TAGS.Thrown",
-    tooltip: "WEAPON.TAGS.ThrownTooltip"
-  },
-  versatile: {
-    label: "WEAPON.TAGS.Versatile",
-    tooltip: "WEAPON.TAGS.VersatileTooltip"
-  }
+  ambush: {label: "WEAPON.TAGS.Ambush", tooltip: "WEAPON.TAGS.AmbushTooltip"},
+  blocking: {label: "WEAPON.TAGS.Blocking", tooltip: "WEAPON.TAGS.BlockingTooltip"},
+  engaging: {label: "WEAPON.TAGS.Engaging", tooltip: "WEAPON.TAGS.EngagingTooltip"},
+  intuitive: {label: "WEAPON.TAGS.Intuitive", tooltip: "WEAPON.TAGS.IntuitiveTooltip"},
+  natural: {label: "WEAPON.TAGS.Natural", tooltip: "WEAPON.TAGS.NaturalTooltip"},
+  oversized: {label: "WEAPON.TAGS.Oversized", tooltip: "WEAPON.TAGS.OversizedTooltip"},
+  parrying: {label: "WEAPON.TAGS.Parrying", tooltip: "WEAPON.TAGS.ParryingTooltip"},
+  thrown: {label: "WEAPON.TAGS.Thrown", tooltip: "WEAPON.TAGS.ThrownTooltip"},
+  versatile: {label: "WEAPON.TAGS.Versatile", tooltip: "WEAPON.TAGS.VersatileTooltip"},
+  /** @deprecated since 0.9.1 */
+  keen: {label: "WEAPON.TAGS.Keen", tooltip: "WEAPON.TAGS.KeenTooltip", deprecated: "0.9.1"},
+  /** @deprecated since 0.9.1 */
+  reach: {label: "WEAPON.TAGS.Reach", tooltip: "WEAPON.TAGS.ReachTooltip", deprecated: "0.9.1"},
+  /** @deprecated since 0.9.1 */
+  reliable: {label: "WEAPON.TAGS.Reliable", tooltip: "WEAPON.TAGS.ReliableTooltip", deprecated: "0.9.1"},
+  /** @deprecated since 0.9.1 */
+  returning: {label: "WEAPON.TAGS.Returning", tooltip: "WEAPON.TAGS.ReturningTooltip", deprecated: "0.9.1"}
 };
 
 /**

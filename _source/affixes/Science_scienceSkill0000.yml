@@ -1,0 +1,46 @@
+name: Science
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Scientific
+  identifier: scienceSkill
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - accessory
+    - armor
+_id: scienceSkill0000
+img: systems/crucible/icons/skills/science.jpg
+disabled: false
+start: null
+description: >-
+  <p>Increase the <strong>Enchantment Bonus</strong> for
+  <strong>Science</strong> skill checks by 1 for each <strong>Tier</strong> of
+  this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: Z5Wpk76q0YDN7RIJ
+sort: 700000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775502000000
+  modifiedTime: 1775566506603
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!scienceSkill0000'
