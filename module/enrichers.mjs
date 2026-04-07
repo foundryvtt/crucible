@@ -566,18 +566,21 @@ function enrichCondition([match, conditionId]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a reference to a specific action using syntax @Action[{actorUUID} {actionId}].
+ * Enrich a reference to a specific action using syntax @Action[{ownerUUID} {actionId}].
+ * The owner may be an Actor (actions keyed by id) or an Item (actions array searched by id).
  * @param {RegExpMatchArray} matchArray
  * @returns {HTMLEnrichedContentElement|string}
  */
-function enrichAction([match, actorUUID, actionId]) {
-  const actor = fromUuidSync(actorUUID);
-  if ( !actor ) return match;
-  const action = actor.actions[actionId];
+function enrichAction([match, ownerUUID, actionId]) {
+  const owner = fromUuidSync(ownerUUID);
+  if ( !owner ) return match;
+  let action;
+  if ( owner instanceof Actor ) action = owner.actions[actionId];
+  else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
   tag.classList.add("action");
-  tag.dataset.uuid = actorUUID;
+  tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
   tag.innerText = action.name;
