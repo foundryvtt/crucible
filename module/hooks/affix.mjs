@@ -1,4 +1,5 @@
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
+import {SKILLS} from "../const/skills.mjs";
 import {RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
@@ -43,6 +44,20 @@ for ( const runeId of Object.keys(RUNES) ) {
       if ( action.rune?.id !== runeId ) return;
       const tier = item.system.affixes[id].system.tier.value;
       rollData.enchantment = Math.max(rollData.enchantment, tier);
+    }
+  };
+}
+
+/* -------------------------------------------- */
+/*  Skill Enchantment Affixes                   */
+/* -------------------------------------------- */
+
+for ( const skillId of Object.keys(SKILLS) ) {
+  const id = `${skillId}Skill`;
+  HOOKS[id] = {
+    prepareSkills(item, skills) {
+      const tier = item.system.affixes[id].system.tier.value;
+      skills[skillId].enchantmentBonus = Math.max(skills[skillId].enchantmentBonus, tier);
     }
   };
 }
@@ -185,23 +200,6 @@ HOOKS.spirited = {
 
 /* -------------------------------------------- */
 /*  Accessory-Only Affixes                      */
-/* -------------------------------------------- */
-
-HOOKS.kindlyVisage = {
-  prepareSkillCheck(item, skill, rollData) {
-    if ( rollData.type === "diplomacy" ) {
-      const tier = item.system.affixes.kindlyVisage.system.tier.value;
-      rollData.boons[item.system.identifier] = {label: item.name, number: tier};
-    }
-  },
-  preActivateAction(item, action, _targets) {
-    if ( action.tags.has("diplomacy") ) {
-      const tier = item.system.affixes.kindlyVisage.system.tier.value;
-      action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
-    }
-  }
-};
-
 /* -------------------------------------------- */
 
 HOOKS.luminary = {

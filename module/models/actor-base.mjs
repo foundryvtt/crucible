@@ -750,6 +750,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Skills
     this.#prepareSkills();
     this.parent.callActorHooks("prepareSkills", this.skills);
+    this.#prepareFinalSkills();
 
     // Spellcraft
     this.parent.callActorHooks("prepareGrimoire", this.grimoire);
@@ -1004,25 +1005,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareSkills() {
     for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      this.skills[skillId] = this.#prepareSkill(config);
+      const rank = this.training[config.id] ?? 0;
+      const abilityBonus = this.parent.getAbilityBonus(config.abilities);
+      const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
+      const enchantmentBonus = 0;
+      this.skills[skillId] = {rank, abilityBonus, skillBonus, enchantmentBonus};
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare a single Skill.
-   * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
-   * @returns {CrucibleActorSkill}
+   * Recompute derived skill values after hooks have modified enchantmentBonus.
    */
-  #prepareSkill(config) {
-    const rank = this.training[config.id] ?? 0;
-    const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-    const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
-    const enchantmentBonus = 0;
-    const score = abilityBonus + skillBonus + enchantmentBonus;
-    const passive = SYSTEM.PASSIVE_BASE + score;
-    return {rank, abilityBonus, skillBonus, enchantmentBonus, score, passive};
+  #prepareFinalSkills() {
+    for ( const skill of Object.values(this.skills) ) {
+      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
+      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
+    }
   }
 
   /* -------------------------------------------- */

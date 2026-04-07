@@ -19,17 +19,18 @@ system:
     public: >-
       <blockquote><p>A nondescript black cloak that seems as if it would match
       with almost any outfit.</p></blockquote><p>This enchanted cloak provides
-      boons to <strong>Diplomacy</strong> skill checks and actions with the
-      <strong>Diplomacy</strong> tag.</p>
+      an enchantment bonus to <strong>Diplomacy</strong> skill checks and grants
+      the ability to assume an illusory <strong>Disguise</strong>.</p>
     private: >-
       <p>This item is presented as an example of a Fine Cloak with the
-      @UUID[Compendium.crucible.affixes.ActiveEffect.kindlyVisage0000]{Kindly
-      Visage} prefix.</p><p>This affix can be applied to any accessory and this
-      cloak could be further enchanted with a Tier 1 suffix.</p>
+      @UUID[Compendium.crucible.affixes.ActiveEffect.diplomacySkill00]{Diplomacy}
+      prefix and the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.disguise00000000]{Disguise}
+      suffix.</p>
   actions: []
   actorHooks: []
 effects:
-  - name: Kindly Visage
+  - name: Disguise
     type: affix
     duration:
       value: null
@@ -37,28 +38,28 @@ effects:
       expiry: null
       expired: false
     system:
-      adjective: Kindly
-      identifier: kindlyVisage
+      adjective: Disguise
+      identifier: disguise
       changes: []
-      affixType: prefix
+      affixType: suffix
       tier:
         min: 1
-        max: 3
+        max: 1
         value: 1
       itemTypes:
         - accessory
       actions:
-        - id: kindlyVisage
-          name: Kindly Visage
-          img: icons/skills/social/handshake.webp
+        - id: affixDisguise
+          name: Disguise
+          img: icons/equipment/head/mask-carved-bird-grey-pink.webp
           condition: ''
           description: >-
             <p>You assume an illusory appearance once per rest which alters your
             appearance as well as your attire. The illusion cannot alter your
             ancestry, but can change other aspects of your anatomy including
-            your apparent gender. The cloak itself does not change in appearance
+            your apparent gender. The item itself does not change in appearance
             and remains visible.</p><p>The illusion persists indefinitely and
-            can be dismissed at-will. Once activated, the cloak cannot produce
+            can be dismissed at-will. Once activated, this item cannot produce
             another illusion in this way until 24 hours have passed.</p>
           cost:
             action: 6
@@ -98,33 +99,79 @@ effects:
           summon:
             actorUuid: null
             permanent: true
-    _id: kindlyVisage0000
-    img: icons/skills/social/handshake.webp
+    _id: disguise00000000
+    img: icons/equipment/head/mask-carved-bird-grey-pink.webp
     disabled: false
     start: null
     description: >-
-      <p>Gain boons to <strong>Diplomacy</strong> skill checks and actions with
-      the <strong>Diplomacy</strong> tag. The number of boons gained equals the
+      <p>Grants the <strong>Disguise</strong> action, allowing the bearer to
+      assume an illusory appearance once per rest.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775566553679
+      modifiedTime: 1775566553679
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.disguise00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!cloakOfKindlyVis.disguise00000000'
+  - name: Diplomacy
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Diplomatic
+      identifier: diplomacySkill
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+      actions: []
+    _id: diplomacySkill00
+    img: systems/crucible/icons/skills/diplomacy.jpg
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase the <strong>Enchantment Bonus</strong> for
+      <strong>Diplomacy</strong> skill checks by 1 for each
       <strong>Tier</strong> of this prefix.</p>
     origin: null
     tint: '#ffffff'
     transfer: false
     statuses: []
     showIcon: 1
-    folder: hd7WNbghiYX3GDXN
-    sort: 100000
+    folder: Z5Wpk76q0YDN7RIJ
+    sort: 1000000
     flags: {}
     _stats:
       coreVersion: '14.359'
       systemId: crucible
       systemVersion: 0.9.0
-      createdTime: 1775481270651
-      modifiedTime: 1775481270651
+      createdTime: 1775566556663
+      modifiedTime: 1775566556663
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.affixes.ActiveEffect.kindlyVisage0000
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.diplomacySkill00
       duplicateSource: null
       exportSource: null
-    _key: '!items.effects!cloakOfKindlyVis.kindlyVisage0000'
+    _key: '!items.effects!cloakOfKindlyVis.diplomacySkill00'
 ownership:
   default: 0
   mRyoRp6afxulGiE1: 3
@@ -142,9 +189,9 @@ _stats:
   exportSource: null
   coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.1
   createdTime: 1772307157762
-  modifiedTime: 1775489682888
+  modifiedTime: 1775502000000
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: cloakOfKindlyVis
 sort: 400000
