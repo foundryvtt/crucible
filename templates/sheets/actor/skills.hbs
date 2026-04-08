@@ -34,19 +34,40 @@
     {{/each}}
     <footer class="tab-footer skills-footer flexrow">
         <div class="sheet-section flexcol">
-            <h3>{{localize "ACTOR.LABELS.Knowledge"}}</h3>
+            <h3>
+                {{localize "ACTOR.LABELS.Knowledge"}}
+                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="knowledge"></a>
+            </h3>
             <div class="tags flexrow">
                 {{#each knowledge}}
-                <span class="larger tag knowledge-area">{{this}}</span>
+                <span
+                    class="larger tag knowledge-area{{#if fromBackground}} background-granted{{/if}}"
+                    {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
+                >
+                    {{label}}
+                </span>
                 {{else}}
                 <p class="hint">{{localize "ACTOR.LABELS.KnowledgeHint"}}</p>
                 {{/each}}
             </div>
         </div>
         <div class="sheet-section flexcol">
-            <h3>{{localize "ACTOR.LABELS.Languages"}}</h3>
-            {{formInput fields.details.fields.languages value=source.system.details.languages
-                        options=languages classes="languages"}}
+            <h3>
+                {{localize "ACTOR.LABELS.Languages"}}
+                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="languages"></a>
+            </h3>
+            <div class="tags flexrow">
+                {{#each languages}}
+                <span
+                    class="larger tag language{{#if fromBackground}} background-granted{{/if}}"
+                    {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
+                >
+                    {{label}}
+                </span>
+                {{else}}
+                <p class="hint">{{localize "ACTOR.LABELS.LanguagesHint"}}</p>
+                {{/each}}
+            </div>
         </div>
     </footer>
 </section>
