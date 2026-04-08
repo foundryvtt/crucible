@@ -316,7 +316,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       moralePerLevel: 6,
       moraleMultiplier: level < 1 ? threat : threatFactor,
       woundsMultiplier: 1.5,
-      abilityMin: 0,
+      abilityMin: 1, // Excluding zero as special case
       abilityMax: 12
     };
   }
@@ -784,8 +784,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #prepareFinalAbilities() {
     const {abilityMin, abilityMax} = this.details.progression;
     for ( const ability of Object.values(this.abilities) ) {
-      const total = ability.initial + ability.base + ability.increases + ability.bonus;
-      ability.value = Math.clamp(total, abilityMin, abilityMax);
+      const base = ability.initial + ability.base + ability.increases;
+      if ( base === 0 ) ability.bonus = 0; // Zero can never become anything other than zero
+      else ability.bonus = Math.clamp(ability.bonus, abilityMin - base, abilityMax - base);
+      ability.value = base + ability.bonus;
     }
   }
 
