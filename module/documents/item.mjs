@@ -410,6 +410,30 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Test whether an item is stackable with another item
+   * @param {CrucibleItem} other
+   * @returns {boolean}
+   */
+  isStackableWith(other) {
+    if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
+    if ( !this.system.properties.has("stackable") ) return false;
+    if ( this.effects.size || other.effects.size ) return false; // Affixes never stack
+    const cleanData = this.toObject();
+    const cleanOther = other.toObject();
+    for ( const data of [cleanData, cleanOther] ) {
+      delete data._id;
+      delete data._stats;
+      delete data.system.quantity;
+      delete data.sort;
+      delete data.ownership;
+      delete data.folder;
+    }
+    return foundry.utils.equals(cleanData, cleanOther);
+  }
+
+  /* -------------------------------------------- */
   /*  Randomization                               */
   /* -------------------------------------------- */
 
