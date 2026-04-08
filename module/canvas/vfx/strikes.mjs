@@ -4,9 +4,10 @@ import {getRandomSprite} from "./sprites.mjs";
 /**
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
+ * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
  * @returns {{components: {}, name, timeline: *[]}|null}
  */
-export function configureStrikeVFXEffect(action) {
+export function configureStrikeVFXEffect(action, vfxConfig) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const components = {};
   const timeline = [];
@@ -64,10 +65,9 @@ export function configureStrikeVFXEffect(action) {
   if ( !timeline.length ) return null;
 
   // Validate that the effect data parses correctly
-  let vfxConfig;
   try {
     const effect = new foundry.canvas.vfx.VFXEffect({name: action.id, components, timeline});
-    vfxConfig = effect.toObject();
+    vfxConfig = effect.toObject(); // TODO replace for now, rather than merge
     vfxConfig.references = references;
   } catch(cause) {
     console.error(new Error(`Strike VFX configuration failed for Action "${this.id}"`, {cause}));
