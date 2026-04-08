@@ -2055,19 +2055,8 @@ export default class CrucibleActor extends Actor {
       return;
     }
 
-    // FIXME workaround for unlinked token delta problem, maybe fixed in v14?
-    // TODO: Convert to using modifyBatch once figured out
-    if ( this.isToken && ("items" in updateData) ) {
-      for ( const item of updateData.items ) {
-        if ( this.items.has(item._id) ) deleteItemIds.add(item._id);
-      }
-      await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-      await this.createEmbeddedDocuments("Item", updateData.items, {keepId: true});
-      delete updateData.items;
-    }
-
     // Commit the update
-    else await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
+    await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
     await this.update(updateData, {keepEmbeddedIds: true});
     if ( message && notify ) ui.notifications.info(message);
   }

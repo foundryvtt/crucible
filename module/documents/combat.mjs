@@ -4,22 +4,6 @@
 export default class CrucibleCombat extends foundry.documents.Combat {
 
   /* -------------------------------------------- */
-  /*  Document Methods                            */
-  /* -------------------------------------------- */
-
-  /**
-   * FIXME bugfix for core https://github.com/foundryvtt/foundryvtt/issues/13095
-   * This can be deleted when that bug is closed.
-   * @override
-   */
-  getCombatantsByActor(actor) {
-    const isActor = actor instanceof foundry.documents.Actor;
-    if ( isActor && actor.isToken ) return this.getCombatantsByToken(actor.token);
-    const actorId = isActor ? actor.id : actor;
-    return this.combatants.filter(c => c.actor?.id === actorId);
-  }
-
-  /* -------------------------------------------- */
 
   /** @inheritDoc */
   async previousRound() {
