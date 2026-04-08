@@ -1158,7 +1158,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     });
     const propertyInput = propertyField.toInput({options: propertyOptions, type: "checkboxes", value: propertyValue});
     const title = `${_loc(`ACTOR.LABELS.${property.titleCase()}`)}: ${this.document.name}`;
-    const formData = await api.DialogV2.input({window: {title}, content: propertyInput.outerHTML});
+    const formData = await api.DialogV2.input({
+      window: {title},
+      classes: [`edit-details-property ${property}`],
+      content: propertyInput.outerHTML
+    });
     if ( !formData ) return;
     formData[propertyPath] = formData[propertyPath].filter(value => !toDisable.has(value));
     await this.actor.update(formData);
