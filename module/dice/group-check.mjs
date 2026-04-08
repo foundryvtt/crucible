@@ -142,9 +142,7 @@ export default class GroupCheck extends StandardCheck {
    */
   static async #prepareAndRoll(actor, {skillId, dc=15, sharedBoons=0, sharedBanes=0, title, showDSN=true}={}) {
     const skill = SYSTEM.SKILLS[skillId];
-    const checkData = {dc};
-    if ( sharedBoons ) checkData.boons = {special: {label: "Special", number: sharedBoons}};
-    if ( sharedBanes ) checkData.banes = {special: {label: "Special", number: sharedBanes}};
+    const checkData = {dc, boons: sharedBoons, banes: sharedBanes};
     const pool = skill
       ? actor.getSkillCheck(skill.id, checkData)
       : new this({...checkData, type: skillId, actorId: actor.id});

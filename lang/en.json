@@ -1284,7 +1284,8 @@
       "Resend": "Resend Request",
       "RollOnBehalf": "Roll on Behalf",
       "Skip": "Skip Actor",
-      "Finalize": "Reveal to Players"
+      "Finalize": "Reveal to Players",
+      "RequiresGM": "Only a Gamemaster can initiate group checks."
     },
     "REQUESTS": {
       "AddParty": "Add Party",

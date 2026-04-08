@@ -618,7 +618,7 @@ function enrichSpell([match, spellId]) {
  */
 function enrichSkillCheck([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
-  if ( skillId in DND5E_SKILL_MAPPING ) skillId = DND5E_SKILL_MAPPING[skillId];
+  skillId = DND5E_SKILL_MAPPING[skillId] ?? skillId;
   const skill = SYSTEM.SKILLS[skillId];
   if ( !skill ) return new Text(match);
   const passive = rest.includes("passive");
@@ -639,22 +639,25 @@ function enrichSkillCheck([match, terms]) {
 function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.category);
-  if ( group ) tag.classList.add("group-check");
-  tag.dataset.skillId = skill.id;
-  tag.dataset.dc = dc;
+  const dataset = {skillId: skill.id, dc};
+  if ( group ) {
+    tag.classList.add("group-check");
+    dataset.group = "true";
+  }
   let dcLabel = _loc("DICE.DCSpecific", {dc});
 
   // Passive checks only
   if ( passive ) {
     dcLabel = _loc("DICE.DCAdditionalPassive", {dcLabel});
     tag.classList.add("passive-check");
-    tag.dataset.crucibleTooltip = "passiveCheck";
+    dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
   if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
   // Create label
+  Object.assign(tag.dataset, dataset);
   tag.innerHTML = `${skill.label} (${dcLabel})`;
   return tag;
 }
@@ -722,7 +725,9 @@ function enrichLanguage([match, languageId]) {
  * @param {HTMLElement} element
  */
 function renderSkillCheck(element) {
-  element.addEventListener("click", onClickSkillCheck);
+  const {group} = element.dataset;
+  const listener = group === "true" ? onClickGroupCheck : onClickSkillCheck;
+  element.addEventListener("click", listener);
 }
 
 /* -------------------------------------------- */
@@ -733,11 +738,56 @@ function renderSkillCheck(element) {
  */
 function onClickSkillCheck(event) {
   event.preventDefault();
-  const element = event.currentTarget;
-  const {skillId, dc} = element.dataset;
+  const {check, actor} = prepareSkillCheck(event);
+  return check.dialog({request: game.user.isGM && !actor});
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Handle a click on a group skill check enriched element.
+ * @param {Event} event
+ */
+function onClickGroupCheck(event) {
+  event.preventDefault();
+  if ( !game.user.isGM ) return ui.notifications.warn(_loc("DICE.GROUP_CHECK.RequiresGM"));
+  const requestedActors = getPartyActors();
+  if ( !requestedActors ) return;
+  const {check} = prepareSkillCheck(event);
+  const dialogOptions = {request: true, requestedActors};
+  return check.dialog(dialogOptions);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get party actors as an array for request-based group checks.
+ * @returns {CrucibleActor[]|null}
+ */
+function getPartyActors() {
+  const members = crucible.party?.system.actors;
+  if ( !members?.size ) {
+    ui.notifications.warn(_loc("WARNING.NoParty"));
+    return null;
+  }
+  return Array.from(members);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Prepare a skill check instance from an enriched element click event.
+ * @param {Event} event
+ * @returns {{actor: CrucibleActor|null, check: StandardCheck}}
+ */
+function prepareSkillCheck(event) {
+  const {skillId, dc: dcStr} = event.currentTarget.dataset;
+  const parsedDc = Number(dcStr);
+  const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
+  const checkData = {type: skillId, dc};
   const actor = inferEnricherActor();
-  const check = actor ? actor.getSkillCheck(skillId, {dc}) : new crucible.api.dice.StandardCheck({type: skillId, dc});
-  check.dialog({request: game.user.isGM && !actor});
+  const check = actor ? actor.getSkillCheck(skillId, checkData) : new crucible.api.dice.StandardCheck(checkData);
+  return {actor, check};
 }
 
 /* -------------------------------------------- */
