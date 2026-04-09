@@ -19,21 +19,19 @@ HOOKS.alchemistsFire = {
 /* -------------------------------------------- */
 
 HOOKS.antitoxin = {
-  async confirm(reverse) {
-    if ( reverse ) return; // Eventually would be nice to store the removed toxin effects so this can be reversible
+  postActivate() {
     const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
     const neutralizeAmount = tiers[this.item.system.quality];
-    const targetSelf = this.outcomes.size === 1;
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.self && !targetSelf ) continue;
-      const effectsToDelete = [];
-      for ( const effect of outcome.target.effects ) {
+    for ( const target of this.targets.keys() ) {
+      const effects = [];
+      for ( const effect of target.effects ) {
         if ( !effect.statuses.has("poisoned") || !effect.system.dot?.length ) continue;
-        const dot = effect.system.dot;
-        const poisonAmount = dot.reduce((acc, {amount, damageType}) => acc + ((damageType === "poison") ? amount : 0), 0);
-        if ( poisonAmount <= neutralizeAmount ) effectsToDelete.push(effect.id);
+        const poisonAmount = effect.system.dot.reduce((acc, {amount, damageType}) => {
+          return acc + ((damageType === "poison") ? amount : 0);
+        }, 0);
+        if ( poisonAmount <= neutralizeAmount ) effects.push({_id: effect.id, _action: "delete"});
       }
-      if ( effectsToDelete.length ) await outcome.target.deleteEmbeddedDocuments("ActiveEffect", effectsToDelete);
+      if ( effects.length ) this.recordEvent({type: "effect", target, effects});
     }
   }
 };
@@ -41,8 +39,8 @@ HOOKS.antitoxin = {
 /* -------------------------------------------- */
 
 HOOKS.assessStrength = {
-  configure(targets) {
-    const target = targets[0]?.actor;
+  configure() {
+    const target = this.targets.values().next().value?.actor;
     if ( !target ) return;
     const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
     if ( !targetCategory ) return;
@@ -54,10 +52,10 @@ HOOKS.assessStrength = {
       this.usage.boons.assessStrength = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
-  async roll(outcome) {
+  async roll(target) {
     const skill = this.usage.skillId;
     if ( !skill ) return;
-    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, target);
   }
 };
 
@@ -121,21 +119,19 @@ HOOKS.blastFlask = {
 HOOKS.bodyBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
-    for ( const outcome of targetAction.outcomes.values() ) {
-      if ( outcome.target.uuid !== this.actor.uuid ) continue;
-      if ( !targetAction.tags.has("melee") ) {
-        throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.MeleeOnly"));
-      }
-      if ( targetAction.message.flags.crucible.confirmed ) {
-        throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.AlreadyConfirmed"));
-      }
-      const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
-      for ( const r of outcome.rolls ) {
-        if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
-          // TODO: Amend (or remove) as necessary
-          this.usage.targetAction = targetAction.message.id;
-          return true;
-        }
+    const myEvents = targetAction.eventsByActor.get(this.actor);
+    if ( !myEvents ) return;
+    if ( !targetAction.tags.has("melee") ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.MeleeOnly"));
+    }
+    if ( targetAction.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.AlreadyConfirmed"));
+    }
+    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    for ( const event of myEvents.roll ) {
+      if ( [results.ARMOR, results.GLANCE].includes(event.roll.data.result) ) {
+        this.usage.targetAction = targetAction.message.id;
+        return true;
       }
     }
     throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.InvalidOutcome"));
@@ -161,35 +157,40 @@ HOOKS.causticPhial = {
 /* -------------------------------------------- */
 
 HOOKS.chokingAmpoule = {
-  preActivate(_targets) {
+  preActivate() {
     const damage = {shoddy: 2, standard: 6, fine: 12, superior: 20, masterwork: 30};
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, {turns: 3, amount: damage[this.item.system.quality]});
     poisoned.system.dot[0].resource = "morale";
     foundry.utils.mergeObject(this.effects[0], poisoned);
   },
-  postActivate(outcome) {
-    if ( outcome.self ) return;
-    if ( outcome.rolls[0].isCriticalSuccess ) outcome.effects[0].statuses.push("silenced");
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      const critEvent = events.roll.find(e => e.roll.isCriticalSuccess);
+      if ( critEvent?.effects.length ) critEvent.effects[0].statuses.push("silenced");
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.clarifyIntent = {
-  async postActivate(outcome) {
-    const roll = outcome.rolls[0];
-    if ( roll?.isSuccess ) {
-      roll.data.damage.multiplier = 0;
-      roll.data.damage.base = roll.data.damage.total = 1;
-      roll.data.damage.resource = "focus";
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      const rollEvent = events.roll[0];
+      if ( !rollEvent ) continue;
+      if ( rollEvent.roll.isSuccess ) {
+        rollEvent.roll.data.damage.multiplier = 0;
+        rollEvent.roll.data.damage.base = rollEvent.roll.data.damage.total = 1;
+        rollEvent.roll.data.damage.resource = "focus";
+      }
+      const effect = rollEvent.effects[0];
+      if ( !effect ) continue;
+      effect.system.changes ||= [];
+      effect.system.changes.push(
+        {key: "system.rollBonuses.boons.clarifyIntent.number", type: "override", value: 1},
+        {key: "system.rollBonuses.boons.clarifyIntent.label", type: "override", value: this.name}
+      );
     }
-    const effect = outcome.effects[0];
-    if ( !effect ) return;
-    effect.system.changes ||= [];
-    effect.system.changes.push(
-      {key: "system.rollBonuses.boons.clarifyIntent.number", type: "override", value: 1},
-      {key: "system.rollBonuses.boons.clarifyIntent.label", type: "override", value: this.name}
-    );
   }
 };
 
@@ -218,7 +219,7 @@ HOOKS.counterspell = {
     this.usage.context.tags.rune = _loc("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
     this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
-  async roll(outcome) {
+  async roll(target) {
     if ( this.usage.targetAction.message ) return;
     const dc = this.usage.dc;
     const rollData = {
@@ -232,12 +233,12 @@ HOOKS.counterspell = {
     };
     this.actor.callActorHooks("prepareStandardCheck", rollData);
     const roll = await new crucible.api.dice.StandardCheck(rollData).evaluate();
-    if ( roll ) outcome.rolls.push(roll);
+    if ( roll ) this.recordEvent({type: "check", target, roll});
   },
   async confirm(reverse) {
-    if ( this.outcomes.size === 1 ) return;
-    const targetActor = this.outcomes.keys().find(a => a !== this.actor);
-    const isSuccess = this.outcomes.get(targetActor)?.rolls[0]?.isSuccess;
+    const targetEvents = [...this.eventsByActor].find(([actor]) => actor !== this.actor)?.[1];
+    if ( !targetEvents ) return;
+    const isSuccess = targetEvents.roll[0]?.roll.isSuccess;
     if ( !isSuccess ) return;
     // TODO: Fetch this ID from action instead of message flag
     const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
@@ -259,9 +260,10 @@ HOOKS.counterspell = {
 /* -------------------------------------------- */
 
 HOOKS.decisiveAction = {
-  postActivate(outcome) {
+  postActivate() {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
-    outcome.resources.action = (outcome.resources.action || 0) + amount;
+    const activation = this.events.find(e => e.type === "activation");
+    if ( activation ) activation.resources.push({resource: "action", delta: amount});
   }
 };
 
@@ -277,7 +279,7 @@ HOOKS.delay = {
     }
   },
   // TODO refactor to roll()?
-  async preActivate(targets) {
+  async preActivate() {
     const combatant = game.combat.getCombatantByActor(this.actor);
     const maximum = combatant.getDelayMaximum();
     const response = await foundry.applications.api.DialogV2.prompt({
@@ -295,23 +297,24 @@ HOOKS.delay = {
       },
       rejectClose: false
     });
-    if ( response ) this.outcomes.get(this.actor).metadata.initiativeDelay = response;
+    if ( response ) this.metadata.initiativeDelay = response;
   },
   async confirm() {
-    return this.actor.delay(this.outcomes.get(this.actor).metadata.initiativeDelay);
+    const initiative = this.metadata.initiativeDelay;
+    if ( !Number.isInteger(initiative) ) throw new Error("Delay action requires an integer initiativeDelay value");
+    return this.actor.delay(initiative);
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.distract = {
-  postActivate(outcome) {
-    for ( const r of outcome.rolls ) {
-      if ( r.isSuccess ) {
-        r.data.damage.multiplier = 0;
-        r.data.damage.base = r.data.damage.total = 1;
-        r.data.damage.resource = "focus";
-      }
+  postActivate() {
+    for ( const event of this.events ) {
+      if ( !event.roll?.isSuccess || !event.roll.data.damage ) continue;
+      event.roll.data.damage.multiplier = 0;
+      event.roll.data.damage.base = event.roll.data.damage.total = 1;
+      event.roll.data.damage.resource = "focus";
     }
   }
 };
@@ -319,65 +322,77 @@ HOOKS.distract = {
 /* -------------------------------------------- */
 
 HOOKS.feintingStrike = {
-  async roll(outcome) {
-    outcome.rolls.shift();
-    const deception = outcome.rolls[0];
-    if ( deception.data.damage ) deception.data.damage.total = 0;
-    if ( deception.isSuccess ) {
-      outcome.usage.boons.feintingStrike = {label: this.name, number: 2};
-      this.usage.bonuses.damageBonus += 6;
+  async roll(target) {
+    const targetEvents = this.eventsByActor.get(target);
+    if ( !targetEvents ) return;
+    const [feintEvent, deceptionEvent] = targetEvents.roll;
+    if ( !(feintEvent && deceptionEvent ) ) return;
+    const feintIndex = this.events.indexOf(feintEvent);
+    const deceptionIndex = this.events.indexOf(deceptionEvent);
+
+    // Remove the deception roll's damage
+    const deception = deceptionEvent?.roll;
+    if ( deception?.data.damage ) deception.data.damage.total = 0;
+
+    // Follow-up offhand attack with bonuses if deception succeeded
+    const options = {defenseType: "physical"};
+    if ( deception?.isSuccess ) {
+      options.boons = {feintingStrike: {label: this.name, number: 2}};
+      options.damageBonus = 6;
     }
     const offhand = this.actor.equipment.weapons.offhand;
-    outcome.usage.defenseType = "physical";
-    const attack = await this.actor.weaponAttack(this, offhand, outcome);
-    outcome.rolls.push(attack);
+    const roll = await this.actor.weaponAttack(this, offhand, target, options);
+    const weapon = offhand.system.snapshot();
+    const strike = this.recordEvent({type: "strike", target, roll, weapon}, {temporary: true});
+
+    // Reorder event stream chronology so that the offhand strike immediately follows the deception event
+    this.events[feintIndex] = deceptionEvent;
+    this.events[deceptionIndex] = strike;
+    this._eventsDirty = true;
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.fontOfLife = {
-  postActivate(outcome) {
-    if ( outcome.self ) return;
+  postActivate() {
     const amount = this.actor.abilities.wisdom.value;
-    const effect = outcome.effects[0];
-    effect.system.dot = [{
-      amount,
-      resource: "health",
-      restoration: true
-    }];
-    outcome.resources.health = (outcome.resources.health || 0) + amount;
+    for ( const [target, events] of this.eventsByTarget ) {
+      const effectEvent = events.all.find(e => e.effects.length);
+      if ( !effectEvent ) continue;
+      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
+      effectEvent.resources.push({resource: "health", delta: amount});
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.healingElixir = {
-  postActivate(outcome) {
-    if ( !outcome.isTarget ) return;
+  postActivate() {
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
-    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
-    outcome.resources.health = (outcome.resources.health || 0) + amount;
+    for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
+    for ( const target of this.targets ) {
+      this.recordEvent({target, resources: [{resource: "health", delta: amount}]});
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.healingTonic = {
-  postActivate(outcome) {
-    if ( !outcome.isTarget ) return;
+  postActivate() {
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
-    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
-    const effect = outcome.effects[0];
-    effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    effect.system.dot = [{
-      amount,
-      resource: "health",
-      restoration: true
-    }];
-    outcome.resources.health = (outcome.resources.health || 0) + amount;
+    for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
+    for ( const [target, events] of this.eventsByTarget ) {
+      const effectEvent = events.all.find(e => e.effects.length);
+      if ( !effectEvent ) continue;
+      effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
+      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
+      effectEvent.resources.push({resource: "health", delta: amount});
+    }
   }
 };
 
@@ -397,8 +412,8 @@ HOOKS.inspireHeroism = {
 /* -------------------------------------------- */
 
 HOOKS.intuitWeakness = {
-  configure(targets) {
-    const target = targets[0]?.actor;
+  configure() {
+    const target = this.targets.values().next().value?.actor;
     if ( !target ) return;
     const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
     if ( !targetCategory ) return;
@@ -410,46 +425,48 @@ HOOKS.intuitWeakness = {
       this.usage.boons.intuitWeakness = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
-  async roll(outcome) {
+  async roll(target) {
     const skill = this.usage.skillId;
     if ( !skill ) return;
-    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, target);
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.laughingMatter = {
-  postActivate(outcome) {
-    if ( outcome.target === this.actor ) return;
-    const effect = outcome.effects[0];
-    effect.system.changes ||= [];
-    effect.system.changes.push(
-      {key: "system.rollBonuses.banes.laughingMatter.number", type: "override", value: 1},
-      {key: "system.rollBonuses.banes.laughingMatter.label", type: "override", value: this.name}
-    );
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      const effectEvent = events.all.find(e => e.effects.length);
+      if ( !effectEvent ) continue;
+      effectEvent.effects[0].system.changes ||= [];
+      effectEvent.effects[0].system.changes.push(
+        {key: "system.rollBonuses.banes.laughingMatter.number", type: "override", value: 1},
+        {key: "system.rollBonuses.banes.laughingMatter.label", type: "override", value: this.name}
+      );
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.lastStand = {
-  postActivate(outcome) {
-    outcome.resources.health ||= 0;
-    outcome.resources.health += (this.actor.abilities.toughness.value * 2);
-    const effect = outcome.effects[0];
-    if ( !effect ) return;
-    effect.system.changes ||= [];
-    effect.system.changes.push(
-      {key: "system.defenses.wounds.bonus", type: "add", value: 2}
-    );
+  postActivate() {
+    const selfEvents = this.selfEvents;
+    const health = this.actor.abilities.toughness.value * 2;
+    const activation = selfEvents?.activation;
+    if ( activation ) activation.resources.push({resource: "health", delta: health});
+    const effectEvent = selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
+    effectEvent.effects[0].system.changes ||= [];
+    effectEvent.effects[0].system.changes.push({key: "system.defenses.wounds.bonus", type: "add", value: 2});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.lifebloom = {
-  confirm(reverse) {
+  postActivate() {
     const wisdom = this.actor.system.abilities.wisdom.value;
     const lifebloomEffect = {
       _id: "lifebloom0000000",
@@ -469,8 +486,8 @@ HOOKS.lifebloom = {
         }]
       }
     };
-    for ( const outcome of this.outcomes.values() ) {
-      outcome.effects.push(lifebloomEffect);
+    for ( const target of this.eventsByActor.keys() ) {
+      this.recordEvent({type: "effect", target, effects: [lifebloomEffect]});
     }
   }
 };
@@ -491,10 +508,10 @@ HOOKS.executionersStrike = {
 /* -------------------------------------------- */
 
 HOOKS.extollDeeds = {
-  confirm(reverse) {
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.self ) continue;
-      outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+  postActivate() {
+    const morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+    for ( const target of this.targets ) {
+      this.recordEvent({target, resources: [{resource: "morale", delta: morale}]});
     }
   }
 };
@@ -509,7 +526,7 @@ HOOKS.hamstring = {
       throw new Error(_loc("ACTION.WARNINGS.RequiresSlashingMelee", {action: this.name}));
     }
   },
-  preActivate(targets) {
+  preActivate() {
     if ( this.usage.weapon.system.damageType !== "slashing" ) {
       throw new Error(_loc("ACTION.WARNINGS.RequiresSlashingMelee", {action: this.name}));
     }
@@ -529,31 +546,38 @@ HOOKS.intercept = {
 /* -------------------------------------------- */
 
 HOOKS.medicinalCompound = {
-  preActivate(targets) {
-    const defenses = targets[0].actor.system.defenses;
+  preActivate() {
+    const target = this.targets.values().next().value.actor;
+    const defenses = target.system.defenses;
     this.usage.defenseType = defenses.wounds.total >= defenses.madness.total ? "wounds" : "madness";
   },
-  postActivate(outcome) {
-    if ( outcome.self || outcome.rolls[0].isFailure ) return;
-    const dmg = outcome.rolls[0].data.damage.total;
-    outcome.resources.health = dmg;
-    const amount = Math.ceil(dmg / 2);
-    outcome.effects[0].system.dot.push(
-      {amount, resource: "health", restoration: true},
-      {amount, resource: "morale", restoration: true}
-    );
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      const rollEvent = events.roll[0];
+      if ( !rollEvent?.roll.isSuccess ) continue;
+      const dmg = rollEvent.roll.data.damage.total;
+      rollEvent.resources.push({resource: "health", delta: dmg});
+      const amount = Math.ceil(dmg / 2);
+      if ( rollEvent.effects.length ) rollEvent.effects[0].system.dot.push(
+        {amount, resource: "health", restoration: true},
+        {amount, resource: "morale", restoration: true}
+      );
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.oozeMultiply = {
-  postActivate(outcome) {
-    outcome.actorUpdates ||= {};
-    const newSizeBonus = this.actor.system.movement.sizeBonus + 1;
-    const healthAmount = this.actor.abilities.toughness.value;
-    foundry.utils.setProperty(outcome.actorUpdates, "system.movement.sizeBonus", newSizeBonus);
-    outcome.resources.health = (outcome.resources.health || 0) + healthAmount;
+  postActivate() {
+    const selfEvents = this.selfEvents;
+    const activation = selfEvents?.activation;
+    if ( activation ) activation.resources.push({resource: "health", delta: this.actor.abilities.toughness.value});
+    const actorUpdateEvent = selfEvents?.actorUpdate;
+    if ( actorUpdateEvent ) {
+      const newSizeBonus = this.actor.system.movement.sizeBonus + 1;
+      foundry.utils.setProperty(actorUpdateEvent.actorUpdates, "system.movement.sizeBonus", newSizeBonus);
+    }
   }
 };
 
@@ -615,7 +639,7 @@ HOOKS.paralyticIngest = {
 /* -------------------------------------------- */
 
 HOOKS.poisonIngest = {
-  preActivate(_targets) {
+  preActivate() {
     const tiers = {
       shoddy: {amount: 2, turns: 4},
       standard: {amount: 4, turns: 6},
@@ -631,40 +655,41 @@ HOOKS.poisonIngest = {
 /* -------------------------------------------- */
 
 HOOKS.rallyingCry = {
-  postActivate(outcome) {
+  postActivate() {
     const amount = this.actor.abilities.presence.value;
-    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
+    for ( const target of this.targets ) {
+      this.recordEvent({target, resources: [{resource: "morale", delta: amount}]});
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.rallyingElixir = {
-  postActivate(outcome) {
-    if ( !outcome.isTarget ) return;
+  postActivate() {
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
-    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
-    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
+    for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
+    for ( const target of this.targets ) {
+      this.recordEvent({target, resources: [{resource: "morale", delta: amount}]});
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.rallyingTonic = {
-  postActivate(outcome) {
-    if ( !outcome.isTarget ) return;
+  postActivate() {
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
-    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
-    const effect = outcome.effects[0];
-    effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
-    effect.system.dot = [{
-      amount,
-      resource: "morale",
-      restoration: true
-    }];
-    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
+    for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
+    for ( const [target, events] of this.eventsByTarget ) {
+      const effectEvent = events.all.find(e => e.effects.length);
+      if ( !effectEvent ) continue;
+      effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
+      effectEvent.effects[0].system.dot = [{amount, resource: "morale", restoration: true}];
+      effectEvent.resources.push({resource: "morale", delta: amount});
+    }
   }
 };
 
@@ -693,8 +718,10 @@ HOOKS.readScroll = {
       throw new Error(_loc("CONSUMABLE.SCROLL.NoComponents"));
     }
   },
-  async postActivate(outcome) {
-    if ( !outcome.self ) return;
+  postActivate() {
+    const selfEvents = this.selfEvents;
+    const effectEvent = selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
     const {runes, gestures, inflections} = this.item.system.scroll;
     const changes = [];
     for ( const rune of runes ) {
@@ -707,7 +734,7 @@ HOOKS.readScroll = {
     for ( const inflection of inflections ) {
       changes.push({key: "system.grimoire.inflectionIds", type: "add", value: inflection});
     }
-    Object.assign(outcome.effects[0], {
+    Object.assign(effectEvent.effects[0], {
       origin: this.item.uuid,
       duration: {value: 600, units: "seconds", expiry: null},
       system: {changes}
@@ -731,19 +758,19 @@ HOOKS.refocus = {
     const categories = ["talisman1", "talisman2"];
     return categories.includes(mh.category) || (oh && categories.includes(oh.category));
   },
-  preActivate(_targets) {
+  preActivate() {
     if ( !["talisman1", "talisman2"].includes(this.usage.weapon?.category) ) {
       throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
     }
   },
-  async confirm() {
-    const self = this.outcomes.get(this.actor);
+  postActivate() {
     const talisman = this.usage.weapon;
-    const r = self.rolls[0];
+    const rollEvent = this.selfEvents?.roll[0];
+    const r = rollEvent?.roll;
     let focus = 0;
-    if ( r.isSuccess ) focus += talisman.config.category.hands;
-    if ( r.isCriticalSuccess ) focus += 1;
-    self.resources.focus = focus;
+    if ( r?.isSuccess ) focus += talisman.config.category.hands;
+    if ( r?.isCriticalSuccess ) focus += 1;
+    if ( focus ) this.recordEvent({resources: [{resource: "focus", delta: focus}]});
   }
 };
 
@@ -761,14 +788,12 @@ HOOKS.reload = {
 /* -------------------------------------------- */
 
 HOOKS.repercussiveBlock = {
-  postActivate(outcome) {
-    if ( outcome.target === this.actor ) return;
-    if ( outcome.rolls.every(r => r.isSuccess) ) {
-      const {mainhand} = outcome.target.equipment.weapons; // TODO - react to the prior action?
-      if ( !mainhand?.id || mainhand.properties.has("natural") ) return;
-      outcome.actorUpdates.items ||= [];
-      outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
-      outcome.statusText.push({text: "Disarmed!", fontSize: 64});
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.allSuccess ) continue;
+      const {mainhand} = target.equipment.weapons; // TODO - react to the prior action?
+      if ( !mainhand?.id || mainhand.properties.has("natural") ) continue;
+      this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: "Disarmed!", fontSize: 64}]});
     }
   }
 };
@@ -784,8 +809,12 @@ HOOKS.rest = {
 /* -------------------------------------------- */
 
 HOOKS.restrainingChomp = {
-  postActivate(outcome) {
-    if ( outcome.target.size > this.actor.size ) outcome.effects.length = 0;
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( target.size > this.actor.size ) {
+        for ( const event of events.all ) event.effects.length = 0;
+      }
+    }
   }
 };
 
@@ -797,12 +826,12 @@ HOOKS.revive = {
       if ( !target.actor.system.isDead ) target.error ??= `${this.name} requires a Dead target.`;
     }
   },
-  postActivate(outcome) {
-    if ( !outcome.self && outcome.rolls[0].isSuccess ) {
-      SYSTEM.ACTION.TAGS.harmless.postActivate(outcome);
-      outcome.resources = {
-        wounds: -this.actor.system.abilities.wisdom.value
-      };
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      const rollEvent = events.roll[0];
+      if ( !rollEvent?.roll.isSuccess ) continue;
+      SYSTEM.ACTION.TAGS.harmless.postActivate.call(this);
+      this.recordEvent({target, resources: [{resource: "wounds", delta: -this.actor.system.abilities.wisdom.value}]});
     }
   }
 };
@@ -818,36 +847,37 @@ HOOKS.ruthlessMomentum = {
 /* -------------------------------------------- */
 
 HOOKS.secondWind = {
-  confirm(reverse) {
-    const self = this.outcomes.get(this.actor);
-    self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
+  postActivate() {
+    const health = this.actor.system.abilities.toughness.value;
+    this.recordEvent({resources: [{resource: "health", delta: health}]});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.selfRepair = {
-  postActivate(outcome) {
-    outcome.resources.health = this.actor.abilities.toughness.value;
+  postActivate() {
+    const activation = this.events.find(e => e.type === "activation");
+    if ( activation ) activation.resources.push({resource: "health", delta: this.actor.abilities.toughness.value});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.affixActivating = {
-  postActivate(outcome) {
-    const tier = this.affix.system.tier.value;
-    outcome.resources.action = (outcome.resources.action || 0) + tier;
+  postActivate() {
+    const activation = this.events.find(e => e.type === "activation");
+    if ( activation ) activation.resources.push({resource: "action", delta: this.affix.system.tier.value});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.affixFocusing = {
-  postActivate(outcome) {
-    const tier = this.affix.system.tier.value;
-    const amount = 2 + (2 * tier);
-    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+  postActivate() {
+    const amount = 2 + (2 * this.affix.system.tier.value);
+    const activation = this.events.find(e => e.type === "activation");
+    if ( activation ) activation.resources.push({resource: "focus", delta: amount});
   }
 };
 
@@ -875,14 +905,13 @@ HOOKS.thrash = {
 /* -------------------------------------------- */
 
 HOOKS.threadTheNeedle = {
-  configure(targets) {
-    for ( const {actor: target} of targets ) {
-      const outcome = this.outcomes.get(target);
-      outcome.usage.boons ||= {};
-      if ( target.statuses.has("flanked") ) {
-        const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        outcome.usage.boons.flanked = {label: _loc("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
-      }
+  configure() {
+    // Grant flanked boons for ranged attacks (normally only melee gets flanking)
+    for ( const [actor] of this.targets ) {
+      if ( !actor.statuses.has("flanked") ) continue;
+      const ae = actor.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
+      this.usage.boons.flanked = {label: _loc("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
+      break; // Single target action
     }
   }
 };
@@ -903,11 +932,13 @@ HOOKS.tramplingCharge = {
     this.target.size = this.actor.size;
     this.range.maximum = this.actor.system.movement.stride * 2;
   },
-  postActivate(outcome) {
-    if ( outcome.self ) return;
+  postActivate() {
     const halfSize = Math.ceil(this.actor.size / 2);
-    const targetSize = outcome.target.size;
-    if ( targetSize > halfSize ) outcome.effects.length = 0;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( target.size > halfSize ) {
+        for ( const event of events.all ) event.effects.length = 0;
+      }
+    }
   }
 };
 
@@ -922,8 +953,9 @@ HOOKS.tuskCharge = {
 /* -------------------------------------------- */
 
 HOOKS.unshakeablePoise = {
-  postActivate(outcome) {
-    outcome.resources.focus = (outcome.resources.focus || 0) + this.actor.abilities.wisdom.value;
+  postActivate() {
+    const activation = this.events.find(e => e.type === "activation");
+    if ( activation ) activation.resources.push({resource: "focus", delta: this.actor.abilities.wisdom.value});
   }
 };
 
@@ -933,7 +965,7 @@ HOOKS.uppercut = {
   acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;
     for ( const target of targets ) {
-      if ( !lastAction?.outcomes.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
+      if ( !lastAction?.targets?.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
     }
   }
 };
@@ -957,12 +989,11 @@ HOOKS.vampiricBite = {
       hasDice: true
     });
   },
-  confirm(reverse) {
-    const self = this.outcomes.get(this.actor);
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome === self ) continue;
-      if ( outcome.rolls.some(r => r.isSuccess) ) {
-        self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
+  postActivate() {
+    const health = this.actor.system.abilities.toughness.value;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( events.isSuccess ) {
+        this.recordEvent({resources: [{resource: "health", delta: health}]});
       }
     }
   }
@@ -974,7 +1005,7 @@ HOOKS.wildStrike = {
   acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;
     for ( const target of targets ) {
-      if ( !lastAction?.outcomes.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
+      if ( !lastAction?.targets?.has(target.actor) ) target.error ??= `${this.name} must attack the same target as the Strike which it follows.`;
     }
     // TODO somehow require this to use a different weapon than the prior confirmed strike
   }

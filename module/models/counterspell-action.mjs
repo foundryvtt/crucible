@@ -67,7 +67,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _roll(outcome) {
+  async _roll(target, token) {
     // TODO: Ensure this is set earlier
     this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
     const {gesture: usedGesture, rune: usedRune} = this.usage.targetAction;
@@ -78,7 +78,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
       this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
     }
     if ( this.usage.targetAction.message ) this.usage.defenseType = "willpower";
-    await super._roll(outcome);
+    await super._roll(target, token);
   }
 
   /* -------------------------------------------- */

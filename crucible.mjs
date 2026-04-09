@@ -17,6 +17,7 @@ import * as documents from "./module/documents/_module.mjs";
 import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
+import {applyEmberPatches} from "./module/hooks/ember.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -557,6 +558,9 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
+  // Apply compatibility patches for Ember module hooks
+  applyEmberPatches();
+
   // Cull deprecated item properties that have been fully migrated
   const mv = game.settings.get("crucible", "migrationVersion");
   for ( const model of Object.values(CONFIG.Item.dataModels) ) {
@@ -942,16 +946,6 @@ async function syncWorldItems({equipment=true}={}) {
 /* -------------------------------------------- */
 
 /**
- * Fields preserved from the owned item during equipment sync because they represent per-instance state.
- * @type {string[]}
- * @private
- */
-const _EQUIPMENT_STATEFUL_FIELDS = [
-  "system.broken", "system.dropped", "system.enchantment", "system.equipped",
-  "system.invested", "system.loaded", "system.quantity", "system.slot"
-];
-
-/**
  * Build an update object that syncs a single equipment item with its upstream compendium source.
  * @param {CrucibleItem} item                         The owned item to sync
  * @param {Record<string, CrucibleItem>} index        The equipment compendium index keyed by identifier
@@ -959,14 +953,16 @@ const _EQUIPMENT_STATEFUL_FIELDS = [
  */
 function _migrateEquipmentItem(item, index) {
   if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
-  const upstream = index[item.system.identifier];
-  if ( !upstream ) return null;
-  const source = upstream.toObject();
-  const update = {_id: item.id, name: source.name, img: source.img, system: source.system};
-  for ( const field of _EQUIPMENT_STATEFUL_FIELDS ) {
-    const value = foundry.utils.getProperty(item, field);
-    if ( value !== undefined ) foundry.utils.setProperty(update, field, value);
+  const currentSource = item.toObject();
+  const upstreamSource = index[item.system.identifier]?.toObject();
+  if ( !upstreamSource ) return null;
+  const update = {_id: item.id, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
+  const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
+  for ( const field of stateFields ) {
+    const value = currentSource.system[field];
+    if ( value !== undefined ) foundry.utils.setProperty(update.system, field, value);
   }
+  update.system = _replace(update.system); // Force full replacement
   return update;
 }
 

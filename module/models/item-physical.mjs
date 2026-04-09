@@ -69,10 +69,11 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static AFFIXABLE = false;
 
   /**
-   * Which tags should be considered "stateful", appearing in the first row of tags in a tooltip.
+   * Which fields should be considered "stateful".
+   * This informs tag presentation as well as item snapshot or restoration.
    * @type {string[]}
    */
-  static STATEFUL_TAGS = ["equipped", "dropped", "invested"];
+  static STATEFUL_FIELDS = ["equipped", "dropped", "invested", "broken"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM"];
@@ -355,7 +356,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       stateful: {},
       permanent: this.getTags("full")
     };
-    for ( const tag of this.constructor.STATEFUL_TAGS ) {
+    for ( const tag of this.constructor.STATEFUL_FIELDS ) {
       if ( preparedTags.permanent[tag] ) {
         preparedTags.stateful[tag] = preparedTags.permanent[tag];
         delete preparedTags.permanent[tag];

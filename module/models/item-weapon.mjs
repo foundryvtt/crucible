@@ -19,6 +19,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   static ITEM_PROPERTIES = SYSTEM.WEAPON.PROPERTIES;
 
   /** @override */
+  static STATEFUL_FIELDS = ["slot", "broken", "invested", "dropped", "loaded"];
+
+  /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];
 
   /* -------------------------------------------- */
@@ -224,34 +227,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the effective weapon damage resulting from a weapon attack.
-   * @param {CrucibleActor} actor       The actor performing the attack action
-   * @param {CrucibleAction} action     The attack action being performed
-   * @param {CrucibleActor} target      The target of the attack action
-   * @param {AttackRoll} roll           The attack roll performed
-   * @returns {DamageData}              Damage data for the roll
-   */
-  getDamage(actor, action, target, roll) {
-    const resource = action.usage.resource || "health";
-    const type = action.usage.damageType || this.damageType;
-    let {weapon: base, bonus} = this.damage;
-    const multiplier = action.usage.bonuses.multiplier ?? 1;
-    bonus += (action.usage.bonuses.damageBonus ?? 0);
-    const resistance = target.getResistance(resource, type, false);
-
-    // Configure bonus damage
-    if ( actor.talentIds.has("weakpoints000000") && this.config.category.scaling.includes("dexterity")
-      && (["exposed", "flanked", "unaware"].some(s => target.statuses.has(s))) ) {
-      bonus += 2;
-    }
-
-    // Return prepare damage data
-    return {overflow: roll.overflow, multiplier, base, bonus, resistance, resource, type};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Identify which equipment slots are allowed for a certain weapon.
    * @returns {number[]}
    */
@@ -296,6 +271,21 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
 
     return scope === "short" ? {damage: tags.damage, range: tags.range} : tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Snapshot the stateful properties of this weapon at the time an Action is performed.
+   * Properties outside this list are assumed to be permanent attributes of the item and not stateful.
+   * @returns {CrucibleActionWeaponState}
+   */
+  snapshot() {
+    const source = this.toObject();
+    return this.constructor.STATEFUL_FIELDS.reduce((obj, field) => {
+      obj[field] = source[field];
+      return obj;
+    }, {id: this.parent.id});
   }
 
   /* -------------------------------------------- */

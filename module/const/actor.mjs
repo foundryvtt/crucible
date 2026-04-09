@@ -344,23 +344,23 @@ export const HOOKS = Object.freeze({
   },
   preActivateAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "targets"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "targets: ActionUseTarget[]"]
+    argNames: ["action"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
   },
   rollAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "target", "rolls"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: ActionUseTarget", "rolls: StandardCheck[]"]
+    argNames: ["action", "target", "token"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "token: CrucibleToken"]
   },
   finalizeAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome"]
+    argNames: ["action"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
   },
   confirmAction: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome", "options"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome", "options: object"]
+    argNames: ["action", "options"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"]
   },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GroupAction",
@@ -369,8 +369,8 @@ export const HOOKS = Object.freeze({
   },
   applyCriticalEffects: {
     group: "TALENT.HOOKS.GroupAction",
-    argNames: ["action", "outcome", "self"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "outcome: CrucibleActionOutcome", "self: boolean"]
+    argNames: ["action"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
   },
   defendAttack: {
     group: "TALENT.HOOKS.GroupAction",
@@ -385,7 +385,7 @@ export const HOOKS = Object.freeze({
   prepareAttack: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "target", "rollData"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: ActionUseTarget", "rollData: object"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "rollData: AttackRollData"]
   },
   prepareSkillCheck: {
     group: "TALENT.HOOKS.GroupAction",

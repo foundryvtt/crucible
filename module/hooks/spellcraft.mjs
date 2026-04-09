@@ -44,31 +44,29 @@ HOOKS.aspect = {
     // TODO enable aspect healing
     if ( this.damage.healing ) console.warn("Gesture: Aspect is not configured for healing Runes yet");
   },
-  postActivate(outcome) {
+  postActivate() {
 
-    // Curse: Apply vulnerability
+    // Curse: Apply vulnerability to targets
     if ( this.inflection?.id === "negate" ) {
-      if ( outcome.self || !outcome.rolls.some(r => r.isSuccess) ) return;
-      outcome.effects.push({
-        _id: SYSTEM.EFFECTS.getEffectId(`curse${this.damage.type}`),
-        name: this.name,
-        img: this.rune.img,
-        duration: {value: 6, units: "rounds", expiry: "turnEnd"},
-        origin: this.actor.uuid,
-        system: {
-          changes: [{
-            key: `system.resistances.${this.damage.type}.bonus`,
-            value: -2,
-            type: "add"
-          }]
-        }
-      });
+      for ( const [target, events] of this.eventsByTarget ) {
+        const rollEvent = events.roll.find(e => e.roll.isSuccess);
+        if ( !rollEvent ) continue;
+        rollEvent.effects.push({
+          _id: SYSTEM.EFFECTS.getEffectId(`curse${this.damage.type}`),
+          name: this.name,
+          img: this.rune.img,
+          duration: {value: 6, units: "rounds", expiry: "turnEnd"},
+          origin: this.actor.uuid,
+          system: {
+            changes: [{key: `system.resistances.${this.damage.type}.bonus`, value: -2, type: "add"}]
+          }
+        });
+      }
       return;
     }
 
     // Standard Aspect: buff the caster
-    if ( !outcome.self ) return;
-    outcome.effects.push({
+    this.recordEvent({type: "effect", effects: [{
       _id: SYSTEM.EFFECTS.getEffectId(`aspect${this.damage.type}`),
       name: this.name,
       img: this.gesture.img,
@@ -76,19 +74,11 @@ HOOKS.aspect = {
       origin: this.actor.uuid,
       system: {
         changes: [
-          {
-            key: `system.resistances.${this.damage.type}.bonus`,
-            value: 2,
-            type: "add"
-          },
-          {
-            key: `system.rollBonuses.damage.${this.damage.type}`,
-            value: 2,
-            type: "add"
-          }
+          {key: `system.resistances.${this.damage.type}.bonus`, value: 2, type: "add"},
+          {key: `system.rollBonuses.damage.${this.damage.type}`, value: 2, type: "add"}
         ]
       }
-    });
+    }]});
   }
 };
 
@@ -98,14 +88,13 @@ HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
   },
-  postActivate(outcome) {
-    if ( !outcome.self ) return;
-    outcome.effects.push({
+  postActivate() {
+    this.recordEvent({type: "effect", effects: [{
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       img: this.img,
       name: this.name,
       system: {}
-    });
+    }]});
   }
 };
 
@@ -115,10 +104,10 @@ HOOKS.conjure = {
   prepare() {
     prepareSummon.call(this, this.actor.system.advancement.threatLevel);
   },
-  postActivate(outcome) {
-    if ( !outcome.self ) return;
-    outcome.effects.push({
-      _id: outcome.summons[0].effectId,
+  postActivate() {
+    const summonEvent = this.events.find(e => e.type === "summon");
+    if ( summonEvent ) summonEvent.effects.push({
+      _id: summonEvent.summon.effectId,
       img: this.img,
       name: this.name,
       duration: {rounds: 12},
@@ -133,10 +122,10 @@ HOOKS.create = {
   prepare() {
     prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
   },
-  postActivate(outcome) {
-    if ( !outcome.self ) return;
-    outcome.effects.push({
-      _id: outcome.summons[0].effectId,
+  postActivate() {
+    const summonEvent = this.events.find(e => e.type === "summon");
+    if ( summonEvent ) summonEvent.effects.push({
+      _id: summonEvent.summon.effectId,
       img: this.img,
       name: this.name,
       duration: {rounds: 6},
@@ -168,14 +157,13 @@ HOOKS.sense = {
   initialize() {
     this.tags.add("maintained");
   },
-  postActivate(outcome) {
-    if ( !outcome.self ) return;
-    outcome.effects.push({
+  postActivate() {
+    this.recordEvent({type: "effect", effects: [{
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       img: this.img,
       name: this.name,
       system: {}
-    });
+    }]});
   }
 };
 
@@ -207,7 +195,7 @@ HOOKS.ward = {
     // TODO: Enable healing wards
     if ( this.damage.healing ) console.warn("Gesture: Ward is not configured for healing Runes yet");
   },
-  postActivate(outcome) {
+  postActivate() {
 
     // Configure Ward resistance amount
     // TODO: Move into its own talent hook
@@ -217,22 +205,16 @@ HOOKS.ward = {
     }
 
     // Configure active effect
-    outcome.effects.push({
+    this.recordEvent({type: "effect", effects: [{
       _id: SYSTEM.EFFECTS.getEffectId("ward"),
       name: this.name,
       img: this.gesture.img,
       duration: {rounds: 1},
       origin: this.actor.uuid,
       system: {
-        changes: [
-          {
-            key: `system.resistances.${this.damage.type}.bonus`,
-            value: resistance,
-            type: "add"
-          }
-        ]
+        changes: [{key: `system.resistances.${this.damage.type}.bonus`, value: resistance, type: "add"}]
       }
-    });
+    }]});
   }
 };
 

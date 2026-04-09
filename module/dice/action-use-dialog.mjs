@@ -158,7 +158,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
         name: fromUuidSync(actorUuid)?.name ?? "Unknown" // Shouldn't be possible, but just in case
       }));
     }
-    const targets = this.#regionTargets ?? this.action.acquireTargets({strict: false});
+    const targetMap = this.#regionTargets ?? this.action.acquireTargets({strict: false});
+    const targets = Array.from(targetMap.values());
     for ( const t of targets ) {
       t.cssClass = t.error ? "unmet" : "";
       t.tooltip = t.error ?? null;
@@ -285,8 +286,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Build the onChange callback - fires after each position update with fresh constraints
     const onChange = ({action=previewAction, document}) => {
       Object.defineProperty(action, "region", {value: document, configurable: true});
-      const targets = this.#regionTargets = action.acquireTargets({strict: false});
-      if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token.id));
+      this.#regionTargets = action.acquireTargets({strict: false});
+      if ( this.#regionTargets.size ) canvas.tokens.setTargets(Array.from(this.#regionTargets.values()).map(t => t.token.id));
       else canvas.tokens.setTargets([]);
     };
 
@@ -535,9 +536,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
 
     // Acquire targets from the planned movement path and highlight on canvas
-    const targets = this.action.acquireTargets({strict: false});
-    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
-    else canvas.tokens.setTargets([]);
+    this.action.acquireTargets({strict: false});
+    const targetTokenIds = Array.from(this.action.targets.values()).map(t => t.token?.id).filter(Boolean);
+    canvas.tokens.setTargets(targetTokenIds);
     await this.render();
   }
 
@@ -559,9 +560,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const foundPath = plannedMovement.foundPath;
     const previewMovement = {origin: foundPath[0], waypoints: foundPath.slice(1)};
     Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
-    const targets = this.#previewMovementAction.acquireTargets({strict: false});
-    if ( targets.length ) canvas.tokens.setTargets(targets.map(t => t.token?.id).filter(Boolean));
-    else canvas.tokens.setTargets([]);
+    this.#previewMovementAction.acquireTargets({strict: false});
+    const targetTokenIds = Array.from(this.#previewMovementAction.targets.values()).map(t => t.token?.id).filter(Boolean);
+    canvas.tokens.setTargets(targetTokenIds);
   }
 
   /* -------------------------------------------- */

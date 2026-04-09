@@ -122,13 +122,13 @@ export const ACTION_HOOKS = Object.freeze({
     async: true
   },
   roll: {
-    argNames: ["outcome"],
-    argLabels: ["this: CrucibleAction", "outcome: CrucibleActionOutcome"],
+    argNames: ["target", "token"],
+    argLabels: ["this: CrucibleAction", "target: CrucibleActor", "token: CrucibleTokenObject"],
     async: true
   },
   postActivate: {
-    argNames: ["outcome"],
-    argLabels: ["this: CrucibleAction", "outcome: CrucibleActionOutcome"],
+    argNames: [],
+    argLabels: ["this: CrucibleAction"],
     async: true
   },
   confirm: {

@@ -304,8 +304,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /* -------------------------------------------- */
 
-  async _preActivate(targets) {
-    await super._preActivate(targets);
+  async _preActivate() {
+    await super._preActivate();
     // By the time we are on the far side of the spell cast configuration window, the spell must be fully composed
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
       throw new Error(_loc("SPELL.WARNINGS.CannotUseNotComposed"));
@@ -389,8 +389,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async configure(targets) {
-    const result = await super.configure(targets);
+  async configure() {
+    const result = await super.configure();
     this.updateSource({composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     return result;
   }

@@ -109,7 +109,7 @@ HOOKS.reliable = {
 /* -------------------------------------------- */
 
 HOOKS.returning = {
-  preActivateAction(item, action, _targets) {
+  preActivateAction(item, action) {
     const updates = action.usage.actorUpdates.items;
     if ( !updates ) return;
     const update = updates.find(u => (u._id === item.id) && u.system?.dropped);

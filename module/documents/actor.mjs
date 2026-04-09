@@ -64,7 +64,7 @@ export default class CrucibleActor extends Actor {
    */
   get combatant() {
     const combatants = game.combat?.getCombatantsByActor(this);
-    return combatants.length === 1 ? combatants[0] : null;
+    return combatants?.length === 1 ? combatants[0] : null;
   }
 
   /**
@@ -303,13 +303,14 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Configure a standard set of boons and banes conditional on the actor of an Action.
-   * @param {CrucibleAction} action
-   * @param {CrucibleActionOutcome} outcome
+   * Configure attack roll options contributed by the acting actor based on their status conditions.
+   * @param {CrucibleAction} action                 The action being performed
+   * @param {CrucibleActor} target                  The target actor being attacked
+   * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureActorOutcome(action, outcome) {
-    const {boons, banes} = outcome.usage;
+  _configureAttackerRollData(action, target, rollData) {
+    const {boons, banes} = rollData;
     const {isAttack=false} = action.usage;
     const statuses = CONFIG.statusEffects;
 
@@ -333,18 +334,23 @@ export default class CrucibleActor extends Actor {
       if ( id in banes ) banes[id].number = Math.max(banes[id].number, bane.number);
       else banes[id] = bane;
     }
+
+    // Call attacker hooks
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareAttack", action, target, rollData);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Configure a standard set of boons and banes conditional on the target of an Action.
-   * @param {CrucibleAction} action
-   * @param {CrucibleActionOutcome} outcome
+   * Configure attack roll options contributed by the target actor based on their status conditions.
+   * @param {CrucibleAction} action                 The action being performed
+   * @param {CrucibleActor} actor                   The actor performing the action
+   * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureTargetOutcome(action, outcome) {
-    const {boons, banes} = outcome.usage;
+  _configureTargetRollData(action, actor=null, rollData) {
+    const {boons, banes} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
 
@@ -363,6 +369,9 @@ export default class CrucibleActor extends Actor {
         boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
+
+    // Call defender hooks (skipped for hazards where there is no attacker)
+    if ( actor ) this.callActorHooks("defendAttack", action, actor, rollData);
   }
 
   /* -------------------------------------------- */
@@ -624,23 +633,20 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+
   /**
-   * Perform a spell attack as part of an action outcome.
-   * @param {CrucibleSpellAction} spell
-   * @param {CrucibleActionOutcome} outcome
+   * Perform a spell attack as part of an action.
+   * @param {CrucibleSpellAction} spell               The spell action being performed
+   * @param {CrucibleActor} target                    The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]       Per-attack options that override action-level defaults
    * @returns {Promise<AttackRoll|null>}
    */
-  async spellAttack(spell, outcome) {
+  async spellAttack(spell, target, options={}) {
     if ( !spell.usage.hasDice ) return null;
-    const target = outcome.target;
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
 
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const boons = {...spell.usage.boons, ...outcome.usage.boons};
-    const banes = {...spell.usage.banes, ...outcome.usage.banes};
-    const defenseType = outcome.usage.defenseType || spell.usage.defenseType;
-
-    // Prepare Roll Data
+    // Coalesce AttackRollData from spell usage and per-attack options
+    const defenseType = options.defenseType || spell.usage.defenseType;
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
@@ -648,33 +654,35 @@ export default class CrucibleActor extends Actor {
       ability: this.getAbilityBonus(spell.scaling),
       skill: 0,
       enchantment: 0,
-      banes, boons,
+      boons: {...spell.usage.boons, ...options.boons},
+      banes: {...spell.usage.banes, ...options.banes},
       defenseType,
-      dc: target.defenses[defenseType].total
+      dc: target.defenses[defenseType].total,
+      resource: options.resource || spell.rune.resource,
+      damageType: options.damageType || spell.damage.type,
+      damageBonus: options.damageBonus || spell.damage.bonus || 0,
+      multiplier: options.multiplier || spell.damage.multiplier || 1
     };
 
-    // Call talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", spell, target, rollData);
-    target.callActorHooks("defendAttack", spell, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(spell, target, rollData);
+    target._configureTargetRollData(spell, this, rollData);
 
-    // Create the Attack Roll instance
+    // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
-
-    // Evaluate the result and record the result
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(defenseType, roll);
+    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Structure damage
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
-      multiplier: spell.damage.multiplier ?? 1,
+      multiplier: rollData.multiplier,
       base: spell.damage.base,
-      bonus: (spell.damage.bonus ?? 0) + (this.system.rollBonuses.damage?.[spell.damage.type] ?? 0),
-      resistance: target.getResistance(spell.rune.resource, spell.damage.type, spell.damage.restoration),
-      resource: spell.rune.resource,
-      type: spell.damage.type,
+      bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
+      resistance: target.getResistance(rollData.resource, rollData.damageType, spell.damage.restoration),
+      resource: rollData.resource,
+      type: rollData.damageType,
       restoration: spell.damage.restoration
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -699,35 +707,50 @@ export default class CrucibleActor extends Actor {
   /**
    * Cause this actor to receive the effects of an Action.
    * This is used for cases like environmental hazards where the incoming action is not caused by a specific Actor.
-   * @param {CrucibleAction} action
+   * @param {CrucibleAction} action                   The action being received
+   * @param {Partial<AttackRollData>} [options]       Per-attack options that override action-level defaults
    * @returns {Promise<AttackRoll>}
    */
-  async receiveAttack(action) {
+  async receiveAttack(action, options={}) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {banes, bonuses, boons, damageType, defenseType, resource} = action.usage;
-    const roll = new AttackRoll({
+    const {bonuses} = action.usage;
+
+    // Coalesce AttackRollData from action usage and per-attack options
+    const defenseType = options.defenseType || action.usage.defenseType;
+    const rollData = {
       actorId: this.id,
       target: this.uuid,
       ability: bonuses.ability,
       skill: bonuses.skill,
       enchantment: bonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: this.defenses[defenseType].total,
-      banes, boons
-    });
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || action.usage.damageType,
+      damageBonus: options.damageBonus || 0,
+      multiplier: options.multiplier || 1
+    };
+
+    // Target configuration and hooks (no attacker for hazards)
+    this._configureTargetRollData(action, null, rollData);
+
+    // Create and evaluate the AttackRoll instance
+    const roll = new AttackRoll(rollData);
     await roll.evaluate();
 
     // Structure damage result
-    const r = roll.data.result = this.testDefense(defenseType, roll);
+    const r = roll.data.result = this.testDefense(rollData.defenseType, roll);
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
-      multiplier: 1,
+      multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
-      bonus: 0,
-      resistance: this.getResistance(resource, damageType),
-      type: damageType,
-      resource: resource,
+      bonus: rollData.damageBonus,
+      resistance: this.getResistance(rollData.resource, rollData.damageType),
+      type: rollData.damageType,
+      resource: rollData.resource,
       restoration: false
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -738,56 +761,58 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform a Skill Attack targeting a specific creature.
-   * @param {CrucibleAction} action           The Skill Attack action being performed
-   * @param {CrucibleActionOutcome} outcome   The outcome this attack belongs to
-   * @returns {Promise<AttackRoll|null>}      A created AttackRoll instance or null
+   * @param {CrucibleAction} action                       The Skill Attack action being performed
+   * @param {CrucibleActor} target                        The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]           Per-attack options that override action-level defaults
+   * @returns {Promise<AttackRoll|null>}                  A created AttackRoll instance or null
    */
-  async skillAttack(action, outcome) {
-    const target = outcome.target;
+  async skillAttack(action, target, options={}) {
+    const {bonuses, restoration, skillId} = action.usage;
 
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const {bonuses, damageType, restoration, resource, skillId} = action.usage;
-    const boons = {...action.usage.boons, ...outcome.usage.boons};
-    const banes = {...action.usage.banes, ...outcome.usage.banes};
-    let defenseType = outcome.usage.defenseType || action.usage.defenseType;
+    // Coalesce AttackRollData from action usage and per-attack options
+    let defenseType = options.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
     else {
       defenseType = skillId;
       dc = action.usage.dc ?? target.skills[skillId].passive;
     }
-
-    // Prepare Roll data
-    const rollData = Object.assign({}, bonuses, {
+    const rollData = {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
-      boons,
-      banes,
+      ability: bonuses.ability,
+      skill: bonuses.skill,
+      enchantment: bonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
-      dc
-    });
+      dc,
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || action.usage.damageType,
+      damageBonus: options.damageBonus || bonuses.damageBonus || 0,
+      multiplier: options.multiplier || bonuses.multiplier || 1
+    };
 
-    // Apply talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(action, target, rollData);
+    target._configureTargetRollData(action, this, rollData);
 
     // Create and evaluate the skill attack roll
-    const roll = new game.system.api.dice.AttackRoll(rollData);
+    const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(defenseType, roll);
+    roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Create resulting damage
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: bonuses.multiplier,
+        multiplier: rollData.multiplier,
         base: bonuses.base ?? 0,
-        bonus: bonuses.damageBonus,
-        resistance: target.getResistance(resource, damageType, restoration),
-        type: damageType,
-        resource: resource,
+        bonus: rollData.damageBonus,
+        resistance: target.getResistance(rollData.resource, rollData.damageType, restoration),
+        type: rollData.damageType,
+        resource: rollData.resource,
         restoration
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -800,50 +825,59 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform an Action which makes an attack using a Weapon.
-   * @param {CrucibleAction} action         The action being performed
-   * @param {CrucibleItem} [weapon]         The weapon used in the attack
-   * @param {CrucibleActionOutcome} outcome The action outcome this attack belongs to
-   * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
+   * @param {CrucibleAction} action                         The action being performed
+   * @param {CrucibleItem} weapon                           The weapon used in the attack
+   * @param {CrucibleActor} target                          The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]     Per-attack options that override action-level defaults
+   * @returns {Promise<AttackRoll|null>}                    An evaluated attack roll, or null if no attack is performed
    */
-  async weaponAttack(action, weapon, outcome) {
+  async weaponAttack(action, weapon, target, options={}) {
     if ( !(weapon instanceof crucible.api.documents.CrucibleItem) || (weapon?.type !== "weapon") ) {
       throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
     }
-    const target = outcome.target;
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const boons = {...action.usage.boons, ...outcome.usage.boons};
-    const banes = {...action.usage.banes, ...outcome.usage.banes};
-    const defenseType = outcome.usage.defenseType || action.usage.defenseType || "physical";
 
-    // Compose roll data
-    const {ability, skill, enchantment} = weapon.system.actionBonuses;
+    // Coalesce CrucibleAttackRollOptions with CrucibleAction#usage to construct roll data
+    const {actionBonuses, damage} = weapon.system;
+    const defenseType = options.defenseType || action.usage.defenseType || "physical";
     const rollData = {
       actorId: this.id,
       itemId: weapon.id,
       target: target.uuid,
-      ability,
-      skill,
-      enchantment,
-      banes, boons,
+      ability: actionBonuses.ability,
+      skill: actionBonuses.skill,
+      enchantment: actionBonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: target.defenses[defenseType].total,
-      criticalSuccessThreshold: weapon.system.damage.criticalSuccessThreshold,
-      criticalFailureThreshold: weapon.system.damage.criticalFailureThreshold
+      criticalSuccessThreshold: damage.criticalSuccessThreshold,
+      criticalFailureThreshold: damage.criticalFailureThreshold,
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || weapon.system.damageType,
+      damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
+      multiplier: options.multiplier || action.usage.bonuses.multiplier || 1
     };
 
-    // Call talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(action, target, rollData);
+    target._configureTargetRollData(action, this, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(defenseType, roll);
+    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Structure damage
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = weapon.system.getDamage(this, action, target, roll);
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: rollData.multiplier,
+      base: weapon.system.damage.weapon,
+      bonus: weapon.system.damage.bonus + rollData.damageBonus,
+      resistance: target.getResistance(rollData.resource, rollData.damageType, false),
+      resource: rollData.resource,
+      type: rollData.damageType
+    };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
 
     // Finalize the attack and return
@@ -1061,49 +1095,22 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-  /*  Action Outcome Management                   */
+  /*  Action Event Management                     */
   /* -------------------------------------------- */
 
   /**
-   * Deal damage to a target. This method requires ownership of the target Actor.
-   * Applies resource changes to both the initiating Actor and to affected Targets.
-   * @param {CrucibleAction} action             The Action being applied
-   * @param {CrucibleActionOutcome} outcome     The Action outcome
-   * @param {object} [options]                  Options which affect how damage is applied
-   * @param {boolean} [options.reverse]           Reverse damage instead of applying it
-   */
-  async applyActionOutcome(action, outcome, {reverse=false}={}) {
-    const wasWeakened = this.system.isWeakened;
-    const wasBroken = this.system.isBroken;
-    const wasIncapacitated = this.isIncapacitated;
-
-    // Call outcome confirmation actor hooks
-    this.callActorHooks("confirmAction", action, outcome, {reverse});
-
-    // Apply changes to the Actor
-    await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse, statusText: outcome.statusText});
-    await this.#applyOutcomeEffects(outcome, reverse);
-
-    // Record target state changes
-    if ( this.system.isWeakened && !wasWeakened ) outcome.weakened = true;
-    if ( this.system.isBroken && !wasBroken ) outcome.broken = true;
-    if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply or reverse ActiveEffect changes occurring through an action outcome.
-   * @param {CrucibleActionOutcome} outcome     The action outcome
-   * @param {boolean} reverse                   Reverse the effects instead of applying them?
+   * Apply or reverse ActiveEffect changes from an action's event stream.
+   * @param {ActionEffect[]} effects            The effect data array to apply
+   * @param {boolean} [reverse=false]           Reverse the effects instead of applying them?
    * @returns {Promise<void>}
+   * @internal
    */
-  async #applyOutcomeEffects(outcome, reverse=false) {
-    if ( !outcome.effects.length ) return;
+  async _applyActionEffects(effects, reverse=false) {
+    if ( !effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
-    for ( const effectData of outcome.effects ) {
+    for ( const effectData of effects ) {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
@@ -1126,16 +1133,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Additional steps taken when this Actor deals damage to other targets.
    * @param {CrucibleAction} action                The action performed
-   * @param {CrucibleActionOutcomes} outcomes      The action outcomes that occurred
+   * @internal
    */
-  onDealDamage(action, outcomes) {
-    const self = outcomes.get(this);
-    for ( const outcome of outcomes.values() ) {
-      if ( outcome === self ) continue;
-      if ( outcome.criticalSuccess ) {
-        this.callActorHooks("applyCriticalEffects", action, outcome, self);
-      }
-    }
+  _onDealDamage(action) {
+    this.callActorHooks("applyCriticalEffects", action);
   }
 
   /* -------------------------------------------- */

@@ -200,8 +200,8 @@ export const TAG_CATEGORIES = Object.freeze({
  * @property {(this: CrucibleAction) => void} [prepare]
  * @property {(this: CrucibleAction) => void} [canUse]
  * @property {(this: CrucibleAction, targets: ActionUseTarget[]) => void} [preActivate]
- * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [postActivate]
- * @property {(this: CrucibleAction, outcome: CrucibleActionOutcome) => void} [roll]
+ * @property {(this: CrucibleAction) => void} [postActivate]
+ * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
  */
 
@@ -337,9 +337,9 @@ export const TAGS = {
       if ( lastAction?.id !== "strike" ) {
         throw new Error(_loc("ACTION.WARNINGS.MustFollowStrike", {action: this.name}));
       }
-      for ( const outcome of lastAction.outcomes.values() ) {
-        if ( outcome.target === this.actor ) continue;
-        if ( outcome.rolls.some(r => r.isCriticalFailure) ) {
+      for ( const [actor, events] of lastAction.eventsByActor ) {
+        if ( actor === this.actor ) continue;
+        if ( events.isCriticalFailure ) {
           throw new Error(_loc("ACTION.WARNINGS.LastCriticallyMissed", {action: this.name}));
         }
       }
@@ -363,11 +363,10 @@ export const TAGS = {
     label: "ACTION.TAG.Auditory",
     tooltip: "ACTION.TAG.AuditoryTooltip",
     category: "requirements",
-    preActivate(targets) {
+    preActivate() {
       // Remove targets which are deafened
-      for ( let i=targets.length-1; i>=0; i-- ) {
-        const t = targets[i];
-        if ( t.actor.statuses.has("deafened") ) targets.splice(i, 1);
+      for ( const [actor] of this.targets ) {
+        if ( actor.statuses.has("deafened") ) this.targets.delete(actor);
       }
     }
   },
@@ -469,9 +468,9 @@ export const TAGS = {
     prepare() {
       this.usage.actorStatus.hasCast = true;
     },
-    async roll(outcome) {
-      const roll = await this.actor.spellAttack(this, outcome);
-      if ( roll ) outcome.rolls.push(roll);
+    async roll(target) {
+      const roll = await this.actor.spellAttack(this, target);
+      if ( roll ) this.recordEvent({type: "spell", target, roll});
     }
   },
 
@@ -512,25 +511,30 @@ export const TAGS = {
         throw new Error(_loc("ACTION.WARNINGS.MisconfiguredSummon", { action: this.name }));
       }
     },
-    async postActivate(outcome) {
-      if ( (outcome.target !== this.actor) || !outcome.summons?.length ) return;
-      for ( const summon of outcome.summons ) {
+    async postActivate() {
+      const summonEvents = this.events.filter(e => e.type === "summon");
+      if ( !summonEvents.length ) return;
+      const effectEvents = this.events.filter(e => (e.target === this.actor) && e.effects.length);
+      for ( const event of summonEvents ) {
         const position = this.region?.shapes[0] || this.token;
-        summon.tokenData ||= {};
-        summon.tokenData.x ??= position.x;
-        summon.tokenData.y ??= position.y;
-        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
+        event.summon.tokenData ||= {};
+        event.summon.tokenData.x ??= position.x;
+        event.summon.tokenData.y ??= position.y;
+        if ( (event.summon.permanent === false) && !effectEvents.length ) {
+          throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
+        }
       }
     },
     async confirm(reverse) {
       if ( reverse ) return; // TODO support reverse
       if ( !this.token ) return; // No token acting  TODO eventually this shouldn't be required?
-      const self = this.outcomes.get(this.actor);
-      if ( !self.summons?.length ) return;
+      const summonEvents = this.events.filter(e => e.type === "summon");
+      if ( !summonEvents.length ) return;
 
       // Create summoned tokens
       const summonedTokens = [];
-      for ( const summon of self.summons ) {
+      for ( const event of summonEvents ) {
+        const summon = event.summon;
 
         // Get or create a world level Actor for the summons
         const sourceActor = await fromUuid(summon.actorUuid);
@@ -575,8 +579,9 @@ export const TAGS = {
         }
       }
 
-      // Update Active Effect
-      const ae = self.effects?.[0];
+      // Update Active Effect with summoned token UUIDs
+      const effectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      const ae = effectEvent?.effects[0];
       if ( ae ) ae.system.summons = summonedTokens;
     }
   },
@@ -667,14 +672,14 @@ export const TAGS = {
         this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
       }
     },
-    async roll(outcome) {
+    async roll(target) {
       for ( const [i, weapon] of this.usage.strikes.entries() ) {
-        const roll = await this.actor.weaponAttack(this, weapon, outcome);
-        roll.data.strike = i; // TODO handle this better?
-        outcome.rolls.push(roll);
+        const roll = await this.actor.weaponAttack(this, weapon, target);
+        roll.data.strike = i;
+        this.recordEvent({type: "strike", target, roll, weapon: weapon.system.snapshot()});
       }
     },
-    preActivate(_targets) {
+    preActivate() {
       for ( const w of this.usage.strikes ) {
         if ( w.config.category.reload ) {
           this.usage.actorUpdates.items ||= [];
@@ -789,7 +794,7 @@ export const TAGS = {
       this.range.maximum ??= 10;
       this.range.weapon = false;
     },
-    preActivate(_targets) {
+    preActivate() {
       if ( !this.usage.strikes?.length ) return;
       for ( const weapon of this.usage.strikes ) {
         if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
@@ -829,11 +834,11 @@ export const TAGS = {
       this.usage.bonuses.ability = this.usage.hazard;
       this.usage.bonuses.base = 1;
     },
-    async roll(outcome) {
+    async roll(target) {
       const n = this.target.multiple ?? 1;
-      for ( let i=0; i<n; i++ ) {
-        const roll = await outcome.target.receiveAttack(this);
-        outcome.rolls.push(roll);
+      for ( let i = 0; i < n; i++ ) {
+        const roll = await target.receiveAttack(this);
+        this.recordEvent({type: "strike", target, roll});
       }
     }
   },
@@ -855,9 +860,8 @@ export const TAGS = {
       this.usage.resource ??= "health";
       this.usage.damageType ??= "void";
     },
-    async roll(outcome) {
-      const {bonuses, damageType, defenseType, resource} = this.usage; // TODO outcome.usage?
-      const target = outcome.target;
+    async roll(target) {
+      const {bonuses, damageType, defenseType, resource} = this.usage;
 
       // Create and evaluate a generic roll
       const roll = new AttackRoll({
@@ -886,7 +890,7 @@ export const TAGS = {
         };
         roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
       }
-      outcome.rolls.push(roll);
+      this.recordEvent({type: "strike", target, roll});
     }
   },
 
@@ -919,14 +923,12 @@ export const TAGS = {
     label: "ACTION.TAG.Disarm",
     tooltip: "ACTION.TAG.DisarmTooltip",
     category: "special",
-    postActivate(outcome) {
-      if ( outcome.target === this.actor ) return;
-      if ( outcome.rolls.every(r => r.isSuccess) ) {
-        const {mainhand} = outcome.target.equipment.weapons; // TODO - allow usage customization?
-        if ( !mainhand?.id ) return;
-        outcome.actorUpdates.items ||= [];
-        outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
-        outcome.statusText.push({text: _loc("ACTOR.DisarmedStatus"), fontSize: 64});
+    postActivate() {
+      for ( const [target, events] of this.eventsByTarget ) {
+        if ( !events.allSuccess ) continue;
+        const {mainhand} = target.equipment.weapons; // TODO - allow usage customization?
+        if ( !mainhand?.id ) continue;
+        this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]});
       }
     }
   },
@@ -978,11 +980,11 @@ export const TAGS = {
     label: "ACTION.TAG.Harmless",
     tooltip: "ACTION.TAG.HarmlessTooltip",
     category: "modifiers",
-    async postActivate(outcome) {
-      for ( const roll of outcome.rolls ) {
-        if ( roll.data.damage ) {
-          roll.data.damage.base = roll.data.damage.total = 0;
-          roll.data.damage.harmless = true;
+    postActivate() {
+      for ( const event of this.events ) {
+        if ( event.roll?.data.damage ) {
+          event.roll.data.damage.base = event.roll.data.damage.total = 0;
+          event.roll.data.damage.harmless = true;
         }
       }
     }
@@ -1002,17 +1004,17 @@ export const TAGS = {
     label: "ACTION.TAG.Severe",
     tooltip: "ACTION.TAG.SevereTooltip",
     category: "modifiers",
-    async postActivate(outcome) {
-      const targetResources = outcome.target?.system?.resources;
-      if ( !targetResources ) return;
-      for ( const roll of outcome.rolls ) {
-        if ( !roll.data.damage ) continue;
-        const resource = roll.data.damage.resource ?? "health";
+    postActivate() {
+      for ( const event of this.events ) {
+        if ( !event.roll?.data.damage ) continue;
+        const targetResources = event.target?.system?.resources;
+        if ( !targetResources ) continue;
+        const resource = event.roll.data.damage.resource ?? "health";
         if ( (resource === "health") && ("wounds" in targetResources) ) {
-          roll.data.damage.resource = "wounds";
+          event.roll.data.damage.resource = "wounds";
         }
         else if ( (resource === "morale") && ("madness" in targetResources) ) {
-          roll.data.damage.resource = "madness";
+          event.roll.data.damage.resource = "madness";
         }
       }
     }
@@ -1091,11 +1093,11 @@ export const TAGS = {
     label: "ACTION.TAG.Maintained",
     tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
-    async postActivate(outcome) {
-      if ( !outcome.self ) return;
-      const maintainedEffectData = outcome.effects[0];
+    postActivate() {
+      const selfEffectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      if ( !selfEffectEvent ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
-      maintainedEffectData.system.maintenance = {cost: maintainedCost};
+      selfEffectEvent.effects[0].system.maintenance = {cost: maintainedCost};
     }
   },
 
@@ -1119,23 +1121,23 @@ export const TAGS = {
       if ( this.id === "move" ) this.cost.action = cost; // Standard movement cost
       else this.cost.action += cost; // Add movement cost to this action's base cost (0 if free move was consumed)
     },
-    postActivate(outcome) {
-      if ( !outcome.self ) return;
+    postActivate() {
+      const actorUpdateEvent = this.events.find(e => (e.target === this.actor) && (e.type === "actorUpdate"));
+      if ( !actorUpdateEvent ) return;
+      const status = actorUpdateEvent.actorUpdates.system.status;
       const {freeMove} = this.usage;
-      const status = outcome.actorUpdates.system.status;
       if ( this.movement?.id ) {
-        outcome.movement = this.movement.id;
+        this.recordEvent({type: "other", target: this.actor, movement: this.movement.id});
         if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
     },
     async confirm(reverse) {
-      const self = this.outcomes.get(this.actor);
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
 
       // Determine whether a planned movement is still pending for this action.
-      // The token's current movement must still match the stored ID and bi in "planned" state to be valid.
-      const movementId = self.movement;
+      const movementEvent = this.events.find(e => e.movement);
+      const movementId = movementEvent?.movement;
       const isPlanned = !!movementId && (this.token.movement?.id === movementId)
         && (this.token.movement?.state === "planned");
 
@@ -1144,7 +1146,10 @@ export const TAGS = {
         if ( isPlanned ) await this.token.stopMovement();
         else if ( movementId ) await this.token.revertRecordedMovement(movementId);
         if ( movementId === this.actor.system.status.freeMovementId ) {
-          Object.assign(self.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
+          const actorUpdateEvent = this.events.find(e => (e.target === this.actor) && (e.type === "actorUpdate"));
+          if ( actorUpdateEvent ) {
+            Object.assign(actorUpdateEvent.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
+          }
         }
         return;
       }
@@ -1258,9 +1263,9 @@ for ( const {id, abilities, label} of Object.values(SKILLS) ) {
       Object.assign(this.usage.context, {type: "skill", label: "Skill Tags", icon: "fa-solid fa-cogs"});
       this.usage.context.tags.skill = SKILLS[id].label;
     },
-    async roll(outcome) {
-      const roll = await this.actor.skillAttack(this, outcome);
-      outcome.rolls.push(roll);
+    async roll(target) {
+      const roll = await this.actor.skillAttack(this, target);
+      this.recordEvent({type: "check", target, roll});
     }
   };
 }
