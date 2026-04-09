@@ -17,7 +17,7 @@ export const RUNES = {
     damageType: "psychic",
     opposed: "kinesis",
     defense: "willpower",
-    scaling: "intellect",
+    scaling: "wisdom",
     nameFormat: NAME_FORMATS.NOUN
   },
   death: {
@@ -387,8 +387,7 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
-      type: "ray",
-      size: 1
+      type: "movement"
     }
   },
   strike: {

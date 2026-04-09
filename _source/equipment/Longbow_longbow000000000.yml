@@ -12,8 +12,7 @@ system:
   quality: standard
   enchantment: mundane
   equipped: false
-  properties:
-    - reach
+  properties: []
   description:
     public: >-
       <p>A tall, self-bow often taller than the archer who draws it, the longbow
@@ -32,11 +31,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749827058086
-  modifiedTime: 1766097022534
+  modifiedTime: 1773514792276
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0

@@ -17,6 +17,7 @@ import * as documents from "./module/documents/_module.mjs";
 import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
+import {applyEmberPatches} from "./module/hooks/ember.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -40,7 +41,6 @@ Hooks.once("init", async function() {
   crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
   crucible.developmentMode = game.data.options.debug;
-  crucible.vfxEnabled = !!game.modules.get("foundryvtt-vfx")?.active;
 
   // Expose the system API
   crucible.api = {
@@ -57,7 +57,7 @@ Hooks.once("init", async function() {
       resetAllActorTalents,
       standardizeItemIds,
       syncOwnedItems,
-      syncEquipmentPrices
+      syncWorldItems
     },
     talents: {
       CrucibleTalentNode,
@@ -130,9 +130,14 @@ Hooks.once("init", async function() {
   // Active Effect document configuration
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
   CONFIG.ActiveEffect.dataModels = {
+    affix: models.CrucibleAffixActiveEffect,
     base: models.CrucibleBaseActiveEffect,
     flanked: models.CrucibleFlankedActiveEffect
   };
+  Object.assign(CONFIG.ActiveEffect, {
+    compendiumIndexFields: ["system.identifier", "system.affixType"],
+    expiryAction: "delete"
+  });
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -174,10 +179,12 @@ Hooks.once("init", async function() {
     if ( foundry.utils.isSubclass(model, models.CruciblePhysicalItem) ) {
       SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.add(type);
       if ( model.EQUIPABLE ) SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.add(type);
+      if ( model.AFFIXABLE ) SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES.add(type);
     }
   }
   Object.freeze(SYSTEM.ITEM.PHYSICAL_ITEM_TYPES);
   Object.freeze(SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES);
+  Object.freeze(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES);
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
@@ -216,6 +223,8 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, "crucible", applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
   sheets.registerSheet(Item, "crucible", applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
   sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+
+  sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleAffixEffectSheet, {types: ["affix"], label: "CRUCIBLE.SHEETS.Affix", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
@@ -261,6 +270,7 @@ Hooks.once("init", async function() {
 
   // Queries
   CONFIG.queries.requestSkillCheck = dice.StandardCheck.handle.bind(dice.StandardCheck);
+  CONFIG.queries.requestGroupCheck = dice.GroupCheck.handle.bind(dice.GroupCheck);
   CONFIG.queries.requestCounterspell = ({actorUuid, ...options}) => {
     return models.CrucibleCounterspellAction.prompt(actorUuid, options);
   };
@@ -284,6 +294,15 @@ Hooks.once("init", async function() {
       1: "SETTINGS.AutoConfirmSelf",
       2: "SETTINGS.AutoConfirmAll"
     }
+  });
+
+  game.settings.register("crucible", "enableVFX", {
+    name: "SETTINGS.EnableVFXName",
+    hint: "SETTINGS.EnableVFXHint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true
   });
 
   // Migration Required Version
@@ -332,7 +351,7 @@ Hooks.once("init", async function() {
         if (pack.metadata.type !== documentType) continue;
         for (const item of pack.index) {
           if (!type || item.type === type) {
-            let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
+            let group = `${_loc(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
             if ( pack.metadata.packageType === "system" ) group += game.system.title;
             else if ( pack.metadata.packageType === "world" ) group += game.world.title;
             else group += game.modules.get(pack.metadata.packageName).title;
@@ -358,6 +377,7 @@ Hooks.once("init", async function() {
     scope: "world",
     config: false,
     type: new fields.SchemaField({
+      affix: fieldForType("ActiveEffect", "affix"),
       ancestry: fieldForType("Item", "ancestry"),
       background: fieldForType("Item", "background"),
       equipment: fieldForType("Item", null, "equipment"),
@@ -365,6 +385,7 @@ Hooks.once("init", async function() {
       talent: fieldForType("Item", "talent")
     }),
     default: {
+      affix: [SYSTEM.COMPENDIUM_PACKS.affix],
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
       background: [SYSTEM.COMPENDIUM_PACKS.background],
       equipment: [SYSTEM.COMPENDIUM_PACKS.equipment],
@@ -454,7 +475,7 @@ Hooks.once("i18nInit", function() {
 
     // Special handling for enums
     if ( conf instanceof Enum ) {
-      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = game.i18n.localize(l);
+      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = _loc(l);
       continue;
     }
 
@@ -463,18 +484,19 @@ Hooks.once("i18nInit", function() {
       if ( typeof v === "object" ) {
         for ( const attr of attrs ) {
           if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
-          else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
+          else if ( typeof v[attr] === "string" ) v[attr] = _loc(v[attr]);
         }
       }
       else {
         if ( typeof v === "function" ) conf[k] = v();
-        else if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+        else if ( typeof v === "string" ) conf[k] = _loc(v);
       }
     }
   }
 
   // Localize models
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
+  foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
   foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
   foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
 
@@ -483,9 +505,7 @@ Hooks.once("i18nInit", function() {
 
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
-    "systems/crucible/templates/dice/partials/action-use-header.hbs",
-    "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
-    "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+    ...Object.values(chat.TEMPLATES),
     "systems/crucible/templates/sheets/item/talent-summary.hbs"
   ]);
 });
@@ -501,7 +521,7 @@ function preLocalizeConfig() {
       for ( const k of keys ) {
         const v = o[k];
         if ( typeof v === "function" ) o[k] = v();
-        else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
+        else if ( typeof v === "string" ) o[k] = _loc(v);
       }
     }
   };
@@ -537,6 +557,19 @@ function preLocalizeConfig() {
  * On game setup, configure document data.
  */
 Hooks.once("setup", function() {
+
+  // Apply compatibility patches for Ember module hooks
+  applyEmberPatches();
+
+  // Cull deprecated item properties that have been fully migrated
+  const mv = game.settings.get("crucible", "migrationVersion");
+  for ( const model of Object.values(CONFIG.Item.dataModels) ) {
+    const properties = model.ITEM_PROPERTIES;
+    if ( !properties ) continue;
+    for ( const [id, prop] of Object.entries(properties) ) {
+      if ( prop.deprecated && !foundry.utils.isNewerVersion(prop.deprecated, mv) ) delete properties[id];
+    }
+  }
 
   // Deep freeze CONST
   foundry.utils.deepFreeze(SYSTEM);
@@ -601,11 +634,8 @@ Hooks.once("ready", async function() {
  * @returns {Promise<void>}
  */
 async function _performMigrations(priorVersion) {
-
-  // Sync all Actor talents & spells
-  await syncOwnedItems({force: true, reload: false});
-
-  // Record the new migration version
+  await syncWorldItems({equipment: true});
+  await syncOwnedItems({equipment: true, force: true, reload: false});
   await game.settings.set("crucible", "migrationVersion", crucible.version);
   foundry.utils.debouncedReload();
 }
@@ -733,7 +763,7 @@ async function packageCompendium(documentName, packName, folder) {
  */
 function generateId(title, length) {
   const id = title.split(" ").map((w, i) => {
-    const p = w.slugify({replacement: "", strict: true});
+    const p = w.slugify({replacement: "", lowercase: false, strict: true});
     return i ? p.titleCase() : p;
   }).join("");
   return Number.isNumeric(length) ? id.slice(0, length).padEnd(length, "0") : id;
@@ -765,25 +795,6 @@ async function standardizeItemIds() {
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, _user) => {
     if ( options.keepId === false ) return;
-
-    // Maintain IDs when importing from a compendium
-    // TODO this can be removed in V14
-    if ( options.fromCompendium ) {
-      const {id} = foundry.utils.parseUuid(item._stats.compendiumSource);
-      if ( id ) {
-        item.updateSource({_id: id});
-        options.keepId = true;
-      }
-      return;
-    }
-
-    // Keep existing _id while exporting into a compendium pack
-    // TODO this can be removed in V14
-    if ( item.pack && !item.parent && item.id ) {
-      options.keepId = true;
-      return;
-    }
-
     // Generate a new ID
     if ( !item.parent && !item.id ) {
       item.updateSource({_id: generateId(item.name, 16)});
@@ -836,10 +847,23 @@ function enableSpellcheckContext() {
  * @param {boolean} [options.spells]    Sync actor iconic spells
  * @returns {Promise<void>}
  */
-async function syncOwnedItems({force=false, reload=true, talents=true, spells=true}={}) {
-  console.groupCollapsed("Crucible | Talent/Spell Data Synchronization");
+async function syncOwnedItems({force=false, reload=true, talents=true, spells=true, equipment=false}={}) {
+  console.groupCollapsed("Crucible | Owned Item Synchronization");
+
+  // Prepare equipment compendium index
+  let equipmentIndex;
+  if ( equipment ) {
+    const pack = game.packs.get("crucible.equipment");
+    await pack.getDocuments();
+    equipmentIndex = pack.contents.reduce((obj, item) => {
+      obj[item.system.identifier] = item;
+      return obj;
+    }, {});
+  }
+
+  // Sync actor-owned items
   const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info("Synchronizing Talents & Spells", {console: true, progress: true});
+  const progress = ui.notifications.info(_loc("CRUCIBLE.Syncing"), {console: true, progress: true});
   for ( const actor of game.actors ) {
     bar.n++;
     bar.pct = bar.n / bar.total;
@@ -848,11 +872,13 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
         const batchCreate = [];
         const batchUpdate = [];
         const batchDelete = [];
+        const actorUpdate = {"_stats.systemVersion": game.system.version};
         if ( talents ) {
-          const {toCreate, toUpdate, toDelete} = await actor.syncTalents({performUpdates: false});
+          const {toCreate, toUpdate, toDelete, actorUpdates} = await actor.syncTalents({performUpdates: false});
           batchCreate.push(...toCreate);
           batchUpdate.push(...toUpdate);
           batchDelete.push(...toDelete);
+          Object.assign(actorUpdate, actorUpdates);
         }
         if ( spells ) {
           const {toCreate, toUpdate, toDelete} = await actor.syncIconicSpells({performUpdates: false});
@@ -860,11 +886,21 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
           batchUpdate.push(...toUpdate);
           batchDelete.push(...toDelete);
         }
-        if ( batchDelete.length ) await actor.deleteEmbeddedDocuments("Item", batchDelete);
-        if ( batchUpdate.length ) await actor.updateEmbeddedDocuments("Item", batchUpdate,
-          {diff: false, recursive: false, noHook: true});
-        if ( batchCreate.length ) await actor.createEmbeddedDocuments("Item", batchCreate, {keepId: true});
-        await actor.update({"_stats.systemVersion": game.system.version});
+        if ( equipment ) {
+          for ( const item of actor.items ) {
+            const update = _migrateEquipmentItem(item, equipmentIndex);
+            if ( update ) {
+              batchUpdate.push(update);
+              console.debug(`Syncing equipment: ${item.name} in Actor ${actor.name} [${item.uuid}]`);
+            }
+          }
+        }
+        const batchOperations = actor.defineBatchOperations(actorUpdate, {
+          createItems: {changes: batchCreate, options: {keepId: true}},
+          updateItems: {changes: batchUpdate, options: {diff: false, recursive: false, noHook: true}},
+          deleteItems: batchDelete
+        });
+        await foundry.documents.modifyBatch(batchOperations);
       } catch(err) {
         console.warn(`Crucible | Item synchronization failed for Actor "${actor.name}": ${err.message}`);
       } finally {
@@ -880,57 +916,54 @@ async function syncOwnedItems({force=false, reload=true, talents=true, spells=tr
 /* -------------------------------------------- */
 
 /**
- * Sync all equipment prices with those in the Crucible Equipment compendium pack.
+ * Sync world-level equipment items with their upstream compendium source data.
+ * @param {object} [options]
+ * @param {boolean} [options.equipment=true]      Sync physical equipment items
  * @returns {Promise<void>}
  */
-async function syncEquipmentPrices() {
-  const pack = game.packs.get("crucible.equipment");
-  await pack.getDocuments();
-  const equipmentIdentifiers = pack.contents.reduce((obj, item) => {
-    obj[item.system.identifier] = item;
-    return obj;
-  }, {});
-
-  /**
-   * Migrate a single item to pull updated price data from the equipment compendium.
-   * @param {CrucibleItem} item
-   */
-  function migrateItem(item) {
-    if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
-    if ( !item.system.price ) return null;
-    const equipmentItem = equipmentIdentifiers[item.system.identifier];
-    if ( !equipmentItem ) {
-      console.warn(`No upstream equipment for priced Item ${item.name} [${item.uuid}]`);
-      return null;
-    }
-    return {_id: item.id, system: {price: equipmentItem._source.system.price}};
-  }
-
-  // World Items
-  const itemUpdates = [];
-  for ( const item of game.items ) {
-    const update = migrateItem(item);
-    if ( update ) {
-      itemUpdates.push(update);
-      console.debug(`Syncing equipment price for ${item.name} [${item.uuid}]`);
-    }
-  }
-  await Item.updateDocuments(itemUpdates);
-
-  // Actor Items
-  const actorPromises = [];
-  for ( const actor of game.actors ) {
-    const ownedItemUpdates = [];
-    for ( const item of actor.items ) {
-      const update = migrateItem(item);
+async function syncWorldItems({equipment=true}={}) {
+  console.groupCollapsed("Crucible | World Item Synchronization");
+  if ( equipment ) {
+    const pack = game.packs.get("crucible.equipment");
+    await pack.getDocuments();
+    const equipmentIndex = pack.contents.reduce((obj, item) => {
+      obj[item.system.identifier] = item;
+      return obj;
+    }, {});
+    const updates = [];
+    for ( const item of game.items ) {
+      const update = _migrateEquipmentItem(item, equipmentIndex);
       if ( update ) {
-        ownedItemUpdates.push(update);
-        console.debug(`Syncing equipment price for ${item.name} in Actor ${actor.name} [${item.uuid}]`);
+        updates.push(update);
+        console.debug(`Syncing equipment: ${item.name} [${item.uuid}]`);
       }
     }
-    if ( ownedItemUpdates.length ) actorPromises.push(actor.updateEmbeddedDocuments("Item", ownedItemUpdates));
+    if ( updates.length ) await Item.updateDocuments(updates);
   }
-  await Promise.allSettled(actorPromises);
+  console.groupEnd();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build an update object that syncs a single equipment item with its upstream compendium source.
+ * @param {CrucibleItem} item                         The owned item to sync
+ * @param {Record<string, CrucibleItem>} index        The equipment compendium index keyed by identifier
+ * @returns {object|null}
+ */
+function _migrateEquipmentItem(item, index) {
+  if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
+  const currentSource = item.toObject();
+  const upstreamSource = index[item.system.identifier]?.toObject();
+  if ( !upstreamSource ) return null;
+  const update = {_id: item.id, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
+  const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
+  for ( const field of stateFields ) {
+    const value = currentSource.system[field];
+    if ( value !== undefined ) foundry.utils.setProperty(update.system, field, value);
+  }
+  update.system = _replace(update.system); // Force full replacement
+  return update;
 }
 
 /* -------------------------------------------- */

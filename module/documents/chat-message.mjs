@@ -1,4 +1,5 @@
 import StandardCheck from "../dice/standard-check.mjs";
+import GroupCheck from "../dice/group-check.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
@@ -32,6 +33,7 @@ export default class CrucibleChatMessage extends ChatMessage {
    * @returns {Promise<void>}
    */
   async #playVFXEffect() {
+    if ( !game.settings.get("crucible", "enableVFX") ) return;
     const action = CrucibleAction.fromChatMessage(this);
     if ( this.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(this.id);
     const {references, ...vfxConfig} = this.flags.crucible.vfxConfig;
@@ -86,7 +88,7 @@ export default class CrucibleChatMessage extends ChatMessage {
   /** @inheritDoc */
   async renderHTML(options) {
     const html = await super.renderHTML(options);
-    if ( this.flags.crucible?.isInitiativeReport ) return html;
+    if ( ["isInitiativeReport", "isTurnChangeSummary"].some(f => f in (this.flags.crucible ?? {})) ) return html;
     if ( (this.rolls[0] instanceof StandardCheck) && !html.querySelector(".crucible.dice-roll") ) {
       const rollHTML = [];
       for ( const roll of this.rolls ) {
@@ -125,7 +127,7 @@ export default class CrucibleChatMessage extends ChatMessage {
       else {
         if ( meta ) meta.insertAdjacentHTML("afterbegin", "<i class=\"unconfirmed fa-solid fa-hexagon-xmark\" data-tooltip=\"ACTION.Unconfirmed\"></i>");
         if ( game.user.isGM ) {
-          const confirm = foundry.utils.parseHTML("<button class=\"confirm frame-brown\" type=\"button\"><i class=\"fas fa-hexagon-check\"></i>Confirm</button>");
+          const confirm = foundry.utils.parseHTML(`<button class=\"confirm frame-brown\" type=\"button\"><i class=\"fas fa-hexagon-check\"></i>${_loc("DICE.Confirm")}</button>`);
           html.appendChild(confirm);
           confirm.addEventListener("click", event => {
             const button = event.currentTarget;
@@ -137,13 +139,17 @@ export default class CrucibleChatMessage extends ChatMessage {
       }
 
       // Hide summoned creature names for non-GMs
-      if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-template.full-tags")?.remove();
+      if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-region.full-tags")?.remove();
     }
 
     // Initiative Report
     if ( flags.isInitiativeReport ) {
       crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
     }
+
+    // Group Check Card
+    const groupCheck = flags[GroupCheck.FLAG_KEY];
+    if ( groupCheck ) GroupCheck.onRenderGroupCheck(message, html, groupCheck);
 
     // Target Hover
     for ( const el of html.querySelectorAll(".target-link") ) {

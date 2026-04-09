@@ -1,0 +1,86 @@
+name: Natural Invisibility
+type: talent
+_id: naturalInvisibil
+img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>By some organic or arcane aspect of its physiology, @ref[actor.name]{this
+    creature] possesses the ability to become completely invisible.</p>
+  actions:
+    - id: invisibility
+      name: Natural Invisibility
+      img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+      description: >-
+        <p>You become @Condition[invisible] and cannot be detected using
+        sight-based perception. You cannot be directly targeted by any action.
+        This effect remains active for 10 minutes or until any
+        non-<strong>Movement</strong> action is taken.</p>
+      condition: ''
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: true
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses:
+            - invisible
+          duration:
+            value: 10
+            units: minutes
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.357'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1774708334334
+  modifiedTime: 1774708380925
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 425000
+_key: '!items!naturalInvisibil'

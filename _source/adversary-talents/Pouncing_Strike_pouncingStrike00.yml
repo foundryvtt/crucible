@@ -23,6 +23,7 @@ system:
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -34,19 +35,29 @@ system:
         self: false
       effects:
         - name: Pouncing Strike
-          scope: '3'
+          scope: 3
           result:
             type: successCritical
             all: false
           statuses:
             - prone
           duration:
-            turns: null
-            rounds: null
+            value: null
+            units: seconds
+            expiry: null
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -65,12 +76,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1750877461266
-  modifiedTime: 1762975030140
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.0
+  createdTime: 1772307157335
+  modifiedTime: 1773514792186
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: pouncingStrike00
 sort: 0
 _key: '!items!pouncingStrike00'

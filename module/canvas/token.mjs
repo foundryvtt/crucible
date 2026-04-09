@@ -134,6 +134,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _refreshRuler() {
+    super._refreshRuler();
+    if ( !canvas.scene.useMicrogrid ) return;
+    const dialog = crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document);
+    if ( dialog ) dialog._onPreviewMovement(this._plannedMovement[game.user.id]);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   drawBars() {
     super.drawBars();
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
@@ -230,10 +240,23 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _getDragLeftDropUpdateOptions() {
+    const options = super._getDragLeftDropUpdateOptions();
+    if ( crucible.api.dice.ActionUseDialog.getActiveMovementPlan(this.document) ) {
+      options.planned = true;
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _getMovementCostFunction(options) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};
     const actor = this.actor;
+
+    // Construct and return cost function
     return (from, to, distance, segment) => {
 
       // Step 1: Apply condition-based cost modifiers
@@ -258,23 +281,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
-  _getAnimationMovementSpeed(options) {
-    return this.actor ? this.actor.system.movement.stride * 2 : CONFIG.Token.movement.defaultSpeed;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * TODO This method extension can be removed in V14 as it will be handled by Foundry core.
-   * @inheritDoc
-   */
-  _modifyAnimationMovementSpeed(speed, options={}) {
-    speed = super._modifyAnimationMovementSpeed(speed, options);
-    if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
-      const actionConfig = CONFIG.Token.movement.actions[options.action];
-      return speed * (actionConfig.speedMultiplier ?? 1);
-    }
-    return speed;
+  _getAnimationMovementSpeed(_options) {
+    const stride = this.actor?.system.movement?.stride;
+    if ( !Number.isFinite(stride) ) return CONFIG.Token.movement.defaultSpeed;
+    // Assume 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
+    return (stride * 6) * 2 / (canvas.dimensions.distance * CONFIG.time.roundTime);
   }
 
   /* -------------------------------------------- */
@@ -695,13 +706,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Flanking State
     const {x, y} = this.document._source;
     const {x: cx, y: cy} = this.getCenterPoint({x, y});
-    this.#engagementDebug.enemies.text = game.i18n.format("TOKEN.LABELS.Enemies", {enemies: engagement.enemies.size});
+    this.#engagementDebug.enemies.text = _loc("TOKEN.LABELS.Enemies", {enemies: engagement.enemies.size});
     this.#engagementDebug.enemies.position.set(cx, y);
     this.#engagementDebug.enemies.visible = true;
-    this.#engagementDebug.engagement.text = game.i18n.format("TOKEN.LABELS.Engagement", {engagement: engagement.value + engagement.allyBonus});
+    this.#engagementDebug.engagement.text = _loc("TOKEN.LABELS.Engagement", {engagement: engagement.value + engagement.allyBonus});
     this.#engagementDebug.engagement.position.set(cx, y + this.h);
     this.#engagementDebug.engagement.visible = true;
-    this.#engagementDebug.flanked.text = game.i18n.format("TOKEN.LABELS.Flanked", {flanked: engagement.flanked});
+    this.#engagementDebug.flanked.text = _loc("TOKEN.LABELS.Flanked", {flanked: engagement.flanked});
     this.#engagementDebug.flanked.position.set(cx, cy);
     this.#engagementDebug.flanked.visible = true;
   }

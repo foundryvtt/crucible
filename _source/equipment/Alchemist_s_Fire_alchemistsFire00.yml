@@ -10,7 +10,6 @@ system:
   price: 250
   quality: standard
   broken: false
-  enchantment: mundane
   equipped: false
   invested: false
   properties:
@@ -59,17 +58,18 @@ system:
           statuses:
             - burning
           duration:
-            turns: 3
-            rounds: null
+            value: 3
+            units: rounds
+            expiry: turnEnd
           result:
             type: success
             all: false
-          changes: []
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - consume
         - weakened
@@ -77,9 +77,16 @@ system:
         - skill
         - athletics
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   uses:
     value: 1
     max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
 effects: []
 folder: 9u3lR2Lbhj3cdjQk
 ownership:
@@ -90,11 +97,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1751637580701
-  modifiedTime: 1770255467379
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.0
+  createdTime: 1772307157757
+  modifiedTime: 1773514792256
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!alchemistsFire00'

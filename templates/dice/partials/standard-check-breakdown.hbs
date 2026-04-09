@@ -1,0 +1,60 @@
+<div class="dice-tooltip check-tooltip flexcol">
+    <section class="details flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" data}}
+    </section>
+    <div class="pool flexrow">
+        {{#each pool}}
+            <div class="die {{denom}}">
+                <span class="result">{{result}}</span>
+                <h4 class="label">{{denom}}</h4>
+            </div>
+        {{/each}}
+    </div>
+    <div class="roll-breakdown flexcol">
+        <div class="counter">
+            <label>{{localize "DICE.DiceTotal"}}</label>
+            <span class="tag">{{diceTotal}}</span>
+        </div>
+        <div class="counter">
+            <label>{{localize "DICE.AbilityBonus"}}</label>
+            <span class="tag">{{data.ability}}</span>
+        </div>
+        <div class="counter">
+            <label>{{localize "DICE.SkillBonus"}}</label>
+            <span class="tag">{{data.skill}}</span>
+        </div>
+        <div class="counter">
+            <label>{{localize "DICE.EnchantmentBonus"}}</label>
+            <span class="tag">{{data.enchantment}}</span>
+        </div>
+        <div class="counter total">
+            <label>{{localize "DICE.RollTotal"}}</label>
+            <span class="hex">{{total}}</span>
+        </div>
+    </div>
+
+    {{#if damage.display}}
+    <div class="roll-breakdown damage-breakdown flexcol">
+        <div class="counter">
+            <label>{{localize "DICE.DamageOverflow"}}{{#if damage.hasMultiplier}} (x{{damage.multiplier}}){{/if}}</label>
+            <span class="tag">{{damage.overflow}}</span>
+        </div>
+        <div class="counter">
+            <label>{{damage.baseLabel}}</label>
+            <span class="tag">{{damage.base}}</span>
+        </div>
+        <div class="counter">
+            <label>{{localize "DICE.DamageBonus"}}</label>
+            <span class="tag">{{damage.bonus}}</span>
+        </div>
+        <div class="counter">
+            <label>{{localize damage.resistanceLabel}}</label>
+            <span class="tag">{{damage.resistanceValue}}</span>
+        </div>
+        <div class="counter total">
+            <label>{{localize "DICE.DamageTotal"}}</label>
+            <span class="hex">{{damage.total}}</span>
+        </div>
+    </div>
+    {{/if}}
+</div>

@@ -4,10 +4,16 @@ import ActionUseDialog from "./action-use-dialog.mjs";
 
 /**
  * @typedef {StandardCheckData} AttackRollData
- * @param {string} [itemId]                   The id of the Item being used to make the attack
- * @param {string} [defenseType=physical]     The defense type being attacked, a value in SYSTEM.DEFENSES
- * @param {number} [result]                   The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
- * @param {DamageData} [damage]               The resolved damage of the roll, undefined before evaluation
+ * @property {string} itemId                  The id of the Item being used to make the attack
+ * @property {string} defenseType             The defense type being attacked, a value in SYSTEM.DEFENSES
+ * @property {number} criticalSuccessThreshold  The threshold for critical success
+ * @property {number} criticalFailureThreshold  The threshold for critical failure
+ * @property {string} resource                The resource targeted by damage (e.g. "health", "morale")
+ * @property {string} damageType              The type of damage dealt (e.g. "slashing", "fire")
+ * @property {number} damageBonus             Additive damage bonus
+ * @property {number} multiplier              Damage overflow multiplier
+ * @property {number} [result]                The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
+ * @property {DamageData} [damage]            The resolved damage of the roll, undefined before evaluation
  */
 
 /**
@@ -105,9 +111,10 @@ export default class AttackRoll extends StandardCheck {
     if ( dt in SYSTEM.DEFENSES ) cardData.defenseType = SYSTEM.DEFENSES[dt].label;
     else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
     else cardData.defenseType = "DC";
+    if ( game.user.isGM ) cardData.targetLabel = `${cardData.defenseType} ${cardData.dc}`;
 
     // Outcome label
-    cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
+    cardData.outcome = _loc(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
     return cardData;
   }
 

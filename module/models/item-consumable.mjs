@@ -18,7 +18,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static ITEM_PROPERTIES = CONSUMABLE.PROPERTIES;
 
   /** @override */
-  static STATEFUL_TAGS = [...super.STATEFUL_TAGS, "uses"];
+  static STATEFUL_FIELDS = [...super.STATEFUL_FIELDS, "uses"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "CONSUMABLE"];
@@ -31,6 +31,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static defineSchema() {
     const schema = super.defineSchema();
     delete schema.actorHooks; // Consumables don't provide actor hooks
+    delete schema.enchantment; // Consumables cannot be enchanted
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(schema, {
       uses: new fields.SchemaField({
@@ -51,13 +52,13 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static validateJoint(data) {
     super.validateJoint(data);
     if ( data.category !== "scroll" ) return;
-    const budget = SYSTEM.ITEM.ENCHANTMENT_TIERS[data.enchantment]?.bonus ?? 0;
+    const budget = SYSTEM.ITEM.QUALITY_TIERS[data.quality]?.bonus ?? 0;
     let components = 0;
     for ( const c in this.schema.fields.scroll.fields ) {
       components += (data.scroll?.[c]?.length || 0);
     }
     if ( components > budget ) {
-      throw new Error(game.i18n.format("CONSUMABLE.SCROLL.ComponentBudgetError", {total: components, budget}));
+      throw new Error(_loc("CONSUMABLE.SCROLL.ComponentBudgetError", {total: components, budget}));
     }
   }
 
@@ -129,12 +130,12 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       quality: this.config.quality.label,
       ...parentTags
     };
-    if ( this.isDepleted ) tags.uses = game.i18n.localize("ITEM.PROPERTIES.Depleted");
+    if ( this.isDepleted ) tags.uses = _loc("ITEM.PROPERTIES.Depleted");
     else {
       const {value, max} = this.uses;
       const plurals = new Intl.PluralRules(game.i18n.lang);
       const usesLabel = `CONSUMABLE.USES.Tag${value === max ? "Max" : "Partial"}.${plurals.select(max)}`;
-      tags.uses = game.i18n.format(usesLabel, {value, max});
+      tags.uses = _loc(usesLabel, {value, max});
     }
     return tags;
   }
@@ -172,7 +173,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
     }
 
     // Return final scroll name
-    return game.i18n.format("CONSUMABLE.SCROLL.ScrollName", {scroll: name});
+    return _loc("CONSUMABLE.SCROLL.ScrollName", {scroll: name});
   }
 }
 
@@ -188,7 +189,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
   /** @inheritDoc */
   _initializeApplicationOptions({item, ...options}={}) {
     options.window ||= {};
-    options.window.title = game.i18n.format("CONSUMABLE.SCROLL.ConfigureTitle", {name: item.name});
+    options.window.title = _loc("CONSUMABLE.SCROLL.ConfigureTitle", {name: item.name});
     options.content = CrucibleScrollConfigDialog.#buildContent(item);
     return super._initializeApplicationOptions(options);
   }
@@ -206,8 +207,8 @@ class CrucibleScrollConfigDialog extends DialogV2 {
     // Budget hint
     const hint = document.createElement("p");
     hint.className = "hint";
-    const budget = item.system.config.enchantment.bonus;
-    hint.textContent = game.i18n.format("CONSUMABLE.SCROLL.ComponentBudget", {budget});
+    const budget = item.system.config.quality.bonus;
+    hint.textContent = _loc("CONSUMABLE.SCROLL.ComponentBudget", {budget});
     div.append(hint);
 
     // Name field
@@ -237,7 +238,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
   /** @inheritDoc */
   async _onSubmit(target, event) {
     const form = this.element.querySelector("form");
-    const nameInput = form.elements.name
+    const nameInput = form.elements.name;
     nameInput.value ||= nameInput.placeholder;
     return super._onSubmit(target, event);
   }
@@ -253,7 +254,7 @@ class CrucibleScrollConfigDialog extends DialogV2 {
     const form = event.target.form;
     const nameInput = form.elements.name;
     if ( event.target === nameInput ) return;
-    const formData = foundry.utils.expandObject(new FormDataExtended(form).object);
+    const formData = foundry.utils.expandObject(new foundry.applications.ux.FormDataExtended(form).object);
     nameInput.placeholder = CrucibleConsumableItem.getScrollName(formData.system.scroll);
   }
 }

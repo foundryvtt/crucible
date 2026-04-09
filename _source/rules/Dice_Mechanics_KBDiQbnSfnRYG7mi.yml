@@ -7,6 +7,7 @@ flags:
   core:
     viewMode: 2
     sheetClass: crucible.CrucibleJournalEntrySheet
+    locked: true
 pages:
   - name: Dice Mechanics
     type: text
@@ -39,7 +40,22 @@ pages:
         type of dice roll is referred to as a <strong>Standard
         Check</strong>.</p><section class="formula"><p class="value">Standard
         Check</p><p class="equals">=</p><p class="equation">3d8[Boons,Banes] +
-        Ability Bonus + Skill Bonus + Enchantment Bonus</p></section>
+        Ability Bonus + Skill Bonus + Enchantment Bonus</p></section><h2
+        class="divider">Bonus Stacking</h2><p>Any given roll may only have one
+        source of <strong>Ability Bonus</strong>, <strong>Skill Bonus</strong>,
+        or <strong>Enchantment Bonus</strong>. If certain Actions, Talents, or
+        Equipment provide multiple methods of obtaining a bonus for a roll, only
+        the largest bonus is used.</p><section class="gameplay"><h4>Example:
+        Multiple Enchantment Bonuses</h4><p>Zarajah is an accomplished
+        spellcaster who has obtained several powerful artifacts. A set of mages
+        robes that provide a +1 Enchantment Bonus to all
+        @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr]{Spellcraft},
+        and a powerful staff which gives a +2 Enchantment Bonus to spells cast
+        using @UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
+        Flame}. When casting a spell using the Earth rune, Zarajah has a +1
+        Enchantment Bonus on any dice roll involved that spell. When casting a
+        spell using the Flame rune, Zarajah has a +2 Enchantment
+        Bonus.</p></section>
       markdown: ''
     _id: WpBewuNfFJp1ZJRt
     image: {}
@@ -54,11 +70,11 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
-      coreVersion: '13.342'
-      createdTime: null
-      modifiedTime: 1684894768806
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775573164537
+      modifiedTime: 1775573456794
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -144,7 +160,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.342'
       createdTime: 1684374120469
       modifiedTime: 1684893796895
@@ -156,11 +172,11 @@ pages:
     _key: '!journal.pages!KBDiQbnSfnRYG7mi.Qme1mM71Jn950Zsf'
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.350'
+  systemVersion: 0.9.0
+  coreVersion: '14.359'
   createdTime: 1684343824437
-  modifiedTime: 1760019535362
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1775573169175
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

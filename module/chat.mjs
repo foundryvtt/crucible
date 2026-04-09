@@ -1,5 +1,19 @@
 import CrucibleAction from "./models/action.mjs";
 
+/**
+ * Handlebars template paths used for chat message rendering
+ * @type {{initiativeReport: string, turnSummary: string}}
+ */
+export const TEMPLATES = {
+  initiativeReport: "systems/crucible/templates/chat/initiative-summary.hbs",
+  turnSummary: "systems/crucible/templates/chat/turn-change-summary.hbs",
+  actionHeader: "systems/crucible/templates/dice/partials/action-use-header.hbs",
+  actionFooter: "systems/crucible/templates/dice/partials/action-use-footer.hbs",
+  rollBreakdown: "systems/crucible/templates/dice/partials/standard-check-breakdown.hbs",
+  rollDetails: "systems/crucible/templates/dice/partials/standard-check-details.hbs",
+  rollDice: "systems/crucible/templates/dice/partials/standard-check-roll.hbs",
+  rollDiceResult: "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"
+};
 
 /**
  * Add Crucible-specific context menu options to chat messages.
@@ -11,18 +25,18 @@ export function addChatMessageContextOptions(html, options) {
 
   // Assign difficulty for skill checks
   options.push({
-    name: game.i18n.localize("DICE.SetDifficulty"),
+    label: _loc("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return message.isRoll && flags.skill;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       const roll = message.rolls[0];
       const formData = await foundry.applications.api.DialogV2.input({
-        window: {title: game.i18n.localize("DICE.SetDifficulty")},
+        window: {title: _loc("DICE.SetDifficulty")},
         content: `\
         <div class="form-group slim">
             <label>DC Target</label>
@@ -38,14 +52,14 @@ export function addChatMessageContextOptions(html, options) {
 
   // Confirm Action usage
   options.push({
-    name: game.i18n.localize("DICE.Confirm"),
+    label: _loc("DICE.Confirm"),
     icon: '<i class="fas fa-hexagon-check"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && !flags.confirmed;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message);
     }
@@ -53,14 +67,14 @@ export function addChatMessageContextOptions(html, options) {
 
   // Reverse damage
   options.push({
-    name: game.i18n.localize("DICE.Reverse"),
+    label: _loc("DICE.Reverse"),
     icon: '<i class="fas fa-hexagon-xmark"></i>',
-    condition: li => {
+    visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && flags.confirmed;
     },
-    callback: async li => {
+    onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message, {reverse: true});
     }

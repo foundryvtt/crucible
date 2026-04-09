@@ -5,7 +5,8 @@
 /* ----------------------------------------- */
 
 .crucible.item,
-.crucible.action {
+.crucible.action,
+.crucible.affix {
 
   /** Scrollable Tabs */
   .sheet-body.scrollable {
@@ -40,6 +41,17 @@
   /** Hook Editor */
   code-mirror.hook-editor {
     font-size: 11px;
+  }
+
+  /** Hook Display */
+  fieldset.hook label code {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+  .module-hook label > button {
+    flex: 0;
+    margin: 0;
   }
 
   .item-properties {
@@ -115,6 +127,13 @@
   .sheet-body {
     height: 0;
     flex: 1;
+  }
+}
+
+// Affix effect sheet
+.crucible.affix {
+  .window-content.standard-form {
+    gap: 0;
   }
 }
 

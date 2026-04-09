@@ -11,7 +11,6 @@ system:
   enchantment: mundane
   equipped: false
   properties:
-    - reliable
     - intuitive
   damageType: bludgeoning
   slot: 0
@@ -37,11 +36,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749827224394
-  modifiedTime: 1766097022534
+  modifiedTime: 1773514792288
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: sling00000000000
 sort: 0

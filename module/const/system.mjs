@@ -36,6 +36,7 @@ export const COMPENDIUM_PACKS = Object.freeze({
   ancestry: "crucible.ancestry",
   archetype: "crucible.archetype",
   background: "crucible.background",
+  affix: "crucible.affixes",
   equipment: "crucible.equipment",
   spell: "crucible.spell",
   talent: "crucible.talent",
@@ -53,7 +54,7 @@ export const THREAT_RANKS = {
     id: "minion",
     actionMax: 4,
     heroismMax: 0,
-    label: "ADVERSARY.THREAT_RANKS.Minion",
+    label: "ACTOR.ADVERSARY.THREAT_RANKS.Minion",
     scaling: 0.5,
     icon: "fa-solid fa-chevron-down"
   },
@@ -61,7 +62,7 @@ export const THREAT_RANKS = {
     id: "normal",
     actionMax: 6,
     heroismMax: 1,
-    label: "ADVERSARY.THREAT_RANKS.Normal",
+    label: "ACTOR.ADVERSARY.THREAT_RANKS.Normal",
     scaling: 1.0,
     icon: "fa-solid fa-chevron-up"
   },
@@ -69,7 +70,7 @@ export const THREAT_RANKS = {
     id: "elite",
     actionMax: 8,
     heroismMax: 2,
-    label: "ADVERSARY.THREAT_RANKS.Elite",
+    label: "ACTOR.ADVERSARY.THREAT_RANKS.Elite",
     scaling: 1.5,
     icon: "fa-solid fa-chevrons-up"
   },
@@ -77,7 +78,7 @@ export const THREAT_RANKS = {
     id: "boss",
     actionMax: 10,
     heroismMax: 3,
-    label: "ADVERSARY.THREAT_RANKS.Boss",
+    label: "ACTOR.ADVERSARY.THREAT_RANKS.Boss",
     scaling: 2.0,
     icon: "fa-solid fa-skull"
   }
@@ -92,52 +93,52 @@ export const THREAT_RANKS = {
 export const ACTION_HOOKS = Object.freeze({
   initialize: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   prepare: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   displayOnSheet: {
     argNames: [],
-    argLabels: [],
+    argLabels: ["this: CrucibleAction"],
     deprecated: true /** @deprecated */
   },
   canUse: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   configure: {
     argNames: [],
-    argLabels: []
+    argLabels: ["this: CrucibleAction"]
   },
   acquireTargets: {
     argNames: ["targets"],
-    argLabels: ["targets: ActionUseTarget[]"]
+    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"]
   },
   preActivate: {
     argNames: ["targets"],
-    argLabels: ["targets: ActionUseTarget[]"],
+    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"],
     async: true
   },
   roll: {
-    argNames: ["outcome"],
-    argLabels: ["outcome: CrucibleActionOutcome"],
+    argNames: ["target", "token"],
+    argLabels: ["this: CrucibleAction", "target: CrucibleActor", "token: CrucibleTokenObject"],
     async: true
   },
   postActivate: {
-    argNames: ["outcome"],
-    argLabels: ["outcome: CrucibleActionOutcome"],
+    argNames: [],
+    argLabels: ["this: CrucibleAction"],
     async: true
   },
   confirm: {
     argNames: ["reverse"],
-    argLabels: ["reverse: boolean"],
+    argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
   },
   summon: {
     argNames: ["reverse"],
-    argLabels: ["reverse: boolean"],
+    argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
   }
 });

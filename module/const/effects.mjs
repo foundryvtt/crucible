@@ -9,11 +9,13 @@
 
 /**
  * Get a standardized 16 character ID that can be used for the ActiveEffect.
- * @param {string} label    The active effect label
- * @returns {string}        The standardized ID
+ * @param {string} label            The active effect label
+ * @param {object} [options]        Additional options
+ * @param {string} [options.suffix] A suffix with which to end the returned ID
+ * @returns {string}                The standardized ID
  */
-export function getEffectId(label) {
-  return label.slugify({replacement: "", lowercase: false, strict: true}).slice(0, 16).padEnd(16, "0");
+export function getEffectId(label, {suffix=""}={}) {
+  return `${crucible.api.methods.generateId(label, 16 - suffix.length)}${suffix}`;
 }
 
 /**
@@ -28,8 +30,8 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
   return {
     _id: getEffectId("Bleeding"),
     name: "Bleeding",
-    icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
-    duration: {turns},
+    img: "icons/skills/wounds/blood-spurt-spray-red.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["bleeding"],
     system: {
@@ -54,8 +56,8 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
   return {
     _id: getEffectId("Burning"),
     name: "Burning",
-    icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
-    duration: {turns},
+    img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["burning"],
     system: {
@@ -84,8 +86,8 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   return {
     _id: getEffectId("Freezing"),
     name: "Freezing",
-    icon: "icons/magic/water/orb-ice-web.webp",
-    duration: {turns},
+    img: "icons/magic/water/orb-ice-web.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["freezing", "slowed"],
     system: {
@@ -110,8 +112,8 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
   return {
     _id: getEffectId("Confused"),
     name: "Confused",
-    icon: "icons/magic/air/air-burst-spiral-pink.webp",
-    duration: {turns},
+    img: "icons/magic/air/air-burst-spiral-pink.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["confused", "disoriented"],
     system: {
@@ -136,8 +138,8 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
-    icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
-    duration: {turns},
+    img: "icons/magic/earth/orb-stone-smoke-teal.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
@@ -152,18 +154,16 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 /**
  * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
  * @param {Actor} actor
- * @param {object} options
- * @param {string} options.ability
- * @param {number} options.amount
- * @param {number} options.turns
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
 export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
     name: "Decaying",
-    icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
-    duration: {turns},
+    img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
@@ -178,18 +178,21 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
 /**
  * Generate a standardized entropy effect, applying the frightened status and dealing presence in void damage to Health.
  * @param {Actor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function entropy(actor) {
+export function entropy(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Entropy"),
     name: "Entropy",
-    icon: "icons/magic/unholy/orb-swirling-teal.webp",
-    duration: {turns: 1},
+    img: "icons/magic/unholy/orb-swirling-teal.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["frightened"],
     system: {
       dot: [{
-        amount: Math.floor(actor.system.abilities.presence.value / 2),
+        amount,
         damageType: "void",
         resource: "health"
       }]
@@ -200,21 +203,24 @@ export function entropy(actor) {
 /**
  * Generate a standardized irradiated effect, dealing presence in radiant damage to both Health and Morale.
  * @param {Actor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function irradiated(actor) {
+export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Irradiated"),
     name: "Irradiated",
-    icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
-    duration: {turns: 1},
+    img: "icons/magic/light/beams-rays-orange-purple-large.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
-        amount: actor.system.abilities.presence.value,
+        amount,
         damageType: "radiant",
         resource: "health"
       }, {
-        amount: actor.system.abilities.presence.value,
+        amount,
         damageType: "radiant",
         resource: "morale"
       }]
@@ -234,8 +240,8 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
   return {
     _id: getEffectId("Mending"),
     name: "Mending",
-    icon: "icons/magic/life/cross-beam-green.webp",
-    duration: {turns},
+    img: "icons/magic/life/cross-beam-green.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
@@ -250,18 +256,20 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
 /**
  * Generate a standardized inspired effect, restoring presence in morale to the target.
  * @param {Actor} actor
- * @param {Actor} target
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function inspired(actor, target) {
+export function inspired(actor, {ability="presence", amount, turns=1}={}) {
+  amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Inspired"),
     name: "Inspired",
-    icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
-    duration: {turns: 1},
+    img: "icons/magic/light/explosion-star-glow-silhouette.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     system: {
       dot: [{
-        amount: actor.system.abilities.presence.value,
+        amount,
         resource: "morale",
         restoration: true
       }]
@@ -276,19 +284,19 @@ export function inspired(actor, target) {
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function dominated(actor, {ability="wisdom", amount, turns=3, damageType="psychic"}={}) {
+export function dominated(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Dominated"),
     name: "Dominated",
-    icon: "icons/magic/control/hypnosis-mesmerism-watch.webp",
-    duration: {turns},
+    img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["dominated"],
     system: {
       dot: [{
         amount,
-        damageType,
+        damageType: "psychic",
         resource: "morale"
       }]
     }
@@ -307,8 +315,8 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
   return {
     _id: getEffectId("Poisoned"),
     name: "Poisoned",
-    icon: "icons/magic/unholy/orb-smoking-green.webp",
-    duration: {turns},
+    img: "icons/magic/unholy/orb-smoking-green.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["poisoned"],
     system: {
@@ -333,8 +341,8 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
   return {
     _id: getEffectId("Shocked"),
     name: "Shocked",
-    icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
-    duration: {turns},
+    img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["shocked"],
     system: {
@@ -350,14 +358,15 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
 /**
  * Generate a standardized staggered effect, applying the staggered status condition to the target.
  * @param {Actor} actor
- * @param {Actor} target
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
  */
-export function staggered(actor, target) {
+export function staggered(actor, {turns=1}={}) {
   return {
     _id: getEffectId("Staggered"),
     name: "Staggered",
-    icon: "icons/skills/melee/strike-hammer-destructive-orange.webp",
-    duration: {turns: 1},
+    img: "icons/skills/melee/strike-hammer-destructive-orange.webp",
+    duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor.uuid,
     statuses: ["staggered"]
   };

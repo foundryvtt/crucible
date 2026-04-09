@@ -1,3 +1,6 @@
+import {getRandomSound} from "./sounds.mjs";
+import {getRandomSprite} from "./sprites.mjs";
+
 /**
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
@@ -35,13 +38,15 @@ export function configureStrikeVFXEffect(action) {
         path: [{reference: "tokenMesh", deltas: {sort: 1}}, impact.position],
         charge: {
           duration: 1000,
+          animations: [{function: "drawBack"}],
           sound: {
-            src: "modules/foundryvtt-vfx/assets/sounds/BowAttack1.ogg",
+            src: getRandomSound("bow", "draw"),
             align: 2
           }
         },
         projectile: {
-          texture: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
+          texture: getRandomSprite("projectiles", "arrow"),
+          animations: [{function: "followPath"}],
           size: 3, // Feet
           speed: 150 // Feet-per-second
         },
@@ -61,7 +66,7 @@ export function configureStrikeVFXEffect(action) {
   // Validate that the effect data parses correctly
   let vfxConfig;
   try {
-    const effect = new foundry.vfx.VFXEffect({name: action.id, components, timeline});
+    const effect = new foundry.canvas.vfx.VFXEffect({name: action.id, components, timeline});
     vfxConfig = effect.toObject();
     vfxConfig.references = references;
   } catch(cause) {
@@ -87,33 +92,33 @@ function configureImpact(outcome, roll, targetMeshReference) {
   const w = outcome.token.width * canvas.dimensions.size;
   const h = outcome.token.height * canvas.dimensions.size;
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const randomEntry = arr => arr[Math.floor(Math.random() * arr.length)];
 
   // Customize the impact depending on the roll result
   let hitRange;
   switch ( roll.data.result ) {
     case T.HIT:
       hitRange = [0, 0.1];
-      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.hit)}`;
-      texture = "modules/foundryvtt-vfx/assets/impact/BloodSplatter1.png";
+      sound = getRandomSound("projectile", "hitCreature");
+      texture = getRandomSprite("impacts", "blood");
       break;
     case T.ARMOR:
     case T.BLOCK:
       hitRange = [0, 0.25];
-      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.block)}`;
+      sound = getRandomSound("projectile", "block");
       break;
     case T.GLANCE:
       hitRange = [0.25, 0.5];
-      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.hit)}`;
-      texture = "modules/foundryvtt-vfx/assets/impact/BloodSplatter1.png";
+      sound = getRandomSound("projectile", "hitObject");
+      texture = getRandomSprite("impacts", "blood");
       break;
     case T.PARRY:
       hitRange = [0.25, 0.5];
-      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.block)}`;
+      sound = getRandomSound("projectile", "block");
       break;
     case T.DODGE:
     case T.MISS:
       hitRange = [0.5, 1.0];
+      sound = getRandomSound("projectile", "miss");
       break;
   }
 
@@ -125,11 +130,3 @@ function configureImpact(outcome, roll, targetMeshReference) {
 
 /* -------------------------------------------- */
 
-const ATTACK_SOUNDS = {
-  projectile: {
-    attack: ["BowAttack1.ogg", "BowAttack2.ogg", "BowAttack3.ogg"],
-    block: ["ArrowBlock1.wav", "ArrowBlock2.wav", "ArrowBlock3.wav"],
-    hit: ["ArrowHit1.wav", "ArrowHit2.wav", "ArrowHit3.wav", "ArrowHit4.wav"],
-    miss: ["ArrowMiss1.wav", "ArrowMiss2.wav", "ArrowMiss3.wav"]
-  }
-};

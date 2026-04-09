@@ -7,6 +7,7 @@ export {default as CrucibleCounterspellAction} from "./counterspell-action.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";
 
 // ActiveEffect
+export {default as CrucibleAffixActiveEffect} from "./effect-affix.mjs";
 export {default as CrucibleBaseActiveEffect} from "./effect-base.mjs";
 export {default as CrucibleFlankedActiveEffect} from "./effect-flanked.mjs";
 

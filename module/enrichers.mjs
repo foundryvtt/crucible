@@ -75,6 +75,12 @@ export function registerEnrichers() {
       id: "reference",
       pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
       enricher: enrichRef
+    },
+    {
+      id: "crucibleLoot",
+      pattern: /@Loot\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      enricher: enrichLoot,
+      onRender: renderLoot
     }
   );
 }
@@ -159,7 +165,7 @@ function parseAwardTerms(terms) {
     else invalid.push(part);
   }
 
-  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
+  if ( invalid.length ) throw new Error(_loc("AWARD.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
@@ -206,7 +212,7 @@ function enrichAward([match, terms]) {
   for ( const [currencyKey, amount] of Object.entries(currency) ) dataset[`currency.${currencyKey}`] = amount;
   dataset.each = each;
   const entries = formatAwardEntries(currency);
-  if ( entries.length && each ) entries.push(game.i18n.localize("AWARD.Each"));
+  if ( entries.length && each ) entries.push(_loc("AWARD.Each"));
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
@@ -214,7 +220,7 @@ function enrichAward([match, terms]) {
   tag.classList.add("currencies-inline");
   Object.assign(tag.dataset, dataset);
   tag.innerHTML = entries.join(" ");
-  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Currency"));
+  tag.setAttribute("aria-label", _loc("AWARD.TOOLTIPS.Currency"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
@@ -237,7 +243,7 @@ function renderAward(element) {
  */
 async function onClickAward(event) {
   event.preventDefault();
-  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true });
+  if ( !game.user.isGM ) return ui.notifications.warn(_loc("AWARD.WARNINGS.RequiresGM"));
 
   const { currency, each: eachString } = foundry.utils.expandObject({...event.currentTarget.dataset});
   const each = eachString === "true";
@@ -253,7 +259,7 @@ async function onClickAward(event) {
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
 
   const targets = await chooseActorsDialog({
-    dialogTitle: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
+    dialogTitle: _loc(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
     dialogIcon: "fa-solid fa-trophy"
   });
   if (!targets.size) return;
@@ -262,7 +268,7 @@ async function onClickAward(event) {
   if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
   if ( currencyEach < 0 ) {
     const cannotAfford = targets.filter(a => a.system.currency < -currencyEach).map(a => a.name);
-    if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
+    if ( cannotAfford.size ) return ui.notifications.warn(_loc("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
   }
   for ( const actor of targets ) {
     const startingCurrency = actor.system.currency;
@@ -278,7 +284,7 @@ async function onClickAward(event) {
     content: `
     <section class="crucible">
       <div class="currencies-inline">
-        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
+        ${_loc(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
       <ul class="plain">${Array.from(targets.map(a => `<li>${a.name}</li>`)).join("")}</ul>
     </section>
@@ -329,11 +335,11 @@ function parseCounterspellTerms(terms) {
     }
   }
 
-  if ( invalid.length ) throw new Error(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
+  if ( invalid.length ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
-  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(game.i18n.localize("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
+  if ( ["rune", "gesture"].some(c => !(c in matches)) ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.MissingComponents"));
 
   return matches;
 }
@@ -361,8 +367,8 @@ function enrichCounterspell([match, terms]) {
   innerElements.push(SYSTEM.SPELL.RUNES[rune].name);
   innerElements.push(SYSTEM.SPELL.GESTURES[gesture].name);
   if ( inflection ) innerElements.push(SYSTEM.SPELL.INFLECTIONS[inflection].name);
-  innerElements.push(game.i18n.format("DICE.DCSpecific", {dc}));
-  tag.innerHTML = game.i18n.format("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
+  innerElements.push(_loc("DICE.DCSpecific", {dc}));
+  tag.innerHTML = _loc("SPELL.COUNTERSPELL.Detailed", {details: innerElements.join(", ")});
   tag.dataset.crucibleTooltip = "talentCheck";
   tag.dataset.talentUuid = "Compendium.crucible.talent.Item.counterspell0000";
   return tag;
@@ -409,7 +415,7 @@ async function onClickCounterspell(event) {
   // Iterate over actor targets
   for ( const actor of targets ) {
     if ( !actor?.actions.counterspell ) {
-      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
+      ui.notifications.warn(_loc("SPELL.COUNTERSPELL.WARNINGS.NoTalent", {actor: actor?.name}));
       continue;
     }
     // TODO: Consider whether to prompt multiple users
@@ -420,7 +426,7 @@ async function onClickCounterspell(event) {
     });
     if ( designatedUser ) designatedUser.query("requestCounterspell", {actorUuid: actor.uuid, rune, gesture, inflection, dc});
     else {
-      ui.notifications.warn(game.i18n.format("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
+      ui.notifications.warn(_loc("SPELL.COUNTERSPELL.WARNINGS.NoUser", {actor: actor?.name}));
       crucible.api.models.CrucibleCounterspellAction.prompt(actor, {rune, gesture, inflection, dc});
     }
   }
@@ -441,8 +447,8 @@ function enrichMilestone([_match, term]) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("award", "milestone");
   tag.dataset.quantity = String(quantity);
-  tag.innerHTML = `${quantity} ${game.i18n.localize(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
-  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
+  tag.innerHTML = `${quantity} ${_loc(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
+  tag.setAttribute("aria-label", _loc("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
@@ -465,7 +471,7 @@ function renderMilestone(element) {
  */
 async function onClickMilestone(event) {
   event.preventDefault();
-  if ( !crucible.party ) return ui.notifications.warn("WARNING.NoParty", { localize: true });
+  if ( !crucible.party ) return ui.notifications.warn(_loc("WARNING.NoParty"));
 
   const quantity = event.currentTarget.dataset.quantity;
   await crucible.party.system.awardMilestoneDialog(quantity);
@@ -551,10 +557,10 @@ async function onClickHazard(event) {
  * @param {RegExpMatchArray} matchArray
  */
 function enrichCondition([match, conditionId]) {
-  const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
+  const cfg = CONFIG.statusEffects[conditionId];
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
-  tag.innerHTML = game.i18n.localize(cfg.name);
+  tag.innerHTML = _loc(cfg.name);
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
   tag.classList.add("condition");
@@ -566,18 +572,21 @@ function enrichCondition([match, conditionId]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a reference to a specific action using syntax @Action[{actorUUID} {actionId}].
+ * Enrich a reference to a specific action using syntax @Action[{ownerUUID} {actionId}].
+ * The owner may be an Actor (actions keyed by id) or an Item (actions array searched by id).
  * @param {RegExpMatchArray} matchArray
  * @returns {HTMLEnrichedContentElement|string}
  */
-function enrichAction([match, actorUUID, actionId]) {
-  const actor = fromUuidSync(actorUUID);
-  if ( !actor ) return match;
-  const action = actor.actions[actionId];
+function enrichAction([match, ownerUUID, actionId]) {
+  const owner = fromUuidSync(ownerUUID);
+  if ( !owner ) return match;
+  let action;
+  if ( owner instanceof Actor ) action = owner.actions[actionId];
+  else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
   tag.classList.add("action");
-  tag.dataset.uuid = actorUUID;
+  tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
   tag.innerText = action.name;
@@ -642,17 +651,17 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   if ( group ) tag.classList.add("group-check");
   tag.dataset.skillId = skill.id;
   tag.dataset.dc = dc;
-  let dcLabel = `DC ${dc}`;
+  let dcLabel = _loc("DICE.DCSpecific", {dc});
 
   // Passive checks only
   if ( passive ) {
-    dcLabel += ", Passive";
+    dcLabel = _loc("DICE.DCAdditionalPassive", {dcLabel});
     tag.classList.add("passive-check");
     tag.dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
-  if ( group ) dcLabel += ", Group";
+  if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
   // Create label
   tag.innerHTML = `${skill.label} (${dcLabel})`;
@@ -667,13 +676,17 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
  * @returns {HTMLSpanElement|string}
  */
 function enrichKnowledge([match, knowledgeId]) {
-  const knowledge = crucible.CONFIG.knowledge[knowledgeId];
+  let knowledge = crucible.CONFIG.knowledge[knowledgeId];
+  if ( !knowledge ) {
+    const alias = Object.entries(crucible.CONFIG.knowledge).find(([, v]) => v.aliases?.includes(knowledgeId));
+    if ( alias ) [knowledgeId, knowledge] = alias;
+  }
   if ( !knowledge ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("knowledge-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
-  tag.innerHTML = game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: knowledge.label});
+  tag.innerHTML = _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledge.label});
   return tag;
 }
 
@@ -709,7 +722,7 @@ function enrichLanguage([match, languageId]) {
   tag.classList.add("language-check", "passive-check", "group-check");
   tag.dataset.crucibleTooltip = "languageCheck";
   tag.dataset.languageId = languageId;
-  tag.innerHTML = game.i18n.format("ACTOR.LanguageSpecific", {language: language.label});
+  tag.innerHTML = _loc("ACTOR.LanguageSpecific", {language: language.label});
   return tag;
 }
 
@@ -770,4 +783,110 @@ function enrichRef([match, path, fallback], options) {
   if ( !doc ) return new Text(fallback || match);
   const attr = foundry.utils.getProperty(doc, path);
   return new Text(attr || fallback || match);
+}
+
+/* -------------------------------------------- */
+/*  Loot Items                                  */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier) or quality=tierName.
+ * @param {RegExpMatchArray} matchArray
+ * @returns {Promise<HTMLAnchorElement|Text>}
+ * @example Explicit name and quality
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
+ * ```
+ * @example Auto-generated name and auto-selected quality
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen fireDamage=2]
+ * ```
+ * @example Multiple affixes with mixed tiers
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
+ * ```
+ */
+async function enrichLoot([match, baseUuid, tokenString, displayName]) {
+  const baseItem = fromUuidSync(baseUuid);
+  if ( !baseItem ) return new Text(match);
+
+  // Parse tokens
+  const affixes = [];
+  let quality = null;
+  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
+    const [key, value] = token.split("=");
+    if ( key === "quality" ) {
+      quality = value;
+    } else {
+      affixes.push({id: key, tier: value ? Number(value) : 1});
+    }
+  }
+
+  // Build the loot configuration
+  const config = {baseUuid, affixes, quality, name: displayName || null};
+
+  // Compose a display name by resolving affix documents from configured packs
+  let label = displayName;
+  if ( !label && affixes.length ) {
+    const affixPacks = Array.from(crucible.CONFIG.packs.affix).map(id => game.packs.get(id)).filter(Boolean);
+    const affixDocs = [];
+    for ( const {id} of affixes ) {
+      let found = false;
+      for ( const pack of affixPacks ) {
+        if ( !pack.indexed ) await pack.getIndex();
+        const entry = pack.index.find(e => e.system?.identifier === id);
+        if ( entry ) {
+          affixDocs.push(await pack.getDocument(entry._id));
+          found = true;
+          break;
+        }
+      }
+      if ( !found ) return new Text(match);
+    }
+    const CPI = crucible.api.models.CruciblePhysicalItem;
+    label = CPI.composeItemName(baseItem.name, affixDocs) || baseItem.name;
+  }
+  if ( !label ) label = baseItem.name;
+
+  // Create a draggable link element that mirrors a standard content-link
+  const a = document.createElement("a");
+  a.classList.add("content-link");
+  a.draggable = true;
+  a.dataset.link = "";
+  a.dataset.uuid = baseUuid;
+  a.dataset.loot = JSON.stringify(config);
+  a.dataset.tooltip = label;
+  a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
+  return a;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add click and drag interactivity to a rendered loot item enrichment.
+ * @param {HTMLElement} element
+ */
+function renderLoot(element) {
+  const a = element.querySelector("a[data-loot]");
+  if ( !a ) return;
+  a.addEventListener("click", async event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.loot);
+    const {baseUuid, affixes, ...options} = config;
+    const item = await Item.implementation.fromDropData({
+      type: "Item", uuid: baseUuid, loot: config
+    });
+    if ( item ) item.sheet.render(true);
+  });
+  a.addEventListener("dragstart", event => {
+    event.stopPropagation();
+    const config = JSON.parse(a.dataset.loot);
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+      type: "Item",
+      uuid: config.baseUuid,
+      loot: config
+    }));
+  });
 }

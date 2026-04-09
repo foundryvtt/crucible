@@ -1,0 +1,24 @@
+<section class="tab sheet-body standard-form scrollable {{tab.cssClass}}"
+         data-tab="{{tab.id}}" data-group="{{tab.group}}">
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "AFFIX.ConfigIdentity"}}</legend>
+        {{formGroup fields.identifier value=source.system.identifier}}
+        {{formGroup fields.affixType value=source.system.affixType localize=true}}
+        {{formGroup fields.adjective value=source.system.adjective}}
+        {{formGroup fields.itemTypes value=source.system.itemTypes type="checkboxes" stacked=true options=itemTypeOptions}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "AFFIX.ConfigTier"}}</legend>
+        {{formGroup fields.tier.fields.value value=source.system.tier.value type="number" classes="slim"}}
+        <div class="form-group slim">
+            <label>{{localize "AFFIX.TierRestriction"}}</label>
+            <div class="form-fields">
+                {{formInput fields.tier.fields.min value=source.system.tier.min type="number"}}
+                <label>-</label>
+                {{formInput fields.tier.fields.max value=source.system.tier.max type="number"}}
+            </div>
+            <p class="hint">{{fields.tier.hint}}</p>
+        </div>
+    </fieldset>
+</section>

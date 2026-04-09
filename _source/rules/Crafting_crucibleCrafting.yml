@@ -43,7 +43,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019612404
       modifiedTime: 1762045173067
       lastModifiedBy: vke929uLgNzbrY41
@@ -84,7 +84,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019624267
       modifiedTime: 1762042294802
       lastModifiedBy: vke929uLgNzbrY41
@@ -133,7 +133,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019631366
       modifiedTime: 1762042663876
       lastModifiedBy: vke929uLgNzbrY41
@@ -174,7 +174,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019636916
       modifiedTime: 1762043455282
       lastModifiedBy: vke929uLgNzbrY41
@@ -215,7 +215,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019645799
       modifiedTime: 1762043017588
       lastModifiedBy: vke929uLgNzbrY41
@@ -257,7 +257,7 @@ pages:
       exportSource: null
       coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1760019652880
       modifiedTime: 1762043223896
       lastModifiedBy: vke929uLgNzbrY41
@@ -401,15 +401,11 @@ pages:
         physical items, has a base price which is further scaled according to
         its quality level. This price is used when purchasing or selling
         schematics in trade with non-player characters.</p><section
-        class="foundryvtt"><p>There are a number of schematics provided by the
-        core Crucible system. These system-provided schematics can be found in
-        the <strong>Crucible ➤ Items ➤ Schematics</strong> compendium
-        pack.</p><p>Gamemasters can define their own schematics which can be
-        awarded to characters directly or placed into an ancillary compendium
-        pack which makes them available for use in crafting.</p><p>Custom
-        compendium packs of schematics can be assigned under <strong>Configure
-        Settings ➤ Crucible ➤ Configure Compendium
-        Sources</strong>.</p><p></p></section><h2 class="divider">Learning
+        class="construction"><p>A compendium pack of system-provided schematics
+        is planned for a future update. In the meantime, Gamemasters can define
+        their own schematics which can be awarded to characters directly or
+        placed into an ancillary compendium pack which makes them available for
+        use in crafting.</p></section><h2 class="divider">Learning
         Schematics</h2><p>Schematics provide detailed instructions for the
         creation process of their outputs. Manufacturing an item requires the
         crafter to either physically possess the schematic, have mastered it, or
@@ -531,18 +527,17 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
-        class="construction"><p>Crucible's crafting system is currently in early
-        development, rules written here are subject to change and many details
-        may not yet be finished. Please consider these details a preview of
-        things to come.</p></section><section class="gameplay"><p>It is not
-        required for any character to invest into mastery of a tradeskill,
-        however it is generally recommended to select at least one tradeskill to
-        pursue in order to enjoy a well-rounded experience playing Crucible,
-        particularly if your game is a long-form campaign.</p></section><p>The
-        information in this journal describes each of the tradeskills, how
-        schematics are defined and obtained, and how the crafting process
-        functions when using a schematic to turn input ingredients into produced
-        items.</p><h2 class="divider">Tradeskills
+        class="construction"><p>The crafting system is under active development.
+        Rules described here represent the intended design, but some details may
+        not yet be fully automated.</p></section><section class="gameplay"><p>It
+        is not required for any character to invest into mastery of a
+        tradeskill, however it is generally recommended to select at least one
+        tradeskill to pursue in order to enjoy a well-rounded experience playing
+        Crucible, particularly if your game is a long-form
+        campaign.</p></section><p>The information in this journal describes each
+        of the tradeskills, how schematics are defined and obtained, and how the
+        crafting process functions when using a schematic to turn input
+        ingredients into produced items.</p><h2 class="divider">Tradeskills
         Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
         Ability</p></th><th><p>Secondary Ability</p></th><th><p>General
         Usage</p></th></tr><tr><td><p>@UUID[.alchemy000000000]</p></td><td><p>Intellect</p></td><td><p>Toughness</p></td><td><p>Potions,
@@ -623,10 +618,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1760019529125
-  modifiedTime: 1760019743652
+  modifiedTime: 1773514792337
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!journal!crucibleCrafting'

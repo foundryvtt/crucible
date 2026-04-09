@@ -2,10 +2,11 @@ name: Ring of Reinforcement
 type: accessory
 img: icons/equipment/finger/ring-shield-silver.webp
 system:
+  identifier: ringReinforcement
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -17,23 +18,61 @@ system:
     public: >-
       <blockquote><p>This steel ring feels permanently cool to the touch and
       gives the sensation of weighing more than expected given its narrow
-      band.</p></blockquote><p>This ring provides a bonus to
-      <strong>Armor</strong> defense equal to the minimum of its
-      <strong>Quality</strong> and <strong>Enchantment</strong>
-      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
-      </strong>enchantment: <strong>+1
-      Armor</strong></p></li><li><p><strong>Superior </strong>quality and
-      <strong>Major </strong>enchantment: <strong>+2
-      Armor</strong></p></li><li><p><strong>Masterwork </strong>quality and
-      <strong>Legendary </strong>enchantment: <strong>+3
-      Armor</strong></p></li></ul>
+      band.</p></blockquote><p>This enchanted ring provides a bonus to
+      <strong>Armor</strong> defense.</p>
     private: >-
-      <p>This item is presented as a ring, but it can be any type of accessory
-      like an amulet, cloak, bracers, or other type of trinket.</p>
+      <p>This item is presented as an example of a Fine Ring with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.reinforcement000]{Reinforcement}
+      suffix.</p><p>This affix can be applied to any armor or accessory and this
+      ring could be further enchanted with a Tier 1 prefix.</p>
   actions: []
   actorHooks: []
-  identifier: reinforcement
-effects: []
+effects:
+  - name: Reinforcement
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Reinforcement
+      identifier: reinforcement
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+    _id: reinforcement000
+    img: icons/magic/defensive/shield-barrier-blue.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase <strong>Armor</strong> defense by 1 for each
+      <strong>Tier</strong> of this suffix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!ringOfReinforcem.reinforcement000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -43,12 +82,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1749823360454
-  modifiedTime: 1766097022534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1775482955599
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: ringOfReinforcem
 sort: 700000
 _key: '!items!ringOfReinforcem'

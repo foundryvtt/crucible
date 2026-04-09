@@ -7,7 +7,7 @@ HOOKS.adrenalineSurge0 = {
     if ( !this.effects.has(item.id) || !action.scaling?.includes("strength") ) return;
     action.usage.boons[item.id] = {label: item.name, number: 2};
   },
-  preActivateAction(item, action, _targets) {
+  preActivateAction(item, action) {
     if ( !action.scaling?.includes("strength") ) delete action.usage.boons[item.id]; // Double-check
   }
 };
@@ -48,7 +48,7 @@ HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;
     const offhand = this.equipment.weapons.offhand;
-    if ( offhand.category !== "shieldHeavy" ) return;
+    if ( offhand?.category !== "shieldHeavy" ) return;
     const halfArmor = Math.ceil(defenses.armor.base / 2);
     defenses.armor.base -= halfArmor;
     defenses.block.bonus += halfArmor;
@@ -67,15 +67,17 @@ HOOKS.bard000000000000 = {
 /* -------------------------------------------- */
 
 HOOKS.battlefocus00000 = {
-  applyCriticalEffects(_item, _action, outcome, self) {
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-    const updates = self.actorUpdates;
-    const hasStatus = this.status.battleFocus || updates.system?.status?.battleFocus;
-    if ( hasStatus ) return;
-    self.resources.focus = (self.resources.focus || 0) + 1;
-    foundry.utils.setProperty(updates, "system.status.battleFocus", true);
+  applyCriticalEffects(_item, action) {
+    if ( this.status.battleFocus ) return;
+    for ( const event of action.events ) {
+      if ( (event.target === this) || !event.isCriticalSuccess || !event.isDamage ) continue;
+      const idx = action.events.indexOf(event) + 1;
+      action.recordEvent({
+        resources: [{resource: "focus", delta: 1}],
+        actorUpdates: {system: {status: {battleFocus: true}}}
+      }, {index: idx});
+      return;
+    }
   }
 };
 
@@ -91,25 +93,35 @@ HOOKS.bestialSenses000 = {
 /* -------------------------------------------- */
 
 HOOKS.bloodfrenzy00000 = {
-  applyCriticalEffects(_item, _action, outcome, self) {
-    const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-    const updates = self.actorUpdates;
-    const hasStatus = this.status.bloodFrenzy || updates.system?.status?.bloodFrenzy;
-    if ( hasStatus ) return;
-    self.resources.action = (self.resources.action || 0) + 1;
-    foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
+  applyCriticalEffects(item, action) {
+    if ( this.status.bloodFrenzy ) return;
+    for ( const event of action.events ) {
+      if ( (event.target === this) || !event.isCriticalSuccess || !event.damagesHealth ) continue;
+      const idx = action.events.indexOf(event) + 1;
+      action.recordEvent({
+        resources: [{resource: "action", delta: 1}],
+        actorUpdates: {system: {status: {bloodFrenzy: true}}},
+        statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.action.color.css}]
+      }, {index: idx});
+      return;
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.bloodletter00000 = {
-  applyCriticalEffects(item, action, outcome, self) {
-    const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-    const dt = action.usage.weapon?.system.damageType;
-    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
+  applyCriticalEffects(_item, action) {
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        const dt = event.weaponItem?.system.damageType;
+        if ( ["piercing", "slashing"].includes(dt) ) {
+          event.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -121,9 +133,12 @@ HOOKS.bloodmagic000000 = {
     action.cost.health = action.cost.focus * 10;
     action.cost.focus = 0;
   },
-  finalizeAction(item, action, outcome) {
-    if ( !outcome.self ) return;
-    outcome.resources.health = Math.min(outcome.resources.health, -action.cost.health);
+  finalizeAction(_item, action) {
+    const selfHealth = action.events.reduce((total, e) => {
+      return total + ((e.target === this) ? (e.resourceTotals.health ?? 0) : 0);
+    }, 0);
+    const minCost = -action.cost.health;
+    if ( selfHealth > minCost ) action.recordEvent({resources: [{resource: "health", delta: minCost - selfHealth}]});
   }
 };
 
@@ -209,11 +224,16 @@ HOOKS.chirurgeon000000 = {
 /* -------------------------------------------- */
 
 HOOKS.concussiveblows0 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
-    const damageHealth = outcome.resources.health < 0;
-    if ( !damageHealth ) return;
-    const dt = action.usage.weapon?.system.damageType;
-    if ( dt === "bludgeoning" ) outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
+  applyCriticalEffects(_item, action) {
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        if ( event.weaponItem?.system.damageType === "bludgeoning" ) {
+          event.effects.push(SYSTEM.EFFECTS.staggered(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -222,7 +242,7 @@ HOOKS.concussiveblows0 = {
 HOOKS.conjurer00000000 = {
   prepareAction(_item, action) {
     if ( action.gesture?.id !== "create" ) return;
-    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId(`conjurercreate${i}`));
+    const effectIds = Array.fromRange(3, 1).map(i => SYSTEM.EFFECTS.getEffectId("conjurercreate", {suffix: String(i)}));
     const effectId = effectIds.find(id => !this.effects.has(id)) || effectIds[0];
     action.usage.summons[0].effectId = effectId;
   }
@@ -233,7 +253,7 @@ HOOKS.conjurer00000000 = {
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceChanges, statusText}) {
     if ( this.resources.action.value ) {
-      resourceChanges.focus = (resourceChanges.focus || 0) + 1;
+      resourceChanges.focus.push({label: item.name, amount: 1});
       statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
     }
   }
@@ -267,17 +287,23 @@ HOOKS.demolitionist000 = {
 
 HOOKS.distancerunner00 = {
   prepareMovement(_item, movement) {
-    movement.stride += 1;
+    movement.strideBonus += 1;
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.dustbinder000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "earth" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.damagesHealth ) {
+          event.effects.push(SYSTEM.EFFECTS.corroding(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -296,27 +322,70 @@ HOOKS.evasiveshot00000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.focusedanticipat = {
+  startTurn(item, {resourceChanges, statusText}, {turn}) {
+    if ( turn > 0 ) return;
+    resourceChanges.focus.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.healer0000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
     if ( action.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
   }
 };
+
 /* -------------------------------------------- */
 
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
-    if ( this.equipment.weapons.shield ) movement.engagement += 1;
+    if ( this.equipment.weapons.shield ) movement.engagementBonus += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.impetus000000000 = {
+  startTurn(item, {effectChanges}, {turn}) {
+    if ( turn > 0 ) return;
+    const effectData = {
+      _id: SYSTEM.EFFECTS.getEffectId("impetus"),
+      name: item.name,
+      img: item.img,
+      statuses: ["hastened"],
+      duration: {
+        units: "rounds",
+        expiry: "turnStart",
+        value: 1
+      }
+    };
+    const existingEffect = this.effects.get(effectData._id);
+    if ( existingEffect ) {
+      effectData.duration.value += existingEffect.duration.value;
+      effectChanges.toUpdate.push(effectData);
+    } else {
+      effectChanges.toCreate.push(effectData);
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.inspirator000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "soul" ) return;
-    const restoreMorale = outcome.resources.morale > 0;
-    if ( restoreMorale ) outcome.effects.push(SYSTEM.EFFECTS.inspired(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.healsMorale ) {
+          event.effects.push(SYSTEM.EFFECTS.inspired(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -334,51 +403,69 @@ HOOKS.intellectualsupe = {
 /* -------------------------------------------- */
 
 HOOKS.irrepressiblespi = {
-  startTurn(item, {resourceChanges}) {
-    if ( !this.system.isBroken ) resourceChanges.morale = (resourceChanges.morale || 0) + 1;
+  startTurn(item, {resourceChanges, statusText}) {
+    if ( this.system.isBroken ) return;
+    resourceChanges.morale.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.heal.css});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.kineturge0000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "kinesis" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-    const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability: "presence"});
-    bleeding.duration = {rounds: 1};
-    outcome.effects.push(bleeding);
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.isDamage ) continue;
+        const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability: "presence"});
+        bleeding.duration = {value: 1, units: "rounds", expiry: "turnStart"};
+        event.effects.push(bleeding);
+        break;
+      }
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.lesserregenerati = {
-  startTurn(item, {resourceChanges}) {
-    if ( !this.system.isWeakened ) resourceChanges.health = (resourceChanges.health || 0) + 1;
+  startTurn(item, {resourceChanges, statusText}) {
+    if ( this.system.isWeakened ) return;
+    resourceChanges.health.push({label: item.name, amount: 1});
+    statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.health.color.heal.css});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.lightbringer0000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "illumination" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( damageHealth || damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.irradiated(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
+          event.effects.push(SYSTEM.EFFECTS.irradiated(this));
+          break;
+        }
+      }
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.mender0000000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "life" ) return;
-    const restoreHealth = outcome.resources.health > 0;
-    if ( restoreHealth ) outcome.effects.push(SYSTEM.EFFECTS.mending(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.healsHealth ) {
+          event.effects.push(SYSTEM.EFFECTS.mending(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -396,20 +483,32 @@ HOOKS.mentalfortress00 = {
 /* -------------------------------------------- */
 
 HOOKS.mesmer0000000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "illusion" ) return;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( damageMorale ) outcome.effects.push(SYSTEM.EFFECTS.confused(this));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.damagesMorale ) {
+          event.effects.push(SYSTEM.EFFECTS.confused(this));
+          break;
+        }
+      }
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.necromancer00000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "death" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.decay(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.damagesHealth ) {
+          event.effects.push(SYSTEM.EFFECTS.decay(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -475,13 +574,19 @@ HOOKS.planneddefense00 = {
 /* -------------------------------------------- */
 
 HOOKS.poisoner00000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
-    const damageHealth = outcome.resources.health < 0; if ( !damageHealth ) return;
-    const hasEffect = this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"));
-    if ( !hasEffect ) return;
+  applyCriticalEffects(_item, action) {
+    if ( !this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) return;
     if ( !action.tags.has("melee") ) return;
-    const dt = action.usage.weapon?.system.damageType;
-    if ( ["piercing", "slashing"].includes(dt) ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        const dt = event.weaponItem?.system.damageType;
+        if ( ["piercing", "slashing"].includes(dt) ) {
+          event.effects.push(SYSTEM.EFFECTS.poisoned(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -510,7 +615,7 @@ HOOKS.powerfulThrow000 = {
 /* -------------------------------------------- */
 
 HOOKS.preparedness0000 = {
-  preActivateAction(item, action, _targets) {
+  preActivateAction(item, action) {
     if ( action.id !== "equipWeapon" ) return;
     if ( action.cost.action && !this.system.status.hasMoved ) {
       action.cost.action = 0;
@@ -530,10 +635,16 @@ HOOKS.preternaturalins = {
 /* -------------------------------------------- */
 
 HOOKS.pyromancer000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "flame" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.burning(this));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.damagesHealth ) {
+          event.effects.push(SYSTEM.EFFECTS.burning(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -548,10 +659,16 @@ HOOKS.resilient0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.rimecaller000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "frost" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    if ( damageHealth ) outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.damagesHealth ) {
+          event.effects.push(SYSTEM.EFFECTS.freezing(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -592,7 +709,7 @@ HOOKS.inexorableFlame0 = {
 
 HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
-    movement.engagement += 1;
+    movement.engagementBonus += 1;
   }
 };
 
@@ -617,7 +734,7 @@ HOOKS.snakeblood000000 = {
 HOOKS.sorcerer00000000 = {
   useAction(item, action) {
     if ( action.tags.has("iconicSpell") ) {
-      throw new Error(`As a ${item.name}, you cannot cast Iconic Spells.`);
+      throw new Error(_loc("SPELL.WARNINGS.SorcererNoIconic", {talent: item.name}));
     }
   },
   preActivateAction(item, action) {
@@ -701,11 +818,16 @@ HOOKS.stronggrip000000 = {
 /* -------------------------------------------- */
 
 HOOKS.surgeweaver00000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "lightning" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
+          event.effects.push(SYSTEM.EFFECTS.shocked(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -732,13 +854,16 @@ HOOKS.thickskin0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.thoughtbinder000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "control" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( !(damageHealth || damageMorale) ) return;
-    const dominated = SYSTEM.EFFECTS.dominated(this, outcome.target);
-    outcome.effects.push(dominated);
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
+          event.effects.push(SYSTEM.EFFECTS.dominated(this));
+          break;
+        }
+      }
+    }
   }
 };
 
@@ -746,7 +871,7 @@ HOOKS.thoughtbinder000 = {
 
 HOOKS.truegrit00000000 = {
   prepareMovement(_item, movement) {
-    movement.engagement += 1;
+    movement.engagementBonus += 1;
   }
 };
 
@@ -765,16 +890,32 @@ HOOKS.unarmedblocking0 = {
 /* -------------------------------------------- */
 
 HOOKS.voidcaller000000 = {
-  applyCriticalEffects(_item, action, outcome, _self) {
+  applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "oblivion" ) return;
-    const damageHealth = outcome.resources.health < 0;
-    const damageMorale = outcome.resources.morale < 0;
-    if ( (damageHealth || damageMorale) ) outcome.effects.push(SYSTEM.EFFECTS.entropy(this, outcome.target));
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
+          event.effects.push(SYSTEM.EFFECTS.entropy(this));
+          break;
+        }
+      }
+    }
   }
 };
 
 /* -------------------------------------------- */
 
+
+HOOKS.weakpoints000000 = {
+  prepareAttack(_item, action, target, rollData) {
+    if ( !action.tags.has("strike") ) return;
+    const weapon = action.usage.weapon;
+    if ( !weapon?.system.config.category.scaling.includes("dexterity") ) return;
+    if ( ["exposed", "flanked", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
+  }
+};
+
+/* -------------------------------------------- */
 
 HOOKS.vowofanimus00000 = {
   // TODO would be better handled if hooks can exist on active effects as a defendAttack hook

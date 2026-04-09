@@ -1,0 +1,48 @@
+name: Poison Damage
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Venom
+  identifier: poisonDamage
+  changes: []
+  affixType: suffix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: poisonDmg0000000
+img: icons/magic/acid/dissolve-drip-droplet-smoke.webp
+disabled: false
+start: null
+description: >-
+  <p>Add <strong>Poison</strong> damage to strikes made with this weapon. The
+  bonus damage is equal to 2 for each <strong>Tier</strong> of this
+  suffix.</p><h3 class="divider">Playtest Notes</h3><p>This bonus currently
+  applies as flat additional damage of the weapon's existing damage type. In a
+  future update, this will deal damage as <strong>Poison</strong>, checked
+  against the target's <strong>Poison</strong> resistance separately.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: sKYiTVan8lpxYFeS
+sort: 700000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775560812320
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!poisonDmg0000000'

@@ -1,65 +1,82 @@
-<header class="action-header">
-    <img class="icon" src="{{action.img}}" alt="{{action.name}}">
-    <div class="title">
-        <h4>{{action.name}}</h4>
-        {{crucibleTags tags.activation tagType="activation"}}
+<section class="action line-item">
+    <header class="action-header">
+        <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+        <div class="title">
+            <h4>{{action.name}}</h4>
+            {{crucibleTags tags.activation tagType="activation"}}
+        </div>
+    </header>
+
+    {{#if hasActionTags}}
+    <div class="action-tags full-tags">
+        <label class="tag-icon" data-tooltip="{{tags.action.tooltip}}" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bolt"></i>
+        </label>
+        {{crucibleTags tags.action tagType="action"}}
     </div>
-</header>
+    {{/if}}
 
-{{#if hasActionTags}}
-<div class="action-tags full-tags">
-    <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
-        <i class="fa-solid fa-bolt"></i>
-    </label>
-    {{crucibleTags tags.action tagType="action"}}
-</div>
-{{/if}}
+    {{#if hasContextTags}}
+    <div class="context-tags full-tags">
+        <label class="tag-icon" data-tooltip="{{tags.context.tooltip}}" data-tooltip-direction="LEFT">
+            <i class="{{tags.context.icon}}"></i>
+        </label>
+        {{crucibleTags tags.context tagType="context"}}
+    </div>
+    {{/if}}
 
-{{#if hasContextTags}}
-<div class="context-tags full-tags">
-    <label class="tag-icon" data-tooltip="{{tags.context.label}}" data-tooltip-direction="LEFT">
-        <i class="{{tags.context.icon}}"></i>
-    </label>
-    {{crucibleTags tags.context tagType="context"}}
-</div>
-{{/if}}
+    {{#if hasTargetTags}}
+    <div class="target-tags full-tags">
+        <label class="tag-icon" data-tooltip="ACTION.TAGS.Target" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bullseye"></i>
+        </label>
+        <div class="tags" data-tag-type="targets">
+            {{#if involvesRegion}}
+            {{#if requiresRegion}}
+            <span class="tag unmet">{{localize "ACTION.PlanRegion"}}</span>
+            {{else if tagRegion}}
+            <span class="tag">{{localize "ACTION.PlannedRegion"}}</span>
+            {{/if}}
+            {{/if}}
 
-{{#if hasTargets}}
-<div class="target-template full-tags">
-    {{#if template}}
-    <label class="tag-icon" data-tooltip="{{localize "ACTION.TemplateTargets"}}" data-tooltip-direction="LEFT"
-           data-template-uuid="{{template.uuid}}">
+            {{#if involvesMovement}}
+            {{#if requiresMovement}}
+            <span class="tag unmet">{{localize "ACTION.PlanMovement"}}</span>
+            {{else if tagMovement}}
+            <span class="tag">{{localize "ACTION.PlannedMovement"}}</span>
+            {{/if}}
+            {{/if}}
+
+            {{#each targets}}
+            {{#unless hidden}}
+            <span class="target-link tag {{this.cssClass}}" data-uuid="{{this.uuid}}"
+                  {{#if this.tooltip}}data-tooltip="{{this.tooltip}}"{{/if}}>{{this.name}}</span>
+            {{/unless}}
+            {{else}}
+            <span class="tag unmet">{{localize "ACTION.NoTargets"}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if requiresMovement}}
+    <button class="plan-button frame-brown" type="button" data-action="planMovement">
+        <i class="fa-solid fa-person-walking"></i>
+        {{localize "ACTION.PlanMovement"}}
+    </button>
+    {{/if}}
+
+    {{#if requiresRegion}}
+    <button class="plan-button frame-brown" type="button" data-action="placeRegion">
         <i class="fa-solid fa-ruler-combined"></i>
-    </label>
-    {{else}}
-    <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
-        <i class="fa-solid fa-bullseye"></i>
-    </label>
+        {{localize "ACTION.PlanRegion"}}
+    </button>
     {{/if}}
-    <div class="tags" data-tag-type="target">
-        {{#if requiresTemplate}}
-        <button class="place-template frame-brown" type="button" data-action="placeTemplate">
-            <i class="fa-solid fa-ruler-combined"></i>
-            {{localize "ACTION.PlaceTemplate"}}
-        </button>
-        {{else}}
-        {{#each targets}}
-        {{#unless hidden}}
-        <span class="target-link tag {{this.cssClass}}" data-uuid="{{this.uuid}}"
-              {{#if this.tooltip}}data-tooltip="{{this.tooltip}}"{{/if}}>{{this.name}}</span>
-        {{/unless}}
-        {{else}}
-        <span class="tag unmet">{{localize "ACTION.NoTargets"}}</span>
-        {{/each}}
+
+    <div class="description">
+        {{#if action.condition}}
+        <p class="condition"><strong>{{localize "ACTION.Condition"}}:</strong> {{{action.condition}}}</p>
         {{/if}}
+        {{{action.description}}}
     </div>
-</div>
-{{/if}}
-
-<div class="description">
-    {{#if action.condition}}
-    <p class="condition"><strong>{{localize "ACTION.Condition"}}:</strong> {{{action.condition}}}</p>
-    {{/if}}
-    {{{action.description}}}
-</div>
-
+</section>

@@ -34,7 +34,9 @@ export default class SpellCastDialog extends ActionUseDialog {
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
         slashing: SYSTEM.DAMAGE_TYPES.slashing.label
       },
-      requiresComposition: this.action.isComposed || (this.action.id === "counterspell")
+      requiresComposition: this.action.isComposed || (this.action.id === "counterspell"),
+      showDetails: true,
+      submitLabel: _loc("ACTION.DEFAULT_ACTIONS.Cast.Name")
     });
   }
 
@@ -46,7 +48,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     if ( ["rune", "gesture", "inflection", "damageType"].includes(event.target.name) ) {
       this.action.updateSource({[event.target.name]: event.target.value});
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
-      this._clearTargetTemplate();
+      this._clearTargetRegion();
       this.render({window: {title: this.title}});
     }
   }
@@ -56,7 +58,7 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onRoll(event, button, dialog) {
     const form = event.target;
-    const formData = (new FormDataExtended(form)).object;
+    const formData = (new foundry.applications.ux.FormDataExtended(form)).object;
     const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
     if ( this.action.isComposed ) {
       const {rune, gesture, inflection, damageType} = formData;

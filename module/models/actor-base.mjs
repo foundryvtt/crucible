@@ -316,7 +316,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       moralePerLevel: 6,
       moraleMultiplier: level < 1 ? threat : threatFactor,
       woundsMultiplier: 1.5,
-      abilityMin: 0,
+      abilityMin: 1, // Excluding zero as special case
       abilityMax: 12
     };
   }
@@ -588,7 +588,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareWeapons(weaponItems) {
     const slotInUse = (item, type) => {
       item.updateSource({"system.equipped": false});
-      const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
+      const w = _loc("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
       console.warn(w);
     };
 
@@ -676,7 +676,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
     weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
-    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0) || (weapons.melee && weapons.ranged);
+    weapons.hasChoice = (weapons.natural.length > 0) || !weapons.twoHanded;
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
@@ -694,7 +694,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _getUnarmedWeapon() {
     const itemCls = /** @type {typeof CrucibleItem} */ getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
-    data.name = game.i18n.localize(data.name);
+    data.name = _loc(data.name);
     if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine"; // TODO move to talent hook
     const unarmed = new itemCls(data, {parent: this.parent});
     unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
@@ -750,6 +750,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Skills
     this.#prepareSkills();
     this.parent.callActorHooks("prepareSkills", this.skills);
+    this.#prepareFinalSkills();
 
     // Spellcraft
     this.parent.callActorHooks("prepareGrimoire", this.grimoire);
@@ -783,8 +784,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #prepareFinalAbilities() {
     const {abilityMin, abilityMax} = this.details.progression;
     for ( const ability of Object.values(this.abilities) ) {
-      const total = ability.initial + ability.base + ability.increases + ability.bonus;
-      ability.value = Math.clamp(total, abilityMin, abilityMax);
+      const base = ability.initial + ability.base + ability.increases;
+      if ( base === 0 ) ability.bonus = 0; // Zero can never become anything other than zero
+      else ability.bonus = Math.clamp(ability.bonus, abilityMin - base, abilityMax - base);
+      ability.value = base + ability.bonus;
     }
   }
 
@@ -1004,25 +1007,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareSkills() {
     for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      this.skills[skillId] = this.#prepareSkill(config);
+      const rank = this.training[config.id] ?? 0;
+      const abilityBonus = this.parent.getAbilityBonus(config.abilities);
+      const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
+      const enchantmentBonus = 0;
+      this.skills[skillId] = {rank, abilityBonus, skillBonus, enchantmentBonus};
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare a single Skill.
-   * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
-   * @returns {CrucibleActorSkill}
+   * Recompute derived skill values after hooks have modified enchantmentBonus.
    */
-  #prepareSkill(config) {
-    const rank = this.training[config.id] ?? 0;
-    const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-    const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
-    const enchantmentBonus = 0;
-    const score = abilityBonus + skillBonus + enchantmentBonus;
-    const passive = SYSTEM.PASSIVE_BASE + score;
-    return {rank, abilityBonus, skillBonus, enchantmentBonus, score, passive};
+  #prepareFinalSkills() {
+    for ( const skill of Object.values(this.skills) ) {
+      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
+      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
+    }
   }
 
   /* -------------------------------------------- */
@@ -1107,8 +1109,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const H = SYSTEM.ACTOR.HOOKS;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
 
-    // First register inline hooks
-    for ( let {hook, fn} of item.system.actorHooks ) {
+    // First register inline hooks, including any hooks contributed by embedded affixes
+    const actorHooks = item.system.getActorHooks?.() ?? item.system.actorHooks;
+    for ( let {hook, fn} of actorHooks ) {
       const cfg = H[hook];
       if ( !cfg ) {
         console.error(new Error(`Invalid Actor hook name "${hook}" defined by Item "${item.uuid}"`));

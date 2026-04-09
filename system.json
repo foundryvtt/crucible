@@ -1,8 +1,9 @@
 {
+  "type": "system",
   "id": "crucible",
   "title": "Crucible",
   "description": "Crucible is an innovative and modern tabletop role-playing game system built exclusively for Foundry Virtual Tabletop as a digital platform. From the ground up, Crucible is designed to leverage the unique capabilities of Foundry VTT to provide gamemasters with a powerful toolset and effortless layers of automation, allowing gamemasters and players to focus on what matters most: telling a compelling story.",
-  "version": "0.8.9",
+  "version": "0.9.0",
   "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#",
   "url": "https://foundryvtt.com/packages/crucible",
@@ -14,8 +15,8 @@
     }
   ],
   "compatibility": {
-    "minimum": 13.351,
-    "verified": 14.353,
+    "minimum": 14.356,
+    "verified": 14.356,
     "maximum": 14
   },
   "license": "LICENSE",
@@ -27,6 +28,12 @@
       "label": "Adversary Talents",
       "path": "packs/adversary-talents",
       "type": "Item"
+    },
+    {
+      "name": "affixes",
+      "label": "Affixes",
+      "path": "packs/affixes",
+      "type": "ActiveEffect"
     },
     {
       "name": "ancestry",
@@ -57,6 +64,12 @@
       "label": "Equipment",
       "path": "packs/equipment",
       "type": "Item"
+    },
+    {
+      "name": "macros",
+      "label": "System Macros",
+      "path": "packs/macros",
+      "type": "Macro"
     },
     {
       "name": "rules",
@@ -137,6 +150,7 @@
           "name": "Items",
           "color": "#380d05",
           "packs": [
+            "affixes",
             "crafting",
             "equipment"
           ]
@@ -144,7 +158,8 @@
       ],
       "packs": [
         "rules",
-        "playtest"
+        "playtest",
+        "macros"
       ]
     }
   ],
@@ -157,6 +172,7 @@
   ],
   "documentTypes": {
     "ActiveEffect": {
+      "affix": {},
       "flanked": {}
     },
     "Actor": {

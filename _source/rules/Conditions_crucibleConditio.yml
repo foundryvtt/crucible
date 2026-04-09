@@ -38,7 +38,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302615865
       modifiedTime: 1751303679699
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -57,8 +57,8 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Weakened</strong> is vulnerable to taking
-        deadly wounds. Protagonists become Weakened when they reach zero Health.
-        Any further damage to Health taken while Weakened increases
+        deadly wounds. Heroes become Weakened when they reach zero Health. Any
+        further damage to Health taken while Weakened increases
         Wounds.</p><p>While a creature is Weakened, it suffers -2 to maximum
         Action and loses access to a free Movement action.</p>
     video:
@@ -75,7 +75,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302878260
       modifiedTime: 1770384752006
       lastModifiedBy: ifaQA7jTJsr3UWFE
@@ -93,7 +93,7 @@ pages:
     text:
       format: 1
       content: >-
-        <p>When a protagonist's Wounds reach their maximum value, or when an
+        <p>When a hero's Wounds reach their maximum value, or when an
         adversary's Health reaches zero, that character is
         <strong>Dead</strong>. A creature which is Dead is also treated as
         <strong>Incapacitated</strong>, can no longer Rest, and cannot be
@@ -112,7 +112,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302896661
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -146,7 +146,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302917151
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -180,7 +180,7 @@ pages:
       exportSource: null
       coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302934912
       modifiedTime: 1751303576609
       lastModifiedBy: QvBFYpRRXHRBcOfP
@@ -199,8 +199,8 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Broken</strong> is vulnerable to
-        psychological trauma. Protagonists become Broken when they reach zero
-        Morale. Any further damage to Morale taken while Broken increases
+        psychological trauma. Heroes become Broken when they reach zero Morale.
+        Any further damage to Morale taken while Broken increases
         Madness.</p><p>While a creature is Broken it cannot expend
         <strong>Focus</strong> and actions it takes suffer from <strong>+2
         Banes</strong>.</p><p>Creatures which are Broken cannot contribute
@@ -221,7 +221,7 @@ pages:
       exportSource: null
       coreVersion: '13.351'
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       createdTime: 1751302966644
       modifiedTime: 1770384772052
       lastModifiedBy: ifaQA7jTJsr3UWFE
@@ -239,10 +239,10 @@ pages:
     text:
       format: 1
       content: >-
-        <p>When a protagonist's Madness reaches its maximum value, that
-        character is <strong>Insane</strong>. A character which is Insane may no
-        longer be controlled by its player and is controlled by the Gamemaster.
-        This condition cannot be healed or cured except by magical means.</p>
+        <p>When a hero's Madness reaches its maximum value, that character is
+        <strong>Insane</strong>. A character which is Insane may no longer be
+        controlled by its player and is controlled by the Gamemaster. This
+        condition cannot be healed or cured except by magical means.</p>
     video:
       controls: true
       volume: 0.5
@@ -457,7 +457,7 @@ pages:
       format: 1
       content: >-
         <p>When a creature is entirely unable to act, it is
-        <strong>Inacapacitated</strong>. When a target is Incapacitated, its
+        <strong>Incapacitated</strong>. When a target is Incapacitated, its
         <strong>Dodge, Block, </strong>and<strong> Parry</strong> defenses
         become zero and it no longer benefits from <strong>Ability
         Score</strong> bonuses to <strong>Fortitude, Willpower, </strong>or
@@ -569,7 +569,7 @@ pages:
     text:
       format: 1
       content: >-
-        <p>A creature that is <strong>Staggered</strong> has their maximum
+        <p>A creature that is <strong>Stunned</strong> has their maximum
         <strong>Action</strong> reduced by 4.</p>
     video:
       controls: true
@@ -916,7 +916,8 @@ pages:
       format: 1
       content: >-
         <p>A <strong>Burning</strong> creature suffers additional Fire damage to
-        <strong>Health</strong> at the start of its subsequent turns.</p>
+        both <strong>Health</strong> and <strong>Morale</strong> at the start of
+        its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -1128,8 +1129,7 @@ pages:
       content: >-
         <p>A creature which is <strong>Deafened</strong> is unable to utilize
         any sound-based perception and cannot be affected by any action with the
-        <strong>Vocal</strong> trait.</p><p>TODO: Implementation of the Vocal
-        trait still to come.</p>
+        <strong>Auditory</strong> tag.</p>
     video:
       controls: true
       volume: 0.5
@@ -1162,10 +1162,9 @@ pages:
     text:
       format: 1
       content: >-
-        <p>A creature which is <strong>Silenced </strong>is unable to perform
-        any action with the <strong>Vocal</strong> trait or to cast a Spell
-        which includes a metamagic <strong>Inflection</strong>.</p><p>TODO:
-        Implementation of the Vocal trait still to come.</p>
+        <p>A creature which is <strong>Silenced</strong> is unable to perform
+        any action with the <strong>Vocal</strong> tag or to cast a Spell which
+        includes a metamagic <strong>Inflection</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -1198,9 +1197,10 @@ pages:
     text:
       format: 1
       content: >-
-        <p>A creature which is <strong>Inivisible</strong> cannot be detected
-        using sight-based perception.</p><p>TODO: More advanced rules for
-        invisibility still to come.</p>
+        <p>A creature which is <strong>Invisible</strong> cannot be detected
+        using sight-based perception.</p><section class="construction"><p>More
+        advanced rules for invisibility are planned for a future
+        update.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -1636,11 +1636,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751302467753
-  modifiedTime: 1760019535362
+  modifiedTime: 1773514792336
   lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 300000
 _key: '!journal!crucibleConditio'

@@ -2,11 +2,11 @@ name: Luminary Band
 type: accessory
 img: icons/equipment/finger/ring-cabochon-gold-orange.webp
 system:
-  identifier: luminary
+  identifier: ringLuminary
   category: jewelry
   quantity: 1
   weight: 0
-  price: 200
+  price: 20
   quality: fine
   broken: false
   enchantment: minor
@@ -16,21 +16,63 @@ system:
     - investment
   description:
     public: >-
-      <p>An intricately engraved golden ring that wraps around a elliptical
-      glinting orange gemstone.</p><p>While equipped and
-      <strong>Invested</strong>, this ring provides boons to the casting of any
-      composed spell which incorporates an
-      <strong>Inflection</strong>.</p><ul><li><p><strong>Minor</strong>
-      enchantment: <strong>+1 Boon</strong></p></li><li><p><strong>Major
-      </strong>enchantment: <strong>+2
-      Boons</strong></p></li><li><p><strong>Legendary</strong> enchantment:
-      <strong>+3 Boons</strong></p></li></ul>
+      <blockquote><p>An intricately engraved golden ring that wraps around an
+      elliptical glinting orange gemstone.</p></blockquote><p>This enchanted
+      band provides boons to <strong>Composed</strong> actions that include an
+      <strong>Inflection</strong>.</p>
     private: >-
-      <p>This item is presented as a ring, but it can be any type of accessory
-      like an amulet, cloak, bracers, or other type of trinket.</p>
+      <p>This item is presented as an example of a Fine Band with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.luminary00000000]{Luminary}
+      prefix.</p><p>This affix can be applied to any accessory and this band
+      could be further enchanted with a Tier 1 suffix.</p>
   actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Luminary
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Luminary
+      identifier: luminary
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+    _id: luminary00000000
+    img: icons/magic/movement/trail-streak-zigzag-teal.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Gain boons to <strong>Composed</strong> actions that include an
+      <strong>Inflection</strong>. The number of boons gained equals the
+      <strong>Tier</strong> of this prefix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: HfTsbeLfq79SZ35D
+    sort: 100000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.luminary00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!luminaryBand0000.luminary00000000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -41,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1767730980381
-  modifiedTime: 1767730980381
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1775482888834
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: luminaryBand0000
 sort: 0
 _key: '!items!luminaryBand0000'

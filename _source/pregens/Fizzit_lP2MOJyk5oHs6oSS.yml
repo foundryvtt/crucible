@@ -190,9 +190,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -241,7 +238,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -261,6 +258,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 3
 items:
   - _id: wdzOn8u66F9Yiehc
     name: Ring Mail
@@ -293,13 +291,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415450
+      modifiedTime: 1775444415450
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
     ownership:
@@ -329,7 +329,7 @@ items:
           force.</p>
         private: ''
       actions: []
-      slot: 0
+      slot: 2
       identifier: arcaneOrb
       invested: false
       actorHooks: []
@@ -337,13 +337,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415451
+      modifiedTime: 1775444415451
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 100000
     ownership:
       default: 0
@@ -362,7 +364,7 @@ items:
       equipped: true
       properties: []
       damageType: bludgeoning
-      slot: 0
+      slot: 1
       description:
         public: >-
           <p>This heavy tome is used as a repository of knowledge as well as an
@@ -379,13 +381,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415451
+      modifiedTime: 1775444415451
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 700000
     ownership:
@@ -430,6 +434,9 @@ items:
             maximum: null
             weapon: false
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -443,13 +450,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415451
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415451
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -50000
     ownership:
@@ -482,13 +491,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415452
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415452
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
     sort: 100000
@@ -527,13 +538,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415452
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415452
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
     sort: 300000
@@ -564,13 +577,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415452
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415452
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -600,13 +615,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415452
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415452
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: conjurer00000000
     folder: fOYHlZJEWUukD7yr
     sort: 0
@@ -639,13 +656,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415452
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415452
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: rimecaller000000
     folder: c0nl6X8tp4Of0Y4O
     sort: -225000
@@ -676,13 +695,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415453
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415453
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: recognizespellcr
     folder: Uk4FgmLsNJc62zCJ
     sort: 50000
@@ -745,6 +766,10 @@ items:
           rune: lightning
           gesture: touch
           composition: 1
+          summon:
+            actorUuid: null
+            permanent: true
+          inflection: ''
       actorHooks: []
       iconicSpells: 0
       training:
@@ -759,13 +784,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444415453
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444415453
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: counterspell0000
     folder: gCqKVVNjLmIaU7vj
     sort: 100000
@@ -808,6 +835,9 @@ items:
             maximum: null
             weapon: false
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - sig3.presence.intellect
       rune: ''
@@ -821,13 +851,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415453
+      modifiedTime: 1775444415453
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -881,6 +913,9 @@ items:
             - skill
             - wilderness
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: ''
       gesture: ''
       inflection: ''
@@ -892,13 +927,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415453
+      modifiedTime: 1775444415453
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: wildspeaker00000
     folder: null
     sort: 0
@@ -963,6 +1000,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: illusion
       actorHooks: []
       nodes:
@@ -977,13 +1017,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415453
+      modifiedTime: 1775444415453
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
     sort: 0
@@ -1016,13 +1058,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415454
+      modifiedTime: 1775444415454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: surgeweaver00000
     folder: null
     sort: 0
@@ -1055,13 +1099,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415454
+      modifiedTime: 1775444415454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -1123,6 +1169,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: lightning
       actorHooks: []
       training:
@@ -1137,13 +1186,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415454
+      modifiedTime: 1775444415454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeLightning000
     folder: null
     sort: 0
@@ -1209,6 +1260,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: kinesis
       actorHooks: []
       nodes:
@@ -1223,13 +1277,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415454
+      modifiedTime: 1775444415454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeKinesis00000
     folder: null
     sort: 0
@@ -1289,6 +1345,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: frost
       nodes:
         - wis0b
@@ -1303,13 +1362,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415454
+      modifiedTime: 1775444415454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeFrost0000000
     folder: null
     sort: 0
@@ -1359,6 +1420,9 @@ items:
             - harmless
             - rallying
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: talisman
@@ -1372,13 +1436,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415455
+      modifiedTime: 1775444415455
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: talismanWeaponTr
     folder: null
     sort: 0
@@ -1421,6 +1487,9 @@ items:
           tags:
             - reload
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: mechanical
@@ -1434,13 +1503,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444415455
+      createdTime: 1775444415455
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: mechanicalWeapon
     folder: null
     sort: 0
@@ -1484,6 +1555,9 @@ items:
           effects: []
           tags: []
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: ''
       gesture: ''
       inflection: ''
@@ -1495,13 +1569,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415455
+      modifiedTime: 1775444415455
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: unshakeablePoise
     folder: null
     sort: 0
@@ -1543,13 +1619,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444415455
+      modifiedTime: 1775444415455
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -1637,18 +1715,17 @@ flags:
         messageId: t3WM9HAg9PzUI3c7
         combat: null
 _stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775444415449
+  modifiedTime: 1775444415449
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '13.351'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
 sort: 0
 _key: '!actors!lP2MOJyk5oHs6oSS'

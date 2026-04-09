@@ -7,6 +7,9 @@ import {SYSTEM} from "../const/system.mjs";
 export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @override */
+  static AFFIXABLE = true;
+
+  /** @override */
   static ITEM_CATEGORIES = SYSTEM.WEAPON.CATEGORIES;
 
   /** @override */
@@ -14,6 +17,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @override */
   static ITEM_PROPERTIES = SYSTEM.WEAPON.PROPERTIES;
+
+  /** @override */
+  static STATEFUL_FIELDS = ["slot", "broken", "invested", "dropped", "loaded"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];
@@ -147,9 +153,13 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       base: category.damage,
       bonus: 0,
       quality: quality.bonus,
-      weapon: 0
+      weapon: 0,
+      criticalSuccessThreshold: 6,
+      criticalFailureThreshold: 6
     };
-    if ( this.properties.has("oversized") ) damage.base += 2;
+    if ( this.properties.has("oversized") ) damage.base += category.hands;
+    if ( this.properties.has("blocking") || this.properties.has("engaging") ) damage.base -= category.hands;
+    if ( this.properties.has("parrying") ) damage.criticalSuccessThreshold += 1;
     return damage;
   }
 
@@ -172,12 +182,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     };
 
     // Parrying and Blocking properties
-    if ( this.properties.has("parrying") ) {
-      defense.parry += (category.hands + this.config.enchantment.bonus);
-    }
-    if ( this.properties.has("blocking") ) {
-      defense.block += (category.hands + this.config.enchantment.bonus);
-    }
+    if ( this.properties.has("parrying") ) defense.parry += 1;
+    if ( this.properties.has("blocking") ) defense.block += 1;
     return defense;
   }
 
@@ -190,7 +196,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   #prepareRange() {
     const category = this.config.category;
     let range = category.range;
-    if ( this.properties.has("reach") ) range += category.ranged ? 20 : 2;
     if ( this.properties.has("ambush") ) range = Math.max(range - (category.ranged ? 10 : 1), 1);
     return range;
   }
@@ -217,34 +222,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   get needsReload() {
     return this.config.category.reload && !this.loaded;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the effective weapon damage resulting from a weapon attack.
-   * @param {CrucibleActor} actor       The actor performing the attack action
-   * @param {CrucibleAction} action     The attack action being performed
-   * @param {CrucibleActor} target      The target of the attack action
-   * @param {AttackRoll} roll           The attack roll performed
-   * @returns {DamageData}              Damage data for the roll
-   */
-  getDamage(actor, action, target, roll) {
-    const resource = action.usage.resource || "health";
-    const type = action.usage.damageType || this.damageType;
-    let {weapon: base, bonus} = this.damage;
-    const multiplier = action.usage.bonuses.multiplier ?? 1;
-    bonus += (action.usage.bonuses.damageBonus ?? 0);
-    const resistance = target.getResistance(resource, type, false);
-
-    // Configure bonus damage
-    if ( actor.talentIds.has("weakpoints000000") && this.config.category.scaling.includes("dexterity")
-      && (["exposed", "flanked", "unaware"].some(s => target.statuses.has(s))) ) {
-      bonus += 2;
-    }
-
-    // Return prepare damage data
-    return {overflow: roll.overflow, multiplier, base, bonus, resistance, resource, type};
   }
 
   /* -------------------------------------------- */
@@ -284,16 +261,31 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     Object.assign(tags, parentTags);
 
     // Damage and Range
-    tags.damage = game.i18n.format("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
-    if ( this.needsReload ) tags.damage = game.i18n.localize("WEAPON.TAGS.Reload");
-    tags.range = game.i18n.format("ITEM.PROPERTIES.Range", {range: this.range});
+    tags.damage = _loc("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});
+    if ( this.needsReload ) tags.damage = _loc("WEAPON.TAGS.Reload");
+    tags.range = _loc("ITEM.PROPERTIES.Range", {range: this.range});
 
     // Weapon Properties
-    if ( this.defense.block ) tags.block = game.i18n.format("ITEM.PROPERTIES.Block", {block: this.defense.block});
-    if ( this.defense.parry ) tags.parry = game.i18n.format("ITEM.PROPERTIES.Parry", {parry: this.defense.parry});
+    if ( this.defense.block ) tags.block = _loc("ITEM.PROPERTIES.Block", {block: this.defense.block});
+    if ( this.defense.parry ) tags.parry = _loc("ITEM.PROPERTIES.Parry", {parry: this.defense.parry});
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
 
     return scope === "short" ? {damage: tags.damage, range: tags.range} : tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Snapshot the stateful properties of this weapon at the time an Action is performed.
+   * Properties outside this list are assumed to be permanent attributes of the item and not stateful.
+   * @returns {CrucibleActionWeaponState}
+   */
+  snapshot() {
+    const source = this.toObject();
+    return this.constructor.STATEFUL_FIELDS.reduce((obj, field) => {
+      obj[field] = source[field];
+      return obj;
+    }, {id: this.parent.id});
   }
 
   /* -------------------------------------------- */

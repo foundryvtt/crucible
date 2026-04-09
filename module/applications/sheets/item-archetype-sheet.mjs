@@ -172,7 +172,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
     const item = await fromUuid(data.uuid);
     if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) {
-      ui.notifications.warn("ARCHETYPE.WARNINGS.NotEquipment", {localize: true});
+      ui.notifications.warn(_loc("ARCHETYPE.WARNINGS.NotEquipment"));
       return;
     }
 
@@ -198,7 +198,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( (data.type !== "Item") || spells.some(s => s.item === data.uuid) ) return;
     const spell = await fromUuid(data.uuid);
     if ( !(spell?.system instanceof crucible.api.models.CrucibleSpellItem) ) {
-      ui.notifications.warn("ARCHETYPE.WARNINGS.NotSpell", {localize: true});
+      ui.notifications.warn(_loc("ARCHETYPE.WARNINGS.NotSpell"));
       return;
     }
 
@@ -222,7 +222,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( requisiteTalents.length ) {
       const addRequisites = await foundry.applications.api.Dialog.confirm({
         window: {title: "SPELL.SHEET.Knowledge"},
-        content: game.i18n.format("ARCHETYPE.SHEET.RequiredComponents", {spell: spell.name})
+        content: _loc("ARCHETYPE.SHEET.RequiredComponents", {spell: spell.name})
       });
       if ( addRequisites ) {
         updateData.system.talents = [...talents, ...requisiteTalents];
@@ -252,9 +252,10 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
     // Force replace ability progression
     if ( fields.abilities.validate(submitData.system.abilities) === undefined ) {
-      submitData.system["==abilities"] = submitData.system.abilities;
+      submitData.system.abilities = _replace(submitData.system.abilities);
+    } else {
+      delete submitData.system.abilities;
     }
-    delete submitData.system.abilities;
     return submitData;
   }
 }

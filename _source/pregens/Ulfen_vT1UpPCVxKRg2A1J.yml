@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/HumanBarbarian.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: 5ImsYEoZ5PjW0Ltw
     name: Scale Mail
@@ -290,13 +288,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403794
+      modifiedTime: 1775444403794
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 200000
     ownership:
@@ -327,19 +327,21 @@ items:
       damageType: slashing
       broken: false
       actions: []
-      slot: 0
+      slot: 3
       identifier: greataxe
       invested: false
       actorHooks: []
       dropped: false
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403794
+      modifiedTime: 1775444403794
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 900000
     ownership:
       default: 0
@@ -383,6 +385,9 @@ items:
             maximum: null
             weapon: false
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -398,13 +403,15 @@ items:
     sort: -100000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403794
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403794
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!vT1UpPCVxKRg2A1J.intimidator00000'
@@ -448,6 +455,9 @@ items:
             maximum: null
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -459,13 +469,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403794
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403794
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
     sort: 0
@@ -512,6 +524,9 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       actorHooks: []
       iconicSpells: 0
       training:
@@ -523,13 +538,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403795
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403795
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
     ownership:
@@ -577,6 +594,9 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: ''
@@ -588,13 +608,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403795
+      createdTime: 1775444403795
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
     sort: -100000
@@ -638,14 +660,16 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
-              changes: []
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
             - name: Grappling
               scope: 1
               result:
@@ -654,14 +678,16 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: null
-                rounds: 1
-              changes: []
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
               system:
                 dot: []
                 maintenance: null
                 regions: []
                 summons: []
+                changes: []
           tags:
             - difficult
             - harmless
@@ -675,6 +701,9 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: unarmed
@@ -689,13 +718,15 @@ items:
     sort: 0
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403796
+      createdTime: 1775444403796
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
       default: 0
@@ -705,18 +736,17 @@ flags:
   core: {}
   crucible: {}
 _stats:
+  systemId: crucible
+  systemVersion: 0.9.0
+  coreVersion: '14.359'
+  createdTime: 1775444403792
+  modifiedTime: 1775444403792
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '13.351'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: vT1UpPCVxKRg2A1J
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
 sort: 0
 _key: '!actors!vT1UpPCVxKRg2A1J'

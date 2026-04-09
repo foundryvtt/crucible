@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/DevilkinSorcerer.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - folder: uvvY6c0nbJBhAjM6
     name: Flame Staff
@@ -281,7 +279,7 @@ items:
           gouts of arcane flame at enemies.</p>
         private: ''
       actions: []
-      slot: 0
+      slot: 3
       identifier: flameStaff
       invested: false
       actorHooks: []
@@ -289,13 +287,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403806
+      modifiedTime: 1775444403806
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 300000
     ownership:
       default: 0
@@ -331,13 +331,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403806
+      modifiedTime: 1775444403806
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: gQTZ7J9hqDpVTtPb
     sort: 300000
     ownership:
@@ -381,13 +383,15 @@ items:
               scope: 2
               statuses: []
               duration:
-                turns: 1
-                rounds: null
+                value: 1
+                units: rounds
+                expiry: turnEnd
+                expired: false
               result:
                 type: success
                 all: false
-              changes: []
               system:
+                changes: []
                 dot: []
                 maintenance: null
                 regions: []
@@ -397,24 +401,29 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - pre1a
       rune: ''
       gesture: ''
       inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403807
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403807
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
     ownership:
@@ -448,13 +457,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403807
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403807
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
     sort: 500000
@@ -479,10 +490,11 @@ items:
           description: >-
             <p>You dart forward nimbly, making a strike with sudden and
             unexpected swiftness to perform a <strong>Strike </strong>with a
-            <strong>Finesse</strong> weapon against a single target with an
-            increased range of <strong>+2 feet</strong>.</p><p>The attack is
-            <strong>Difficult</strong>, but you do not move from your current
-            position nor does this attack provoke Disengagement.</p>
+            weapon which scales using <strong>Dexterity</strong> against a
+            single target, with an increased range of <strong>+2
+            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
+            you do not move from your current position nor does this attack
+            provoke Disengagement.</p>
           cost:
             action: 0
             focus: 0
@@ -504,6 +516,9 @@ items:
             - melee
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: light
@@ -518,13 +533,15 @@ items:
     sort: 200000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403808
+      createdTime: 1775444403808
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
       default: 0
@@ -581,6 +598,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: oblivion
       actorHooks: []
       nodes:
@@ -595,13 +615,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444403808
+      modifiedTime: 1775444403808
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeOblivion0000
     folder: null
     sort: 0
@@ -614,10 +636,10 @@ items:
     system:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using Intellect,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Frost</strong>.</p>
+        governs fire and heat.</p><p>The Flame rune scales using
+        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
+        by the orderly rune of <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -657,6 +679,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: flame
       actorHooks: []
       nodes:
@@ -671,13 +696,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403808
+      createdTime: 1775444403808
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeFlame0000000
     folder: null
     sort: 0
@@ -711,13 +738,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444403809
+      modifiedTime: 1775444403809
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: gesturearrow0000
     folder: null
     sort: 0
@@ -730,18 +759,17 @@ flags:
   crucible:
     lastSpell: spell.flame.influence
 _stats:
+  systemId: crucible
+  systemVersion: 0.9.0
+  coreVersion: '14.359'
+  createdTime: 1775444403805
+  modifiedTime: 1775444403805
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '13.351'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: sqTUaPrXpwCzk3xs
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
 sort: 0
 _key: '!actors!sqTUaPrXpwCzk3xs'

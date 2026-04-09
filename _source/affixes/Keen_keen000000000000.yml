@@ -1,0 +1,45 @@
+name: Keen
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  identifier: keen
+  changes: []
+  adjective: Keen
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: keen000000000000
+img: icons/skills/melee/strike-blade-scimitar-blue-red.webp
+disabled: false
+start: null
+description: >-
+  <p>Reduce the <strong>Critical Threshold</strong> needed to obtain a
+  <strong>Critical Hit</strong> on a successful Strike. This threshold is
+  reduced by 1 for each <strong>Tier</strong> of this affix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: X7jf6k3zU0CiCktv
+sort: 100000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775402630828
+  modifiedTime: 1775442266396
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!keen000000000000'

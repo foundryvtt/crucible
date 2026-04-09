@@ -268,8 +268,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     ancestry.features.push({
       label: schema.getField("resistances").label,
       tags: [
-        {text: game.i18n.format("ACTOR.ResistanceSpecific", {resistance: res ? `${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : game.i18n.localize("None")})},
-        {text: game.i18n.format("ACTOR.VulnerabilitySpecific", {vulnerability: vuln ? `${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : game.i18n.localize("None")})}
+        {text: _loc("ACTOR.ResistanceSpecific", {resistance: res ? `${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : _loc("None")})},
+        {text: _loc("ACTOR.VulnerabilitySpecific", {vulnerability: vuln ? `${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : _loc("None")})}
       ]
     });
 
@@ -278,8 +278,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     ancestry.features.push({
       label: schema.getField("movement").label,
       tags: [
-        {text: game.i18n.format("ACTOR.SizeSpecific", {size})},
-        {text: game.i18n.format("ACTOR.StrideSpecific", {stride})}
+        {text: _loc("ACTOR.SizeSpecific", {size})},
+        {text: _loc("ACTOR.StrideSpecific", {stride})}
       ]
     });
 
@@ -317,7 +317,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
       const k = crucible.CONFIG.knowledge[knowledgeId];
-      return {text: game.i18n.format("ACTOR.KnowledgeSpecific", {knowledge: k?.label || k})};
+      return {text: _loc("ACTOR.KnowledgeSpecific", {knowledge: k?.label || k})};
     }));
     if ( knowledgeTags.length ) background.features.push({
       label: schema.getField("knowledge").label,
@@ -327,7 +327,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Languages
     const languageTags = Array.from(languages.map(languageId => {
       const l = crucible.CONFIG.languages[languageId];
-      return {text: game.i18n.format("ACTOR.LanguageSpecific", {language: l?.label || l})};
+      return {text: _loc("ACTOR.LanguageSpecific", {language: l?.label || l})};
     }));
     if ( languageTags.length ) background.features.push({
       label: schema.getField("languages").label,
@@ -418,7 +418,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Build type filter options from item types present in the pack
     const seenTypes = new Map();
     for ( const {item} of this._state.equipmentItems ) {
-      if ( !seenTypes.has(item.type) ) seenTypes.set(item.type, game.i18n.localize(`TYPES.Item.${item.type}`));
+      if ( !seenTypes.has(item.type) ) seenTypes.set(item.type, _loc(`TYPES.Item.${item.type}`));
     }
     context.filterTypes = [...seenTypes.entries()]
       .sort((a, b) => a[1].localeCompare(b[1]))
@@ -588,7 +588,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
-          ? `${ap} ${game.i18n.localize(`TALENT.LABELS.Points.${plurals.select(ap)}`)}`
+          ? `${ap} ${_loc(`TALENT.LABELS.Points.${plurals.select(ap)}`)}`
           : chosen.name;
       }
 
@@ -596,13 +596,13 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( step.id === "talents" ) {
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
-          ? `${tp} ${game.i18n.localize(`TALENT.LABELS.Talents.${plurals.select(tp)}`)}`
-          : game.i18n.localize("ACTOR.CREATION.Completed");
+          ? `${tp} ${_loc(`TALENT.LABELS.Talents.${plurals.select(tp)}`)}`
+          : _loc("ACTOR.CREATION.Completed");
       }
 
       // Equipment
       if ( (step.id === "equipment") && completed ) {
-        tab.selectionLabel = game.i18n.localize("ACTOR.CREATION.Completed");
+        tab.selectionLabel = _loc("ACTOR.CREATION.Completed");
       }
     }
   }
@@ -770,7 +770,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
           title: "ACTOR.CREATION.AbandonTitle",
           icon: "fa-solid fa-circle-x"
         },
-        content: game.i18n.localize("ACTOR.CREATION.AbandonContent"),
+        content: _loc("ACTOR.CREATION.AbandonContent"),
         modal: true
       });
       if ( !confirm ) return;
@@ -1031,7 +1031,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Require remaining budget
     const spent = Object.values(this._state.equipment).reduce((sum, e) => sum + (e.scaledPrice * e.quantity), 0);
     if ( (spent + scaledPrice) > SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET ) {
-      ui.notifications.warn(game.i18n.format("ACTOR.CREATION.EquipmentInsufficient", {name: item.name}));
+      ui.notifications.warn(_loc("ACTOR.CREATION.EquipmentInsufficient", {name: item.name}));
       return;
     }
 
@@ -1073,7 +1073,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         title: "ACTOR.CREATION.RestartTitle",
         icon: "fa-solid fa-hexagon-exclamation"
       },
-      content: game.i18n.localize("ACTOR.CREATION.RestartContent"),
+      content: _loc("ACTOR.CREATION.RestartContent"),
       modal: true
     });
     if ( !confirm ) return;

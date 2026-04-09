@@ -89,7 +89,7 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.lightWeaponTrain
           level: null
-        - item: Compendium.crucible.talent.Item.lunge00000000000
+        - item: Compendium.crucible.talent.Item.lightWeaponTrain
           level: null
       identifier: urchin
       ui:
@@ -187,9 +187,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/HumanAssassin.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -238,7 +235,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -258,6 +255,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: YBeEb4tg4QxDtNIx
     name: Dagger
@@ -287,19 +285,21 @@ items:
       damageType: piercing
       broken: false
       actions: []
-      slot: 0
+      slot: 2
       identifier: dagger
       invested: false
       actorHooks: []
       dropped: false
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403821
+      modifiedTime: 1775444403821
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 1200000
     ownership:
       default: 0
@@ -332,19 +332,21 @@ items:
       damageType: piercing
       broken: false
       actions: []
-      slot: 0
+      slot: 1
       identifier: dagger
       invested: false
       actorHooks: []
       dropped: false
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403821
+      modifiedTime: 1775444403821
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 1200000
     ownership:
       default: 0
@@ -379,13 +381,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403822
+      modifiedTime: 1775444403822
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
@@ -429,6 +433,9 @@ items:
             minimum: null
             maximum: 30
             weapon: false
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -444,13 +451,15 @@ items:
     sort: 0
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403822
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.diversionist0000'
@@ -491,6 +500,9 @@ items:
             maximum: 1
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -505,13 +517,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403822
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
     sort: 100000
@@ -561,6 +575,9 @@ items:
             maximum: null
             weapon: true
             minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       actorHooks: []
       training:
@@ -572,13 +589,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403822
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403822
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: cW6bwHXBB9pMcwva
     sort: 300000
     ownership:
@@ -626,6 +645,9 @@ items:
             weapon: false
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: ''
@@ -637,13 +659,15 @@ items:
       gesture: ''
       inflection: ''
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
     sort: -100000
@@ -681,13 +705,15 @@ items:
     sort: 400000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.stealthNovice000'
@@ -720,13 +746,15 @@ items:
     sort: 120000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.deceptionNovice0'
@@ -748,10 +776,11 @@ items:
           description: >-
             <p>You dart forward nimbly, making a strike with sudden and
             unexpected swiftness to perform a <strong>Strike </strong>with a
-            <strong>Finesse</strong> weapon against a single target with an
-            increased range of <strong>+2 feet</strong>.</p><p>The attack is
-            <strong>Difficult</strong>, but you do not move from your current
-            position nor does this attack provoke Disengagement.</p>
+            weapon which scales using <strong>Dexterity</strong> against a
+            single target, with an increased range of <strong>+2
+            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
+            you do not move from your current position nor does this attack
+            provoke Disengagement.</p>
           cost:
             action: 0
             focus: 0
@@ -773,6 +802,9 @@ items:
             - melee
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: light
@@ -787,13 +819,15 @@ items:
     sort: 200000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403823
+      createdTime: 1775444403823
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
       default: 0
@@ -803,18 +837,17 @@ flags:
   core: {}
   crucible: {}
 _stats:
+  systemId: crucible
+  systemVersion: 0.9.0
+  coreVersion: '14.359'
+  createdTime: 1775444403820
+  modifiedTime: 1775444403820
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '13.351'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: hfOaEbw4ObPXu6Qa
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
 sort: 0
 _key: '!actors!hfOaEbw4ObPXu6Qa'

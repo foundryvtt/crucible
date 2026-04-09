@@ -3,7 +3,6 @@ name: Steadfast
 type: talent
 img: icons/magic/life/heart-red-blue.webp
 system:
-  node: wis2c
   description: >-
     Your patient resolve allows you to endure psychologically grueling ordeals
     with steadfast determination.
@@ -21,26 +20,49 @@ system:
         focus: 1
         weapon: false
         heroism: 0
+        hands: 0
       target:
         type: self
         scope: 1
         number: 1
+        self: false
       effects:
         - name: Steadfast Resolve
           scope: 1
           statuses:
             - resolute
           duration:
-            turns: null
+            value: null
+            units: seconds
+            expiry: null
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       img: icons/magic/life/heart-red-blue.webp
       range:
         maximum: null
         weapon: false
         minimum: null
       actionHooks: []
-  requirements: {}
+      summon:
+        actorUuid: null
+        permanent: true
   nodes:
     - wis2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
 ownership:
   default: 0
@@ -49,11 +71,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.6
-  coreVersion: '13.351'
-  createdTime: 1676168488294
-  modifiedTime: 1763135050766
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.0
+  coreVersion: '14.356'
+  createdTime: 1772307160148
+  modifiedTime: 1773514792616
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.steadfast0000000
   duplicateSource: null
   exportSource: null

@@ -38,19 +38,23 @@ system:
             all: false
           statuses: []
           duration:
-            turns: null
-            rounds: null
-          changes:
-            - key: system.abilities.strength.bonus
-              value: '-2'
-              mode: 2
-              priority: null
+            value: null
+            units: seconds
+            expiry: null
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes:
+              - key: system.abilities.strength.bonus
+                value: -2
+                priority: null
+                type: add
+                phase: initial
       tags:
+        - spell
+        - iconicSpell
         - spell
         - iconicSpell
         - fortitude
@@ -79,11 +83,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771718400000
-  modifiedTime: 1771870090726
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.9.0
+  createdTime: 1772307159356
+  modifiedTime: 1773514792465
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!curseAtrophy0000'

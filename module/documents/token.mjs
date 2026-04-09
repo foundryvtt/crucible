@@ -1,6 +1,15 @@
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
   /**
+   * Track Movement IDs that were confirmed via an ActionUseDialog before execution.
+   * We need this secondary store because otherwise movement workflows lose context of how the Action was performed
+   * and whether its cost has already been confirmed (via action usage) or still needs to be incurred (as a new move).
+   * Lazily initialized on first use since most TokenDocument instances never require it.
+   * @type {Set<string>|undefined}
+   */
+  _confirmedMovements;
+
+  /**
    * Token size in grid squares.
    * @type {number}
    */
@@ -53,16 +62,17 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /** @inheritDoc */
   async _preUpdateMovement(movement, operation) {
     await super._preUpdateMovement(movement, operation);
-    if ( !this.parent?.useMicrogrid          // Must be a crucible 1ft grid scene
-      || !this.actor?.inCombat                  // Must have an Actor in combat
-      || (movement.method !== "dragging")       // Must be a drag action
-      || movement.chain.length ) return;           // Must be the first segment
+    if ( !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene
+      || !this.actor?.inCombat                                  // Must have an Actor in combat
+      || (movement.method !== "dragging")                       // Must be a drag action
+      || movement.chain.length                                  // Must be the first segment
+      || this._confirmedMovements?.has(movement.id) ) return;   // AP already spent via dialog
 
     // Verify that the movement cost is affordable and either prevent movement or record the total cost
     const {cost} = this.actor.getMovementActionCost(movement.passed.cost + movement.pending.cost);
     const isUnconstrained = game.user.isGM && ui.controls.controls.tokens.tools.unconstrainedMovement.active;
     if ( (cost > this.actor.resources.action.value) && !isUnconstrained ) {
-      ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordMove", {name: this.actor.name, cost,
+      ui.notifications.warn(_loc("ACTION.WARNINGS.CannotAffordMove", {name: this.actor.name, cost,
         action: this.actor.actions.move.name}));
       return false;
     }
@@ -73,14 +83,16 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /** @inheritDoc */
   _onUpdateMovement(movement, operation, user) {
     super._onUpdateMovement(movement, operation, user);
-    if ( !user.isSelf                        // Must be the user who initiated movement
-      || !this.parent?.useMicrogrid             // Must be a crucible 1ft grid scene
-      || !this.actor?.inCombat                  // Must have an Actor in combat
-      || (movement.method !== "dragging")       // Must be a drag action
-      || movement.chain.length ) return;           // Must be the first segment
-    const actions = new Set();
-    for ( const w of movement.passed.waypoints ) actions.add(w.action);
-    for ( const w of movement.pending.waypoints ) actions.add(w.action);
-    this.actor.useMove(movement.passed.cost + movement.pending.cost, {dialog: false, movement: movement, actions});
+    if ( !user.isSelf                                           // Must be the user who initiated movement
+      || !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene
+      || !this.actor?.inCombat                                  // Must have an Actor in combat
+      || (movement.method !== "dragging")                       // Must be a drag action
+      || movement.chain.length ) return;                        // Must be the first segment
+    if ( this._confirmedMovements?.has(movement.id) ) {         // AP already spent via dialog
+      this._confirmedMovements.delete(movement.id);
+      return;
+    }
+    const costFeet = movement.passed.cost + movement.pending.cost;
+    this.actor.useMove(costFeet, {dialog: false, movement});
   }
 }

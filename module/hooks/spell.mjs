@@ -10,32 +10,33 @@ HOOKS.protectiveMirage = {
     const duplicates = effect.getFlag("crucible", "duplicates") ?? 3;
     rollData.banes.mirage = {label: item.name, number: duplicates * 2};
   },
-  confirmAction(_item, _action, outcome, options) {
+  confirmAction(_item, action, {reverse}) {
     const effect = this.effects.get("protectiveMirage");
     if ( !effect ) return;
     let duplicates = effect.getFlag("crucible", "duplicates") ?? 3;
 
-    // Verify the action targeted physical defense
-    const delta = options.reverse ? 1 : -1;
-    for ( const roll of outcome.rolls ) {
-      if ( !(roll instanceof crucible.api.dice.AttackRoll) ) continue;
-      if ( (roll.data.defenseType !== "physical") || roll.isSuccess ) continue;
+    // Count physical attacks that were blocked (failed) against this actor
+    const delta = reverse ? 1 : -1;
+    for ( const event of action.events ) {
+      if ( (event.target !== this) || !event.roll ) continue;
+      if ( !(event.roll instanceof crucible.api.dice.AttackRoll) ) continue;
+      if ( (event.roll.data.defenseType !== "physical") || event.roll.isSuccess ) continue;
       duplicates += delta;
     }
 
     // Delete exhausted effect
     if ( duplicates <= 0 ) {
-      outcome.effects.push({_id: effect.id, _action: "delete"});
+      action.recordEvent({type: "effect", target: this, effects: [{_id: effect.id, _action: "delete"}]});
       return;
     }
 
     // Decrement effect
-    outcome.effects.push({
+    action.recordEvent({type: "effect", target: this, effects: [{
       _id: effect.id,
       name: `Mirage (${duplicates})`,
       "flags.crucible.duplicates": duplicates,
       _action: "update"
-    });
+    }]});
   }
 };
 

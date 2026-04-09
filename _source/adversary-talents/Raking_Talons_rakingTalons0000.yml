@@ -22,6 +22,7 @@ system:
         focus: 0
         heroism: 0
         weapon: true
+        hands: 0
       range:
         minimum: null
         maximum: null
@@ -34,19 +35,29 @@ system:
         multiple: 2
       effects:
         - name: Raking Talons
-          scope: '3'
+          scope: 3
           result:
             type: successCritical
             all: false
           statuses:
             - bleeding
           duration:
-            turns: 2
-            rounds: null
+            value: 2
+            units: rounds
+            expiry: turnEnd
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
       actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
@@ -65,11 +76,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1751481339795
-  modifiedTime: 1767897352027
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.0
+  createdTime: 1772307157336
+  modifiedTime: 1773514792187
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!rakingTalons0000'

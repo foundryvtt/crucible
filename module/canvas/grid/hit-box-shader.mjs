@@ -402,7 +402,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       bool hovered = ((vAnimationTypes & HOVERED) != 0U);
       bool controlled = ((vAnimationTypes & CONTROLLED) != 0U);
     
-      float thicknessPx = max(thickness * zoomScale, 0.0);
+      float thicknessPx = max(thickness * (targeted ? 1.5 : 1.0) * zoomScale, 0.0);
       float borderPx = max(dashBorderPixels * zoomScale, 0.0);
       
       float deltaPx = vDashOffsetPx * zoomScale;
@@ -433,11 +433,11 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float phase = perimPhasePx - time * dashCyclePerSecond * period;
       float blur = clamp(dashBlur, 0.0, 0.25) * period;
        
-      float tAll = (controlled || hovered) ? 1.0 : stripeMask(uv.s, period, halfOn, phase, uv.aa, blur);
-    
+      float tAll = targeted ? stripeMask(uv.s, period, halfOn, phase, uv.aa, blur) : 1.0;
+
       float shrink = clamp(dashNormLength - (2.0 * borderPx) / max(period, 1e-4), 0.0, 1.0);
       float halfOnFill = 0.5 * shrink * period;
-      float tFill = (controlled || hovered) ? 1.0 : (halfOnFill > 0.0 ? stripeMask(uv.s, period, halfOnFill, phase, uv.aa, blur) : 0.0);
+      float tFill = targeted ? (halfOnFill > 0.0 ? stripeMask(uv.s, period, halfOnFill, phase, uv.aa, blur) : 0.0) : 1.0;
     
       float dashAll = bandAll * tAll;
       float dashFill = bandFill * tFill;

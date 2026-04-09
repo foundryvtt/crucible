@@ -1,0 +1,44 @@
+name: Hale
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Hale
+  identifier: hale
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - accessory
+_id: hale000000000000
+img: icons/magic/life/heart-cross-strong-flame-green.webp
+disabled: false
+start: null
+description: >-
+  <p>Increase maximum <strong>Health</strong> by 6 for each
+  <strong>Tier</strong> of this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: hd7WNbghiYX3GDXN
+sort: 300000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!hale000000000000'

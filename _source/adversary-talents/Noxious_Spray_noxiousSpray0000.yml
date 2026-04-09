@@ -45,14 +45,15 @@ system:
           statuses:
             - poisoned
           duration:
-            turns: 3
-            rounds: null
-          changes: []
+            value: 3
+            units: rounds
+            expiry: turnEnd
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
+            changes: []
       tags:
         - melee
         - natural
@@ -77,12 +78,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.8.7
-  createdTime: 1771691991463
-  modifiedTime: 1771691991463
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.9.0
+  createdTime: 1772307157334
+  modifiedTime: 1773514792184
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: noxiousSpray0000
 sort: 0
 _key: '!items!noxiousSpray0000'

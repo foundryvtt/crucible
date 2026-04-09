@@ -133,7 +133,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
         this.name = CrucibleSpellAction.getComposedName(this);
         this.img = this.rune.img;
-        this.description = game.i18n.localize("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
+        this.description = _loc("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
       }
     }
   }
@@ -226,8 +226,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
     // Custom spell name
     if ( id ) {
       const custom = SYSTEM.SPELL.COMPOSED_SPELL_NAMES[id];
-      if ( typeof custom === "string" ) name = game.i18n.localize(custom);
-      else if ( typeof custom === "object" ) name = game.i18n.localize(custom[damage?.type || rune.damageType]);
+      if ( typeof custom === "string" ) name = _loc(custom);
+      else if ( typeof custom === "object" ) name = _loc(custom[damage?.type || rune.damageType]);
       if ( name ) return name;
     }
 
@@ -235,10 +235,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
     nameFormat ||= rune.nameFormat;
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
-        name = game.i18n.format("SPELL.NameFormatNoun", {rune, gesture});
+        name = _loc("SPELL.NameFormatNoun", {rune, gesture});
         break;
       case SYSTEM.SPELL.NAME_FORMATS.ADJ:
-        name = game.i18n.format("SPELL.NameFormatAdj", {rune: rune.adjective, gesture});
+        name = _loc("SPELL.NameFormatAdj", {rune: rune.adjective, gesture});
         break;
     }
     if ( inflection ) name = `${inflection.adjective} ${name}`;
@@ -250,6 +250,17 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _configureUsage() {
     super._configureUsage();
+
+    // The base class resets cost fields from _source, but for composed spells the action cost is computed
+    // dynamically from gesture and inflection components and is not stored in _source (which retains schema
+    // defaults). Re-apply the computed cost so that hooks in _prepare() start from the correct baseline.
+    if ( this.isComposed && this.gesture ) {
+      const cost = CrucibleSpellAction.#prepareCost.call(this);
+      this.cost.action = cost.action;
+      this.cost.focus = cost.focus;
+      this.cost.heroism = cost.heroism;
+      this.cost.hands = cost.hands;
+    }
 
     // Composed spells have dice by default that are disabled per-Gesture
     this.usage.hasDice ||= this.isComposed;
@@ -287,17 +298,17 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _canUse() {
     super._canUse();
     if ( this.inflection && this.actor.statuses.has("silenced") ) {
-      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced"));
+      throw new Error(_loc("SPELL.WARNINGS.CannotUseSilenced"));
     }
   }
 
   /* -------------------------------------------- */
 
-  async _preActivate(targets) {
-    await super._preActivate(targets);
+  async _preActivate() {
+    await super._preActivate();
     // By the time we are on the far side of the spell cast configuration window, the spell must be fully composed
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
-      throw new Error(game.i18n.localize("SPELL.WARNINGS.CannotUseNotComposed"));
+      throw new Error(_loc("SPELL.WARNINGS.CannotUseNotComposed"));
     }
   }
 
@@ -378,8 +389,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async configure(targets) {
-    const result = await super.configure(targets);
+  async configure() {
+    const result = await super.configure();
     this.updateSource({composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     return result;
   }
@@ -401,7 +412,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
-    if ( this.damage.healing ) tags.action.healing = game.i18n.localize("ACTION.TagHealing");
+    if ( this.damage.healing ) tags.action.healing = _loc("ACTION.TAG.Healing");
     else tags.action.defense = SYSTEM.DEFENSES[this.usage.defenseType].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
 
@@ -410,7 +421,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       tags.context.inflection = {
         label: tags.context.inflection,
         unmet: true,
-        tooltip: game.i18n.localize("SPELL.WARNINGS.CannotUseSilenced")
+        tooltip: _loc("SPELL.WARNINGS.CannotUseSilenced")
       };
     }
     return tags;

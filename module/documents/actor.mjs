@@ -2,10 +2,12 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 import {SYSTEM} from "../const/system.mjs";
+import {TEMPLATES} from "../chat.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
  * @import {TRAINING_TYPES} from "../const/talents.mjs";
+ * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
  */
 
 /**
@@ -62,7 +64,7 @@ export default class CrucibleActor extends Actor {
    */
   get combatant() {
     const combatants = game.combat?.getCombatantsByActor(this);
-    return combatants.length === 1 ? combatants[0] : null;
+    return combatants?.length === 1 ? combatants[0] : null;
   }
 
   /**
@@ -230,12 +232,13 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  applyActiveEffects() {
+  applyActiveEffects(phase) {
     // Before applying active effects, apply data based on prepared embedded Item documents
     // TODO in V14 this can be removed in favor of phased AE application
     const items = this.itemTypes;
-    this.system.prepareItems(items);
-    super.applyActiveEffects();
+    // TODO: This is a temporary fix for double item prep
+    if ( phase !== "final" ) this.system.prepareItems(items);
+    super.applyActiveEffects(phase);
   }
 
   /* -------------------------------------------- */
@@ -300,23 +303,25 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Configure a standard set of boons and banes conditional on the actor of an Action.
-   * @param {CrucibleAction} action
-   * @param {CrucibleActionOutcome} outcome
+   * Configure attack roll options contributed by the acting actor based on their status conditions.
+   * @param {CrucibleAction} action                 The action being performed
+   * @param {CrucibleActor} target                  The target actor being attacked
+   * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureActorOutcome(action, outcome) {
-    const {boons, banes} = outcome.usage;
+  _configureAttackerRollData(action, target, rollData) {
+    const {boons, banes} = rollData;
     const {isAttack=false} = action.usage;
+    const statuses = CONFIG.statusEffects;
 
     // Global conditions
-    if ( this.statuses.has("broken") ) banes.broken = {label: CONFIG.statusEffects.find(i => i.id === "broken").name, number: 2};
+    if ( this.statuses.has("broken") ) banes.broken = {label: statuses.broken.name, number: 2};
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) banes.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
-      if ( this.statuses.has("prone") ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
-      if ( this.statuses.has("restrained") ) banes.restrained = {label: CONFIG.statusEffects.find(i => i.id === "restrained").name, number: 2};
+      if ( this.statuses.has("blinded") ) banes.blind = {label: statuses.blinded.name, number: 2};
+      if ( this.statuses.has("prone") ) banes.prone = {label: statuses.prone.name, number: 1};
+      if ( this.statuses.has("restrained") ) banes.restrained = {label: statuses.restrained.name, number: 2};
     }
 
     // Temporary boons and banes stored as Actor rollBonuses
@@ -329,33 +334,44 @@ export default class CrucibleActor extends Actor {
       if ( id in banes ) banes[id].number = Math.max(banes[id].number, bane.number);
       else banes[id] = bane;
     }
+
+    // Call attacker hooks
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareAttack", action, target, rollData);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Configure a standard set of boons and banes conditional on the target of an Action.
-   * @param {CrucibleAction} action
-   * @param {CrucibleActionOutcome} outcome
+   * Configure attack roll options contributed by the target actor based on their status conditions.
+   * @param {CrucibleAction} action                 The action being performed
+   * @param {CrucibleActor} actor                   The actor performing the action
+   * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureTargetOutcome(action, outcome) {
-    const {boons, banes} = outcome.usage;
+  _configureTargetRollData(action, actor=null, rollData) {
+    const {boons, banes} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
+    const statuses = CONFIG.statusEffects;
 
     // Attack-related conditions
     if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: CONFIG.statusEffects.find(i => i.id === "blinded").name, number: 2};
-      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) banes.guarded = {label: CONFIG.statusEffects.find(i => i.id === "guarded").name, number: 1};
+      if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
+      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) {
+        banes.guarded = {label: statuses.guarded.name, number: 1};
+      }
       if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
-        else boons.prone = {label: CONFIG.statusEffects.find(i => i.id === "prone").name, number: 1};
+        if ( isRanged ) banes.prone = {label: statuses.prone.name, number: 1};
+        else boons.prone = {label: statuses.prone.name, number: 1};
       }
       if ( this.statuses.has("flanked") && !isRanged ) {
         const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: CONFIG.statusEffects.find(i => i.id === "flanked").name, number: ae?.system.flanked ?? 1};
+        boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
+
+    // Call defender hooks (skipped for hazards where there is no attacker)
+    if ( actor ) this.callActorHooks("defendAttack", action, actor, rollData);
   }
 
   /* -------------------------------------------- */
@@ -402,42 +418,47 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Use the Movement action to travel a certain measured distance.
-   * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
-   * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
-   * @param {boolean} [options.useFreeMove]       Consume a free move, if available
-   * @param {TokenMovementOperation} [options.movement] A recorded movement ID in Token movement history
-   * @param {Set<string>} [options.actions]       The movement actions used as part of this move
-   * @returns {CrucibleAction}    The performed Action
+   * @param {number} costFeet                                 The cost of the movement in feet, inclusive of terrain
+   *                                                          modifiers.
+   * @param {object & CrucibleActionUsageOptions} [options]   Options which configure the movement action usage.
+   * @param {TokenMovementOperation} options.movement           The movement operation from which waypoints and
+   *                                                            actions are derived.
+   * @returns {Promise<void>}
    */
-  async useMove(costFeet, {useFreeMove=true, movement, actions, ...useOptions}={}) {
+  async useMove(costFeet, {movement, ...useOptions}={}) {
 
-    // Annotate movement actions.
-    actions ||= new Set(["walk"]);
+    // Build the Crucible-shaped movement object and derive actions from the TokenMovementOperation.
+    const waypoints = [];
+    const actions = new Set();
+    for ( const w of movement.passed.waypoints ) {
+      waypoints.push(w);
+      actions.add(w.action);
+    }
+    for ( const w of movement.pending.waypoints ) {
+      waypoints.push(w);
+      actions.add(w.action);
+    }
+
+    // Annotate movement actions
+    if ( !actions.size ) actions.add("walk"); // Should never happen?
     const actionLabels = [];
     const actionDescriptions = [];
     for ( const a of actions ) {
       const cfg = CONFIG.Token.movement.actions[a];
       if ( !cfg ) continue;
-      const label = game.i18n.localize(cfg.label);
-      const desc = game.i18n.localize(`TOKEN.MOVEMENT.ACTIONS.${a}.description`);
+      const label = _loc(cfg.label);
+      const desc = _loc(`TOKEN.MOVEMENT.ACTIONS.${a}.description`);
       actionLabels.push(label);
       actionDescriptions.push(`<p><strong>${label}:</strong> ${desc}</p>`);
     }
 
-    // Record movement usage
-    const usage = {
-      id: movement?.id || null,
-      actions,
-      ...this.getMovementActionCost(costFeet, {useFreeMove})
-    };
-
     // Adjust action name and description
     const move = this.actions.move;
+    const crucibleMovement = {id: movement.id, origin: movement.origin, waypoints, cost: costFeet, operation: movement};
     const action = move.clone({
       name: `${move._source.name} (${actionLabels.join(", ")})`,
       description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
-    });
-    action.usage.movement = usage;
+    }, {movement: crucibleMovement});
     await action.use(useOptions);
   }
 
@@ -501,21 +522,21 @@ export default class CrucibleActor extends Actor {
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId              The ID of the skill to roll a check for, for example "stealth"
-   * @param {object} [options]
-   * @param {number} [options.banes]      A number of special banes applied to the roll, default is 0
-   * @param {number} [options.boons]      A number of special boons applied to the roll, default is 0
-   * @param {number} [options.dc]         A known target DC
-   * @param {string} [options.rollMode]   The roll visibility mode to use, default is the current dropdown choice
-   * @param {boolean} [options.dialog]    Display a dialog window to further configure the roll. Default is false.
+   * @param {object} [options]            Options which modify how the skill is rolled
+   * @param {number} [options.banes]        A number of special banes applied to the roll, default is 0
+   * @param {number} [options.boons]        A number of special boons applied to the roll, default is 0
+   * @param {number} [options.dc]           A known target DC
+   * @param {string} [options.messageMode]  The roll visibility mode to use, default is the current dropdown choice
+   * @param {boolean} [options.dialog]      Display a dialog window to further configure the roll. Default is false.
    * @returns {StandardCheck}             The StandardCheck roll instance which was produced.
    */
-  async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
+  async rollSkill(skillId, {banes=0, boons=0, dc, messageMode, dialog=false}={}) {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
-    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
+    const flavor = _loc("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ) {
-      const response = await check.dialog({flavor, rollMode});
+      const response = await check.dialog({flavor, messageMode});
       if ( response === null ) return null;
     }
 
@@ -586,7 +607,12 @@ export default class CrucibleActor extends Actor {
   async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-    return action.use({dialog: true, ...options, token: this.token});
+    let token = this.token || null;
+    if ( !token ) {
+      const speaker = ChatMessage.getSpeaker({actor: this});
+      if ( speaker.scene && speaker.token ) token = game.scenes.get(speaker.scene).tokens.get(speaker.token);
+    }
+    return action.use({dialog: true, ...options, token});
   }
 
   /* -------------------------------------------- */
@@ -598,32 +624,29 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   static async macroAction(actor, actionId) {
-    if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
+    if ( !actor ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.MacroNoToken"));
     let action = actor.actions[actionId];
     if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpellAction.fromId(actionId, {actor});
-    if ( !action ) return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
+    if ( !action ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoAction", {actor: actor.name, action: actionId}));
     await action.use();
   }
 
   /* -------------------------------------------- */
 
+
   /**
-   * Perform a spell attack as part of an action outcome.
-   * @param {CrucibleSpellAction} spell
-   * @param {CrucibleActionOutcome} outcome
+   * Perform a spell attack as part of an action.
+   * @param {CrucibleSpellAction} spell               The spell action being performed
+   * @param {CrucibleActor} target                    The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]       Per-attack options that override action-level defaults
    * @returns {Promise<AttackRoll|null>}
    */
-  async spellAttack(spell, outcome) {
+  async spellAttack(spell, target, options={}) {
     if ( !spell.usage.hasDice ) return null;
-    const target = outcome.target;
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
 
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const boons = {...spell.usage.boons, ...outcome.usage.boons};
-    const banes = {...spell.usage.banes, ...outcome.usage.banes};
-    const defenseType = outcome.usage.defenseType || spell.usage.defenseType;
-
-    // Prepare Roll Data
+    // Coalesce AttackRollData from spell usage and per-attack options
+    const defenseType = options.defenseType || spell.usage.defenseType;
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
@@ -631,33 +654,35 @@ export default class CrucibleActor extends Actor {
       ability: this.getAbilityBonus(spell.scaling),
       skill: 0,
       enchantment: 0,
-      banes, boons,
+      boons: {...spell.usage.boons, ...options.boons},
+      banes: {...spell.usage.banes, ...options.banes},
       defenseType,
-      dc: target.defenses[defenseType].total
+      dc: target.defenses[defenseType].total,
+      resource: options.resource || spell.rune.resource,
+      damageType: options.damageType || spell.damage.type,
+      damageBonus: options.damageBonus || spell.damage.bonus || 0,
+      multiplier: options.multiplier || spell.damage.multiplier || 1
     };
 
-    // Call talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", spell, target, rollData);
-    target.callActorHooks("defendAttack", spell, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(spell, target, rollData);
+    target._configureTargetRollData(spell, this, rollData);
 
-    // Create the Attack Roll instance
+    // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
-
-    // Evaluate the result and record the result
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(defenseType, roll);
+    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Structure damage
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
-      multiplier: spell.damage.multiplier ?? 1,
+      multiplier: rollData.multiplier,
       base: spell.damage.base,
-      bonus: (spell.damage.bonus ?? 0) + (this.system.rollBonuses.damage?.[spell.damage.type] ?? 0),
-      resistance: target.getResistance(spell.rune.resource, spell.damage.type, spell.damage.restoration),
-      resource: spell.rune.resource,
-      type: spell.damage.type,
+      bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
+      resistance: target.getResistance(rollData.resource, rollData.damageType, spell.damage.restoration),
+      resource: rollData.resource,
+      type: rollData.damageType,
       restoration: spell.damage.restoration
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -682,35 +707,50 @@ export default class CrucibleActor extends Actor {
   /**
    * Cause this actor to receive the effects of an Action.
    * This is used for cases like environmental hazards where the incoming action is not caused by a specific Actor.
-   * @param {CrucibleAction} action
+   * @param {CrucibleAction} action                   The action being received
+   * @param {Partial<AttackRollData>} [options]       Per-attack options that override action-level defaults
    * @returns {Promise<AttackRoll>}
    */
-  async receiveAttack(action) {
+  async receiveAttack(action, options={}) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {banes, bonuses, boons, damageType, defenseType, resource} = action.usage;
-    const roll = new AttackRoll({
+    const {bonuses} = action.usage;
+
+    // Coalesce AttackRollData from action usage and per-attack options
+    const defenseType = options.defenseType || action.usage.defenseType;
+    const rollData = {
       actorId: this.id,
       target: this.uuid,
       ability: bonuses.ability,
       skill: bonuses.skill,
       enchantment: bonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: this.defenses[defenseType].total,
-      banes, boons
-    });
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || action.usage.damageType,
+      damageBonus: options.damageBonus || 0,
+      multiplier: options.multiplier || 1
+    };
+
+    // Target configuration and hooks (no attacker for hazards)
+    this._configureTargetRollData(action, null, rollData);
+
+    // Create and evaluate the AttackRoll instance
+    const roll = new AttackRoll(rollData);
     await roll.evaluate();
 
     // Structure damage result
-    const r = roll.data.result = this.testDefense(defenseType, roll);
+    const r = roll.data.result = this.testDefense(rollData.defenseType, roll);
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
-      multiplier: 1,
+      multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
-      bonus: 0,
-      resistance: this.getResistance(resource, damageType),
-      type: damageType,
-      resource: resource,
+      bonus: rollData.damageBonus,
+      resistance: this.getResistance(rollData.resource, rollData.damageType),
+      type: rollData.damageType,
+      resource: rollData.resource,
       restoration: false
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -721,56 +761,58 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform a Skill Attack targeting a specific creature.
-   * @param {CrucibleAction} action           The Skill Attack action being performed
-   * @param {CrucibleActionOutcome} outcome   The outcome this attack belongs to
-   * @returns {Promise<AttackRoll|null>}      A created AttackRoll instance or null
+   * @param {CrucibleAction} action                       The Skill Attack action being performed
+   * @param {CrucibleActor} target                        The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]           Per-attack options that override action-level defaults
+   * @returns {Promise<AttackRoll|null>}                  A created AttackRoll instance or null
    */
-  async skillAttack(action, outcome) {
-    const target = outcome.target;
+  async skillAttack(action, target, options={}) {
+    const {bonuses, restoration, skillId} = action.usage;
 
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const {bonuses, damageType, restoration, resource, skillId} = action.usage;
-    const boons = {...action.usage.boons, ...outcome.usage.boons};
-    const banes = {...action.usage.banes, ...outcome.usage.banes};
-    let defenseType = outcome.usage.defenseType || action.usage.defenseType;
+    // Coalesce AttackRollData from action usage and per-attack options
+    let defenseType = options.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
     else {
       defenseType = skillId;
       dc = action.usage.dc ?? target.skills[skillId].passive;
     }
-
-    // Prepare Roll data
-    const rollData = Object.assign({}, bonuses, {
+    const rollData = {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
-      boons,
-      banes,
+      ability: bonuses.ability,
+      skill: bonuses.skill,
+      enchantment: bonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
-      dc
-    });
+      dc,
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || action.usage.damageType,
+      damageBonus: options.damageBonus || bonuses.damageBonus || 0,
+      multiplier: options.multiplier || bonuses.multiplier || 1
+    };
 
-    // Apply talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(action, target, rollData);
+    target._configureTargetRollData(action, this, rollData);
 
     // Create and evaluate the skill attack roll
-    const roll = new game.system.api.dice.AttackRoll(rollData);
+    const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(defenseType, roll);
+    roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Create resulting damage
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: bonuses.multiplier,
+        multiplier: rollData.multiplier,
         base: bonuses.base ?? 0,
-        bonus: bonuses.damageBonus,
-        resistance: target.getResistance(resource, damageType, restoration),
-        type: damageType,
-        resource: resource,
+        bonus: rollData.damageBonus,
+        resistance: target.getResistance(rollData.resource, rollData.damageType, restoration),
+        type: rollData.damageType,
+        resource: rollData.resource,
         restoration
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -783,50 +825,59 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform an Action which makes an attack using a Weapon.
-   * @param {CrucibleAction} action         The action being performed
-   * @param {CrucibleItem} [weapon]         The weapon used in the attack
-   * @param {CrucibleActionOutcome} outcome The action outcome this attack belongs to
-   * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
+   * @param {CrucibleAction} action                         The action being performed
+   * @param {CrucibleItem} weapon                           The weapon used in the attack
+   * @param {CrucibleActor} target                          The target actor being attacked
+   * @param {Partial<AttackRollData>} [options]     Per-attack options that override action-level defaults
+   * @returns {Promise<AttackRoll|null>}                    An evaluated attack roll, or null if no attack is performed
    */
-  async weaponAttack(action, weapon, outcome) {
+  async weaponAttack(action, weapon, target, options={}) {
     if ( !(weapon instanceof crucible.api.documents.CrucibleItem) || (weapon?.type !== "weapon") ) {
       throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
     }
-    const target = outcome.target;
-    // TODO get rid of action.usage here in favor of outcome.usage
-    const boons = {...action.usage.boons, ...outcome.usage.boons};
-    const banes = {...action.usage.banes, ...outcome.usage.banes};
-    const defenseType = outcome.usage.defenseType || action.usage.defenseType || "physical";
 
-    // Compose roll data
-    const {ability, skill, enchantment} = weapon.system.actionBonuses;
+    // Coalesce CrucibleAttackRollOptions with CrucibleAction#usage to construct roll data
+    const {actionBonuses, damage} = weapon.system;
+    const defenseType = options.defenseType || action.usage.defenseType || "physical";
     const rollData = {
       actorId: this.id,
       itemId: weapon.id,
       target: target.uuid,
-      ability,
-      skill,
-      enchantment,
-      banes, boons,
+      ability: actionBonuses.ability,
+      skill: actionBonuses.skill,
+      enchantment: actionBonuses.enchantment,
+      boons: {...action.usage.boons, ...options.boons},
+      banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: target.defenses[defenseType].total,
-      criticalSuccessThreshold: weapon.system.properties.has("keen") ? 4 : 6,
-      criticalFailureThreshold: weapon.system.properties.has("reliable") ? 4 : 6
+      criticalSuccessThreshold: damage.criticalSuccessThreshold,
+      criticalFailureThreshold: damage.criticalFailureThreshold,
+      resource: options.resource || action.usage.resource || "health",
+      damageType: options.damageType || weapon.system.damageType,
+      damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
+      multiplier: options.multiplier || action.usage.bonuses.multiplier || 1
     };
 
-    // Call talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, this, rollData);
+    // Actor configuration and hooks
+    this._configureAttackerRollData(action, target, rollData);
+    target._configureTargetRollData(action, this, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(defenseType, roll);
+    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
 
     // Structure damage
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = weapon.system.getDamage(this, action, target, roll);
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: rollData.multiplier,
+      base: weapon.system.damage.weapon,
+      bonus: weapon.system.damage.bonus + rollData.damageBonus,
+      resistance: target.getResistance(rollData.resource, rollData.damageType, false),
+      resource: rollData.resource,
+      type: rollData.damageType
+    };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
 
     // Finalize the attack and return
@@ -1020,7 +1071,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<ActiveEffect|undefined>}
    */
   async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
-    const effectData = CONFIG.statusEffects.find(e => e.id === statusId);
+    const effectData = CONFIG.statusEffects[statusId];
     if ( !effectData ) return;
     const existing = this.effects.find(e => e.statuses.has(effectData.id));
 
@@ -1035,7 +1086,7 @@ export default class CrucibleActor extends Actor {
     else if ( active ) {
       const createData = foundry.utils.mergeObject(effectData, {
         _id: SYSTEM.EFFECTS.getEffectId(statusId),
-        name: game.i18n.localize(effectData.name),
+        name: _loc(effectData.name),
         statuses: [statusId]
       }, {inplace: false});
       if ( overlay ) createData["flags.core.overlay"] = true;
@@ -1044,49 +1095,22 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-  /*  Action Outcome Management                   */
+  /*  Action Event Management                     */
   /* -------------------------------------------- */
 
   /**
-   * Deal damage to a target. This method requires ownership of the target Actor.
-   * Applies resource changes to both the initiating Actor and to affected Targets.
-   * @param {CrucibleAction} action             The Action being applied
-   * @param {CrucibleActionOutcome} outcome     The Action outcome
-   * @param {object} [options]                  Options which affect how damage is applied
-   * @param {boolean} [options.reverse]           Reverse damage instead of applying it
-   */
-  async applyActionOutcome(action, outcome, {reverse=false}={}) {
-    const wasWeakened = this.system.isWeakened;
-    const wasBroken = this.system.isBroken;
-    const wasIncapacitated = this.isIncapacitated;
-
-    // Call outcome confirmation actor hooks
-    this.callActorHooks("confirmAction", action, outcome, {reverse});
-
-    // Apply changes to the Actor
-    await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse, statusText: outcome.statusText});
-    await this.#applyOutcomeEffects(outcome, reverse);
-
-    // Record target state changes
-    if ( this.system.isWeakened && !wasWeakened ) outcome.weakened = true;
-    if ( this.system.isBroken && !wasBroken ) outcome.broken = true;
-    if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply or reverse ActiveEffect changes occurring through an action outcome.
-   * @param {CrucibleActionOutcome} outcome     The action outcome
-   * @param {boolean} reverse                   Reverse the effects instead of applying them?
+   * Apply or reverse ActiveEffect changes from an action's event stream.
+   * @param {ActionEffect[]} effects            The effect data array to apply
+   * @param {boolean} [reverse=false]           Reverse the effects instead of applying them?
    * @returns {Promise<void>}
+   * @internal
    */
-  async #applyOutcomeEffects(outcome, reverse=false) {
-    if ( !outcome.effects.length ) return;
+  async _applyActionEffects(effects, reverse=false) {
+    if ( !effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
-    for ( const effectData of outcome.effects ) {
+    for ( const effectData of effects ) {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
@@ -1096,9 +1120,12 @@ export default class CrucibleActor extends Actor {
       else if ( shouldDelete ) toDelete.push(effectData._id);
       else if ( !reverse ) toCreate.push(effectData);
     }
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
-    await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
+    const batchOperations = this.defineBatchOperations({}, {
+      createEffects: {changes: toCreate, options: {keepId: true}},
+      updateEffects: toUpdate,
+      deleteEffects: toDelete
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */
@@ -1106,16 +1133,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Additional steps taken when this Actor deals damage to other targets.
    * @param {CrucibleAction} action                The action performed
-   * @param {CrucibleActionOutcomes} outcomes      The action outcomes that occurred
+   * @internal
    */
-  onDealDamage(action, outcomes) {
-    const self = outcomes.get(this);
-    for ( const outcome of outcomes.values() ) {
-      if ( outcome === self ) continue;
-      if ( outcome.criticalSuccess ) {
-        this.callActorHooks("applyCriticalEffects", action, outcome, self);
-      }
-    }
+  _onDealDamage(action) {
+    this.callActorHooks("applyCriticalEffects", action);
   }
 
   /* -------------------------------------------- */
@@ -1123,10 +1144,10 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * @typedef CrucibleTurnStartConfig
-   * @property {Record<string, number>} resourceChanges
+   * @typedef CrucibleTurnChangeConfig
    * @property {object} actorUpdates
-   * @property {toCreate: object[], toUpdate: object[], toDelete: string[]} effectChanges
+   * @property {toCreate: object[], toUpdate: object[], toDelete: string[], toExpire: string[]} effectChanges
+   * @property {Record<string, {label: string|null, amount: number}[]>} resourceChanges
    * @property {string[]} statusText
    */
 
@@ -1135,16 +1156,13 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn start workflows proceed in the following order:
-   * 1. Damage-Over-Time effects are applied
-   * 2. Active Effects are expired or gained
-   * 3. Resource recovery occurs
+   * 1. Damage-Over-Time values are collected
+   * 2. Active Effects are modified
+   * 3. Resource recovery (& modification, in the case of Damage-Over-Time effects) occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onStartTurn() {
-
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
-    this._sheet?.render(false);
+  async onStartTurn(context) {
 
     // Skip cases where the actor delayed, and it is now their turn again
     const {round, from, to} = this.flags.crucible?.delay || {};
@@ -1152,68 +1170,87 @@ export default class CrucibleActor extends Actor {
 
     // Plan actor changes
     const statusText = [];
-    const resourceChanges = {action: Infinity};
+    const resourceChanges = {action: [{label: null, amount: Infinity}]};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] ??= [];
     if ( this.statuses.has("unaware") ) statusText.push({
-      text: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Unaware"),
+      text: _loc("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
     });
-    const actorUpdates = {
-      system: {status: null},
-      flags: {
-        crucible: {
-          actionHistory: []
-        }
-      }
-    };
 
-    // Identify expiring effects
-    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    /** @type {CrucibleTurnStartConfig} */
-    const turnStartConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
+    // Plan turn start workflows
+    const actorUpdates = {system: {status: null}, flags: {crucible: {actionHistory: []}}};
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
+    const turnStartConfig = /** @type {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} */ {resourceChanges,
+      actorUpdates, effectChanges, statusText, dot: []};
 
     // Actor turn start configuration hook
-    await this.#prepareTurnStartConfig(turnStartConfig);
-    this.callActorHooks("startTurn", turnStartConfig);
+    await this.#prepareTurnStartConfig(turnStartConfig, context);
+    this.callActorHooks("startTurn", turnStartConfig, context);
 
-    // Apply damage-over-time
-    await this.applyDamageOverTime().catch(cause => { // TODO integrate this with resourceRecovery?
+    // Remove any no-longer-expiring effects from `effectChanges.toExpire`
+    for ( const effectUpdate of effectChanges.toUpdate ) {
+      const currEffect = this.effects.get(effectUpdate._id);
+      if ( !currEffect ) continue;
+      if ( !effectChanges.toExpire.includes(effectUpdate._id) ) continue;
+      const {value=0, remaining=0} = currEffect.duration;
+      const newRemaining = (effectUpdate.duration?.value ?? 0) - value + remaining;
+      if ( newRemaining > 0 ) effectChanges.toExpire.findSplice(i => i === effectUpdate._id);
+    }
+
+    // Calculate damage-over-time
+    try {
+      await this.#applyDamageOverTime(turnStartConfig); // Applies on its final turn before expiring!
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start damage-over-time effects for Actor ${this.id}.`, {cause}));
-    });
+    }
 
-    // Remove round-based Active Effects which expire at the start of a turn
-    await this.#applyActiveEffectChanges(effectChanges).catch(cause => {
+    // Generate summary chat card data prior to effect deletion
+    const summaryChatData = await this.#createTurnChangeSummaryData(true, turnStartConfig);
+
+    // Apply active effect changes
+    try {
+      await this.#applyActiveEffectChanges(effectChanges);
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    });
+    }
 
-    // Recover resources
-    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
+    // Recover resources (and apply damage-over-time)
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
+    try {
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn start resource recovery for Actor ${this.id}.`, {cause}));
-    });
+    }
 
-    // TODO log a turn start summary of resource changes and their sources?
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    if ( summaryChatData ) await ChatMessage.implementation.create(summaryChatData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a duration specified in Rounds expire at the beginning of the Actor's turn on the subsequent round.
-   * @param {CrucibleTurnStartConfig} turnStartConfig
+   * Damage-over-time effects are identified.
+   * Effects which core will expire are identified.
+   * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
+   * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
+   * @param {CombatTurnEventContext} context
    */
-  async #prepareTurnStartConfig(turnStartConfig) {
-    const {effectChanges, resourceChanges} = turnStartConfig;
-
-    // Identify effect changes
+  async #prepareTurnStartConfig(turnStartConfig, context) {
+    const {effectChanges, resourceChanges, dot} = turnStartConfig;
     for ( const effect of this.effects ) {
 
-      // Identify expired effects
-      const {startRound, rounds} = effect.duration;
-      if ( Number.isNumeric(rounds) ) {
-        const elapsed = game.combat.round - startRound;
-        if ( elapsed >= rounds ) {
-          effectChanges.toDelete.push(effect.id);
-          continue;
-        }
+      // Gather damage-over-time effects
+      if ( effect.system.dot?.length ) dot.push(effect);
+
+      // Gather effects which are about to expire naturally
+      if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnStart", context) ) {
+        effectChanges.toExpire.push(effect.id);
+        continue; // No need to maintain an effect which is about to expire naturally
       }
 
       // Identify maintained effects
@@ -1230,11 +1267,12 @@ export default class CrucibleActor extends Actor {
           content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
         });
         if ( confirm ) {
-          resourceChanges.focus ??= 0;
-          resourceChanges.focus -= maintainedCost;
+          resourceChanges.focus.push({
+            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
+            amount: -maintainedCost
+          });
         } else {
           effectChanges.toDelete.push(effect.id);
-          continue;
         }
       }
     }
@@ -1247,45 +1285,151 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn end workflows proceed in the following order:
-   * 1. Active Effects are expired or gained
+   * 1. Active Effects are modified
    * 2. Resource recovery occurs
+   * @param {CombatTurnEventContext} context Context for the turn change
    * @returns {Promise<void>}
    */
-  async onEndTurn() {
-
-    // Re-prepare data and re-render the actor sheet
-    this.reset();
-    this._sheet?.render(false);
+  async onEndTurn(context) {
 
     // Skip cases where the turn is over because the actor delayed
     const {round, from, to} = this.flags.crucible?.delay || {};
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
     // Plan actor changes
-    const resourceChanges = {};
     const actorUpdates = {};
-    if ( this.flags.crucible?.delay ) foundry.utils.mergeObject(actorUpdates, {"flags.crucible.-=delay": null});
-
-    // Identify expiring effects
-    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    this.#updateEndTurnEffects(effectChanges);
-
-    // Actor turn start configuration hook
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
+    const resourceChanges = {};
+    for ( const resource of Object.keys(SYSTEM.RESOURCES) ) resourceChanges[resource] = [];
     const statusText = [];
-    const turnEndConfig = {resourceChanges, actorUpdates, effectChanges, statusText};
-    this.callActorHooks("endTurn", turnEndConfig);
+    const turnEndConfig = /** @type {CrucibleTurnChangeConfig} */ {effectChanges, resourceChanges, actorUpdates,
+      statusText};
 
-    // Remove active effects which expire at the end of a turn
-    await this.#applyActiveEffectChanges(effectChanges).catch(cause => {
+    // Configure turn end workflows
+    this.#prepareTurnEndConfig(turnEndConfig, context);
+    this.callActorHooks("endTurn", turnEndConfig, context);
+
+    // Remove any no-longer-expiring effects from `effectChanges.toExpire`
+    for ( const effectUpdate of effectChanges.toUpdate ) {
+      const currEffect = this.effects.get(effectUpdate._id);
+      if ( !currEffect ) continue;
+      if ( !effectChanges.toExpire.includes(effectUpdate._id) ) continue;
+      const {value=0, remaining=0} = currEffect.duration;
+      const newRemaining = (effectUpdate.duration?.value ?? 0) - value + remaining;
+      if ( newRemaining > 0 ) effectChanges.toExpire.findSplice(i => i === effectUpdate._id);
+    }
+
+    // Generate summary chat card data prior to effect deletion
+    const summaryChatData = await this.#createTurnChangeSummaryData(false, turnEndConfig);
+
+    // Apply active effect changes
+    try {
+      await this.#applyActiveEffectChanges(effectChanges);
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn end ActiveEffect changes for Actor ${this.id}.`, {cause}));
-    });
+    }
 
     // Recover resources
-    await this.alterResources(resourceChanges, actorUpdates, {statusText}).catch(cause => {
+    const resourceDeltas = Object.entries(resourceChanges).reduce((acc, [key, changes]) => {
+      if ( changes.length ) acc[key] = changes.reduce((sum, {amount}) => sum + amount, 0);
+      return acc;
+    }, {});
+    try {
+      await this.alterResources(resourceDeltas, actorUpdates, {statusText});
+    } catch(cause) {
       console.error(new Error(`Failed to apply turn end resource recovery for Actor ${this.id}.`, {cause}));
-    });
+    }
 
-    // TODO turn end summary of resource changes and their sources?
+    // Re-render the actor sheet & post summary card, if necessary
+    this._sheet?.render(false);
+    if ( summaryChatData ) await ChatMessage.implementation.create(summaryChatData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify changes that should occur as part of a turn end workflow.
+   * Delay flag is reset.
+   * Effects which core will expire are identified.
+   * Unaware effect is primed for deletion.
+   * @param {CrucibleTurnChangeConfig} turnEndConfig
+   * @param {CombatTurnEventContext} context
+   */
+  #prepareTurnEndConfig(turnEndConfig, context) {
+    const {actorUpdates, effectChanges} = turnEndConfig;
+    if ( this.flags.crucible?.delay ) actorUpdates["flags.crucible.delay"] = _del;
+    for ( const effect of this.effects ) {
+
+      // Gather effects which are about to expire naturally
+      if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnEnd", context) ) {
+        effectChanges.toExpire.push(effect.id);
+        continue; // No need to manually delete an effect which is about to expire naturally
+      }
+
+      // Remove unaware
+      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) effectChanges.toDelete.push(effect.id);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Post a chat message with a summary of any effect creation/deletion or atypical resource changes
+   * @param {boolean} isStart
+   * @param {CrucibleTurnChangeConfig} turnChangeConfig
+   * @returns {Promise<Partial<ChatMessageData>|null>}
+   */
+  async #createTurnChangeSummaryData(isStart, turnChangeConfig) {
+    const {effectChanges, resourceChanges} = turnChangeConfig;
+    const pipColors = new Set();
+
+    // Prepare resource context entries
+    const resources = [];
+    for ( const [resource, entries] of Object.entries(resourceChanges) ) {
+      const cfg = SYSTEM.RESOURCES[resource];
+      if ( !cfg ) continue;
+      for ( const {label, amount} of entries ) {
+        if ( !label ) continue;
+        let color;
+        if ( foundry.utils.isPlainObject(cfg.color) ) {
+          color = amount > 0 ? cfg.color.heal : cfg.color.high;
+          pipColors.add(cfg.color.high.css);
+        } else {
+          color = cfg.color;
+          pipColors.add(color.css);
+        }
+        resources.push({sourceLabel: label, amount: amount.signedString(), resourceLabel: cfg.label,
+          colorStyle: color.toRGBA(0.25)});
+      }
+    }
+
+    // Prepare effect context entries
+    const effects = [];
+    for ( const deletedId of [...effectChanges.toDelete, ...effectChanges.toExpire] ) {
+      effects.push({name: this.effects.get(deletedId)?.name ?? deletedId,
+        changeLabel: _loc("COMBAT.SUMMARY.EffectExpired")});
+    }
+    for ( const created of effectChanges.toCreate ) {
+      const showDuration = created.duration.units === "rounds";
+      const duration = showDuration ? _loc("ACTION.DurationRounds", {value: created.duration.value}) : "";
+      effects.push({name: created.name,
+        changeLabel: _loc(`COMBAT.SUMMARY.EffectGained${showDuration ? "Duration" : ""}`, {duration})});
+    }
+
+    // Bail out if there are no changes to track
+    if ( !resources.length && !effects.length ) return null;
+
+    // Render template and prepare final ChatMessageData
+    const content = await foundry.applications.handlebars.renderTemplate(TEMPLATES.turnSummary, {
+      resources,
+      pipColors,
+      effects,
+      resourcesTitle: _loc("COMBAT.SUMMARY.TableTitleResources"),
+      effectsTitle: _loc("COMBAT.SUMMARY.TableTitleEffects")
+    });
+    const speaker = ChatMessage.getSpeaker({actor: this});
+    speaker.alias = _loc(`COMBAT.SUMMARY.Header${isStart ? "Start" : "End"}`, {actor: this.name});
+    return {content, speaker, "flags.crucible.isTurnChangeSummary": true};
   }
 
   /* -------------------------------------------- */
@@ -1298,7 +1442,7 @@ export default class CrucibleActor extends Actor {
   prepareLeaveCombatUpdates() {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
-    if ( this.flags.crucible?.delay ) updates["flags.crucible.-=delay"] = null;
+    if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
     return {updates, updateFlanking: this.statuses.has("flanked")};
   }
 
@@ -1328,7 +1472,7 @@ export default class CrucibleActor extends Actor {
     if ( !this.isIncapacitated && droppedItems.length ) {
       const pickUp = await DialogV2.query(designatedUser ?? game.user, "confirm", {
         window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
-        content: game.i18n.format("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
+        content: _loc("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
       });
       if ( pickUp ) itemUpdates.push(...droppedItems.map(i => ({
         _id: i.id,
@@ -1352,25 +1496,24 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Apply damage over time effects which are currently active on the Actor.
-   * Positive damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
-   * Negative damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * Apply damage over time effects which are currently active on the Actor to the turn start config.
+   * Normal damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
+   * Restoration damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
+   * @param {CrucibleTurnChangeConfig} turnStartConfig  The turn start config to be mutated
    * @returns {Promise<void>}
    */
-  async applyDamageOverTime() {
-    for ( const effect of this.effects ) {
+  async #applyDamageOverTime(turnStartConfig) {
+    for ( const effect of turnStartConfig.dot ) {
       const dot = effect.system.dot;
       if ( !dot?.length ) continue;
 
       // Categorize damage
-      const damage = {};
       for ( let {amount, damageType, resource, restoration} of dot ) {
         if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
-        damage[resource] ??= 0;
-        damage[resource] += amount;
+        turnStartConfig.resourceChanges[resource].push({label: effect.name, amount});
       }
-      const status = {text: effect.label, fillColor: SYSTEM.RESOURCES.health.color.high.css};
-      await this.alterResources(damage, {}, {statusText: [status]});
+      const status = {text: effect.name, fillColor: SYSTEM.RESOURCES.health.color.high.css};
+      turnStartConfig.statusText.push(status);
     }
   }
 
@@ -1382,27 +1525,12 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async #applyActiveEffectChanges({toCreate, toUpdate, toDelete}) {
-    if ( toDelete?.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
-    if ( toUpdate?.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
-    if ( toCreate?.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
-   * Effects with a duration specified in Turns expire at the end of the Actor's turn once the duration has elapsed.
-   * @param {{toCreate: object[], toUpdate: object[], toDelete: string[]}} [effectChanges]
-   */
-  #updateEndTurnEffects(effectChanges) {
-    for ( const effect of this.effects ) {
-      const {startRound, turns} = effect.duration;
-      if ( !Number.isNumeric(turns) ) continue; // Must have duration in turns
-      const elapsed = game.combat.previous.round - startRound; // Important to reference the previous round
-      if ( elapsed >= turns ) effectChanges.toDelete.push(effect.id);
-      // Workaround until unaware is more automated - it can only ever last one round
-      else if ( effect.id === "unaware000000000" ) effectChanges.toDelete.push(effect.id);
-    }
+    const batchOperations = this.defineBatchOperations({}, {
+      createEffects: {changes: toCreate, options: {keepId: true}},
+      updateEffects: toUpdate,
+      deleteEffects: toDelete
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */
@@ -1417,13 +1545,13 @@ export default class CrucibleActor extends Actor {
   canLearnIconicSpell(spell) {
     const {iconicSpells, iconicSlots} = this.grimoire;
     if ( iconicSpells.length >= iconicSlots ) {
-      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNoSlots", {actor: this.name}));
     }
     if ( this.items.get(spell._id) ) {
-      throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicAlreadyKnown", {actor: this.name, spell: spell.name}));
     }
     if ( !spell.system.canKnowSpell(this.system.grimoire) ) {
-      throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
+      throw new Error(_loc("SPELL.WARNINGS.IconicNotSatisfied", {actor: this.name, spell: spell.name}));
     }
   }
 
@@ -1479,12 +1607,13 @@ export default class CrucibleActor extends Actor {
    * Re-sync all Talent data on this actor with updated source data.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
-   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[]}>}
+   * @returns {Promise<{toCreate: object[], toUpdate: object[], toDelete: string[], actorUpdates: object}>}
    */
   async syncTalents({performUpdates=true}={}) {
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
+    const actorUpdates = {};
     const packs = [];
     const migrations = SYSTEM.TALENT.TALENT_ID_MIGRATIONS;
     for ( const packId of crucible.CONFIG.packs.talent ) {
@@ -1524,14 +1653,38 @@ export default class CrucibleActor extends Actor {
       }
     }
 
+    // Ensure all details "items" are using migrated versions of uuids
+    const detailItemTypes = ["ancestry", "archetype", "background", "taxonomy"];
+    for ( const detailType of detailItemTypes ) {
+      const oldTalents = this.system.details[detailType]?.talents;
+      if ( !oldTalents ) continue;
+      const talents = [];
+      let needsUpdate = false;
+      for ( const {item, level} of oldTalents ) {
+        const talentId = foundry.utils.parseUuid(item).id;
+        const migratedUuid = migrations[talentId];
+
+        // If undefined, no migration. If null, talent was deleted, and we should remove. Otherwise use new uuid
+        if ( migratedUuid !== undefined ) {
+          needsUpdate ||= true;
+          if ( migratedUuid ) talents.push({item: migratedUuid, level});
+          continue;
+        }
+        talents.push({item, level});
+      }
+      if ( needsUpdate ) foundry.utils.setProperty(actorUpdates, `system.details.${detailType}.talents`, talents);
+    }
+
     // Create, update, and delete talents
     if ( performUpdates ) {
-      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-        {diff: false, recursive: false, noHook: true});
-      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+      const batchOperations = this.defineBatchOperations(actorUpdates, {
+        createItems: {changes: toCreate, options: {keepId: true}},
+        updateItems: {changes: toUpdate, options: {diff: false, recursive: false, noHook: true}},
+        deleteItems: toDelete
+      });
+      if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
     }
-    return {toCreate, toUpdate, toDelete};
+    return {toCreate, toUpdate, toDelete, actorUpdates};
   }
 
   /* -------------------------------------------- */
@@ -1576,10 +1729,12 @@ export default class CrucibleActor extends Actor {
 
     // Create, update, and delete spells
     if ( performUpdates ) {
-      if ( toDelete.length ) await this.deleteEmbeddedDocuments("Item", toDelete);
-      if ( toUpdate.length ) await this.updateEmbeddedDocuments("Item", toUpdate,
-        {diff: false, recursive: false, noHook: true});
-      if ( toCreate.length ) await this.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+      const batchOperations = this.defineBatchOperations({}, {
+        createItems: {changes: toCreate, options: {keepId: true}},
+        updateItems: {changes: toUpdate, options: {diff: false, recursive: false, noHook: true}},
+        deleteItems: toDelete
+      });
+      if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
     }
     return {toCreate, toUpdate, toDelete};
   }
@@ -1607,11 +1762,11 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
-      let content = game.i18n.format("TALENT.ACTIONS.Purchase", {name: talent.name});
+      let content = _loc("TALENT.ACTIONS.Purchase", {name: talent.name});
       try {
         const canUse = this.canUtilizeTalent(talent);
         if ( (canUse === false) && warnUnusable ) {
-          content += `<div class="notification warning">${game.i18n.localize("TALENT.WARNINGS.CannotUse")}</div>`;
+          content += `<div class="notification warning">${_loc("TALENT.WARNINGS.CannotUse")}</div>`;
         }
       } catch(err) {
         if ( warnUnusable ) {
@@ -1619,7 +1774,7 @@ export default class CrucibleActor extends Actor {
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: game.i18n.format("TALENT.ACTIONS.PurchaseTitle", {name: talent.name})},
+        window: {title: _loc("TALENT.ACTIONS.PurchaseTitle", {name: talent.name})},
         content,
         yes: {default: true},
         no: {default: false}
@@ -1693,7 +1848,7 @@ export default class CrucibleActor extends Actor {
   canUtilizeTalent(talent) {
     // Can't use a Gesture or Inflection without a Rune
     if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
-      throw new Error(game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+      throw new Error(_loc(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
     }
 
     return true;
@@ -1718,7 +1873,7 @@ export default class CrucibleActor extends Actor {
         !this.points.ability.requireInput,
         !this.points.talent.available
       ];
-      if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
+      if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
     }
 
     // Commit the update
@@ -1742,7 +1897,7 @@ export default class CrucibleActor extends Actor {
 
     // Can the ability be purchased?
     if ( !this.canPurchaseAbility(ability, delta) ) {
-      return ui.notifications.warn(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`, {localize: true});
+      return ui.notifications.warn(_loc(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`));
     }
 
     // Modify the ability
@@ -1844,18 +1999,19 @@ export default class CrucibleActor extends Actor {
     }
 
     // Clear the detail data
-    const key = `system.details.==${type}`;
+    const key = `system.details.${type}`;
     const updateData = {};
     let message;
     if ( !item ) {
-      updateData[key] = null;
-      message = game.i18n.format("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
+      updateData[key] = _replace(null);
+      message = _loc("ACTOR.ACTIONS.ClearedDetailItem", {type, actor: this.name});
     }
 
     // Add new detail data
     else {
       const itemData = item.toObject();
-      const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      updateData[key] = _replace(detail);
       const updateItems = [];
 
       // Grant Talents
@@ -1890,7 +2046,7 @@ export default class CrucibleActor extends Actor {
 
       // Include granted items in Actor update
       if ( updateItems.length ) updateData.items = updateItems;
-      message = game.i18n.format("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
+      message = _loc("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
 
     // Update locally (for example during character creation)
@@ -1900,18 +2056,8 @@ export default class CrucibleActor extends Actor {
       return;
     }
 
-    // FIXME workaround for unlinked token delta problem, maybe fixed in v14?
-    if ( this.isToken && ("items" in updateData) ) {
-      for ( const item of updateData.items ) {
-        if ( this.items.has(item._id) ) deleteItemIds.add(item._id);
-      }
-      await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-      await this.createEmbeddedDocuments("Item", updateData.items, {keepId: true});
-      delete updateData.items;
-    }
-
     // Commit the update
-    else await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
+    await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
     await this.update(updateData, {keepEmbeddedIds: true});
     if ( message && notify ) ui.notifications.info(message);
   }
@@ -2022,7 +2168,7 @@ export default class CrucibleActor extends Actor {
     if ( !item.system.equipped ) return null;
     let ap = dropped ? 0 : 1;
     if ( item.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
       name: dropped ? `Drop ${typeLabel}` : `Un-equip ${typeLabel}`,
@@ -2052,13 +2198,13 @@ export default class CrucibleActor extends Actor {
     if ( !item.system.dropped && item.system.properties.has("ambush") ) ap -= 1;
 
     // Create the action
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
-      name: game.i18n.format(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
+      name: _loc(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
       img: item.img,
       cost: {action: ap, hands: this.inCombat ? 1 : 0},
-      description: game.i18n.format(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
+      description: _loc(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
       target: {type: "self", scope: 1}
     }, {actor: this});
 
@@ -2085,12 +2231,12 @@ export default class CrucibleActor extends Actor {
     if ( dropped ) equipped = false;
     const result = {equipped, dropped, slot};
     if ( equipped === item.system.equipped ) return result;
-    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return false;
+    if ( !SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(item.type) ) return {};
 
     // Taxonomies which cannot use equipment must have the natural tag
     if ( (this.type === "adversary") && !this.system.usesEquipment ) {
       const canEquip = ["armor", "weapon"].includes(item.type) && item.system.properties.has("natural");
-      if ( !canEquip ) throw new Error(game.i18n.format("WARNING.CannotEquipTaxonomy",
+      if ( !canEquip ) throw new Error(_loc("WARNING.CannotEquipTaxonomy",
         {actor: this.name, item: item.name, taxonomy: this.system.details.taxonomy.name}));
     }
 
@@ -2103,14 +2249,14 @@ export default class CrucibleActor extends Actor {
       case "armor":
         const {armor} = this.equipment;
         if ( equipped && armor.id ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize("TYPES.Item.armor")
+            type: _loc("TYPES.Item.armor")
           }));
         }
         if ( this.inCombat ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipInCombat", {
+          throw new Error(_loc("WARNING.CannotEquipInCombat", {
             actor: this.name,
             item: item.name
           }));
@@ -2120,10 +2266,10 @@ export default class CrucibleActor extends Actor {
       case "accessory":
         const {accessories, accessorySlots} = this.equipment;
         if ( equipped && (accessories.length >= accessorySlots) ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize("TYPES.Item.accessory")
+            type: _loc("TYPES.Item.accessory")
           }));
         }
         result.slot = null;
@@ -2132,10 +2278,10 @@ export default class CrucibleActor extends Actor {
       case "tool":
         const {toolbelt, toolbeltSlots} = this.equipment;
         if ( equipped && (toolbelt.length === toolbeltSlots) ) {
-          throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
             actor: this.name,
             item: item.name,
-            type: game.i18n.localize(`TYPES.Item.${item.type}`)
+            type: _loc(`TYPES.Item.${item.type}`)
           }));
         }
         result.slot = null;
@@ -2186,10 +2332,10 @@ export default class CrucibleActor extends Actor {
     }
 
     // Throw an error if equipment is not possible
-    if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+    if ( occupied ) throw new Error(_loc("WARNING.CannotEquipSlotInUse", {
       actor: this.name,
       item: weapon.name,
-      type: game.i18n.localize(slots.label(slot))
+      type: _loc(slots.label(slot))
     }));
     return slot;
   }
@@ -2214,9 +2360,9 @@ export default class CrucibleActor extends Actor {
       const flankedData = {
         _id: flankedId,
         type: "flanked",
-        name: `${game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
-        description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
-        icon: "systems/crucible/icons/statuses/flanked.svg",
+        name: `${_loc("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
+        description: _loc("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
+        img: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         system: {
           enemies: engagement.enemies.size,
@@ -2443,6 +2589,63 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /** @inheritdoc */
+  async onUpdateEffectDurations(effects, event, context) {
+    this._sheet?.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @typedef {"createItems"|"updateItems"|"deleteItems"|"createEffects"|"updateEffects"
+   * |"deleteEffects"} BatchOperationKey
+   */
+
+  /**
+   * @typedef {Record<BatchOperationKey, Array|{changes: Array, options: object}} BatchOperationEmbeddedChanges
+   */
+
+  /**
+   * Create a batch operation list to be used with modifyBatch
+   * @param {object} actorUpdates                           Direct actor updates to include in the batch operation
+   * @param {BatchOperationEmbeddedChanges} embeddedChanges Embedded document changes to include in the batch operation
+   * @returns {DatabaseWriteOperation[]}
+   */
+  defineBatchOperations(actorUpdates, embeddedChanges) {
+    const allOperations = [
+      {action: "create", key: "createItems", documentName: "Item", fieldName: "data"},
+      {action: "update", key: "updateItems", documentName: "Item", fieldName: "updates"},
+      {action: "delete", key: "deleteItems", documentName: "Item", fieldName: "ids"},
+      {action: "create", key: "createEffects", documentName: "ActiveEffect", fieldName: "data"},
+      {action: "update", key: "updateEffects", documentName: "ActiveEffect", fieldName: "updates"},
+      {action: "delete", key: "deleteEffects", documentName: "ActiveEffect", fieldName: "ids"}
+    ];
+    const batchOperation = [];
+    if ( !foundry.utils.isEmpty(actorUpdates) ) batchOperation.push({
+      action: "update",
+      documentName: "Actor",
+      parent: this.parent,
+      updates: [{_id: this.id, ...actorUpdates}]
+    });
+    for ( const {action, key, documentName, fieldName} of allOperations ) {
+      const specificChanges = embeddedChanges[key];
+      if ( !specificChanges ) continue;
+      const options = ("changes" in specificChanges) ? specificChanges.options : {};
+      const changes = ("changes" in specificChanges) ? specificChanges.changes : specificChanges;
+      if ( !changes.length ) continue;
+      batchOperation.push({
+        action,
+        documentName,
+        parent: this,
+        [fieldName]: changes,
+        ...options
+      });
+    }
+    return batchOperation;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Display status text updates above each Token for this Actor upon update.
    * @param {Partial<ActorData>} changed      Data for the Actor which changed
@@ -2611,8 +2814,11 @@ export default class CrucibleActor extends Actor {
       // Ensure no duplicate talents from multiple detail items
       createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
     }
-    if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-    if ( createItems.length ) await this.createEmbeddedDocuments("Item", createItems, {keepId: true});
+    const batchOperations = this.defineBatchOperations({}, {
+      createItems: {changes: createItems, options: {keepId: true}},
+      deleteItems: Array.from(deleteItemIds)
+    });
+    if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */
@@ -2665,8 +2871,6 @@ export default class CrucibleActor extends Actor {
         this._groups.delete(group);
         continue;
       }
-      // TODO v14 remove conditional https://github.com/foundryvtt/foundryvtt/issues/13722
-      if ( group.sheet.isVisible ) group.sheet.render({force: false});
     }
   }
 

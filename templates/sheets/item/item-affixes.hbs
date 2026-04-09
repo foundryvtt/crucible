@@ -1,0 +1,33 @@
+<section class="tab sheet-body flexcol scrollable {{tabs.affixes.cssClass}}"
+         data-tab="{{tabs.affixes.id}}" data-group="{{tabs.affixes.group}}">
+    {{#if isUnique}}
+    <fieldset>
+        <legend>{{localize "ITEM.SHEET.UniqueItemTitle"}}</legend>
+        <p class="hint">{{localize "ITEM.SHEET.UniqueItemNoAffixes"}}</p>
+    </fieldset>
+    {{else if hasAffixCapacity}}
+    <fieldset>
+        <legend>{{localize "AFFIX.Prefixes"}} ({{affixCapacity.prefix.spent}} / {{affixCapacity.prefix.total}})</legend>
+        {{#each prefixes as |affix|}}
+        {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
+        {{/each}}
+        {{#unless prefixes.length}}
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixes"}}</p>
+        {{/unless}}
+    </fieldset>
+    <fieldset>
+        <legend>{{localize "AFFIX.Suffixes"}} ({{affixCapacity.suffix.spent}} / {{affixCapacity.suffix.total}})</legend>
+        {{#each suffixes as |affix|}}
+        {{> (lookup @root "affixPartial") affix=affix isEditable=@root.isEditable}}
+        {{/each}}
+        {{#unless suffixes.length}}
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixes"}}</p>
+        {{/unless}}
+    </fieldset>
+    {{else}}
+    <fieldset>
+        <legend>{{localize "ITEM.SHEET.NoAffixCapacityTitle"}}</legend>
+        <p class="hint">{{localize "ITEM.SHEET.NoAffixCapacity"}}</p>
+    </fieldset>
+    {{/if}}
+</section>

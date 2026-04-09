@@ -189,9 +189,6 @@ prototypeToken:
     src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
     scaleX: 1
     scaleY: 1
-    offsetX: 0
-    offsetY: 0
-    rotation: 0
     tint: '#ffffff'
     anchorX: 0.5
     anchorY: 0.5
@@ -240,7 +237,7 @@ prototypeToken:
     brightness: 0
     saturation: 0
     contrast: 0
-  detectionModes: []
+  detectionModes: {}
   flags: {}
   randomImg: false
   occludable:
@@ -260,6 +257,7 @@ prototypeToken:
     src: null
     disposition: false
   movementAction: null
+  depth: 4
 items:
   - _id: WYw63RWi2vcIPylm
     name: Longbow
@@ -276,8 +274,7 @@ items:
       quality: standard
       enchantment: mundane
       equipped: true
-      properties:
-        - reach
+      properties: []
       description:
         public: >-
           <p>A tall, self-bow often taller than the archer who draws it, the
@@ -286,20 +283,22 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      slot: 0
+      slot: 3
       actions: []
       identifier: longbow
       invested: false
       actorHooks: []
       dropped: false
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 50000
     ownership:
       default: 0
@@ -335,13 +334,15 @@ items:
       actorHooks: []
       dropped: false
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 900000
     ownership:
       default: 0
@@ -376,13 +377,15 @@ items:
       invested: false
       actorHooks: []
     _stats:
+      systemId: crucible
+      systemVersion: 0.9.0
+      coreVersion: '14.359'
+      createdTime: 1775444403812
+      modifiedTime: 1775444403812
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
@@ -412,13 +415,15 @@ items:
     sort: -275000
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403812
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403812
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.perspicacity0000'
@@ -457,13 +462,15 @@ items:
               statuses:
                 - restrained
               duration:
-                turns: 1
-                rounds: null
+                value: 1
+                units: rounds
+                expiry: turnEnd
+                expired: false
               result:
                 type: success
                 all: false
-              changes: []
               system:
+                changes: []
                 dot: []
                 maintenance: null
                 regions: []
@@ -475,26 +482,31 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - dex3a
       rune: ''
       gesture: ''
       inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      modifiedTime: 1775444403813
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1775444403813
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
     ownership:
@@ -529,13 +541,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444403815
+      modifiedTime: 1775444403815
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -599,6 +613,9 @@ items:
             - spell
             - harmless
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       rune: illusion
       actorHooks: []
       nodes:
@@ -613,13 +630,15 @@ items:
     flags:
       core: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403816
+      createdTime: 1775444403816
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: runeIllusion0000
     folder: null
     sort: 0
@@ -664,6 +683,9 @@ items:
             - ranged
             - difficult
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       iconicSpells: 0
       training:
         type: projectile
@@ -677,13 +699,15 @@ items:
     effects: []
     flags: {}
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775444403816
+      modifiedTime: 1775444403816
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     _id: projectileWeapon
     folder: null
     sort: 0
@@ -726,6 +750,9 @@ items:
             weapon: true
             minimum: null
           actionHooks: []
+          summon:
+            actorUuid: null
+            permanent: true
       nodes:
         - dex1a
       rune: ''
@@ -737,13 +764,15 @@ items:
         rank: null
       actorHooks: []
     _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1775444403816
+      createdTime: 1775444403816
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
-      systemId: crucible
-      systemVersion: 0.8.6
-      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -754,18 +783,17 @@ flags:
   core: {}
   crucible: {}
 _stats:
+  systemId: crucible
+  systemVersion: 0.9.0
+  coreVersion: '14.359'
+  createdTime: 1775444403810
+  modifiedTime: 1775444403810
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
   compendiumSource: null
   duplicateSource: null
-  exportSource: null
-  coreVersion: '13.351'
-  systemId: crucible
-  systemVersion: 0.8.6
-  createdTime: 1768686183317
-  modifiedTime: 1768686183317
-  lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 ownership:
   default: 2
-  AnoypGxxNIMOS0XY: 3
 sort: 0
 _key: '!actors!kSGFBe6ZaLDC8wRy'

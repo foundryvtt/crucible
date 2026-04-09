@@ -19,12 +19,7 @@ pages:
         progression. The Crucible spellcraft system is designed to be dynamic
         and generative, allowing players who wish to focus their character on
         spellcasting to improvise and discover effective combinations and
-        applications for their magical abilities.</p><section
-        class="construction"><p>The Spellcraft system is still a
-        work-in-progress and, while functional, is expected to undergo
-        substantial revision and iteration in future Crucible releases. The
-        implementation of the Spellcraft system in Playtest One should provide
-        insight into its mechanics and planned functionality.</p></section><h2
+        applications for their magical abilities.</p><h2
         class="divider">Masterful Composition</h2><p>Spellcraft allows
         characters to manifest magic by composing a spell using a
         @UUID[.p3hKRiZN3x0DEtyG]{Rune}, @UUID[.lhrYInsQ2f0YfhTu]{Gesture}, and
@@ -99,7 +94,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.351'
       createdTime: 1684374993517
       modifiedTime: 1765820445717
@@ -190,7 +185,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.351'
       createdTime: 1684375014492
       modifiedTime: 1766421750872
@@ -264,7 +259,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.351'
       createdTime: 1684375020833
       modifiedTime: 1766421828765
@@ -290,11 +285,11 @@ pages:
         Inflections can alter nearly any property that a Rune or Gesture
         provides to a spell, and may have additional effects on the spell's
         purpose.</p><section class="construction"><p>While some inflections have
-        been implemented for Playtest 1, more Inflections are intended for
-        future phases. Some of the Inflections listed below may not be fully
-        implemented or automated at this time.</p></section><h2
-        class="divider">Tier 1 Inflections</h2><p>The following inflections are
-        available within Tier 1 of the talent tree, from character levels
+        been implemented so far. More Inflections are intended for future
+        releases. Some of the Inflections listed below may not be fully
+        automated at this time.</p></section><h2 class="divider">Tier 1
+        Inflections</h2><p>The following inflections are available within Tier 1
+        of the talent tree, from character levels
         1-6.</p><p>@Embed[Compendium.crucible.talent.Item.inflectioncompos
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectiondeterm
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.inflectionelude0
@@ -319,7 +314,7 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.6
+      systemVersion: 0.9.0
       coreVersion: '13.351'
       createdTime: 1684375027780
       modifiedTime: 1766420924773
@@ -427,9 +422,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.6
-  coreVersion: '13.350'
+  coreVersion: '14.356'
   createdTime: 1684374985562
-  modifiedTime: 1760019535362
+  modifiedTime: 1773514792338
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

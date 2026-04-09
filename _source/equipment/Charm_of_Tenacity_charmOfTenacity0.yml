@@ -2,36 +2,78 @@ name: Charm of Tenacity
 type: accessory
 img: icons/equipment/neck/necklace-carved-stone-spiral.webp
 system:
-  identifier: tenacity
+  identifier: amuletTenacity
   category: jewelry
   quantity: 1
   weight: 0
-  price: 0
-  quality: standard
+  price: 20
+  quality: fine
   broken: false
-  enchantment: mundane
+  enchantment: minor
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - investment
   description:
     public: >-
       <blockquote><p>This charm-covered necklace looks rustic, but upon close
       inspection you notice a delicate craft imbued within its workmanship.
       While holding it you feel your breaths deepen and the minor aches within
-      your muscles dissipate.</p></blockquote><p>This amulet provides a bonus to
-      <strong>Fortitude</strong> defense equal to the minimum of its
-      <strong>Quality</strong> and <strong>Enchantment</strong>
-      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
-      </strong>enchantment: <strong>+1
-      Fortitude</strong></p></li><li><p><strong>Superior </strong>quality and
-      <strong>Major </strong>enchantment: <strong>+2
-      Fortitude</strong></p></li><li><p><strong>Masterwork </strong>quality and
-      <strong>Legendary </strong>enchantment: <strong>+3
-      Fortitude</strong></p></li></ul>
-    private: ''
+      your muscles dissipate.</p></blockquote><p>This enchanted charm provides a
+      bonus to <strong>Fortitude</strong> defense.</p>
+    private: >-
+      <p>This item is presented as an example of a Fine Charm with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.tenacity00000000]{Tenacity}
+      suffix.</p><p>This affix can be applied to any armor or accessory and this
+      charm could be further enchanted with a Tier 1 prefix.</p>
   actions: []
   actorHooks: []
-effects: []
+effects:
+  - name: Tenacity
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Tenacity
+      identifier: tenacity
+      changes: []
+      affixType: suffix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+        - armor
+    _id: tenacity00000000
+    img: icons/magic/symbols/mask-metal-silver-white.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase <strong>Fortitude</strong> defense by 1 per each
+      <strong>Tier</strong> of this suffix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Lw2f7XpDAHZxckl7
+    sort: 100000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775481270651
+      modifiedTime: 1775481270651
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.tenacity00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!charmOfTenacity0.tenacity00000000'
 folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
@@ -41,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.359'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.0
   createdTime: 1759603481772
-  modifiedTime: 1765578152632
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1775580178471
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: charmOfTenacity0
 sort: 200000
 _key: '!items!charmOfTenacity0'

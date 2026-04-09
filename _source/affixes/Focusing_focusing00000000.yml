@@ -1,0 +1,79 @@
+name: Focusing
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Focusing
+  identifier: focusing
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - accessory
+  actions:
+    - id: affixFocusing
+      name: Replenish Focus
+      img: icons/magic/control/orb-web-hold.webp
+      condition: ''
+      description: >-
+        <p>In moments of duress you can withdraw an additional reserve of
+        <strong>Focus</strong> from this item. The amount of Focus restored
+        depends on the <strong>Tier</strong> of this
+        prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>4
+        Focus</strong></p></li><li><p><strong>Tier 2:</strong> <strong>6
+        Focus</strong></p></li><li><p><strong>Tier 3:</strong> <strong>8
+        Focus</strong></p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags: []
+      actionHooks: []
+      summon:
+        actorUuid: null
+        permanent: true
+_id: focusing00000000
+img: icons/magic/control/orb-web-hold.webp
+disabled: false
+start: null
+description: >-
+  <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer to
+  restore <strong>Focus</strong> in moments of duress. The amount restored
+  scales with the <strong>Tier</strong> of this affix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: hd7WNbghiYX3GDXN
+sort: 200000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1775502000000
+  modifiedTime: 1775559025754
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!focusing00000000'

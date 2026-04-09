@@ -1,5 +1,4 @@
-import { SYSTEM } from "../const/system.mjs";
-
+import {SYSTEM} from "../const/system.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -7,12 +6,21 @@ const {DialogV2} = foundry.applications.api;
  * @extends {DialogV2}
  */
 export default class StandardCheckDialog extends DialogV2 {
-  constructor({request=false, roll, rollMode, ...options}={}) {
+
+  /**
+   * @param {object} [options={}]
+   * @param {boolean} [options.request=false]             Display the roll request tray (GM only)
+   * @param {CrucibleActor[]} [options.requestedActors=[]] Actors to pre-populate in the request tray
+   * @param {StandardCheck} options.roll                   The StandardCheck roll instance
+   * @param {string} [options.messageMode]                    The message mode to use
+   */
+  constructor({request=false, requestedActors=[], roll, messageMode, ...options}={}) {
     super(options);
     this.request = request && game.user.isGM;
     this.roll = roll;
-    this.rollMode = rollMode;
+    this.messageMode = messageMode;
     if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
+    for ( const actor of requestedActors ) this.#requestActors.add(actor);
   }
 
   /** @inheritDoc */
@@ -27,7 +35,7 @@ export default class StandardCheckDialog extends DialogV2 {
       requestClear: StandardCheckDialog.#onRequestClear,
       requestParty: StandardCheckDialog.#onRequestParty,
       requestRemove: StandardCheckDialog.#onRequestRemove,
-      rollMode: StandardCheckDialog.#onChangeRollMode,
+      messageMode: StandardCheckDialog.#onChangeMessageMode,
       requestSubmit: StandardCheckDialog.#requestSubmit
     },
     position: {
@@ -61,20 +69,20 @@ export default class StandardCheckDialog extends DialogV2 {
   roll;
 
   /**
-   * The selected roll mode for this particular roll.
+   * The selected message mode for this particular roll.
    * @type {string}
    */
-  rollMode;
+  messageMode;
 
   /** @override */
   get title() {
     if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
-    let label = skill ? game.i18n.format("ACTION.SkillCheck", {skill: skill.label}) : game.i18n.localize("ACTION.StandardCheck");
+    let label = skill ? _loc("ACTION.SkillCheck", {skill: skill.label}) : _loc("ACTION.StandardCheck");
     const actor = this.#requestActors.first();
     if ( actor && (this.#requestActors.size === 1) ) label += `: ${actor.name}`;
-    else if ( this.request ) label = game.i18n.format("ACTION.RequestRollsSuffix", {label});
+    else if ( this.request ) label = _loc("ACTION.RequestRollsSuffix", {label});
     return label;
   }
 
@@ -85,7 +93,7 @@ export default class StandardCheckDialog extends DialogV2 {
     delete options.position?.width; // Ignore default dialog width
     options = super._initializeApplicationOptions(options);
     options.buttons = {
-      roll: {action: "roll", label: game.i18n.localize("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)}
+      roll: {action: "roll", label: _loc("DICE.Roll"), icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)}
     };
     return options;
   }
@@ -103,16 +111,16 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
-    const rollMode = this.rollMode || game.settings.get("core", "rollMode");
+    const messageMode = this.messageMode || game.settings.get("core", "messageMode");
     return Object.assign({}, data, {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
-      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${game.i18n.localize(d[1])} (DC ${d[0]})`})),
+      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
-      rollModes: Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
-        return {icon, label, action, active: action === rollMode};
+      messageModes: Object.entries(CONFIG.ChatMessage.modes).map(([action, { label, icon }]) => {
+        return {icon, label, action, active: action === messageMode};
       }),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.DICE.MAX_BOONS,
@@ -128,11 +136,11 @@ export default class StandardCheckDialog extends DialogV2 {
     const buttons = [];
     for ( const b of Object.values(this.options.buttons) ) buttons.push({type: "submit", ...b});
     if ( this.request ) buttons.push(
-      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: game.i18n.localize("DICE.REQUESTS.Request")},
-      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: game.i18n.localize("DICE.REQUESTS.ClearRequest")},
-      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: game.i18n.localize("DICE.REQUESTS.AddParty")}
+      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: _loc("DICE.REQUESTS.Request")},
+      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: _loc("DICE.REQUESTS.ClearRequest")},
+      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: _loc("DICE.REQUESTS.AddParty")}
     );
-    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: game.i18n.localize("DICE.REQUESTS.RequestRolls")});
+    else if ( game.user.isGM )buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: _loc("DICE.REQUESTS.RequestRolls")});
     return buttons;
   }
 
@@ -147,7 +155,8 @@ export default class StandardCheckDialog extends DialogV2 {
     for ( const actor of this.#requestActors ) {
       const rank = actor.system.skills[skillId]?.rank ?? 0;
       const pips = Array.fromRange(4).map(i => i < rank ? "full" : "");
-      const rankTooltip = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank]?.label ?? SYSTEM.TALENT.TRAINING_RANKS.untrained.label;
+      const rankTooltip = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank]?.label
+        ?? SYSTEM.TALENT.TRAINING_RANKS.untrained.label;
       actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short"), pips, rank, rankTooltip});
     }
     return {actors, resourceColor};
@@ -214,7 +223,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
-    this.roll.data.rollMode = this.rollMode;
+    this.roll.data.messageMode = this.messageMode;
     return this.roll;
   }
 
@@ -300,7 +309,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @private
    */
   _updatePool(form, updates={}) {
-    const fd = new FormDataExtended(form);
+    const fd = new foundry.applications.ux.FormDataExtended(form);
     updates = foundry.utils.mergeObject(fd.object, updates);
     this.roll.initialize(updates);
   }
@@ -334,26 +343,44 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  static async #onRequestClear(event) {
+  /**
+   * Handle clicks to clear requested actors
+   * @this StandardCheckDialog
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onRequestClear(_event) {
     this.#requestActors.clear();
     await this.render({window: {title: this.title}});
   }
 
   /* -------------------------------------------- */
 
-  static async #onRequestParty(event) {
+  /**
+   * Handle clicks to add party to requested actors
+   * @this StandardCheckDialog
+   * @param {PointerEvent} _event
+   * @returns {Promise<void>}
+   */
+  static async #onRequestParty(_event) {
     const members = crucible.party?.system.actors;
     if ( !members?.size ) {
-      ui.notifications.warn("WARNING.NoParty", {localize: true});
+      ui.notifications.warn(_loc("WARNING.NoParty"));
       return;
     }
     for ( const m of members ) this.#requestActors.add(m);
-
     await this.render({window: {title: this.title}});
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle clicks to remove a requested actor
+   * @this StandardCheckDialog
+   * @param {Event} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
   static async #onRequestRemove(_event, target) {
     const actorId = target.closest(".line-item").dataset.actorId;
     const actor = game.actors.get(actorId);
@@ -370,54 +397,23 @@ export default class StandardCheckDialog extends DialogV2 {
    * @this {StandardCheckDialog}
    */
   static async #requestSubmit(_event, _target) {
-    const activeUsers = game.users.filter(u => u.active && !u.isSelf);
-    const requested = {};
-    const unrequested = [];
-    const promises = [];
-    for ( const actor of this.#requestActors ) {
-      let user = activeUsers.find(u => !u.isSelf && (u.character === actor) );
-      user ||= activeUsers.find(u => !u.isSelf && actor.testUserPermission(u, "OWNER"));
-      if ( user ) {
-        requested[actor.name] = user.name;
-        promises.push(this.roll.request({user, title: this.title, actorId: actor.id}));
-      }
-      else unrequested.push(actor.name);
-    }
-
-    // Notify
-    if ( !foundry.utils.isEmpty(requested) ) {
-      let n = "<div><p>Sent roll requests to the following users:<p><ul>";
-      for ( const [actorName, userName] of Object.entries(requested) ) {
-        n += `<li>Roll for <strong>${actorName}</strong> requested from <strong>${userName}</strong>`;
-      }
-      n += "<ul></div>";
-      // Display as a progress bar as requests are completed?
-      ui.notifications.info(n, {clean: false, console: true, permanent: true});
-    }
-    if ( unrequested.length ) {
-      let n = "<div><p>No users present who can handle rolls for the following actors:</p><ul>";
-      for ( const actorName of unrequested ) n += `<li><strong>${actorName}</strong></li>`;
-      n += "</ul></div>";
-      ui.notifications.error(n, {clean: false, console: true, permanent: true});
-    }
-
-    // Wait for results - for now do nothing else
-    // TODO await all rolls and then confirm their chat messages in bulk
-    await Promise.all(promises);
+    await this.roll.requestGroupCheck({requestedActors: Array.from(this.#requestActors)});
+    await this.close();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Handle clicks on a roll mode selection button.
+   * Handle clicks on a message mode selection button.
+   * @this {StandardCheckDialog}
    * @param {Event} _event
    * @param {HTMLElement} target
-   * @this {StandardCheckDialog}
+   * @returns {Promise<void>}
    */
-  static async #onChangeRollMode(_event, target) {
-    this.rollMode = target.dataset.rollMode;
+  static async #onChangeMessageMode(_event, target) {
+    this.messageMode = target.dataset.messageMode;
     for ( const button of target.parentElement.children ) {
-      button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
+      button.setAttribute("aria-pressed", button.dataset.messageMode === this.messageMode);
     }
   }
 
