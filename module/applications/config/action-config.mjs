@@ -1,6 +1,6 @@
 const {HandlebarsApplicationMixin, DocumentSheetV2} = foundry.applications.api;
 import CrucibleItem from "../../documents/item.mjs";
-import {formatHookContext} from "../../hooks/_module.mjs";
+import {formatHookContext, HOOK_PARTIAL} from "../../hooks/_module.mjs";
 
 /**
  * A configuration application used to configure an Action belonging to an Item or an Affix ActiveEffect.
@@ -29,8 +29,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     actions: {
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
-      addHook: CrucibleActionConfig.#onAddHook,
-      hookDelete: CrucibleActionConfig.#onDeleteHook,
       hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
     form: {
@@ -44,12 +42,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    * @type {string}
    */
   static ACTIVE_EFFECT_PARTIAL = "systems/crucible/templates/sheets/action/effect.hbs";
-
-  /**
-   * A template partial used for rendering a Hook inside an Action.
-   * @type {string}
-   */
-  static HOOK_PARTIAL = "systems/crucible/templates/sheets/partials/hook.hbs";
 
   /** @override */
   static PARTS = {
@@ -84,7 +76,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     hooks: {
       id: "hooks",
       template: "systems/crucible/templates/sheets/action/hooks.hbs",
-      templates: [CrucibleActionConfig.HOOK_PARTIAL],
+      templates: [HOOK_PARTIAL],
       scrollable: [""]
     }
   };
@@ -125,30 +117,14 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   /*  Rendering                                   */
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  async _preRender(context, options) {
-    await super._preRender(context, options);
-    const hookPartial = await foundry.applications.handlebars.getTemplate(this.constructor.HOOK_PARTIAL);
-    Handlebars.registerPartial(this.constructor.HOOK_PARTIAL, hookPartial, {preventIndent: true});
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
   async _prepareContext(_options) {
     const action = this.action.toObject();
     action.name ||= this.document.name;
     action.img ||= this.document.img;
-    const disableHooks = !game.user.isGM;
-
     return {
       action,
-      actionHookChoices: Object.entries(SYSTEM.ACTION_HOOKS).reduce((obj, [k, v]) => {
-        if ( !v.deprecated ) obj[k] = k;
-        return obj;
-      }, {}),
-      actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
-      disableHooks,
+      hookPartial: HOOK_PARTIAL,
       moduleHooks: this.#formatModuleHooks(),
       editable: this.isEditable,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
@@ -159,7 +135,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         if ( !tag.internal ) acc[tagId] = tag;
         return acc;
       }, {}),
-      hookPartial: CrucibleActionConfig.HOOK_PARTIAL,
       isSummon: action.tags.includes("summon"),
       tabs: this.#prepareTabs().sheet,
       tags: this.#prepareTags(),
@@ -203,7 +178,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       }
       tabs[groupId] = group;
     }
-    if ( !game.user.isGM ) delete tabs.sheet.hooks;
     return tabs;
   }
 
@@ -223,35 +197,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       tags.push({value: t.tag, label: t.label, group, selected});
     }
     return tags;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render HTML used for the action hooks tab.
-   * We do this rendering in JavaScript and pass the rendered string into the template to avoid the undesirable
-   * auto-indenting caused by rendering this normally as a Handlebars Partial.
-   * See https://github.com/handlebars-lang/handlebars.js/issues/858
-   * @param {boolean} disableHooks
-   * @returns {Promise<string>}
-   */
-  async #renderActionHooksHTML(disableHooks) {
-    const hookHTML = [];
-    for ( const [i, h] of this.action.actionHooks.entries() ) {
-      const cfg = SYSTEM.ACTION_HOOKS[h.hook];
-      const prefix = cfg.async ? "async " : "";
-      const ctx = {
-        label: `${prefix}${h.hook}(${cfg.argLabels.join(", ")})`,
-        hookName: h.hook,
-        fn: h.fn,
-        namePrefix: "actionHooks",
-        i,
-        disableHooks
-      };
-      const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, ctx);
-      hookHTML.push(html);
-    }
-    return hookHTML.join("");
   }
 
   /* -------------------------------------------- */
@@ -288,7 +233,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
 
     // Construct action update
     const submitData = foundry.utils.expandObject(formData.object);
-    submitData.actionHooks = Object.values(submitData.actionHooks || {});
     submitData.effects = Object.values(submitData.effects || {});
     foundry.utils.mergeObject(submitData, updateData);
 
@@ -367,48 +311,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   static async #onDeleteEffect(_event, target) {
     const fieldset = target.closest("fieldset.effect");
     fieldset.remove();
-    const submit = new Event("submit");
-    this.element.dispatchEvent(submit);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Add a new hook function to the Action.
-   * @this {ActionConfig}
-   * @param {PointerEvent} _event
-   * @param {HTMLElement} target
-   * @returns {Promise<void>}
-   */
-  static async #onAddHook(_event, target) {
-    const hookId = target.previousElementSibling.value;
-    const cfg = SYSTEM.ACTION_HOOKS[hookId];
-    const prefix = cfg.async ? "async " : "";
-    const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, {
-      label: `${prefix}${hookId}(${cfg.argLabels.join(", ")})`,
-      hookName: hookId,
-      fn: "// Hook code here",
-      namePrefix: "actionHooks",
-      i: foundry.utils.randomID()
-    });
-    const section = target.closest("fieldset");
-    section.insertAdjacentHTML("beforebegin", html);
-    const submit = new Event("submit");
-    this.element.dispatchEvent(submit);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Delete a hook function from the Action.
-   * @this {ActionConfig}
-   * @param {PointerEvent} _event
-   * @param {HTMLElement} target
-   * @returns {Promise<void>}
-   */
-  static async #onDeleteHook(_event, target) {
-    const hook = target.closest(".hook");
-    hook.remove();
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
   }

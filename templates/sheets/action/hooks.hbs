@@ -1,20 +1,9 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.hooks.cssClass}}"
          data-group="{{tabs.hooks.group}}" data-tab="{{tabs.hooks.id}}">
     {{#each moduleHooks}}
-    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{> (lookup @root "hookPartial")}}
     {{/each}}
-    {{{actionHooksHTML}}}
-    {{#unless disableHooks}}
-    <fieldset class="add-hook">
-        <legend>{{fields.actionHooks.label}}</legend>
-        <div class="form-group">
-            <label>{{localize "TALENT.ACTIONS.HookAdd"}}</label>
-            <div class="form-fields">
-                <select>{{selectOptions actionHookChoices blank=""}}</select>
-                <button type="button" class="icon frame-brown fa-solid fa-plus" data-action="addHook" aria-label="{{localize "TALENT.ACTIONS.HookAdd"}}" data-tooltip></button>
-            </div>
-        </div>
-        <p class="hint">{{fields.actionHooks.hint}}</p>
-    </fieldset>
+    {{#unless moduleHooks.length}}
+    <p class="hint">{{localize "HOOKS.NoModuleHooks"}}</p>
     {{/unless}}
 </section>

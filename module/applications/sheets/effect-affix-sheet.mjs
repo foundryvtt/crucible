@@ -1,5 +1,5 @@
 const {api, sheets} = foundry.applications;
-import {formatHookContext} from "../../hooks/_module.mjs";
+import {formatHookContext, HOOK_PARTIAL} from "../../hooks/_module.mjs";
 
 /**
  * A specialized sheet for configuring affix-type ActiveEffects.
@@ -63,7 +63,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
     hooks: {
       id: "hooks",
       template: "systems/crucible/templates/sheets/effect/affix-hooks.hbs",
-      templates: ["systems/crucible/templates/sheets/partials/hook.hbs"],
+      templates: [HOOK_PARTIAL],
       scrollable: [""]
     }
   };
@@ -138,6 +138,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         }];
         break;
       case "hooks":
+        context.hookPartial = HOOK_PARTIAL;
         const affixHookFns = crucible.api.hooks.affix?.[effect.system.identifier];
         context.moduleHooks = [];
         if ( affixHookFns ) {

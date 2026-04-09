@@ -16,6 +16,14 @@ export const armor = {};
 /* -------------------------------------------- */
 
 /**
+ * The template partial used to render a single hook entry on a sheet.
+ * @type {string}
+ */
+export const HOOK_PARTIAL = "systems/crucible/templates/sheets/partials/hook.hbs";
+
+/* -------------------------------------------- */
+
+/**
  * Yield formatted hook context objects for displaying module-defined hooks on a sheet.
  * Callers should annotate each yielded object with application-specific state (e.g. expanded).
  * @param {Record<string, Function>} hooks              The hook object from crucible.api.hooks.*[identifier]

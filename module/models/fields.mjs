@@ -31,21 +31,6 @@ export class CrucibleActionField extends fields.EmbeddedDataField {
 /* -------------------------------------------- */
 
 /**
- * A standardized ArrayField used when an Item contains Actor Hooks.
- */
-export class ItemActorHooks extends fields.ArrayField {
-  constructor(options, context) {
-    const hookSchema = new fields.SchemaField({
-      hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
-      fn: new fields.JavaScriptField({async: true, gmOnly: true})
-    });
-    super(hookSchema, options, context);
-  }
-}
-
-/* -------------------------------------------- */
-
-/**
  * A special StringField subclass used for item identifiers.
  */
 export class ItemIdentifierField extends fields.StringField {

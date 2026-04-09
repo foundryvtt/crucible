@@ -1102,39 +1102,30 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Register actor hooks for a given Item.
+   * Register actor hooks for a given Item from the module-defined hook registry.
    * @param {CrucibleItem} item         The Item registering the hook
    */
   #registerActorHooks(item) {
-    const H = SYSTEM.ACTOR.HOOKS;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
 
-    // First register inline hooks, including any hooks contributed by embedded affixes
-    const actorHooks = item.system.getActorHooks?.() ?? item.system.actorHooks;
-    for ( let {hook, fn} of actorHooks ) {
-      const cfg = H[hook];
-      if ( !cfg ) {
-        console.error(new Error(`Invalid Actor hook name "${hook}" defined by Item "${item.uuid}"`));
-        continue;
-      }
-      this.actorHooks[hook] ||= [];
-      if ( typeof fn === "string" ) {
-        try {
-          // eslint-disable-next-line no-new-func
-          fn = new Function("item", ...cfg.argNames, fn);
-        } catch(err) {
-          throw new Error(`Failed to parse Hook "${hook}" in Item "${item.uuid}"`, {cause: err});
-        }
-      }
-      if ( !(fn instanceof Function) ) throw new Error(`Hook "${hook}" is not a function.`);
-      this.actorHooks[hook].push({item, fn});
-    }
-
-    // Next register custom module hooks
+    // Register module hooks for the item itself
     const identifier = item.system.identifier || item.id;
     const hooks = crucible.api.hooks[item.type]?.[identifier];
     if ( hooks ) {
       for ( const [hook, fn] of Object.entries(hooks) ) {
+        if ( hook in SYSTEM.ACTOR.HOOKS ) {
+          this.actorHooks[hook] ||= [];
+          this.actorHooks[hook].push({item, fn});
+        }
+      }
+    }
+
+    // Register module hooks contributed by embedded affixes
+    const affixes = item.system.constructor.AFFIXABLE ? Object.values(item.system.affixes) : [];
+    for ( const affix of affixes ) {
+      const affixHooks = crucible.api.hooks.affix?.[affix.system.identifier];
+      if ( !affixHooks ) continue;
+      for ( const [hook, fn] of Object.entries(affixHooks) ) {
         if ( hook in SYSTEM.ACTOR.HOOKS ) {
           this.actorHooks[hook] ||= [];
           this.actorHooks[hook].push({item, fn});
