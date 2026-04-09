@@ -364,7 +364,6 @@ class CrucibleActionEvent {
  * @property {ActionRange} range            Range data for the action
  * @property {{actorUuid?: string, permanent?: boolean}} summon  Summon configuration embedded in this action
  * @property {ActionEffect[]} effects       Active effect templates applied when this action is used
- * @property {{hook: string, fn: string}[]} actionHooks  Inline script hooks invoked during the action lifecycle
  */
 
 /**
@@ -598,10 +597,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
-      actionHooks: new fields.ArrayField(new fields.SchemaField({
-        hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
-        fn: new fields.JavaScriptField({async: true, gmOnly: true})
-      })),
       metadata: new fields.ObjectField()
     };
   }
@@ -907,7 +902,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * @type {Readonly<Record<string, AsyncFunction|Function>>}
      */
     Object.defineProperty(this, "hooks", {
-      value: CrucibleAction.#prepareHooks(this.id, this.actionHooks),
+      value: CrucibleAction.#prepareHooks(this.id),
       configurable: true
     });
 
@@ -918,27 +913,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Hook functions for this Action.
+   * Prepare Hook functions for this Action from the module-defined hook registry.
    * @param {string} actionId
-   * @param {string[]} inlineHooks
    * @returns {Record<string, AsyncFunction|Function>}
    */
-  static #prepareHooks(actionId, inlineHooks) {
+  static #prepareHooks(actionId) {
     const hooks = {};
-
-    // Inline script hooks
-    for ( const {hook, fn} of inlineHooks ) {
-      const config = SYSTEM.ACTION_HOOKS[hook];
-      if ( config.deprecated ) {
-        console.warn(`Deprecated Action hook "${hook}" used by Action "${actionId}"`);
-        continue;
-      }
-      const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
-      if ( config ) hooks[hook] = new fnClass(...config.argNames, fn);
-      else console.warn(`Invalid Action hook "${hook}" defined by Action "${actionId}"`);
-    }
-
-    // Pre-configured module hooks
     const cfg = crucible.api.hooks.action[actionId];
     if ( cfg ) {
       for ( const hookName in SYSTEM.ACTION_HOOKS ) {

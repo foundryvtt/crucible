@@ -28,7 +28,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         private: new fields.HTMLField()
       }),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
-      actorHooks: new crucibleFields.ItemActorHooks()
     };
   }
 
@@ -231,25 +230,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
   /*  Actor Hooks                                 */
   /* -------------------------------------------- */
-
-  /**
-   * Provide all actor hooks contributed by this item, both from the base item and from each of its affixes.
-   * @returns {Array<{hook: string, fn: Function|string}>}
-   */
-  getActorHooks() {
-    const affixes = this.constructor.AFFIXABLE ? Object.values(this.affixes) : [];
-    if ( !affixes.length ) return this.actorHooks;
-    const hooks = [...this.actorHooks];
-    for ( const affix of affixes ) {
-      const moduleHooks = crucible.api.hooks.affix?.[affix.system.identifier];
-      if ( moduleHooks ) {
-        for ( const [hook, fn] of Object.entries(moduleHooks) ) {
-          if ( hook in SYSTEM.ACTOR.HOOKS ) hooks.push({hook, fn});
-        }
-      }
-    }
-    return hooks;
-  }
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */

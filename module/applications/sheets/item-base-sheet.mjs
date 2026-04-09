@@ -1,6 +1,6 @@
 const {api, sheets} = foundry.applications;
 import CruciblePhysicalItem from "../../models/item-physical.mjs";
-import {formatHookContext} from "../../hooks/_module.mjs";
+import {formatHookContext, HOOK_PARTIAL} from "../../hooks/_module.mjs";
 
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
@@ -21,8 +21,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
       affixDelete: CrucibleBaseItemSheet.#onAffixDelete,
       affixEdit: CrucibleBaseItemSheet.#onAffixEdit,
-      hookDelete: CrucibleBaseItemSheet.#onHookDelete,
-      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
       hookToggleSource: CrucibleBaseItemSheet.#onHookToggleSource,
       expandSection: CrucibleBaseItemSheet.#onExpandSection
     },
@@ -138,7 +136,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       this.PARTS.hooks = {
         id: "hooks",
         template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
-        templates: ["systems/crucible/templates/sheets/partials/hook.hbs"],
+        templates: [HOOK_PARTIAL],
         scrollable: [""]
       };
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
@@ -150,9 +148,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /** @inheritDoc */
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
-    if ( this.options.item.includesHooks && !game.user.isGM ) {
-      options.parts.findSplice(p => p === "hooks");
-    }
   }
 
   /* -------------------------------------------- */
@@ -238,14 +233,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         }
         break;
       case "hooks":
-        const actorHooks = this.#prepareActorHooks();
-        const registeredHooks = new Set(actorHooks.map(h => h.hookName));
-        context.actorHookChoices = Object.entries(SYSTEM.ACTOR.HOOKS).map(([hookId, cfg]) => ({
-          value: hookId,
-          label: hookId,
-          group: _loc(cfg.group),
-          disabled: registeredHooks.has(hookId)
-        }));
+        context.hookPartial = HOOK_PARTIAL;
         const identifier = this.document.system.identifier || this.document.id;
         const moduleHookFns = crucible.api.hooks[this.document.type]?.[identifier];
         context.moduleHooks = [];
@@ -255,7 +243,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             context.moduleHooks.push(h);
           }
         }
-        context.allHooks = actorHooks.concat(this.#prepareAffixHooks());
+        context.affixHooks = this.#prepareAffixHooks();
         break;
     }
     return context;
@@ -308,24 +296,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * Prepare data for the actor hooks currently registered by this item.
    * @returns {object[]}
    */
-  #prepareActorHooks() {
-    const hooks = [];
-    for ( const [i, h] of this.document.system.actorHooks.entries() ) {
-      const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
-      const prefix = cfg.async ? "async " : "";
-      hooks.push({
-        label: `${prefix}${h.hook}(${cfg.argLabels.join(", ")})`,
-        hookName: h.hook,
-        fn: h.fn,
-        namePrefix: "system.actorHooks",
-        i
-      });
-    }
-    return hooks;
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * Prepare affix-provided hooks for display on the hooks tab.
    * @returns {object[]}
@@ -448,16 +418,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     return this._prepareSubmitData(event, this.element, fd);
   }
 
-  /* -------------------------------------------- */
-
-  /** @override */
-  _processFormData(event, form, formData) {
-    const submitData = foundry.utils.expandObject(formData.object);
-    if ( this.options.item.includesHooks ) {
-      submitData.system.actorHooks = Object.values(submitData.system.actorHooks || {});
-    }
-    return submitData;
-  }
 
   /* -------------------------------------------- */
 
@@ -559,43 +519,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       s.classList.toggle("expanded", s === section);
       s.classList.toggle("collapsed", s !== section);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Add a new hooked function to this Talent.
-   * @this {CrucibleTalentItemSheet}
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns {Promise<void>}
-   */
-  static async #onHookAdd(event, target) {
-    const hook = target.previousElementSibling.value;
-    const submitData = this._getSubmitData(event);
-    submitData.system.actorHooks ||= [];
-    if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {
-      ui.notifications.warn(_loc("ITEM.WARNINGS.HookAlreadyExists", {item: this.document.name, hook}));
-      return;
-    }
-    submitData.system.actorHooks.push({hook, fn: "// Hook code here"});
-    await this.document.update(submitData);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Delete a hooked function from this Talent.
-   * @this {CrucibleTalentItemSheet}
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns {Promise<void>}
-   */
-  static async #onHookDelete(event, target) {
-    const hook = target.closest(".hook").querySelector("input[type=hidden]").value;
-    const submitData = this._getSubmitData(event);
-    submitData.system.actorHooks.findSplice(h => h.hook === hook);
-    await this.document.update(submitData);
   }
 
   /* -------------------------------------------- */

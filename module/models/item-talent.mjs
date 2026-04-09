@@ -9,7 +9,6 @@ import * as crucibleFields from "./fields.mjs";
  * @property {string} [rune]
  * @property {string} [gesture]
  * @property {string} [inflection]
- * @property {{hook: string, fn: Function}} actorHooks
  */
 
 /**
@@ -61,10 +60,6 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
         type: new fields.StringField({...blankString, choices: SYSTEM.TALENT.TRAINING_TYPES}),
         rank: new fields.NumberField({required: true, nullable: true, initial: null, integer: true, min: 1, max: 4})
       }),
-      actorHooks: new fields.ArrayField(new fields.SchemaField({
-        hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
-        fn: new fields.JavaScriptField({async: true, gmOnly: true})
-      }))
     };
   }
 

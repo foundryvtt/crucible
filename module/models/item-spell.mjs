@@ -15,10 +15,6 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
       runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
       gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
       inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS})),
-      actorHooks: new fields.ArrayField(new fields.SchemaField({
-        hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
-        fn: new fields.JavaScriptField({async: true, gmOnly: true})
-      }))
     };
   }
 

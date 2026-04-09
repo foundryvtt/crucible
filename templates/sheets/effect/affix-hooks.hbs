@@ -1,7 +1,7 @@
 <section class="tab sheet-body flexcol scrollable {{tab.cssClass}}"
          data-tab="{{tab.id}}" data-group="{{tab.group}}">
     {{#each moduleHooks}}
-    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{> (lookup @root "hookPartial")}}
     {{/each}}
     {{#unless moduleHooks.length}}
     <p class="hint">{{localize "HOOKS.NoModuleHooks"}}</p>

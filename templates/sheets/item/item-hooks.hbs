@@ -1,23 +1,15 @@
 <section class="tab sheet-body flexcol scrollable {{tabs.hooks.cssClass}}" data-tab="{{tabs.hooks.id}}" data-group="{{tabs.hooks.group}}">
     {{#each moduleHooks}}
-    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{> (lookup @root "hookPartial")}}
     {{/each}}
 
-    {{#each allHooks}}
-    {{> "systems/crucible/templates/sheets/partials/hook.hbs"}}
+    {{#each affixHooks}}
+    {{> (lookup @root "hookPartial")}}
     {{/each}}
 
-    <fieldset>
-        <legend>{{localize "TALENT.HOOKS.Register"}}</legend>
-        <div class="form-group">
-            <div class="form-fields">
-                <select name="addHook">
-                    {{selectOptions actorHookChoices blank=""}}
-                </select>
-                <button type="button" class="icon fa-solid fa-plus frame-brown" data-action="hookAdd"
-                        data-tooltip="TALENT.ACTIONS.HookAdd"></button>
-            </div>
-            <p class="hint">{{fields.actorHooks.hint}}</p>
-        </div>
-    </fieldset>
+    {{#unless moduleHooks.length}}
+    {{#unless affixHooks.length}}
+    <p class="hint">{{localize "HOOKS.NoModuleHooks"}}</p>
+    {{/unless}}
+    {{/unless}}
 </section>
