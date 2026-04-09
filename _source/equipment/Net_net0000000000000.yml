@@ -9,6 +9,7 @@ system:
   price: 0
   quality: standard
   broken: false
+  enchantment: mundane
   equipped: false
   invested: false
   properties:
