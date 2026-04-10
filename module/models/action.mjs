@@ -1735,33 +1735,45 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const choices = [];
     if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
     const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+
+    // Identify weapons using the union of _source tags and current tags to account for tag removal during configuration
+    const hasMelee = this._source.tags.includes("melee") || this.tags.has("melee");
+    const hasRanged = this._source.tags.includes("ranged") || this.tags.has("ranged");
     const isValidChoice = weapon => {
-      if ( this.tags.has("reload") ) return weapon.system.needsReload;
-      let isValid = this.tags.has("ranged") && weapon.config.category.ranged && !weapon.system.needsReload;
-      isValid ||= this.tags.has("melee") && !weapon.config.category.ranged;
-      if ( maxCost !== null ) isValid &&= (weapon.system.actionCost <= maxCost);
-      return isValid;
+      let available = true;
+      let eligible = true;
+      if ( weapon.config.category.reload ) {
+        available = this.tags.has("reload") ? weapon.system.needsReload : !weapon.system.needsReload;
+      } else if ( this.tags.has("reload") ) eligible = false;
+      if ( maxCost !== null ) available &&= (weapon.system.actionCost <= maxCost);
+
+      // Any strike that's neither melee nor ranged shouldn't hard-disqualify weapons based on melee/ranged
+      if ( hasRanged || hasMelee ) {
+        eligible &&= (hasRanged || !weapon.config.category.ranged);
+        eligible &&= (hasMelee || weapon.config.category.ranged);
+      }
+      return {available, eligible};
     };
     const isNatural = this.tags.has("natural");
     if ( mh && !isNatural ) {
-      const isValid = isValidChoice(mh);
-      if ( !strict || isValid ) choices.push({
+      const {available, eligible} = isValidChoice(mh);
+      if ( eligible && (!strict || available) ) choices.push({
         item: mh,
         id: mh.id || "mainhandUnarmed",
         label: `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`,
-        isValid
+        isValid: available
       });
     }
     if ( oh && !isNatural ) {
-      const isValid = isValidChoice(oh);
-      if ( !strict || isValid ) choices.push({
+      const {available, eligible} = isValidChoice(oh);
+      if ( eligible && (!strict || available) ) choices.push({
         item: oh,
         id: oh.id || "offhandUnarmed",
         label: `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`,
-        isValid
+        isValid: available
       });
     }
-    if ( !this.tags.has("ranged") ) {
+    if ( !hasRanged ) {
       for ( const n of natural ) {
         const isValid = (maxCost !== null) ? (n.system.actionCost <= maxCost) : true;
         if ( strict && !isValid ) continue;
