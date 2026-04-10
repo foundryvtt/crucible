@@ -2256,14 +2256,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Pass 3 - delegate to tag-defined resolveVFX hooks for action-specific reference resolution
+    // Pass 3 - delegate to tag-defined finalizeVFX hooks for action-specific reference resolution
     for ( const test of this._tests() ) {
-      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
+      if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
     }
 
     // Play the effect
     if ( CONFIG.debug.vfx ) console.debug(`${this.id} | playVFXEffect`, {components: Object.keys(vfxEffect.components), references});
-    return vfxEffect.play(references);
+    try {
+      return await vfxEffect.play(references);
+    } catch(err) {
+      console.error(`${this.id} | VFX play failed:`, err);
+    }
   }
 
   /* -------------------------------------------- */

@@ -46,10 +46,11 @@ import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
  */
 export function configureSpellVFXEffect(action, vfxConfig) {
   if ( !action.tags.has("composed") ) throw new Error(`The Action ${action.id} does not use the composed tag.`);
-  const configurator = SPELL_VFX_GESTURES[action.gesture.id];
-  if ( !configurator ) return null;
+  const hooks = SPELL_VFX_GESTURES[action.gesture.id];
+  if ( hooks?.configure === null ) return null;
+  if ( hooks?.configure === undefined ) return vfxConfig;
 
-  const result = configurator(action);
+  const result = hooks.configure(action);
   if ( !result ) return null;
   const {components, timeline, references} = result;
 
@@ -75,25 +76,18 @@ export function configureSpellVFXEffect(action, vfxConfig) {
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect  The constructed VFXEffect instance.
  * @param {Record<string, any>} references           The references map, modified in place.
  */
-export function resolveSpellVFXReferences(action, vfxEffect, references) {
+export function finalizeSpellVFXEffect(action, vfxEffect, references) {
 
-  // Resolve wallMask polygon from serialized config
+  // Pre-compute a shared PointSourcePolygon for wall masking. Components reference this by name
+  // via pointSourceMask: {reference: "wallMask"} to avoid redundant polygon computation.
   if ( references.wallMask && !(references.wallMask instanceof foundry.canvas.geometry.PointSourcePolygon) ) {
     const {x, y, type, radius} = references.wallMask;
     references.wallMask = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
   }
 
-  // Inject onSpawn callbacks for particle generators that declare alignRotation in their config.
-  // The alignRotation marker is serializable; the onSpawn callback it triggers is not, so it must
-  // be attached here at play-time rather than at configure-time.
-  for ( const component of Object.values(vfxEffect.components) ) {
-    if ( component.type !== "particleGenerator" ) continue;
-    if ( !component.config?.alignRotation ) continue;
-    const jitter = component.config.alignRotation.jitter ?? 0;
-    component.config.onSpawn = (p) => {
-      p.rotation = Math.atan2(p.movementSpeed.y, p.movementSpeed.x) + ((Math.random() - 0.5) * jitter);
-    };
-  }
+  // Delegate to gesture-specific finalizer
+  const hooks = SPELL_VFX_GESTURES[action.gesture.id];
+  if ( hooks?.finalize ) hooks.finalize(action, vfxEffect, references);
 }
 
 /* -------------------------------------------- */
@@ -709,29 +703,28 @@ const RUNE_COLORS = {
 /* -------------------------------------------- */
 
 /**
- * A registry of gesture-specific VFX configurator functions, keyed by gesture ID.
- * Each function receives the full CrucibleSpellAction and returns a SpellVFXData object
- * whose components and timeline describe the visual effect, or null if no VFX applies.
- * Within each configurator, action.rune.id is used to select textures, sounds, and tints
- * that express the element of the spell.
- * @type {Record<string, SpellVFXGestureConfigurator|null>}
+ * A registry of gesture-specific VFX hooks, keyed by gesture ID.
+ * Each entry may define a `configure` function (called at configure-time to produce the serializable
+ * VFXEffect config) and/or a `finalize` function (called at play-time to apply runtime behaviors).
+ * A `null` configure explicitly suppresses VFX; an absent configure defers to existing config.
+ * @type {Record<string, {configure?: SpellVFXGestureConfigurator, finalize?: function}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: null,
-  aspect: null,
-  aura: null,
-  blast: configureBlastVFXEffect,
-  cone: null,
-  conjure: null,
-  create: null,
-  fan: configureFanVFXEffect,
-  influence: null,
-  pulse: null,
-  ray: configureRayVFXEffect,
-  sense: null,
-  step: null,
-  strike: null,
-  surge: null,
-  touch: null,
-  ward: null
+  arrow: {},
+  aspect: {},
+  aura: {},
+  blast: {configure: configureBlastVFXEffect},
+  cone: {},
+  conjure: {},
+  create: {},
+  fan: {configure: configureFanVFXEffect},
+  influence: {},
+  pulse: {},
+  ray: {configure: configureRayVFXEffect},
+  sense: {},
+  step: {},
+  strike: {},
+  surge: {},
+  touch: {},
+  ward: {}
 };
