@@ -8,7 +8,6 @@ system:
     Strike or Spell attack against an enemy whose initiative score is lower than
     your own.
   actions: []
-  actorHooks: []
   nodes:
     - intdex2
   rune: ''

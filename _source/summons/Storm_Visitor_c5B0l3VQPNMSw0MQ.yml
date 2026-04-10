@@ -284,7 +284,6 @@ items:
         <strong>Health</strong>.</p>
       actions: []
       rune: lightning
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -332,7 +331,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -363,7 +361,6 @@ items:
         dealing 6 base damage on a successful attack.</p>
       actions: []
       gesture: fan
-      actorHooks: []
       nodes:
         - int1a
       rune: ''
@@ -412,7 +409,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
       dropped: false
       slot: 0
     effects: []
@@ -456,7 +452,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -497,7 +492,6 @@ items:
         replaces the previous effect.</p>
       actions: []
       gesture: aspect
-      actorHooks: []
       nodes:
         - pre1b
       rune: ''

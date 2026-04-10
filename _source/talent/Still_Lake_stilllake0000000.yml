@@ -9,7 +9,6 @@ system:
     against you from any of the <strong>Social</strong> skills are made with
     <strong>2 Banes</strong>.</p>
   actions: []
-  actorHooks: []
   nodes:
     - wis3a
   rune: ''

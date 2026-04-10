@@ -17,7 +17,6 @@ system:
   training:
     type: performance
     rank: 1
-  actorHooks: []
   nodes:
     - pre0a
   rune: ''

@@ -32,7 +32,6 @@ system:
         self: false
       effects: []
       img: icons/magic/death/mouth-bite-fangs-vampire.webp
-      actionHooks: []
       range:
         minimum: null
         maximum: null
@@ -40,7 +39,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - sig3.dexterity.toughness
   rune: ''

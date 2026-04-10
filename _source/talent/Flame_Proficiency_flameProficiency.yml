@@ -20,7 +20,6 @@ system:
   training:
     type: flame
     rank: 2
-  actorHooks: []
 effects: []
 sort: 0
 ownership:

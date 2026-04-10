@@ -46,7 +46,6 @@ system:
         - iconicSpell
         - spell
         - iconicSpell
-      actionHooks: []
       name: Protective Mirage
       condition: ''
       description: >-
@@ -67,7 +66,6 @@ system:
     - aspect
   inflections:
     - eluding
-  actorHooks: []
 effects: []
 folder: QDinq7MTt8Ue7DNC
 ownership:

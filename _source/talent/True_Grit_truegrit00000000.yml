@@ -8,7 +8,6 @@ system:
     foes. Your <strong>Engagement</strong> increases by +1, allowing you to
     simultaneously engage more adjacent foes.</p>
   actions: []
-  actorHooks: []
   nodes:
     - tou0b
   rune: ''

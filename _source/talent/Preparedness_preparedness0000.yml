@@ -6,7 +6,6 @@ system:
     You seem to always be prepared for the moment at hand. You may sacrifice
     your free movement for the Round to instead equip an Item from your
     inventory without spending any Action points.
-  actorHooks: []
   nodes:
     - wis1a
   actions: []

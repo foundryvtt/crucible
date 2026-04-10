@@ -57,7 +57,6 @@ system:
         - natural
         - empowered
         - corruption
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -65,7 +64,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: 9uAW3eV4LNZ2lQ0V
 ownership:

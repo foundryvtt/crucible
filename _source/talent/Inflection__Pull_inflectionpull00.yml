@@ -8,7 +8,6 @@ system:
     towards the spellcaster if that destination space is unoccupied.</p>
   actions: []
   inflection: pull
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - wispre2

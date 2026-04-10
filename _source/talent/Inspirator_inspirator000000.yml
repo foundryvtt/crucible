@@ -19,7 +19,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: jpipM4v8QX2Amfpx
 sort: 200000

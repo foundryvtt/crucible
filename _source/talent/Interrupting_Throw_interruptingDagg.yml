@@ -39,7 +39,6 @@ system:
         - reaction
         - melee
         - thrown
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -50,7 +49,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: YsZBvUcG9Oj4CH5Q
 ownership:

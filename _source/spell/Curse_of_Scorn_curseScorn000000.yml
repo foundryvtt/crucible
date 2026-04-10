@@ -57,7 +57,6 @@ system:
         - spell
         - iconicSpell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -70,7 +69,6 @@ system:
     - aspect
   inflections:
     - negate
-  actorHooks: []
 effects: []
 folder: QDinq7MTt8Ue7DNC
 ownership:

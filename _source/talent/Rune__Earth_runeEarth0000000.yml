@@ -47,12 +47,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: earth
-  actorHooks: []
   nodes:
     - wis0b
   gesture: ''

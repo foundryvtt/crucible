@@ -12,7 +12,6 @@ system:
     Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: influence
-  actorHooks: []
   nodes:
     - pre1b
   rune: ''

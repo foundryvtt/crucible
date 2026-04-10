@@ -15,7 +15,6 @@ system:
     spell.</p>
   actions: []
   gesture: step
-  actorHooks: []
   nodes:
     - dex2b
   rune: ''

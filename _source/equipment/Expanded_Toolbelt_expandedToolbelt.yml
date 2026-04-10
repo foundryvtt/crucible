@@ -25,7 +25,6 @@ system:
       slots</p></li></ul>
     private: ''
   actions: []
-  actorHooks: []
 effects: []
 folder: GVbpo5LtAY44QZPD
 ownership:

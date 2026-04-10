@@ -51,7 +51,6 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -64,7 +63,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 flags:
   core: {}

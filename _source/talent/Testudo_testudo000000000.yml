@@ -8,7 +8,6 @@ system:
     gain double the benefit of the <strong>Guarded</strong> condition against
     <strong>Weapon Attacks</strong> while wielding a shield.
   actions: []
-  actorHooks: []
   nodes:
     - tou1a
   rune: ''

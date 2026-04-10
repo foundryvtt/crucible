@@ -13,7 +13,6 @@ system:
     <strong>2 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: ward
-  actorHooks: []
   nodes:
     - tou2b
   rune: ''

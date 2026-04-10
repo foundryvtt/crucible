@@ -283,7 +283,6 @@ items:
       slot: 3
       identifier: greatsword
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       systemId: crucible
@@ -328,7 +327,6 @@ items:
       actions: []
       identifier: splintMail
       invested: false
-      actorHooks: []
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
@@ -353,7 +351,6 @@ items:
         sequence using a one-handed melee weapon you gain a stacking <strong>+1
         Boon</strong> for each successive attack.</p><p></p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -401,7 +398,6 @@ items:
       training:
         type: athletics
         rank: 1
-      actorHooks: []
       nodes:
         - str0b
       rune: ''
@@ -441,7 +437,6 @@ items:
       training:
         type: intimidation
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -496,7 +491,6 @@ items:
             - melee
             - mainhand
             - empowered
-          actionHooks: []
           name: Heavy Strike
           condition: ''
           description: >-
@@ -510,7 +504,6 @@ items:
       training:
         type: heavy
         rank: 1
-      actorHooks: []
       nodes:
         - str0a
       rune: ''
@@ -547,7 +540,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       nodes:
         - int1a
       rune: ''
@@ -623,12 +615,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: flame
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''

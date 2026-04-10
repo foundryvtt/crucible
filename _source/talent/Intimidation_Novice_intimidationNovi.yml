@@ -16,7 +16,6 @@ system:
   training:
     type: intimidation
     rank: 1
-  actorHooks: []
   nodes:
     - pre0a
   rune: ''

@@ -62,7 +62,6 @@ system:
         - spell
         - iconicSpell
         - iconicSpell
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -75,7 +74,6 @@ system:
     - create
   inflections:
     - pull
-  actorHooks: []
 effects: []
 folder: kDd4BISIGc616vy7
 ownership:

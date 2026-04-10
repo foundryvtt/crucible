@@ -13,7 +13,6 @@ system:
     books for rarer recipes and ingredients.</p>
   actions: []
   iconicSpells: 0
-  actorHooks: []
   nodes:
     - int4c
   rune: ''

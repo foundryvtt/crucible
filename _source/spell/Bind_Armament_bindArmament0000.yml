@@ -39,7 +39,6 @@ system:
         - iconicSpell
         - spell
         - iconicSpell
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -70,7 +69,6 @@ system:
         - iconicSpell
         - spell
         - iconicSpell
-      actionHooks: []
       condition: ''
       description: >-
         <p>You call your bound armament back into your grasp. As long as you
@@ -89,7 +87,6 @@ system:
     - strike
   inflections:
     - pull
-  actorHooks: []
 effects: []
 folder: EwXTQS4EtShwquxC
 ownership:

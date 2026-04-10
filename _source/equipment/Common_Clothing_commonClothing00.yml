@@ -21,7 +21,6 @@ system:
       suitable for menial labor or travel.</p>
     private: ''
   actions: []
-  actorHooks: []
   armor:
     base: 0
 effects: []

@@ -12,7 +12,6 @@ system:
     target spells do not incur any Banes due to intervening creatures.</p>
   actions: []
   iconicSpells: 1
-  actorHooks: []
   inflection: reshape
   nodes:
     - wispre4

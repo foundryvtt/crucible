@@ -67,7 +67,6 @@ system:
         - melee
         - thrown
         - reflex
-      actionHooks: []
   uses:
     value: 1
     max: 1

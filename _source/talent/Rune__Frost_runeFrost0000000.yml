@@ -49,7 +49,6 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -62,7 +61,6 @@ system:
   training:
     type: frost
     rank: 1
-  actorHooks: []
 effects: []
 flags:
   core: {}

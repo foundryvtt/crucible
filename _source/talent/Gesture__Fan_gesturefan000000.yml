@@ -12,7 +12,6 @@ system:
     Focus</strong>.</p>
   actions: []
   gesture: fan
-  actorHooks: []
   nodes:
     - int1a
   rune: ''

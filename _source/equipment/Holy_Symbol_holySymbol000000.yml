@@ -22,7 +22,6 @@ system:
       <p>The type of damage dealt by this talisman can be tailored to the domain
       of whichever deity its weilder worships.</p>
   actions: []
-  actorHooks: []
   damageType: radiant
   dropped: false
   slot: 0

@@ -11,7 +11,6 @@ system:
   training:
     type: science
     rank: 3
-  actorHooks: []
   nodes:
     - none8
   rune: ''

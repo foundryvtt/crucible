@@ -62,7 +62,6 @@ system:
         - dexterity
         - skill
         - athletics
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

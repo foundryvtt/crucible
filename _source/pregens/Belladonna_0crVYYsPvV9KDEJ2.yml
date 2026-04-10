@@ -294,7 +294,6 @@ items:
       slot: 2
       identifier: dagger
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       coreVersion: '14.359'
@@ -341,7 +340,6 @@ items:
       slot: 0
       identifier: dagger
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       coreVersion: '14.359'
@@ -385,7 +383,6 @@ items:
       actions: []
       identifier: studdedLeatherArmor
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -434,7 +431,6 @@ items:
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
-          actionHooks: []
           range:
             minimum: null
             maximum: 30
@@ -443,7 +439,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -501,7 +496,6 @@ items:
           effects: []
           img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
           condition: ''
-          actionHooks: []
           range:
             maximum: 1
             weapon: true
@@ -510,7 +504,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -576,7 +569,6 @@ items:
             multiple: 2
             self: false
           effects: []
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -585,7 +577,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -619,7 +610,6 @@ items:
         Health.</p><p>The Bleeding effect lasts for 1 round and deals your
         Dexterity score as additional damage to Health.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -684,7 +674,6 @@ items:
             scope: 3
             self: false
           effects: []
-          actionHooks: []
           range:
             maximum: 1
             weapon: true
@@ -693,7 +682,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -727,7 +715,6 @@ items:
         any Strike or Spell attack against an enemy whose initiative score is
         lower than your own.
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -763,7 +750,6 @@ items:
         Your quickness of mind and body are equally impressive. You gain +2
         Boons to all Initiative checks.
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -825,7 +811,6 @@ items:
             scope: 0
             self: false
           effects: []
-          actionHooks: []
           range:
             minimum: null
             maximum: null
@@ -833,7 +818,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -869,7 +853,6 @@ items:
         Banes to any <strong>Disengagement Strike</strong> against you.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -932,7 +915,6 @@ items:
           effects: []
           name: Backstab
           img: icons/skills/melee/strike-dagger-white-orange.webp
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -941,7 +923,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -977,7 +958,6 @@ items:
         current and maximum Action.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -1047,7 +1027,6 @@ items:
             - finesse
             - melee
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1055,7 +1034,6 @@ items:
       training:
         type: light
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -1118,7 +1096,6 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1126,7 +1103,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
       nodes:
         - dextou1
       rune: ''
@@ -1169,7 +1145,6 @@ items:
       training:
         type: stealth
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -1210,7 +1185,6 @@ items:
       training:
         type: deception
         rank: 1
-      actorHooks: []
       nodes:
         - int0b
       rune: ''
@@ -1257,7 +1231,6 @@ items:
           barely a trace.</p>
         private: ''
       actions: []
-      actorHooks: []
       dropped: false
       slot: 1
     effects: []
@@ -1334,7 +1307,6 @@ items:
           tags:
             - consume
             - healing
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1422,7 +1394,6 @@ items:
           tags:
             - consume
             - healing
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1531,7 +1502,6 @@ items:
             - fortitude
             - skill
             - medicine
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1563,7 +1533,6 @@ items:
           effects: []
           tags:
             - consume
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1611,7 +1580,6 @@ items:
       training:
         type: medicine
         rank: 1
-      actorHooks: []
       nodes:
         - wis0a
       rune: ''
@@ -1691,7 +1659,6 @@ items:
           tags:
             - melee
             - thrown
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1702,7 +1669,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1758,7 +1724,6 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1771,7 +1736,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1826,11 +1790,9 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       nodes:
         - sig3.intellect.dexterity
       rune: ''
@@ -1901,7 +1863,6 @@ items:
             - reaction
             - melee
             - thrown
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1912,7 +1873,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1944,7 +1904,6 @@ items:
       training:
         type: light
         rank: 2
-      actorHooks: []
       nodes:
         - dex4b
       rune: ''
@@ -1987,7 +1946,6 @@ items:
       training:
         type: awareness
         rank: 1
-      actorHooks: []
       nodes:
         - int0b
       rune: ''

@@ -20,7 +20,6 @@ system:
   training:
     type: science
     rank: 1
-  actorHooks: []
   nodes:
     - int0b
   rune: ''

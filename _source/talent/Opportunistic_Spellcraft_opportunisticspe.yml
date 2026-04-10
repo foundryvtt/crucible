@@ -8,7 +8,6 @@ system:
     opportunity. You may make a <strong>Disengagement Attack</strong> using the
     <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
   actions: []
-  actorHooks: []
   nodes:
     - int2b
   rune: ''

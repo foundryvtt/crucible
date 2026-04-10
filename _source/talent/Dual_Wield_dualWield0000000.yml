@@ -30,7 +30,6 @@ system:
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -38,7 +37,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - dex1b
   iconicSpells: 0

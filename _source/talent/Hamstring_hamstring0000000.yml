@@ -47,7 +47,6 @@ system:
             summons: []
       name: Hamstring
       img: icons/skills/melee/strike-axe-blood-red.webp
-      actionHooks: []
       range:
         minimum: null
         maximum: null
@@ -56,7 +55,6 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  actorHooks: []
   nodes:
     - str1b
   rune: ''

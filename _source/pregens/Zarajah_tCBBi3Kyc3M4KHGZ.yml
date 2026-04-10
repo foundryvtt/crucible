@@ -285,7 +285,6 @@ items:
       slot: 3
       identifier: flameStaff
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     flags: {}
@@ -332,7 +331,6 @@ items:
       actions: []
       identifier: ringMail
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -403,7 +401,6 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -416,7 +413,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -447,7 +443,6 @@ items:
         Focus</strong>.</p>
       actions: []
       gesture: influence
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -486,7 +481,6 @@ items:
         the spell being cast. You gain +2 Boons to any Counterspell attempt.</p>
       actions: []
       iconicSpells: 2
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -528,7 +522,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -567,7 +560,6 @@ items:
         current and maximum Action.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -603,7 +595,6 @@ items:
         opportunity. You may make a <strong>Disengagement Attack</strong> using
         the <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -641,7 +632,6 @@ items:
         <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
         <strong>Health</strong> and <strong>Morale</strong>.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -688,7 +678,6 @@ items:
         required). It is currently available "early" for testing.</p>
       actions: []
       gesture: pulse
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -757,7 +746,6 @@ items:
             - finesse
             - melee
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -765,7 +753,6 @@ items:
       training:
         type: light
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -812,7 +799,6 @@ items:
       training:
         type: arcana
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -855,7 +841,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -887,7 +872,6 @@ items:
         <strong>Radiant</strong> damage to both <strong>Health</strong> and
         <strong>Morale</strong>.</p>
       actions: []
-      actorHooks: []
       nodes:
         - pre3b
       rune: ''
@@ -935,7 +919,6 @@ items:
       training:
         type: awareness
         rank: 1
-      actorHooks: []
       nodes:
         - int0b
       rune: ''
@@ -982,7 +965,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1052,12 +1034,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: oblivion
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -1103,7 +1083,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1173,7 +1152,6 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          actionHooks: []
           rune: lightning
           gesture: touch
           composition: 1
@@ -1181,7 +1159,6 @@ items:
             actorUuid: null
             permanent: true
           inflection: ''
-      actorHooks: []
       nodes:
         - preint1
       rune: ''
@@ -1258,12 +1235,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: flame
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -1313,7 +1288,6 @@ items:
       training:
         type: flame
         rank: 2
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1389,12 +1363,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: kinesis
-      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -1448,7 +1420,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:

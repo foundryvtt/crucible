@@ -289,7 +289,6 @@ items:
       actions: []
       identifier: ringMail
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -332,7 +331,6 @@ items:
       slot: 2
       identifier: arcaneOrb
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     flags: {}
@@ -374,7 +372,6 @@ items:
       actions: []
       identifier: grimoire
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     folder: uvvY6c0nbJBhAjM6
@@ -433,11 +430,9 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -478,7 +473,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -525,7 +519,6 @@ items:
         Sprite</strong>.</p>
       actions: []
       gesture: create
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -564,7 +557,6 @@ items:
         <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
       inflection: compose
-      actorHooks: []
       iconicSpells: 1
       training:
         type: ''
@@ -602,7 +594,6 @@ items:
         creations simultaneously rather than only one.</p>
       actions: []
       iconicSpells: 2
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -642,7 +633,6 @@ items:
         damage to <strong>Health</strong>, and applies the @Condition[slowed]
         condition.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -682,7 +672,6 @@ items:
         also know that Rune.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -762,7 +751,6 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          actionHooks: []
           rune: lightning
           gesture: touch
           composition: 1
@@ -770,7 +758,6 @@ items:
             actorUuid: null
             permanent: true
           inflection: ''
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -834,7 +821,6 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -847,7 +833,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -912,7 +897,6 @@ items:
             - noncombat
             - skill
             - wilderness
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -923,7 +907,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -999,12 +982,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: illusion
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -1044,7 +1025,6 @@ items:
         damage to <strong>Morale</strong>, and applies the @Condition[staggered]
         condition.</p>
       actions: []
-      actorHooks: []
       nodes:
         - int3a
       rune: ''
@@ -1086,7 +1066,6 @@ items:
         <strong>Morale</strong>, and applies the @Condition[disoriented]
         condition.</p>
       actions: []
-      actorHooks: []
       nodes:
         - int3a
       rune: ''
@@ -1168,12 +1147,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: lightning
-      actorHooks: []
       training:
         type: lightning
         rank: 1
@@ -1259,12 +1236,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: kinesis
-      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -1344,7 +1319,6 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1357,7 +1331,6 @@ items:
       training:
         type: frost
         rank: 1
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -1419,7 +1392,6 @@ items:
             - ranged
             - harmless
             - rallying
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1427,7 +1399,6 @@ items:
       training:
         type: talisman
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -1486,7 +1457,6 @@ items:
           effects: []
           tags:
             - reload
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1494,7 +1464,6 @@ items:
       training:
         type: mechanical
         rank: 1
-      actorHooks: []
       nodes:
         - dex0a
       rune: ''
@@ -1554,7 +1523,6 @@ items:
             self: false
           effects: []
           tags: []
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1565,7 +1533,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1615,7 +1582,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:

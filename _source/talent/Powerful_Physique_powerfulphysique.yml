@@ -6,7 +6,6 @@ system:
     You can wield weapons with the Slow trait and wear Armor with the Bulky
     trait without suffering Banes to your Initiative rolls.
   actions: []
-  actorHooks: []
   nodes:
     - str2c
   rune: ''

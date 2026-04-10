@@ -9,7 +9,6 @@ system:
     deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
     <strong>Health</strong> each Round.</p>
   actions: []
-  actorHooks: []
   nodes:
     - wis3b
   rune: ''

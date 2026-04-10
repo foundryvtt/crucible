@@ -296,7 +296,6 @@ items:
       actions: []
       identifier: longbow
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       coreVersion: '14.359'
@@ -340,7 +339,6 @@ items:
       slot: 0
       identifier: scimitar
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       coreVersion: '14.359'
@@ -384,7 +382,6 @@ items:
       actions: []
       identifier: studdedLeatherArmor
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -453,7 +450,6 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -466,7 +462,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -499,7 +494,6 @@ items:
         with its <strong>Action</strong> cost reduced by 1.</p>
       actions: []
       iconicSpells: 1
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -539,7 +533,6 @@ items:
         with <strong>Dexterity</strong>, you gain +2 damage to any Strike.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -618,7 +611,6 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -631,7 +623,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -660,7 +651,6 @@ items:
         <p>You are an expert at firing shots with ranged weaponry while evading
         enemy attacks. After performing a ranged weapon attack, you gain half
         your <strong>Stride</strong> in additional free movement.</p>
-      actorHooks: []
       actions: []
       iconicSpells: 0
       training:
@@ -702,7 +692,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -765,12 +754,10 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -814,7 +801,6 @@ items:
       training:
         type: stealth
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -875,7 +861,6 @@ items:
           tags:
             - ranged
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -888,7 +873,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -940,7 +924,6 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -953,7 +936,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -985,7 +967,6 @@ items:
       training:
         type: projectile
         rank: 2
-      actorHooks: []
       nodes:
         - dex4b
       rune: ''
@@ -1026,7 +1007,6 @@ items:
         performed as a consequence of the spell.</p>
       actions: []
       gesture: step
-      actorHooks: []
       nodes:
         - dex2b
       rune: ''
@@ -1073,7 +1053,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1125,7 +1104,6 @@ items:
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
-          actionHooks: []
           range:
             minimum: null
             maximum: 30
@@ -1142,7 +1120,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1172,7 +1149,6 @@ items:
         damage to <strong>Morale</strong>, and applies the @Condition[staggered]
         condition.</p>
       actions: []
-      actorHooks: []
       nodes:
         - int3a
       rune: ''
@@ -1220,7 +1196,6 @@ items:
       training:
         type: awareness
         rank: 1
-      actorHooks: []
       nodes:
         - int0b
       rune: ''
@@ -1300,12 +1275,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: illusion
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -1344,7 +1317,6 @@ items:
         Attack</strong> against you is performed without the 2 Boons that would
         ordinarily apply to such an attack.</p>
       actions: []
-      actorHooks: []
       nodes:
         - intdex2
       rune: ''
@@ -1390,7 +1362,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1473,7 +1444,6 @@ items:
             - dexterity
             - skill
             - athletics
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1563,12 +1533,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: lightning
-      actorHooks: []
       training:
         type: lightning
         rank: 1
@@ -1633,7 +1601,6 @@ items:
             - projectile
             - ranged
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1641,7 +1608,6 @@ items:
       training:
         type: projectile
         rank: 1
-      actorHooks: []
       nodes:
         - dex0a
       rune: ''

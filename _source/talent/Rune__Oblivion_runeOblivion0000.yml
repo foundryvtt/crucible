@@ -49,12 +49,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: oblivion
-  actorHooks: []
   nodes:
     - int0a
   gesture: ''

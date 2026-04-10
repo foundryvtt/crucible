@@ -38,8 +38,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      actionHooks: []
-  actorHooks: []
   nodes:
     - sig3.intellect.dexterity
   rune: ''

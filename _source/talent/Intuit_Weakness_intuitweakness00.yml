@@ -36,11 +36,9 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - int2a
   rune: ''

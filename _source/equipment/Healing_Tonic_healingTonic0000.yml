@@ -69,7 +69,6 @@ system:
       tags:
         - consume
         - healing
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

@@ -25,7 +25,6 @@ system:
   identifier: paddedArmor
   invested: false
   actions: []
-  actorHooks: []
 _stats:
   compendiumSource: null
   duplicateSource: null

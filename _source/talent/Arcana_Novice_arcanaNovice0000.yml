@@ -23,7 +23,6 @@ system:
   training:
     type: arcana
     rank: 1
-  actorHooks: []
   nodes:
     - pre0a
   rune: ''

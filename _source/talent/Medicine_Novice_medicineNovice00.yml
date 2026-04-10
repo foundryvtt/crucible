@@ -18,7 +18,6 @@ system:
   training:
     type: medicine
     rank: 1
-  actorHooks: []
   nodes:
     - wis0a
   rune: ''

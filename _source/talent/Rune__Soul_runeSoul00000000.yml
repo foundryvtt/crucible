@@ -32,7 +32,6 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       name: Evoke
       condition: ''
       description: >-
@@ -53,7 +52,6 @@ system:
         actorUuid: null
         permanent: true
   rune: soul
-  actorHooks: []
   nodes:
     - pre0b
   gesture: ''

@@ -18,7 +18,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: Uk4FgmLsNJc62zCJ
 sort: 25000

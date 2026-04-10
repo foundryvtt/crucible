@@ -68,7 +68,6 @@ system:
         - spell
         - iconicSpell
         - maintained
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -82,7 +81,6 @@ system:
     - aura
   inflections:
     - extend
-  actorHooks: []
 effects: []
 folder: EUuVjtam2is8n0I9
 ownership:

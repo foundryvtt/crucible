@@ -293,7 +293,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
     effects: []
     sort: 0
     ownership:
@@ -335,7 +334,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
       dropped: false
       slot: 0
     effects: []
@@ -378,7 +376,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -417,7 +414,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -458,7 +454,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -493,7 +488,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -524,7 +518,6 @@ items:
         dealing 6 base damage on a successful attack.</p>
       actions: []
       gesture: fan
-      actorHooks: []
       nodes:
         - int1a
       rune: ''

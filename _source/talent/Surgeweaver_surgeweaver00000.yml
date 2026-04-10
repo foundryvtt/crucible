@@ -10,7 +10,6 @@ system:
     damage to <strong>Morale</strong>, and applies the @Condition[staggered]
     condition.</p>
   actions: []
-  actorHooks: []
   nodes:
     - int3a
   rune: ''

@@ -7,7 +7,6 @@ system:
     Your supernatural toughness makes you resistant to venoms and toxins. You
     gain +5 Resistance to Poison damage.
   actions: []
-  actorHooks: []
   nodes:
     - tou3b
   rune: ''

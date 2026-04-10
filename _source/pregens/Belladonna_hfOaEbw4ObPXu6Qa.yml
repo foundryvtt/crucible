@@ -288,7 +288,6 @@ items:
       slot: 2
       identifier: dagger
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       systemId: crucible
@@ -335,7 +334,6 @@ items:
       slot: 1
       identifier: dagger
       invested: false
-      actorHooks: []
       dropped: false
     _stats:
       systemId: crucible
@@ -379,7 +377,6 @@ items:
       actions: []
       identifier: studdedLeatherArmor
       invested: false
-      actorHooks: []
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
@@ -428,7 +425,6 @@ items:
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
-          actionHooks: []
           range:
             minimum: null
             maximum: 30
@@ -437,7 +433,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -495,7 +490,6 @@ items:
           effects: []
           img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
           condition: ''
-          actionHooks: []
           range:
             maximum: 1
             weapon: true
@@ -504,7 +498,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -570,7 +563,6 @@ items:
             multiple: 2
             self: false
           effects: []
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -579,7 +571,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -644,7 +635,6 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -652,7 +642,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
       nodes:
         - dextou1
       rune: ''
@@ -695,7 +684,6 @@ items:
       training:
         type: stealth
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -736,7 +724,6 @@ items:
       training:
         type: deception
         rank: 1
-      actorHooks: []
       nodes:
         - int0b
       rune: ''
@@ -801,7 +788,6 @@ items:
             - finesse
             - melee
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -809,7 +795,6 @@ items:
       training:
         type: light
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''

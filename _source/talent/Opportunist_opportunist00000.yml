@@ -9,7 +9,6 @@ system:
     if you are otherwise <strong>Fully Engaged</strong>, but you do so without
     the 2 Boons that would ordinarily apply to such an attack.</p>
   actions: []
-  actorHooks: []
   nodes:
     - intdex2
   rune: ''

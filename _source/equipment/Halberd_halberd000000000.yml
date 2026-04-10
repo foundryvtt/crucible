@@ -25,7 +25,6 @@ system:
   identifier: halberd
   invested: false
   actions: []
-  actorHooks: []
   dropped: false
   slot: 0
 _stats:

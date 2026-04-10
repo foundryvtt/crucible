@@ -52,11 +52,9 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   iconicSpells: 0
   nodes: []
   rune: ''

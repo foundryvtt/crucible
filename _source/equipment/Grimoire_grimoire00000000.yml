@@ -22,7 +22,6 @@ system:
       project concussive blasts of force towards a target.</p>
     private: ''
   actions: []
-  actorHooks: []
   dropped: false
 effects: []
 folder: uvvY6c0nbJBhAjM6

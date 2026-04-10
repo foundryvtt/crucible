@@ -43,7 +43,6 @@ system:
         - noncombat
         - skill
         - wilderness
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -54,7 +53,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: F5y85kE9ocaa5R4R
 ownership:

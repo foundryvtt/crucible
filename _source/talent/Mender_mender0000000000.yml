@@ -10,7 +10,6 @@ system:
     <strong>Wisdom</strong> score as additional <strong>Restoration</strong> to
     <strong>Health</strong>.</p>
   actions: []
-  actorHooks: []
   nodes:
     - wis3b
   rune: ''

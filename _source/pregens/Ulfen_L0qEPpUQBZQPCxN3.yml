@@ -291,7 +291,6 @@ items:
       actions: []
       identifier: scaleMail
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -336,7 +335,6 @@ items:
       dropped: false
       identifier: greataxe
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -389,11 +387,9 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -455,7 +451,6 @@ items:
             scope: 3
             self: false
           effects: []
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -463,7 +458,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -528,11 +522,9 @@ items:
             maximum: 1
             weapon: true
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -565,7 +557,6 @@ items:
         You can wield weapons with the Slow trait and wear Armor with the Bulky
         trait without suffering Banes to your Initiative rolls.
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -655,7 +646,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          actionHooks: []
       nodes:
         - sig3.toughness.strength
       rune: ''
@@ -665,7 +655,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -704,7 +693,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -733,7 +721,6 @@ items:
         immediately gain +1 Action. This benefit may only happen once per
         Round.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -810,7 +797,6 @@ items:
                 summons: []
           name: Executioner's Strike
           img: icons/skills/melee/strike-axe-blood-red.webp
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -827,7 +813,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -855,7 +840,6 @@ items:
         by yourself.
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -922,12 +906,10 @@ items:
           tags:
             - movement
             - melee
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -983,7 +965,6 @@ items:
             self: false
           effects: []
           img: icons/magic/life/cross-area-circle-green-white.webp
-          actionHooks: []
           range:
             maximum: null
             weapon: false
@@ -992,7 +973,6 @@ items:
             actorUuid: null
             permanent: true
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -1058,7 +1038,6 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1066,7 +1045,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
       nodes:
         - dextou1
       rune: ''
@@ -1158,7 +1136,6 @@ items:
             - harmless
             - skill
             - athletics
-          actionHooks: []
           name: Grapple
           condition: ''
           description: >-
@@ -1173,7 +1150,6 @@ items:
       training:
         type: unarmed
         rank: 1
-      actorHooks: []
       nodes:
         - str0b
       rune: ''
@@ -1250,7 +1226,6 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
-          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -1267,7 +1242,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -1316,7 +1290,6 @@ items:
             - melee
             - mainhand
             - empowered
-          actionHooks: []
           name: Heavy Strike
           condition: ''
           description: >-
@@ -1330,7 +1303,6 @@ items:
       training:
         type: heavy
         rank: 1
-      actorHooks: []
       nodes:
         - str0a
       rune: ''
@@ -1368,7 +1340,6 @@ items:
       training:
         type: heavy
         rank: 2
-      actorHooks: []
       nodes:
         - str4c
       rune: ''
@@ -1400,7 +1371,6 @@ items:
         Your physical toughness makes you more resistant to harm. You gain +2
         Resistance to Bludgeoning, Slashing, and Piercing damage.
       actions: []
-      actorHooks: []
       nodes:
         - tou3b
       rune: ''
@@ -1447,7 +1417,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -1502,7 +1471,6 @@ items:
           effects: []
           tags:
             - thrown
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1513,7 +1481,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1557,7 +1524,6 @@ items:
           barely a trace.</p>
         private: ''
       actions: []
-      actorHooks: []
       dropped: false
       slot: 0
     effects: []
@@ -1631,7 +1597,6 @@ items:
                 regions: []
                 summons: []
           tags: []
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1642,7 +1607,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:

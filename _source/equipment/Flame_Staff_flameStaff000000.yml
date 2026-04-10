@@ -19,7 +19,6 @@ system:
       of arcane flame at enemies.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: fire
   dropped: false
   slot: 0

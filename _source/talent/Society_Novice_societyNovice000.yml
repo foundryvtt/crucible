@@ -18,7 +18,6 @@ system:
   training:
     type: society
     rank: 1
-  actorHooks: []
   nodes:
     - wis0a
   rune: ''

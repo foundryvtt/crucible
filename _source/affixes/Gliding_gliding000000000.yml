@@ -50,7 +50,6 @@ system:
       tags:
         - reaction
         - movement
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

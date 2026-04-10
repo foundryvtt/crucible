@@ -13,7 +13,6 @@ system:
     books to handle rare schematics and components properly.</p>
   actions: []
   iconicSpells: 0
-  actorHooks: []
   nodes:
     - wis4b
   rune: ''

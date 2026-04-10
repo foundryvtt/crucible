@@ -13,7 +13,6 @@ system:
     still need books for rarer patterns and materials.</p>
   actions: []
   iconicSpells: 0
-  actorHooks: []
   nodes:
     - dex4b
   rune: ''

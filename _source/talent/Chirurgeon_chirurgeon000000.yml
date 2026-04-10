@@ -61,7 +61,6 @@ system:
         - skill
         - medicine
         - rallying
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -72,7 +71,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: fOYHlZJEWUukD7yr
 ownership:

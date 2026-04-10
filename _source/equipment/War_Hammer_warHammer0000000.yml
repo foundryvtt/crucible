@@ -26,7 +26,6 @@ system:
   identifier: warhammer
   invested: false
   actions: []
-  actorHooks: []
   dropped: false
 _stats:
   compendiumSource: null

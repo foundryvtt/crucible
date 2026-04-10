@@ -9,7 +9,6 @@ system:
     <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
     <strong>Health</strong> and <strong>Morale</strong>.</p>
   actions: []
-  actorHooks: []
   nodes:
     - int3a
   rune: ''

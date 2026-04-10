@@ -11,7 +11,6 @@ system:
     Focus</strong> in addition to the cost of your weapon Strike.</p>
   actions: []
   gesture: strike
-  actorHooks: []
   nodes:
     - str2b
   rune: ''

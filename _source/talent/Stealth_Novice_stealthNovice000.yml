@@ -19,7 +19,6 @@ system:
   training:
     type: stealth
     rank: 1
-  actorHooks: []
   nodes:
     - dex0b
   rune: ''

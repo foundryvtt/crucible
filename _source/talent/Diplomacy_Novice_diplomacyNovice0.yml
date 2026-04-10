@@ -17,7 +17,6 @@ system:
   training:
     type: diplomacy
     rank: 1
-  actorHooks: []
   nodes:
     - wis0a
   rune: ''

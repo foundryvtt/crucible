@@ -47,7 +47,6 @@ system:
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp
       condition: ''
-      actionHooks: []
       range:
         minimum: null
         maximum: 12
@@ -64,7 +63,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 ownership:
   default: 0

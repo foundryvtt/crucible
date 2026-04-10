@@ -54,12 +54,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: kinesis
-  actorHooks: []
   nodes:
     - pre0b
   gesture: ''

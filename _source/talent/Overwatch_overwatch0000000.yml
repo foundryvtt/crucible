@@ -38,7 +38,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      actionHooks: []
   nodes:
     - sig3.dexterity
     - sig3.intellect
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 ownership:
   default: 0

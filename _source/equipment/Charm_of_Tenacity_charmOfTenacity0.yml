@@ -27,7 +27,6 @@ system:
       suffix.</p><p>This affix can be applied to any armor or accessory and this
       charm could be further enchanted with a Tier 1 prefix.</p>
   actions: []
-  actorHooks: []
 effects:
   - name: Tenacity
     type: affix

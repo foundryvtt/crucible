@@ -69,7 +69,6 @@ system:
             changes: []
       tags:
         - consume
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

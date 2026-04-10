@@ -53,7 +53,6 @@ system:
         - shield
         - afterStrike
         - offhand
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -61,7 +60,6 @@ system:
   training:
     type: shield
     rank: 1
-  actorHooks: []
   nodes:
     - tou0a
   rune: ''

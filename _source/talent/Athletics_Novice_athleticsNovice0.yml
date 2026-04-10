@@ -17,7 +17,6 @@ system:
   training:
     type: athletics
     rank: 1
-  actorHooks: []
   nodes:
     - str0b
   rune: ''

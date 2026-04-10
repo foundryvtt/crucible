@@ -47,7 +47,6 @@ system:
       effects: []
       tags:
         - consume
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -106,7 +105,6 @@ system:
         - piercing
         - skill
         - wilderness
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

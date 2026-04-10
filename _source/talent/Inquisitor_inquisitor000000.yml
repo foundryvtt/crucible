@@ -38,7 +38,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      actionHooks: []
   nodes:
     - sig3.presence
     - sig3.strength
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 flags: {}
 _stats:

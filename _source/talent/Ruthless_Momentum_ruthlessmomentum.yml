@@ -36,7 +36,6 @@ system:
       tags:
         - movement
         - melee
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 _stats:
   systemId: crucible
   systemVersion: 0.9.0

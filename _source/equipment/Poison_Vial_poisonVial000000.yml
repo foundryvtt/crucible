@@ -78,7 +78,6 @@ system:
         - fortitude
         - skill
         - medicine
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -110,7 +109,6 @@ system:
       effects: []
       tags:
         - consume
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

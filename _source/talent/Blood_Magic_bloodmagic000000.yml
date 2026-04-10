@@ -12,7 +12,6 @@ system:
   actions: []
   nodes:
     - str2b
-  actorHooks: []
   rune: ''
   gesture: ''
   inflection: ''

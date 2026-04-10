@@ -46,7 +46,6 @@ system:
       tags:
         - healing
         - health
-      actionHooks: []
       name: Font of Life
       condition: ''
       description: >-
@@ -61,7 +60,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   iconicSpells: 1
   rune: life
   nodes:

@@ -22,7 +22,6 @@ system:
       within its orb before blasting a target with electrifying force.</p>
     private: ''
   actions: []
-  actorHooks: []
   dropped: false
   slot: 0
 effects: []

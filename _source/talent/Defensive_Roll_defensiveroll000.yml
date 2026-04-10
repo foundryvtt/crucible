@@ -33,7 +33,6 @@ system:
         scope: 0
         self: false
       effects: []
-      actionHooks: []
       range:
         minimum: null
         maximum: null
@@ -41,7 +40,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - dex2a
   rune: ''

@@ -21,7 +21,6 @@ system:
       quarters.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: piercing
   dropped: false
   slot: 0

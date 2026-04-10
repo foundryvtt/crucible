@@ -12,7 +12,6 @@ system:
     system.</p></section>
   actions: []
   inflection: negate
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - preint2

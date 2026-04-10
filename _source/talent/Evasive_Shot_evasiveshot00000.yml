@@ -7,7 +7,6 @@ system:
     <p>You are an expert at firing shots with ranged weaponry while evading
     enemy attacks. After performing a ranged weapon attack, you gain half your
     <strong>Stride</strong> in additional free movement.</p>
-  actorHooks: []
   nodes:
     - dex3a
   actions: []

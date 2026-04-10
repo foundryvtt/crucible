@@ -38,7 +38,6 @@ system:
       effects: []
       tags:
         - summon
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: 68HWinwhrVQnILl5
 ownership:

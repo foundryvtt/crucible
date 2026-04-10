@@ -34,7 +34,6 @@ system:
         self: false
       effects: []
       tags: []
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -45,7 +44,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: kvXzGhvDAbUcQsXM
 ownership:

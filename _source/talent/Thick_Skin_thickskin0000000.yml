@@ -6,7 +6,6 @@ system:
     Your physical toughness makes you more resistant to harm. You gain +2
     Resistance to Bludgeoning, Slashing, and Piercing damage.
   actions: []
-  actorHooks: []
   nodes:
     - tou3b
   rune: ''

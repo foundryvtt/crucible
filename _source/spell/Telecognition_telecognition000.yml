@@ -47,7 +47,6 @@ system:
         - iconicSpell
         - harmless
         - willpower
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -61,7 +60,6 @@ system:
     - sense
   inflections:
     - pull
-  actorHooks: []
 effects: []
 folder: mEZqKhOzM6HUelNO
 ownership:

@@ -26,7 +26,6 @@ system:
   identifier: chainMail
   invested: false
   actions: []
-  actorHooks: []
 _stats:
   compendiumSource: null
   duplicateSource: null
