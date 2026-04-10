@@ -686,6 +686,12 @@ export const TAGS = {
           this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
+    },
+    async confirm(reverse) {
+      if ( !reverse ) return;
+      for ( const itemUpdate of (this.selfEvents.actorUpdate.actorUpdates.items ?? []) ) {
+        if ( itemUpdate.system?.loaded === false ) itemUpdate.system.loaded = true;
+      }
     }
   },
 
@@ -919,6 +925,12 @@ export const TAGS = {
       this.usage.actorUpdates.items ||= [];
       if ( this.usage.weapon ) {
         this.usage.actorUpdates.items.push({_id: this.usage.weapon.id, "system.loaded": true});
+      }
+    },
+    async confirm(reverse) {
+      if ( !reverse ) return;
+      for ( const itemUpdate of (this.selfEvents.actorUpdate.actorUpdates.items ?? []) ) {
+        if ( itemUpdate.system?.loaded ) itemUpdate.system.loaded = false;
       }
     }
   },
