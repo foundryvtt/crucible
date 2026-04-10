@@ -204,7 +204,7 @@ export const TAG_CATEGORIES = Object.freeze({
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
  * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
- * @property {(this: CrucibleAction, references: Record<string, any>) => void} [resolveVFX]
+ * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [resolveVFX]
  */
 
 /**
@@ -495,8 +495,8 @@ export const TAGS = {
     configureVFX(vfxConfig) {
       return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
     },
-    resolveVFX(references) {
-      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, references);
+    resolveVFX(vfxEffect, references) {
+      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, vfxEffect, references);
     }
   },
 

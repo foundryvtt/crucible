@@ -701,6 +701,13 @@ Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTra
 /* -------------------------------------------- */
 
 /**
+ * Register VFX spritesheet atlases for loading as part of the centralized scene texture load.
+ */
+Hooks.on("canvasInit", () => {
+  canvas.vfx.sprites.loadVFXSpritesheets();
+});
+
+/**
  * Actions to take when the main game canvas is re-rendered.
  * Re-open the talent tree if it was previously open for a certain Actor.
  */
@@ -709,6 +716,7 @@ Hooks.on("canvasReady", () => {
   const gameCanvas = globalThis.canvas;
   for ( const token of gameCanvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
   gameCanvas.sceneTextures["crucible.particle.white"] = PIXI.Texture.WHITE;
+  canvas.vfx.sprites.registerVFXSprites();
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {

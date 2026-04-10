@@ -2258,7 +2258,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Pass 3 - delegate to tag-defined resolveVFX hooks for action-specific reference resolution
     for ( const test of this._tests() ) {
-      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, references);
+      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
     }
 
     // Play the effect

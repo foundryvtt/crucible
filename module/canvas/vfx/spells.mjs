@@ -1,4 +1,4 @@
-import {getRandomSprite} from "./sprites.mjs";
+import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -12,6 +12,19 @@ import {getRandomSprite} from "./sprites.mjs";
  * @typedef SpellVFXContext
  * @property {{primary: number[], secondary: number[], residue: number[]}} runeColors  Color palettes for the action's rune.
  * @property {number} particleElevation                       Elevation at which particle containers render.
+ * @property {SpellVFXTextures} textures                      Resolved texture paths for the action's rune.
+ */
+
+/**
+ * Per-rune texture path arrays for each particle category, resolved from VFX_TEXTURES.
+ * Each array contains #-prefixed scene texture paths. Arrays may be empty if no art exists
+ * for that rune/category; the fallback white particle is used in that case.
+ * @typedef SpellVFXTextures
+ * @property {string[]} impact       Impact burst textures for singleImpact components.
+ * @property {string[]} projectile   Directional projectile textures for singleAttack or large scatter.
+ * @property {string[]} residue      Lingering afterimage/debris textures.
+ * @property {string[]} spray        Small mote textures for scatter and halo generators.
+ * @property {string[]} streak       Elongated directional textures for beam/ray generators.
  */
 
 /**
@@ -55,15 +68,31 @@ export function configureSpellVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
- * Resolve spell VFX references that require client-side computation.
- * Computes PointSourcePolygon instances from serialized polygon configs stored in the references map.
- * @param {CrucibleSpellAction} action    The spell action being animated.
- * @param {Record<string, any>} references  The references map, modified in place.
+ * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
+ * serialization (e.g., callback functions). Called on every client at play time, after the
+ * VFXEffect has been constructed from deserialized config but before it plays.
+ * @param {CrucibleSpellAction} action              The spell action being animated.
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect  The constructed VFXEffect instance.
+ * @param {Record<string, any>} references           The references map, modified in place.
  */
-export function resolveSpellVFXReferences(action, references) {
+export function resolveSpellVFXReferences(action, vfxEffect, references) {
+
+  // Resolve wallMask polygon from serialized config
   if ( references.wallMask && !(references.wallMask instanceof foundry.canvas.geometry.PointSourcePolygon) ) {
     const {x, y, type, radius} = references.wallMask;
     references.wallMask = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
+  }
+
+  // Inject onSpawn callbacks for particle generators that declare alignRotation in their config.
+  // The alignRotation marker is serializable; the onSpawn callback it triggers is not, so it must
+  // be attached here at play-time rather than at configure-time.
+  for ( const component of Object.values(vfxEffect.components) ) {
+    if ( component.type !== "particleGenerator" ) continue;
+    if ( !component.config?.alignRotation ) continue;
+    const jitter = component.config.alignRotation.jitter ?? 0;
+    component.config.onSpawn = (p) => {
+      p.rotation = Math.atan2(p.movementSpeed.y, p.movementSpeed.x) + ((Math.random() - 0.5) * jitter);
+    };
   }
 }
 
@@ -87,7 +116,7 @@ function configureFanVFXEffect(action) {
   if ( !shape || (shape.type !== "cone") ) return null;
 
   const {x, y, radius, angle, rotation} = shape;
-  const {runeColors, particleElevation} = resolveSpellVFXContext(action);
+  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.25;
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -139,8 +168,9 @@ function configureFanVFXEffect(action) {
     const beamName = `fanArm_${i}`;
     const spillName = `fanSpill_${i}`;
 
-    // Primary primary: tight perpendicular spray along the arm line.
+    // Primary beam: tight perpendicular spray along the arm line.
     components[beamName] = particleGenerator({
+      textures: textures.spray,
       area: {from: {x, y}, to: armEnd},
       count: 200,
       duration: SLICE_EMIT_DURATION,
@@ -161,6 +191,7 @@ function configureFanVFXEffect(action) {
 
     // Spillage halo: wider angular spread, more drift, lower opacity - cascades off the arm edges.
     components[spillName] = particleGenerator({
+      textures: textures.spray,
       area: {from: {x, y}, to: armEnd},
       count: 80,
       duration: SLICE_EMIT_DURATION,
@@ -190,6 +221,7 @@ function configureFanVFXEffect(action) {
   // several seconds, reading as a residual glow burned into the air.
   const AFTERIMAGE_LIFETIME = PARTICLE_LIFETIME * 3;
   components.fanAfterimage = particleGenerator({
+    textures: textures.residue,
     area: {x, y, radius: Math.round(radius * 0.6)},
     count: 120,
     duration: SWEEP_DURATION + SLICE_EMIT_DURATION,
@@ -227,7 +259,7 @@ function configureFanVFXEffect(action) {
     const t = Math.clamp((bearing - startEdge) / sweepRange, 0, 1);
     return Math.round(t * SWEEP_DURATION);
   };
-  addImpactComponents(action, components, timeline, references, fanGetImpactPosition);
+  addImpactComponents(action, components, timeline, references, fanGetImpactPosition, textures.impact);
   return {components, timeline, references};
 }
 
@@ -246,7 +278,7 @@ function configureRayVFXEffect(action) {
   if ( !shape || (shape.type !== "line") ) return null;
 
   const {x, y, length, width, rotation} = shape;
-  const {runeColors, particleElevation} = resolveSpellVFXContext(action);
+  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.25;
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -265,6 +297,7 @@ function configureRayVFXEffect(action) {
 
   const components = {
     rayBeam: particleGenerator({
+      textures: textures.streak,
       area: {x, y, radius: spawnRadius},
       count: 600,
       duration: BEAM_DURATION,
@@ -279,10 +312,12 @@ function configureRayVFXEffect(action) {
       pointSourceMask,
       config: {
         velocity: {speed: [BEAM_SPEED * 0.9, BEAM_SPEED * 1.1], angle: [rotation - 2, rotation + 2]},
+        alignRotation: {jitter: 0.15},
         debug: {tint: {mode: "palette", palette: runeColors.primary}}
       }
     }),
     raySpillage: particleGenerator({
+      textures: textures.spray,
       area: {x, y, radius: Math.round(spawnRadius * 1.3)},
       count: 150,
       duration: BEAM_DURATION,
@@ -317,7 +352,7 @@ function configureRayVFXEffect(action) {
     const dist = Math.hypot(cx - x, cy - y);
     return Math.round(dist / BEAM_SPEED * 1000);
   };
-  addImpactComponents(action, components, timeline, references, rayGetImpactPosition);
+  addImpactComponents(action, components, timeline, references, rayGetImpactPosition, textures.impact);
   return {components, timeline, references};
 }
 
@@ -339,7 +374,7 @@ function configureBlastVFXEffect(action) {
   if ( !shape || (shape.type !== "circle") ) return null;
 
   const {x, y, radius} = shape;
-  const {runeColors, particleElevation} = resolveSpellVFXContext(action);
+  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
 
   // Clip particles to wall-occluded area from the blast origin. The mask radius is intentionally
   // larger than the blast radius so particles that naturally reach the perimeter are not clipped,
@@ -366,6 +401,7 @@ function configureBlastVFXEffect(action) {
   const components = {
     // Impact flash: a brief radial burst at the origin that precedes the expansion waves.
     blastFlash: particleGenerator({
+      textures: textures.spray,
       area: {x, y, radius: 6},
       count: 300,
       duration: 50,
@@ -385,6 +421,7 @@ function configureBlastVFXEffect(action) {
     }),
     // Wave 1: fast tight ring that expands to the blast perimeter.
     blastWave1: particleGenerator({
+      textures: textures.spray,
       area: {x, y, radius: 5},
       count: 800,
       duration: 80,
@@ -404,6 +441,7 @@ function configureBlastVFXEffect(action) {
     }),
     // Wave 2: slower echo that trails behind, adding depth and the cascading multi-step feel.
     blastWave2: particleGenerator({
+      textures: textures.spray,
       area: {x, y, radius: 8},
       count: 500,
       duration: 100,
@@ -424,6 +462,7 @@ function configureBlastVFXEffect(action) {
     }),
     // Debris: slow drifting haze seeded across the blast area that outlasts the expansion waves.
     blastDebris: particleGenerator({
+      textures: textures.residue,
       area: {x, y, radius: Math.round(radius * 0.3)},
       count: 100,
       duration: 200,
@@ -461,7 +500,7 @@ function configureBlastVFXEffect(action) {
     const dist = Math.hypot(cx - x, cy - y);
     return 60 + Math.round(dist / wave1Speed * 1000);
   };
-  addImpactComponents(action, components, timeline, references, blastGetImpactPosition);
+  addImpactComponents(action, components, timeline, references, blastGetImpactPosition, textures.impact);
   return {components, timeline, references};
 }
 
@@ -471,33 +510,49 @@ function configureBlastVFXEffect(action) {
 
 /**
  * Resolve shared VFX context common to all spell particle generators for this action.
- * Extracts the rune color palette and particle elevation, which are identical across every
- * component in a given configurator.
+ * Extracts the rune color palette, particle elevation, and per-category texture paths,
+ * which are identical across every component in a given configurator.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXContext}
  */
 function resolveSpellVFXContext(action) {
+  const runeId = action.rune.id;
   return {
-    runeColors: RUNE_COLORS[action.rune.id] ?? RUNE_COLORS._default,
-    particleElevation: action.region.elevation.top ?? 0
+    runeColors: RUNE_COLORS[runeId] ?? RUNE_COLORS._default,
+    particleElevation: action.region.elevation.top ?? 0,
+    textures: {
+      impact: getVFXTexturePaths(runeId, "impact"),
+      projectile: getVFXTexturePaths(runeId, "projectile"),
+      residue: getVFXTexturePaths(runeId, "residue"),
+      spray: getVFXTexturePaths(runeId, "spray"),
+      streak: getVFXTexturePaths(runeId, "streak")
+    }
   };
 }
 
 /* -------------------------------------------- */
 
 /**
+ * The fallback texture array used when no rune-specific art is available.
+ * @type {string[]}
+ */
+const FALLBACK_TEXTURES = ["#crucible.particle.white"];
+
+/**
  * Construct a particleGenerator component definition with spell-wide defaults applied.
- * All spell particle generators use additive blending (PIXI.BLEND_MODES.ADD) and the shared
- * virtual white particle texture registered on the canvas at initialization.
+ * All spell particle generators use additive blending (PIXI.BLEND_MODES.ADD). If the provided
+ * overrides include a non-empty textures array (typically rune-specific art from the VFX
+ * spritesheet), those textures are used; otherwise, the fallback white particle is applied.
  * @param {object} overrides   Component fields that override or extend the defaults.
  * @returns {object}
  */
 function particleGenerator(overrides) {
+  const textures = overrides.textures?.length ? overrides.textures : FALLBACK_TEXTURES;
   return {
     type: "particleGenerator",
-    textures: ["#crucible.particle.white"],
     blend: 1,
-    ...overrides
+    ...overrides,
+    textures
   };
 }
 
@@ -515,8 +570,11 @@ function particleGenerator(overrides) {
  * @param {function(CrucibleToken): number} getImpactPosition
  *   A function that receives the target token and returns the timeline position (ms) at which
  *   its impact should fire. Called once per HIT/GLANCE target.
+ * @param {string[]} impactTextures          An array of #-prefixed scene texture paths for impact
+ *                                           sprites. One is chosen at random per target.
  */
-function addImpactComponents(action, components, timeline, references, getImpactPosition) {
+function addImpactComponents(action, components, timeline, references, getImpactPosition, impactTextures) {
+  const useSpritesheetImpact = impactTextures.length > 0;
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -537,10 +595,13 @@ function addImpactComponents(action, components, timeline, references, getImpact
       const dx = Math.mix(-w * 0.1, w * 0.1, Math.random());
       const dy = Math.mix(-h * 0.1, h * 0.1, Math.random());
       const impactName = `spellImpact_${j}`;
+      const texture = useSpritesheetImpact
+        ? impactTextures[Math.floor(Math.random() * impactTextures.length)]
+        : getRandomSprite("impacts", "blood");
       components[impactName] = {
         type: "singleImpact",
         position: {reference: targetMeshRef, deltas: {x: dx, y: dy, sort: 1}},
-        texture: getRandomSprite("impacts", "blood"),
+        texture,
         duration: 2000,
         size: 3
       };

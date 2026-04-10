@@ -146,8 +146,8 @@ export const ACTION_HOOKS = Object.freeze({
     argLabels: ["this: CrucibleAction", "vfxConfig: object|null"]
   },
   resolveVFX: {
-    argNames: ["references"],
-    argLabels: ["this: CrucibleAction", "references: Record<string, any>"]
+    argNames: ["vfxEffect", "references"],
+    argLabels: ["this: CrucibleAction", "vfxEffect: VFXEffect", "references: Record<string, any>"]
   }
 });
 
