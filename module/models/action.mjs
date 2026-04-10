@@ -1270,7 +1270,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let targets;
     let targetType = this.target.type;
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
-    if ( targetType === "summon" ) return [];
+    if ( targetType === "summon" ) return this.targets = new Map();
 
     // Acquire Region Targets
     if ( targetCfg.region ) targets = this.#acquireTargetsFromRegion();
@@ -1282,7 +1282,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       switch ( targetType ) {
         case "none":
-          return [];
+          return this.targets = new Map();
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true, true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
