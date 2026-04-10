@@ -706,7 +706,9 @@ Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTra
  */
 Hooks.on("canvasReady", () => {
   if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
-  for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  const gameCanvas = globalThis.canvas;
+  for ( const token of gameCanvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  gameCanvas.sceneTextures["crucible.particle.white"] = PIXI.Texture.WHITE;
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {

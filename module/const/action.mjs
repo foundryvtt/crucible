@@ -203,6 +203,8 @@ export const TAG_CATEGORIES = Object.freeze({
  * @property {(this: CrucibleAction) => void} [postActivate]
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
+ * @property {(this: CrucibleAction, references: Record<string, any>) => void} [resolveVFX]
  */
 
 /**
@@ -489,6 +491,12 @@ export const TAGS = {
       this.usage.actorFlags.lastSpell = this.id;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
+    },
+    configureVFX(vfxConfig) {
+      return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
+    },
+    resolveVFX(references) {
+      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, references);
     }
   },
 
@@ -686,6 +694,9 @@ export const TAGS = {
           this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
+    },
+    configureVFX(vfxConfig) {
+      return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this, vfxConfig);
     }
   },
 

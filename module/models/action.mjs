@@ -2204,12 +2204,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Configure a VFXEffect instance for this Action.
-   * @returns {foundry.canvas.vfx.VFXEffect|null}
+   * Configure a VFXEffect instance for this Action by delegating to tag-defined configureVFX hooks.
+   * Each hook receives the current configuration and may modify or replace it. The return value of
+   * each hook is passed as input to the next, allowing downstream tags to augment the effect.
+   * @returns {object|null}
    */
-  // TODO re-enable VFX after migrating strikes.mjs to use action.events instead of action.outcomes
   configureVFXEffect() {
-    return null;
+    let vfxConfig = null;
+    for ( const test of this._tests() ) {
+      if ( !(test.configureVFX instanceof Function) ) continue;
+      vfxConfig = test.configureVFX.call(this, vfxConfig) ?? vfxConfig;
+    }
+    return vfxConfig;
   }
 
   /* -------------------------------------------- */
@@ -2248,6 +2254,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( (typeof v === "string") && (v[0] === "^") ) {
         references[k] = foundry.utils.getProperty(references, v.slice(1)) ?? null;
       }
+    }
+
+    // Pass 3 - delegate to tag-defined resolveVFX hooks for action-specific reference resolution
+    for ( const test of this._tests() ) {
+      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, references);
     }
 
     // Play the effect

@@ -140,6 +140,14 @@ export const ACTION_HOOKS = Object.freeze({
     argNames: ["reverse"],
     argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
+  },
+  configureVFX: {
+    argNames: ["vfxConfig"],
+    argLabels: ["this: CrucibleAction", "vfxConfig: object|null"]
+  },
+  resolveVFX: {
+    argNames: ["references"],
+    argLabels: ["this: CrucibleAction", "references: Record<string, any>"]
   }
 });
 
