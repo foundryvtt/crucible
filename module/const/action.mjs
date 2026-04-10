@@ -907,9 +907,16 @@ export const TAGS = {
         throw new Error(_loc("ACTION.WARNINGS.NoReloadRequired"));
       }
     },
+    prepare() {
+      this.usage.weapon ??= this.getValidWeaponChoices()[0]?.item;
+      if ( this.usage.weapon ) {
+        Object.assign(this.usage.context, {label: "Reload", icon: "fa-solid fa-arrow-rotate-right", tags: {
+          [`weapon.${this.usage.weapon.id}`]: this.usage.weapon.name
+        }});
+      }
+    },
     preActivate() {
       this.usage.actorUpdates.items ||= [];
-      this.usage.weapon ??= this.getValidWeaponChoices()[0]?.item;
       if ( this.usage.weapon ) {
         this.usage.actorUpdates.items.push({_id: this.usage.weapon.id, "system.loaded": true});
       }
