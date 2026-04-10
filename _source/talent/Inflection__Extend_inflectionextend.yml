@@ -11,7 +11,6 @@ system:
     example of the intended direction for the Spellcraft system.</p></section>
   actions: []
   inflection: extend
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - wispre2

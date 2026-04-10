@@ -10,7 +10,6 @@ system:
     <strong>Ward</strong> gesture, the Resistance provided by your Ward also
     increases by half your Wisdom.</p>
   actions: []
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - sig3.toughness

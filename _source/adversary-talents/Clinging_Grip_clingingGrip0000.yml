@@ -57,7 +57,6 @@ system:
         - melee
         - natural
         - empowered
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -68,7 +67,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: cIS6eiJYaMi1oZQJ
 ownership:

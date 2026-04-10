@@ -32,7 +32,6 @@ system:
       effects: []
       tags:
         - ranged
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -45,7 +44,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 125000

@@ -39,7 +39,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      actionHooks: []
   nodes:
     - sig3.intellect.dexterity
   rune: ''
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: fOYHlZJEWUukD7yr
 sort: 1100000

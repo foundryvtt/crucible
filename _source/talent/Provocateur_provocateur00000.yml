@@ -56,7 +56,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      actionHooks: []
   nodes:
     - wis2c
   rune: ''
@@ -66,7 +65,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 ownership:
   default: 0

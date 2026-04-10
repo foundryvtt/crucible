@@ -11,7 +11,6 @@ system:
     less than 50% of your maximum Health remaining. You gain +2 Boons to all
     checks when you have less than 25% of your maximum Health remaining.</p>
   actions: []
-  actorHooks: []
   nodes:
     - sig3.intellect.dexterity
   rune: ''

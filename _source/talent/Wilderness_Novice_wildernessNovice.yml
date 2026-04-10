@@ -18,7 +18,6 @@ system:
   training:
     type: wilderness
     rank: 1
-  actorHooks: []
   nodes:
     - tou0b
   rune: ''

@@ -9,7 +9,6 @@ system:
     <strong>Focus</strong> cost by 1 in exchange.</p>
   actions: []
   inflection: quicken
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - preint2

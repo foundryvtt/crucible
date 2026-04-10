@@ -6,7 +6,6 @@ system:
   description: >-
     You are adept at covering distance quickly. Your <strong>Stride</strong>
     increases by 1.
-  actorHooks: []
   nodes:
     - dex3b
   actions: []

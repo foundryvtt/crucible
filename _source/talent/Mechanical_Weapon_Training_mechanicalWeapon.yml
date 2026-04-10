@@ -34,7 +34,6 @@ system:
       effects: []
       tags:
         - reload
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -42,7 +41,6 @@ system:
   training:
     type: mechanical
     rank: 1
-  actorHooks: []
   nodes:
     - dex0a
   rune: ''

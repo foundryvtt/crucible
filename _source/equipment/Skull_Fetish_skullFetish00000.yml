@@ -21,7 +21,6 @@ system:
       spellcaft or afflict enemies with corrupting influence.</p>
     private: ''
   actions: []
-  actorHooks: []
   dropped: false
   slot: 0
 effects: []

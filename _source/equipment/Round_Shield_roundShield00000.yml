@@ -23,7 +23,6 @@ system:
       combat.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: bludgeoning
   dropped: false
   slot: 0

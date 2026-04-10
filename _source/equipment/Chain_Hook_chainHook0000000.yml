@@ -21,7 +21,6 @@ system:
       tearing at their flesh or equipment.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: bludgeoning
   dropped: false
   slot: 0

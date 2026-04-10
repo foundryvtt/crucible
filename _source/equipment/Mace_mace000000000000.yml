@@ -20,7 +20,6 @@ system:
       bone-shattering impact.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: bludgeoning
   dropped: false
   slot: 0

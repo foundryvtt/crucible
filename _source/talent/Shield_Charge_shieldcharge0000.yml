@@ -38,7 +38,6 @@ system:
       name: Shield Charge
       img: icons/skills/movement/arrow-upward-white.webp
       condition: ''
-      actionHooks: []
       range:
         maximum: 20
         weapon: false
@@ -46,7 +45,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - toustr2
   rune: ''

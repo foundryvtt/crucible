@@ -10,7 +10,6 @@ system:
     deals your <strong>Intellect</strong> score as <strong>Corruption</strong>
     damage to <strong>Health</strong> each Round.</p>
   actions: []
-  actorHooks: []
   nodes:
     - pre3b
   rune: ''

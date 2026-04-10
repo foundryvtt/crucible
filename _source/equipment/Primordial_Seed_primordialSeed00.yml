@@ -20,7 +20,6 @@ system:
       direct a gout of poisonous spores towards an enemy.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: poison
   dropped: false
   slot: 0

@@ -16,7 +16,6 @@ system:
     Creation will — for now — manifest a <strong>Flame Sprite</strong>.</p>
   actions: []
   gesture: create
-  actorHooks: []
   nodes:
     - wis1b
   rune: ''

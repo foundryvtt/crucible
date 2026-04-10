@@ -30,7 +30,6 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       name: Motivate
       condition: ''
       description: >-
@@ -53,7 +52,6 @@ system:
         actorUuid: null
         permanent: true
   rune: control
-  actorHooks: []
   nodes:
     - wis0b
   gesture: ''

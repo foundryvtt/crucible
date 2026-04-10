@@ -54,12 +54,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: illusion
-  actorHooks: []
   nodes:
     - int0a
   gesture: ''

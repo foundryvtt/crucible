@@ -13,7 +13,6 @@ system:
   training:
     type: talisman
     rank: 2
-  actorHooks: []
   nodes:
     - pre4b
   rune: ''

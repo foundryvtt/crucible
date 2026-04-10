@@ -8,7 +8,6 @@ system:
     Health.</p><p>The Bleeding effect lasts for 1 round and deals your Dexterity
     score as additional damage to Health.</p>
   actions: []
-  actorHooks: []
   nodes:
     - dex4d
   rune: ''

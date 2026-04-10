@@ -10,7 +10,6 @@ system:
     effectively as a heavily armored fighter. While unarmed, half your Wisdom
     score contributes to your Parry defense.
   actions: []
-  actorHooks: []
   nodes:
     - wis3a
   rune: ''

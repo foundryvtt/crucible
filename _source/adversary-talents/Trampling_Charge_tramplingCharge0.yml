@@ -59,7 +59,6 @@ system:
         - natural
         - reflex
         - bludgeoning
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -67,7 +66,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: 7OugQFMnRfIZEXcY
 ownership:

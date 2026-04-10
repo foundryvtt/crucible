@@ -8,7 +8,6 @@ system:
     the spellcaster if that destination is unoccupied.</p>
   actions: []
   inflection: push
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - wispre2

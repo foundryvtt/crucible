@@ -23,7 +23,6 @@ system:
       braces, stockings and fine shoes.</p>
     private: ''
   actions: []
-  actorHooks: []
   armor:
     base: 0
 effects: []

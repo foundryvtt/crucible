@@ -8,7 +8,6 @@ system:
     achieve a <strong>Critical Hit</strong> that deals damage to Health you
     immediately gain +1 Action. This benefit may only happen once per Round.</p>
   actions: []
-  actorHooks: []
   nodes:
     - str4a
   rune: ''

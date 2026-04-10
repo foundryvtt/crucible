@@ -23,7 +23,6 @@ system:
       handlers, and shadowy alchemists.</p>
     private: ''
   actions: []
-  actorHooks: []
   dropped: false
 effects: []
 folder: NNHjWBS5AM148J20

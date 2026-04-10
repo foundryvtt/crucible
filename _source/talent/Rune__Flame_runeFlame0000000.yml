@@ -46,12 +46,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: flame
-  actorHooks: []
   nodes:
     - int0a
   gesture: ''

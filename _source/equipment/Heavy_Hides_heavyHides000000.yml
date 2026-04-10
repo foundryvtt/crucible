@@ -26,7 +26,6 @@ system:
   identifier: heavyHides
   invested: false
   actions: []
-  actorHooks: []
 _stats:
   compendiumSource: null
   duplicateSource: null

@@ -16,7 +16,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: cKkQSlP59TZIn0ij
 ownership:

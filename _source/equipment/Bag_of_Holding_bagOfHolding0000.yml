@@ -21,7 +21,6 @@ system:
       <strong>Invested</strong>, your carrying capacity is tripled.</p>
     private: ''
   actions: []
-  actorHooks: []
 effects: []
 folder: GVbpo5LtAY44QZPD
 ownership:

@@ -12,7 +12,6 @@ system:
   training:
     type: projectile
     rank: 2
-  actorHooks: []
   nodes:
     - dex4b
   rune: ''

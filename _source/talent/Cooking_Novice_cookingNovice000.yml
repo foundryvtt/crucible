@@ -12,7 +12,6 @@ system:
     preparations.</p>
   actions: []
   iconicSpells: 0
-  actorHooks: []
   nodes:
     - wis0a
   rune: ''

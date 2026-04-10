@@ -70,7 +70,6 @@ system:
       tags:
         - consume
         - rallying
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

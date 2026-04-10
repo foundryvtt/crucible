@@ -9,7 +9,6 @@ system:
     half your <strong>Wisdom</strong> score as <strong>Frost</strong> damage to
     <strong>Health</strong>, and applies the @Condition[slowed] condition.</p>
   actions: []
-  actorHooks: []
   nodes:
     - wis3b
   rune: ''

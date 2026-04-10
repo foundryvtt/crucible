@@ -37,7 +37,6 @@ system:
         scope: 3
         self: false
       effects: []
-      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -54,7 +53,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 _stats:
   compendiumSource: null
   duplicateSource: null

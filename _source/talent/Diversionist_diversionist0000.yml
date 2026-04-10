@@ -32,7 +32,6 @@ system:
         self: false
       effects: []
       img: icons/skills/social/peace-luck-insult.webp
-      actionHooks: []
       range:
         minimum: null
         maximum: 30
@@ -49,7 +48,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: 2MFixpDJ379KOogE
 sort: 900000

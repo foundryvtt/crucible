@@ -46,12 +46,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: life
-  actorHooks: []
   training:
     type: life
     rank: 1

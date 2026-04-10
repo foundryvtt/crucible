@@ -46,7 +46,6 @@ system:
         self: false
       effects: []
       tags: []
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

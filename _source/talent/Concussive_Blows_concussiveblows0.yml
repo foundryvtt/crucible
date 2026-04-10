@@ -11,7 +11,6 @@ system:
     <p>The Staggered effect lasts for 1 round and reduces your target's maximum
     Action by 1.</p>
   actions: []
-  actorHooks: []
   nodes:
     - str4a
   rune: ''

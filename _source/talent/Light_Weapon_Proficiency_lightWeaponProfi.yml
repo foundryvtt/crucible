@@ -13,7 +13,6 @@ system:
   training:
     type: light
     rank: 2
-  actorHooks: []
   nodes:
     - dex4b
   rune: ''

@@ -53,12 +53,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: illumination
-  actorHooks: []
   nodes:
     - pre0b
   gesture: ''

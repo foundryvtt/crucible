@@ -10,7 +10,6 @@ system:
     <p>Your <strong>Madness Threshold</strong> is reduced by 1, making you
     easier to heal.</p>
   actions: []
-  actorHooks: []
   nodes:
     - pre2a
   rune: ''

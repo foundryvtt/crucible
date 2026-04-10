@@ -37,11 +37,9 @@ system:
         maximum: 1
         weapon: true
         minimum: null
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - str2a
   rune: ''

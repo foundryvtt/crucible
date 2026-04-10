@@ -35,11 +35,9 @@ system:
         minimum: null
         maximum: null
         weapon: true
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - sig3.dexterity
     - sig3.strength

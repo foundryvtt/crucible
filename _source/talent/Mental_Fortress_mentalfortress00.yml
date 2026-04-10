@@ -8,7 +8,6 @@ system:
     +1 to your <strong>Willpower</strong> defense and +5 resistance to
     <strong>Psychic</strong> damage.</p>
   actions: []
-  actorHooks: []
   nodes:
     - pre3a
   rune: ''

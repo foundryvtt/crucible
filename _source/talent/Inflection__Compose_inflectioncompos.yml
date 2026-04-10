@@ -9,7 +9,6 @@ system:
     <strong>Action</strong> cost by 1 in exchange.</p>
   actions: []
   inflection: compose
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - wispre2

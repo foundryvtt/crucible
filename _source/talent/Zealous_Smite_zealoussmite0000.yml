@@ -30,7 +30,6 @@ system:
       effects: []
       name: Zealous Smite
       img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
-      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -47,7 +46,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 flags: {}
 _stats:

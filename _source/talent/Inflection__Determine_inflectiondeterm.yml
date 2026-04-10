@@ -9,7 +9,6 @@ system:
     Counter-Spell this spell is made with +2 Banes.</p>
   actions: []
   inflection: determine
-  actorHooks: []
   iconicSpells: 1
   nodes:
     - preint2

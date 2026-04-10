@@ -285,7 +285,6 @@ items:
       actions: []
       identifier: ringMail
       invested: false
-      actorHooks: []
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
@@ -328,7 +327,6 @@ items:
       slot: 2
       identifier: arcaneOrb
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     flags: {}
@@ -370,7 +368,6 @@ items:
       actions: []
       identifier: grimoire
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     folder: uvvY6c0nbJBhAjM6
@@ -405,7 +402,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -452,7 +448,6 @@ items:
         Sprite</strong>.</p>
       actions: []
       gesture: create
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -535,12 +530,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: lightning
-      actorHooks: []
       training:
         type: lightning
         rank: 1
@@ -626,12 +619,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: kinesis
-      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -711,7 +702,6 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -724,7 +714,6 @@ items:
       training:
         type: frost
         rank: 1
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -779,7 +768,6 @@ items:
           effects: []
           tags:
             - reload
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -787,7 +775,6 @@ items:
       training:
         type: mechanical
         rank: 1
-      actorHooks: []
       nodes:
         - dex0a
       rune: ''

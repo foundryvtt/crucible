@@ -40,7 +40,6 @@ system:
         - finesse
         - melee
         - difficult
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -48,7 +47,6 @@ system:
   training:
     type: light
     rank: 1
-  actorHooks: []
   nodes:
     - dex0b
   rune: ''

@@ -287,7 +287,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -327,7 +326,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -371,7 +369,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
       dropped: false
       slot: 0
     effects: []
@@ -417,7 +414,6 @@ items:
         public: ''
         private: ''
       actions: []
-      actorHooks: []
     effects: []
     sort: 0
     ownership:
@@ -456,7 +452,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -491,7 +486,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:

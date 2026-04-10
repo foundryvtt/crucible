@@ -7,7 +7,6 @@ system:
     and others.</p><p>Once per Turn while you have a Shield equipped, you may
     use the <strong>Defend</strong> action at a reduced cost of 1 Action
     Point.</p>
-  actorHooks: []
   nodes:
     - tou0a
   actions: []

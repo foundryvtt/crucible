@@ -8,7 +8,6 @@ system:
     a one-handed melee weapon you gain a stacking <strong>+1 Boon</strong> for
     each successive attack.</p><p></p>
   actions: []
-  actorHooks: []
   nodes:
     - str2c
   rune: ''

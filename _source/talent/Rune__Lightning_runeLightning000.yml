@@ -50,12 +50,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: lightning
-  actorHooks: []
   training:
     type: lightning
     rank: 1

@@ -52,7 +52,6 @@ system:
         - natural
         - reflex
         - acid
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -63,7 +62,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: pfqBQPVP2KV9fQFs
 ownership:

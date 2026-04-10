@@ -25,7 +25,6 @@ system:
   actions: []
   identifier: bastardSword
   invested: false
-  actorHooks: []
   dropped: false
   slot: 0
 _stats:

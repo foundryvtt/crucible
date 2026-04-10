@@ -25,7 +25,6 @@ system:
       prefix.</p><p>This affix can be applied to any accessory and this ring
       could be further enchanted with a Tier 1 suffix.</p>
   actions: []
-  actorHooks: []
 effects:
   - name: Gliding
     type: affix
@@ -80,7 +79,6 @@ effects:
           tags:
             - reaction
             - movement
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true

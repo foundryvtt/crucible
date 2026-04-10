@@ -55,7 +55,6 @@ system:
         maximum: 10
         weapon: false
         minimum: null
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -68,7 +67,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: MqZKCMx5KrZQffGU
 sort: 200000

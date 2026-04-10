@@ -281,7 +281,6 @@ items:
       slot: 3
       identifier: iceStaff
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     flags: {}
@@ -328,7 +327,6 @@ items:
       actions: []
       identifier: scaleMail
       invested: false
-      actorHooks: []
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
@@ -359,7 +357,6 @@ items:
         Focus</strong>.</p>
       actions: []
       gesture: influence
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -430,7 +427,6 @@ items:
             - ranged
             - harmless
             - rallying
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -438,7 +434,6 @@ items:
       training:
         type: talisman
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -475,7 +470,6 @@ items:
         <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: ray
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -538,7 +532,6 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           name: Evoke
           condition: ''
           description: >-
@@ -560,7 +553,6 @@ items:
             actorUuid: null
             permanent: true
       rune: soul
-      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -638,12 +630,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: earth
-      actorHooks: []
       nodes:
         - wis0b
       gesture: ''
@@ -719,12 +709,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: life
-      actorHooks: []
       training:
         type: life
         rank: 1

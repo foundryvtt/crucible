@@ -20,7 +20,6 @@ system:
       their magic or oration.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: psychic
   dropped: false
   slot: 0

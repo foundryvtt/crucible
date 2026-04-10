@@ -15,7 +15,6 @@ system:
     Focus</strong>.</p>
   actions: []
   gesture: aspect
-  actorHooks: []
   nodes:
     - pre1b
   rune: ''

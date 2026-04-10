@@ -80,7 +80,6 @@ system:
         - reflex
         - skill
         - athletics
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true

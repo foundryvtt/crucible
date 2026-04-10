@@ -50,7 +50,6 @@ system:
             summons: []
       tags:
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
@@ -63,7 +62,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 flags: {}
 _stats:

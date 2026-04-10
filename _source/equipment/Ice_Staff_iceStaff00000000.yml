@@ -19,7 +19,6 @@ system:
       of frigid ice towards enemies.</p>
     private: ''
   actions: []
-  actorHooks: []
   damageType: cold
   dropped: false
   slot: 0

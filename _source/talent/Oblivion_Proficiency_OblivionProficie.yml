@@ -18,7 +18,6 @@ system:
   training:
     type: oblivion
     rank: 2
-  actorHooks: []
 effects: []
 folder: meNcaEyQoLucHy0I
 ownership:

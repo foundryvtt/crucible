@@ -55,7 +55,6 @@ system:
             regions: []
             summons: []
       tags: []
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -63,7 +62,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: qmA72jUC4FASsfvS
 ownership:

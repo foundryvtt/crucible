@@ -11,7 +11,6 @@ system:
   training:
     type: society
     rank: 2
-  actorHooks: []
   nodes:
     - wis4b
   rune: ''

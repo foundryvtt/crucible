@@ -50,7 +50,6 @@ system:
             regions: []
             summons: []
       img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
-      actionHooks: []
       condition: ''
       range:
         minimum: null
@@ -79,7 +78,6 @@ system:
       effects: []
       img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
       condition: ''
-      actionHooks: []
       range:
         minimum: null
         maximum: null
@@ -97,7 +95,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 ownership:
   default: 0

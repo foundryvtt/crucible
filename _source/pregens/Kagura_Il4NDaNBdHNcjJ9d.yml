@@ -284,7 +284,6 @@ items:
       dropped: false
       identifier: iceStaff
       invested: false
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -330,7 +329,6 @@ items:
       actions: []
       identifier: scaleMail
       invested: false
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -361,7 +359,6 @@ items:
         Focus</strong>.</p>
       actions: []
       gesture: influence
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -403,7 +400,6 @@ items:
         <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: ray
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -441,7 +437,6 @@ items:
         <strong>+1 Focus</strong>.</p>
       actions: []
       iconicSpells: 0
-      actorHooks: []
       training:
         type: ''
         rank: null
@@ -518,7 +513,6 @@ items:
           tags:
             - healing
             - health
-          actionHooks: []
           name: Font of Life
           condition: ''
           description: >-
@@ -534,7 +528,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-      actorHooks: []
       iconicSpells: 1
       rune: life
       nodes:
@@ -573,7 +566,6 @@ items:
         gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
         <strong>Psychic</strong> damage.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -612,7 +604,6 @@ items:
         <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
       inflection: compose
-      actorHooks: []
       iconicSpells: 1
       training:
         type: ''
@@ -651,7 +642,6 @@ items:
         deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage
         to <strong>Health</strong> each Round.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -723,7 +713,6 @@ items:
             - ranged
             - harmless
             - rallying
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -731,7 +720,6 @@ items:
       training:
         type: talisman
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -766,7 +754,6 @@ items:
         <strong>Ward</strong> gesture, the Resistance provided by your Ward also
         increases by half your Wisdom.</p>
       actions: []
-      actorHooks: []
       iconicSpells: 1
       nodes:
         - sig3.toughness
@@ -843,7 +830,6 @@ items:
             - noncombat
             - skill
             - wilderness
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -854,7 +840,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1009,7 +994,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1067,7 +1051,6 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -1080,7 +1063,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1116,7 +1098,6 @@ items:
         required). It is currently available "early" for testing.</p>
       actions: []
       gesture: pulse
-      actorHooks: []
       nodes:
         - pre4d
       rune: ''
@@ -1163,7 +1144,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1193,7 +1173,6 @@ items:
         deals your <strong>Wisdom</strong> score as additional
         <strong>Restoration</strong> to <strong>Health</strong>.</p>
       actions: []
-      actorHooks: []
       nodes:
         - wis3b
       rune: ''
@@ -1244,7 +1223,6 @@ items:
       training:
         type: arcana
         rank: 1
-      actorHooks: []
       nodes:
         - pre0a
       rune: ''
@@ -1302,7 +1280,6 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           name: Evoke
           condition: ''
           description: >-
@@ -1324,7 +1301,6 @@ items:
             actorUuid: null
             permanent: true
       rune: soul
-      actorHooks: []
       nodes:
         - pre0b
       gesture: ''
@@ -1370,7 +1346,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags:
       core: {}
@@ -1409,7 +1384,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     effects: []
     flags: {}
     _stats:
@@ -1477,12 +1451,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: earth
-      actorHooks: []
       nodes:
         - wis0b
       gesture: ''
@@ -1558,12 +1530,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: life
-      actorHooks: []
       training:
         type: life
         rank: 1

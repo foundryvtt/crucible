@@ -7,7 +7,6 @@ system:
     Your quickness of mind and body are equally impressive. You gain +2 Boons to
     all Initiative checks.
   actions: []
-  actorHooks: []
   nodes:
     - intdex4
   rune: ''

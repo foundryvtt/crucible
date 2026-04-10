@@ -56,11 +56,9 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - sig3.presence
     - sig3.toughness

@@ -62,7 +62,6 @@ system:
         - harmless
         - willpower
         - psychic
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -70,7 +69,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: XbUSvcKVfxu5qw7T
 ownership:

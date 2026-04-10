@@ -61,7 +61,6 @@ system:
         - willpower
         - skill
         - intimidation
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -69,7 +68,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: EDeByOa9cuYSaF8Y
 flags: {}

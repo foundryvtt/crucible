@@ -49,7 +49,6 @@ system:
         minimum: null
         maximum: 30
         weapon: false
-      actionHooks: []
       rune: lightning
       gesture: touch
       composition: 1
@@ -57,7 +56,6 @@ system:
         actorUuid: null
         permanent: true
       inflection: ''
-  actorHooks: []
   nodes:
     - preint1
   rune: ''

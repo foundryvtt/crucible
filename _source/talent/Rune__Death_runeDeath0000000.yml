@@ -50,12 +50,10 @@ system:
       tags:
         - spell
         - harmless
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
   rune: death
-  actorHooks: []
   nodes:
     - pre0b
   gesture: ''

@@ -8,7 +8,6 @@ system:
     <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
     lower than you in Initiative order.
   actions: []
-  actorHooks: []
   nodes:
     - int4d
   rune: ''

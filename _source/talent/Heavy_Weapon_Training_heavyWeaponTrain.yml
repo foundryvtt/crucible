@@ -31,7 +31,6 @@ system:
         - melee
         - mainhand
         - empowered
-      actionHooks: []
       name: Heavy Strike
       condition: ''
       description: >-
@@ -45,7 +44,6 @@ system:
   training:
     type: heavy
     rank: 1
-  actorHooks: []
   nodes:
     - str0a
   rune: ''

@@ -9,7 +9,6 @@ system:
     deals your <strong>Presence</strong> score as <strong>Radiant</strong>
     damage to both <strong>Health</strong> and <strong>Morale</strong>.</p>
   actions: []
-  actorHooks: []
   nodes:
     - pre3b
   rune: ''

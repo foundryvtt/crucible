@@ -9,7 +9,6 @@ system:
     <strong>Initiative</strong> order suffers 1 Bane to their spell or weapon
     attacks against you.
   actions: []
-  actorHooks: []
   nodes:
     - wis3a
   rune: ''

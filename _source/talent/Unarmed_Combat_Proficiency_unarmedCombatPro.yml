@@ -13,7 +13,6 @@ system:
   training:
     type: unarmed
     rank: 2
-  actorHooks: []
   nodes:
     - str4c
   rune: ''

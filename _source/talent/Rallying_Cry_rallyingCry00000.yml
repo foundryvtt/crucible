@@ -52,11 +52,9 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      actionHooks: []
       summon:
         actorUuid: null
         permanent: true
-  actorHooks: []
   nodes:
     - pre2c
   rune: ''

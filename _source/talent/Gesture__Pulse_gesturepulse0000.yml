@@ -16,7 +16,6 @@ system:
     for testing.</p>
   actions: []
   gesture: pulse
-  actorHooks: []
   nodes:
     - pre4d
   rune: ''

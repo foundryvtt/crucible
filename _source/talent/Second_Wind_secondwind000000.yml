@@ -28,7 +28,6 @@ system:
         self: false
       effects: []
       img: icons/magic/life/cross-area-circle-green-white.webp
-      actionHooks: []
       range:
         maximum: null
         weapon: false
@@ -45,7 +44,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 _stats:
   systemId: crucible
   systemVersion: 0.9.0

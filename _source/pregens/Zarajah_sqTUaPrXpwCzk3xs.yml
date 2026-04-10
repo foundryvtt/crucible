@@ -282,7 +282,6 @@ items:
       slot: 3
       identifier: flameStaff
       invested: false
-      actorHooks: []
       dropped: false
     effects: []
     flags: {}
@@ -329,7 +328,6 @@ items:
       actions: []
       identifier: ringMail
       invested: false
-      actorHooks: []
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
@@ -400,7 +398,6 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -413,7 +410,6 @@ items:
       training:
         type: ''
         rank: null
-      actorHooks: []
     _stats:
       coreVersion: '14.359'
       systemId: crucible
@@ -444,7 +440,6 @@ items:
         Focus</strong>.</p>
       actions: []
       gesture: influence
-      actorHooks: []
       iconicSpells: 0
       training:
         type: ''
@@ -515,7 +510,6 @@ items:
             - finesse
             - melee
             - difficult
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
@@ -523,7 +517,6 @@ items:
       training:
         type: light
         rank: 1
-      actorHooks: []
       nodes:
         - dex0b
       rune: ''
@@ -597,12 +590,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: oblivion
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -678,12 +669,10 @@ items:
           tags:
             - spell
             - harmless
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
       rune: flame
-      actorHooks: []
       nodes:
         - int0a
       gesture: ''
@@ -725,7 +714,6 @@ items:
         and <strong>1 Focus</strong>.</p>
       actions: []
       gesture: arrow
-      actorHooks: []
       nodes:
         - int1a
       rune: ''

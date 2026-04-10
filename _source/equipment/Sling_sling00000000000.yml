@@ -23,7 +23,6 @@ system:
       skill, but deadly in trained hands.</p>
     private: ''
   actions: []
-  actorHooks: []
   dropped: false
 effects: []
 folder: NNHjWBS5AM148J20

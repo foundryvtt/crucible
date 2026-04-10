@@ -11,7 +11,6 @@ system:
   training:
     type: deception
     rank: 2
-  actorHooks: []
   nodes:
     - int4c
   rune: ''

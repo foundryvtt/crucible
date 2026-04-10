@@ -17,7 +17,6 @@ system:
   training:
     type: awareness
     rank: 1
-  actorHooks: []
   nodes:
     - int0b
   rune: ''

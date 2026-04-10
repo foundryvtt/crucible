@@ -18,7 +18,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 ownership:
   default: 0

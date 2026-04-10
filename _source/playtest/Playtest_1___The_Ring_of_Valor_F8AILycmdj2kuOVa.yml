@@ -297,7 +297,6 @@ actors:
           actions: []
           identifier: bk1vGj6vsO
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags:
@@ -338,7 +337,6 @@ actors:
           slot: 0
           identifier: boarTusks
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -412,11 +410,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -742,7 +738,6 @@ actors:
           slot: 0
           identifier: VpKzG6XCed
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -784,7 +779,6 @@ actors:
           actions: []
           identifier: D0slHyIdsC
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags:
@@ -811,7 +805,6 @@ actors:
             harm.</p><p>This creature doubles number of Boons awarded from
             attacking a <strong>Flanked</strong> enemy.</p>
           actions: []
-          actorHooks: []
           nodes: []
           rune: ''
           gesture: ''
@@ -1155,7 +1148,6 @@ actors:
           actions: []
           identifier: heavyHides
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -1198,7 +1190,6 @@ actors:
           identifier: greatclub
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -1222,7 +1213,6 @@ actors:
             You can wield weapons with the Slow trait and wear Armor with the
             Bulky trait without suffering Banes to your Initiative rolls.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -1303,7 +1293,6 @@ actors:
                     summons: []
               name: Leg Sweep
               img: icons/skills/melee/strike-sword-slashing-red.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -1320,7 +1309,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -1352,7 +1340,6 @@ actors:
             <p>The Staggered effect lasts for 1 round and reduces your target's
             maximum Action by 1.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -1397,7 +1384,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -1450,12 +1436,10 @@ actors:
                 minimum: null
                 maximum: 30
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           nodes: []
           rune: ''
           gesture: ''
@@ -1511,7 +1495,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -1525,7 +1508,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -1616,7 +1598,6 @@ actors:
                 - harmless
                 - skill
                 - athletics
-              actionHooks: []
               name: Grapple
               condition: ''
               description: >-
@@ -1631,7 +1612,6 @@ actors:
           training:
             type: unarmed
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -1981,7 +1961,6 @@ actors:
           identifier: handAxe
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         _stats:
@@ -2027,7 +2006,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -2054,7 +2032,6 @@ actors:
             you.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -2117,7 +2094,6 @@ actors:
                 multiple: 2
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -2126,7 +2102,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -2200,7 +2175,6 @@ actors:
                     summons: []
               name: Hamstring
               img: icons/skills/melee/strike-axe-blood-red.webp
-              actionHooks: []
               range:
                 minimum: null
                 maximum: null
@@ -2209,7 +2183,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           nodes:
             - str1b
           rune: ''
@@ -2267,7 +2240,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -2281,7 +2253,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -2336,7 +2307,6 @@ actors:
               effects: []
               img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
               condition: ''
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -2344,7 +2314,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           nodes:
             - dex1b
           iconicSpells: 0
@@ -2400,7 +2369,6 @@ actors:
           actions: []
           identifier: bastardSword
           invested: false
-          actorHooks: []
           dropped: false
           slot: 1
         _stats:
@@ -2741,7 +2709,6 @@ actors:
               aid spellcaft or afflict enemies with corrupting influence.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
           slot: 1
         effects: []
@@ -2787,7 +2754,6 @@ actors:
           actions: []
           identifier: studdedLeatherArmor
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -2816,7 +2782,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -2854,7 +2819,6 @@ actors:
             <strong>Action</strong> cost by 1 in exchange.</p>
           actions: []
           inflection: compose
-          actorHooks: []
           iconicSpells: 1
           training:
             type: ''
@@ -2901,7 +2865,6 @@ actors:
             Sprite</strong>.</p>
           actions: []
           gesture: create
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -2942,7 +2905,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -2979,7 +2941,6 @@ actors:
             such creations simultaneously rather than only one.</p>
           actions: []
           iconicSpells: 2
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -3016,7 +2977,6 @@ actors:
             away from the spellcaster if that destination is unoccupied.</p>
           actions: []
           inflection: push
-          actorHooks: []
           iconicSpells: 1
           training:
             type: ''
@@ -3087,7 +3047,6 @@ actors:
                 - ranged
                 - harmless
                 - rallying
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -3095,7 +3054,6 @@ actors:
           training:
             type: talisman
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -3158,7 +3116,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -3171,7 +3128,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
@@ -3201,7 +3157,6 @@ actors:
             of <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: ray
-          actorHooks: []
           nodes:
             - wis1b
           rune: ''
@@ -3281,12 +3236,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: oblivion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -3348,7 +3301,6 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               name: Evoke
               condition: ''
               description: >-
@@ -3371,7 +3323,6 @@ actors:
                 actorUuid: null
                 permanent: true
           rune: soul
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -3452,12 +3403,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: death
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -3509,7 +3458,6 @@ actors:
               target.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
         effects: []
         flags:
@@ -3833,7 +3781,6 @@ actors:
           actions: []
           identifier: xkW1zpIkR9
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags:
@@ -3877,7 +3824,6 @@ actors:
           identifier: shortbow
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -3928,12 +3874,10 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -3966,7 +3910,6 @@ actors:
             evading enemy attacks. After performing a ranged weapon attack, you
             gain half your <strong>Stride</strong> in additional free
             movement.</p>
-          actorHooks: []
           actions: []
           iconicSpells: 0
           training:
@@ -4030,7 +3973,6 @@ actors:
                 - projectile
                 - ranged
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -4038,7 +3980,6 @@ actors:
           training:
             type: projectile
             rank: 1
-          actorHooks: []
           nodes:
             - dex0a
           rune: ''
@@ -4370,7 +4311,6 @@ actors:
           actions: []
           identifier: snzId22p3L
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags:
@@ -4415,7 +4355,6 @@ actors:
           identifier: spear
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 1
         _stats:
@@ -4440,7 +4379,6 @@ actors:
             yourself and others.</p><p>Once per Turn while you have a Shield
             equipped, you may use the <strong>Defend</strong> action at a
             reduced cost of 1 Action Point.</p>
-          actorHooks: []
           actions: []
           iconicSpells: 0
           training:
@@ -4479,7 +4417,6 @@ actors:
             once per Turn while wearing Heavy armor.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -4559,7 +4496,6 @@ actors:
                     summons: []
               name: Leg Sweep
               img: icons/skills/melee/strike-sword-slashing-red.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -4576,7 +4512,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -4637,7 +4572,6 @@ actors:
                 - finesse
                 - melee
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -4645,7 +4579,6 @@ actors:
           training:
             type: light
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -4984,7 +4917,6 @@ actors:
           actions: []
           identifier: dyXPFSKVuC
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags:
@@ -5027,7 +4959,6 @@ actors:
           slot: 0
           identifier: zgczerLJDO
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -5053,7 +4984,6 @@ actors:
             Your physical toughness makes you more resistant to harm. You gain
             +2 Resistance to Bludgeoning, Slashing, and Piercing damage.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -5140,12 +5070,10 @@ actors:
                 - void
                 - morale
                 - intimidation
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           nodes: []
           rune: ''
           gesture: ''
@@ -5207,12 +5135,10 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -5248,7 +5174,6 @@ actors:
             Health you immediately gain +1 Action. This benefit may only happen
             once per Round.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -5286,7 +5211,6 @@ actors:
             not Weakened you gain <strong>+1 Health</strong>.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -5321,7 +5245,6 @@ actors:
             damage to Health.</p><p>The Bleeding effect lasts for 1 round and
             deals your Dexterity score as additional damage to Health.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -5386,12 +5309,10 @@ actors:
                 maximum: 10
                 weapon: false
                 minimum: 4
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -5431,7 +5352,6 @@ actors:
           training:
             type: natural
             rank: 2
-          actorHooks: []
           nodes:
             - tou4b
           rune: ''
@@ -5514,7 +5434,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              actionHooks: []
           nodes:
             - sig3.toughness.strength
           rune: ''
@@ -5524,7 +5443,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -5567,7 +5485,6 @@ actors:
           slot: 0
           identifier: AXF5dHX8Yp
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         flags:
@@ -5624,7 +5541,6 @@ actors:
               tags:
                 - melee
                 - natural
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -5635,7 +5551,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -5710,7 +5625,6 @@ actors:
               tags:
                 - melee
                 - natural
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -5721,7 +5635,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -5771,7 +5684,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -5785,7 +5697,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -6110,7 +6021,6 @@ actors:
           slot: 0
           identifier: ZpLiKAtTnQ
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -6152,7 +6062,6 @@ actors:
           slot: 0
           identifier: 6Hu64Emrdw
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -6194,7 +6103,6 @@ actors:
             private: ''
           identifier: v4rbO5BO2O
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags: {}
@@ -6268,11 +6176,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -6312,7 +6218,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -6358,7 +6263,6 @@ actors:
             for testing.</p>
           actions: []
           gesture: pulse
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -6394,7 +6298,6 @@ actors:
             unoccupied.</p>
           actions: []
           inflection: pull
-          actorHooks: []
           iconicSpells: 1
           training:
             type: ''
@@ -6474,12 +6377,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: oblivion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -6560,12 +6461,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: death
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -6892,7 +6791,6 @@ actors:
           slot: 0
           identifier: 0UZO2jtRig
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -6934,7 +6832,6 @@ actors:
             private: ''
           identifier: m2Kza32WCy
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags: {}
@@ -7005,7 +6902,6 @@ actors:
                 - willpower
                 - morale
                 - presence
-              actionHooks: []
               range:
                 minimum: null
                 maximum: null
@@ -7013,7 +6909,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7073,11 +6968,9 @@ actors:
                 minimum: null
                 maximum: 30
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7404,7 +7297,6 @@ actors:
           slot: 0
           identifier: GRyxfHV8oQ
           invested: false
-          actorHooks: []
           dropped: false
         effects: []
         sort: 0
@@ -7446,7 +7338,6 @@ actors:
             private: ''
           identifier: oaQvgclEs5
           invested: false
-          actorHooks: []
         effects: []
         sort: 0
         flags: {}
@@ -7520,11 +7411,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: true
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7604,11 +7493,9 @@ actors:
                 minimum: null
                 maximum: 2
                 weapon: true
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7931,7 +7818,6 @@ actors:
               gouts of arcane flame at enemies.</p>
             private: ''
           actions: []
-          actorHooks: []
           damageType: fire
           dropped: false
           slot: 3
@@ -7979,7 +7865,6 @@ actors:
           actions: []
           identifier: ringMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -8049,7 +7934,6 @@ actors:
                 maximum: null
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -8062,7 +7946,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
@@ -8092,7 +7975,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -8162,7 +8044,6 @@ actors:
                 - finesse
                 - melee
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -8170,7 +8051,6 @@ actors:
           training:
             type: light
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -8245,12 +8125,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: oblivion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -8326,12 +8204,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: flame
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -8372,7 +8248,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           nodes:
             - int1a
           rune: ''
@@ -8706,7 +8581,6 @@ actors:
           actions: []
           identifier: splintMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -8730,7 +8604,6 @@ actors:
             in sequence using a one-handed melee weapon you gain a stacking
             <strong>+1 Boon</strong> for each successive attack.</p><p></p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -8772,7 +8645,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -8816,7 +8688,6 @@ actors:
             with its <strong>Action</strong> cost reduced by 1.</p>
           actions: []
           iconicSpells: 1
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -8862,7 +8733,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -8893,7 +8763,6 @@ actors:
             of your weapon Strike.</p>
           actions: []
           gesture: strike
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -8928,7 +8797,6 @@ actors:
             You can wield weapons with the Slow trait and wear Armor with the
             Bulky trait without suffering Banes to your Initiative rolls.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -8993,7 +8861,6 @@ actors:
               tags:
                 - reaction
                 - melee
-              actionHooks: []
               range:
                 maximum: 1
                 weapon: true
@@ -9002,7 +8869,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -9064,12 +8930,10 @@ actors:
               tags:
                 - movement
                 - melee
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -9103,7 +8967,6 @@ actors:
             not Weakened you gain <strong>+1 Health</strong>.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -9155,7 +9018,6 @@ actors:
           identifier: glaive
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -9190,7 +9052,6 @@ actors:
           training:
             type: athletics
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -9229,7 +9090,6 @@ actors:
           training:
             type: intimidation
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -9283,7 +9143,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -9297,7 +9156,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -9330,7 +9188,6 @@ actors:
             using the <strong>Touch</strong> Gesture instead of a melee weapon
             attack.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -9377,7 +9234,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -9412,7 +9268,6 @@ actors:
           training:
             type: athletics
             rank: 2
-          actorHooks: []
           nodes:
             - str4c
           rune: ''
@@ -9449,7 +9304,6 @@ actors:
           training:
             type: heavy
             rank: 2
-          actorHooks: []
           nodes:
             - str4c
           rune: ''
@@ -9527,7 +9381,6 @@ actors:
                     maintenance: null
                     regions: []
                     summons: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -9544,7 +9397,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
           duplicateSource: null
@@ -9571,7 +9423,6 @@ actors:
             <strong>Intellect</strong> score as <strong>Fire</strong> damage to
             both <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
-          actorHooks: []
           nodes:
             - int3a
           rune: ''
@@ -9625,7 +9476,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -9699,12 +9549,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: lightning
-          actorHooks: []
           training:
             type: lightning
             rank: 1
@@ -9780,12 +9628,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: flame
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -10147,7 +9993,6 @@ actors:
           identifier: dagger
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         _stats:
@@ -10194,7 +10039,6 @@ actors:
           slot: 0
           identifier: dagger
           invested: false
-          actorHooks: []
           dropped: false
         _stats:
           compendiumSource: null
@@ -10237,7 +10081,6 @@ actors:
           actions: []
           identifier: studdedLeatherArmor
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -10285,7 +10128,6 @@ actors:
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
-              actionHooks: []
               range:
                 minimum: null
                 maximum: 30
@@ -10294,7 +10136,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10352,7 +10193,6 @@ actors:
               effects: []
               img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
               condition: ''
-              actionHooks: []
               range:
                 maximum: 1
                 weapon: true
@@ -10361,7 +10201,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10426,7 +10265,6 @@ actors:
                 multiple: 2
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -10435,7 +10273,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10468,7 +10305,6 @@ actors:
             damage to Health.</p><p>The Bleeding effect lasts for 1 round and
             deals your Dexterity score as additional damage to Health.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -10532,7 +10368,6 @@ actors:
                 scope: 3
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: 1
                 weapon: true
@@ -10541,7 +10376,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10574,7 +10408,6 @@ actors:
             on any Strike or Spell attack against an enemy whose initiative
             score is lower than your own.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -10609,7 +10442,6 @@ actors:
             Your quickness of mind and body are equally impressive. You gain +2
             Boons to all Initiative checks.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -10670,7 +10502,6 @@ actors:
                 scope: 0
                 self: false
               effects: []
-              actionHooks: []
               range:
                 minimum: null
                 maximum: null
@@ -10678,7 +10509,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -10714,7 +10544,6 @@ actors:
             you.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10776,7 +10605,6 @@ actors:
               effects: []
               name: Backstab
               img: icons/skills/melee/strike-dagger-white-orange.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -10785,7 +10613,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10820,7 +10647,6 @@ actors:
             Combat, you gain +1 current and maximum Action.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -10889,7 +10715,6 @@ actors:
                 - finesse
                 - melee
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -10897,7 +10722,6 @@ actors:
           training:
             type: light
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -10959,7 +10783,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -10967,7 +10790,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -11010,7 +10832,6 @@ actors:
           training:
             type: stealth
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -11051,7 +10872,6 @@ actors:
           training:
             type: deception
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -11097,7 +10917,6 @@ actors:
               and leave barely a trace.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
           slot: 1
         effects: []
@@ -11174,7 +10993,6 @@ actors:
               tags:
                 - consume
                 - healing
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11262,7 +11080,6 @@ actors:
               tags:
                 - consume
                 - healing
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11373,7 +11190,6 @@ actors:
                 - fortitude
                 - skill
                 - medicine
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11406,7 +11222,6 @@ actors:
               effects: []
               tags:
                 - consume
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11454,7 +11269,6 @@ actors:
           training:
             type: medicine
             rank: 1
-          actorHooks: []
           nodes:
             - wis0a
           rune: ''
@@ -11533,7 +11347,6 @@ actors:
               tags:
                 - melee
                 - thrown
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11544,7 +11357,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -11599,7 +11411,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11612,7 +11423,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -11666,11 +11476,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           nodes:
             - sig3.intellect.dexterity
           rune: ''
@@ -11742,7 +11550,6 @@ actors:
                 - reaction
                 - melee
                 - thrown
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -11753,7 +11560,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -11784,7 +11590,6 @@ actors:
           training:
             type: light
             rank: 2
-          actorHooks: []
           nodes:
             - dex4b
           rune: ''
@@ -11827,7 +11632,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -12161,7 +11965,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -12215,12 +12018,10 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -12277,7 +12078,6 @@ actors:
                 self: false
               effects: []
               img: icons/magic/life/cross-area-circle-green-white.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: false
@@ -12286,7 +12086,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -12326,7 +12125,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: ward
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -12389,7 +12187,6 @@ actors:
               effects: []
               name: Body Block
               img: icons/skills/melee/shield-block-gray-orange.webp
-              actionHooks: []
               range:
                 minimum: null
                 maximum: null
@@ -12398,7 +12195,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -12457,7 +12253,6 @@ actors:
                 scope: 3
                 self: false
               effects: []
-              actionHooks: []
               range:
                 weapon: true
                 minimum: null
@@ -12465,7 +12260,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -12549,11 +12343,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           nodes:
             - sig3.presence
             - sig3.toughness
@@ -12640,11 +12432,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -12681,7 +12471,6 @@ actors:
             yourself and others.</p><p>Once per Turn while you have a Shield
             equipped, you may use the <strong>Defend</strong> action at a
             reduced cost of 1 Action Point.</p>
-          actorHooks: []
           actions: []
           iconicSpells: 0
           training:
@@ -12721,7 +12510,6 @@ actors:
             condition against <strong>Weapon Attacks</strong> while wielding a
             shield.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -12757,7 +12545,6 @@ actors:
             have a Shield equipped, your <strong>Engagement</strong> increases
             by +1, allowing you to simultaneously engage more adjacent foes.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -12804,7 +12591,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -12843,7 +12629,6 @@ actors:
           training:
             type: intimidation
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -12934,7 +12719,6 @@ actors:
                 - harmless
                 - skill
                 - athletics
-              actionHooks: []
               name: Grapple
               condition: ''
               description: >-
@@ -12949,7 +12733,6 @@ actors:
           training:
             type: unarmed
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -13012,7 +12795,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -13020,7 +12802,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -13061,7 +12842,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -13110,7 +12890,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -13124,7 +12903,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -13165,7 +12943,6 @@ actors:
           training:
             type: athletics
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -13209,7 +12986,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -13281,7 +13057,6 @@ actors:
                 - shield
                 - afterStrike
                 - offhand
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -13289,7 +13064,6 @@ actors:
           training:
             type: shield
             rank: 1
-          actorHooks: []
           nodes:
             - tou0a
           rune: ''
@@ -13326,7 +13100,6 @@ actors:
           training:
             type: shield
             rank: 2
-          actorHooks: []
           nodes:
             - tou4b
           rune: ''
@@ -13447,7 +13220,6 @@ actors:
               tags:
                 - consume
                 - healing
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -13503,7 +13275,6 @@ actors:
               slots</p></li></ul>
             private: ''
           actions: []
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -13582,12 +13353,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: kinesis
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -13628,7 +13397,6 @@ actors:
             Resistance provided by your Ward also increases by half your
             Wisdom.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 1
           nodes:
             - sig3.toughness
@@ -13683,7 +13451,6 @@ actors:
           identifier: heaterShield
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         _stats:
@@ -13729,7 +13496,6 @@ actors:
           identifier: warhammer
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
         _stats:
           compendiumSource: null
@@ -14193,7 +13959,6 @@ actors:
           identifier: longbow
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -14237,7 +14002,6 @@ actors:
           slot: 0
           identifier: scimitar
           invested: false
-          actorHooks: []
           dropped: false
         _stats:
           compendiumSource: null
@@ -14280,7 +14044,6 @@ actors:
           actions: []
           identifier: studdedLeatherArmor
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -14349,7 +14112,6 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -14362,7 +14124,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -14395,7 +14156,6 @@ actors:
             by 1.</p>
           actions: []
           iconicSpells: 1
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -14443,7 +14203,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -14513,7 +14272,6 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -14526,7 +14284,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -14555,7 +14312,6 @@ actors:
             evading enemy attacks. After performing a ranged weapon attack, you
             gain half your <strong>Stride</strong> in additional free
             movement.</p>
-          actorHooks: []
           actions: []
           iconicSpells: 0
           training:
@@ -14596,7 +14352,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -14658,12 +14413,10 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -14707,7 +14460,6 @@ actors:
           training:
             type: stealth
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -14767,7 +14519,6 @@ actors:
               tags:
                 - ranged
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -14780,7 +14531,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.fanofarrows00000
           duplicateSource: null
@@ -14833,7 +14583,6 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -14846,7 +14595,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -14877,7 +14625,6 @@ actors:
           training:
             type: projectile
             rank: 2
-          actorHooks: []
           nodes:
             - dex4b
           rune: ''
@@ -14917,7 +14664,6 @@ actors:
             and must be manually performed as a consequence of the spell.</p>
           actions: []
           gesture: step
-          actorHooks: []
           nodes:
             - dex2b
           rune: ''
@@ -14964,7 +14710,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -15015,7 +14760,6 @@ actors:
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
-              actionHooks: []
               range:
                 minimum: null
                 maximum: 30
@@ -15032,7 +14776,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -15061,7 +14804,6 @@ actors:
             <strong>Lightning</strong> damage to <strong>Morale</strong>, and
             applies the @Condition[staggered] condition.</p>
           actions: []
-          actorHooks: []
           nodes:
             - int3a
           rune: ''
@@ -15109,7 +14851,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -15190,12 +14931,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: illusion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -15233,7 +14972,6 @@ actors:
             Attack</strong> against you is performed without the 2 Boons that
             would ordinarily apply to such an attack.</p>
           actions: []
-          actorHooks: []
           nodes:
             - intdex2
           rune: ''
@@ -15278,7 +15016,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -15360,7 +15097,6 @@ actors:
                 - dexterity
                 - skill
                 - athletics
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -15450,12 +15186,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: lightning
-          actorHooks: []
           training:
             type: lightning
             rank: 1
@@ -15519,7 +15253,6 @@ actors:
                 - projectile
                 - ranged
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -15527,7 +15260,6 @@ actors:
           training:
             type: projectile
             rank: 1
-          actorHooks: []
           nodes:
             - dex0a
           rune: ''
@@ -15865,7 +15597,6 @@ actors:
           actions: []
           identifier: ringMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -15906,7 +15637,6 @@ actors:
               electrifying force.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         effects: []
@@ -15949,7 +15679,6 @@ actors:
               target.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
         effects: []
         folder: uvvY6c0nbJBhAjM6
@@ -16007,11 +15736,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -16051,7 +15778,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -16098,7 +15824,6 @@ actors:
             Sprite</strong>.</p>
           actions: []
           gesture: create
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -16136,7 +15861,6 @@ actors:
             <strong>Action</strong> cost by 1 in exchange.</p>
           actions: []
           inflection: compose
-          actorHooks: []
           iconicSpells: 1
           training:
             type: ''
@@ -16173,7 +15897,6 @@ actors:
             such creations simultaneously rather than only one.</p>
           actions: []
           iconicSpells: 2
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -16212,7 +15935,6 @@ actors:
             <strong>Frost</strong> damage to <strong>Health</strong>, and
             applies the @Condition[slowed] condition.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -16251,7 +15973,6 @@ actors:
             Rune if you also know that Rune.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -16332,7 +16053,6 @@ actors:
                 minimum: null
                 maximum: 30
                 weapon: false
-              actionHooks: []
               rune: lightning
               gesture: touch
               composition: 1
@@ -16340,7 +16060,6 @@ actors:
                 actorUuid: null
                 permanent: true
               inflection: ''
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -16403,7 +16122,6 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -16416,7 +16134,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -16480,7 +16197,6 @@ actors:
                 - noncombat
                 - skill
                 - wilderness
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -16491,7 +16207,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -16568,12 +16283,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: illusion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -16612,7 +16325,6 @@ actors:
             <strong>Lightning</strong> damage to <strong>Morale</strong>, and
             applies the @Condition[staggered] condition.</p>
           actions: []
-          actorHooks: []
           nodes:
             - int3a
           rune: ''
@@ -16653,7 +16365,6 @@ actors:
             <strong>Psychic</strong> damage to <strong>Morale</strong>, and
             applies the @Condition[disoriented] condition.</p>
           actions: []
-          actorHooks: []
           nodes:
             - int3a
           rune: ''
@@ -16735,12 +16446,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: lightning
-          actorHooks: []
           training:
             type: lightning
             rank: 1
@@ -16828,12 +16537,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: kinesis
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -16913,7 +16620,6 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -16926,7 +16632,6 @@ actors:
           training:
             type: frost
             rank: 1
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -16988,7 +16693,6 @@ actors:
                 - ranged
                 - harmless
                 - rallying
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -16996,7 +16700,6 @@ actors:
           training:
             type: talisman
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -17054,7 +16757,6 @@ actors:
               effects: []
               tags:
                 - reload
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -17062,7 +16764,6 @@ actors:
           training:
             type: mechanical
             rank: 1
-          actorHooks: []
           nodes:
             - dex0a
           rune: ''
@@ -17122,7 +16823,6 @@ actors:
                 self: false
               effects: []
               tags: []
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -17133,7 +16833,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -17183,7 +16882,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -17579,7 +17277,6 @@ actors:
               blasts of frigid ice towards enemies.</p>
             private: ''
           actions: []
-          actorHooks: []
           damageType: cold
           dropped: false
           slot: 3
@@ -17628,7 +17325,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -17658,7 +17354,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -17699,7 +17394,6 @@ actors:
             of <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: ray
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -17736,7 +17430,6 @@ actors:
             gain <strong>+1 Focus</strong>.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -17812,7 +17505,6 @@ actors:
               tags:
                 - healing
                 - health
-              actionHooks: []
               name: Font of Life
               condition: ''
               description: >-
@@ -17828,7 +17520,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 1
           rune: life
           nodes:
@@ -17866,7 +17557,6 @@ actors:
             You gain +1 to your <strong>Willpower</strong> defense and +5
             resistance to <strong>Psychic</strong> damage.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -17904,7 +17594,6 @@ actors:
             <strong>Action</strong> cost by 1 in exchange.</p>
           actions: []
           inflection: compose
-          actorHooks: []
           iconicSpells: 1
           training:
             type: ''
@@ -17943,7 +17632,6 @@ actors:
             <strong>Acid</strong> damage to <strong>Health</strong> each
             Round.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -18015,7 +17703,6 @@ actors:
                 - ranged
                 - harmless
                 - rallying
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -18023,7 +17710,6 @@ actors:
           training:
             type: talisman
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -18059,7 +17745,6 @@ actors:
             Resistance provided by your Ward also increases by half your
             Wisdom.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 1
           nodes:
             - sig3.toughness
@@ -18135,7 +17820,6 @@ actors:
                 - noncombat
                 - skill
                 - wilderness
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -18146,7 +17830,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -18298,7 +17981,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -18355,7 +18037,6 @@ actors:
                 maximum: null
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -18368,7 +18049,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -18404,7 +18084,6 @@ actors:
             for testing.</p>
           actions: []
           gesture: pulse
-          actorHooks: []
           nodes:
             - pre4d
           rune: ''
@@ -18450,7 +18129,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -18479,7 +18157,6 @@ actors:
             and deals your <strong>Wisdom</strong> score as additional
             <strong>Restoration</strong> to <strong>Health</strong>.</p>
           actions: []
-          actorHooks: []
           nodes:
             - wis3b
           rune: ''
@@ -18530,7 +18207,6 @@ actors:
           training:
             type: arcana
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -18587,7 +18263,6 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               name: Evoke
               condition: ''
               description: >-
@@ -18610,7 +18285,6 @@ actors:
                 actorUuid: null
                 permanent: true
           rune: soul
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -18655,7 +18329,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -18694,7 +18367,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -18763,12 +18435,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: earth
-          actorHooks: []
           nodes:
             - wis0b
           gesture: ''
@@ -18846,12 +18516,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: life
-          actorHooks: []
           training:
             type: life
             rank: 1
@@ -19276,7 +18944,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -19318,7 +18985,6 @@ actors:
           identifier: greataxe
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -19373,11 +19039,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -19439,7 +19103,6 @@ actors:
                 scope: 3
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -19447,7 +19110,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -19511,11 +19173,9 @@ actors:
                 maximum: 1
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -19547,7 +19207,6 @@ actors:
             You can wield weapons with the Slow trait and wear Armor with the
             Bulky trait without suffering Banes to your Initiative rolls.
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -19636,7 +19295,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              actionHooks: []
           nodes:
             - sig3.toughness.strength
           rune: ''
@@ -19646,7 +19304,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -19684,7 +19341,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -19712,7 +19368,6 @@ actors:
             Health you immediately gain +1 Action. This benefit may only happen
             once per Round.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -19788,7 +19443,6 @@ actors:
                     summons: []
               name: Executioner's Strike
               img: icons/skills/melee/strike-axe-blood-red.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -19805,7 +19459,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -19832,7 +19485,6 @@ actors:
             Failure rolled by yourself.
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -19898,12 +19550,10 @@ actors:
               tags:
                 - movement
                 - melee
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -19958,7 +19608,6 @@ actors:
                 self: false
               effects: []
               img: icons/magic/life/cross-area-circle-green-white.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: false
@@ -19967,7 +19616,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -20032,7 +19680,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -20040,7 +19687,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -20131,7 +19777,6 @@ actors:
                 - harmless
                 - skill
                 - athletics
-              actionHooks: []
               name: Grapple
               condition: ''
               description: >-
@@ -20146,7 +19791,6 @@ actors:
           training:
             type: unarmed
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -20223,7 +19867,6 @@ actors:
                     maintenance: null
                     regions: []
                     summons: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -20240,7 +19883,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
           duplicateSource: null
@@ -20288,7 +19930,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -20302,7 +19943,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -20340,7 +19980,6 @@ actors:
           training:
             type: heavy
             rank: 2
-          actorHooks: []
           nodes:
             - str4c
           rune: ''
@@ -20371,7 +20010,6 @@ actors:
             Your physical toughness makes you more resistant to harm. You gain
             +2 Resistance to Bludgeoning, Slashing, and Piercing damage.
           actions: []
-          actorHooks: []
           nodes:
             - tou3b
           rune: ''
@@ -20417,7 +20055,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -20471,7 +20108,6 @@ actors:
               effects: []
               tags:
                 - thrown
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -20482,7 +20118,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -20525,7 +20160,6 @@ actors:
               and leave barely a trace.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
           slot: 0
         effects: []
@@ -20599,7 +20233,6 @@ actors:
                     regions: []
                     summons: []
               tags: []
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -20610,7 +20243,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -20941,7 +20573,6 @@ actors:
               gouts of arcane flame at enemies.</p>
             private: ''
           actions: []
-          actorHooks: []
           damageType: fire
           dropped: false
           slot: 3
@@ -20989,7 +20620,6 @@ actors:
           actions: []
           identifier: ringMail
           invested: false
-          actorHooks: []
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -21059,7 +20689,6 @@ actors:
                 maximum: null
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -21072,7 +20701,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
@@ -21102,7 +20730,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -21141,7 +20768,6 @@ actors:
             Counterspell attempt.</p>
           actions: []
           iconicSpells: 2
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -21182,7 +20808,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -21220,7 +20845,6 @@ actors:
             Combat, you gain +1 current and maximum Action.</p>
           actions: []
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -21256,7 +20880,6 @@ actors:
             using the <strong>Touch</strong> Gesture instead of a melee weapon
             attack.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -21293,7 +20916,6 @@ actors:
             <strong>Intellect</strong> score as <strong>Fire</strong> damage to
             both <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -21340,7 +20962,6 @@ actors:
             for testing.</p>
           actions: []
           gesture: pulse
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -21408,7 +21029,6 @@ actors:
                 - finesse
                 - melee
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -21416,7 +21036,6 @@ actors:
           training:
             type: light
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -21463,7 +21082,6 @@ actors:
           training:
             type: arcana
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -21506,7 +21124,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -21537,7 +21154,6 @@ actors:
             score as <strong>Radiant</strong> damage to both
             <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
-          actorHooks: []
           nodes:
             - pre3b
           rune: ''
@@ -21585,7 +21201,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -21631,7 +21246,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -21702,12 +21316,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: oblivion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -21753,7 +21365,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -21824,7 +21435,6 @@ actors:
                 minimum: null
                 maximum: 30
                 weapon: false
-              actionHooks: []
               rune: lightning
               gesture: touch
               composition: 1
@@ -21832,7 +21442,6 @@ actors:
                 actorUuid: null
                 permanent: true
               inflection: ''
-          actorHooks: []
           nodes:
             - preint1
           rune: ''
@@ -21909,12 +21518,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: flame
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -21963,7 +21570,6 @@ actors:
           training:
             type: flame
             rank: 2
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -22041,12 +21647,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: kinesis
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -22099,7 +21703,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -22430,7 +22033,6 @@ actors:
           identifier: greatsword
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -22475,7 +22077,6 @@ actors:
           actions: []
           identifier: splintMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -22499,7 +22100,6 @@ actors:
             in sequence using a one-handed melee weapon you gain a stacking
             <strong>+1 Boon</strong> for each successive attack.</p><p></p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -22546,7 +22146,6 @@ actors:
           training:
             type: athletics
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -22585,7 +22184,6 @@ actors:
           training:
             type: intimidation
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -22639,7 +22237,6 @@ actors:
                 - melee
                 - mainhand
                 - empowered
-              actionHooks: []
               name: Heavy Strike
               condition: ''
               description: >-
@@ -22653,7 +22250,6 @@ actors:
           training:
             type: heavy
             rank: 1
-          actorHooks: []
           nodes:
             - str0a
           rune: ''
@@ -22689,7 +22285,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           nodes:
             - int1a
           rune: ''
@@ -22765,12 +22360,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: flame
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -23106,7 +22699,6 @@ actors:
           identifier: dagger
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         _stats:
@@ -23152,7 +22744,6 @@ actors:
           identifier: dagger
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 1
         _stats:
@@ -23196,7 +22787,6 @@ actors:
           actions: []
           identifier: studdedLeatherArmor
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -23244,7 +22834,6 @@ actors:
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
-              actionHooks: []
               range:
                 minimum: null
                 maximum: 30
@@ -23253,7 +22842,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -23311,7 +22899,6 @@ actors:
               effects: []
               img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
               condition: ''
-              actionHooks: []
               range:
                 maximum: 1
                 weapon: true
@@ -23320,7 +22907,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -23385,7 +22971,6 @@ actors:
                 multiple: 2
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -23394,7 +22979,6 @@ actors:
                 actorUuid: null
                 permanent: true
           iconicSpells: 0
-          actorHooks: []
           training:
             type: ''
             rank: null
@@ -23458,7 +23042,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -23466,7 +23049,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -23509,7 +23091,6 @@ actors:
           training:
             type: stealth
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -23550,7 +23131,6 @@ actors:
           training:
             type: deception
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -23614,7 +23194,6 @@ actors:
                 - finesse
                 - melee
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -23622,7 +23201,6 @@ actors:
           training:
             type: light
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -23945,7 +23523,6 @@ actors:
           slot: 1
           identifier: warhammer
           invested: false
-          actorHooks: []
           dropped: false
         _stats:
           systemId: crucible
@@ -23988,7 +23565,6 @@ actors:
           identifier: heaterShield
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         _stats:
@@ -24034,7 +23610,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -24088,11 +23663,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -24169,7 +23742,6 @@ actors:
                     changes: []
               name: Shield Bash
               img: icons/skills/melee/shield-block-bash-blue.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -24177,7 +23749,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -24237,7 +23808,6 @@ actors:
                 self: false
               effects: []
               img: icons/magic/life/cross-area-circle-green-white.webp
-              actionHooks: []
               range:
                 maximum: null
                 weapon: false
@@ -24245,7 +23815,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -24291,7 +23860,6 @@ actors:
           training:
             type: awareness
             rank: 1
-          actorHooks: []
           nodes:
             - int0b
           rune: ''
@@ -24330,7 +23898,6 @@ actors:
           training:
             type: intimidation
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -24421,7 +23988,6 @@ actors:
                 - harmless
                 - skill
                 - athletics
-              actionHooks: []
               name: Grapple
               condition: ''
               description: >-
@@ -24436,7 +24002,6 @@ actors:
           training:
             type: unarmed
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''
@@ -24499,7 +24064,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -24507,7 +24071,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -24537,7 +24100,6 @@ actors:
             yourself and others.</p><p>Once per Turn while you have a Shield
             equipped, you may use the <strong>Defend</strong> action at a
             reduced cost of 1 Action Point.</p>
-          actorHooks: []
           actions: []
           iconicSpells: 0
           training:
@@ -24872,7 +24434,6 @@ actors:
           identifier: longbow
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -24916,7 +24477,6 @@ actors:
           slot: 0
           identifier: scimitar
           invested: false
-          actorHooks: []
           dropped: false
         _stats:
           systemId: crucible
@@ -24959,7 +24519,6 @@ actors:
           actions: []
           identifier: studdedLeatherArmor
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -24983,7 +24542,6 @@ actors:
             You gain +2 Boons to any <strong>Awareness</strong> skill test which
             does not rely upon eyesight.</p>
           actions: []
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -25064,7 +24622,6 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -25077,7 +24634,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         effects: []
         flags: {}
         _stats:
@@ -25115,7 +24671,6 @@ actors:
           training:
             type: stealth
             rank: 1
-          actorHooks: []
           nodes:
             - dex0b
           rune: ''
@@ -25196,12 +24751,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: illusion
-          actorHooks: []
           nodes:
             - int0a
           gesture: ''
@@ -25265,7 +24818,6 @@ actors:
                 - projectile
                 - ranged
                 - difficult
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -25273,7 +24825,6 @@ actors:
           training:
             type: projectile
             rank: 1
-          actorHooks: []
           nodes:
             - dex0a
           rune: ''
@@ -25331,7 +24882,6 @@ actors:
                 maximum: null
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -25344,7 +24894,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
@@ -25665,7 +25214,6 @@ actors:
           actions: []
           identifier: ringMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -25706,7 +25254,6 @@ actors:
               electrifying force.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
           slot: 2
         effects: []
@@ -25749,7 +25296,6 @@ actors:
               target.</p>
             private: ''
           actions: []
-          actorHooks: []
           dropped: false
         effects: []
         folder: uvvY6c0nbJBhAjM6
@@ -25783,7 +25329,6 @@ actors:
             Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: arrow
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -25830,7 +25375,6 @@ actors:
             Sprite</strong>.</p>
           actions: []
           gesture: create
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -25913,12 +25457,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: lightning
-          actorHooks: []
           training:
             type: lightning
             rank: 1
@@ -26006,12 +25548,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: kinesis
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -26091,7 +25631,6 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -26104,7 +25643,6 @@ actors:
           training:
             type: frost
             rank: 1
-          actorHooks: []
         effects: []
         flags:
           core: {}
@@ -26158,7 +25696,6 @@ actors:
               effects: []
               tags:
                 - reload
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -26166,7 +25703,6 @@ actors:
           training:
             type: mechanical
             rank: 1
-          actorHooks: []
           nodes:
             - dex0a
           rune: ''
@@ -26490,7 +26026,6 @@ actors:
               blasts of frigid ice towards enemies.</p>
             private: ''
           actions: []
-          actorHooks: []
           damageType: cold
           dropped: false
           slot: 3
@@ -26539,7 +26074,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -26569,7 +26103,6 @@ actors:
             Focus</strong>.</p>
           actions: []
           gesture: influence
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -26640,7 +26173,6 @@ actors:
                 - ranged
                 - harmless
                 - rallying
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -26648,7 +26180,6 @@ actors:
           training:
             type: talisman
             rank: 1
-          actorHooks: []
           nodes:
             - pre0a
           rune: ''
@@ -26684,7 +26215,6 @@ actors:
             of <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
           actions: []
           gesture: ray
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -26746,7 +26276,6 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               name: Evoke
               condition: ''
               description: >-
@@ -26769,7 +26298,6 @@ actors:
                 actorUuid: null
                 permanent: true
           rune: soul
-          actorHooks: []
           nodes:
             - pre0b
           gesture: ''
@@ -26848,12 +26376,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: earth
-          actorHooks: []
           nodes:
             - wis0b
           gesture: ''
@@ -26931,12 +26457,10 @@ actors:
               tags:
                 - spell
                 - harmless
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
           rune: life
-          actorHooks: []
           training:
             type: life
             rank: 1
@@ -27271,7 +26795,6 @@ actors:
           actions: []
           identifier: scaleMail
           invested: false
-          actorHooks: []
         _stats:
           systemId: crucible
           systemVersion: 0.9.0
@@ -27313,7 +26836,6 @@ actors:
           identifier: greataxe
           invested: false
           actions: []
-          actorHooks: []
           dropped: false
           slot: 3
         _stats:
@@ -27368,11 +26890,9 @@ actors:
                 minimum: null
                 maximum: null
                 weapon: false
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -27434,7 +26954,6 @@ actors:
                 scope: 3
                 self: false
               effects: []
-              actionHooks: []
               range:
                 maximum: null
                 weapon: true
@@ -27442,7 +26961,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -27506,11 +27024,9 @@ actors:
                 maximum: 1
                 weapon: true
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
-          actorHooks: []
           iconicSpells: 0
           training:
             type: ''
@@ -27575,7 +27091,6 @@ actors:
                 maximum: 4
                 weapon: false
                 minimum: null
-              actionHooks: []
               summon:
                 actorUuid: null
                 permanent: true
@@ -27583,7 +27098,6 @@ actors:
           training:
             type: ''
             rank: null
-          actorHooks: []
           nodes:
             - dextou1
           rune: ''
@@ -27674,7 +27188,6 @@ actors:
                 - harmless
                 - skill
                 - athletics
-              actionHooks: []
               name: Grapple
               condition: ''
               description: >-
@@ -27689,7 +27202,6 @@ actors:
           training:
             type: unarmed
             rank: 1
-          actorHooks: []
           nodes:
             - str0b
           rune: ''

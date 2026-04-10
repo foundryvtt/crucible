@@ -8,7 +8,6 @@ system:
     <strong>Critical Hit</strong> that deals damage to Health or Morale you gain
     +1 Focus. This benefit may occur at most once per Round.
   actions: []
-  actorHooks: []
   nodes:
     - strwis2
   rune: ''

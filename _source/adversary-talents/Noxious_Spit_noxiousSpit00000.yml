@@ -58,7 +58,6 @@ system:
         - natural
         - reflex
         - poison
-      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -66,7 +65,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 folder: pfqBQPVP2KV9fQFs
 ownership:

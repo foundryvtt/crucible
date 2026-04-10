@@ -31,7 +31,6 @@ system:
         - afterStrike
         - melee
         - natural
-      actionHooks: []
       name: Wild Strike
       condition: ''
       description: >-
@@ -46,7 +45,6 @@ system:
   training:
     type: natural
     rank: 1
-  actorHooks: []
   nodes:
     - tou0b
   rune: ''

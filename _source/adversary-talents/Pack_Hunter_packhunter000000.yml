@@ -8,7 +8,6 @@ system:
     doubles number of Boons awarded from attacking a <strong>Flanked</strong>
     enemy.</p>
   actions: []
-  actorHooks: []
   nodes: []
   rune: ''
   gesture: ''

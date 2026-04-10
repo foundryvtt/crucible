@@ -46,7 +46,6 @@ system:
             summons: []
       name: Executioner's Strike
       img: icons/skills/melee/strike-axe-blood-red.webp
-      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -63,7 +62,6 @@ system:
   training:
     type: ''
     rank: null
-  actorHooks: []
 effects: []
 flags: {}
 _stats:

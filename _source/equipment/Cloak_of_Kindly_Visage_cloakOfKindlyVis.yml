@@ -28,7 +28,6 @@ system:
       @UUID[Compendium.crucible.affixes.ActiveEffect.disguise00000000]{Disguise}
       suffix.</p>
   actions: []
-  actorHooks: []
 effects:
   - name: Disguise
     type: affix
@@ -95,7 +94,6 @@ effects:
                 regions: []
                 summons: []
           tags: []
-          actionHooks: []
           summon:
             actorUuid: null
             permanent: true
