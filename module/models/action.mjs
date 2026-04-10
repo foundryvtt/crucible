@@ -443,106 +443,105 @@ class CrucibleActionTags extends Set {
 /**
  * The data model for an Action within the Crucible game system.
  *
- * Actions are the central unit of gameplay in Crucible. Every meaningful thing an actor does during combat (and many
- * things outside of combat) is expressed as an action: attacking, casting a spell, moving, using a skill, activating
- * a special ability.
+ * Actions are a fundamental aspect of gameplay in Crucible. Every meaningful thing an actor does during combat (and
+ * many things outside of combat) is expressed as an action: attacking, casting a spell, moving, activating a special
+ * ability.
  *
- * ## Event-Driven Architecture
- * An action records its effects as a flat, chronological array of {@link CrucibleActionEvent} objects in the
- * {@link CrucibleAction#events} array. Each event represents one discrete thing that happened: a weapon strike against
- * a target, a resource cost paid by the actor, an ActiveEffect applied, a status change. The event stream is the
- * single source of truth for what an action did. All resource changes, damage, healing, effects, and actor updates
- * flow through this stream.
+ * ## Events
+ * An action records its mechanical effects as a flat, chronological array of {@link CrucibleActionEvent} objects in
+ * {@link CrucibleAction#events}. Each event represents one discrete thing that an action causes to happen: a strike
+ * against a target, a resource cost paid by the attacker, ActiveEffects applied, updates to an actor. The event stream
+ * is the primary source of truth for what an action did or will do.
  *
- * Events are created during the action lifecycle via {@linkcode CrucibleAction#recordEvent}. Actions push events
- * to describe what their hook contributes. Many events are automatically created by the tags that the Action bears,
- * but Action-specific hooks can further customize specialized automation behavior. The event stream is then
- * serialized into a ChatMessage and persisted to the database, from chat it can be confirmed to enact its events into
- * realized changes.
- *
- * The {@linkcode CrucibleAction#eventsByActor} getter partitions the event stream by target actor and provides
- * pre-classified roll aggregates ({@link ActorEventGroup}) for convenient querying. Individual events expose
- * intent-based getters like {@linkcode CrucibleActionEvent#isDamage}, {@linkcode CrucibleActionEvent#isHealing},
- * {@linkcode CrucibleActionEvent#damagesHealth}, and {@linkcode CrucibleActionEvent#weaponItem}.
+ * Events are created during the action lifecycle via {@linkcode CrucibleAction#recordEvent}. For the most part, events
+ * are recorded in Actor or Action hooks. When the action's ChatMessage is created, the event stream is serialized into
+ * its flags, and upon confirmation it is deserialized and the changes specified within it are executed.
  *
  * ## Action Lifecycle
- * An action's life is split into two phases separated by ChatMessage persistence.
+ * An action's can be split into three phases. What follows is a brief (and non-exhaustive) explanation of each, and
+ * which Action and Actor hooks are called in order.
  *
- * ### Phase 1: Usage ({@linkcode CrucibleAction#use})
+ * ### Phase 1: Preparation ({@linkcode CrucibleAction#prepare})
+ * The majority of actions exist in a persisted state prior to being used. When an action undergoes data preparation,
+ * it goes through:
+ * - {@linkcode CrucibleAction#_configureUsage} - Set base cost, usage bonuses.
+ *    - Action hooks called: `initialize`
+ * - {@linkcode CrucibleAction#_prepare} - Call hooks, set scaling.
+ *    - Action hooks called: `prepare`
+ *    - Actor hooks called: `prepareAction`
+ *
+ * ### Phase 2: Usage (CrucibleAction##use)
  * The public entry point is {@linkcode CrucibleAction#use}, which clones the action and drives it through:
- *
- * 1. {@linkcode CrucibleAction#_canUse} - Early rejection (insufficient resources, wrong turn, etc.).
- *    - Action hooks: `canUse`
- *    - Actor hooks: `useAction`
- * 2. {@linkcode CrucibleAction#acquireTargets} - Populate `this.targets` from canvas targeting state.
- *    - Action hooks: `acquireTargets`
- * 3. `#configure()` - Allow hooks to customize the action based on acquired targets.
- *    - Action hooks: `configure`
- * 4. {@linkcode CrucibleAction#configureDialog} - Present the user with an {@link ActionUseDialog} (skippable).
- *    Targets are re-acquired strictly after the dialog closes.
- * 5. {@linkcode CrucibleAction#_preActivate} - Final validation with full target knowledge. May throw to abort.
+ * - {@linkcode CrucibleAction#_canUse} - Early rejection (insufficient resources, unmet tag requirements, etc.).
+ *    - Action hooks called: `canUse`
+ * - Actor hooks called: `useAction`
+ * - {@linkcode CrucibleAction#acquireTargets} - Populate `this.targets`
+ *    - Action hook called: `acquireTargets`
+ * - Action hooks called: `configure`
+ * - {@linkcode CrucibleAction#configureDialog} - Present the user with an {@link ActionUseDialog} (skippable).
+ *    - Targets are re-acquired strictly after the dialog closes.
+ *    - Action hooks called: `configure` (again, after target reacquisition)
+ * - {@linkcode CrucibleAction#_preActivate} - Final validation with full target knowledge. May throw to abort.
  *    - Action hooks: `preActivate`
  *    - Actor hooks: `preActivateAction`
- * 6. {@linkcode CrucibleAction#_roll} - Called once per target. This is where dice rolls happen and attack/spell/skill
- *    events are recorded to the event stream via {@linkcode CrucibleAction#recordEvent}.
- *    - Action hooks: `roll`
- *    - Actor hooks: `rollAction`
- * 7. `#recordSelfEvents()` - Record activation costs, actor updates, and summon events for the acting actor.
- * 8. `#recordEffectEvents()` - Attach ActiveEffect data to qualifying events or create standalone effect events.
- * 9. {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
- *    - Action hooks: `postActivate`
- * 10. `#finalizeEvents()` - Compute final resource deltas, status text, and critical effects.
- *     - Actor hooks: `finalizeAction`
- * 11. {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
- *     and create the message. The action is now persisted but not yet applied.
+ *    - {@linkcode CrucibleAction#_canUse} (and its corresponding action hooks) called again
+ * - {@linkcode CrucibleAction#_roll} - Called once per target. This is where dice rolls happen and attack/spell/skill
+ *    events are recorded.
+ *    - Action hooks called: `roll`
+ *    - Actor hooks called: `rollAction`
+ * - `CrucibleAction##recordSelfEvents` - Record activation costs, actor updates, and summon events for the actor
+ *   performing the event.
+ * - `CrucibleAction##recordEffectEvents` - Record ActiveEffect data to roll events which should result in effect
+ *   application, or as standalone "effect" events.
+ * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
+ *    - Action hooks called: : `postActivate`
+ * - `CrucibleAction##finalizeEvents` - Compute final resource deltas and critical flags.
+ * - Actor hooks called: `finalizeAction`
+ * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
+ *   and create the message. The action is now persisted but not yet applied.
  *
- * ### Phase 2: Confirmation ({@linkcode CrucibleAction#confirm})
- * After the ChatMessage is created, a GM (or the acting player, if auto-confirm is allowed) confirms the action.
+ * ### Phase 3: Confirmation ({@linkcode CrucibleAction#confirm})
+ * After the ChatMessage is created, a GM (or the acting player, if auto-confirm is enabled & the action targets only
+ * self) may confirm the action.
  * The action is reconstituted from the ChatMessage via {@linkcode CrucibleAction.fromChatMessage}, which deserializes
  * the event stream, targets, and linked documents. Then {@linkcode CrucibleAction#confirm} drives:
  *
- * 1. Action hooks: `confirm` - Custom confirmation logic (e.g., movement commitment, summon placement).
- *    Receives `reverse` boolean to support undo.
- * 2. Actor hooks: `confirmAction` - Called for every actor in the event stream (not just explicit targets).
- * 3. `#applyEvents()` - Walk the event stream and apply resource deltas, ActiveEffects, and actor updates
- *    to each target. When `reverse=true`, all deltas are inverted and effects are removed.
- * 4. `#recordHeroism()` - Award heroism for confirmed damage-dealing actions.
- *
- * This two-phase design means the event stream is fully determined before any database writes occur. The GM sees
- * exactly what will happen and can confirm or reverse it. The ChatMessage provides durable data storage that
- * communicates the action to all connected clients and allows it to be confirmed (or reversed) by a Gamemaster.
+ * - Action hooks called: `confirm`
+ *    - Receives `reverse` boolean to support undo.
+ * - Actor hooks called: `confirmAction` - Called for every actor (including self) in the event stream.
+ * - `CrucibleAction##applyEvents` - Walk the event stream and apply resource changes to each actor. When
+ *   `reverse=true`, all deltas are inverted and effects are removed. Actor updates are not automatically reversed
+ *   currently, as the "pre-action" state of affected fields is not recorded.
+ * - `CrucibleAction##recordHeroism` - Award heroism for confirmed damage-dealing actions.
  *
  * ## Guidance for Hook Authors
  * - Record events, do not mutate actor state directly. All resource changes, effects, and actor updates must be
- *   expressed as events via {@linkcode CrucibleAction#recordEvent}. Direct actor mutations during
- *   {@linkcode CrucibleAction#use} will be lost or double-applied.
- * - Use `roll` hooks to create attack/spell/check events. Call
- *   {@linkcode CrucibleActor#weaponAttack actor.weaponAttack()},
- *   {@linkcode CrucibleActor#spellAttack actor.spellAttack()},
- *   {@linkcode CrucibleActor#skillAttack actor.skillAttack()}, or
- *   {@linkcode CrucibleActor#receiveAttack actor.receiveAttack()} from within `roll` hooks. These methods handle
- *   roll data coalescing, hook dispatch, and event recording internally.
+ *   expressed as events via {@linkcode CrucibleAction#recordEvent}. Direct actor mutations within hooks will be lost
+ *   or double-applied.
+ * - Use `roll` hooks to create attack/spell/check events, if standard tags are insufficient. See existing `roll` hooks
+ *   in `const/action.mjs` for reference.
  * - Use `postActivate` hooks to inspect and modify the event stream after all rolls are complete. This is the
- *   right place to add bonus events, remove events, or stage effect deletions based on roll results.
+ *   right place to add, remove, or modify events based on action results.
  * - Use `confirm` hooks only for side effects that require the `reverse` parameter, such as committing or
  *   undoing movement. Most hooks belong in earlier lifecycle stages.
- * - Query the event stream via {@linkcode CrucibleAction#eventsByActor}, {@linkcode CrucibleAction#eventsByTarget},
- *   and {@linkcode CrucibleAction#selfEvents}. These provide cached, pre-classified views. Use
- *   {@link ActorEventGroup} properties like `isSuccess`, `isCriticalSuccess`, `hasRoll` to avoid manual iteration.
- * - Use intent-based getters on events ({@linkcode CrucibleActionEvent#isDamage},
- *   {@linkcode CrucibleActionEvent#isHealing}, {@linkcode CrucibleActionEvent#damagesHealth},
- *   {@linkcode CrucibleActionEvent#weaponItem}) rather than inspecting raw resource deltas or roll data. These
- *   getters correctly handle edge cases like zero-damage hits and restoration spells.
+ * - If examining the effects for a specific actor, use {@linkcode CrucibleAction#eventsByActor},
+ *   {@linkcode CrucibleAction#eventsByTarget}, or {@linkcode CrucibleAction#selfEvents}. These provide cached,
+ *   pre-classified views.
+ * - Use {@link ActorEventGroup} properties like `isSuccess`, `isCriticalSuccess`, `hasRoll` to avoid manual iteration.
+ * - Use getters like {@linkcode CrucibleActionEvent#isDamage} or {@linkcode CrucibleActionEvent#healsMorale} rather
+ *   than inspecting raw resource deltas or roll data. These getters correctly handle edge cases like zero-damage hits
+ *   and restoration spells.
+ * - Use {@linkcode CrucibleActionEvent#weaponItem} to get the weapon used, with pre-use values for stateful properties.
  *
  * ## Related References
- * - {@link SYSTEM.ACTION_HOOKS} - Defines the available action hook names, their argument signatures, and async flags.
- *   Actions, tags, and module hooks all contribute handlers keyed to these hook names.
+ * - {@link SYSTEM.ACTION_HOOKS} - Defines the available action hook names, their argument signatures, and whether they
+ *   are async. Tags and module hooks contribute handlers keyed to these hook names.
  * - {@link SYSTEM.ACTOR.HOOKS} - Defines the available actor hook names and their argument signatures. Actor hooks
- *   are called on every talent the actor has that registers a handler for the hook.
- * - `crucible.api.hooks` - The runtime registry where action hook handlers are defined, keyed by action or talent ID.
- *   This is the object that module authors extend to add custom hook behavior.
- * - {@link ActionUseDialog} - The dialog presented during step 4 of the execution phase. Brokers initial user
- *   interaction, target selection, and action configuration before execution proceeds.
+ *   are registered by module hook or affix, and are called passing the item for which they are registered.
+ * - `crucible.api.hooks` - The runtime registry where action hook handlers are defined, keyed by action/item
+ *   identifier or talent ID. This is the object that module authors extend to add custom hook behavior.
+ * - {@link ActionUseDialog} - The dialog presented during the "Usage" phase. Brokers target selection and action
+ *   configuration before execution proceeds.
  *
  * @mixes CrucibleActionData
  */
