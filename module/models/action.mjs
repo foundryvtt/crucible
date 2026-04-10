@@ -2262,6 +2262,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Play the effect
+    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | playVFXEffect`, {components: Object.keys(vfxEffect.components), references});
     return vfxEffect.play(references);
   }
 
@@ -2404,6 +2405,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return {actor: actor.uuid, token: t.token?.uuid ?? null};
     });
     actionData.vfxConfig = this.configureVFXEffect();
+    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | configureVFXEffect`, actionData.vfxConfig);
 
     // Collect rolls from the event stream and assign indices for serialization
     const rolls = [];
