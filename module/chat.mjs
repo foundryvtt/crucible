@@ -79,6 +79,22 @@ export function addChatMessageContextOptions(html, options) {
       return CrucibleAction.confirmMessage(message, {reverse: true});
     }
   });
+
+  // Replay VFX animation
+  options.push({
+    label: _loc("DICE.ReplayAnimation"),
+    icon: '<i class="fas fa-wand-magic-sparkles"></i>',
+    visible: li => {
+      const message = game.messages.get(li.dataset.messageId);
+      const flags = message.flags.crucible || {};
+      return flags.action && flags.confirmed && flags.vfxConfig;
+    },
+    onClick: (_e, li) => {
+      const messageId = li.dataset.messageId;
+      game.socket.emit("system.crucible", {action: "replayActionVFX", data: {messageId}});
+      _replayActionVFX(messageId);
+    }
+  });
   return options;
 }
 
@@ -101,4 +117,21 @@ export async function onKeyboardConfirmAction(context) {
     if ( action && !confirmed ) toConfirm.unshift(message);
   }
   if ( toConfirm.length ) return CrucibleAction.confirmMessage(toConfirm[0]);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Replay the VFX animation for a confirmed action ChatMessage on this client.
+ * @param {string} messageId     The ID of the ChatMessage
+ */
+function _replayActionVFX(messageId) {
+  if ( !game.settings.get("crucible", "enableVFX") ) return;
+  const message = game.messages.get(messageId);
+  if ( !message ) return;
+  const flags = message.flags.crucible || {};
+  if ( !flags.action || !flags.confirmed || !flags.vfxConfig ) return;
+  const action = CrucibleAction.fromChatMessage(message);
+  const {references, ...vfxConfig} = flags.vfxConfig;
+  action.playVFXEffect(vfxConfig, references);
 }
