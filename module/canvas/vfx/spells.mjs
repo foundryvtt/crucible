@@ -1,4 +1,5 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
+import {particleGenerator} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -211,7 +212,32 @@ function configureFanVFXEffect(action) {
       debug: {tint: {mode: "palette", palette: runeColors.primary}}
     }
   });
-  // timeline.push({component: "fanCascade", position: 0}); // Temporarily disabled for sweep testing
+  timeline.push({component: "fanCascade", position: 0});
+
+  // Layer 3 - Residue: slow-fading haze that lingers after the sweep and cascade.
+  // Spawns across the cone area with minimal velocity, giving a lingering afterimage.
+  components.fanResidue = particleGenerator({
+    blend: 1,
+    textures: textures.residue,
+    area: {x, y, radius: [sweepInnerRadius, Math.round(radius * 0.7)]},
+    count: null,
+    duration: CASCADE_DURATION,
+    lifetime: {min: 1500, max: 2500},
+    fade: {in: 200, out: 1200},
+    alpha: {min: 0.15, max: 0.3},
+    scale: {min: 0.8, max: 1.5},
+    initial: 0.0,
+    perFrame: 2,
+    elevation: particleElevation,
+    sort: 0,
+    pointSourceMask,
+    rotation: {initial: rotationRad, spread: Math.PI},
+    config: {
+      fanResidue: {originX: x, originY: y, rotationRad, halfAngleRad},
+      velocity: {speed: [1, 3], angle: [rotation - 180, rotation + 180]}
+    }
+  });
+  timeline.push({component: "fanResidue", position: 200});
 
   // Impact timing: fire when the sweeping arm crosses the target's angular position.
   // Normalize the target's bearing into the sweep arc and multiply by SWEEP_DURATION.
@@ -246,6 +272,7 @@ function finalizeFanVFXEffect(action, vfxEffect, references) {
     if ( component.type !== "particleGenerator" ) continue;
     if ( component.config?.fanSweep ) _finalizeFanSweep(component);
     if ( component.config?.fanCascade ) _finalizeFanCascade(component);
+    if ( component.config?.fanResidue ) _finalizeFanResidue(component);
   }
 }
 
@@ -331,6 +358,34 @@ function _finalizeFanCascade(component) {
       p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
     }
     p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onSpawn callback for the fan residue component.
+ * Reflects out-of-cone particles back into the cone.
+ * @param {object} component
+ */
+function _finalizeFanResidue(component) {
+  const {originX, originY, rotationRad, halfAngleRad} = component.config.fanResidue;
+
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator._bounds.x;
+    const sceneY = p.y + generator._bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+
+    let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
+    let delta = particleAngle - rotationRad;
+    while ( delta > Math.PI ) delta -= Math.PI * 2;
+    while ( delta < -Math.PI ) delta += Math.PI * 2;
+
+    if ( Math.abs(delta) > halfAngleRad ) {
+      particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
+      p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
+      p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+    }
   };
 }
 
@@ -603,29 +658,6 @@ function resolveSpellVFXContext(action) {
 
 /* -------------------------------------------- */
 
-/**
- * The fallback texture array used when no rune-specific art is available.
- * @type {string[]}
- */
-const FALLBACK_TEXTURES = ["#crucible.particle.white"];
-
-/**
- * Construct a particleGenerator component definition with spell-wide defaults applied.
- * All spell particle generators use additive blending (PIXI.BLEND_MODES.ADD). If the provided
- * overrides include a non-empty textures array (typically rune-specific art from the VFX
- * spritesheet), those textures are used; otherwise, the fallback white particle is applied.
- * @param {object} overrides   Component fields that override or extend the defaults.
- * @returns {object}
- */
-function particleGenerator(overrides) {
-  const textures = overrides.textures?.length ? overrides.textures : FALLBACK_TEXTURES;
-  return {
-    type: "particleGenerator",
-    blend: 1,
-    ...overrides,
-    textures
-  };
-}
 
 /* -------------------------------------------- */
 
