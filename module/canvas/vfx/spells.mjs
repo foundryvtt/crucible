@@ -117,10 +117,10 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
 /**
  * Configure the VFX for a Fan gesture composed spell.
  * The fan is animated as a sweeping arm that rotates across the cone from one edge to the other,
- * like a garden hose spraying perpendicular to its length as it sweeps. Each arm position is a
- * line-area generator spanning the cone's full radius; particles fly perpendicular to the arm in
- * the direction of the sweep, creating a wall of particles that fans outward. Arm positions are
- * staggered in time so the emission front sweeps continuously across the cone angle.
+ * A single generator emits streak particles from the cone origin. An onTick callback sweeps the
+ * emission direction across the cone arc over time, while onSpawn overrides each particle's velocity
+ * and rotation to follow the current arm angle. This replaces the earlier N-generator approach with
+ * a single animated emitter.
  * Particle color is determined by the spell's rune.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
@@ -138,60 +138,48 @@ function configureFanVFXEffect(action) {
   };
   const pointSourceMask = {reference: "wallMask"};
 
-  // PARTICLE_LIFETIME determines how long particles linger after the burst.
-  // PERP_SPEED is the primary velocity perpendicular to the arm (forward in the sweep direction).
-  // Particles spread outward from the arm line rather than radially from the origin.
-  const PARTICLE_LIFETIME = 1800;
-  const PERP_SPEED = 120;  // px/s perpendicular drift (forward spray from the arm)
-
-  // SWEEP_DURATION controls how long the arm takes to cross the full cone angle.
-  // SLICE_EMIT_DURATION is how long each arm position actively emits; kept short for a crisp burst.
-  // The visual sustain comes from the long particle lifetime, not from extended emission.
-  const SWEEP_DURATION = 400;  // ms for the arm to sweep from one edge of the cone to the other
-  const SLICE_EMIT_DURATION = 120;  // ms each arm position emits
-
-  // Divide the sweep into discrete arm positions. Each arm is a line spanning the cone radius,
-  // anchored at the cone origin and pointing outward at the arm's angle.
-  const N_SLICES = Math.max(5, Math.ceil(angle / 12));
-  const sliceDelay = (N_SLICES > 1) ? Math.round(SWEEP_DURATION / (N_SLICES - 1)) : 0;
+  const rotationRad = Math.toRadians(rotation);
+  const halfAngleRad = Math.toRadians(angle / 2);
+  const SWEEP_DURATION = 400;   // ms for the sweep to cross the full cone angle
+  const RADIAL_SPEED = 180;     // px/s outward from the cone origin
+  const STREAK_LIFETIME = 1200; // ms particle lifetime
 
   // Randomly choose sweep direction each cast: clockwise or counter-clockwise.
   const sweepCW = Math.random() > 0.5;
-  const startEdge = rotation + (sweepCW ? -(angle / 2) : (angle / 2));
-  const endEdge = rotation + (sweepCW ? (angle / 2) : -(angle / 2));
+  const startAngleRad = Math.toRadians(rotation + (sweepCW ? -(angle / 2) : (angle / 2)));
+  const endAngleRad = Math.toRadians(rotation + (sweepCW ? (angle / 2) : -(angle / 2)));
 
   const components = {};
   const timeline = [];
 
-  // Layer 1 - Primary streaks: emit from the cone origin, fly radially outward along each arm
-  // direction. Velocity follows the arm vector so streaks naturally point away from the caster.
-  const RADIAL_SPEED = 180;
-  for ( let i = 0; i < N_SLICES; i++ ) {
-    const t = (N_SLICES > 1) ? (i / (N_SLICES - 1)) : 0;
-    const armAngle = startEdge + (t * (endEdge - startEdge));
-    const armName = `fanArm_${i}`;
-    components[armName] = particleGenerator({
-      textures: textures.streak,
-      area: {x, y, radius: 8},
-      count: 12,
-      duration: SLICE_EMIT_DURATION,
-      lifetime: {min: Math.round(PARTICLE_LIFETIME * 0.4), max: Math.round(PARTICLE_LIFETIME * 0.7)},
-      fade: {in: 30, out: Math.round(PARTICLE_LIFETIME * 0.3)},
-      alpha: {min: 0.7, max: 1.0},
-      scale: {min: 0.75, max: 1.2},
-      initial: 0.9,
-      perFrame: 4,
-      elevation: particleElevation,
-      sort: 1,
-      pointSourceMask,
-      rotation: {alignVelocity: true, spread: 0.1},
-      config: {
-        velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [armAngle - 5, armAngle + 5]},
-        debug: {tint: {mode: "palette", palette: runeColors.primary}}
-      }
-    });
-    // timeline.push({component: armName, position: i * sliceDelay}); // Temporarily disabled
-  }
+  // Layer 1 - Sweep streaks: a single generator emitting in a ring around the cone origin.
+  // onTick sweeps the current arm angle across the cone. onSpawn reflects out-of-cone particles
+  // back in and overrides velocity to fly radially outward from the current arm direction.
+  const sweepInnerRadius = Math.round(action.token.getSize().width / 3);
+  const sweepOuterRadius = Math.round(sweepInnerRadius * 1.3);
+  components.fanSweep = particleGenerator({
+    textures: textures.streak,
+    area: {x, y, radius: [sweepInnerRadius, sweepOuterRadius]},
+    count: null,
+    duration: SWEEP_DURATION,
+    lifetime: {min: Math.round(STREAK_LIFETIME * 0.5), max: STREAK_LIFETIME},
+    fade: {in: 30, out: Math.round(STREAK_LIFETIME * 0.4)},
+    alpha: {min: 0.7, max: 1.0},
+    scale: {min: 0.75, max: 1.2},
+    initial: 0.0,
+    perFrame: 6,
+    elevation: particleElevation,
+    sort: 1,
+    pointSourceMask,
+    rotation: {alignVelocity: true, spread: 0.1},
+    config: {
+      fanSweep: {originX: x, originY: y, startAngleRad, endAngleRad, halfAngleRad,
+        rotationRad, duration: SWEEP_DURATION, radialSpeed: RADIAL_SPEED},
+      velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [rotation - 5, rotation + 5]},
+      debug: {tint: {mode: "palette", palette: runeColors.primary}}
+    }
+  });
+  timeline.push({component: "fanSweep", position: 0});
 
   // Layer 2 - Ground cascade: a single generator whose spawn ring expands outward over the sweep
   // duration via an onTick callback injected at play-time. Particles spawn in a full ring but are
@@ -201,7 +189,6 @@ function configureFanVFXEffect(action) {
   const tokenElevation = action.token?.elevation ?? 0;
   const tokenSort = action.token?.sort ?? 0;
   const impactTextures = getVFXTexturePaths(action.rune.id, "impact");
-  const rotationRad = Math.toRadians(rotation);
   components.fanCascade = particleGenerator({
     textures: impactTextures,
     area: {x, y, radius: [0, Math.round(radius * 0.17)]},
@@ -224,23 +211,21 @@ function configureFanVFXEffect(action) {
       debug: {tint: {mode: "palette", palette: runeColors.primary}}
     }
   });
-  timeline.push({component: "fanCascade", position: 0});
+  // timeline.push({component: "fanCascade", position: 0}); // Temporarily disabled for sweep testing
 
   // Impact timing: fire when the sweeping arm crosses the target's angular position.
-  // Normalize the target's bearing into the sweep arc [startEdge, endEdge] and multiply by
-  // SWEEP_DURATION. The normalization loop handles cases where atan2 and the sweep arc disagree
-  // on which 360-degree cycle the angle falls in.
-  const sweepRange = endEdge - startEdge;
+  // Normalize the target's bearing into the sweep arc and multiply by SWEEP_DURATION.
+  const sweepRangeRad = endAngleRad - startAngleRad;
   const gridSize = canvas.dimensions.size;
   const fanGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
     const cy = token.y + (token.height * gridSize / 2);
-    let bearing = Math.toDegrees(Math.atan2(cy - y, cx - x));
-    const lo = Math.min(startEdge, endEdge);
-    const hi = Math.max(startEdge, endEdge);
-    while ( bearing < lo ) bearing += 360;
-    while ( bearing > hi ) bearing -= 360;
-    const t = Math.clamp((bearing - startEdge) / sweepRange, 0, 1);
+    let bearing = Math.atan2(cy - y, cx - x);
+    const lo = Math.min(startAngleRad, endAngleRad);
+    const hi = Math.max(startAngleRad, endAngleRad);
+    while ( bearing < lo ) bearing += Math.PI * 2;
+    while ( bearing > hi ) bearing -= Math.PI * 2;
+    const t = Math.clamp((bearing - startAngleRad) / sweepRangeRad, 0, 1);
     return Math.round(t * SWEEP_DURATION);
   };
   addImpactComponents(action, components, timeline, references, fanGetImpactPosition, textures.impact);
@@ -250,8 +235,8 @@ function configureFanVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
- * Finalize the VFX for a Fan gesture at play-time. Injects onSpawn callbacks into cascade
- * components to reflect particles spawned outside the cone back into the cone's angular range.
+ * Finalize the VFX for a Fan gesture at play-time.
+ * Injects onTick/onSpawn callbacks into the sweep and cascade components.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
@@ -259,46 +244,94 @@ function configureFanVFXEffect(action) {
 function finalizeFanVFXEffect(action, vfxEffect, references) {
   for ( const component of Object.values(vfxEffect.components) ) {
     if ( component.type !== "particleGenerator" ) continue;
-    const cfg = component.config?.fanCascade;
-    if ( !cfg ) continue;
-    const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = cfg;
-    let elapsed = 0;
-
-    // Animate the spawn ring outward over the cascade duration
-    let lastLog = 0;
-    component.config.onTick = (dt, generator) => {
-      elapsed += dt;
-      const t = Math.clamp(elapsed / duration, 0, 1);
-      const ringWidth = maxRadius * 0.2;
-      const centerRadius = t * maxRadius;
-      const inner = Math.max(0, centerRadius - (ringWidth / 2));
-      const outer = centerRadius + (ringWidth / 2);
-      generator._spawnArea = {x: originX, y: originY, radius: [inner, outer]};
-      if ( CONFIG.debug.vfx && ((elapsed - lastLog) >= 100) ) {
-        lastLog = elapsed;
-        console.debug("fanCascade", {t: t.toFixed(2), alive: generator.particles.length, max: generator.adjustedMaxParticles, inner: Math.round(inner), outer: Math.round(outer)});
-      }
-    };
-
-    // Reflect out-of-cone particles and set rotation to point outward
-    component.config.onSpawn = (p, {generator}) => {
-      const sceneX = p.x + generator._bounds.x;
-      const sceneY = p.y + generator._bounds.y;
-      const dist = Math.hypot(sceneX - originX, sceneY - originY);
-
-      let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
-      let delta = particleAngle - rotationRad;
-      while ( delta > Math.PI ) delta -= Math.PI * 2;
-      while ( delta < -Math.PI ) delta += Math.PI * 2;
-
-      if ( Math.abs(delta) > halfAngleRad ) {
-        particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
-        p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
-        p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
-      }
-      p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
-    };
+    if ( component.config?.fanSweep ) _finalizeFanSweep(component);
+    if ( component.config?.fanCascade ) _finalizeFanCascade(component);
   }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick and onSpawn callbacks for the fan sweep streaks component.
+ * onTick tracks the current sweep angle. onSpawn reflects out-of-cone particles back in and
+ * overrides velocity to fly radially outward from the origin.
+ * @param {object} component
+ */
+function _finalizeFanSweep(component) {
+  const {originX, originY, startAngleRad, endAngleRad, halfAngleRad, rotationRad,
+    duration, radialSpeed} = component.config.fanSweep;
+  let elapsed = 0;
+  let currentAngleRad = startAngleRad;
+
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    const t = Math.clamp(elapsed / duration, 0, 1);
+    currentAngleRad = startAngleRad + (t * (endAngleRad - startAngleRad));
+    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
+      console.debug("fanSweep", {t: t.toFixed(2), angle: Math.toDegrees(currentAngleRad).toFixed(1), alive: generator.particles.length});
+    }
+  };
+
+  const ARM_SPREAD = 0.15; // radians, half-width of the sweep arm
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator._bounds.x;
+    const sceneY = p.y + generator._bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+
+    // Relocate the particle to a narrow arc around the current sweep arm angle
+    const particleAngle = currentAngleRad + ((Math.random() * 2 - 1) * ARM_SPREAD);
+    p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
+    p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+
+    // Override velocity to fly radially outward from origin
+    const speed = radialSpeed * (0.7 + (Math.random() * 0.6));
+    p.movementSpeed.x = Math.cos(particleAngle) * speed;
+    p.movementSpeed.y = Math.sin(particleAngle) * speed;
+    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.2);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick and onSpawn callbacks for the fan cascade component.
+ * onTick animates the spawn ring outward. onSpawn reflects out-of-cone particles back in.
+ * @param {object} component
+ */
+function _finalizeFanCascade(component) {
+  const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = component.config.fanCascade;
+  let elapsed = 0;
+
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    const t = Math.clamp(elapsed / duration, 0, 1);
+    const ringWidth = maxRadius * 0.2;
+    const centerRadius = t * maxRadius;
+    const inner = Math.max(0, centerRadius - (ringWidth / 2));
+    const outer = centerRadius + (ringWidth / 2);
+    generator._spawnArea = {x: originX, y: originY, radius: [inner, outer]};
+    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
+      console.debug("fanCascade", {t: t.toFixed(2), alive: generator.particles.length, inner: Math.round(inner), outer: Math.round(outer)});
+    }
+  };
+
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator._bounds.x;
+    const sceneY = p.y + generator._bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+
+    let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
+    let delta = particleAngle - rotationRad;
+    while ( delta > Math.PI ) delta -= Math.PI * 2;
+    while ( delta < -Math.PI ) delta += Math.PI * 2;
+
+    if ( Math.abs(delta) > halfAngleRad ) {
+      particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
+      p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
+      p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+    }
+    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+  };
 }
 
 /* -------------------------------------------- */

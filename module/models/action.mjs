@@ -338,7 +338,7 @@ class CrucibleActionEvent {
 
 /**
  * @typedef CrucibleActionUsageOptions
- * @property {CrucibleTokenObject} [token]  A specific Token which is performing the action
+ * @property {CrucibleToken} [token]  A specific Token which is performing the action
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
  * @property {string} [messageMode]         Which message visibility mode to apply to the resulting message?
  */

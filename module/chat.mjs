@@ -87,6 +87,7 @@ export function addChatMessageContextOptions(html, options) {
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
+      if ( !game.settings.get("crucible", "enableVFX") ) return false;
       return flags.action && flags.confirmed && flags.vfxConfig;
     },
     onClick: (_e, li) => {
