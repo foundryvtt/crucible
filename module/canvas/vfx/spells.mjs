@@ -1,5 +1,6 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
-import {particleGenerator, mergeAnimationBlocks, radialBurst, airResidue, groundResidue, implodeExplode} from "./animations.mjs";
+import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
+  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -485,12 +486,9 @@ function configureRayVFXEffect(action) {
 
 /**
  * Configure the VFX for a Blast gesture composed spell.
- * The blast is represented as three staggered radial particle waves that expand from the impact
- * point to the boundary of the circular region, conveying a rapid multi-step detonation. A slow
- * debris layer underlies the burst and lingers afterward as settling energy.
- * All wave generators are calibrated so that particles reach the blast perimeter just as their
- * fade-out begins, keeping them naturally contained within the region boundary.
- * Particle color is determined by the spell's rune.
+ * Dispatches to a blast variant based on the desired visual style. Currently uses falling debris
+ * (ice storm / hail) as the default. The implode-explode variant (crystal formation and detonation)
+ * is available via {@link _configureBlastImplodeExplode}.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
@@ -508,24 +506,37 @@ function configureBlastVFXEffect(action) {
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
-
-  // Compose animation blocks
   const coverageArea = action.region?.area;
   const shared = {elevation: particleElevation, pointSourceMask, coverageArea};
-  const EXPLODE_START = 1300; // implodeDuration(500) + holdDuration(800)
 
-  // Primary effect: implode-explode crystal
+  return _configureBlastFallingDebris(action, origin, radius, textures, references, shared);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Blast variant: implode-explode crystal. Particles converge inward, hold with shake, then
+ * explode outward. Ground cracks and air residue follow the explosion.
+ * @param {CrucibleSpellAction} action
+ * @param {{x: number, y: number}} origin
+ * @param {number} radius
+ * @param {object} textures
+ * @param {object} references
+ * @param {object} shared
+ * @returns {SpellVFXData}
+ */
+function _configureBlastImplodeExplode(action, origin, radius, textures, references, shared) {
+  const EXPLODE_START = 1300;
+
   const blastTextures = [...textures.projectile, ...textures.spray];
   const blast = implodeExplode.configure({prefix: "blast", origin, radius, textures: blastTextures,
-    position: 0, elevation: particleElevation});
+    position: 0, elevation: shared.elevation});
 
-  // Ground residue: impact cracks upon explosion
   const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
   const ground = groundResidue.configure({prefix: "blastGround", origin,
     radius: Math.round(radius * 0.7), textures: groundTextures,
     position: EXPLODE_START, ...shared});
 
-  // Air residue: lingering smoke after explosion
   const overheadTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
   const overhead = airResidue.configure({prefix: "blastOverhead", origin,
     radius: Math.round(radius * 1.2), textures: overheadTextures,
@@ -534,13 +545,12 @@ function configureBlastVFXEffect(action) {
   const result = mergeAnimationBlocks(blast, ground, overhead);
   Object.assign(result.references, references);
 
-  // Impact timing: fire when the explosion reaches the target
   const explodeSpeed = blast.components.blast.config.implodeExplode.explodeSpeed;
   const gridSize = canvas.dimensions.size;
   const blastGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
     const cy = token.y + (token.height * gridSize / 2);
-    const dist = Math.hypot(cx - x, cy - y);
+    const dist = Math.hypot(origin.x - cx, origin.y - cy);
     return EXPLODE_START + Math.round(dist / explodeSpeed * 1000);
   };
   addImpactComponents(action, result.components, result.timeline, result.references,
@@ -551,14 +561,94 @@ function configureBlastVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
+ * Blast variant: falling debris storm. Shards fall from overhead across the blast area,
+ * accumulating ground cracks and a fog/cloud layer.
+ * @param {CrucibleSpellAction} action
+ * @param {{x: number, y: number}} origin
+ * @param {number} radius
+ * @param {object} textures
+ * @param {object} references
+ * @param {object} shared
+ * @returns {SpellVFXData}
+ */
+function _configureBlastFallingDebris(action, origin, radius, textures, references, shared) {
+  const STORM_DURATION = 4000;
+
+  // Layer 1 - Falling shards
+  const shards = fallingDebris.configure({prefix: "fallingShards", origin, radius,
+    textures: textures.spray, duration: STORM_DURATION,
+    position: 0, ...shared});
+
+  // Layer 2 - Ground impacts: spawned in sync with falling debris landings via finalizer
+  const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
+  const ground = groundImpacts.configure({prefix: "blastGround", origin, radius,
+    textures: groundTextures, duration: STORM_DURATION + 2000,
+    position: 0, ...shared, elevation: 0});
+
+  // Layer 3 - Wintry blizzard haze
+  const cloudTextures = textures.residue.filter(t => t.includes("Snow"));
+  const clouds = airResidue.configure({prefix: "blastClouds", origin,
+    radius: Math.round(radius * 1.3), textures: cloudTextures,
+    duration: STORM_DURATION,
+    position: 0, ...shared, elevation: shared.elevation + 1});
+
+  const result = mergeAnimationBlocks(shards, ground, clouds);
+  Object.assign(result.references, references);
+
+  // Impact timing: stagger across the storm duration based on distance from center
+  const gridSize = canvas.dimensions.size;
+  const blastGetImpactPosition = token => {
+    const cx = token.x + (token.width * gridSize / 2);
+    const cy = token.y + (token.height * gridSize / 2);
+    const dist = Math.hypot(origin.x - cx, origin.y - cy);
+    const t = Math.clamp(dist / radius, 0, 1);
+    return Math.round(t * STORM_DURATION * 0.5);
+  };
+  addImpactComponents(action, result.components, result.timeline, result.references,
+    blastGetImpactPosition, textures.impact);
+  return result;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Finalize the VFX for a Blast gesture at play-time.
- * Delegates to the implodeExplode block to inject runtime callbacks.
+ * Delegates to animation block finalize hooks and injects falling debris callbacks.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
 function finalizeBlastVFXEffect(action, vfxEffect, references) {
   implodeExplode.finalize(vfxEffect, references);
+  fallingDebris.finalize(vfxEffect, references);
+
+  // Wire up synchronized ground impacts: when a falling shard lands, spawn an impact at its position
+  const debrisComp = vfxEffect.components.fallingShards;
+  const impactComp = vfxEffect.components.blastGround;
+  if ( debrisComp?.config?.fallingDebris && impactComp ) {
+    const shared = {impactGenerator: null};
+
+    // Capture the impacts generator reference on its first tick and switch to manual spawning
+    const originalImpactTick = impactComp.config.onTick;
+    impactComp.config.onTick = (dt, generator) => {
+      shared.impactGenerator = generator;
+      generator.manualSpawning = true;
+      impactComp.config.onTick = originalImpactTick || null;
+      if ( originalImpactTick ) originalImpactTick(dt, generator);
+    };
+
+    // Extend the debris onUpdate to spawn an impact when a shard lands
+    const originalDebrisUpdate = debrisComp.config.onUpdate;
+    debrisComp.config.onUpdate = (p, ctx) => {
+      const wasLanded = p._landed;
+      if ( originalDebrisUpdate ) originalDebrisUpdate(p, ctx);
+      if ( !wasLanded && p._landed && shared.impactGenerator ) {
+        const sceneX = p.x + ctx.generator.bounds.x;
+        const sceneY = p.y + ctx.generator.bounds.y;
+        shared.impactGenerator.spawnParticles(1, {position: {x: sceneX, y: sceneY}});
+      }
+    };
+  }
 }
 
 /* -------------------------------------------- */

@@ -253,6 +253,143 @@ export const groundResidue = {
 /* -------------------------------------------- */
 
 /**
+ * Discrete ground impact marks that pop in abruptly, simulating individual objects striking
+ * the ground. Each impact appears instantly at full opacity, holds briefly, then fades out.
+ * Spawned continuously over a duration to create a staccato pattern of hits.
+ * Uses NORMAL blend by default for solid, opaque marks.
+ * @type {VFXAnimationBlock}
+ */
+export const groundImpacts = {
+  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+    count, duration = 2500, lifetime = {min: 4000, max: 6000},
+    alpha = {min: 0.6, max: 0.9}, scale = {min: 0.6, max: 1.2},
+    perFrame, blend = PIXI.BLEND_MODES.NORMAL,
+    elevation = 0, sort = 0, pointSourceMask, position = 0} = {}) {
+    const scaled = _scaledParticleCounts({baseCount: 60, basePerFrame: 2, coverageArea, radius, density});
+    count ??= scaled.count;
+    perFrame ??= scaled.perFrame;
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius},
+      count,
+      duration,
+      lifetime,
+      fade: {in: 0, out: Math.round((lifetime.max || lifetime) * 0.5)},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      blend,
+      rotation: {spread: Math.PI},
+      config: {
+        velocity: {speed: [0, 0], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Debris particles that fall from overhead toward the ground in a top-down perspective.
+ * Each particle spawns large (close to camera) and shrinks as it falls, with a gradual
+ * darkening tint to reinforce depth. Upon landing, particles freeze in place and linger
+ * briefly before fading out. Suitable for hail, falling rocks, shattered crystal, etc.
+ * Has both `configure` (builds the generator) and `finalize` (injects scale/tint animation).
+ * @type {VFXAnimationBlock}
+ */
+export const fallingDebris = {
+  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+    count, duration = 2500, fallDuration = 350, stickDuration = 800,
+    startScale = 4.0, endScale = 1.0, darkening = 0.4,
+    alpha = {min: 0.7, max: 1.0}, scale = {min: 0.3, max: 0.6},
+    perFrame, elevation = 0, sort = 1, pointSourceMask, position = 0} = {}) {
+    const gridScale = getParticleScaleFactor();
+    const FADE_OUT = 600;
+    const scaled = _scaledParticleCounts({baseCount: 200, basePerFrame: 2, coverageArea, radius, density});
+    perFrame ??= Math.max(1, scaled.perFrame);
+    const particleLifetime = duration + FADE_OUT;
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius},
+      count: null,
+      duration,
+      lifetime: {min: particleLifetime - 100, max: particleLifetime + 100},
+      fade: {in: 30, out: FADE_OUT},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {spread: Math.PI},
+      config: {
+        fallingDebris: {fallDuration, startScale, endScale, darkening},
+        velocity: {speed: [10 * gridScale, 30 * gridScale], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.fallingDebris ) _finalizeFallingDebris(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onSpawn and onUpdate callbacks for falling debris particles.
+ * @param {object} component
+ */
+function _finalizeFallingDebris(component) {
+  const {fallDuration, startScale, endScale, darkening} = component.config.fallingDebris;
+
+  component.config.onSpawn = (p) => {
+    p._baseScale = p.scale.x;
+    p.scale.set(p._baseScale * startScale, p._baseScale * startScale);
+    p.tint = 0xFFFFFF;
+    p._landed = false;
+  };
+
+  component.config.onUpdate = (p) => {
+    if ( p._landed ) return;
+    if ( p.elapsedTime >= fallDuration ) {
+      p._landed = true;
+      p.movementSpeed.x = 0;
+      p.movementSpeed.y = 0;
+      p.scale.set(p._baseScale * endScale, p._baseScale * endScale);
+      const b = Math.round(255 * (1.0 - darkening));
+      p.tint = (b << 16) | (b << 8) | b;
+      return;
+    }
+    const t = Math.clamp(p.elapsedTime / fallDuration, 0, 1);
+    const s = p._baseScale * (startScale + (t * (endScale - startScale)));
+    p.scale.set(s, s);
+    const b = Math.round(255 * (1.0 - (t * darkening)));
+    p.tint = (b << 16) | (b << 8) | b;
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
  * A three-phase implosion-explosion effect using a single particle generator.
  * Phase 1 (Implode): particles spawn in a ring and converge inward toward a crystal ring.
  * Phase 2 (Hold): particles rest in the crystal ring while the container shakes with building energy.
@@ -277,7 +414,6 @@ export const implodeExplode = {
     const totalDuration = implodeDuration + holdDuration + explodeDuration;
     const scaled = _scaledParticleCounts({baseCount: 300, basePerFrame: 25, coverageArea, radius, density});
     count ??= Math.max(200, scaled.count);
-    console.debug("implodeExplode configure", {radius, count, perFrame: scaled.perFrame, scale, radiusScale: radiusScale.toFixed(2), coverageArea: Math.round(coverageArea ?? Math.PI * radius * radius)});
     const component = particleGenerator({
       textures,
       area: {x: origin.x, y: origin.y, radius: [Math.round(spawnRadius * 0.7), spawnRadius]},
