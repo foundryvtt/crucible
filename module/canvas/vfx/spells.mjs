@@ -1,5 +1,5 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
-import {particleGenerator} from "./animations.mjs";
+import {particleGenerator, mergeAnimationBlocks, radialBurst, airResidue, groundResidue} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -132,7 +132,7 @@ function configureFanVFXEffect(action) {
 
   const {x, y, radius, angle, rotation} = shape;
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
-  const MASK_RADIUS_FACTOR = 1.25;
+  const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
@@ -176,8 +176,7 @@ function configureFanVFXEffect(action) {
     config: {
       fanSweep: {originX: x, originY: y, startAngleRad, endAngleRad, halfAngleRad,
         rotationRad, duration: SWEEP_DURATION, radialSpeed: RADIAL_SPEED},
-      velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [rotation - 5, rotation + 5]},
-      debug: {tint: {mode: "palette", palette: runeColors.primary}}
+      velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [rotation - 5, rotation + 5]}
     }
   });
   timeline.push({component: "fanSweep", position: 0});
@@ -208,8 +207,7 @@ function configureFanVFXEffect(action) {
     config: {
       fanCascade: {originX: x, originY: y, rotationRad, halfAngleRad: Math.toRadians(angle / 2),
         maxRadius: Math.round(radius * 0.85), duration: CASCADE_DURATION},
-      velocity: {speed: [2, 5], angle: [rotation - 1, rotation + 1]},
-      debug: {tint: {mode: "palette", palette: runeColors.primary}}
+      velocity: {speed: [2, 5], angle: [rotation - 1, rotation + 1]}
     }
   });
   timeline.push({component: "fanCascade", position: 0});
@@ -405,7 +403,7 @@ function configureRayVFXEffect(action) {
 
   const {x, y, length, width, rotation} = shape;
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
-  const MASK_RADIUS_FACTOR = 1.25;
+  const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
     wallMask: {x, y, type: "move", radius: Math.round(length * MASK_RADIUS_FACTOR)}
@@ -438,8 +436,7 @@ function configureRayVFXEffect(action) {
       pointSourceMask,
       config: {
         velocity: {speed: [BEAM_SPEED * 0.9, BEAM_SPEED * 1.1], angle: [rotation - 2, rotation + 2]},
-        alignRotation: {jitter: 0.15},
-        debug: {tint: {mode: "palette", palette: runeColors.primary}}
+        alignRotation: {jitter: 0.15}
       }
     }),
     raySpillage: particleGenerator({
@@ -458,8 +455,7 @@ function configureRayVFXEffect(action) {
       pointSourceMask,
       config: {
         velocity: {speed: [BEAM_SPEED * 0.1, BEAM_SPEED * 0.4], angle: [rotation - 35, rotation + 35]},
-        drift: {enabled: true, intensity: 0.3},
-        debug: {tint: {mode: "palette", palette: runeColors.secondary}}
+        drift: {enabled: true, intensity: 0.3}
       }
     })
   };
@@ -500,125 +496,47 @@ function configureBlastVFXEffect(action) {
   if ( !shape || (shape.type !== "circle") ) return null;
 
   const {x, y, radius} = shape;
+  const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
 
-  // Clip particles to wall-occluded area from the blast origin. The mask radius is intentionally
-  // larger than the blast radius so particles that naturally reach the perimeter are not clipped,
-  // while particles that would penetrate walls are cut off.
-  const MASK_RADIUS_FACTOR = 1.25;
+  const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
 
-  // Each wave is calibrated so its fastest particles reach the blast perimeter just as fade-out
-  // begins. visibleFraction is the proportion of lifetime before fade-out starts.
-  // maxSpeed = radius / visibleTime (in px/s), ensuring natural containment within the circle.
+  // Wave speed calibration: fastest particles reach the blast perimeter just as fade-out begins.
   const WAVE1_LIFETIME = 500;
   const WAVE1_VISIBLE = 0.55;
   const wave1Speed = Math.round(radius * 1000 / (WAVE1_LIFETIME * WAVE1_VISIBLE));
-
-  // Wave 2 is calibrated to reach ~85% of the radius, staying visually behind wave 1.
   const WAVE2_LIFETIME = 700;
   const WAVE2_VISIBLE = 0.5;
   const wave2Speed = Math.round(radius * 0.85 * 1000 / (WAVE2_LIFETIME * WAVE2_VISIBLE));
 
-  const components = {
-    // Impact flash: a brief radial burst at the origin that precedes the expansion waves.
-    blastFlash: particleGenerator({
-      textures: textures.spray,
-      area: {x, y, radius: 6},
-      count: 300,
-      duration: 50,
-      lifetime: {min: 140, max: 200},
-      fade: {in: 10, out: 130},
-      alpha: {min: 0.7, max: 1.0},
-      scale: {min: 0.3, max: 0.7},
-      initial: 1.0,
-      perFrame: 25,
-      elevation: particleElevation,
-      sort: 2,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [100, 280], angle: [0, 360]},
-        debug: {tint: {mode: "palette", palette: runeColors.primary}}
-      }
-    }),
-    // Wave 1: fast tight ring that expands to the blast perimeter.
-    blastWave1: particleGenerator({
-      textures: textures.spray,
-      area: {x, y, radius: 5},
-      count: 800,
-      duration: 80,
-      lifetime: {min: Math.round(WAVE1_LIFETIME * 0.85), max: WAVE1_LIFETIME},
-      fade: {in: 20, out: Math.round(WAVE1_LIFETIME * (1 - WAVE1_VISIBLE))},
-      alpha: {min: 0.55, max: 1.0},
-      scale: {min: 0.4, max: 1.0},
-      initial: 1.0,
-      perFrame: 40,
-      elevation: particleElevation,
-      sort: 1,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [wave1Speed * 0.88, wave1Speed * 1.12], angle: [0, 360]},
-        debug: {tint: {mode: "palette", palette: runeColors.primary}}
-      }
-    }),
-    // Wave 2: slower echo that trails behind, adding depth and the cascading multi-step feel.
-    blastWave2: particleGenerator({
-      textures: textures.spray,
-      area: {x, y, radius: 8},
-      count: 500,
-      duration: 100,
-      lifetime: {min: Math.round(WAVE2_LIFETIME * 0.85), max: WAVE2_LIFETIME},
-      fade: {in: 30, out: Math.round(WAVE2_LIFETIME * (1 - WAVE2_VISIBLE))},
-      alpha: {min: 0.3, max: 0.75},
-      scale: {min: 0.5, max: 1.3},
-      initial: 0.9,
-      perFrame: 25,
-      elevation: particleElevation,
-      sort: 1,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [wave2Speed * 0.8, wave2Speed * 1.2], angle: [0, 360]},
-        drift: {enabled: true, intensity: 0.2},
-        debug: {tint: {mode: "palette", palette: runeColors.primary}}
-      }
-    }),
-    // Debris: slow drifting haze seeded across the blast area that outlasts the expansion waves.
-    blastDebris: particleGenerator({
-      textures: textures.residue,
-      area: {x, y, radius: Math.round(radius * 0.3)},
-      count: 100,
-      duration: 200,
-      lifetime: {min: 2000, max: 2800},
-      fade: {in: 150, out: 1800},
-      alpha: {min: 0.05, max: 0.18},
-      scale: {min: 1.0, max: 2.5},
-      initial: 0.3,
-      perFrame: 6,
-      elevation: particleElevation,
-      sort: 0,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [12, 55], angle: [0, 360]},
-        drift: {enabled: true, intensity: 0.5},
-        debug: {tint: {mode: "palette", palette: runeColors.residue}}
-      }
-    })
-  };
+  // Compose animation blocks
+  const shared = {elevation: particleElevation, pointSourceMask};
+  const spawnRadius = Math.round(radius * 0.25);
+  const wave1 = radialBurst.configure({prefix: "blastWave1", origin, count: 800, speed: wave1Speed,
+    duration: 80, lifetime: WAVE1_LIFETIME, visibleFraction: WAVE1_VISIBLE, textures: textures.spray,
+    spawnRadius, position: 0, ...shared});
+  const wave2 = radialBurst.configure({prefix: "blastWave2", origin, count: 500, speed: wave2Speed,
+    duration: 100, lifetime: WAVE2_LIFETIME, visibleFraction: WAVE2_VISIBLE, textures: textures.spray,
+    initial: 0.9, spawnRadius, position: 140,
+    drift: {enabled: true, intensity: 0.2}, ...shared});
+  const overheadTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
+  const overhead = airResidue.configure({prefix: "blastOverhead", origin,
+    radius: Math.round(radius * 1.2), textures: overheadTextures,
+    position: 0, ...shared});
+  const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
+  const ground = groundResidue.configure({prefix: "blastGround", origin,
+    radius: Math.round(radius * 0.7), textures: groundTextures,
+    position: 0, ...shared});
 
-  const timeline = [
-    {component: "blastFlash", position: 0},
-    {component: "blastDebris", position: 0},
-    {component: "blastWave1", position: 60},
-    {component: "blastWave2", position: 200}
-  ];
+  const result = mergeAnimationBlocks(wave1, wave2, overhead, ground);
+  Object.assign(result.references, references);
 
-  // Impact timing: fire when wave 1 arrives at the target. wave1Speed is in px/s so
-  // distance / wave1Speed * 1000 converts to ms. The 60ms wave1 timeline offset is added so
-  // the impact coincides with the expansion front rather than the detonation point.
+  // Impact timing: fire when wave 1 arrives at the target.
   const gridSize = canvas.dimensions.size;
   const blastGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
@@ -626,8 +544,9 @@ function configureBlastVFXEffect(action) {
     const dist = Math.hypot(cx - x, cy - y);
     return 60 + Math.round(dist / wave1Speed * 1000);
   };
-  addImpactComponents(action, components, timeline, references, blastGetImpactPosition, textures.impact);
-  return {components, timeline, references};
+  addImpactComponents(action, result.components, result.timeline, result.references,
+    blastGetImpactPosition, textures.impact);
+  return result;
 }
 
 /* -------------------------------------------- */
