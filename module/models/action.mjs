@@ -2256,7 +2256,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Pass 3 - delegate to tag-defined finalizeVFX hooks for action-specific reference resolution
+    // Pass 3 - delegate to tag-defined resolveVFX hooks for computing reference values
+    for ( const test of this._tests() ) {
+      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
+    }
+
+    // Resolve VFXReferenceField values using the now-complete references map
+    vfxEffect.resolveReferences(references);
+
+    // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
+    // References are frozen to enforce the contract that finalizeVFX must not modify them.
+    Object.freeze(references);
     for ( const test of this._tests() ) {
       if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
     }

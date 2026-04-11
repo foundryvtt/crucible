@@ -76,7 +76,14 @@ export function configureSpellVFXEffect(action, vfxConfig) {
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect  The constructed VFXEffect instance.
  * @param {Record<string, any>} references           The references map, modified in place.
  */
-export function finalizeSpellVFXEffect(action, vfxEffect, references) {
+/**
+ * Resolve spell VFX references before VFXReferenceField resolution. Computes reference values
+ * that components depend on, such as the shared wall mask polygon.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+export function resolveSpellVFXReferences(action, vfxEffect, references) {
 
   // Pre-compute a shared PointSourcePolygon for wall masking. Components reference this by name
   // via pointSourceMask: {reference: "wallMask"} to avoid redundant polygon computation.
@@ -85,7 +92,20 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
     references.wallMask = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
   }
 
-  // Delegate to gesture-specific finalizer
+  // Delegate to gesture-specific resolver
+  const hooks = SPELL_VFX_GESTURES[action.gesture.id];
+  if ( hooks?.resolve ) hooks.resolve(action, vfxEffect, references);
+}
+
+/**
+ * Apply play-time finalization to a composed spell VFXEffect immediately before playback.
+ * Dispatches to gesture-specific finalizers for injecting runtime callbacks.
+ * References are frozen at this point and must not be modified.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+export function finalizeSpellVFXEffect(action, vfxEffect, references) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.finalize ) hooks.finalize(action, vfxEffect, references);
 }
@@ -143,98 +163,68 @@ function configureFanVFXEffect(action) {
   const components = {};
   const timeline = [];
 
+  // Layer 1 - Primary streaks: emit from the cone origin, fly radially outward along each arm
+  // direction. Velocity follows the arm vector so streaks naturally point away from the caster.
+  const RADIAL_SPEED = 180;
   for ( let i = 0; i < N_SLICES; i++ ) {
     const t = (N_SLICES > 1) ? (i / (N_SLICES - 1)) : 0;
     const armAngle = startEdge + (t * (endEdge - startEdge));
-    const armRad = Math.toRadians(armAngle);
-
-    // The arm is a line from the cone origin to the far edge at this angular position.
-    const armEnd = {
-      x: x + (Math.cos(armRad) * radius),
-      y: y + (Math.sin(armRad) * radius)
-    };
-
-    // Particles spray perpendicular to the arm, in the direction the arm is moving into.
-    // For a CW sweep, the arm moves from left to right (positive angle), so the perpendicular
-    // forward direction is 90 degrees clockwise from the arm (armAngle + 90).
-    const perpAngle = armAngle + (sweepCW ? 90 : -90);
-
-    const beamName = `fanArm_${i}`;
-    const spillName = `fanSpill_${i}`;
-
-    // Primary beam: tight perpendicular spray along the arm line.
-    components[beamName] = particleGenerator({
-      textures: textures.spray,
-      area: {from: {x, y}, to: armEnd},
-      count: 200,
+    const armName = `fanArm_${i}`;
+    components[armName] = particleGenerator({
+      textures: textures.streak,
+      area: {x, y, radius: 8},
+      count: 12,
       duration: SLICE_EMIT_DURATION,
-      lifetime: {min: Math.round(PARTICLE_LIFETIME * 0.75), max: PARTICLE_LIFETIME},
-      fade: {in: 40, out: Math.round(PARTICLE_LIFETIME * 0.45)},
-      alpha: {min: 0.5, max: 1.0},
-      scale: {min: 0.4, max: 1.0},
+      lifetime: {min: Math.round(PARTICLE_LIFETIME * 0.4), max: Math.round(PARTICLE_LIFETIME * 0.7)},
+      fade: {in: 30, out: Math.round(PARTICLE_LIFETIME * 0.3)},
+      alpha: {min: 0.7, max: 1.0},
+      scale: {min: 0.75, max: 1.2},
       initial: 0.9,
-      perFrame: 18,
+      perFrame: 4,
       elevation: particleElevation,
       sort: 1,
       pointSourceMask,
+      rotation: {alignVelocity: true, spread: 0.1},
       config: {
-        velocity: {speed: [PERP_SPEED * 0.6, PERP_SPEED * 1.4], angle: [perpAngle - 10, perpAngle + 10]},
+        velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [armAngle - 5, armAngle + 5]},
         debug: {tint: {mode: "palette", palette: runeColors.primary}}
       }
     });
-
-    // Spillage halo: wider angular spread, more drift, lower opacity - cascades off the arm edges.
-    components[spillName] = particleGenerator({
-      textures: textures.spray,
-      area: {from: {x, y}, to: armEnd},
-      count: 80,
-      duration: SLICE_EMIT_DURATION,
-      lifetime: {min: Math.round(PARTICLE_LIFETIME * 0.35), max: Math.round(PARTICLE_LIFETIME * 0.6)},
-      fade: {in: 20, out: Math.round(PARTICLE_LIFETIME * 0.3)},
-      alpha: {min: 0.15, max: 0.45},
-      scale: {min: 0.2, max: 0.55},
-      initial: 0.5,
-      perFrame: 8,
-      elevation: particleElevation,
-      sort: 0,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [PERP_SPEED * 0.2, PERP_SPEED * 2.0], angle: [perpAngle - 40, perpAngle + 40]},
-        drift: {enabled: true, intensity: 0.35},
-        debug: {tint: {mode: "palette", palette: runeColors.secondary}}
-      }
-    });
-
-    timeline.push({component: beamName, position: i * sliceDelay});
-    timeline.push({component: spillName, position: i * sliceDelay});
+    // timeline.push({component: armName, position: i * sliceDelay}); // Temporarily disabled
   }
 
-  // Afterimage: a slow-moving haze that accumulates across the cone during the sweep and then
-  // lingers long after the arm particles have faded. Particles are emitted for the full sweep
-  // window so they build up across the whole cone area, then drift lazily and dissolve over
-  // several seconds, reading as a residual glow burned into the air.
-  const AFTERIMAGE_LIFETIME = PARTICLE_LIFETIME * 3;
-  components.fanAfterimage = particleGenerator({
-    textures: textures.residue,
-    area: {x, y, radius: Math.round(radius * 0.6)},
-    count: 120,
-    duration: SWEEP_DURATION + SLICE_EMIT_DURATION,
-    lifetime: {min: Math.round(AFTERIMAGE_LIFETIME * 0.75), max: AFTERIMAGE_LIFETIME},
-    fade: {in: Math.round(AFTERIMAGE_LIFETIME * 0.1), out: Math.round(AFTERIMAGE_LIFETIME * 0.65)},
-    alpha: {min: 0.04, max: 0.14},
-    scale: {min: 1.2, max: 2.8},
-    initial: 0.6,
-    perFrame: 5,
-    elevation: particleElevation,
-    sort: 0,
+  // Layer 2 - Ground cascade: a single generator whose spawn ring expands outward over the sweep
+  // duration via an onTick callback injected at play-time. Particles spawn in a full ring but are
+  // reflected into the cone by an onSpawn callback. Both callbacks are injected by finalizeFanVFXEffect.
+  const CASCADE_LIFETIME = 1400;
+  const CASCADE_DURATION = 1000;
+  const tokenElevation = action.token?.elevation ?? 0;
+  const tokenSort = action.token?.sort ?? 0;
+  const impactTextures = getVFXTexturePaths(action.rune.id, "impact");
+  const rotationRad = Math.toRadians(rotation);
+  components.fanCascade = particleGenerator({
+    textures: impactTextures,
+    area: {x, y, radius: [0, Math.round(radius * 0.17)]},
+    count: null,
+    duration: CASCADE_DURATION,
+    lifetime: {min: 400, max: 700},
+    fade: {in: 20, out: 400},
+    alpha: {min: 0.5, max: 0.8},
+    scale: {min: 0.8, max: 1.2},
+    initial: 0.0,
+    perFrame: 4,
+    elevation: tokenElevation,
+    sort: tokenSort - 1,
     pointSourceMask,
+    rotation: {initial: rotationRad, spread: 0.2},
     config: {
-      velocity: {speed: [25, 60], angle: [rotation - (angle / 2), rotation + (angle / 2)]},
-      drift: {enabled: true, intensity: 0.6},
-      debug: {tint: {mode: "palette", palette: runeColors.residue}}
+      fanCascade: {originX: x, originY: y, rotationRad, halfAngleRad: Math.toRadians(angle / 2),
+        maxRadius: Math.round(radius * 0.85), duration: CASCADE_DURATION},
+      velocity: {speed: [2, 5], angle: [rotation - 1, rotation + 1]},
+      debug: {tint: {mode: "palette", palette: runeColors.primary}}
     }
   });
-  timeline.push({component: "fanAfterimage", position: 0});
+  timeline.push({component: "fanCascade", position: 0});
 
   // Impact timing: fire when the sweeping arm crosses the target's angular position.
   // Normalize the target's bearing into the sweep arc [startEdge, endEdge] and multiply by
@@ -255,6 +245,60 @@ function configureFanVFXEffect(action) {
   };
   addImpactComponents(action, components, timeline, references, fanGetImpactPosition, textures.impact);
   return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Finalize the VFX for a Fan gesture at play-time. Injects onSpawn callbacks into cascade
+ * components to reflect particles spawned outside the cone back into the cone's angular range.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+function finalizeFanVFXEffect(action, vfxEffect, references) {
+  for ( const component of Object.values(vfxEffect.components) ) {
+    if ( component.type !== "particleGenerator" ) continue;
+    const cfg = component.config?.fanCascade;
+    if ( !cfg ) continue;
+    const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = cfg;
+    let elapsed = 0;
+
+    // Animate the spawn ring outward over the cascade duration
+    let lastLog = 0;
+    component.config.onTick = (dt, generator) => {
+      elapsed += dt;
+      const t = Math.clamp(elapsed / duration, 0, 1);
+      const ringWidth = maxRadius * 0.2;
+      const centerRadius = t * maxRadius;
+      const inner = Math.max(0, centerRadius - (ringWidth / 2));
+      const outer = centerRadius + (ringWidth / 2);
+      generator._spawnArea = {x: originX, y: originY, radius: [inner, outer]};
+      if ( CONFIG.debug.vfx && ((elapsed - lastLog) >= 100) ) {
+        lastLog = elapsed;
+        console.debug("fanCascade", {t: t.toFixed(2), alive: generator.particles.length, max: generator.adjustedMaxParticles, inner: Math.round(inner), outer: Math.round(outer)});
+      }
+    };
+
+    // Reflect out-of-cone particles and set rotation to point outward
+    component.config.onSpawn = (p, {generator}) => {
+      const sceneX = p.x + generator._bounds.x;
+      const sceneY = p.y + generator._bounds.y;
+      const dist = Math.hypot(sceneX - originX, sceneY - originY);
+
+      let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
+      let delta = particleAngle - rotationRad;
+      while ( delta > Math.PI ) delta -= Math.PI * 2;
+      while ( delta < -Math.PI ) delta += Math.PI * 2;
+
+      if ( Math.abs(delta) > halfAngleRad ) {
+        particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
+        p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
+        p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+      }
+      p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+    };
+  }
 }
 
 /* -------------------------------------------- */
@@ -704,10 +748,12 @@ const RUNE_COLORS = {
 
 /**
  * A registry of gesture-specific VFX hooks, keyed by gesture ID.
- * Each entry may define a `configure` function (called at configure-time to produce the serializable
- * VFXEffect config) and/or a `finalize` function (called at play-time to apply runtime behaviors).
- * A `null` configure explicitly suppresses VFX; an absent configure defers to existing config.
- * @type {Record<string, {configure?: SpellVFXGestureConfigurator, finalize?: function}>}
+ * Each entry may define:
+ * - `configure` - called at configure-time to produce the serializable VFXEffect config.
+ *    `null` explicitly suppresses VFX; absent defers to existing config.
+ * - `resolve` - called at play-time to compute reference values before VFXReferenceField resolution.
+ * - `finalize` - called at play-time after resolution to inject runtime callbacks.
+ * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function, finalize?: function}>}
  */
 const SPELL_VFX_GESTURES = {
   arrow: {},
@@ -717,7 +763,7 @@ const SPELL_VFX_GESTURES = {
   cone: {},
   conjure: {},
   create: {},
-  fan: {configure: configureFanVFXEffect},
+  fan: {configure: configureFanVFXEffect, finalize: finalizeFanVFXEffect},
   influence: {},
   pulse: {},
   ray: {configure: configureRayVFXEffect},
