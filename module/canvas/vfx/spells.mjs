@@ -1,7 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
 import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
-  coneSweepEmitter, expandingCascade, airResidue, groundResidue, groundImpacts,
-  implodeExplode, fallingDebris} from "./animations.mjs";
+  rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
+  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -217,81 +217,70 @@ function configureRayVFXEffect(action) {
   if ( !shape || (shape.type !== "line") ) return null;
 
   const {x, y, length, width, rotation} = shape;
+  const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
-
     wallMask: {x, y, type: "move", radius: Math.round(length * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
-
-  // Derive beam traversal time from the ray length and a fixed speed.
-  // Particles are seeded at full count immediately (initial: 1.0) so the beam appears
-  // instantly at full length, then is continuously replenished until the generator stops.
-  const BEAM_SPEED = 2500;  // pixels per second along the ray axis
-  const beamLifetime = Math.max(300, Math.round(length / BEAM_SPEED * 1000));
-  const BEAM_DURATION = 3500;  // ms the generator actively emits before soft-stopping
-
+  const beamElevation = (action.token?.elevation ?? 0) + 1;
+  const shared = {elevation: beamElevation, pointSourceMask};
   const spawnRadius = Math.max(8, width / 2);
+  const BEAM_SPEED = 2500;
+  const CASCADE_DURATION = 2000;
+  const BEAM_DURATION = CASCADE_DURATION + 500;
 
-  const components = {
-    rayBeam: particleGenerator({
-      textures: textures.streak,
-      area: {x, y, radius: spawnRadius},
-      count: 600,
-      duration: BEAM_DURATION,
-      lifetime: {min: Math.round(beamLifetime * 0.85), max: beamLifetime},
-      fade: {in: 30, out: 150},
-      alpha: {min: 0.5, max: 0.9},
-      scale: {min: 0.5, max: 1.1},
-      initial: 1.0,
-      perFrame: 20,
-      elevation: particleElevation,
-      sort: 1,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [BEAM_SPEED * 0.9, BEAM_SPEED * 1.1], angle: [rotation - 2, rotation + 2]},
-        alignRotation: {jitter: 0.15}
-      }
-    }),
-    raySpillage: particleGenerator({
-      textures: textures.spray,
-      area: {x, y, radius: Math.round(spawnRadius * 1.3)},
-      count: 150,
-      duration: BEAM_DURATION,
-      lifetime: {min: Math.round(beamLifetime * 0.2), max: Math.round(beamLifetime * 0.4)},
-      fade: {in: 0, out: 100},
-      alpha: {min: 0.2, max: 0.6},
-      scale: {min: 0.2, max: 0.5},
-      initial: 0.4,
-      perFrame: 10,
-      elevation: particleElevation,
-      sort: 0,
-      pointSourceMask,
-      config: {
-        velocity: {speed: [BEAM_SPEED * 0.1, BEAM_SPEED * 0.4], angle: [rotation - 35, rotation + 35]},
-        drift: {enabled: true, intensity: 0.3}
-      }
-    })
-  };
+  // Offset the beam origin slightly in front of the caster
+  const tokenRadius = action.token.getSize().width / 2;
+  const rotRad = Math.toRadians(rotation);
+  const beamOffset = Math.round(tokenRadius / 3);
+  const beamOrigin = {x: x + (Math.cos(rotRad) * beamOffset), y: y + (Math.sin(rotRad) * beamOffset)};
+  const beamLength = length - beamOffset;
 
-  const timeline = [
-    {component: "rayBeam", position: 0},
-    {component: "raySpillage", position: 0}
-  ];
+  const beam = rayBeam.configure({prefix: "rayBeam", origin: beamOrigin, rotation, length: beamLength,
+    textures: textures.streak, spawnRadius, speed: BEAM_SPEED,
+    duration: BEAM_DURATION, blend: PIXI.BLEND_MODES.ADD, position: 0, ...shared});
+  const spillage = castoffFlare.configure({prefix: "castoffFlare", origin: beamOrigin, rotation, length: beamLength,
+    textures: textures.spray, spawnRadius, speed: BEAM_SPEED,
+    duration: BEAM_DURATION, blend: PIXI.BLEND_MODES.ADD, position: 0, ...shared});
 
-  // Impact timing: fire when the beam front arrives at the target. BEAM_SPEED is in px/s so
-  // distance / BEAM_SPEED * 1000 converts to ms.
+  // Ground cascade: impact particles marching along the ray path
+  const cascadeTextures = getVFXTexturePaths(action.rune.id, "impact");
+  const cascade = linearCascade.configure({prefix: "rayCascade", origin, rotation, length,
+    textures: cascadeTextures, width: width * 0.8, duration: CASCADE_DURATION,
+    elevation: 0, position: 0, pointSourceMask: shared.pointSourceMask});
+
+  const result = mergeAnimationBlocks(beam, spillage, cascade);
+  Object.assign(result.references, references);
+
+  // Impact timing: fire when the beam front arrives at the target.
+  const gridScale = getParticleScaleFactor();
+  const beamSpeed = BEAM_SPEED * gridScale;
   const gridSize = canvas.dimensions.size;
   const rayGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
     const cy = token.y + (token.height * gridSize / 2);
     const dist = Math.hypot(cx - x, cy - y);
-    return Math.round(dist / BEAM_SPEED * 1000);
+    return Math.round(dist / beamSpeed * 1000);
   };
-  addImpactComponents(action, components, timeline, references, rayGetImpactPosition, textures.impact, {x, y});
-  return {components, timeline, references};
+  addImpactComponents(action, result.components, result.timeline, result.references,
+    rayGetImpactPosition, textures.impact, origin);
+  return result;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Finalize the VFX for a Ray gesture at play-time.
+ * Delegates to the linearCascade block to inject marching spawn callbacks.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+function finalizeRayVFXEffect(action, vfxEffect, references) {
+  linearCascade.finalize(vfxEffect, references);
 }
 
 /* -------------------------------------------- */
@@ -666,7 +655,7 @@ const SPELL_VFX_GESTURES = {
   fan: {configure: configureFanVFXEffect, finalize: finalizeFanVFXEffect},
   influence: {},
   pulse: {},
-  ray: {configure: configureRayVFXEffect},
+  ray: {configure: configureRayVFXEffect, finalize: finalizeRayVFXEffect},
   sense: {},
   step: {},
   strike: {},

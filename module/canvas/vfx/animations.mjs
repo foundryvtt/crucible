@@ -42,6 +42,7 @@ export const FALLBACK_TEXTURES = ["#crucible.particle.white"];
  * @type {number}
  */
 export function getParticleScaleFactor() {
+  // TODO needs to not assume microgrid.
   return (canvas?.dimensions?.size ?? 40) / 40;
 }
 
@@ -148,6 +149,103 @@ export const radialBurst = {
         velocity: {speed: [speed * 0.88, speed * 1.12], angle: [0, 360]},
         ...(drift ? {drift} : {}),
         ...(colors ? {debug: {tint: {mode: "palette", palette: colors}}} : {})
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * A tight forward particle beam along a directional axis. Particles fly at high speed from an
+ * origin point along a narrow angular spread, creating a concentrated beam effect.
+ * Configure-only, no finalize hook needed.
+ * @type {VFXAnimationBlock}
+ */
+export const rayBeam = {
+  configure({prefix, origin, rotation, length, textures,
+    speed = 2500, duration = 3500, spawnRadius = 8,
+    alpha = {min: 0.5, max: 0.9}, scale = {min: 0.5, max: 1.1},
+    count = null, initial = 0.0, perFrame = 20, blend = PIXI.BLEND_MODES.NORMAL,
+    elevation = 0, sort = 1, pointSourceMask, position = 0} = {}) {
+    const gridScale = getParticleScaleFactor();
+    const beamSpeed = speed * gridScale;
+    const lifetime = Math.max(300, Math.round(length / beamSpeed * 1000));
+    // Spawn along a line perpendicular to the beam direction for a rectangular beam profile
+    const perpRad = Math.toRadians(rotation + 90);
+    const halfWidth = Math.max(8, spawnRadius);
+    const spawnLine = {
+      from: {x: origin.x + Math.cos(perpRad) * halfWidth, y: origin.y + Math.sin(perpRad) * halfWidth},
+      to: {x: origin.x - Math.cos(perpRad) * halfWidth, y: origin.y - Math.sin(perpRad) * halfWidth}
+    };
+    const component = particleGenerator({
+      textures,
+      area: spawnLine,
+      count,
+      duration,
+      lifetime: {min: Math.round(lifetime * 0.85), max: lifetime},
+      fade: {in: 30, out: 150},
+      alpha,
+      scale,
+      initial,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      blend,
+      rotation: {alignVelocity: true, spread: 0.05},
+      config: {
+        velocity: {speed: [beamSpeed * 0.9, beamSpeed * 1.1], angle: [rotation - 0.5, rotation + 0.5]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * A wider halo of particles that cascades off the edges of a directional beam.
+ * Slower, more spread out, and shorter-lived than the beam itself.
+ * Configure-only, no finalize hook needed.
+ * @type {VFXAnimationBlock}
+ */
+export const castoffFlare = {
+  configure({prefix, origin, rotation, length, textures,
+    speed = 2500, duration = 3500, spawnRadius = 8,
+    lifetime = {min: 200, max: 400},
+    alpha = {min: 0.75, max: 1.0}, scale = {min: 0.6, max: 1.2},
+    count = null, initial = 0.0, perFrame = 4, blend = PIXI.BLEND_MODES.NORMAL,
+    elevation = 0, sort = 0, pointSourceMask, position = 0} = {}) {
+    const gridScale = getParticleScaleFactor();
+    const beamSpeed = speed * gridScale;
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius: Math.max(8, spawnRadius)},
+      count,
+      duration,
+      lifetime,
+      fade: {in: 0, out: 150},
+      alpha,
+      scale,
+      initial,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      blend,
+      rotation: {alignVelocity: true, spread: 0.3},
+      config: {
+        velocity: {speed: [beamSpeed * 0.05, beamSpeed * 0.15], angle: [rotation - 60, rotation + 60]}
       }
     });
     return {
@@ -582,6 +680,100 @@ function _finalizeExpandingCascade(component) {
       p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
     }
     p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * A linear cascade of impact particles that marches outward from an origin point along a
+ * directional axis. Particles spawn at an advancing front that progresses from origin to the
+ * endpoint over the duration, creating a "chunk chunk chunk" effect of impacts growing along
+ * the ground. Particles are stationary once spawned.
+ * Has both `configure` (builds the generator) and `finalize` (injects marching spawn callbacks).
+ * @type {VFXAnimationBlock}
+ */
+export const linearCascade = {
+  configure({prefix, origin, rotation, length, width, textures,
+    duration = 2000, spacing = 20,
+    alpha = {min: 0.6, max: 0.9}, scale = {min: 0.6, max: 1.0},
+    perFrame, elevation = 0, sort = 0, pointSourceMask, position = 0} = {}) {
+    const gridScale = getParticleScaleFactor();
+    const rotationRad = Math.toRadians(rotation);
+    const halfWidth = (width ?? 20) * gridScale;
+    const totalParticles = Math.ceil(length / (spacing * gridScale));
+    perFrame ??= Math.max(1, Math.round(totalParticles / (duration / 1000 * 60)));
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius: 4},
+      count: null,
+      duration,
+      lifetime: {min: duration + 1000, max: duration + 2000},
+      fade: {in: 0, out: 800},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {initial: rotationRad, spread: 0.3},
+      config: {
+        linearCascade: {originX: origin.x, originY: origin.y, rotationRad, length, halfWidth, duration},
+        velocity: {speed: [0, 0], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.linearCascade ) _finalizeLinearCascade(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick and onSpawn callbacks for the linear cascade.
+ * onTick tracks the advancing front distance. onSpawn places each particle at the current
+ * front position with random lateral offset.
+ * @param {object} component
+ */
+function _finalizeLinearCascade(component) {
+  const {originX, originY, rotationRad, length, halfWidth, duration} = component.config.linearCascade;
+  const cosR = Math.cos(rotationRad);
+  const sinR = Math.sin(rotationRad);
+  const perpCos = Math.cos(rotationRad + Math.PI / 2);
+  const perpSin = Math.sin(rotationRad + Math.PI / 2);
+  let elapsed = 0;
+  let frontDist = 0;
+
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    const t = Math.clamp(elapsed / duration, 0, 1);
+    frontDist = t * length;
+    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 200 < dt) ) {
+      console.debug("linearCascade", {t: t.toFixed(2), frontDist: Math.round(frontDist), alive: generator.particles.length});
+    }
+  };
+
+  component.config.onSpawn = (p, {generator}) => {
+    // Place particle at the current front position with lateral jitter
+    const dist = frontDist * (0.85 + (Math.random() * 0.15));
+    const lateral = (Math.random() * 2 - 1) * halfWidth;
+    const sceneX = originX + (cosR * dist) + (perpCos * lateral);
+    const sceneY = originY + (sinR * dist) + (perpSin * lateral);
+    p.x = sceneX - generator.bounds.x;
+    p.y = sceneY - generator.bounds.y;
+    p.movementSpeed.x = 0;
+    p.movementSpeed.y = 0;
   };
 }
 
