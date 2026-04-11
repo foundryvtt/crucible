@@ -429,6 +429,7 @@ Hooks.once("init", async function() {
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
+  CONFIG.debug.vfx = true;
   if ( crucible.developmentMode ) {
     registerDevelopmentHooks();
     enableSpellcheckContext();

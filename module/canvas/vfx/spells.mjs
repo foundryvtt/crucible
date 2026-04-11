@@ -1,5 +1,5 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
-import {particleGenerator, mergeAnimationBlocks, radialBurst, airResidue, groundResidue} from "./animations.mjs";
+import {particleGenerator, mergeAnimationBlocks, radialBurst, airResidue, groundResidue, implodeExplode} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -299,14 +299,14 @@ function _finalizeFanSweep(component) {
 
   const ARM_SPREAD = 0.15; // radians, half-width of the sweep arm
   component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator._bounds.x;
-    const sceneY = p.y + generator._bounds.y;
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
     const dist = Math.hypot(sceneX - originX, sceneY - originY);
 
     // Relocate the particle to a narrow arc around the current sweep arm angle
     const particleAngle = currentAngleRad + ((Math.random() * 2 - 1) * ARM_SPREAD);
-    p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
-    p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+    p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
+    p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
 
     // Override velocity to fly radially outward from origin
     const speed = radialSpeed * (0.7 + (Math.random() * 0.6));
@@ -334,15 +334,18 @@ function _finalizeFanCascade(component) {
     const centerRadius = t * maxRadius;
     const inner = Math.max(0, centerRadius - (ringWidth / 2));
     const outer = centerRadius + (ringWidth / 2);
-    generator._spawnArea = {x: originX, y: originY, radius: [inner, outer]};
+    const area = generator.spawnArea;
+    area.x = originX;
+    area.y = originY;
+    area.radius = [inner, outer];
     if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
       console.debug("fanCascade", {t: t.toFixed(2), alive: generator.particles.length, inner: Math.round(inner), outer: Math.round(outer)});
     }
   };
 
   component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator._bounds.x;
-    const sceneY = p.y + generator._bounds.y;
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
     const dist = Math.hypot(sceneX - originX, sceneY - originY);
 
     let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
@@ -352,8 +355,8 @@ function _finalizeFanCascade(component) {
 
     if ( Math.abs(delta) > halfAngleRad ) {
       particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
-      p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
-      p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+      p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
+      p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
     }
     p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
   };
@@ -370,8 +373,8 @@ function _finalizeFanResidue(component) {
   const {originX, originY, rotationRad, halfAngleRad} = component.config.fanResidue;
 
   component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator._bounds.x;
-    const sceneY = p.y + generator._bounds.y;
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
     const dist = Math.hypot(sceneX - originX, sceneY - originY);
 
     let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
@@ -381,8 +384,8 @@ function _finalizeFanResidue(component) {
 
     if ( Math.abs(delta) > halfAngleRad ) {
       particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
-      p.x = originX + (Math.cos(particleAngle) * dist) - generator._bounds.x;
-      p.y = originY + (Math.sin(particleAngle) * dist) - generator._bounds.y;
+      p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
+      p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
     }
   };
 }
@@ -506,47 +509,56 @@ function configureBlastVFXEffect(action) {
   };
   const pointSourceMask = {reference: "wallMask"};
 
-  // Wave speed calibration: fastest particles reach the blast perimeter just as fade-out begins.
-  const WAVE1_LIFETIME = 500;
-  const WAVE1_VISIBLE = 0.55;
-  const wave1Speed = Math.round(radius * 1000 / (WAVE1_LIFETIME * WAVE1_VISIBLE));
-  const WAVE2_LIFETIME = 700;
-  const WAVE2_VISIBLE = 0.5;
-  const wave2Speed = Math.round(radius * 0.85 * 1000 / (WAVE2_LIFETIME * WAVE2_VISIBLE));
-
   // Compose animation blocks
-  const shared = {elevation: particleElevation, pointSourceMask};
-  const spawnRadius = Math.round(radius * 0.25);
-  const wave1 = radialBurst.configure({prefix: "blastWave1", origin, count: 800, speed: wave1Speed,
-    duration: 80, lifetime: WAVE1_LIFETIME, visibleFraction: WAVE1_VISIBLE, textures: textures.spray,
-    spawnRadius, position: 0, ...shared});
-  const wave2 = radialBurst.configure({prefix: "blastWave2", origin, count: 500, speed: wave2Speed,
-    duration: 100, lifetime: WAVE2_LIFETIME, visibleFraction: WAVE2_VISIBLE, textures: textures.spray,
-    initial: 0.9, spawnRadius, position: 140,
-    drift: {enabled: true, intensity: 0.2}, ...shared});
-  const overheadTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
-  const overhead = airResidue.configure({prefix: "blastOverhead", origin,
-    radius: Math.round(radius * 1.2), textures: overheadTextures,
-    position: 0, ...shared});
+  const coverageArea = action.region?.area;
+  const shared = {elevation: particleElevation, pointSourceMask, coverageArea};
+  const EXPLODE_START = 1300; // implodeDuration(500) + holdDuration(800)
+
+  // Primary effect: implode-explode crystal
+  const blastTextures = [...textures.projectile, ...textures.spray];
+  const blast = implodeExplode.configure({prefix: "blast", origin, radius, textures: blastTextures,
+    position: 0, elevation: particleElevation});
+
+  // Ground residue: impact cracks upon explosion
   const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
   const ground = groundResidue.configure({prefix: "blastGround", origin,
     radius: Math.round(radius * 0.7), textures: groundTextures,
-    position: 0, ...shared});
+    position: EXPLODE_START, ...shared});
 
-  const result = mergeAnimationBlocks(wave1, wave2, overhead, ground);
+  // Air residue: lingering smoke after explosion
+  const overheadTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
+  const overhead = airResidue.configure({prefix: "blastOverhead", origin,
+    radius: Math.round(radius * 1.2), textures: overheadTextures,
+    position: EXPLODE_START + 200, ...shared});
+
+  const result = mergeAnimationBlocks(blast, ground, overhead);
   Object.assign(result.references, references);
 
-  // Impact timing: fire when wave 1 arrives at the target.
+  // Impact timing: fire when the explosion reaches the target
+  const explodeSpeed = blast.components.blast.config.implodeExplode.explodeSpeed;
   const gridSize = canvas.dimensions.size;
   const blastGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
     const cy = token.y + (token.height * gridSize / 2);
     const dist = Math.hypot(cx - x, cy - y);
-    return 60 + Math.round(dist / wave1Speed * 1000);
+    return EXPLODE_START + Math.round(dist / explodeSpeed * 1000);
   };
   addImpactComponents(action, result.components, result.timeline, result.references,
     blastGetImpactPosition, textures.impact);
   return result;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Finalize the VFX for a Blast gesture at play-time.
+ * Delegates to the implodeExplode block to inject runtime callbacks.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+function finalizeBlastVFXEffect(action, vfxEffect, references) {
+  implodeExplode.finalize(vfxEffect, references);
 }
 
 /* -------------------------------------------- */
@@ -743,7 +755,7 @@ const SPELL_VFX_GESTURES = {
   arrow: {},
   aspect: {},
   aura: {},
-  blast: {configure: configureBlastVFXEffect},
+  blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},
   cone: {},
   conjure: {},
   create: {},

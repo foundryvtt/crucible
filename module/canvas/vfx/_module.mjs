@@ -33,10 +33,24 @@ export function setPlaybackRate(rate) {
  *     textures: crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "residue")})
  * );
  */
-export async function preview(...blocks) {
+export async function preview(...args) {
   const {mergeAnimationBlocks} = await import("./animations.mjs");
-  const {components, timeline, references} = mergeAnimationBlocks(...blocks);
+
+  // Separate animation block results from animation block objects that have finalize hooks
+  const results = [];
+  const finalizers = [];
+  for ( const arg of args ) {
+    if ( arg.components ) results.push(arg);
+    if ( arg.finalize instanceof Function ) finalizers.push(arg);
+  }
+
+  const {components, timeline, references} = mergeAnimationBlocks(...results);
   const vfxEffect = new foundry.canvas.vfx.VFXEffect({name: "preview", components, timeline});
+  vfxEffect.resolveReferences(references);
+
+  // Apply finalize hooks from any animation blocks that define them
+  for ( const block of finalizers ) block.finalize(vfxEffect, references);
+
   if ( CONFIG.debug.vfx ) console.debug("VFX preview", {components: Object.keys(components), timeline, references});
   return vfxEffect.play(references);
 }

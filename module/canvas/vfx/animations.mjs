@@ -249,3 +249,186 @@ export const groundResidue = {
     };
   }
 };
+
+/* -------------------------------------------- */
+
+/**
+ * A three-phase implosion-explosion effect using a single particle generator.
+ * Phase 1 (Implode): particles spawn in a ring and converge inward toward a crystal ring.
+ * Phase 2 (Hold): particles rest in the crystal ring while the container shakes with building energy.
+ * Phase 3 (Explode): particles reverse direction and blast outward to fill the effect radius.
+ * The same particles are reused across all three phases via per-particle velocity manipulation.
+ * Has both `configure` (builds the generator) and `finalize` (injects runtime callbacks).
+ * @type {VFXAnimationBlock}
+ */
+export const implodeExplode = {
+  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+    count, spawnRadius, innerRadius = 50,
+    implodeDuration = 500, holdDuration = 800, explodeDuration = 800,
+    explodeSpeed,
+    alpha = {min: 0.6, max: 1.0}, scale,
+    elevation = 0, sort = 0, pointSourceMask,
+    shakeDuration = 350, shakeIntensity = 6,
+    position = 0} = {}) {
+    spawnRadius ??= Math.round(radius * 0.4);
+    explodeSpeed ??= 800 * getParticleScaleFactor();
+    const radiusScale = Math.clamp(radius / 300, 0.5, 1.5);
+    scale ??= {min: 0.3 * radiusScale, max: 0.8 * radiusScale};
+    const totalDuration = implodeDuration + holdDuration + explodeDuration;
+    const scaled = _scaledParticleCounts({baseCount: 300, basePerFrame: 25, coverageArea, radius, density});
+    count ??= Math.max(200, scaled.count);
+    console.debug("implodeExplode configure", {radius, count, perFrame: scaled.perFrame, scale, radiusScale: radiusScale.toFixed(2), coverageArea: Math.round(coverageArea ?? Math.PI * radius * radius)});
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius: [Math.round(spawnRadius * 0.7), spawnRadius]},
+      count,
+      duration: totalDuration + 5000,
+      lifetime: {min: totalDuration + 500, max: totalDuration + 1000},
+      fade: {in: 50, out: explodeDuration},
+      alpha,
+      scale,
+      initial: 1.0,
+      perFrame: scaled.perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {alignVelocity: true, spread: 0.2},
+      config: {
+        implodeExplode: {
+          originX: origin.x, originY: origin.y, innerRadius, radius,
+          implodeDuration, holdDuration, explodeDuration, explodeSpeed,
+          shakeDuration, shakeIntensity
+        },
+        velocity: {speed: [50, 200], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.implodeExplode ) _finalizeImplodeExplode(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onSpawn, onUpdate, and onTick callbacks for the implode-explode effect.
+ * onSpawn computes distance-based inward velocity so all particles arrive at the crystal ring
+ * at roughly the same time. onUpdate modulates velocity across three phases. onTick triggers
+ * the shake effect during the hold phase.
+ * @param {object} component
+ */
+function _finalizeImplodeExplode(component) {
+  const {originX, originY, innerRadius, radius, implodeDuration, holdDuration, explodeDuration,
+    explodeSpeed, shakeDuration, shakeIntensity} = component.config.implodeExplode;
+  const holdStart = implodeDuration;
+  const explodeStart = implodeDuration + holdDuration;
+  const FADE_OUT_MS = 200;
+  const implodeSec = implodeDuration / 1000;
+  let elapsed = 0;
+
+  // Compute distance-based inward velocity and store radial angle per particle.
+  // Each particle's speed is calibrated so it reaches the crystal ring by the end of the implode phase.
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+    const angle = Math.atan2(sceneY - originY, sceneX - originX);
+    const targetRadius = innerRadius * (0.5 + (Math.random() * 0.5));
+    const travelDist = Math.max(0, dist - targetRadius);
+    const speed = travelDist / implodeSec;
+    p._radialAngle = angle;
+    p._targetRadius = targetRadius;
+    p._explodeSpeed = explodeSpeed * (0.7 + (Math.random() * 0.6));
+    p._arrived = false;
+    p.movementSpeed.x = -Math.cos(angle) * speed;
+    p.movementSpeed.y = -Math.sin(angle) * speed;
+    p.rotation = angle + Math.PI;
+  };
+
+  // Track elapsed time, stop spawning after initial burst, and trigger shake during hold
+  let lastPhase = 0;
+  let spawningStopped = false;
+  let shakeStarted = false;
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    if ( !spawningStopped && (elapsed > 100) ) {
+      spawningStopped = true;
+      generator.manualSpawning = true;
+    }
+    const shakeDelay = holdStart + (holdDuration * 0.3);
+    if ( !shakeStarted && (elapsed >= shakeDelay) && (shakeIntensity > 0) && generator.particlesContainer ) {
+      shakeStarted = true;
+      const remainingHold = explodeStart - elapsed;
+      const shake = new foundry.canvas.animation.CanvasShakeEffect({
+        target: generator.particlesContainer,
+        duration: remainingHold + explodeDuration,
+        maxDisplacement: shakeIntensity,
+        smoothness: 0.3,
+        returnSpeed: 0.3
+      });
+      shake.play();
+    }
+    if ( CONFIG.debug.vfx ) {
+      const phase = (elapsed < holdStart) ? 1 : (elapsed < explodeStart) ? 2 : 3;
+      if ( phase !== lastPhase ) {
+        lastPhase = phase;
+        console.debug("implodeExplode", {phase, elapsed: Math.round(elapsed), alive: generator.particles.length});
+      }
+    }
+  };
+
+  // Per-particle velocity modulation based on the current phase
+  component.config.onUpdate = (p, {generator}) => {
+    if ( p._radialAngle === undefined ) return;
+    const angle = p._radialAngle;
+
+    if ( elapsed < holdStart ) {
+      // Phase 1 - Implode: check if particle reached the inner ring, clamp if so
+      if ( !p._arrived ) {
+        const sceneX = p.x + generator.bounds.x;
+        const sceneY = p.y + generator.bounds.y;
+        const dist = Math.hypot(sceneX - originX, sceneY - originY);
+        if ( dist <= p._targetRadius ) {
+          p._arrived = true;
+          // Snap to target position on the inner ring to prevent overshoot
+          const angle = p._radialAngle;
+          p.x = originX + (Math.cos(angle) * p._targetRadius) - generator.bounds.x;
+          p.y = originY + (Math.sin(angle) * p._targetRadius) - generator.bounds.y;
+          p.movementSpeed.x = 0;
+          p.movementSpeed.y = 0;
+        }
+      } else {
+        p.movementSpeed.x = 0;
+        p.movementSpeed.y = 0;
+      }
+    } else if ( elapsed < explodeStart ) {
+      // Phase 2 - Hold: zero velocity
+      p.movementSpeed.x = 0;
+      p.movementSpeed.y = 0;
+    } else {
+      // Phase 3 - Explode: constant outward velocity, fade when exceeding blast radius
+      const sceneX = p.x + generator.bounds.x;
+      const sceneY = p.y + generator.bounds.y;
+      const dist = Math.hypot(sceneX - originX, sceneY - originY);
+      if ( dist > radius ) {
+        p.movementSpeed.x = 0;
+        p.movementSpeed.y = 0;
+        if ( p.lifetime - p.elapsedTime > FADE_OUT_MS ) p.elapsedTime = p.lifetime - FADE_OUT_MS;
+      } else {
+        const speed = p._explodeSpeed;
+        p.movementSpeed.x = Math.cos(angle) * speed;
+        p.movementSpeed.y = Math.sin(angle) * speed;
+      }
+      p.rotation = angle;
+    }
+  };
+}
