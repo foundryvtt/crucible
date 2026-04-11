@@ -1,6 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
 import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
-  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
+  coneSweepEmitter, expandingCascade, airResidue, groundResidue, groundImpacts,
+  implodeExplode, fallingDebris} from "./animations.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -132,263 +133,73 @@ function configureFanVFXEffect(action) {
   if ( !shape || (shape.type !== "cone") ) return null;
 
   const {x, y, radius, angle, rotation} = shape;
+  const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
+
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
+  const coverageArea = action.region?.area;
+  const shared = {pointSourceMask, coverageArea};
+  const SWEEP_DURATION = 400;
 
-  const rotationRad = Math.toRadians(rotation);
-  const halfAngleRad = Math.toRadians(angle / 2);
-  const SWEEP_DURATION = 400;   // ms for the sweep to cross the full cone angle
-  const RADIAL_SPEED = 180;     // px/s outward from the cone origin
-  const STREAK_LIFETIME = 1200; // ms particle lifetime
-
-  // Randomly choose sweep direction each cast: clockwise or counter-clockwise.
-  const sweepCW = Math.random() > 0.5;
-  const startAngleRad = Math.toRadians(rotation + (sweepCW ? -(angle / 2) : (angle / 2)));
-  const endAngleRad = Math.toRadians(rotation + (sweepCW ? (angle / 2) : -(angle / 2)));
-
-  const components = {};
-  const timeline = [];
-
-  // Layer 1 - Sweep streaks: a single generator emitting in a ring around the cone origin.
-  // onTick sweeps the current arm angle across the cone. onSpawn reflects out-of-cone particles
-  // back in and overrides velocity to fly radially outward from the current arm direction.
+  // Layer 1 - Sweep streaks
   const sweepInnerRadius = Math.round(action.token.getSize().width / 3);
-  const sweepOuterRadius = Math.round(sweepInnerRadius * 1.3);
-  components.fanSweep = particleGenerator({
-    textures: textures.streak,
-    area: {x, y, radius: [sweepInnerRadius, sweepOuterRadius]},
-    count: null,
-    duration: SWEEP_DURATION,
-    lifetime: {min: Math.round(STREAK_LIFETIME * 0.5), max: STREAK_LIFETIME},
-    fade: {in: 30, out: Math.round(STREAK_LIFETIME * 0.4)},
-    alpha: {min: 0.7, max: 1.0},
-    scale: {min: 0.75, max: 1.2},
-    initial: 0.0,
-    perFrame: 6,
-    elevation: particleElevation,
-    sort: 1,
-    pointSourceMask,
-    rotation: {alignVelocity: true, spread: 0.1},
-    config: {
-      fanSweep: {originX: x, originY: y, startAngleRad, endAngleRad, halfAngleRad,
-        rotationRad, duration: SWEEP_DURATION, radialSpeed: RADIAL_SPEED},
-      velocity: {speed: [RADIAL_SPEED * 0.7, RADIAL_SPEED * 1.3], angle: [rotation - 5, rotation + 5]}
-    }
-  });
-  timeline.push({component: "fanSweep", position: 0});
+  const sweep = coneSweepEmitter.configure({prefix: "fanSweep", origin, radius, angle, rotation,
+    textures: textures.streak, duration: SWEEP_DURATION,
+    innerRadius: sweepInnerRadius, outerRadius: Math.round(sweepInnerRadius * 1.3),
+    elevation: particleElevation, position: 0, ...shared});
 
-  // Layer 2 - Ground cascade: a single generator whose spawn ring expands outward over the sweep
-  // duration via an onTick callback injected at play-time. Particles spawn in a full ring but are
-  // reflected into the cone by an onSpawn callback. Both callbacks are injected by finalizeFanVFXEffect.
-  const CASCADE_LIFETIME = 1400;
-  const CASCADE_DURATION = 1000;
-  const tokenElevation = action.token?.elevation ?? 0;
-  const tokenSort = action.token?.sort ?? 0;
-  const impactTextures = getVFXTexturePaths(action.rune.id, "impact");
-  components.fanCascade = particleGenerator({
-    textures: impactTextures,
-    area: {x, y, radius: [0, Math.round(radius * 0.17)]},
-    count: null,
-    duration: CASCADE_DURATION,
-    lifetime: {min: 400, max: 700},
-    fade: {in: 20, out: 400},
-    alpha: {min: 0.5, max: 0.8},
-    scale: {min: 0.8, max: 1.2},
-    initial: 0.0,
-    perFrame: 4,
-    elevation: tokenElevation,
-    sort: tokenSort - 1,
-    pointSourceMask,
-    rotation: {initial: rotationRad, spread: 0.2},
-    config: {
-      fanCascade: {originX: x, originY: y, rotationRad, halfAngleRad: Math.toRadians(angle / 2),
-        maxRadius: Math.round(radius * 0.85), duration: CASCADE_DURATION},
-      velocity: {speed: [2, 5], angle: [rotation - 1, rotation + 1]}
-    }
-  });
-  timeline.push({component: "fanCascade", position: 0});
+  // Layer 2 - Ground cascade
+  const cascade = expandingCascade.configure({prefix: "fanCascade", origin, radius,
+    textures: getVFXTexturePaths(action.rune.id, "impact"),
+    coneAngle: angle, coneRotation: rotation,
+    elevation: 0, position: 0, ...shared});
 
-  // Layer 3 - Residue: slow-fading haze that lingers after the sweep and cascade.
-  // Spawns across the cone area with minimal velocity, giving a lingering afterimage.
-  components.fanResidue = particleGenerator({
-    blend: 1,
-    textures: textures.residue,
-    area: {x, y, radius: [sweepInnerRadius, Math.round(radius * 0.7)]},
-    count: null,
-    duration: CASCADE_DURATION,
-    lifetime: {min: 1500, max: 2500},
-    fade: {in: 200, out: 1200},
-    alpha: {min: 0.15, max: 0.3},
-    scale: {min: 0.8, max: 1.5},
-    initial: 0.0,
-    perFrame: 2,
-    elevation: particleElevation,
-    sort: 0,
-    pointSourceMask,
-    rotation: {initial: rotationRad, spread: Math.PI},
-    config: {
-      fanResidue: {originX: x, originY: y, rotationRad, halfAngleRad},
-      velocity: {speed: [1, 3], angle: [rotation - 180, rotation + 180]}
-    }
-  });
-  timeline.push({component: "fanResidue", position: 200});
+  // Layer 3 - Overhead residue
+  const residueTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
+  const residue = airResidue.configure({prefix: "fanResidue", origin,
+    radius: Math.round(radius * 0.7), textures: residueTextures,
+    elevation: particleElevation, position: 200, ...shared});
+
+  const result = mergeAnimationBlocks(sweep, cascade, residue);
+  Object.assign(result.references, references);
 
   // Impact timing: fire when the sweeping arm crosses the target's angular position.
-  // Normalize the target's bearing into the sweep arc and multiply by SWEEP_DURATION.
-  const sweepRangeRad = endAngleRad - startAngleRad;
+  const sweepConfig = sweep.components.fanSweep.config.coneSweep;
+  const sweepRangeRad = sweepConfig.endAngleRad - sweepConfig.startAngleRad;
   const gridSize = canvas.dimensions.size;
   const fanGetImpactPosition = token => {
     const cx = token.x + (token.width * gridSize / 2);
     const cy = token.y + (token.height * gridSize / 2);
     let bearing = Math.atan2(cy - y, cx - x);
-    const lo = Math.min(startAngleRad, endAngleRad);
-    const hi = Math.max(startAngleRad, endAngleRad);
+    const lo = Math.min(sweepConfig.startAngleRad, sweepConfig.endAngleRad);
+    const hi = Math.max(sweepConfig.startAngleRad, sweepConfig.endAngleRad);
     while ( bearing < lo ) bearing += Math.PI * 2;
     while ( bearing > hi ) bearing -= Math.PI * 2;
-    const t = Math.clamp((bearing - startAngleRad) / sweepRangeRad, 0, 1);
+    const t = Math.clamp((bearing - sweepConfig.startAngleRad) / sweepRangeRad, 0, 1);
     return Math.round(t * SWEEP_DURATION);
   };
-  addImpactComponents(action, components, timeline, references, fanGetImpactPosition, textures.impact);
-  return {components, timeline, references};
+  addImpactComponents(action, result.components, result.timeline, result.references,
+    fanGetImpactPosition, textures.impact, origin);
+  return result;
 }
 
 /* -------------------------------------------- */
 
 /**
  * Finalize the VFX for a Fan gesture at play-time.
- * Injects onTick/onSpawn callbacks into the sweep and cascade components.
+ * Delegates to animation block finalize hooks for sweep, cascade, and residue.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
 function finalizeFanVFXEffect(action, vfxEffect, references) {
-  for ( const component of Object.values(vfxEffect.components) ) {
-    if ( component.type !== "particleGenerator" ) continue;
-    if ( component.config?.fanSweep ) _finalizeFanSweep(component);
-    if ( component.config?.fanCascade ) _finalizeFanCascade(component);
-    if ( component.config?.fanResidue ) _finalizeFanResidue(component);
-  }
-}
-
-/* -------------------------------------------- */
-
-/**
- * Inject onTick and onSpawn callbacks for the fan sweep streaks component.
- * onTick tracks the current sweep angle. onSpawn reflects out-of-cone particles back in and
- * overrides velocity to fly radially outward from the origin.
- * @param {object} component
- */
-function _finalizeFanSweep(component) {
-  const {originX, originY, startAngleRad, endAngleRad, halfAngleRad, rotationRad,
-    duration, radialSpeed} = component.config.fanSweep;
-  let elapsed = 0;
-  let currentAngleRad = startAngleRad;
-
-  component.config.onTick = (dt, generator) => {
-    elapsed += dt;
-    const t = Math.clamp(elapsed / duration, 0, 1);
-    currentAngleRad = startAngleRad + (t * (endAngleRad - startAngleRad));
-    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
-      console.debug("fanSweep", {t: t.toFixed(2), angle: Math.toDegrees(currentAngleRad).toFixed(1), alive: generator.particles.length});
-    }
-  };
-
-  const ARM_SPREAD = 0.15; // radians, half-width of the sweep arm
-  component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator.bounds.x;
-    const sceneY = p.y + generator.bounds.y;
-    const dist = Math.hypot(sceneX - originX, sceneY - originY);
-
-    // Relocate the particle to a narrow arc around the current sweep arm angle
-    const particleAngle = currentAngleRad + ((Math.random() * 2 - 1) * ARM_SPREAD);
-    p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
-    p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
-
-    // Override velocity to fly radially outward from origin
-    const speed = radialSpeed * (0.7 + (Math.random() * 0.6));
-    p.movementSpeed.x = Math.cos(particleAngle) * speed;
-    p.movementSpeed.y = Math.sin(particleAngle) * speed;
-    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.2);
-  };
-}
-
-/* -------------------------------------------- */
-
-/**
- * Inject onTick and onSpawn callbacks for the fan cascade component.
- * onTick animates the spawn ring outward. onSpawn reflects out-of-cone particles back in.
- * @param {object} component
- */
-function _finalizeFanCascade(component) {
-  const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = component.config.fanCascade;
-  let elapsed = 0;
-
-  component.config.onTick = (dt, generator) => {
-    elapsed += dt;
-    const t = Math.clamp(elapsed / duration, 0, 1);
-    const ringWidth = maxRadius * 0.2;
-    const centerRadius = t * maxRadius;
-    const inner = Math.max(0, centerRadius - (ringWidth / 2));
-    const outer = centerRadius + (ringWidth / 2);
-    const area = generator.spawnArea;
-    area.x = originX;
-    area.y = originY;
-    area.radius = [inner, outer];
-    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
-      console.debug("fanCascade", {t: t.toFixed(2), alive: generator.particles.length, inner: Math.round(inner), outer: Math.round(outer)});
-    }
-  };
-
-  component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator.bounds.x;
-    const sceneY = p.y + generator.bounds.y;
-    const dist = Math.hypot(sceneX - originX, sceneY - originY);
-
-    let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
-    let delta = particleAngle - rotationRad;
-    while ( delta > Math.PI ) delta -= Math.PI * 2;
-    while ( delta < -Math.PI ) delta += Math.PI * 2;
-
-    if ( Math.abs(delta) > halfAngleRad ) {
-      particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
-      p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
-      p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
-    }
-    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
-  };
-}
-
-/* -------------------------------------------- */
-
-/**
- * Inject onSpawn callback for the fan residue component.
- * Reflects out-of-cone particles back into the cone.
- * @param {object} component
- */
-function _finalizeFanResidue(component) {
-  const {originX, originY, rotationRad, halfAngleRad} = component.config.fanResidue;
-
-  component.config.onSpawn = (p, {generator}) => {
-    const sceneX = p.x + generator.bounds.x;
-    const sceneY = p.y + generator.bounds.y;
-    const dist = Math.hypot(sceneX - originX, sceneY - originY);
-
-    let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
-    let delta = particleAngle - rotationRad;
-    while ( delta > Math.PI ) delta -= Math.PI * 2;
-    while ( delta < -Math.PI ) delta += Math.PI * 2;
-
-    if ( Math.abs(delta) > halfAngleRad ) {
-      particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
-      p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
-      p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
-    }
-  };
+  coneSweepEmitter.finalize(vfxEffect, references);
+  expandingCascade.finalize(vfxEffect, references);
 }
 
 /* -------------------------------------------- */
@@ -410,6 +221,7 @@ function configureRayVFXEffect(action) {
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
+
     wallMask: {x, y, type: "move", radius: Math.round(length * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
@@ -478,7 +290,7 @@ function configureRayVFXEffect(action) {
     const dist = Math.hypot(cx - x, cy - y);
     return Math.round(dist / BEAM_SPEED * 1000);
   };
-  addImpactComponents(action, components, timeline, references, rayGetImpactPosition, textures.impact);
+  addImpactComponents(action, components, timeline, references, rayGetImpactPosition, textures.impact, {x, y});
   return {components, timeline, references};
 }
 
@@ -503,6 +315,7 @@ function configureBlastVFXEffect(action) {
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
+
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
   const pointSourceMask = {reference: "wallMask"};
@@ -554,7 +367,7 @@ function _configureBlastImplodeExplode(action, origin, radius, textures, referen
     return EXPLODE_START + Math.round(dist / explodeSpeed * 1000);
   };
   addImpactComponents(action, result.components, result.timeline, result.references,
-    blastGetImpactPosition, textures.impact);
+    blastGetImpactPosition, textures.impact, origin);
   return result;
 }
 
@@ -605,7 +418,7 @@ function _configureBlastFallingDebris(action, origin, radius, textures, referenc
     return Math.round(t * STORM_DURATION * 0.5);
   };
   addImpactComponents(action, result.components, result.timeline, result.references,
-    blastGetImpactPosition, textures.impact);
+    blastGetImpactPosition, textures.impact, origin);
   return result;
 }
 
@@ -679,14 +492,11 @@ function resolveSpellVFXContext(action) {
 
 /* -------------------------------------------- */
 
-
-/* -------------------------------------------- */
-
 /**
  * Add singleImpact components to an in-progress spell VFX configuration for each struck target.
  * Only events with a HIT or GLANCE result produce an impact. Other results are silently skipped.
  * Each impact is positioned at the target token mesh with a small random offset toward the token
- * center, mirroring the projectile strike pattern.
+ * center. The impact sprite is rotated to face the effect origin.
  * @param {CrucibleSpellAction} action       The spell action being animated.
  * @param {object} components                Component map to add impact entries into.
  * @param {object[]} timeline                Timeline array to push impact entries onto.
@@ -696,9 +506,12 @@ function resolveSpellVFXContext(action) {
  *   its impact should fire. Called once per HIT/GLANCE target.
  * @param {string[]} impactTextures          An array of #-prefixed scene texture paths for impact
  *                                           sprites. One is chosen at random per target.
+ * @param {{x: number, y: number}} origin    The effect origin point. Impact sprites are rotated
+ *                                           to face this point.
  */
-function addImpactComponents(action, components, timeline, references, getImpactPosition, impactTextures) {
+function addImpactComponents(action, components, timeline, references, getImpactPosition, impactTextures, origin) {
   const useSpritesheetImpact = impactTextures.length > 0;
+  const gridSize = canvas.dimensions.size;
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -714,8 +527,8 @@ function addImpactComponents(action, components, timeline, references, getImpact
         [targetTokenRef]: `@${token.uuid}`,
         [targetMeshRef]: `^${targetTokenRef}.object.mesh`
       });
-      const w = token.width * canvas.dimensions.size;
-      const h = token.height * canvas.dimensions.size;
+      const w = token.width * gridSize;
+      const h = token.height * gridSize;
       const dx = Math.mix(-w * 0.1, w * 0.1, Math.random());
       const dy = Math.mix(-h * 0.1, h * 0.1, Math.random());
       const impactName = `spellImpact_${j}`;
@@ -725,9 +538,10 @@ function addImpactComponents(action, components, timeline, references, getImpact
       components[impactName] = {
         type: "singleImpact",
         position: {reference: targetMeshRef, deltas: {x: dx, y: dy, sort: 1}},
+        origin,
         texture,
-        duration: 2000,
-        size: 3
+        duration: 1000,
+        size: 2
       };
       timeline.push({component: impactName, position: getImpactPosition(token)});
     }

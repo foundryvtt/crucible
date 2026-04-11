@@ -390,6 +390,204 @@ function _finalizeFallingDebris(component) {
 /* -------------------------------------------- */
 
 /**
+ * A sweeping arm emitter that rotates across a cone arc over time. Particles spawn in a ring
+ * around the cone origin and are relocated to a narrow arc around the current sweep angle.
+ * Velocity is overridden to fly radially outward. The sweep direction is randomized each cast.
+ * Cone-specific: the sweep arm and cone reflection are inherent to the behavior.
+ * Has both `configure` (builds the generator) and `finalize` (injects sweep callbacks).
+ * @type {VFXAnimationBlock}
+ */
+export const coneSweepEmitter = {
+  configure({prefix, origin, radius, angle, rotation, textures,
+    duration = 400, radialSpeed = 800, innerRadius, outerRadius,
+    alpha = {min: 0.7, max: 1.0}, scale = {min: 0.375, max: 0.6},
+    perFrame = 6, elevation = 0, sort = 1, pointSourceMask, position = 0} = {}) {
+    const gridScale = getParticleScaleFactor();
+    const speed = radialSpeed * gridScale;
+    innerRadius ??= Math.round(radius * 0.15);
+    outerRadius ??= Math.round(innerRadius * 1.3);
+    const rotationRad = Math.toRadians(rotation);
+    const halfAngleRad = Math.toRadians(angle / 2);
+    const sweepCW = Math.random() > 0.5;
+    const startAngleRad = Math.toRadians(rotation + (sweepCW ? -(angle / 2) : (angle / 2)));
+    const endAngleRad = Math.toRadians(rotation + (sweepCW ? (angle / 2) : -(angle / 2)));
+    const lifetime = Math.round(radius / speed * 1000 * 1.2);
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius: [innerRadius, outerRadius]},
+      count: null,
+      duration,
+      lifetime: {min: Math.round(lifetime * 0.5), max: lifetime},
+      fade: {in: 30, out: Math.round(lifetime * 0.4)},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {alignVelocity: true, spread: 0.1},
+      config: {
+        coneSweep: {originX: origin.x, originY: origin.y, startAngleRad, endAngleRad,
+          halfAngleRad, rotationRad, duration, radialSpeed: speed},
+        velocity: {speed: [speed * 0.7, speed * 1.3], angle: [rotation - 5, rotation + 5]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.coneSweep ) _finalizeConeSweep(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick and onSpawn callbacks for the cone sweep emitter.
+ * @param {object} component
+ */
+function _finalizeConeSweep(component) {
+  const {originX, originY, startAngleRad, endAngleRad, halfAngleRad, rotationRad,
+    duration, radialSpeed} = component.config.coneSweep;
+  let elapsed = 0;
+  let currentAngleRad = startAngleRad;
+
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    const t = Math.clamp(elapsed / duration, 0, 1);
+    currentAngleRad = startAngleRad + (t * (endAngleRad - startAngleRad));
+    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
+      console.debug("coneSweep", {t: t.toFixed(2), angle: Math.toDegrees(currentAngleRad).toFixed(1), alive: generator.particles.length});
+    }
+  };
+
+  const ARM_SPREAD = 0.15;
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+    const particleAngle = currentAngleRad + ((Math.random() * 2 - 1) * ARM_SPREAD);
+    p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
+    p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
+    const speed = radialSpeed * (0.7 + (Math.random() * 0.6));
+    p.movementSpeed.x = Math.cos(particleAngle) * speed;
+    p.movementSpeed.y = Math.sin(particleAngle) * speed;
+    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.2);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * An expanding cascade that spawns particles in a ring that grows outward from the origin.
+ * When cone constraint parameters are provided, out-of-cone particles are reflected back in.
+ * Without cone parameters, the cascade expands as a full circle.
+ * Has both `configure` (builds the generator) and `finalize` (injects expanding ring callbacks).
+ * @type {VFXAnimationBlock}
+ */
+export const expandingCascade = {
+  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+    duration = 1000, coneAngle, coneRotation,
+    alpha = {min: 0.5, max: 0.8}, scale = {min: 0.8, max: 1.2},
+    perFrame, elevation = 0, sort = 0, pointSourceMask, position = 0} = {}) {
+    const rotationRad = coneRotation !== undefined ? Math.toRadians(coneRotation) : 0;
+    const halfAngleRad = coneAngle !== undefined ? Math.toRadians(coneAngle / 2) : Math.PI;
+    const maxRadius = Math.round(radius * 0.85);
+    const scaled = _scaledParticleCounts({baseCount: 200, basePerFrame: 4, coverageArea, radius, density});
+    perFrame ??= scaled.perFrame;
+    const component = particleGenerator({
+      textures,
+      area: {x: origin.x, y: origin.y, radius: [0, Math.round(radius * 0.17)]},
+      count: null,
+      duration,
+      lifetime: {min: 400, max: 700},
+      fade: {in: 20, out: 400},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {initial: rotationRad, spread: 0.2},
+      config: {
+        expandingCascade: {originX: origin.x, originY: origin.y, rotationRad, halfAngleRad,
+          maxRadius, duration},
+        velocity: {speed: [2, 5], angle: [coneRotation ?? 0 - 1, coneRotation ?? 0 + 1]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.expandingCascade ) _finalizeExpandingCascade(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick and onSpawn callbacks for the expanding cascade.
+ * onTick animates the spawn ring outward. onSpawn reflects out-of-cone particles when constrained.
+ * @param {object} component
+ */
+function _finalizeExpandingCascade(component) {
+  const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = component.config.expandingCascade;
+  const isCone = halfAngleRad < Math.PI;
+  let elapsed = 0;
+
+  component.config.onTick = (dt, generator) => {
+    elapsed += dt;
+    const t = Math.clamp(elapsed / duration, 0, 1);
+    const ringWidth = maxRadius * 0.2;
+    const centerRadius = t * maxRadius;
+    const inner = Math.max(0, centerRadius - (ringWidth / 2));
+    const outer = centerRadius + (ringWidth / 2);
+    const area = generator.spawnArea;
+    area.x = originX;
+    area.y = originY;
+    area.radius = [inner, outer];
+    if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
+      console.debug("expandingCascade", {t: t.toFixed(2), alive: generator.particles.length, inner: Math.round(inner), outer: Math.round(outer)});
+    }
+  };
+
+  component.config.onSpawn = (p, {generator}) => {
+    if ( !isCone ) return;
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
+    const dist = Math.hypot(sceneX - originX, sceneY - originY);
+    let particleAngle = Math.atan2(sceneY - originY, sceneX - originX);
+    let delta = particleAngle - rotationRad;
+    while ( delta > Math.PI ) delta -= Math.PI * 2;
+    while ( delta < -Math.PI ) delta += Math.PI * 2;
+    if ( Math.abs(delta) > halfAngleRad ) {
+      particleAngle = rotationRad + ((Math.random() * 2 - 1) * halfAngleRad);
+      p.x = originX + (Math.cos(particleAngle) * dist) - generator.bounds.x;
+      p.y = originY + (Math.sin(particleAngle) * dist) - generator.bounds.y;
+    }
+    p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
  * A three-phase implosion-explosion effect using a single particle generator.
  * Phase 1 (Implode): particles spawn in a ring and converge inward toward a crystal ring.
  * Phase 2 (Hold): particles rest in the crystal ring while the container shakes with building energy.

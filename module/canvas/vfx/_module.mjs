@@ -36,19 +36,20 @@ export function setPlaybackRate(rate) {
 export async function preview(...args) {
   const {mergeAnimationBlocks} = await import("./animations.mjs");
 
-  // Separate animation block results from animation block objects that have finalize hooks
+  // Separate animation block results, block objects with finalize hooks, and bare finalize functions
   const results = [];
   const finalizers = [];
   for ( const arg of args ) {
     if ( arg.components ) results.push(arg);
     if ( arg.finalize instanceof Function ) finalizers.push(arg);
+    else if ( typeof arg === "function" ) finalizers.push({finalize: arg});
   }
 
   const {components, timeline, references} = mergeAnimationBlocks(...results);
   const vfxEffect = new foundry.canvas.vfx.VFXEffect({name: "preview", components, timeline});
   vfxEffect.resolveReferences(references);
 
-  // Apply finalize hooks from any animation blocks that define them
+  // Apply finalize hooks from animation blocks or bare functions
   for ( const block of finalizers ) block.finalize(vfxEffect, references);
 
   if ( CONFIG.debug.vfx ) console.debug("VFX preview", {components: Object.keys(components), timeline, references});
