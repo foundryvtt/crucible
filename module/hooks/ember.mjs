@@ -115,7 +115,7 @@ const EMBER_050 = {
           + (ember.calendar.moons.mayis.phase === "full" ? -2 : 0);
         if ( !moraleDelta ) return;
         for ( const event of action.events ) {
-          if ( (event.target === this) || !event.weapon || (event.weapon.id !== item.id) ) continue;
+          if ( (event.target === this) || !event.weapon || (event.weapon._id !== item.id) ) continue;
           event.resources.push({resource: "morale", delta: moraleDelta});
           break;
         }
@@ -127,7 +127,7 @@ const EMBER_050 = {
           + (ember.calendar.moons.mayis.phase === "full" ? -2 : 0);
         if ( !moraleDelta ) return;
         for ( const event of action.events ) {
-          if ( (event.target === this) || !event.weapon || (event.weapon.id !== item.id) ) continue;
+          if ( (event.target === this) || !event.weapon || (event.weapon._id !== item.id) ) continue;
           event.resources.push({resource: "morale", delta: moraleDelta});
           break;
         }

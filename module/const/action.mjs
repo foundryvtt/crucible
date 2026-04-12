@@ -698,9 +698,8 @@ export const TAGS = {
       for ( let i=this.events.length-1; i>=0; i-- ) {
         const event = this.events[i];
         if ( (event.type !== "strike") || !event.weapon ) continue;
-        const {id: _id, ...system} = event.weapon;
-        const idx = items.findIndex(w => w._id === _id);
-        if ( idx !== -1 ) items[idx] = {_id, system};
+        const idx = items.findIndex(w => w._id === event.weapon._id);
+        if ( idx !== -1 ) items[idx] = event.weapon;
       }
     }
   },
@@ -946,10 +945,9 @@ export const TAGS = {
       if ( !weapon || !actorUpdateEvent ) return;
       actorUpdateEvent.actorUpdates.items ||= [];
       const items = actorUpdateEvent.actorUpdates.items;
-      const {id: _id, ...system} = weapon;
-      const idx = items.findIndex(w => w._id === _id);
-      if ( idx === -1 ) items.push({_id, system});
-      else items[idx] = {_id, system};
+      const idx = items.findIndex(w => w._id === weapon._id);
+      if ( idx === -1 ) items.push(weapon);
+      else items[idx] = weapon;
     }
   },
 

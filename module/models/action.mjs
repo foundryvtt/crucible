@@ -127,15 +127,18 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef CrucibleActionWeaponState
- * A serializable snapshot of weapon metadata, captured at action-use time.
- * This tracks stateful data that may not be a permanent characteristic of the weapon Item.
- * @property {string} id                  The weapon Item ID
- * @property {number} slot                Weapon equipment slot
- * @property {boolean} broken             Was the weapon broken?
- * @property {boolean} dropped            Was the weapon dropped?
- * @property {boolean} loaded             Was the weapon loaded?
- * @property {boolean} invested           Was the weapon invested?
+ * @typedef CrucibleItemSnapshot
+ * A serializable snapshot of item stateful data, captured at action-use time. Structured as an item update object.
+ * Each item subtype declares its own STATEFUL_FIELDS; properties not relevant to a given subtype will be absent.
+ * @property {string} _id                           The Item ID
+ * @property {object} system                        The stateful system data
+ * @property {boolean} [system.broken]              Was the item broken?
+ * @property {boolean} [system.dropped]             Was the item dropped?
+ * @property {boolean} [system.equipped]            Was the item equipped?
+ * @property {boolean} [system.invested]            Was the item invested?
+ * @property {boolean} [system.loaded]              Was the weapon loaded?
+ * @property {number} [system.slot]                 Weapon equipment slot
+ * @property {number} [system.uses]                 Consumable remaining uses
  */
 
 /**
@@ -163,7 +166,7 @@ class CrucibleActionEvent {
    * @param {CrucibleActionEventType} [data.type="other"]  The event type
    * @param {CrucibleActor} data.target             The target Actor for this event
    * @param {Roll} [data.roll=null]                 The Roll instance
-   * @param {CrucibleActionWeaponState} [data.weapon]  Weapon snapshot, present for strike-type events
+   * @param {CrucibleItemSnapshot} [data.weapon]    Weapon snapshot, present for strike-type events
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
    * @param {object[]} [data.resources=[]]          Resource changes incurred or imposed by this event
