@@ -155,6 +155,7 @@ class CrucibleActionEvent {
    * @param {CrucibleActor} data.target             The target Actor for this event
    * @param {Roll} [data.roll=null]                 The Roll instance
    * @param {CrucibleItemSnapshot} [data.weapon]    Weapon snapshot, present for strike-type events
+   * @param {string} [data.movement]                The movement ID, if any
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
    * @param {CrucibleItemSnapshot[]} [data.itemSnapshots]  Pre-action item state for reversal
@@ -172,6 +173,7 @@ class CrucibleActionEvent {
     this.resources = data.resources ?? [];
     this.effects = data.effects ?? [];
     if ( data.weapon ) this.weapon = data.weapon;
+    if ( data.movement ) this.movement = data.movement;
     if ( data.summon ) this.summon = data.summon;
     if ( data.actorUpdates ) this.actorUpdates = data.actorUpdates;
     if ( data.itemSnapshots ) this.itemSnapshots = data.itemSnapshots;
@@ -301,6 +303,7 @@ class CrucibleActionEvent {
     const obj = {type: this.type, target: this.target.uuid, resources: this.resources, effects: this.effects};
     if ( this.roll ) obj.rollIndex = this.roll.data.index;
     if ( this.weapon ) obj.weapon = this.weapon;
+    if ( this.movement ) obj.movement = this.movement;
     if ( this.summon ) obj.summon = this.summon;
     if ( this.actorUpdates ) obj.actorUpdates = this.actorUpdates;
     if ( this.itemSnapshots ) obj.itemSnapshots = this.itemSnapshots;
