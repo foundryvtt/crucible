@@ -160,8 +160,15 @@
   gap: 0.25rem;
 }
 
-.group-check-actor-name {
-  font-size: var(--font-size-12);
-  margin: 0;
+.group-check-row.line-item {
+  gap: 0 0.5rem;
+  .dice-result {
+    flex: 0 0 100%;
+    margin-top: -0.5rem; // Tighter spacing with title row
+  }
+}
+
+.group-check-result.unresolved .dice-result {
+  display: none;
 }
 

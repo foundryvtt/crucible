@@ -387,9 +387,9 @@ export default class StandardCheck extends Roll {
    * @param {CrucibleActor[]} [options.requestedActors] Actors to include in the group check
    * @returns {Promise<void>}
    */
-  async requestGroupCheck({requestedActors}={}) {
+  async requestGroupCheck({requestedActors, skills, messageMode}={}) {
     const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.data));
-    return groupCheckInstance.requestSubmit({requestedActors});
+    return groupCheckInstance.requestSubmit({requestedActors, skills, messageMode});
   }
 
   /* -------------------------------------------- */
