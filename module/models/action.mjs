@@ -2470,7 +2470,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !event.roll ) continue;
       const isNewTarget = !targetActors.has(event.target);
       if ( isNewTarget ) targetActors.add(event.target);
-      event.roll.data.newTarget = isNewTarget && (targetActors.size > 1);
+      event.roll.data.newTarget = isNewTarget && (this.eventsByTarget.size > 1);
       event.roll.data.index = rolls.length;
       rolls.push(event.roll);
     }
@@ -2497,6 +2497,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       context: this.usage.context,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
+      hasTargetTags: (targets.length === 1) || (targets.length && !this.eventsByTarget.values().some(e => e.roll)),
       hasTargets: !["self", "none"].includes(this.target.type),
       tags,
       targets,
