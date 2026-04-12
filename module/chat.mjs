@@ -20,7 +20,7 @@ export const TEMPLATES = {
  * @param {HTMLElement} html
  * @param {object} options
  */
-export function addChatMessageContextOptions(html, options) {
+export function addChatMessageContextOptions(_app, options) {
   if ( !game.user.isGM ) return;
 
   // Assign difficulty for skill checks

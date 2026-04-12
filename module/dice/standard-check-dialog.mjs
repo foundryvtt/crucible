@@ -182,7 +182,7 @@ export default class StandardCheckDialog extends DialogV2 {
     const isConfigurable = game.user.isGM && this.configurable;
 
     // Determine whether group check submission is allowed
-    const hasActors = this.#requestActors.size > 0;
+    const hasActors = this.#requestActors.size > 1;
     const hasSkills = !this.customizeSkills || (this.#selectedSkills.size > 0);
     const canSubmitGroup = hasActors && hasSkills;
 
@@ -349,7 +349,7 @@ export default class StandardCheckDialog extends DialogV2 {
    */
   async _onRoll(_event, _button, _dialog) {
     this.roll.data.messageMode = this.messageMode;
-    if ( this.configurable && (this.#requestActors.size > 0) ) {
+    if ( this.#requestActors.size > 1 ) {
       await this.#rollGroupCheck();
       return null;
     }
@@ -465,21 +465,6 @@ export default class StandardCheckDialog extends DialogV2 {
     const total = Object.values(boons).reduce((t, b) => t + (b.id === "special" ? 0 : b.number), 0);
     boons.special.number = Math.clamp(boons.special.number + delta, 0, SYSTEM.DICE.MAX_BOONS - total);
     return boons;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Handle changes to the difficulty tier select input
-   * TODO support this
-   * @param {Event} event           The event which triggers on select change
-   * @private
-   */
-  _onChangeDifficultyTier(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this._updatePool({dc: parseInt(event.target.value)});
-    return this.render();
   }
 
   /* -------------------------------------------- */

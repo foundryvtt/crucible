@@ -1324,8 +1324,7 @@
       "CustomizeSkills": "Customize Skills"
     },
     "GROUP_CHECK": {
-      "Title": "Group Check",
-      "ChatTitle": "{skill} Check (DC {dc})",
+      "Title": "Group Skill Check",
       "DialogTitle": "{skill} Check: {name}",
       "NoUserForActor": "No active user found for: {name}",
       "STATUSES": {
@@ -1383,7 +1382,8 @@
     "RollTotal": "Roll Total",
     "SetDifficulty": "Set Difficulty",
     "Skill": "Skill",
-    "SkillBonus": "Skill Bonus"
+    "SkillBonus": "Skill Bonus",
+    "Unknown": "Unknown"
   },
   "FLANKED_EFFECT": {
     "FIELDS": {

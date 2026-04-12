@@ -72,12 +72,6 @@ export default class GroupCheck extends StandardCheck {
   /** @type {foundry.utils.Semaphore} */
   static #UPDATE_SEMAPHORE = new foundry.utils.Semaphore(1);
 
-  /**
-   * The timeout duration (in milliseconds) for player query responses.
-   * @type {number}
-   */
-  static QUERY_TIMEOUT = 120_000;
-
   /* -------------------------------------------- */
   /*  API                                         */
   /* -------------------------------------------- */
@@ -298,9 +292,14 @@ export default class GroupCheck extends StandardCheck {
     };
 
     const content = await this.#renderGroupCheckCard(groupCheckFlags);
+    const skillIds = Object.keys(skills);
+    const flavor = (skillIds.length === 1)
+      ? _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillIds[0]].label})
+      : _loc("DICE.GROUP_CHECK.Title");
     const messageData = {
       content,
-      speaker: ChatMessage.implementation.getSpeaker({alias: _loc("DICE.GROUP_CHECK.Title")}),
+      flavor,
+      speaker: ChatMessage.implementation.getSpeaker(),
       flags: {crucible: {[GroupCheck.FLAG_KEY]: groupCheckFlags }}
     };
     ChatMessage.implementation.applyRollMode(messageData, messageMode || game.settings.get("core", "messageMode"));
@@ -422,9 +421,7 @@ export default class GroupCheck extends StandardCheck {
           try {
             const roll = Roll.fromData(entry.rollData);
             const skill = entry.skillId ? SYSTEM.SKILLS[entry.skillId] : null;
-            let targetLabel = skill?.label ?? "";
-            if ( entry.rollData.data?.dc ) targetLabel += ` ${entry.rollData.data.dc}`;
-            rollContext = roll.prepareDiceResultContext({targetLabel});
+            rollContext = roll.prepareDiceResultContext({targetLabel: skill?.label ?? ""});
           }
           catch(err) {
             console.warn("Failed to reconstruct roll for group check actor:", err);
@@ -465,12 +462,8 @@ export default class GroupCheck extends StandardCheck {
    * @returns {Promise<string>}         The rendered HTML content
    */
   async #renderGroupCheckCard(flags) {
-    const skillIds = Object.keys(flags.skills);
-    const title = (skillIds.length > 1)
-      ? null
-      : _loc("DICE.GROUP_CHECK.ChatTitle", {skill: SYSTEM.SKILLS[skillIds[0]].label, dc: flags.skills[skillIds[0]].dc});
     const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry));
-    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {title, actors});
+    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors});
   }
 
   /* -------------------------------------------- */
@@ -547,6 +540,15 @@ export default class GroupCheck extends StandardCheck {
       const section = html.querySelector(".group-check-result");
       if ( section ) section.classList.toggle("unresolved", !allResolved);
       return;
+    }
+
+    // For GM users, append DC values to roll result target labels
+    for ( const row of html.querySelectorAll(".group-check-row") ) {
+      const actorId = row.dataset.actorId;
+      const entry = groupCheckFlags.actors?.[actorId];
+      if ( !entry?.rollData?.data?.dc ) continue;
+      const target = row.querySelector(".dice-result .target");
+      if ( target ) target.textContent += ` ${entry.rollData.data.dc}`;
     }
 
     const makeButton = (icon, descriptionKey, handler, isIconButton=true) => {

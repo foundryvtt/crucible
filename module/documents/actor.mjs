@@ -535,7 +535,7 @@ export default class CrucibleActor extends Actor {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
-    const flavor = _loc("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
+    const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ) {
       const response = await check.dialog({flavor, messageMode});
       if ( response === null ) return null;
