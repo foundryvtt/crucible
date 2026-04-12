@@ -464,6 +464,7 @@
     "RequiresMovement": "You must plan a movement path before this action can be used.",
     "RequiresRegion": "You must place a Region before this action can be used.",
     "SkillCheck": "{skill} Skill Check",
+    "SkillCheckGeneric": "Skill Check",
     "StandardCheck": "Standard Check",
     "Targets": "Targets",
     "TemplateTargets": "Template Targets",

@@ -1,10 +1,14 @@
 import StandardCheck from "./standard-check.mjs";
 
 /**
+ * @typedef {object} GroupCheckSkillConfig
+ * @property {number} dc                             Difficulty class for this skill
+ */
+
+/**
  * @typedef GroupCheckFlags
  * @property {string} checkId                        Unique group check ID
- * @property {string} skillId                        The skill being checked
- * @property {number} dc                             Difficulty class
+ * @property {Record<string, GroupCheckSkillConfig>} skills  Skill ID → config (DC per skill)
  * @property {number} sharedBoons                    GM-assigned shared boons
  * @property {number} sharedBanes                    GM-assigned shared banes
  * @property {boolean} finalized                     Whether the GM has finalized results
@@ -18,6 +22,7 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} actorImg                       Image path (cached)
  * @property {string|null} userId                    User ID responsible for rolling
  * @property {string} status                         Actor status enum value
+ * @property {string|null} skillId                   The skill chosen by this actor
  * @property {object|null} rollData                  Serialized StandardCheck data (after completion)
  */
 
@@ -77,10 +82,8 @@ export default class GroupCheck extends StandardCheck {
    * @returns {GroupCheck}              A configured group check instance
    */
   static #fromFlags(flags) {
-    const data = {
-      type: flags.skillId,
-      dc: flags.dc
-    };
+    const firstSkill = Object.keys(flags.skills)[0];
+    const data = {type: firstSkill, dc: flags.skills[firstSkill].dc};
     if ( flags.sharedBoons ) data.boons = {special: {label: "Special", number: flags.sharedBoons}};
     if ( flags.sharedBanes ) data.banes = {special: {label: "Special", number: flags.sharedBanes}};
     return new this(data);
@@ -132,7 +135,8 @@ export default class GroupCheck extends StandardCheck {
    * Optionally shows a Dice So Nice animation.
    * @param {CrucibleActor} actor The actor performing the check
    * @param {object} options
-   * @param {string} options.skillId            The skill being checked
+   * @param {string} options.skillId            The skill being checked (single-skill mode)
+   * @param {Record<string, GroupCheckSkillConfig>} [options.skills]  Allowed skills (multi-skill mode)
    * @param {number} [options.dc=15]            The difficulty class for the check
    * @param {number} [options.sharedBoons=0]    GM-assigned shared boons
    * @param {number} [options.sharedBanes=0]    GM-assigned shared banes
@@ -140,14 +144,24 @@ export default class GroupCheck extends StandardCheck {
    * @param {boolean} [options.showDSN=true]    Whether to show a Dice So Nice animation
    * @returns {Promise<StandardCheck|null>}    The evaluated roll, or null if the dialog was cancelled
    */
-  static async #prepareAndRoll(actor, {skillId, dc=15, sharedBoons=0, sharedBanes=0, title, showDSN=true}={}) {
+  static async #prepareAndRoll(actor, {skillId, skills, dc=15, sharedBoons=0, sharedBanes=0, title, showDSN=true}={}) {
+
+    // Resolve the initial skill from either single-skill or multi-skill mode
+    if ( skills ) {
+      const skillIds = Object.keys(skills);
+      skillId ??= skillIds[0];
+      dc = skills[skillId].dc;
+    }
+
     const skill = SYSTEM.SKILLS[skillId];
     const checkData = {dc, boons: sharedBoons, banes: sharedBanes};
     const pool = skill
       ? actor.getSkillCheck(skill.id, checkData)
       : new this({...checkData, type: skillId, actorId: actor.id});
 
-    const response = await pool.dialog({title});
+    const dialogOptions = {title};
+    if ( skills && (Object.keys(skills).length > 1) ) dialogOptions.skills = skills;
+    const response = await pool.dialog(dialogOptions);
     if ( response === null ) return null;
 
     await pool.evaluate();
@@ -163,15 +177,17 @@ export default class GroupCheck extends StandardCheck {
    * Submit a group check request: create the tracking chat card, dispatch queries to players,
    * and auto-roll for actors whose owners are not online.
    * @param {object} options
-   * @param {CrucibleActor[]} options.requestedActors  The actors to include in the group check
+   * @param {Iterable<CrucibleActor>} options.requestedActors  The actors to include in the group check
+   * @param {Record<string, GroupCheckSkillConfig>} [options.skills]  Skill configs. Defaults to single skill from roll data.
    * @returns {Promise<void>}
    */
-  async requestSubmit({requestedActors}={}) {
-    if ( !requestedActors?.length ) return;
+  async requestSubmit({requestedActors, skills}={}) {
+    if ( !requestedActors?.size && !requestedActors?.length ) return;
+
+    // Default to single skill from the roll data
+    skills ??= {[this.data.type]: {dc: this.data.dc}};
 
     const checkId = foundry.utils.randomID();
-    const skillId = this.data.type;
-
     const actors = {};
     const unrequested = [];
     for ( const actor of requestedActors ) {
@@ -182,6 +198,7 @@ export default class GroupCheck extends StandardCheck {
         actorImg: actor.img,
         userId: user?.id || null,
         status: GroupCheck.#STATUSES.PENDING,
+        skillId: null,
         rollData: null
       };
       if ( !user ) unrequested.push(actor.id);
@@ -190,8 +207,7 @@ export default class GroupCheck extends StandardCheck {
     /** @type {GroupCheckFlags} */
     const groupCheckFlags = {
       checkId,
-      skillId,
-      dc: this.data.dc,
+      skills,
       sharedBoons: this.data.totalBoons,
       sharedBanes: this.data.totalBanes,
       finalized: false,
@@ -215,7 +231,7 @@ export default class GroupCheck extends StandardCheck {
       const user = game.users.get(entry.userId);
       if ( !user ) continue;
       GroupCheck.#dispatchGroupCheckQuery({
-        message, checkId, entry, user, skillId,
+        message, checkId, entry, user, skills,
         sharedBoons: groupCheckFlags.sharedBoons,
         sharedBanes: groupCheckFlags.sharedBanes
       });
@@ -251,19 +267,20 @@ export default class GroupCheck extends StandardCheck {
    * @param {string} options.checkId         The unique check ID
    * @param {GroupCheckActorEntry} options.entry The actor entry
    * @param {User} options.user              The target user
-   * @param {string} options.skillId         The skill being checked
+   * @param {Record<string, GroupCheckSkillConfig>} options.skills  The allowed skills with DCs
    * @param {number} options.sharedBoons     GM-assigned shared boons
    * @param {number} options.sharedBanes     GM-assigned shared banes
    * @returns {Promise<void>}
    */
-  static async #dispatchGroupCheckQuery({message, checkId, entry, user, skillId, sharedBoons, sharedBanes}) {
-    const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
+  static async #dispatchGroupCheckQuery({message, checkId, entry, user, skills, sharedBoons, sharedBanes}) {
+    const skillIds = Object.keys(skills);
+    const skill = (skillIds.length === 1) ? SYSTEM.SKILLS[skillIds[0]].label : _loc("ACTION.SkillCheckGeneric");
     const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: entry.actorName});
     try {
       const rollData = await user.query("requestGroupCheck", {
         checkId,
         actorId: entry.actorId,
-        skillId,
+        skills,
         sharedBoons,
         sharedBanes,
         title
@@ -272,9 +289,11 @@ export default class GroupCheck extends StandardCheck {
       if ( rollData && !rollData.aborted ) {
         await this.#updateGroupCheckMessage(message, flags => {
           if ( flags.actors?.[entry.actorId]?.status !== this.#STATUSES.PENDING ) return false;
-          rollData.data.dc = flags.dc;
+          const chosenSkillId = rollData.data.type;
+          rollData.data.dc = flags.skills[chosenSkillId].dc;
           flags.actors[entry.actorId] = foundry.utils.mergeObject(flags.actors[entry.actorId], {
             status: this.#STATUSES.COMPLETE,
+            skillId: chosenSkillId,
             rollData
           });
         });
@@ -314,7 +333,10 @@ export default class GroupCheck extends StandardCheck {
         if ( entry.rollData ) {
           try {
             const roll = Roll.fromData(entry.rollData);
-            rollContext = roll.prepareDiceResultContext({targetLabel: entry.actorName});
+            const skill = entry.skillId ? SYSTEM.SKILLS[entry.skillId] : null;
+            let targetLabel = skill?.label ?? "";
+            if ( game.user.isGM && entry.rollData.data?.dc ) targetLabel += ` ${entry.rollData.data.dc}`;
+            rollContext = roll.prepareDiceResultContext({targetLabel});
           }
           catch(err) {
             console.warn("Failed to reconstruct roll for group check actor:", err);
@@ -337,11 +359,13 @@ export default class GroupCheck extends StandardCheck {
 
     if ( finalized && !showRollResult ) statusDisplay = {classes: "tag", text: "-"};
 
+    const skillLabel = entry.skillId ? SYSTEM.SKILLS[entry.skillId].label : null;
     return {
       ...entry,
       showRollResult,
       statusDisplay,
-      rollContext
+      rollContext,
+      skillLabel
     };
   }
 
@@ -353,11 +377,12 @@ export default class GroupCheck extends StandardCheck {
    * @returns {Promise<string>}         The rendered HTML content
    */
   async #renderGroupCheckCard(flags) {
-    const skill = SYSTEM.SKILLS[this.data.type]?.label ?? this.data.type;
-    const title = _loc("DICE.GROUP_CHECK.ChatTitle", {skill, dc: this.data.dc});
+    const skillIds = Object.keys(flags.skills);
+    const title = (skillIds.length > 1)
+      ? null
+      : _loc("DICE.GROUP_CHECK.ChatTitle", {skill: SYSTEM.SKILLS[skillIds[0]].label, dc: flags.skills[skillIds[0]].dc});
     const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, flags.finalized));
-    const templateData = {title, actors};
-    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, templateData);
+    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {title, actors});
   }
 
   /* -------------------------------------------- */
@@ -371,18 +396,18 @@ export default class GroupCheck extends StandardCheck {
    * @param {object} [params={}]          The query payload
    * @param {string} params.checkId       Unique ID for this group check session
    * @param {string} params.actorId       The actor ID for whom the check is requested
-   * @param {string} params.skillId       The skill being checked
+   * @param {Record<string, GroupCheckSkillConfig>} params.skills  Allowed skills with DCs
    * @param {number} params.sharedBoons   GM-assigned shared boons
    * @param {number} params.sharedBanes   GM-assigned shared banes
    * @param {string} params.title         The dialog title
    * @returns {Promise<object>}
    */
-  static async handle({checkId, actorId, skillId, sharedBoons, sharedBanes, title}={}) {
+  static async handle({checkId, actorId, skills, sharedBoons, sharedBanes, title}={}) {
     const actor = game.actors.get(actorId);
     if ( !actor ) return {aborted: true};
     if ( !actor.testUserPermission(game.user, "OWNER") ) return {aborted: true};
 
-    const pool = await this.#prepareAndRoll(actor, {skillId, sharedBoons, sharedBanes, title});
+    const pool = await this.#prepareAndRoll(actor, {skills, sharedBoons, sharedBanes, title});
     if ( !pool ) return {aborted: true};
     return pool.toJSON();
   }
@@ -488,18 +513,21 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     if ( !actor ) return;
 
-    const skillId = flags.skillId;
-    const skill = SYSTEM.SKILLS[skillId]?.label ?? skillId;
+    const {skills} = flags;
+    const skillIds = Object.keys(skills);
+    const skill = (skillIds.length === 1) ? SYSTEM.SKILLS[skillIds[0]].label : _loc("ACTION.SkillCheckGeneric");
     const title = _loc("DICE.GROUP_CHECK.DialogTitle", {skill, name: actor.name});
 
     const rollData = await this.#prepareAndRoll(
       actor,
-      {skillId, dc: flags.dc, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title}
+      {skills, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title}
     );
     if ( !rollData ) return;
 
-    rollData.data.dc = flags.dc;
-    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE, {rollData}, {expectedStatus: entry.status});
+    const chosenSkillId = rollData.data.type;
+    rollData.data.dc = skills[chosenSkillId].dc;
+    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE,
+      {skillId: chosenSkillId, rollData}, {expectedStatus: entry.status});
   }
 
   /**
@@ -557,7 +585,7 @@ export default class GroupCheck extends StandardCheck {
       checkId: flags.checkId,
       entry: {...entry, userId: user.id},
       user,
-      skillId: flags.skillId,
+      skills: flags.skills,
       sharedBoons: flags.sharedBoons,
       sharedBanes: flags.sharedBanes
     });

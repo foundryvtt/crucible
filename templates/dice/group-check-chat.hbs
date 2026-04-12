@@ -1,5 +1,5 @@
 <section class="crucible group-check-result themed theme-dark">
-    <p>{{title}}</p>
+    {{#if title}}<p>{{title}}</p>{{/if}}
     <div class="group-check-actors flexcol">
         {{#each actors as |entry|}}
         <div
@@ -8,6 +8,7 @@
             data-actor-id="{{entry.actorId}}"
         >
             {{#if entry.showRollResult}}
+            <h4 class="group-check-actor-name">{{entry.actorName}}</h4>
             {{#if entry.rollContext}}
             {{> "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs" entry.rollContext}}
             {{/if}}
