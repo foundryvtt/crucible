@@ -19,7 +19,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   static ITEM_PROPERTIES = SYSTEM.WEAPON.PROPERTIES;
 
   /** @override */
-  static STATEFUL_FIELDS = ["slot", "broken", "invested", "dropped", "loaded"];
+  static STATEFUL_FIELDS = [...super.STATEFUL_FIELDS, "slot", "loaded"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];

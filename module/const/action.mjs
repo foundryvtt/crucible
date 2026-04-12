@@ -689,8 +689,18 @@ export const TAGS = {
     },
     async confirm(reverse) {
       if ( !reverse ) return;
-      for ( const itemUpdate of (this.selfEvents.actorUpdate.actorUpdates.items ?? []) ) {
-        if ( itemUpdate.system?.loaded === false ) itemUpdate.system.loaded = true;
+      const actorUpdateEvent = this.selfEvents.actorUpdate;
+      if ( !actorUpdateEvent ) return;
+
+      // Rewind strikes in reverse order, applying the pre-strike weapon state
+      actorUpdateEvent.actorUpdates.items ||= [];
+      const items = actorUpdateEvent.actorUpdates.items;
+      for ( let i=this.events.length-1; i>=0; i-- ) {
+        const event = this.events[i];
+        if ( (event.type !== "strike") || !event.weapon ) continue;
+        const {id: _id, ...system} = event.weapon;
+        const idx = items.findIndex(w => w._id === _id);
+        if ( idx !== -1 ) items[idx] = {_id, system};
       }
     }
   },
@@ -916,22 +926,30 @@ export const TAGS = {
     prepare() {
       this.usage.weapon ??= this.getValidWeaponChoices()[0]?.item;
       if ( this.usage.weapon ) {
-        Object.assign(this.usage.context, {label: "Reload", icon: "fa-solid fa-arrow-rotate-right", tags: {
-          [`weapon.${this.usage.weapon.id}`]: this.usage.weapon.name
-        }});
+        Object.assign(this.usage.context, {label: "Reload", icon: "fa-solid fa-arrow-rotate-right",
+          tags: {[`weapon.${this.usage.weapon.id}`]: this.usage.weapon.name}});
       }
     },
     preActivate() {
       this.usage.actorUpdates.items ||= [];
-      if ( this.usage.weapon ) {
-        this.usage.actorUpdates.items.push({_id: this.usage.weapon.id, "system.loaded": true});
-      }
+      const w = this.usage.weapon;
+      if ( w ) this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": true});
+    },
+    postActivate() {
+      const activation = this.selfEvents?.activation;
+      if ( activation && this.usage.weapon ) activation.weapon = this.usage.weapon.system.snapshot();
     },
     async confirm(reverse) {
-      if ( !reverse ) return;
-      for ( const itemUpdate of (this.selfEvents.actorUpdate.actorUpdates.items ?? []) ) {
-        if ( itemUpdate.system?.loaded ) itemUpdate.system.loaded = false;
-      }
+      if ( !reverse ) return; // Restore the pre-reload snapshot weapon state on reverse
+      const {activation, actorUpdate: actorUpdateEvent} = this.selfEvents;
+      const weapon = activation?.weapon;
+      if ( !weapon || !actorUpdateEvent ) return;
+      actorUpdateEvent.actorUpdates.items ||= [];
+      const items = actorUpdateEvent.actorUpdates.items;
+      const {id: _id, ...system} = weapon;
+      const idx = items.findIndex(w => w._id === _id);
+      if ( idx === -1 ) items.push({_id, system});
+      else items[idx] = {_id, system};
     }
   },
 
