@@ -51,6 +51,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #regionPreview = null;
 
   /**
+   * The previously-viewed canvas layer, so once the dialog is closed for region-requiring actions we can revert.
+   * @type {InteractionLayer|null}
+   */
+  #previousCanvasLayer = null;
+
+  /**
    * Tracks whether the dialog was submitted successfully via _onRoll.
    * Used by #clearMovementPlan to avoid cancelling planned movement on a successful submission,
    * since _onClose fires for both cancellation and submission.
@@ -317,15 +323,15 @@ export default class ActionUseDialog extends StandardCheckDialog {
     };
 
     // Place the region and record its created data
-    const canvasLayer = canvas.activeLayer;
+    this.#previousCanvasLayer = canvas.activeLayer;
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange});
-    canvasLayer.activate();
     await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
 
     // Handle user workflow cancellation
     if ( !region ) {
       this.#regionTargets = null;
       canvas.tokens.setTargets([]);
+      this.#previousCanvasLayer.activate();
       return;
     }
 
@@ -462,6 +468,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #clearRegionPreview() {
     this.#regionPreview?.destroy({children: true});
     this.#regionPreview = null;
+    this.#previousCanvasLayer?.activate();
   }
 
   /* -------------------------------------------- */
