@@ -278,6 +278,7 @@ export default class CrucibleActor extends Actor {
    */
   getAbilityBonus(scaling, divisor=2) {
     if ( typeof scaling === "string" ) scaling = scaling.split(".");
+    if ( !scaling.length ) return 0;
     const abilities = this.system.abilities;
     return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
