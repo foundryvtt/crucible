@@ -9,8 +9,9 @@
  * @property {boolean} [system.equipped]            Was the item equipped?
  * @property {boolean} [system.invested]            Was the item invested?
  * @property {boolean} [system.loaded]              Was the weapon loaded?
+ * @property {number} [system.quantity]              Item stack quantity
  * @property {number} [system.slot]                 Weapon equipment slot
- * @property {number} [system.uses]                 Consumable remaining uses
+ * @property {object} [system.uses]                 Consumable remaining uses
  */
 
 /**

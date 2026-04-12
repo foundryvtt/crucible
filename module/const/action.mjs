@@ -442,8 +442,11 @@ export const TAGS = {
         throw new Error(_loc("ACTION.WARNINGS.NoConsumableUses", {item: item.name, action: this.id}));
       }
     },
-    async confirm(reverse) {
-      await this.usage.consumable.system.consume(reverse ? -1 : 1);
+    preActivate() {
+      const item = this.usage.consumable;
+      const updateEvent = this.selfUpdateEvent;
+      updateEvent.itemSnapshots.push(item.snapshot());
+      updateEvent.actorUpdates.items.push(item.system.consume(1, {save: false}));
     }
   },
 
