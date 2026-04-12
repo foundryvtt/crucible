@@ -3,33 +3,33 @@
 /*  Ember 0.5.0 - Remove in Crucible 0.9.2      */
 /* -------------------------------------------- */
 
-const ember = globalThis.ember;
+let ember;
 
 const EMBER_050 = {
   action: {
     crystalizeWounds: {
       preActivate() {
         const health = this.actor.level * 2;
-        this.recordEvent({type: "activation", resources: [{resource: "health", delta: health}]});
+        this.selfEvents.activation.resources.push({resource: "health", delta: health});
         const res = this.actor.abilities.toughness.value;
-        Object.assign(this.effects[0], {
+        Object.assign(this.effects[0].system, {
           changes: [
-            {key: "system.resistances.bludgeoning.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.resistances.piercing.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.resistances.slashing.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD}
+            {key: "system.resistances.bludgeoning.bonus", value: res, type: "add"},
+            {key: "system.resistances.piercing.bonus", value: res, type: "add"},
+            {key: "system.resistances.slashing.bonus", value: res, type: "add"}
           ]
         });
       }
     },
     extremeMetabolism: {
       preActivate() {
-        this.recordEvent({type: "activation", resources: [{resource: "action", delta: 1}]});
+        this.selfEvents.activation.resources.push({resource: "action", delta: 1});
         const dodgeBonus = Math.ceil(this.actor.abilities.dexterity.value / 2);
-        Object.assign(this.effects[0], {
+        Object.assign(this.effects[0].system, {
           changes: [
-            {key: "system.movement.strideBonus", value: 2, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.defenses.dodge.bonus", value: dodgeBonus, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.resources.action.bonus", value: 1, mode: CONST.ACTIVE_EFFECT_MODES.ADD}
+            {key: "system.movement.strideBonus", value: 2, type: "add"},
+            {key: "system.defenses.dodge.bonus", value: dodgeBonus, type: "add"},
+            {key: "system.resources.action.bonus", value: 1, type: "add"}
           ]
         });
       }
@@ -63,13 +63,13 @@ const EMBER_050 = {
         const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
         if ( !effectEvent ) return;
         const res = this.actor.level + 1;
-        Object.assign(effectEvent.effects[0], {
+        Object.assign(effectEvent.effects[0].system, {
           _id: "emberLivingStone",
           changes: [
-            {key: "system.resistances.bludgeoning.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.resistances.piercing.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.resistances.slashing.bonus", value: res, mode: CONST.ACTIVE_EFFECT_MODES.ADD},
-            {key: "system.movement.strideBonus", value: -2, mode: CONST.ACTIVE_EFFECT_MODES.ADD}
+            {key: "system.resistances.bludgeoning.bonus", value: res, type: "add"},
+            {key: "system.resistances.piercing.bonus", value: res, type: "add"},
+            {key: "system.resistances.slashing.bonus", value: res, type: "add"},
+            {key: "system.movement.strideBonus", value: -2, type: "add"}
           ]
         });
       }
@@ -91,20 +91,22 @@ const EMBER_050 = {
       }
     },
     emberBlaze: {
-      async confirm() {
+      confirm: _del,
+      postActivate() {
+        const {action: actionAdjust=0, focus: focusAdjust=0} = this.selfEvents.activation.resourceTotals;
+        const {action, focus} = this.actor.resources;
         this.recordEvent({resources: [
-          {resource: "action", delta: this.actor.resources.action.maximum},
-          {resource: "focus", delta: this.actor.resources.focus.maximum}
+          {resource: "action", delta: action.max - action.value - actionAdjust},
+          {resource: "focus", delta: focus.max - focus.value - focusAdjust}
         ]});
       }
     },
     oozeMagneticDisarm: {
-      async confirm(_reverse) {
+      confirm: _del,
+      postActivate() {
         const health = this.actor.system.abilities.toughness.value;
-        const allSucceeded = this.events
-          .filter(e => (e.target !== this.actor) && e.roll)
-          .every(e => e.roll.isSuccess);
-        if ( allSucceeded ) this.recordEvent({resources: [{resource: "health", delta: health}]});
+        const isSuccess = this.eventsByTarget.values().next().value?.isSuccess;
+        if ( isSuccess ) this.recordEvent({resources: [{resource: "health", delta: health}]});
       }
     }
   },
@@ -182,7 +184,7 @@ const EMBER_PATCHES = {
  * Called during the "setup" Foundry hook, after Ember has registered its hooks in "init".
  */
 export function applyEmberPatches() {
-  const ember = game.modules.get("ember");
+  ember = globalThis.ember;
   if ( !ember?.active ) return;
   for ( const [emberVersion, patches] of Object.entries(EMBER_PATCHES) ) {
     if ( foundry.utils.isNewerVersion(ember.version, emberVersion) ) continue;
