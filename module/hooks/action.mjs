@@ -100,7 +100,7 @@ HOOKS.bindArmament = {
   preActivate() {
     const mainhandId = this.actor.equipment.weapons.mainhand.id;
     if ( !mainhandId ) return;
-    foundry.utils.mergeObject(this.usage.actorUpdates, {
+    foundry.utils.mergeObject(this.selfUpdateEvent.actorUpdates, {
       [`flags.crucible.${this.id}`]: mainhandId
     });
   }

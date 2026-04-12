@@ -680,12 +680,11 @@ export const TAGS = {
       }
     },
     preActivate() {
-      this.usage.itemSnapshots ||= [];
+      const updateEvent = this.selfUpdateEvent;
       for ( const w of this.usage.strikes ) {
-        this.usage.itemSnapshots.push(w.snapshot());
+        updateEvent.itemSnapshots.push(w.snapshot());
         if ( w.config.category.reload ) {
-          this.usage.actorUpdates.items ||= [];
-          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
+          updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
     }
@@ -798,12 +797,11 @@ export const TAGS = {
     },
     preActivate() {
       if ( !this.usage.strikes?.length ) return;
+      const updateEvent = this.selfUpdateEvent;
       for ( const weapon of this.usage.strikes ) {
         if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
-        this.usage.itemSnapshots ||= [];
-        this.usage.itemSnapshots.push(weapon.snapshot());
-        this.usage.actorUpdates.items ||= [];
-        this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
+        updateEvent.itemSnapshots.push(weapon.snapshot());
+        updateEvent.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
       }
     }
@@ -921,10 +919,9 @@ export const TAGS = {
     preActivate() {
       const w = this.usage.weapon;
       if ( w ) {
-        this.usage.itemSnapshots ||= [];
-        this.usage.itemSnapshots.push(w.snapshot());
-        this.usage.actorUpdates.items ||= [];
-        this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": true});
+        const updateEvent = this.selfUpdateEvent;
+        updateEvent.itemSnapshots.push(w.snapshot());
+        updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": true});
       }
     }
   },

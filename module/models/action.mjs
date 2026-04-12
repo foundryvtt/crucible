@@ -474,6 +474,9 @@ class CrucibleActionTags extends Set {
  * - {@linkcode CrucibleAction#configureDialog} - Present the user with an {@link ActionUseDialog} (skippable).
  *    - Targets are re-acquired strictly after the dialog closes.
  *    - Action hooks called: `configure` (again, after target reacquisition)
+ * - {@linkcode CrucibleAction##initializeSelfEvents} - Pre-create the self `actorUpdate` and `activation` events.
+ *   Drains any pre-accumulated `usage.actorUpdates` and `usage.itemSnapshots` into the events. After this point,
+ *   `preActivate` and `postActivate` hooks can access {@linkcode CrucibleAction#selfUpdateEvent} directly.
  * - {@linkcode CrucibleAction#_preActivate} - Final validation with full target knowledge. May throw to abort.
  *    - Action hooks: `preActivate`
  *    - Actor hooks: `preActivateAction`
@@ -482,12 +485,12 @@ class CrucibleActionTags extends Set {
  *    events are recorded.
  *    - Action hooks called: `roll`
  *    - Actor hooks called: `rollAction`
- * - `CrucibleAction##recordSelfEvents` - Record activation costs, actor updates, and summon events for the actor
- *   performing the event.
+ * - {@linkcode CrucibleAction##finalizeSelfEvents} - Finalize the pre-existing self events: merge `usage.actorStatus`
+ *   into the actorUpdate event, compute activation costs from `this.cost`, and record summon events.
  * - `CrucibleAction##recordEffectEvents` - Record ActiveEffect data to roll events which should result in effect
  *   application, or as standalone "effect" events.
  * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
- *    - Action hooks called: : `postActivate`
+ *    - Action hooks called: `postActivate`
  * - `CrucibleAction##finalizeEvents` - Compute final resource deltas and critical flags.
  * - Actor hooks called: `finalizeAction`
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
@@ -816,6 +819,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
+   * The actorUpdate event for the actor performing this action.
+   * Available after #initializeSelfEvents has run, before any preActivate or postActivate hooks.
+   * @type {CrucibleActionEvent}
+   * @throws {Error} If accessed before self events have been initialized
+   */
+  get selfUpdateEvent() {
+    const event = this.selfEvents?.actorUpdate;
+    if ( !event ) throw new Error(`selfUpdateEvent accessed before initialization for action "${this.id}"`);
+    return event;
+  }
+
+  /**
    * Cached result of eventsByActor. Invalidated when events are added via recordEvent.
    * @type {Map<CrucibleActor, ActorEventGroup>|null}
    */
@@ -1056,6 +1071,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   recordEvent(eventData, {index, start, temporary}={}) {
     const event = new CrucibleActionEvent(eventData, this);
     if ( temporary ) return event;
+    if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
+      const existing = this.events.find(e => (e.type === event.type) && (e.target === event.target));
+      if ( existing ) throw new Error(`Duplicate singleton "${event.type}" event for actor "${event.target.name}"`);
+    }
     if ( start ) this.events.unshift(event);
     else if ( Number.isInteger(index) ) this.events.splice(index, 0, event);
     else this.events.push(event);
@@ -1170,6 +1189,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.#configure();
     }
 
+    // Initialize self events before pre-activation hooks
+    this.#initializeSelfEvents();
+
     // Pre-execution steps, possibly preventing activation
     try {
       await this._preActivate();
@@ -1189,7 +1211,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Finalize action events
-    this.#recordSelfEvents();
+    this.#finalizeSelfEvents();
     this.#recordEffectEvents();
     await this._post();
     this.#finalizeEvents();
@@ -1521,28 +1543,38 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Record events that apply to the Actor performing the Action (activation cost, actor updates, summons).
+   * Pre-create the self actorUpdate and activation events before preActivate hooks run.
+   * Drains any pre-accumulated usage.actorUpdates and usage.itemSnapshots into the events.
    */
-  #recordSelfEvents() {
-
-    // Record actor updates to the beginning of the events stream
+  #initializeSelfEvents() {
     const actorUpdates = foundry.utils.expandObject(this.usage.actorUpdates);
-    actorUpdates.system ||= {};
-    if ( actorUpdates.system.status ) {
-      console.error(`Crucible | "system.status" key present in action.usage.actorUpdates: ${this.name}`);
-    }
-    actorUpdates.system.status = Object.assign(actorUpdates.system.status || {}, {lastAction: this.id},
-      foundry.utils.expandObject(this.usage.actorStatus));
-    const itemSnapshots = this.usage.itemSnapshots?.length ? this.usage.itemSnapshots : undefined;
+    actorUpdates.items ??= [];
+    const itemSnapshots = this.usage.itemSnapshots?.length ? this.usage.itemSnapshots : [];
     this.recordEvent({type: "actorUpdate", actorUpdates, itemSnapshots}, {start: true});
+    this.recordEvent({type: "activation", resources: []}, {start: true});
+  }
 
-    // Record activation cost at the beginning of the events stream
-    const activationResources = Object.entries(this.cost).reduce((arr, [k, v]) => {
-      if ( v && (k in SYSTEM.RESOURCES) ) arr.push({resource: k, delta: -v});
-      return arr;
-    }, []);
-    if ( activationResources.length ) {
-      this.recordEvent({type: "activation", resources: activationResources}, {start: true});
+  /* -------------------------------------------- */
+
+  /**
+   * Finalize the pre-existing self events with actor status, activation costs, and summons.
+   */
+  #finalizeSelfEvents() {
+
+    // Finalize actor status on the pre-existing actorUpdate event
+    const updateEvent = this.selfUpdateEvent;
+    updateEvent.actorUpdates.system ||= {};
+    if ( updateEvent.actorUpdates.system.status ) {
+      console.error(`Crucible | "system.status" key present in actorUpdate event: ${this.name}`);
+    }
+    updateEvent.actorUpdates.system.status = Object.assign(
+      updateEvent.actorUpdates.system.status || {}, {lastAction: this.id},
+      foundry.utils.expandObject(this.usage.actorStatus));
+
+    // Finalize activation costs on the pre-existing activation event
+    const activationEvent = this.selfEvents.activation;
+    for ( const [k, v] of Object.entries(this.cost) ) {
+      if ( v && (k in SYSTEM.RESOURCES) ) activationEvent.resources.push({resource: k, delta: -v});
     }
 
     // Record summons
