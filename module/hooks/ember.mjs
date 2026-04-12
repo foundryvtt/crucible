@@ -10,7 +10,7 @@ const EMBER_050 = {
     crystalizeWounds: {
       preActivate() {
         const health = this.actor.level * 2;
-        this.selfEvents.activation.resources = [{resource: "health", delta: health}];
+        this.selfEvents.activation.resources.push({resource: "health", delta: health});
         const res = this.actor.abilities.toughness.value;
         Object.assign(this.effects[0].system, {
           changes: [
@@ -23,7 +23,7 @@ const EMBER_050 = {
     },
     extremeMetabolism: {
       preActivate() {
-        this.selfEvents.activation.resources = [{resource: "action", delta: 1}];
+        this.selfEvents.activation.resources.push({resource: "action", delta: 1});
         const dodgeBonus = Math.ceil(this.actor.abilities.dexterity.value / 2);
         Object.assign(this.effects[0].system, {
           changes: [
@@ -185,10 +185,9 @@ const EMBER_PATCHES = {
  */
 export function applyEmberPatches() {
   ember = globalThis.ember;
-  const emberModule = game.modules.get("ember");
-  if ( !emberModule?.active ) return;
+  if ( !ember?.active ) return;
   for ( const [emberVersion, patches] of Object.entries(EMBER_PATCHES) ) {
-    if ( foundry.utils.isNewerVersion(emberModule.version, emberVersion) ) continue;
+    if ( foundry.utils.isNewerVersion(ember.version, emberVersion) ) continue;
     for ( const [hookType, hooks] of Object.entries(patches) ) {
       foundry.utils.mergeObject(crucible.api.hooks[hookType], hooks, {inplace: true, applyOperators: true});
     }
