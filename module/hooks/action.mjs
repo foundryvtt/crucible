@@ -793,7 +793,10 @@ HOOKS.repercussiveBlock = {
       if ( !events.allSuccess ) continue;
       const {mainhand} = target.equipment.weapons; // TODO - react to the prior action?
       if ( !mainhand?.id || mainhand.properties.has("natural") ) continue;
-      this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: "Disarmed!", fontSize: 64}]});
+      this.recordEvent({type: "actorUpdate", target,
+        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+        itemSnapshots: [mainhand.snapshot()],
+        statusText: [{text: "Disarmed!", fontSize: 64}]});
     }
   }
 };

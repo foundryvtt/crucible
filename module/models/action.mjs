@@ -157,6 +157,7 @@ class CrucibleActionEvent {
    * @param {CrucibleItemSnapshot} [data.weapon]    Weapon snapshot, present for strike-type events
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
+   * @param {CrucibleItemSnapshot[]} [data.itemSnapshots]  Pre-action item state for reversal
    * @param {object[]} [data.resources=[]]          Resource changes incurred or imposed by this event
    * @param {ActionEffect[]} [data.effects=[]]      Effect changes manifested by this event
    * @param {object[]} [data.statusText]            Status text to display above the target
@@ -173,6 +174,7 @@ class CrucibleActionEvent {
     if ( data.weapon ) this.weapon = data.weapon;
     if ( data.summon ) this.summon = data.summon;
     if ( data.actorUpdates ) this.actorUpdates = data.actorUpdates;
+    if ( data.itemSnapshots ) this.itemSnapshots = data.itemSnapshots;
     if ( data.statusText ) this.statusText = data.statusText;
     if ( data.isCriticalSuccess ) this.isCriticalSuccess = data.isCriticalSuccess;
     if ( data.isCriticalFailure ) this.isCriticalFailure = data.isCriticalFailure;
@@ -281,11 +283,10 @@ class CrucibleActionEvent {
   get weaponItem() {
     if ( !this.weapon ) return undefined;
     if ( this.#weaponItem ) return this.#weaponItem;
-    const {id, ...state} = this.weapon;
-    const source = this.#action.actor.items.get(id);
+    const source = this.#action.actor.items.get(this.weapon._id);
     if ( !source ) return undefined;
     const clone = source.clone();
-    clone.system.updateSource(state);
+    clone.system.updateSource(this.weapon.system);
     return this.#weaponItem = clone;
   }
 
@@ -302,6 +303,7 @@ class CrucibleActionEvent {
     if ( this.weapon ) obj.weapon = this.weapon;
     if ( this.summon ) obj.summon = this.summon;
     if ( this.actorUpdates ) obj.actorUpdates = this.actorUpdates;
+    if ( this.itemSnapshots ) obj.itemSnapshots = this.itemSnapshots;
     if ( this.statusText ) obj.statusText = this.statusText;
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
@@ -501,8 +503,7 @@ class CrucibleActionTags extends Set {
  *    - Receives `reverse` boolean to support undo.
  * - Actor hooks called: `confirmAction` - Called for every actor (including self) in the event stream.
  * - `CrucibleAction##applyEvents` - Walk the event stream and apply resource changes to each actor. When
- *   `reverse=true`, all deltas are inverted and effects are removed. Actor updates are not automatically reversed
- *   currently, as the "pre-action" state of affected fields is not recorded.
+ *   `reverse=true`, all deltas are inverted, effects are removed, and item snapshots are restored.
  * - `CrucibleAction##recordHeroism` - Award heroism for confirmed damage-dealing actions.
  *
  * ## Guidance for Hook Authors
@@ -1532,7 +1533,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     actorUpdates.system.status = Object.assign(actorUpdates.system.status || {}, {lastAction: this.id},
       foundry.utils.expandObject(this.usage.actorStatus));
-    this.recordEvent({type: "actorUpdate", actorUpdates}, {start: true});
+    const itemSnapshots = this.usage.itemSnapshots?.length ? this.usage.itemSnapshots : undefined;
+    this.recordEvent({type: "actorUpdate", actorUpdates, itemSnapshots}, {start: true});
 
     // Record activation cost at the beginning of the events stream
     const activationResources = Object.entries(this.cost).reduce((arr, [k, v]) => {
@@ -2113,7 +2115,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const batches = new Map();
     for ( const event of this.events ) {
       const actor = event.target;
-      if ( !batches.has(actor) ) batches.set(actor, {resources: {}, effects: [], actorUpdates: {}, statusText: []});
+      if ( !batches.has(actor) ) batches.set(actor, {
+        resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], statusText: []
+      });
       const batch = batches.get(actor);
       const isSelf = actor === this.actor;
 
@@ -2137,16 +2141,44 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Accumulate actor updates
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
 
+      // Accumulate item snapshots
+      if ( event.itemSnapshots ) batch.itemSnapshots.push(...event.itemSnapshots);
+
       // Accumulate status text
       if ( event.statusText ) batch.statusText.push(...event.statusText);
     }
 
     // Apply each actor's batch
     for ( const [actor, batch] of batches ) {
+      if ( reverse && batch.itemSnapshots.length ) this.#reverseItemSnapshots(batch);
       const statusText = batch.statusText.length ? batch.statusText : undefined;
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, statusText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Replace forward item changes in a batch with pre-action snapshots for reversal.
+   * Snapshots are iterated in reverse order so the oldest snapshot per item wins.
+   * Snapshot entries replace any forward change with the same _id. Other item changes are preserved.
+   * @param {object} batch    The per-actor batch being applied
+   */
+  #reverseItemSnapshots(batch) {
+    const restorations = new Map();
+    for ( let i=batch.itemSnapshots.length-1; i>=0; i-- ) {
+      const snap = batch.itemSnapshots[i];
+      restorations.set(snap._id, snap);
+    }
+    const items = batch.actorUpdates.items ??= [];
+    for ( const [i, {_id}] of items.entries() ) {
+      if ( restorations.has(_id) ) {
+        items[i] = restorations.get(_id);
+        restorations.delete(_id);
+      }
+    }
+    items.push(...Array.from(restorations.values()));
   }
 
   /* -------------------------------------------- */

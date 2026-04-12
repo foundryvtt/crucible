@@ -2178,6 +2178,8 @@ export default class CrucibleActor extends Actor {
       target: {type: "self", scope: 1}
     }, {actor: this});
 
+    action.usage.itemSnapshots ||= [];
+    action.usage.itemSnapshots.push(item.snapshot());
     const update = {_id: item.id, system: {equipped: false}};
     if ( dropped ) update.system.dropped = true;
     if ( item.type === "weapon" ) Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
@@ -2209,6 +2211,8 @@ export default class CrucibleActor extends Actor {
     }, {actor: this});
 
     // Equip the weapon as a follow-up actor update
+    action.usage.itemSnapshots ||= [];
+    action.usage.itemSnapshots.push(item.snapshot());
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
     const update = {_id: item.id, system: {dropped: false, equipped: true}};

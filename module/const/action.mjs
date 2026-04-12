@@ -680,26 +680,13 @@ export const TAGS = {
       }
     },
     preActivate() {
+      this.usage.itemSnapshots ||= [];
       for ( const w of this.usage.strikes ) {
+        this.usage.itemSnapshots.push(w.snapshot());
         if ( w.config.category.reload ) {
           this.usage.actorUpdates.items ||= [];
           this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
-      }
-    },
-    async confirm(reverse) {
-      if ( !reverse ) return;
-      const actorUpdateEvent = this.selfEvents.actorUpdate;
-      if ( !actorUpdateEvent ) return;
-
-      // Rewind strikes in reverse order, applying the pre-strike weapon state
-      actorUpdateEvent.actorUpdates.items ||= [];
-      const items = actorUpdateEvent.actorUpdates.items;
-      for ( let i=this.events.length-1; i>=0; i-- ) {
-        const event = this.events[i];
-        if ( (event.type !== "strike") || !event.weapon ) continue;
-        const idx = items.findIndex(w => w._id === event.weapon._id);
-        if ( idx !== -1 ) items[idx] = event.weapon;
       }
     }
   },
@@ -813,6 +800,8 @@ export const TAGS = {
       if ( !this.usage.strikes?.length ) return;
       for ( const weapon of this.usage.strikes ) {
         if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
+        this.usage.itemSnapshots ||= [];
+        this.usage.itemSnapshots.push(weapon.snapshot());
         this.usage.actorUpdates.items ||= [];
         this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
@@ -930,24 +919,13 @@ export const TAGS = {
       }
     },
     preActivate() {
-      this.usage.actorUpdates.items ||= [];
       const w = this.usage.weapon;
-      if ( w ) this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": true});
-    },
-    postActivate() {
-      const activation = this.selfEvents?.activation;
-      if ( activation && this.usage.weapon ) activation.weapon = this.usage.weapon.snapshot();
-    },
-    async confirm(reverse) {
-      if ( !reverse ) return; // Restore the pre-reload snapshot weapon state on reverse
-      const {activation, actorUpdate: actorUpdateEvent} = this.selfEvents;
-      const weapon = activation?.weapon;
-      if ( !weapon || !actorUpdateEvent ) return;
-      actorUpdateEvent.actorUpdates.items ||= [];
-      const items = actorUpdateEvent.actorUpdates.items;
-      const idx = items.findIndex(w => w._id === weapon._id);
-      if ( idx === -1 ) items.push(weapon);
-      else items[idx] = weapon;
+      if ( w ) {
+        this.usage.itemSnapshots ||= [];
+        this.usage.itemSnapshots.push(w.snapshot());
+        this.usage.actorUpdates.items ||= [];
+        this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": true});
+      }
     }
   },
 
@@ -963,7 +941,10 @@ export const TAGS = {
         if ( !events.allSuccess ) continue;
         const {mainhand} = target.equipment.weapons; // TODO - allow usage customization?
         if ( !mainhand?.id ) continue;
-        this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]});
+        this.recordEvent({type: "actorUpdate", target,
+          actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+          itemSnapshots: [mainhand.snapshot()],
+          statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]});
       }
     }
   },
