@@ -342,7 +342,7 @@ HOOKS.feintingStrike = {
     }
     const offhand = this.actor.equipment.weapons.offhand;
     const roll = await this.actor.weaponAttack(this, offhand, target, options);
-    const weapon = offhand.system.snapshot();
+    const weapon = offhand.snapshot();
     const strike = this.recordEvent({type: "strike", target, roll, weapon}, {temporary: true});
 
     // Reorder event stream chronology so that the offhand strike immediately follows the deception event

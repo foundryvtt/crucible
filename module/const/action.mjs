@@ -676,7 +676,7 @@ export const TAGS = {
       for ( const [i, weapon] of this.usage.strikes.entries() ) {
         const roll = await this.actor.weaponAttack(this, weapon, target);
         roll.data.strike = i;
-        this.recordEvent({type: "strike", target, roll, weapon: weapon.system.snapshot()});
+        this.recordEvent({type: "strike", target, roll, weapon: weapon.snapshot()});
       }
     },
     preActivate() {
@@ -936,7 +936,7 @@ export const TAGS = {
     },
     postActivate() {
       const activation = this.selfEvents?.activation;
-      if ( activation && this.usage.weapon ) activation.weapon = this.usage.weapon.system.snapshot();
+      if ( activation && this.usage.weapon ) activation.weapon = this.usage.weapon.snapshot();
     },
     async confirm(reverse) {
       if ( !reverse ) return; // Restore the pre-reload snapshot weapon state on reverse

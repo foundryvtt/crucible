@@ -274,21 +274,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Snapshot the stateful properties of this weapon at the time an Action is performed.
-   * Properties outside this list are assumed to be permanent attributes of the item and not stateful.
-   * @returns {CrucibleItemSnapshot}
-   */
-  snapshot() {
-    const source = this.toObject();
-    return this.constructor.STATEFUL_FIELDS.reduce((obj, field) => {
-      obj.system[field] = source[field];
-      return obj;
-    }, {_id: this.parent.id, system: {}});
-  }
-
-  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 

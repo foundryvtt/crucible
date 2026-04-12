@@ -1,4 +1,19 @@
 /**
+ * @typedef CrucibleItemSnapshot
+ * A serializable snapshot of item stateful data, captured at action-use time. Structured as an item update object.
+ * Each item subtype declares its own STATEFUL_FIELDS; properties not relevant to a given subtype will be absent.
+ * @property {string} _id                           The Item ID
+ * @property {object} system                        The stateful system data
+ * @property {boolean} [system.broken]              Was the item broken?
+ * @property {boolean} [system.dropped]             Was the item dropped?
+ * @property {boolean} [system.equipped]            Was the item equipped?
+ * @property {boolean} [system.invested]            Was the item invested?
+ * @property {boolean} [system.loaded]              Was the weapon loaded?
+ * @property {number} [system.slot]                 Weapon equipment slot
+ * @property {number} [system.uses]                 Consumable remaining uses
+ */
+
+/**
  * An Item subclass which handles system specific logic for the Item document type.
  */
 export default class CrucibleItem extends foundry.documents.Item {
@@ -51,6 +66,23 @@ export default class CrucibleItem extends foundry.documents.Item {
    */
   get activeEffectsSuppressed() {
     return this.system.activeEffectsSuppressed || false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Snapshot the stateful properties of this item at the time an Action is performed.
+   * Properties outside the STATEFUL_FIELDS list are assumed to be permanent attributes of the item and not stateful.
+   * @returns {CrucibleItemSnapshot}
+   */
+  snapshot() {
+    const fields = this.system.constructor.STATEFUL_FIELDS;
+    if ( !fields ) return {_id: this.id, system: {}};
+    const source = this.system.toObject();
+    return fields.reduce((obj, field) => {
+      obj.system[field] = source[field];
+      return obj;
+    }, {_id: this.id, system: {}});
   }
 
   /* -------------------------------------------- */
