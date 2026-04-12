@@ -36,8 +36,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
       backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
-      knowledgeOptions: this.#prepareKnowledgeOptions(),
-      knowledge: this.#prepareKnowledge(),
+      knowledge: this._prepareBackgroundDetailSet({
+        type: "knowledge",
+        tooltip: "ACTOR.LABELS.BackgroundKnowledgeTooltip"
+      }),
       talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
@@ -63,35 +65,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     // Allow extension of sheet context
     Hooks.callAll("crucible.prepareHeroSheetContext", this, context, options);
     return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare options provided to a multi-select element for which knowledge areas the character may know.
-   * @returns {FormSelectOption[]}
-   */
-  #prepareKnowledgeOptions() {
-    const options = [];
-    for ( const [value, {label, skill}] of Object.entries(crucible.CONFIG.knowledge) ) {
-      const s = SYSTEM.SKILLS[skill];
-      options.push({value, label, group: s?.label});
-    }
-    return options;
-  }
-
-  /**
-   * Prepare the user-friendly list of knowledge areas that the actor has.
-   * @returns {string[]}
-   */
-  #prepareKnowledge() {
-    const knowledgeNames = [];
-    for ( const knowledgeId of this.actor.system.details.knowledge ) {
-      if ( crucible.CONFIG.knowledge[knowledgeId] ) {
-        knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
-      }
-    }
-    return knowledgeNames;
   }
 
   /* -------------------------------------------- */

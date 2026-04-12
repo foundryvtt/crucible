@@ -31,7 +31,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       resourcePip: {handler: CrucibleBaseActorSheet.#onResourcePip, buttons: [0, 2]},
       editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
       editSize: CrucibleBaseActorSheet.#onEditSize,
-      editStride: CrucibleBaseActorSheet.#onEditStride
+      editStride: CrucibleBaseActorSheet.#onEditStride,
+      editDetailsProperty: CrucibleBaseActorSheet.#onEditDetailsProperty
     },
     form: {
       submitOnChange: true
@@ -180,7 +181,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       incomplete: {},
       inventory,
       isEditable: this.isEditable,
-      languages: this.#prepareLanguageOptions(),
+      languages: this._prepareBackgroundDetailSet({
+        type: "languages",
+        tooltip: "ACTOR.LABELS.BackgroundLanguageTooltip"
+      }),
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
       skillCategories: this.#prepareSkills(),
@@ -654,16 +658,26 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
-   * Prepare options provided to a multi-select element for which languages the character may know.
-   * @returns {FormSelectOption[]}
+   * Prepare the set of language or knowledge areas known, identifying ones that originate from a background.
+   * @param {string} type
+   * @returns {{label: string, fromBackground: boolean, tooltip: string}[]}
+   * @protected
    */
-  #prepareLanguageOptions() {
-    const categories = crucible.CONFIG.languageCategories;
-    const options = [];
-    for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
-      options.push({value, label, group: categories[category]?.label});
+  _prepareBackgroundDetailSet({type="languages", tooltip}) {
+    const known = [];
+    const backgroundKnown = this.document.system.details.background?.[type] ?? new Set();
+    for ( const id of this.document.system.details[type] ) {
+      const label = crucible.CONFIG[type][id]?.label;
+      if ( !label ) continue;
+      const fromBackground = backgroundKnown.has(id);
+      known.push({label, fromBackground, tooltip: fromBackground && tooltip ? _loc(tooltip) : null});
     }
-    return options;
+    known.sort((a, b) => {
+      if ( a.fromBackground && !b.fromBackground ) return -1;
+      if ( b.fromBackground && !a.fromBackground ) return 1;
+      return a.label.localeCompare(b.label);
+    });
+    return known;
   }
 
   /* -------------------------------------------- */
@@ -1076,7 +1090,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Handle click actions to edit engagement bonus.
-   * @this {HeroSheet}
+   * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
   static async #onEditEngagement() {
@@ -1093,7 +1107,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Handle click actions to edit size bonus.
-   * @this {HeroSheet}
+   * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
   static async #onEditSize() {
@@ -1110,7 +1124,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Handle click actions to edit stride bonus.
-   * @this {HeroSheet}
+   * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
   static async #onEditStride() {
@@ -1121,6 +1135,39 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editLabel: "ACTOR.ACTIONS.EditMovement",
       baseLabel: "ACTOR.FIELDS.movement.stride.base"
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to edit Knowledge Areas or Languages
+   * @this {CrucibleBaseActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onEditDetailsProperty(_event, target) {
+    const property = target.dataset.property;
+    const propertyField = this.document.system.schema.getField(`details.${property}`);
+    const propertyPath = `system.details.${property}`;
+
+    // Determine which knowledge/languages are added during data prep, as they shouldn't be modifiable
+    const propertyValue = foundry.utils.getProperty(this.document, propertyPath);
+    const propertySource = new Set(foundry.utils.getProperty(this.document._source, propertyPath));
+    const toDisable = propertyValue.difference(propertySource);
+    const propertyOptions = Object.entries(crucible.CONFIG[property]).map(([value, {label, category}]) => {
+      const toAdd = {value, label, disabled: toDisable.has(value)};
+      if ( category && (property === "languages") ) toAdd.group = crucible.CONFIG.languageCategories[category]?.label;
+      return toAdd;
+    });
+    const propertyInput = propertyField.toInput({options: propertyOptions, type: "checkboxes", value: propertyValue});
+    const title = `${_loc(`ACTOR.LABELS.${property.titleCase()}`)}: ${this.document.name}`;
+    const formData = await api.DialogV2.input({
+      window: {title},
+      classes: ["edit-details-property", property],
+      content: propertyInput.outerHTML
+    });
+    if ( !formData ) return;
+    formData[propertyPath] = formData[propertyPath].filter(value => !toDisable.has(value));
+    await this.actor.update(formData);
   }
 
   /* -------------------------------------------- */
@@ -1152,7 +1199,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Process user-input dialog
     const title = `${_loc(editLabel)}: ${this.actor.name}`;
-    const formData = await foundry.applications.api.DialogV2.input({window: {title}, content});
+    const formData = await api.DialogV2.input({window: {title}, content});
     if (formData) await this.actor.update(formData);
   }
 

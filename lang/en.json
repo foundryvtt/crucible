@@ -702,6 +702,8 @@
       }
     },
     "LABELS": {
+      "BackgroundKnowledgeTooltip": "This Knowledge Area is granted by your Background.",
+      "BackgroundLanguageTooltip": "This Language is granted by your Background.",
       "Capacity": "Carrying Capacity",
       "Currency": "Currency",
       "CurrentCapacity": "Current Capacity",
@@ -710,6 +712,7 @@
       "Knowledge": "Knowledge Areas",
       "KnowledgeHint": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
       "Languages": "Known Languages",
+      "LanguagesHint": "Learn some Languages from your Background or edit your Hero to gain some.",
       "OverCapacity": "Over Capacity"
     },
     "SECTIONS": {
