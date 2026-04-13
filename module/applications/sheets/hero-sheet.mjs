@@ -52,10 +52,12 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const issues = [];
     if ( !s.system.details.ancestry?.name ) issues.push("ACTOR.WARNINGS.NoAncestry");
     if ( !s.system.details.background?.name ) issues.push("ACTOR.WARNINGS.NoBackground");
-    if ( points.ability.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentAbility");
-    else if ( points.ability.requireInput ) issues.push("ACTOR.WARNINGS.UnderspentAbility");
-    if ( points.talent.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentTalent");
-    else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
+    if ( !isL0 ) {
+      if ( points.ability.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentAbility");
+      else if ( points.ability.requireInput ) issues.push("ACTOR.WARNINGS.UnderspentAbility");
+      if ( points.talent.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentTalent");
+      else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
+    }
     i.progress = !!issues.length;
     if ( i.progress ) {
       const items = issues.reduce((s, text) => `${s}<li>${_loc(text)}</li>`, "");

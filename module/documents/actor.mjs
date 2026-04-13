@@ -1876,7 +1876,7 @@ export default class CrucibleActor extends Actor {
         this.system.details.ancestry?.name,
         this.system.details.background?.name,
         !this.points.ability.requireInput,
-        !this.points.talent.available
+        this.points.talent.available <= 0
       ];
       if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
     }
