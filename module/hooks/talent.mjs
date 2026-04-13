@@ -402,6 +402,16 @@ HOOKS.intellectualsupe = {
 
 /* -------------------------------------------- */
 
+HOOKS.ironResolve00000 = {
+  defendAttack(_item, action, _origin, rollData) {
+    if ( action.tags.has("strike") ) {
+      rollData.criticalSuccessThreshold += 1;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.irrepressiblespi = {
   startTurn(item, {resourceChanges, statusText}) {
     if ( this.system.isBroken ) return;
