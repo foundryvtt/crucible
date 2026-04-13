@@ -9,7 +9,7 @@
                 <option value="{{choice.id}}" {{#if choice.disabled}}disabled{{/if}} {{#if (eq choice.id entry.id)}}selected{{/if}}>{{choice.label}}</option>
                 {{/each}}
             </select>
-            <input type="number" class="skill-dc" name="skillDc.{{entry.id}}" placeholder="{{../customizeSkills.defaultDc}}" {{#if entry.customDc}}value="{{entry.dc}}"{{/if}} min="0" max="50">
+            <input type="number" class="skill-dc" name="skillDc.{{entry.id}}" placeholder="{{../customizeSkills.defaultDc}}" {{#if entry.customDc}}value="{{entry.dc}}"{{/if}} min="0" max="50" step="1">
             <button type="button" class="icon fa-solid fa-times" data-action="skillRemove" data-skill-id="{{entry.id}}"></button>
         </div>
         {{/each}}
@@ -43,7 +43,7 @@
     </section>
     {{/if}}
 
-    {{#if skillSelector.singleSelect}}
+    {{#if skillSelector.enabled}}
     <section class="skill-choice form-group">
         <div class="form-fields">
             <select name="skillChoice">
@@ -95,19 +95,17 @@
         </button>
         {{/if}}
     {{/each}}
-    {{#if configurable}}
     <div class="split-button">
         {{#each messageModes as |mode|}}
+        {{#if mode.interactive}}
         <button type="button" class="ui-control icon {{mode.icon}}" data-action="messageMode"
                 data-message-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
                 data-tooltip aria-label="{{localize mode.label}}"></button>
+        {{else}}
+        <span class="ui-control icon {{mode.icon}} inactive" data-tooltip aria-label="{{localize mode.label}}"></span>
+        {{/if}}
         {{/each}}
     </div>
-    {{else}}
-    {{#each messageModes as |mode|}}
-    {{#if mode.active}}<span class="ui-control icon {{mode.icon}} inactive" data-tooltip aria-label="{{localize mode.label}}"></span>{{/if}}
-    {{/each}}
-    {{/if}}
     {{#each buttons as |button|}}
         {{#unless (eq button.position "left")}}
         <button type="{{button.type}}" class="dialog-button frame-brown {{button.cssClass}}" data-action="{{button.action}}" data-tooltip-text="{{button.tooltip}}" {{#if button.disabled}}disabled{{/if}}>

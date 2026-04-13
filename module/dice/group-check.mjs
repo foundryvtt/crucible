@@ -218,29 +218,15 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-   * Determine the best skill for an actor from the available set.
-   * Selects the skill with the highest training rank, breaking ties by ability bonus.
+   * Determine the best skill for an actor from the available set based on passive score.
    * @param {CrucibleActor} actor                                The actor to evaluate
    * @param {Record<string, GroupCheckSkillConfig>} skills        The available skills
    * @returns {string}                                           The chosen skill ID
    */
   static #bestSkillForActor(actor, skills) {
-    const skillIds = Object.keys(skills);
-    if ( skillIds.length === 1 ) return skillIds[0];
-    let bestId = skillIds[0];
-    let bestRank = -Infinity;
-    let bestAbility = -Infinity;
-    for ( const id of skillIds ) {
-      const actorSkill = actor.system.skills[id];
-      const rank = actorSkill?.rank ?? 0;
-      const abilityBonus = actorSkill?.abilityBonus ?? 0;
-      if ( (rank > bestRank) || ((rank === bestRank) && (abilityBonus > bestAbility)) ) {
-        bestId = id;
-        bestRank = rank;
-        bestAbility = abilityBonus;
-      }
-    }
-    return bestId;
+    return Object.keys(skills)
+      .map(id => ({id, passive: actor.system.skills[id]?.passive ?? 0}))
+      .sort((a, b) => b.passive - a.passive)[0].id;
   }
 
   /* -------------------------------------------- */

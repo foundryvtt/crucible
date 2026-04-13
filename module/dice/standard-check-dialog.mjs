@@ -19,7 +19,7 @@ export default class StandardCheckDialog extends DialogV2 {
   constructor({request=false, requestedActors=[], roll, messageMode, skills, configurable=true, ...options}={}) {
     super(options);
     this.request = request && game.user.isGM;
-    this.configurable = configurable;
+    this.configurable = configurable && game.user.isGM;
     this.roll = roll;
     this.messageMode = messageMode;
     if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
@@ -85,6 +85,9 @@ export default class StandardCheckDialog extends DialogV2 {
    */
   customizeSkills = false;
 
+  /** @type {Function|null} */
+  #boundSubmit = null;
+
   /**
    * The actors who will be requested to roll.
    * @type {Set<CrucibleActor>}
@@ -93,8 +96,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /**
    * Selected skills for group check. Maps skill ID to its custom DC override (null = inherit shared DC).
-   * In GM mode, this is the multi-select set being built.
-   * In player mode, this is the set of allowed skills received from the GM.
+   * During configuration, this is populated with allowed skills and DCs.
+   * When non-configurable, this is a fixed list of skills that the resolving player can choose between.
    * @type {Map<string, number|null>}
    */
   #selectedSkills = new Map();
@@ -111,13 +114,14 @@ export default class StandardCheckDialog extends DialogV2 {
    */
   messageMode;
 
+  /* -------------------------------------------- */
+
   /** @override */
   get title() {
     if ( this.options.window.title ) return this.options.window.title;
     let label;
-    if ( this.#selectedSkills.size > 1 ) {
-      label = _loc("ACTION.SkillCheckGeneric");
-    } else {
+    if ( this.#selectedSkills.size > 1 ) label = _loc("ACTION.SkillCheckGeneric");
+    else {
       const type = this.roll.data.type;
       const skill = SYSTEM.SKILLS[type];
       label = skill ? _loc("ACTION.SkillCheck", {skill: skill.label}) : _loc("ACTION.StandardCheck");
@@ -159,14 +163,11 @@ export default class StandardCheckDialog extends DialogV2 {
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
       difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (DC ${d[0]})`})),
-      isGM: game.user.isGM,
       configurable: this.configurable,
       request: this.#prepareRequest(),
       customizeSkills: this.#prepareCustomizeSkills(),
       skillSelector: this.#prepareSkillSelector(),
-      messageModes: Object.entries(CONFIG.ChatMessage.modes).map(([action, { label, icon }]) => {
-        return {icon, label, action, active: action === messageMode};
-      }),
+      messageModes: this.#prepareMessageModes(messageMode),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.DICE.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
@@ -177,9 +178,13 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare the footer button configuration based on dialog state.
+   * @returns {object[]}
+   */
   #prepareButtons() {
     const buttons = [];
-    const isConfigurable = game.user.isGM && this.configurable;
+    const isConfigurable = this.configurable;
 
     // Determine whether group check submission is allowed
     const hasActors = this.#requestActors.size > 1;
@@ -213,6 +218,10 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare the request tray data with actor details and skill ranks.
+   * @returns {object|null}
+   */
   #prepareRequest() {
     if ( !this.request ) return null;
     const actors = [];
@@ -227,6 +236,21 @@ export default class StandardCheckDialog extends DialogV2 {
       actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short"), pips, rank, rankTooltip});
     }
     return {actors, resourceColor};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare message mode selector data.
+   * When configurable, all modes are interactive. When not, only the active mode is shown as read-only.
+   * @param {string} messageMode    The currently active message mode
+   * @returns {object[]}
+   */
+  #prepareMessageModes(messageMode) {
+    const allModes = Object.entries(CONFIG.ChatMessage.modes).map(([action, {label, icon}]) => {
+      return {icon, label, action, active: action === messageMode, interactive: this.configurable};
+    });
+    return this.configurable ? allModes : allModes.filter(m => m.active);
   }
 
   /* -------------------------------------------- */
@@ -264,7 +288,7 @@ export default class StandardCheckDialog extends DialogV2 {
     for ( const [id] of this.#selectedSkills ) {
       selected.push({id, label: SYSTEM.SKILLS[id].label, current: id === currentSkillId});
     }
-    return {selected, singleSelect: true};
+    return {selected, enabled: true};
   }
 
   /* -------------------------------------------- */
@@ -305,10 +329,10 @@ export default class StandardCheckDialog extends DialogV2 {
   /* -------------------------------------------- */
 
   /**
-   * Update the placeholder attribute on all skill DC inputs to reflect the current shared DC.
+   * Special actions to perform when the target DC is changed.
    * @param {number} dc    The new shared DC value
    */
-  #updateSkillDcPlaceholders(dc) {
+  #onUpdateDifficulty(dc) {
     for ( const input of this.element.querySelectorAll(".skill-dc-entry .skill-dc") ) {
       input.placeholder = dc;
     }
@@ -330,9 +354,6 @@ export default class StandardCheckDialog extends DialogV2 {
       dropZone?.addEventListener("drop", this.#onDropActor.bind(this));
     }
   }
-
-  /** @type {Function|null} */
-  #boundSubmit = null;
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
@@ -377,13 +398,14 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
+
     // Difficulty Tier
     if ( event.target.name === "difficultyTier" ) {
       const dc = Number(event.target.value) || null;
       if ( Number.isNumeric(dc) ) {
         event.target.parentElement.querySelector("input[name=\"dc\"]").value = dc;
         this.roll.data.dc = dc;
-        this.#updateSkillDcPlaceholders(dc);
+        this.#onUpdateDifficulty(dc);
       }
     }
 
@@ -391,7 +413,7 @@ export default class StandardCheckDialog extends DialogV2 {
     else if ( event.target.name === "dc" ) {
       event.target.parentElement.querySelector("select[name=\"difficultyTier\"]").value = "";
       this.roll.data.dc = event.target.valueAsNumber;
-      this.#updateSkillDcPlaceholders(event.target.valueAsNumber);
+      this.#onUpdateDifficulty(event.target.valueAsNumber);
     }
 
     // Per-skill DC (GM mode): empty input clears the override (inherit shared DC)
@@ -423,8 +445,8 @@ export default class StandardCheckDialog extends DialogV2 {
       const actor = this.roll.actor;
       if ( !actor ) return;
       const dc = this.#selectedSkills.get(skillId) ?? this.roll.data.dc;
-      const newRoll = actor.getSkillCheck(skillId, {dc, boons: this.roll.data.totalBoons, banes: this.roll.data.totalBanes});
-      this.roll = newRoll;
+      this.roll = actor.getSkillCheck(skillId, {dc, boons: this.roll.data.totalBoons,
+        banes: this.roll.data.totalBanes});
       return this.render({window: {title: this.title}});
     }
     super._onChangeForm(formConfig, event);
@@ -503,6 +525,10 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  /**
+   * Toggle the request actors panel.
+   * @this {StandardCheckDialog}
+   */
   static async #onRequestToggle(_event) {
     this.request = !this.request && game.user.isGM;
     await this.render({window: {title: this.title}});

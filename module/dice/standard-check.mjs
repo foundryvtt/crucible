@@ -288,7 +288,7 @@ export default class StandardCheck extends Roll {
    * @returns {{outcome: string, classes: string[]}}
    */
   prepareOutcome() {
-    if ( !this.data.dc ) return {outcome: "DICE.Unknown", classes: ["unknown"]};
+    if ( !this.data.dc ) return {outcome: "COMMON.Unknown", classes: ["unknown"]};
     let outcome = "ACTION.EFFECT_RESULT_TYPES.";
     const classes = [];
     if ( this.isCriticalSuccess || this.isCriticalFailure ) {

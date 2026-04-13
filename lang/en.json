@@ -1337,11 +1337,7 @@
       "RollOnBehalf": "Roll on Behalf",
       "Skip": "Skip Actor",
       "ResetPending": "Reset to Pending",
-      "RequiresGM": "Only a Gamemaster can initiate group checks.",
-      "WARNINGS": {
-        "NoActors": "At least one actor must be included in the group check.",
-        "NoSkills": "At least one skill must be configured for the group check."
-      }
+      "RequiresGM": "Only a Gamemaster can initiate group checks."
     },
     "REQUESTS": {
       "AddParty": "Add Party",
@@ -1382,8 +1378,7 @@
     "RollTotal": "Roll Total",
     "SetDifficulty": "Set Difficulty",
     "Skill": "Skill",
-    "SkillBonus": "Skill Bonus",
-    "Unknown": "Unknown"
+    "SkillBonus": "Skill Bonus"
   },
   "FLANKED_EFFECT": {
     "FIELDS": {

@@ -61,6 +61,17 @@
       max-height: 280px;
       overflow-y: auto;
       scrollbar-gutter: unset;
+      gap: 0.25rem;
+    }
+    .skill-dc-entry {
+      align-items: center;
+      gap: 0.25rem;
+      select { flex: 2; }
+      .skill-dc { flex: 0 0 32px; text-align: center; }
+      button.icon { flex: none; font-size: var(--font-size-10); padding: 0.125rem 0.25rem; }
+    }
+    .skill-add {
+      margin-top: 0.25rem;
     }
   }
 
@@ -415,27 +426,6 @@
       align-items: center;
     }
   }
-}
-
-/* -------------------------------------------- */
-/*  Skill Selector                              */
-/* -------------------------------------------- */
-
-.skill-dc-list {
-  gap: 0.25rem;
-}
-
-.skill-dc-entry {
-  align-items: center;
-  gap: 0.25rem;
-
-  select { flex: 2; }
-  .skill-dc { flex: 0 0 32px; text-align: center; }
-  button.icon { flex: none; font-size: var(--font-size-10); padding: 0.125rem 0.25rem; }
-}
-
-.skill-add {
-  margin-top: 0.25rem;
 }
 
 .ui-control.inactive {
