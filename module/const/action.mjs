@@ -310,6 +310,9 @@ export const TAGS = {
     tooltip: "ACTION.TAG.TalismanTooltip",
     category: "requirements",
     canUse() {
+      const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
+      const categories = ["talisman1", "talisman2"];
+      if ( !categories.includes(mh?.category) && !categories.includes(oh?.category) ) return false;
       if ( !this.usage.strikes.every(w => w.config.category.training.includes("talisman")) ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman"));
       }
