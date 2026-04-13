@@ -1,0 +1,37 @@
+folder: 8Vb0F5R7DMUrvhfw
+name: Armored Instinct
+type: talent
+img: icons/magic/defensive/armor-shield-barrier-steel.webp
+system:
+  description: >-
+    <p>You instinctively angle your body to absorb the brunt of deflected blows.
+    When an attack against you results in a <strong>Glancing Blow</strong>, you
+    gain <strong>+1 Resistance</strong> against the damage dealt.</p>
+  actions: []
+  nodes:
+    - dextou2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776121987770
+  modifiedTime: 1776122036184
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: armoredInstinct0
+sort: 0
+_key: '!items!armoredInstinct0'

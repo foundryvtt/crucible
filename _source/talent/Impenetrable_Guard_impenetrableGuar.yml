@@ -1,0 +1,38 @@
+folder: 8Vb0F5R7DMUrvhfw
+name: Impenetrable Guard
+type: talent
+img: icons/equipment/shield/heater-crystal-blue.webp
+system:
+  description: >-
+    <p>Your defenses frustrate attackers who struggle to find a gap in your
+    guard. When an enemy's <strong>Strike</strong> against you results in a
+    <strong>Block</strong> or <strong>Glancing Blow</strong>, that enemy suffers
+    <strong>1 Bane</strong> on their next Strike against you.</p>
+  actions: []
+  nodes:
+    - tou4a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: impenetrableGuar
+sort: 0
+_key: '!items!impenetrableGuar'

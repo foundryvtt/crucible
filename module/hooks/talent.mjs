@@ -57,6 +57,17 @@ HOOKS.armoredShell0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.armoredInstinct0 = {
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( !dmg || (roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE) ) return;
+    dmg.resistance += 1;
+    dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.bard000000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
@@ -369,6 +380,25 @@ HOOKS.impetus000000000 = {
       effectChanges.toUpdate.push(effectData);
     } else {
       effectChanges.toCreate.push(effectData);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.impenetrableGuar = {
+  defendAttack(item, action, origin, rollData) {
+    if ( !action.tags.has("strike") ) return;
+    const lastAction = ChatMessage.implementation.getLastAction({confirmed: true, actor: origin});
+    if ( !lastAction?.tags.has("strike") ) return;
+    const myEvents = lastAction.eventsByActor.get(this);
+    if ( !myEvents ) return;
+    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    for ( const event of myEvents.roll ) {
+      if ( [results.BLOCK, results.GLANCE].includes(event.roll.data.result) ) {
+        rollData.banes[item.id] = {label: item.name, number: 1};
+        return;
+      }
     }
   }
 };
