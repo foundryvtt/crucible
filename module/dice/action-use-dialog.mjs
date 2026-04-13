@@ -276,7 +276,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Minimize open windows
     const minimizedWindows = [];
     for ( const app of foundry.applications.instances.values() ) {
-      if ( !app.minimized ) minimizedWindows.push(app);
+      if ( !app.minimized && !app.window.windowId ) minimizedWindows.push(app);
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
@@ -502,7 +502,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Minimize open windows
     const minimizedWindows = [];
     for ( const app of foundry.applications.instances.values() ) {
-      if ( !app.minimized ) minimizedWindows.push(app);
+      if ( !app.minimized && !app.window.windowId ) minimizedWindows.push(app);
     }
     await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 

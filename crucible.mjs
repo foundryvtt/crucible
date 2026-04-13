@@ -629,6 +629,16 @@ Hooks.once("ready", async function() {
 /* -------------------------------------------- */
 
 /**
+ * On open detached windows, apply crucible interaction listeners
+ */
+Hooks.on("openDetachedWindow", (_id, window) => {
+  window.document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
+  window.document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+});
+
+/* -------------------------------------------- */
+
+/**
  * Perform one-time data migrations for the current world.
  * @param {string} priorVersion
  * @returns {Promise<void>}
