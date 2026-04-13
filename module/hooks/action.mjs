@@ -753,16 +753,6 @@ HOOKS.recover = {
 /* -------------------------------------------- */
 
 HOOKS.refocus = {
-  canUse() {
-    const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-    const categories = ["talisman1", "talisman2"];
-    return categories.includes(mh.category) || (oh && categories.includes(oh.category));
-  },
-  preActivate() {
-    if ( !["talisman1", "talisman2"].includes(this.usage.weapon?.category) ) {
-      throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
-    }
-  },
   postActivate() {
     const talisman = this.usage.weapon;
     const rollEvent = this.selfEvents?.roll[0];

@@ -1774,6 +1774,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         available = this.tags.has("reload") ? weapon.system.needsReload : !weapon.system.needsReload;
       } else if ( this.tags.has("reload") ) eligible = false;
       if ( maxCost !== null ) available &&= (weapon.system.actionCost <= maxCost);
+      if ( this.tags.has("talisman") && !["talisman1", "talisman2"].includes(weapon.system.category)) eligible = false;
 
       // Any strike that's neither melee nor ranged shouldn't hard-disqualify weapons based on melee/ranged
       if ( hasRanged || hasMelee ) {
