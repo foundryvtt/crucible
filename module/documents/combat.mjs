@@ -48,7 +48,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     // Type
     const aType = a.actor?.type === "adversary" ? 1 : 0;
     const bType = b.actor?.type === "adversary" ? 1 : 0;
-    return (bType - aType) || a.name.compare(b.name) || a._id.localeCompare(b._id);
+    return (bType - aType) || a.name.compare(b.name) || a._id.compare(b._id);
   }
 
   /* -------------------------------------------- */
@@ -144,9 +144,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   async _onEndTurn(combatant, context) {
     await super._onEndTurn(combatant, context);
     await combatant.actor.onEndTurn(context);
-    // FIXME determine whether these lines are still required
-    combatant.updateResource();
-    this.debounceSetup(); // TODO wish this wasn't needed
   }
 
   /* -------------------------------------------- */
