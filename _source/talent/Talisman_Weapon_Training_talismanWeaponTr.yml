@@ -38,6 +38,7 @@ system:
         self: false
       effects: []
       tags:
+        - talisman
         - ranged
         - harmless
         - rallying

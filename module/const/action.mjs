@@ -303,6 +303,19 @@ export const TAGS = {
     }
   },
 
+  // Requires Talisman Weapon
+  talisman: {
+    tag: "talisman",
+    label: "ACTION.TAG.Talisman",
+    tooltip: "ACTION.TAG.TalismanTooltip",
+    category: "requirements",
+    canUse() {
+      if ( !this.usage.strikes.every(w => w.config.category.training.includes("talisman")) ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman"));
+      }
+    }
+  },
+
   // Requires Unarmed
   unarmed: {
     tag: "unarmed",
