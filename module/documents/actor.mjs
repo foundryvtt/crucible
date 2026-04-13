@@ -22,10 +22,6 @@ const {DialogV2} = foundry.applications.api;
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
-  constructor(...args) {
-    super(...args);
-    this.#updateCachedResources();
-  }
 
   /**
    * The Actions which this Actor has available to use.
@@ -239,6 +235,14 @@ export default class CrucibleActor extends Actor {
     // TODO: This is a temporary fix for double item prep
     if ( phase !== "final" ) this.system.prepareItems(items);
     super.applyActiveEffects(phase);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    if ( foundry.utils.isEmpty(this._cachedResources) ) this._updateCachedResources();
   }
 
   /* -------------------------------------------- */
@@ -2561,7 +2565,7 @@ export default class CrucibleActor extends Actor {
         const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
         for ( const token of tokens ) token.refreshFlanking(commit);
       }
-      this.#updateCachedResources();
+      this._updateCachedResources();
       this.#updateGroups();
     }
 
@@ -2854,8 +2858,9 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update cached resources for this Actor.
+   * @internal
    */
-  #updateCachedResources() {
+  _updateCachedResources() {
     this._cachedResources ||= {};
     const resources = this.system.schema.get("resources");
     if ( !resources ) return;
