@@ -518,6 +518,35 @@ HOOKS.extollDeeds = {
 
 /* -------------------------------------------- */
 
+HOOKS.headbutt = {
+  prepare() {
+    const cls = getDocumentClass("Item");
+    const weaponData = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
+    weaponData.name = this.name;
+    const weapon = new cls(weaponData, {parent: this.actor});
+    weapon.system.prepareEquippedData();
+    this.usage.weapon = weapon;
+    foundry.utils.mergeObject(this.usage.bonuses, weapon.system.actionBonuses);
+    foundry.utils.mergeObject(this.usage.context, {
+      type: "weapons",
+      label: "Weapon Tags",
+      icon: "fa-solid fa-swords",
+      hasDice: true
+    });
+  },
+  preActivate() {
+    for ( const [target] of this.targets ) {
+      const ac = this.actor.combatant;
+      const tc = target.combatant;
+      if ( ac?.initiative > tc?.initiative ) {
+        this.usage.boons[this.id] = {label: this.name, number: 1};
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.hamstring = {
   canUse() {
     const mh = this.actor.equipment.weapons.mainhand;
