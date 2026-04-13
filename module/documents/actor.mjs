@@ -2859,7 +2859,10 @@ export default class CrucibleActor extends Actor {
     this._cachedResources ||= {};
     const resources = this.system.schema.get("resources");
     if ( !resources ) return;
-    for ( const k in resources.fields ) this._cachedResources[k] = this._source.system.resources[k].value;
+    for ( const k in resources.fields ) {
+      const r = this.system.resources[k];
+      this._cachedResources[k] = Math.clamp(this._source.system.resources[k].value, 0, r.max);
+    }
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
     return this._cachedResources;
