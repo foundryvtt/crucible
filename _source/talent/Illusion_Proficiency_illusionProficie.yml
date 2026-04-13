@@ -1,14 +1,14 @@
-name: Illumination Proficiency
+name: Illusion Proficiency
 type: talent
-img: icons/magic/light/projectile-beam-yellow.webp
+img: icons/magic/light/projectile-smoke-blue-white.webp
 system:
   nodes:
-    - pre4c
+    - int4b
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Illumination.
-    You gain a <strong>+1 Skill Bonus</strong> for spells cast using this
+    <p>You have fluency in weaving spellcraft using the Rune of Illusion. You
+    gain a <strong>+1 Skill Bonus</strong> for spells cast using this
     Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the <strong>Reveal</strong> action,
+    eventually also provide an upgrade to the <strong>Seeming </strong>action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
@@ -16,7 +16,7 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: illumination
+    type: illusion
     rank: 2
 effects: []
 folder: meNcaEyQoLucHy0I
@@ -30,10 +30,10 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.0
-  createdTime: 1763163889572
+  systemVersion: 0.8.6
+  createdTime: 1763163891870
   modifiedTime: 1773514792551
   lastModifiedBy: vke929uLgNzbrY41
-_id: IlluminationProf
-sort: 700000
-_key: '!items!IlluminationProf'
+_id: illusionProficie
+sort: 100000
+_key: '!items!illusionProficie'

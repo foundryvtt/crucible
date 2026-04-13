@@ -1,14 +1,14 @@
-name: Kinesis Proficiency
+name: Illumination Proficiency
 type: talent
-img: icons/magic/movement/pinwheel-turning-blue.webp
+img: icons/magic/light/projectile-beam-yellow.webp
 system:
   nodes:
     - pre4c
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Kinesis. You
-    gain a <strong>+1 Skill Bonus</strong> for spells cast using this
+    <p>You have fluency in weaving spellcraft using the Rune of Illumination.
+    You gain a <strong>+1 Skill Bonus</strong> for spells cast using this
     Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the <strong>Propel </strong>action,
+    eventually also provide an upgrade to the <strong>Reveal</strong> action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
@@ -16,7 +16,7 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: kinesis
+    type: illumination
     rank: 2
 effects: []
 folder: meNcaEyQoLucHy0I
@@ -31,9 +31,9 @@ _stats:
   coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.9.0
-  createdTime: 1763163893756
+  createdTime: 1763163889572
   modifiedTime: 1773514792551
   lastModifiedBy: vke929uLgNzbrY41
-_id: KinesisProficien
-sort: 200000
-_key: '!items!KinesisProficien'
+_id: illuminationProf
+sort: 700000
+_key: '!items!illuminationProf'

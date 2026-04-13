@@ -1,14 +1,14 @@
-name: Soul Proficiency
+name: Earth Proficiency
 type: talent
-img: icons/magic/light/projectile-halo-teal.webp
+img: icons/magic/earth/projectile-boulder-debris.webp
 system:
   nodes:
-    - pre4c
+    - wis4c
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Soul. You gain a
-    <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
+    <p>You have fluency in weaving spellcraft using the Rune of Earth. You gain
+    a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
     class="divider">Playtest Notes</h3><p>This talent will eventually also
-    provide an upgrade to the <strong>Evoke </strong>action, expanding its
+    provide an upgrade to the <strong>Mould</strong> action, expanding its
     effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
@@ -16,7 +16,7 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: soul
+    type: earth
     rank: 2
 effects: []
 folder: meNcaEyQoLucHy0I
@@ -30,10 +30,10 @@ _stats:
   exportSource: null
   coreVersion: '14.356'
   systemId: crucible
-  systemVersion: 0.9.0
-  createdTime: 1763163907163
-  modifiedTime: 1773514792552
+  systemVersion: 0.8.6
+  createdTime: 1763163884518
+  modifiedTime: 1773514792550
   lastModifiedBy: vke929uLgNzbrY41
-_id: SoulProficiency0
-sort: 0
-_key: '!items!SoulProficiency0'
+_id: earthProficiency
+sort: 1000000
+_key: '!items!earthProficiency'

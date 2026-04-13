@@ -162,5 +162,18 @@ export const TALENT_ID_MIGRATIONS = {
 
   // Crafting Trainings
   runeweavingNovic: "Compendium.crucible.talent.Item.glyphweavingNovi",
-  runeweavingJourn: "Compendium.crucible.talent.Item.glyphweavingJour"
+  runeweavingJourn: "Compendium.crucible.talent.Item.glyphweavingJour",
+
+  // Rune Proficiency ID Standardization
+  ControlProficien: "Compendium.crucible.talent.Item.controlProficien",
+  DeathProficiency: "Compendium.crucible.talent.Item.deathProficiency",
+  EarthProficiency: "Compendium.crucible.talent.Item.earthProficiency",
+  FrostProficiency: "Compendium.crucible.talent.Item.frostProficiency",
+  IlluminationProf: "Compendium.crucible.talent.Item.illuminationProf",
+  IllusionProficie: "Compendium.crucible.talent.Item.illusionProficie",
+  KinesisProficien: "Compendium.crucible.talent.Item.kinesisProficien",
+  LifeProficiency0: "Compendium.crucible.talent.Item.lifeProficiency0",
+  LightningProfici: "Compendium.crucible.talent.Item.lightningProfici",
+  OblivionProficie: "Compendium.crucible.talent.Item.oblivionProficie",
+  SoulProficiency0: "Compendium.crucible.talent.Item.soulProficiency0"
 };

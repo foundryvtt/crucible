@@ -1,14 +1,14 @@
-name: Death Proficiency
+name: Soul Proficiency
 type: talent
-img: icons/magic/unholy/hand-claw-fire-blue.webp
+img: icons/magic/light/projectile-halo-teal.webp
 system:
   nodes:
     - pre4c
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Death. You gain
-    a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
+    <p>You have fluency in weaving spellcraft using the Rune of Soul. You gain a
+    <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
     class="divider">Playtest Notes</h3><p>This talent will eventually also
-    provide an upgrade to the <strong>Ennervate </strong>action, expanding its
+    provide an upgrade to the <strong>Evoke </strong>action, expanding its
     effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
@@ -16,7 +16,7 @@ system:
   inflection: ''
   iconicSpells: 0
   training:
-    type: death
+    type: soul
     rank: 2
 effects: []
 folder: meNcaEyQoLucHy0I
@@ -31,9 +31,9 @@ _stats:
   coreVersion: '14.356'
   systemId: crucible
   systemVersion: 0.9.0
-  createdTime: 1763163881562
-  modifiedTime: 1773514792549
-  lastModifiedBy: AnoypGxxNIMOS0XY
-_id: DeathProficiency
-sort: 900000
-_key: '!items!DeathProficiency'
+  createdTime: 1763163907163
+  modifiedTime: 1773514792552
+  lastModifiedBy: vke929uLgNzbrY41
+_id: soulProficiency0
+sort: 0
+_key: '!items!soulProficiency0'
