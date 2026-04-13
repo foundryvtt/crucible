@@ -242,7 +242,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    if ( foundry.utils.isEmpty(this._cachedResources) ) this._updateCachedResources();
+    this._updateCachedResources(false);
   }
 
   /* -------------------------------------------- */
@@ -2858,9 +2858,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update cached resources for this Actor.
+   * @param {boolean} force Whether to force update of cached resources
    * @internal
    */
-  _updateCachedResources() {
+  _updateCachedResources(force=true) {
+    if ( !force && !foundry.utils.isEmpty(this._cachedResources) ) return;
     this._cachedResources ||= {};
     const resources = this.system.schema.get("resources");
     if ( !resources ) return;
