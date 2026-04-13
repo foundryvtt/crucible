@@ -317,9 +317,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     };
 
     // Place the region and record its created data
-    const canvasLayer = canvas.activeLayer;
     const region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange});
-    canvasLayer.activate();
     await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
 
     // Handle user workflow cancellation
@@ -334,7 +332,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
     onChange({action: this.action, document: region});
 
     // Keep the placed region visible as a canvas preview for the remainder of the dialog
-    this.#regionPreview = await canvas.regions._createPreview(region.toObject(), {renderSheet: false});
+    this.#regionPreview = new foundry.canvas.placeables.Region(region);
+    this.#regionPreview._previewType = "creation";
+    canvas.regions.addChild(this.#regionPreview);
+    // noinspection ES6MissingAwait
+    this.#regionPreview.draw();
+
+    // Re-render the dialog
     this.render();
   }
 

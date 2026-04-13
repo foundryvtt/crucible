@@ -13,40 +13,65 @@
     }
   }
 
-  /** Requested Rolls */
-  .standard-check.roll-request {
+  /** Side panel shared styles */
+  .standard-check.roll-request,
+  .standard-check.customize-skills {
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 660px; // Force wrapping
     .roll-form {
       flex: none;
-    }
-    .request-form {
-      flex: 0 0 220px;
-      h3.divider {
-        margin: 0 0 -0.5rem 0;
-        font-size: var(--font-size-16);
-      }
-      .requested-actors {
-        flex: 1;
-        height: 0;
-        max-height: 300px;
-        padding: 0.5rem;
-        gap: 0.5rem;
-        border: 1px dashed var(--color-form-hint);
-        border-radius: 0.5rem;
-        cursor: var(--cursor-pointer);
-        scrollbar-gutter: unset;
-        .hint {
-          padding: 1rem;
-          font-size: var(--font-size-12);
-          text-align: center;
-        }
-      }
     }
     .form-footer {
       flex: 0 0 100%;
       width: 0;
+    }
+  }
+
+  /** Side panel shared layout */
+  .standard-check .request-form,
+  .standard-check .skills-form {
+    flex: 0 0 240px;
+    h3.divider {
+      margin: 0 0 -0.5rem 0;
+      font-size: var(--font-size-16);
+    }
+  }
+
+  /** Requested Rolls (right panel) */
+  .standard-check .request-form {
+    .requested-actors {
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      gap: 0.5rem;
+      cursor: var(--cursor-pointer);
+      scrollbar-gutter: unset;
+      .hint {
+        padding: 1rem;
+        font-size: var(--font-size-12);
+        text-align: center;
+      }
+    }
+  }
+
+  /** Customize Skills (left panel) */
+  .standard-check .skills-form {
+    order: -1;
+    .skill-dc-list {
+      max-height: 280px;
+      overflow-y: auto;
+      scrollbar-gutter: unset;
+      gap: 0.25rem;
+    }
+    .skill-dc-entry {
+      align-items: center;
+      gap: 0.25rem;
+      select { flex: 2; }
+      .skill-dc { flex: 0 0 32px; text-align: center; }
+      button.icon { flex: none; font-size: var(--font-size-10); padding: 0.125rem 0.25rem; }
+    }
+    .skill-add {
+      margin-top: 0.25rem;
     }
   }
 
@@ -185,6 +210,12 @@
   &.failure .check-result  {
     --check-bg-color: rgb(8 0 0);
     --check-border-color: var(--color-result-bad);
+  }
+
+  // Unknown (no DC assigned)
+  &.unknown .check-result  {
+    --check-bg-color: rgb(8 8 0);
+    --check-border-color: var(--color-result-warn);
   }
 
   // Deflection
@@ -395,5 +426,10 @@
       align-items: center;
     }
   }
+}
+
+.ui-control.inactive {
+  opacity: 0.6;
+  cursor: default;
 }
 

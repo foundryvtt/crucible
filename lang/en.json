@@ -464,6 +464,7 @@
     "RequiresMovement": "You must plan a movement path before this action can be used.",
     "RequiresRegion": "You must place a Region before this action can be used.",
     "SkillCheck": "{skill} Skill Check",
+    "SkillCheckGeneric": "Skill Check",
     "StandardCheck": "Standard Check",
     "Targets": "Targets",
     "TemplateTargets": "Template Targets",
@@ -1318,12 +1319,16 @@
       "Moderate": "Moderate",
       "Trivial": "Trivial"
     },
+    "SKILLS": {
+      "AddSkill": "Add Skill",
+      "CustomizeSkills": "Customize Skills"
+    },
     "GROUP_CHECK": {
-      "Title": "Group Check",
-      "ChatTitle": "{skill} Check (DC {dc})",
+      "Title": "Group Skill Check",
       "DialogTitle": "{skill} Check: {name}",
       "NoUserForActor": "No active user found for: {name}",
       "STATUSES": {
+        "Complete": "Complete",
         "Pending": "Pending",
         "Aborted": "Aborted",
         "Skipped": "Skipped"
@@ -1331,7 +1336,7 @@
       "Resend": "Resend Request",
       "RollOnBehalf": "Roll on Behalf",
       "Skip": "Skip Actor",
-      "Finalize": "Reveal to Players",
+      "ResetPending": "Reset to Pending",
       "RequiresGM": "Only a Gamemaster can initiate group checks."
     },
     "REQUESTS": {

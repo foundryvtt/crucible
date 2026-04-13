@@ -152,3 +152,24 @@
   margin-top: 0.25rem;
 }
 
+/* -------------------------------------------- */
+/*  Group Check Chat Card                       */
+/* -------------------------------------------- */
+
+.group-check-actors.flexcol {
+  gap: 0.25rem;
+}
+
+.group-check-row.line-item,
+.chat-message .standard-check.line-item {
+  gap: 0 0.5rem;
+  .dice-result {
+    flex: 0 0 100%;
+    margin-top: -0.5rem; // Tighter spacing with title row
+  }
+}
+
+.group-check-result.unresolved .dice-result {
+  display: none;
+}
+
