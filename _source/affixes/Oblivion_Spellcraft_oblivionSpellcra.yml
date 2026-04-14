@@ -1,0 +1,45 @@
+name: Oblivion Spellcraft
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Oblivion-Runic
+  identifier: oblivionSpellcraft
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 1
+    value: 1
+  itemTypes: []
+_id: oblivionSpellcra
+img: icons/magic/unholy/barrier-shield-glowing-pink.webp
+disabled: false
+start: null
+description: >-
+  <p>This item is imbued with the essence of <strong>Oblivion</strong>
+  spellcraft. While equipped, the bearer instinctively gains knowledge of the
+  <strong>Oblivion</strong> rune, allowing them to compose spells using it even
+  without having learned the rune through a talent.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: spellcraftPrefix
+sort: 1100000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!oblivionSpellcra'

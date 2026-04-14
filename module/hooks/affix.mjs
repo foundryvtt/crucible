@@ -49,6 +49,19 @@ for ( const runeId of Object.keys(RUNES) ) {
 }
 
 /* -------------------------------------------- */
+/*  Rune Knowledge Affixes                      */
+/* -------------------------------------------- */
+
+for ( const runeId of Object.keys(RUNES) ) {
+  const id = `${runeId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.runeIds.push(runeId);
+    }
+  };
+}
+
+/* -------------------------------------------- */
 /*  Skill Enchantment Affixes                   */
 /* -------------------------------------------- */
 
