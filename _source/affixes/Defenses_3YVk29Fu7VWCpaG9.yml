@@ -1,20 +1,20 @@
 type: ActiveEffect
 folder: L3dyA14Cx45bjiQY
-name: Armor + Accessory
+name: Defenses
 color: null
 sorting: a
-_id: ZycnA85sy95OpCmt
+_id: 3YVk29Fu7VWCpaG9
 description: ''
-sort: 300000
+sort: 200000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775502000000
+  modifiedTime: 1776171476635
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!folders!ZycnA85sy95OpCmt'
+_key: '!folders!3YVk29Fu7VWCpaG9'

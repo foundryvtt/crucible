@@ -29,7 +29,7 @@ tint: '#ffffff'
 transfer: false
 statuses: []
 showIcon: 1
-folder: spellcraftPrefix
+folder: ZwpmHLh4tHd8kvQQ
 sort: 200000
 flags: {}
 _stats:
@@ -37,7 +37,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1776200000000
-  modifiedTime: 1776200000000
+  modifiedTime: 1776171397481
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

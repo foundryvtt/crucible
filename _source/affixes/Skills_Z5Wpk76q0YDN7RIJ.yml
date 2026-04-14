@@ -1,18 +1,18 @@
 type: ActiveEffect
-folder: ZycnA85sy95OpCmt
-name: Skill
+folder: L3dyA14Cx45bjiQY
+name: Skills
 color: null
 sorting: a
 _id: Z5Wpk76q0YDN7RIJ
 description: ''
-sort: 200000
+sort: 500000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775502000000
+  modifiedTime: 1776171459049
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

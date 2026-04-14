@@ -1,18 +1,18 @@
 type: ActiveEffect
-folder: Lw2f7XpDAHZxckl7
+folder: 1t1h4vquJCypCfA4
 name: Defenses
 color: null
 sorting: a
 _id: rDiDk5TRu7DssbvD
 description: ''
-sort: 0
+sort: 300000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1775562907840
-  modifiedTime: 1775562907840
+  modifiedTime: 1776171507725
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

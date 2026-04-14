@@ -1,20 +1,20 @@
 type: ActiveEffect
 folder: L3dyA14Cx45bjiQY
-name: Accessory
+name: Weapons
 color: null
 sorting: a
-_id: hd7WNbghiYX3GDXN
+_id: X7jf6k3zU0CiCktv
 description: ''
-sort: 200000
+sort: 100000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1775502000000
-  modifiedTime: 1775502000000
+  systemVersion: 0.9.0
+  createdTime: 1775405016776
+  modifiedTime: 1776171436556
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!folders!hd7WNbghiYX3GDXN'
+_key: '!folders!X7jf6k3zU0CiCktv'
