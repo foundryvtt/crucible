@@ -404,7 +404,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - pre1a
       rune: ''
@@ -750,7 +749,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: light
@@ -1039,7 +1037,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: oblivion
       nodes:
         - int0a
@@ -1162,7 +1159,6 @@ items:
             actorUuid: null
             permanent: true
           inflection: ''
-          metadata: {}
       nodes:
         - preint1
       rune: ''
@@ -1242,7 +1238,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: flame
       nodes:
         - int0a
@@ -1371,7 +1366,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: kinesis
       nodes:
         - pre0b

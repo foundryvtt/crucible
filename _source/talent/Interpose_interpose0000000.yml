@@ -40,7 +40,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      metadata: {}
   nodes:
     - dextou4
   rune: ''

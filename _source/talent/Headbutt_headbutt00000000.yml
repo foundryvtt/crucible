@@ -62,7 +62,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      metadata: {}
   nodes:
     - toustr1
   rune: ''

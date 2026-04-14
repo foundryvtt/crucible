@@ -533,7 +533,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: lightning
       training:
         type: lightning
@@ -623,7 +622,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: kinesis
       nodes:
         - pre0b
@@ -707,7 +705,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: frost
       nodes:
         - wis0b
@@ -774,7 +771,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: mechanical

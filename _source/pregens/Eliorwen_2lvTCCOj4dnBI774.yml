@@ -448,7 +448,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex3a
       rune: ''
@@ -610,7 +609,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex2a
       rune: ''
@@ -754,7 +752,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -862,7 +859,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex3a
       rune: ''
@@ -926,7 +922,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex1a
       rune: ''
@@ -1111,7 +1106,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - int2a
       rune: ''
@@ -1279,7 +1273,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: illusion
       nodes:
         - int0a
@@ -1449,7 +1442,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1539,7 +1531,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: lightning
       training:
         type: lightning
@@ -1608,7 +1599,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: projectile

@@ -480,7 +480,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex3a
       rune: ''
@@ -609,7 +608,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: illusion
       nodes:
         - int0a
@@ -678,7 +676,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: projectile
@@ -744,7 +741,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex1a
       rune: ''

@@ -528,7 +528,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 1
       rune: life
       nodes:
@@ -717,7 +716,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: talisman
@@ -835,7 +833,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1057,7 +1054,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - pre2a
       rune: ''
@@ -1304,7 +1300,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: soul
       nodes:
         - pre0b
@@ -1459,7 +1454,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: earth
       nodes:
         - wis0b
@@ -1539,7 +1533,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: life
       training:
         type: life

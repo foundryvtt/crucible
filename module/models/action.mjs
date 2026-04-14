@@ -593,8 +593,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         duration: aeDuration,
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
-      tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
-      metadata: new fields.ObjectField()
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
 

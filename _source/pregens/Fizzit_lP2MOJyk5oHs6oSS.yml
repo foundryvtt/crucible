@@ -433,7 +433,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -759,7 +758,6 @@ items:
             actorUuid: null
             permanent: true
           inflection: ''
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -826,7 +824,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - sig3.presence.intellect
       rune: ''
@@ -903,7 +900,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -989,7 +985,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: illusion
       nodes:
         - int0a
@@ -1155,7 +1150,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: lightning
       training:
         type: lightning
@@ -1245,7 +1239,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: kinesis
       nodes:
         - pre0b
@@ -1329,7 +1322,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: frost
       nodes:
         - wis0b
@@ -1403,7 +1395,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: talisman
@@ -1469,7 +1460,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: mechanical
@@ -1536,7 +1526,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''

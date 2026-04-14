@@ -438,7 +438,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -510,7 +509,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -616,7 +614,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -754,7 +751,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -898,7 +894,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: light
@@ -968,7 +963,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -1180,7 +1174,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1268,7 +1261,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1377,7 +1369,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
         - id: poisonApply
           name: Apply Poison
           img: >-
@@ -1409,7 +1400,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1536,7 +1526,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1602,7 +1591,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - int3b
       rune: ''
@@ -1669,7 +1657,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - sig3.intellect.dexterity
       rune: ''
@@ -1743,7 +1730,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1885,7 +1871,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - dex1b
       iconicSpells: 0
@@ -1958,7 +1943,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''

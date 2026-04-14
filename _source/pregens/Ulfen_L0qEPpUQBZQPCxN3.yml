@@ -390,7 +390,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -459,7 +458,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -527,7 +525,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -649,7 +646,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - sig3.toughness.strength
       rune: ''
@@ -808,7 +804,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - str4b
       rune: ''
@@ -914,7 +909,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -978,7 +972,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -1048,7 +1041,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -1154,7 +1146,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: unarmed
@@ -1242,7 +1233,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - str3a
       rune: ''
@@ -1309,7 +1299,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: heavy
@@ -1485,7 +1474,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1612,7 +1600,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''

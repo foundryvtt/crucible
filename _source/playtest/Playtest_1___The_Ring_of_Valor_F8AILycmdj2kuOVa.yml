@@ -413,7 +413,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -1301,7 +1300,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1b
           rune: ''
@@ -1441,7 +1439,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -1507,7 +1504,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -1612,7 +1608,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: unarmed
@@ -2106,7 +2101,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           rune: ''
@@ -2188,7 +2182,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes:
             - str1b
@@ -2256,7 +2249,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -2322,7 +2314,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           iconicSpells: 0
@@ -3059,7 +3050,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: talisman
@@ -3129,7 +3119,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -3250,7 +3239,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: oblivion
           nodes:
             - int0a
@@ -3334,7 +3322,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: soul
           nodes:
             - pre0b
@@ -3419,7 +3406,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: death
           nodes:
             - pre0b
@@ -3891,7 +3877,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1a
           rune: ''
@@ -3991,7 +3976,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: projectile
@@ -4519,7 +4503,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1b
           rune: ''
@@ -4592,7 +4575,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: light
@@ -5094,7 +5076,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -5160,7 +5141,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2c
           rune: ''
@@ -5335,7 +5315,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str3b
           rune: ''
@@ -5458,7 +5437,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - sig3.toughness.strength
           rune: ''
@@ -5569,7 +5547,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -5654,7 +5631,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -5720,7 +5696,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -6239,7 +6214,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -6441,7 +6415,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: oblivion
           nodes:
             - int0a
@@ -6526,7 +6499,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: death
           nodes:
             - pre0b
@@ -6972,7 +6944,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7035,7 +7006,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7479,7 +7449,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -7562,7 +7531,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           nodes: []
           rune: ''
@@ -8004,7 +7972,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre1a
           rune: ''
@@ -8115,7 +8082,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: light
@@ -8197,7 +8163,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: oblivion
           nodes:
             - int0a
@@ -8277,7 +8242,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: flame
           nodes:
             - int0a
@@ -8942,7 +8906,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str2a
           rune: ''
@@ -9008,7 +8971,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1a
           rune: ''
@@ -9228,7 +9190,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -9465,7 +9426,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str3a
           rune: ''
@@ -9630,7 +9590,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: lightning
           training:
             type: lightning
@@ -9710,7 +9669,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: flame
           nodes:
             - int0a
@@ -10215,7 +10173,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - int2a
           rune: ''
@@ -10286,7 +10243,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           rune: ''
@@ -10390,7 +10346,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex2c
           rune: ''
@@ -10525,7 +10480,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex2a
           rune: ''
@@ -10667,7 +10621,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: light
@@ -10736,7 +10689,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -10946,7 +10898,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           uses:
             value: 1
             max: 1
@@ -11033,7 +10984,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           uses:
             value: 1
             max: 1
@@ -11143,7 +11093,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
             - id: poisonApply
               name: Apply Poison
               img: >-
@@ -11176,7 +11125,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           uses:
             value: 1
             max: 1
@@ -11302,7 +11250,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -11367,7 +11314,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - int3b
           rune: ''
@@ -11433,7 +11379,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - sig3.intellect.dexterity
           rune: ''
@@ -11508,7 +11453,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -11649,7 +11593,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           iconicSpells: 0
@@ -11721,7 +11664,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           rune: ''
@@ -12114,7 +12056,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2c
           rune: ''
@@ -12179,7 +12120,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - tou2c
           rune: ''
@@ -12289,7 +12229,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - toustr2
           rune: ''
@@ -12356,7 +12295,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - tou2a
           rune: ''
@@ -12443,7 +12381,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - sig3.presence
             - sig3.toughness
@@ -12533,7 +12470,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: ''
@@ -12828,7 +12764,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: unarmed
@@ -12898,7 +12833,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -13000,7 +12934,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -13162,7 +13095,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: shield
@@ -13325,7 +13257,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           uses:
             value: 1
             max: 1
@@ -13459,7 +13390,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: kinesis
           nodes:
             - pre0b
@@ -14126,7 +14056,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex3a
           rune: ''
@@ -14287,7 +14216,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex2a
           rune: ''
@@ -14429,7 +14357,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1a
           rune: ''
@@ -14536,7 +14463,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex3a
           rune: ''
@@ -14601,7 +14527,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1a
           rune: ''
@@ -14783,7 +14708,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - int2a
           rune: ''
@@ -14951,7 +14875,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: illusion
           nodes:
             - int0a
@@ -15117,7 +15040,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           uses:
             value: 1
             max: 1
@@ -15207,7 +15129,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: lightning
           training:
             type: lightning
@@ -15275,7 +15196,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: projectile
@@ -15759,7 +15679,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - int2a
           rune: ''
@@ -16081,7 +16000,6 @@ actors:
                 actorUuid: null
                 permanent: true
               inflection: ''
-              metadata: {}
           nodes:
             - preint1
           rune: ''
@@ -16147,7 +16065,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - sig3.presence.intellect
           rune: ''
@@ -16223,7 +16140,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -16310,7 +16226,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: illusion
           nodes:
             - int0a
@@ -16474,7 +16389,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: lightning
           training:
             type: lightning
@@ -16566,7 +16480,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: kinesis
           nodes:
             - pre0b
@@ -16650,7 +16563,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: frost
           nodes:
             - wis0b
@@ -16724,7 +16636,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: talisman
@@ -16789,7 +16700,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: mechanical
@@ -16856,7 +16766,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -17601,7 +17510,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 1
           rune: life
           nodes:
@@ -17788,7 +17696,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: talisman
@@ -17906,7 +17813,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -18124,7 +18030,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2a
           rune: ''
@@ -18369,7 +18274,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: soul
           nodes:
             - pre0b
@@ -18524,7 +18428,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: earth
           nodes:
             - wis0b
@@ -18606,7 +18509,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: life
           training:
             type: life
@@ -19130,7 +19032,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2c
           rune: ''
@@ -19199,7 +19100,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1a
           iconicSpells: 0
@@ -19266,7 +19166,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str2a
           rune: ''
@@ -19386,7 +19285,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - sig3.toughness.strength
           rune: ''
@@ -19542,7 +19440,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str4b
           rune: ''
@@ -19646,7 +19543,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1a
           rune: ''
@@ -19709,7 +19605,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - tou2c
           rune: ''
@@ -19778,7 +19673,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -19883,7 +19777,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: unarmed
@@ -19971,7 +19864,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str3a
           rune: ''
@@ -20037,7 +19929,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -20210,7 +20101,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -20336,7 +20226,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: ''
           gesture: ''
           inflection: ''
@@ -20793,7 +20682,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre1a
           rune: ''
@@ -21134,7 +21022,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: light
@@ -21422,7 +21309,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: oblivion
           nodes:
             - int0a
@@ -21546,7 +21432,6 @@ actors:
                 actorUuid: null
                 permanent: true
               inflection: ''
-              metadata: {}
           nodes:
             - preint1
           rune: ''
@@ -21626,7 +21511,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: flame
           nodes:
             - int0a
@@ -21756,7 +21640,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: kinesis
           nodes:
             - pre0b
@@ -22353,7 +22236,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: heavy
@@ -22471,7 +22353,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: flame
           nodes:
             - int0a
@@ -22950,7 +22831,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - int2a
           rune: ''
@@ -23016,7 +22896,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: ''
@@ -23089,7 +22968,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1b
           rune: ''
@@ -23157,7 +23035,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -23310,7 +23187,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: light
@@ -23780,7 +23656,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2c
           rune: ''
@@ -23864,7 +23739,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: ''
@@ -23931,7 +23805,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - tou2c
           rune: ''
@@ -24115,7 +23988,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: unarmed
@@ -24185,7 +24057,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -24744,7 +24615,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex3a
           rune: ''
@@ -24874,7 +24744,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: illusion
           nodes:
             - int0a
@@ -24942,7 +24811,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: projectile
@@ -25007,7 +24875,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dex1a
           rune: ''
@@ -25583,7 +25450,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: lightning
           training:
             type: lightning
@@ -25675,7 +25541,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: kinesis
           nodes:
             - pre0b
@@ -25759,7 +25624,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: frost
           nodes:
             - wis0b
@@ -25825,7 +25689,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: mechanical
@@ -26303,7 +26166,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: talisman
@@ -26425,7 +26287,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: soul
           nodes:
             - pre0b
@@ -26508,7 +26369,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: earth
           nodes:
             - wis0b
@@ -26590,7 +26450,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           rune: life
           training:
             type: life
@@ -27024,7 +26883,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - pre2c
           rune: ''
@@ -27093,7 +26951,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str1a
           iconicSpells: 0
@@ -27160,7 +27017,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - str2a
           rune: ''
@@ -27228,7 +27084,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           nodes:
             - dextou1
           rune: ''
@@ -27333,7 +27188,6 @@ actors:
               summon:
                 actorUuid: null
                 permanent: true
-              metadata: {}
           iconicSpells: 0
           training:
             type: unarmed

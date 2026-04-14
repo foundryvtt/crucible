@@ -44,7 +44,6 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      metadata: {}
   iconicSpells: 0
   training:
     type: talisman

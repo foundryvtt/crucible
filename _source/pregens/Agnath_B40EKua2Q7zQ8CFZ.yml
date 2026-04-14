@@ -581,7 +581,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -648,7 +647,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -873,7 +871,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       iconicSpells: 0
       training:
         type: heavy
@@ -1111,7 +1108,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       nodes:
         - str3a
       rune: ''
@@ -1278,7 +1274,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: lightning
       training:
         type: lightning
@@ -1358,7 +1353,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          metadata: {}
       rune: flame
       nodes:
         - int0a
