@@ -171,12 +171,13 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @param {string} baseUuid                       The UUID of the base item
    * @param {{id: string, tier: number}[]} affixes  Affix identifiers and tiers to apply
    * @param {object} [options]                      Additional options
-   * @param {string} [options.quality]                Explicit quality tier, or auto-selected if omitted
-   * @param {string} [options.name]                   Display name override, or auto-composed from affixes
+   * @param {string} [options.quality]              Explicit quality tier, or auto-selected if omitted
+   * @param {string} [options.name]                 Display name override, or auto-composed from affixes
+   * @param {boolean} [options.broken]              Whether the item should be broken, if relevant
    * @returns {Promise<CrucibleItem>}               The generated item with enchantments applied
    * @throws {Error}                                An error if the requested affixes are incompatible with the item
    */
-  static async #fromLootDropData(baseUuid, affixes, {quality, name}={}) {
+  static async #fromLootDropData(baseUuid, affixes, {quality, name, broken}={}) {
 
     // Resolve the base item
     const baseItem = await fromUuid(baseUuid);
@@ -236,6 +237,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Clone the base item with loot modifications
     const itemData = baseItem.toObject();
     if ( selectedQuality ) itemData.system.quality = selectedQuality;
+    if ( broken ) itemData.system.broken = true;
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
     // Compose the item name
@@ -531,9 +533,11 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /**
    * A single attempt at randomizing an item.
-   * @param {CrucibleItem[]} candidates       Eligible base items
-   * @param {ActiveEffect[]} allAffixes       All affix documents from the compendium
-   * @param {object} context                  Shared context
+   * @param {CrucibleItem[]} candidates                 Eligible base items
+   * @param {ActiveEffect[]} allAffixes                 All affix documents from the compendium
+   * @param {object} context                            Shared context
+   * @param {{min: number; max: number}} context.price  Required price range in currency
+   * @param {string} [context.quality]                  Optional forced quality tier
    * @returns {CrucibleItem|null}
    */
   static #randomizeAttempt(candidates, allAffixes, {price, quality: forcedQuality}) {
@@ -668,6 +672,7 @@ export default class CrucibleItem extends foundry.documents.Item {
       tokens.push(tier === 1 ? id : `${id}=${tier}`);
     }
     tokens.push(`quality=${this.system.quality}`);
+    if ( this.system.broken ) tokens.push("broken=true");
     return `@Loot[${baseUuid} ${tokens.join(" ")}]{${this.name}}`;
   }
 
