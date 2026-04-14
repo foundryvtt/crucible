@@ -1527,6 +1527,7 @@
     },
     "RANDOMIZE": {
       "Title": "Randomize Enchanted Item",
+      "Flavor": "Randomized Item: {type}",
       "PriceMin": "Minimum Price",
       "PriceMax": "Maximum Price",
       "BaseItem": "Base Item",

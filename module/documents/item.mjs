@@ -721,7 +721,7 @@ export default class CrucibleItem extends foundry.documents.Item {
       itemTypesField.toFormGroup({stacked: true}, {name: "itemTypes", type: "checkboxes",
         value: p.itemTypes}),
       qualityField.toFormGroup({}, {name: "quality", value: p.quality})
-    )
+    );
 
     // Present the dialog
     const data = await foundry.applications.api.DialogV2.prompt({
@@ -763,8 +763,16 @@ export default class CrucibleItem extends foundry.documents.Item {
 
     // Build chat message with @Loot enricher string
     const enricherString = item.toLootEnricher();
-    const priceLabel = CrucibleItem.formatCurrency(item.system.price);
-    const messageContent = `<p>${enricherString} (${priceLabel})</p>`;
-    return ChatMessage.implementation.create({content: messageContent});
+    return ChatMessage.implementation.create({
+      content: `<p>${enricherString}</p>`,
+      flavor: game.i18n.localize("ITEM.RANDOMIZE.Flavor", {type: game.i18n.localize(`TYPES.Item.${item.type}`)}),
+      flags: {crucible: {randomizedItem: {
+        priceMin: data.priceMin,
+        priceMax: data.priceMax,
+        baseUuid: data.baseUuid || null,
+        itemTypes,
+        quality: data.quality || null
+      }}}
+    });
   }
 }
