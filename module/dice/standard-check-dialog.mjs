@@ -20,6 +20,7 @@ export default class StandardCheckDialog extends DialogV2 {
     super(options);
     this.request = request && game.user.isGM;
     this.configurable = configurable && game.user.isGM;
+    this.isGroupCheck = roll instanceof crucible.api.dice.GroupCheck;
     this.roll = roll;
     this.messageMode = messageMode;
     if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
@@ -31,8 +32,7 @@ export default class StandardCheckDialog extends DialogV2 {
     }
 
     // Default the skills panel to open for configurable group checks with no skill pre-configured
-    this.customizeSkills = this.configurable && (this.roll instanceof crucible.api.dice.GroupCheck)
-      && !SYSTEM.SKILLS[this.roll.data.type];
+    this.customizeSkills = this.configurable && this.isGroupCheck && !SYSTEM.SKILLS[this.roll.data.type];
   }
 
   /** @inheritDoc */
@@ -163,6 +163,7 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulty: this._getDifficulty(data.dc),
       difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (DC ${d[0]})`})),
       configurable: this.configurable,
+      isGM: game.user.isGM,
       request: this.#prepareRequest(),
       customizeSkills: this.#prepareCustomizeSkills(),
       skillSelector: this.#prepareSkillSelector(),
@@ -186,12 +187,11 @@ export default class StandardCheckDialog extends DialogV2 {
     const isConfigurable = this.configurable;
 
     // Determine whether group check submission is allowed
-    const hasActors = this.#requestActors.size > 1;
     const hasSkills = !this.customizeSkills || (this.#selectedSkills.size > 0);
-    const canSubmitGroup = hasActors && hasSkills;
+    const canSubmitGroup = (this.#requestActors.size > 0) && hasSkills;
 
-    // Left toggle: Customize Skills
-    if ( isConfigurable ) {
+    // Left toggle: Customize Skills (group checks only)
+    if ( this.isGroupCheck && isConfigurable ) {
       const chevron = this.customizeSkills ? "fa-chevrons-right" : "fa-chevrons-left";
       buttons.push({type: "button", action: "skillsToggle", cssClass: `icon fa-solid ${chevron}`, tooltip: _loc("DICE.SKILLS.CustomizeSkills"), position: "left"});
     }
@@ -207,8 +207,8 @@ export default class StandardCheckDialog extends DialogV2 {
       {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: _loc("DICE.REQUESTS.AddParty")}
     );
 
-    // Right toggle: Request Rolls
-    if ( isConfigurable ) {
+    // Right toggle: Request Rolls (group checks only)
+    if ( this.isGroupCheck && isConfigurable ) {
       const chevron = this.request ? "fa-chevrons-left" : "fa-chevrons-right";
       buttons.push({type: "button", action: "requestToggle", cssClass: `icon fa-solid ${chevron}`, tooltip: _loc("DICE.REQUESTS.RequestRolls")});
     }
@@ -369,7 +369,7 @@ export default class StandardCheckDialog extends DialogV2 {
    */
   async _onRoll(_event, _button, _dialog) {
     this.roll.data.messageMode = this.messageMode;
-    if ( this.#requestActors.size > 1 ) {
+    if ( this.isGroupCheck && (this.#requestActors.size > 0) ) {
       await this.#rollGroupCheck();
       return null;
     }

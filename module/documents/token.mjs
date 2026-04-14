@@ -60,6 +60,17 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _onRelatedUpdate(update, operation) {
+    super._onRelatedUpdate(update, operation);
+    const resources = update?.system?.resources;
+    if ( this.parent?.isView && (resources?.action || resources?.focus) ) {
+      this.object?.renderFlags.set({refreshBars: true});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   async _preUpdateMovement(movement, operation) {
     await super._preUpdateMovement(movement, operation);
     if ( !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene

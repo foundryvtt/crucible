@@ -582,6 +582,7 @@
       "EquipmentType": "Item Type",
       "Exit": "Exit",
       "ExitHint": "Exit Creation",
+      "NameRequired": "You must provide a character name to complete creation.",
       "Restart": "Restart",
       "RestartContent": "Discard creation progress and restart from the beginning?",
       "RestartHint": "Restart Creation",

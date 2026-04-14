@@ -134,19 +134,22 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Show Dice So Nice animation for a group check roll.
-   * By default the animation is whispered to the current user only.
+   * Visibility is determined by the message mode: blind rolls are only shown to the GM,
+   * private rolls are whispered to the rolling user and the GM, and public rolls are shown to everyone.
    * @param {Roll} roll                           The evaluated roll to animate
    * @param {object} [options={}]                 Additional options
    * @param {User} [options.user]                 The user who rolled (defaults to current user)
-   * @param {boolean} [options.blind=false]       Whether this is a blind roll
-   * @param {boolean} [options.synchronize=false] Whether to synchronize the animation across clients
+   * @param {string} [options.messageMode]        The chat message visibility mode
    * @returns {Promise<void>}
    */
-  static async #showDiceSoNice(roll, {user=game.user, blind=false, synchronize=false}={}) {
+  static async #showDiceSoNice(roll, {user=game.user, messageMode}={}) {
     if ( !game.dice3d ) return;
-    const whisper = [user.id];
+    messageMode ??= game.settings.get("core", "messageMode");
+    const isBlind = messageMode === CONST.DICE_ROLL_MODES.BLIND;
+    const isPrivate = (messageMode === CONST.DICE_ROLL_MODES.PRIVATE) || isBlind;
+    const whisper = isPrivate ? [...new Set([user.id, game.users.activeGM?.id])] : null;
     try {
-      await game.dice3d.showForRoll(roll, user, synchronize, whisper, blind);
+      await game.dice3d.showForRoll(roll, user, isBlind, whisper);
     }
     catch(err) {
       console.warn("Dice So Nice error:", err);
@@ -191,7 +194,8 @@ export default class GroupCheck extends StandardCheck {
     if ( roll === null ) return null;
 
     await roll.evaluate();
-    if ( showDSN ) await this.#showDiceSoNice(roll);
+    // noinspection ES6MissingAwait
+    if ( showDSN ) this.#showDiceSoNice(roll, {user: game.user, messageMode});
     return roll;
   }
 
@@ -360,6 +364,9 @@ export default class GroupCheck extends StandardCheck {
       }, {timeout: this.QUERY_TIMEOUT});
 
       if ( rollData && !rollData.aborted ) {
+        const roll = Roll.fromData(rollData);
+        // noinspection ES6MissingAwait
+        this.#showDiceSoNice(roll, {user, messageMode});
         await this.#updateGroupCheckMessage(message, flags => {
           if ( flags.actors?.[entry.actorId]?.status !== this.#STATUSES.PENDING ) return false;
           const chosenSkillId = rollData.data.type;
@@ -605,6 +612,8 @@ export default class GroupCheck extends StandardCheck {
     });
     const chosenSkillId = roll.data.type;
     roll.data.dc = skills[chosenSkillId].dc;
+    // noinspection ES6MissingAwait
+    this.#showDiceSoNice(roll, {user: game.user, messageMode: flags.messageMode});
     const rollData = roll.toJSON();
     await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE,
       {skillId: chosenSkillId, rollData});

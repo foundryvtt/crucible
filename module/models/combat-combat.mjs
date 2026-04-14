@@ -144,7 +144,7 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     for ( const meter of meters ) {
       if ( !meter ) continue;
       const [bar, label] = meter.children;
-      bar.style.width = pct;
+      bar.style.width = `${pct}%`;
       label.innerText = _loc("COMBAT.HeroismPct", {pct});
       meter.dataset.tooltip = "";
       meter.ariaLabel = _loc("COMBAT.HeroismTooltip");

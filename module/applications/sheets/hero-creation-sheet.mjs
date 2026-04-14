@@ -555,7 +555,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       {action: "close", icon: "fa-light fa-hexagon-xmark", label: "ACTOR.CREATION.Exit", tooltip: "ACTOR.CREATION.ExitHint"},
       {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "ACTOR.CREATION.Restart", tooltip: "ACTOR.CREATION.RestartHint"}
     ];
-    if ( Object.values(this._completed).every(v => v === true) ) {
+    if ( this._state.name && Object.values(this._completed).every(v => v === true) ) {
       buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "ACTOR.CREATION.Complete", tooltip: "ACTOR.CREATION.CompleteHint"});
     }
     return buttons;
@@ -787,6 +787,21 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     this.element.dataset.step = this.step;
     if ( this.step === "talents" ) await this.activateTalentTree();
     if ( options.parts?.includes("equipment") ) this.#equipmentSearch.bind(this.element);
+    if ( options.parts?.includes("header") ) {
+      this.element.querySelector("#hero-creation-name").addEventListener("input", this.#onInputName.bind(this));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle input to the character name field, re-rendering the header if completion eligibility changes.
+   * @param {Event} event
+   */
+  #onInputName(event) {
+    const hadName = !!this._state.name;
+    this._state.name = event.target.value.trim();
+    if ( hadName !== !!this._state.name ) this.render({parts: ["header"]});
   }
 
   /* -------------------------------------------- */
@@ -1090,6 +1105,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    if ( !this._state.name ) return ui.notifications.warn(_loc("ACTOR.CREATION.NameRequired"));
     const creationData = this._clone.toObject();
     const creationOptions = {recursive: false, diff: false, noHook: true, characterCreation: true};
     await this._finalizeCreationData(creationData, creationOptions);
