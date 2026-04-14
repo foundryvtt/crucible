@@ -1,0 +1,46 @@
+name: Earth Elemental Bane
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Earth-Bane
+  identifier: elementalEarthBane
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: elementalEarthBa
+img: icons/magic/earth/construct-stone-long-arms.webp
+disabled: false
+start: null
+description: >-
+  <p>This weapon is especially effective against <strong>Earth
+  Elemental</strong> creatures. When making a <strong>Strike</strong> against a
+  target of that creature type, the attacker gains bonus <strong>Boons</strong>
+  equal to the <strong>Tier</strong> of this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: creatureBane0000
+sort: 500000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!elementalEarthBa'

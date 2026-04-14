@@ -1,3 +1,4 @@
+import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/skills.mjs";
 import {GESTURES, RUNES} from "../const/spellcraft.mjs";
@@ -57,6 +58,7 @@ for ( const runeId of Object.keys(RUNES) ) {
   HOOKS[id] = {
     prepareGrimoire(item, grimoire) {
       grimoire.runeIds.push(runeId);
+      this.training[runeId] = Math.max(this.training[runeId] ?? 0, 1);
     }
   };
 }
@@ -280,6 +282,23 @@ HOOKS.luminary = {
     action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
   }
 };
+
+/* -------------------------------------------- */
+/*  Creature Bane Affixes                       */
+/* -------------------------------------------- */
+
+for ( const categoryId of Object.keys(CREATURE_CATEGORIES) ) {
+  if ( (categoryId === "elemental") || (categoryId === "humanoid") ) continue;
+  const id = `${categoryId}Bane`;
+  HOOKS[id] = {
+    prepareAttack(item, action, target, rollData) {
+      if ( item.id !== rollData.itemId ) return;
+      if ( target.system.details.taxonomy?.category !== categoryId ) return;
+      const tier = item.system.affixes[id].system.tier.value;
+      rollData.boons[id] = {label: item.name, number: tier};
+    }
+  };
+}
 
 /* -------------------------------------------- */
 

@@ -75,6 +75,11 @@ export const CREATURE_CATEGORIES = {
     skill: "science",
     knowledge: null
   },
+  plant: {
+    label: "TAXONOMY.CATEGORIES.Plant",
+    skill: "wilderness",
+    knowledge: null
+  },
   outsider: {
     label: "TAXONOMY.CATEGORIES.Outsider",
     skill: "arcana",
