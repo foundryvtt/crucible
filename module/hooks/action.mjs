@@ -38,6 +38,26 @@ HOOKS.antitoxin = {
 
 /* -------------------------------------------- */
 
+HOOKS.armorCrusher = {
+  async roll(target) {
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    if ( this.actor.system.resources.focus.value <= 0 ) return;
+    const events = this.eventsByActor.get(target);
+    if ( !events ) return;
+    for ( const event of events.roll ) {
+      if ( event.roll?.data?.result !== RESULTS.GLANCE ) continue;
+      const dmg = event.roll.data.damage;
+      if ( !dmg ) continue;
+      dmg.bonus += this.actor.system.abilities.toughness.value;
+      dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
+      event.resources.push({resource: "focus", delta: -1});
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.assessStrength = {
   configure() {
     const target = this.targets.values().next().value?.actor;

@@ -1,0 +1,68 @@
+folder: yXCB4M7hR4QB6Rx7
+name: Armor Crusher
+type: talent
+img: icons/magic/fire/flame-burning-fist-strike.webp
+system:
+  description: >-
+    <p>You have mastered the art of striking armored opponents with such force
+    that the armor itself becomes a weapon against them.</p>
+  actions:
+    - id: armorCrusher
+      name: Armor Crusher
+      img: icons/magic/fire/flame-burning-fist-strike.webp
+      description: >-
+        <p>You make an unarmed <strong>Strike</strong> against a nearby enemy.
+        If the attack results in a <strong>Glancing Blow</strong>, you spend
+        <strong>1 Focus</strong> if possible to deal bonus damage equal to your
+        <strong>Toughness</strong> score.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - unarmed
+        - melee
+      condition: ''
+      summon:
+        actorUuid: null
+        permanent: true
+      metadata: {}
+  nodes:
+    - toustr4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776133340900
+  modifiedTime: 1776133862210
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: armorCrusher0000
+sort: 156250
+_key: '!items!armorCrusher0000'
