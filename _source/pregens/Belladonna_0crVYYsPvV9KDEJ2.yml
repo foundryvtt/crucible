@@ -296,11 +296,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415504
-      modifiedTime: 1775444415504
+      systemVersion: 0.9.1
+      createdTime: 1776203438999
+      modifiedTime: 1776203438999
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,11 +342,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415504
-      modifiedTime: 1775444415504
+      systemVersion: 0.9.1
+      createdTime: 1776203438999
+      modifiedTime: 1776203438999
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -384,11 +384,11 @@ items:
       identifier: studdedLeatherArmor
       invested: false
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415504
-      modifiedTime: 1775444415504
+      systemVersion: 0.9.1
+      createdTime: 1776203439000
+      modifiedTime: 1776203439000
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -438,6 +438,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -452,85 +453,18 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415505
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439000
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415505
+      createdTime: 1776203439000
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.diversionist0000'
-  - name: Dual Wield
-    type: talent
-    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-    system:
-      description: >-
-        <p>You are adept at fighting with two weapons simultaneously. You can
-        weave attacks together to strike more rapidly than possible with a
-        single weapon.</p>
-      actions:
-        - id: offhandStrike
-          name: Offhand Strike
-          description: >-
-            <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
-            with your <strong>offhand</strong> weapon.</p>
-          tags:
-            - afterStrike
-            - offhand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-          condition: ''
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.359'
-      systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415505
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415505
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: dualwield0000000
-    folder: cW6bwHXBB9pMcwva
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.dualwield0000000'
   - _id: flurry0000000000
     name: Flurry
     type: talent
@@ -576,6 +510,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -586,12 +521,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415505
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439000
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415505
+      createdTime: 1776203439000
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -623,12 +558,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415506
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439000
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415506
+      createdTime: 1776203439000
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -681,6 +616,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -691,12 +627,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415506
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439001
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415506
+      createdTime: 1776203439001
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -727,12 +663,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415506
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439001
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415506
+      createdTime: 1776203439001
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -762,12 +698,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415506
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439001
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415506
+      createdTime: 1776203439001
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -818,6 +754,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -828,12 +765,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415506
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439001
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415506
+      createdTime: 1776203439001
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -864,12 +801,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415507
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439001
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415507
+      createdTime: 1776203439001
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -878,75 +815,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.skirmisher000000'
-  - name: Backstab
-    type: talent
-    img: icons/skills/melee/strike-dagger-white-orange.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You focus your cunning instincts on exploiting the weak points of a
-        flanked target. You identify an opportunity and strike with deadly
-        efficiency.</p>
-      actions:
-        - id: backstab
-          condition: You are attacking a target with the Flanked condition.
-          description: >-
-            <p>You <strong>Strike</strong> with your mainhand weapon against a
-            <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
-            damage.</p>
-          tags:
-            - finesse
-            - flanking
-            - melee
-            - deadly
-          cost:
-            action: 0
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Backstab
-          img: icons/skills/melee/strike-dagger-white-orange.webp
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '14.359'
-      systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415507
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415507
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: backstab00000000
-    folder: Xg1Jww0K0CK7vUo1
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.backstab00000000'
   - name: Impetus
     type: talent
     _id: impetus000000000
@@ -971,12 +839,12 @@ items:
     sort: -75000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415507
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439002
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415507
+      createdTime: 1776203439002
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1030,6 +898,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: light
@@ -1043,12 +912,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415508
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439002
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415508
+      createdTime: 1776203439002
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1099,6 +968,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: ''
@@ -1109,12 +979,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444415508
-      createdTime: 1775444415508
+      modifiedTime: 1776203439002
+      createdTime: 1776203439002
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1154,12 +1024,12 @@ items:
     sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444415509
-      createdTime: 1775444415509
+      modifiedTime: 1776203439002
+      createdTime: 1776203439002
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1194,12 +1064,12 @@ items:
     sort: 120000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444415509
-      createdTime: 1775444415509
+      modifiedTime: 1776203439002
+      createdTime: 1776203439002
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1236,11 +1106,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415509
-      modifiedTime: 1775444415509
+      systemVersion: 0.9.1
+      createdTime: 1776203439002
+      modifiedTime: 1776203439002
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1310,6 +1180,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1320,11 +1191,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415509
-      modifiedTime: 1775444415509
+      systemVersion: 0.9.1
+      createdTime: 1776203439003
+      modifiedTime: 1776203439003
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1397,6 +1268,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1407,11 +1279,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415510
-      modifiedTime: 1775444415510
+      systemVersion: 0.9.1
+      createdTime: 1776203439003
+      modifiedTime: 1776203439003
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1505,6 +1377,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
         - id: poisonApply
           name: Apply Poison
           img: >-
@@ -1536,6 +1409,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       uses:
         value: 1
         max: 1
@@ -1546,11 +1420,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415510
-      modifiedTime: 1775444415510
+      systemVersion: 0.9.1
+      createdTime: 1776203439003
+      modifiedTime: 1776203439003
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1588,11 +1462,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415511
-      modifiedTime: 1775444415511
+      systemVersion: 0.9.1
+      createdTime: 1776203439003
+      modifiedTime: 1776203439003
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1662,6 +1536,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1672,11 +1547,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415511
-      modifiedTime: 1775444415511
+      systemVersion: 0.9.1
+      createdTime: 1776203439003
+      modifiedTime: 1776203439003
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1727,6 +1602,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       nodes:
         - int3b
       rune: ''
@@ -1739,11 +1615,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415511
-      modifiedTime: 1775444415511
+      systemVersion: 0.9.1
+      createdTime: 1776203439004
+      modifiedTime: 1776203439004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1793,6 +1669,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       nodes:
         - sig3.intellect.dexterity
       rune: ''
@@ -1806,11 +1683,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415512
-      modifiedTime: 1775444415512
+      systemVersion: 0.9.1
+      createdTime: 1776203439004
+      modifiedTime: 1776203439004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1866,6 +1743,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       rune: ''
       gesture: ''
       inflection: ''
@@ -1876,11 +1754,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415512
-      modifiedTime: 1775444415512
+      systemVersion: 0.9.1
+      createdTime: 1776203439004
+      modifiedTime: 1776203439004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1912,11 +1790,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415512
-      modifiedTime: 1775444415512
+      systemVersion: 0.9.1
+      createdTime: 1776203439004
+      modifiedTime: 1776203439004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1954,11 +1832,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415513
-      modifiedTime: 1775444415513
+      systemVersion: 0.9.1
+      createdTime: 1776203439004
+      modifiedTime: 1776203439004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1968,17 +1846,155 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.awarenessNovice0'
+  - name: Dual Wield
+    type: talent
+    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+    system:
+      description: >-
+        <p>You are adept at fighting with two weapons simultaneously. You can
+        weave attacks together to strike more rapidly than possible with a
+        single weapon.</p>
+      actions:
+        - id: offhandStrike
+          name: Offhand Strike
+          description: >-
+            <p>Immediately after you perform a basic Strike with your mainhand
+            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
+            with your <strong>offhand</strong> weapon.</p>
+          tags:
+            - afterStrike
+            - offhand
+          cost:
+            action: -1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+          condition: ''
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
+          metadata: {}
+      nodes:
+        - dex1b
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.360'
+      systemId: crucible
+      systemVersion: 0.9.1
+      createdTime: 1776203438998
+      modifiedTime: 1776203438998
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: dualWield0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.dualWield0000000'
+  - name: Backstab
+    type: talent
+    img: icons/skills/melee/strike-dagger-white-orange.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You focus your cunning instincts on exploiting the weak points of a
+        flanked target. You identify an opportunity and strike with deadly
+        efficiency.</p>
+      actions:
+        - id: backstab
+          condition: You are attacking a target with the Flanked condition.
+          description: >-
+            <p>You <strong>Strike</strong> with your mainhand weapon against a
+            <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
+            damage.</p>
+          tags:
+            - finesse
+            - flanking
+            - melee
+            - deadly
+          cost:
+            action: 0
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Backstab
+          img: icons/skills/melee/strike-dagger-white-orange.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon:
+            actorUuid: null
+            permanent: true
+          metadata: {}
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      coreVersion: '14.360'
+      systemId: crucible
+      systemVersion: 0.9.1
+      modifiedTime: 1776203439005
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1776203439005
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: backstab00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.backstab00000000'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory: []
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
-  systemVersion: 0.9.0
-  createdTime: 1775444415503
-  modifiedTime: 1775444415503
+  systemVersion: 0.9.1
+  createdTime: 1776203438998
+  modifiedTime: 1776203438998
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -286,10 +286,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.359'
-      createdTime: 1775444403802
-      modifiedTime: 1775444403802
+      systemVersion: 0.9.1
+      coreVersion: '14.360'
+      createdTime: 1776203427784
+      modifiedTime: 1776203427784
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -329,10 +329,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.359'
-      createdTime: 1775444403802
-      modifiedTime: 1775444403802
+      systemVersion: 0.9.1
+      coreVersion: '14.360'
+      createdTime: 1776203427784
+      modifiedTime: 1776203427784
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -369,12 +369,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444403802
+      systemVersion: 0.9.1
+      modifiedTime: 1776203427784
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444403802
+      createdTime: 1776203427784
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -424,12 +424,13 @@ items:
             self: false
           effects: []
           tags:
-            - ranged
+            - talisman
             - harmless
             - rallying
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       iconicSpells: 0
       training:
         type: talisman
@@ -443,12 +444,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444403802
-      createdTime: 1775444403802
+      modifiedTime: 1776203427785
+      createdTime: 1776203427785
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -482,12 +483,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444403803
+      systemVersion: 0.9.1
+      modifiedTime: 1776203427785
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444403803
+      createdTime: 1776203427785
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -552,6 +553,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       rune: soul
       nodes:
         - pre0b
@@ -565,11 +567,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403803
-      modifiedTime: 1775444403803
+      systemVersion: 0.9.1
+      createdTime: 1776203427785
+      modifiedTime: 1776203427785
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -633,6 +635,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       rune: earth
       nodes:
         - wis0b
@@ -646,11 +649,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403803
-      modifiedTime: 1775444403803
+      systemVersion: 0.9.1
+      createdTime: 1776203427785
+      modifiedTime: 1776203427785
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -712,6 +715,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          metadata: {}
       rune: life
       training:
         type: life
@@ -725,11 +729,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403804
-      modifiedTime: 1775444403804
+      systemVersion: 0.9.1
+      createdTime: 1776203427786
+      modifiedTime: 1776203427786
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -747,10 +751,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.359'
-  createdTime: 1775444403801
-  modifiedTime: 1775444403801
+  systemVersion: 0.9.1
+  coreVersion: '14.360'
+  createdTime: 1776203427783
+  modifiedTime: 1776203427783
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
