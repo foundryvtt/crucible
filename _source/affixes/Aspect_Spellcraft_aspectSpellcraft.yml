@@ -1,0 +1,45 @@
+name: Aspect Spellcraft
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Aspect
+  identifier: aspectSpellcraft
+  changes: []
+  affixType: suffix
+  tier:
+    min: 1
+    max: 1
+    value: 1
+  itemTypes: []
+_id: aspectSpellcraft
+img: icons/magic/control/silhouette-hold-change-green.webp
+disabled: false
+start: null
+description: >-
+  <p>This item is imbued with the essence of <strong>Aspect</strong> spellcraft.
+  While equipped, the bearer instinctively gains knowledge of the
+  <strong>Aspect</strong> gesture, allowing them to compose spells using it even
+  without having learned the gesture through a talent.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: gesturesSuffix00
+sort: 200000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!aspectSpellcraft'

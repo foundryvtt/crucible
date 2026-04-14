@@ -1,6 +1,6 @@
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/skills.mjs";
-import {RUNES} from "../const/spellcraft.mjs";
+import {GESTURES, RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
 
@@ -57,6 +57,20 @@ for ( const runeId of Object.keys(RUNES) ) {
   HOOKS[id] = {
     prepareGrimoire(item, grimoire) {
       grimoire.runeIds.push(runeId);
+    }
+  };
+}
+
+/* -------------------------------------------- */
+/*  Gesture Knowledge Affixes                   */
+/* -------------------------------------------- */
+
+for ( const gestureId of Object.keys(GESTURES) ) {
+  if ( gestureId === "touch" ) continue;
+  const id = `${gestureId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.gestureIds.push(gestureId);
     }
   };
 }

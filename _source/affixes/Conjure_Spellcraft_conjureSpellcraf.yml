@@ -1,0 +1,45 @@
+name: Conjure Spellcraft
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Conjure
+  identifier: conjureSpellcraft
+  changes: []
+  affixType: suffix
+  tier:
+    min: 2
+    max: 2
+    value: 2
+  itemTypes: []
+_id: conjureSpellcraf
+img: icons/magic/nature/plant-sprout-hands-vines.webp
+disabled: false
+start: null
+description: >-
+  <p>This item is imbued with the essence of <strong>Conjure</strong>
+  spellcraft. While equipped, the bearer instinctively gains knowledge of the
+  <strong>Conjure</strong> gesture, allowing them to compose spells using it
+  even without having learned the gesture through a talent.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: gesturesSuffix00
+sort: 600000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!conjureSpellcraf'
