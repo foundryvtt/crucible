@@ -392,6 +392,12 @@
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round.",
           "WrongTurn": "You may only use the Delay action on your own turn in combat."
+        },
+        "INTERPOSE": {
+          "AllyMustBeTarget": "The selected ally must be the target of the most recent Strike.",
+          "AttackMissed": "You may only Interpose against an attack that hit or glanced your ally.",
+          "RequiresStrike": "Interpose requires the most recent action to be a weapon Strike.",
+          "SingleTarget": "Interpose can only be used against a single-target Strike."
         }
       },
       "BadStatus": "You may not perform {action} while {status}.",

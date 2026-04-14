@@ -1,0 +1,70 @@
+folder: CZGTdmrVS3xRvahX
+name: Interpose
+type: talent
+img: icons/skills/wounds/injury-pain-body-orange.webp
+system:
+  description: >-
+    <p>You are willing to throw yourself into harm's way to protect your allies,
+    subjecting yourself to danger in their stead.</p>
+  actions:
+    - id: interpose
+      name: Interpose
+      img: icons/skills/wounds/injury-pain-body-orange.webp
+      description: >-
+        <p>As a <strong>Reaction</strong> when an adjacent ally is hit or
+        glanced by a single-target attack, you may Interpose to become the
+        target of that attack instead.</p><p>The attack is negated and the
+        attack is re-evaluated against your own <strong>Physical
+        Defense</strong> using the same dice rolls from the original attack. The
+        consequences of the attack are resolved according to this new result
+        with you as its target.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects: []
+      tags:
+        - reaction
+      condition: ''
+      summon:
+        actorUuid: null
+        permanent: true
+      metadata: {}
+  nodes:
+    - dextou4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776130209884
+  modifiedTime: 1776130731837
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: interpose0000000
+sort: 150000
+_key: '!items!interpose0000000'

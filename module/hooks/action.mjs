@@ -574,6 +574,143 @@ HOOKS.intercept = {
 
 /* -------------------------------------------- */
 
+HOOKS.interpose = {
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    if ( !targetAction?.tags.has("strike") ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.RequiresStrike"));
+    }
+    this.usage.priorAction = targetAction;
+  },
+  preActivate() {
+    const targetAction = this.usage.priorAction;
+    const targetActors = [...targetAction.eventsByTarget.keys()];
+    if ( targetActors.length !== 1 ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.SingleTarget"));
+    }
+    const [ally] = this.targets.keys();
+    if ( targetActors[0] !== ally ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AllyMustBeTarget"));
+    }
+    const allyEvents = targetAction.eventsByActor.get(ally);
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    const wasHit = allyEvents?.roll.some(e => e.roll?.data?.result >= RESULTS.GLANCE);
+    if ( !wasHit ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AttackMissed"));
+    }
+    this.metadata.targetMessageId = targetAction.message.id;
+  },
+  async confirm(reverse) {
+    const targetMessageId = this.metadata.targetMessageId;
+    const targetMessage = game.messages.get(targetMessageId);
+    if ( !targetMessage ) return;
+    if ( reverse ) await HOOKS.interpose._reverse.call(this, targetMessage);
+    else await HOOKS.interpose._rewrite.call(this, targetMessage);
+  },
+  /**
+   * Rewrite the original action to target the interposing actor instead of the original ally.
+   * Negates the original action, re-evaluates each strike against the interposer's defenses,
+   * and posts a new confirmed chat message with the rewritten results.
+   * @param {ChatMessage} targetMessage    The chat message of the original action being interposed
+   * @this {CrucibleAction}
+   * @internal
+   */
+  async _rewrite(targetMessage) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+
+    // Negate and reverse the original action
+    const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
+    await targetMessage.setFlag("crucible", "isNegated", true);
+    if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
+
+    // Reconstruct original action and clone it for the rewrite
+    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    const rewrittenAction = originalAction.clone({}, {message: null, lazy: true});
+    const interposer = this.actor;
+    rewrittenAction.targets = new Map([[interposer, {
+      actor: interposer, token: this.token, name: interposer.name, uuid: interposer.uuid
+    }]]);
+
+    // Rewrite the event stream, re-evaluating strikes against the interposer's defenses
+    for ( const event of originalAction.events ) {
+      if ( (event.type === "strike") && event.roll ) {
+        const roll = HOOKS.interpose._cloneRoll(event.roll);
+        HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
+      }
+      else if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
+        rewrittenAction.recordEvent({type: event.type, resources: event.resources,
+          actorUpdates: event.actorUpdates, itemSnapshots: event.itemSnapshots}, {start: true});
+      }
+      else {
+        rewrittenAction.recordEvent({target: interposer, resources: event.resources, effects: event.effects});
+      }
+    }
+
+    // Post rewritten action as confirmed
+    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: true});
+    await this.message.setFlag("crucible", "rewrittenMessageId", rewrittenMessage.id);
+  },
+  /**
+   * Create a shallow copy of a Roll that has its own independent data property.
+   * Preserves the prototype chain (methods, getters) while preventing mutation of the original.
+   * @param {AttackRoll} roll     The original roll to clone
+   * @returns {AttackRoll}        A roll copy with deep-cloned data
+   * @internal
+   */
+  _cloneRoll(roll) {
+    const clone = Object.create(roll);
+    clone.data = foundry.utils.deepClone(roll.data);
+    return clone;
+  },
+  /**
+   * Re-evaluate a strike against the interposing actor's defenses and record it on the rewritten action.
+   * Preserves the original roll total but recomputes the defense result and damage.
+   * @param {CrucibleAction} action              The rewritten action to record events on
+   * @param {AttackRoll} roll                    A cloned roll with independent data
+   * @param {CrucibleItemSnapshot} weapon        The weapon snapshot from the original event
+   * @param {CrucibleActor} interposer           The actor interposing to receive the attack
+   * @internal
+   */
+  _rewriteStrike(action, roll, weapon, interposer) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+
+    // Re-evaluate defense with the interposer's physical defense
+    roll.data.dc = interposer.system.defenses.physical.total;
+    roll.data.result = interposer.testDefense("physical", roll);
+
+    // Recompute damage for hits and glances, or clear damage if the interposer's defense causes a miss
+    if ( (roll.data.result >= RESULTS.GLANCE) && roll.data.damage ) {
+      const dmg = roll.data.damage;
+      dmg.overflow = roll.overflow;
+      dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
+      dmg.total = CrucibleAction.computeDamage(dmg);
+    } else {
+      roll.data.damage = undefined;
+    }
+    interposer.callActorHooks("receiveAttack", action, roll);
+    action.recordEvent({type: "strike", target: interposer, roll, weapon});
+  },
+  /**
+   * Reverse a previously confirmed Interpose. Reverses the rewritten action and removes
+   * the negation from the original action. The GM must manually re-confirm the original.
+   * @param {ChatMessage} targetMessage    The chat message of the original action
+   * @this {CrucibleAction}
+   * @internal
+   */
+  async _reverse(targetMessage) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
+    const rewrittenMessage = game.messages.get(rewrittenMessageId);
+    if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
+      await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
+    }
+    await targetMessage.setFlag("crucible", "isNegated", false);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.medicinalCompound = {
   preActivate() {
     const target = this.targets.values().next().value.actor;

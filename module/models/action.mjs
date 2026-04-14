@@ -860,7 +860,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
    * @param {ActionUsage} [options.usage]           Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, metadata={}, usage={}, ...options}) {
     super._configure(options);
     const AffixModel = crucible.api.models.CrucibleAffixActiveEffect;
     const affix = (this.parent instanceof AffixModel) ? this.parent.parent : null;
@@ -871,7 +871,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       token: {value: token, writable: false, configurable: true},
       region: {value: region, writable: false, configurable: true},
       movement: {value: movement, writable: false, configurable: true},
-      message: {value: message, writable: false, configurable: true}
+      message: {value: message, writable: false, configurable: true},
+
+      /**
+       * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
+       * Hooks can write keys during the use phase (e.g., preActivate) and read them during confirm.
+       * @type {object}
+       */
+      metadata: {value: metadata}
     });
 
     /**
@@ -2463,6 +2470,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return {actor: actor.uuid, token: t.token?.uuid ?? null};
     });
     actionData.vfxConfig = this.configureVFXEffect();
+    if ( !foundry.utils.isEmpty(this.metadata) ) actionData.metadata = this.metadata;
 
     // Collect rolls from the event stream and assign indices for serialization
     const rolls = [];
@@ -2584,6 +2592,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       movement: movementId,
       token: tokenUuid,
       action: actionData,
+      metadata,
       region: regionUuid,
       events: serializedEvents,
       targets: serializedTargets
@@ -2631,7 +2640,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Rebuild action from explicit data
     const actionId = actionData.id;
-    const actionContext = {parent: item?.system, actor, item, token, region, movement, message, lazy: true};
+    const actionContext = {parent: item?.system, actor, item, token, region, movement, message, metadata, lazy: true};
     let action;
     if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {

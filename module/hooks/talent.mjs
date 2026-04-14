@@ -578,6 +578,15 @@ HOOKS.mesmer0000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.neverYield000000 = {
+  // Intentionally uses prepareDefenses because this must run after #prepareFinalResources applies the weakened penalty
+  prepareDefenses(_item, _defenses) {
+    if ( this.isWeakened ) this.resources.action.max += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "death" ) return;
