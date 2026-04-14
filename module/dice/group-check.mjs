@@ -24,7 +24,6 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} status                         Actor status enum value
  * @property {boolean} dispatched                    Whether a query has been dispatched to a user
  * @property {string|null} skillId                   The skill chosen by this actor
- * @property {object|null} rollData                  Serialized StandardCheck data (after completion)
  */
 
 /**
@@ -133,34 +132,7 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-   * Show Dice So Nice animation for a group check roll.
-   * Visibility is determined by the message mode: blind rolls are only shown to the GM,
-   * private rolls are whispered to the rolling user and the GM, and public rolls are shown to everyone.
-   * @param {Roll} roll                           The evaluated roll to animate
-   * @param {object} [options={}]                 Additional options
-   * @param {User} [options.user]                 The user who rolled (defaults to current user)
-   * @param {string} [options.messageMode]        The chat message visibility mode
-   * @returns {Promise<void>}
-   */
-  static async #showDiceSoNice(roll, {user=game.user, messageMode}={}) {
-    if ( !game.dice3d ) return;
-    messageMode ??= game.settings.get("core", "messageMode");
-    const isBlind = messageMode === CONST.DICE_ROLL_MODES.BLIND;
-    const isPrivate = (messageMode === CONST.DICE_ROLL_MODES.PRIVATE) || isBlind;
-    const whisper = isPrivate ? [...new Set([user.id, game.users.activeGM?.id])] : null;
-    try {
-      await game.dice3d.showForRoll(roll, user, isBlind, whisper);
-    }
-    catch(err) {
-      console.warn("Dice So Nice error:", err);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Prepare a StandardCheck roll for an actor, present the dialog, and evaluate it.
-   * Optionally shows a Dice So Nice animation.
    * @param {CrucibleActor} actor The actor performing the check
    * @param {object} options
    * @param {string} options.skillId            The skill being checked (single-skill mode)
@@ -170,10 +142,9 @@ export default class GroupCheck extends StandardCheck {
    * @param {number} [options.sharedBanes=0]    GM-assigned shared banes
    * @param {string} [options.title]            The dialog title
    * @param {boolean} [options.configurable=true]  Whether the dialog allows configuration
-   * @param {boolean} [options.showDSN=true]    Whether to show a Dice So Nice animation
    * @returns {Promise<StandardCheck|null>}    The evaluated roll, or null if the dialog was cancelled
    */
-  static async #prepareAndRoll(actor, {skillId, skills, dc=15, sharedBoons=0, sharedBanes=0, title, messageMode, configurable=true, showDSN=true}={}) {
+  static async #prepareAndRoll(actor, {skillId, skills, dc=15, sharedBoons=0, sharedBanes=0, title, messageMode, configurable=true}={}) {
 
     // Resolve the initial skill from either single-skill or multi-skill mode
     if ( skills ) {
@@ -192,11 +163,7 @@ export default class GroupCheck extends StandardCheck {
     if ( skills && (Object.keys(skills).length > 1) ) dialogOptions.skills = skills;
     const roll = await pool.dialog(dialogOptions);
     if ( roll === null ) return null;
-
-    await roll.evaluate();
-    // noinspection ES6MissingAwait
-    if ( showDSN ) this.#showDiceSoNice(roll, {user: game.user, messageMode});
-    return roll;
+    return roll.evaluate();
   }
 
   /* -------------------------------------------- */
@@ -265,8 +232,7 @@ export default class GroupCheck extends StandardCheck {
         userId: user?.id || null,
         status: GroupCheck.#STATUSES.PENDING,
         dispatched: false,
-        skillId: null,
-        rollData: null
+        skillId: null
       };
       if ( !user ) unrequested.push(actor.id);
     }
@@ -292,7 +258,7 @@ export default class GroupCheck extends StandardCheck {
       speaker: ChatMessage.implementation.getSpeaker(),
       flags: {crucible: {[GroupCheck.FLAG_KEY]: groupCheckFlags }}
     };
-    ChatMessage.implementation.applyRollMode(messageData, messageMode || game.settings.get("core", "messageMode"));
+    ChatMessage.implementation.applyMode(messageData, messageMode || game.settings.get("core", "messageMode"));
     const message = await ChatMessage.implementation.create(messageData);
 
     for ( const actorId of unrequested ) {
@@ -364,19 +330,17 @@ export default class GroupCheck extends StandardCheck {
       }, {timeout: this.QUERY_TIMEOUT});
 
       if ( rollData && !rollData.aborted ) {
+        const chosenSkillId = rollData.data.type;
+        rollData.data.dc = skills[chosenSkillId]?.dc;
         const roll = Roll.fromData(rollData);
-        // noinspection ES6MissingAwait
-        this.#showDiceSoNice(roll, {user, messageMode});
         await this.#updateGroupCheckMessage(message, flags => {
           if ( flags.actors?.[entry.actorId]?.status !== this.#STATUSES.PENDING ) return false;
-          const chosenSkillId = rollData.data.type;
-          rollData.data.dc = flags.skills[chosenSkillId].dc;
           flags.actors[entry.actorId] = foundry.utils.mergeObject(flags.actors[entry.actorId], {
             status: this.#STATUSES.COMPLETE,
             dispatched: false,
-            skillId: chosenSkillId,
-            rollData
+            skillId: chosenSkillId
           });
+          return {rolls: [roll]};
         });
       }
       else {
@@ -399,9 +363,10 @@ export default class GroupCheck extends StandardCheck {
    * Prepare a single actor entry from flags data into a template-ready object.
    * Derives row classes, display status data, outcome, and roll context.
    * @param {GroupCheckActorEntry} entry    The raw actor entry from flags
+   * @param {Roll[]} rolls                 The message's canonical rolls array
    * @returns {GroupCheckActorTemplateData} The enriched entry for the Handlebars template
    */
-  static #prepareActorTemplateData(entry) {
+  static #prepareActorTemplateData(entry, rolls) {
     let showRollResult = false;
     let statusDisplay = null;
     let rollContext = null;
@@ -410,15 +375,10 @@ export default class GroupCheck extends StandardCheck {
     switch ( entry.status ) {
       case GroupCheck.#STATUSES.COMPLETE:
         showRollResult = true;
-        if ( entry.rollData ) {
-          try {
-            const roll = Roll.fromData(entry.rollData);
-            const skill = entry.skillId ? SYSTEM.SKILLS[entry.skillId] : null;
-            rollContext = roll.prepareDiceResultContext({targetLabel: skill?.label ?? ""});
-          }
-          catch(err) {
-            console.warn("Failed to reconstruct roll for group check actor:", err);
-          }
+        const roll = rolls.findLast(r => r.data?.actorId === entry.actorId);
+        if ( roll ) {
+          const skill = entry.skillId ? SYSTEM.SKILLS[entry.skillId] : null;
+          rollContext = roll.prepareDiceResultContext({targetLabel: skill?.label ?? ""});
         }
         break;
 
@@ -452,10 +412,11 @@ export default class GroupCheck extends StandardCheck {
   /**
    * Render the group check chat card HTML from the current flags state.
    * @param {GroupCheckFlags} flags     The group check flags data
+   * @param {Roll[]} [rolls=[]]         The message's canonical rolls array
    * @returns {Promise<string>}         The rendered HTML content
    */
-  async #renderGroupCheckCard(flags) {
-    const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry));
+  async #renderGroupCheckCard(flags, rolls=[]) {
+    const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, rolls));
     return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors});
   }
 
@@ -465,8 +426,8 @@ export default class GroupCheck extends StandardCheck {
 
   /**
    * Handle a group check request dispatched via user.query("requestGroupCheck").
-   * Opens a StandardCheck dialog for the player, evaluates the roll, shows DSN animation,
-   * and returns the result without posting a chat message.
+   * Opens a StandardCheck dialog for the player, evaluates the roll, and returns the serialized result.
+   * The GM appends the roll to the ChatMessage#rolls array, which triggers Dice So Nice automatically.
    * @param {object} [params={}]          The query payload
    * @param {string} params.checkId       Unique ID for this group check session
    * @param {string} params.actorId       The actor ID for whom the check is requested
@@ -481,7 +442,6 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     if ( !actor ) return {aborted: true};
     if ( !actor.testUserPermission(game.user, "OWNER") ) return {aborted: true};
-
     const pool = await this.#prepareAndRoll(actor, {skills, sharedBoons, sharedBanes, messageMode, title, configurable: false});
     if ( !pool ) return {aborted: true};
     return pool.toJSON();
@@ -492,7 +452,7 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-   * Serialize group check message updates so concurrent responses do not clobber each other.
+   * Serialize group check message updates so concurrent responses are handled in sequence.
    * @param {ChatMessage} message     The group check ChatMessage
    * @param {(flags: GroupCheckFlags, current: ChatMessage) => (false|void|object|Promise<false|void|object>)} mutator
    * Mutates the latest flags state and may return additional message update data, or false to skip updating.
@@ -503,12 +463,19 @@ export default class GroupCheck extends StandardCheck {
       const current = game.messages.get(message.id) ?? message;
       const flags = foundry.utils.deepClone(current.flags.crucible?.[this.FLAG_KEY]);
       if ( !flags ) return false;
-
       const result = await mutator(flags, current);
       if ( result === false ) return false;
-
-      const content = await this.#fromFlags(flags).#renderGroupCheckCard(flags);
       const updateData = foundry.utils.isPlainObject(result) ? result : {};
+      const newRolls = updateData.rolls ?? [];
+      const allRolls = [...current.rolls, ...newRolls];
+      const content = await this.#fromFlags(flags).#renderGroupCheckCard(flags, allRolls);
+      if ( newRolls.length ) {
+        const existingRolls = current.rolls.map(r => JSON.stringify(r.toJSON()));
+        updateData.rolls = [...existingRolls, ...newRolls.map(r => JSON.stringify(r.toJSON()))];
+      }
+      // FIXME: When rolls are appended in the same update as content, Dice So Nice hides the new
+      // .dice-roll elements during animation, causing the completed actor row to appear collapsed
+      // until animation finishes. A DSN update option to suppress content hiding would resolve this.
       await current.update({content, [`flags.crucible.${this.FLAG_KEY}`]: flags, ...updateData});
       return true;
     });
@@ -538,17 +505,16 @@ export default class GroupCheck extends StandardCheck {
     // For GM users, append DC values to roll result target labels
     for ( const row of html.querySelectorAll(".group-check-row") ) {
       const actorId = row.dataset.actorId;
-      const entry = groupCheckFlags.actors?.[actorId];
-      if ( !entry?.rollData?.data?.dc ) continue;
+      const roll = message.rolls.findLast(r => r.data?.actorId === actorId);
+      if ( !roll?.data?.dc ) continue;
       const target = row.querySelector(".dice-result .target");
-      if ( target ) target.textContent += ` ${entry.rollData.data.dc}`;
+      if ( target ) target.textContent += ` ${roll.data.dc}`;
     }
 
     const makeButton = (icon, descriptionKey, handler, isIconButton=true) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.classList.add("frame-brown");
-
       if ( isIconButton ) {
         btn.classList.add("icon", "fa-solid", icon);
         btn.dataset.tooltip = "";
@@ -559,7 +525,6 @@ export default class GroupCheck extends StandardCheck {
         iconElement.classList.add("fa-solid", icon);
         btn.append(iconElement, ` ${_loc(descriptionKey)}`);
       }
-
       btn.addEventListener("click", handler);
       return btn;
     };
@@ -612,11 +577,13 @@ export default class GroupCheck extends StandardCheck {
     });
     const chosenSkillId = roll.data.type;
     roll.data.dc = skills[chosenSkillId].dc;
-    // noinspection ES6MissingAwait
-    this.#showDiceSoNice(roll, {user: game.user, messageMode: flags.messageMode});
-    const rollData = roll.toJSON();
-    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE,
-      {skillId: chosenSkillId, rollData});
+    await this.#updateGroupCheckMessage(message, gcFlags => {
+      gcFlags.actors[actorId] = foundry.utils.mergeObject(gcFlags.actors[actorId], {
+        status: this.#STATUSES.COMPLETE,
+        skillId: chosenSkillId
+      });
+      return {rolls: [roll]};
+    });
   }
 
   /* -------------------------------------------- */
@@ -650,9 +617,14 @@ export default class GroupCheck extends StandardCheck {
 
     const chosenSkillId = roll.data.type;
     roll.data.dc = skills[chosenSkillId].dc;
-    const rollData = roll.toJSON();
-    await this.#markActorStatus(message, actorId, this.#STATUSES.COMPLETE,
-      {skillId: chosenSkillId, rollData}, {expectedStatus: entry.status});
+    await this.#updateGroupCheckMessage(message, gcFlags => {
+      if ( entry.status && (gcFlags.actors[actorId]?.status !== entry.status) ) return false;
+      gcFlags.actors[actorId] = foundry.utils.mergeObject(gcFlags.actors[actorId], {
+        status: this.#STATUSES.COMPLETE,
+        skillId: chosenSkillId
+      });
+      return {rolls: [roll]};
+    });
   }
 
   /**
@@ -678,7 +650,7 @@ export default class GroupCheck extends StandardCheck {
     if ( !entry ) return;
     const resettable = [this.#STATUSES.ABORTED, this.#STATUSES.SKIPPED];
     if ( !resettable.includes(entry.status) ) return;
-    await this.#markActorStatus(message, actorId, this.#STATUSES.PENDING, {dispatched: false, rollData: null, skillId: null});
+    await this.#markActorStatus(message, actorId, this.#STATUSES.PENDING, {dispatched: false, skillId: null});
   }
 
   /**
