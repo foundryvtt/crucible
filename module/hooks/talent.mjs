@@ -14,6 +14,26 @@ HOOKS.adrenalineSurge0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.adrenaline000000 = {
+  confirmAction(item, action, {reverse}) {
+    if ( reverse || this.status.adrenaline ) return;
+    const myEvents = action.eventsByActor.get(this);
+    if ( !myEvents ) return;
+    for ( const event of myEvents.roll ) {
+      const dmg = event.roll?.data?.damage;
+      if ( (dmg?.resource !== "health") || (dmg.total <= 0) || dmg.restoration ) continue;
+      action.recordEvent({
+        target: this,
+        resources: [{resource: "focus", delta: 1}],
+        actorUpdates: {system: {status: {adrenaline: true}}}
+      });
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.amorphous0000000 = {
   prepareDefenses(item, defenses) {
     this.statuses.delete("restrained");
@@ -282,6 +302,17 @@ HOOKS.deftgrip00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.defiantWill00000 = {
+  prepareDefenses(_item, defenses) {
+    const health = this.system.resources.health;
+    if ( health.max <= 0 ) return;
+    const toughness = this.system.abilities.toughness.value;
+    defenses.willpower.bonus += Math.floor(toughness * (1 - (health.value / health.max)));
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.demolitionist000 = {
   prepareAction(item, action) {
     if ( action.item?.config?.category.id === "bomb" ) {
@@ -328,6 +359,15 @@ HOOKS.evasiveshot00000 = {
       const movementBonus = (this.system.status.movement?.bonus ?? 0) + Math.ceil(this.system.movement.stride / 2);
       foundry.utils.setProperty(action.usage.actorStatus, "movement.bonus", movementBonus);
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.evasiveArmor0000 = {
+  prepareDefenses(_item, defenses) {
+    const excess = defenses.reflex.total - defenses.physical.total;
+    if ( excess > 0 ) defenses.armor.bonus += excess;
   }
 };
 

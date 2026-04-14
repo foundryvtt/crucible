@@ -1,7 +1,7 @@
 folder: 8Vb0F5R7DMUrvhfw
 name: Impenetrable Guard
 type: talent
-img: icons/equipment/shield/heater-crystal-blue.webp
+img: icons/equipment/shield/heater-steel-segmented-purple.webp
 system:
   description: >-
     <p>Your defenses frustrate attackers who struggle to find a gap in your
@@ -10,7 +10,7 @@ system:
     <strong>1 Bane</strong> on their next Strike against you.</p>
   actions: []
   nodes:
-    - tou4a
+    - tou4d
   rune: ''
   gesture: ''
   inflection: ''
@@ -24,12 +24,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.0
-  createdTime: null
-  modifiedTime: null
-  lastModifiedBy: null
+  createdTime: 1776126576744
+  modifiedTime: 1776126580814
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
