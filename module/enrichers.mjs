@@ -864,17 +864,20 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   // Parse tokens
   const affixes = [];
   let quality = null;
+  let broken = false;
   for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
     const [key, value] = token.split("=");
     if ( key === "quality" ) {
       quality = value;
+    } else if ( key === "broken" ) {
+      broken = value;
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
