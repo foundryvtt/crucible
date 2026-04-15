@@ -966,7 +966,7 @@ function _migrateEquipmentItem(item, index) {
   const currentSource = item.toObject();
   const upstreamSource = index[item.system.identifier]?.toObject();
   if ( !upstreamSource ) return null;
-  const update = {_id: item.id, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
+  const update = {_id: item.id, type: upstreamSource.type, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
   const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
   for ( const field of stateFields ) {
     const value = currentSource.system[field];

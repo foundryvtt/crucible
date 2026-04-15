@@ -106,6 +106,19 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   affixes = {};
 
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+
+    // Strip item properties that are no longer valid choices
+    if ( Array.isArray(source.properties) ) {
+      source.properties = source.properties.filter(p => p in this.ITEM_PROPERTIES);
+    }
+    return source;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Does this item require investment?
    * @type {boolean}
