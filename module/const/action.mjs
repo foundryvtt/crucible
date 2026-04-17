@@ -309,6 +309,7 @@ export const TAGS = {
     label: "ACTION.TAG.Talisman",
     tooltip: "ACTION.TAG.TalismanTooltip",
     category: "requirements",
+    propagate: ["strike"],
     canUse() {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       const categories = ["talisman1", "talisman2"];
