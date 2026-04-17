@@ -1066,40 +1066,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Toggle a named status active effect for the Actor
-   * @param {string} statusId             The status effect ID to toggle
-   * @param {object} [options]
-   * @param {boolean} [options.active]    Should the effect be active?
-   * @param {boolean} [options.overlay]   Should the effect be an overlay?
-   * @returns {Promise<ActiveEffect|undefined>}
-   */
-  async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
-    const effectData = CONFIG.statusEffects[statusId];
-    if ( !effectData ) return;
-    const existing = this.effects.find(e => e.statuses.has(effectData.id));
-
-    // No changes needed
-    if ( !active && !existing ) return;
-    if ( active && existing ) return existing.update({"flags.core.overlay": overlay});
-
-    // Remove an existing effect
-    if ( !active && existing ) return existing.delete();
-
-    // Add a new effect
-    else if ( active ) {
-      const createData = foundry.utils.mergeObject(effectData, {
-        _id: SYSTEM.EFFECTS.getEffectId(statusId),
-        name: _loc(effectData.name),
-        statuses: [statusId]
-      }, {inplace: false});
-      if ( overlay ) createData["flags.core.overlay"] = true;
-      await ActiveEffect.create(createData, {parent: this, keepId: true});
-    }
-  }
-
-  /* -------------------------------------------- */
   /*  Action Event Management                     */
   /* -------------------------------------------- */
 
