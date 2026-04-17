@@ -1342,12 +1342,12 @@
     "Block": "Block",
     "Dodge": "Dodge",
     "Fortitude": "Fortitude",
-    "Madness": "Madness",
+    "Madness": "Rallying Threshold",
     "Parry": "Parry",
     "Physical": "Physical",
     "Reflex": "Reflex",
     "Willpower": "Willpower",
-    "Wounds": "Wounds"
+    "Wounds": "Healing Threshold"
   },
   "DICE": {
     "DIFFICULTIES": {
