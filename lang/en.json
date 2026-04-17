@@ -240,8 +240,14 @@
       "ConsumeTooltip": "This action involves and requires consumption of a specific consumable item",
       "CostAction": "{action}A",
       "CostFocus": "{focus}F",
-      "CostHand.one": "{hands} Hand",
-      "CostHand.other": "{hands} Hands",
+      "CostHand": {
+        "zero": "{hands} Hands",
+        "one": "{hands} Hand",
+        "two": "{hands} Hands",
+        "few": "{hands} Hands",
+        "many": "{hands} Hands",
+        "other": "{hands} Hands"
+      },
       "CostHealth": "{health}HP",
       "CostHeroism": "{heroism}H",
       "CostTooltip": "The Action Point or Focus Point cost of using this action.",
@@ -402,8 +408,14 @@
       },
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
-      "CannotAffordHands.one": "{name} must have {hands} free hand to use {action}!",
-      "CannotAffordHands.other": "{name} must have {hands} free hands to use {action}!",
+      "CannotAffordHands": {
+        "zero": "{name} must have {hands} free hands to use {action}!",
+        "one": "{name} must have {hands} free hand to use {action}!",
+        "two": "{name} must have {hands} free hands to use {action}!",
+        "few": "{name} must have {hands} free hands to use {action}!",
+        "many": "{name} must have {hands} free hands to use {action}!",
+        "other": "{name} must have {hands} free hands to use {action}!"
+      },
       "CannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
       "CannotSpendAction": "{name} cannot spend Action because they are Incapacitated!",
       "CannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
@@ -688,9 +700,13 @@
         "members": {
           "actor.label": "Actor ID",
           "label": "Group Members",
+          "quantity.label": "Actor Quantity",
+          "zero": "Members",
           "one": "Member",
-          "other": "Members",
-          "quantity.label": "Actor Quantity"
+          "two": "Members",
+          "few": "Members",
+          "many": "Members",
+          "other": "Members"
         },
         "movement": {
           "air.label": "Air Speed",
@@ -1044,11 +1060,15 @@
       "GroupRevoke": "Revoked {number} {label} from group {name} and the following members:",
       "Identifier": "Identifier",
       "IdentifierHint": "A unique identifier for the milestone award, must be a slug (no spaces or special characters).",
-      "one": "Milestone",
-      "other": "Milestones",
       "Recipients": "Milestone Recipients",
       "RecipientsHint": "Designate one or more heroes to receive the milestone.",
-      "Revoke": "Revoke Milestones"
+      "Revoke": "Revoke Milestones",
+      "zero": "Milestones",
+      "one": "Milestone",
+      "two": "Milestones",
+      "few": "Milestones",
+      "many": "Milestones",
+      "other": "Milestones"
     },
     "SUMMARIES": {
       "TABLE": {
@@ -1224,10 +1244,22 @@
     },
     "USES": {
       "Of": "of",
-      "TagMax.one": "{value} Use",
-      "TagMax.other": "{value} Uses",
-      "TagPartial.one": "{value}/{max} Use",
-      "TagPartial.other": "{value}/{max} Uses"
+      "TagMax": {
+        "zero": "{value} Uses",
+        "one": "{value} Use",
+        "two": "{value} Uses",
+        "few": "{value} Uses",
+        "many": "{value} Uses",
+        "other": "{value} Uses"
+      },
+      "TagPartial": {
+        "zero": "{value}/{max} Uses",
+        "one": "{value}/{max} Use",
+        "two": "{value}/{max} Uses",
+        "few": "{value}/{max} Uses",
+        "many": "{value}/{max} Uses",
+        "other": "{value}/{max} Uses"
+      }
     }
   },
   "CONTROLS": {
@@ -1361,10 +1393,22 @@
     },
     "Ability": "Ability",
     "AbilityBonus": "Ability Bonus",
-    "Banes.one": "Bane",
-    "Banes.other": "Banes",
-    "Boons.one": "Boon",
-    "Boons.other": "Boons",
+    "Banes": {
+      "zero": "Banes",
+      "one": "Bane",
+      "two": "Banes",
+      "few": "Banes",
+      "many": "Banes",
+      "other": "Banes"
+    },
+    "Boons": {
+      "zero": "Boons",
+      "one": "Boon",
+      "two": "Boons",
+      "few": "Boons",
+      "many": "Boons",
+      "other": "Boons"
+    },
     "CircumstanceBonus": "Circumstance Bonus",
     "Confirm": "Confirm",
     "Damage": "Damage",
@@ -1978,8 +2022,14 @@
     "WARNINGS": {
       "BindArmamentAlreadyBound": "weapon is already bound",
       "BindArmamentNoMainhand": "no mainhand weapon",
-      "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
-      "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",
+      "CannotAffordHands": {
+        "zero": "The {action} spell requires {hands} free hands to cast.",
+        "one": "The {action} spell requires {hands} free hand to cast.",
+        "two": "The {action} spell requires {hands} free hands to cast.",
+        "few": "The {action} spell requires {hands} free hands to cast.",
+        "many": "The {action} spell requires {hands} free hands to cast.",
+        "other": "The {action} spell requires {hands} free hands to cast."
+      },
       "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed.",
       "CannotUseSilenced": "Cannot use Inflections while Silenced.",
       "IconicAlreadyKnown": "Actor {actor} already knows the {spell} Iconic Spell.",
@@ -2058,10 +2108,22 @@
       "Register": "Register Hook Function"
     },
     "LABELS": {
-      "Points.one": "Point",
-      "Points.other": "Points",
-      "Talents.one": "Talent",
-      "Talents.other": "Talents"
+      "Points": {
+        "zero": "Points",
+        "one": "Point",
+        "two": "Points",
+        "few": "Points",
+        "many": "Points",
+        "other": "Points"
+      },
+      "Talents": {
+        "zero": "Talents",
+        "one": "Talent",
+        "two": "Talents",
+        "few": "Talents",
+        "many": "Talents",
+        "other": "Talents"
+      }
     },
     "NODES": {
       "Attack": "Attack",
