@@ -72,9 +72,17 @@ export default class CrucibleSelectiveGridShader extends foundry.canvas.renderin
    * Push token center positions and individual strides into shader uniforms.
    */
   updatePositions() {
+    const u = this.uniforms;
+
+    // Off the Tokens Layer the radial mask is suppressed and the full grid is rendered.
+    if ( canvas.activeLayer !== canvas.tokens ) {
+      u.numControlled = this.constructor.MAX_CONTROLLED + 1;
+      u.numPositions = 0;
+      return;
+    }
+
     const tokens = canvas.tokens.controlled;
     const gs = canvas.grid.size;
-    const u = this.uniforms;
 
     u.numControlled = tokens.length;
 
