@@ -394,6 +394,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
         };
         break;
       case "emanation":
+        if ( !token ) {
+          const warn = _loc("ACTION.WARNINGS.AuraNoToken");
+          ui.notifications.warn(warn);
+          throw new Error(warn);
+        }
         shape = {
           type: "emanation",
           x: origin.x,
