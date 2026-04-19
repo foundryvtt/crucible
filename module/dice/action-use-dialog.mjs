@@ -367,6 +367,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const tokenElevation = token?._source.elevation ?? 0;
     const tokenDepth = token?._source.depth ?? 0;
     const elevation = this.action.usage.region.elevation ?? {bottom: tokenElevation, top: tokenElevation + tokenDepth};
+    const attachment = {};
 
     // Common configurations based on the shape
     let shape;
@@ -391,6 +392,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
           rotation: 0,
           curvature: (regionConfig.angle ?? 60) <= 90 ? "flat" : "round"
         };
+        break;
+      case "emanation":
+        shape = {
+          type: "emanation",
+          x: origin.x,
+          y: origin.y,
+          radius: (baseRange + addRange) * d,
+          base: {type: "token", x: token.x, y: token.y, width: token.width, height: token.height, shape: token.shape}
+        };
+        attachment.token = token.id;
         break;
       case "line":
         shape = {
@@ -441,7 +452,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       restriction: {enabled: this.action.usage.region.wallRestriction ?? true, type: "move"},
       elevation,
       levels,
-      shapes: [shape]
+      shapes: [shape],
+      attachment
     };
   }
 

@@ -117,6 +117,16 @@ export const TARGET_TYPES = Object.freeze({
     },
     scope: TARGET_SCOPES.ALL
   },
+  aura: {
+    label: "ACTION.TARGET_TYPES.Aura",
+    region: {
+      shape: "emanation",
+      anchor: "self",
+      addSize: false, // Accounted for directly by emanation shape
+      ephemeral: false
+    },
+    scope: TARGET_SCOPES.ALL
+  },
   blast: {
     label: "ACTION.TARGET_TYPES.Blast",
     region: {

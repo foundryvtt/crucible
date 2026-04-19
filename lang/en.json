@@ -370,6 +370,7 @@
       "Self": "Self"
     },
     "TARGET_TYPES": {
+      "Aura": "Aura",
       "Blast": "Blast",
       "Cone": "Cone",
       "Fan": "Fan",
