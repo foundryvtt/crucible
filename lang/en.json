@@ -376,6 +376,7 @@
       "Self": "Self"
     },
     "TARGET_TYPES": {
+      "Aura": "Aura",
       "Blast": "Blast",
       "Cone": "Cone",
       "Fan": "Fan",
@@ -406,6 +407,7 @@
           "SingleTarget": "Interpose can only be used against a single-target Strike."
         }
       },
+      "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
       "CannotAffordHands": {
