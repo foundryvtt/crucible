@@ -100,12 +100,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157761
-  modifiedTime: 1773514792262
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1776980754314
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: chokingAmpoule00
-sort: 0
+sort: 300000
 _key: '!items!chokingAmpoule00'

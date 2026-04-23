@@ -1,0 +1,46 @@
+name: Echolocation
+type: talent
+_id: echolocation0000
+img: icons/magic/symbols/ring-circle-smoke-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>@ref[actor.name]{This creature} perceives the world through the emission
+    of sonic pulses that detect shapes with precision, allowing it to locate
+    creatures that are moving or otherwise emitting sound, up to 60 feet away as
+    long as they are not behind total cover. If the creature is
+    @Condition[deafened], this sense may not be used.</p><p>A creature detected
+    using @ref[name] is treated as visible for the purposes of actions which
+    require you to see your target.</p><h3 class="divider">Under
+    Development</h3><p>This should eventually be handled with a
+    specialized<strong> Detection Mode</strong> added to tokens which have this
+    talent.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776979376935
+  modifiedTime: 1776979376936
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!echolocation0000'

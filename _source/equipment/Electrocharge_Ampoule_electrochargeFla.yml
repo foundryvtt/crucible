@@ -1,0 +1,121 @@
+name: Electrocharge Ampoule
+type: consumable
+_id: electrochargeFla
+img: icons/consumables/potions/flask-corked-yellow-glow.webp
+system:
+  identifier: electrochargeAmpoule
+  category: bomb
+  quantity: 1
+  weight: 1
+  price: 250
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A sealed glass tube filled with a yellow liquid explodes when it breaks
+      open, creating a sudden electrical discharge.</p>
+    private: >-
+      <p></p><p>Primarily used to power small electromechanical machines for
+      short periods of time, these alchemical containers are somewhat unstable
+      and react poorly when their contents are exposed to air, making them
+      useful if unpredictable improvised explosives. If combined in a large
+      enough quantity in the correct way, they can also be used to power more
+      significant devices and discharge even more electrical energy.</p>
+  actions:
+    - id: electrochargeAmpoule
+      name: Electrocharge Ampoule
+      img: icons/consumables/potions/flask-corked-yellow-glow.webp
+      condition: ''
+      description: >-
+        <p>You throw the @ref[name], dealing weakened <strong>Electricity
+        </strong>damage to all enemies in the radius of the discharge and
+        leaving them briefly @Condition[staggered]. The radius of the
+        <strong>Discharge</strong> depends on the quality of the
+        bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+        feet</p></li><li><p><strong>Standard</strong> - 4
+        feet</p></li><li><p><strong>Fine</strong> - 6
+        feet</p></li><li><p><strong>Superior</strong> - 8
+        feet</p></li><li><p><strong>Masterwork</strong> - 10 feet</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 1
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: true
+        size: 4
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - staggered
+          duration:
+            value: 1
+            units: rounds
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - weakened
+        - reflex
+        - electricity
+        - dexterity
+        - skill
+        - athletics
+      summon:
+        actorUuid: null
+        permanent: true
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980627490
+  modifiedTime: 1776980754314
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 400000
+_key: '!items!electrochargeFla'

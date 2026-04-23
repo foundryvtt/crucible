@@ -1,0 +1,20 @@
+type: Item
+folder: 35paE0gSxlbefy7n
+name: Trinket
+color: null
+sorting: a
+_id: 9dQstjMRdKq0a6WC
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776981012444
+  modifiedTime: 1776981012444
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!9dQstjMRdKq0a6WC'

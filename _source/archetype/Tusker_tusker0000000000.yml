@@ -25,7 +25,7 @@ system:
   spells: []
   equipment: []
 effects: []
-sort: 300000
+sort: 700000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -33,10 +33,10 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.9.0
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   createdTime: 1772307157487
-  modifiedTime: 1773514792222
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1776980332601
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

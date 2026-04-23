@@ -1,0 +1,120 @@
+name: Frostdrop Phial
+type: consumable
+_id: frostdropFlask00
+img: icons/consumables/potions/flask-corked-blue-glow.webp
+system:
+  identifier: frostdropPhial
+  category: bomb
+  quantity: 1
+  weight: 1
+  price: 250
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A suspension of white crystal inside a blue liquid contained within a
+      sealed glass container. Its contents rapidly evaporate when exposed to
+      air, creating a small blast of freezing liquid that coats nearby matter in
+      an icy film.</p>
+    private: >-
+      <p></p><p>Primarily used to rapidly cool metallurgical compounds in
+      advanced smithing, these alchemical phials can be quite dangerous to
+      living tissue if exposed for a long period of time.</p>
+  actions:
+    - id: frostFlask
+      name: Frostdrop Flask
+      img: icons/consumables/potions/flask-corked-blue-glow.webp
+      condition: ''
+      description: >-
+        <p>You throw the @ref[name], dealing weakened <strong>Cold
+        </strong>damage to all enemies in the radius of the explosion and
+        causing them to be @Condition[slowed] briefly. The radius of the
+        <strong>Blast</strong> depends on the quality of the
+        bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+        feet</p></li><li><p><strong>Standard</strong> - 4
+        feet</p></li><li><p><strong>Fine</strong> - 6
+        feet</p></li><li><p><strong>Superior</strong> - 8
+        feet</p></li><li><p><strong>Masterwork</strong> - 10 feet</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 1
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: true
+        size: 4
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - slowed
+          duration:
+            value: 1
+            units: rounds
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - weakened
+        - reflex
+        - cold
+        - dexterity
+        - skill
+        - athletics
+      summon:
+        actorUuid: null
+        permanent: true
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980754250
+  modifiedTime: 1776980754314
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 200000
+_key: '!items!frostdropFlask00'

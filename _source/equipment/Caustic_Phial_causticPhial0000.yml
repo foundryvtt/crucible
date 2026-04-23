@@ -96,12 +96,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157760
-  modifiedTime: 1773514792260
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1776980754313
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: causticPhial0000
-sort: 0
+sort: 100000
 _key: '!items!causticPhial0000'

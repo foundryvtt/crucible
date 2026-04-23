@@ -1,0 +1,82 @@
+name: Focusing Pearl
+type: accessory
+_id: focusingPearl000
+img: icons/commodities/gems/pearl-blue-gold.webp
+system:
+  identifier: focusingPearl
+  category: trinket
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A small, vibrant blue pearl that feels refreshingly cool to the touch
+      regardless of ambient temperature. </p><h3 class="divider">Under
+      Development</h3><p>While <strong>Invested</strong>, a Focusing Pearl
+      permits its user to take the Refocus action without cost once per
+      combat.</p><p>The magical effects of this item are not yet automated.
+      These effects will be added when the Crucible enchanting affix system is
+      added.</p>
+    private: ''
+  actions:
+    - id: refocus
+      name: Focusing Pearl
+      img: icons/commodities/gems/pearl-blue-gold.webp
+      description: >-
+        <p>You use your invested @ref[name] to attempt to regain some
+        <strong>Focus</strong>. You perform a <strong>Harmless</strong>
+        <strong>Strike</strong> against your own <strong>Rallying</strong>
+        threshold.</p><p>On a success you recover <strong>+1 Focus</strong>. On
+        a critical success the amount of Focus recovered increases by an
+        additional +1.</p>
+      condition: Once per combat
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+      tags:
+        - ranged
+        - harmless
+        - rallying
+effects: []
+folder: 9dQstjMRdKq0a6WC
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776981024107
+  modifiedTime: 1776981024107
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!focusingPearl000'

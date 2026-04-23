@@ -1,0 +1,106 @@
+name: Gem Of Conjured Flame
+type: consumable
+_id: gemConjuredFlame
+img: icons/commodities/gems/gem-rough-cushion-orange-red.webp
+system:
+  identifier: gemConjuredFlame
+  category: other
+  quantity: 1
+  weight: 0
+  price: 500
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A multifaceted, rough-cut gem imbued with elemental energies. When
+      thrown, this gem shatters and conjures an elemental spirit under the
+      control of the individual that shattered it. Its quality determines the
+      level of elemental summoned.</p>
+    private: ''
+  actions:
+    - id: gemOfConjuredFlame
+      name: Summon Flame Elemental
+      img: icons/commodities/gems/gem-rough-cushion-orange-red.webp
+      description: >-
+        <p>The @ref[name] shatters in a burst of flame, leaving in its place a
+        fiery elemental. Elementals summoned by this gem remain for 6 Rounds (1
+        minute).</p><ul><li><p><strong>Shoddy - </strong>No elemental is
+        summoned</p></li><li><p><strong>Standard </strong>-
+        Mote</p></li><li><p><strong>Fine</strong> -
+        Sprite</p></li><li><p><strong>Superior</strong> -
+        Visitor</p></li><li><p><strong>Masterwork -
+        </strong>Wanderer</p></li></ul>
+      condition: ''
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: summon
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 6
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - harmless
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: nUrfXeZBFqDNXgZr
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980906656
+  modifiedTime: 1776980906656
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!gemConjuredFlame'

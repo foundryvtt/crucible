@@ -1,0 +1,48 @@
+name: Disguise Toolkit
+type: tool
+_id: disguiseToolkit0
+img: icons/containers/bags/pack-leather-red.webp
+system:
+  identifier: toolKitDisguise
+  category: crafting
+  quantity: 1
+  weight: 15
+  price: 850
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A leather-bound wooden kitbag containing a hand mirror, carefully
+      sorted pieces of cloth, cosmetics, dyes, wigs, false facial hair, jewelry,
+      skin-safe adhesives and other costuming supplies designed to help a person
+      mask their appearance.</p>
+    private: ''
+  actions: []
+  skills:
+    - stealth
+    - deception
+effects: []
+folder: zKA7bUzu7rPpL2lk
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980487897
+  modifiedTime: 1776980487897
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!disguiseToolkit0'

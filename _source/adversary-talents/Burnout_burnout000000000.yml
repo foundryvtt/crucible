@@ -1,0 +1,89 @@
+name: Burnout
+type: talent
+_id: burnout000000000
+img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
+system:
+  nodes: []
+  description: >-
+    <p>Steam-powered constructs store dangerous amounts of superheated steam
+    within their bodies that, if not discharged safely, can cause serious
+    injury.</p>
+  actions:
+    - id: steamVent
+      name: Burnout
+      img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
+      description: >-
+        <p>The @ref[actor.name]{construct} ruptures, spilling forth a blast of
+        flame and smoke, attacking the <strong>Reflex</strong> of each target
+        within the radius and dealing <strong>Fire</strong> damage. Those who
+        take damage from this attack are @Condition[blinded] for 3 turns.</p>
+      condition: The @ref[actor.name]{construct} is Wounded
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 15
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - blinded
+          duration:
+            value: 3
+            units: turns
+            expiry: null
+            expired: false
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            changes: []
+      tags:
+        - ranged
+        - fire
+        - reflex
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: By2dpEkYQSuee47b
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776978969586
+  modifiedTime: 1776978969587
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!burnout000000000'

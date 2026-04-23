@@ -1,0 +1,101 @@
+name: Gem of Illumination
+type: accessory
+_id: gemOfIlluminatio
+img: icons/commodities/gems/gem-faceted-octagon-yellow.webp
+system:
+  identifier: gemOfIllumination
+  category: trinket
+  quantity: 1
+  weight: 1
+  price: 8
+  quality: fine
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties:
+    - investment
+  description:
+    public: >-
+      <p>This carefully faceted gemstone glows faintly with warm light, and
+      feels warm to the touch.</p><p></p><h3 class="divider">Under
+      Development</h3><p>While <strong>Invested</strong>, this gem can be
+      activated using a command word to cause it to glow, serving as a light
+      source that sheds 20 feet of bright light and an additional 20 feet of dim
+      light.</p><p>It also grants the user the ability to cast a special
+      @Spell[illumination.ray] at a target they can see, causing injury and
+      temporary blindness.</p><p>The magical effects of this item are not yet
+      automated. These effects will be added when the Crucible enchanting affix
+      system is added.</p><p></p>
+    private: ''
+  actions:
+    - id: gemOfIllumination
+      name: Ray of Illumination
+      img: icons/commodities/gems/gem-faceted-octagon-yellow.webp
+      description: >-
+        <p>The @ref[name] glows vividly and a blindingly bright ray bursts forth
+        toward a designated target, dealing <strong>Weakened </strong>damage but
+        inflicting the target with @Condition[blinded].</p>
+      condition: ''
+      cost:
+        action: 3
+        focus: 2
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 120
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - blinded
+          duration:
+            value: 3
+            units: turns
+            expiry: null
+            expired: false
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            changes: []
+      tags:
+        - composed
+        - weakened
+        - radiant
+effects: []
+folder: 9dQstjMRdKq0a6WC
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776981020859
+  modifiedTime: 1776981020859
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!gemOfIlluminatio'
