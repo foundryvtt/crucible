@@ -1,162 +1,162 @@
 {
   "ABILITIES": {
     "GROUPS": {
-      "Power": "Power",
-      "Resilience": "Resilience",
-      "Speed": "Speed"
+      "Power": "Kraft",
+      "Resilience": "Wiederstand",
+      "Speed": "Geschwindigkeit"
     },
-    "Dexterity": "Dexterity",
-    "DexterityAbbr": "Dex",
-    "Intellect": "Intellect",
-    "IntellectAbbr": "Int",
-    "Presence": "Presence",
-    "PresenceAbbr": "Pre",
-    "Strength": "Strength",
-    "StrengthAbbr": "Str",
-    "Toughness": "Toughness",
-    "ToughnessAbbr": "Tou",
-    "Wisdom": "Wisdom",
-    "WisdomAbbr": "Wis"
+    "Dexterity": "Geschicklichkeit",
+    "DexterityAbbr": "GE",
+    "Intellect": "Intelligenz",
+    "IntellectAbbr": "IN",
+    "Presence": "Präsenz",
+    "PresenceAbbr": "PR",
+    "Strength": "Stärke",
+    "StrengthAbbr": "ST",
+    "Toughness": "Zähigkeit",
+    "ToughnessAbbr": "ZÄ",
+    "Wisdom": "Weisheit",
+    "WisdomAbbr": "WE"
   },
   "ACCESSORY": {
     "CATEGORIES": {
-      "Clothing": "Clothing",
-      "Jewelry": "Jewelry",
-      "Other": "Other",
-      "Trinket": "Trinket"
+      "Clothing": "Kleidung",
+      "Jewelry": "Schmuck",
+      "Other": "Sonstiges",
+      "Trinket": "Talisman"
     }
   },
   "ACTION": {
     "ACTIONS": {
-      "AddFavorite": "Add Favorite",
-      "Delete": "Delete Action: {name}",
-      "DeleteConfirm": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
-      "RemoveFavorite": "Remove Favorite"
+      "AddFavorite": "Zu Favoriten hinzufügen",
+      "Delete": "Aktion löschen: {name}",
+      "DeleteConfirm": "Möchtest du die Aktion <strong>{name}</strong> wirklich aus <strong>{parent}</strong> {type} löschen?",
+      "RemoveFavorite": "Aus Favoriten entfernen"
     },
     "DEFAULT_ACTIONS": {
       "Cast": {
-        "Description": "Weave arcana to create a work of spellcraft.",
-        "Name": "Cast Spell"
+        "Description": "Du webst arkane Energien, um einen Zauber zu wirken.",
+        "Name": "Zauber wirken"
       },
       "Defend": {
-        "Description": "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn.",
-        "Name": "Defend"
+        "Description": "Du konzentrierst dich darauf, Schaden zu vermeiden, und erhöhst deine physische Verteidigung. Du erhälst den Zustand <strong>Guarded</strong> bis zum Ende deines nächsten Zuges.",
+        "Name": "Verteidigen"
       },
       "Delay": {
-        "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and the Initiative value of the combatant after you. You will act at this new Initiative value. You may only delay your turn once per round.",
-        "Name": "Delay"
+        "Description": "Du verzögerst deine Aktion auf einen späteren Zeitpunkt in der Kampfrunde. Wähle eine Initiative zwischen 1 und dem Initiativwert des nächsten Kämpfers nach dir. Du handelst anschließend bei diesem neuen Initiativwert. Du kannst deinen Zug nur einmal pro Runde verzögern.",
+        "Name": "Verzögern"
       },
       "Move": {
-        "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
-        "Name": "Move"
+        "Description": "Bewege dich eine bestimmte Distanz, indem du eine Anzahl an Aktionen aufwendest, die von deinem Stride und der verwendeten Bewegungsaktion abhängt.",
+        "Name": "Bewegen"
       },
       "ReactiveStrike": {
-        "Description": "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
-        "Name": "Reactive Strike"
+        "Description": "Führe einen Angriff aus, wenn ein Gegner deine Reichweite verlässt und du nicht vollständig im Nahkampf gebunden bist.",
+        "Name": "Reaktionsangriff"
       },
       "Recover": {
-        "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus.",
-        "Name": "Recover"
+        "Description": "Erhole dich 10 Minuten außerhalb des Kampfes und stelle Gesundheit, Moral, Aktionen und Fokus vollständig wieder her.",
+        "Name": "Erholen"
       },
       "Reload": {
-        "Description": "Reload a ranged weapon which features a reloading time.",
-        "Name": "Reload Weapon"
+        "Description": "Lade eine Fernkampfwaffe mit Nachladezeit nach.",
+        "Name": "Nachladen"
       },
       "Rest": {
-        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources.",
-        "Name": "Rest"
+        "Description": "Raste zehn Stunden, einschließlich Zeit für Essen, Schlafen, Wundversorgung und Wiederherstellung von Ressourcen.",
+        "Name": "Rasten"
       },
       "Strike": {
-        "Description": "Attack a single creature or object with one of your equipped weapon.",
-        "Name": "Strike"
+        "Description": "Greife ein einzelnes Wesen oder Objekt mit einer deiner ausgerüsteten Waffen an.",
+        "Name": "Angriff"
       },
       "ThrowWeapon": {
-        "Description": "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>.",
-        "Name": "Throw Weapon"
+        "Description": "Wirf deine ausgerüstete Nahkampfwaffe auf ein nahegelegenes Ziel. Der Angriff erleidet +2 <strong>Banes</strong> und die Waffe wird <strong>Dropped</strong>.",
+        "Name": "Waffe werfen"
       }
     },
     "EFFECT_RESULT_TYPES": {
-      "All": "All",
-      "Any": "Any",
-      "CriticalFailure": "Critical Failure",
-      "CriticalSuccess": "Critical Success",
-      "Custom": "Custom",
-      "Failure": "Failure",
-      "Success": "Success"
+      "All": "Alle",
+      "Any": "Beliebig",
+      "CriticalFailure": "Kritischer Fehlschlag",
+      "CriticalSuccess": "Kritischer Erfolg",
+      "Custom": "Benutzerdefiniert",
+      "Failure": "Fehlschlag",
+      "Success": "Erfolg"
     },
     "EFFECTS": {
-      "Add": "Add Effect",
-      "Delete": "Remove Effect"
+      "Add": "Effekt hinzufügen",
+      "Delete": "Effekt entfernen"
     },
     "FIELDS": {
       "actionHooks": {
-        "hint": "BEWARE! Action hooks are an ADVANCED feature for automating action mechanics. Mis-configuring these hooks can have serious consequences. Do not attempt to make changes unless you are confident in your own knowledge.",
+        "hint": "ACHTUNG! Action Hooks sind eine FORTGESCHRITTENE Funktion zur Automatisierung von Aktionsmechaniken. Eine falsche Konfiguration kann schwerwiegende Folgen haben. Nimm nur Änderungen vor, wenn du dir sicher bist, was du tust.",
         "label": "Action Hooks"
       },
       "condition": {
-        "hint": "Additional reference text which clarifies the prerequisite triggering conditions under which an action may be used.",
-        "label": "Triggering Condition"
+        "hint": "Zusätzlicher Referenztext zur Klärung der Voraussetzungen und Auslöserbedingungen, unter denen eine Aktion verwendet werden kann.",
+        "label": "Auslösebedingung"
       },
       "cost": {
         "action": {
-          "hint": "The base cost of this action in Action points.",
-          "label": "Action"
+          "hint": "Die Grundkosten dieser Aktion in Aktionspunkten.",
+          "label": "Aktion"
         },
         "focus": {
-          "hint": "The base cost of this action in Focus points.",
-          "label": "Focus"
+          "hint": "Die Grundkosten dieser Aktion in Fokuspunkten.",
+          "label": "Fokus"
         },
         "hands": {
-          "hint": "The number of hands required to perform this action.",
-          "label": "Hands Required"
+          "hint": "Die Anzahl an Händen, die für diese Aktion benötigt werden.",
+          "label": "Benötigte Hände"
         },
         "heroism": {
-          "hint": "The base cost of this action in Heroism points.",
-          "label": "Heroism"
+          "hint": "Die Grundkosten dieser Aktion in Heldentumspunkten.",
+          "label": "Heldentum"
         },
-        "hint": "Configure the cost of using this action in Action Points, Focus Points, or Heroism.",
-        "label": "Action Cost",
+        "hint": "Lege die Kosten dieser Aktion in Aktionspunkten, Fokuspunkten oder Heldentum fest.",
+        "label": "Aktionskosten",
         "weapon": {
-          "hint": "Is the equipped weapon's Action Point cost added to the cost for this Action?",
-          "label": "Add Weapon Cost"
+          "hint": "Werden die Aktionspunkt-Kosten der ausgerüsteten Waffe zu den Kosten dieser Aktion hinzugefügt?",
+          "label": "Waffenkosten hinzufügen"
         }
       },
       "description": {
-        "hint": "A text description of how the action functions mechanically.",
-        "label": "Action Description"
+        "hint": "Eine textliche Beschreibung der Funktionsweise dieser Aktion.",
+        "label": "Aktionsbeschreibung"
       },
       "effects": {
         "element": {
           "duration": {
-            "label": "Duration"
+            "label": "Dauer"
           },
           "name": {
-            "label": "Effect Name"
+            "label": "Effektname"
           },
           "result": {
             "all": {
-              "label": "All"
+              "label": "Alle"
             },
-            "label": "Result",
+            "label": "Ergebnis",
             "type": {
-              "label": "Type"
+              "label": "Typ"
             }
           },
           "scope": {
-            "label": "Effect Scope"
+            "label": "Effektbereich"
           },
           "statuses": {
-            "label": "Statuses"
+            "label": "Status"
           }
         }
       },
       "id": {
-        "hint": "Provide a standardized camel-case alphanumeric identifier for this action. This identifier should be unique across all actions in the system.",
-        "label": "Identifier"
+        "hint": "Gib eine standardisierte CamelCase-Kennung für diese Aktion an. Diese Kennung sollte im gesamten System eindeutig sein.",
+        "label": "Kennung"
       },
       "range": {
-        "hint": "Define a minimum or maximum range in feet at which this action may be performed.",
-        "label": "Action Range",
+        "hint": "Lege eine minimale oder maximale Reichweite in Fuß fest, in der diese Aktion ausgeführt werden kann.",
+        "label": "Aktionsreichweite",
         "maximum": {
           "label": "Maximum"
         },
@@ -164,8 +164,8 @@
           "label": "Minimum"
         },
         "weapon": {
-          "hint": "The range of this action is defined by the effective range of the used weapon.",
-          "label": "Use Weapon Range"
+          "hint": "Die Reichweite dieser Aktion wird durch die effektive Reichweite der verwendeten Waffe bestimmt.",
+          "label": "Waffenreichweite verwenden"
         }
       },
       "summon": {
