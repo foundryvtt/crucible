@@ -553,29 +553,29 @@
       "AppliedDetailItem": "Applied the {name} {type} to {actor}.",
       "ClearedDetailItem": "Removed the {type} from {actor}.",
       "DecreaseAbility": "Decrease Ability Score",
-      "DecreaseAbilitySpecific": "Decrease {ability}",
+      "DecreaseAbilitySpecific": "Уменьшить {ability}",
       "EditEngagement": "Edit Engagement",
       "EditMovement": "Edit Movement",
       "EditSize": "Edit Size",
       "IncreaseAbility": "Increase Ability Score",
-      "IncreaseAbilitySpecific": "Increase {ability}",
+      "IncreaseAbilitySpecific": "Увеличить {ability}",
       "LevelUp": "Level Up!",
       "ResetTalents": "Reset All Talents",
       "RollCheck": "Roll Check",
       "TalentTreeClose": "Close Talent Tree",
-      "TalentTreeOpen": "Open Talent Tree",
+      "TalentTreeOpen": "Открыть Дерево Талантов",
       "ToggleTree": "Toggle Talent Tree"
     },
     "ADVERSARY": {
       "ACTIONS": {
-        "DecreaseLevel": "Decrease Level",
-        "IncreaseLevel": "Increase Level"
+        "DecreaseLevel": "Увеличить Уровень",
+        "IncreaseLevel": "Уменьшить Уровень"
       },
       "THREAT_RANKS": {
-        "Boss": "Boss",
-        "Elite": "Elite",
-        "Minion": "Minion",
-        "Normal": "Normal"
+        "Boss": "Босс",
+        "Elite": "Элитный",
+        "Minion": "Миньон",
+        "Normal": "Обычный"
       }
     },
     "CREATION": {
@@ -636,44 +636,44 @@
       },
       "movement": {
         "engagement": {
-          "base": "Base Engagement",
-          "label": "Engagement",
-          "labelShort": "Engage",
-          "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
+          "base": "Базовая Занятость",
+          "label": "Занятость",
+          "labelShort": "Занят",
+          "tooltip": "Количество врагов с которым вы можете одновременно сражаться<br>(Размер - 2) + Бонусная Занятость"
         },
         "engagementBonus": {
-          "hint": "An additive modifier to base engagement.",
-          "label": "Engagement Bonus"
+          "hint": "Добавочный модификатор к базовой Занятости.",
+          "label": "Бонусная Занятость"
         },
         "size": {
-          "base": "Base Size",
-          "label": "Size",
-          "tooltip": "The number of grid spaces squared occupied by this creature."
+          "base": "Базовый Размер",
+          "label": "Размер",
+          "tooltip": "Количество клеток сетки занимаемое этим существом."
         },
         "sizeBonus": {
-          "hint": "An additive modifier to the base size of the creature defined by Ancestry or Taxonomy.",
-          "label": "Size Bonus"
+          "hint": "Добавочный модификатор к базовому размеру существа определённому Происхождением или Таксономией.",
+          "label": "Бонусный Размер"
         },
         "stride": {
-          "base": "Base Stride",
-          "label": "Stride",
-          "tooltip": "Movement distance per spent Action Point."
+          "base": "Базовый Шаг",
+          "label": "Шаг",
+          "tooltip": "Расстояние проходимое за одно Действие."
         },
         "strideBonus": {
-          "hint": "An additive modifier to Stride speed of the Actor defined by Ancestry or Taxonomy.",
-          "label": "Stride Bonus"
+          "hint": "Добавочный модификатор к базовому шагу существа определённому Происхождением или Таксономией.",
+          "label": "Бонус к Шагу"
         }
       },
       "resistances": {
         "bonus": {
-          "hint": "An additive modifier to the base resistance of the creature defined by Ancestry or Taxonomy.",
-          "label": "Resistance Bonus"
+          "hint": "Добавочный модификатор к базовому сопротивлению существа определённому Происхождением или Таксономией.",
+          "label": "Бонусное сопротивление"
         },
         "immune": {
-          "hint": "Indicate whether this Actor is immune to this damage type.",
-          "label": "Immunity"
+          "hint": "Означает что это существо иммунно к данному типу урона.",
+          "label": "Иммунитет"
         },
-        "label": "Resistances"
+        "label": "Сопротивления"
       }
     },
     "GROUP": {
@@ -732,8 +732,8 @@
     "LABELS": {
       "BackgroundKnowledgeTooltip": "This Knowledge Area is granted by your Background.",
       "BackgroundLanguageTooltip": "This Language is granted by your Background.",
-      "Capacity": "Carrying Capacity",
-      "Currency": "Currency",
+      "Capacity": "Грузоподъемность",
+      "Currency": "Валюта",
       "CurrentCapacity": "Current Capacity",
       "CurrentEquipment": "Current Equipment",
       "FavoriteActions": "Favorite Actions",
@@ -745,76 +745,76 @@
     },
     "SECTIONS": {
       "ACCESSORY": {
-        "empty": "Equip up to {slots} accessories from your Backpack toggling the shield icon.",
-        "header": "Accessories"
+        "empty": "Экипируйте до {slots} украшений из вашего Рюкзака нажав на иконку щита.",
+        "header": "Украшения"
       },
       "ACTIVE": {
-        "header": "Active Abilities"
+        "header": "Активные Способности"
       },
       "ARMOR": {
-        "empty": "Equip armor from your Backpack toggling the shield icon.",
-        "header": "Armor"
+        "empty": "Экипируйте броню из вашего Рюкзака нажав на иконку щита.",
+        "header": "Броня"
       },
       "BACKPACK": {
-        "empty": "Add items by dropping them from the provided Crucible system compendium packs.",
-        "header": "Backpack"
+        "empty": "Добавьте предметы в рюкзак перетащив их из сборников предоставленных системой Crucible.",
+        "header": "Рюкзак"
       },
       "ICONIC": {
-        "empty": "Add iconic spells by browsing the provided Crucible system compendium pack.",
-        "header": "Iconic Spells",
-        "none": "No unlocked Iconic Spell slots."
+        "empty": "Добавьте Знаменитые заклинания перетащив их из сборника предоставленного системой Crucible.",
+        "header": "Знаменитые Заклинания",
+        "none": "Нет слотов Знаменитых заклинаний."
       },
       "PASSIVE": {
-        "header": "Passive Talents"
+        "header": "Пассивные Таланты"
       },
       "SIGNATURE": {
-        "header": "Signature Talents"
+        "header": "Фирменные Таланты"
       },
       "SPELL": {
-        "header": "Spellcraft Talents"
+        "header": "Таланты Колдовства"
       },
       "TOOLBELT": {
-        "empty": "Equip up to {slots} tools or consumables from your Backpack toggling the shield icon.",
-        "header": "Toolbelt"
+        "empty": "Экипируйте до {slots} инструментов или расходуемых предметов из вашего Рюкзака нажав на иконку щита.",
+        "header": "Пояс"
       },
       "TRAINING": {
-        "header": "Training Talents"
+        "header": "Таланты Тренировки"
       },
       "WEAPON": {
-        "empty": "Equip weapons from your Backpack toggling the shield icon.",
-        "header": "Weapons"
+        "empty": "Экипируйте оружие из вашего Рюкзака нажав на иконку щита.",
+        "header": "Оружие"
       }
     },
     "SHEET": {
       "HEADERS": {
-        "ActionsAttack": "Attack Actions",
-        "ActionsConsumable": "Consumable Actions",
-        "ActionsGeneral": "General Actions",
-        "ActionsMovement": "Movement Actions",
-        "ActionsReaction": "Reactions",
-        "ActionsSpell": "Spellcraft Actions",
-        "ActionsSummon": "Summon Actions",
-        "EffectsDisabled": "Disabled Effects",
-        "EffectsPersistent": "Persistent Effects",
-        "EffectsSuppressed": "Suppressed Effects",
-        "EffectsTemporary": "Temporary Effects"
+        "ActionsAttack": "Действия Атаки",
+        "ActionsConsumable": "Действия Расходуемого",
+        "ActionsGeneral": "Общие Действия",
+        "ActionsMovement": "Действия Движения",
+        "ActionsReaction": "Реакции",
+        "ActionsSpell": "Действия Колдовства",
+        "ActionsSummon": "Действия Призыва",
+        "EffectsDisabled": "Деактивированные Эффекты",
+        "EffectsPersistent": "Постоянные Эффекты",
+        "EffectsSuppressed": "Подавленные Эффекты",
+        "EffectsTemporary": "Временные Эффекты"
       },
-      "Abilities": "Abilities",
-      "AbilityPoints": "Ability Points",
-      "Defenses": "Defenses",
-      "PointsAvailable": "Available",
-      "PointsSpent": "Spent",
-      "Resources": "Resources"
+      "Abilities": "Способности",
+      "AbilityPoints": "Очки Способностей",
+      "Defenses": "Защиты",
+      "PointsAvailable": "Доступные",
+      "PointsSpent": "Потраченные",
+      "Resources": "Ресурсы"
     },
     "TABS": {
-      "Actions": "Actions",
-      "Attributes": "Attributes",
-      "Biography": "Biography",
-      "Effects": "Effects",
-      "Inventory": "Inventory",
-      "Skills": "Skills",
-      "Spells": "Spells",
-      "Talents": "Talents"
+      "Actions": "Действия",
+      "Attributes": "Аттрибуты",
+      "Biography": "Биография",
+      "Effects": "Эффекты",
+      "Inventory": "Инвентарь",
+      "Skills": "Навыки",
+      "Spells": "Заклинания",
+      "Talents": "Таланты"
     },
     "WARNINGS": {
       "InsufficientCurrency": "Insufficient currency to deduct {delta} {denom}",
@@ -883,7 +883,7 @@
   },
   "ADVANCEMENT": {
     "ExpectedLevel": "Expected Level",
-    "Level": "Level",
+    "Level": "Уровень",
     "MilestoneAward": "Award Milestones",
     "MilestoneTooltip": "{progress} of {required} milestones until next level",
     "Progress": "Milestone Progress"
@@ -911,8 +911,8 @@
       "movement": {
         "label": "Movement and Stature",
         "size": {
-          "hint": "The size of this ancestry in grid spaces.",
-          "label": "Size"
+          "hint": "Количество клеток сетки занимаемое существом этого происхождения.",
+          "label": "Размер"
         },
         "stride": {
           "hint": "The starting movement speed of this Ancestry in grid spaces.",
@@ -1074,9 +1074,9 @@
     },
     "SUMMARIES": {
       "TABLE": {
-        "Formula": "Formula",
-        "Label": "Currency",
-        "Total": "Total"
+        "Formula": "Формула",
+        "Label": "Валюта",
+        "Total": "Всего"
       },
       "Cost": "{award} cost paid by:",
       "CostSplit": "{award} cost split between:",
@@ -1314,42 +1314,42 @@
     }
   },
   "DAMAGE": {
-    "Acid": "Acid",
-    "Bludgeoning": "Bludgeoning",
-    "Cold": "Cold",
-    "Corruption": "Corruption",
-    "Damage": "Damage",
-    "Electricity": "Electricity",
-    "Elemental": "Elemental",
-    "Fire": "Fire",
-    "Physical": "Physical",
-    "Piercing": "Piercing",
-    "Poison": "Poison",
-    "Psychic": "Psychic",
-    "Radiant": "Radiant",
-    "Restoration": "Restoration",
-    "Slashing": "Slashing",
-    "Spiritual": "Spiritual",
-    "Void": "Void"
+    "Acid": "Кислота",
+    "Bludgeoning": "Дробящий",
+    "Cold": "Холод",
+    "Corruption": "Разложение",
+    "Damage": "Урон",
+    "Electricity": "Электричество",
+    "Elemental": "Стихийный",
+    "Fire": "Огонь",
+    "Physical": "Физический",
+    "Piercing": "Колющий",
+    "Poison": "Яд",
+    "Psychic": "Психический",
+    "Radiant": "Свет",
+    "Restoration": "Восстановление",
+    "Slashing": "Режущий",
+    "Spiritual": "Духовный",
+    "Void": "Пустота"
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
-      "Madness": "{base} + (Madness / 10)",
-      "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
-      "Willpower": "{base} + ((Toughness + Presence) / 4)",
-      "Wounds": "{base} + (Wounds / 10)"
+      "Fortitude": "{base} + ((Сила + Мудрость) / 4)",
+      "Madness": "{base} + (Безумие / 10)",
+      "Reflex": "{base} + ((Ловкость + Интеллект) / 4)",
+      "Willpower": "{base} + ((Выносливость + Присутствие) / 4)",
+      "Wounds": "{base} + (Раны / 10)"
     },
-    "Armor": "Armor",
-    "Block": "Block",
-    "Dodge": "Dodge",
-    "Fortitude": "Fortitude",
-    "Madness": "Rallying Threshold",
-    "Parry": "Parry",
-    "Physical": "Physical",
-    "Reflex": "Reflex",
-    "Willpower": "Willpower",
-    "Wounds": "Healing Threshold"
+    "Armor": "Броня",
+    "Block": "Блокирование",
+    "Dodge": "Уклонение",
+    "Fortitude": "Стойкость",
+    "Madness": "Порог Сплочения",
+    "Parry": "Парирование",
+    "Physical": "Физическая",
+    "Reflex": "Рефлекс",
+    "Willpower": "Сила Воли",
+    "Wounds": "Порог Исцеления"
   },
   "DICE": {
     "DIFFICULTIES": {
@@ -1648,21 +1648,21 @@
   },
   "RESOURCES": {
     "TOOLTIPS": {
-      "Action": "6 + Action Bonus",
-      "Focus": "(Wisdom + Presence + Intellect) / 2",
-      "Health": "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
-      "Heroism": "Maximum 3",
-      "Madness": "Morale &times; 1.5",
-      "Morale": "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
-      "Wounds": "Health &times; 1.5"
+      "Action": "6 + Бонус Действий",
+      "Focus": "(Мудрость + Присутствие + Интеллект) / 2",
+      "Health": "(6 &times; Уровень) + (4 &times; Выносливость) + (2 &times; Сила)",
+      "Heroism": "Максимум 3",
+      "Madness": "Мораль &times; 1.5",
+      "Morale": "(6 &times; Уровень) + (4 &times; Присутствие) + (2 &times; Мудрость)",
+      "Wounds": "Здоровье &times; 1.5"
     },
-    "Action": "Action",
-    "Focus": "Focus",
-    "Health": "Health",
-    "Heroism": "Heroism",
-    "Madness": "Madness",
-    "Morale": "Morale",
-    "Wounds": "Wounds"
+    "Action": "Действия",
+    "Focus": "Фокус",
+    "Health": "Здоровье",
+    "Heroism": "Героизм",
+    "Madness": "Безумие",
+    "Morale": "Мораль",
+    "Wounds": "Раны"
   },
   "RULER": {
     "CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points."
@@ -1804,26 +1804,26 @@
       }
     },
     "LABELS": {
-      "alchemy": "Alchemy",
-      "arcana": "Arcana",
-      "athletics": "Athletics",
-      "awareness": "Awareness",
-      "cooking": "Cooking",
-      "deception": "Deception",
-      "diplomacy": "Diplomacy",
-      "enchanting": "Enchanting",
-      "fletching": "Fletching",
-      "glyphweaving": "Glyphweaving",
-      "intimidation": "Intimidation",
-      "jewelcraft": "Jewelcraft",
-      "medicine": "Medicine",
-      "performance": "Performance",
-      "science": "Science",
-      "smithing": "Smithing",
-      "society": "Society",
-      "stealth": "Stealth",
-      "tailoring": "Tailoring",
-      "wilderness": "Wilderness"
+      "alchemy": "Алхимия",
+      "arcana": "Аркана",
+      "athletics": "Атлетика",
+      "awareness": "Осведомленность",
+      "cooking": "Кулинария",
+      "deception": "Обман",
+      "diplomacy": "Дипломатия",
+      "enchanting": "Зачарование",
+      "fletching": "Оперение",
+      "glyphweaving": "Глифописание",
+      "intimidation": "Устрашение",
+      "jewelcraft": "Ювелирное дело",
+      "medicine": "Медицина",
+      "performance": "Выступление",
+      "science": "Наука",
+      "smithing": "Ковка",
+      "society": "Общество",
+      "stealth": "Скрытность",
+      "tailoring": "Шитьё",
+      "wilderness": "Природа"
     },
     "RANKS": {
       "ADEPT": {
@@ -2212,8 +2212,8 @@
       "movement": {
         "label": "Movement",
         "size": {
-          "hint": "The size of this adversary in grid spaces.",
-          "label": "Size"
+          "hint": "Количество клеток сетки занимаемое этим врагом.",
+          "label": "Размер"
         },
         "stride": {
           "label": "Stride",
@@ -2322,19 +2322,19 @@
       "hero": "Hero"
     },
     "Item": {
-      "accessory": "Accessory",
-      "ancestry": "Ancestry",
-      "archetype": "Archetype",
-      "armor": "Armor",
-      "background": "Background",
-      "consumable": "Consumable",
-      "loot": "Loot",
-      "schematic": "Crafting Schematic",
-      "spell": "Iconic Spell",
-      "talent": "Talent",
-      "taxonomy": "Taxonomy",
-      "tool": "Tool",
-      "weapon": "Weapon"
+      "accessory": "Украшение",
+      "ancestry": "Происхождение",
+      "archetype": "Архетип",
+      "armor": "Броня",
+      "background": "Предыстория",
+      "consumable": "Расходуемое",
+      "loot": "Добыча",
+      "schematic": "Схема Создания",
+      "spell": "Знаменитое Заклинание",
+      "talent": "Талант",
+      "taxonomy": "Таксономия",
+      "tool": "Инструмент",
+      "weapon": "Оружие"
     },
     "JournalEntryPage": {
       "skill": "Crucible Skill"
