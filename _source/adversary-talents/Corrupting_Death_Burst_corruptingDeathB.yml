@@ -1,22 +1,24 @@
-name: Radiant Death Burst
+name: Corrupting Death Burst
 type: talent
-img: icons/magic/fire/explosion-fireball-large-orange.webp
+_id: corruptingDeathB
+img: icons/magic/light/explosion-glow-spiral-yellow.webp
 system:
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst
-    of radiant energy.</p>
+    of corrupting energy.</p>
   actions:
-    - id: radiantDeathBurst
-      name: Radiant Death Burst
-      img: icons/magic/fire/explosion-fireball-large-orange.webp
+    - id: corruptingDeathBurst
+      name: Corrupting Death Burst
+      img: icons/magic/light/explosion-glow-spiral-yellow.webp
       condition: The creature becomes Dead.
       description: >-
         <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
-        explodes in a pulse of <strong>Radiant</strong> energy which attacks the
-        <strong>Fortitude</strong> defense of all nearby creatures that fail to
-        resist the effect and upon critical success afflicting them with the
-        @Condition[irradiated] condition for <strong>3 rounds</strong>.</p>
+        explodes in a pulse of spores that deal <strong>Corruption</strong>
+        damage, attacking the <strong>Fortitude</strong> defense of all nearby
+        creatures that fail to resist the effect and upon critical success
+        afflicting them with the @Condition[decaying] condition for <strong>3
+        rounds</strong>.</p>
       cost:
         action: 0
         focus: 1
@@ -40,7 +42,7 @@ system:
             type: successCritical
             all: false
           statuses:
-            - irradiated
+            - decaying
           duration:
             value: 3
             units: rounds
@@ -55,7 +57,7 @@ system:
       tags:
         - generic
         - fortitude
-        - radiant
+        - corruption
         - intellect
       summon:
         actorUuid: null
@@ -71,21 +73,20 @@ effects: []
 folder: myBrb0NP4oQkwiz5
 ownership:
   default: 0
-  QvBFYpRRXHRBcOfP: 3
   QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
 flags:
   ember:
     crucibleOverride: true
 _stats:
-  compendiumSource: null
-  duplicateSource: null
-  exportSource: null
   coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.1
-  createdTime: 1777227102876
-  modifiedTime: 1777227102916
+  createdTime: 1777226969987
+  modifiedTime: 1777227052204
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_id: radiantDeathBurs
-sort: 0
-_key: '!items!radiantDeathBurs'
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 100000
+_key: '!items!corruptingDeathB'

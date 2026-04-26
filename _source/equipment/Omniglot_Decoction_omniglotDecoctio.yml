@@ -1,0 +1,82 @@
+name: Omniglot Decoction
+type: consumable
+_id: omniglotDecoctio
+img: icons/consumables/potions/bottle-circular-corked-labeled-green.webp
+system:
+  identifier: omniglotDecoction
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 120
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: <p>A surprisingly thin liquid that tastes earthy and herbal.</p>
+    private: ''
+  actions:
+    - id: omniglotDecoction
+      name: Omniglot Decoction
+      img: icons/consumables/potions/bottle-circular-corked-labeled-green.webp
+      description: >-
+        <p>When consumed, this decoction affords the drinker the fascinating
+        ability to read, speak, and comprehend languages. Its quality determines
+        the duration of the effect:</p><ul><li><p><strong>Shoddy</strong> - 10
+        minutes</p></li><li><p><strong>Standard</strong> - 1
+        hour</p></li><li><p><strong>Fine</strong> - 4
+        hours</p></li><li><p><strong>Superior</strong> - 12
+        hours</p></li><li><p><strong>Masterwork</strong> - 24
+        hours</p></li></ul>
+      condition: ''
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: true
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+      tags:
+        - consume
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: WqUGvC0ubhjrpvz9
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777227085202
+  modifiedTime: 1777227085202
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!omniglotDecoctio'
