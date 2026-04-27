@@ -1,7 +1,7 @@
 {
   "ABILITIES": {
     "GROUPS": {
-      "Power": "Mocy",
+      "Power": "Moc",
       "Resilience": "Żywotność",
       "Speed": "Szybkość"
     },
@@ -243,8 +243,8 @@
       "CostHand": {
         "zero": "{hands} Rąk",
         "one": "{hands} Ręka",
-        "two": "{hands} Rąk",
-        "few": "{hands} Rąk",
+        "two": "{hands} Ręce",
+        "few": "{hands} Ręce",
         "many": "{hands} Rąk",
         "other": "{hands} Rąk"
       },
@@ -413,8 +413,8 @@
       "CannotAffordHands": {
         "zero": "{name} musi mieć {hands} wolnych rąk, aby wykonać {action}!",
         "one": "{name} musi mieć {hands} wolną rękę, aby wykonać {action}!",
-        "two": "{name} musi mieć {hands} wolnych rąk, aby wykonać {action}!",
-        "few": "{name} musi mieć {hands} wolnych rąk, aby wykonać {action}!",
+        "two": "{name} musi mieć {hands} wolne ręce, aby wykonać {action}!",
+        "few": "{name} musi mieć {hands} wolne ręce, aby wykonać {action}!",
         "many": "{name} musi mieć {hands} wolnych rąk, aby wykonać {action}!",
         "other": "{name} musi mieć {hands} wolnych rąk, aby wykonać {action}!"
       },
@@ -703,12 +703,12 @@
           "actor.label": "ID aktora",
           "label": "Członkowie grupy",
           "quantity.label": "Ilość aktorów",
-          "zero": "Członkowie",
+          "zero": "Członków",
           "one": "Członek",
-          "two": "Członkowie",
-          "few": "Członkowie",
-          "many": "Członkowie",
-          "other": "Członkowie"
+          "two": "Członków",
+          "few": "Członków",
+          "many": "Członków",
+          "other": "Członków"
         },
         "movement": {
           "air.label": "Prędkość w powietrzu",
@@ -1065,12 +1065,12 @@
       "Recipients": "Osoby, które osiągnęły kamień milowy",
       "RecipientsHint": "Wyznacz jednego lub więcej bohaterów, którzy otrzymają ten kamień milowy.",
       "Revoke": "Odwołać kamienie milowe",
-      "zero": "Kamienie milowe",
+      "zero": "Kamieni milowych",
       "one": "Kamień milowy",
       "two": "Kamienie milowe",
       "few": "Kamienie milowe",
-      "many": "Kamienie milowe",
-      "other": "Kamienie milowe"
+      "many": "Kamieni milowych",
+      "other": "Kamieni milowych"
     },
     "SUMMARIES": {
       "TABLE": {
@@ -1085,7 +1085,7 @@
     },
     "TOOLTIPS": {
       "Currency": "Nagroda pieniężna",
-      "Milestone": "Nagroda kamieni milowych"
+      "Milestone": "Nagroda w postaci kamieni milowych"
     },
     "WARNINGS": {
       "CannotAfford": "Następujący aktorzy nie mogą sobie pozwolić na koszt tego wzbogacacza: {actors}",
@@ -1247,18 +1247,18 @@
     "USES": {
       "Of": "z",
       "TagMax": {
-        "zero": "{value} Użycia",
+        "zero": "{value} Użyć",
         "one": "{value} Użycie",
         "two": "{value} Użycia",
         "few": "{value} Użycia",
-        "many": "{value} Użycia",
-        "other": "{value} Użycia"
+        "many": "{value} Użyć",
+        "other": "{value} Użyć"
       },
       "TagPartial": {
         "zero": "{value}/{max} Użyć",
         "one": "{value}/{max} Użycie",
-        "two": "{value}/{max} Użyć",
-        "few": "{value}/{max} Użyć",
+        "two": "{value}/{max} Użycia",
+        "few": "{value}/{max} Użycia",
         "many": "{value}/{max} Użyć",
         "other": "{value}/{max} Użyć"
       }
@@ -1396,12 +1396,12 @@
     "Ability": "Atrybut",
     "AbilityBonus": "Premia atrybutu",
     "Banes": {
-      "zero": "Zguby",
+      "zero": "Zgub",
       "one": "Zguba",
       "two": "Zguby",
       "few": "Zguby",
-      "many": "Zguby",
-      "other": "Zguby"
+      "many": "Zgub",
+      "other": "Zgub"
     },
     "Boons": {
       "zero": "Korzyści",
@@ -2111,20 +2111,20 @@
     },
     "LABELS": {
       "Points": {
-        "zero": "Punkty",
+        "zero": "Punktów",
         "one": "Punkt",
         "two": "Punkty",
         "few": "Punkty",
         "many": "Punkty",
-        "other": "Punkty"
+        "other": "Punktów"
       },
       "Talents": {
-        "zero": "Talenty",
+        "zero": "Talentów",
         "one": "Talent",
         "two": "Talenty",
         "few": "Talenty",
-        "many": "Talenty",
-        "other": "Talenty"
+        "many": "Talentów",
+        "other": "Talentów"
       }
     },
     "NODES": {
