@@ -997,6 +997,15 @@ async function resetAllActorTalents() {
 }
 
 /* -------------------------------------------- */
+/*  Module Hooks                                */
+/* -------------------------------------------- */
+
+Hooks.once("diceSoNiceReady", dice3d => {
+  // Improve Group Skill Checks rendering by hiding only the roll result
+  dice3d.setMessageUpdateHideSelector(".dice-result");
+});
+
+/* -------------------------------------------- */
 /*  ESModules API                               */
 /* -------------------------------------------- */
 
