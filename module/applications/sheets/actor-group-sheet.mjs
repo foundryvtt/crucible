@@ -107,8 +107,23 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /*  Drag and Drop                               */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onDragStart(event) {
+    const { actorId } = event.currentTarget.dataset;
+    if ( actorId ) {
+      const actor = this.actor.system.members.actors.find(a => a.id === actorId);
+      if ( actor ) {
+        const dragData = { origin: this.id, ...actor.toDragData() };
+        event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+      }
+    }
+    return super._onDragStart(event);
+  }
+
   /** @override */
   async _onDropActor(event, actor) {
+    const data = CONFIG.ux.TextEditor.implementation.getDragEventData(event);
+    if ( data.origin === this.id ) return;
     await this.actor.system.addMember(actor);
   }
 
