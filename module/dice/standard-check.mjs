@@ -58,6 +58,7 @@ export default class StandardCheck extends Roll {
     }
     super(formula, data);
     this.actor = game.actors.get(this.data.actorId);
+    this.options.type = this.data.damage?.type ?? this.data.type; // Integration with DSN
   }
 
   /* -------------------------------------------- */
