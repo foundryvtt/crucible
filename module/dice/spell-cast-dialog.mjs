@@ -48,7 +48,9 @@ export default class SpellCastDialog extends ActionUseDialog {
     if ( ["rune", "gesture", "inflection", "damageType"].includes(event.target.name) ) {
       this.action.updateSource({[event.target.name]: event.target.value});
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
-      this._clearTargetRegion();
+
+      // TODO: How best to handle re-acquiring targets if switching inflection to something like reshape
+      if ( event.target.name === "gesture" ) this._clearTargetRegion();
       this.render({window: {title: this.title}});
     }
   }

@@ -427,6 +427,7 @@
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
+      "InvalidTargetsGeneric": "Invalid targets for this action!",
       "LastCriticallyMissed": "You may only perform {action} after a basic Strike which did not critically miss.",
       "MaximumRange": "A selected target is further than the maximum range of {max} feet.",
       "MinimumRange": "A selected target is closer than the minimum range of {min} feet.",
