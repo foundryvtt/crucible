@@ -25,6 +25,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     actions: {
       placeRegion: ActionUseDialog.#onPlaceRegion,
       planMovement: ActionUseDialog.#onPlanMovement
+    },
+    form: {
+      closeOnSubmit: false
     }
   };
 
@@ -98,13 +101,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const targets = this.#prepareTargets();
     const requiresRegion = this.action.requiresRegion;
     const requiresMovement = this.action.requiresMovement;
-    let submitTooltip = [
-      requiresRegion ? _loc("ACTION.RequiresRegion") : "",
-      requiresMovement ? _loc("ACTION.RequiresMovement") : ""
-    ].filterJoin("</p><p>");
-    if ( submitTooltip ) submitTooltip = `<p>${submitTooltip}</p>`;
     const involvesRegion = requiresRegion || this.action.region;
     const involvesMovement = requiresMovement || this.action.movement;
+    const submitDisabled = targets.some(t => t.error) || ((this.action.target.type === "single") && !targets.length);
+    const submitTooltip = submitDisabled ? `<p>${_loc("ACTION.WARNINGS.InvalidTargetsGeneric")}</p>` : "";
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
@@ -120,7 +120,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       tagRegion: this.action.region && !targets.length,
       tagMovement: this.action.movement,
       targets,
-      submitDisabled: requiresRegion || requiresMovement,
+      submitDisabled,
       submitLabel: _loc("ACTION.UseAction"),
       submitTooltip,
       weaponChoice: this.#prepareWeaponChoice()
@@ -180,6 +180,18 @@ export default class ActionUseDialog extends StandardCheckDialog {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    if ( !context.requiresRegion ) return;
+    const regionConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type]?.region;
+    if ( !regionConfig ) return;
+    const autoPlace = (regionConfig.anchor === "self") && (["emanation", "circle"].includes(regionConfig.shape));
+    if ( autoPlace ) await ActionUseDialog.#onPlaceRegion.call(this);
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
@@ -207,9 +219,24 @@ export default class ActionUseDialog extends StandardCheckDialog {
     if ( this.action.requiresRegion || this.action.requiresMovement ) {
       event.preventDefault();
       event.stopImmediatePropagation();
-      return;
+      if ( this.action.requiresRegion ) {
+        await ActionUseDialog.#onPlaceRegion.call(this);
+        if ( !this.#regionPreview ) return;
+      }
+      if ( this.action.requiresMovement ) {
+        await ActionUseDialog.#onPlanMovement.call(this);
+        if ( !this.action.movement ) return;
+      }
+
+      // If targets are invalid following this selection, don't proceed with submission
+      try {
+        this.action.acquireTargets({strict: true});
+      } catch(err) {
+        return;
+      }
     }
     await super._onSubmit(target, event);
+    this.close({submitted: true});
   }
 
   /* -------------------------------------------- */
@@ -269,56 +296,60 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Build initial region document data
     const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.rect.center;
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
+    const autoPlace = (regionConfig.anchor === "self") && (["emanation", "circle"].includes(regionConfig.shape));
 
     // Clear existing targets before placement begins
     canvas.tokens.setTargets([]);
 
-    // Minimize open windows
-    const minimizedWindows = [];
-    for ( const app of foundry.applications.instances.values() ) {
-      if ( !app.minimized && !app.window.windowId ) minimizedWindows.push(app);
-    }
-    await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
-
     // Create a lazy clone of the action for use during preview target acquisition
     const previewAction = this.action.clone({}, {lazy: true});
 
-    // Build the onChange callback - fires after each position update with fresh constraints
-    const onChange = ({action=previewAction, document}) => {
+    // Build what will be the onChange callback - fires after each position update with fresh constraints
+    const setNewTargets = ({action=previewAction, document}) => {
       Object.defineProperty(action, "region", {value: document, configurable: true});
       this.#regionTargets = action.acquireTargets({strict: false});
-      if ( this.#regionTargets.size ) canvas.tokens.setTargets(Array.from(this.#regionTargets.values()).map(t => t.token.id));
-      else canvas.tokens.setTargets([]);
+      const newTargets = this.#regionTargets.size ? Array.from(this.#regionTargets.values()).map(t => t.token.id) : [];
+      canvas.tokens.setTargets(newTargets);
     };
-
-    // Build the onMove callback
-    const onMove = ({shape, position, document, snap}) => {
-      switch (regionConfig.anchor) {
-        case "self": // Lock position and rotate based on mouse position
-          if ( regionConfig.directionDelta ) {
-            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-            const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
-            shape.updateSource({rotation: snappedAngle});
-          }
-          return false; // Prevent core handling
-        case "vertex":
-          const maxDistance = range.maximum ?? 0;
-          if ( maxDistance === 0 ) Object.assign(position, origin);
-          else {
-            origin.elevation ??= 0;
-            const elevation = Math.clamp(origin.elevation, document.elevation.bottom, document.elevation.top);
-            const d = canvas.grid.measurePath([origin, {elevation, ...position}]).distance;
-            if ( d <= maxDistance ) return;
-            const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-            Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
-          }
-          break; // Allow core handling
+    let region;
+    if ( autoPlace ) region = new CONFIG.Region.documentClass(regionData, {parent: canvas.scene});
+    else {
+      // Minimize open windows
+      const minimizedWindows = [];
+      for ( const app of foundry.applications.instances.values() ) {
+        if ( !app.minimized && !app.window.windowId ) minimizedWindows.push(app);
       }
-    };
+      await Promise.allSettled(minimizedWindows.map(app => app.minimize()));
 
-    // Place the region and record its created data
-    const region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange});
-    await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
+      // Build the onMove callback
+      const onMove = ({shape, position, document, snap}) => {
+        switch (regionConfig.anchor) {
+          case "self": // Lock position and rotate based on mouse position
+            if ( regionConfig.directionDelta ) {
+              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+              const snappedAngle = rawAngle.toNearest(regionConfig.directionDelta);
+              shape.updateSource({rotation: snappedAngle});
+            }
+            return false; // Prevent core handling
+          case "vertex":
+            const maxDistance = range.maximum ?? 0;
+            if ( maxDistance === 0 ) Object.assign(position, origin);
+            else {
+              origin.elevation ??= 0;
+              const elevation = Math.clamp(origin.elevation, document.elevation.bottom, document.elevation.top);
+              const d = canvas.grid.measurePath([origin, {elevation, ...position}]).distance;
+              if ( d <= maxDistance ) return;
+              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+              Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
+            }
+            break; // Allow core handling
+        }
+      };
+
+      // Place the region and record its created data
+      region = await canvas.regions.placeRegion(regionData, {create: false, onMove, onChange: setNewTargets});
+      await Promise.allSettled(minimizedWindows.map(app => app.maximize()));
+    }
 
     // Handle user workflow cancellation
     if ( !region ) {
@@ -329,7 +360,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Acquire targets for the final region
     region.updateShapeConstraints();
-    onChange({action: this.action, document: region});
+    setNewTargets({action: this.action, document: region});
 
     // Keep the placed region visible as a canvas preview for the remainder of the dialog
     this.#regionPreview = new foundry.canvas.placeables.Region(region);
@@ -470,9 +501,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   _clearTargetRegion() {
     this.#clearRegionPreview();
+    if ( this.#regionTargets ) canvas.tokens.setTargets([]);
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
-    canvas.tokens.setTargets([]);
   }
 
   /* -------------------------------------------- */
