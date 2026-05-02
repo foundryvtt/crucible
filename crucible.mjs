@@ -436,6 +436,13 @@ Hooks.once("init", async function() {
 
   // Replace core layer class with custom grid layer class
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
+
+  // Crucible-specific detection modes
+  CONFIG.Canvas.detectionModes.thermalVision = new canvas.detectionModes.DetectionModeThermalVision({
+    id: "thermalVision",
+    label: "DETECTION_MODES.ThermalVision",
+    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+  });
 });
 
 /* -------------------------------------------- */
