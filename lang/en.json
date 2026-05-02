@@ -71,7 +71,7 @@
         "Name": "Strike"
       },
       "ThrowWeapon": {
-        "Description": "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>.",
+        "Description": "Throw your equipped melee weapon to Strike at a nearby target. The weapon becomes <strong>Dropped</strong>, and the attack suffers from +2 <strong>Banes</strong> if the weapon does not have the <strong>Thrown</strong> property.",
         "Name": "Throw Weapon"
       }
     },
