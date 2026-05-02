@@ -51,13 +51,14 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @param {StandardCheckData} [data]          An object of roll data, containing the following optional fields
  */
 export default class StandardCheck extends Roll {
-  constructor(formula, data) {
+  constructor(formula, data, options) {
     if ( typeof formula === "object" ) {
       data = formula;
       formula = ""; // Replaced later
     }
-    super(formula, data);
+    super(formula, data, options);
     this.actor = game.actors.get(this.data.actorId);
+    this.options.type ??= data.damageType; // Integration with DSN
   }
 
   /* -------------------------------------------- */
