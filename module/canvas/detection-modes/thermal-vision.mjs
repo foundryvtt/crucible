@@ -1,8 +1,45 @@
+/**
+ * A custom DetectionMode that is specialized in perceiving temperature changes from ambient equilibrium.
+ */
 export default class DetectionModeThermalVision extends foundry.canvas.perception.DetectionMode {
+
+  /**
+   * Glow colors for each detectable temperature tier. Hot tiers shade orange/red; cold tiers shade blue/purple.
+   * @type {Readonly<Record<string, [number, number, number, number]>>}
+   */
+  static #GLOW_COLORS = Object.freeze({
+    boiling: [1.0, 0.1, 0.0, 1],
+    warm: [1.0, 0.55, 0.0, 1],
+    cool: [0.25, 0.5, 1.0, 1],
+    gelid: [0.6, 0.3, 1.0, 1]
+  });
+
+  /**
+   * Cached glow filters keyed by temperature tier id.
+   * @type {Map<string, foundry.canvas.rendering.filters.GlowOverlayFilter>}
+   */
+  static #filtersByTier = new Map();
+
+  /**
+   * The temperature tier id of the most recently detected target. Set by `_canDetect` and consumed by
+   * `getDetectionFilter`, which the visibility loop calls immediately after a successful `testVisibility`.
+   * @type {string|null}
+   */
+  static #pendingTier = null;
+
+  /* -------------------------------------------- */
+
   /** @override */
   static getDetectionFilter() {
-    this._detectionFilter ??= foundry.canvas.rendering.filters.GlowOverlayFilter.create({glowColor: [1, 0.5, 0, 1]});
-    return this._detectionFilter;
+    const tierId = this.#pendingTier;
+    this.#pendingTier = null;
+    if ( !tierId ) return undefined;
+    let filter = this.#filtersByTier.get(tierId);
+    if ( !filter ) {
+      filter = foundry.canvas.rendering.filters.GlowOverlayFilter.create({glowColor: this.#GLOW_COLORS[tierId]});
+      this.#filtersByTier.set(tierId, filter);
+    }
+    return filter;
   }
 
   /* -------------------------------------------- */
@@ -24,20 +61,31 @@ export default class DetectionModeThermalVision extends foundry.canvas.perceptio
       if ( target.document.hasStatusEffect(CONFIG.specialStatusEffects.BURROW) ) return false;
     }
 
-    // Allow for specific creature overrides
-    // TODO: Check the appropriate (as yet nonexistent) system.details field for this
-    const override = target.actor?.flags?.ember?.warmBlooded;
-    if ( typeof override === "boolean" ) return override;
+    // Resolve the target's temperature tier; thermal vision only sees creatures with thermal contrast
+    const tierId = DetectionModeThermalVision.#getTargetTemperature(target.actor);
+    if ( !tierId || (tierId === "neutral") ) return false;
+    DetectionModeThermalVision.#pendingTier = tierId;
+    return true;
+  }
 
-    // If target is a Hero, default is detectable
-    if ( target.actor?.type === "hero" ) return true;
+  /* -------------------------------------------- */
 
-    // Otherwise, check adversary creature category
-    // TODO: Determine whether Thermal Vision should represent detection of heat-emitting creatures, or any creatures
-    // with a variance in temperature. If the former, can remove this array & just check `=== "warm"`. If the latter,
-    // should add "cold" to the `temps` array.
-    const temps = ["warm"];
-    return temps.includes(SYSTEM.ACTOR.CREATURE_CATEGORIES[target.actor.system.details.taxonomy?.category]?.warmBodied);
+  /**
+   * Resolve the temperature tier id for a target actor.
+   * @param {CrucibleActor|null} actor
+   * @returns {string|null}
+   */
+  static #getTargetTemperature(actor) {
+    if ( !actor ) return null;
+    if ( actor.type === "hero" ) {
+      return actor.system.details?.ancestry?.characteristics?.temperature
+        || SYSTEM.ACTOR.CREATURE_CATEGORIES.humanoid.temperature;
+    }
+    const taxonomy = actor.system.details?.taxonomy;
+    if ( !taxonomy ) return null;
+    return taxonomy.characteristics?.temperature
+      || SYSTEM.ACTOR.CREATURE_CATEGORIES[taxonomy.category]?.temperature
+      || null;
   }
 
   /* -------------------------------------------- */

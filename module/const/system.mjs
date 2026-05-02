@@ -12,6 +12,7 @@ import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
+import {defineEnum} from "./enum.mjs";
 
 /* -------------------------------------------- */
 
@@ -41,6 +42,22 @@ export const COMPENDIUM_PACKS = Object.freeze({
   spell: "crucible.spell",
   talent: "crucible.talent",
   taxonomy: "crucible.taxonomy"
+});
+
+/* -------------------------------------------- */
+
+/**
+ * Temperature tiers used categorically to classify creature body temperatures, environmental hazards, and detection
+ * rules. Each tier carries a signed `value` centered on `neutral = 0`: positive values are hot, negative values are
+ * cold, and the absolute value indicates intensity. Differences between two tiers' values give a signed delta.
+ * @type {Readonly<Record<string, {id: string, label: string, value: number}>>}
+ */
+export const TEMPERATURE_TIERS = defineEnum({
+  boiling: {label: "TEMPERATURE_TIERS.Boiling", value: 2},
+  warm: {label: "TEMPERATURE_TIERS.Warm", value: 1},
+  neutral: {label: "TEMPERATURE_TIERS.Neutral", value: 0},
+  cool: {label: "TEMPERATURE_TIERS.Cool", value: -1},
+  gelid: {label: "TEMPERATURE_TIERS.Gelid", value: -2}
 });
 
 /* -------------------------------------------- */
@@ -190,6 +207,7 @@ export const SYSTEM = {
   SKILLS: SKILL.SKILLS,
   SPELL: {...SPELL},
   TALENT: {...TALENT},
+  TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
   WEAPON: {...WEAPON}

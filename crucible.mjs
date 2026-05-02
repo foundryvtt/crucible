@@ -537,12 +537,14 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
   localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
+  localizeConfigObject(SYSTEM.ACTOR.TRAVEL_PACES, ["label"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
   localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+  localizeConfigObject(SYSTEM.TEMPERATURE_TIERS, ["label"]);
 
   // Spellcraft
   localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"], false);

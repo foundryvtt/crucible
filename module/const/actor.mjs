@@ -1,8 +1,8 @@
-import {freezeEnum} from "./enum.mjs";
+import {defineEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, {label: string, skill: string, knowledge: string, temperature: "warm"|"neutral"|"cold"}>}
+ * @type {Record<string, {label: string, skill: string, knowledge: string, temperature: string}>}
  */
 export const CREATURE_CATEGORIES = {
   beast: {
@@ -51,7 +51,7 @@ export const CREATURE_CATEGORIES = {
     label: "TAXONOMY.CATEGORIES.ElementalFrost",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "cold"
+    temperature: "cool"
   },
   elementalStorm: {
     label: "TAXONOMY.CATEGORIES.ElementalStorm",
@@ -285,7 +285,7 @@ export const MOVEMENT_ACTIONS = Object.freeze({
  * The travel paces which are possible for group actors.
  * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", Partial<TokenMovementActionConfig>>}
  */
-export const TRAVEL_PACES = freezeEnum({
+export const TRAVEL_PACES = defineEnum({
   hidden: {
     order: 1,
     label: "TRAVEL_PACES.Hidden",

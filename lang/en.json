@@ -920,8 +920,13 @@
         "hint": "A string identifier used to uniquely reference this Ancestry in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
         "label": "Identifier"
       },
+      "characteristics": {
+        "label": "Ancestry Characteristics",
+        "temperature.hint": "The body temperature of this Ancestry, neutral by default.",
+        "temperature.label": "Body Temperature"
+      },
       "movement": {
-        "label": "Movement and Stature",
+        "label": "Movement",
         "size": {
           "hint": "The size of this ancestry in grid spaces.",
           "label": "Size"
@@ -963,7 +968,9 @@
       "Browse": "Browse Ancestries",
       "Choose": "Choose Ancestry",
       "Clear": "Clear Ancestry",
-      "Identity": "Identity"
+      "Identity": "Identity",
+      "Physiology": "Physiology",
+      "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
       "Abilities": "The primary and secondary Abilities for an Ancestry may not be the same.",
@@ -2218,7 +2225,9 @@
       "characteristics": {
         "equipment.label": "Can Use Equipment",
         "label": "Taxonomy Characteristics",
-        "spells.label": "Can Cast Spells"
+        "spells.label": "Can Cast Spells",
+        "temperature.hint": "The body temperature of creatures with this Taxonomy. If left blank, defaults to the temperature of the chosen creature category.",
+        "temperature.label": "Body Temperature"
       },
       "identifier": {
         "hint": "A string identifier used to uniquely reference this Taxonomy in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
@@ -2252,12 +2261,20 @@
       "Choose": "Choose Taxonomy",
       "Clear": "Clear Taxonomy",
       "Physiology": "Physiology",
-      "Stature": "Taxonomy Stature"
+      "Stature": "Taxonomy Stature",
+      "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
       "InvalidAbilities": "The sum of initial ability values must equal 12. Currently {sum}",
       "InvalidResistances": "The sum of resistance scaling values must equal zero. Currently {sum}"
     }
+  },
+  "TEMPERATURE_TIERS": {
+    "Boiling": "Boiling",
+    "Warm": "Warm",
+    "Neutral": "Neutral",
+    "Cool": "Cool",
+    "Gelid": "Gelid"
   },
   "TOKEN": {
     "LABELS": {
