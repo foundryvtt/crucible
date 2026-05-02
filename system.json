@@ -175,6 +175,11 @@
       "path": "lang/de.json"
     },
     {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "lang/pl.json" 
+    },
+    {
       "lang": "ru",
       "name": "Russian",
       "path": "lang/ru.json"
