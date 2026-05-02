@@ -1104,6 +1104,19 @@ HOOKS.affixFocusing = {
 
 /* -------------------------------------------- */
 
+HOOKS.lightTorch = {
+  preActivate() {
+    if ( this.effects[0] ) {
+      Object.assign(this.effects[0], {
+        _id: "torchBurning0000",
+        showIcon: 0 // Never
+      });
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.tailSweep = {
   canUse() {
     return this.usage.weapon.system.identifier === "tail";

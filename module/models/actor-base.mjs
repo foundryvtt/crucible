@@ -1107,7 +1107,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem} item         The Item registering the hook
    */
   #registerActorHooks(item) {
-    if ( item.system.constructor.SUPPORTS_ACTOR_HOOKS === false ) return;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
 
     // Register module hooks for the item itself

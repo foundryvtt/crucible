@@ -68,12 +68,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static AFFIXABLE = false;
 
   /**
-   * Does this item type contribute actor-level hooks while equipped?
-   * @type {boolean}
-   */
-  static SUPPORTS_ACTOR_HOOKS = true;
-
-  /**
    * Which fields should be considered "stateful".
    * This informs tag presentation as well as item snapshot or restoration.
    * @type {string[]}
