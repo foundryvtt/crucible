@@ -55,6 +55,11 @@ export const CREATURE_CATEGORIES = {
     skill: "arcana",
     knowledge: "fey"
   },
+  fiend: {
+    label: "TAXONOMY.CATEGORIES.Fiend",
+    skill: "arcana",
+    knowledge: "fiends"
+  },
   giant: {
     label: "TAXONOMY.CATEGORIES.Giant",
     skill: "society",
