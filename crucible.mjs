@@ -807,7 +807,13 @@ function registerDevelopmentHooks() {
     if ( options.keepId === false ) return;
     // Generate a new ID
     if ( !item.parent && !item.id ) {
-      item.updateSource({_id: generateId(item.name, 16)});
+      const id = generateId(item.name, 16);
+      const collection = item.pack ? game.packs.get(item.pack)?.index : game.items;
+      if ( collection?.has(id) ) {
+        ui.notifications.error(`A document with standardized ID "${id}" already exists. Resolve the conflict manually.`);
+        return false;
+      }
+      item.updateSource({_id: id});
       options.keepId = true;
     }
   });
@@ -829,7 +835,12 @@ function registerDevelopmentHooks() {
   // Standardized IDs for Rules journal entry pages
   Hooks.on("preCreateJournalEntryPage", (page, data, options, _user) => {
     if ( (page.parent?.pack === "crucible.rules") && (options.keepId !== false) ) {
-      page.updateSource({_id: generateId(page.name, 16)});
+      const id = generateId(page.name, 16);
+      if ( page.parent.pages.has(id) ) {
+        ui.notifications.error(`A page with standardized ID "${id}" already exists in ${page.parent.name}. Resolve the conflict manually.`);
+        return false;
+      }
+      page.updateSource({_id: id});
       options.keepId = true;
     }
   });
