@@ -1,7 +1,7 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
-import Enum, {defineEnum} from "./enum.mjs";
+import {defineEnum, defineIntEnum} from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 
@@ -34,7 +34,7 @@ export const EFFECT_RESULT_TYPES = defineEnum({
  * The scope of creatures affected by an action.
  * @enum {number}
  */
-export const TARGET_SCOPES = new Enum({
+export const TARGET_SCOPES = defineIntEnum({
   NONE: {value: 0, label: "ACTION.TARGET_SCOPES.None"},
   SELF: {value: 1, label: "ACTION.TARGET_SCOPES.Self"},
   ALLIES: {value: 2, label: "ACTION.TARGET_SCOPES.Allies"},

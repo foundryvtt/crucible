@@ -48,16 +48,18 @@ export const COMPENDIUM_PACKS = Object.freeze({
 
 /**
  * Temperature tiers used categorically to classify creature body temperatures, environmental hazards, and detection
- * rules. Each tier carries a signed `value` centered on `neutral = 0`: positive values are hot, negative values are
- * cold, and the absolute value indicates intensity. Differences between two tiers' values give a signed delta.
- * @type {Readonly<Record<string, {id: string, label: string, value: number}>>}
+ * rules. The persisted value of any field that references a temperature tier is the string key (e.g. `"warm"`).
+ * Each tier additionally carries a signed `sort` weight centered on `neutral = 0` for ordering and comparison:
+ * positive weights are hot, negative weights are cold, and the absolute value indicates intensity. Differences
+ * between two tiers' sort values give a signed delta.
+ * @type {Readonly<Record<string, {id: string, label: string, sort: number}>>}
  */
 export const TEMPERATURE_TIERS = defineEnum({
-  boiling: {label: "TEMPERATURE_TIERS.Boiling", value: 2},
-  warm: {label: "TEMPERATURE_TIERS.Warm", value: 1},
-  neutral: {label: "TEMPERATURE_TIERS.Neutral", value: 0},
-  cool: {label: "TEMPERATURE_TIERS.Cool", value: -1},
-  gelid: {label: "TEMPERATURE_TIERS.Gelid", value: -2}
+  boiling: {label: "TEMPERATURE_TIERS.Boiling", sort: 2},
+  warm: {label: "TEMPERATURE_TIERS.Warm", sort: 1},
+  neutral: {label: "TEMPERATURE_TIERS.Neutral", sort: 0},
+  cool: {label: "TEMPERATURE_TIERS.Cool", sort: -1},
+  gelid: {label: "TEMPERATURE_TIERS.Gelid", sort: -2}
 });
 
 /* -------------------------------------------- */

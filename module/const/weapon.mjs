@@ -1,5 +1,5 @@
 import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
-import Enum, {defineEnum} from "./enum.mjs";
+import {defineEnum, defineIntEnum} from "./enum.mjs";
 
 /**
  * @import {CrucibleItemCategory} from "./items.mjs";
@@ -282,9 +282,9 @@ export const PROPERTIES = defineEnum({
 
 /**
  * Designate which equipped slot the weapon is used in.
- * @type {Enum<number>}
+ * @enum {number}
  */
-export const SLOTS = new Enum({
+export const SLOTS = defineIntEnum({
   EITHER: {value: 0, label: "WEAPON.SLOTS.Either"},
   MAINHAND: {value: 1, label: "WEAPON.SLOTS.Mainhand"},
   OFFHAND: {value: 2, label: "WEAPON.SLOTS.Offhand"},

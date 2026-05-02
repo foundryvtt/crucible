@@ -24,7 +24,6 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
-import Enum from "./module/const/enum.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
 
@@ -484,9 +483,9 @@ Hooks.once("i18nInit", function() {
 function preLocalizeConfig() {
   const localizeConfigObject = (obj, keys=["label"]) => {
 
-    // Special handling for legacy Enum instances which keep their labels in a separate dictionary
-    if ( obj instanceof Enum ) {
-      for ( const [k, l] of Object.entries(obj.labels) ) obj.labels[k] = _loc(l);
+    // Integer-keyed enums (defineIntEnum) keep their labels in a separate dictionary
+    if ( obj.labels && (typeof obj.labels === "object") ) {
+      for ( const k in obj.labels ) obj.labels[k] = _loc(obj.labels[k]);
       return;
     }
 
