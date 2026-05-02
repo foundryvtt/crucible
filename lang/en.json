@@ -1363,6 +1363,9 @@
     "Willpower": "Willpower",
     "Wounds": "Healing Threshold"
   },
+  "DETECTION_MODES": {
+    "ThermalVision": "Thermal Vision"
+  },
   "DICE": {
     "DIFFICULTIES": {
       "Challenging": "Challenging",

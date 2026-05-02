@@ -192,4 +192,11 @@ export function applyEmberPatches() {
       foundry.utils.mergeObject(crucible.api.hooks[hookType], hooks, {inplace: true, applyOperators: true});
     }
   }
+
+  // TODO: Once ember stops clobbering Thermal Vision, remove this
+  CONFIG.Canvas.detectionModes.thermalVision = new crucible.api.canvas.detectionModes.DetectionModeThermalVision({
+    id: "thermalVision",
+    label: "DETECTION_MODES.ThermalVision",
+    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+  });
 }
