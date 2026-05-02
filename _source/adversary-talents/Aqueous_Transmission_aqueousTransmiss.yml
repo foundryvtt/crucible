@@ -3,17 +3,19 @@ type: talent
 img: icons/magic/water/wave-water-teal.webp
 system:
   nodes: []
-  description: <p>The @ref[name] is able to move instantaneously through water.</p>
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to move instantaneously through
+    water.</p>
   actions:
     - id: aqueousTransmission
       name: Aqueous Transmission
       img: icons/magic/water/wave-water-teal.webp
       condition: ''
       description: >-
-        <p>When the @ref[name] is within water, it can instantaneously transport
-        itself to any unoccupied space within the same body of water up to 120
-        feet away. It does not need to be able to see the destination to make
-        this <strong>Move</strong>.</p>
+        <p>When the @ref[actor.name]{creature} is within water, it can
+        instantaneously transport itself to any unoccupied space within the same
+        body of water up to 120 feet away. It does not need to be able to see
+        the destination to make this <strong>Move</strong>.</p>
       cost:
         action: 0
         focus: 1
@@ -25,16 +27,18 @@ system:
         maximum: 120
         weapon: false
       target:
-        type: self
+        type: movement
         number: 1
         scope: 1
         self: false
       effects: []
       tags:
         - movement
+        - blink
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   rune: ''
   gesture: ''
   inflection: ''
@@ -52,12 +56,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.1
   createdTime: 1772307157328
-  modifiedTime: 1773514792177
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1777739628184
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: aqueousTransmiss
 sort: 800000
 _key: '!items!aqueousTransmiss'
