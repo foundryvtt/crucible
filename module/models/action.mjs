@@ -598,7 +598,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         duration: aeDuration,
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
-      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
+      autoFavorite: new fields.BooleanField({initial: false})
     };
   }
 
@@ -2023,16 +2024,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const test of this._tests() ) {
       if ( !(test.canUse instanceof Function) ) continue;
       let errorReason;
+      let blocked = false;
       let errorOptions = {};
       try {
         const can = test.canUse.call(this);
-        if ( can === false ) errorReason = `with tag ${test.label}`;
+        if ( can === false ) {
+          blocked = true;
+          if ( test.label ) errorReason = `with tag ${test.label}`;
+        }
       } catch(err) {
+        blocked = true;
         errorReason = err.message;
         errorOptions = {cause: err};
       }
-      if ( errorReason ) {
-        throw new Error(_loc("ACTION.WARNINGS.CannotUse", {
+      if ( blocked ) {
+        const key = errorReason ? "ACTION.WARNINGS.CannotUseReason" : "ACTION.WARNINGS.CannotUse";
+        throw new Error(_loc(key, {
           name: this.actor.name,
           action: this.name,
           reason: errorReason
@@ -2532,7 +2539,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Render HTML template
     const tags = this.getTags();
     const templatePath = "systems/crucible/templates/dice/action-use-chat.hbs";
-    const content = await foundry.applications.handlebars.renderTemplate(templatePath, {
+    let content = await foundry.applications.handlebars.renderTemplate(templatePath, {
       action: this,
       actor: this.actor,
       context: this.usage.context,
@@ -2545,9 +2552,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       region: this.region
     });
 
+    // Allow action hooks to manipulate message content via the DOM. The element is parsed lazily on first
+    // registered hook, and serialized back out only if it was parsed.
+    let element = null;
+    for ( const test of this._tests() ) {
+      if ( !(test.prepareMessage instanceof Function) ) continue;
+      element ??= foundry.utils.parseHTML(content);
+      await test.prepareMessage.call(this, element);
+    }
+    if ( element ) content = element.outerHTML;
+
     // Return message data
     return {
-      content: content,
+      content,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       rolls: rolls,
       flags: {crucible: actionData}

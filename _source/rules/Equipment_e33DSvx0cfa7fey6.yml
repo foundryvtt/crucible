@@ -178,12 +178,27 @@ pages:
         <strong>Unique</strong>, representing one-of-a-kind artifacts or items
         of singular craftsmanship. Unique items cannot be enchanted with affixes
         and instead retain a manually assigned enchantment tier.</p><h2
-        class="divider">Item Value Scaling</h2><p>The base cost of an item is
-        defined by its Standard quality, Mundane enchantment variety. The
-        currency cost of the item scales with its Rarity score according to the
-        following formula:</p><section class="formula"><p class="value">Item
-        Value</p><p class="equals">=</p><p class="equation">(1 + Rarity^3) x
-        Base Cost</p></section><section class="gameplay"><p>Suppose a
+        class="divider">Investment</h2><p>Some items require
+        <strong>Investment</strong> in order to fully benefit from their
+        properties. Items which require Investment may be Equipped and used to
+        perform Actions as normal, however their owner does not benefit the
+        effects of that item's Affixes unless the item is first
+        <strong>Invested</strong>.</p><p>This is done through the
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 investiture]
+        action which may only be performed during a Recovery or Rest. Once an
+        Item is Invested, all of its magical affixes provide their full benefit
+        including any special Actions which they permit the Actor to
+        perform.</p><p>When performing the
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 recover] or
+        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 rest]
+        Actions, any Item that was previously Invested but is now unequipped
+        will no longer be invested.</p><h2 class="divider">Item Value
+        Scaling</h2><p>The base cost of an item is defined by its Standard
+        quality, Mundane enchantment variety. The currency cost of the item
+        scales with its Rarity score according to the following
+        formula:</p><section class="formula"><p class="value">Item Value</p><p
+        class="equals">=</p><p class="equation">(1 + Rarity^3) x Base
+        Cost</p></section><section class="gameplay"><p>Suppose a
         <strong>Standard</strong> quality and unenchanted
         <strong>Mundane</strong> Longsword has a base cost of 50. The same type
         of weapon crafted at <strong>Masterwork</strong> quality would cost
@@ -202,9 +217,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       createdTime: 1684891238587
-      modifiedTime: 1775572774062
+      modifiedTime: 1777735991109
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null

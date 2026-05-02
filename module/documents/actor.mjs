@@ -936,6 +936,9 @@ export default class CrucibleActor extends Actor {
     }, []);
     await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
 
+    // Divest items that are no longer equipped
+    await this.#divestUnequipped();
+
     // Recover Resources
     await this.update(foundry.utils.mergeObject(this.#getRecoveryData(), updateData));
   }
@@ -970,8 +973,28 @@ export default class CrucibleActor extends Actor {
     }, []);
     await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
 
+    // Divest items that are no longer equipped
+    await this.#divestUnequipped();
+
     // Recover Resources
     await this.update(foundry.utils.mergeObject(restData, updateData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear the Invested state from items that require investment but are no longer equipped.
+   * TODO this should go away when rest() and recover() are refactored to be event-stream based
+   * @returns {Promise<void>}
+   */
+  async #divestUnequipped() {
+    const updates = [];
+    for ( const item of this.items ) {
+      if ( !item.system.requiresInvestment ) continue;
+      if ( !item.system.invested || item.system.equipped ) continue;
+      updates.push({_id: item.id, system: {invested: false}});
+    }
+    if ( updates.length ) await this.updateEmbeddedDocuments("Item", updates);
   }
 
   /* -------------------------------------------- */

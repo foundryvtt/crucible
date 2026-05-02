@@ -1331,7 +1331,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: [],
     target: {
       type: "none"
-    }
+    },
+    autoFavorite: true
   },
 
   // Basic Movement
@@ -1400,7 +1401,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       scope: 3
     },
-    tags: ["reaction"] // Added to in #prepareDefaultActions
+    tags: ["reaction"], // Added to in #prepareDefaultActions
+    autoFavorite: true
   },
 
   // Throw Weapon
@@ -1420,6 +1422,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["thrown"]
   },
 
+  // Investiture
+  {
+    id: "investiture",
+    name: "ACTION.DEFAULT_ACTIONS.Investiture.Name",
+    img: "icons/magic/symbols/runes-star-orange-purple.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Investiture.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["noncombat"],
+    autoFavorite: true
+  },
+
   // Recover
   {
     id: "recover",
@@ -1434,7 +1454,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"]
+    tags: ["noncombat"],
+    autoFavorite: true
   },
 
   // Reload
@@ -1449,7 +1470,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["reload"],
     target: {
       type: "self"
-    }
+    },
+    autoFavorite: true
   },
 
   // Rest
@@ -1466,7 +1488,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"]
+    tags: ["noncombat"],
+    autoFavorite: true
   },
 
   // Basic Strike
@@ -1486,6 +1509,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0,
       weapon: true
-    }
+    },
+    autoFavorite: true
   }
 ]);

@@ -930,6 +930,40 @@ HOOKS.readScroll = {
 
 /* -------------------------------------------- */
 
+HOOKS.investiture = {
+  canUse() {
+    return this.actor.items.some(i => i.system.requiresInvestment && i.system.equipped);
+  },
+  preActivate() {
+    const updateEvent = this.selfUpdateEvent;
+    for ( const item of this.actor.items ) {
+      if ( !item.system.requiresInvestment ) continue;
+      const invested = item.system.equipped;
+      if ( item.system.invested === invested ) continue;
+      updateEvent.itemSnapshots.push(item.snapshot());
+      updateEvent.actorUpdates.items.push({_id: item.id, system: {invested}});
+    }
+  },
+  async prepareMessage(element) {
+    const updates = this.selfUpdateEvent?.actorUpdates?.items ?? [];
+    const invested = [];
+    const divested = [];
+    for ( const update of updates ) {
+      if ( !("invested" in (update.system ?? {})) ) continue;
+      const item = this.actor.items.get(update._id);
+      if ( !item ) continue;
+      (update.system.invested ? invested : divested).push(item.name);
+    }
+    if ( !invested.length && !divested.length ) return;
+    const html = await foundry.applications.handlebars.renderTemplate(
+      "systems/crucible/templates/dice/partials/investiture-summary.hbs", {invested, divested});
+    const summary = foundry.utils.parseHTML(html);
+    if ( summary ) element.appendChild(summary);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.recover = {
   async confirm() {
     await this.actor.recover();

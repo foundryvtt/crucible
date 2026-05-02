@@ -46,6 +46,10 @@
         "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and the Initiative value of the combatant after you. You will act at this new Initiative value. You may only delay your turn once per round.",
         "Name": "Delay"
       },
+      "Investiture": {
+        "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
+        "Name": "Investiture"
+      },
       "Move": {
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
         "Name": "Move"
@@ -217,6 +221,11 @@
     },
     "SHEET": {
       "Title": "Action"
+    },
+    "SUMMARY": {
+      "Investiture": "Investiture",
+      "ItemInvested": "Invested",
+      "ItemDivested": "Divested"
     },
     "TABS": {
       "Description": "Description",
@@ -423,7 +432,8 @@
       "CannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
       "CannotTargetSelf": "You cannot target yourself with this Action!",
       "CannotThrow": "You cannot throw this weapon.",
-      "CannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
+      "CannotUse": "{name} does not satisfy the prerequisites to use {action}.",
+      "CannotUseReason": "{name} does not satisfy the prerequisites to use {action}: {reason}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",

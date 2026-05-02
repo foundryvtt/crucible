@@ -131,6 +131,11 @@ export const ACTION_HOOKS = Object.freeze({
     argLabels: ["this: CrucibleAction"],
     async: true
   },
+  prepareMessage: {
+    argNames: ["element"],
+    argLabels: ["this: CrucibleAction", "element: HTMLElement"],
+    async: true
+  },
   confirm: {
     argNames: ["reverse"],
     argLabels: ["this: CrucibleAction", "reverse: boolean"],

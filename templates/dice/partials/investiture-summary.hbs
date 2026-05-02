@@ -1,0 +1,27 @@
+<section class="crucible turn-change-summary">
+    <table class="report-table turn-report-table">
+        <thead>
+            <tr>
+                <th colspan="2">{{localize "ACTION.SUMMARY.Investiture"}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each invested}}
+            <tr>
+                <td class="report-label">{{this}}</td>
+                <td class="report-value boons">
+                    <i class="fa-solid fa-caret-up" inert></i> {{localize "ACTION.SUMMARY.ItemInvested"}}
+                </td>
+            </tr>
+            {{/each}}
+            {{#each divested}}
+            <tr>
+                <td class="report-label">{{this}}</td>
+                <td class="report-value banes">
+                    <i class="fa-solid fa-caret-down" inert></i> {{localize "ACTION.SUMMARY.ItemDivested"}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

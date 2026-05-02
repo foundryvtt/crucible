@@ -558,7 +558,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       sections[section].actions.push(a);
 
       // Favorite actions which are able to be currently used
-      if ( action.isFavorite && action._displayOnSheet() ) favorites.push(a);
+      if ( (action.isFavorite || action.autoFavorite) && action._displayOnSheet() ) favorites.push(a);
     }
 
     // Sort each section

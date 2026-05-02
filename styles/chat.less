@@ -83,6 +83,16 @@
       text-align: right;
     }
 
+    // Boon/Bane indicators
+    .boons i {
+      font-size: 10px;
+      color: var(--color-result-verygood);
+    }
+    .banes i {
+      font-size: 10px;
+      color: var(--color-result-verybad);
+    }
+
     // Turn Change Report
     &.turn-report-table {
       .crucible-rank-pips {
@@ -103,14 +113,6 @@
     &.initiative-report-table {
       tr.combatant.secret {
         color: #8e80ff;
-      }
-      .boons i {
-        font-size: 10px;
-        color: var(--color-result-verygood);
-      }
-      .banes i {
-        font-size: 10px;
-        color: var(--color-result-verybad);
       }
     }
   }
