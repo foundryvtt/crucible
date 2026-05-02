@@ -13,7 +13,7 @@ system:
     - id: backstab
       condition: You are attacking a target with the Flanked condition.
       description: >-
-        <p>You <strong>Strike</strong> with your mainhand weapon against a
+        <p>You <strong>Strike</strong> with your weapon against a
         <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
         damage.</p>
       tags:
@@ -53,11 +53,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.1
+  coreVersion: '14.360'
   createdTime: 1772307160127
-  modifiedTime: 1773514792559
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1777739314854
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
   exportSource: null
