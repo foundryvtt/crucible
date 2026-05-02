@@ -141,8 +141,11 @@ HOOKS.returning = {
   preActivateAction(item, action) {
     const updates = action.selfUpdateEvent.actorUpdates.items;
     if ( !updates ) return;
-    const update = updates.find(u => (u._id === item.id) && u.system?.dropped);
-    if ( update ) delete update.system.dropped;
+    const update = updates.find(u => (u._id === item.id) && (u.system?.dropped || u.system?.equipped === false));
+    if ( update ) {
+      if ( update.system.dropped ) delete update.system.dropped;
+      if ( update.system.equipped === false ) delete update.system.equipped;
+    }
   }
 };
 
