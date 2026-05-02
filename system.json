@@ -170,10 +170,10 @@
       "path": "lang/en.json"
     },
     {
-    "lang": "de",
-    "name": "Deutsch",
-    "path": "lang/de.json"
-  }
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
   ],
   "documentTypes": {
     "ActiveEffect": {
