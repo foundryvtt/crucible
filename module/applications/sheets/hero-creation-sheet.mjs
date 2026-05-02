@@ -1136,8 +1136,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      itemData.system.quantity = quantity;
-      creationData.items.push(itemData);
+      delete itemData._id;
+      if ( itemData.system.properties.includes("stackable") ) {
+        itemData.system.quantity = quantity;
+        creationData.items.push(itemData);
+      } 
+      else creationData.items.push(...new Array(quantity).fill(itemData));
       spent += scaledPrice * quantity;
     }
     creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
