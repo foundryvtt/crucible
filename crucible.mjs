@@ -459,49 +459,7 @@ Hooks.once("canvasConfig", () => {
 
 Hooks.once("i18nInit", function() {
 
-  // Apply localizations
-  const toLocalize = [
-    ["ABILITIES", ["abbreviation", "label", "group"]],
-    "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
-    "ACTOR.CREATURE_CATEGORIES",
-    "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
-    "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
-    "CRAFTING.TRAINING",
-    "DAMAGE_CATEGORIES", "DEFENSES",
-    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES",
-    "ITEM.SCHEMATIC_CATEGORIES", "ITEM.SCHEMATIC_PROPERTIES",
-    "ITEM.TOOL_CATEGORIES",
-    "RESOURCES", "THREAT_RANKS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
-  ];
-  for ( const c of toLocalize ) {
-    let key = c;
-    let attrs = ["label"];
-    if ( Array.isArray(c) ) [key, attrs] = c;
-    const conf = foundry.utils.getProperty(SYSTEM, key);
-
-    // Special handling for enums
-    if ( conf instanceof Enum ) {
-      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = _loc(l);
-      continue;
-    }
-
-    // Other objects
-    for ( const [k, v] of Object.entries(conf) ) {
-      if ( typeof v === "object" ) {
-        for ( const attr of attrs ) {
-          if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
-          else if ( typeof v[attr] === "string" ) v[attr] = _loc(v[attr]);
-        }
-      }
-      else {
-        if ( typeof v === "function" ) conf[k] = v();
-        else if ( typeof v === "string" ) conf[k] = _loc(v);
-      }
-    }
-  }
-
-  // Localize models
+  // Localize DataModels
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
   foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
   foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
@@ -520,10 +478,19 @@ Hooks.once("i18nInit", function() {
 /* -------------------------------------------- */
 
 /**
- * Perform one-time configuration of system configuration objects.
+ * Perform one-time pre-localization of system configuration objects, mutating their `label` (and other localized
+ * string fields) into resolved language strings before the SYSTEM is deep-frozen at the `setup` hook.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys) => {
+  const localizeConfigObject = (obj, keys=["label"]) => {
+
+    // Special handling for legacy Enum instances which keep their labels in a separate dictionary
+    if ( obj instanceof Enum ) {
+      for ( const [k, l] of Object.entries(obj.labels) ) obj.labels[k] = _loc(l);
+      return;
+    }
+
+    // Record-style enums where each entry is an object containing one or more localizable string keys
     for ( const o of Object.values(obj) ) {
       for ( const k of keys ) {
         const v = o[k];
@@ -532,30 +499,75 @@ function preLocalizeConfig() {
       }
     }
   };
-  localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
-  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
-  localizeConfigObject(SYSTEM.ACTOR.TRAVEL_PACES, ["label"]);
+
+  // Top-level system constants
+  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group"]);
+  localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
+  localizeConfigObject(SYSTEM.DEFENSES);
+  localizeConfigObject(SYSTEM.RESOURCES);
+  localizeConfigObject(SYSTEM.TEMPERATURE_TIERS);
+  localizeConfigObject(SYSTEM.THREAT_RANKS);
+
+  // Accessory
+  localizeConfigObject(SYSTEM.ACCESSORY.CATEGORIES);
+  localizeConfigObject(SYSTEM.ACCESSORY.PROPERTIES);
+
+  // Action
+  localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
+  localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES);
+  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES);
+  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES);
+
+  // Actor
+  localizeConfigObject(SYSTEM.ACTOR.CREATURE_CATEGORIES);
+  localizeConfigObject(SYSTEM.ACTOR.TRAVEL_PACES);
+
+  // Armor
+  localizeConfigObject(SYSTEM.ARMOR.CATEGORIES);
+  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES);
+
+  // Consumable
+  localizeConfigObject(SYSTEM.CONSUMABLE.CATEGORIES);
+  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES);
+
+  // Crafting
+  localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
+
+  // Item
+  localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);
+  localizeConfigObject(SYSTEM.ITEM.LOOT_CATEGORIES);
+  localizeConfigObject(SYSTEM.ITEM.QUALITY_TIERS);
+  localizeConfigObject(SYSTEM.ITEM.SCHEMATIC_CATEGORIES);
+  localizeConfigObject(SYSTEM.ITEM.SCHEMATIC_PROPERTIES);
+  localizeConfigObject(SYSTEM.ITEM.TOOL_CATEGORIES);
+
+  // Skill
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
-  localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
-  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
-  localizeConfigObject(SYSTEM.TEMPERATURE_TIERS, ["label"]);
+  localizeConfigObject(SYSTEM.SKILL.SKILLS);
 
   // Spellcraft
-  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"], false);
-  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"], false);
-  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"], false);
+  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"]);
+  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"]);
+  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"]);
 
-  // Config objects
-  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
-  localizeConfigObject(crucible.CONFIG.knowledge, ["label"]);
-  localizeConfigObject(crucible.CONFIG.languageCategories, ["label"]);
-  localizeConfigObject(crucible.CONFIG.languages, ["label"]);
+  // Talent
+  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
+
+  // Weapon
+  localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
+  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES);
+  localizeConfigObject(SYSTEM.WEAPON.SLOTS);
+  localizeConfigObject(SYSTEM.WEAPON.TRAINING);
+
+  // CONFIG objects (not in SYSTEM)
+  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
+  localizeConfigObject(crucible.CONFIG.knowledge);
+  localizeConfigObject(crucible.CONFIG.languageCategories);
+  localizeConfigObject(crucible.CONFIG.languages);
 }
 
 /* -------------------------------------------- */
