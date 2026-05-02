@@ -495,6 +495,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Step 4: Toolbelt
     const toolbelt = this._prepareToolbelt(items.consumable, items.tool, this.equipment.toolbeltSlots);
+    for ( const t of toolbelt ) this.#registerActorHooks(t);
     this.parent.callActorHooks("prepareToolbelt", toolbelt);
 
     // Additional data
@@ -1106,6 +1107,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem} item         The Item registering the hook
    */
   #registerActorHooks(item) {
+    if ( item.system.constructor.SUPPORTS_ACTOR_HOOKS === false ) return;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
 
     // Register module hooks for the item itself

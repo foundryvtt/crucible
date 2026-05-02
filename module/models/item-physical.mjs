@@ -27,7 +27,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField())
     };
   }
 
@@ -66,6 +66,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {boolean}
    */
   static AFFIXABLE = false;
+
+  /**
+   * Does this item type contribute actor-level hooks while equipped?
+   * @type {boolean}
+   */
+  static SUPPORTS_ACTOR_HOOKS = true;
 
   /**
    * Which fields should be considered "stateful".

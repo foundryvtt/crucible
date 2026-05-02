@@ -48,6 +48,16 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
+   * Snapshot taken after the most recent `prepareDerivedData` pass tracking whether the actor contributed prepareToken
+   * hooks during that pass. Used in `_onRelatedUpdate` to detect transitions from "had hooks" to "no longer has hooks"
+   * so the token can be re-prepared even when no hooks are currently registered.
+   * @type {boolean}
+   */
+  #hadTokenHooks = false;
+
+  /* -------------------------------------------- */
+
+  /**
    * Allow Actor-level talent hooks to amend Token data after core preparation.
    * Detection modes are populated by `_prepareDetectionModes` during `prepareBaseData`,
    * so hooks can additively modify the resolved set here.
@@ -56,6 +66,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   prepareDerivedData() {
     super.prepareDerivedData();
     this.actor?.callActorHooks("prepareToken", this);
+    this.#hadTokenHooks = !!this.actor?.hasTokenHooks;
   }
 
   /* -------------------------------------------- */
@@ -75,9 +86,21 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /** @inheritDoc */
   _onRelatedUpdate(update, operation) {
     super._onRelatedUpdate(update, operation);
+
+    // Re-prepare token data if the actor has (or previously had) token hooks
+    if ( this.actor?.hasTokenHooks || this.#hadTokenHooks ) {
+      this.reset();
+      if ( this.rendered ) {
+        this.object.initializeSources();
+        this.object.renderFlags.set({refresh: true});
+      }
+      return;
+    }
+
+    // Otherwise narrow refresh of bar resources
     const resources = update?.system?.resources;
-    if ( this.parent?.isView && (resources?.action || resources?.focus) ) {
-      this.object?.renderFlags.set({refreshBars: true});
+    if ( this.rendered && (resources?.action || resources?.focus) ) {
+      this.object.renderFlags.set({refreshBars: true});
     }
   }
 

@@ -39,25 +39,25 @@ export const CREATURE_CATEGORIES = defineEnum({
     label: "TAXONOMY.CATEGORIES.ElementalEarth",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "neutral"
+    temperature: "warm"
   },
   elementalFire: {
     label: "TAXONOMY.CATEGORIES.ElementalFire",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "warm"
+    temperature: "boiling"
   },
   elementalFrost: {
     label: "TAXONOMY.CATEGORIES.ElementalFrost",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "cool"
+    temperature: "gelid"
   },
   elementalStorm: {
     label: "TAXONOMY.CATEGORIES.ElementalStorm",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "neutral"
+    temperature: "cool"
   },
   fey: {
     label: "TAXONOMY.CATEGORIES.Fey",
@@ -69,7 +69,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     label: "TAXONOMY.CATEGORIES.Fiend",
     skill: "arcana",
     knowledge: "fiends",
-    temperature: "warm"
+    temperature: "cool"
   },
   giant: {
     label: "TAXONOMY.CATEGORIES.Giant",
@@ -105,13 +105,13 @@ export const CREATURE_CATEGORIES = defineEnum({
     label: "TAXONOMY.CATEGORIES.Outsider",
     skill: "arcana",
     knowledge: "outsiders",
-    temperature: "neutral"
+    temperature: "cool"
   },
   undead: {
     label: "TAXONOMY.CATEGORIES.Undead",
     skill: "arcana",
     knowledge: "undeath",
-    temperature: "neutral"
+    temperature: "cool"
   }
 });
 

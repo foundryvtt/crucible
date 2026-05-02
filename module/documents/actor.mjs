@@ -86,6 +86,16 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * Does this Actor currently contribute any prepareToken hooks?
+   * Token documents linked to this actor consult this flag in `_onRelatedUpdate` to decide whether to re-prepare token
+   * derived data when actor state changes.
+   * @type {boolean}
+   */
+  get hasTokenHooks() {
+    return this.system.actorHooks?.prepareToken?.length > 0;
+  }
+
+  /**
    * Actor resources.
    * @returns {Record<string, {value: number, max: number}>}
    */

@@ -21,6 +21,9 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static STATEFUL_FIELDS = [...super.STATEFUL_FIELDS, "quantity", "uses"];
 
   /** @override */
+  static SUPPORTS_ACTOR_HOOKS = false;
+
+  /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "CONSUMABLE"];
 
   /* -------------------------------------------- */
