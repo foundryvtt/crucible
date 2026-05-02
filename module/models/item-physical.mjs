@@ -110,9 +110,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static migrateData(source) {
     source = super.migrateData(source);
 
-    // Strip item properties that are no longer valid choices
+    // Strip item properties that are no longer valid choices, or have been flagged as deprecated
     if ( Array.isArray(source.properties) ) {
-      source.properties = source.properties.filter(p => p in this.ITEM_PROPERTIES);
+      source.properties = source.properties.filter(p => {
+        const cfg = this.ITEM_PROPERTIES[p];
+        return cfg && !cfg.deprecated;
+      });
     }
     return source;
   }
