@@ -38,6 +38,14 @@ HOOKS.antitoxin = {
 
 /* -------------------------------------------- */
 
+HOOKS.aqueousTransmission = {
+  prepare() {
+    this.cost.action = 0;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.armorCrusher = {
   async roll(target) {
     const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
