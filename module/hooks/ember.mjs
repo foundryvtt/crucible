@@ -166,6 +166,20 @@ const EMBER_050 = {
 };
 
 /* -------------------------------------------- */
+/*  Ember 0.5.1 - Remove when Ember adds these  */
+/* -------------------------------------------- */
+
+const EMBER_051 = {
+  talent: {
+    emberAshkaLineag: {
+      prepareToken(_item, token) {
+        token.detectionModes.thermalVision ??= {enabled: true, range: 60};
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
 /*  Patch Application                           */
 /* -------------------------------------------- */
 
@@ -176,7 +190,8 @@ const EMBER_050 = {
  * @type {Record<string, object>}
  */
 const EMBER_PATCHES = {
-  "0.5.0": EMBER_050
+  "0.5.0": EMBER_050,
+  "0.5.1": EMBER_051
 };
 
 /**

@@ -197,7 +197,7 @@ pages:
         quality, Mundane enchantment variety. The currency cost of the item
         scales with its Rarity score according to the following
         formula:</p><section class="formula"><p class="value">Item Value</p><p
-        class="equals">=</p><p class="equation">(1 + Rarity^3) x Base
+        class="equals">=</p><p class="equation">((1 + Rarity)^3) x Base
         Cost</p></section><section class="gameplay"><p>Suppose a
         <strong>Standard</strong> quality and unenchanted
         <strong>Mundane</strong> Longsword has a base cost of 50. The same type
@@ -219,7 +219,7 @@ pages:
       systemVersion: 0.9.0
       coreVersion: '14.360'
       createdTime: 1684891238587
-      modifiedTime: 1777735991109
+      modifiedTime: 1777755201653
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null

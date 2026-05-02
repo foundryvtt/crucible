@@ -932,6 +932,14 @@ HOOKS.testudo000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.thermalVision000 = {
+  prepareToken(_item, token) {
+    token.detectionModes.thermalVision ??= {enabled: true, range: 60};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.thickskin0000000 = {
   prepareResistances(_item, resistances) {
     resistances.bludgeoning.base += 2;

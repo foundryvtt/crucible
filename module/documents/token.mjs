@@ -46,6 +46,19 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Allow Actor-level talent hooks to amend Token data after core preparation.
+   * Detection modes are populated by `_prepareDetectionModes` during `prepareBaseData`,
+   * so hooks can additively modify the resolved set here.
+   * @inheritDoc
+   */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this.actor?.callActorHooks("prepareToken", this);
+  }
+
+  /* -------------------------------------------- */
   /*  Database Operations                         */
   /* -------------------------------------------- */
 
