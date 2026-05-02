@@ -81,7 +81,10 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     });
     const speaker = ChatMessage.getSpeaker();
     speaker.alias = _loc("COMBAT.INITIATIVE.Round", {round});
-    return ChatMessage.create({content, rolls, speaker, "flags.crucible.isInitiativeReport": true});
+    return ChatMessage.create({content, rolls, speaker, flags: {
+      crucible: {isInitiativeReport: true},
+      core: {initiativeRoll: true}
+    }});
   }
 
   /* -------------------------------------------- */
