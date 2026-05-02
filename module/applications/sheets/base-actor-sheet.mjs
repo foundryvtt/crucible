@@ -475,8 +475,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #preparePhysicalItem(item, config, canEquip) {
     const sortOrder = {weapon: 1, armor: 2, accessory: 3, tool: 4, consumable: 5};
-    config.quantity = item.system.quantity;
-    config.showStack = item.system.quantity > 1;
+    const quantity = item.system.quantity;
+    config.quantity = quantity;
+    config.showStack = quantity !== 1;
+    config.stackLabel = quantity === 0 ? _loc("ITEM.QuantityNone") : quantity;
     config.sort = sortOrder[item.type] ?? Infinity;
     if ( canEquip ) this.#prepareEquipableItem(item, config);
   }

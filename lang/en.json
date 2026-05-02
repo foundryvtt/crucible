@@ -453,6 +453,7 @@
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
+      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
@@ -1614,7 +1615,8 @@
     "QualityMasterwork": "Masterwork",
     "QualityShoddy": "Shoddy",
     "QualityStandard": "Standard",
-    "QualitySuperior": "Superior"
+    "QualitySuperior": "Superior",
+    "QuantityNone": "None"
   },
   "KEYBINDINGS": {
     "ConfirmAction": "Confirm Action",

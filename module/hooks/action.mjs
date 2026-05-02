@@ -1104,6 +1104,31 @@ HOOKS.affixFocusing = {
 
 /* -------------------------------------------- */
 
+HOOKS.lightLantern = {
+  preActivate() {
+    // Validate that the actor has Lantern Oil to consume
+    const oil = this.actor.items.find(i => (i.system.identifier === "lanternOil") && (i.system.quantity > 0));
+    if ( !oil ) throw new Error(_loc("ACTION.WARNINGS.NoLanternOil"));
+
+    // Scale ignition duration with the quality of the consumed oil
+    const hours = {shoddy: 1, standard: 4, fine: 12, superior: 24, masterwork: 48}[oil.system.quality] ?? 4;
+    if ( this.effects[0] ) {
+      Object.assign(this.effects[0], {
+        _id: "lanternBurning00",
+        showIcon: 0 // Never
+      });
+      this.effects[0].duration.value = hours;
+    }
+
+    // Queue oil consumption with a snapshot for reversal
+    const updateEvent = this.selfUpdateEvent;
+    updateEvent.itemSnapshots.push(oil.snapshot());
+    updateEvent.actorUpdates.items.push({_id: oil.id, system: {quantity: oil.system.quantity - 1}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.lightTorch = {
   preActivate() {
     if ( this.effects[0] ) {

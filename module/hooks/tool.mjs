@@ -14,7 +14,7 @@ const LANTERN_LIGHT = Object.freeze({alpha: 0.8, angle: 360, bright: 20, color: 
 
 HOOKS.lantern = {
   prepareToken(_item, token) {
-    // Avoid overriding any light source that has been explicitly configured on the token
+    if ( !this.effects.has("lanternBurning00") ) return;
     if ( (token.light.bright !== 0) || (token.light.dim !== 0) ) return;
     foundry.utils.mergeObject(token.light, LANTERN_LIGHT);
   }
