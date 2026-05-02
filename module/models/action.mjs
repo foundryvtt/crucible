@@ -732,6 +732,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region && !this.region;
   }
 
+  /**
+   * Does this Action require a viewed Scene to acquire its targets?
+   * @type {boolean}
+   */
+  get requiresScene() {
+    return !["none", "self"].includes(this.target.type);
+  }
+
   /* -------------------------------------------- */
   /*  Events Management                           */
   /* -------------------------------------------- */

@@ -99,12 +99,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const context = await super._prepareContext(options);
     const tags = this._getTags();
     const targets = this.#prepareTargets();
+
+    // Identify requirements for configuration
+    const {disabled: submitDisabled, tooltip: submitTooltip} = this._canSubmit({targets});
+    const noScene = this.action.requiresScene && !canvas.ready;
     const requiresRegion = this.action.requiresRegion;
     const requiresMovement = this.action.requiresMovement;
     const involvesRegion = requiresRegion || this.action.region;
     const involvesMovement = requiresMovement || this.action.movement;
-    const submitDisabled = targets.some(t => t.error) || ((this.action.target.type === "single") && !targets.length);
-    const submitTooltip = submitDisabled ? `<p>${_loc("ACTION.WARNINGS.InvalidTargetsGeneric")}</p>` : "";
+
+    // Prepare dialog rendering context
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
@@ -117,6 +121,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       involvesMovement,
       requiresRegion,
       requiresMovement,
+      placementDisabled: noScene,
+      placementTooltip: noScene ? _loc("ACTION.WARNINGS.NoViewedScene") : "",
       tagRegion: this.action.region && !targets.length,
       tagMovement: this.action.movement,
       targets,
@@ -125,6 +131,24 @@ export default class ActionUseDialog extends StandardCheckDialog {
       submitTooltip,
       weaponChoice: this.#prepareWeaponChoice()
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether the dialog can currently be submitted, and if not, the reason why.
+   * @param {object} [context]                          Submission context
+   * @param {ActionUseTarget[]} [context.targets]       Resolved targets to validate
+   * @returns {{disabled: boolean, tooltip: string}}    Whether submission is blocked and the localized reason
+   * @protected
+   */
+  _canSubmit({targets=[]}={}) {
+    if ( this.action.requiresScene && !canvas.ready ) {
+      return {disabled: true, tooltip: _loc("ACTION.WARNINGS.NoViewedScene")};
+    }
+    const invalid = targets.some(t => t.error) || ((this.action.target.type === "single") && !targets.length);
+    if ( invalid ) return {disabled: true, tooltip: _loc("ACTION.WARNINGS.InvalidTargetsGeneric")};
+    return {disabled: false, tooltip: ""};
   }
 
   /* -------------------------------------------- */
@@ -184,7 +208,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /** @inheritDoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
-    if ( !context.requiresRegion ) return;
+    if ( !context.requiresRegion || !canvas.ready ) return;
     const regionConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type]?.region;
     if ( !regionConfig ) return;
     const autoPlace = (regionConfig.anchor === "self") && (["emanation", "circle"].includes(regionConfig.shape));
@@ -216,6 +240,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /** @inheritDoc */
   async _onSubmit(target, event) {
+    if ( this.action.requiresScene && !canvas.ready ) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      ui.notifications.warn(_loc("ACTION.WARNINGS.NoViewedScene"));
+      return;
+    }
     if ( this.action.requiresRegion || this.action.requiresMovement ) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -281,6 +311,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlaceRegion(event) {
+    if ( !canvas.ready ) return;
     this.#clearRegionPreview();
     const {range, token, target} = this.action;
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type];
@@ -501,7 +532,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   _clearTargetRegion() {
     this.#clearRegionPreview();
-    if ( this.#regionTargets ) canvas.tokens.setTargets([]);
+    if ( this.#regionTargets && canvas.ready ) canvas.tokens.setTargets([]);
     this.#regionTargets = null;
     Object.defineProperty(this.action, "region", {value: null, configurable: true});
   }
@@ -544,6 +575,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @returns {Promise<void>}
    */
   static async #onPlanMovement(_event) {
+    if ( !canvas.ready ) return;
     const {token, target, usage} = this.action;
     const movementUsage = usage.movement;
 
@@ -604,7 +636,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @internal
    */
   _onPreviewMovement(plannedMovement) {
-    if ( !this.#previewMovementAction ) return;
+    if ( !this.#previewMovementAction || !canvas.ready ) return;
     if ( !plannedMovement?.foundPath?.length ) {
       canvas.tokens.setTargets([]);
       return;
@@ -627,15 +659,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
     if ( this.#submitted ) return;
     const token = this.action.token;
 
-    // Cancel in-flight planning if this dialog's token is the active planner
-    if ( canvas.tokens._movementPlanningContext?.object?.document === token ) {
-      canvas.tokens._cancelMovementPlanning();
-    }
-
     // Cancel any already-confirmed movement stored on this action
     if ( this.action.movement ) {
       token?.stopMovement();
       Object.defineProperty(this.action, "movement", {value: null, configurable: true});
+    }
+
+    // Canvas-side cleanup is only valid while a Scene is active
+    if ( !canvas.ready ) return;
+    if ( canvas.tokens._movementPlanningContext?.object?.document === token ) {
+      canvas.tokens._cancelMovementPlanning();
     }
     canvas.tokens.setTargets([]);
   }

@@ -446,6 +446,7 @@
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
+      "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
       "RequiresNatural": "This action requires use of a natural weapon.",

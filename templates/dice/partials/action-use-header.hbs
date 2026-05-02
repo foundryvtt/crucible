@@ -60,14 +60,18 @@
     {{/if}}
 
     {{#if requiresMovement}}
-    <button class="plan-button frame-brown" type="button" data-action="planMovement">
+    <button class="plan-button frame-brown" type="button" data-action="planMovement"
+            {{disabled placementDisabled}}
+            {{#if placementTooltip}}data-tooltip aria-label="{{placementTooltip}}"{{/if}}>
         <i class="fa-solid fa-person-walking"></i>
         {{localize "ACTION.PlanMovement"}}
     </button>
     {{/if}}
 
     {{#if requiresRegion}}
-    <button class="plan-button frame-brown" type="button" data-action="placeRegion">
+    <button class="plan-button frame-brown" type="button" data-action="placeRegion"
+            {{disabled placementDisabled}}
+            {{#if placementTooltip}}data-tooltip aria-label="{{placementTooltip}}"{{/if}}>
         <i class="fa-solid fa-ruler-combined"></i>
         {{localize "ACTION.PlanRegion"}}
     </button>
