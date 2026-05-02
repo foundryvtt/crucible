@@ -903,6 +903,7 @@ export const TAGS = {
         skill: bonuses.skill ?? 0,
         enchantment: bonuses.enchantment,
         defenseType,
+        damageType,
         dc: target.defenses[defenseType].total
       });
       await roll.evaluate();
