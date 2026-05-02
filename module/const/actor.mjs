@@ -2,9 +2,9 @@ import {defineEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, {label: string, skill: string, knowledge: string, temperature: string}>}
+ * @type {Readonly<Record<string, {id: string, label: string, skill: string, knowledge: string, temperature: string}>>}
  */
-export const CREATURE_CATEGORIES = {
+export const CREATURE_CATEGORIES = defineEnum({
   beast: {
     label: "TAXONOMY.CATEGORIES.Beast",
     skill: "medicine",
@@ -113,7 +113,7 @@ export const CREATURE_CATEGORIES = {
     knowledge: "undeath",
     temperature: "neutral"
   }
-};
+});
 
 /**
  * The starting equipment budget in copper pieces (25 gp).
@@ -282,8 +282,12 @@ export const MOVEMENT_ACTIONS = Object.freeze({
 });
 
 /**
+ * @typedef {{id: string} & Partial<TokenMovementActionConfig>} CrucibleTravelPace
+ */
+
+/**
  * The travel paces which are possible for group actors.
- * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", Partial<TokenMovementActionConfig>>}
+ * @type {Readonly<Record<"hidden"|"slow"|"normal"|"fast"|"reckless", CrucibleTravelPace>>}
  */
 export const TRAVEL_PACES = defineEnum({
   hidden: {

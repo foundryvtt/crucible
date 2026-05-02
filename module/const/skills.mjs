@@ -1,9 +1,10 @@
+import {defineEnum} from "./enum.mjs";
 
 /**
  * The thematic categories of skills. Each skill belongs to one of these categories.
- * @type {Record<string, {label: string, hint: string, defaultIcon: string, color: Color}>}
+ * @type {Readonly<Record<string, {id: string, label: string, hint: string, defaultIcon: string, color: Color}>>}
  */
-export const CATEGORIES = {
+export const CATEGORIES = defineEnum({
   exp: {
     label: "SKILL.CATEGORY.EXPLORATION.label",
     hint: "SKILL.CATEGORY.EXPLORATION.hint",
@@ -22,7 +23,7 @@ export const CATEGORIES = {
     defaultIcon: "icons/skills/no-soc.jpg",
     color: Color.from("#ab3fe8")
   }
-};
+});
 
 /**
  * @typedef CrucibleSkillConfig
@@ -35,13 +36,12 @@ export const CATEGORIES = {
 
 /**
  * The skills configured for the system.
- * @type {Record<string, CrucibleSkillConfig>}
+ * @type {Readonly<Record<string, CrucibleSkillConfig>>}
  */
-export const SKILLS = Object.freeze({
+export const SKILLS = defineEnum({
 
   // Exploration Skills
   athletics: {
-    id: "athletics",
     label: "SKILL.LABELS.athletics",
     icon: "systems/crucible/icons/skills/athletics.jpg",
     category: "exp",
@@ -54,7 +54,6 @@ export const SKILLS = Object.freeze({
     }
   },
   awareness: {
-    id: "awareness",
     label: "SKILL.LABELS.awareness",
     icon: "systems/crucible/icons/skills/awareness.jpg",
     category: "exp",
@@ -67,7 +66,6 @@ export const SKILLS = Object.freeze({
     }
   },
   stealth: {
-    id: "stealth",
     label: "SKILL.LABELS.stealth",
     icon: "systems/crucible/icons/skills/stealth.jpg",
     category: "exp",
@@ -80,7 +78,6 @@ export const SKILLS = Object.freeze({
     }
   },
   wilderness: {
-    id: "wilderness",
     label: "SKILL.LABELS.wilderness",
     icon: "systems/crucible/icons/skills/wilderness.jpg",
     category: "exp",
@@ -95,7 +92,6 @@ export const SKILLS = Object.freeze({
 
   // Knowledge Skills
   arcana: {
-    id: "arcana",
     label: "SKILL.LABELS.arcana",
     icon: "systems/crucible/icons/skills/arcana.jpg",
     category: "kno",
@@ -108,7 +104,6 @@ export const SKILLS = Object.freeze({
     }
   },
   medicine: {
-    id: "medicine",
     label: "SKILL.LABELS.medicine",
     icon: "systems/crucible/icons/skills/medicine.jpg",
     category: "kno",
@@ -121,7 +116,6 @@ export const SKILLS = Object.freeze({
     }
   },
   science: {
-    id: "science",
     label: "SKILL.LABELS.science",
     icon: "systems/crucible/icons/skills/science.jpg",
     category: "kno",
@@ -134,7 +128,6 @@ export const SKILLS = Object.freeze({
     }
   },
   society: {
-    id: "society",
     label: "SKILL.LABELS.society",
     icon: "systems/crucible/icons/skills/society.jpg",
     category: "kno",
@@ -149,7 +142,6 @@ export const SKILLS = Object.freeze({
 
   // Social Skills
   deception: {
-    id: "deception",
     label: "SKILL.LABELS.deception",
     icon: "systems/crucible/icons/skills/deception.jpg",
     category: "soc",
@@ -162,7 +154,6 @@ export const SKILLS = Object.freeze({
     }
   },
   diplomacy: {
-    id: "diplomacy",
     label: "SKILL.LABELS.diplomacy",
     icon: "systems/crucible/icons/skills/diplomacy.jpg",
     category: "soc",
@@ -175,7 +166,6 @@ export const SKILLS = Object.freeze({
     }
   },
   intimidation: {
-    id: "intimidation",
     label: "SKILL.LABELS.intimidation",
     icon: "systems/crucible/icons/skills/intimidation.jpg",
     category: "soc",
@@ -188,7 +178,6 @@ export const SKILLS = Object.freeze({
     }
   },
   performance: {
-    id: "performance",
     label: "SKILL.LABELS.performance",
     icon: "systems/crucible/icons/skills/performance.jpg",
     category: "soc",

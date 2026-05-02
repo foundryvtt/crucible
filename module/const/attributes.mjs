@@ -1,3 +1,4 @@
+import {defineEnum} from "./enum.mjs";
 
 /**
  * The primary attributes which are called abilities.
@@ -83,19 +84,16 @@ export const ABILITIES = Object.freeze({
 
 /**
  * Define the top level damage categories.
- * @enum {{id: string, label: string}}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
-export const DAMAGE_CATEGORIES = Object.freeze({
+export const DAMAGE_CATEGORIES = defineEnum({
   physical: {
-    id: "physical",
     label: "DAMAGE.Physical"
   },
   elemental: {
-    id: "elemental",
     label: "DAMAGE.Elemental"
   },
   spiritual: {
-    id: "spiritual",
     label: "DAMAGE.Spiritual"
   }
 });
@@ -104,66 +102,54 @@ export const DAMAGE_CATEGORIES = Object.freeze({
 
 /**
  * Define the individual damage types within each damage category.
- * @enum {{id: string, label: string, type: string}}
+ * @type {Readonly<Record<string, {id: string, label: string, type: string}>>}
  */
-export const DAMAGE_TYPES = Object.freeze({
+export const DAMAGE_TYPES = defineEnum({
   bludgeoning: {
-    id: "bludgeoning",
     label: "DAMAGE.Bludgeoning",
     type: "physical"
   },
   corruption: {
-    id: "corruption",
     label: "DAMAGE.Corruption",
     type: "spiritual"
   },
   piercing: {
-    id: "piercing",
     label: "DAMAGE.Piercing",
     type: "physical"
   },
   slashing: {
-    id: "slashing",
     label: "DAMAGE.Slashing",
     type: "physical"
   },
   poison: {
-    id: "poison",
     label: "DAMAGE.Poison",
     type: "physical"
   },
   acid: {
-    id: "acid",
     label: "DAMAGE.Acid",
     type: "elemental"
   },
   fire: {
-    id: "fire",
     label: "DAMAGE.Fire",
     type: "elemental"
   },
   cold: {
-    id: "cold",
     label: "DAMAGE.Cold",
     type: "elemental"
   },
   electricity: {
-    id: "electricity",
     label: "DAMAGE.Electricity",
     type: "elemental"
   },
   psychic: {
-    id: "psychic",
     label: "DAMAGE.Psychic",
     type: "spiritual"
   },
   radiant: {
-    id: "radiant",
     label: "DAMAGE.Radiant",
     type: "spiritual"
   },
   void: {
-    id: "void",
     label: "DAMAGE.Void",
     type: "spiritual"
   }
@@ -184,11 +170,10 @@ export const DAMAGE_TYPES = Object.freeze({
 
 /**
  * Define the resource pools which are tracked for each character
- * @enum {CrucibleResource}
+ * @type {Readonly<Record<string, CrucibleResource>>}
  */
-export const RESOURCES = Object.freeze({
+export const RESOURCES = defineEnum({
   health: {
-    id: "health",
     label: "RESOURCES.Health",
     type: "active",
     tooltip: "RESOURCES.TOOLTIPS.Health",
@@ -199,7 +184,6 @@ export const RESOURCES = Object.freeze({
     }
   },
   wounds: {
-    id: "wounds",
     label: "RESOURCES.Wounds",
     type: "reserve",
     tooltip: "RESOURCES.TOOLTIPS.Wounds",
@@ -210,7 +194,6 @@ export const RESOURCES = Object.freeze({
     }
   },
   morale: {
-    id: "morale",
     label: "RESOURCES.Morale",
     type: "active",
     tooltip: "RESOURCES.TOOLTIPS.Morale",
@@ -221,7 +204,6 @@ export const RESOURCES = Object.freeze({
     }
   },
   madness: {
-    id: "madness",
     label: "RESOURCES.Madness",
     tooltip: "RESOURCES.TOOLTIPS.Madness",
     type: "reserve",
@@ -232,7 +214,6 @@ export const RESOURCES = Object.freeze({
     }
   },
   action: {
-    id: "action",
     label: "RESOURCES.Action",
     tooltip: "RESOURCES.TOOLTIPS.Action",
     type: "active",
@@ -240,7 +221,6 @@ export const RESOURCES = Object.freeze({
     max: 12
   },
   focus: {
-    id: "focus",
     label: "RESOURCES.Focus",
     tooltip: "RESOURCES.TOOLTIPS.Focus",
     type: "active",
@@ -248,7 +228,6 @@ export const RESOURCES = Object.freeze({
     max: 24
   },
   heroism: {
-    id: "heroism",
     label: "RESOURCES.Heroism",
     tooltip: "RESOURCES.TOOLTIPS.Heroism",
     type: "active",

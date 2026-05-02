@@ -2,12 +2,13 @@ import {SKILLS} from "./skills.mjs";
 import {TRAINING as WEAPON_TRAINING} from "./weapon.mjs";
 import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
 import {RUNES as SPELLCRAFT_RUNES} from "./spellcraft.mjs";
+import {defineEnum} from "./enum.mjs";
 
 /**
  * The types of talent nodes which are supported.
- * @type {Readonly<Record<string, {label: string, style: string, icon: string, [passive]: boolean}>>}
+ * @type {Readonly<Record<string, {id: string, label: string, style: string, icon: string, passive?: boolean}>>}
  */
-export const NODE_TYPES = Object.freeze({
+export const NODE_TYPES = defineEnum({
   origin: {label: "TALENT.NODES.Origin", style: "originHex", icon: "GlyphOrigin", passive: false},
   attack: {label: "TALENT.NODES.Attack", style: "rect", icon: "GlyphMelee", passive: false},
   melee: {label: "TALENT.NODES.Melee", style: "rect", icon: "GlyphMelee", passive: false},
@@ -52,9 +53,9 @@ export const NODE_TIERS = Object.freeze({
 
 /**
  * The types of training which are available in the system.
- * @type {Readonly<Record<string, {group: string, label: string}>>}
+ * @type {Readonly<Record<string, {id: string, group: string, label: string}>>}
  */
-export const TRAINING_TYPES = Object.freeze({
+export const TRAINING_TYPES = defineEnum({
   ...Object.entries(SKILLS).reduce((obj, [id, {label}]) => {
     obj[id] = {group: "TALENT.TRAINING.Skill", label};
     return obj;
@@ -86,33 +87,28 @@ export const TRAINING_TYPES = Object.freeze({
  * The possible training ranks.
  * @type {Readonly<Record<string, CrucibleTrainingRank>>}
  */
-export const TRAINING_RANKS = Object.freeze({
+export const TRAINING_RANKS = defineEnum({
   untrained: {
-    id: "untrained",
     rank: 0,
     label: "TALENT.RANKS.Untrained",
     bonus: -4
   },
   trained: {
-    id: "trained",
     rank: 1,
     label: "TALENT.RANKS.Trained",
     bonus: 0
   },
   proficient: {
-    id: "proficient",
     rank: 2,
     label: "TALENT.RANKS.Proficient",
     bonus: 1
   },
   expert: {
-    id: "expert",
     rank: 3,
     label: "TALENT.RANKS.Expert",
     bonus: 2
   },
   master: {
-    id: "master",
     rank: 4,
     label: "TALENT.RANKS.Master",
     bonus: 3

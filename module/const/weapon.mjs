@@ -1,4 +1,5 @@
 import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
+import Enum, {defineEnum} from "./enum.mjs";
 
 /**
  * @import {CrucibleItemCategory} from "./items.mjs";
@@ -17,8 +18,6 @@ import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
  * @property {WeaponTrainingTypes[]} training Training categories which apply skill bonuses to this weapon category
  */
 
-import Enum from "./enum.mjs";
-
 /**
  * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"simple"|"unarmed"}
  *   WeaponTrainingTypes
@@ -26,9 +25,9 @@ import Enum from "./enum.mjs";
 
 /**
  * Training categories which apply to weapons.
- * @type {Record<WeaponTrainingTypes, {label: string}>}
+ * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string}>>}
  **/
-export const TRAINING = Object.freeze({
+export const TRAINING = defineEnum({
   talisman: {label: "WEAPON.CATEGORIES.Talisman"},
   heavy: {label: "WEAPON.CATEGORIES.Heavy"},
   light: {label: "WEAPON.CATEGORIES.Light"},
@@ -49,13 +48,12 @@ const label = (category, hands) => {
 /**
  * Enumerate the weapon categories which are allowed by the system.
  * Record certain mechanical metadata which applies to weapons in each category.
- * @type {Record<string, WeaponCategory>}
+ * @type {Readonly<Record<string, WeaponCategory>>}
  */
-export const CATEGORIES = Object.freeze({
+export const CATEGORIES = defineEnum({
 
   // One-Handed Melee
   unarmed: {
-    id: "unarmed",
     label: "WEAPON.CATEGORIES.Unarmed",
     hands: 1,
     main: true,
@@ -67,7 +65,6 @@ export const CATEGORIES = Object.freeze({
     training: ["unarmed"]
   },
   light1: {
-    id: "light1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Light", 1),
     hands: 1,
     main: true,
@@ -79,7 +76,6 @@ export const CATEGORIES = Object.freeze({
     training: ["light"]
   },
   simple1: {
-    id: "simple1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 1),
     hands: 1,
     main: true,
@@ -91,7 +87,6 @@ export const CATEGORIES = Object.freeze({
     training: ["heavy"]
   },
   balanced1: {
-    id: "balanced1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Balanced", 1),
     hands: 1,
     main: true,
@@ -103,7 +98,6 @@ export const CATEGORIES = Object.freeze({
     training: ["heavy", "light"]
   },
   heavy1: {
-    id: "heavy1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 1),
     hands: 1,
     main: true,
@@ -117,7 +111,6 @@ export const CATEGORIES = Object.freeze({
 
   // Two-Handed Melee
   simple2: {
-    id: "simple2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 2),
     hands: 2,
     main: true,
@@ -129,7 +122,6 @@ export const CATEGORIES = Object.freeze({
     training: ["heavy"]
   },
   balanced2: {
-    id: "balanced2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Balanced", 2),
     hands: 2,
     main: true,
@@ -141,7 +133,6 @@ export const CATEGORIES = Object.freeze({
     training: ["light", "heavy"]
   },
   heavy2: {
-    id: "heavy2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 2),
     hands: 2,
     main: true,
@@ -155,7 +146,6 @@ export const CATEGORIES = Object.freeze({
 
   // One-Handed Ranged
   projectile1: {
-    id: "projectile1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 1),
     hands: 1,
     main: true,
@@ -168,7 +158,6 @@ export const CATEGORIES = Object.freeze({
     training: ["projectile"]
   },
   talisman1: {
-    id: "talisman1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 1),
     hands: 1,
     main: true,
@@ -181,7 +170,6 @@ export const CATEGORIES = Object.freeze({
     training: ["talisman"]
   },
   mechanical1: {
-    id: "mechanical1",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 1),
     hands: 1,
     main: true,
@@ -197,7 +185,6 @@ export const CATEGORIES = Object.freeze({
 
   // Two-Handed Ranged
   projectile2: {
-    id: "projectile2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 2),
     hands: 2,
     main: true,
@@ -210,7 +197,6 @@ export const CATEGORIES = Object.freeze({
     training: ["projectile"]
   },
   talisman2: {
-    id: "talisman2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 2),
     hands: 2,
     main: true,
@@ -223,7 +209,6 @@ export const CATEGORIES = Object.freeze({
     training: ["talisman"]
   },
   mechanical2: {
-    id: "mechanical2",
     label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 2),
     hands: 2,
     main: true,
@@ -239,7 +224,6 @@ export const CATEGORIES = Object.freeze({
 
   // Shields
   shieldLight: {
-    id: "shieldLight",
     label: "WEAPON.CATEGORIES.ShieldLight",
     hands: 1,
     main: false,
@@ -255,7 +239,6 @@ export const CATEGORIES = Object.freeze({
     training: ["shield"]
   },
   shieldHeavy: {
-    id: "shieldHeavy",
     label: "WEAPON.CATEGORIES.ShieldHeavy",
     hands: 1,
     main: false,
@@ -274,9 +257,9 @@ export const CATEGORIES = Object.freeze({
 
 /**
  * The boolean properties which a Weapon may have.
- * @enum {{label: string, tooltip: string, deprecated?: string}}
+ * @type {Readonly<Record<string, {id: string, label: string, tooltip: string, deprecated?: string}>>}
  */
-export const PROPERTIES = {
+export const PROPERTIES = defineEnum({
   ...foundry.utils.deepClone(ITEM_PROPERTIES),
   ambush: {label: "WEAPON.TAGS.Ambush", tooltip: "WEAPON.TAGS.AmbushTooltip"},
   blocking: {label: "WEAPON.TAGS.Blocking", tooltip: "WEAPON.TAGS.BlockingTooltip"},
@@ -295,7 +278,7 @@ export const PROPERTIES = {
   reliable: {label: "WEAPON.TAGS.Reliable", tooltip: "WEAPON.TAGS.ReliableTooltip", deprecated: "0.9.1"},
   /** @deprecated since 0.9.1 */
   returning: {label: "WEAPON.TAGS.Returning", tooltip: "WEAPON.TAGS.ReturningTooltip", deprecated: "0.9.1"}
-};
+});
 
 /**
  * Designate which equipped slot the weapon is used in.

@@ -1,15 +1,15 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
-import Enum from "./enum.mjs";
+import Enum, {defineEnum} from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
  * The different required conditions under which an Active Effect can be applied from an Action.
- * @type {Readonly<Record<string, {label: string}>>}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
-export const EFFECT_RESULT_TYPES = Object.freeze({
+export const EFFECT_RESULT_TYPES = defineEnum({
   any: {
     label: "ACTION.EFFECT_RESULT_TYPES.Any"
   },
@@ -44,6 +44,7 @@ export const TARGET_SCOPES = new Enum({
 
 /**
  * @typedef ActionTargetType
+ * @property {string} id                        The target type id
  * @property {string} label                     Localization key for the target type label
  * @property {ActionTargetRegion|null} region   Region placement config, or null
  * @property {number} scope                     The TARGET_SCOPES value for this type
@@ -67,7 +68,7 @@ export const TARGET_SCOPES = new Enum({
  * The allowed target types which an Action may have.
  * @type {Readonly<Record<string, ActionTargetType>>}
  */
-export const TARGET_TYPES = Object.freeze({
+export const TARGET_TYPES = defineEnum({
   none: {
     label: "ACTION.TARGET_TYPES.None",
     region: null,
@@ -179,9 +180,9 @@ export const TARGET_TYPES = Object.freeze({
 
 /**
  * Categories of action tags which are supported by the system.
- * @type {Readonly<Record<string, {label: string}>>}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
-export const TAG_CATEGORIES = Object.freeze({
+export const TAG_CATEGORIES = defineEnum({
   attack: {label: "ACTION.TAG_CATEGORIES.Attack"},
   spellcraft: {label: "ACTION.TAG_CATEGORIES.Spellcraft"},
   skills: {label: "ACTION.TAG_CATEGORIES.Skills"},

@@ -64,11 +64,17 @@ export const TEMPERATURE_TIERS = defineEnum({
 
 /**
  * The threat ranks that an adversary may have.
- * @enum {number}
+ * @type {Readonly<Record<string, {
+ *   id: string,
+ *   label: string,
+ *   actionMax: number,
+ *   herosimMax: number,
+ *   scaling: number,
+ *   icon: string
+ * }>>}
  */
-export const THREAT_RANKS = {
+export const THREAT_RANKS = defineEnum({
   minion: {
-    id: "minion",
     actionMax: 4,
     heroismMax: 0,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Minion",
@@ -76,7 +82,6 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevron-down"
   },
   normal: {
-    id: "normal",
     actionMax: 6,
     heroismMax: 1,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Normal",
@@ -84,7 +89,6 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevron-up"
   },
   elite: {
-    id: "elite",
     actionMax: 8,
     heroismMax: 2,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Elite",
@@ -92,14 +96,13 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevrons-up"
   },
   boss: {
-    id: "boss",
     actionMax: 10,
     heroismMax: 3,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Boss",
     scaling: 2.0,
     icon: "fa-solid fa-skull"
   }
-};
+});
 
 /* -------------------------------------------- */
 

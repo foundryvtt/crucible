@@ -1,3 +1,4 @@
+import {defineEnum} from "./enum.mjs";
 import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
 
 /**
@@ -6,31 +7,27 @@ import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
 
 /**
  * Named accessory categories which are allowed by the system.
- * @enum {CrucibleItemCategory}
+ * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
-export const CATEGORIES = {
+export const CATEGORIES = defineEnum({
   clothing: {
-    id: "clothing",
     label: "ACCESSORY.CATEGORIES.Clothing"
   },
   jewelry: {
-    id: "jewelry",
     label: "ACCESSORY.CATEGORIES.Jewelry"
   },
   trinket: {
-    id: "trinket",
     label: "ACCESSORY.CATEGORIES.Trinket"
   },
   other: {
-    id: "other",
     label: "ACCESSORY.CATEGORIES.Other"
   }
-};
+});
 
 /**
  * Item properties that accessory Items can have.
- * @enum {CrucibleItemCategory}
+ * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
-export const PROPERTIES = {
+export const PROPERTIES = defineEnum({
   ...foundry.utils.deepClone(ITEM_PROPERTIES)
-};
+});
