@@ -2539,10 +2539,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Render HTML template
     const tags = this.getTags();
     const templatePath = "systems/crucible/templates/dice/action-use-chat.hbs";
+    const descriptionHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description, {relativeTo: this});
     let content = await foundry.applications.handlebars.renderTemplate(templatePath, {
       action: this,
       actor: this.actor,
       context: this.usage.context,
+      descriptionHTML,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
       hasTargetTags: (targets.length === 1) || (targets.length && !this.eventsByTarget.values().some(e => e.roll)),
