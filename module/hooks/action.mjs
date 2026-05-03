@@ -973,8 +973,17 @@ HOOKS.investiture = {
 /* -------------------------------------------- */
 
 HOOKS.recover = {
-  async confirm() {
-    await this.actor.recover();
+  canUse() {
+    if ( this.actor.system.isDead || this.actor.system.isInsane ) {
+      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
+    }
+  },
+  postActivate() {
+    _restRecoverPostActivate(this, {
+      expirationSeconds: SYSTEM.TIME.recoverSeconds,
+      deletePassiveEffects: false,
+      reduceWoundMadness: false
+    });
   }
 };
 
@@ -1022,10 +1031,75 @@ HOOKS.repercussiveBlock = {
 /* -------------------------------------------- */
 
 HOOKS.rest = {
-  async confirm() {
-    await this.actor.rest();
+  canUse() {
+    if ( this.actor.system.isDead || this.actor.system.isInsane ) {
+      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
+    }
+  },
+  postActivate() {
+    _restRecoverPostActivate(this, {
+      expirationSeconds: SYSTEM.TIME.restSeconds,
+      deletePassiveEffects: true,
+      reduceWoundMadness: true
+    });
   }
 };
+
+/**
+ * Shared event recorder used by the rest and recover action postActivate hooks.
+ * @param {CrucibleAction} action
+ * @param {object} options
+ * @param {number} options.expirationSeconds        ActiveEffects with a duration <= this many seconds expire
+ * @param {boolean} options.deletePassiveEffects    Also cull effects that have no defined duration
+ * @param {boolean} options.reduceWoundMadness      Reduce hero wounds and madness
+ */
+function _restRecoverPostActivate(action, {expirationSeconds, deletePassiveEffects, reduceWoundMadness}) {
+  const actor = action.actor;
+
+  // Resource recovery deltas
+  const activationEvent = action.selfEvents.activation;
+  for ( const [id, resource] of Object.entries(actor.system.resources) ) {
+    const cfg = SYSTEM.RESOURCES[id];
+    if ( !cfg || (cfg.type === "reserve") ) continue;
+    if ( id === "heroism" ) {
+      if ( resource.value > 0 ) activationEvent.resources.push({resource: "heroism", delta: -resource.value});
+      continue;
+    }
+    const delta = resource.max - resource.value;
+    if ( delta > 0 ) activationEvent.resources.push({resource: id, delta});
+  }
+
+  // Hero-only wounds and madness reduction (rest only); clamped to current value so reversal restores exactly
+  if ( reduceWoundMadness && (actor.type === "hero") ) {
+    const {wounds, madness} = actor.system.resources;
+    const woundsDelta = -Math.min(actor.level, wounds.value);
+    const madnessDelta = -Math.min(actor.level, madness.value);
+    if ( woundsDelta < 0 ) activationEvent.resources.push({resource: "wounds", delta: woundsDelta});
+    if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
+  }
+
+  // Expire ActiveEffects via a dedicated deletion event
+  const effects = [];
+  for ( const effect of actor.effects ) {
+    const s = effect.duration.seconds;
+    if ( (effect.id === "weakened00000000") || (effect.id === "broken0000000000") ) {
+      effects.push({_id: effect.id, _action: "delete"});
+    }
+    else if ( s ? (s <= expirationSeconds) : deletePassiveEffects ) {
+      effects.push({_id: effect.id, _action: "delete"});
+    }
+  }
+  if ( effects.length ) action.recordEvent({type: "effect", effects});
+
+  // Divest unequipped invested items via the self actorUpdate event with snapshots for reversal
+  const updateEvent = action.selfUpdateEvent;
+  for ( const item of actor.items ) {
+    if ( !item.system.requiresInvestment ) continue;
+    if ( !item.system.invested || item.system.equipped ) continue;
+    updateEvent.actorUpdates.items.push({_id: item.id, system: {invested: false}});
+    updateEvent.itemSnapshots.push(item.snapshot());
+  }
+}
 
 /* -------------------------------------------- */
 

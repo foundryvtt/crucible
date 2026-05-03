@@ -927,94 +927,33 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Perform the Recover action, restoring resource pools.
-   * @param {object} [updateData={}]      Additional update data to include in the recover operation
-   * @param {object} [options={}]         Options which modify the recover
-   * @param {boolean} [options.allowDead=false]   Allow dead actors to recover?
-   * @returns {Promise<void>}
+   * Perform the Recover action, restoring resource pools as a thin shortcut to {@link CrucibleActor#useAction}.
+   * @returns {Promise<CrucibleAction|null>}
    */
-  async recover(updateData={}, {allowDead=false}={}) {
-    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
-
-    // Expire Active Effects
-    const toDeleteEffects = this.effects.reduce((arr, effect) => {
-      const s = effect.duration.seconds;
-      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
-      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( s && (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
-      return arr;
-    }, []);
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
-
-    // Divest items that are no longer equipped
-    await this.#divestUnequipped();
-
-    // Recover Resources
-    await this.update(foundry.utils.mergeObject(this.#getRecoveryData(), updateData));
+  async recover() {
+    return this.useAction("recover", {dialog: false});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Restore all resource pools to their maximum value.
-   * @param {object} [updateData={}]      Additional update data to include in the rest operation
-   * @param {object} [options={}]         Options which modify the rest
-   * @param {boolean} [options.allowDead=false]   Allow dead actors to rest?
-   * @returns {Promise<void>}
+   * Perform the Rest action, restoring resource pools and reducing wounds/madness, as a thin shortcut to
+   * {@link CrucibleActor#useAction}.
+   * @returns {Promise<CrucibleAction|null>}
    */
-  async rest(updateData={}, {allowDead=false}={}) {
-    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
-
-    // Prepare Rest data
-    const restData = this.#getRecoveryData();
-    if ( this.type === "hero" ) {
-      const {wounds, madness} = this.system.resources;
-      restData.system.resources.wounds = {value: Math.max(wounds.value - this.level, 0)};
-      restData.system.resources.madness = {value: Math.max(madness.value - this.level, 0)};
-    }
-
-    // Expire Active Effects
-    const toDeleteEffects = this.effects.reduce((arr, effect) => {
-      const s = effect.duration.seconds;
-      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
-      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( !s || (s <= SYSTEM.TIME.restSeconds) ) arr.push(effect.id);
-      return arr;
-    }, []);
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
-
-    // Divest items that are no longer equipped
-    await this.#divestUnequipped();
-
-    // Recover Resources
-    await this.update(foundry.utils.mergeObject(restData, updateData));
+  async rest() {
+    return this.useAction("rest", {dialog: false});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Clear the Invested state from items that require investment but are no longer equipped.
-   * TODO this should go away when rest() and recover() are refactored to be event-stream based
-   * @returns {Promise<void>}
-   */
-  async #divestUnequipped() {
-    const updates = [];
-    for ( const item of this.items ) {
-      if ( !item.system.requiresInvestment ) continue;
-      if ( !item.system.invested || item.system.equipped ) continue;
-      updates.push({_id: item.id, system: {invested: false}});
-    }
-    if ( updates.length ) await this.updateEmbeddedDocuments("Item", updates);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare an object that replenishes all resource pools to their current maximum level
+   * Build a resource update payload that fills every non-reserve resource pool to its current maximum.
+   * Used during initial actor creation and as part of level/ability change simulation.
    * @returns {object}
    */
   #getRecoveryData() {
-    const updates = {system: {resources: {}, status: null}};
+    const updates = {system: {resources: {}}};
     for ( const [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
       if ( !cfg || (cfg.type === "reserve") ) continue;

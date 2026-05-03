@@ -7,9 +7,7 @@ system:
     <p>Your body has endured so many injuries that it has learned how to mend
     itself with remarkable efficiency. When you perform the
     <strong>Rest</strong> action, you recover additional <strong>Wounds</strong>
-    equal to half your <strong>Toughness</strong> score (rounded down).</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is not yet automated.
-    Apply the additional wounds recovery manually when resting.</p>
+    equal to half your <strong>Toughness</strong> score (rounded down).</p>
   actions: []
   nodes:
     - tou1b

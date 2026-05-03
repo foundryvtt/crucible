@@ -97,6 +97,24 @@ HOOKS.bard000000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.battleWorn000000 = {
+  finalizeAction(_item, action) {
+    if ( action.id !== "rest" ) return;
+    const bonus = Math.floor(this.system.abilities.toughness.value / 2);
+    if ( bonus <= 0 ) return;
+    const wounds = this.system.resources.wounds;
+    if ( !wounds ) return;
+    const activation = action.selfEvents.activation;
+    const existing = activation.resources.find(r => r.resource === "wounds");
+    const alreadyHealed = existing ? -existing.delta : 0;
+    const remaining = wounds.value - alreadyHealed;
+    const delta = -Math.min(bonus, remaining);
+    if ( delta < 0 ) activation.resources.push({resource: "wounds", delta});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.battlefocus00000 = {
   applyCriticalEffects(_item, action) {
     if ( this.status.battleFocus ) return;
