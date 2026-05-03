@@ -344,15 +344,20 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
-    const rollContext = this.prepareDiceResultContext();
     const actor = game.actors.get(this.data.actorId);
     const cardData = {
       isPrivate,
       isGM: game.user.isGM,
       flavor,
-      actor: actor ? {name: actor.name, img: actor.img} : null,
-      ...rollContext
+      actor: actor ? {name: actor.name, img: actor.img} : null
     };
+    if ( isPrivate ) Object.assign(cardData, {
+      cssClass: "crucible dice-roll standard-check private",
+      outcome: "COMMON.Unknown",
+      total: "?",
+      targetLabel: _loc("COMMON.Unknown")
+    });
+    else Object.assign(cardData, this.prepareDiceResultContext());
     return cardData;
   }
 

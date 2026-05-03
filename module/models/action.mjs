@@ -1253,7 +1253,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const message = await this.toMessage({
       ...chatMessageOptions,
       confirmed: false,
-      messageMode: this.usage.messageMode
+      messageMode: this.usage.messageMode || game.settings.get("core", "messageMode")
     });
 
     // Persist action usage flags immediately rather than waiting for action confirmation

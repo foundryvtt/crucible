@@ -218,6 +218,12 @@
     --check-border-color: var(--color-result-warn);
   }
 
+  // Private (blind/whisper) - neutral styling that does not imply pending action
+  &.private .check-result {
+    --check-bg-color: rgb(0 0 0 / 25%);
+    --check-border-color: var(--color-frame);
+  }
+
   // Deflection
   &.glance .check-result {
     --check-bg-color: rgb(8 8 0);

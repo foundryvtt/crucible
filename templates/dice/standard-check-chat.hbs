@@ -1,10 +1,19 @@
-<div class="{{cssClass}} line-item" data-action="expandRoll">
+<div class="{{cssClass}} line-item"{{#unless isPrivate}} data-action="expandRoll"{{/unless}}>
     {{#if actor}}
     <img class="icon" src="{{actor.img}}" alt="{{actor.name}}">
     <div class="title">
         <h4 class="ellipsis" data-tooltip="{{actor.name}}">{{actor.name}}</h4>
     </div>
     {{/if}}
+    {{#if isPrivate}}
+    <div class="dice-result">
+        <h4 class="dice-total check-result">
+            <span class="outcome">{{localize outcome}}</span>
+            <span class="result hex">{{total}}</span>
+            <span class="target">{{targetLabel}}</span>
+        </h4>
+    </div>
+    {{else}}
     {{#if data.newTarget}}
     <div class="roll-target flexrow">
         <label class="tag-icon">
@@ -16,4 +25,5 @@
     </div>
     {{/if}}
     {{> "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"}}
+    {{/if}}
 </div>
