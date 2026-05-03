@@ -749,10 +749,14 @@ function renderSkillCheck(element) {
  * Handle a click on a skill check enriched element, creating and optionally displaying a skill check roll.
  * @param {Event} event
  */
-function onClickSkillCheck(event) {
+async function onClickSkillCheck(event) {
   event.preventDefault();
   const {check, actor} = prepareSkillCheck(event);
-  return check.dialog({request: game.user.isGM && !actor});
+  const response = await check.dialog({request: game.user.isGM && !actor});
+  if ( response === null ) return;
+  const skill = SYSTEM.SKILLS[response.data.type];
+  const flavor = skill ? _loc("ACTION.SkillCheck", {skill: skill.label}) : "";
+  return check.toMessage({flavor});
 }
 
 /* -------------------------------------------- */

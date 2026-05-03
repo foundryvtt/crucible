@@ -369,7 +369,7 @@ export default class StandardCheckDialog extends DialogV2 {
    */
   async _onRoll(_event, _button, _dialog) {
     this.roll.data.messageMode = this.messageMode;
-    if ( this.isGroupCheck && (this.#requestActors.size > 0) ) {
+    if ( (this.isGroupCheck || this.request) && (this.#requestActors.size > 0) ) {
       await this.#rollGroupCheck();
       return null;
     }
