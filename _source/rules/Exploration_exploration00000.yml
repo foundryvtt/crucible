@@ -16,48 +16,58 @@ pages:
         <p>Not all environments are hospitable, and some present genuine
         hazardous risks to survival. These rules govern cases where the Heroes
         may face Hazards that are likely to risk death if they face prolonged
-        exposure.</p><h2>Deprivation</h2><p>Travel conditions or lack of
-        preparation wear at the morale of a Hero. While anyone can push the
-        limits of their body's needs for a time, everyone has a limit. Depriving
-        your body of food, water, or sleep can have significant and lasting
-        detrimental effects.</p><p>Though it is presumed that every hero
+        exposure.</p><h2 class="divider">Deprivation</h2><p>Travel conditions or
+        lack of preparation wear at the morale of a Hero. While anyone can push
+        the limits of their body's needs for a time, everyone has a limit.
+        Depriving your body of food, water, or sleep can have significant and
+        lasting detrimental effects.</p><p>Though it is presumed that every hero
         consumes an amount of food and water (or other life-sustaining
         substances) sufficient to sustain them during a Rest, these rules apply
-        for cases where those substances are not
-        available.</p><h3>Dehydration</h3><p>Typically a creature can sustain
-        themselves without water for three days. After that period, each time
-        they rest they face [[/hazard 10 fortitude health
-        harmless]]{Dehydration} and if they are affected by that hazard, they
-        are @Condition[weakened]. The weakened condition persists until such
-        time as they are able to consume a sufficient quantity of water to
-        counter their dehydration. Once <strong>Weakened</strong> by this
-        hazard, each subsequent Rest without consuming water results in
-        [[/hazard 10 fortitude morale severe]]{Maddening
-        Thirst}.</p><p></p><h3>Starvation</h3><p>Typically a creature can
-        sustain themselves without food for ten days. After that period, each
-        time they rest they face [[/hazard 10 fortitude health
-        harmless]]{Starvation} and if they are affected by that hazard, they are
-        @Condition[weakened]. The <strong>Weakened</strong> condition persists
-        until such time as they are able to consume a sufficient quantity of
-        food to counter their starvation. Once <strong>Weakened</strong> by this
-        hazard, each subsequent Rest without consuming food results in [[/hazard
-        10 fortitude morale severe]]{Maddening Hunger}.</p><h3>Sleep
-        Deprivation</h3><p>Typically, a creature can sustain themselves without
-        sleep for a period of 24 hours. After that period, each time they fail
-        to achieve adequate Rest, they face [[/hazard 10 willpower morale
-        harmless]]{Sleep Deprivation}, if affected by that hazard, they are
-        @Condition[exhausted] until they are able to successfully Rest. Each
-        time they continue to fail to rest, they face additional conditions,
-        gaining @Condition[staggered], @Condition[disoriented], and
-        @Condition[stunned], before finally gaining @Condition[broken]. All of
-        these conditions are resolved if the character successfully gets some
-        Rest.</p><h2>Severe Hazards</h2><p>These hazard rules represent cases
-        where all skill checks, talents, or other methods to mitigate the
-        circumstances of their application have failed to save the Hero. While
-        it's expected that certain skills can prevent a character that can swim
-        from drowning, or an experienced climber from falling; once all
-        opportunities to resist the hazard have failed, these damage rules
-        apply.</p><h3>Suffocation</h3><p>Whether fully submerged in water,
+        for cases where those substances are not available.</p><h3
+        class="divider">Dehydration</h3><p>Typically a creature can sustain
+        themselves without water for 24 hours. After that period, they face an
+        escalating <strong>Severe</strong> hazard with a danger equal to 10
+        times the number of days without water, including the first 24 hours
+        which caused the hazard. This hazard must be faced once each day at a
+        time of the Gamemaster's discretion until adequate fluids are recovered.
+        The first dehydration hazard would be expressed
+        as:</p><ul><li><p>[[/hazard 10 fortitude health
+        severe]]{Dehydration}</p></li></ul><p>Whenever the creature fails to
+        resist the Dehydration hazard it also suffers from a secondary hazard,
+        also with a danger of 10 times the number of days without
+        water.</p><ul><li><p>[[/hazard 10 fortitude morale severe]]{Maddening
+        Thirst}</p></li></ul><h3 class="divider">Starvation</h3><p>The effects
+        of starvation begin after three days without any source of nutrition.
+        After that period, creatures face an escalating <strong>Severe
+        </strong>hazard with danger equal to the number of days without food,
+        including the first 72 hour period. This hazard must be faced once each
+        day at a time of the Gamemaster's discretion until adequate nutrition is
+        consumed. The first starvation hazard would be expressed
+        as:</p><ul><li><p>[[/hazard 3 fortitude health
+        severe]]{Starvation}</p></li></ul><p>Whenever the creature fails to
+        resist the Starvation hazard it also suffers from a secondary hazard,
+        also with a danger equal to the number of days without
+        food.</p><ul><li><p>[[/hazard 3 fortitude morale severe]]{Maddening
+        Hunger}</p></li></ul><h3 class="divider">Sleep
+        Deprivation</h3><p>Typically, a creature can operate at maximum
+        effectiveness for 24 hours without sleep. At that time, and for each
+        subsequent day when they fail to achieve adequate Rest, they face an
+        escalating hazard with danger equal to 2 times the number of days
+        without sleep. The first sleep deprivation hazard would be expressed
+        as:</p><ul><li><p>[[/hazard 4 willpower morale]]{Sleep
+        Deprivation}</p></li></ul><p>If this hazard is not resisted, they become
+        @Condition[exhausted] until they are able to successfully Rest. If the
+        creature is forcibly prevented from sleeping by some physical,
+        psychological, or magical effect, the Sleep Deprivation hazard is
+        instead <strong>Severe</strong>, causing accumulation of
+        <strong>Madness</strong>.</p><h2 class="divider">Severe
+        Hazards</h2><p>These hazard rules represent cases where all skill
+        checks, talents, or other methods to mitigate the circumstances of their
+        application have failed to save the Hero. While it's expected that
+        certain skills can prevent a character that can swim from drowning, or
+        an experienced climber from falling; once all opportunities to resist
+        the hazard have failed, these damage rules apply.</p><h3
+        class="divider">Suffocation</h3><p>Whether fully submerged in water,
         shrouded in choking gas, or buried under tons of earth, characters who
         are fully deprived of ability to breathe for an extended period of time
         begin to suffocate.</p><p>Characters who spend more than 2 minutes
@@ -65,35 +75,58 @@ pages:
         it) suffer from the @Condition[suffocating] condition which deals Severe
         damage to both Wounds and Madness, and occurs each round until their
         inevitable death. Characters affected by Suffocation are also
-        @Condition[silenced]</p><h3>Falling</h3><p>Climbing obstacles are not
-        unheard of in a typical adventure, but Heroes are not immune to the
-        dangers of a perilous plummet. While there are often opportunities to
-        use a well timed Athletics Skill Check to prevent a nasty fall,
-        sometimes a hero simply can't save themselves from going over the edge
-        of a cliff.</p><p>Falling can be considered as having three degrees of
-        severity.</p><ul><li><p>Tier 1 - (10 feet or less). At this stage, no
-        Hazard is needed.</p></li><li><p>Tier 2 - (11-30 feet), the Hazard is
-        equal to the distance fallen. It is checked against the Reflex defense,
-        and its damage is done to <strong>Health</strong>. [[/hazard 25 reflex
-        health bludgeoning]]{Minor Fall}</p></li><li><p>Tier 3 - (31+ feet) the
-        Hazard is equal to the distance fallen. it is checked against the
-        Fortitude defense, and its damage is <strong>Severe</strong>. [[/hazard
-        60 fortitude severe]]{Serious
-        Fall}</p></li></ul><h3>Exposure</h3><p>Where Conditions like
+        @Condition[silenced]</p><h3 class="divider">Falling</h3><p>Climbing
+        obstacles are not unheard of in a typical adventure, but Heroes are not
+        immune to the dangers of a perilous plummet. While there are often
+        opportunities to use a well timed Athletics Skill Check to prevent a
+        nasty fall, sometimes a hero simply can't save themselves from going
+        over the edge of a cliff. Falling can be considered as having three
+        degrees of severity.</p><dl><dt><p>10 feet or less</p></dt><dd><p>No
+        formal Hazard is faced, any damage or inconvenience from falls of this
+        height are superficial only.</p></dd></dl><dl><dt><p>11 to 30
+        feet</p></dt><dd><p>Creatures face a hazard that challenges their
+        <strong>Reflex</strong> defense and deals <strong>Bludgeoning</strong>
+        damage to <strong>Health</strong>. The hazard has a danger equal to the
+        distance fallen in feet. For example, for a 25 foot fall:</p><p>
+        [[/hazard 25 reflex health bludgeoning]]{Minor Fall}</p><p>Unless the
+        hazard is resisted, the creature also becomes
+        @Condition[prone].</p></dd></dl><dl><dt><p>31+
+        feet</p></dt><dd><p>Creatures face a  <strong>Severe</strong> hazard
+        against  their <strong>Fortitude</strong> defense that deals
+        <strong>Bludgeoning</strong> damage to <strong>Wounds</strong>. The
+        danger of the hazard is equal to the distance fallen in feet. For
+        example, for a 60 foot fall:</p><p>[[/hazard 60 fortitude
+        severe]]{Serious Fall}</p><p>Unless the hazard is resisted, the creature
+        also becomes @Condition[prone].</p></dd></dl><h3
+        class="divider">Exposure</h3><p>Where Conditions like
         @Condition[burning] and @Condition[freezing] apply to extreme, but
-        acute, cases of exposure to drastic temperatures, Exposure Hazards apply
-        to more prolonged cases, such as desert travel, where the environment is
-        so unforgiving that it presents a persistent drain on a character's
-        resolve.</p><p>Characters who face dangerous temperatures, inclement
-        weather, or otherwise harsh environments without adequate preparation or
-        protective equipment face hazards each hour they are travelling, in
-        accordance with the following:</p><ul><li><p>[[/hazard 12 fortitude
-        health severe]]{Deadly Cold}}</p></li><li><p>[[/hazard 6 fortitude
-        morale]]{Extreme Cold}</p></li><li><p>Temperate - No hazard
-        necessary</p></li><li><p>[[/hazard 6 fortitude morale]]{Extreme
-        Heat}</p></li><li><p>[[/hazard 6 fortitude morale]]{Extreme
-        Heat}</p></li></ul><p>In addition, if these hazards affect the target to
-        any amount, the affected gain the @Condition[exhausted] condition.</p>
+        acute, cases of exposure to drastic elemental damage, exposure hazards
+        apply to more prolonged cases such as desert or arctic travel where the
+        environment is so unforgiving that it poses a persistent drain to a
+        character's resources.</p><p>Characters who face dangerous
+        @UUID[.temperature00000]{Temperatures}, inclement weather, or otherwise
+        harsh environments without adequate preparation or protective equipment
+        face hazards each hour they are traveling, in accordance with the
+        difference between their typical body temperature and the environment
+        which they explore.</p><p>Count the number of tiers difference between a
+        creatures preferred body Temperature and the environment Temperature.
+        For example, a <strong>Warm</strong>-bodied creature in a
+        <strong>Gelid</strong> environment is 3 tiers apart.</p><dl><dt><p>Less
+        than 3 tiers difference</p></dt><dd><p>No formal Hazard is faced, any
+        discomfort is minor and surmountable.</p></dd></dl><dl><dt><p>3 tiers
+        difference</p></dt><dd><p>If the environment Temperature is 3 tiers
+        different from the creature's preferred body Temperature, they face one
+        of the following hazards based on the nature of the environment:
+        </p><ul><li><p>[[/hazard 6 fortitude cold morale]]{Extreme
+        Cold}</p></li><li><p>[[/hazard 6 fortitude fire morale]]{Extreme
+        Heat}</p></li></ul></dd></dl><dl><dt><p>4 tiers
+        difference</p></dt><dd><p>If the environment Temperature is 4 tiers
+        different from the creature's preferred body Temperature, they face one
+        of the following hazards based on the nature of the environment:
+        </p><ul><li><p>[[/hazard 12 fortitude cold health severe]]{Deadly
+        Cold}</p></li><li><p>[[/hazard 12 fortitude fire health severe]]{Deadly
+        Heat}</p></li></ul></dd></dl><p>These hazards must be faced once per 24
+        hour period at a time of the Gamemaster's choosing.</p>
     video:
       controls: true
       volume: 0.5
@@ -108,7 +141,7 @@ pages:
       systemId: crucible
       systemVersion: 0.9.1
       createdTime: 1777767889927
-      modifiedTime: 1777767894889
+      modifiedTime: 1777774652918
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -140,7 +173,11 @@ pages:
         are not generally
         dangerous.</p></dd></dl><dl><dt><p>Boiling</p></dt><dd><p>Burning hot
         and inhospitable to any life that is not specifically adapted to
-        conditions of extreme heat.</p></dd></dl>
+        conditions of extreme heat.</p></dd></dl><p>These temperature tiers are
+        also used to model the body temperature of creatures. Some mechanics
+        depend on the temperature of the environment. Some mechanics depend on
+        the temperature of a creature. Some mechanics involve the interaction of
+        the two. In all cases, these temperature keywords will be used.</p>
     video:
       controls: true
       volume: 0.5
@@ -155,7 +192,7 @@ pages:
       systemId: crucible
       systemVersion: 0.9.1
       createdTime: 1777768254623
-      modifiedTime: 1777768473463
+      modifiedTime: 1777772164435
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
