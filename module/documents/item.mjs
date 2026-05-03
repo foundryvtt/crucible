@@ -577,6 +577,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Step 4: Select random affixes to fill the needed tier budget
     const eligibleAffixes = allAffixes.filter(a => {
       if ( a.type !== "affix" ) return false;
+      if ( a.system.identifier in baseItem.system.affixes ) return false;
       const types = a.system.itemTypes;
       return !types.size || types.has(baseItem.type);
     });
