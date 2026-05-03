@@ -1,0 +1,98 @@
+name: Luminous
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Luminous
+  identifier: luminous
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - accessory
+  actions:
+    - id: affixLuminous
+      name: Activate Illumination
+      img: icons/magic/light/orb-shadow-blue.webp
+      condition: ''
+      description: >-
+        <p>You speak the command word and the @ref[item.name]{item} kindles into
+        a steady otherworldly glow. The radius of bright light shed depends on
+        the <strong>Tier</strong> of this prefix, with an additional radius of
+        dim light extending an equal distance beyond.</p><ul><li><p><strong>Tier
+        1:</strong> 20 feet of bright light, 40 feet of dim
+        light.</p></li><li><p><strong>Tier 2:</strong> 40 feet of bright light,
+        80 feet of dim light.</p></li><li><p><strong>Tier 3:</strong> 60 feet of
+        bright light, 120 feet of dim light.</p></li></ul><p>The light persists
+        until you dismiss the effect or remove the item.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Luminous
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: seconds
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags: []
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+_id: luminous00000000
+img: icons/magic/light/orb-shadow-blue.webp
+disabled: false
+start: null
+description: >-
+  <p>Grants the <strong>Activate Illumination</strong> action, allowing the
+  bearer to shed an otherworldly light. The radius of light scales with the
+  <strong>Tier</strong> of this affix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: lCO6ziuWen5phfix
+sort: 100000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777771500000
+  modifiedTime: 1777771944695
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!luminous00000000'

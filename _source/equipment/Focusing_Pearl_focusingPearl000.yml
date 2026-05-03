@@ -7,59 +7,106 @@ system:
   category: trinket
   quantity: 1
   weight: 0
-  price: 0
-  quality: standard
+  price: 20
+  quality: fine
   broken: false
-  enchantment: mundane
+  enchantment: minor
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - investment
   description:
     public: >-
-      <p>A small, vibrant blue pearl that feels refreshingly cool to the touch
-      regardless of ambient temperature. </p><h3 class="divider">Under
-      Development</h3><p>While <strong>Invested</strong>, a Focusing Pearl
-      permits its user to take the Refocus action without cost once per
-      combat.</p><p>The magical effects of this item are not yet automated.
-      These effects will be added when the Crucible enchanting affix system is
-      added.</p>
-    private: ''
-  actions:
-    - id: refocus
-      name: Focusing Pearl
-      img: icons/commodities/gems/pearl-blue-gold.webp
-      description: >-
-        <p>You use your invested @ref[name] to attempt to regain some
-        <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-        <strong>Strike</strong> against your own <strong>Rallying</strong>
-        threshold.</p><p>On a success you recover <strong>+1 Focus</strong>. On
-        a critical success the amount of Focus recovered increases by an
-        additional +1.</p>
-      condition: Once per combat
-      cost:
-        action: 0
-        focus: 0
-        heroism: 0
-        hands: 0
-        weapon: false
-      range:
-        minimum: null
-        maximum: null
-        weapon: false
-      target:
-        type: self
-        number: 1
-        scope: 1
-        self: false
-      summon:
-        actorUuid: null
-        permanent: true
-      effects: []
-      tags:
-        - ranged
-        - harmless
-        - rallying
-effects: []
+      <blockquote><p>A small, vibrant blue pearl that feels refreshingly cool to
+      the touch regardless of ambient temperature.</p></blockquote><p>This
+      enchanted pearl grants its bearer the <strong>Replenish Focus</strong>
+      action, providing an additional reserve of <strong>Focus</strong> that can
+      be drawn upon in moments of duress.</p>
+    private: >-
+      <p>This item is presented as an example of a Fine Pearl with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Focusing}
+      prefix.</p><p>This affix can be applied to any accessory and this pearl
+      could be further enchanted with a Tier 1 suffix.</p>
+  actions: []
+effects:
+  - name: Focusing
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Focusing
+      identifier: focusing
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+      actions:
+        - id: affixFocusing
+          name: Replenish Focus
+          img: icons/magic/control/orb-web-hold.webp
+          condition: ''
+          description: >-
+            <p>In moments of duress you can withdraw an additional reserve of
+            <strong>Focus</strong> from this item. The amount of Focus restored
+            depends on the <strong>Tier</strong> of this
+            prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>4
+            Focus</strong></p></li><li><p><strong>Tier 2:</strong> <strong>6
+            Focus</strong></p></li><li><p><strong>Tier 3:</strong> <strong>8
+            Focus</strong></p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags: []
+          summon:
+            actorUuid: null
+            permanent: true
+    _id: focusing00000000
+    img: icons/magic/control/orb-web-hold.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer
+      to restore <strong>Focus</strong> in moments of duress. The amount
+      restored scales with the <strong>Tier</strong> of this affix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: hd7WNbghiYX3GDXN
+    sort: 200000
+    flags: {}
+    _stats:
+      coreVersion: '14.359'
+      systemId: crucible
+      systemVersion: 0.9.0
+      createdTime: 1775502000000
+      modifiedTime: 1775559025754
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.focusing00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!focusingPearl000.focusing00000000'
 folder: 9dQstjMRdKq0a6WC
 ownership:
   default: 0

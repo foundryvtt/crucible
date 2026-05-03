@@ -3,11 +3,11 @@ type: accessory
 _id: gemOfIlluminatio
 img: icons/commodities/gems/gem-faceted-octagon-yellow.webp
 system:
-  identifier: gemOfIllumination
+  identifier: gemIllumination
   category: trinket
   quantity: 1
   weight: 1
-  price: 8
+  price: 200
   quality: fine
   broken: false
   enchantment: minor
@@ -17,68 +17,116 @@ system:
     - investment
   description:
     public: >-
-      <p>This carefully faceted gemstone glows faintly with warm light, and
-      feels warm to the touch.</p><p></p><h3 class="divider">Under
-      Development</h3><p>While <strong>Invested</strong>, this gem can be
-      activated using a command word to cause it to glow, serving as a light
-      source that sheds 20 feet of bright light and an additional 20 feet of dim
-      light.</p><p>It also grants the user the ability to cast a special
-      @Spell[illumination.ray] at a target they can see, causing injury and
-      temporary blindness.</p><p>The magical effects of this item are not yet
-      automated. These effects will be added when the Crucible enchanting affix
-      system is added.</p><p></p>
-    private: ''
-  actions:
-    - id: gemOfIllumination
-      name: Ray of Illumination
-      img: icons/commodities/gems/gem-faceted-octagon-yellow.webp
-      description: >-
-        <p>The @ref[name] glows vividly and a blindingly bright ray bursts forth
-        toward a designated target, dealing <strong>Weakened </strong>damage but
-        inflicting the target with @Condition[blinded].</p>
-      condition: ''
-      cost:
-        action: 3
-        focus: 2
-        heroism: 0
-        hands: 0
-        weapon: false
-      range:
-        minimum: null
-        maximum: 120
-        weapon: false
-      target:
-        type: single
-        number: 1
-        scope: 4
-        self: false
-      summon:
-        actorUuid: null
-        permanent: true
-      effects:
-        - name: ''
-          scope: 3
-          result:
-            type: success
-            all: false
-          statuses:
-            - blinded
-          duration:
-            value: 3
-            units: turns
-            expiry: null
-            expired: false
-          system:
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            changes: []
-      tags:
-        - composed
-        - weakened
-        - radiant
-effects: []
+      <blockquote><p>This carefully faceted gemstone glows faintly with warm
+      light, and feels warm to the touch.</p></blockquote><p>This enchanted gem
+      grants its bearer the <strong>Activate Illumination</strong> action,
+      shedding an otherworldly light in a wide radius until dismissed.</p>
+    private: >-
+      <p>This item is presented as an example of a Fine Gem with the
+      @UUID[Compendium.crucible.affixes.ActiveEffect.luminous00000000]{Luminous}
+      prefix.</p><p>This affix can be applied to any accessory and this gem
+      could be further enchanted with a Tier 1 suffix.</p>
+  actions: []
+effects:
+  - name: Luminous
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Luminous
+      identifier: luminous
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes:
+        - accessory
+      actions:
+        - id: affixLuminous
+          name: Activate Illumination
+          img: icons/magic/light/orb-shadow-blue.webp
+          condition: ''
+          description: >-
+            <p>You speak the command word and the @ref[name] kindles into a
+            steady otherworldly glow. The radius of bright light shed depends on
+            the <strong>Tier</strong> of this prefix, with an additional radius
+            of dim light extending an equal distance
+            beyond.</p><ul><li><p><strong>Tier 1:</strong> 20 feet of bright
+            light, 40 feet of dim</p></li><li><p><strong>Tier 2:</strong> 40
+            feet of bright light, 80 feet of dim</p></li><li><p><strong>Tier
+            3:</strong> 60 feet of bright light, 120 feet of dim</p></li></ul>
+            <p>The light persists until you dismiss the effect or remove the
+            item.</p>
+          cost:
+            action: 1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - _id: affixLuminous000
+              name: Luminous
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: seconds
+                expiry: null
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+          tags: []
+          summon:
+            actorUuid: null
+            permanent: true
+    _id: luminous00000000
+    img: icons/magic/light/orb-shadow-blue.webp
+    disabled: false
+    start: null
+    description: >-
+      <p>Grants the <strong>Activate Illumination</strong> action, allowing the
+      bearer to shed an otherworldly light. The radius of light scales with the
+      <strong>Tier</strong> of this affix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: hd7WNbghiYX3GDXN
+    sort: 300000
+    flags: {}
+    _stats:
+      coreVersion: '14.360'
+      systemId: crucible
+      systemVersion: 0.9.2
+      createdTime: 1777771500000
+      modifiedTime: 1777771500000
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.luminous00000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!gemOfIlluminatio.luminous00000000'
 folder: 9dQstjMRdKq0a6WC
 ownership:
   default: 0
@@ -92,8 +140,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1776981020859
-  modifiedTime: 1776981020859
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1777771497185
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

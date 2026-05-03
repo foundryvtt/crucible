@@ -453,7 +453,6 @@
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
-      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
@@ -467,7 +466,6 @@
       "RequiresTalisman": "{action} requires use of a Talisman weapon.",
       "RequiresTwoHanded": "This action requires a two-handed weapon equipped.",
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
-      "RestRecoverIncapacitated": "You may not Rest or Recover while Dead or Insane.",
       "Restrained": "You may not move while Restrained!",
       "Silenced": "You cannot use this action while Silenced.",
       "UnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
@@ -1474,7 +1472,12 @@
   },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
-    "ToggleSource": "Toggle Source"
+    "ToggleSource": "Toggle Source",
+    "WARNINGS": {
+      "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
+      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
+      "RestRecoverIncapacitated": "You may not Rest or Recover while Dead or Insane."
+    }
   },
   "ITEM": {
     "ACTIONS": {

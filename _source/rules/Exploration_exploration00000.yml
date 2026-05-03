@@ -1,0 +1,183 @@
+_id: exploration00000
+name: Exploration
+pages:
+  - sort: 100000
+    name: Environmental Hazards
+    type: text
+    _id: environmentalHaz
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Not all environments are hospitable, and some present genuine
+        hazardous risks to survival. These rules govern cases where the Heroes
+        may face Hazards that are likely to risk death if they face prolonged
+        exposure.</p><h2>Deprivation</h2><p>Travel conditions or lack of
+        preparation wear at the morale of a Hero. While anyone can push the
+        limits of their body's needs for a time, everyone has a limit. Depriving
+        your body of food, water, or sleep can have significant and lasting
+        detrimental effects.</p><p>Though it is presumed that every hero
+        consumes an amount of food and water (or other life-sustaining
+        substances) sufficient to sustain them during a Rest, these rules apply
+        for cases where those substances are not
+        available.</p><h3>Dehydration</h3><p>Typically a creature can sustain
+        themselves without water for three days. After that period, each time
+        they rest they face [[/hazard 10 fortitude health
+        harmless]]{Dehydration} and if they are affected by that hazard, they
+        are @Condition[weakened]. The weakened condition persists until such
+        time as they are able to consume a sufficient quantity of water to
+        counter their dehydration. Once <strong>Weakened</strong> by this
+        hazard, each subsequent Rest without consuming water results in
+        [[/hazard 10 fortitude morale severe]]{Maddening
+        Thirst}.</p><p></p><h3>Starvation</h3><p>Typically a creature can
+        sustain themselves without food for ten days. After that period, each
+        time they rest they face [[/hazard 10 fortitude health
+        harmless]]{Starvation} and if they are affected by that hazard, they are
+        @Condition[weakened]. The <strong>Weakened</strong> condition persists
+        until such time as they are able to consume a sufficient quantity of
+        food to counter their starvation. Once <strong>Weakened</strong> by this
+        hazard, each subsequent Rest without consuming food results in [[/hazard
+        10 fortitude morale severe]]{Maddening Hunger}.</p><h3>Sleep
+        Deprivation</h3><p>Typically, a creature can sustain themselves without
+        sleep for a period of 24 hours. After that period, each time they fail
+        to achieve adequate Rest, they face [[/hazard 10 willpower morale
+        harmless]]{Sleep Deprivation}, if affected by that hazard, they are
+        @Condition[exhausted] until they are able to successfully Rest. Each
+        time they continue to fail to rest, they face additional conditions,
+        gaining @Condition[staggered], @Condition[disoriented], and
+        @Condition[stunned], before finally gaining @Condition[broken]. All of
+        these conditions are resolved if the character successfully gets some
+        Rest.</p><h2>Severe Hazards</h2><p>These hazard rules represent cases
+        where all skill checks, talents, or other methods to mitigate the
+        circumstances of their application have failed to save the Hero. While
+        it's expected that certain skills can prevent a character that can swim
+        from drowning, or an experienced climber from falling; once all
+        opportunities to resist the hazard have failed, these damage rules
+        apply.</p><h3>Suffocation</h3><p>Whether fully submerged in water,
+        shrouded in choking gas, or buried under tons of earth, characters who
+        are fully deprived of ability to breathe for an extended period of time
+        begin to suffocate.</p><p>Characters who spend more than 2 minutes
+        without access to air (and with no talents or magic to otherwise provide
+        it) suffer from the @Condition[suffocating] condition which deals Severe
+        damage to both Wounds and Madness, and occurs each round until their
+        inevitable death. Characters affected by Suffocation are also
+        @Condition[silenced]</p><h3>Falling</h3><p>Climbing obstacles are not
+        unheard of in a typical adventure, but Heroes are not immune to the
+        dangers of a perilous plummet. While there are often opportunities to
+        use a well timed Athletics Skill Check to prevent a nasty fall,
+        sometimes a hero simply can't save themselves from going over the edge
+        of a cliff.</p><p>Falling can be considered as having three degrees of
+        severity.</p><ul><li><p>Tier 1 - (10 feet or less). At this stage, no
+        Hazard is needed.</p></li><li><p>Tier 2 - (11-30 feet), the Hazard is
+        equal to the distance fallen. It is checked against the Reflex defense,
+        and its damage is done to <strong>Health</strong>. [[/hazard 25 reflex
+        health bludgeoning]]{Minor Fall}</p></li><li><p>Tier 3 - (31+ feet) the
+        Hazard is equal to the distance fallen. it is checked against the
+        Fortitude defense, and its damage is <strong>Severe</strong>. [[/hazard
+        60 fortitude severe]]{Serious
+        Fall}</p></li></ul><h3>Exposure</h3><p>Where Conditions like
+        @Condition[burning] and @Condition[freezing] apply to extreme, but
+        acute, cases of exposure to drastic temperatures, Exposure Hazards apply
+        to more prolonged cases, such as desert travel, where the environment is
+        so unforgiving that it presents a persistent drain on a character's
+        resolve.</p><p>Characters who face dangerous temperatures, inclement
+        weather, or otherwise harsh environments without adequate preparation or
+        protective equipment face hazards each hour they are travelling, in
+        accordance with the following:</p><ul><li><p>[[/hazard 12 fortitude
+        health severe]]{Deadly Cold}}</p></li><li><p>[[/hazard 6 fortitude
+        morale]]{Extreme Cold}</p></li><li><p>Temperate - No hazard
+        necessary</p></li><li><p>[[/hazard 6 fortitude morale]]{Extreme
+        Heat}</p></li><li><p>[[/hazard 6 fortitude morale]]{Extreme
+        Heat}</p></li></ul><p>In addition, if these hazards affect the target to
+        any amount, the affected gain the @Condition[exhausted] condition.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.360'
+      systemId: crucible
+      systemVersion: 0.9.1
+      createdTime: 1777767889927
+      modifiedTime: 1777767894889
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!exploration00000.environmentalHaz'
+  - sort: 0
+    name: Temperature
+    type: text
+    _id: temperature00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Environments in Crucible may be broadly classified into five
+        different Temperature tiers from coldest to
+        hottest.</p><dl><dt><p>Gelid</p></dt><dd><p>Freezing cold and
+        inhospitable to any life that is not specifically adapted to conditions
+        of extreme cold.</p></dd></dl><dl><dt><p>Cool</p></dt><dd><p>Cool or
+        cold temperatures that may be uncomfortable for warm-bodied creatures,
+        but are not generally
+        dangerous.</p></dd></dl><dl><dt><p>Neutral</p></dt><dd><p>Typical
+        environmental temperature, generally not
+        noteworthy.</p></dd></dl><dl><dt><p>Warm</p></dt><dd><p>Warm or hot
+        temperatures that may be uncomfortable for cool-bodied creatures, but
+        are not generally
+        dangerous.</p></dd></dl><dl><dt><p>Boiling</p></dt><dd><p>Burning hot
+        and inhospitable to any life that is not specifically adapted to
+        conditions of extreme heat.</p></dd></dl>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.360'
+      systemId: crucible
+      systemVersion: 0.9.1
+      createdTime: 1777768254623
+      modifiedTime: 1777768473463
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!exploration00000.temperature00000'
+folder: MMeWpMmsLOblp07U
+categories: []
+sort: 850000
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalEntrySheet
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777767865525
+  modifiedTime: 1777767879499
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!journal!exploration00000'

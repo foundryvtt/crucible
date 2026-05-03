@@ -166,6 +166,28 @@ HOOKS.deflection = {
 
 /* -------------------------------------------- */
 
+/**
+ * Token light configuration applied while the Activate Illumination action of a Luminous-affixed item is active.
+ * Bright and dim radii scale with the affix tier; the warm hue with a slow pulse animation reads as enchanted
+ * rather than mundane firelight.
+ * @type {Readonly<LightData>}
+ */
+const LUMINOUS_LIGHT = Object.freeze({alpha: 0.7, angle: 360, color: "#ffe066", coloration: 100,
+  attenuation: 0.6, luminosity: 0.5, saturation: 0.1, contrast: 0, shadows: 0, negative: false, priority: 0,
+  animation: {type: "pulse", speed: 2, intensity: 3, reverse: false}, darkness: {min: 0, max: 1}});
+
+HOOKS.luminous = {
+  prepareToken(item, token) {
+    if ( !this.effects.has("affixLuminous000") ) return;
+    if ( (token.light.bright !== 0) || (token.light.dim !== 0) ) return;
+    const tier = item.system.affixes.luminous.system.tier.value;
+    const dim = 40 * tier;
+    foundry.utils.mergeObject(token.light, {...LUMINOUS_LIGHT, bright: dim / 2, dim});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.guarding = {
   prepareDefenses(item, defenses) {
     const tier = item.system.affixes.guarding.system.tier.value;

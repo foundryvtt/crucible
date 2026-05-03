@@ -349,6 +349,14 @@ HOOKS.distract = {
 
 /* -------------------------------------------- */
 
+HOOKS.electrochargeAmpoule = {
+  prepare() {
+    this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);
@@ -377,6 +385,49 @@ HOOKS.feintingStrike = {
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.frostFlask = {
+  prepare() {
+    this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
+// TODO: Mote and Wanderer flame elemental tiers do not yet exist; remap Standard quality to Sprite and Masterwork
+//  quality to Visitor until those creatures are authored.
+HOOKS.gemOfConjuredFlame = {
+  canUse() {
+    if ( this.item.system.quality === "shoddy" ) {
+      throw new Error(_loc("HOOKS.WARNINGS.GemConjuredFlameShoddy"));
+    }
+  },
+  prepare() {
+    const sprite = "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI";
+    const visitor = "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd";
+    const actorUuid = {
+      standard: sprite,
+      fine: sprite,
+      superior: visitor,
+      masterwork: visitor
+    }[this.item.system.quality];
+    if ( !actorUuid ) return;
+    this.usage.summons = [{actorUuid, effectId: SYSTEM.EFFECTS.getEffectId(this.id)}];
+  },
+  postActivate() {
+    const summonEvent = this.events.find(e => e.type === "summon");
+    if ( !summonEvent ) return;
+    summonEvent.effects.push({
+      _id: summonEvent.summon.effectId,
+      img: this.img,
+      name: this.name,
+      duration: {rounds: 6},
+      system: {}
+    });
   }
 };
 
@@ -818,6 +869,15 @@ HOOKS.oozeSubdivide = {
 
 /* -------------------------------------------- */
 
+HOOKS.omniglotDecoction = {
+  preActivate() {
+    const minutes = {shoddy: 10, standard: 60, fine: 240, superior: 720, masterwork: 1440}[this.item.system.quality];
+    if ( this.effects[0] ) this.effects[0].duration.value = minutes;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.paralyticIngest = {
   preActivate() {
     const poison = this.effects[0];
@@ -975,7 +1035,7 @@ HOOKS.investiture = {
 HOOKS.recover = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {
-      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
+      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
     }
   },
   postActivate() {
@@ -1033,7 +1093,7 @@ HOOKS.repercussiveBlock = {
 HOOKS.rest = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {
-      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
+      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
     }
   },
   postActivate() {
@@ -1182,7 +1242,7 @@ HOOKS.lightLantern = {
   preActivate() {
     // Validate that the actor has Lantern Oil to consume
     const oil = this.actor.items.find(i => (i.system.identifier === "lanternOil") && (i.system.quantity > 0));
-    if ( !oil ) throw new Error(_loc("ACTION.WARNINGS.NoLanternOil"));
+    if ( !oil ) throw new Error(_loc("HOOKS.WARNINGS.NoLanternOil"));
 
     // Scale ignition duration with the quality of the consumed oil
     const hours = {shoddy: 1, standard: 4, fine: 12, superior: 24, masterwork: 48}[oil.system.quality] ?? 4;

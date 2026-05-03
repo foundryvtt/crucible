@@ -49,7 +49,24 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      effects: []
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 0
+            units: minutes
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - consume
   uses:
