@@ -41,6 +41,48 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /*  Sheet Rendering                             */
   /* -------------------------------------------- */
 
+  /**
+   * IDs of member Actor documents into which this sheet has been registered via {@link Document#apps}.
+   * The base DocumentSheetV2 registers the sheet against its bound document only; member resource changes
+   * (e.g. health restored by Rest) would otherwise not invalidate the group sheet's render.
+   * @type {Set<string>}
+   */
+  #memberAppIds = new Set();
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    const current = new Set();
+    for ( const member of this.actor.system.members ) {
+      const a = member.actor;
+      if ( !a ) continue;
+      a.apps[this.id] = this;
+      current.add(a.id);
+    }
+    for ( const id of this.#memberAppIds ) {
+      if ( current.has(id) ) continue;
+      const a = game.actors.get(id);
+      if ( a ) delete a.apps[this.id];
+    }
+    this.#memberAppIds = current;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onClose(options) {
+    super._onClose(options);
+    for ( const id of this.#memberAppIds ) {
+      const a = game.actors.get(id);
+      if ( a ) delete a.apps[this.id];
+    }
+    this.#memberAppIds.clear();
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   async _prepareContext(_options) {
     const system = this.actor.system;
