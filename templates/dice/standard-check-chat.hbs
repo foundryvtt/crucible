@@ -1,4 +1,5 @@
 <div class="{{cssClass}} line-item" data-action="expandRoll">
+    {{#unless isPrivate}}
     {{#if actor}}
     <img class="icon" src="{{actor.img}}" alt="{{actor.name}}">
     <div class="title">
@@ -16,4 +17,5 @@
     </div>
     {{/if}}
     {{> "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"}}
+    {{/unless}}
 </div>
