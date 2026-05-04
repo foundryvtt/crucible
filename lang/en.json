@@ -1542,6 +1542,10 @@
       "RecoverDetail": "Recover the dropped {item}",
       "UnEquip": "Un-equip {typeLabel}"
     },
+    "COMPOSED_NAME": {
+      "Prefix": "{prefixes} {name}",
+      "Suffix": "{name} of {suffixes}" 
+    },
     "FIELDS": {
       "actions": {
         "label": "Item Actions"
