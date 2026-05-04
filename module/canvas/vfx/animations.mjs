@@ -133,7 +133,7 @@ export const radialBurst = {
     const fadeOut = Math.round(lifetime * (1 - visibleFraction));
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: spawnRadius},
+      area: {type: "circle", x: origin.x, y: origin.y, radius: spawnRadius},
       count,
       duration,
       lifetime: {min: Math.round(lifetime * 0.85), max: lifetime},
@@ -230,7 +230,7 @@ export const castoffFlare = {
     const beamSpeed = speed * gridScale;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: Math.max(8, spawnRadius)},
+      area: {type: "circle", x: origin.x, y: origin.y, radius: Math.max(8, spawnRadius)},
       count,
       duration,
       lifetime,
@@ -276,7 +276,7 @@ export const airResidue = {
     perFrame ??= scaled.perFrame;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius},
+      area: {type: "circle", x: origin.x, y: origin.y, radius},
       count,
       duration,
       lifetime,
@@ -323,7 +323,7 @@ export const groundResidue = {
     perFrame ??= scaled.perFrame;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius},
+      area: {type: "circle", x: origin.x, y: origin.y, radius},
       count,
       duration,
       lifetime,
@@ -358,7 +358,7 @@ export const groundResidue = {
  * @type {VFXAnimationBlock}
  */
 export const groundImpacts = {
-  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+  configure({prefix, origin, radius, area, textures, coverageArea, density = 1.0,
     count, duration = 2500, lifetime = {min: 4000, max: 6000},
     alpha = {min: 0.6, max: 0.9}, scale = {min: 0.6, max: 1.2},
     perFrame, blend = PIXI.BLEND_MODES.NORMAL,
@@ -368,7 +368,7 @@ export const groundImpacts = {
     perFrame ??= scaled.perFrame;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius},
+      area: area ?? {type: "circle", x: origin.x, y: origin.y, radius},
       count,
       duration,
       lifetime,
@@ -405,7 +405,7 @@ export const groundImpacts = {
  * @type {VFXAnimationBlock}
  */
 export const fallingDebris = {
-  configure({prefix, origin, radius, textures, coverageArea, density = 1.0,
+  configure({prefix, origin, radius, area, textures, coverageArea, density = 1.0,
     count, duration = 2500, fallDuration = 350, stickDuration = 800,
     startScale = 4.0, endScale = 1.0, darkening = 0.4,
     alpha = {min: 0.7, max: 1.0}, scale = {min: 0.3, max: 0.6},
@@ -417,7 +417,7 @@ export const fallingDebris = {
     const particleLifetime = duration + FADE_OUT;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius},
+      area: area ?? {type: "circle", x: origin.x, y: origin.y, radius},
       count: null,
       duration,
       lifetime: {min: particleLifetime - 100, max: particleLifetime + 100},
@@ -510,9 +510,12 @@ export const coneSweepEmitter = {
     const startAngleRad = Math.toRadians(rotation + (sweepCW ? -(angle / 2) : (angle / 2)));
     const endAngleRad = Math.toRadians(rotation + (sweepCW ? (angle / 2) : -(angle / 2)));
     const lifetime = Math.round(radius / speed * 1000 * 1.2);
+    const ringRadius = (innerRadius + outerRadius) / 2;
+    const ringHalfWidth = (outerRadius - innerRadius) / 2;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: [innerRadius, outerRadius]},
+      area: {type: "ring", x: origin.x, y: origin.y, radius: ringRadius,
+        innerWidth: ringHalfWidth, outerWidth: ringHalfWidth},
       count: null,
       duration,
       lifetime: {min: Math.round(lifetime * 0.5), max: lifetime},
@@ -601,9 +604,12 @@ export const expandingCascade = {
     const maxRadius = Math.round(radius * 0.85);
     const scaled = _scaledParticleCounts({baseCount: 200, basePerFrame: 4, coverageArea, radius, density});
     perFrame ??= scaled.perFrame;
+    const initialOuter = Math.round(radius * 0.17);
+    const initialHalfWidth = initialOuter / 2;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: [0, Math.round(radius * 0.17)]},
+      area: {type: "ring", x: origin.x, y: origin.y, radius: initialHalfWidth,
+        innerWidth: initialHalfWidth, outerWidth: initialHalfWidth},
       count: null,
       duration,
       lifetime: {min: 400, max: 700},
@@ -641,27 +647,39 @@ export const expandingCascade = {
 
 /**
  * Inject onTick and onSpawn callbacks for the expanding cascade.
- * onTick animates the spawn ring outward. onSpawn reflects out-of-cone particles when constrained.
+ * onTick animates the spawn ring outward by mutating a RingShapeData via updateSource so the
+ * cached polygon tree is invalidated on each frame. onSpawn reflects out-of-cone particles when
+ * constrained.
  * @param {object} component
  */
 function _finalizeExpandingCascade(component) {
   const {originX, originY, rotationRad, halfAngleRad, maxRadius, duration} = component.config.expandingCascade;
   const isCone = halfAngleRad < Math.PI;
+  const halfWidth = (maxRadius * 0.2) / 2;
+  // Quantize the animated radius to 4px steps. The ring half-width is many pixels thick, so finer
+  // updates would not be visually distinguishable, and each updateSource call invalidates the
+  // shape's polygon-tree cache (rebuilt by the next sampleInterior).
+  const RADIUS_STEP = 4;
   let elapsed = 0;
+  let shape = null;
+  let lastRadius = -1;
 
   component.config.onTick = (dt, generator) => {
     elapsed += dt;
     const t = Math.clamp(elapsed / duration, 0, 1);
-    const ringWidth = maxRadius * 0.2;
-    const centerRadius = t * maxRadius;
-    const inner = Math.max(0, centerRadius - (ringWidth / 2));
-    const outer = centerRadius + (ringWidth / 2);
-    const area = generator.spawnArea;
-    area.x = originX;
-    area.y = originY;
-    area.radius = [inner, outer];
+    const centerRadius = Math.round((t * maxRadius) / RADIUS_STEP) * RADIUS_STEP;
+    if ( !shape ) {
+      shape = new foundry.data.RingShapeData({type: "ring", x: originX, y: originY,
+        radius: centerRadius, innerWidth: halfWidth, outerWidth: halfWidth});
+      generator.spawnArea = shape;
+      lastRadius = centerRadius;
+    }
+    else if ( centerRadius !== lastRadius ) {
+      shape.updateSource({radius: centerRadius});
+      lastRadius = centerRadius;
+    }
     if ( CONFIG.debug.vfx && (Math.round(elapsed) % 100 < dt) ) {
-      console.debug("expandingCascade", {t: t.toFixed(2), alive: generator.particles.length, inner: Math.round(inner), outer: Math.round(outer)});
+      console.debug("expandingCascade", {t: t.toFixed(2), alive: generator.particles.length, radius: centerRadius});
     }
   };
 
@@ -705,7 +723,7 @@ export const linearCascade = {
     perFrame ??= Math.max(1, Math.round(totalParticles / (duration / 1000 * 60)));
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: 4},
+      area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
       count: null,
       duration,
       lifetime: {min: duration + 1000, max: duration + 2000},
@@ -804,9 +822,13 @@ export const implodeExplode = {
     const totalDuration = implodeDuration + holdDuration + explodeDuration;
     const scaled = _scaledParticleCounts({baseCount: 300, basePerFrame: 25, coverageArea, radius, density});
     count ??= Math.max(200, scaled.count);
+    const ringInner = Math.round(spawnRadius * 0.7);
+    const ringRadius = (ringInner + spawnRadius) / 2;
+    const ringHalfWidth = (spawnRadius - ringInner) / 2;
     const component = particleGenerator({
       textures,
-      area: {x: origin.x, y: origin.y, radius: [Math.round(spawnRadius * 0.7), spawnRadius]},
+      area: {type: "ring", x: origin.x, y: origin.y, radius: ringRadius,
+        innerWidth: ringHalfWidth, outerWidth: ringHalfWidth},
       count,
       duration: totalDuration + 5000,
       lifetime: {min: totalDuration + 500, max: totalDuration + 1000},

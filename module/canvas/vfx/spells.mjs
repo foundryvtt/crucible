@@ -132,7 +132,7 @@ function configureFanVFXEffect(action) {
   const shape = action.region?.shapes[0];
   if ( !shape || (shape.type !== "cone") ) return null;
 
-  const {x, y, radius, angle, rotation} = shape;
+  const {x, y, radius, angle, rotation} = shape.toObject();
   const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
@@ -216,7 +216,7 @@ function configureRayVFXEffect(action) {
   const shape = action.region?.shapes[0];
   if ( !shape || (shape.type !== "line") ) return null;
 
-  const {x, y, length, width, rotation} = shape;
+  const {x, y, length, width, rotation} = shape.toObject();
   const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
@@ -297,7 +297,8 @@ function configureBlastVFXEffect(action) {
   const shape = action.region?.shapes[0];
   if ( !shape || (shape.type !== "circle") ) return null;
 
-  const {x, y, radius} = shape;
+  const shapeSource = shape.toObject();
+  const {x, y, radius} = shapeSource;
   const origin = {x, y};
   const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
 
@@ -311,7 +312,7 @@ function configureBlastVFXEffect(action) {
   const coverageArea = action.region?.area;
   const shared = {elevation: particleElevation, pointSourceMask, coverageArea};
 
-  return _configureBlastFallingDebris(action, origin, radius, textures, references, shared);
+  return _configureBlastFallingDebris(action, shapeSource, origin, radius, textures, references, shared);
 }
 
 /* -------------------------------------------- */
@@ -365,7 +366,10 @@ function _configureBlastImplodeExplode(action, origin, radius, textures, referen
 /**
  * Blast variant: falling debris storm. Shards fall from overhead across the blast area,
  * accumulating ground cracks and a fog/cloud layer.
+ * The blast region's circle shape source data drives both the visible region and the spawn
+ * areas of the falling debris and ground impact generators - one source of truth.
  * @param {CrucibleSpellAction} action
+ * @param {object} regionShape   Region shape source data (CircleShapeData.toObject()).
  * @param {{x: number, y: number}} origin
  * @param {number} radius
  * @param {object} textures
@@ -373,18 +377,18 @@ function _configureBlastImplodeExplode(action, origin, radius, textures, referen
  * @param {object} shared
  * @returns {SpellVFXData}
  */
-function _configureBlastFallingDebris(action, origin, radius, textures, references, shared) {
+function _configureBlastFallingDebris(action, regionShape, origin, radius, textures, references, shared) {
   const STORM_DURATION = 4000;
 
-  // Layer 1 - Falling shards
+  // Layer 1 - Falling shards across the full region circle
   const shards = fallingDebris.configure({prefix: "fallingShards", origin, radius,
-    textures: textures.spray, duration: STORM_DURATION,
+    area: regionShape, textures: textures.spray, duration: STORM_DURATION,
     position: 0, ...shared});
 
-  // Layer 2 - Ground impacts: spawned in sync with falling debris landings via finalizer
+  // Layer 2 - Ground impacts spawned in sync with falling debris landings via finalizer
   const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
   const ground = groundImpacts.configure({prefix: "blastGround", origin, radius,
-    textures: groundTextures, duration: STORM_DURATION + 2000,
+    area: regionShape, textures: groundTextures, duration: STORM_DURATION + 2000,
     position: 0, ...shared, elevation: 0});
 
   // Layer 3 - Wintry blizzard haze
