@@ -18,7 +18,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   static ITEM_PROPERTIES = CONSUMABLE.PROPERTIES;
 
   /** @override */
-  static STATEFUL_FIELDS = [...super.STATEFUL_FIELDS, "uses"];
+  static STATEFUL_FIELDS = [...super.STATEFUL_FIELDS, "quantity", "uses"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "CONSUMABLE"];
@@ -107,16 +107,19 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   /**
    * Consume a certain number of uses of the consumable.
    * @param {number} [uses=1]           A number of uses to consume. A negative number will restore uses of the item
-   * @returns {Promise<CrucibleItem>}   The updated item
+   * @param {object} [options]          Options which configure consumption
+   * @param {boolean} [options.save=true]  Persist the update to the database? If false, return the update data instead.
+   * @returns {Promise<CrucibleItem>|object}  The updated item, or the update data if save is false
    */
-  async consume(uses=1) {
+  consume(uses=1, {save=true}={}) {
     const {value, max} = this.uses;
-    const quantity = this.quantity;
-    const currentUses = (max * (quantity - 1)) + value;
+    const currentUses = (max * (this.quantity - 1)) + value;
     const newUses = Math.max(currentUses - uses, 0);
     const targetQuantity = this.properties.has("stackable") ? Math.ceil(newUses / max) : 1;
     const targetUses = Math.clamp(newUses - (max * (targetQuantity - 1)), 0, max);
-    await this.parent.update({system: {quantity: targetQuantity, uses: {value: targetUses}}});
+    const update = {_id: this.parent.id, system: {quantity: targetQuantity, uses: {value: targetUses}}};
+    if ( !save ) return update;
+    return this.parent.update(update);
   }
 
   /* -------------------------------------------- */

@@ -36,8 +36,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
       backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
-      knowledgeOptions: this.#prepareKnowledgeOptions(),
-      knowledge: this.#prepareKnowledge(),
+      knowledge: this._prepareBackgroundDetailSet({
+        type: "knowledge",
+        tooltip: "ACTOR.LABELS.BackgroundKnowledgeTooltip"
+      }),
       talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
@@ -50,10 +52,12 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const issues = [];
     if ( !s.system.details.ancestry?.name ) issues.push("ACTOR.WARNINGS.NoAncestry");
     if ( !s.system.details.background?.name ) issues.push("ACTOR.WARNINGS.NoBackground");
-    if ( points.ability.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentAbility");
-    else if ( points.ability.requireInput ) issues.push("ACTOR.WARNINGS.UnderspentAbility");
-    if ( points.talent.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentTalent");
-    else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
+    if ( !isL0 ) {
+      if ( points.ability.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentAbility");
+      else if ( points.ability.requireInput ) issues.push("ACTOR.WARNINGS.UnderspentAbility");
+      if ( points.talent.available < 0 ) issues.push("ACTOR.WARNINGS.OverspentTalent");
+      else if ( points.talent.available ) issues.push("ACTOR.WARNINGS.UnderspentTalent");
+    }
     i.progress = !!issues.length;
     if ( i.progress ) {
       const items = issues.reduce((s, text) => `${s}<li>${_loc(text)}</li>`, "");
@@ -63,35 +67,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     // Allow extension of sheet context
     Hooks.callAll("crucible.prepareHeroSheetContext", this, context, options);
     return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare options provided to a multi-select element for which knowledge areas the character may know.
-   * @returns {FormSelectOption[]}
-   */
-  #prepareKnowledgeOptions() {
-    const options = [];
-    for ( const [value, {label, skill}] of Object.entries(crucible.CONFIG.knowledge) ) {
-      const s = SYSTEM.SKILLS[skill];
-      options.push({value, label, group: s?.label});
-    }
-    return options;
-  }
-
-  /**
-   * Prepare the user-friendly list of knowledge areas that the actor has.
-   * @returns {string[]}
-   */
-  #prepareKnowledge() {
-    const knowledgeNames = [];
-    for ( const knowledgeId of this.actor.system.details.knowledge ) {
-      if ( crucible.CONFIG.knowledge[knowledgeId] ) {
-        knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
-      }
-    }
-    return knowledgeNames;
   }
 
   /* -------------------------------------------- */

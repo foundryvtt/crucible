@@ -96,11 +96,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157757
-  modifiedTime: 1773514792256
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
-sort: 100000
+  modifiedTime: 1776980754314
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 500000
 _key: '!items!alchemistsFire00'

@@ -30,7 +30,7 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.necromancer00000
       level: 3
-    - item: Compendium.crucible.talent.Item.DeathProficiency
+    - item: Compendium.crucible.talent.Item.deathProficiency
       level: 4
     - item: Compendium.crucible.talent.Item.gesturecreate000
       level: 0

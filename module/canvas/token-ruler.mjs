@@ -40,13 +40,14 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     const deltaCost = movement.cost - ((freeMovementId && (freeMovementId === waypoint.subpathId)) ? 1 : 0);
     Object.assign(context.distance, {
       units: grid.units,
-      total: (context.distance.total - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
+      total: (waypoint.measurement.distance - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
     });
-    context.cost = {
-      units: "A",
-      delta: Number.isFinite(deltaCost) ? deltaCost : "Impossible",
-      displayCost: isFinalOfSubpath
-    };
+    const isForced = game.user.isGM && !!ui.controls.controls.tokens?.tools?.forcedMovement?.active;
+    if ( isForced ) context.cost = {units: "", delta: game.i18n.localize("TOKEN.MOVEMENT.COST.Forced"),
+      displayCost: isFinalOfSubpath};
+    else if ( !Number.isFinite(deltaCost) ) context.cost = {units: "",
+      delta: game.i18n.localize("TOKEN.MOVEMENT.COST.Impossible"), displayCost: isFinalOfSubpath};
+    else context.cost = {units: "A", delta: deltaCost, displayCost: isFinalOfSubpath};
 
     // Display elevation when it changes or when different from the level.elevation.bottom
     context.displayElevation = context.elevation && !context.elevation.hidden

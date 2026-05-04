@@ -19,6 +19,18 @@ export default class CrucibleAncestryItemSheet extends CrucibleActorDetailsItemS
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
+    // Render the blank option of the temperature select to surface the humanoid category default
+    const tier = SYSTEM.TEMPERATURE_TIERS[SYSTEM.ACTOR.CREATURE_CATEGORIES.humanoid.temperature];
+    context.temperatureBlank = tier ? _loc("ANCESTRY.SHEET.TemperatureBlank", {temperature: tier.label}) : "";
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);

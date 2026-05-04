@@ -555,7 +555,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       {action: "close", icon: "fa-light fa-hexagon-xmark", label: "ACTOR.CREATION.Exit", tooltip: "ACTOR.CREATION.ExitHint"},
       {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "ACTOR.CREATION.Restart", tooltip: "ACTOR.CREATION.RestartHint"}
     ];
-    if ( Object.values(this._completed).every(v => v === true) ) {
+    if ( this._state.name && Object.values(this._completed).every(v => v === true) ) {
       buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "ACTOR.CREATION.Complete", tooltip: "ACTOR.CREATION.CompleteHint"});
     }
     return buttons;
@@ -787,6 +787,21 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     this.element.dataset.step = this.step;
     if ( this.step === "talents" ) await this.activateTalentTree();
     if ( options.parts?.includes("equipment") ) this.#equipmentSearch.bind(this.element);
+    if ( options.parts?.includes("header") ) {
+      this.element.querySelector("#hero-creation-name").addEventListener("input", this.#onInputName.bind(this));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle input to the character name field, re-rendering the header if completion eligibility changes.
+   * @param {Event} event
+   */
+  #onInputName(event) {
+    const hadName = !!this._state.name;
+    this._state.name = event.target.value.trim();
+    if ( hadName !== !!this._state.name ) this.render({parts: ["header"]});
   }
 
   /* -------------------------------------------- */
@@ -1090,6 +1105,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    if ( !this._state.name ) return ui.notifications.warn(_loc("ACTOR.CREATION.NameRequired"));
     const creationData = this._clone.toObject();
     const creationOptions = {recursive: false, diff: false, noHook: true, characterCreation: true};
     await this._finalizeCreationData(creationData, creationOptions);
@@ -1111,6 +1127,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
     delete creationData.ownership;
+    for ( const item of creationData.items ) delete item.ownership;
     creationData.flags.core.sheetClass = "";
     creationData.system.advancement.level = 1;
 
@@ -1119,8 +1136,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      itemData.system.quantity = quantity;
-      creationData.items.push(itemData);
+      delete itemData._id;
+      if ( itemData.system.properties.includes("stackable") ) {
+        itemData.system.quantity = quantity;
+        creationData.items.push(itemData);
+      } 
+      else creationData.items.push(...new Array(quantity).fill(itemData));
       spent += scaledPrice * quantity;
     }
     creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;

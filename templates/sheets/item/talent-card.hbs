@@ -4,7 +4,7 @@
             <img class="icon" src="{{img}}" alt="{{name}}">
         </div>
         <div class="title">
-            <h2>{{name}}</h2>
+            <h2 data-no-toc>{{name}}</h2>
             <div class="talent-tags tags prerequisites">
                 {{~#each prerequisites as |req|}}
                 <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>

@@ -10,7 +10,7 @@
 
 {{#if actions.length}}
 <section class="actions">
-    <h3 class="divider">{{localize "ITEM.TABS.Actions"}}</h3>
+    <h3 class="divider" data-no-toc>{{localize "ITEM.TABS.Actions"}}</h3>
     {{#each actions as |action|}}
     <div class="action line-item" data-action-id="{{this.id}}">
         <header class="action-header">
@@ -44,7 +44,7 @@
             {{#each action.effects as |effect|}}
             <li class="effect line-item">
                 <div class="title">
-                    <h4>{{localize "ACTION.EffectSpecific" effect=effect.name}}</h4>
+                    <h4 data-no-toc>{{localize "ACTION.EffectSpecific" effect=effect.name}}</h4>
                 </div>
                 {{crucibleTags effect.tags additionalClasses="effect-tags"}}
             </li>

@@ -14,6 +14,26 @@ HOOKS.adrenalineSurge0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.adrenaline000000 = {
+  confirmAction(item, action, {reverse}) {
+    if ( reverse || this.status.adrenaline ) return;
+    const myEvents = action.eventsByActor.get(this);
+    if ( !myEvents ) return;
+    for ( const event of myEvents.roll ) {
+      const dmg = event.roll?.data?.damage;
+      if ( (dmg?.resource !== "health") || (dmg.total <= 0) || dmg.restoration ) continue;
+      action.recordEvent({
+        target: this,
+        resources: [{resource: "focus", delta: 1}],
+        actorUpdates: {system: {status: {adrenaline: true}}}
+      });
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.amorphous0000000 = {
   prepareDefenses(item, defenses) {
     this.statuses.delete("restrained");
@@ -57,10 +77,39 @@ HOOKS.armoredShell0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.armoredInstinct0 = {
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( !dmg || (roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE) ) return;
+    dmg.resistance += 1;
+    dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.bard000000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
     if ( action.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.battleWorn000000 = {
+  finalizeAction(_item, action) {
+    if ( action.id !== "rest" ) return;
+    const bonus = Math.floor(this.system.abilities.toughness.value / 2);
+    if ( bonus <= 0 ) return;
+    const wounds = this.system.resources.wounds;
+    if ( !wounds ) return;
+    const activation = action.selfEvents.activation;
+    const existing = activation.resources.find(r => r.resource === "wounds");
+    const alreadyHealed = existing ? -existing.delta : 0;
+    const remaining = wounds.value - alreadyHealed;
+    const delta = -Math.min(bonus, remaining);
+    if ( delta < 0 ) activation.resources.push({resource: "wounds", delta});
   }
 };
 
@@ -271,6 +320,17 @@ HOOKS.deftgrip00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.defiantWill00000 = {
+  prepareDefenses(_item, defenses) {
+    const health = this.system.resources.health;
+    if ( health.max <= 0 ) return;
+    const toughness = this.system.abilities.toughness.value;
+    defenses.willpower.bonus += Math.floor(toughness * (1 - (health.value / health.max)));
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.demolitionist000 = {
   prepareAction(item, action) {
     if ( action.item?.config?.category.id === "bomb" ) {
@@ -317,6 +377,15 @@ HOOKS.evasiveshot00000 = {
       const movementBonus = (this.system.status.movement?.bonus ?? 0) + Math.ceil(this.system.movement.stride / 2);
       foundry.utils.setProperty(action.usage.actorStatus, "movement.bonus", movementBonus);
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.evasiveArmor0000 = {
+  prepareDefenses(_item, defenses) {
+    const excess = defenses.reflex.total - defenses.physical.total;
+    if ( excess > 0 ) defenses.armor.bonus += excess;
   }
 };
 
@@ -375,6 +444,25 @@ HOOKS.impetus000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.impenetrableGuar = {
+  defendAttack(item, action, origin, rollData) {
+    if ( !action.tags.has("strike") ) return;
+    const lastAction = ChatMessage.implementation.getLastAction({confirmed: true, actor: origin});
+    if ( !lastAction?.tags.has("strike") ) return;
+    const myEvents = lastAction.eventsByActor.get(this);
+    if ( !myEvents ) return;
+    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    for ( const event of myEvents.roll ) {
+      if ( [results.BLOCK, results.GLANCE].includes(event.roll.data.result) ) {
+        rollData.banes[item.id] = {label: item.name, number: 1};
+        return;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "soul" ) return;
@@ -397,6 +485,16 @@ HOOKS.intellectualsupe = {
     const ac = this.combatant;
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.intellectualSuperiority = {label: item.name, number: 1};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.ironResolve00000 = {
+  defendAttack(_item, action, _origin, rollData) {
+    if ( action.tags.has("strike") ) {
+      rollData.criticalSuccessThreshold += 1;
+    }
   }
 };
 
@@ -493,6 +591,15 @@ HOOKS.mesmer0000000000 = {
         }
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.neverYield000000 = {
+  // Intentionally uses prepareDefenses because this must run after #prepareFinalResources applies the weakened penalty
+  prepareDefenses(_item, _defenses) {
+    if ( this.isWeakened ) this.resources.action.max += 1;
   }
 };
 
@@ -833,11 +940,46 @@ HOOKS.surgeweaver00000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.swarm00000000000 = {
+  prepareResources(_item, resources) {
+    resources.health.bonus += resources.health.base;
+  },
+
+  prepareMovement(_item, movement) {
+    const minSize = 2;
+    const fullSize = movement.baseSize + movement.sizeBonus;
+    if ( fullSize <= minSize ) return;
+    const {value, max} = this.resources.health;
+    if ( max <= 0 ) return;
+    const ratio = Math.clamp(value / max, 0, 1);
+    const newSize = Math.round(Math.mix(minSize, fullSize, ratio));
+    movement.sizeBonus = newSize - movement.baseSize;
+  },
+
+  receiveAttack(_item, action, roll) {
+    if ( action.target?.type !== "single" ) return;
+    const dmg = roll.data.damage;
+    if ( !dmg || (dmg.total <= 0) ) return;
+    dmg.resistance += this.abilities.toughness.value;
+    dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.testudo000000000 = {
   defendAttack(item, action, _origin, rollData) {
     if ( action.tags.has("strike") && this.statuses.has("guarded") && this.equipment.weapons.shield ) {
       rollData.banes.testudo = {label: item.name, number: 1};
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.thermalVision000 = {
+  prepareToken(_item, token) {
+    token.detectionModes.thermalVision ??= {enabled: true, range: 60};
   }
 };
 

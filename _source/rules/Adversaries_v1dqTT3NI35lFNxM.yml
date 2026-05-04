@@ -208,6 +208,61 @@ pages:
       exportSource: null
     category: null
     _key: '!journal.pages!v1dqTT3NI35lFNxM.O8IesdQo8SQpIKbo'
+  - sort: 400000
+    name: Swarms
+    type: text
+    _id: swarmsRules00000
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Swarm</strong> represents a single Adversary which is in
+        truth a coordinated mass of many smaller creatures — a cloud of bats, a
+        carpet of rats, or a churning column of insects — that fights and dies
+        as one entity.</p>
+
+        <p>Swarms are typically modeled by assigning the specific
+        @UUID[Compendium.crucible.archetype.Item.archetypeswarm00]{Swarm}
+        Archetype alongside any base @UUID[.qSeJNy28eK9axO7C]{Taxonomy} that
+        could plausibly make up a Swarm. The Taxonomy supplies the biology of
+        the constituent creature; the Swarm Archetype reframes that taxonomy as
+        a swarming throng and grants the
+        @UUID[Compendium.crucible.adversary-talents.Item.swarm00000000000]
+        Talent.</p>
+
+        <p>@Embed[Compendium.crucible.adversary-talents.Item.swarm00000000000
+        inline]</p>
+
+        <p>As the Gamemaster, deploying a Swarm challenges the players to adapt
+        and shift their tactical approach. As with other Adversaries, swarms can
+        have different <strong>Threat</strong> tiers to create different types
+        of challenges ranging from minor swarms of <strong>Minion</strong>
+        enemies to a single mega-swarm that is treated as a
+        <strong>Boss</strong>-tier opponent.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.9.2
+      coreVersion: '14.360'
+      createdTime: 1777190400000
+      modifiedTime: 1777814017454
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    category: null
+    _key: '!journal.pages!v1dqTT3NI35lFNxM.swarmsRules00000'
 flags:
   core:
     sheetClass: crucible.CrucibleJournalEntrySheet

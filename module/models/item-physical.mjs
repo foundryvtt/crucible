@@ -27,7 +27,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
+      actions: new fields.ArrayField(new crucibleFields.CrucibleActionField())
     };
   }
 
@@ -105,6 +105,22 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {Record<string, CrucibleActiveEffect>}
    */
   affixes = {};
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+
+    // Strip item properties that are no longer valid choices, or have been flagged as deprecated
+    if ( Array.isArray(source.properties) ) {
+      source.properties = source.properties.filter(p => {
+        const cfg = this.ITEM_PROPERTIES[p];
+        return cfg && !cfg.deprecated;
+      });
+    }
+    return source;
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Does this item require investment?
@@ -226,10 +242,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   _preparePrice() {
     return CruciblePhysicalItem.computePrice(this.price, this.rarity);
   }
-
-  /* -------------------------------------------- */
-  /*  Actor Hooks                                 */
-  /* -------------------------------------------- */
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */

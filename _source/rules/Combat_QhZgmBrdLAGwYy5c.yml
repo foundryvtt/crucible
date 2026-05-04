@@ -63,7 +63,12 @@ pages:
         is no longer Unaware, it rolls Initiative and acts as normal for
         subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
         initiative are resolved by applying the following tiebreaking criteria
-        in order:</p><ol><li><p>Combatants with a higher passive
+        in order:</p><ol><li><p>A combatant who used the <strong>Delay</strong>
+        action this round to act at this Initiative acts before any combatant
+        who did not delay to this Initiative.</p></li><li><p>Among combatants
+        who delayed to this Initiative, the one whose original
+        <strong>Initiative</strong> was higher acts
+        first.</p></li><li><p>Combatants with a higher passive
         <strong>Initiative</strong> bonus.</p></li><li><p>Combatants with more
         maximum
         <strong>Action</strong>.</p></li><li><p><strong>Adversaries</strong> act
@@ -286,12 +291,24 @@ pages:
         terrain can be defined using Foundry VTT Scene Regions with the
         <strong>Modify Movement Cost</strong> behavior, which is fully
         integrated with Crucible movement cost computation.</p><h2
-        class="divider">Cover</h2><p>Certain terrain or obstacles can be counted
-        as Cover - providing additional protection from incoming Spell or Weapon
-        attacks. When a direct single-target attack passes through such an
-        obstacle, the target of the attack is in Cover. Cover is classified
-        according to the following types:</p><table><thead><tr><th><p>Cover
-        Type</p></th><th><p>Banes to
+        class="divider">Forced Movement</h2><p>Sometimes, an Action produces a
+        side effect that requires a creature to move involuntarily. This is
+        referred to as <strong>Forced Movement</strong>, and represents
+        situations like being knocked aside by a powerful blow, falling off a
+        ledge, or being dragged along by captors. This type of movement does not
+        incur any Action cost, nor does it consume Free Movement.</p><section
+        class="foundryvtt"><h4>Forced Movement Toggle</h4><p>Gamemasters are
+        responsible for managing this type of special movement, and can do so by
+        enabling the Forced Movement toggle in the Scene Controls menu using the
+        <span class="ref"><i class="fa-solid fa-wind"></i></span>
+        icon.</p><p>Movement made while this toggle is enabled will incur no
+        cost and will be annotated as "Forced" in their Ruler measurement
+        tooltip.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
+        or obstacles can be counted as Cover - providing additional protection
+        from incoming Spell or Weapon attacks. When a direct single-target
+        attack passes through such an obstacle, the target of the attack is in
+        Cover. Cover is classified according to the following
+        types:</p><table><thead><tr><th><p>Cover Type</p></th><th><p>Banes to
         Attacks</p></th></tr></thead><tbody><tr><td><p>Complete
         Cover</p></td><td><p>Direct attacks not
         possible</p></td></tr><tr><td><p>Hard Cover</p></td><td><p>+4
@@ -315,10 +332,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.351'
+      coreVersion: '14.360'
       createdTime: 1684374473225
-      modifiedTime: 1766422403634
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1777850642905
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -658,7 +675,7 @@ pages:
         <strong>Engaged</strong> with a number of creatures greater than its
         <strong>Engagement</strong> score it has the <strong>Flanked</strong>
         condition. The Flanked condition has multiple stages, and each stage of
-        Flanked contributes +1 Boon to attack rolls made against that
+        Flanked contributes +1 Boon to melee attack rolls made against that
         creature.</p><section class="formula"><p class="value">Flanked
         Stage</p><p class="equals">=</p><p class="equation">Number of Engaged
         Enemies<br />- Engagement Score<br />- Engagement Bonus from Adjacent
@@ -686,7 +703,7 @@ pages:
         condition when a creature is <strong>Flanked</strong> is automatically
         computed and added whenever a character moves into or out of
         <strong>Engagement</strong> with other adversaries. The Flanked effect
-        automatically applies the correct number of boons to attack rolls
+        automatically applies the correct number of boons to melee attack rolls
         against the Flanked creature.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,

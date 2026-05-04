@@ -37,12 +37,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.8.7
   createdTime: 1771793427005
-  modifiedTime: 1773514792218
+  modifiedTime: 1776980332599
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: guardianBeast000
-sort: 0
+sort: 200000
 _key: '!items!guardianBeast000'

@@ -1,0 +1,45 @@
+name: Pulse Spellcraft
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Pulse
+  identifier: pulseSpellcraft
+  changes: []
+  affixType: suffix
+  tier:
+    min: 2
+    max: 2
+    value: 2
+  itemTypes: []
+_id: pulseSpellcraft0
+img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+disabled: false
+start: null
+description: >-
+  <p>This item is imbued with the essence of <strong>Pulse</strong> spellcraft.
+  While equipped, the bearer instinctively gains knowledge of the
+  <strong>Pulse</strong> gesture, allowing them to compose spells using it even
+  without having learned the gesture through a talent.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: gesturesSuffix00
+sort: 1000000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!pulseSpellcraft0'

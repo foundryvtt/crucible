@@ -1,72 +1,52 @@
 /**
- * An object structure used for an enum with keys, values, and labels.
- * TODO deprecate this
- * @template {any} ValueType
+ * Decorate a record-style enumeration in place with derived metadata that does not depend on localization.
+ * Each entry is assigned an `id` matching its key and a `label` defaulted to the key when absent.
+ * Exposes `choices` to easily iterate values and labels.
+ * @param {Record<string, object>} record  The record to decorate
+ * @returns {Record<string, object>}       The same record, decorated in place
  */
-export default class Enum {
-  constructor(values) {
-    Object.defineProperty(this, "labels", {value: {}});
-    for ( const [key, {value, label}] of Object.entries(values) ) {
-      Object.defineProperty(this, key, {value: value, writable: false, enumerable: true});
-      this.labels[key] = label;
-      this.#values[value] = key;
-    }
-    Object.freeze(this);
-    Object.freeze(this.#values);
-  }
-
-  /**
-   * An internal registry of enum values.
-   * @type {Record<string, ValueType>}
-   */
-  #values = {};
-
-  /**
-   * A registry of value labels.
-   * @type {Record<string, string>}
-   */
-  labels;
-
-  /**
-   * Provide the label for an enum entry by its key or by its value.
-   * @param {string|ValueType} keyOrValue
-   * @returns {string}
-   */
-  label(keyOrValue) {
-    const key = keyOrValue in this.labels ? keyOrValue : this.#values[keyOrValue];
-    return this.labels[key];
-  }
-
-  /**
-   * The enum expressed as an object of choices suitable for a <select> input or similar use case.
-   * @returns {Record<ValueType, string>}
-   */
-  get choices() {
-    return Object.entries(this.#values).reduce((obj, [k, v]) => {
-      obj[k] = this.labels[v];
-      return obj;
-    }, {});
-  }
-}
-
-/* -------------------------------------------- */
-
-/**
- * Deep freeze an enumeration, ensuring it has certain required properties.
- * @param {object} record
- * @returns {Record<string, object>}
- */
-export function freezeEnum(record) {
+export function defineEnum(record) {
   for ( const [k, v] of Object.entries(record) ) {
     v.id = k;
     v.label ??= k;
-    Object.freeze(v);
   }
   Object.defineProperty(record, "choices", {
     get() {
       return Object.values(this).map(v => ({value: v.id, label: v.label, group: v.group}));
     }
   });
-  Object.freeze(record);
   return record;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Define an integer-valued enumeration suitable as the persisted value of a NumberField.
+ * Each top-level key is the name of an enum constant; accessing it returns the integer value.
+ * @param {Record<string, {value: number, label: string}>} record
+ * @returns {Record<string, number>}
+ */
+export function defineIntEnum(record) {
+  const enumeration = {};
+  const labels = {};
+  for ( const [key, {value, label}] of Object.entries(record) ) {
+    Object.defineProperty(enumeration, key, {value, enumerable: true});
+    labels[key] = label ?? key;
+  }
+  Object.defineProperty(enumeration, "labels", {value: labels});
+  Object.defineProperty(enumeration, "label", {
+    value(keyOrValue) {
+      if ( keyOrValue in labels ) return labels[keyOrValue];
+      const key = Object.entries(enumeration).find(([_k, v]) => v === keyOrValue)?.[0];
+      return key ? labels[key] : undefined;
+    }
+  });
+  Object.defineProperty(enumeration, "choices", {
+    get() {
+      const result = {};
+      for ( const [key, value] of Object.entries(enumeration) ) result[value] = labels[key];
+      return result;
+    }
+  });
+  return enumeration;
 }

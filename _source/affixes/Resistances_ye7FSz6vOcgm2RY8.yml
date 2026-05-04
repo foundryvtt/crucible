@@ -1,18 +1,18 @@
 type: ActiveEffect
-folder: ZycnA85sy95OpCmt
+folder: L3dyA14Cx45bjiQY
 name: Resistances
 color: null
 sorting: a
 _id: ye7FSz6vOcgm2RY8
 description: ''
-sort: 100000
+sort: 400000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775562927784
+  modifiedTime: 1776171451010
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

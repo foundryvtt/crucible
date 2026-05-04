@@ -1,3 +1,5 @@
+import {defineEnum} from "./enum.mjs";
+
 /**
  * @typedef CrucibleItemCategory            A category of weapon which can exist in the system
  * @property {string} id            The category id
@@ -32,114 +34,99 @@
 
 /**
  * The possible quality tiers that a physical item can possess.
- * @enum {ItemQualityTier}
+ * @type {Readonly<Record<string, ItemQualityTier>>}
  */
-export const QUALITY_TIERS = {
+export const QUALITY_TIERS = defineEnum({
   shoddy: {
-    id: "shoddy",
     label: "ITEM.QualityShoddy",
     bonus: -2,
     rarity: -1,
     capacity: 0
   },
   standard: {
-    id: "standard",
     label: "ITEM.QualityStandard",
     bonus: 0,
     rarity: 0,
     capacity: 0
   },
   fine: {
-    id: "fine",
     label: "ITEM.QualityFine",
     bonus: 1,
     rarity: 1,
     capacity: 2
   },
   superior: {
-    id: "superior",
     label: "ITEM.QualitySuperior",
     bonus: 2,
     rarity: 2,
     capacity: 4
   },
   masterwork: {
-    id: "masterwork",
     label: "ITEM.QualityMasterwork",
     bonus: 3,
     rarity: 4,
     capacity: 6
   }
-};
+});
 
 /**
  * The possible enchantment tiers that a physical item can possess.
- * @enum {ItemEnchantmentTier}
+ * @type {Readonly<Record<string, ItemEnchantmentTier>>}
  */
-export const ENCHANTMENT_TIERS = {
+export const ENCHANTMENT_TIERS = defineEnum({
   mundane: {
-    id: "mundane",
     label: "ITEM.EnchantmentMundane",
     bonus: 0,
     rarity: 0
   },
   minor: {
-    id: "minor",
     label: "ITEM.EnchantmentMinor",
     bonus: 1,
     rarity: 2
   },
   major: {
-    id: "major",
     label: "ITEM.EnchantmentMajor",
     bonus: 2,
     rarity: 4
   },
   legendary: {
-    id: "legendary",
     label: "ITEM.EnchantmentLegendary",
     bonus: 3,
     rarity: 6
   }
-};
+});
 
 /**
  * Standard physical item properties
- * @type {Record<string, ItemProperty>}
+ * @type {Readonly<Record<string, ItemProperty>>}
  */
-export const PROPERTIES = Object.freeze({
+export const PROPERTIES = defineEnum({
   investment: {
-    id: "investment",
     label: "ITEM.PROPERTIES.Investment"
   },
   stackable: {
-    id: "stackable",
     label: "ITEM.PROPERTIES.Stackable"
   },
   unique: {
-    id: "unique",
     label: "ITEM.PROPERTIES.Unique"
   }
 });
 
 /**
  * The categories of "loot" items which are allowed.
- * @enum {CrucibleItemCategory}
+ * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
-export const LOOT_CATEGORIES = {
+export const LOOT_CATEGORIES = defineEnum({
   treasure: {
-    id: "treasure",
     label: "LOOT.CATEGORIES.Treasure"
   },
   ingredient: {
-    id: "ingredient",
     label: "LOOT.CATEGORIES.Ingredient"
   },
   other: {
-    id: "other",
     label: "LOOT.CATEGORIES.Other"
   }
-};
+});
 
 /**
  * The item types which are physical items.
@@ -150,18 +137,16 @@ export const PHYSICAL_ITEM_TYPES = new Set();
 
 /**
  * The categories of "tool" items which are allowed.
- * @enum {CrucibleItemCategory}
+ * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
-export const TOOL_CATEGORIES = {
+export const TOOL_CATEGORIES = defineEnum({
   crafting: {
-    id: "crafting",
     label: "TOOL.CATEGORIES.Crafting"
   },
   implement: {
-    id: "implement",
     label: "TOOL.CATEGORIES.Implement"
   }
-};
+});
 
 /**
  * The item types which can be equipped.
@@ -191,23 +176,23 @@ export const AFFIX_TYPES = Object.freeze({
 /**
  * The categories of "schematic" items which are allowed.
  * These categories map 1:1 to the tradecraft skills which are available in the system.
- * @enum {CrucibleItemCategory}
+ * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
-export const SCHEMATIC_CATEGORIES = {
-  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.Alchemy"},
-  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.Cooking"},
-  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.Enchanting"},
-  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.Fletching"},
-  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.Jewelcraft"},
-  glyphweaving: {id: "glyphweaving", label: "SCHEMATIC.CATEGORIES.Glyphweaving"},
-  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.Smithing"},
-  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.Tailoring"}
-};
+export const SCHEMATIC_CATEGORIES = defineEnum({
+  alchemy: {label: "SCHEMATIC.CATEGORIES.Alchemy"},
+  cooking: {label: "SCHEMATIC.CATEGORIES.Cooking"},
+  enchanting: {label: "SCHEMATIC.CATEGORIES.Enchanting"},
+  fletching: {label: "SCHEMATIC.CATEGORIES.Fletching"},
+  jewelcraft: {label: "SCHEMATIC.CATEGORIES.Jewelcraft"},
+  glyphweaving: {label: "SCHEMATIC.CATEGORIES.Glyphweaving"},
+  smithing: {label: "SCHEMATIC.CATEGORIES.Smithing"},
+  tailoring: {label: "SCHEMATIC.CATEGORIES.Tailoring"}
+});
 
 /**
  * The boolean properties that a "schematic" is able to have.
- * @type {Record<string, ItemProperty>}
+ * @type {Readonly<Record<string, ItemProperty>>}
  */
-export const SCHEMATIC_PROPERTIES = {
-  common: {id: "common", label: "SCHEMATIC.PROPERTIES.Common"}
-};
+export const SCHEMATIC_PROPERTIES = defineEnum({
+  common: {label: "SCHEMATIC.PROPERTIES.Common"}
+});

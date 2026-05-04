@@ -1,18 +1,20 @@
 type: Item
-folder: myBrb0NP4oQkwiz5
+folder: null
 name: Bursts
 color: null
 sorting: a
 _id: hLW9grST8mutR0JI
 description: ''
-sort: 0
+sort: 1400000
 flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.8.6
-  lastModifiedBy: null
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  createdTime: 1777227045945
+  modifiedTime: 1777227045945
 _key: '!folders!hLW9grST8mutR0JI'

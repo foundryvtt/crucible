@@ -1,0 +1,59 @@
+name: Lightweaver
+type: archetype
+_id: lightweaver00000
+img: icons/magic/light/hand-sparks-glow-yellow.webp
+system:
+  description: <p>Mages that specialize in the runes of Illumination and Fire.</p>
+  identifier: lightweaver
+  abilities:
+    wisdom: 4
+    presence: 3
+    intellect: 2
+    strength: 1
+    toughness: 1
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.talent.Item.runeFlame0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeIllumination
+      level: 0
+    - item: Compendium.crucible.talent.Item.gestureAura00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+      level: 0
+    - item: Compendium.crucible.talent.Item.talismanWeaponPr
+      level: 4
+    - item: Compendium.crucible.talent.Item.runeControl00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.gesturecreate000
+      level: 0
+    - item: Compendium.crucible.talent.Item.inflectionpull00
+      level: 2
+  skills: []
+  spells:
+    - item: Compendium.crucible.spell.Item.dawnBeacon000000
+      level: 0
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980261367
+  modifiedTime: 1776980261368
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!lightweaver00000'

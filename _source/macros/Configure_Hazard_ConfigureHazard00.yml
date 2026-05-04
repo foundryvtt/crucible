@@ -1,0 +1,24 @@
+_id: ConfigureHazard00
+name: Configure Hazard
+type: script
+author: WRGzDgYAt3ZuX6TU
+img: icons/skills/wounds/injury-body-pain-gray.webp
+scope: global
+command: 'await crucible.api.dice.HazardDialog.prompt()'
+folder: null
+sort: 400000
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1777000000000
+  modifiedTime: 1777000000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!macros!ConfigureHazard00'

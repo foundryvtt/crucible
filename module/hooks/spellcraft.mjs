@@ -87,14 +87,6 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
-  },
-  postActivate() {
-    this.recordEvent({type: "effect", effects: [{
-      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
-      img: this.img,
-      name: this.name,
-      system: {}
-    }]});
   }
 };
 

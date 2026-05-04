@@ -34,6 +34,10 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
+      characteristics: new fields.SchemaField({
+        temperature: new fields.StringField({required: true, blank: true, initial: "",
+          choices: SYSTEM.TEMPERATURE_TIERS})
+      }),
       ui: new fields.SchemaField({
         color: new fields.ColorField()
       })
@@ -83,7 +87,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
    * @returns {CrucibleItem}
    */
   toTaxonomy() {
-    const {abilities, description, identifier, movement, resistances, talents} = this.toObject();
+    const {abilities, characteristics, description, identifier, movement, resistances, talents} = this.toObject();
 
     // Determine ability allocation
     const {primary, secondary} = abilities;
@@ -117,7 +121,8 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       }, {}),
       characteristics: {
         equipment: true,
-        spells: true
+        spells: true,
+        temperature: characteristics.temperature
       },
       talents
     };

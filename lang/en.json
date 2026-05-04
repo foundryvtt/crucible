@@ -43,8 +43,12 @@
         "Name": "Defend"
       },
       "Delay": {
-        "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and the Initiative value of the combatant after you. You will act at this new Initiative value. You may only delay your turn once per round.",
+        "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and one less than your current Initiative. You will act at this new Initiative value, and if other combatants share that value you will act before them. You may only delay your turn once per round.",
         "Name": "Delay"
+      },
+      "Investiture": {
+        "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
+        "Name": "Investiture"
       },
       "Move": {
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
@@ -71,7 +75,7 @@
         "Name": "Strike"
       },
       "ThrowWeapon": {
-        "Description": "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>.",
+        "Description": "Throw your equipped melee weapon to Strike at a nearby target. The weapon becomes <strong>Dropped</strong>, and the attack suffers from +2 <strong>Banes</strong> if the weapon does not have the <strong>Thrown</strong> property.",
         "Name": "Throw Weapon"
       }
     },
@@ -218,6 +222,11 @@
     "SHEET": {
       "Title": "Action"
     },
+    "SUMMARY": {
+      "Investiture": "Investiture",
+      "ItemInvested": "Invested",
+      "ItemDivested": "Divested"
+    },
     "TABS": {
       "Description": "Description",
       "Effects": "Effects",
@@ -240,8 +249,14 @@
       "ConsumeTooltip": "This action involves and requires consumption of a specific consumable item",
       "CostAction": "{action}A",
       "CostFocus": "{focus}F",
-      "CostHand.one": "{hands} Hand",
-      "CostHand.other": "{hands} Hands",
+      "CostHand": {
+        "zero": "{hands} Hands",
+        "one": "{hands} Hand",
+        "two": "{hands} Hands",
+        "few": "{hands} Hands",
+        "many": "{hands} Hands",
+        "other": "{hands} Hands"
+      },
       "CostHealth": "{health}HP",
       "CostHeroism": "{heroism}H",
       "CostTooltip": "The Action Point or Focus Point cost of using this action.",
@@ -326,6 +341,8 @@
       "Summon": "Summon",
       "SummonTooltip": "This action summons, calls, or otherwise creates a combatant which joins the encounter.",
       "TargetTooltip": "The target type, distance, and number which applies to this action.",
+      "Talisman": "Talisman",
+      "TalismanTooltip": "This action requires wielding a talisman weapon to perform.",
       "Thrown": "Thrown",
       "ThrownTooltip": "This action involves performing a thrown weapon attack.",
       "TwoHanded": "Two-Handed",
@@ -368,6 +385,7 @@
       "Self": "Self"
     },
     "TARGET_TYPES": {
+      "Aura": "Aura",
       "Blast": "Blast",
       "Cone": "Cone",
       "Fan": "Fan",
@@ -390,21 +408,36 @@
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round.",
           "WrongTurn": "You may only use the Delay action on your own turn in combat."
+        },
+        "INTERPOSE": {
+          "AllyMustBeTarget": "The selected ally must be the target of the most recent Strike.",
+          "AttackMissed": "You may only Interpose against an attack that hit or glanced your ally.",
+          "RequiresStrike": "Interpose requires the most recent action to be a weapon Strike.",
+          "SingleTarget": "Interpose can only be used against a single-target Strike."
         }
       },
+      "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
-      "CannotAffordHands.one": "{name} must have {hands} free hand to use {action}!",
-      "CannotAffordHands.other": "{name} must have {hands} free hands to use {action}!",
+      "CannotAffordHands": {
+        "zero": "{name} must have {hands} free hands to use {action}!",
+        "one": "{name} must have {hands} free hand to use {action}!",
+        "two": "{name} must have {hands} free hands to use {action}!",
+        "few": "{name} must have {hands} free hands to use {action}!",
+        "many": "{name} must have {hands} free hands to use {action}!",
+        "other": "{name} must have {hands} free hands to use {action}!"
+      },
       "CannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
       "CannotSpendAction": "{name} cannot spend Action because they are Incapacitated!",
       "CannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
       "CannotTargetSelf": "You cannot target yourself with this Action!",
       "CannotThrow": "You cannot throw this weapon.",
-      "CannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
+      "CannotUse": "{name} does not satisfy the prerequisites to use {action}.",
+      "CannotUseReason": "{name} does not satisfy the prerequisites to use {action}: {reason}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
+      "InvalidTargetsGeneric": "Invalid targets for this action!",
       "LastCriticallyMissed": "You may only perform {action} after a basic Strike which did not critically miss.",
       "MaximumRange": "A selected target is further than the maximum range of {max} feet.",
       "MinimumRange": "A selected target is closer than the minimum range of {min} feet.",
@@ -423,6 +456,7 @@
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
+      "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
       "RequiresNatural": "This action requires use of a natural weapon.",
@@ -444,7 +478,7 @@
     "ChooseWeaponHint": "You may choose which weapon to use for this Action.",
     "Condition": "Condition",
     "Confirmed": "Confirmed",
-    "DelayHint": "Choose an initiative value between 1 and {maximum} when you wish to act.",
+    "DelayHint": "Choose an Initiative between 1 and {maximum} at which to act. See @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.DPrsFbPo3tD7TJ5g]{Initiative and Turn Order} for how delayed Initiative interacts with tiebreaking.",
     "DelayLabel": "Delayed Initiative",
     "DelayTitle": "Delay Turn",
     "DurationRounds": "{value}R",
@@ -464,6 +498,7 @@
     "RequiresMovement": "You must plan a movement path before this action can be used.",
     "RequiresRegion": "You must place a Region before this action can be used.",
     "SkillCheck": "{skill} Skill Check",
+    "SkillCheckGeneric": "Skill Check",
     "StandardCheck": "Standard Check",
     "Targets": "Targets",
     "TemplateTargets": "Template Targets",
@@ -521,6 +556,7 @@
       "Slowed": "Slowed",
       "Staggered": "Staggered",
       "Stunned": "Stunned",
+      "Suffocating": "Suffocating",
       "Unaware": "Unaware",
       "Weakened": "Weakened"
     }
@@ -573,6 +609,7 @@
       "EquipmentType": "Item Type",
       "Exit": "Exit",
       "ExitHint": "Exit Creation",
+      "NameRequired": "You must provide a character name to complete creation.",
       "Restart": "Restart",
       "RestartContent": "Discard creation progress and restart from the beginning?",
       "RestartHint": "Restart Creation",
@@ -678,9 +715,13 @@
         "members": {
           "actor.label": "Actor ID",
           "label": "Group Members",
+          "quantity.label": "Actor Quantity",
+          "zero": "Members",
           "one": "Member",
-          "other": "Members",
-          "quantity.label": "Actor Quantity"
+          "two": "Members",
+          "few": "Members",
+          "many": "Members",
+          "other": "Members"
         },
         "movement": {
           "air.label": "Air Speed",
@@ -702,6 +743,8 @@
       }
     },
     "LABELS": {
+      "BackgroundKnowledgeTooltip": "This Knowledge Area is granted by your Background.",
+      "BackgroundLanguageTooltip": "This Language is granted by your Background.",
       "Capacity": "Carrying Capacity",
       "Currency": "Currency",
       "CurrentCapacity": "Current Capacity",
@@ -710,6 +753,7 @@
       "Knowledge": "Knowledge Areas",
       "KnowledgeHint": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
       "Languages": "Known Languages",
+      "LanguagesHint": "Learn some Languages from your Background or edit your Hero to gain some.",
       "OverCapacity": "Over Capacity"
     },
     "SECTIONS": {
@@ -877,8 +921,13 @@
         "hint": "A string identifier used to uniquely reference this Ancestry in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
         "label": "Identifier"
       },
+      "characteristics": {
+        "label": "Ancestry Characteristics",
+        "temperature.hint": "The body temperature of this Ancestry, neutral by default.",
+        "temperature.label": "Body Temperature"
+      },
       "movement": {
-        "label": "Movement and Stature",
+        "label": "Movement",
         "size": {
           "hint": "The size of this ancestry in grid spaces.",
           "label": "Size"
@@ -920,7 +969,9 @@
       "Browse": "Browse Ancestries",
       "Choose": "Choose Ancestry",
       "Clear": "Clear Ancestry",
-      "Identity": "Identity"
+      "Identity": "Identity",
+      "Physiology": "Physiology",
+      "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
       "Abilities": "The primary and secondary Abilities for an Ancestry may not be the same.",
@@ -1031,11 +1082,15 @@
       "GroupRevoke": "Revoked {number} {label} from group {name} and the following members:",
       "Identifier": "Identifier",
       "IdentifierHint": "A unique identifier for the milestone award, must be a slug (no spaces or special characters).",
-      "one": "Milestone",
-      "other": "Milestones",
       "Recipients": "Milestone Recipients",
       "RecipientsHint": "Designate one or more heroes to receive the milestone.",
-      "Revoke": "Revoke Milestones"
+      "Revoke": "Revoke Milestones",
+      "zero": "Milestones",
+      "one": "Milestone",
+      "two": "Milestones",
+      "few": "Milestones",
+      "many": "Milestones",
+      "other": "Milestones"
     },
     "SUMMARIES": {
       "TABLE": {
@@ -1211,13 +1266,26 @@
     },
     "USES": {
       "Of": "of",
-      "TagMax.one": "{value} Use",
-      "TagMax.other": "{value} Uses",
-      "TagPartial.one": "{value}/{max} Use",
-      "TagPartial.other": "{value}/{max} Uses"
+      "TagMax": {
+        "zero": "{value} Uses",
+        "one": "{value} Use",
+        "two": "{value} Uses",
+        "few": "{value} Uses",
+        "many": "{value} Uses",
+        "other": "{value} Uses"
+      },
+      "TagPartial": {
+        "zero": "{value}/{max} Uses",
+        "one": "{value}/{max} Use",
+        "two": "{value}/{max} Uses",
+        "few": "{value}/{max} Uses",
+        "many": "{value}/{max} Uses",
+        "other": "{value}/{max} Uses"
+      }
     }
   },
   "CONTROLS": {
+    "CrucibleForcedMovement": "Forced Movement",
     "VisualizeFlanking": "Visualize Flanking"
   },
   "CRUCIBLE": {
@@ -1297,12 +1365,15 @@
     "Block": "Block",
     "Dodge": "Dodge",
     "Fortitude": "Fortitude",
-    "Madness": "Madness",
+    "Madness": "Rallying Threshold",
     "Parry": "Parry",
     "Physical": "Physical",
     "Reflex": "Reflex",
     "Willpower": "Willpower",
-    "Wounds": "Wounds"
+    "Wounds": "Healing Threshold"
+  },
+  "DETECTION_MODES": {
+    "ThermalVision": "Thermal Vision"
   },
   "DICE": {
     "DIFFICULTIES": {
@@ -1315,12 +1386,16 @@
       "Moderate": "Moderate",
       "Trivial": "Trivial"
     },
+    "SKILLS": {
+      "AddSkill": "Add Skill",
+      "CustomizeSkills": "Customize Skills"
+    },
     "GROUP_CHECK": {
-      "Title": "Group Check",
-      "ChatTitle": "{skill} Check (DC {dc})",
+      "Title": "Group Skill Check",
       "DialogTitle": "{skill} Check: {name}",
       "NoUserForActor": "No active user found for: {name}",
       "STATUSES": {
+        "Complete": "Complete",
         "Pending": "Pending",
         "Aborted": "Aborted",
         "Skipped": "Skipped"
@@ -1328,7 +1403,8 @@
       "Resend": "Resend Request",
       "RollOnBehalf": "Roll on Behalf",
       "Skip": "Skip Actor",
-      "Finalize": "Reveal to Players"
+      "ResetPending": "Reset to Pending",
+      "RequiresGM": "Only a Gamemaster can initiate group checks."
     },
     "REQUESTS": {
       "AddParty": "Add Party",
@@ -1343,10 +1419,22 @@
     },
     "Ability": "Ability",
     "AbilityBonus": "Ability Bonus",
-    "Banes.one": "Bane",
-    "Banes.other": "Banes",
-    "Boons.one": "Boon",
-    "Boons.other": "Boons",
+    "Banes": {
+      "zero": "Banes",
+      "one": "Bane",
+      "two": "Banes",
+      "few": "Banes",
+      "many": "Banes",
+      "other": "Banes"
+    },
+    "Boons": {
+      "zero": "Boons",
+      "one": "Boon",
+      "two": "Boons",
+      "few": "Boons",
+      "many": "Boons",
+      "other": "Boons"
+    },
     "CircumstanceBonus": "Circumstance Bonus",
     "Confirm": "Confirm",
     "Damage": "Damage",
@@ -1387,7 +1475,36 @@
   },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
-    "ToggleSource": "Toggle Source"
+    "ToggleSource": "Toggle Source",
+    "WARNINGS": {
+      "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
+      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
+      "RestRecoverIncapacitated": "You may not Rest or Recover while Dead or Insane."
+    }
+  },
+  "HAZARD": {
+    "Hazard": "Hazard",
+    "UseHazard": "Use Hazard",
+    "WindowTitle": "Hazard: {name}",
+    "CONFIG": {
+      "Title": "Hazard Configuration",
+      "Name": "Name",
+      "Danger": "Danger Level",
+      "Defense": "Target Defense",
+      "Damage": "Damage Type",
+      "Tags": "Action Tags"
+    },
+    "TARGETS": {
+      "Title": "Affected Targets",
+      "Hint": "Drop tokens or actors here, or click the party button to add party members.",
+      "Add": "Add Target",
+      "Remove": "Remove Target",
+      "Clear": "Clear All",
+      "Party": "Add Party"
+    },
+    "WARNINGS": {
+      "GMOnly": "Only the GM can configure and roll hazards."
+    }
   },
   "ITEM": {
     "ACTIONS": {
@@ -1511,6 +1628,7 @@
     },
     "RANDOMIZE": {
       "Title": "Randomize Enchanted Item",
+      "Flavor": "Randomized Item: {type}",
       "PriceMin": "Minimum Price",
       "PriceMax": "Maximum Price",
       "BaseItem": "Base Item",
@@ -1528,7 +1646,8 @@
     "QualityMasterwork": "Masterwork",
     "QualityShoddy": "Shoddy",
     "QualityStandard": "Standard",
-    "QualitySuperior": "Superior"
+    "QualitySuperior": "Superior",
+    "QuantityNone": "None"
   },
   "KEYBINDINGS": {
     "ConfirmAction": "Confirm Action",
@@ -1960,8 +2079,14 @@
     "WARNINGS": {
       "BindArmamentAlreadyBound": "weapon is already bound",
       "BindArmamentNoMainhand": "no mainhand weapon",
-      "CannotAffordHands.one": "The {action} spell requires {hands} free hand to cast.",
-      "CannotAffordHands.other": "The {action} spell requires {hands} free hands to cast.",
+      "CannotAffordHands": {
+        "zero": "The {action} spell requires {hands} free hands to cast.",
+        "one": "The {action} spell requires {hands} free hand to cast.",
+        "two": "The {action} spell requires {hands} free hands to cast.",
+        "few": "The {action} spell requires {hands} free hands to cast.",
+        "many": "The {action} spell requires {hands} free hands to cast.",
+        "other": "The {action} spell requires {hands} free hands to cast."
+      },
       "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed.",
       "CannotUseSilenced": "Cannot use Inflections while Silenced.",
       "IconicAlreadyKnown": "Actor {actor} already knows the {spell} Iconic Spell.",
@@ -2040,10 +2165,22 @@
       "Register": "Register Hook Function"
     },
     "LABELS": {
-      "Points.one": "Point",
-      "Points.other": "Points",
-      "Talents.one": "Talent",
-      "Talents.other": "Talents"
+      "Points": {
+        "zero": "Points",
+        "one": "Point",
+        "two": "Points",
+        "few": "Points",
+        "many": "Points",
+        "other": "Points"
+      },
+      "Talents": {
+        "zero": "Talents",
+        "one": "Talent",
+        "two": "Talents",
+        "few": "Talents",
+        "many": "Talents",
+        "other": "Talents"
+      }
     },
     "NODES": {
       "Attack": "Attack",
@@ -2105,6 +2242,7 @@
       "Humanoid": "Humanoid",
       "Monstrosity": "Monstrosity",
       "Ooze": "Ooze",
+      "Plant": "Plant",
       "Outsider": "Outsider",
       "Undead": "Undead"
     },
@@ -2120,7 +2258,9 @@
       "characteristics": {
         "equipment.label": "Can Use Equipment",
         "label": "Taxonomy Characteristics",
-        "spells.label": "Can Cast Spells"
+        "spells.label": "Can Cast Spells",
+        "temperature.hint": "The body temperature of creatures with this Taxonomy. If left blank, defaults to the temperature of the chosen creature category.",
+        "temperature.label": "Body Temperature"
       },
       "identifier": {
         "hint": "A string identifier used to uniquely reference this Taxonomy in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
@@ -2154,12 +2294,20 @@
       "Choose": "Choose Taxonomy",
       "Clear": "Clear Taxonomy",
       "Physiology": "Physiology",
-      "Stature": "Taxonomy Stature"
+      "Stature": "Taxonomy Stature",
+      "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
       "InvalidAbilities": "The sum of initial ability values must equal 12. Currently {sum}",
       "InvalidResistances": "The sum of resistance scaling values must equal zero. Currently {sum}"
     }
+  },
+  "TEMPERATURE_TIERS": {
+    "Boiling": "Boiling",
+    "Warm": "Warm",
+    "Neutral": "Neutral",
+    "Cool": "Cool",
+    "Gelid": "Gelid"
   },
   "TOKEN": {
     "LABELS": {
@@ -2206,6 +2354,10 @@
           "description": "Move a distance up to your Stride attribute per Action.",
           "label": "Walk"
         }
+      },
+      "COST": {
+        "Forced": "Forced",
+        "Impossible": "Impossible"
       }
     }
   },

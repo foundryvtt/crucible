@@ -200,7 +200,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.isUnique = this.document.system.properties.has("unique");
         if ( !context.isUnique ) {
           context.affixPartial = this.constructor.AFFIX_PARTIAL;
-          Object.assign(context, this.#prepareAffixes());
+          Object.assign(context, await this.#prepareAffixes());
           context.affixCapacity = this.document.system.affixCapacity;
           const hasAffixes = (context.prefixes.length + context.suffixes.length) > 0;
           context.hasAffixCapacity = hasAffixes
@@ -323,7 +323,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * Prepare affix data for display in the affixes tab, split into prefix and suffix groups.
    * @returns {{prefixes: object[], suffixes: object[]}}
    */
-  #prepareAffixes() {
+  async #prepareAffixes() {
+    const editorCls = CONFIG.ux.TextEditor;
+    const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
     const prefixes = [];
     const suffixes = [];
     for ( const affix of Object.values(this.document.system.affixes) ) {
@@ -332,7 +334,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         id: affix.id,
         name: affix.name,
         img: affix.img,
-        description: affix.description,
+        description: await editorCls.enrichHTML(affix.description, editorOptions),
         tier: tierValue,
         tierRoman: ["", "I", "II", "III"][tierValue] ?? tierValue
       };

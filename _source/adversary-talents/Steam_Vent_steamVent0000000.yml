@@ -1,0 +1,87 @@
+name: Steam Vent
+type: talent
+_id: steamVent0000000
+img: icons/magic/air/fog-gas-smoke-swirling-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>Steam-powered constructs store dangerous amounts of superheated steam
+    within their bodies that, if not discharged safely, can cause serious
+    injury.</p>
+  actions:
+    - id: steamVent
+      name: Steam Vent
+      img: icons/magic/air/fog-gas-smoke-swirling-blue.webp
+      description: >-
+        <p>Superheated steam bursts forth from inside the steam-powered
+        construct in a burst of searing damage, knocking back those standing too
+        close and leaving them @Condition[prone] .</p>
+      condition: ''
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - prone
+          duration:
+            value: null
+            units: seconds
+            expiry: null
+            expired: false
+          system:
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            changes: []
+      tags:
+        - ranged
+        - fire
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: By2dpEkYQSuee47b
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777227122109
+  modifiedTime: 1777227122109
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!steamVent0000000'

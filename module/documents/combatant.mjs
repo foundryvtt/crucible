@@ -17,7 +17,7 @@ export default class CrucibleCombatant extends Combatant {
   getInitiativeRoll(formula) {
     const boons = {};
     const banes = {};
-    const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes};
+    const rollData = {actorId: this.actor?.id, ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes};
     if ( this.actor ) {
       if ( this.actor.isIncapacitated || !this.actor.abilities.dexterity.value ) rollData.incapacitated = true;
       else if ( this.actor.statuses.has("unaware") ) rollData.unaware = true;
@@ -42,18 +42,6 @@ export default class CrucibleCombatant extends Combatant {
       this.actor.callActorHooks("prepareInitiativeCheck", rollData);
     }
     return new InitiativeCheck(rollData);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the maximum initiative values is eligible as a delay.
-   * @returns {number|null}
-   */
-  getDelayMaximum() {
-    const position = this.parent.turns.indexOf(this);
-    const nextCombatant = this.parent.turns.find((c, i) => (i > position) && c.initiative);
-    return nextCombatant ? nextCombatant.initiative - 1 : null;
   }
 
   /* -------------------------------------------- */

@@ -39,7 +39,9 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       })),
       characteristics: new fields.SchemaField({
         equipment: new fields.BooleanField(),
-        spells: new fields.BooleanField()
+        spells: new fields.BooleanField(),
+        temperature: new fields.StringField({required: true, blank: true, initial: "",
+          choices: SYSTEM.TEMPERATURE_TIERS})
       })
     };
   }
@@ -85,6 +87,17 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
    */
   get actor() {
     return this.parent.parent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The resolved temperature for this Taxonomy, falling back to the configured value for the creature category if no
+   * explicit characteristic is set.
+   * @type {string}
+   */
+  get temperature() {
+    return this.characteristics.temperature || SYSTEM.ACTOR.CREATURE_CATEGORIES[this.category]?.temperature;
   }
 
   /* -------------------------------------------- */

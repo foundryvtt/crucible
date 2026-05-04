@@ -295,7 +295,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     });
     this.action.updateSource({effects});
     await this.render();
-    const submit = new Event("submit");
+    const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
   }
 
@@ -311,7 +311,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   static async #onDeleteEffect(_event, target) {
     const fieldset = target.closest("fieldset.effect");
     fieldset.remove();
-    const submit = new Event("submit");
+    const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
   }
 

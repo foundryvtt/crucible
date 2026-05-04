@@ -1,4 +1,5 @@
 import CrucibleItem from "./item.mjs";
+import {getEffectId} from "../const/effects.mjs";
 
 /**
  * An active effect subclass which handles system specific logic for active effects.
@@ -9,6 +10,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @type {string}
    */
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-active-effect.hbs";
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static async _fromStatusEffect(statusId, effectData, options) {
+    const status = CONFIG.statusEffects[statusId];
+    if ( status?.generator ) {
+      foundry.utils.mergeObject(effectData, status.generator(), {overwrite: true});
+      effectData.duration = {};
+    }
+    effectData._id = getEffectId(`Toggled ${statusId}`); // Unique effect _id for toggled statuses
+    return super._fromStatusEffect(statusId, effectData, options);
+  }
 
   /* -------------------------------------------- */
 
@@ -148,8 +162,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    */
   async renderCard() {
     await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
+    const descriptionHTML = await CONFIG.ux.TextEditor.enrichHTML(this.description, {relativeTo: this});
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
       effect: this,
+      descriptionHTML,
       tags: this.getTags()
     });
   }

@@ -1,9 +1,10 @@
+import {defineEnum} from "./enum.mjs";
 
 /**
  * Training categories which apply to tradecraft.
- * @type {Record<string, {label: string}>}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  **/
-export const TRAINING = Object.freeze({
+export const TRAINING = defineEnum({
   alchemy: {label: "SKILL.LABELS.alchemy"},
   cooking: {label: "SKILL.LABELS.cooking"},
   enchanting: {label: "SKILL.LABELS.enchanting"},
@@ -13,3 +14,4 @@ export const TRAINING = Object.freeze({
   smithing: {label: "SKILL.LABELS.smithing"},
   tailoring: {label: "SKILL.LABELS.tailoring"}
 });
+

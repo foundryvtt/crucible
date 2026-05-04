@@ -38,6 +38,34 @@ HOOKS.antitoxin = {
 
 /* -------------------------------------------- */
 
+HOOKS.aqueousTransmission = {
+  prepare() {
+    this.cost.action = 0;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.armorCrusher = {
+  async roll(target) {
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    if ( this.actor.system.resources.focus.value <= 0 ) return;
+    const events = this.eventsByActor.get(target);
+    if ( !events ) return;
+    for ( const event of events.roll ) {
+      if ( event.roll?.data?.result !== RESULTS.GLANCE ) continue;
+      const dmg = event.roll.data.damage;
+      if ( !dmg ) continue;
+      dmg.bonus += this.actor.system.abilities.toughness.value;
+      dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
+      event.resources.push({resource: "focus", delta: -1});
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.assessStrength = {
   configure() {
     const target = this.targets.values().next().value?.actor;
@@ -100,7 +128,7 @@ HOOKS.bindArmament = {
   preActivate() {
     const mainhandId = this.actor.equipment.weapons.mainhand.id;
     if ( !mainhandId ) return;
-    foundry.utils.mergeObject(this.usage.actorUpdates, {
+    foundry.utils.mergeObject(this.selfUpdateEvent.actorUpdates, {
       [`flags.crucible.${this.id}`]: mainhandId
     });
   }
@@ -278,17 +306,16 @@ HOOKS.delay = {
       throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.AlreadyDelayed"));
     }
   },
-  // TODO refactor to roll()?
   async preActivate() {
-    const combatant = game.combat.getCombatantByActor(this.actor);
-    const maximum = combatant.getDelayMaximum();
+    const maximum = game.combat.combatant.initiative - 1;
+    const hint = await CONFIG.ux.TextEditor.enrichHTML(_loc("ACTION.DelayHint", {maximum}));
     const response = await foundry.applications.api.DialogV2.prompt({
       window: { title: "ACTION.DelayTitle" },
       content: `<form class="delay-turn" autocomplete="off">
             <div class="form-group">
                 <label>${_loc("ACTION.DelayLabel")}</label>
                 <input name="initiative" type="number" min="1" value="${maximum - 1}" max="${maximum}" step="1">
-                <p class="hint">${_loc("ACTION.DelayHint", {maximum})}</p>
+                <p class="hint">${hint}</p>
             </div>
         </form>`,
       ok: {
@@ -321,6 +348,14 @@ HOOKS.distract = {
 
 /* -------------------------------------------- */
 
+HOOKS.electrochargeAmpoule = {
+  prepare() {
+    this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);
@@ -342,13 +377,56 @@ HOOKS.feintingStrike = {
     }
     const offhand = this.actor.equipment.weapons.offhand;
     const roll = await this.actor.weaponAttack(this, offhand, target, options);
-    const weapon = offhand.system.snapshot();
+    const weapon = offhand.snapshot();
     const strike = this.recordEvent({type: "strike", target, roll, weapon}, {temporary: true});
 
     // Reorder event stream chronology so that the offhand strike immediately follows the deception event
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.frostFlask = {
+  prepare() {
+    this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
+// TODO: Mote and Wanderer flame elemental tiers do not yet exist; remap Standard quality to Sprite and Masterwork
+//  quality to Visitor until those creatures are authored.
+HOOKS.gemOfConjuredFlame = {
+  canUse() {
+    if ( this.item.system.quality === "shoddy" ) {
+      throw new Error(_loc("HOOKS.WARNINGS.GemConjuredFlameShoddy"));
+    }
+  },
+  prepare() {
+    const sprite = "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI";
+    const visitor = "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd";
+    const actorUuid = {
+      standard: sprite,
+      fine: sprite,
+      superior: visitor,
+      masterwork: visitor
+    }[this.item.system.quality];
+    if ( !actorUuid ) return;
+    this.usage.summons = [{actorUuid, effectId: SYSTEM.EFFECTS.getEffectId(this.id)}];
+  },
+  postActivate() {
+    const summonEvent = this.events.find(e => e.type === "summon");
+    if ( !summonEvent ) return;
+    summonEvent.effects.push({
+      _id: summonEvent.summon.effectId,
+      img: this.img,
+      name: this.name,
+      duration: {rounds: 6},
+      system: {}
+    });
   }
 };
 
@@ -518,6 +596,35 @@ HOOKS.extollDeeds = {
 
 /* -------------------------------------------- */
 
+HOOKS.headbutt = {
+  prepare() {
+    const cls = getDocumentClass("Item");
+    const weaponData = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
+    weaponData.name = this.name;
+    const weapon = new cls(weaponData, {parent: this.actor});
+    weapon.system.prepareEquippedData();
+    this.usage.weapon = weapon;
+    foundry.utils.mergeObject(this.usage.bonuses, weapon.system.actionBonuses);
+    foundry.utils.mergeObject(this.usage.context, {
+      type: "weapons",
+      label: "Weapon Tags",
+      icon: "fa-solid fa-swords",
+      hasDice: true
+    });
+  },
+  preActivate() {
+    for ( const [target] of this.targets ) {
+      const ac = this.actor.combatant;
+      const tc = target.combatant;
+      if ( ac?.initiative > tc?.initiative ) {
+        this.usage.boons[this.id] = {label: this.name, number: 1};
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.hamstring = {
   canUse() {
     const mh = this.actor.equipment.weapons.mainhand;
@@ -540,6 +647,143 @@ HOOKS.intercept = {
     if ( this.actor ) {
       this.range.maximum = this.actor.system.movement.stride;
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.interpose = {
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    if ( !targetAction?.tags.has("strike") ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.RequiresStrike"));
+    }
+    this.usage.priorAction = targetAction;
+  },
+  preActivate() {
+    const targetAction = this.usage.priorAction;
+    const targetActors = [...targetAction.eventsByTarget.keys()];
+    if ( targetActors.length !== 1 ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.SingleTarget"));
+    }
+    const [ally] = this.targets.keys();
+    if ( targetActors[0] !== ally ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AllyMustBeTarget"));
+    }
+    const allyEvents = targetAction.eventsByActor.get(ally);
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    const wasHit = allyEvents?.roll.some(e => e.roll?.data?.result >= RESULTS.GLANCE);
+    if ( !wasHit ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AttackMissed"));
+    }
+    this.metadata.targetMessageId = targetAction.message.id;
+  },
+  async confirm(reverse) {
+    const targetMessageId = this.metadata.targetMessageId;
+    const targetMessage = game.messages.get(targetMessageId);
+    if ( !targetMessage ) return;
+    if ( reverse ) await HOOKS.interpose._reverse.call(this, targetMessage);
+    else await HOOKS.interpose._rewrite.call(this, targetMessage);
+  },
+  /**
+   * Rewrite the original action to target the interposing actor instead of the original ally.
+   * Negates the original action, re-evaluates each strike against the interposer's defenses,
+   * and posts a new confirmed chat message with the rewritten results.
+   * @param {ChatMessage} targetMessage    The chat message of the original action being interposed
+   * @this {CrucibleAction}
+   * @internal
+   */
+  async _rewrite(targetMessage) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+
+    // Negate and reverse the original action
+    const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
+    await targetMessage.setFlag("crucible", "isNegated", true);
+    if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
+
+    // Reconstruct original action and clone it for the rewrite
+    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    const rewrittenAction = originalAction.clone({}, {message: null, lazy: true});
+    const interposer = this.actor;
+    rewrittenAction.targets = new Map([[interposer, {
+      actor: interposer, token: this.token, name: interposer.name, uuid: interposer.uuid
+    }]]);
+
+    // Rewrite the event stream, re-evaluating strikes against the interposer's defenses
+    for ( const event of originalAction.events ) {
+      if ( (event.type === "strike") && event.roll ) {
+        const roll = HOOKS.interpose._cloneRoll(event.roll);
+        HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
+      }
+      else if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
+        rewrittenAction.recordEvent({type: event.type, resources: event.resources,
+          actorUpdates: event.actorUpdates, itemSnapshots: event.itemSnapshots}, {start: true});
+      }
+      else {
+        rewrittenAction.recordEvent({target: interposer, resources: event.resources, effects: event.effects});
+      }
+    }
+
+    // Post rewritten action as confirmed
+    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: true});
+    await this.message.setFlag("crucible", "rewrittenMessageId", rewrittenMessage.id);
+  },
+  /**
+   * Create a shallow copy of a Roll that has its own independent data property.
+   * Preserves the prototype chain (methods, getters) while preventing mutation of the original.
+   * @param {AttackRoll} roll     The original roll to clone
+   * @returns {AttackRoll}        A roll copy with deep-cloned data
+   * @internal
+   */
+  _cloneRoll(roll) {
+    const clone = Object.create(roll);
+    clone.data = foundry.utils.deepClone(roll.data);
+    return clone;
+  },
+  /**
+   * Re-evaluate a strike against the interposing actor's defenses and record it on the rewritten action.
+   * Preserves the original roll total but recomputes the defense result and damage.
+   * @param {CrucibleAction} action              The rewritten action to record events on
+   * @param {AttackRoll} roll                    A cloned roll with independent data
+   * @param {CrucibleItemSnapshot} weapon        The weapon snapshot from the original event
+   * @param {CrucibleActor} interposer           The actor interposing to receive the attack
+   * @internal
+   */
+  _rewriteStrike(action, roll, weapon, interposer) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
+
+    // Re-evaluate defense with the interposer's physical defense
+    roll.data.dc = interposer.system.defenses.physical.total;
+    roll.data.result = interposer.testDefense("physical", roll);
+
+    // Recompute damage for hits and glances, or clear damage if the interposer's defense causes a miss
+    if ( (roll.data.result >= RESULTS.GLANCE) && roll.data.damage ) {
+      const dmg = roll.data.damage;
+      dmg.overflow = roll.overflow;
+      dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
+      dmg.total = CrucibleAction.computeDamage(dmg);
+    } else {
+      roll.data.damage = undefined;
+    }
+    interposer.callActorHooks("receiveAttack", action, roll);
+    action.recordEvent({type: "strike", target: interposer, roll, weapon});
+  },
+  /**
+   * Reverse a previously confirmed Interpose. Reverses the rewritten action and removes
+   * the negation from the original action. The GM must manually re-confirm the original.
+   * @param {ChatMessage} targetMessage    The chat message of the original action
+   * @this {CrucibleAction}
+   * @internal
+   */
+  async _reverse(targetMessage) {
+    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
+    const rewrittenMessage = game.messages.get(rewrittenMessageId);
+    if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
+      await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
+    }
+    await targetMessage.setFlag("crucible", "isNegated", false);
   }
 };
 
@@ -619,6 +863,15 @@ HOOKS.oozeSubdivide = {
   },
   canUse() {
     if ( this.actor.size < 3 ) throw new Error(_loc("ACTION.WARNINGS.MinimumSize", {size: 3, action: this.name}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.omniglotDecoction = {
+  preActivate() {
+    const minutes = {shoddy: 10, standard: 60, fine: 240, superior: 720, masterwork: 1440}[this.item.system.quality];
+    if ( this.effects[0] ) this.effects[0].duration.value = minutes;
   }
 };
 
@@ -744,25 +997,58 @@ HOOKS.readScroll = {
 
 /* -------------------------------------------- */
 
+HOOKS.investiture = {
+  canUse() {
+    return this.actor.items.some(i => i.system.requiresInvestment && i.system.equipped);
+  },
+  preActivate() {
+    const updateEvent = this.selfUpdateEvent;
+    for ( const item of this.actor.items ) {
+      if ( !item.system.requiresInvestment ) continue;
+      const invested = item.system.equipped;
+      if ( item.system.invested === invested ) continue;
+      updateEvent.itemSnapshots.push(item.snapshot());
+      updateEvent.actorUpdates.items.push({_id: item.id, system: {invested}});
+    }
+  },
+  async prepareMessage(element) {
+    const updates = this.selfUpdateEvent?.actorUpdates?.items ?? [];
+    const invested = [];
+    const divested = [];
+    for ( const update of updates ) {
+      if ( !("invested" in (update.system ?? {})) ) continue;
+      const item = this.actor.items.get(update._id);
+      if ( !item ) continue;
+      (update.system.invested ? invested : divested).push(item.name);
+    }
+    if ( !invested.length && !divested.length ) return;
+    const html = await foundry.applications.handlebars.renderTemplate(
+      "systems/crucible/templates/dice/partials/investiture-summary.hbs", {invested, divested});
+    const summary = foundry.utils.parseHTML(html);
+    if ( summary ) element.appendChild(summary);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.recover = {
-  async confirm() {
-    await this.actor.recover();
+  canUse() {
+    if ( this.actor.system.isDead || this.actor.system.isInsane ) {
+      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
+    }
+  },
+  postActivate() {
+    _restRecoverPostActivate(this, {
+      expirationSeconds: SYSTEM.TIME.recoverSeconds,
+      deletePassiveEffects: false,
+      reduceWoundMadness: false
+    });
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.refocus = {
-  canUse() {
-    const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-    const categories = ["talisman1", "talisman2"];
-    return categories.includes(mh.category) || (oh && categories.includes(oh.category));
-  },
-  preActivate() {
-    if ( !["talisman1", "talisman2"].includes(this.usage.weapon?.category) ) {
-      throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
-    }
-  },
   postActivate() {
     const talisman = this.usage.weapon;
     const rollEvent = this.selfEvents?.roll[0];
@@ -793,7 +1079,10 @@ HOOKS.repercussiveBlock = {
       if ( !events.allSuccess ) continue;
       const {mainhand} = target.equipment.weapons; // TODO - react to the prior action?
       if ( !mainhand?.id || mainhand.properties.has("natural") ) continue;
-      this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: "Disarmed!", fontSize: 64}]});
+      this.recordEvent({type: "actorUpdate", target,
+        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+        itemSnapshots: [mainhand.snapshot()],
+        statusText: [{text: "Disarmed!", fontSize: 64}]});
     }
   }
 };
@@ -801,10 +1090,75 @@ HOOKS.repercussiveBlock = {
 /* -------------------------------------------- */
 
 HOOKS.rest = {
-  async confirm() {
-    await this.actor.rest();
+  canUse() {
+    if ( this.actor.system.isDead || this.actor.system.isInsane ) {
+      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
+    }
+  },
+  postActivate() {
+    _restRecoverPostActivate(this, {
+      expirationSeconds: SYSTEM.TIME.restSeconds,
+      deletePassiveEffects: true,
+      reduceWoundMadness: true
+    });
   }
 };
+
+/**
+ * Shared event recorder used by the rest and recover action postActivate hooks.
+ * @param {CrucibleAction} action
+ * @param {object} options
+ * @param {number} options.expirationSeconds        ActiveEffects with a duration <= this many seconds expire
+ * @param {boolean} options.deletePassiveEffects    Also cull effects that have no defined duration
+ * @param {boolean} options.reduceWoundMadness      Reduce hero wounds and madness
+ */
+function _restRecoverPostActivate(action, {expirationSeconds, deletePassiveEffects, reduceWoundMadness}) {
+  const actor = action.actor;
+
+  // Resource recovery deltas
+  const activationEvent = action.selfEvents.activation;
+  for ( const [id, resource] of Object.entries(actor.system.resources) ) {
+    const cfg = SYSTEM.RESOURCES[id];
+    if ( !cfg || (cfg.type === "reserve") ) continue;
+    if ( id === "heroism" ) {
+      if ( resource.value > 0 ) activationEvent.resources.push({resource: "heroism", delta: -resource.value});
+      continue;
+    }
+    const delta = resource.max - resource.value;
+    if ( delta > 0 ) activationEvent.resources.push({resource: id, delta});
+  }
+
+  // Hero-only wounds and madness reduction (rest only); clamped to current value so reversal restores exactly
+  if ( reduceWoundMadness && (actor.type === "hero") ) {
+    const {wounds, madness} = actor.system.resources;
+    const woundsDelta = -Math.min(actor.level, wounds.value);
+    const madnessDelta = -Math.min(actor.level, madness.value);
+    if ( woundsDelta < 0 ) activationEvent.resources.push({resource: "wounds", delta: woundsDelta});
+    if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
+  }
+
+  // Expire ActiveEffects via a dedicated deletion event
+  const effects = [];
+  for ( const effect of actor.effects ) {
+    const s = effect.duration.seconds;
+    if ( (effect.id === "weakened00000000") || (effect.id === "broken0000000000") ) {
+      effects.push({_id: effect.id, _action: "delete"});
+    }
+    else if ( s ? (s <= expirationSeconds) : deletePassiveEffects ) {
+      effects.push({_id: effect.id, _action: "delete"});
+    }
+  }
+  if ( effects.length ) action.recordEvent({type: "effect", effects});
+
+  // Divest unequipped invested items via the self actorUpdate event with snapshots for reversal
+  const updateEvent = action.selfUpdateEvent;
+  for ( const item of actor.items ) {
+    if ( !item.system.requiresInvestment ) continue;
+    if ( !item.system.invested || item.system.equipped ) continue;
+    updateEvent.actorUpdates.items.push({_id: item.id, system: {invested: false}});
+    updateEvent.itemSnapshots.push(item.snapshot());
+  }
+}
 
 /* -------------------------------------------- */
 
@@ -878,6 +1232,44 @@ HOOKS.affixFocusing = {
     const amount = 2 + (2 * this.affix.system.tier.value);
     const activation = this.events.find(e => e.type === "activation");
     if ( activation ) activation.resources.push({resource: "focus", delta: amount});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.lightLantern = {
+  preActivate() {
+    // Validate that the actor has Lantern Oil to consume
+    const oil = this.actor.items.find(i => (i.system.identifier === "lanternOil") && (i.system.quantity > 0));
+    if ( !oil ) throw new Error(_loc("HOOKS.WARNINGS.NoLanternOil"));
+
+    // Scale ignition duration with the quality of the consumed oil
+    const hours = {shoddy: 1, standard: 4, fine: 12, superior: 24, masterwork: 48}[oil.system.quality] ?? 4;
+    if ( this.effects[0] ) {
+      Object.assign(this.effects[0], {
+        _id: "lanternBurning00",
+        showIcon: 0 // Never
+      });
+      this.effects[0].duration.value = hours;
+    }
+
+    // Queue oil consumption with a snapshot for reversal
+    const updateEvent = this.selfUpdateEvent;
+    updateEvent.itemSnapshots.push(oil.snapshot());
+    updateEvent.actorUpdates.items.push({_id: oil.id, system: {quantity: oil.system.quantity - 1}});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.lightTorch = {
+  preActivate() {
+    if ( this.effects[0] ) {
+      Object.assign(this.effects[0], {
+        _id: "torchBurning0000",
+        showIcon: 0 // Never
+      });
+    }
   }
 };
 

@@ -77,16 +77,17 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
    * @protected
    */
   async _prepareEquipment() {
+    const editorCls = CONFIG.ux.TextEditor;
     const equipment = this.document.system.equipment;
     const promises = [];
     for ( const {item: uuid, quantity, equipped} of equipment ) {
-      promises.push(fromUuid(uuid).then(item => {
+      promises.push(fromUuid(uuid).then(async item => {
         if ( !item ) return {uuid, name: "INVALID", img: "", description: "", tags: {}, quantity: 1, equipped: false};
         return {
           uuid,
           name: item.name,
           img: item.img,
-          description: item.system.description.public,
+          description: await editorCls.enrichHTML(item.system.description.public, {relativeTo: item}),
           tags: item.getTags(),
           cssClass: [item.type, equipped ? "equipped" : ""].filterJoin(" "),
           quantity,

@@ -1,6 +1,7 @@
+import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/skills.mjs";
-import {RUNES} from "../const/spellcraft.mjs";
+import {GESTURES, RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
 
@@ -44,6 +45,34 @@ for ( const runeId of Object.keys(RUNES) ) {
       if ( action.rune?.id !== runeId ) return;
       const tier = item.system.affixes[id].system.tier.value;
       rollData.enchantment = Math.max(rollData.enchantment, tier);
+    }
+  };
+}
+
+/* -------------------------------------------- */
+/*  Rune Knowledge Affixes                      */
+/* -------------------------------------------- */
+
+for ( const runeId of Object.keys(RUNES) ) {
+  const id = `${runeId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.runeIds.push(runeId);
+      this.training[runeId] = Math.max(this.training[runeId] ?? 0, 1);
+    }
+  };
+}
+
+/* -------------------------------------------- */
+/*  Gesture Knowledge Affixes                   */
+/* -------------------------------------------- */
+
+for ( const gestureId of Object.keys(GESTURES) ) {
+  if ( gestureId === "touch" ) continue;
+  const id = `${gestureId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.gestureIds.push(gestureId);
     }
   };
 }
@@ -110,10 +139,13 @@ HOOKS.reliable = {
 
 HOOKS.returning = {
   preActivateAction(item, action) {
-    const updates = action.usage.actorUpdates.items;
+    if ( !action.tags.has("strike") ) return;
+    const updates = action.selfUpdateEvent.actorUpdates.items;
     if ( !updates ) return;
-    const update = updates.find(u => (u._id === item.id) && u.system?.dropped);
-    if ( update ) delete update.system.dropped;
+    const update = updates.find(u => (u._id === item.id) && (u.system?.dropped === true));
+    if ( !update ) return;
+    if ( !item.system.dropped ) delete update.system.dropped;
+    if ( item.system.equipped ) delete update.system.equipped;
   }
 };
 
@@ -132,6 +164,28 @@ HOOKS.deflection = {
   prepareDefenses(item, defenses) {
     const tier = item.system.affixes.deflection.system.tier.value;
     defenses.parry.bonus += tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Token light configuration applied while the Activate Illumination action of a Luminous-affixed item is active.
+ * Bright and dim radii scale with the affix tier; the warm hue with a slow pulse animation reads as enchanted
+ * rather than mundane firelight.
+ * @type {Readonly<LightData>}
+ */
+const LUMINOUS_LIGHT = Object.freeze({alpha: 0.7, angle: 360, color: "#ffe066", coloration: 100,
+  attenuation: 0.6, luminosity: 0.5, saturation: 0.1, contrast: 0, shadows: 0, negative: false, priority: 0,
+  animation: {type: "pulse", speed: 2, intensity: 3, reverse: false}, darkness: {min: 0, max: 1}});
+
+HOOKS.luminous = {
+  prepareToken(item, token) {
+    if ( !this.effects.has("affixLuminous000") ) return;
+    if ( (token.light.bright !== 0) || (token.light.dim !== 0) ) return;
+    const tier = item.system.affixes.luminous.system.tier.value;
+    const dim = 40 * tier;
+    foundry.utils.mergeObject(token.light, {...LUMINOUS_LIGHT, bright: dim / 2, dim});
   }
 };
 
@@ -253,6 +307,23 @@ HOOKS.luminary = {
     action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
   }
 };
+
+/* -------------------------------------------- */
+/*  Creature Bane Affixes                       */
+/* -------------------------------------------- */
+
+for ( const categoryId of Object.keys(CREATURE_CATEGORIES) ) {
+  if ( (categoryId === "elemental") || (categoryId === "humanoid") ) continue;
+  const id = `${categoryId}Bane`;
+  HOOKS[id] = {
+    prepareAttack(item, action, target, rollData) {
+      if ( item.id !== rollData.itemId ) return;
+      if ( target.system.details.taxonomy?.category !== categoryId ) return;
+      const tier = item.system.affixes[id].system.tier.value;
+      rollData.boons[id] = {label: item.name, number: tier};
+    }
+  };
+}
 
 /* -------------------------------------------- */
 

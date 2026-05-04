@@ -927,7 +927,9 @@
       }
     }
 
-    .tags.training {
+    .tags.training,
+    .tags.knowledge-areas,
+    .tags.languages {
       justify-content: flex-start;
     }
   }
@@ -940,8 +942,8 @@
         font-size: var(--font-size-12);
         text-align: center;
       }
-      multi-select.languages {
-        width: 100%;
+      .tag.background-granted {
+        border-color: var(--color-border-highlight);
       }
     }
   }
@@ -1064,4 +1066,19 @@
   text-align: left;
   font-size: var(--font-size-13);
   font-family: var(--font-serif);
+}
+
+/* ----------------------------------------- */
+/*  Languages and Knowledge Areas            */
+/* ----------------------------------------- */
+
+.edit-details-property.languages {
+  multi-checkbox {
+    display: flex;
+    flex-direction: column;
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }

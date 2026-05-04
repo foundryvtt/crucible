@@ -9,7 +9,7 @@
 {{/if}}
 {{/if}}
 
-<footer class="form-footer" {{#if submitTooltip}}data-tooltip="{{submitTooltip}}"{{/if}}>
+<footer class="form-footer" {{#if submitTooltip}}data-tooltip aria-label="{{submitTooltip}}"{{/if}}>
     <div class="split-button">
         {{#each messageModes as |mode|}}
         <button type="button" class="ui-control icon {{mode.icon}}" data-action="messageMode"

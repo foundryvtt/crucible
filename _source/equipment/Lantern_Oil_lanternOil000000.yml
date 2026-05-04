@@ -1,0 +1,45 @@
+name: Lantern Oil
+img: icons/consumables/drinks/water-jug-clay-brown.webp
+type: loot
+system:
+  identifier: lanternOil
+  category: ingredient
+  enchantment: mundane
+  quality: standard
+  price: 10
+  quantity: 1
+  weight: 1
+  description:
+    public: >-
+      <p>A small flask of refined fuel oil. One unit of Lantern Oil is consumed
+      to ignite a
+      @UUID[Compendium.crucible.equipment.Item.lantern000000000]{Lantern}; the
+      burn duration depends on the quality of the
+      oil:</p><ul><li><p><strong>Shoddy</strong> - 1
+      hour</p></li><li><p><strong>Standard</strong> - 4
+      hours</p></li><li><p><strong>Fine</strong> - 12
+      hours</p></li><li><p><strong>Superior</strong> - 24
+      hours</p></li><li><p><strong>Masterwork</strong> - 48 hours</p></li></ul>
+    private: ''
+  broken: false
+  properties:
+    - stackable
+folder: enNNOtkze4LoJXgw
+effects: []
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777800000000
+  modifiedTime: 1777761952904
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: lanternOil000000
+sort: 0
+_key: '!items!lanternOil000000'

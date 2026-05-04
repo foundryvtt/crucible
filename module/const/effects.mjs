@@ -32,7 +32,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
     name: "Bleeding",
     img: "icons/skills/wounds/blood-spurt-spray-red.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["bleeding"],
     system: {
       dot: [{
@@ -58,7 +58,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
     name: "Burning",
     img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["burning"],
     system: {
       dot: [{
@@ -88,7 +88,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
     name: "Freezing",
     img: "icons/magic/water/orb-ice-web.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["freezing", "slowed"],
     system: {
       dot: [{
@@ -114,7 +114,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
     name: "Confused",
     img: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["confused", "disoriented"],
     system: {
       dot: [{
@@ -140,7 +140,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
     name: "Corroding",
     img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     system: {
       dot: [{
         amount,
@@ -164,7 +164,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
     name: "Decaying",
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     system: {
       dot: [{
         amount,
@@ -188,7 +188,7 @@ export function entropy(actor, {ability="presence", amount, turns=1}={}) {
     name: "Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["frightened"],
     system: {
       dot: [{
@@ -213,7 +213,7 @@ export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
     name: "Irradiated",
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     system: {
       dot: [{
         amount,
@@ -242,7 +242,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
     name: "Mending",
     img: "icons/magic/life/cross-beam-green.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     system: {
       dot: [{
         amount,
@@ -266,7 +266,7 @@ export function inspired(actor, {ability="presence", amount, turns=1}={}) {
     name: "Inspired",
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     system: {
       dot: [{
         amount,
@@ -291,7 +291,7 @@ export function dominated(actor, {ability="wisdom", amount, turns=3}={}) {
     name: "Dominated",
     img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["dominated"],
     system: {
       dot: [{
@@ -317,13 +317,43 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
     name: "Poisoned",
     img: "icons/magic/unholy/orb-smoking-green.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["poisoned"],
     system: {
       dot: [{
         amount,
         damageType: "poison",
         resource: "health"
+      }]
+    }
+  };
+}
+
+/**
+ * Generate a standardized suffocating effect.
+ * Suffocating deals void damage to both Wounds and Madness each round, representing physical lung trauma and panic
+ * from being deprived of breathable air, and also silences the affected creature.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function suffocating(actor, {amount=6, turns}={}) {
+  return {
+    _id: getEffectId("Suffocating"),
+    name: "Suffocating",
+    img: "icons/magic/water/vortex-water-whirlpool.webp",
+    duration: turns ? {value: turns, units: "rounds", expiry: "turnStart"} : {},
+    origin: actor?.uuid,
+    statuses: ["suffocating", "silenced"],
+    system: {
+      dot: [{
+        amount,
+        damageType: "void",
+        resource: "wounds"
+      }, {
+        amount,
+        damageType: "void",
+        resource: "madness"
       }]
     }
   };
@@ -343,7 +373,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
     name: "Shocked",
     img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["shocked"],
     system: {
       dot: [{
@@ -367,7 +397,7 @@ export function staggered(actor, {turns=1}={}) {
     name: "Staggered",
     img: "icons/skills/melee/strike-hammer-destructive-orange.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
-    origin: actor.uuid,
+    origin: actor?.uuid,
     statuses: ["staggered"]
   };
 }

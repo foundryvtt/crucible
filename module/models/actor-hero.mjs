@@ -297,6 +297,27 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  allocateResourceChange(amount, resource, allocation) {
+    const deltas = super.allocateResourceChange(amount, resource, allocation);
+    if ( amount >= 0 ) return deltas;
+    const overflowName = {health: "wounds", morale: "madness"}[resource];
+    const overflow = overflowName ? this.resources[overflowName] : null;
+    if ( !overflow ) return deltas;
+    const primaryLoss = -(deltas[resource] || 0);
+    const remaining = -amount - primaryLoss;
+    if ( remaining <= 0 ) return deltas;
+    const overflowValue = Math.max(overflow.value + (allocation[overflowName] || 0), 0);
+    const gain = Math.min(overflow.max - overflowValue, remaining);
+    if ( gain > 0 ) {
+      deltas[overflowName] = gain;
+      allocation[overflowName] = (allocation[overflowName] || 0) + gain;
+    }
+    return deltas;
+  }
+
+  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 

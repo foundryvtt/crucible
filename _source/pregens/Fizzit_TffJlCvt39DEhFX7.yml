@@ -287,10 +287,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.359'
-      createdTime: 1775444403818
-      modifiedTime: 1775444403818
+      systemVersion: 0.9.1
+      coreVersion: '14.360'
+      createdTime: 1776203427796
+      modifiedTime: 1776203427796
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,10 +332,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.359'
-      createdTime: 1775444403818
-      modifiedTime: 1775444403818
+      systemVersion: 0.9.1
+      coreVersion: '14.360'
+      createdTime: 1776203427796
+      modifiedTime: 1776203427796
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -375,10 +375,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.359'
-      createdTime: 1775444403818
-      modifiedTime: 1775444403818
+      systemVersion: 0.9.1
+      coreVersion: '14.360'
+      createdTime: 1776203427797
+      modifiedTime: 1776203427797
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -414,12 +414,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444403818
+      systemVersion: 0.9.1
+      modifiedTime: 1776203427797
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444403818
+      createdTime: 1776203427797
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -460,12 +460,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444403819
+      systemVersion: 0.9.1
+      modifiedTime: 1776203427797
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444403819
+      createdTime: 1776203427797
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -546,11 +546,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403819
-      modifiedTime: 1775444403819
+      systemVersion: 0.9.1
+      createdTime: 1776203427797
+      modifiedTime: 1776203427797
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -635,11 +635,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403819
-      modifiedTime: 1775444403819
+      systemVersion: 0.9.1
+      createdTime: 1776203427797
+      modifiedTime: 1776203427797
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -718,11 +718,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403819
-      modifiedTime: 1775444403819
+      systemVersion: 0.9.1
+      createdTime: 1776203427798
+      modifiedTime: 1776203427798
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -783,11 +783,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444403820
-      modifiedTime: 1775444403820
+      systemVersion: 0.9.1
+      createdTime: 1776203427798
+      modifiedTime: 1776203427798
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -805,10 +805,10 @@ flags:
     lastSpell: spell.lightning.arrow
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.359'
-  createdTime: 1775444403817
-  modifiedTime: 1775444403817
+  systemVersion: 0.9.1
+  coreVersion: '14.360'
+  createdTime: 1776203427795
+  modifiedTime: 1776203427795
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

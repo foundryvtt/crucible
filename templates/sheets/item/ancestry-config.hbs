@@ -8,9 +8,11 @@
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{fields.movement.label}}</legend>
+        <legend>{{localize "ANCESTRY.SHEET.Physiology"}}</legend>
         {{formGroup fields.movement.fields.size value=system.movement.size classes="slim"}}
         {{formGroup fields.movement.fields.stride value=system.movement.stride classes="slim"}}
+        {{formGroup fields.characteristics.fields.temperature value=system.characteristics.temperature
+                    blank=temperatureBlank}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>

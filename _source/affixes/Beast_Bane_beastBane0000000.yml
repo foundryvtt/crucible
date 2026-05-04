@@ -1,0 +1,46 @@
+name: Beast Bane
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Beast-Bane
+  identifier: beastBane
+  changes: []
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: beastBane0000000
+img: icons/creatures/abilities/cougar-roar-rush-orange.webp
+disabled: false
+start: null
+description: >-
+  <p>This weapon is especially effective against <strong>Beast</strong>
+  creatures. When making a <strong>Strike</strong> against a target of that
+  creature type, the attacker gains bonus <strong>Boons</strong> equal to the
+  <strong>Tier</strong> of this prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: creatureBane0000
+sort: 100000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.0
+  createdTime: 1776200000000
+  modifiedTime: 1776173810765
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!beastBane0000000'

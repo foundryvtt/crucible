@@ -16,17 +16,19 @@ system:
     - id: laughingMatter
       name: Laughing Matter
       img: icons/tools/instruments/harp-red.webp
-      condition: An enemy fails to affect you or any ally with an attack.
+      condition: >-
+        An enemy's attack fails to deal any damage or cause any effect to you or
+        any ally.
       description: >-
-        <p>When an enemy uses an attack that fails to affect you or any ally,
-        you construct a cutting jest or pantomime which makes a fool of their
-        feeble effort.</p><p>You make an <strong>Performance</strong> skill
-        attack against the target's <strong>Fortitude</strong>, dealing
-        <strong>Psychic</strong> damage to <strong>Morale</strong> upon a
-        success. Furthermore, upon a success, the target suffers 1
-        <strong>Bane</strong> to all rolls until the start of their next
-        turn.</p><p>The target must be able to see and understand you to be
-        affected by this ability.</p>
+        <p>When an enemy's attack fails to deal any damage or cause any effect
+        to you or any ally, you construct a cutting jest or pantomime which
+        makes a fool of their feeble effort.</p><p>You make an
+        <strong>Performance</strong> skill attack against the target's
+        <strong>Fortitude</strong>, dealing <strong>Psychic</strong> damage to
+        <strong>Morale</strong> upon a success. Furthermore, upon a success, the
+        target suffers 1 <strong>Bane</strong> to all rolls until the start of
+        their next turn.</p><p>The target must be able to see and understand you
+        to be affected by this ability.</p>
       cost:
         action: 1
         focus: 1

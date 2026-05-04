@@ -289,11 +289,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415467
-      modifiedTime: 1775444415467
+      systemVersion: 0.9.1
+      createdTime: 1776203438962
+      modifiedTime: 1776203438962
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,11 +332,11 @@ items:
       identifier: ringMail
       invested: false
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415468
-      modifiedTime: 1775444415468
+      systemVersion: 0.9.1
+      createdTime: 1776203438962
+      modifiedTime: 1776203438962
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -414,12 +414,12 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415468
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438962
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415468
+      createdTime: 1776203438962
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -455,12 +455,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415468
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438962
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415468
+      createdTime: 1776203438962
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -493,12 +493,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415469
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415469
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -534,12 +534,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415469
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415469
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -573,12 +573,12 @@ items:
     sort: -75000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415469
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415469
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -609,12 +609,12 @@ items:
     sort: 300000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415470
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415470
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -645,12 +645,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415470
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415470
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -691,12 +691,12 @@ items:
     sort: 1000000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      modifiedTime: 1775444415470
+      systemVersion: 0.9.1
+      modifiedTime: 1776203438963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1775444415470
+      createdTime: 1776203438963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -762,12 +762,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444415471
-      createdTime: 1775444415471
+      modifiedTime: 1776203438964
+      createdTime: 1776203438964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -807,11 +807,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415471
-      modifiedTime: 1775444415471
+      systemVersion: 0.9.1
+      createdTime: 1776203438964
+      modifiedTime: 1776203438964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -845,11 +845,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415471
-      modifiedTime: 1775444415471
+      systemVersion: 0.9.1
+      createdTime: 1776203438964
+      modifiedTime: 1776203438964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -885,11 +885,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415472
-      modifiedTime: 1775444415472
+      systemVersion: 0.9.1
+      createdTime: 1776203438964
+      modifiedTime: 1776203438964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -927,11 +927,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415472
-      modifiedTime: 1775444415472
+      systemVersion: 0.9.1
+      createdTime: 1776203438964
+      modifiedTime: 1776203438964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -968,11 +968,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415472
-      modifiedTime: 1775444415472
+      systemVersion: 0.9.1
+      createdTime: 1776203438965
+      modifiedTime: 1776203438965
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1050,11 +1050,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415472
-      modifiedTime: 1775444415472
+      systemVersion: 0.9.1
+      createdTime: 1776203438965
+      modifiedTime: 1776203438965
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1086,11 +1086,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415473
-      modifiedTime: 1775444415473
+      systemVersion: 0.9.1
+      createdTime: 1776203438965
+      modifiedTime: 1776203438965
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1172,11 +1172,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415473
-      modifiedTime: 1775444415473
+      systemVersion: 0.9.1
+      createdTime: 1776203438966
+      modifiedTime: 1776203438966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1251,12 +1251,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.9.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1775444415473
-      createdTime: 1775444415473
+      modifiedTime: 1776203438966
+      createdTime: 1776203438966
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1291,11 +1291,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415474
-      modifiedTime: 1775444415474
+      systemVersion: 0.9.1
+      createdTime: 1776203438966
+      modifiedTime: 1776203438966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1379,11 +1379,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415474
-      modifiedTime: 1775444415474
+      systemVersion: 0.9.1
+      createdTime: 1776203438966
+      modifiedTime: 1776203438966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1423,11 +1423,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.360'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775444415474
-      modifiedTime: 1775444415474
+      systemVersion: 0.9.1
+      createdTime: 1776203438967
+      modifiedTime: 1776203438967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1453,11 +1453,11 @@ flags:
           combatantId: IVxZ7pdZO88zAAQ7
           tokenId: L62zbZZ3PjGIAKO5
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
-  systemVersion: 0.9.0
-  createdTime: 1775444415466
-  modifiedTime: 1775444415466
+  systemVersion: 0.9.1
+  createdTime: 1776203438960
+  modifiedTime: 1776203438960
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

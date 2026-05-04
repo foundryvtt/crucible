@@ -35,6 +35,14 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     const bValue = Number.isNumeric(b.initiative) ? b.initiative : -Infinity;
     if ( aValue !== bValue ) return bValue - aValue;
 
+    // Delayers act first at their target initiative.
+    // Among delayers, the originally-faster combatant goes first.
+    const round = a.parent?.round;
+    const aDelay = (a.actor?.flags.crucible?.delay?.round === round) ? a.actor.flags.crucible.delay : null;
+    const bDelay = (b.actor?.flags.crucible?.delay?.round === round) ? b.actor.flags.crucible.delay : null;
+    if ( !!aDelay !== !!bDelay ) return aDelay ? -1 : 1;
+    if ( aDelay && bDelay && (aDelay.from !== bDelay.from) ) return bDelay.from - aDelay.from;
+
     // Modifier second
     const aBonus = a.abilityBonus;
     const bBonus = b.abilityBonus;
@@ -48,7 +56,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     // Type
     const aType = a.actor?.type === "adversary" ? 1 : 0;
     const bType = b.actor?.type === "adversary" ? 1 : 0;
-    return (bType - aType) || a.name.compare(b.name) || a._id.localeCompare(b._id);
+    return (bType - aType) || a.name.compare(b.name) || a._id.compare(b._id);
   }
 
   /* -------------------------------------------- */
@@ -144,9 +152,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   async _onEndTurn(combatant, context) {
     await super._onEndTurn(combatant, context);
     await combatant.actor.onEndTurn(context);
-    // FIXME determine whether these lines are still required
-    combatant.updateResource();
-    this.debounceSetup(); // TODO wish this wasn't needed
   }
 
   /* -------------------------------------------- */

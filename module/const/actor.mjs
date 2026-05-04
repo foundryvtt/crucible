@@ -1,91 +1,119 @@
-import {freezeEnum} from "./enum.mjs";
+import {defineEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, {label: string, skill: string, knowledge: string}>}
+ * @type {Readonly<Record<string, {id: string, label: string, skill: string, knowledge: string, temperature: string}>>}
  */
-export const CREATURE_CATEGORIES = {
+export const CREATURE_CATEGORIES = defineEnum({
   beast: {
     label: "TAXONOMY.CATEGORIES.Beast",
     skill: "medicine",
-    knowledge: "beasts"
+    knowledge: "beasts",
+    temperature: "warm"
   },
   celestial: {
     label: "TAXONOMY.CATEGORIES.Celestial",
     skill: "arcana",
-    knowledge: "celestials"
+    knowledge: "celestials",
+    temperature: "warm"
   },
   construct: {
     label: "TAXONOMY.CATEGORIES.Construct",
     skill: "science",
-    knowledge: "machines"
+    knowledge: "machines",
+    temperature: "neutral"
   },
   dragon: {
     label: "TAXONOMY.CATEGORIES.Dragon",
     skill: "arcana",
-    knowledge: "dragons"
+    knowledge: "dragons",
+    temperature: "warm"
   },
   elemental: {
     label: "TAXONOMY.CATEGORIES.Elemental",
     skill: "arcana",
-    knowledge: "elementals"
+    knowledge: "elementals",
+    temperature: "neutral"
   },
   elementalEarth: {
     label: "TAXONOMY.CATEGORIES.ElementalEarth",
     skill: "arcana",
-    knowledge: "elementals"
+    knowledge: "elementals",
+    temperature: "warm"
   },
   elementalFire: {
     label: "TAXONOMY.CATEGORIES.ElementalFire",
     skill: "arcana",
-    knowledge: "elementals"
+    knowledge: "elementals",
+    temperature: "boiling"
   },
   elementalFrost: {
     label: "TAXONOMY.CATEGORIES.ElementalFrost",
     skill: "arcana",
-    knowledge: "elementals"
+    knowledge: "elementals",
+    temperature: "gelid"
   },
   elementalStorm: {
     label: "TAXONOMY.CATEGORIES.ElementalStorm",
     skill: "arcana",
-    knowledge: "elementals"
+    knowledge: "elementals",
+    temperature: "cool"
   },
   fey: {
     label: "TAXONOMY.CATEGORIES.Fey",
     skill: "arcana",
-    knowledge: "fey"
+    knowledge: "fey",
+    temperature: "warm"
+  },
+  fiend: {
+    label: "TAXONOMY.CATEGORIES.Fiend",
+    skill: "arcana",
+    knowledge: "fiends",
+    temperature: "cool"
   },
   giant: {
     label: "TAXONOMY.CATEGORIES.Giant",
     skill: "society",
-    knowledge: "legends"
+    knowledge: "legends",
+    temperature: "warm"
   },
   humanoid: {
     label: "TAXONOMY.CATEGORIES.Humanoid",
     skill: "society",
-    knowledge: null
+    knowledge: null,
+    temperature: "warm"
   },
   monstrosity: {
     label: "TAXONOMY.CATEGORIES.Monstrosity",
     skill: "medicine",
-    knowledge: "monsters"
+    knowledge: "monsters",
+    temperature: "warm"
   },
   ooze: {
     label: "TAXONOMY.CATEGORIES.Ooze",
     skill: "science",
-    knowledge: null
+    knowledge: null,
+    temperature: "neutral"
+  },
+  plant: {
+    label: "TAXONOMY.CATEGORIES.Plant",
+    skill: "wilderness",
+    knowledge: null,
+    temperature: "neutral"
   },
   outsider: {
     label: "TAXONOMY.CATEGORIES.Outsider",
     skill: "arcana",
-    knowledge: "outsiders"
+    knowledge: "outsiders",
+    temperature: "cool"
   },
   undead: {
     label: "TAXONOMY.CATEGORIES.Undead",
     skill: "arcana",
-    knowledge: "undeath"
+    knowledge: "undeath",
+    temperature: "cool"
   }
-};
+});
 
 /**
  * The starting equipment budget in copper pieces (25 gp).
@@ -254,10 +282,14 @@ export const MOVEMENT_ACTIONS = Object.freeze({
 });
 
 /**
- * The travel paces which are possible for group actors.
- * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", Partial<TokenMovementActionConfig>>}
+ * @typedef {{id: string} & Partial<TokenMovementActionConfig>} CrucibleTravelPace
  */
-export const TRAVEL_PACES = freezeEnum({
+
+/**
+ * The travel paces which are possible for group actors.
+ * @type {Readonly<Record<"hidden"|"slow"|"normal"|"fast"|"reckless", CrucibleTravelPace>>}
+ */
+export const TRAVEL_PACES = defineEnum({
   hidden: {
     order: 1,
     label: "TRAVEL_PACES.Hidden",
@@ -433,6 +465,11 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GroupPreparation",
     argNames: ["skills"],
     argLabels: ["item: CrucibleItem", "skills: object"]
+  },
+  prepareToken: {
+    group: "TALENT.HOOKS.GroupPreparation",
+    argNames: ["token"],
+    argLabels: ["item: CrucibleItem", "token: CrucibleToken"]
   },
 
   // Equipment Preparation

@@ -1,0 +1,79 @@
+{{#if configureHazard}}
+<aside class="hazard-config-form standard-form">
+    <h3 class="divider">{{localize "HAZARD.CONFIG.Title"}}</h3>
+    {{formGroup hazardConfig.nameField name="name" value=hazardConfig.name stacked=true label=""}}
+    {{formGroup hazardConfig.dangerField name="danger" value=hazardConfig.danger classes="slim"}}
+    {{formGroup hazardConfig.defenseField name="defenseType" value=hazardConfig.defenseType}}
+    {{formGroup hazardConfig.damageField name="damageType" value=hazardConfig.damageType}}
+    {{formGroup hazardConfig.tagsField value=hazardConfig.selectedTags options=hazardConfig.tagOptions stacked=true}}
+</aside>
+{{/if}}
+
+<div class="roll-form standard-form">
+    {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
+    {{#if hasDice}}
+    <section class="roller flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
+    </section>
+    {{#if showDetails}}
+    <section class="details flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
+    </section>
+    {{/if}}
+    {{/if}}
+</div>
+
+{{#if selectTargets}}
+<aside class="hazard-targets-form standard-form">
+    <h3 class="divider">{{localize "HAZARD.TARGETS.Title"}}</h3>
+    <div class="hazard-targets flexcol droppable scrollable">
+        {{#each hazardTargets.actors as |actor|}}
+        <div class="line-item member" data-actor-id="{{actor.id}}">
+            <img class="icon" src="{{actor.img}}" alt="{{actor.name}}">
+            <div class="title">
+                <h4>{{actor.name}}</h4>
+                <div class="tags">
+                    {{#each actor.tags as |label tag|}}
+                    <span class="tag">{{label}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="controls">
+                <button type="button" class="icon fa-solid fa-times" data-action="targetRemove"
+                        data-tooltip aria-label="{{localize "HAZARD.TARGETS.Remove"}}"></button>
+            </div>
+        </div>
+        {{else}}
+        <p class="hint">{{localize "HAZARD.TARGETS.Hint"}}</p>
+        {{/each}}
+    </div>
+</aside>
+{{/if}}
+
+<footer class="form-footer">
+    <button type="button" class="dialog-button frame-brown icon fa-solid {{#if configureHazard}}fa-chevrons-right{{else}}fa-chevrons-left{{/if}}"
+            data-action="hazardConfigToggle" data-tooltip aria-label="{{localize "HAZARD.CONFIG.Title"}}"></button>
+    <div class="split-button">
+        {{#each messageModes as |mode|}}
+        {{#if mode.interactive}}
+        <button type="button" class="ui-control icon {{mode.icon}}" data-action="messageMode"
+                data-message-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
+                data-tooltip aria-label="{{localize mode.label}}"></button>
+        {{else}}
+        <span class="ui-control icon {{mode.icon}} inactive" data-tooltip aria-label="{{localize mode.label}}"></span>
+        {{/if}}
+        {{/each}}
+    </div>
+    <button type="submit" class="dialog-button frame-brown" data-action="roll" {{disabled submitDisabled}}>
+        <i class="fa-solid fa-dice"></i>
+        <label>{{submitLabel}}</label>
+    </button>
+    {{#if selectTargets}}
+    <button type="button" class="dialog-button frame-brown icon fa-solid fa-ban" data-action="targetsClear"
+            data-tooltip aria-label="{{localize "HAZARD.TARGETS.Clear"}}"></button>
+    <button type="button" class="dialog-button frame-brown icon fa-solid fa-users" data-action="targetsParty"
+            data-tooltip aria-label="{{localize "HAZARD.TARGETS.Party"}}"></button>
+    {{/if}}
+    <button type="button" class="dialog-button frame-brown icon fa-solid {{#if selectTargets}}fa-chevrons-left{{else}}fa-chevrons-right{{/if}}"
+            data-action="targetsToggle" data-tooltip aria-label="{{localize "HAZARD.TARGETS.Title"}}"></button>
+</footer>

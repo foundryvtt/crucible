@@ -12,6 +12,7 @@ import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
+import {defineEnum} from "./enum.mjs";
 
 /* -------------------------------------------- */
 
@@ -46,12 +47,36 @@ export const COMPENDIUM_PACKS = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * The threat ranks that an adversary may have.
- * @enum {number}
+ * Temperature tiers used categorically to classify creature body temperatures, environmental hazards, and detection
+ * rules. The persisted value of any field that references a temperature tier is the string key (e.g. `"warm"`).
+ * Each tier additionally carries a signed `sort` weight centered on `neutral = 0` for ordering and comparison:
+ * positive weights are hot, negative weights are cold, and the absolute value indicates intensity. Differences
+ * between two tiers' sort values give a signed delta.
+ * @type {Readonly<Record<string, {id: string, label: string, sort: number}>>}
  */
-export const THREAT_RANKS = {
+export const TEMPERATURE_TIERS = defineEnum({
+  boiling: {label: "TEMPERATURE_TIERS.Boiling", sort: 2},
+  warm: {label: "TEMPERATURE_TIERS.Warm", sort: 1},
+  neutral: {label: "TEMPERATURE_TIERS.Neutral", sort: 0},
+  cool: {label: "TEMPERATURE_TIERS.Cool", sort: -1},
+  gelid: {label: "TEMPERATURE_TIERS.Gelid", sort: -2}
+});
+
+/* -------------------------------------------- */
+
+/**
+ * The threat ranks that an adversary may have.
+ * @type {Readonly<Record<string, {
+ *   id: string,
+ *   label: string,
+ *   actionMax: number,
+ *   herosimMax: number,
+ *   scaling: number,
+ *   icon: string
+ * }>>}
+ */
+export const THREAT_RANKS = defineEnum({
   minion: {
-    id: "minion",
     actionMax: 4,
     heroismMax: 0,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Minion",
@@ -59,7 +84,6 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevron-down"
   },
   normal: {
-    id: "normal",
     actionMax: 6,
     heroismMax: 1,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Normal",
@@ -67,7 +91,6 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevron-up"
   },
   elite: {
-    id: "elite",
     actionMax: 8,
     heroismMax: 2,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Elite",
@@ -75,14 +98,13 @@ export const THREAT_RANKS = {
     icon: "fa-solid fa-chevrons-up"
   },
   boss: {
-    id: "boss",
     actionMax: 10,
     heroismMax: 3,
     label: "ACTOR.ADVERSARY.THREAT_RANKS.Boss",
     scaling: 2.0,
     icon: "fa-solid fa-skull"
   }
-};
+});
 
 /* -------------------------------------------- */
 
@@ -129,6 +151,11 @@ export const ACTION_HOOKS = Object.freeze({
   postActivate: {
     argNames: [],
     argLabels: ["this: CrucibleAction"],
+    async: true
+  },
+  prepareMessage: {
+    argNames: ["element"],
+    argLabels: ["this: CrucibleAction", "element: HTMLElement"],
     async: true
   },
   confirm: {
@@ -197,6 +224,7 @@ export const SYSTEM = {
   SKILLS: SKILL.SKILLS,
   SPELL: {...SPELL},
   TALENT: {...TALENT},
+  TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
   WEAPON: {...WEAPON}

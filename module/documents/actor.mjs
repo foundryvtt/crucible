@@ -22,10 +22,6 @@ const {DialogV2} = foundry.applications.api;
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
-  constructor(...args) {
-    super(...args);
-    this.#updateCachedResources();
-  }
 
   /**
    * The Actions which this Actor has available to use.
@@ -87,6 +83,16 @@ export default class CrucibleActor extends Actor {
    */
   get grimoire() {
     return this.system.grimoire;
+  }
+
+  /**
+   * Does this Actor currently contribute any prepareToken hooks?
+   * Token documents linked to this actor consult this flag in `_onRelatedUpdate` to decide whether to re-prepare token
+   * derived data when actor state changes.
+   * @type {boolean}
+   */
+  get hasTokenHooks() {
+    return this.system.actorHooks?.prepareToken?.length > 0;
   }
 
   /**
@@ -227,6 +233,14 @@ export default class CrucibleActor extends Actor {
    */
   _cachedResources = {};
 
+  /**
+   * Snapshot taken after the most recent `TokenDocument#prepareDerivedData` pass, recording whether token-affecting
+   * hooks are present.
+   * @type {boolean}
+   * @internal
+   */
+  _hadTokenHooks = false;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -239,6 +253,14 @@ export default class CrucibleActor extends Actor {
     // TODO: This is a temporary fix for double item prep
     if ( phase !== "final" ) this.system.prepareItems(items);
     super.applyActiveEffects(phase);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this._updateCachedResources(false);
   }
 
   /* -------------------------------------------- */
@@ -278,6 +300,7 @@ export default class CrucibleActor extends Actor {
    */
   getAbilityBonus(scaling, divisor=2) {
     if ( typeof scaling === "string" ) scaling = scaling.split(".");
+    if ( !scaling.length ) return 0;
     const abilities = this.system.abilities;
     return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
@@ -534,7 +557,7 @@ export default class CrucibleActor extends Actor {
     const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
-    const flavor = _loc("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
+    const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ) {
       const response = await check.dialog({flavor, messageMode});
       if ( response === null ) return null;
@@ -698,7 +721,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleAction>}
    */
   async hazardAttack(hazardData) {
-    const action = CrucibleAction.createHazard(this, hazardData);
+    const action = CrucibleAction.createHazard({...hazardData, actor: this});
     return action.use();
   }
 
@@ -896,7 +919,7 @@ export default class CrucibleActor extends Actor {
   async delay(initiative, actorUpdates={}) {
     const combatant = this.combatant;
     if ( !combatant ) throw new Error(`Actor [${this.id}] does not have a single Combatant in the current Combat.`);
-    const maximum = combatant.getDelayMaximum();
+    const maximum = combatant.initiative - 1;
     if ( !initiative || !Number.isInteger(initiative) || !initiative.between(1, maximum) ) {
       throw new Error(`You may only delay to an initiative value between 1 and ${maximum}`);
     }
@@ -912,71 +935,33 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Perform the Recover action, restoring resource pools.
-   * @param {object} [updateData={}]      Additional update data to include in the recover operation
-   * @param {object} [options={}]         Options which modify the recover
-   * @param {boolean} [options.allowDead=false]   Allow dead actors to recover?
-   * @returns {Promise<void>}
+   * Perform the Recover action, restoring resource pools as a thin shortcut to {@link CrucibleActor#useAction}.
+   * @returns {Promise<CrucibleAction|null>}
    */
-  async recover(updateData={}, {allowDead=false}={}) {
-    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
-
-    // Expire Active Effects
-    const toDeleteEffects = this.effects.reduce((arr, effect) => {
-      const s = effect.duration.seconds;
-      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
-      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( s && (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
-      return arr;
-    }, []);
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
-
-    // Recover Resources
-    await this.update(foundry.utils.mergeObject(this.#getRecoveryData(), updateData));
+  async recover() {
+    return this.useAction("recover", {dialog: false});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Restore all resource pools to their maximum value.
-   * @param {object} [updateData={}]      Additional update data to include in the rest operation
-   * @param {object} [options={}]         Options which modify the rest
-   * @param {boolean} [options.allowDead=false]   Allow dead actors to rest?
-   * @returns {Promise<void>}
+   * Perform the Rest action, restoring resource pools and reducing wounds/madness, as a thin shortcut to
+   * {@link CrucibleActor#useAction}.
+   * @returns {Promise<CrucibleAction|null>}
    */
-  async rest(updateData={}, {allowDead=false}={}) {
-    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
-
-    // Prepare Rest data
-    const restData = this.#getRecoveryData();
-    if ( this.type === "hero" ) {
-      const {wounds, madness} = this.system.resources;
-      restData.system.resources.wounds = {value: Math.max(wounds.value - this.level, 0)};
-      restData.system.resources.madness = {value: Math.max(madness.value - this.level, 0)};
-    }
-
-    // Expire Active Effects
-    const toDeleteEffects = this.effects.reduce((arr, effect) => {
-      const s = effect.duration.seconds;
-      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
-      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( !s || (s <= SYSTEM.TIME.restSeconds) ) arr.push(effect.id);
-      return arr;
-    }, []);
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
-
-    // Recover Resources
-    await this.update(foundry.utils.mergeObject(restData, updateData));
+  async rest() {
+    return this.useAction("rest", {dialog: false});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare an object that replenishes all resource pools to their current maximum level
+   * Build a resource update payload that fills every non-reserve resource pool to its current maximum.
+   * Used during initial actor creation and as part of level/ability change simulation.
    * @returns {object}
    */
   #getRecoveryData() {
-    const updates = {system: {resources: {}, status: null}};
+    const updates = {system: {resources: {}}};
     for ( const [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
       if ( !cfg || (cfg.type === "reserve") ) continue;
@@ -1058,40 +1043,6 @@ export default class CrucibleActor extends Actor {
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
     return this.update(updates, {statusText});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Toggle a named status active effect for the Actor
-   * @param {string} statusId             The status effect ID to toggle
-   * @param {object} [options]
-   * @param {boolean} [options.active]    Should the effect be active?
-   * @param {boolean} [options.overlay]   Should the effect be an overlay?
-   * @returns {Promise<ActiveEffect|undefined>}
-   */
-  async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
-    const effectData = CONFIG.statusEffects[statusId];
-    if ( !effectData ) return;
-    const existing = this.effects.find(e => e.statuses.has(effectData.id));
-
-    // No changes needed
-    if ( !active && !existing ) return;
-    if ( active && existing ) return existing.update({"flags.core.overlay": overlay});
-
-    // Remove an existing effect
-    if ( !active && existing ) return existing.delete();
-
-    // Add a new effect
-    else if ( active ) {
-      const createData = foundry.utils.mergeObject(effectData, {
-        _id: SYSTEM.EFFECTS.getEffectId(statusId),
-        name: _loc(effectData.name),
-        statuses: [statusId]
-      }, {inplace: false});
-      if ( overlay ) createData["flags.core.overlay"] = true;
-      await ActiveEffect.create(createData, {parent: this, keepId: true});
-    }
   }
 
   /* -------------------------------------------- */
@@ -1392,7 +1343,7 @@ export default class CrucibleActor extends Actor {
         if ( !label ) continue;
         let color;
         if ( foundry.utils.isPlainObject(cfg.color) ) {
-          color = amount > 0 ? cfg.color.heal : cfg.color.high;
+          color = ((amount > 0) === (cfg.type === "active")) ? cfg.color.heal : cfg.color.high;
           pipColors.add(cfg.color.high.css);
         } else {
           color = cfg.color;
@@ -1509,7 +1460,8 @@ export default class CrucibleActor extends Actor {
 
       // Categorize damage
       for ( let {amount, damageType, resource, restoration} of dot ) {
-        if ( !restoration ) amount = -Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
+        if ( !restoration ) amount = Math.clamp(amount - this.getResistance(resource, damageType), 0, 2 * amount);
+        amount *= (restoration ? -1 : 1) * (SYSTEM.RESOURCES[resource]?.type === "reserve" ? 1 : -1);
         turnStartConfig.resourceChanges[resource].push({label: effect.name, amount});
       }
       const status = {text: effect.name, fillColor: SYSTEM.RESOURCES.health.color.high.css};
@@ -1871,7 +1823,7 @@ export default class CrucibleActor extends Actor {
         this.system.details.ancestry?.name,
         this.system.details.background?.name,
         !this.points.ability.requireInput,
-        !this.points.talent.available
+        this.points.talent.available <= 0
       ];
       if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
     }
@@ -2178,6 +2130,8 @@ export default class CrucibleActor extends Actor {
       target: {type: "self", scope: 1}
     }, {actor: this});
 
+    action.usage.itemSnapshots ||= [];
+    action.usage.itemSnapshots.push(item.snapshot());
     const update = {_id: item.id, system: {equipped: false}};
     if ( dropped ) update.system.dropped = true;
     if ( item.type === "weapon" ) Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
@@ -2209,10 +2163,12 @@ export default class CrucibleActor extends Actor {
     }, {actor: this});
 
     // Equip the weapon as a follow-up actor update
+    action.usage.itemSnapshots ||= [];
+    action.usage.itemSnapshots.push(item.snapshot());
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
     const update = {_id: item.id, system: {dropped: false, equipped: true}};
-    if ( slot !== undefined ) update.slot = slot;
+    if ( slot !== undefined ) update.system.slot = slot;
     else update.system.equipped = false;
     action.usage.actorUpdates.items.push(update);
     return action;
@@ -2449,6 +2405,25 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  async toggleStatusEffect(statusId, {active, overlay=false}={}) {
+    const status = CONFIG.statusEffects[statusId];
+    if ( !status ) throw new Error(`Invalid status ID "${statusId}" provided to Actor#toggleStatusEffect`);
+    const ActiveEffect = getDocumentClass("ActiveEffect");
+    const effect = await ActiveEffect.fromStatusEffect(statusId);
+    const existing = this.effects.get(effect.id);
+    if ( existing ) {
+      if ( active ) return true;
+      await existing.delete();
+      return false;
+    }
+    if ( !active && (active !== undefined) ) return;
+    if ( overlay ) effect.updateSource({"flags.core.overlay": true});
+    return ActiveEffect.implementation.create(effect, {parent: this, keepId: true});
+  }
+
+  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
@@ -2556,7 +2531,7 @@ export default class CrucibleActor extends Actor {
         const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
         for ( const token of tokens ) token.refreshFlanking(commit);
       }
-      this.#updateCachedResources();
+      this._updateCachedResources();
       this.#updateGroups();
     }
 
@@ -2744,28 +2719,23 @@ export default class CrucibleActor extends Actor {
   async #updateSize(data, options) {
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
     const size = this.size;
+    if ( size === this._cachedResources?.priorSize ) return;
+    const dimensions = {width: size, height: size, depth: size};
 
     // Unlinked Token Actor
     if ( this.isToken ) {
-      const token = this.token;
-      if ( (token.width !== size) || (token.height !== size) ) {
-        await token.update({width: size, height: size}, {_crucibleRelatedUpdate: true});
-      }
+      await this.token.update(dimensions, {_crucibleRelatedUpdate: true});
       return;
     }
 
-    // Linked Actor
-    const pt = this.prototypeToken;
-    if ( (pt.width === size) && (pt.height === size) ) return;
-    await this.update({prototypeToken: {width: size, height: size}}, {_crucibleRelatedUpdate: true});
+    // Linked Actor prototype Token
+    await this.update({prototypeToken: dimensions}, {_crucibleRelatedUpdate: true});
 
     // Update placed Tokens
     const sceneUpdates = {};
     for ( const token of this.getDependentTokens() ) {
-      if ( (token.width !== size) || (token.height !== size) ) {
-        sceneUpdates[token.parent.id] ||= [];
-        sceneUpdates[token.parent.id].push({_id: token.id, width: size, height: size});
-      }
+      sceneUpdates[token.parent.id] ||= [];
+      sceneUpdates[token.parent.id].push({_id: token.id, ...dimensions});
     }
     for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
       const scene = game.scenes.get(sceneId);
@@ -2849,14 +2819,21 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update cached resources for this Actor.
+   * @param {boolean} force Whether to force update of cached resources
+   * @internal
    */
-  #updateCachedResources() {
+  _updateCachedResources(force=true) {
+    if ( !force && !foundry.utils.isEmpty(this._cachedResources) ) return;
     this._cachedResources ||= {};
     const resources = this.system.schema.get("resources");
     if ( !resources ) return;
-    for ( const k in resources.fields ) this._cachedResources[k] = this._source.system.resources[k].value;
+    for ( const k in resources.fields ) {
+      const r = this.system.resources[k];
+      this._cachedResources[k] = Math.clamp(this._source.system.resources[k].value, 0, r.max);
+    }
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
+    this._cachedResources.priorSize = this.size;
     return this._cachedResources;
   }
 

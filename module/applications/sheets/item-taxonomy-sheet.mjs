@@ -22,7 +22,14 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const {SetField, StringField} = foundry.data.fields;
+
+    // Render the blank option of the temperature select to surface the category default
+    const category = SYSTEM.ACTOR.CREATURE_CATEGORIES[context.source.system.category];
+    const tier = SYSTEM.TEMPERATURE_TIERS[category?.temperature];
+    const temperatureBlank = tier ? _loc("TAXONOMY.SHEET.TemperatureBlank", {temperature: tier.label}) : "";
+
     return Object.assign(context, {
+      temperatureBlank,
       abilities: Object.values(SYSTEM.ABILITIES).map(ability => ({
         field: context.fields.abilities.fields[ability.id],
         id: ability.id,

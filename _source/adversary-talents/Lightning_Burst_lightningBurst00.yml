@@ -1,0 +1,91 @@
+name: Lightning Burst
+type: talent
+_id: lightningBurst00
+img: icons/magic/lightning/barrier-shield-crackling-orb-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to produce and expel powerful
+    voltaic blast.</p>
+  actions:
+    - id: lightningBurst
+      name: Lightning Burst
+      img: icons/magic/lightning/barrier-shield-crackling-orb-pink.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} expels a blast of lighting in a 15
+        foot blast, attacking the <strong>Reflex</strong> of each target within
+        that range and and dealing <strong>Electricity</strong> damage.</p><p>On
+        a <strong>Critical Hit</strong> the attack causes the
+        @Condition[shocked] condition for <strong>3 Turns</strong>.</p>
+      cost:
+        action: 4
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+        size: 15
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - shocked
+          duration:
+            value: 3
+            units: rounds
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - melee
+        - natural
+        - reflex
+        - electricity
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: hLW9grST8mutR0JI
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1777227057466
+  modifiedTime: 1777227057466
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!lightningBurst00'

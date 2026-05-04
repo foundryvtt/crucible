@@ -51,13 +51,14 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @param {StandardCheckData} [data]          An object of roll data, containing the following optional fields
  */
 export default class StandardCheck extends Roll {
-  constructor(formula, data) {
+  constructor(formula, data, options) {
     if ( typeof formula === "object" ) {
       data = formula;
       formula = ""; // Replaced later
     }
-    super(formula, data);
+    super(formula, data, options);
     this.actor = game.actors.get(this.data.actorId);
+    this.options.type ??= data.damageType; // Integration with DSN
   }
 
   /* -------------------------------------------- */
@@ -288,7 +289,7 @@ export default class StandardCheck extends Roll {
    * @returns {{outcome: string, classes: string[]}}
    */
   prepareOutcome() {
-    if ( !this.data.dc ) return {outcome: "Unknown", classes: []};
+    if ( !this.data.dc ) return {outcome: "COMMON.Unknown", classes: ["unknown"]};
     let outcome = "ACTION.EFFECT_RESULT_TYPES.";
     const classes = [];
     if ( this.isCriticalSuccess || this.isCriticalFailure ) {
@@ -318,6 +319,12 @@ export default class StandardCheck extends Roll {
     const {outcome, classes} = this.prepareOutcome();
     const dc = this.data.dc;
     const defenseType = this.constructor.DEFENSE_TYPE;
+    if ( targetLabel === undefined ) {
+      const skill = SYSTEM.SKILLS[this.data.type];
+      const label = skill?.label ?? defenseType;
+      const dcLabel = game.user.isGM ? (dc || "??") : "";
+      targetLabel = dcLabel ? `${label} ${dcLabel}` : label;
+    }
     return {
       outcome,
       total: this.total,
@@ -329,7 +336,7 @@ export default class StandardCheck extends Roll {
       defenseType,
       formula: this.formula,
       cssClass: ["crucible", "dice-roll", "standard-check", ...classes].join(" "),
-      targetLabel: targetLabel ?? (game.user.isGM ? `${defenseType} ${dc}` : "")
+      targetLabel
     };
   }
 
@@ -337,13 +344,20 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
-    const rollContext = this.prepareDiceResultContext();
+    const actor = game.actors.get(this.data.actorId);
     const cardData = {
       isPrivate,
       isGM: game.user.isGM,
       flavor,
-      ...rollContext
+      actor: actor ? {name: actor.name, img: actor.img} : null
     };
+    if ( isPrivate ) Object.assign(cardData, {
+      cssClass: "crucible dice-roll standard-check private",
+      outcome: "COMMON.Unknown",
+      total: "?",
+      targetLabel: _loc("COMMON.Unknown")
+    });
+    else Object.assign(cardData, this.prepareDiceResultContext());
     return cardData;
   }
 
@@ -384,12 +398,14 @@ export default class StandardCheck extends Roll {
   /**
    * Submit this check as a queried group check for the provided actors.
    * @param {object} [options={}]
-   * @param {CrucibleActor[]} [options.requestedActors] Actors to include in the group check
+   * @param {Iterable<CrucibleActor>} [options.requestedActors] Actors to include in the group check
+   * @param {Record<string, GroupCheckSkillConfig>} [options.skills] Skill configurations with per-skill DCs
+   * @param {string} [options.messageMode] The chat message visibility mode
    * @returns {Promise<void>}
    */
-  async requestGroupCheck({requestedActors}={}) {
+  async requestGroupCheck({requestedActors, skills, messageMode}={}) {
     const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.data));
-    return groupCheckInstance.requestSubmit({requestedActors});
+    return groupCheckInstance.requestSubmit({requestedActors, skills, messageMode});
   }
 
   /* -------------------------------------------- */

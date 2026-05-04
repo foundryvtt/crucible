@@ -18,7 +18,60 @@ system:
       <p>An oil-burning or magically illuminated lantern that sheds bright light
       in a 20 foot radius and dim light in a 40 foot radius.</p>
     private: ''
-  actions: []
+  actions:
+    - id: lightLantern
+      name: Light Lantern
+      img: icons/sundries/lights/lantern-iron-yellow.webp
+      description: >-
+        <p>You ignite the @ref[name], producing steady illumination in a wide
+        radius. This action consumes one unit of
+        @UUID[Compendium.crucible.equipment.Item.lanternOil000000]{Lantern Oil}
+        from your inventory; the burn duration depends on the quality of the oil
+        consumed:</p><ul><li><p><strong>Shoddy</strong> - 1
+        hour</p></li><li><p><strong>Standard</strong> - 4
+        hours</p></li><li><p><strong>Fine</strong> - 12
+        hours</p></li><li><p><strong>Superior</strong> - 24
+        hours</p></li><li><p><strong>Masterwork</strong> - 48
+        hours</p></li></ul>
+      condition: ''
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Lantern
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 4
+            units: hours
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags: []
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
   skills:
     - awareness
     - stealth

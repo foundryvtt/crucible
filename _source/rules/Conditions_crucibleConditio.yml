@@ -418,7 +418,7 @@ pages:
         number of creatures greater than its <strong>Engagement</strong> score,
         it has the <strong>Flanked</strong> condition. The Flanked condition has
         multiple integer stages, starting at Flanked 1, where each stage of
-        Flanked contributes <strong>+1 Boon</strong> to attack rolls made
+        Flanked contributes <strong>+1 Boon</strong> to melee attack rolls made
         against that creature.</p><p>While having more Engaged enemies increases
         your Flanked condition, having adjacent allies who are supporting you
         can nullify flanking. Allies contribute their own Engagement as a bonus
@@ -1504,6 +1504,43 @@ pages:
       modifiedTime: 1770322273309
       lastModifiedBy: ifaQA7jTJsr3UWFE
     _key: '!journal.pages!crucibleConditio.burrowing0000000'
+  - sort: 1612500
+    name: Suffocating
+    type: text
+    category: rpL70eBEekWih461
+    _id: suffocating00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Suffocating</strong> creature suffers <strong>Void</strong>
+        damage to both <strong>Wounds</strong> and <strong>Madness</strong> at
+        the start of each turn, representing physical lung trauma and panic from
+        being deprived of breathable air. While Suffocating, a creature is also
+        @Condition[silenced].</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.1
+      createdTime: 1773600000000
+      modifiedTime: 1773600000000
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleConditio.suffocating00000'
 folder: MMeWpMmsLOblp07U
 categories:
   - name: Health

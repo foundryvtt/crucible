@@ -15,7 +15,8 @@ system:
         <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
         explodes in a pulse of <strong>Radiant</strong> energy which attacks the
         <strong>Fortitude</strong> defense of all nearby creatures that fail to
-        resist the effect.</p>
+        resist the effect and upon critical success afflicting them with the
+        @Condition[irradiated] condition for <strong>3 rounds</strong>.</p>
       cost:
         action: 0
         focus: 1
@@ -32,7 +33,25 @@ system:
         scope: 4
         self: false
         size: 8
-      effects: []
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - irradiated
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
       tags:
         - generic
         - fortitude
@@ -49,21 +68,24 @@ system:
     type: ''
     rank: null
 effects: []
-folder: hLW9grST8mutR0JI
+folder: myBrb0NP4oQkwiz5
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
-flags: {}
+  QPs9IwGEu5DxD700: 3
+flags:
+  ember:
+    crucibleOverride: true
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.360'
   systemId: crucible
-  systemVersion: 0.9.0
-  createdTime: 1772307157335
-  modifiedTime: 1773514792187
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.9.1
+  createdTime: 1777227102876
+  modifiedTime: 1777227102916
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: radiantDeathBurs
 sort: 0
 _key: '!items!radiantDeathBurs'

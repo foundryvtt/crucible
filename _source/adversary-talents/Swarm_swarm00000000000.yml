@@ -1,0 +1,43 @@
+name: Swarm
+type: talent
+img: icons/creatures/invertebrates/wasp-swarm-tan.webp
+system:
+  nodes: []
+  description: >-
+    <p>This adversary is a group of many identical creatures that operate as a
+    single swarming throng of foes.</p><ul><li><p>Maximum
+    <strong>Health</strong> is doubled.</p></li><li><p>Against any single-target
+    source of damage, the swarm gains additional <strong>Resistance</strong>
+    equal to its <strong>Toughness</strong>.</p></li><li><p>The swarm's
+    <strong>Size</strong> decreases as its Health is depleted until reaching a
+    minimum Size of 2.</p></li></ul>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: 9Ej4QwUt1yVpv4Wn
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980101863
+  modifiedTime: 1776980351840
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+_id: swarm00000000000
+sort: 0
+_key: '!items!swarm00000000000'

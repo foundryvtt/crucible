@@ -1,0 +1,46 @@
+name: Swarm
+type: archetype
+_id: archetypeswarm00
+img: icons/creatures/invertebrates/wasp-swarm-tan.webp
+system:
+  description: >-
+    <p>This adversary represents multiple creatures that move as a single
+    swarming entity, overwhelming opposition with sheer numbers.</p>
+  identifier: archetypeswarm
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 2
+    toughness: 3
+    dexterity: 4
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.swarm00000000000
+      level: null
+  skills:
+    - athletics
+    - awareness
+    - wilderness
+  spells: []
+  equipment: []
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1776980332533
+  modifiedTime: 1776980357072
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 300000
+_key: '!items!archetypeswarm00'

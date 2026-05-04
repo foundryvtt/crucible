@@ -1,4 +1,20 @@
 /**
+ * @typedef CrucibleItemSnapshot
+ * A serializable snapshot of item stateful data, captured at action-use time. Structured as an item update object.
+ * Each item subtype declares its own STATEFUL_FIELDS; properties not relevant to a given subtype will be absent.
+ * @property {string} _id                           The Item ID
+ * @property {object} system                        The stateful system data
+ * @property {boolean} [system.broken]              Was the item broken?
+ * @property {boolean} [system.dropped]             Was the item dropped?
+ * @property {boolean} [system.equipped]            Was the item equipped?
+ * @property {boolean} [system.invested]            Was the item invested?
+ * @property {boolean} [system.loaded]              Was the weapon loaded?
+ * @property {number} [system.quantity]              Item stack quantity
+ * @property {number} [system.slot]                 Weapon equipment slot
+ * @property {object} [system.uses]                 Consumable remaining uses
+ */
+
+/**
  * An Item subclass which handles system specific logic for the Item document type.
  */
 export default class CrucibleItem extends foundry.documents.Item {
@@ -51,6 +67,23 @@ export default class CrucibleItem extends foundry.documents.Item {
    */
   get activeEffectsSuppressed() {
     return this.system.activeEffectsSuppressed || false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Snapshot the stateful properties of this item at the time an Action is performed.
+   * Properties outside the STATEFUL_FIELDS list are assumed to be permanent attributes of the item and not stateful.
+   * @returns {CrucibleItemSnapshot}
+   */
+  snapshot() {
+    const fields = this.system.constructor.STATEFUL_FIELDS;
+    if ( !fields ) return {_id: this.id, system: {}};
+    const source = this.system.toObject();
+    return fields.reduce((obj, field) => {
+      obj.system[field] = source[field];
+      return obj;
+    }, {_id: this.id, system: {}});
   }
 
   /* -------------------------------------------- */
@@ -138,12 +171,13 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @param {string} baseUuid                       The UUID of the base item
    * @param {{id: string, tier: number}[]} affixes  Affix identifiers and tiers to apply
    * @param {object} [options]                      Additional options
-   * @param {string} [options.quality]                Explicit quality tier, or auto-selected if omitted
-   * @param {string} [options.name]                   Display name override, or auto-composed from affixes
+   * @param {string} [options.quality]              Explicit quality tier, or auto-selected if omitted
+   * @param {string} [options.name]                 Display name override, or auto-composed from affixes
+   * @param {boolean} [options.broken]              Whether the item should be broken, if relevant
    * @returns {Promise<CrucibleItem>}               The generated item with enchantments applied
    * @throws {Error}                                An error if the requested affixes are incompatible with the item
    */
-  static async #fromLootDropData(baseUuid, affixes, {quality, name}={}) {
+  static async #fromLootDropData(baseUuid, affixes, {quality, name, broken}={}) {
 
     // Resolve the base item
     const baseItem = await fromUuid(baseUuid);
@@ -203,6 +237,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Clone the base item with loot modifications
     const itemData = baseItem.toObject();
     if ( selectedQuality ) itemData.system.quality = selectedQuality;
+    if ( broken ) itemData.system.broken = true;
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
     // Compose the item name
@@ -410,6 +445,30 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Test whether an item is stackable with another item
+   * @param {CrucibleItem} other
+   * @returns {boolean}
+   */
+  isStackableWith(other) {
+    if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
+    if ( !this.system.properties.has("stackable") ) return false;
+    if ( this.effects.size || other.effects.size ) return false; // Affixes never stack
+    const cleanData = this.toObject();
+    const cleanOther = other.toObject();
+    for ( const data of [cleanData, cleanOther] ) {
+      delete data._id;
+      delete data._stats;
+      delete data.system.quantity;
+      delete data.sort;
+      delete data.ownership;
+      delete data.folder;
+    }
+    return foundry.utils.equals(cleanData, cleanOther);
+  }
+
+  /* -------------------------------------------- */
   /*  Randomization                               */
   /* -------------------------------------------- */
 
@@ -474,9 +533,11 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /**
    * A single attempt at randomizing an item.
-   * @param {CrucibleItem[]} candidates       Eligible base items
-   * @param {ActiveEffect[]} allAffixes       All affix documents from the compendium
-   * @param {object} context                  Shared context
+   * @param {CrucibleItem[]} candidates                 Eligible base items
+   * @param {ActiveEffect[]} allAffixes                 All affix documents from the compendium
+   * @param {object} context                            Shared context
+   * @param {{min: number; max: number}} context.price  Required price range in currency
+   * @param {string} [context.quality]                  Optional forced quality tier
    * @returns {CrucibleItem|null}
    */
   static #randomizeAttempt(candidates, allAffixes, {price, quality: forcedQuality}) {
@@ -516,6 +577,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Step 4: Select random affixes to fill the needed tier budget
     const eligibleAffixes = allAffixes.filter(a => {
       if ( a.type !== "affix" ) return false;
+      if ( a.system.identifier in baseItem.system.affixes ) return false;
       const types = a.system.itemTypes;
       return !types.size || types.has(baseItem.type);
     });
@@ -611,6 +673,7 @@ export default class CrucibleItem extends foundry.documents.Item {
       tokens.push(tier === 1 ? id : `${id}=${tier}`);
     }
     tokens.push(`quality=${this.system.quality}`);
+    if ( this.system.broken ) tokens.push("broken=true");
     return `@Loot[${baseUuid} ${tokens.join(" ")}]{${this.name}}`;
   }
 
@@ -659,7 +722,7 @@ export default class CrucibleItem extends foundry.documents.Item {
       itemTypesField.toFormGroup({stacked: true}, {name: "itemTypes", type: "checkboxes",
         value: p.itemTypes}),
       qualityField.toFormGroup({}, {name: "quality", value: p.quality})
-    )
+    );
 
     // Present the dialog
     const data = await foundry.applications.api.DialogV2.prompt({
@@ -701,8 +764,16 @@ export default class CrucibleItem extends foundry.documents.Item {
 
     // Build chat message with @Loot enricher string
     const enricherString = item.toLootEnricher();
-    const priceLabel = CrucibleItem.formatCurrency(item.system.price);
-    const messageContent = `<p>${enricherString} (${priceLabel})</p>`;
-    return ChatMessage.implementation.create({content: messageContent});
+    return ChatMessage.implementation.create({
+      content: `<p>${enricherString}</p>`,
+      flavor: game.i18n.localize("ITEM.RANDOMIZE.Flavor", {type: game.i18n.localize(`TYPES.Item.${item.type}`)}),
+      flags: {crucible: {randomizedItem: {
+        priceMin: data.priceMin,
+        priceMax: data.priceMax,
+        baseUuid: data.baseUuid || null,
+        itemTypes,
+        quality: data.quality || null
+      }}}
+    });
   }
 }

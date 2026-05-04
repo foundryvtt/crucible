@@ -1,15 +1,15 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
-import Enum from "./enum.mjs";
+import {defineEnum, defineIntEnum} from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 
 /**
  * The different required conditions under which an Active Effect can be applied from an Action.
- * @type {Readonly<Record<string, {label: string}>>}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
-export const EFFECT_RESULT_TYPES = Object.freeze({
+export const EFFECT_RESULT_TYPES = defineEnum({
   any: {
     label: "ACTION.EFFECT_RESULT_TYPES.Any"
   },
@@ -34,7 +34,7 @@ export const EFFECT_RESULT_TYPES = Object.freeze({
  * The scope of creatures affected by an action.
  * @enum {number}
  */
-export const TARGET_SCOPES = new Enum({
+export const TARGET_SCOPES = defineIntEnum({
   NONE: {value: 0, label: "ACTION.TARGET_SCOPES.None"},
   SELF: {value: 1, label: "ACTION.TARGET_SCOPES.Self"},
   ALLIES: {value: 2, label: "ACTION.TARGET_SCOPES.Allies"},
@@ -44,6 +44,7 @@ export const TARGET_SCOPES = new Enum({
 
 /**
  * @typedef ActionTargetType
+ * @property {string} id                        The target type id
  * @property {string} label                     Localization key for the target type label
  * @property {ActionTargetRegion|null} region   Region placement config, or null
  * @property {number} scope                     The TARGET_SCOPES value for this type
@@ -67,7 +68,7 @@ export const TARGET_SCOPES = new Enum({
  * The allowed target types which an Action may have.
  * @type {Readonly<Record<string, ActionTargetType>>}
  */
-export const TARGET_TYPES = Object.freeze({
+export const TARGET_TYPES = defineEnum({
   none: {
     label: "ACTION.TARGET_TYPES.None",
     region: null,
@@ -114,6 +115,16 @@ export const TARGET_TYPES = Object.freeze({
       anchor: "self",
       addSize: true,
       ephemeral: true
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  aura: {
+    label: "ACTION.TARGET_TYPES.Aura",
+    region: {
+      shape: "emanation",
+      anchor: "self",
+      addSize: false, // Accounted for directly by emanation shape
+      ephemeral: false
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -169,9 +180,9 @@ export const TARGET_TYPES = Object.freeze({
 
 /**
  * Categories of action tags which are supported by the system.
- * @type {Readonly<Record<string, {label: string}>>}
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
-export const TAG_CATEGORIES = Object.freeze({
+export const TAG_CATEGORIES = defineEnum({
   attack: {label: "ACTION.TAG_CATEGORIES.Attack"},
   spellcraft: {label: "ACTION.TAG_CATEGORIES.Spellcraft"},
   skills: {label: "ACTION.TAG_CATEGORIES.Skills"},
@@ -303,6 +314,23 @@ export const TAGS = {
     category: "requirements",
     canUse() {
       return this.actor.equipment.weapons.shield;
+    }
+  },
+
+  // Requires Talisman Weapon
+  talisman: {
+    tag: "talisman",
+    label: "ACTION.TAG.Talisman",
+    tooltip: "ACTION.TAG.TalismanTooltip",
+    category: "requirements",
+    propagate: ["strike"],
+    canUse() {
+      const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
+      const categories = ["talisman1", "talisman2"];
+      if ( (!categories.includes(mh?.category) && !categories.includes(oh?.category))
+        || !this.usage.strikes.every(w => w.config.category.training.includes("talisman")) ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
+      }
     }
   },
 
@@ -445,8 +473,11 @@ export const TAGS = {
         throw new Error(_loc("ACTION.WARNINGS.NoConsumableUses", {item: item.name, action: this.id}));
       }
     },
-    async confirm(reverse) {
-      await this.usage.consumable.system.consume(reverse ? -1 : 1);
+    preActivate() {
+      const item = this.usage.consumable;
+      const updateEvent = this.selfUpdateEvent;
+      updateEvent.itemSnapshots.push(item.snapshot());
+      updateEvent.actorUpdates.items.push(item.system.consume(1, {save: false}));
     }
   },
 
@@ -688,14 +719,15 @@ export const TAGS = {
       for ( const [i, weapon] of this.usage.strikes.entries() ) {
         const roll = await this.actor.weaponAttack(this, weapon, target);
         roll.data.strike = i;
-        this.recordEvent({type: "strike", target, roll, weapon: weapon.system.snapshot()});
+        this.recordEvent({type: "strike", target, roll, weapon: weapon.snapshot()});
       }
     },
     preActivate() {
+      const updateEvent = this.selfUpdateEvent;
       for ( const w of this.usage.strikes ) {
+        updateEvent.itemSnapshots.push(w.snapshot());
         if ( w.config.category.reload ) {
-          this.usage.actorUpdates.items ||= [];
-          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
+          updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
     },
@@ -811,10 +843,11 @@ export const TAGS = {
     },
     preActivate() {
       if ( !this.usage.strikes?.length ) return;
+      const updateEvent = this.selfUpdateEvent;
       for ( const weapon of this.usage.strikes ) {
         if ( !weapon.system.canThrow ) throw new Error(_loc("ACTION.WARNINGS.CannotThrow"));
-        this.usage.actorUpdates.items ||= [];
-        this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
+        updateEvent.itemSnapshots.push(weapon.snapshot());
+        updateEvent.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
         if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
       }
     }
@@ -845,8 +878,10 @@ export const TAGS = {
     priority: 0,
     internal: true,
     initialize() {
-      Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
-      this.usage.bonuses.ability = this.usage.hazard;
+      this.usage.hasDice = true;
+      this.usage.resource ??= "health";
+      this.usage.defenseType ??= "physical";
+      this.usage.bonuses.ability = this.usage.danger;
       this.usage.bonuses.base = 1;
     },
     async roll(target) {
@@ -886,6 +921,7 @@ export const TAGS = {
         skill: bonuses.skill ?? 0,
         enchantment: bonuses.enchantment,
         defenseType,
+        damageType,
         dc: target.defenses[defenseType].total
       });
       await roll.evaluate();
@@ -922,11 +958,19 @@ export const TAGS = {
         throw new Error(_loc("ACTION.WARNINGS.NoReloadRequired"));
       }
     },
-    preActivate() {
-      this.usage.actorUpdates.items ||= [];
+    prepare() {
       this.usage.weapon ??= this.getValidWeaponChoices()[0]?.item;
       if ( this.usage.weapon ) {
-        this.usage.actorUpdates.items.push({_id: this.usage.weapon.id, "system.loaded": true});
+        Object.assign(this.usage.context, {label: "Reload", icon: "fa-solid fa-arrow-rotate-right",
+          tags: {[`weapon.${this.usage.weapon.id}`]: this.usage.weapon.name}});
+      }
+    },
+    preActivate() {
+      const w = this.usage.weapon;
+      if ( w ) {
+        const updateEvent = this.selfUpdateEvent;
+        updateEvent.itemSnapshots.push(w.snapshot());
+        updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": true});
       }
     }
   },
@@ -943,7 +987,10 @@ export const TAGS = {
         if ( !events.allSuccess ) continue;
         const {mainhand} = target.equipment.weapons; // TODO - allow usage customization?
         if ( !mainhand?.id ) continue;
-        this.recordEvent({type: "actorUpdate", target, actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]}, statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]});
+        this.recordEvent({type: "actorUpdate", target,
+          actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+          itemSnapshots: [mainhand.snapshot()],
+          statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]});
       }
     }
   },
@@ -1211,7 +1258,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     label: label,
     category: "damage",
     initialize() {
-      this.usage.damageType = id;
+      this.usage.damageType ??= id;
     }
   };
 }
@@ -1302,7 +1349,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: [],
     target: {
       type: "none"
-    }
+    },
+    autoFavorite: true
   },
 
   // Basic Movement
@@ -1371,7 +1419,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       scope: 3
     },
-    tags: ["reaction"] // Added to in #prepareDefaultActions
+    tags: ["reaction"], // Added to in #prepareDefaultActions
+    autoFavorite: true
   },
 
   // Throw Weapon
@@ -1391,6 +1440,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["thrown"]
   },
 
+  // Investiture
+  {
+    id: "investiture",
+    name: "ACTION.DEFAULT_ACTIONS.Investiture.Name",
+    img: "icons/magic/symbols/runes-star-orange-purple.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Investiture.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["noncombat"],
+    autoFavorite: true
+  },
+
   // Recover
   {
     id: "recover",
@@ -1405,7 +1472,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"]
+    tags: ["noncombat"],
+    autoFavorite: true
   },
 
   // Reload
@@ -1420,7 +1488,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["reload"],
     target: {
       type: "self"
-    }
+    },
+    autoFavorite: true
   },
 
   // Rest
@@ -1437,7 +1506,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"]
+    tags: ["noncombat"],
+    autoFavorite: true
   },
 
   // Basic Strike
@@ -1457,6 +1527,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0,
       weapon: true
-    }
+    },
+    autoFavorite: true
   }
 ]);

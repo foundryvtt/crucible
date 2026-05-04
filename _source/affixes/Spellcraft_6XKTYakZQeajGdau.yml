@@ -1,18 +1,18 @@
 type: ActiveEffect
-folder: 64872phWO5b24xSh
+folder: 1t1h4vquJCypCfA4
 name: Spellcraft
 color: null
 sorting: a
 _id: 6XKTYakZQeajGdau
 description: ''
-sort: 500000
+sort: 400000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.360'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775562882296
+  modifiedTime: 1776171543372
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

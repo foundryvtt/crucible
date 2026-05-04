@@ -24,7 +24,6 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
-import Enum from "./module/const/enum.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
 
@@ -437,6 +436,13 @@ Hooks.once("init", async function() {
 
   // Replace core layer class with custom grid layer class
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
+
+  // Crucible-specific detection modes
+  CONFIG.Canvas.detectionModes.thermalVision = new canvas.detectionModes.DetectionModeThermalVision({
+    id: "thermalVision",
+    label: "DETECTION_MODES.ThermalVision",
+    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+  });
 });
 
 /* -------------------------------------------- */
@@ -453,49 +459,7 @@ Hooks.once("canvasConfig", () => {
 
 Hooks.once("i18nInit", function() {
 
-  // Apply localizations
-  const toLocalize = [
-    ["ABILITIES", ["abbreviation", "label", "group"]],
-    "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
-    "ACTOR.CREATURE_CATEGORIES",
-    "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
-    "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
-    "CRAFTING.TRAINING",
-    "DAMAGE_CATEGORIES", "DEFENSES",
-    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES",
-    "ITEM.SCHEMATIC_CATEGORIES", "ITEM.SCHEMATIC_PROPERTIES",
-    "ITEM.TOOL_CATEGORIES",
-    "RESOURCES", "THREAT_RANKS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
-  ];
-  for ( const c of toLocalize ) {
-    let key = c;
-    let attrs = ["label"];
-    if ( Array.isArray(c) ) [key, attrs] = c;
-    const conf = foundry.utils.getProperty(SYSTEM, key);
-
-    // Special handling for enums
-    if ( conf instanceof Enum ) {
-      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = _loc(l);
-      continue;
-    }
-
-    // Other objects
-    for ( const [k, v] of Object.entries(conf) ) {
-      if ( typeof v === "object" ) {
-        for ( const attr of attrs ) {
-          if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
-          else if ( typeof v[attr] === "string" ) v[attr] = _loc(v[attr]);
-        }
-      }
-      else {
-        if ( typeof v === "function" ) conf[k] = v();
-        else if ( typeof v === "string" ) conf[k] = _loc(v);
-      }
-    }
-  }
-
-  // Localize models
+  // Localize DataModels
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
   foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
   foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
@@ -514,10 +478,19 @@ Hooks.once("i18nInit", function() {
 /* -------------------------------------------- */
 
 /**
- * Perform one-time configuration of system configuration objects.
+ * Perform one-time pre-localization of system configuration objects, mutating their `label` (and other localized
+ * string fields) into resolved language strings before the SYSTEM is deep-frozen at the `setup` hook.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys) => {
+  const localizeConfigObject = (obj, keys=["label"]) => {
+
+    // Integer-keyed enums (defineIntEnum) keep their labels in a separate dictionary
+    if ( obj.labels && (typeof obj.labels === "object") ) {
+      for ( const k in obj.labels ) obj.labels[k] = _loc(obj.labels[k]);
+      return;
+    }
+
+    // Record-style enums where each entry is an object containing one or more localizable string keys
     for ( const o of Object.values(obj) ) {
       for ( const k of keys ) {
         const v = o[k];
@@ -526,28 +499,75 @@ function preLocalizeConfig() {
       }
     }
   };
-  localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
-  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
+
+  // Top-level system constants
+  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group"]);
+  localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
+  localizeConfigObject(SYSTEM.DEFENSES);
+  localizeConfigObject(SYSTEM.RESOURCES);
+  localizeConfigObject(SYSTEM.TEMPERATURE_TIERS);
+  localizeConfigObject(SYSTEM.THREAT_RANKS);
+
+  // Accessory
+  localizeConfigObject(SYSTEM.ACCESSORY.CATEGORIES);
+  localizeConfigObject(SYSTEM.ACCESSORY.PROPERTIES);
+
+  // Action
+  localizeConfigObject(SYSTEM.ACTION.DEFAULT_ACTIONS, ["name", "description"]);
+  localizeConfigObject(SYSTEM.ACTION.EFFECT_RESULT_TYPES);
+  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES);
+  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.ACTION.TARGET_TYPES);
+
+  // Actor
+  localizeConfigObject(SYSTEM.ACTOR.CREATURE_CATEGORIES);
+  localizeConfigObject(SYSTEM.ACTOR.TRAVEL_PACES);
+
+  // Armor
+  localizeConfigObject(SYSTEM.ARMOR.CATEGORIES);
+  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES);
+
+  // Consumable
+  localizeConfigObject(SYSTEM.CONSUMABLE.CATEGORIES);
+  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES);
+
+  // Crafting
+  localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
+
+  // Item
+  localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);
+  localizeConfigObject(SYSTEM.ITEM.LOOT_CATEGORIES);
+  localizeConfigObject(SYSTEM.ITEM.QUALITY_TIERS);
+  localizeConfigObject(SYSTEM.ITEM.SCHEMATIC_CATEGORIES);
+  localizeConfigObject(SYSTEM.ITEM.SCHEMATIC_PROPERTIES);
+  localizeConfigObject(SYSTEM.ITEM.TOOL_CATEGORIES);
+
+  // Skill
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
-  localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
-  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+  localizeConfigObject(SYSTEM.SKILL.SKILLS);
 
   // Spellcraft
-  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"], false);
-  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"], false);
-  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"], false);
+  localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"]);
+  localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"]);
+  localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"]);
 
-  // Config objects
-  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
-  localizeConfigObject(crucible.CONFIG.knowledge, ["label"]);
-  localizeConfigObject(crucible.CONFIG.languageCategories, ["label"]);
-  localizeConfigObject(crucible.CONFIG.languages, ["label"]);
+  // Talent
+  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
+
+  // Weapon
+  localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
+  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES);
+  localizeConfigObject(SYSTEM.WEAPON.SLOTS);
+  localizeConfigObject(SYSTEM.WEAPON.TRAINING);
+
+  // CONFIG objects (not in SYSTEM)
+  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
+  localizeConfigObject(crucible.CONFIG.knowledge);
+  localizeConfigObject(crucible.CONFIG.languageCategories);
+  localizeConfigObject(crucible.CONFIG.languages);
 }
 
 /* -------------------------------------------- */
@@ -630,6 +650,16 @@ Hooks.once("ready", async function() {
 /* -------------------------------------------- */
 
 /**
+ * On open detached windows, apply crucible interaction listeners
+ */
+Hooks.on("openDetachedWindow", (_id, window) => {
+  window.document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
+  window.document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+});
+
+/* -------------------------------------------- */
+
+/**
  * Perform one-time data migrations for the current world.
  * @param {string} priorVersion
  * @returns {Promise<void>}
@@ -679,21 +709,31 @@ Hooks.on("renderChatMessageHTML", documents.CrucibleChatMessage.onRenderHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {
-  const flankingTool = {
+  controls.tokens.tools.forcedMovement = {
+    name: "forcedMovement",
+    order: 5,
+    title: "CONTROLS.CrucibleForcedMovement",
+    icon: "fa-solid fa-wind",
+    toggle: true,
+    active: false,
+    visible: game.user.isGM
+  };
+
+  controls.tokens.tools.debugFlanking = {
     name: "debugFlanking",
+    order: 6,
     title: "CONTROLS.VisualizeFlanking",
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
-    active: false
-  };
-  flankingTool.onChange = (_event, active) => {
-    CONFIG.debug.flanking = active;
-    for ( const token of globalThis.canvas.tokens.controlled ) {
-      if ( active ) token._visualizeEngagement(token.engagement);
-      else token._clearEngagementVisualization();
+    active: false,
+    onChange: (_event, active) => {
+      CONFIG.debug.flanking = active;
+      for ( const token of globalThis.canvas.tokens.controlled ) {
+        if ( active ) token._visualizeEngagement(token.engagement);
+        else token._clearEngagementVisualization();
+      }
     }
   };
-  controls.tokens.tools.debugFlanking = flankingTool;
 });
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
 
@@ -774,7 +814,7 @@ async function packageCompendium(documentName, packName, folder) {
  */
 function generateId(title, length) {
   const id = title.split(" ").map((w, i) => {
-    const p = w.slugify({replacement: "", lowercase: false, strict: true});
+    const p = w.slugify({replacement: "", lowercase: i === 0, strict: true});
     return i ? p.titleCase() : p;
   }).join("");
   return Number.isNumeric(length) ? id.slice(0, length).padEnd(length, "0") : id;
@@ -808,7 +848,13 @@ function registerDevelopmentHooks() {
     if ( options.keepId === false ) return;
     // Generate a new ID
     if ( !item.parent && !item.id ) {
-      item.updateSource({_id: generateId(item.name, 16)});
+      const id = generateId(item.name, 16);
+      const collection = item.pack ? game.packs.get(item.pack)?.index : game.items;
+      if ( collection?.has(id) ) {
+        ui.notifications.error(`A document with standardized ID "${id}" already exists. Resolve the conflict manually.`);
+        return false;
+      }
+      item.updateSource({_id: id});
       options.keepId = true;
     }
   });
@@ -830,7 +876,12 @@ function registerDevelopmentHooks() {
   // Standardized IDs for Rules journal entry pages
   Hooks.on("preCreateJournalEntryPage", (page, data, options, _user) => {
     if ( (page.parent?.pack === "crucible.rules") && (options.keepId !== false) ) {
-      page.updateSource({_id: generateId(page.name, 16)});
+      const id = generateId(page.name, 16);
+      if ( page.parent.pages.has(id) ) {
+        ui.notifications.error(`A page with standardized ID "${id}" already exists in ${page.parent.name}. Resolve the conflict manually.`);
+        return false;
+      }
+      page.updateSource({_id: id});
       options.keepId = true;
     }
   });
@@ -967,7 +1018,7 @@ function _migrateEquipmentItem(item, index) {
   const currentSource = item.toObject();
   const upstreamSource = index[item.system.identifier]?.toObject();
   if ( !upstreamSource ) return null;
-  const update = {_id: item.id, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
+  const update = {_id: item.id, type: upstreamSource.type, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
   const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
   for ( const field of stateFields ) {
     const value = currentSource.system[field];
@@ -996,6 +1047,15 @@ async function resetAllActorTalents() {
     await actor.deleteEmbeddedDocuments("Item", deleteIds);
   }
 }
+
+/* -------------------------------------------- */
+/*  Module Hooks                                */
+/* -------------------------------------------- */
+
+Hooks.once("diceSoNiceReady", dice3d => {
+  // Improve Group Skill Checks rendering by hiding only the roll result
+  dice3d.setMessageUpdateHideSelector?.(".dice-result");
+});
 
 /* -------------------------------------------- */
 /*  ESModules API                               */

@@ -486,27 +486,33 @@ async function onClickMilestone(event) {
  * @param {RegExpMatchArray} matchArray
  */
 function enrichHazard([_match, terms, name]) {
-  const [hazard, ...tags] = terms.split(" ");
-  const action = crucible.api.models.CrucibleAction.createHazard(undefined, {hazard: Number(hazard), tags});
+  const [danger, ...tags] = terms.split(" ");
+
+  // Build a temporary Action that resolves tags into hazard attributes
+  const action = crucible.api.models.CrucibleAction.createHazard({danger: Number(danger), tags});
+  action.prepare();
+  const {damageType, defenseType, resource} = action.usage;
 
   // Prepare label
-  const hazardRank = `Hazard ${hazard}`;
+  const hazardRank = `Hazard ${danger}`;
   const parenthetical = name ? [hazardRank] : [];
   for ( const t of tags ) {
     const cfg = SYSTEM.ACTION.TAGS[t];
-    if ( cfg && cfg.label && !cfg.internal ) parenthetical.push(cfg.label);
+    if ( cfg && cfg.label && !cfg.internal ) parenthetical.push(_loc(cfg.label));
   }
   let label = name || hazardRank;
   if ( parenthetical.length ) label += ` (${parenthetical.join(", ")})`;
 
   // Prepare tooltip
-  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing
-  ${SYSTEM.DAMAGE_TYPES[action.usage.damageType]?.label} damage to ${SYSTEM.RESOURCES[action.usage.resource]?.label}`;
+  const tooltip = `${hazardRank} vs. ${_loc(SYSTEM.DEFENSES[defenseType]?.label)} dealing
+  ${_loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || ""} damage to ${_loc(SYSTEM.RESOURCES[resource]?.label)}`;
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("hazard-check");
-  Object.assign(tag.dataset, {hazard, tags, tooltip});
+  Object.assign(tag.dataset, {danger, tags, defenseType, resource, tooltip});
+  if ( damageType ) tag.dataset.damageType = damageType;
+  if ( name ) tag.dataset.hazardName = name;
   tag.innerHTML = label;
   return tag;
 }
@@ -529,23 +535,16 @@ function renderHazard(element) {
  */
 async function onClickHazard(event) {
   event.preventDefault();
-  const element = event.target;
-  const {hazard, tags} = element.dataset;
-
-  // Select a target
-  const actor = inferEnricherActor();
-  const targets = actor ? [actor] : (await chooseActorsDialog());
-
-  // Iterate over actor targets
-  for ( const actor of targets ) {
-    const action = crucible.api.models.CrucibleAction.createHazard(actor, {
-      name: element.innerText,
-      hazard: Number(hazard),
-      tags: tags.split(",")
-    });
-    // noinspection ES6MissingAwait
-    action.use();
-  }
+  if ( !game.user.isGM ) return;
+  const {danger, tags, damageType, defenseType, resource, hazardName} = event.target.dataset;
+  return crucible.api.dice.HazardDialog.prompt({
+    danger: Number(danger),
+    tags: tags ? tags.split(",") : [],
+    damageType: damageType || "void",
+    defenseType: defenseType || "physical",
+    resource: resource || undefined,
+    name: hazardName || event.target.innerText
+  });
 }
 
 /* -------------------------------------------- */
@@ -627,7 +626,7 @@ function enrichSpell([match, spellId]) {
  */
 function enrichSkillCheck([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
-  if ( skillId in DND5E_SKILL_MAPPING ) skillId = DND5E_SKILL_MAPPING[skillId];
+  skillId = DND5E_SKILL_MAPPING[skillId] ?? skillId;
   const skill = SYSTEM.SKILLS[skillId];
   if ( !skill ) return new Text(match);
   const passive = rest.includes("passive");
@@ -648,22 +647,25 @@ function enrichSkillCheck([match, terms]) {
 function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.category);
-  if ( group ) tag.classList.add("group-check");
-  tag.dataset.skillId = skill.id;
-  tag.dataset.dc = dc;
+  const dataset = {skillId: skill.id, dc};
+  if ( group ) {
+    tag.classList.add("group-check");
+    dataset.group = "true";
+  }
   let dcLabel = _loc("DICE.DCSpecific", {dc});
 
   // Passive checks only
   if ( passive ) {
     dcLabel = _loc("DICE.DCAdditionalPassive", {dcLabel});
     tag.classList.add("passive-check");
-    tag.dataset.crucibleTooltip = "passiveCheck";
+    dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
   if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
   // Create label
+  Object.assign(tag.dataset, dataset);
   tag.innerHTML = `${skill.label} (${dcLabel})`;
   return tag;
 }
@@ -735,7 +737,9 @@ function enrichLanguage([match, languageId]) {
  * @param {HTMLElement} element
  */
 function renderSkillCheck(element) {
-  element.addEventListener("click", onClickSkillCheck);
+  const {group} = element.dataset;
+  const listener = group === "true" ? onClickGroupCheck : onClickSkillCheck;
+  element.addEventListener("click", listener);
 }
 
 /* -------------------------------------------- */
@@ -744,13 +748,61 @@ function renderSkillCheck(element) {
  * Handle a click on a skill check enriched element, creating and optionally displaying a skill check roll.
  * @param {Event} event
  */
-function onClickSkillCheck(event) {
+async function onClickSkillCheck(event) {
   event.preventDefault();
-  const element = event.currentTarget;
-  const {skillId, dc} = element.dataset;
+  const {check, actor} = prepareSkillCheck(event);
+  const response = await check.dialog({request: game.user.isGM && !actor});
+  if ( response === null ) return;
+  const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[check.data.type].label});
+  return check.toMessage({flavor});
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Handle a click on a group skill check enriched element.
+ * @param {Event} event
+ */
+function onClickGroupCheck(event) {
+  event.preventDefault();
+  if ( !game.user.isGM ) return ui.notifications.warn(_loc("DICE.GROUP_CHECK.RequiresGM"));
+  const requestedActors = getPartyActors();
+  if ( !requestedActors ) return;
+  const {check} = prepareSkillCheck(event);
+  const dialogOptions = {request: true, requestedActors};
+  return check.dialog(dialogOptions);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get party actors as an array for request-based group checks.
+ * @returns {CrucibleActor[]|null}
+ */
+function getPartyActors() {
+  const members = crucible.party?.system.actors;
+  if ( !members?.size ) {
+    ui.notifications.warn(_loc("WARNING.NoParty"));
+    return null;
+  }
+  return Array.from(members);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Prepare a skill check instance from an enriched element click event.
+ * @param {Event} event
+ * @returns {{actor: CrucibleActor|null, check: StandardCheck}}
+ */
+function prepareSkillCheck(event) {
+  const {skillId, dc: dcStr} = event.currentTarget.dataset;
+  const parsedDc = Number(dcStr);
+  const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
+  const checkData = {type: skillId, dc};
   const actor = inferEnricherActor();
-  const check = actor ? actor.getSkillCheck(skillId, {dc}) : new crucible.api.dice.StandardCheck({type: skillId, dc});
-  check.dialog({request: game.user.isGM && !actor});
+  const check = actor ? actor.getSkillCheck(skillId, checkData) : new crucible.api.dice.StandardCheck(checkData);
+  return {actor, check};
 }
 
 /* -------------------------------------------- */
@@ -814,17 +866,20 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   // Parse tokens
   const affixes = [];
   let quality = null;
+  let broken = false;
   for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
     const [key, value] = token.split("=");
     if ( key === "quality" ) {
       quality = value;
+    } else if ( key === "broken" ) {
+      broken = value;
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;

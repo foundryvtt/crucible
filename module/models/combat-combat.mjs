@@ -31,10 +31,16 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   /*  Initiative and Turn Events                  */
   /* -------------------------------------------- */
 
+  /**
+   * Generate a new set of Initiative rolls for all Combatants at the beginning of a new Round.
+   * @param {Partial<CombatData>} data    Combat encounter data being modified
+   * @returns {Promise<void>}
+   */
   async preUpdateRoundInitiative(data) {
     data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
     data.combatants = [];
     const results = [];
+    const actorUpdates = [];
     for ( const c of this.parent.combatants ) {
       const roll = c.getInitiativeRoll();
       await roll.evaluate();
@@ -42,7 +48,9 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
       const r = c.clone({initiative: roll.total}, {keepId: true});
       r.roll = roll;
       results.push(r);
+      if ( c.actor?.flags.crucible?.delay ) actorUpdates.push({_id: c.actor.id, "flags.crucible.delay": _del});
     }
+    if ( actorUpdates.length ) await Actor.updateDocuments(actorUpdates);
     await this.postInitiativeMessage(data.round, results);
   }
 
@@ -81,7 +89,10 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     });
     const speaker = ChatMessage.getSpeaker();
     speaker.alias = _loc("COMBAT.INITIATIVE.Round", {round});
-    return ChatMessage.create({content, rolls, speaker, "flags.crucible.isInitiativeReport": true});
+    return ChatMessage.create({content, rolls, speaker, flags: {
+      crucible: {isInitiativeReport: true},
+      core: {initiativeRoll: true}
+    }});
   }
 
   /* -------------------------------------------- */
@@ -144,7 +155,7 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     for ( const meter of meters ) {
       if ( !meter ) continue;
       const [bar, label] = meter.children;
-      bar.style.width = pct;
+      bar.style.width = `${pct}%`;
       label.innerText = _loc("COMBAT.HeroismPct", {pct});
       meter.dataset.tooltip = "";
       meter.ariaLabel = _loc("COMBAT.HeroismTooltip");

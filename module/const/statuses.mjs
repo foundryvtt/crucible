@@ -1,3 +1,5 @@
+import * as EFFECTS from "./effects.mjs";
+
 const nonGroupTypes = {actorTypes: ["hero", "adversary"]};
 
 
@@ -34,6 +36,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Staggered",
     img: "systems/crucible/icons/statuses/staggered.svg",
     hud: nonGroupTypes,
+    generator: EFFECTS.staggered,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.staggered0000000"
   },
   stunned: {
@@ -187,6 +190,14 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.asleep0000000000"
   },
+  suffocating: {
+    id: "suffocating",
+    name: "ACTIVE_EFFECT.STATUSES.Suffocating",
+    img: "systems/crucible/icons/statuses/suffocating.svg",
+    hud: nonGroupTypes,
+    generator: EFFECTS.suffocating,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.suffocating00000"
+  },
   incapacitated: {
     id: "incapacitated",
     name: "ACTIVE_EFFECT.STATUSES.Incapacitated",
@@ -207,6 +218,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Bleeding",
     img: "icons/skills/wounds/blood-spurt-spray-red.webp",
     hud: false,
+    generator: EFFECTS.bleeding,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.bleeding00000000"
   },
   burning: {
@@ -214,6 +226,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Burning",
     img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     hud: false,
+    generator: EFFECTS.burning,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.burning000000000"
   },
   freezing: {
@@ -221,6 +234,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Freezing",
     img: "icons/magic/water/orb-ice-web.webp",
     hud: false,
+    generator: EFFECTS.freezing,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.freezing00000000"
   },
   confused: {
@@ -228,6 +242,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Confused",
     img: "icons/magic/air/air-burst-spiral-pink.webp",
     hud: false,
+    generator: EFFECTS.confused,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.confused00000000"
   },
   corroding: {
@@ -235,6 +250,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Corroding",
     img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     hud: false,
+    generator: EFFECTS.corroding,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.corroding0000000"
   },
   decaying: {
@@ -242,6 +258,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Decaying",
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     hud: false,
+    generator: EFFECTS.decay,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.decaying00000000"
   },
   dominated: {
@@ -249,6 +266,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Dominated",
     img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     hud: false,
+    generator: EFFECTS.dominated,
     page: "" // TODO
   },
   entropy: {
@@ -256,6 +274,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Entropy",
     img: "icons/magic/unholy/orb-swirling-teal.webp",
     hud: false,
+    generator: EFFECTS.entropy,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.entropy000000000"
   },
   irradiated: {
@@ -263,6 +282,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Irradiated",
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     hud: false,
+    generator: EFFECTS.irradiated,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.irradiated000000"
   },
   mending: {
@@ -270,6 +290,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Mending",
     img: "icons/magic/life/cross-beam-green.webp",
     hud: false,
+    generator: EFFECTS.mending,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.mending000000000"
   },
   inspired: {
@@ -277,6 +298,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Inspired",
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     hud: false,
+    generator: EFFECTS.inspired,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.inspired00000000"
   },
   poisoned: {
@@ -284,6 +306,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Poisoned",
     img: "icons/magic/unholy/orb-smoking-green.webp",
     hud: false,
+    generator: EFFECTS.poisoned,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.poisoned00000000"
   },
   shocked: {
@@ -291,6 +314,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Shocked",
     img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     hud: false,
+    generator: EFFECTS.shocked,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.shocked000000000"
   }
 };
