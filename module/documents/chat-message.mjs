@@ -29,13 +29,17 @@ export default class CrucibleChatMessage extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Play a VFX animation using data provided by this ChatMessage
+   * Play a VFX animation using data provided by this ChatMessage.
+   * The dice-rolls -> VFX ordering is already enforced upstream by {@link #autoConfirmMessage},
+   * which awaits 3D dice before flipping the confirmed flag. Calling
+   * {@link Dice3D#waitFor3DAnimationByMessageID} again here would hang forever in DSN >= 6.0,
+   * because the function registers its completion hook lazily and dice for this message have
+   * already finished by the time we get here.
    * @returns {Promise<void>}
    */
   async #playVFXEffect() {
     if ( !game.settings.get("crucible", "enableVFX") ) return;
     const action = CrucibleAction.fromChatMessage(this);
-    if ( this.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(this.id);
     const {references, ...vfxConfig} = this.flags.crucible.vfxConfig;
     await action.playVFXEffect(vfxConfig, references);
   }
