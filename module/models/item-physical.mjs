@@ -306,10 +306,14 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       else suffixes.push(adj);
     }
     if ( !prefixes.length && !suffixes.length && !quality ) return null;
+    const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "narrow", type: "unit"});
     let name = baseName;
-    if ( prefixes.length ) name = prefixes.join(" ") + " " + name;
-    else if ( quality ) name = _loc(quality.label) + " " + name;
-    if ( suffixes.length ) name += " of " + suffixes.join(" ");
+    let prefixString;
+    if ( prefixes.length ) prefixString = listFormatter.format(prefixes);
+    else if ( quality ) prefixString = _loc(quality.label);
+    const suffixString = suffixes.length ? listFormatter.format(suffixes) : null;
+    if ( prefixString ) name = _loc("ITEM.COMPOSED_NAME.Prefix", {prefixes: prefixString, name});
+    if ( suffixString ) name = _loc("ITEM.COMPOSED_NAME.Suffix", {suffixes: suffixString, name});
     return name;
   }
 
