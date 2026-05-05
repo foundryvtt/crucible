@@ -1,6 +1,7 @@
 import CrucibleTokenRuler from "./token-ruler.mjs";
 import CrucibleTokenHUD from "../applications/hud/token-hud.mjs";
 import {MOVEMENT_ACTIONS, TRAVEL_PACES} from "../const/actor.mjs";
+import {registerComponentAnimations} from "./vfx/component-animations.mjs";
 
 export * as detectionModes from "./detection-modes/_module.mjs";
 export * as tree from "./tree/_module.mjs";
@@ -20,6 +21,7 @@ export function configure() {
 
   // TODO enable experimental VFX framework
   CONFIG.Canvas.vfx.enabled = true;
+  registerComponentAnimations();
 
   // Movement Actions
   const groupOnly = token => token.actor?.type === "group";

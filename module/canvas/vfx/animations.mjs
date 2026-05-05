@@ -980,3 +980,196 @@ function _finalizeImplodeExplode(component) {
     }
   };
 }
+
+/* -------------------------------------------- */
+
+/**
+ * A particle gather effect: small motes spawn on a ring around a manifest point and fly inward,
+ * dying at the center. Suitable for "energy coalescing into a projectile" charge-up effects.
+ * Each spawned particle picks an angle on the gather ring, computes inward velocity calibrated to
+ * its lifetime so it arrives at the manifest point as it expires.
+ * Has both `configure` (builds the generator) and `finalize` (injects inward-velocity onSpawn).
+ * @type {VFXAnimationBlock}
+ */
+export const manifestProjectile = {
+  configure({prefix, origin, gatherRadius, textures, duration = 500, particleLifetime = 250,
+    alpha = {min: 0.6, max: 1.0}, scale = {min: 0.4, max: 0.8},
+    perFrame = 4, elevation = 0, sort = 1, pointSourceMask, position = 0} = {}) {
+    // Stop spawning before chargeEnd so the last wave still completes its inward trip in time
+    const spawnDuration = Math.max(50, duration - particleLifetime);
+    // RingShapeData#sampleInterior throws on a zero-thickness ring; use a small band centered on
+    // the gather radius so spawned particles cluster on the ring perimeter
+    const bandWidth = Math.max(2, gatherRadius * 0.05);
+    const component = particleGenerator({
+      textures,
+      area: {type: "ring", x: origin.x, y: origin.y, radius: gatherRadius,
+        innerWidth: bandWidth, outerWidth: bandWidth},
+      count: null,
+      duration: spawnDuration,
+      lifetime: {min: Math.round(particleLifetime * 0.9), max: particleLifetime},
+      fade: {in: 30, out: Math.round(particleLifetime * 0.4)},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      rotation: {alignVelocity: true, spread: 0.2},
+      config: {
+        manifestProjectile: {originX: origin.x, originY: origin.y, gatherRadius, particleLifetime},
+        velocity: {speed: [0, 0], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.manifestProjectile ) _finalizeManifestProjectile(component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onSpawn callback for the manifest projectile gather effect.
+ * Each particle's velocity is calibrated to traverse from its spawn ring position to the manifest
+ * point over its lifetime, so it dies at the center.
+ * @param {object} component
+ */
+function _finalizeManifestProjectile(component) {
+  const {originX, originY, gatherRadius, particleLifetime} = component.config.manifestProjectile;
+  const gridScale = getParticleScaleFactor();
+  const radiusPx = gatherRadius * gridScale;
+  const speed = (radiusPx / particleLifetime) * 1000; // Pixels per second to traverse radius in lifetime
+
+  component.config.onSpawn = (p, {generator}) => {
+    const sceneX = p.x + generator.bounds.x;
+    const sceneY = p.y + generator.bounds.y;
+    const angle = Math.atan2(sceneY - originY, sceneX - originX);
+    p.movementSpeed.x = -Math.cos(angle) * speed;
+    p.movementSpeed.y = -Math.sin(angle) * speed;
+    p.rotation = angle + Math.PI;
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * A particle trail emitted from a moving projectile container.
+ * Each frame the spawn area is moved to track the live position of a sibling singleAttack
+ * component's projectile container. Particles spawn at the projectile's current position with low
+ * outward velocity and short lifetime, so they linger briefly behind the projectile and form a
+ * fading trail.
+ * Has both `configure` (builds the generator with a placeholder spawn area) and `finalize`
+ * (locates the projectile container and injects an onTick that mutates the spawn area position).
+ * @type {VFXAnimationBlock}
+ */
+export const projectileTrail = {
+  configure({prefix, projectileComponentName, textures, duration, particleLifetime = 250,
+    alpha = {min: 0.3, max: 0.7}, scale = {min: 0.4, max: 0.7},
+    speed = {min: 5, max: 25}, perFrame = 3, align = false, rotationSpread = 0.15,
+    flipX = false, blend = PIXI.BLEND_MODES.NORMAL,
+    elevation = 0, sort = 0, pointSourceMask, position = 0} = {}) {
+    const component = particleGenerator({
+      textures,
+      area: {type: "circle", x: 0, y: 0, radius: 4},
+      count: null,
+      duration,
+      lifetime: {min: Math.round(particleLifetime * 0.85), max: particleLifetime},
+      fade: {in: 30, out: Math.round(particleLifetime * 0.6)},
+      alpha,
+      scale,
+      initial: 0.0,
+      perFrame,
+      elevation,
+      sort,
+      pointSourceMask,
+      blend,
+      // Align mode uses small rotation spread (set per-particle in onSpawn); scatter mode uses
+      // full random rotation
+      rotation: align ? {spread: rotationSpread} : {alignVelocity: false, spread: Math.PI},
+      config: {
+        projectileTrail: {projectileComponentName, align, rotationSpread, flipX},
+        // Align mode zeroes velocity (particles stay at their spawn point as the projectile moves
+        // on); scatter mode uses random outward velocity in the configured speed range
+        velocity: align
+          ? {speed: [0, 0], angle: [0, 360]}
+          : {speed: [speed.min, speed.max], angle: [0, 360]}
+      }
+    });
+    return {
+      components: {[prefix]: component},
+      timeline: [{component: prefix, position}],
+      references: {}
+    };
+  },
+
+  finalize(vfxEffect, references) {
+    for ( const component of Object.values(vfxEffect.components) ) {
+      if ( component.type !== "particleGenerator" ) continue;
+      if ( component.config?.projectileTrail ) _finalizeProjectileTrail(vfxEffect, component);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Inject onTick (spawn-area follow) and optionally onSpawn (rotation alignment) callbacks for
+ * the projectile trail. Each frame onTick reads the projectile container's live position and
+ * mutates the trail's spawn area to follow it (quantized to throttle `updateSource` calls). When
+ * `align` is true, onSpawn additionally sets each particle's rotation to match the projectile's
+ * current rotation, suitable for directional streak textures.
+ * @param {VFXEffect} vfxEffect
+ * @param {object} component
+ */
+function _finalizeProjectileTrail(vfxEffect, component) {
+  const {projectileComponentName, align, rotationSpread, flipX} = component.config.projectileTrail;
+  const projectileComp = vfxEffect.components[projectileComponentName];
+  if ( !projectileComp ) return;
+  const POSITION_STEP = 4;
+  let shape = null;
+  let lastX = -Infinity;
+  let lastY = -Infinity;
+
+  component.config.onTick = (_dt, generator) => {
+    const projectileContainer = projectileComp.projectile?.container;
+    if ( !projectileContainer ) return;
+    const x = Math.round(projectileContainer.x / POSITION_STEP) * POSITION_STEP;
+    const y = Math.round(projectileContainer.y / POSITION_STEP) * POSITION_STEP;
+    if ( !shape ) {
+      shape = new foundry.data.CircleShapeData({type: "circle", x, y, radius: 4});
+      generator.spawnArea = shape;
+      lastX = x;
+      lastY = y;
+    }
+    else if ( (x !== lastX) || (y !== lastY) ) {
+      shape.updateSource({x, y});
+      lastX = x;
+      lastY = y;
+    }
+  };
+
+  if ( align ) {
+    component.config.onSpawn = p => {
+      const projectileContainer = projectileComp.projectile?.container;
+      if ( !projectileContainer ) return;
+      const variance = (Math.random() - 0.5) * rotationSpread * 2;
+      p.rotation = projectileContainer.rotation + variance;
+      p.movementSpeed.x = 0;
+      p.movementSpeed.y = 0;
+      // Optionally flip the streak so its leading edge faces backward (trailing direction).
+      // Useful when the streak art is drawn with the bright/wide end forward and a fade trailing
+      // back, but the visual reads better with the bright end behind the projectile
+      if ( flipX ) p.scale.x = -Math.abs(p.scale.x);
+    };
+  }
+}

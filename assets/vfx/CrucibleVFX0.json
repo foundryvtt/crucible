@@ -1,5 +1,23 @@
 {"frames": {
 
+"frost/FallingChunk":
+{
+	"frame": {"x":373,"y":627,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"frost/FallingPrism":
+{
+	"frame": {"x":439,"y":627,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
 "frost/ImpactBlast":
 {
 	"frame": {"x":390,"y":0,"w":121,"h":107},
@@ -71,24 +89,6 @@
 	"spriteSourceSize": {"x":6,"y":34,"w":116,"h":60},
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.2,"y":0.5}
-},
-"frost/ProjectileTopChunk":
-{
-	"frame": {"x":373,"y":627,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"frost/ProjectileTopPrisms":
-{
-	"frame": {"x":439,"y":627,"w":64,"h":64},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
-	"anchor": {"x":0.5,"y":0.5}
 },
 "frost/ResidueBlast":
 {
@@ -295,7 +295,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":128,"h":121},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.2,"y":0.5}
 },
 "life/ProjectileThorns":
 {
@@ -304,7 +304,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":23,"w":127,"h":82},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.2,"y":0.5}
 },
 "life/ProjectileVines":
 {
@@ -313,7 +313,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":126,"h":123},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.2,"y":0.5}
 },
 "life/ProjectileWisps":
 {
@@ -322,7 +322,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":30,"w":128,"h":68},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.2,"y":0.5}
 },
 "life/ResidueBubbles":
 {
@@ -457,7 +457,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":24},
 	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.1,"y":0.5}
 },
 "life/StreakThorns":
 {
@@ -466,7 +466,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":24},
 	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.1,"y":0.5}
 },
 "life/StreakVines":
 {
@@ -475,7 +475,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":126,"h":23},
 	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.1,"y":0.5}
 },
 "life/StreakWisp":
 {
@@ -484,7 +484,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":24},
 	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.1,"y":0.5}
 }},
 "animations": {
 	"frost/SprayShard": ["frost/SprayShard1","frost/SprayShard2","frost/SprayShard3","frost/SprayShard4","frost/SprayShard5","frost/SprayShard6","frost/SprayShard7"],
@@ -499,6 +499,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:744c6e0a24532ee5107e353446c2f95d:f1b5ddc0f13a2edafe8ade6a36248463:b7e1a4bedeed88db347bd859d022f25f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:521705b87bd91bc4154f4cde62ccbf7a:8305922881935ac0b16e74299a50122e:b7e1a4bedeed88db347bd859d022f25f$"
 }
 }

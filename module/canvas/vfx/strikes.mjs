@@ -1,5 +1,6 @@
 import {getRandomSound} from "./sounds.mjs";
 import {getRandomSprite} from "./sprites.mjs";
+import {computeAttackOffset} from "./helpers.mjs";
 
 /**
  * Configure the data for a VFXEffect
@@ -87,45 +88,35 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
  * @internal
  */
 function configureImpact(token, roll, targetMeshReference) {
-  const position = {reference: targetMeshReference, deltas: {sort: 1}};
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let sound = null;
   let texture = null;
-  const w = token.width * canvas.dimensions.size;
-  const h = token.height * canvas.dimensions.size;
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
 
-  // Customize the impact depending on the roll result
-  let hitRange;
+  // Result-specific sound and impact texture; positional offset is shared via computeAttackOffset
   switch ( roll.data.result ) {
     case T.HIT:
-      hitRange = [0, 0.1];
       sound = getRandomSound("projectile", "hitCreature");
       texture = getRandomSprite("impacts", "blood");
       break;
     case T.ARMOR:
     case T.BLOCK:
-      hitRange = [0, 0.25];
       sound = getRandomSound("projectile", "block");
       break;
     case T.GLANCE:
-      hitRange = [0.25, 0.5];
       sound = getRandomSound("projectile", "hitObject");
       texture = getRandomSprite("impacts", "blood");
       break;
     case T.PARRY:
-      hitRange = [0.25, 0.5];
       sound = getRandomSound("projectile", "block");
       break;
     case T.DODGE:
     case T.MISS:
-      hitRange = [0.5, 1.0];
       sound = getRandomSound("projectile", "miss");
       break;
   }
 
-  // Determine position based on hit range
-  position.deltas.x = Math.mix(w * hitRange[0], w * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
-  position.deltas.y = Math.mix(h * hitRange[0], h * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
+  const offset = computeAttackOffset(token, roll.data.result);
+  const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
   return {position, sound, texture};
 }
 

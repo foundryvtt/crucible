@@ -23,7 +23,9 @@ const VFX_ATLASES = [
  * For example, `VFX_TEXTURES.frost.spray` contains `["#crucible.vfx.frost/SprayShard1", ...]`.
  *
  * Categories correspond to the particle type prefixes in the atlas frame names:
- * Impact, Projectile, Residue, Spray, Streak.
+ * Falling, Impact, Projectile, Residue, Spray, Streak.
+ * - Projectile: side-view directional sprites for x/y travel (e.g., arrow shafts).
+ * - Falling: top-down descending sprites for elevation drops (e.g., hail, debris from above).
  * @type {Record<string, Record<string, string[]>>}
  */
 export const VFX_TEXTURES = {};
@@ -83,12 +85,9 @@ export function registerVFXSprites() {
 /* -------------------------------------------- */
 
 /**
- * Parse the particle category from a frame name suffix.
- * Frame names follow the pattern "rune/CategoryVariant", e.g. "frost/SprayShard1".
- * This extracts the category prefix (Impact, Projectile, Residue, Spray, Streak) and returns
- * a lowercase key, or null if the suffix does not match a known category.
+ * Parse the particle category from a frame name suffix like "SprayShard1" -> "spray".
  * @param {string} suffix   The portion of the frame name after the rune prefix and slash.
- * @returns {string|null}
+ * @returns {string|null}   Lowercase category key, or null if no known category prefix matches.
  */
 function _parseCategory(suffix) {
   for ( const prefix of _parseCategory.CATEGORIES ) {
@@ -96,7 +95,7 @@ function _parseCategory(suffix) {
   }
   return null;
 }
-_parseCategory.CATEGORIES = ["Impact", "Projectile", "Residue", "Spray", "Streak"];
+_parseCategory.CATEGORIES = ["Falling", "Impact", "Projectile", "Residue", "Spray", "Streak"];
 
 /* -------------------------------------------- */
 

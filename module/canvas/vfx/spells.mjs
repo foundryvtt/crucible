@@ -1,7 +1,9 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
 import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
   rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
-  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
+  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris,
+  manifestProjectile, projectileTrail} from "./animations.mjs";
+import {computeAttackOffset, pickRandom} from "./helpers.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -23,8 +25,9 @@ import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
  * Each array contains #-prefixed scene texture paths. Arrays may be empty if no art exists
  * for that rune/category; the fallback white particle is used in that case.
  * @typedef SpellVFXTextures
+ * @property {string[]} falling      Top-down sprites for elevation drops (e.g., hail, blast debris from above).
  * @property {string[]} impact       Impact burst textures for singleImpact components.
- * @property {string[]} projectile   Directional projectile textures for singleAttack or large scatter.
+ * @property {string[]} projectile   Side-view directional sprites for x/y travel (e.g., arrow shafts).
  * @property {string[]} residue      Lingering afterimage/debris textures.
  * @property {string[]} spray        Small mote textures for scatter and halo generators.
  * @property {string[]} streak       Elongated directional textures for beam/ray generators.
@@ -115,6 +118,197 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
 
 /* -------------------------------------------- */
 /*  Gesture Configurators                       */
+/* -------------------------------------------- */
+
+/**
+ * Configure the VFX for an Arrow gesture composed spell.
+ * Arrow has `target.type: "single"` and no region shape, so the trajectory is computed from the
+ * caster and target token centers. Per-rune visual overrides come from {@link RUNE_VFX_PROPS}.
+ * @param {CrucibleSpellAction} action
+ * @returns {SpellVFXData|null}
+ */
+function configureArrowVFXEffect(action) {
+  if ( action.target.type !== "single" ) return null;
+  const {textures, particleElevation} = resolveSpellVFXContext(action);
+  const components = {};
+  const timeline = [];
+  const references = {tokenMesh: "^token.object.mesh"};
+
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const gridSize = canvas.dimensions.size;
+  const distancePixels = canvas.dimensions.distancePixels;
+  const casterToken = action.token;
+  const casterCenterX = casterToken.x + ((casterToken.width * gridSize) / 2);
+  const casterCenterY = casterToken.y + ((casterToken.height * gridSize) / 2);
+  const casterRadiusPx = (casterToken.width * gridSize) / 2;
+
+  const CHARGE_DURATION = 700;
+  const GATHER_OVERLAP = 200; // Gather continues this long past projectile launch
+  const PROJECTILE_SPEED = 150; // Feet-per-second
+  const IMPACT_DURATION = 1000;
+  const casterElevation = casterToken.elevation ?? 0;
+  const runeProps = RUNE_VFX_PROPS.arrow?.[action.rune.id] ?? {};
+  const arrowStickDuration = runeProps.stickDuration ?? 0;
+  const projectileSize = runeProps.projectileSize ?? 3;
+
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result;
+    if ( !result ) continue;
+
+    const targetTokenRef = `target_${j}_token`;
+    const targetMeshRef = `target_${j}_tokenMesh`;
+    const manifestRef = `arrowManifest_${j}_point`;
+    Object.assign(references, {
+      [targetTokenRef]: `@${token.uuid}`,
+      [targetMeshRef]: `^${targetTokenRef}.object.mesh`
+    });
+
+    // Manifest point sits 1 caster radius forward toward the target so the projectile materializes
+    // in front of the caster rather than at their center
+    const tcx = token.x + ((token.width * gridSize) / 2);
+    const tcy = token.y + ((token.height * gridSize) / 2);
+    const dx = tcx - casterCenterX;
+    const dy = tcy - casterCenterY;
+    const dirDist = Math.max(1, Math.hypot(dx, dy));
+    const manifestOffsetX = (dx / dirDist) * casterRadiusPx;
+    const manifestOffsetY = (dy / dirDist) * casterRadiusPx;
+    const manifestX = casterCenterX + manifestOffsetX;
+    const manifestY = casterCenterY + manifestOffsetY;
+
+    const offset = computeAttackOffset(token, result);
+    const projectileEnd = {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}};
+
+    // Gather extends past chargeEnd so spawning continues briefly into the flight phase rather
+    // than cutting off abruptly at projectile launch
+    const gatherDuration = CHARGE_DURATION + GATHER_OVERLAP;
+    const gatherTextures = textures.spray.length ? textures.spray : textures.impact;
+    const gather = manifestProjectile.configure({prefix: `arrowManifest_${j}`,
+      origin: {x: manifestX, y: manifestY}, gatherRadius: casterRadiusPx * 2.0,
+      textures: gatherTextures, duration: gatherDuration, particleLifetime: 350,
+      perFrame: 8, elevation: particleElevation, position: 0});
+    Object.assign(components, gather.components);
+    timeline.push(...gather.timeline);
+
+    if ( textures.residue.length ) {
+      const residueGather = manifestProjectile.configure({prefix: `arrowManifestResidue_${j}`,
+        origin: {x: manifestX, y: manifestY}, gatherRadius: casterRadiusPx * 2.5,
+        textures: textures.residue, duration: gatherDuration, particleLifetime: 500,
+        perFrame: 1, scale: {min: 0.7, max: 1.2}, alpha: {min: 0.3, max: 0.6},
+        elevation: particleElevation, position: 0});
+      Object.assign(components, residueGather.components);
+      timeline.push(...residueGather.timeline);
+    }
+
+    // Sort = caster mesh sort + 1 mirrors strikes' tokenMesh + {sort: 1} delta: projectile renders
+    // just above the caster during the manifest phase
+    const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
+    references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
+      sort: casterMeshSort + 1,
+      sortLayer: foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS.TOKENS};
+    const projectileTexture = pickRandom(textures.projectile)
+      ?? getRandomSprite("projectiles", "arrow");
+    const projectileName = `arrowProjectile_${j}`;
+    // The singleAttack impact phase keeps the projectile sprite at the impact location for
+    // impact.duration ms before fading; non-zero stickDuration enables that "embedded" effect
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
+    const stickDuration = (isHit && arrowStickDuration) ? arrowStickDuration : 0;
+    components[projectileName] = {
+      type: "singleAttack",
+      path: [
+        {reference: manifestRef, deltas: {}},
+        projectileEnd
+      ],
+      charge: {
+        duration: CHARGE_DURATION,
+        animations: [{function: "projectileFadeIn"}]
+      },
+      projectile: {
+        texture: projectileTexture,
+        animations: [{function: "projectileFlight"}],
+        size: projectileSize,
+        speed: PROJECTILE_SPEED
+      },
+      impact: {duration: stickDuration}
+    };
+    timeline.push({component: projectileName, position: 0});
+
+    if ( runeProps.trail && textures.streak.length ) {
+      const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
+      const flightMs = (distPx / (PROJECTILE_SPEED * distancePixels)) * 1000;
+      const trail = projectileTrail.configure({prefix: `arrowTrail_${j}`,
+        projectileComponentName: projectileName, textures: textures.streak,
+        duration: Math.round(flightMs) + 100,
+        align: true, flipX: true, perFrame: 4, blend: PIXI.BLEND_MODES.ADD,
+        scale: {min: 0.3, max: 0.6}, alpha: {min: 0.4, max: 0.8},
+        elevation: casterElevation + 1, position: CHARGE_DURATION});
+      Object.assign(components, trail.components);
+      timeline.push(...trail.timeline);
+    }
+
+    // HIT/GLANCE: impact burst. RESIST: residue dissipation (spell reached target but deflected).
+    // MISS/DODGE: no impact (projectile flies past)
+    let impactTexture = null;
+    let impactSize = 3;
+    let impactDuration = IMPACT_DURATION;
+    if ( (result === T.HIT) || (result === T.GLANCE) ) {
+      impactTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+    }
+    else if ( result === T.RESIST ) {
+      impactTexture = pickRandom(textures.residue);
+      impactSize = 4;
+      impactDuration = 1500;
+    }
+
+    if ( impactTexture ) {
+      const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
+      const flightMs = (distPx / (PROJECTILE_SPEED * distancePixels)) * 1000;
+      const impactPosition = CHARGE_DURATION + Math.round(flightMs);
+
+      const impactName = `arrowImpact_${j}`;
+      components[impactName] = {
+        type: "singleImpact",
+        position: {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}},
+        texture: impactTexture,
+        duration: impactDuration,
+        size: impactSize
+      };
+      timeline.push({component: impactName, position: impactPosition});
+    }
+    j++;
+  }
+
+  if ( !timeline.length ) return null;
+
+  if ( textures.residue.length ) {
+    const casterResidue = airResidue.configure({prefix: "arrowCasterResidue",
+      origin: {x: casterCenterX, y: casterCenterY},
+      radius: Math.round(casterRadiusPx * 1.5), textures: textures.residue,
+      duration: 300, perFrame: 2, lifetime: {min: 1500, max: 2200},
+      alpha: {min: 0.08, max: 0.2}, elevation: casterElevation + 1, position: 0});
+    Object.assign(components, casterResidue.components);
+    timeline.push(...casterResidue.timeline);
+  }
+
+  return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Finalize the VFX for an Arrow gesture at play-time.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+function finalizeArrowVFXEffect(action, vfxEffect, references) {
+  manifestProjectile.finalize(vfxEffect, references);
+  projectileTrail.finalize(vfxEffect, references);
+}
+
 /* -------------------------------------------- */
 
 /**
@@ -472,8 +666,9 @@ function resolveSpellVFXContext(action) {
   const runeId = action.rune.id;
   return {
     runeColors: RUNE_COLORS[runeId] ?? RUNE_COLORS._default,
-    particleElevation: action.region.elevation.top ?? 0,
+    particleElevation: action.region?.elevation.top ?? 0,
     textures: {
+      falling: getVFXTexturePaths(runeId, "falling"),
       impact: getVFXTexturePaths(runeId, "impact"),
       projectile: getVFXTexturePaths(runeId, "projectile"),
       residue: getVFXTexturePaths(runeId, "residue"),
@@ -541,6 +736,30 @@ function addImpactComponents(action, components, timeline, references, getImpact
     j++;
   }
 }
+
+/* -------------------------------------------- */
+/*  Per-Rune VFX Properties                     */
+/* -------------------------------------------- */
+
+/**
+ * Per-gesture, per-rune VFX behavior overrides.
+ * Outer key is gesture ID, inner key is rune ID, value is the gesture-specific property bag.
+ * Runes opt in to specific behaviors; absent entries fall back to gesture configurator defaults.
+ *
+ * Arrow gesture properties:
+ * - `stickDuration` (number): ms the projectile sprite stays at the impact location after a
+ *   HIT/GLANCE before fading out. Omit or 0 for no stick. Best for "physical" runes whose
+ *   projectile reads as a tangible object embedded in the target.
+ * - `projectileSize` (number): override the projectile sprite size in feet (default 3).
+ * - `trail` (boolean): emit a subtle particle trail behind the projectile during flight.
+ *
+ * @type {Record<string, Record<string, object>>}
+ */
+const RUNE_VFX_PROPS = {
+  arrow: {
+    frost: {stickDuration: 1500, projectileSize: 2, trail: true}
+  }
+};
 
 /* -------------------------------------------- */
 /*  Color Palettes                              */
@@ -649,7 +868,7 @@ const RUNE_COLORS = {
  * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function, finalize?: function}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: {},
+  arrow: {configure: configureArrowVFXEffect, finalize: finalizeArrowVFXEffect},
   aspect: {},
   aura: {},
   blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},
