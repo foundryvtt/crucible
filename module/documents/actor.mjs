@@ -876,7 +876,7 @@ export default class CrucibleActor extends Actor {
       criticalSuccessThreshold: damage.criticalSuccessThreshold,
       criticalFailureThreshold: damage.criticalFailureThreshold,
       resource: options.resource || action.usage.resource || "health",
-      damageType: options.damageType || weapon.system.damageType,
+      damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
       damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
       multiplier: options.multiplier || action.usage.bonuses.multiplier || 1
     };
