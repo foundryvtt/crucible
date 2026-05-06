@@ -1042,7 +1042,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       inplace: true
     });
     context.parent = this.parent;
-    context.usage = this.usage;
+    context.usage = context.lazy ? foundry.utils.deepClone(this.usage) : this.usage;
     context.actor ??= this.actor;
     context.token ??= this.token;
     context.region ??= this.region;
