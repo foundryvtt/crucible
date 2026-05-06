@@ -506,6 +506,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
         shape.anchorX = shape.anchorY = 0;
         elevation.top = elevation.bottom + size;
         break;
+      case "ray":
+        if ( target.size ) shape.width = target.size * d;
+        break;
       case "wall":
         elevation.top = elevation.bottom = null; // Span the full level
         break;
