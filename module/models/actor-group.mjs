@@ -481,16 +481,26 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Perform a group rest where every member of the group uses the Rest action and time advances.
+   * Listeners for `crucible.preGroupRest` may return `false` to cancel synchronously.
+   * Mutation of `restConfig` can override rest timing or require async handling by pushing a Promise into
+   * `restConfig.promises`. Errors thrown in such a Promise prevent the rest from proceeding.
    * @fires {preGroupRest}
    * @returns {Promise<void>}
    */
   async rest() {
-    if ( Hooks.call("crucible.preGroupRest", this) === false ) return;
+    const restConfig = {duration: SYSTEM.TIME.restSeconds, promises: []};
+    if ( Hooks.call("crucible.preGroupRest", this, restConfig) === false ) return;
+    try {
+      await Promise.all(restConfig.promises);
+    } catch(err) {
+      console.warn(`Group rest cancelled: ${err.message}`);
+      return;
+    }
     const promises = [];
     for ( const actor of this.actors ) {
       promises.push(actor.useAction("rest", {dialog: false}));
     }
-    promises.push(game.time.advance(SYSTEM.TIME.restSeconds));
+    promises.push(game.time.advance(restConfig.duration));
     await Promise.allSettled(promises);
   }
 
