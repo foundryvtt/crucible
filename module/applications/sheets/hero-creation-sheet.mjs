@@ -1112,6 +1112,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
     // Update the actor and render the regular sheet
     this.#complete = true;
+    // TODO: Determine whether this is the ideal fix, we should do something different, or core needs a fix here
+    this.document.updateSource({items: creationData.items}, creationOptions);
     await this.document.update(creationData, creationOptions);
     await this.close({dialog: false});
   }
@@ -1136,7 +1138,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      delete itemData._id;
+      itemData._id = foundry.utils.randomID();
       if ( itemData.system.properties.includes("stackable") ) {
         itemData.system.quantity = quantity;
         creationData.items.push(itemData);
