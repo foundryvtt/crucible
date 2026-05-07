@@ -274,6 +274,7 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callActorHooks(hook, ...args) {
+    if ( !this.system.schema.has("actorHooks") ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
