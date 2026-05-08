@@ -251,10 +251,22 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async _initializeAncestry(ancestry) {
     const {abilities, resistances, movement, talents, schema} = ancestry.item.system;
 
+    // Traits (size, stride, plus any module-supplied tags)
+    const {size, stride} = movement;
+    ancestry.features.push({
+      id: "traits",
+      label: _loc("ANCESTRY.SECTIONS.Traits"),
+      tags: [
+        {text: _loc("ACTOR.SizeSpecific", {size})},
+        {text: _loc("ACTOR.StrideSpecific", {stride})}
+      ]
+    });
+
     // Ability Bonuses
     const primary = SYSTEM.ABILITIES[abilities.primary];
     const secondary = SYSTEM.ABILITIES[abilities.secondary];
     ancestry.features.push({
+      id: "abilities",
       label: schema.getField("abilities").label,
       tags: [
         {text: `${primary.label} ${SYSTEM.ANCESTRIES.primaryAbilityStart}`},
@@ -266,6 +278,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const res = SYSTEM.DAMAGE_TYPES[resistances.resistance];
     const vuln = SYSTEM.DAMAGE_TYPES[resistances.vulnerability];
     ancestry.features.push({
+      id: "resistances",
       label: schema.getField("resistances").label,
       tags: [
         {text: _loc("ACTOR.ResistanceSpecific", {resistance: res ? `${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : _loc("None")})},
@@ -273,18 +286,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       ]
     });
 
-    // Movement
-    const {size, stride} = movement;
-    ancestry.features.push({
-      label: schema.getField("movement").label,
-      tags: [
-        {text: _loc("ACTOR.SizeSpecific", {size})},
-        {text: _loc("ACTOR.StrideSpecific", {stride})}
-      ]
-    });
-
     // Talents
     ancestry.features.push({
+      id: "talents",
       label: schema.getField("talents").label,
       items: await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)))
     });

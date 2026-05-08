@@ -922,6 +922,9 @@
     "Progress": "Milestone Progress"
   },
   "ANCESTRY": {
+    "SECTIONS": {
+      "Traits": "Traits"
+    },
     "FIELDS": {
       "abilities": {
         "label": "Ability Scores",
