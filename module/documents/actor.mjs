@@ -2431,6 +2431,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
+    if ( this.type === "group" ) return;
     const updates = {};
 
     // Populate initial resource data
@@ -2442,7 +2443,14 @@ export default class CrucibleActor extends Actor {
     }
 
     // Automatic Prototype Token configuration
-    const prototypeTokenDefaults = {"bar1.attribute": "resources.health", "bar2.attribute": "resources.morale"};
+    const size = this.size;
+    const prototypeTokenDefaults = {
+      "bar1.attribute": "resources.health",
+      "bar2.attribute": "resources.morale",
+      width: size,
+      height: size,
+      depth: size
+    };
     switch ( data.type ) {
       case "hero":
         Object.assign(prototypeTokenDefaults, {"sight.enabled": true, actorLink: true, disposition: 1});
@@ -2720,16 +2728,17 @@ export default class CrucibleActor extends Actor {
   async #updateSize(data, options) {
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
     const size = this.size;
-    if ( size === this._cachedResources?.priorSize ) return;
     const dimensions = {width: size, height: size, depth: size};
 
     // Unlinked Token Actor
     if ( this.isToken ) {
+      if ( this.token.width === size ) return;
       await this.token.update(dimensions, {_crucibleRelatedUpdate: true});
       return;
     }
 
-    // Linked Actor prototype Token
+    // For standard actors, treat Prototype Token alignment as a signal of correctness
+    if ( this.prototypeToken.width === size ) return;
     await this.update({prototypeToken: dimensions}, {_crucibleRelatedUpdate: true});
 
     // Update placed Tokens
@@ -2834,7 +2843,6 @@ export default class CrucibleActor extends Actor {
     }
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
-    this._cachedResources.priorSize = this.size;
     return this._cachedResources;
   }
 
