@@ -181,10 +181,12 @@ Hooks.once("init", async function() {
 
   // Region Behavior document configuration
   Object.assign(CONFIG.RegionBehavior.dataModels, {
-    "crucible.hazard": models.CrucibleHazardRegionBehavior
+    "crucible.hazard": models.CrucibleHazardRegionBehavior,
+    "crucible.persistentAOE": models.CruciblePersistentAOERegionBehavior
   });
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
-    "crucible.hazard": "fa-solid fa-triangle-exclamation"
+    "crucible.hazard": "fa-solid fa-triangle-exclamation",
+    "crucible.persistentAOE": "fa-solid fa-burst"
   });
 
   // Configure dynamic constants

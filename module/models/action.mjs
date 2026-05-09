@@ -560,10 +560,26 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
-    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
-    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
-    return {
+    const makeEffectsSchema = () => {
+      const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+      const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+      delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+
+      // Must manually set label, as these'll exist both under effects and regionAction.effects
+      const labelPrefix = "ACTION.FIELDS.effects.element";
+      return new fields.ArrayField(new fields.SchemaField({
+        name: new fields.StringField({blank: true, initial: "", label: _loc(`${labelPrefix}.name.label`)}),
+        scope: new fields.NumberField({choices: effectScopes, label: _loc(`${labelPrefix}.scope.label`)}),
+        result: new fields.SchemaField({
+          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
+          all: new fields.BooleanField({initial: false, label: _loc(`${labelPrefix}.result.all.label`)})
+        }, {label: _loc(`${labelPrefix}.result.label`)}),
+        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}), {label: _loc(`${labelPrefix}.statuses.label`)}),
+        duration: aeDuration,
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+      }));
+    };
+    const schema = {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
@@ -591,25 +607,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
+      regionAction: new fields.SchemaField({
+        id: new fields.StringField({required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")}),
+        name: new fields.StringField({}),
+        img: new fields.FilePathField({categories: ["IMAGE"]}),
+        description: new fields.HTMLField({required: false, initial: undefined, label: _loc("ACTION.FIELDS.description.label"), hint: _loc("ACTION.FIELDS.description.hint")}),
+        effects: makeEffectsSchema(),
+        tags: new fields.SetField(new fields.StringField({required: true, blank: false}), {label: _loc("ACTION.FIELDS.tags.label"), hint: _loc("ACTION.FIELDS.tags.hint")})
+      }),
       // TODO: Consider which fields make sense to have configurable via UI
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
         permanent: new fields.BooleanField({initial: true})
       }),
-      effects: new fields.ArrayField(new fields.SchemaField({
-        name: new fields.StringField({blank: true, initial: ""}),
-        scope: new fields.NumberField({choices: effectScopes}),
-        result: new fields.SchemaField({
-          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
-          all: new fields.BooleanField({initial: false})
-        }),
-        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
-        duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
-      })),
+      effects: makeEffectsSchema(),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
       autoFavorite: new fields.BooleanField({initial: false})
     };
+    return schema;
   }
 
   /**
@@ -746,6 +761,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get requiresRegion() {
     return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region && !this.region;
+  }
+
+  /**
+   * Is this action configured to place a non-ephemeral region?
+   * @type {boolean}
+   */
+  get hasPersistentRegion() {
+    const hasRegion = this.requiresRegion || this.region;
+    return hasRegion && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
   }
 
   /**
@@ -1271,8 +1295,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Create the RegionDocument, visible to GMs and the placing user
     if ( this.region ) {
       const regionData = this.region.toObject();
+      regionData.name = this.name;
       regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
+      if ( this.hasPersistentRegion ) {
+        const existing = regionData.behaviors.find(b => b.type === "crucible.persistentAOE");
+        if ( !existing ) regionData.behaviors.push({
+          name: this.name,
+          disabled: true,
+          type: "crucible.persistentAOE",
+          system: {
+            actionIdentifier: this.id,
+            actionToPerform: this.regionAction,
+            actor: this.actor.uuid,
+            // TODO: Events? Currently will fire every time enter or start turn
+            oncePerRound: true
+          }
+        });
+      }
       const region = await this.region.constructor.create(regionData, {parent: canvas.scene, keepId: true});
       Object.defineProperty(this, "region", {value: region, configurable: true});
     }
@@ -1690,8 +1730,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * If action creates a non-ephemeral region, ensure at least one self-effect to record it.
    */
   #recordEffectEvents() {
-    let regionEffectRequired = this.region
-      && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
+    let regionEffectRequired = this.hasPersistentRegion;
     if ( !this.effects.length && !regionEffectRequired ) return;
     const eventsByActor = this.eventsByActor;
     for ( const [target, events] of eventsByActor ) {
@@ -2270,13 +2309,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Update or remove the placed region on confirmation
     if ( this.region ) {
-      const isEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
-      if ( isEphemeral ) await this.region.delete();
+      if ( !this.hasPersistentRegion ) await this.region.delete();
       else if ( !isNegated ) {
         const regionEffect = this.selfEvents.all.find(e => e.effects.length).effects[0];
         regionEffect.system.regions ??= [];
         regionEffect.system.regions.push(this.region.uuid);
+        const aoeBehavior = this.region.behaviors.find(b => b.type === "crucible.persistentAOE");
         await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+        await aoeBehavior?.update({disabled: reverse});
       }
     }
 
@@ -3142,9 +3182,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @override */
-  static migrateData(source) {
+  static migrateData(source, options) {
     for ( const effect of source.effects ?? [] ) {
       foundry.documents.ActiveEffect.migrateData(effect);
+    }
+
+    // Provide base values for Region Action (also keeps non-explicitly-set fields up to date with action changes)
+    if ( !options.partial ) {
+      source.regionAction ??= {};
+      source.regionAction.id ||= `${source.id.split(".").map((w, i) => i ? w.titleCase() : w).join("")}Region`;
+      source.regionAction.name ||= source.name;
+      source.regionAction.img ||= source.img;
+      source.regionAction.description ??= source.description;
     }
     return source;
   }

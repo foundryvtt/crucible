@@ -135,6 +135,18 @@ export default class CrucibleSpellAction extends CrucibleAction {
         this.img = this.rune.img;
         this.description = _loc("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
       }
+      if ( this.hasPersistentRegion ) {
+        this.regionAction.name = this.name;
+        this.regionAction.img = this.img;
+        this.regionAction.description = this.description;
+        // TODO: Appropriate tag which will always cause dice & roll
+        this.regionAction.tags = [...this.scaling];
+        if ( this.rune.restoration ) {
+          this.regionAction.tags.push((this.rune.resource === "health") ? "healing" : "rallying");
+        } else {
+          this.regionAction.tags.push("generic", this.rune.resource, this.rune.defense, this.rune.damageType);
+        }
+      }
     }
   }
 

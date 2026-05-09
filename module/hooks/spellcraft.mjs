@@ -63,6 +63,9 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
+  },
+  prepare() {
+    this.usage.hasDice = false;
   }
 };
 
