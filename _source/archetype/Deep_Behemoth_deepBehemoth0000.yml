@@ -1,0 +1,51 @@
+name: Deep Behemoth
+type: archetype
+_id: deepBehemoth0000
+img: icons/creatures/abilities/dragon-breath-purple.webp
+system:
+  description: >-
+    <p>Colossal subterranean apex predators, hulking monstrosities that thunder
+    in the deepest caverns.</p>
+  identifier: deepBehemoth
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 4
+    toughness: 3
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.rakingTalons0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.burrower00000000
+      level: null
+  skills:
+    - awareness
+    - wilderness
+    - intimidation
+  spells: []
+  equipment: []
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  WRGzDgYAt3ZuX6TU: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.2
+  createdTime: 1778341229242
+  modifiedTime: 1778341229242
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!deepBehemoth0000'
