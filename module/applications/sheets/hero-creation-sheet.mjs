@@ -1110,13 +1110,14 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     if ( !this._state.name ) return ui.notifications.warn(_loc("ACTOR.CREATION.NameRequired"));
-    const creationData = this._clone.toObject();
-    const creationOptions = {recursive: false, diff: false, noHook: true, characterCreation: true};
-    await this._finalizeCreationData(creationData, creationOptions);
-
-    // Update the actor and render the regular sheet
+    const data = this._clone.toObject();
+    const options = {recursive: false, diff: false, noHook: true, characterCreation: true};
+    await this._finalizeCreationData(data, options);
     this.#complete = true;
-    await this.document.update(creationData, creationOptions);
+
+    // FIXME: Remove the following updateSource call once https://github.com/foundryvtt/foundry-vtt/pull/5570 merged
+    this.document.updateSource({items: data.items}, options);
+    await this.document.update(data, options);
     await this.close({dialog: false});
   }
 
@@ -1140,12 +1141,14 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      delete itemData._id;
+      // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 merged this can just be `delete itemData._id`
+      itemData._id = foundry.utils.randomID();
       if ( itemData.system.properties.includes("stackable") ) {
         itemData.system.quantity = quantity;
         creationData.items.push(itemData);
-      } 
-      else creationData.items.push(...new Array(quantity).fill(itemData));
+      }
+      // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 is merged this can just be `.fill(itemData)`
+      else creationData.items.push(...Array.from({length: quantity}, () => ({...itemData, _id: foundry.utils.randomID()})));
       spent += scaledPrice * quantity;
     }
     creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
