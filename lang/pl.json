@@ -43,8 +43,12 @@
         "Name": "Obrona"
       },
       "Delay": {
-        "Description": "Opóźniasz swoją akcję do późniejszego momentu rundy walki. Wybierz Inicjatywę między 1 a wartością Inicjatywy walczącego po tobie. Będziesz działać zgodnie z tą nową wartością Inicjatywy. Możesz opóźnić swoją turę tylko raz na rundę.",
+        "Description": "Możesz opóźnić swoją akcję do późniejszego momentu rundy walki. Wybierz wartość inicjatywy z przedziału od 1 do wartości o jeden mniejszą od twojej aktualnej inicjatywy. Będziesz działać zgodnie z tą nową wartością inicjatywy, a jeśli inni uczestnicy walki mają taką samą wartość, będziesz działać przed nimi. Możesz opóźnić swoją turę tylko raz na rundę.",
         "Name": "Opóźnienie"
+      },
+      "Investiture": {
+        "Description": "Poświęć czas poza walką na dostrojenie się do wyposażonych przedmiotów magicznych, dzięki czemu przejdą one w stan „Zainwestowane”.",
+        "Name": "Inwestowanie"
       },
       "Move": {
         "Description": "Przesuń się o określoną odległość, zużywając ilość Akcji zależną od twojego Biegu i rodzaju użytej akcji ruchu.",
@@ -71,7 +75,7 @@
         "Name": "Uderzenia"
       },
       "ThrowWeapon": {
-        "Description": "Rzuć swoją bronią do walki wręcz, aby przeprowadzić Uderzenie na pobliskiego przeciwnika. Atak otrzymuje +2 do <strong>Zguby</strong>, a broń zostaje <strong>Upuszczona</strong>.",
+        "Description": "Rzuć wyposażoną bronią białą, aby zaatakować najbliższy cel. Broń zostaje <strong>upuszczona</strong>, a atak otrzymuje +2 <strong>Zgub</strong>, jeśli broń nie posiada właściwości <strong>rzucana</strong>.",
         "Name": "Rzucenie bronią"
       }
     },
@@ -218,6 +222,11 @@
     "SHEET": {
       "Title": "Akcja"
     },
+    "SUMMARY": {
+      "Investiture": "Inwestowanie",
+      "ItemInvested": "Zainwestowano",
+      "ItemDivested": "Zbycie"
+    },
     "TABS": {
       "Description": "Opis",
       "Effects": "Efekty",
@@ -338,7 +347,7 @@
       "ThrownTooltip": "Ta akcja polega na wykonaniu ataku bronią rzucaną.",
       "TwoHanded": "Dwuręczny",
       "TwoHandedTooltip": "Wykonanie tej akcji wymaga użycia broni dwuręcznej.",
-      "Unarmed": "Nieuzbrojona",
+      "Unarmed": "Nieuzbrojony",
       "UnarmedTooltip": "Aby wykonać tę akcję, musisz być całkowicie nieuzbrojony.",
       "Unarmored": "Nieopancerzony",
       "UnarmoredTooltip": "Aby wykonać tę akcję, musisz być nieopancerzony.",
@@ -393,7 +402,7 @@
       "SPECIFIC": {
         "BODY_BLOCK": {
           "AlreadyConfirmed": "Atak na Ciebie został już potwierdzony i nie można go już zablokować.",
-          "InvalidOutcome": "Z Bloku ciałem możesz skorzystać tylko wtedy, gdy atak skierowany przeciwko tobie został zablokowany przez Pancerz lub Otarcie.",
+          "InvalidOutcome": "Z Bloku ciałem możesz skorzystać tylko wtedy, gdy atak skierowany przeciwko tobie został zablokowany przez Pancerz lub Draśnięcie.",
           "MeleeOnly": "Ze zdolności Bloku ciałem można skorzystać wyłącznie w odpowiedzi na nadchodzący atak wręcz."
         },
         "DELAY": {
@@ -402,7 +411,7 @@
         },
         "INTERPOSE": {
           "AllyMustBeTarget": "Wybrany sojusznik musi być celem ostatniego ataku.",
-          "AttackMissed": "Możesz użyć Wtrącenia tylko w przypadku ataku, który trafił lub otarł się o twojego sojusznika.",
+          "AttackMissed": "Możesz użyć Wtrącenia tylko w przypadku ataku, który trafił lub drasnął twojego sojusznika.",
           "RequiresStrike": "Wtrącenie wymaga, aby ostatnią akcją było uderzenie bronią.",
           "SingleTarget": "Wtrącenie może być użyte tylko przeciwko atakowi skierowanemu na pojedynczy cel."
         }
@@ -423,10 +432,12 @@
       "CannotSpendFocus": "{name} nie może wydawać punktów skupienia, ponieważ obecnie ma status {status}!",
       "CannotTargetSelf": "Nie możesz użyć tej akcji przeciwko sobie!",
       "CannotThrow": "Nie możesz rzucać tą bronią.",
-      "CannotUse": "{name} nie spełnia warunków koniecznych do skorzystania z {action}: {reason}",
+      "CannotUse": "{name} nie spełnia warunków wstępnych wymaganych do wykonania {action}.",
+      "CannotUseReason": "{name} nie spełnia warunków koniecznych do skorzystania z {action}: {reason}",
       "DirectMovementOnly": "Ta akcja wymaga bezpośredniej ścieżki ruchu bez punktów pośrednich.",
       "IncorrectTargets": "Możesz wyznaczyć maksymalnie {number} celów {type} dla {action}!",
       "InvalidTarget": "Musisz wyznaczyć co najmniej jeden cel {type} dla {action}!",
+      "InvalidTargetsGeneric": "Nieprawidłowe cele dla tej akcji!",
       "LastCriticallyMissed": "Możesz wykonać {action} tylko po podstawowym Ataku, który nie zakończył się krytyczną porażką.",
       "MaximumRange": "Wybrany cel znajduje się dalej niż maksymalny zasięg {max} stóp.",
       "MinimumRange": "Wybrany cel znajduje się bliżej niż minimalny zasięg {min} stóp.",
@@ -445,6 +456,7 @@
       "NonCombat": "Nie możesz wykonać {action} podczas walki.",
       "NoReloadRequired": "Twoja broń nie wymaga przeładowania",
       "NotFlanked": "{action} wymaga flankowanego celu. Cel „{target}” nie jest flankowany.",
+      "NoViewedScene": "Aby wykonać tę akcję, konieczne jest wyświetlenie sceny.",
       "ReactionUnaware": "Nie możesz użyć reakcji, gdy jesteś Nieświadomy!",
       "RequiresMelee": "Aby wykonać tę akcję, musisz mieć wyposażoną broń do walki wręcz.",
       "RequiresNatural": "Ta akcja wymaga użycia broni naturalnej.",
@@ -466,7 +478,7 @@
     "ChooseWeaponHint": "Możesz wybrać broń, której użyjesz do wykonania tej akcji.",
     "Condition": "Warunek",
     "Confirmed": "Potwierdzone",
-    "DelayHint": "Wybierz wartość inicjatywy od 1 do {maximum}, gdy chcesz wykonać akcję.",
+    "DelayHint": "Wybierz wartość inicjatywy z przedziału od 1 do {maximum}, przy której chcesz wykonać akcję. Informacje na temat tego, jak opóźniona inicjatywa wpływa na rozstrzyganie remisów, znajdziesz pod adresem @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.DPrsFbPo3tD7TJ5g]{Inicjatywa i kolejność tur}.",
     "DelayLabel": "Opóźniona inicjatywa",
     "DelayTitle": "Opóźnienie tury",
     "DurationRounds": "{value}R",
@@ -544,6 +556,7 @@
       "Slowed": "Spowolniony",
       "Staggered": "Chwiejny",
       "Stunned": "Oszołomiony",
+      "Suffocating": "Duszący",
       "Unaware": "Nieświadomy",
       "Weakened": "Osłabiony"
     }
@@ -724,6 +737,26 @@
         "recover": "Odzyskiwanie",
         "rest": "Odpoczynek"
       },
+      "REST": {
+        "FIELDS": {
+          "allowInterruption": {
+            "label": "Zezwól na przerwanie",
+            "hint": "Jeśli opcja ta jest zaznaczona, odpoczynek może zostać przerwany przez skonfigurowane zdarzenia w grze."
+          },
+          "hours": {
+            "label": "Czas odpoczynku",
+            "hint": "Czas, który upłynie, jeśli odpoczynek nie zostanie przerwany."
+          },
+          "participants": {
+            "label": "Postacie odpoczywające",
+            "hint": "Każda wybrana postać wykona akcję Odpoczynku."
+          }
+        },
+        "Confirm": "Rozpocznij odpoczynek",
+        "ContinuationHint": "Ten odpoczynek jest kontynuacją poprzedniego, który został przerwany. Wykonano {hoursCompleted} z {hoursRequired} godzin.",
+        "Interrupted": "Twój odpoczynek został przerwany po {hours} godzinach!",
+        "Title": "Potwierdź odpoczynek grupowy"
+      },
       "WARNINGS": {
         "NoAddSelf": "Nie możesz dodać własnej grupy!",
         "NotWorldActor": "Można dodać tylko jeden obiekt typu Aktor świata"
@@ -775,7 +808,7 @@
       },
       "TOOLBELT": {
         "empty": "Wyposaż się w maksymalnie {slots} narzędzi lub materiałów eksploatacyjnych z Plecaka, przełączając ikonę tarczy.",
-        "header": "Pas narzędziowy"
+        "header": "Pas podręczny"
       },
       "TRAINING": {
         "header": "Talenty szkoleniowe"
@@ -889,6 +922,9 @@
     "Progress": "Postępy w realizacji kamieni milowych"
   },
   "ANCESTRY": {
+    "SECTIONS": {
+      "Traits": "Cechy"
+    },
     "FIELDS": {
       "abilities": {
         "label": "Wartości atrybutów",
@@ -908,8 +944,13 @@
         "hint": "Identyfikator ciągu znaków używany do jednoznacznego odwoływania się do tego Pochodzenia w tagach, działaniach lub innych elementach interfejsu użytkownika. Identyfikator ten musi być alfanumeryczny, bez spacji i znaków specjalnych.",
         "label": "Identyfikator"
       },
+      "characteristics": {
+        "label": "Charakterystyka pochodzenia",
+        "temperature.hint": "Temperatura ciała tego pochodzenia jest domyślnie neutralna.",
+        "temperature.label": "Temperatura ciała"
+      },
       "movement": {
-        "label": "Ruch i postura",
+        "label": "Ruch",
         "size": {
           "hint": "Rozmiar tego pochodzenia w jednostkach siatki.",
           "label": "Rozmiar"
@@ -951,7 +992,9 @@
       "Browse": "Przeglądaj pochodzenia",
       "Choose": "Wybierz pochodzenie",
       "Clear": "Wyczyść pochodzenie",
-      "Identity": "Tożsamość"
+      "Identity": "Tożsamość",
+      "Physiology": "Fizjologia",
+      "TemperatureBlank": "Wartość domyślna ({temperature})"
     },
     "WARNINGS": {
       "Abilities": "Podstawowe i dodatkowe atrybuty dla Pochodzenia nie mogą być takie same.",
@@ -1039,7 +1082,7 @@
       "Armor": "Pancerz",
       "Block": "Blok",
       "Dodge": "Unik",
-      "Glance": "Otarcie",
+      "Glance": "Draśnięcie",
       "Hit": "Trafienie",
       "Miss": "Chybienie",
       "Parry": "Parowanie",
@@ -1265,6 +1308,7 @@
     }
   },
   "CONTROLS": {
+    "CrucibleForcedMovement": "Wymuszony ruch",
     "VisualizeFlanking": "Wizualizacja flankowania"
   },
   "CRUCIBLE": {
@@ -1350,6 +1394,9 @@
     "Reflex": "Refleks",
     "Willpower": "Wola",
     "Wounds": "Próg uzdrawiania"
+  },
+  "DETECTION_MODES": {
+    "ThermalVision": "Widzenie termiczne"
   },
   "DICE": {
     "DIFFICULTIES": {
@@ -1450,7 +1497,36 @@
   },
   "HOOKS": {
     "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułów.",
-    "ToggleSource": "Zmień źródło"
+    "ToggleSource": "Zmień źródło",
+    "WARNINGS": {
+      "GemConjuredFlameShoddy": "Klejnot wywołanego płomienia tandetnej jakości nie pozwala przywołać żadnego żywiołaka.",
+      "NoLanternOil": "Aby zapalić latarnię, musisz mieć w ekwipunku butelkę oleju do latarni.",
+      "RestRecoverIncapacitated": "Nie możesz Odpoczywać ani używać Odzyskiwanie, gdy jesteś Martwy lub Obłąkany."
+    }
+  },
+  "HAZARD": {
+    "Hazard": "Zagrożenie",
+    "UseHazard": "Użycie zagrożenia",
+    "WindowTitle": "Zagrożenie: {name}",
+    "CONFIG": {
+      "Title": "Konfiguracja zagrożenia",
+      "Name": "Nazwa",
+      "Danger": "Poziom zagrożenia",
+      "Defense": "Obrona przed atakiem",
+      "Damage": "Typ obrażeń",
+      "Tags": "Tagi akcji"
+    },
+    "TARGETS": {
+      "Title": "Cele objęte działaniem",
+      "Hint": "Umieść tu tokeny lub aktorów lub kliknij przycisk drużyny, aby dodać członków drużyny.",
+      "Add": "Dodaj cel",
+      "Remove": "Usuń cel",
+      "Clear": "Wyczyść wszystko",
+      "Party": "Dodaj drużynę"
+    },
+    "WARNINGS": {
+      "GMOnly": "Tylko MG może konfigurować i rzucać kostką w sytuacjach zagrożenia."
+    }
   },
   "ITEM": {
     "ACTIONS": {
@@ -1465,6 +1541,10 @@
       "RecoverAllTitle": "Odzyskaj upuszczone przedmioty",
       "RecoverDetail": "Odzyskaj upuszczony {item}",
       "UnEquip": "Zdejmij wyposażenie {typeLabel}"
+    },
+    "COMPOSED_NAME": {
+      "Prefix": "{name} {prefixes}",
+      "Suffix": "{name} {suffixes}" 
     },
     "FIELDS": {
       "actions": {
@@ -1592,7 +1672,8 @@
     "QualityMasterwork": "Mistrzowska",
     "QualityShoddy": "Tandetna",
     "QualityStandard": "Standardowa",
-    "QualitySuperior": "Wybitna"
+    "QualitySuperior": "Wybitna",
+    "QuantityNone": "Brak"
   },
   "KEYBINDINGS": {
     "ConfirmAction": "Potwierdź akcję",
@@ -1950,7 +2031,7 @@
       "Sense": "Zmysłów",
       "Step": "Kroku",
       "Strike": "Uderzenia",
-      "Surge": "Wzrostu",
+      "Surge": "Fala",
       "Touch": "Dotyk",
       "Ward": "Glifu"
     },
@@ -2115,7 +2196,7 @@
         "one": "Punkt",
         "two": "Punkty",
         "few": "Punkty",
-        "many": "Punkty",
+        "many": "Punktów",
         "other": "Punktów"
       },
       "Talents": {
@@ -2203,7 +2284,9 @@
       "characteristics": {
         "equipment.label": "Może używać wyposażenia",
         "label": "Charakterystyka taksonomii",
-        "spells.label": "Może rzucać zaklęcia"
+        "spells.label": "Może rzucać zaklęcia",
+        "temperature.hint": "Temperatura ciała stworzeń należących do tej taksonomii. Jeśli pole pozostanie puste, domyślnie zostanie przyjęta temperatura wybranej kategorii stworzeń.",
+        "temperature.label": "Temperatura ciała"
       },
       "identifier": {
         "hint": "Identyfikator ciągu znaków używany do jednoznacznego odwoływania się do tej taksonomii w tagach, akcjach lub innych elementach interfejsu użytkownika. Identyfikator ten musi być alfanumeryczny, bez spacji i znaków specjalnych.",
@@ -2237,12 +2320,20 @@
       "Choose": "Wybierz taksonomię",
       "Clear": "Wyczyść taksonomię",
       "Physiology": "Fizjologia",
-      "Stature": "Wzrost taksonomiczny"
+      "Stature": "Wzrost taksonomiczny",
+      "TemperatureBlank": "Wartość domyślna ({temperature})"
     },
     "WARNINGS": {
       "InvalidAbilities": "Suma początkowych wartości atrybutów musi wynosić 12. Obecnie {sum}",
       "InvalidResistances": "Suma współczynników skalowania odporności musi wynosić zero. Obecnie {sum}"
     }
+  },
+  "TEMPERATURE_TIERS": {
+    "Boiling": "Upalny",
+    "Warm": "Ciepły",
+    "Neutral": "Neutralna",
+    "Cool": "Chłodny",
+    "Gelid": "Lodowaty"
   },
   "TOKEN": {
     "LABELS": {
@@ -2289,6 +2380,10 @@
           "description": "Przesuń się o odległość równą Twojej wartości atrybutu Bieg na każdą Akcję.",
           "label": "Marsz"
         }
+      },
+      "COST": {
+        "Forced": "Wymuszony",
+        "Impossible": "Niemożliwy"
       }
     }
   },
@@ -2379,7 +2474,7 @@
       "ShieldLight": "Lekka tarcza",
       "Simple": "Prosta",
       "Talisman": "Talizman",
-      "Unarmed": "Nieuzbrojona"
+      "Unarmed": "Nieuzbrojony"
     },
     "FIELDS": {
       "damageType": {
@@ -2410,7 +2505,7 @@
       "Twohand": "Dwuręczny"
     },
     "SPECIFIC": {
-      "Unarmed": "Nieuzbrojona",
+      "Unarmed": "Nieuzbrojony",
       "VampireBite": "Ugryzienie wampira"
     },
     "TAGS": {
