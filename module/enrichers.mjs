@@ -81,6 +81,12 @@ export function registerEnrichers() {
       pattern: /@Loot\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
       enricher: enrichLoot,
       onRender: renderLoot
+    },
+    {
+      id: "crucibleScroll",
+      pattern: /@Scroll\[([\w\s]+)](?:\{([^}]+)\})?/g,
+      enricher: enrichScroll,
+      onRender: renderScroll
     }
   );
 }
@@ -943,5 +949,107 @@ function renderLoot(element) {
       uuid: config.baseUuid,
       loot: config
     }));
+  });
+}
+
+/* -------------------------------------------- */
+/*  Spell Scrolls                               */
+/* -------------------------------------------- */
+
+/**
+ * Compose a scroll Item from the minimal config encoded on a rendered enricher anchor.
+ * Resolves the matching base scroll via {@link SYSTEM.ITEM.QUALITY_TIERS}, loads it from its compendium,
+ * and overlays the selected components and optional display name.
+ * @param {HTMLAnchorElement} anchor    The rendered anchor whose `dataset.scroll` carries the config
+ * @returns {Promise<CrucibleItem|null>}  A temporary unowned scroll item, or null if reconstruction fails
+ */
+async function composeScrollItem(anchor) {
+  const {scroll, name} = JSON.parse(anchor.dataset.scroll);
+  const total = scroll.runes.length + scroll.gestures.length + scroll.inflections.length;
+  let quality;
+  let baseUuid;
+  for ( const [q, tier] of Object.entries(SYSTEM.ITEM.QUALITY_TIERS) ) {
+    if ( (tier.bonus === total) && SYSTEM.CONSUMABLE.SCROLLS[q] ) {
+      quality = q;
+      baseUuid = SYSTEM.CONSUMABLE.SCROLLS[q];
+      break;
+    }
+  }
+  if ( !baseUuid ) return null;
+  const baseItem = await fromUuid(baseUuid);
+  if ( !baseItem ) return null;
+  const itemData = baseItem.toObject();
+  itemData.system.scroll = scroll;
+  itemData.system.quality = quality;
+  itemData.name = name || crucible.api.models.CrucibleConsumableItem.getScrollName(scroll) || baseItem.name;
+  itemData._stats ??= {};
+  itemData._stats.compendiumSource = baseUuid;
+  delete itemData._id;
+  return new Item.implementation(itemData);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a scroll reference into a draggable link that opens or transfers a fully-composed scroll item.
+ * Tokens after the bracket are parsed as rune, gesture, or inflection identifiers; the matching base scroll
+ * and quality tier are resolved by {@link composeScrollItem}.
+ * @param {RegExpMatchArray} matchArray
+ * @returns {Promise<HTMLAnchorElement|Text>}
+ * @example Auto-named single component
+ * ```html
+ * @Scroll[earth]
+ * ```
+ * @example Composed rune + gesture with explicit name
+ * ```html
+ * @Scroll[earth arrow]{Stoneshot Scroll}
+ * ```
+ * @example Three-component masterwork scroll
+ * ```html
+ * @Scroll[frost ray extend]
+ * ```
+ */
+async function enrichScroll([match, tokenString, displayName]) {
+  const scroll = {runes: [], gestures: [], inflections: []};
+  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
+    if ( token in SYSTEM.SPELL.RUNES ) scroll.runes.push(token);
+    else if ( token in SYSTEM.SPELL.GESTURES ) scroll.gestures.push(token);
+    else if ( token in SYSTEM.SPELL.INFLECTIONS ) scroll.inflections.push(token);
+    else return new Text(match);
+  }
+
+  // Optimistically build the anchor; composeScrollItem validates and provides the final name
+  const a = document.createElement("a");
+  a.classList.add("content-link");
+  a.draggable = true;
+  a.dataset.link = "";
+  a.dataset.scroll = JSON.stringify({scroll, name: displayName || null});
+  const item = await composeScrollItem(a);
+  if ( !item ) return new Text(match);
+  a.dataset.uuid = item._stats.compendiumSource;
+  a.dataset.tooltip = item.name;
+  a.innerHTML = `<i class="fa-solid fa-scroll"></i> ${item.name}`;
+  return a;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add click and drag interactivity to a rendered scroll enrichment, sharing one composed item via closure.
+ * @param {HTMLElement} element
+ */
+async function renderScroll(element) {
+  const a = element.matches?.("a[data-scroll]") ? element : element.querySelector?.("a[data-scroll]");
+  if ( !a ) return;
+  const item = await composeScrollItem(a);
+  if ( !item ) return;
+  a.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    item.sheet.render(true);
+  });
+  a.addEventListener("dragstart", event => {
+    event.stopPropagation();
+    event.dataTransfer.setData("text/plain", JSON.stringify({type: "Item", data: item.toObject()}));
   });
 }
