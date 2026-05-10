@@ -737,7 +737,7 @@ export default class CrucibleActor extends Actor {
    */
   async receiveAttack(action, options={}) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {bonuses} = action.usage;
+    const {bonuses, restoration} = action.usage;
 
     // Coalesce AttackRollData from action usage and per-attack options
     const defenseType = options.defenseType || action.usage.defenseType;
@@ -772,10 +772,10 @@ export default class CrucibleActor extends Actor {
       multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
       bonus: rollData.damageBonus,
-      resistance: this.getResistance(rollData.resource, rollData.damageType),
+      resistance: this.getResistance(rollData.resource, rollData.damageType, restoration),
       type: rollData.damageType,
       resource: rollData.resource,
-      restoration: false
+      restoration: !!restoration
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;

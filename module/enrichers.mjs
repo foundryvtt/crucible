@@ -497,7 +497,7 @@ function enrichHazard([_match, terms, name]) {
   // Build a temporary Action that resolves tags into hazard attributes
   const action = crucible.api.models.CrucibleAction.createHazard({danger: Number(danger), tags});
   action.prepare();
-  const {damageType, defenseType, resource} = action.usage;
+  const {damageType, defenseType, resource, restoration} = action.usage;
 
   // Prepare label
   const hazardRank = `Hazard ${danger}`;
@@ -510,8 +510,11 @@ function enrichHazard([_match, terms, name]) {
   if ( parenthetical.length ) label += ` (${parenthetical.join(", ")})`;
 
   // Prepare tooltip
-  const tooltip = `${hazardRank} vs. ${_loc(SYSTEM.DEFENSES[defenseType]?.label)} dealing
-  ${_loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || ""} damage to ${_loc(SYSTEM.RESOURCES[resource]?.label)}`;
+  const defenseLabel = _loc(SYSTEM.DEFENSES[defenseType]?.label);
+  const resourceLabel = _loc(SYSTEM.RESOURCES[resource]?.label);
+  const damageLabel = _loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || "";
+  const tooltip = restoration ? `${hazardRank} vs. ${defenseLabel} restoring ${resourceLabel}`
+    : `${hazardRank} vs. ${defenseLabel} dealing ${damageLabel} damage to ${resourceLabel}`;
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
