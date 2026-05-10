@@ -3,6 +3,7 @@ export * as elements from "./elements/_module.mjs";
 
 // Config Apps
 export {default as CrucibleActionConfig} from "./config/action-config.mjs";
+export {default as CruciblePersistentAOEConfig} from "./config/persistent-aoe-config.mjs";
 
 // Settings Apps
 export {default as CompendiumSourcesConfig} from "./settings/compendium-sources.mjs";

@@ -13,7 +13,7 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
       actionIdentifier: new fields.StringField({initial: null, required: true, nullable: true}),
       actionToPerform: new fields.SchemaField({
         id, name, img, description, effects, tags
-      }, {initial: null, required: true, nullable: true}),
+      }, {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
       affectedActors: new fields.TypedObjectField(new fields.NumberField({integer: true, nullable: false}), {
         expandKeys: false,
@@ -32,17 +32,19 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
   /** @override */
   async _handleRegionEvent(event) {
     const sourceActor = await fromUuid(this.actor);
-    if ( !event.user.isActiveGM || !this.actionIdentifier || !sourceActor || !this.actionToPerform ) return;
+    if ( !event.user.isActiveGM || !sourceActor || !this.actionToPerform ) return;
     const {token} = event.data;
     const actor = token.actor;
 
     // Skip invalid targets
     const actionContext = {actor: sourceActor, region: this.parent.parent};
-    const originAction = this.actionIdentifier.startsWith("spell.")
-      ? crucible.api.models.CrucibleSpellAction.fromId(this.actionIdentifier, actionContext)
-      : sourceActor.actions[this.actionIdentifier]?.clone({}, actionContext);
-    const validTargets = new Set(originAction?.acquireTargets().keys() ?? []);
-    if ( !validTargets.has(actor) ) return;
+    if ( this.actionIdentifier?.length ) {
+      const originAction = this.actionIdentifier.startsWith("spell.")
+        ? crucible.api.models.CrucibleSpellAction.fromId(this.actionIdentifier, actionContext)
+        : sourceActor.actions[this.actionIdentifier]?.clone({}, actionContext);
+      const validTargets = new Set(originAction?.acquireTargets().keys() ?? []);
+      if ( !validTargets.has(actor) ) return;
+    }
 
     // If once per round and already done this round, skip
     if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;

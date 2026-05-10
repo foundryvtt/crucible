@@ -1354,6 +1354,7 @@
       "Hero": "Crucible Hero Sheet",
       "HeroCreation": "Crucible Hero Creation Sheet",
       "Journal": "Crucible Journal Sheet",
+      "PersistentAOE": "Crucible Persistent AoE Sheet",
       "Schematic": "Crucible Schematic Sheet",
       "Skill": "Crucible Skill Sheet",
       "Spell": "Crucible Spell Sheet",
@@ -1811,12 +1812,16 @@
     "PERSISTENT_AOE": {
       "FIELDS": {
         "actionIdentifier": {
-          "hint": "The ID of the action responsible for the creation of this behavior.",
-          "label": "Action Identifier"
+          "hint": "The ID of the action responsible for the creation of this behavior. If provided, will determine which tokens should actually trigger an Action.",
+          "label": "Origin Action ID"
+        },
+        "actionToPerform": {
+          "hint": "The action to potentially perform on any token who triggers an event on this behavior.",
+          "label": "Triggered Action"
         },
         "actor": {
-          "hint": "The actor responsible for the creation of this behavior.",
-          "label": "Actor"
+          "hint": "The actor responsible for the creation of this behavior. This actor will roll any triggered actions.",
+          "label": "Origin Actor"
         },
         "oncePerRound": {
           "hint": "This effect should only apply to targets once per round.",

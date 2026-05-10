@@ -243,6 +243,14 @@ Hooks.once("init", async function() {
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
+  sheets.unregisterSheet(RegionBehavior, "core", foundry.applications.sheets.RegionBehaviorConfig, {
+    types: ["crucible.persistentAOE"]
+  });
+  sheets.registerSheet(RegionBehavior, "crucible", applications.CruciblePersistentAOEConfig, {
+    types: ["crucible.persistentAOE"],
+    label: "CRUCIBLE.SHEETS.PersistentAOE"
+  });
+
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
 

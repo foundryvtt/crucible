@@ -562,6 +562,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
     const makeEffectsSchema = () => {
       const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+      for ( const fieldName of ["value", "units", "expiry"] ) {
+        aeDuration.fields[fieldName].label = _loc(`EFFECT.FIELDS.duration.${fieldName}.label`);
+      }
       const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
       delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
 
