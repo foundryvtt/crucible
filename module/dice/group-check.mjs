@@ -41,6 +41,17 @@ import StandardCheck from "./standard-check.mjs";
  */
 
 /**
+ * @typedef {object} GroupCheckAggregateResult
+ * @property {string} outcomeKey       Localization key for the aggregate outcome label
+ * @property {string} classes          CSS classes describing the outcome (success/failure plus optional critical)
+ * @property {string} detail           Pre-localized right-side label that contextualizes the hex score
+ * @property {number} score            Weighted total: crit success +2, success +1, failure 0, crit failure -1
+ * @property {number} total            Number of participants whose rolls counted toward the aggregate
+ * @property {number} required         Score threshold needed to clear an aggregate success
+ * @property {number} skippedCount     Number of participants excluded as skipped
+ */
+
+/**
  * Orchestrates group skill checks across multiple actors.
  * Creates a chat card that tracks individual roll statuses and dispatches roll queries to players.
  */
@@ -417,7 +428,66 @@ export default class GroupCheck extends StandardCheck {
    */
   async #renderGroupCheckCard(flags, rolls=[]) {
     const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, rolls));
-    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors});
+    const aggregate = GroupCheck.#computeAggregate(flags, rolls);
+    return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors, aggregate});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the aggregate outcome of a group check once every participant has resolved.
+   * Each individual roll contributes a weighted score: critical success +2, success +1, failure 0,
+   * critical failure -1. Aggregate critical success requires a total score equal to the number of
+   * counted participants; standard success requires more than half (rounding down); critical failure
+   * occurs when the total score is zero or negative. Skipped participants are excluded from both score
+   * and participant count.
+   * @param {GroupCheckFlags} flags             The group check flags data
+   * @param {Roll[]} rolls                      The message's canonical rolls array
+   * @returns {GroupCheckAggregateResult|null}  Aggregate result data, or null if the result is not determined yet
+   */
+  static #computeAggregate(flags, rolls) {
+    const entries = Object.values(flags.actors);
+    const allResolved = entries.every(
+      e => (e.status === GroupCheck.#STATUSES.COMPLETE) || (e.status === GroupCheck.#STATUSES.SKIPPED)
+    );
+    if ( !allResolved ) return null;
+    const completed = entries.filter(e => e.status === GroupCheck.#STATUSES.COMPLETE);
+    if ( !completed.length ) return null;
+
+    let score = 0;
+    for ( const entry of completed ) {
+      const roll = rolls.findLast(r => r.data?.actorId === entry.actorId);
+      if ( !roll ) continue;
+      if ( roll.isCriticalSuccess ) score += 2;
+      else if ( roll.isSuccess ) score += 1;
+      else if ( roll.isCriticalFailure ) score -= 1;
+    }
+
+    const total = completed.length;
+    const required = Math.floor(total / 2) + 1;
+    const skippedCount = entries.length - total;
+
+    let outcomeKey = "ACTION.EFFECT_RESULT_TYPES.";
+    let classes;
+    if ( score >= total ) {
+      outcomeKey += "CriticalSuccess";
+      classes = "critical success";
+    }
+    else if ( score >= required ) {
+      outcomeKey += "Success";
+      classes = "success";
+    }
+    else if ( score <= 0 ) {
+      outcomeKey += "CriticalFailure";
+      classes = "critical failure";
+    }
+    else {
+      outcomeKey += "Failure";
+      classes = "failure";
+    }
+
+    const detail = _loc("DICE.GROUP_CHECK.AggregateDetail", {required});
+    return {outcomeKey, classes, detail, score, total, required, skippedCount};
   }
 
   /* -------------------------------------------- */
