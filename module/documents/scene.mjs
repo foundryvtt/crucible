@@ -103,6 +103,6 @@ export default class CrucibleScene extends Scene {
    */
   static useMicrogrid(sceneData) {
     const g = sceneData.grid;
-    return (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5);
+    return (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5) && ((g.size % 5) === 0);
   }
 }
