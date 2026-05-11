@@ -568,7 +568,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
       delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
 
-      // Must manually set label, as these'll exist both under effects and regionAction.effects
+      // Must manually set label, as these'll exist both under effects and regionBehavior.system.actionToPerform.effects
       const labelPrefix = "ACTION.FIELDS.effects.element";
       return new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: "", label: _loc(`${labelPrefix}.name.label`)}),
@@ -610,14 +610,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
-      regionAction: new fields.SchemaField({
-        id: new fields.StringField({required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")}),
-        name: new fields.StringField({}),
-        img: new fields.FilePathField({categories: ["IMAGE"]}),
-        description: new fields.HTMLField({required: false, initial: undefined, label: _loc("ACTION.FIELDS.description.label"), hint: _loc("ACTION.FIELDS.description.hint")}),
-        effects: makeEffectsSchema(),
-        tags: new fields.SetField(new fields.StringField({required: true, blank: false}), {label: _loc("ACTION.FIELDS.tags.label"), hint: _loc("ACTION.FIELDS.tags.hint")})
-      }),
+      regionBehavior: new fields.SchemaField({
+        name: new fields.StringField(),
+        system: new fields.SchemaField({
+          actionToPerform: new fields.SchemaField({
+            id: new fields.StringField({required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")}),
+            name: new fields.StringField(),
+            img: new fields.FilePathField({categories: ["IMAGE"]}),
+            description: new fields.HTMLField({required: false, initial: undefined, label: _loc("ACTION.FIELDS.description.label"), hint: _loc("ACTION.FIELDS.description.hint")}),
+            effects: makeEffectsSchema(),
+            tags: new fields.SetField(new fields.StringField({required: true, blank: false}), {label: _loc("ACTION.FIELDS.tags.label"), hint: _loc("ACTION.FIELDS.tags.hint")})
+          }),
+          events: foundry.data.regionBehaviors.RegionBehaviorType._createEventsField(),
+          oncePerRound: new fields.BooleanField()
+        })
+      }, {nullable: true, initial: null}),
       // TODO: Consider which fields make sense to have configurable via UI
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
@@ -1303,18 +1310,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
       if ( this.hasPersistentRegion ) {
         const existing = regionData.behaviors.find(b => b.type === "crucible.persistentAOE");
-        if ( !existing ) regionData.behaviors.push({
-          name: this.name,
-          disabled: true,
-          type: "crucible.persistentAOE",
-          system: {
-            actionIdentifier: this.id,
-            actionToPerform: this.regionAction,
-            actor: this.actor.uuid,
-            // TODO: Events? Currently will fire every time enter or start turn
-            oncePerRound: true
-          }
-        });
+        if ( !existing ) {
+          const behavior = {
+            name: this.name,
+            disabled: true,
+            type: "crucible.persistentAOE",
+            system: {
+              actionIdentifier: this.id,
+              actor: this.actor.uuid,
+              actionToPerform: {
+                id: `${this.id}Region`,
+                name: this.name,
+                img: this.img,
+                description: this.description
+              }
+            }
+          };
+          if ( this.regionBehavior ) foundry.utils.mergeObject(behavior, this.regionBehavior);
+          regionData.behaviors.push(behavior);
+        }
       }
       const region = await this.region.constructor.create(regionData, {parent: canvas.scene, keepId: true});
       Object.defineProperty(this, "region", {value: region, configurable: true});
@@ -3185,18 +3199,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @override */
-  static migrateData(source, options) {
+  static migrateData(source) {
     for ( const effect of source.effects ?? [] ) {
       foundry.documents.ActiveEffect.migrateData(effect);
-    }
-
-    // Provide base values for Region Action (also keeps non-explicitly-set fields up to date with action changes)
-    if ( !options.partial ) {
-      source.regionAction ??= {};
-      source.regionAction.id ||= `${source.id.split(".").map((w, i) => i ? w.titleCase() : w).join("")}Region`;
-      source.regionAction.name ||= source.name;
-      source.regionAction.img ||= source.img;
-      source.regionAction.description ??= source.description;
     }
     return source;
   }

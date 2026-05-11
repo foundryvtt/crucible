@@ -32,7 +32,7 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
   /** @override */
   async _handleRegionEvent(event) {
     const sourceActor = await fromUuid(this.actor);
-    if ( !event.user.isActiveGM || !sourceActor || !this.actionToPerform ) return;
+    if ( !game.user.isActiveGM || !sourceActor || !this.actionToPerform ) return;
     const {token} = event.data;
     const actor = token.actor;
 

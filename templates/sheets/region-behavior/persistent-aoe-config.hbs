@@ -13,8 +13,8 @@
     {{/each}}
     <fieldset>
         <legend>{{localize "TYPES.RegionBehavior.crucible.persistentAOE"}}</legend>
-        {{formGroup systemFields.actionIdentifier value=source.system.actionIdentifier}}
-        {{formGroup systemFields.actor value=source.system.actor}}
+        {{formGroup systemFields.actionIdentifier value=source.system.actionIdentifier disabled=isSynthetic}}
+        {{formGroup systemFields.actor value=source.system.actor disabled=isSynthetic}}
         {{formGroup systemFields.oncePerRound value=source.system.oncePerRound}}
         <fieldset>
             <legend>{{localize "REGION_BEHAVIORS.PERSISTENT_AOE.FIELDS.actionToPerform.label"}}</legend>

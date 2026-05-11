@@ -29,6 +29,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     actions: {
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
+      editRegionBehavior: CrucibleActionConfig.#onEditRegionBehavior,
       hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
     form: {
@@ -124,15 +125,13 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     action.img ||= this.document.img;
     return {
       action,
-      childEffects: this.#prepareChildEffects(),
-      childTags: this.#prepareChildTags(),
       hookPartial: HOOK_PARTIAL,
       moduleHooks: this.#formatModuleHooks(),
       editable: this.isEditable,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
-      hasChildAction: this.action.hasPersistentRegion,
+      hasRegionBehavior: this.action.hasPersistentRegion,
       headerTags: this.action.tags.reduce((acc, tagId) => {
         const tag = SYSTEM.ACTION.TAGS[tagId];
         if ( !tag.internal ) acc[tagId] = tag;
@@ -161,20 +160,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     const effects = this.action.toObject().effects;
     for ( const [i, effect] of effects.entries() ) {
       effect.fieldPath = `effects.${i}`;
-    }
-    return effects;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare child action's effects array.
-   * @returns {object[]}
-   */
-  #prepareChildEffects() {
-    const effects = this.action.toObject().regionAction?.effects ?? [];
-    for ( const [i, effect] of effects.entries() ) {
-      effect.fieldPath = `regionAction.effects.${i}`;
     }
     return effects;
   }
@@ -219,24 +204,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   /* -------------------------------------------- */
 
   /**
-   * Prepare child action's tags.
-   * @returns {FormSelectOption[]>}
-   */
-  #prepareChildTags() {
-    const tags = [];
-    for ( const t of Object.values(SYSTEM.ACTION.TAGS) ) {
-      if ( t.internal ) continue;
-      const cat = SYSTEM.ACTION.TAG_CATEGORIES[t.category];
-      const group = cat?.label;
-      const selected = this.action.regionAction?.tags.has(t.tag);
-      tags.push({value: t.tag, label: t.label, group, selected});
-    }
-    return tags;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Format module-defined hooks for display on the action hooks tab.
    * @returns {{hookId: string, label: string, source: string, expanded: boolean}[]}
    */
@@ -269,7 +236,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     // Construct action update
     const submitData = foundry.utils.expandObject(formData.object);
     submitData.effects = Object.values(submitData.effects || {});
-    if ( submitData.regionAction ) submitData.regionAction.effects = Object.values(submitData.regionAction.effects || {});
     foundry.utils.mergeObject(submitData, updateData);
 
     // Validate action update
@@ -316,12 +282,11 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    * Add an effect to the Action.
    * @this {CrucibleActionConfig}
    * @param {PointerEvent} _event
-   * @param {HTMLElement} target
+   * @param {HTMLElement} _target
    * @returns {Promise<void>}
    */
-  static async #onAddEffect(_event, target) {
-    const fieldPath = target.dataset.childRegion ? "regionAction.effects" : "effects";
-    const effects = foundry.utils.getProperty(this.action.toObject(), fieldPath);
+  static async #onAddEffect(_event, _target) {
+    const effects = this.action.toObject().effects;
     effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       duration: {
@@ -330,7 +295,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         expiry: "turnEnd"
       }
     });
-    this.action.updateSource({[fieldPath]: effects});
+    this.action.updateSource({effects});
     await this.render();
     const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
@@ -350,6 +315,41 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     fieldset.remove();
     const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open a Region Behavior Config window to pre-configure a region behavior.
+   * @this {CrucibleActionConfig}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   * @returns {Promise<void>}
+   */
+  static async #onEditRegionBehavior(_event, _target) {
+    const behaviorData = foundry.utils.deepClone(this.action.regionBehavior) ?? {
+      name: this.action.name,
+      system: {
+        actionToPerform: {
+          id: `${this.action.id}Region`,
+          name: this.action.name,
+          img: this.action.img,
+          description: this.action.description,
+          effects: [],
+          tags: []
+        }
+      }
+    };
+    Object.assign(behaviorData, {
+      type: "crucible.persistentAOE",
+      "flags.crucible.itemUuid": this.document.uuid
+    });
+    Object.assign(behaviorData.system, {
+      actionIdentifier: this.action.id,
+      actor: this.action.actor?.uuid
+    });
+    const tempBehavior = new RegionBehavior.implementation(behaviorData);
+    tempBehavior.sheet.render(true);
   }
 
   /* -------------------------------------------- */

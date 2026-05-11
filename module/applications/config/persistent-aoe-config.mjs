@@ -1,3 +1,6 @@
+/**
+ * The Region Behavior configuration application specific to Persistent Area of Effect behaviors.
+ */
 export default class CruciblePersistentAOEConfig extends foundry.applications.sheets.RegionBehaviorConfig {
 
   /** @inheritDoc */
@@ -29,6 +32,31 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
   };
 
   /* -------------------------------------------- */
+
+  /**
+   * Does the represented Region Behavior exist purely for pre-configuration?
+   */
+  get isSynthetic() {
+    return !this.document.collection?.has(this.document.id);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get isEditable() {
+    if ( this.isSynthetic ) return true;
+    return super.isEditable;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get isVisible() {
+    if ( this.isSynthetic ) return true;
+    return super.isVisible;
+  }
+
+  /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
 
@@ -38,10 +66,14 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
 
     // Remove auto-added system fields; will handle these on our own
     context.fields = context.fields.slice(0, -1);
+
+    // Remove Disabled checkbox if pre-configuring
+    if ( this.isSynthetic ) context.fields.splice(1, 1);
     return {
       ...context,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
+      isSynthetic: this.isSynthetic,
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       systemFields: this.document.system.schema.fields,
@@ -138,5 +170,33 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
     const data = foundry.utils.expandObject(formData.object);
     data.system.actionToPerform.effects = Object.values(data.system.actionToPerform.effects || {});
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _processSubmitData(event, form, submitData, options={}) {
+    if ( !this.isSynthetic ) return this.document.update(submitData, options);
+
+    // If not, this isn't a real behavior, exists only to modify an action
+    let action;
+    if ( this.document.system.actor ) {
+      const actor = await fromUuid(this.document.system.actor);
+      action = actor?.actions[this.document.system.actionIdentifier];
+    } else if ( this.document.getFlag("crucible", "itemUuid") ) {
+      const item = await fromUuid(this.document.flags.crucible.itemUuid);
+      action = item?.system.actions.find(a => a.id === this.document.system.actionIdentifier);
+    }
+    if ( !action?.item ) return;
+    const itemActions = action.item.system.toObject().actions;
+    const idx = itemActions.findIndex(a => a.id === action.id);
+    if ( idx === -1 ) return; // Shouldn't be possible?
+    foundry.utils.setProperty(itemActions[idx], "regionBehavior", submitData);
+    const configApp = Object.values(action.item.apps).find(a => a.action?.id === action.id);
+    await action.item.update({"system.actions": itemActions});
+    if ( configApp ) {
+      configApp.action = action.item.system.actions[idx];
+      configApp.render();
+    }
   }
 }
