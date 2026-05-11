@@ -149,11 +149,11 @@ export default class CrucibleSpellAction extends CrucibleAction {
           }
         }
         // TODO: Appropriate tag which will always cause dice & roll
-        const tags = [...this.scaling];
+        const tags = [...this.scaling, "generic"];
         if ( this.rune.restoration ) {
           tags.push((this.rune.resource === "health") ? "healing" : "rallying");
         } else {
-          tags.push("generic", this.rune.resource, this.rune.defense, this.rune.damageType);
+          tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
         }
         this.regionBehavior.system.actionToPerform.tags = tags;
       }

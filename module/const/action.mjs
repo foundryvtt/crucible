@@ -972,7 +972,7 @@ export const TAGS = {
           resistance: target.getResistance(resource, damageType),
           type: damageType,
           resource: resource,
-          restoration: false
+          restoration: this.usage.restoration ?? false
         };
         roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
       }
