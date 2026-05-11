@@ -40,8 +40,8 @@ export const CATEGORIES = defineEnum({
 export const PROPERTIES = defineEnum({
   ...COMMON_PROPERTIES,
   thrown: {
-    label: "WEAPON.TAGS.Thrown",
-    tooltip: "WEAPON.TAGS.ThrownTooltip"
+    label: "CONSUMABLE.PROPERTIES.Thrown",
+    tooltip: "CONSUMABLE.PROPERTIES.ThrownTooltip"
   }
 });
 

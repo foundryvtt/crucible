@@ -525,11 +525,11 @@ function preLocalizeConfig() {
 
   // Armor
   localizeConfigObject(SYSTEM.ARMOR.CATEGORIES);
-  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES);
+  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES, ["label", "tooltip"]);
 
   // Consumable
   localizeConfigObject(SYSTEM.CONSUMABLE.CATEGORIES);
-  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES);
+  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES, ["label", "tooltip"]);
 
   // Crafting
   localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
@@ -558,7 +558,7 @@ function preLocalizeConfig() {
 
   // Weapon
   localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
-  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES);
+  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.WEAPON.SLOTS);
   localizeConfigObject(SYSTEM.WEAPON.TRAINING);
 
