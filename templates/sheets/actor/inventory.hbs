@@ -13,11 +13,7 @@
                             {{#if item.showStack}}<span class="stack">({{item.stackLabel}}) </span>{{/if}}
                             {{~item.name~}}
                         </h4>
-                        <div class="tags">
-                            {{#each item.tags}}
-                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                            {{/each}}
-                        </div>
+                        {{crucibleTags item.tags}}
                     </div>
                     <div class="controls">
                         {{#each item.actions as |button|}}

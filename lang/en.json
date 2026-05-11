@@ -1063,8 +1063,11 @@
     },
     "PROPERTIES": {
       "Bulky": "Bulky",
+      "BulkyTooltip": "Armor that is <strong>Bulky</strong> is cumbersome to wield and conveys a penalty of +2 Banes to all Initiative rolls.",
       "Natural": "Natural",
-      "Noisy": "Noisy"
+      "NaturalTooltip": "Natural armor is a feature of the being 'wearing' it. It cannot typically be unequipped.",
+      "Noisy": "Noisy",
+      "NoisyTooltip": "Armor that is <strong>Noisy</strong> makes it difficult to move quietly."
     },
     "SHEET": {
       "ArmorBonus": "Armor Bonus",
@@ -1279,6 +1282,10 @@
         "max.label": "Maximum",
         "value.label": "Value"
       }
+    },
+    "PROPERTIES": {
+      "Thrown": "Thrown",
+      "ThrownTooltip":"This consumable is designed to be thrown."
     },
     "SCROLL": {
       "ComponentBudget": "This scroll may provide up to {budget} spellcraft component(s). Select which components this scroll provides.",

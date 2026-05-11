@@ -353,6 +353,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
     if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label
       : _loc("ITEM.PROPERTIES.NotInvested");
+
+    // Properties
+    for ( const prop of this.properties ) {
+      if ( ["investment", "stackable"].includes(prop) ) continue;
+      tags[prop] = this.constructor.ITEM_PROPERTIES[prop];
+    }
     return tags;
   }
 
