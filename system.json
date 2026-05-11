@@ -249,6 +249,9 @@
     },
     "JournalEntryPage": {
       "skill": {}
+    },
+    "RegionBehavior": {
+      "crucible.hazard": {}
     }
   },
   "grid": {

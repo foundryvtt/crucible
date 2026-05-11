@@ -173,6 +173,14 @@ Hooks.once("init", async function() {
   };
   CONFIG.Item.compendiumIndexFields = ["system.identifier"];
 
+  // Region Behavior document configuration
+  Object.assign(CONFIG.RegionBehavior.dataModels, {
+    "crucible.hazard": models.CrucibleHazardRegionBehavior
+  });
+  Object.assign(CONFIG.RegionBehavior.typeIcons, {
+    "crucible.hazard": "fa-solid fa-triangle-exclamation"
+  });
+
   // Configure dynamic constants
   for ( const [type, model] of Object.entries(CONFIG.Item.dataModels) ) {
     if ( foundry.utils.isSubclass(model, models.CruciblePhysicalItem) ) {
