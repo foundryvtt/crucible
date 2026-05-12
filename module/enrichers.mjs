@@ -1014,7 +1014,7 @@ async function composeScrollItem(anchor) {
  */
 async function enrichScroll([match, tokenString, displayName]) {
   const scroll = {runes: [], gestures: [], inflections: []};
-  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
+  for ( const token of new Set(tokenString.trim().split(/\s+/).filter(Boolean)) ) {
     if ( token in SYSTEM.SPELL.RUNES ) scroll.runes.push(token);
     else if ( token in SYSTEM.SPELL.GESTURES ) scroll.gestures.push(token);
     else if ( token in SYSTEM.SPELL.INFLECTIONS ) scroll.inflections.push(token);
