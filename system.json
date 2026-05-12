@@ -251,7 +251,9 @@
       "skill": {}
     },
     "RegionBehavior": {
-      "crucible.hazard": {}
+      "crucible.hazard": {
+        "htmlFields": ["description"]
+      }
     }
   },
   "grid": {

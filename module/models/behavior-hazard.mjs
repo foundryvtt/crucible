@@ -22,6 +22,7 @@ export default class CrucibleHazardRegionBehavior extends foundry.data.regionBeh
     }, {});
     return {
       name: new fields.StringField(),
+      description: new fields.HTMLField(),
       danger: new fields.NumberField({initial: 0, required: true, nullable: false, integer: true}),
       defenseType: new fields.StringField({initial: "physical", choices: defenseTypes, required: true}),
       damageType: new fields.StringField({initial: "void", required: true, choices: {
@@ -52,7 +53,8 @@ export default class CrucibleHazardRegionBehavior extends foundry.data.regionBeh
       tags,
       defenseType: this.defenseType,
       resource: this.resource,
-      name: this.name
+      name: this.name,
+      description: this.description
     };
     const action = crucible.api.models.CrucibleAction.createHazard(hazardData);
     await action.use({dialog: this.promptGM});
