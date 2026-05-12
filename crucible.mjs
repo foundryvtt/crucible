@@ -747,6 +747,9 @@ Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTra
 Hooks.on("canvasReady", () => {
   if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
   for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  if ( game.user.isGM && globalThis.canvas.scene?._microgrid?.warning ) {
+    ui.notifications.warn(globalThis.canvas.scene._microgrid.warning);
+  }
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {

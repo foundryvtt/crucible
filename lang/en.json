@@ -1545,7 +1545,7 @@
     },
     "COMPOSED_NAME": {
       "Prefix": "{prefixes} {name}",
-      "Suffix": "{name} of {suffixes}" 
+      "Suffix": "{name} of {suffixes}"
     },
     "FIELDS": {
       "actions": {
@@ -1824,6 +1824,11 @@
       "OutputDrop": "Drop Output Item",
       "OutputRemove": "Remove Output Group",
       "Outputs": "Outputs"
+    }
+  },
+  "SCENE": {
+    "WARNINGS": {
+      "MicrogridUnavailable": "Scene \"{name}\" is configured as a square grid with distances in feet but cannot use the Crucible microgrid. Grid distance must be 5ft (currently {distance}) and grid size must be a multiple of 5px (currently {size}px)."
     }
   },
   "SETTINGS": {
