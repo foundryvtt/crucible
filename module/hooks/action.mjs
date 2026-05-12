@@ -247,8 +247,17 @@ HOOKS.counterspell = {
     this.usage.context.tags.rune = _loc("SPELL.COMPONENTS.RuneSpecific", {rune: this.rune?.name ?? none});
     this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture?.name ?? none});
   },
+  canUse() {
+    if ( this.tags.has("noncombat") ) return;
+    const lastAction = ChatMessage.implementation.getLastAction();
+    const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
+    if ( !wasSpell ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.BadTarget"));
+  },
   async roll(target) {
     if ( this.usage.targetAction.message ) return;
+
+    // Must remove the spell attack added by the `spell` tag's _roll hook in the case of a non-combat counterspell
+    this.events.findSplice(e => e.type === "spell");
     const dc = this.usage.dc;
     const rollData = {
       actorId: this.actor.id,
@@ -397,6 +406,20 @@ HOOKS.frostFlask = {
 
 /* -------------------------------------------- */
 
+HOOKS.fontOfLife = {
+  postActivate() {
+    const amount = this.actor.abilities.wisdom.value;
+    for ( const [target, events] of this.eventsByTarget ) {
+      const effectEvent = events.all.find(e => e.effects.length);
+      if ( !effectEvent ) continue;
+      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
+      effectEvent.resources.push({resource: "health", delta: amount});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 // TODO: Mote and Wanderer flame elemental tiers do not yet exist; remap Standard quality to Sprite and Masterwork
 //  quality to Visitor until those creatures are authored.
 HOOKS.gemOfConjuredFlame = {
@@ -432,20 +455,6 @@ HOOKS.gemOfConjuredFlame = {
 
 /* -------------------------------------------- */
 
-HOOKS.fontOfLife = {
-  postActivate() {
-    const amount = this.actor.abilities.wisdom.value;
-    for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
-      effectEvent.resources.push({resource: "health", delta: amount});
-    }
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.healingElixir = {
   postActivate() {
     const quality = this.usage.consumable.config.quality;
@@ -470,6 +479,17 @@ HOOKS.healingTonic = {
       effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
       effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
       effectEvent.resources.push({resource: "health", delta: amount});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.horrificCritical = {
+  canUse() {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction?.tags.has("melee") || !lastAction?.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
+      throw new Error(_loc("ACTION.WARNINGS.LastNotMeleeCrit", {action: this.name}));
     }
   }
 };
