@@ -24,6 +24,12 @@
   "styles": ["styles/crucible.css"],
   "packs": [
     {
+      "name": "adversary-equipment",
+      "label": "Adversary Equipment",
+      "path": "packs/adversary-equipment",
+      "type": "Item"
+    },
+    {
       "name": "adversary-talents",
       "label": "Adversary Talents",
       "path": "packs/adversary-talents",
@@ -123,6 +129,7 @@
           "name": "Adversary Options",
           "color": "#380d05",
           "packs": [
+            "adversary-equipment",
             "adversary-talents",
             "archetype",
             "taxonomy"
