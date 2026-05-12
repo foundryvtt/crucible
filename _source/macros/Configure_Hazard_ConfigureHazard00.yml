@@ -4,7 +4,7 @@ type: script
 author: WRGzDgYAt3ZuX6TU
 img: icons/skills/wounds/injury-body-pain-gray.webp
 scope: global
-command: 'await crucible.api.dice.HazardDialog.prompt()'
+command: await crucible.api.dice.HazardDialog.prompt()
 folder: null
 sort: 400000
 ownership:

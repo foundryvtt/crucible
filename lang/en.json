@@ -737,6 +737,26 @@
         "recover": "Recover",
         "rest": "Rest"
       },
+      "REST": {
+        "FIELDS": {
+          "allowInterruption": {
+            "label": "Allow Interruption",
+            "hint": "If checked, it is possible for this rest to be interrupted by configured gameplay events."
+          },
+          "hours": {
+            "label": "Hours of Rest",
+            "hint": "Hours which will elapse if the rest is not interrupted."
+          },
+          "participants": {
+            "label": "Resting Characters",
+            "hint": "Each selected character will perform the Rest action."
+          }
+        },
+        "Confirm": "Begin Rest",
+        "ContinuationHint": "This rest is being continued from a previous rest that was interrupted. {hoursCompleted} of {hoursRequired} hours have been completed.",
+        "Interrupted": "Your rest has been interrupted after {hours} hours!",
+        "Title": "Confirm Group Rest"
+      },
       "WARNINGS": {
         "NoAddSelf": "You cannot add your own group!",
         "NotWorldActor": "You can only add a World Actor"
@@ -902,6 +922,9 @@
     "Progress": "Milestone Progress"
   },
   "ANCESTRY": {
+    "SECTIONS": {
+      "Traits": "Traits"
+    },
     "FIELDS": {
       "abilities": {
         "label": "Ability Scores",
@@ -1400,6 +1423,7 @@
         "Aborted": "Aborted",
         "Skipped": "Skipped"
       },
+      "AggregateDetail": "{required} Required",
       "Resend": "Resend Request",
       "RollOnBehalf": "Roll on Behalf",
       "Skip": "Skip Actor",
@@ -1519,6 +1543,10 @@
       "RecoverAllTitle": "Recover Dropped Items",
       "RecoverDetail": "Recover the dropped {item}",
       "UnEquip": "Un-equip {typeLabel}"
+    },
+    "COMPOSED_NAME": {
+      "Prefix": "{prefixes} {name}",
+      "Suffix": "{name} of {suffixes}" 
     },
     "FIELDS": {
       "actions": {

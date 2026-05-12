@@ -274,6 +274,7 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callActorHooks(hook, ...args) {
+    if ( !this.system.schema.has("actorHooks") ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
@@ -736,7 +737,7 @@ export default class CrucibleActor extends Actor {
    */
   async receiveAttack(action, options={}) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {bonuses} = action.usage;
+    const {bonuses, restoration} = action.usage;
 
     // Coalesce AttackRollData from action usage and per-attack options
     const defenseType = options.defenseType || action.usage.defenseType;
@@ -771,10 +772,10 @@ export default class CrucibleActor extends Actor {
       multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
       bonus: rollData.damageBonus,
-      resistance: this.getResistance(rollData.resource, rollData.damageType),
+      resistance: this.getResistance(rollData.resource, rollData.damageType, restoration),
       type: rollData.damageType,
       resource: rollData.resource,
-      restoration: false
+      restoration: !!restoration
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;
@@ -876,7 +877,7 @@ export default class CrucibleActor extends Actor {
       criticalSuccessThreshold: damage.criticalSuccessThreshold,
       criticalFailureThreshold: damage.criticalFailureThreshold,
       resource: options.resource || action.usage.resource || "health",
-      damageType: options.damageType || weapon.system.damageType,
+      damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
       damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
       multiplier: options.multiplier || action.usage.bonuses.multiplier || 1
     };
@@ -2430,6 +2431,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
+    if ( this.type === "group" ) return;
     const updates = {};
 
     // Populate initial resource data
@@ -2441,7 +2443,14 @@ export default class CrucibleActor extends Actor {
     }
 
     // Automatic Prototype Token configuration
-    const prototypeTokenDefaults = {"bar1.attribute": "resources.health", "bar2.attribute": "resources.morale"};
+    const size = this.size;
+    const prototypeTokenDefaults = {
+      "bar1.attribute": "resources.health",
+      "bar2.attribute": "resources.morale",
+      width: size,
+      height: size,
+      depth: size
+    };
     switch ( data.type ) {
       case "hero":
         Object.assign(prototypeTokenDefaults, {"sight.enabled": true, actorLink: true, disposition: 1});
@@ -2719,16 +2728,17 @@ export default class CrucibleActor extends Actor {
   async #updateSize(data, options) {
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
     const size = this.size;
-    if ( size === this._cachedResources?.priorSize ) return;
     const dimensions = {width: size, height: size, depth: size};
 
     // Unlinked Token Actor
     if ( this.isToken ) {
+      if ( this.token.width === size ) return;
       await this.token.update(dimensions, {_crucibleRelatedUpdate: true});
       return;
     }
 
-    // Linked Actor prototype Token
+    // For standard actors, treat Prototype Token alignment as a signal of correctness
+    if ( this.prototypeToken.width === size ) return;
     await this.update({prototypeToken: dimensions}, {_crucibleRelatedUpdate: true});
 
     // Update placed Tokens
@@ -2833,7 +2843,6 @@ export default class CrucibleActor extends Actor {
     }
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
-    this._cachedResources.priorSize = this.size;
     return this._cachedResources;
   }
 

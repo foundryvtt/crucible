@@ -44,3 +44,13 @@ export const PROPERTIES = defineEnum({
     tooltip: "WEAPON.TAGS.ThrownTooltip"
   }
 });
+
+/**
+ * Base spell scroll items keyed by quality tier; each scroll's component budget matches its tier bonus.
+ * @enum {string}
+ */
+export const SCROLLS = Object.freeze({
+  fine: "Compendium.crucible.equipment.Item.spellScrollFine0",
+  superior: "Compendium.crucible.equipment.Item.spellScrollSuper",
+  masterwork: "Compendium.crucible.equipment.Item.spellScrollMaste"
+});

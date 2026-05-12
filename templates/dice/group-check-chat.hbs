@@ -1,4 +1,15 @@
 <section class="crucible group-check-result themed theme-dark">
+    {{#if aggregate}}
+    <div class="crucible dice-roll standard-check group-check-aggregate line-item {{aggregate.classes}}">
+        <div class="dice-result">
+            <h4 class="dice-total check-result">
+                <span class="outcome">{{localize aggregate.outcomeKey}}</span>
+                <span class="result hex">{{aggregate.score}}</span>
+                <span class="target">{{aggregate.detail}}</span>
+            </h4>
+        </div>
+    </div>
+    {{/if}}
     <div class="group-check-actors flexcol">
         {{#each actors as |entry|}}
         <div

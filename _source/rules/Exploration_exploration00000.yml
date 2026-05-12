@@ -198,6 +198,171 @@ pages:
       duplicateSource: null
       exportSource: null
     _key: '!journal.pages!exploration00000.temperature00000'
+  - sort: -100000
+    name: Skill Checks
+    type: text
+    _id: skillChecks00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>There are often situations that require a character to confirm their
+        capabilities. At any time the GM may call for a <strong>Skill
+        Check</strong>— a simple roll to test whether you have sufficient skill
+        to perform an action or recall some piece of information. Each skill is
+        associated with two
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}.</p><p>A
+        character's skill rank is determined by their degree of training, adding
+        a bonus to checks made for that skill. Each skill has 4 ranks as well as
+        an 'untrained' rank.</p><table><tbody><tr><th
+        data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
+        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
+        decidedly as good at this skill as the average person who has absolutely
+        no education or professional training related to
+        it.</p></td></tr><tr><td
+        data-colwidth="50"><p>0</p></td><td><p>Novice</p></td><td><p>You have
+        received training in the basic practices common across all parts of that
+        skill.</p></td></tr><tr><td
+        data-colwidth="50"><p>+1</p></td><td><p>Journeyman</p></td><td><p>You've
+        reached some degree of advanced training and know some of the less
+        common principles of that particular skill.</p></td></tr><tr><td
+        data-colwidth="50"><p>+2</p></td><td><p>Adept</p></td><td><p>You have
+        exceeded all the bounds of professional training. There is nothing more
+        about your skills that you can learn from others. All that is left is to
+        perfect your understanding.</p></td></tr><tr><td
+        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
+        mastered this skill. There is nothing more to learn about
+        it.</p></td></tr></tbody></table><h2 class="divider">Individual Skill
+        Checks</h2><p>Skill checks use the same equation for calculation that a
+        @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
+        Check} does. Like all Standard Checks, skill checks can result in a
+        <strong>Critical Success</strong> if the total exceeds the DC by more
+        than 6, or a <strong>Critical Failure</strong> if the total falls below
+        the DC by more than 6. The GM may choose to apply additional
+        consequences or benefits based on these critical outcomes.</p><section
+        class="formula"><p class="value">Skill Check</p><p
+        class="equals">=</p><p class="equation">3d8[Boons,Banes] + Average of
+        Ability Bonuses (Round Up) + Skill Bonus + Enchantment
+        Bonus</p></section><section class="foundryvtt"><h4>Player's
+        Guidance</h4><p>You can roll a skill check at any time from the skill
+        tab of your character sheet, simply by clicking on the skill
+        name.</p></section><section class="gameplay"><h4>Example: Rolling a
+        Skill Check</h4><p>Albert, a seasoned naval captain, is faced with a
+        dilemma. His ship is about to be imperiled by a storm, and his crew is
+        looking to him to safely navigate out of the harbor. As a Master of the
+        Wilderness skill, Albert taps into his extensive knowledge of seafaring.
+        This will be a Difficult (DC 24) roll; Albert rolls his Skill check.
+        Unluckily, Albert's dice total turn up <strong>6</strong>,
+        <strong>4</strong>, and <strong>7</strong> for a total of
+        <strong>17</strong> and a far cry from the needed 24. However, Albert's
+        Toughness is quite high at <strong>8</strong>, and his Wisdom is
+        <strong>6</strong>, so the composite Ability Bonus for a dual-scaling
+        skill adds <strong>+4</strong>. Albert's Master rank in Wilderness adds
+        a Skill bonus of <strong>+3</strong>, and he also happens to have a
+        magical set of nautical charts which grant a +2 enchantment bonus,
+        pushing the result of the roll to <strong>26</strong>, a narrow
+        success.</p></section><h2 class="divider">Passive Skill
+        Checks</h2><p>Crucible allows any skill check to be considered passive
+        at the discretion of the gamemaster. In a case where a character's
+        trained skill rank is sufficient to exceed the DC of a roll by adding 12
+        to it, the check is considered successful without a need to roll.
+        Whenever a Skill check can be attempted passively, it may also be
+        attempted through an active roll if a Player suggests their wish to do
+        so.</p><section class="foundryvtt"><h4>Gamemaster Guidance</h4><p>In
+        Journal content, passive check opportunities are provided to the
+        Gamemaster using an enricher syntax presented as [[/skillCheck awareness
+        14 passive]].</p><p>Generally, players should not be aware that a
+        passive check occurred unless it results in a Success, in which case it
+        is appropriate for players to know that they succeeded on a certain
+        passive check.</p><p>If multiple player characters all succeed on a
+        check, the Gamemaster should choose whether to attribute the success to
+        all characters, or choose one specific character as the narrative focus
+        for the moment. If choosing a single character, prefer whichever
+        character has the highest Passive score in the Skill unless there is a
+        stronger narrative reason to choose another
+        protagonist.</p></section><h2 class="divider">Group Skill
+        Checks</h2><p>Sometimes a situation or challenge may call for a group
+        skill check in which the entire party attempts a task together. The
+        narrative consequences of their efforts are determined based on their
+        collective success or collective failure. In a Group Skill Check, every
+        participant chooses from one or more eligible skills, rolling against a
+        DC configured by the Gamemaster.</p><section
+        class="foundryvtt"><h4>Gamemaster Guidance</h4><p>The Gamemaster can
+        initiate a Group Skill Check in a few different ways: at any point using
+        the @UUID[Compendium.crucible.macros.Macro.GroupSkillCheck0]{Configure
+        Group Check} macro provided in the <strong>System Macros</strong>
+        compendium pack, or by clicking on a group check enricher presented like
+        [[/skillCheck stealth 13 group]].</p><p>Both methods present a Group
+        Check Dialog that allows the Gamemaster to configure details of the
+        check, select which Skills participants are eligible to use, assign DCs
+        to each individual skill, specify collective Boons or Banes that apply
+        to all participants, and configure which Actors must participate in the
+        check.</p><p>Clicking <strong>Request</strong> will prompt other players
+        to perform rolls on behalf of Actors they control. Clicking
+        <strong>Roll</strong> will perform the group check on all players'
+        behalf. The GM may skip or re-request rolls for individual participants,
+        and may roll on behalf of actors whose owners are not online. As
+        participants submit their rolls, the chat card updates in real
+        time.</p></section><p>The collective result of a group skill check is
+        determined by tallying the results of each participant's individual
+        roll. Skipped participants are excluded from both the score and the
+        effective participant count.</p><ul><li><p><strong>Individual
+        Failure</strong>: 0</p></li><li><p><strong>Individual Success</strong>:
+        +1</p></li><li><p><strong>Individual Critical Success</strong>:
+        +2</p></li><li><p><strong>Individual Critical Failure</strong>:
+        -1</p></li></ul><p>The total score is then compared against the number
+        of counted participants to determine the aggregate
+        result:</p><ul><li><p><strong>Critical Success</strong>: The total group
+        score is equal to or greater than the number of
+        participants.</p></li><li><p><strong>Success</strong>: The total group
+        score is greater than half the number of participants, rounding
+        down.</p></li><li><p><strong>Failure</strong>: The total group score is
+        positive but below the success
+        threshold.</p></li><li><p><strong>Critical Failure</strong>: The total
+        group score is zero or less.</p></li></ul><section
+        class="gameplay"><h4>Example: Group Stealth Check Failure</h4><p>Four
+        heroes attempt to silently slip past a sleeping ogre, calling for a
+        Stealth check at DC 18. Two heroes pass and two fail, giving the party a
+        total score of <strong>2</strong>. Because a score of <strong>3</strong>
+        was required for the group to succeed, the party narrowly fails the
+        check and rouses the ogre. Had a third hero rolled successfully, the
+        group would have crossed the success threshold; had all four rolled
+        successfully, the group would have achieved a Critical Success and
+        slipped past completely undetected.</p></section><section
+        class="gameplay"><h4>Example: Group Athletics Check Critical
+        Success</h4><p>The same four heroes attempt to climb a treacherous cliff
+        face, calling for an Athletics check at DC 20. Two heroes succeed
+        normally and a third fails outright, but Belladonna - an experienced
+        climber - rolls a Critical Success. The party's score is <strong>1 + 1 +
+        0 + 2 = 4</strong>, which equals the number of participants in the
+        check. Belladonna's exceptional ascent compensates for her companion's
+        slip, and the group achieves a Critical Success, reaching the cliff top
+        with surprising ease and securing a tactical advantage at the
+        summit.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      WRGzDgYAt3ZuX6TU: 3
+    flags: {}
+    _stats:
+      coreVersion: '14.361'
+      systemId: crucible
+      systemVersion: 0.9.2
+      createdTime: 1778425064356
+      modifiedTime: 1778425238549
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!journal.pages!exploration00000.skillChecks00000'
 folder: MMeWpMmsLOblp07U
 categories: []
 sort: 850000

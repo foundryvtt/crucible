@@ -297,7 +297,25 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /* -------------------------------------------- */
 
+  /**
+   * Construct a deterministic name for an Item using a base item and an array of affixes.
+   * @param {string} baseName           The name of the base item being composed
+   * @param {CrucibleItem[]} affixes    Affixes which belong to the item
+   * @param {object} [options]          Options which affect naming scheme
+   * @param {string} [options.quality]    A quality tier of the item, used if there are no prefixes
+   * @returns {string}                  The composed item name
+   */
   static composeItemName(baseName, affixes, {quality}={}) {
+
+    // No affixes, quality only
+    const qualityPrefix = quality ? _loc(quality.label) : "";
+    if ( !affixes.length ) {
+      if ( !qualityPrefix ) return baseName;
+      return _loc("ITEM.COMPOSED_NAME.Prefix", {prefixes: qualityPrefix, name});
+    }
+
+    // Organize affixes
+    const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "narrow", type: "unit"});
     const prefixes = [];
     const suffixes = [];
     for ( const affix of foundry.utils.iterateValues(affixes) ) {
@@ -305,11 +323,13 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       if ( affix.system.affixType === "prefix" ) prefixes.push(adj);
       else suffixes.push(adj);
     }
-    if ( !prefixes.length && !suffixes.length && !quality ) return null;
+
+    // Compose affixed name
     let name = baseName;
-    if ( prefixes.length ) name = prefixes.join(" ") + " " + name;
-    else if ( quality ) name = _loc(quality.label) + " " + name;
-    if ( suffixes.length ) name += " of " + suffixes.join(" ");
+    const prefixString = prefixes.length ? listFormatter.format(prefixes) : qualityPrefix;
+    const suffixString = suffixes.length ? listFormatter.format(suffixes) : "";
+    if ( prefixString ) name = _loc("ITEM.COMPOSED_NAME.Prefix", {prefixes: prefixString, name});
+    if ( suffixString ) name = _loc("ITEM.COMPOSED_NAME.Suffix", {suffixes: suffixString, name});
     return name;
   }
 
