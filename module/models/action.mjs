@@ -1955,6 +1955,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const scaling = new Set(this.scaling);
     this.scaling.length = 0;
     this.scaling.push(...scaling);
+
+    // Final cost overrides
+    if ( this.actor.statuses.has("limitless") ) {
+      this.cost.action = 0;
+      this.cost.focus = 0;
+      this.cost.heroism = 0;
+    }
   }
 
   /* -------------------------------------------- */

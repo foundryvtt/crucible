@@ -411,10 +411,14 @@ export default class CrucibleActor extends Actor {
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":
+      case "wounds":
         if ( this.statuses.has("invulnerable") ) r = Infinity;
         break;
       case "morale":
         if ( this.statuses.has("resolute") || this.statuses.has("asleep") ) r = Infinity;
+        break;
+      case "madness":
+        if ( this.statuses.has("resolute") ) r = Infinity;
         break;
     }
     return r;

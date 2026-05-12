@@ -141,6 +141,13 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.invulnerable0000"
   },
+  limitless: {
+    id: "limitless",
+    name: "ACTIVE_EFFECT.STATUSES.Limitless",
+    img: "icons/svg/aura.svg",
+    hud: nonGroupTypes,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.limitless0000000"
+  },
   resolute: {
     id: "resolute",
     name: "ACTIVE_EFFECT.STATUSES.Resolute",

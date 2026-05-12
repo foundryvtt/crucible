@@ -1541,6 +1541,40 @@ pages:
       modifiedTime: 1773600000000
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.suffocating00000'
+  - sort: 1700000
+    name: Limitless
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: limitless0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Limitless</strong> creature pays no Action, Focus, or
+        Heroism cost when using any Action. This condition is primarily used for
+        system testing and is not intended for typical gameplay.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.3
+      createdTime: 1778976000000
+      modifiedTime: 1778976000000
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleConditio.limitless0000000'
 folder: MMeWpMmsLOblp07U
 categories:
   - name: Health
