@@ -340,12 +340,16 @@ export default class HazardDialog extends ActionUseDialog {
    * @returns {CrucibleActor[]}
    */
   static #defaultTargets() {
+    let targets;
     if ( game.user.targets?.size ) {
-      return Array.from(game.user.targets).map(t => t.actor).filter(Boolean);
+      targets = Array.from(game.user.targets).map(t => t.actor);
     }
-    if ( canvas.ready && canvas.tokens.controlled.length ) {
-      return canvas.tokens.controlled.map(t => t.actor).filter(Boolean);
+    else if ( canvas.ready && canvas.tokens.controlled.length ) {
+      targets = canvas.tokens.controlled.map(t => t.actor);
     }
-    return crucible.party?.system.members.map(m => m.actor).filter(Boolean) ?? [];
+    else {
+      targets = [crucible.party];
+    }
+    return targets.filter(Boolean).flatMap(actor => (actor.type === "group") ? actor.system.members.map(m => m.actor) : [actor]);
   }
 }
