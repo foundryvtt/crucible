@@ -82,6 +82,26 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Sum the numeric values of a set of input elements, applying per-field validation as we go.
+   * @param {Iterable<HTMLInputElement>} inputs
+   * @param {number} [initial=0]
+   * @returns {number}
+   * @protected
+   */
+  _sumValidatedInputs(inputs, initial=0) {
+    let total = initial;
+    for ( const input of inputs ) {
+      const value = input.valueAsNumber;
+      const invalid = !!this.document.getFieldForProperty(input.name).validate(value);
+      input.parentElement.classList.toggle("invalid", invalid);
+      total += value;
+    }
+    return total;
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 

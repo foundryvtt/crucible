@@ -88,12 +88,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   #updateAbilitySum() {
     const abilities = this.element.querySelector(".abilities");
     const inputs = abilities.querySelectorAll("input[type=number]");
-    const total = Array.from(inputs).reduce((t, input) => {
-      const currValue = input.valueAsNumber;
-      const invalid = !!this.document.getFieldForProperty(input.name).validate(currValue);
-      input.parentElement.classList.toggle("invalid", invalid);
-      return t + currValue;
-    }, 0);
+    const total = this._sumValidatedInputs(inputs);
     const valid = total === 12;
     const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
     const span = abilities.querySelector(".sum");
@@ -133,12 +128,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     const resistances = this.element.querySelector(".resistances");
     const inputs = resistances.querySelectorAll("input[type=number]");
     const immuneTotal = resistances.querySelector("[name='immunities']").value.length * 4;
-    const total = Array.from(inputs).reduce((t, input) => {
-      const currValue = input.valueAsNumber;
-      const invalid = !!this.document.getFieldForProperty(input.name).validate(currValue);
-      input.parentElement.classList.toggle("invalid", invalid);
-      return t + currValue;
-    }, immuneTotal);
+    const total = this._sumValidatedInputs(inputs, immuneTotal);
     const valid = total === 0;
     const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
     const span = resistances.querySelector(".sum");
