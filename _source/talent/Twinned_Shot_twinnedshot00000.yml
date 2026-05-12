@@ -9,10 +9,9 @@ system:
       tags:
         - projectile
         - ranged
-        - difficult
       cost:
         action: 1
-        focus: 0
+        focus: 1
         weapon: true
         heroism: 0
         hands: 0
@@ -27,9 +26,9 @@ system:
       img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
       condition: ''
       description: >-
-        <p>Using this <strong>Difficult</strong> technique, you fire two
-        projectiles at once making two <strong>Strike</strong> attacks against
-        the same target.</p>
+        <p>You concentrate to nock two projectiles at once making two
+        <strong>Strike</strong> simultaneous attacks against the same single
+        target.</p>
       range:
         maximum: null
         weapon: true
@@ -37,6 +36,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - dex1a
   rune: ''
@@ -51,14 +51,14 @@ folder: 2nepH1RWurpMYAjw
 sort: 200000
 ownership:
   default: 0
-  AnoypGxxNIMOS0XY: 3
+  WRGzDgYAt3ZuX6TU: 3
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1772307160152
-  modifiedTime: 1773514792624
+  systemVersion: 0.9.2
+  coreVersion: '14.361'
+  createdTime: 1778609443518
+  modifiedTime: 1778609443518
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
