@@ -2,21 +2,21 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
 
   /**
    * Glow colors for each rune.
-   * @type {Readonly<Record<string, [number, number, number, number]>>}
+   * @type {Readonly<Record<string, string>>}
    */
   static #GLOW_COLORS = Object.freeze({
-    control: [0.588, 0.278, 1.0, 1],
-    death: [0.663, 1.0, 0.506, 1],
-    earth: [0.431, 0.796, 0.0, 1],
-    flame: [1.0, 0.424, 0.0, 1],
-    frost: [0.0, 0.98, 1.0, 1],
-    illumination: [1.0, 0.976, 0.749, 1],
-    illusion: [0.886, 0.063, 0.212, 1],
-    kinesis: [0.843, 0.843, 0.843, 1],
-    life: [1.0, 0.443, 0.565, 1],
-    lightning: [1.0, 0.725, 0.424, 1],
-    oblivion: [0.478, 0.043, 0.086, 1],
-    soul: [0.008, 0.608, 1.0, 1]
+    control: "#9647ff",
+    death: "#a9ff81",
+    earth: "#6ecb00",
+    flame: "#ff6c00",
+    frost: "#00faff",
+    illumination: "#fff9bf",
+    illusion: "#e21036",
+    kinesis: "#d7d7d7",
+    life: "#ff7190",
+    lightning: "#ffb96c",
+    oblivion: "#7a0b16",
+    soul: "#029bff"
   });
 
   /**
@@ -32,26 +32,6 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
    */
   static #pendingRune = null;
 
-  /**
-   * Which creature categories can be seen by which rune id.
-   * TODO: Determine whether this should live elsewhere. Maybe a reverse association from creature category to rune
-   * @type {Record<string, string[]>}
-   */
-  static #creaturesByRune = {
-    control: ["fiend"],
-    death: ["undead"],
-    earth: ["ooze", "elementalEarth"],
-    flame: ["dragon", "elementalFire"],
-    frost: ["giant", "elementalFrost"],
-    illumination: ["celestial"],
-    illusion: ["fey"],
-    kinesis: ["monstrosity"],
-    life: ["plant", "beast"],
-    lightning: ["construct", "elementalStorm"],
-    oblivion: ["outsider"],
-    soul: ["humanoid"]
-  };
-
   /* -------------------------------------------- */
 
   /** @override */
@@ -61,7 +41,8 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
     if ( !runeId ) return undefined;
     let filter = this.#filtersByRune.get(runeId);
     if ( !filter ) {
-      filter = foundry.canvas.rendering.filters.GlowOverlayFilter.create({glowColor: this.#GLOW_COLORS[runeId]});
+      const glowColor = [...Color.from(this.#GLOW_COLORS[runeId]).rgb, 1];
+      filter = foundry.canvas.rendering.filters.GlowOverlayFilter.create({glowColor});
       this.#filtersByRune.set(runeId, filter);
     }
     return filter;
@@ -76,15 +57,29 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
     if ( !(target instanceof foundry.canvas.placeables.Token) ) return false;
 
     // Check which rune is in use
-    // TODO: Determine the ideal way of storing this info
     const source = visionSource.object.document;
-    const senseEffectId = SYSTEM.EFFECTS.getEffectId("sense");
-    const senseEffect = source.actor?.effects.get(senseEffectId);
-    const runeId = senseEffect?.flags.crucible?.senseRune ?? source.actor?.flags.crucible?.senseRune;
-    if ( !runeId ) return false;
-    const targetCategory = target.actor?.system.details?.taxonomy?.category ?? "humanoid";
-    if ( !DetectionModeSenseCreature.#creaturesByRune[runeId].includes(targetCategory) ) return false;
+    const senseEffect = source.actor?.effects.get(SYSTEM.EFFECTS.getEffectId("sense"));
+    const runeIds = senseEffect?.flags.crucible?.runes ?? source.actor?.flags.crucible?.senseRunes;
+    if ( !runeIds?.length ) return false;
+    const runeId = DetectionModeSenseCreature.#getTargetRune(target.actor);
+    if ( !runeIds.includes(runeId) ) return false;
     DetectionModeSenseCreature.#pendingRune = runeId;
     return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the proper rune required to sense a target actor.
+   * @param {CrucibleActor|null} actor
+   */
+  static #getTargetRune(actor) {
+    if ( !actor ) return null;
+
+    // TODO: Allow for overrides of rune per ancestry & taxonomy
+    if ( actor.type === "hero" ) return SYSTEM.ACTOR.CREATURE_CATEGORIES.humanoid.sense;
+    const taxonomy = actor.system.details?.taxonomy;
+    if ( !taxonomy ) return null;
+    return SYSTEM.ACTOR.CREATURE_CATEGORIES[taxonomy.category]?.sense;
   }
 }

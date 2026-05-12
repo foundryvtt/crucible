@@ -159,7 +159,7 @@ HOOKS.sense = {
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       img: this.img,
       name: this.name,
-      // TODO: If/when effects get hooks, move this into prepareToken rather than using changes
+      // TODO: Move this logic into token data prep
       system: {
         changes: [{
           key: "token.detectionModes.senseCreature",
@@ -172,7 +172,7 @@ HOOKS.sense = {
       },
       flags: {
         crucible: {
-          senseRune: this.rune.id
+          runes: [this.rune.id]
         }
       }
     }]});
