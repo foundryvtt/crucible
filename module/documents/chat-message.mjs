@@ -42,11 +42,9 @@ export default class CrucibleChatMessage extends ChatMessage {
    * Re-render all currently-rendered actor sheet sidebars
    * @returns {Promise<void>}
    */
-  // TODO: Find a better place for this to live
   static #renderAllSheetSidebars() {
     const promises = [];
-    for ( const app of foundry.applications.instances.values() ) {
-      if ( !(app instanceof crucible.api.applications.CrucibleBaseActorSheet) ) continue;
+    for ( const app of crucible.api.applications.CrucibleBaseActorSheet.instances() ) {
       promises.push(app.render({parts: ["sidebar"]}));
     }
     return Promise.allSettled(promises);

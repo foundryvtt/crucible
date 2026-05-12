@@ -251,10 +251,12 @@ HOOKS.counterspell = {
     if ( this.tags.has("noncombat") ) return;
     const lastAction = ChatMessage.implementation.getLastAction();
     const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
-    if ( !wasSpell ) return false;
+    if ( !wasSpell ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.BadTarget"));
   },
   async roll(target) {
     if ( this.usage.targetAction.message ) return;
+
+    // Must remove the spell attack added by the `spell` tag's _roll hook in the case of a non-combat counterspell
     this.events.findSplice(e => e.type === "spell");
     const dc = this.usage.dc;
     const rollData = {
