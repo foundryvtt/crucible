@@ -14,6 +14,7 @@ export default class CrucibleChatMessage extends ChatMessage {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
+    if ( foundry.utils.hasProperty(data, "flags.crucible.action") ) CrucibleChatMessage.#renderAllSheetSidebars();
     this.#autoConfirmMessage();
   }
 
@@ -23,7 +24,32 @@ export default class CrucibleChatMessage extends ChatMessage {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
     const flags = this.flags.crucible || {};
+    if ( foundry.utils.hasProperty(data, "flags.crucible.confirmed") ) CrucibleChatMessage.#renderAllSheetSidebars();
     if ( flags.action && flags.vfxConfig && (data.flags.crucible.confirmed === true) ) this.#playVFXEffect();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    if ( foundry.utils.hasProperty(this, "flags.crucible.action") ) CrucibleChatMessage.#renderAllSheetSidebars();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-render all currently-rendered actor sheet sidebars
+   * @returns {Promise<void>}
+   */
+  // TODO: Find a better place for this to live
+  static #renderAllSheetSidebars() {
+    const promises = [];
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( !(app instanceof crucible.api.applications.CrucibleBaseActorSheet) ) continue;
+      promises.push(app.render({parts: ["sidebar"]}));
+    }
+    return Promise.allSettled(promises);
   }
 
   /* -------------------------------------------- */
