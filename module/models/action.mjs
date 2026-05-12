@@ -2776,9 +2776,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {string} [options.damageType]     The damage type inflicted by the hazard.
    * @param {string} [options.resource]       The resource the hazard damages (defaults to "health").
    * @param {string} [options.name]           A custom display name for the hazard.
+   * @param {string} [options.description]    A custom enrichable description.
    * @returns {CrucibleAction}              The resulting CrucibleAction that provides the configured hazard
    */
-  static createHazard({actor, danger=0, tags, defenseType, damageType, resource, name, ...actionData}={}) {
+  static createHazard({actor, danger=0, tags, defenseType, damageType, resource, name, description, ...actionData}={}) {
     actor ||= new Actor.implementation({name: "Environment", type: "adversary"});
     tags = Array.isArray(tags) ? tags.filter(t => t !== "hazard") : [];
     tags.unshift("hazard");
@@ -2786,7 +2787,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       id: "environmentAttack",
       name: name || "Environmental Hazard",
       img: "icons/skills/wounds/injury-body-pain-gray.webp",
-      description: "",
+      description: description ?? "",
       target: {type: "single", scope: 4, self: true},
       ...actionData,
       tags

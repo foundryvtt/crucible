@@ -256,6 +256,11 @@
     },
     "JournalEntryPage": {
       "skill": {}
+    },
+    "RegionBehavior": {
+      "crucible.hazard": {
+        "htmlFields": ["description"]
+      }
     }
   },
   "grid": {

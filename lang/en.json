@@ -1736,6 +1736,34 @@
       "Treasure": "Treasure"
     }
   },
+  "REGION_BEHAVIORS": {
+    "HAZARD": {
+      "FIELDS": {
+        "danger": {
+          "label": "Danger Level"
+        },
+        "defenseType": {
+          "label": "Defense Type"
+        },
+        "damageType": {
+          "label": "Damage Type"
+        },
+        "resource": {
+          "label": "Targeted Resource"
+        },
+        "tags": {
+          "label": "Hazard Tags"
+        },
+        "name": {
+          "label": "Name"
+        },
+        "promptGM": {
+          "hint": "If true, the GM will receive a roll dialog, otherwise the hazard will automatically roll.",
+          "label": "Prompt GM"
+        }
+      }
+    }
+  },
   "RESOURCES": {
     "TOOLTIPS": {
       "Action": "6 + Action Bonus",
@@ -2447,6 +2475,9 @@
     },
     "JournalEntryPage": {
       "skill": "Crucible Skill"
+    },
+    "RegionBehavior": {
+      "crucible.hazard": "Crucible Hazard"
     }
   },
   "WALKTHROUGH": {
