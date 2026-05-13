@@ -660,14 +660,16 @@ export default class CrucibleItem extends foundry.documents.Item {
 
   /**
    * Build an @Loot enricher string representing this item's base, affixes, quality, and name.
-   * @returns {string}              The enricher string
+   * @returns {Promise<string>} The enricher string
    */
-  toLootEnricher() {
+  async toLootEnricher() {
     const baseUuid = this._stats?.compendiumSource;
-    if ( !baseUuid ) throw new Error("Item has no compendium source for enricher reconstruction.");
+    const baseItem = await fromUuid(baseUuid);
+    if ( !baseItem ) throw new Error("Item has no compendium source for enricher reconstruction.");
+    const existingAffixes = baseItem.effects.filter(e => e.type === "affix").map(e => e.system.identifier);
     const tokens = [];
     for ( const effect of (this.effects ?? []) ) {
-      if ( effect.type !== "affix" ) continue;
+      if ( (effect.type !== "affix") || existingAffixes.includes(effect.system.identifier) ) continue;
       const id = effect.system.identifier;
       const tier = effect.system.tier.value;
       tokens.push(tier === 1 ? id : `${id}=${tier}`);
@@ -763,7 +765,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     }
 
     // Build chat message with @Loot enricher string
-    const enricherString = item.toLootEnricher();
+    const enricherString = await item.toLootEnricher();
     return ChatMessage.implementation.create({
       content: `<p>${enricherString}</p>`,
       flavor: game.i18n.localize("ITEM.RANDOMIZE.Flavor", {type: game.i18n.localize(`TYPES.Item.${item.type}`)}),
