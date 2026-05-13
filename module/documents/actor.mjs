@@ -2395,6 +2395,27 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Flatten an iterable of actors, replacing any group-type actor with its constituent member actors.
+   * @param {Iterable<CrucibleActor>} actors
+   * @returns {CrucibleActor[]}
+   */
+  static expandGroups(actors) {
+    const expanded = [];
+    for ( const actor of actors ) {
+      if ( !actor ) continue;
+      if ( actor.type === "group" ) {
+        for ( const m of actor.system.members ) {
+          if ( m.actor ) expanded.push(m.actor);
+        }
+      }
+      else expanded.push(actor);
+    }
+    return expanded;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Modify the amount of currency owned by this actor by a certain amount.
    * The input amount can be provided either as a raw integer or as an object of currency denominations.
    * Returns the amount of currency that was added or subtracted.

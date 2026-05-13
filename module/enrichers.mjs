@@ -400,7 +400,7 @@ async function onClickCounterspell(event) {
   event.preventDefault();
   const {rune, gesture, inflection, dc: dcString} = event.currentTarget.dataset;
   const dc = Number(dcString);
-  const actor = inferEnricherActor();
+  const actor = inferEnricherActors(true);
 
   // If inferred can counterspell, prompt
   if ( actor?.actions.counterspell ) return crucible.api.models.CrucibleCounterspellAction
@@ -760,7 +760,9 @@ function renderSkillCheck(element) {
 async function onClickSkillCheck(event) {
   event.preventDefault();
   const {check, actor} = prepareSkillCheck(event);
-  const response = await check.dialog({request: game.user.isGM && !actor});
+  const request = game.user.isGM && !actor;
+  const requestedActors = request ? inferEnricherActors() : [];
+  const response = await check.dialog({request, requestedActors});
   if ( response === null ) return;
   const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[check.data.type].label});
   return check.toMessage({flavor});
@@ -775,8 +777,11 @@ async function onClickSkillCheck(event) {
 function onClickGroupCheck(event) {
   event.preventDefault();
   if ( !game.user.isGM ) return ui.notifications.warn(_loc("DICE.GROUP_CHECK.RequiresGM"));
-  const requestedActors = getPartyActors();
-  if ( !requestedActors ) return;
+  let requestedActors = inferEnricherActors();
+  if ( !requestedActors.length ) {
+    requestedActors = getPartyActors();
+    if ( !requestedActors ) return;
+  }
   const {check} = prepareSkillCheck(event);
   const dialogOptions = {request: true, requestedActors};
   return check.dialog(dialogOptions);
@@ -809,7 +814,7 @@ function prepareSkillCheck(event) {
   const parsedDc = Number(dcStr);
   const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
   const checkData = {type: skillId, dc};
-  const actor = inferEnricherActor();
+  const actor = inferEnricherActors(true);
   const check = actor ? actor.getSkillCheck(skillId, checkData) : new crucible.api.dice.StandardCheck(checkData);
   return {actor, check};
 }
@@ -817,17 +822,22 @@ function prepareSkillCheck(event) {
 /* -------------------------------------------- */
 
 /**
- * Infer the actor associated with the current user for use in enricher click handlers.
+ * Resolve the participant actors associated with the current user for use in enricher click handlers.
+ * Top priority given to controlled tokens (group actors expand to constituent members).
+ * Non-GM users fall back to their assigned character.
+ * @param {boolean} [singular=false]
+ * @returns {CrucibleActor[]|CrucibleActor|null}
  */
-function inferEnricherActor() {
-  if ( canvas.ready && (canvas.tokens.controlled.length === 1) ) {
-    const controlledToken = canvas.tokens.controlled[0];
-    if ( controlledToken.actor?.isOwner && !controlledToken.document.isGroup ) return controlledToken.actor;
+function inferEnricherActors(singular=false) {
+  let actors;
+  if ( canvas.ready && canvas.tokens.controlled.length ) {
+    const owned = canvas.tokens.controlled.map(t => t.actor).filter(a => a?.isOwner);
+    actors = crucible.api.documents.CrucibleActor.expandGroups(owned);
   }
-  else if ( !game.user.isGM && game.user.character ) {
-    if ( game.user.character?.isOwner ) return game.user.character;
-  }
-  return null;
+  else if ( !game.user.isGM && game.user.character?.isOwner ) actors = [game.user.character];
+  else actors = [];
+  if ( singular ) return actors.length === 1 ? actors[0] : null;
+  return actors;
 }
 
 /* -------------------------------------------- */
