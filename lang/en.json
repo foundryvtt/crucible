@@ -1405,6 +1405,7 @@
     "Wounds": "Healing Threshold"
   },
   "DETECTION_MODES": {
+    "SenseCreature": "Sense Creature",
     "ThermalVision": "Thermal Vision"
   },
   "DICE": {

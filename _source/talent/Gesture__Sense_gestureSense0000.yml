@@ -27,12 +27,7 @@ system:
     Monstrosities</p></li><li><p><strong>Life</strong>: Plants and
     Beasts</p></li><li><p><strong>Lightning</strong>: Constructs and Storm
     Elementals</p></li><li><p><strong>Oblivion</strong>:
-    Outsiders</p></li><li><p><strong>Soul</strong>: Humanoids</p></li></ul><h3
-    class="divider">Playtest Notes</h3><p>There is no automation for the sense
-    that is temporarily granted by this spell, but such automation can be
-    provided in the future via a Detection Mode which temporarily reveals
-    creatures of the appropriate type to the spellcaster while the spell is
-    maintained.</p>
+    Outsiders</p></li><li><p><strong>Soul</strong>: Humanoids</p></li></ul>
   actions: []
   rune: ''
   gesture: sense
@@ -51,12 +46,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.361'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.9.2
   createdTime: 1762828633395
-  modifiedTime: 1773514792579
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1778618197823
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: gestureSense0000
 sort: 0
 _key: '!items!gestureSense0000'

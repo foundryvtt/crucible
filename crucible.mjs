@@ -450,6 +450,14 @@ Hooks.once("init", async function() {
     label: "DETECTION_MODES.ThermalVision",
     type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
   });
+  CONFIG.Canvas.detectionModes.senseCreature = new canvas.detectionModes.DetectionModeSenseCreature({
+    id: "senseCreature",
+    label: "DETECTION_MODES.SenseCreature",
+    tokenConfig: false,
+    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.OTHER,
+    walls: false,
+    angle: false
+  })
 });
 
 /* -------------------------------------------- */
