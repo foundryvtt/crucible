@@ -1516,6 +1516,8 @@
     }
   },
   "HAZARD": {
+    "DefaultActor": "Environment",
+    "DefaultName": "Environmental Hazard",
     "Hazard": "Hazard",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",

@@ -2,7 +2,7 @@
     <header class="title flexrow">
         <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
         <div class="advancement flexrow">
-            <span><i class="threat-icon {{threat.icon}}"></i> Level</span>
+            <span><i class="threat-icon {{threat.icon}}"></i> {{localize "ADVANCEMENT.Level"}}</span>
             <div class="controls flexcol">
                 <button type="button" class="icon fa-solid fa-caret-up {{#unless canLevelUp}}inactive{{/unless}}"
                         data-tooltip aria-label="{{localize 'ACTOR.ADVERSARY.ACTIONS.IncreaseLevel'}}"

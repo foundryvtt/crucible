@@ -28,7 +28,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const {actor: a, source: s, incomplete: i} = context;
-    const {threat, level} = a.system.advancement;
+    const {rank, level} = a.system.advancement;
 
     // Expand Context
     Object.assign(context, {
@@ -36,7 +36,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       taxonomyName: a.system.details.taxonomy?.name || _loc("TAXONOMY.SHEET.Choose"),
       canPurchaseTalents: false,
       threats: SYSTEM.THREAT_RANKS,
-      threat: SYSTEM.THREAT_RANKS[threat],
+      threat: SYSTEM.THREAT_RANKS[rank],
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
       canLevelDown: level > -5

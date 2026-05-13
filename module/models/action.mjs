@@ -2687,7 +2687,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // so fabricate a fresh placeholder when reconstituting one from chat
     let actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
     if ( !actor && actionData.tags?.includes("hazard") ) {
-      actor = new Actor.implementation({name: "Environment", type: "adversary"});
+      actor = new Actor.implementation({name: _loc("HAZARD.DefaultActor"), type: "adversary"});
     }
     const item = fromUuidSync(itemUuid);
     const token = fromUuidSync(tokenUuid);
@@ -2785,7 +2785,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     tags.unshift("hazard");
     return new this({
       id: "environmentAttack",
-      name: name || "Environmental Hazard",
+      name: name || _loc("HAZARD.DefaultName"),
       img: "icons/skills/wounds/injury-body-pain-gray.webp",
       description: description ?? "",
       target: {type: "single", scope: 4, self: true},
