@@ -147,6 +147,7 @@ HOOKS.sense = {
   prepare() {
     this.usage.hasDice = false;
     this.usage.region.wallRestriction = false;
+    this.regionBehavior.system.events = [];
   },
   postActivate() {
     this.recordEvent({type: "effect", effects: [{
