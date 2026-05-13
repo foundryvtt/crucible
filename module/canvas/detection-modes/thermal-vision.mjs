@@ -2,6 +2,13 @@
  * A custom DetectionMode that is specialized in perceiving temperature changes from ambient equilibrium.
  */
 export default class DetectionModeThermalVision extends foundry.canvas.perception.DetectionMode {
+  constructor() {
+    super({
+      id: "thermalVision",
+      label: "DETECTION_MODES.ThermalVision",
+      type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+    });
+  }
 
   /**
    * Glow colors for each detectable temperature tier. Hot tiers shade orange/red; cold tiers shade blue/purple.

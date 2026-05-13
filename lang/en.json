@@ -1405,6 +1405,7 @@
     "Wounds": "Healing Threshold"
   },
   "DETECTION_MODES": {
+    "Echolocation": "Echolocation",
     "SenseCreature": "Sense Creature",
     "ThermalVision": "Thermal Vision"
   },

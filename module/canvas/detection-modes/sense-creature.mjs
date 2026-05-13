@@ -1,4 +1,14 @@
 export default class DetectionModeSenseCreature extends foundry.canvas.perception.DetectionMode {
+  constructor() {
+    super({
+      id: "senseCreature",
+      label: "DETECTION_MODES.SenseCreature",
+      tokenConfig: false,
+      type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.OTHER,
+      walls: false,
+      angle: false
+    });
+  }
 
   /**
    * Glow colors for each rune.

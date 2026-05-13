@@ -369,6 +369,14 @@ HOOKS.dustbinder000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.echolocation0000 = {
+  prepareToken(_item, token) {
+    token.detectionModes.echolocation ??= {enabled: true, range: 60};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.evasiveshot00000 = {
   prepareAttack(item, action, _target, _rollData) {
     if ( !action.tags.has("strike") ) return;

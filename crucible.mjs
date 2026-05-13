@@ -445,19 +445,11 @@ Hooks.once("init", async function() {
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
 
   // Crucible-specific detection modes
-  CONFIG.Canvas.detectionModes.thermalVision = new canvas.detectionModes.DetectionModeThermalVision({
-    id: "thermalVision",
-    label: "DETECTION_MODES.ThermalVision",
-    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+  Object.assign(CONFIG.Canvas.detectionModes, {
+    echolocation: new canvas.detectionModes.DetectionModeEcholocation(),
+    senseCreature: new canvas.detectionModes.DetectionModeSenseCreature(),
+    thermalVision: new canvas.detectionModes.DetectionModeThermalVision()
   });
-  CONFIG.Canvas.detectionModes.senseCreature = new canvas.detectionModes.DetectionModeSenseCreature({
-    id: "senseCreature",
-    label: "DETECTION_MODES.SenseCreature",
-    tokenConfig: false,
-    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.OTHER,
-    walls: false,
-    angle: false
-  })
 });
 
 /* -------------------------------------------- */
