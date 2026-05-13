@@ -11,10 +11,7 @@ system:
     long as they are not behind total cover. If the creature is
     @Condition[deafened], this sense may not be used.</p><p>A creature detected
     using @ref[name] is treated as visible for the purposes of actions which
-    require you to see your target.</p><h3 class="divider">Under
-    Development</h3><p>This should eventually be handled with a
-    specialized<strong> Detection Mode</strong> added to tokens which have this
-    talent.</p>
+    require you to see your target.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -33,12 +30,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.361'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.9.3
   createdTime: 1776979376935
-  modifiedTime: 1776979376936
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1778698487262
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
   duplicateSource: null
