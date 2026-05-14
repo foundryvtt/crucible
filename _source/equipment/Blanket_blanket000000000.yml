@@ -8,7 +8,7 @@ system:
   quality: standard
   price: 60
   quantity: 1
-  weight: 20
+  weight: 4
   description:
     public: <p>A thick felted wool or fibre cloth with a myriad of uses.</p>
     private: ''
