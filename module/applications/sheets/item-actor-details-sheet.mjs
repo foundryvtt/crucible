@@ -63,7 +63,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
-      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level})
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level, uuid})
         .then(html => ({html, name: talent.name, level})));
     }
     const sorted = (await Promise.all(promises))
