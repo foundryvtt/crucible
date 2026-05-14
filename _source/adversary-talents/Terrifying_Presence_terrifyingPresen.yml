@@ -1,0 +1,92 @@
+name: Terrifying Presence
+type: talent
+_id: terrifyingPresen
+img: icons/magic/control/fear-fright-monster-purple-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>Something about the presence of this creature motivates a pure and
+    unbridled fear in those who observe it.</p>
+  actions:
+    - id: terrifyingPresence
+      name: Terrifying Presence
+      img: icons/magic/control/fear-fright-monster-purple-blue.webp
+      description: >-
+        <p>When an enemy moves within 20 feet of the @ref[actor.name]{creature},
+        it becomes exposed to the dreadful presence, attacking its
+        <strong>Willpower</strong> and inflicting the @Condition[frightened]
+        condition upon success.</p>
+      condition: An enemy moves within 20 feet.
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 3
+        self: false
+        size: 20
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - frightened
+          duration:
+            value: 6
+            units: rounds
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - reaction
+        - generic
+        - harmless
+        - willpower
+        - presence
+      autoFavorite: false
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: EDeByOa9cuYSaF8Y
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.3
+  createdTime: 1778766695361
+  modifiedTime: 1778766695361
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!terrifyingPresen'
