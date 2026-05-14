@@ -707,6 +707,15 @@ HOOKS.poisoner00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.polybrachial0000 = {
+  prepareWeapons(item, weapons) {
+    weapons.freeHands = Math.max(weapons.freeHands, 2);
+    weapons.spellHands = Math.max(weapons.spellHands, 2);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.powerfulphysique = {
   prepareInitiativeCheck(_item, rollData) {
     const {weapons, armor} = this.equipment;
