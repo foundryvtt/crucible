@@ -439,6 +439,7 @@
       "InvalidTarget": "Musisz wyznaczyć co najmniej jeden cel {type} dla {action}!",
       "InvalidTargetsGeneric": "Nieprawidłowe cele dla tej akcji!",
       "LastCriticallyMissed": "Możesz wykonać {action} tylko po podstawowym Ataku, który nie zakończył się krytyczną porażką.",
+      "LastNotMeleeCrit": "Możesz wykonać {action} wyłącznie bezpośrednio po ataku wręcz, który zakończył się trafieniem krytycznym.",
       "MaximumRange": "Wybrany cel znajduje się dalej niż maksymalny zasięg {max} stóp.",
       "MinimumRange": "Wybrany cel znajduje się bliżej niż minimalny zasięg {min} stóp.",
       "MinimumSize": "Aby wykonać {action}, musisz mieć co najmniej rozmiar {size}",
@@ -545,6 +546,7 @@
       "Invisible": "Niewidzialny",
       "Invulnerable": "Niezniszczalny",
       "Irradiated": "Napromieniowany",
+      "Limitless": "Nieograniczony",
       "Mending": "Regeneracji",
       "Mute": "Wyciszony",
       "Paralyzed": "Sparaliżowany",
@@ -1063,8 +1065,11 @@
     },
     "PROPERTIES": {
       "Bulky": "Nieporęczny",
+      "BulkyTooltip": "Zbroja typu Nieporęczny jest nieporęczna w użyciu i powoduje obniżenie wszystkich rzutów na inicjatywę o +2 Zguby.",
       "Natural": "Naturalna",
-      "Noisy": "Hałaśliwy"
+      "NaturalTooltip": "Naturalna zbroja stanowi część istoty, która ją „nosi”. Zazwyczaj nie można jej zdjąć.",
+      "Noisy": "Hałaśliwy",
+      "NoisyTooltip": "Zbroja o właściwości <strong>Hałaśliwy</strong> utrudnia poruszanie się bezszelestnie."
     },
     "SHEET": {
       "ArmorBonus": "Premia do pancerza",
@@ -1280,6 +1285,10 @@
         "value.label": "Wartość"
       }
     },
+    "PROPERTIES": {
+      "Thrown": "Rzucana",
+      "ThrownTooltip":"Ten materiał eksploatacyjny jest przeznaczony do wyrzucenia."
+    },
     "SCROLL": {
       "ComponentBudget": "Ten zwój może zapewnić do {budget} magicznych komponentów. Wybierz, jakie składniki zapewnia ten zwój.",
       "ComponentBudgetError": "Ten zwój może zawierać tylko {budget} magicznych komponentów, ale dostarczono {total} składników.",
@@ -1396,6 +1405,8 @@
     "Wounds": "Próg uzdrawiania"
   },
   "DETECTION_MODES": {
+    "Echolocation": "Echolokacja",
+    "SenseCreature": "Wyczuwanie stworzeń",
     "ThermalVision": "Widzenie termiczne"
   },
   "DICE": {
@@ -1423,6 +1434,7 @@
         "Aborted": "Przerwano",
         "Skipped": "Pominięto"
       },
+      "AggregateDetail": "Wymagane {required}",
       "Resend": "Wyślij ponownie",
       "RollOnBehalf": "Rzuć w imieniu",
       "Skip": "Pomiń aktora",
@@ -1448,7 +1460,7 @@
       "two": "Zguby",
       "few": "Zguby",
       "many": "Zgub",
-      "other": "Zgub"
+      "other": "Zguby"
     },
     "Boons": {
       "zero": "Korzyści",
@@ -1505,6 +1517,8 @@
     }
   },
   "HAZARD": {
+    "DefaultActor": "Środowisko",
+    "DefaultName": "Zagrożenie środowiskowe",
     "Hazard": "Zagrożenie",
     "UseHazard": "Użycie zagrożenia",
     "WindowTitle": "Zagrożenie: {name}",
@@ -1544,7 +1558,7 @@
     },
     "COMPOSED_NAME": {
       "Prefix": "{name} {prefixes}",
-      "Suffix": "{name} {suffixes}" 
+      "Suffix": "{name} {suffixes}"
     },
     "FIELDS": {
       "actions": {
@@ -1727,6 +1741,34 @@
       "Treasure": "Skarb"
     }
   },
+  "REGION_BEHAVIORS": {
+    "HAZARD": {
+      "FIELDS": {
+        "danger": {
+          "label": "Poziom zagrożenia"
+        },
+        "defenseType": {
+          "label": "Typ obrony"
+        },
+        "damageType": {
+          "label": "Typ obrażeń"
+        },
+        "resource": {
+          "label": "Docelowe zasoby"
+        },
+        "tags": {
+          "label": "Tagi zagrożenia"
+        },
+        "name": {
+          "label": "Nazwa"
+        },
+        "promptGM": {
+          "hint": "Jeśli warunek jest spełniony, MG otrzyma okno dialogowe rzutu, w przeciwnym razie rzut zostanie wykonany automatycznie.",
+          "label": "Działanie MG"
+        }
+      }
+    }
+  },
   "RESOURCES": {
     "TOOLTIPS": {
       "Action": "6 + Premia akcji",
@@ -1823,6 +1865,11 @@
       "OutputDrop": "Upuść przedmiot wyjściowy",
       "OutputRemove": "Usuń grupę wyjściową",
       "Outputs": "Dane wyjściowe"
+    }
+  },
+  "SCENE": {
+    "WARNINGS": {
+      "MicrogridUnavailable": "Scena „{name}” jest skonfigurowana jako kwadratowa siatka z odległościami podanymi w stopach, ale nie może korzystać z mikrosiatki Crucible. Odległość w siatce musi wynosić 5 stóp (obecnie {distance}), a rozmiar siatki musi być wielokrotnością 5 pikseli (obecnie {size} pikseli)."
     }
   },
   "SETTINGS": {
@@ -2433,6 +2480,9 @@
     },
     "JournalEntryPage": {
       "skill": "Umiejętność Crucible"
+    },
+    "RegionBehavior": {
+      "crucible.hazard": "Zagrożenie Crucible"
     }
   },
   "WALKTHROUGH": {
