@@ -1482,6 +1482,7 @@
     "DCAdditionalPassive": "{dcLabel}, Passive",
     "DCAdditionalGroup": "{dcLabel}, Group",
     "DCSpecific": "DC {dc}",
+    "DCTargetSpecific": "{skill} DC Target",
     "DiceTotal": "Dice Total",
     "Enchantment": "Enchantment",
     "EnchantmentBonus": "Enchantment Bonus",
