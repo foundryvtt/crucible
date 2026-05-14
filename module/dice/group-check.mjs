@@ -45,7 +45,7 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} outcomeKey       Localization key for the aggregate outcome label
  * @property {string} classes          CSS classes describing the outcome (success/failure plus optional critical)
  * @property {string} detail           Pre-localized right-side label that contextualizes the hex score
- * @property {number} score            Weighted total: crit success +2, success +1, failure 0, crit failure -1
+ * @property {number|"???"} score      Weighted total: crit success +2, success +1, failure 0, crit failure -1
  * @property {number} total            Number of participants whose rolls counted toward the aggregate
  * @property {number} required         Score threshold needed to clear an aggregate success
  * @property {number} skippedCount     Number of participants excluded as skipped
@@ -258,7 +258,7 @@ export default class GroupCheck extends StandardCheck {
       actors
     };
 
-    const content = await this.#renderGroupCheckCard(groupCheckFlags);
+    const content = await GroupCheck.renderGroupCheckCard(groupCheckFlags);
     const skillIds = Object.keys(skills);
     const flavor = (skillIds.length === 1)
       ? _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillIds[0]].label})
@@ -426,7 +426,7 @@ export default class GroupCheck extends StandardCheck {
    * @param {Roll[]} [rolls=[]]         The message's canonical rolls array
    * @returns {Promise<string>}         The rendered HTML content
    */
-  async #renderGroupCheckCard(flags, rolls=[]) {
+  static async renderGroupCheckCard(flags, rolls=[]) {
     const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, rolls));
     const aggregate = GroupCheck.#computeAggregate(flags, rolls);
     return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors, aggregate});
@@ -469,7 +469,12 @@ export default class GroupCheck extends StandardCheck {
 
     let outcomeKey = "ACTION.EFFECT_RESULT_TYPES.";
     let classes;
-    if ( score >= total ) {
+    if ( rolls.some(r => !Number.isNumeric(r.data.dc)) ) {
+      score = "???";
+      outcomeKey = "COMMON.Unknown";
+      classes = "unknown";
+    }
+    else if ( score >= total ) {
       outcomeKey += "CriticalSuccess";
       classes = "critical success";
     }
@@ -538,7 +543,7 @@ export default class GroupCheck extends StandardCheck {
       const updateData = foundry.utils.isPlainObject(result) ? result : {};
       const newRolls = updateData.rolls ?? [];
       const allRolls = [...current.rolls, ...newRolls];
-      const content = await this.#fromFlags(flags).#renderGroupCheckCard(flags, allRolls);
+      const content = await this.renderGroupCheckCard(flags, allRolls);
       if ( newRolls.length ) {
         const existingRolls = current.rolls.map(r => JSON.stringify(r.toJSON()));
         updateData.rolls = [...existingRolls, ...newRolls.map(r => JSON.stringify(r.toJSON()))];
