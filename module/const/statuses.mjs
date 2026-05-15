@@ -218,6 +218,12 @@ export const statusEffects = {
     img: "systems/crucible/icons/statuses/unaware.svg",
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.unaware000000000"
   },
+  falling: {
+    id: "falling",
+    name: "ACTIVE_EFFECT.STATUSES.Falling",
+    img: "systems/crucible/icons/statuses/falling.svg",
+    page: "Compendium.crucible.rules.JournalEntry.exploration00000"
+  },
 
   // Damage Over Time
   bleeding: {
