@@ -2028,8 +2028,7 @@ actors:
           description: >-
             <p>You are adept at entering and exiting the fray. When moving out
             of the <strong>Engagement</strong> radius of an enemy, that enemy
-            has 2 Banes to any <strong>Disengagement Strike</strong> against
-            you.</p>
+            has 2 Banes to any <strong>Reactive Strike</strong> against you.</p>
           nodes:
             - dex3b
           actions: []
@@ -3094,7 +3093,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -10511,8 +10510,7 @@ actors:
           description: >-
             <p>You are adept at entering and exiting the fray. When moving out
             of the <strong>Engagement</strong> radius of an enemy, that enemy
-            has 2 Banes to any <strong>Disengagement Strike</strong> against
-            you.</p>
+            has 2 Banes to any <strong>Reactive Strike</strong> against you.</p>
           nodes:
             - dex3b
           actions: []
@@ -10664,7 +10662,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -12808,7 +12806,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -14639,8 +14637,7 @@ actors:
           description: >-
             <p>You are adept at entering and exiting the fray. When moving out
             of the <strong>Engagement</strong> radius of an enemy, that enemy
-            has 2 Banes to any <strong>Disengagement Strike</strong> against
-            you.</p>
+            has 2 Banes to any <strong>Reactive Strike</strong> against you.</p>
           nodes:
             - dex3b
           actions: []
@@ -19648,7 +19645,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -23010,7 +23007,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -24032,7 +24029,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
@@ -27059,7 +27056,7 @@ actors:
                 <strong>Stride</strong> to interpose yourself and block their
                 path.</p><p>If the enemy moves out of your Engagement radius or
                 attacks any other creature during their turn, you may make a
-                <strong>Disengagement Strike</strong> against them.</p>
+                <strong>Reactive Strike</strong> against them.</p>
               tags:
                 - movement
                 - reaction
