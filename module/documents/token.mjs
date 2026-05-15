@@ -192,6 +192,57 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
+   * Apply a falling hazard to this token.
+   * @param {number} distance   The distance fallen, in feet.
+   * @param {object} [options]  Additional hazard data which overrides the values derived from the fall distance.
+   * @returns {Promise<void>}
+   */
+  async fall(distance, options={}) {
+    const { actor } = this;
+    if ( !actor || (distance <= 10) ) return;
+
+    // Falls of 11-30 feet challenge Reflex dealing Bludgeoning damage to Health. Falls of 31+ feet are a Severe
+    // hazard challenging Fortitude.
+    const severe = distance > 30;
+    const tags = severe ? ["fortitude", "severe", "bludgeoning"] : ["reflex", "health", "bludgeoning"];
+
+    // Unless the hazard is resisted, the creature also falls prone.
+    const action = crucible.api.models.CrucibleAction.createHazard({
+      actor, tags,
+      danger: distance,
+      name: game.i18n.localize("HAZARD.Falling"),
+      effects: [{ statuses: ["prone"], result: { type: "success" } }],
+      ...options
+    });
+    await action.use({ dialog: false });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Plummet this token straight down to the highest movement-restricting surface beneath it, applying hazards as
+   * appropriate.
+   * @returns {Promise<void>}
+   */
+  async plummet() {
+    const { actor, elevation, name } = this;
+    if ( !actor?.statuses.has("falling") ) return;
+    if ( !actor.canUserModify(game.user, "update") ) return;
+
+    const surface = this.#findSupportingSurface();
+    if ( !surface || (surface.elevation >= elevation) ) {
+      ui.notifications.warn("TOKEN.WARNING.NoLandingSurface", { format: { name } });
+      return;
+    }
+
+    const distance = this.elevation - surface.elevation;
+    await this.move({ elevation: surface.elevation }, { animate: false, crucible: { fall: { distance } } });
+    await this.fall(distance);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Find the highest movement-restricting surface at or below the token's current elevation whose 2D footprint contains
    * at least 75% of the token's containment points. This is the surface the token is either standing on (when its
    * elevation matches the token's) or hovering above.

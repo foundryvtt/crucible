@@ -286,6 +286,23 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  async _drawEffect(src, tint) {
+    // Allow certain status effects to be clicked.
+    const icon = await super._drawEffect(src, tint);
+    if ( icon && (src === CONFIG.statusEffects.falling?.img) ) {
+      icon.eventMode = "static";
+      icon.cursor = "pointer";
+      icon.on("pointerdown", event => {
+        event.stopPropagation();
+        this.document.plummet();
+      });
+    }
+    return icon;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _onControl(options) {
     super._onControl(options);
     if ( CONFIG.debug.flanking ) this._visualizeEngagement(this.engagement);
