@@ -1,3 +1,5 @@
+import { playLandingVfx } from "../canvas/vfx/landing.mjs";
+
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
   /**
@@ -71,6 +73,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     if ( this.isGroup && ("movementAction" in change) && (game.userId === userId) && !options._crucibleRelatedUpdate ) {
       this.actor.update({"system.movement.pace": change.movementAction}, {_crucibleRelatedUpdate: true});
     }
+    const distance = foundry.utils.getProperty(options, "crucible.fall.distance");
+    if ( distance ) playLandingVfx(this, distance);
   }
 
   /* -------------------------------------------- */
