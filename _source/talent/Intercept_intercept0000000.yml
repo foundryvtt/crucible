@@ -16,8 +16,8 @@ system:
         <strong>Engagement</strong> radius, immediatly moving up to your
         <strong>Stride</strong> to interpose yourself and block their
         path.</p><p>If the enemy moves out of your Engagement radius or attacks
-        any other creature during their turn, you may make a
-        <strong>Disengagement Strike</strong> against them.</p>
+        any other creature during their turn, you may make a <strong>Reactive
+        Strike</strong> against them.</p>
       tags:
         - movement
         - reaction
