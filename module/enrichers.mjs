@@ -47,7 +47,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleTalent",
-      pattern: /\[\[\/talent ([\w.]+)]]/g,
+      pattern: /\[\[\/talent ([\w-.]+)]]/g,
       enricher: enrichTalent
     },
     {
@@ -57,7 +57,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleAction",
-      pattern: /@Action\[([\w.]+) (\w+)]/g,
+      pattern: /@Action\[([\w-.]+) (\w+)]/g,
       enricher: enrichAction
     },
     {
@@ -78,7 +78,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleLoot",
-      pattern: /@Loot\[([\w.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      pattern: /@Loot\[([\w-.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
       enricher: enrichLoot,
       onRender: renderLoot
     },
