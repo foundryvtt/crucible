@@ -295,14 +295,22 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the ability score bonus for a given scaling mode.
-   * @param {string|string[]} scaling   How is the ability bonus computed?
-   * @param {number} [divisor=2]        The divisor that determines the bonus
-   * @returns {number}                  The ability bonus
+   * @param {string|string[]} scaling                 Ability id, dot-separated ids, or array of ability ids
+   * @param {object|number} [options]                 Options object, or a number as shorthand for {divisor}
+   * @param {number} [options.divisor=2]              Divisor applied to the aggregate ability value
+   * @param {"average"|"best"} [options.type="average"]  How to aggregate when multiple abilities are provided
+   * @returns {number}                                The ability bonus
    */
-  getAbilityBonus(scaling, divisor=2) {
+  getAbilityBonus(scaling, options={}) {
+    if ( typeof options === "number" ) options = {divisor: options};
+    const {divisor=2, type="average"} = options;
     if ( typeof scaling === "string" ) scaling = scaling.split(".");
     if ( !scaling.length ) return 0;
     const abilities = this.system.abilities;
+    if ( type === "best" ) {
+      const best = scaling.reduce((b, k) => abilities[k].value > abilities[b].value ? k : b);
+      return Math.round(abilities[best].value / divisor);
+    }
     return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
 
