@@ -1,5 +1,4 @@
 import CrucibleItem from "./item.mjs";
-import {getEffectId} from "../const/effects.mjs";
 
 /**
  * An active effect subclass which handles system specific logic for active effects.
@@ -17,10 +16,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static async _fromStatusEffect(statusId, effectData, options) {
     const status = CONFIG.statusEffects[statusId];
     if ( status?.generator ) {
-      foundry.utils.mergeObject(effectData, status.generator(), {overwrite: true});
-      effectData.duration = {};
+      const generated = status.generator();
+      delete generated._id; // Preserve toggled _id
+      foundry.utils.mergeObject(effectData, generated, {overwrite: true});
+      effectData.duration = {}; // Toggled effects have unlimited duration
     }
-    effectData._id = getEffectId(`Toggled ${statusId}`); // Unique effect _id for toggled statuses
     return super._fromStatusEffect(statusId, effectData, options);
   }
 

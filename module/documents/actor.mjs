@@ -2431,25 +2431,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  async toggleStatusEffect(statusId, {active, overlay=false}={}) {
-    const status = CONFIG.statusEffects[statusId];
-    if ( !status ) throw new Error(`Invalid status ID "${statusId}" provided to Actor#toggleStatusEffect`);
-    const ActiveEffect = getDocumentClass("ActiveEffect");
-    const effect = await ActiveEffect.fromStatusEffect(statusId);
-    const existing = this.effects.get(effect.id);
-    if ( existing ) {
-      if ( active ) return true;
-      await existing.delete();
-      return false;
-    }
-    if ( !active && (active !== undefined) ) return;
-    if ( overlay ) effect.updateSource({"flags.core.overlay": true});
-    return ActiveEffect.implementation.create(effect, {parent: this, keepId: true});
-  }
-
-  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 

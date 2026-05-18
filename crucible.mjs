@@ -283,6 +283,7 @@ Hooks.once("init", async function() {
   };
 
   // Status Effects
+  for ( const status of Object.values(statusEffects) ) status._id = SYSTEM.EFFECTS.getEffectId(`Toggled ${status.id}`);
   Object.defineProperty(CONFIG, "statusEffects", {value: statusEffects, configurable: true, enumerable: true});
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";

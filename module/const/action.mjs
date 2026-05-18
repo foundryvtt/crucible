@@ -1132,7 +1132,7 @@ export const TAGS = {
   },
 
   /* -------------------------------------------- */
-  /*             Resource Consumption             */
+  /*  Resource Consumption                        */
   /* -------------------------------------------- */
 
   maintained: {
