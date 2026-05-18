@@ -311,6 +311,7 @@ class CrucibleActionEvent {
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
     for ( const effect of obj.effects ) {
+      if ( !effect.system ) continue;
       for ( const setKey of ["regions", "summons"] ) {
         if ( setKey in effect.system ) effect.system[setKey] = Array.from(effect.system[setKey]);
       }
