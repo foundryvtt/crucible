@@ -1198,9 +1198,20 @@ pages:
       format: 1
       content: >-
         <p>A creature which is <strong>Invisible</strong> cannot be detected
-        using sight-based perception.</p><section class="construction"><p>More
-        advanced rules for invisibility are planned for a future
-        update.</p></section>
+        using sight-based perception. Special detection modes such as
+        <strong>Thermal Vision</strong>, <strong>Sense Creature</strong>, or
+        <strong>Echolocation</strong> may still detect an Invisible
+        creature.</p><h3>Expiration</h3><p>Invisibility expires when its
+        duration elapses, when the Invisible status is removed, or when the
+        Invisible creature performs an action that reveals their
+        presence.</p><p>An action reveals the actor's presence if any of the
+        following are true:</p><ul><li><p>The action is a
+        <strong>Spell</strong>.</p></li><li><p>The action targets another
+        creature (anything other than <strong>Self</strong>-scope or
+        <strong>None</strong>-scope).</p></li></ul><p>An action with the
+        <strong>Undetectable</strong> tag is an exception: regardless of its
+        target scope or spellcraft, it preserves
+        Invisibility.</p>
     video:
       controls: true
       volume: 0.5

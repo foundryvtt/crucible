@@ -18,7 +18,8 @@ system:
         target is Vulnerable. Your minimum Initiative during the first round of
         Combat becomes one greater than the Initiative of your marked
         target.</p>
-      tags: []
+      tags:
+        - undetectable
       cost:
         action: 0
         focus: 1

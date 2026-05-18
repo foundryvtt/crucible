@@ -351,6 +351,8 @@
       "UnarmedTooltip": "This action requires you to be fully unarmed in order to perform.",
       "Unarmored": "Unarmored",
       "UnarmoredTooltip": "This action requires you to be unarmored in order to perform.",
+      "Undetectable": "Undetectable",
+      "UndetectableTooltip": "This action does not trigger conventional notice or magical detection, preserving stealth and invisibility when used.",
       "Vocal": "Vocal",
       "VocalTooltip": "This action requires its user to speak or otherwise vocalize sound.",
       "Weakened": "Weakened",

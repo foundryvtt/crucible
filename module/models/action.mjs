@@ -742,6 +742,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Should using this action expire the actor's Invisible status?
+   * @type {boolean}
+   */
+  get breaksInvisibility() {
+    if ( this.tags.has("undetectable") ) return false;
+    if ( this.tags.has("spell") ) return true;
+    return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  }
+
+  /* -------------------------------------------- */
   /*  Events Management                           */
   /* -------------------------------------------- */
 
@@ -1787,6 +1799,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const allocation = allocations.get(event.target);
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
       for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta});
+    }
+
+    this.#expireInvisibility();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Stage deletion of the Invisible status on the acting actor if this action breaks invisibility.
+   */
+  #expireInvisibility() {
+    if ( !this.actor?.statuses.has("invisible") ) return;
+    if ( !this.breaksInvisibility ) return;
+    for ( const effect of this.actor.effects ) {
+      if ( !effect.statuses.has("invisible") ) continue;
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: effect.id, _action: "delete"}]});
     }
   }
 

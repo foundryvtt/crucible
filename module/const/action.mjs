@@ -1036,6 +1036,12 @@ export const TAGS = {
       }
     }
   },
+  undetectable: {
+    tag: "undetectable",
+    label: "ACTION.TAG.Undetectable",
+    tooltip: "ACTION.TAG.UndetectableTooltip",
+    category: "modifiers"
+  },
   weakened: {
     tag: "weakened",
     label: "ACTION.TAG.Weakened",
