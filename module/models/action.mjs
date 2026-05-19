@@ -130,7 +130,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {"activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"other"} CrucibleActionEventType
+ * @typedef {("activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"movement"|"other")
+ *   } CrucibleActionEventType
  * The type of event in an action's timeline.
  * - "activation": The initial resource cost of performing the action, targeting the acting actor.
  * - "strike": A weapon attack roll against a target.
@@ -139,6 +140,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * - "summon": A creature summoned as part of the action.
  * - "effect": Active effects applied to a target, not yet attributed to a specific roll.
  * - "actorUpdate": Data updates applied to a target actor (e.g. status flags, item drops from disarm).
+ * - "movement": A planned token movement enacted at confirm time. At most one per actor.
  * - "other": A resource change not attributable to a specific roll (e.g. hook-contributed bonuses).
  */
 
@@ -622,6 +624,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   static dialogClass = ActionUseDialog;
 
+  /**
+   * Event types of which only a single instance per target is permitted in the action's event stream.
+   * @type {Set<CrucibleActionEventType>}
+   */
+  static #SINGLETON_EVENT_TYPES = new Set(["activation", "actorUpdate", "movement"]);
+
   /* -------------------------------------------- */
   /*  Properties                                  */
   /* -------------------------------------------- */
@@ -764,6 +772,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @property {CrucibleActionEvent[]} roll           Events that contain dice rolls
    * @property {CrucibleActionEvent|null} activation  The activation event (singleton, at most one per actor)
    * @property {CrucibleActionEvent|null} actorUpdate The actor update event (singleton, at most one per actor)
+   * @property {CrucibleActionEvent|null} movement    The movement event (singleton, at most one per actor)
    * @property {boolean} isSelf                       Is this actor the one performing the action?
    * @property {boolean} isTarget                     Was this actor explicitly targeted by the action?
    * @property {boolean} hasRoll                      Does this actor have at least one roll event?
@@ -791,6 +800,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           roll: [],
           activation: null,
           actorUpdate: null,
+          movement: null,
           isSelf: event.target === this.actor,
           isTarget: this.targets?.has(event.target) ?? false,
           hasRoll: false,
@@ -816,6 +826,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       if ( event.type === "activation" ) events.activation = event;
       else if ( event.type === "actorUpdate" ) events.actorUpdate = event;
+      else if ( event.type === "movement" ) events.movement = event;
     }
 
     // allSuccess/allFailure are only meaningful when there are rolls
@@ -1107,7 +1118,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   recordEvent(eventData, {index, start, temporary}={}) {
     const event = new CrucibleActionEvent(eventData, this);
     if ( temporary ) return event;
-    if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
+    if ( CrucibleAction.#SINGLETON_EVENT_TYPES.has(event.type) ) {
       const existing = this.events.find(e => (e.type === event.type) && (e.target === event.target));
       if ( existing ) throw new Error(`Duplicate singleton "${event.type}" event for actor "${event.target.name}"`);
     }
@@ -2259,7 +2270,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const event of this.events ) {
       const actor = event.target;
       if ( !batches.has(actor) ) batches.set(actor, {
-        resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], statusText: []
+        resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], statusText: [], movementId: null
       });
       const batch = batches.get(actor);
       const isSelf = actor === this.actor;
@@ -2289,15 +2300,53 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Accumulate status text
       if ( event.statusText ) batch.statusText.push(...event.statusText);
+
+      // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
+      if ( event.type === "movement" ) {
+        batch.movementId = event.movement;
+        if ( reverse && (event.movement === actor.system.status?.freeMovementId) ) {
+          foundry.utils.setProperty(batch.actorUpdates, "system.status.hasMoved", false);
+          foundry.utils.setProperty(batch.actorUpdates, "system.status.freeMovementId", null);
+        }
+      }
     }
 
     // Apply each actor's batch - skip non-persisted actors (e.g. the transient Environment actor used by hazards)
     for ( const [actor, batch] of batches ) {
       if ( !game.actors.has(actor.id) ) continue;
       if ( reverse && batch.itemSnapshots.length ) this.#reverseItemSnapshots(batch);
+
+      // Enact or reverse planned movement before committing resources, so the actor's freeMovement state
+      // and token position settle before any downstream observers fire on the alterResources update.
+      if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
+
       const statusText = batch.statusText.length ? batch.statusText : undefined;
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, statusText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Enact or reverse a single planned movement recorded as a `type: "movement"` event in this action.
+   * @param {CrucibleActor} actor      The actor whose token is being moved
+   * @param {string} movementId        The id of the planned movement
+   * @param {boolean} reverse          Reverse the movement instead of enacting it?
+   */
+  async #applyMovement(actor, movementId, reverse) {
+    const token = (actor === this.actor) ? this.token
+      : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
+    if ( !token ) return;
+    const isPlanned = (token.movement?.id === movementId) && (token.movement?.state === "planned");
+    if ( reverse ) {
+      if ( isPlanned ) await token.stopMovement();
+      else await token.revertRecordedMovement(movementId);
+      return;
+    }
+    if ( isPlanned ) {
+      (token._confirmedMovements ??= new Set()).add(movementId);
+      await token.startMovement(movementId);
     }
   }
 
