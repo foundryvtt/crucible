@@ -84,11 +84,14 @@ export default class CrucibleChatMessage extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Returns the most recent action in the chat log
-   * @param {object} [options]                    Options which specify criteria the most recent action must meet
-   * @param {boolean} [options.confirmed]         Require the action to be confirmed (true), unconfirmed (false),
-   *   or either (undefined)
-   * @param {Actor} [options.actor]               An Actor (or actor ID) who must have performed the most recent action
+   * Return the most recent action in the chat log, optionally requiring it to satisfy the supplied criteria.
+   * Criteria are strict: if the latest action message fails any of them, this returns null rather than continuing
+   * to search backward for an earlier match.
+   * @param {object} [options]
+   * @param {boolean} [options.confirmed]         Require the most recent action to be confirmed (true) or
+   *                                              unconfirmed (false). If omitted, either state is accepted.
+   * @param {Actor|string} [options.actor]        Require the most recent action to have been performed by this Actor
+   *                                              (or actor ID).
    * @returns {CrucibleAction|null}
    */
   static getLastAction({confirmed, actor}={}) {
