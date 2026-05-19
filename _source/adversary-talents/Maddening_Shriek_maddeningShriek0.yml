@@ -1,0 +1,95 @@
+name: Maddening Shriek
+type: talent
+_id: maddeningShriek0
+img: icons/magic/sonic/scream-wail-shout-teal.webp
+system:
+  nodes: []
+  description: >-
+    <p>This @ref[actor.name]{creature} is capable of emitting a piercing screech
+    so shrill that it can cause temporary hearing loss in other creatures who
+    perceive it.</p>
+  actions:
+    - id: maddeningShriek
+      name: Maddening Shriek
+      img: icons/magic/sonic/scream-wail-shout-teal.webp
+      description: >-
+        <p>The @ref[actor.name]{creature} emits a shrill and piercing screech,
+        attacking the <strong>Morale</strong> of all those contained within and
+        afflicting them with the @Condition[deafened] condition for one
+        round.</p>
+      condition: ''
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: cone
+        number: 1
+        scope: 4
+        self: false
+        size: 15
+      summon:
+        actorUuid: null
+        permanent: true
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - deafened
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - vocal
+        - auditory
+        - fortitude
+        - psychic
+        - morale
+        - skill
+        - intimidation
+      autoFavorite: false
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1779221992102
+  modifiedTime: 1779221992103
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+folder: pfqBQPVP2KV9fQFs
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+sort: 0
+_key: '!items!maddeningShriek0'
