@@ -6,6 +6,7 @@ export * as detectionModes from "./detection-modes/_module.mjs";
 export * as tree from "./tree/_module.mjs";
 export * as grid from "./grid/_module.mjs";
 export * as vfx from "./vfx/_module.mjs";
+export * as movement from "./movement.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
 export {CrucibleTokenRuler};
 
@@ -40,6 +41,21 @@ export function configure() {
     costMultiplier: 0,
     speedMultiplier: Infinity,
     canSelect: false,
+    terrainAction: null
+  };
+
+  // Physically forced movement, cost is always zero
+  CONFIG.Token.movement.actions.push = {
+    order: 998,
+    label: "TOKEN.MOVEMENT.ACTIONS.push.label",
+    icon: "fa-solid fa-explosion",
+    img: "icons/svg/wing.svg",
+    teleport: false,
+    measure: false,
+    visualize: true,
+    costMultiplier: 0,
+    speedMultiplier: 1,
+    canSelect: true,
     terrainAction: null
   };
 
