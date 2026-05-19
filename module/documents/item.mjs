@@ -50,7 +50,7 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @type {CrucibleAction[]}
    */
   get actions() {
-    return this.system.actions;
+    return this.system?.actions || []; // FIXME core v14-dev bug should be fixed in 14.362
   }
 
   /**
