@@ -673,7 +673,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
     if ( canvas.tokens._movementPlanningContext?.object?.document === token ) {
       canvas.tokens._cancelMovementPlanning();
     }
-    canvas.tokens.setTargets([]);
   }
 
   /* -------------------------------------------- */
