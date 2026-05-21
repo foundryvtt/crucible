@@ -1063,10 +1063,10 @@ export const TAGS = {
         const targetResources = event.target?.system?.resources;
         if ( !targetResources ) continue;
         const resource = event.roll.data.damage.resource ?? "health";
-        if ( (resource === "health") && ("wounds" in targetResources) ) {
+        if ( (resource === "health") && (event.target.system.usesReserveResources) ) {
           event.roll.data.damage.resource = "wounds";
         }
-        else if ( (resource === "morale") && ("madness" in targetResources) ) {
+        else if ( (resource === "morale") && (event.target.system.usesReserveResources) ) {
           event.roll.data.damage.resource = "madness";
         }
       }
