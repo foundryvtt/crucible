@@ -351,6 +351,8 @@
       "UnarmedTooltip": "Aby wykonać tę akcję, musisz być całkowicie nieuzbrojony.",
       "Unarmored": "Nieopancerzony",
       "UnarmoredTooltip": "Aby wykonać tę akcję, musisz być nieopancerzony.",
+      "Undetectable": "Niewykrywalny",
+      "UndetectableTooltip": "Ta akcja nie wywołuje zwykłego ostrzeżenia ani nie jest wykrywana przez magię, dzięki czemu podczas jej wykonywania zachowuje się ukrycie i niewidzialność.",
       "Vocal": "Wokalny",
       "VocalTooltip": "Ta akcja wymaga od użytkownika mówienia lub wydawania dźwięków.",
       "Weakened": "Osłabiony",
@@ -882,7 +884,7 @@
       },
       "affixType": {
         "label": "Typ afiksu",
-        "hint": "Afiksy muszą być albo przedrostkami, albo przyrostkami."
+        "hint": "Afiksy muszą być albo przyrostkami I, albo przyrostkami II."
       },
       "identifier": {
         "label": "Identyfikator",
@@ -894,7 +896,7 @@
       },
       "tier": {
         "label": "Stopień",
-        "hint": "Dopuszczalny zakres stopni mocy dla tego afiksu. Każdy stopień zużywa jeden punkt pojemności przedrostka lub przyrostka.",
+        "hint": "Dopuszczalny zakres stopni mocy dla tego afiksu. Każdy stopień zużywa jeden punkt pojemności przyrostka I lub przyrostka II.",
         "min": {
           "label": "Minimalny stopień"
         },
@@ -910,11 +912,11 @@
     "ConfigIdentity": "Identyfikacja afiksu",
     "ConfigTier": "Konfiguracja stopnia",
     "TierRestriction": "Zakres stopnia",
-    "Prefixes": "Przedrostki",
-    "Suffixes": "Przyrostki",
+    "Prefixes": "Przyrostki I",
+    "Suffixes": "Przyrostki II",
     "TierDisplay": "Stopień {value} / {max}",
-    "TypePrefix": "Przedrostek",
-    "TypeSuffix": "Przyrostek"
+    "TypePrefix": "Przyrostek I",
+    "TypeSuffix": "Przyrostek II"
   },
   "ADVANCEMENT": {
     "ExpectedLevel": "Oczekiwany poziom",
@@ -1940,7 +1942,7 @@
       "deception": "Oszustwo",
       "diplomacy": "Dyplomacja",
       "enchanting": "Zaklinanie",
-      "fletching": "Łuczarstwa",
+      "fletching": "Łuczarstwo",
       "glyphweaving": "Glifotwórstwo",
       "intimidation": "Zastraszanie",
       "jewelcraft": "Szlifierstwo",
@@ -2378,7 +2380,7 @@
   "TEMPERATURE_TIERS": {
     "Boiling": "Upalny",
     "Warm": "Ciepły",
-    "Neutral": "Neutralna",
+    "Neutral": "Neutralny",
     "Cool": "Chłodny",
     "Gelid": "Lodowaty"
   },
