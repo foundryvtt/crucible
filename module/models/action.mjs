@@ -2905,6 +2905,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Construct an ephemeral CrucibleAction for a system default action by id.
+   * Used for actor-less references such as the `@Action[default <id>]` enricher.
+   * @param {string} actionId       Id of an entry in {@link SYSTEM.ACTION.DEFAULT_ACTIONS}
+   * @returns {CrucibleAction|null}
+   */
+  static getDefaultAction(actionId) {
+    const ad = SYSTEM.ACTION.DEFAULT_ACTIONS.find(a => a.id === actionId);
+    if ( !ad ) return null;
+    return new this(foundry.utils.deepClone(ad));
+  }
+
+  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 

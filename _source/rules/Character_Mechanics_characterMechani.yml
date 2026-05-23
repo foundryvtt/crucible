@@ -182,17 +182,14 @@ pages:
         Resources</h2><p>During combat, Health and Morale may only be recovered
         by actions or talents which provide <strong>Restoration</strong>.
         Outside of combat, two actions are available to restore your character's
-        resources.</p><p>The
-        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 recover]
-        action consumes 10 minutes of in-game time and fully replenishes your
-        Health, Morale, Action, and Focus pools. It also removes temporary
-        effects with a short duration. Recover does not reduce Wounds or
-        Madness.</p><p>The
-        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 rest] action
-        consumes 10 hours of in-game time and fully replenishes all active
-        resource pools. Additionally, heroes reduce their accumulated Wounds and
-        Madness by an amount equal to their character level. Rest also removes
-        temporary effects with a longer duration.</p>
+        resources.</p><p>The @Action[default recover] action consumes 10 minutes
+        of in-game time and fully replenishes your Health, Morale, Action, and
+        Focus pools. It also removes temporary effects with a short duration.
+        Recover does not reduce Wounds or Madness.</p><p>The @Action[default
+        rest] action consumes 10 hours of in-game time and fully replenishes all
+        active resource pools. Additionally, heroes reduce their accumulated
+        Wounds and Madness by an amount equal to their character level. Rest
+        also removes temporary effects with a longer duration.</p>
     video:
       controls: true
       volume: 0.5
