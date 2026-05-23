@@ -1,5 +1,6 @@
 /**
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
+ * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
@@ -2270,10 +2271,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const event of this.events ) {
       const actor = event.target;
       if ( !batches.has(actor) ) batches.set(actor, {
-        resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], statusText: [], movementId: null
+        events: [], resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], movementId: null
       });
       const batch = batches.get(actor);
       const isSelf = actor === this.actor;
+      batch.events.push(event);
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
@@ -2298,9 +2300,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Accumulate item snapshots
       if ( event.itemSnapshots ) batch.itemSnapshots.push(...event.itemSnapshots);
 
-      // Accumulate status text
-      if ( event.statusText ) batch.statusText.push(...event.statusText);
-
       // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
       if ( event.type === "movement" ) {
         batch.movementId = event.movement;
@@ -2316,14 +2315,47 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !game.actors.has(actor.id) ) continue;
       if ( reverse && batch.itemSnapshots.length ) this.#reverseItemSnapshots(batch);
 
-      // Enact or reverse planned movement before committing resources, so the actor's freeMovement state
-      // and token position settle before any downstream observers fire on the alterResources update.
+      // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      const statusText = batch.statusText.length ? batch.statusText : undefined;
-      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, statusText});
+      // Compose scrolling text events
+      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
+      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compose scrolling text events to display above a target actor on action confirmation.
+   * @param {CrucibleActor} actor              The target actor
+   * @param {CrucibleActionEvent[]} events     Events targeting this actor, in stream order
+   * @param {object} options
+   * @param {boolean} options.reverse            Reverse direction of change?
+   * @param {boolean} options.isNegated          Action was negated (e.g. by counterspell)?
+   * @returns {ScrollingTextEvent[]}
+   */
+  #composeTextEvents(actor, events, {reverse, isNegated}) {
+    const textEvents = [];
+    const isSelf = actor === this.actor;
+    const sign = reverse ? -1 : 1;
+    const resources = actor.system.resources;
+    const ActorCls = crucible.api.documents.CrucibleActor;
+    for ( const event of events ) {
+      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
+      if ( includeResources ) {
+        for ( const {resource: name, delta: rawDelta} of event.resources ) {
+          const delta = rawDelta * sign;
+          if ( delta === 0 ) continue;
+          const attr = resources[name];
+          if ( !attr ) continue;
+          textEvents.push(ActorCls.formatScrollingResource(name, delta, attr.max));
+        }
+      }
+      if ( event.statusText?.length ) textEvents.push(...event.statusText);
+    }
+    return textEvents;
   }
 
   /* -------------------------------------------- */

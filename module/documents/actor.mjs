@@ -19,6 +19,14 @@ const {DialogV2} = foundry.applications.api;
  */
 
 /**
+ * A scrolling text entry displayed above an Actor's tokens.
+ * @typedef ScrollingTextEvent
+ * @property {string} text                 Display string
+ * @property {number} [fontSize=32]        Font size in pixels
+ * @property {Color|string|number} [fillColor=0xFFFFFF]   Fill color
+ */
+
+/**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
@@ -987,15 +995,16 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Alter the resource pools of the actor using an object of change data
-   * @param {Record<string, number>} deltas       Changes where the keys are resource names and the values are deltas
-   * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
-   * @param {object} [options]                    Options which are forwarded to the update method
-   * @param {boolean} [options.reverse]             Reverse the direction of change?
-   * @param {object[]} [options.statusText]         Custom status text displayed alongside the update
-   * @returns {Promise<CrucibleActor>}            The updated Actor document
+   * Alter the resource pools of the actor using an object of change data.
+   * @param {Record<string, number>} deltas                Resource name -> signed delta
+   * @param {object} [updates]                             Additional Actor updates to commit in the same transaction
+   * @param {object} [options]                             Options forwarded to the update method
+   * @param {boolean} [options.reverse]                      Reverse the direction of change?
+   * @param {ScrollingTextEvent[]} [options.statusText]      Additive scrolling text appended to cache-diff scrolls
+   * @param {ScrollingTextEvent[]} [options.textEvents]      Canonical scrolling text events; overrides cache-diff
+   * @returns {Promise<CrucibleActor>}                     The updated Actor document
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1055,7 +1064,7 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
-    return this.update(updates, {statusText});
+    return this.update(updates, {statusText, textEvents});
   }
 
   /* -------------------------------------------- */
@@ -2535,7 +2544,7 @@ export default class CrucibleActor extends Actor {
     super._onUpdate(data, options, userId);
 
     // Locally display scrolling status updates
-    this.#displayUpdateScrollingStatus(data, options.statusText);
+    this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
@@ -2645,37 +2654,52 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Display status text updates above each Token for this Actor upon update.
-   * @param {Partial<ActorData>} changed      Data for the Actor which changed
-   * @param {object[]} statusText             Status text passed as part of updates
+   * Display scrolling text above this Actor's tokens upon update.
+   * When `textEvents` is supplied it is used verbatim; otherwise resource scrolls are derived from
+   * {@link _cachedResources} and `statusText` entries are appended.
+   * @param {Partial<ActorData>} changed                   Data for the Actor which changed
+   * @param {object} options
+   * @param {ScrollingTextEvent[]} [options.textEvents]    Canonical scrolling text events; overrides cache-diff
+   * @param {ScrollingTextEvent[]} [options.statusText]    Additive custom status text appended to cache-diff
    */
-  #displayUpdateScrollingStatus(changed, statusText) {
+  #displayUpdateScrollingStatus(changed, {textEvents, statusText}={}) {
+    if ( textEvents ) {
+      if ( textEvents.length ) this.displayScrollingText(textEvents);
+      return;
+    }
     const resources = changed.system?.resources || {};
     if ( !this._cachedResources ) return;
     const texts = [];
-
-    // Display resource changes
     for ( const [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
-      const resource = SYSTEM.RESOURCES[resourceName];
       const attr = this.system.resources[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
-      const text = `${delta.signedString()} ${resource.label}`;
-      const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
-      const fontSize = 32 + (64 * pct); // Range between [32, 64]
-      const healSign = resource.type === "active" ? 1 : -1;
-      const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
-      const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
-      texts.push({text, fontSize, fillColor});
+      texts.push(CrucibleActor.formatScrollingResource(resourceName, delta, attr.max));
     }
-
-    // Add custom messages last
     if ( Array.isArray(statusText) ) texts.push(...statusText);
     else if ( statusText ) texts.push(statusText);
+    if ( texts.length ) this.displayScrollingText(texts);
+  }
 
-    // Display scrolling statuses
-    this.displayScrollingText(texts);
+  /* -------------------------------------------- */
+
+  /**
+   * Format a scrolling text entry for a resource delta.
+   * @param {string} resourceName    Resource id (e.g. "health")
+   * @param {number} delta           Signed delta to display
+   * @param {number} max             Maximum pool size, used to scale font size
+   * @returns {ScrollingTextEvent}
+   */
+  static formatScrollingResource(resourceName, delta, max) {
+    const resource = SYSTEM.RESOURCES[resourceName];
+    const text = `${delta.signedString()} ${resource.label}`;
+    const pct = Math.clamp(Math.abs(delta) / (max || 1), 0, 1);
+    const fontSize = 32 + (64 * pct);
+    const healSign = resource.type === "active" ? 1 : -1;
+    const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
+    const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
+    return {text, fontSize, fillColor};
   }
 
   /* -------------------------------------------- */
