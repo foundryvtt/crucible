@@ -45,7 +45,8 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} outcomeKey       Localization key for the aggregate outcome label
  * @property {string} classes          CSS classes describing the outcome (success/failure plus optional critical)
  * @property {string} detail           Pre-localized right-side label that contextualizes the hex score
- * @property {number|"???"} score      Weighted total: crit success +2, success +1, failure 0, crit failure -1
+ * @property {number|string} score    Weighted total (crit success +2, success +1, failure 0, crit failure -1), or
+ *                                    {@link StandardCheck.UNKNOWN_SCORE} when any participating roll has no DC set
  * @property {number} total            Number of participants whose rolls counted toward the aggregate
  * @property {number} required         Score threshold needed to clear an aggregate success
  * @property {number} skippedCount     Number of participants excluded as skipped
@@ -470,7 +471,7 @@ export default class GroupCheck extends StandardCheck {
     let outcomeKey = "ACTION.EFFECT_RESULT_TYPES.";
     let classes;
     if ( rolls.some(r => !Number.isNumeric(r.data.dc)) ) {
-      score = "???";
+      score = StandardCheck.UNKNOWN_SCORE;
       outcomeKey = "COMMON.Unknown";
       classes = "unknown";
     }

@@ -116,6 +116,17 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
+   * Localized sentinel displayed in place of a numeric score when a check (or any participating check in an
+   * aggregate) has an unset DC.
+   * @type {string}
+   */
+  static get UNKNOWN_SCORE() {
+    return _loc("DICE.UnknownScore");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * The Actor performing the check.
    * @type {CrucibleActor}
    */
@@ -315,7 +326,7 @@ export default class StandardCheck extends Roll {
     if ( targetLabel === undefined ) {
       const skill = SYSTEM.SKILLS[this.data.type];
       const label = skill?.label ?? defenseType;
-      const dcLabel = game.user.isGM ? (`${dc}` ?? "??") : "";
+      const dcLabel = game.user.isGM ? (Number.isNumeric(dc) ? String(dc) : "??") : "";
       targetLabel = dcLabel ? `${label} ${dcLabel}` : label;
     }
     return {

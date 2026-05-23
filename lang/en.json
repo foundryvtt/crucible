@@ -1495,7 +1495,8 @@
     "RollTotal": "Roll Total",
     "SetDifficulty": "Set Difficulty",
     "Skill": "Skill",
-    "SkillBonus": "Skill Bonus"
+    "SkillBonus": "Skill Bonus",
+    "UnknownScore": "???"
   },
   "FLANKED_EFFECT": {
     "FIELDS": {

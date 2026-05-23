@@ -35,16 +35,18 @@ export function addChatMessageContextOptions(_app, options) {
     onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible;
-      const skills = new Set(message.rolls.map(r => r.data.type));
+      const skills = Array.from(new Set(message.rolls.map(r => r.data.type)));
+      const {NumberField} = foundry.data.fields;
+      const content = document.createElement("div");
+      for ( const [i, skill] of skills.entries() ) {
+        const label = _loc("DICE.DCTargetSpecific", {skill: SYSTEM.SKILLS[skill]?.label ?? skill});
+        const field = new NumberField({label, integer: true});
+        const value = message.rolls.find(r => r.data.type === skill).data.dc;
+        content.append(field.toFormGroup({classes: ["slim"]}, {name: skill, value, autofocus: i === 0}));
+      }
       const formData = await foundry.applications.api.DialogV2.input({
         window: {title: _loc("DICE.SetDifficulty")},
-        content: Array.from(skills).map(skill => `\
-        <div class="form-group slim">
-          <label>${_loc("DICE.DCTargetSpecific", {skill: SYSTEM.SKILLS[skill]?.label ?? skill})}</label>
-          <div class="form-fields">
-            <input type="number" name="${skill}" value="${message.rolls.find(r => r.data.type === skill).data.dc ?? 0}">
-          </div>
-        </div>`).join("")
+        content
       });
       for ( const r of message.rolls ) r.data.dc = formData[r.data.type];
       const update = {rolls: message.rolls};
