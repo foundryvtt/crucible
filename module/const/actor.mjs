@@ -2,32 +2,36 @@ import {defineEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Readonly<Record<string, {id: string, label: string, skill: string, knowledge: string, temperature: string}>>}
+ * @type {Readonly<Record<string, {id: string, label: string, skill: string, knowledge: string, temperature: string, sense?: string}>>}
  */
 export const CREATURE_CATEGORIES = defineEnum({
   beast: {
     label: "TAXONOMY.CATEGORIES.Beast",
     skill: "medicine",
     knowledge: "beasts",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "life"
   },
   celestial: {
     label: "TAXONOMY.CATEGORIES.Celestial",
     skill: "arcana",
     knowledge: "celestials",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "illumination"
   },
   construct: {
     label: "TAXONOMY.CATEGORIES.Construct",
     skill: "science",
     knowledge: "machines",
-    temperature: "neutral"
+    temperature: "neutral",
+    sense: "lightning"
   },
   dragon: {
     label: "TAXONOMY.CATEGORIES.Dragon",
     skill: "arcana",
     knowledge: "dragons",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "flame"
   },
   elemental: {
     label: "TAXONOMY.CATEGORIES.Elemental",
@@ -39,79 +43,92 @@ export const CREATURE_CATEGORIES = defineEnum({
     label: "TAXONOMY.CATEGORIES.ElementalEarth",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "earth"
   },
   elementalFire: {
     label: "TAXONOMY.CATEGORIES.ElementalFire",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "boiling"
+    temperature: "boiling",
+    sense: "flame"
   },
   elementalFrost: {
     label: "TAXONOMY.CATEGORIES.ElementalFrost",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "gelid"
+    temperature: "gelid",
+    sense: "frost"
   },
   elementalStorm: {
     label: "TAXONOMY.CATEGORIES.ElementalStorm",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "cool"
+    temperature: "cool",
+    sense: "lightning"
   },
   fey: {
     label: "TAXONOMY.CATEGORIES.Fey",
     skill: "arcana",
     knowledge: "fey",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "illusion"
   },
   fiend: {
     label: "TAXONOMY.CATEGORIES.Fiend",
     skill: "arcana",
     knowledge: "fiends",
-    temperature: "cool"
+    temperature: "cool",
+    sense: "control"
   },
   giant: {
     label: "TAXONOMY.CATEGORIES.Giant",
     skill: "society",
     knowledge: "legends",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "frost"
   },
   humanoid: {
     label: "TAXONOMY.CATEGORIES.Humanoid",
     skill: "society",
     knowledge: null,
-    temperature: "warm"
+    temperature: "warm",
+    sense: "soul"
   },
   monstrosity: {
     label: "TAXONOMY.CATEGORIES.Monstrosity",
     skill: "medicine",
     knowledge: "monsters",
-    temperature: "warm"
+    temperature: "warm",
+    sense: "kinesis"
   },
   ooze: {
     label: "TAXONOMY.CATEGORIES.Ooze",
     skill: "science",
     knowledge: null,
-    temperature: "neutral"
+    temperature: "neutral",
+    sense: "earth"
   },
   plant: {
     label: "TAXONOMY.CATEGORIES.Plant",
     skill: "wilderness",
     knowledge: null,
-    temperature: "neutral"
+    temperature: "neutral",
+    sense: "life"
   },
   outsider: {
     label: "TAXONOMY.CATEGORIES.Outsider",
     skill: "arcana",
     knowledge: "outsiders",
-    temperature: "cool"
+    temperature: "cool",
+    sense: "oblivion"
   },
   undead: {
     label: "TAXONOMY.CATEGORIES.Undead",
     skill: "arcana",
     knowledge: "undeath",
-    temperature: "cool"
+    temperature: "cool",
+    sense: "death"
   }
 });
 

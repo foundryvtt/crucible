@@ -38,11 +38,7 @@
                 <img class="icon" src="{{entry.img}}" alt="{{entry.name}}">
                 <div class="title">
                     <h4>{{entry.name}}</h4>
-                    <div class="tags">
-                        {{#each entry.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
-                    </div>
+                    {{crucibleTags entry.tags}}
                 </div>
                 <crucible-currency value="{{entry.scaledPrice}}" denomination="gp" readonly></crucible-currency>
                 <div class="item-quantity flexrow">

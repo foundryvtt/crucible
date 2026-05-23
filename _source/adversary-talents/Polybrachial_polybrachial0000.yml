@@ -1,0 +1,36 @@
+name: Polybrachial
+type: talent
+_id: polybrachial0000
+img: icons/skills/melee/spear-tips-triple-orange.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} has a multitude of arms that it can use to
+    perform actions. It always counts as having two free hands for spellcraft or
+    interaction no matter what items it has equipped.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: 9Ej4QwUt1yVpv4Wn
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.3
+  createdTime: 1778766438004
+  modifiedTime: 1778766438004
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!polybrachial0000'

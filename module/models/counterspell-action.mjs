@@ -37,10 +37,15 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /** @inheritDoc */
   acquireTargets(options={}) {
     if ( this.usage.targetAction?.message === null ) {
-      return [{token: null, actor: this.actor, name: this.actor.name, uuid: this.actor.uuid}];
+      return this.targets = new Map([[this.actor, {
+        token: null,
+        actor: this.actor,
+        name: this.actor.name,
+        uuid: this.actor.uuid
+      }]]);
     }
     const targets = super.acquireTargets(options);
-    const target = targets[0];
+    const target = Array.from(targets.values())[0];
     const lastAction = ChatMessage.implementation.getLastAction({actor: target?.actor});
     const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
     if ( !wasSpell ) {
@@ -113,7 +118,8 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     if ( !(actor instanceof Actor) ) throw new Error("CounterspellAction.prompt requires an Actor instance");
     const counterspellAction = actor?.actions.counterspell;
     if ( !counterspellAction ) return;
-    const tags = actor.inCombat ? counterspellAction.tags : Array.from(counterspellAction.tags).findSplice(t => t === "reaction", "noncombat");
+    const tags = Array.from(counterspellAction.tags);
+    if ( !actor.inCombat ) tags.findSplice(t => t === "reaction", "noncombat");
     const action = counterspellAction.clone({tags});
     action.usage.dc = dc;
     action.usage.targetAction = new crucible.api.models.CrucibleSpellAction({rune, gesture, inflection, tags: ["composed"]});

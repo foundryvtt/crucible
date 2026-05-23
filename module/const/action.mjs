@@ -1051,6 +1051,12 @@ export const TAGS = {
       }
     }
   },
+  undetectable: {
+    tag: "undetectable",
+    label: "ACTION.TAG.Undetectable",
+    tooltip: "ACTION.TAG.UndetectableTooltip",
+    category: "modifiers"
+  },
   weakened: {
     tag: "weakened",
     label: "ACTION.TAG.Weakened",
@@ -1147,7 +1153,7 @@ export const TAGS = {
   },
 
   /* -------------------------------------------- */
-  /*             Resource Consumption             */
+  /*  Resource Consumption                        */
   /* -------------------------------------------- */
 
   maintained: {
@@ -1189,43 +1195,20 @@ export const TAGS = {
       const status = actorUpdateEvent.actorUpdates.system.status;
       const {freeMove} = this.usage;
       if ( this.movement?.id ) {
-        this.recordEvent({type: "other", target: this.actor, movement: this.movement.id});
+        this.recordEvent({type: "movement", target: this.actor, movement: this.movement.id});
         if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
     },
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
-
-      // Determine whether a planned movement is still pending for this action.
-      const movementEvent = this.events.find(e => e.movement);
-      const movementId = movementEvent?.movement;
-      const isPlanned = !!movementId && (this.token.movement?.id === movementId)
-        && (this.token.movement?.state === "planned");
-
-      // Reverse movement
-      if ( reverse ) {
-        if ( isPlanned ) await this.token.stopMovement();
-        else if ( movementId ) await this.token.revertRecordedMovement(movementId);
-        if ( movementId === this.actor.system.status.freeMovementId ) {
-          const actorUpdateEvent = this.events.find(e => (e.target === this.actor) && (e.type === "actorUpdate"));
-          if ( actorUpdateEvent ) {
-            Object.assign(actorUpdateEvent.actorUpdates.system.status, {hasMoved: false, freeMovementId: null});
-          }
-        }
-        return;
-      }
-
-      // Remove prone condition upon movement confirmation if movement is not exclusively crawling
+      if ( reverse ) return;
+      // Remove prone condition upon movement confirmation if movement is not exclusively crawling.
+      // This side effect is movement-tag exclusive; forced movements that record a "movement" event without
+      // adopting the tag do not stand the actor up.
       if ( this.actor.statuses.has("prone") ) {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
-      }
-
-      // Execute planned movement
-      if ( isPlanned ) {
-        (this.token._confirmedMovements ??= new Set()).add(movementId);
-        await this.token.startMovement(movementId);
       }
     }
   }

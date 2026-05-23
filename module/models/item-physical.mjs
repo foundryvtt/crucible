@@ -346,13 +346,18 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     tags.category = this.config.category.label;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
     if ( this.config.enchantment.id !== "mundane" ) tags.enchantment = this.config.enchantment.label;
-    if ( this.constructor.AFFIXABLE && this.properties.has("unique") ) tags.unique = _loc("ITEM.PROPERTIES.Unique");
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     else if ( this.parent.parent && !this.dropped ) tags.equipped = _loc("ITEM.PROPERTIES.Unequipped");
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
     if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label
       : _loc("ITEM.PROPERTIES.NotInvested");
+
+    // Properties
+    for ( const prop of this.properties ) {
+      if ( ["investment", "stackable"].includes(prop) ) continue;
+      tags[prop] = this.constructor.ITEM_PROPERTIES[prop];
+    }
     return tags;
   }
 

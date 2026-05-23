@@ -366,7 +366,7 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "presence",
     target: {
-      type: "pulse", // TODO aura type
+      type: "aura",
       size: 30
     }
   },

@@ -19,6 +19,14 @@ const {DialogV2} = foundry.applications.api;
  */
 
 /**
+ * A scrolling text entry displayed above an Actor's tokens.
+ * @typedef ScrollingTextEvent
+ * @property {string} text                 Display string
+ * @property {number} [fontSize=32]        Font size in pixels
+ * @property {Color|string|number} [fillColor=0xFFFFFF]   Fill color
+ */
+
+/**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
@@ -274,7 +282,7 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callActorHooks(hook, ...args) {
-    if ( !this.system.schema.has("actorHooks") ) return;
+    if ( !("actorHooks" in this.system) ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
@@ -295,14 +303,22 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the ability score bonus for a given scaling mode.
-   * @param {string|string[]} scaling   How is the ability bonus computed?
-   * @param {number} [divisor=2]        The divisor that determines the bonus
-   * @returns {number}                  The ability bonus
+   * @param {string|string[]} scaling                 Ability id, dot-separated ids, or array of ability ids
+   * @param {object|number} [options]                 Options object, or a number as shorthand for {divisor}
+   * @param {number} [options.divisor=2]              Divisor applied to the aggregate ability value
+   * @param {"average"|"best"} [options.type="average"]  How to aggregate when multiple abilities are provided
+   * @returns {number}                                The ability bonus
    */
-  getAbilityBonus(scaling, divisor=2) {
+  getAbilityBonus(scaling, options={}) {
+    if ( typeof options === "number" ) options = {divisor: options};
+    const {divisor=2, type="average"} = options;
     if ( typeof scaling === "string" ) scaling = scaling.split(".");
     if ( !scaling.length ) return 0;
     const abilities = this.system.abilities;
+    if ( type === "best" ) {
+      const best = scaling.reduce((b, k) => abilities[k].value > abilities[b].value ? k : b);
+      return Math.round(abilities[best].value / divisor);
+    }
     return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * divisor));
   }
 
@@ -411,10 +427,14 @@ export default class CrucibleActor extends Actor {
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":
+      case "wounds":
         if ( this.statuses.has("invulnerable") ) r = Infinity;
         break;
       case "morale":
         if ( this.statuses.has("resolute") || this.statuses.has("asleep") ) r = Infinity;
+        break;
+      case "madness":
+        if ( this.statuses.has("resolute") ) r = Infinity;
         break;
     }
     return r;
@@ -975,15 +995,16 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Alter the resource pools of the actor using an object of change data
-   * @param {Record<string, number>} deltas       Changes where the keys are resource names and the values are deltas
-   * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
-   * @param {object} [options]                    Options which are forwarded to the update method
-   * @param {boolean} [options.reverse]             Reverse the direction of change?
-   * @param {object[]} [options.statusText]         Custom status text displayed alongside the update
-   * @returns {Promise<CrucibleActor>}            The updated Actor document
+   * Alter the resource pools of the actor using an object of change data.
+   * @param {Record<string, number>} deltas                Resource name -> signed delta
+   * @param {object} [updates]                             Additional Actor updates to commit in the same transaction
+   * @param {object} [options]                             Options forwarded to the update method
+   * @param {boolean} [options.reverse]                      Reverse the direction of change?
+   * @param {ScrollingTextEvent[]} [options.statusText]      Additive scrolling text appended to cache-diff scrolls
+   * @param {ScrollingTextEvent[]} [options.textEvents]      Canonical scrolling text events; overrides cache-diff
+   * @returns {Promise<CrucibleActor>}                     The updated Actor document
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1043,7 +1064,7 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
-    return this.update(updates, {statusText});
+    return this.update(updates, {statusText, textEvents});
   }
 
   /* -------------------------------------------- */
@@ -2391,6 +2412,27 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Flatten an iterable of actors, replacing any group-type actor with its constituent member actors.
+   * @param {Iterable<CrucibleActor>} actors
+   * @returns {CrucibleActor[]}
+   */
+  static expandGroups(actors) {
+    const expanded = [];
+    for ( const actor of actors ) {
+      if ( !actor ) continue;
+      if ( actor.type === "group" ) {
+        for ( const m of actor.system.members ) {
+          if ( m.actor ) expanded.push(m.actor);
+        }
+      }
+      else expanded.push(actor);
+    }
+    return expanded;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Modify the amount of currency owned by this actor by a certain amount.
    * The input amount can be provided either as a raw integer or as an object of currency denominations.
    * Returns the amount of currency that was added or subtracted.
@@ -2403,25 +2445,6 @@ export default class CrucibleActor extends Actor {
     const currency = Math.max(priorAmount + delta, 0);
     await this.update({system: {currency}});
     return currency - priorAmount;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async toggleStatusEffect(statusId, {active, overlay=false}={}) {
-    const status = CONFIG.statusEffects[statusId];
-    if ( !status ) throw new Error(`Invalid status ID "${statusId}" provided to Actor#toggleStatusEffect`);
-    const ActiveEffect = getDocumentClass("ActiveEffect");
-    const effect = await ActiveEffect.fromStatusEffect(statusId);
-    const existing = this.effects.get(effect.id);
-    if ( existing ) {
-      if ( active ) return true;
-      await existing.delete();
-      return false;
-    }
-    if ( !active && (active !== undefined) ) return;
-    if ( overlay ) effect.updateSource({"flags.core.overlay": true});
-    return ActiveEffect.implementation.create(effect, {parent: this, keepId: true});
   }
 
   /* -------------------------------------------- */
@@ -2521,7 +2544,7 @@ export default class CrucibleActor extends Actor {
     super._onUpdate(data, options, userId);
 
     // Locally display scrolling status updates
-    this.#displayUpdateScrollingStatus(data, options.statusText);
+    this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
@@ -2631,37 +2654,52 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Display status text updates above each Token for this Actor upon update.
-   * @param {Partial<ActorData>} changed      Data for the Actor which changed
-   * @param {object[]} statusText             Status text passed as part of updates
+   * Display scrolling text above this Actor's tokens upon update.
+   * When `textEvents` is supplied it is used verbatim; otherwise resource scrolls are derived from
+   * {@link _cachedResources} and `statusText` entries are appended.
+   * @param {Partial<ActorData>} changed                   Data for the Actor which changed
+   * @param {object} options
+   * @param {ScrollingTextEvent[]} [options.textEvents]    Canonical scrolling text events; overrides cache-diff
+   * @param {ScrollingTextEvent[]} [options.statusText]    Additive custom status text appended to cache-diff
    */
-  #displayUpdateScrollingStatus(changed, statusText) {
+  #displayUpdateScrollingStatus(changed, {textEvents, statusText}={}) {
+    if ( textEvents ) {
+      if ( textEvents.length ) this.displayScrollingText(textEvents);
+      return;
+    }
     const resources = changed.system?.resources || {};
     if ( !this._cachedResources ) return;
     const texts = [];
-
-    // Display resource changes
     for ( const [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
-      const resource = SYSTEM.RESOURCES[resourceName];
       const attr = this.system.resources[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
-      const text = `${delta.signedString()} ${resource.label}`;
-      const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
-      const fontSize = 32 + (64 * pct); // Range between [32, 64]
-      const healSign = resource.type === "active" ? 1 : -1;
-      const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
-      const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
-      texts.push({text, fontSize, fillColor});
+      texts.push(CrucibleActor.formatScrollingResource(resourceName, delta, attr.max));
     }
-
-    // Add custom messages last
     if ( Array.isArray(statusText) ) texts.push(...statusText);
     else if ( statusText ) texts.push(statusText);
+    if ( texts.length ) this.displayScrollingText(texts);
+  }
 
-    // Display scrolling statuses
-    this.displayScrollingText(texts);
+  /* -------------------------------------------- */
+
+  /**
+   * Format a scrolling text entry for a resource delta.
+   * @param {string} resourceName    Resource id (e.g. "health")
+   * @param {number} delta           Signed delta to display
+   * @param {number} max             Maximum pool size, used to scale font size
+   * @returns {ScrollingTextEvent}
+   */
+  static formatScrollingResource(resourceName, delta, max) {
+    const resource = SYSTEM.RESOURCES[resourceName];
+    const text = `${delta.signedString()} ${resource.label}`;
+    const pct = Math.clamp(Math.abs(delta) / (max || 1), 0, 1);
+    const fontSize = 32 + (64 * pct);
+    const healSign = resource.type === "active" ? 1 : -1;
+    const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
+    const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
+    return {text, fontSize, fillColor};
   }
 
   /* -------------------------------------------- */

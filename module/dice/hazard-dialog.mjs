@@ -221,10 +221,10 @@ export default class HazardDialog extends ActionUseDialog {
     if ( data.type !== "Actor" ) return;
     const actor = await fromUuid(data.uuid);
     if ( !actor || actor.pack ) return;
-    const toAdd = (actor.type === "group") ? actor.system.members.map(m => m.actor) : [actor];
+    const toAdd = crucible.api.documents.CrucibleActor.expandGroups([actor]);
     const current = new Set(this.action.usage.forcedTargets ?? []);
     for ( const a of toAdd ) {
-      if ( !a || a.pack ) continue;
+      if ( a.pack ) continue;
       current.add(a);
     }
     this.action.usage.forcedTargets = Array.from(current);
@@ -340,12 +340,9 @@ export default class HazardDialog extends ActionUseDialog {
    * @returns {CrucibleActor[]}
    */
   static #defaultTargets() {
-    if ( game.user.targets?.size ) {
-      return Array.from(game.user.targets).map(t => t.actor).filter(Boolean);
-    }
-    if ( canvas.ready && canvas.tokens.controlled.length ) {
-      return canvas.tokens.controlled.map(t => t.actor).filter(Boolean);
-    }
+    const expand = crucible.api.documents.CrucibleActor.expandGroups;
+    if ( game.user.targets?.size ) return expand(Array.from(game.user.targets).map(t => t.actor));
+    if ( canvas.ready && canvas.tokens.controlled.length ) return expand(canvas.tokens.controlled.map(t => t.actor));
     return crucible.party?.system.members.map(m => m.actor).filter(Boolean) ?? [];
   }
 }

@@ -5,10 +5,18 @@ export default class CrucibleScene extends Scene {
 
   useMicrogrid = false;
 
+  /**
+   * Cached microgrid assessment populated on first prepareBaseData.
+   * @type {{shouldUse: boolean, canUse: boolean, warning: string|undefined}}
+   * @internal
+   */
+  _microgrid;
+
   /** @inheritDoc */
   prepareBaseData() {
     if ( !(this.grid instanceof foundry.grid.BaseGrid) ) {
-      if ( this.constructor.useMicrogrid(this._source) ) {
+      this._microgrid = this.constructor.useMicrogrid(this._source);
+      if ( this._microgrid.canUse ) {
         this.useMicrogrid = true;
         this.grid.size = this._source.grid.size / 5;
         this.grid.distance = 1;
@@ -20,36 +28,14 @@ export default class CrucibleScene extends Scene {
   /* -------------------------------------------- */
 
   /** @override */
-  async _preUpdate(changed, options, userId) {
-    const allowed = await super._preUpdate(changed, options, userId);
-    if ( allowed === false ) return false;
-    if ( !changed._stats || !changed.tokens?.length ) return;
-    const systemChanged = (changed._stats.systemId ?? changed._stats.exportSource?.systemId) !== "crucible";
-    if ( systemChanged && (options.recursive === false) && changed.tokens?.length ) {
-      if ( this.constructor.useMicrogrid(changed) ) {
-        for ( const token of changed.tokens ) {
-          token.height *= 5;
-          token.width *= 5;
-        }
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
   async _preCreate(data, options, userId) {
     const allowed = await super._preCreate(data, options, userId);
     if ( allowed === false ) return false;
     const sceneSystem = data._stats?.systemId ?? data._stats?.exportSource?.systemId;
     if ( !sceneSystem || (sceneSystem === "crucible") ) return;
-    if ( this.constructor.useMicrogrid(data) && data.tokens?.length ) {
-      for ( const token of data.tokens ) {
-        token.height *= 5;
-        token.width *= 5;
-      }
-      this.updateSource({tokens: data.tokens});
-    }
+    if ( !this.useMicrogrid || !data.tokens?.length ) return;
+    for ( const token of data.tokens ) CrucibleScene.#rescaleForMicrogrid(token);
+    this.updateSource({tokens: data.tokens});
   }
 
   /* -------------------------------------------- */
@@ -96,13 +82,42 @@ export default class CrucibleScene extends Scene {
   /*  Helpers                                     */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  static async fromImport(source, context) {
+    const sceneSystem = source._stats?.systemId ?? source._stats?.exportSource?.systemId;
+    if ( sceneSystem && (sceneSystem !== "crucible") && source.tokens?.length && this.useMicrogrid(source).canUse ) {
+      for ( const token of source.tokens ) CrucibleScene.#rescaleForMicrogrid(token);
+    }
+    return super.fromImport(source, context);
+  }
+
+  /* -------------------------------------------- */
+
   /**
-   * Determine whether input scene data will be made to use the microgrid automatically
-   * @param {object} sceneData  The scene data to check
-   * @returns {boolean}
+   * Evaluate whether scene data intends (shouldUse) and can support (canUse) the Crucible microgrid.
+   * @param {object} sceneData
+   * @returns {{shouldUse: boolean, canUse: boolean, warning: string|undefined}}
    */
   static useMicrogrid(sceneData) {
     const g = sceneData.grid;
-    return (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5);
+    const shouldUse = (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft");
+    const canUse = shouldUse && (g.distance === 5) && ((g.size % 5) === 0);
+    let warning;
+    if ( shouldUse && !canUse ) {
+      warning = _loc("SCENE.WARNINGS.MicrogridUnavailable", {name: sceneData.name, distance: g.distance, size: g.size});
+    }
+    return {shouldUse, canUse, warning};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Multiply the spatial dimensions of a token from a foreign system's grid units into Crucible microgrid units.
+   * @param {object} token
+   */
+  static #rescaleForMicrogrid(token) {
+    token.width *= 5;
+    token.height *= 5;
+    token.depth = Number.isInteger(token.depth) ? token.depth * 5 : token.width;
   }
 }

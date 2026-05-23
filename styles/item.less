@@ -121,7 +121,7 @@
 }
 
 // Make item sheet body resizable
-.crucible.item {
+.crucible.item:not(.minimized) {
   min-width: 560px;
   min-height: 400px;
   .sheet-body {
@@ -180,6 +180,9 @@
         border: 1px solid var(--color-frame);
         border-radius: 6px;
         text-align: center;
+        &.invalid {
+          border-color: red;
+        }
       }
       input {
         --input-height: 24px;

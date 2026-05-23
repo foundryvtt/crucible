@@ -33,17 +33,17 @@ effects: []
 folder: qAL3mvNAtEIemAia
 ownership:
   default: 0
-  WRGzDgYAt3ZuX6TU: 3
+  QPs9IwGEu5DxD700: 3
 flags:
   ember:
     crucibleOverride: true
 _stats:
   coreVersion: '14.361'
   systemId: crucible
-  systemVersion: 0.9.2
-  createdTime: 1778341229242
-  modifiedTime: 1778341229242
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.9.4
+  createdTime: 1779221939583
+  modifiedTime: 1779221939583
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   compendiumSource: null
   duplicateSource: null

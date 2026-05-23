@@ -369,6 +369,14 @@ HOOKS.dustbinder000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.echolocation0000 = {
+  prepareToken(_item, token) {
+    token.detectionModes.echolocation ??= {enabled: true, range: 60};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.evasiveshot00000 = {
   prepareAttack(item, action, _target, _rollData) {
     if ( !action.tags.has("strike") ) return;
@@ -694,6 +702,15 @@ HOOKS.poisoner00000000 = {
         }
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.polybrachial0000 = {
+  prepareWeapons(item, weapons) {
+    weapons.freeHands = Math.max(weapons.freeHands, 2);
+    weapons.spellHands = Math.max(weapons.spellHands, 2);
   }
 };
 

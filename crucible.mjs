@@ -173,6 +173,14 @@ Hooks.once("init", async function() {
   };
   CONFIG.Item.compendiumIndexFields = ["system.identifier"];
 
+  // Region Behavior document configuration
+  Object.assign(CONFIG.RegionBehavior.dataModels, {
+    "crucible.hazard": models.CrucibleHazardRegionBehavior
+  });
+  Object.assign(CONFIG.RegionBehavior.typeIcons, {
+    "crucible.hazard": "fa-solid fa-triangle-exclamation"
+  });
+
   // Configure dynamic constants
   for ( const [type, model] of Object.entries(CONFIG.Item.dataModels) ) {
     if ( foundry.utils.isSubclass(model, models.CruciblePhysicalItem) ) {
@@ -275,6 +283,7 @@ Hooks.once("init", async function() {
   };
 
   // Status Effects
+  for ( const status of Object.values(statusEffects) ) status._id = SYSTEM.EFFECTS.getEffectId(`Toggled ${status.id}`);
   Object.defineProperty(CONFIG, "statusEffects", {value: statusEffects, configurable: true, enumerable: true});
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";
@@ -438,10 +447,10 @@ Hooks.once("init", async function() {
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
 
   // Crucible-specific detection modes
-  CONFIG.Canvas.detectionModes.thermalVision = new canvas.detectionModes.DetectionModeThermalVision({
-    id: "thermalVision",
-    label: "DETECTION_MODES.ThermalVision",
-    type: foundry.canvas.perception.DetectionMode.DETECTION_TYPES.SIGHT
+  Object.assign(CONFIG.Canvas.detectionModes, {
+    echolocation: new canvas.detectionModes.DetectionModeEcholocation(),
+    senseCreature: new canvas.detectionModes.DetectionModeSenseCreature(),
+    thermalVision: new canvas.detectionModes.DetectionModeThermalVision()
   });
 });
 
@@ -526,11 +535,11 @@ function preLocalizeConfig() {
 
   // Armor
   localizeConfigObject(SYSTEM.ARMOR.CATEGORIES);
-  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES);
+  localizeConfigObject(SYSTEM.ARMOR.PROPERTIES, ["label", "tooltip"]);
 
   // Consumable
   localizeConfigObject(SYSTEM.CONSUMABLE.CATEGORIES);
-  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES);
+  localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES, ["label", "tooltip"]);
 
   // Crafting
   localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
@@ -559,7 +568,7 @@ function preLocalizeConfig() {
 
   // Weapon
   localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
-  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES);
+  localizeConfigObject(SYSTEM.WEAPON.PROPERTIES, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.WEAPON.SLOTS);
   localizeConfigObject(SYSTEM.WEAPON.TRAINING);
 
@@ -748,6 +757,8 @@ Hooks.on("canvasInit", () => {
   canvas.vfx.sprites.loadVFXSpritesheets();
 });
 
+/* -------------------------------------------- */
+
 /**
  * Actions to take when the main game canvas is re-rendered.
  * Re-open the talent tree if it was previously open for a certain Actor.
@@ -755,10 +766,14 @@ Hooks.on("canvasInit", () => {
 Hooks.on("canvasReady", () => {
   if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
   const gameCanvas = globalThis.canvas;
+  const scene = gameCanvas.scene;
   for ( const token of gameCanvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  if ( game.user.isGM && scene?._microgrid?.warning ) ui.notifications.warn(scene._microgrid.warning);
   gameCanvas.sceneTextures["crucible.particle.white"] = PIXI.Texture.WHITE;
   canvas.vfx.sprites.registerVFXSprites();
 });
+
+/* -------------------------------------------- */
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {
   if ( data.type === "crucible.action" ) {
@@ -766,7 +781,6 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
     await game.user.assignHotbarMacro(macro, slot);
   }
 });
-
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

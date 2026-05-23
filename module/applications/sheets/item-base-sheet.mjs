@@ -251,6 +251,16 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.element.querySelectorAll(".module-hook, [data-action='hookToggleSource']").forEach(el => {
+      el.disabled = false;
+    });
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare action groups for the actions tab, separating item-level actions from affix-provided actions.
    * @returns {Promise<object[]>}
@@ -269,7 +279,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const itemActionIds = new Set(sourceActions.map(a => a.id));
     const groups = [{
       legend: null,
-      canAdd: true,
+      canAdd: this.isEditable,
       isEditable: this.isEditable,
       actions: await Promise.all(
         this.document.system.actions.filter(a => itemActionIds.has(a.id)).map(enrichAction)

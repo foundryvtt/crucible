@@ -6,9 +6,10 @@ system:
     <p>A chaotic force of creation, responsible for living matter. The Life rune
     governs health and matters relating to biological growth.</p><p>The Life
     rune scales using <strong>Wisdom</strong> and provides
-    <strong>Restoration</strong> of <strong>Health</strong> or inflicts
-    <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It is
-    opposed by the orderly rune of <strong>Death</strong>.</p>
+    <strong>Restoration</strong> of <strong>Health</strong>. In special
+    circumstances it may be used to inflict <strong>Poison</strong> damage
+    opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune of
+    <strong>Death</strong>.</p>
   actions:
     - id: bloom
       name: Bloom

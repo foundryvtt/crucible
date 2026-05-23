@@ -39,7 +39,8 @@ HOOKS.aspect = {
       this.range = {maximum: 1}; // Touch
       this.usage.hasDice = true;
       return;
-    } else this.usage.hasDice = false;
+    }
+    else this.usage.hasDice = false;
 
     // TODO enable aspect healing
     if ( this.damage.healing ) console.warn("Gesture: Aspect is not configured for healing Runes yet");
@@ -149,12 +150,31 @@ HOOKS.sense = {
   initialize() {
     this.tags.add("maintained");
   },
+  prepare() {
+    this.usage.hasDice = false;
+    this.usage.region.wallRestriction = false;
+  },
   postActivate() {
     this.recordEvent({type: "effect", effects: [{
       _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
       img: this.img,
       name: this.name,
-      system: {}
+      // TODO: Move this logic into token data prep
+      system: {
+        changes: [{
+          key: "token.detectionModes.senseCreature",
+          type: "override",
+          value: {
+            enabled: true,
+            range: this.target.size
+          }
+        }]
+      },
+      flags: {
+        crucible: {
+          runes: [this.rune.id]
+        }
+      }
     }]});
   }
 };

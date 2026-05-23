@@ -515,7 +515,7 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( data.type !== "Actor" ) return;
     const actor = await fromUuid(data.uuid);
     if ( actor.pack ) return;
-    const toAdd = actor.type === "group" ? actor.system.members.map(m => m.actor) : [actor];
+    const toAdd = crucible.api.documents.CrucibleActor.expandGroups([actor]);
     for ( const actor of toAdd ) {
       if ( actor.pack ) continue;
       this.#requestActors.add(actor);

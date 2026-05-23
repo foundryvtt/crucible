@@ -3,7 +3,7 @@
   "id": "crucible",
   "title": "Crucible",
   "description": "Crucible is an innovative and modern tabletop role-playing game system built exclusively for Foundry Virtual Tabletop as a digital platform. From the ground up, Crucible is designed to leverage the unique capabilities of Foundry VTT to provide gamemasters with a powerful toolset and effortless layers of automation, allowing gamemasters and players to focus on what matters most: telling a compelling story.",
-  "version": "0.9.2",
+  "version": "0.9.4",
   "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#",
   "url": "https://foundryvtt.com/packages/crucible",
@@ -15,7 +15,7 @@
     }
   ],
   "compatibility": {
-    "minimum": 14.360,
+    "minimum": 14.361,
     "verified": 14,
     "maximum": 14
   },
@@ -23,6 +23,12 @@
   "esmodules": ["crucible.mjs"],
   "styles": ["styles/crucible.css"],
   "packs": [
+    {
+      "name": "adversary-equipment",
+      "label": "Adversary Equipment",
+      "path": "packs/adversary-equipment",
+      "type": "Item"
+    },
     {
       "name": "adversary-talents",
       "label": "Adversary Talents",
@@ -123,6 +129,7 @@
           "name": "Adversary Options",
           "color": "#380d05",
           "packs": [
+            "adversary-equipment",
             "adversary-talents",
             "archetype",
             "taxonomy"
@@ -249,6 +256,11 @@
     },
     "JournalEntryPage": {
       "skill": {}
+    },
+    "RegionBehavior": {
+      "crucible.hazard": {
+        "htmlFields": ["description"]
+      }
     }
   },
   "grid": {

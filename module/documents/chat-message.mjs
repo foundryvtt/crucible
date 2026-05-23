@@ -14,6 +14,7 @@ export default class CrucibleChatMessage extends ChatMessage {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
+    if ( foundry.utils.hasProperty(data, "flags.crucible.action") ) CrucibleChatMessage.#renderAllSheetSidebars();
     this.#autoConfirmMessage();
   }
 
@@ -23,7 +24,30 @@ export default class CrucibleChatMessage extends ChatMessage {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
     const flags = this.flags.crucible || {};
+    if ( foundry.utils.hasProperty(data, "flags.crucible.confirmed") ) CrucibleChatMessage.#renderAllSheetSidebars();
     if ( flags.action && flags.vfxConfig && (data.flags.crucible.confirmed === true) ) this.#playVFXEffect();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    if ( foundry.utils.hasProperty(this, "flags.crucible.action") ) CrucibleChatMessage.#renderAllSheetSidebars();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-render all currently-rendered actor sheet sidebars
+   * @returns {Promise<void>}
+   */
+  static #renderAllSheetSidebars() {
+    const promises = [];
+    for ( const app of crucible.api.applications.CrucibleBaseActorSheet.instances() ) {
+      promises.push(app.render({parts: ["sidebar"]}));
+    }
+    return Promise.allSettled(promises);
   }
 
   /* -------------------------------------------- */
@@ -64,11 +88,14 @@ export default class CrucibleChatMessage extends ChatMessage {
   /* -------------------------------------------- */
 
   /**
-   * Returns the most recent action in the chat log
-   * @param {object} [options]                    Options which specify criteria the most recent action must meet
-   * @param {boolean} [options.confirmed]         Require the action to be confirmed (true), unconfirmed (false),
-   *   or either (undefined)
-   * @param {Actor} [options.actor]               An Actor (or actor ID) who must have performed the most recent action
+   * Return the most recent action in the chat log, optionally requiring it to satisfy the supplied criteria.
+   * Criteria are strict: if the latest action message fails any of them, this returns null rather than continuing
+   * to search backward for an earlier match.
+   * @param {object} [options]
+   * @param {boolean} [options.confirmed]         Require the most recent action to be confirmed (true) or
+   *                                              unconfirmed (false). If omitted, either state is accepted.
+   * @param {Actor|string} [options.actor]        Require the most recent action to have been performed by this Actor
+   *                                              (or actor ID).
    * @returns {CrucibleAction|null}
    */
   static getLastAction({confirmed, actor}={}) {

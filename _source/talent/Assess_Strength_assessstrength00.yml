@@ -17,6 +17,7 @@ system:
         strength.</p>
       tags:
         - harmless
+        - undetectable
       cost:
         action: 1
         focus: 1

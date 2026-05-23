@@ -1,5 +1,6 @@
 /**
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
+ * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
@@ -130,7 +131,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {"activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"other"} CrucibleActionEventType
+ * @typedef {("activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"movement"|"other")
+ *   } CrucibleActionEventType
  * The type of event in an action's timeline.
  * - "activation": The initial resource cost of performing the action, targeting the acting actor.
  * - "strike": A weapon attack roll against a target.
@@ -139,6 +141,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * - "summon": A creature summoned as part of the action.
  * - "effect": Active effects applied to a target, not yet attributed to a specific roll.
  * - "actorUpdate": Data updates applied to a target actor (e.g. status flags, item drops from disarm).
+ * - "movement": A planned token movement enacted at confirm time. At most one per actor.
  * - "other": A resource change not attributable to a specific roll (e.g. hook-contributed bonuses).
  */
 
@@ -311,6 +314,7 @@ class CrucibleActionEvent {
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
     for ( const effect of obj.effects ) {
+      if ( !effect.system ) continue;
       for ( const setKey of ["regions", "summons"] ) {
         if ( setKey in effect.system ) effect.system[setKey] = Array.from(effect.system[setKey]);
       }
@@ -621,6 +625,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   static dialogClass = ActionUseDialog;
 
+  /**
+   * Event types of which only a single instance per target is permitted in the action's event stream.
+   * @type {Set<CrucibleActionEventType>}
+   */
+  static #SINGLETON_EVENT_TYPES = new Set(["activation", "actorUpdate", "movement"]);
+
   /* -------------------------------------------- */
   /*  Properties                                  */
   /* -------------------------------------------- */
@@ -742,6 +752,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Should using this action expire the actor's Invisible status?
+   * @type {boolean}
+   */
+  get breaksInvisibility() {
+    if ( this.tags.has("undetectable") ) return false;
+    if ( this.tags.has("spell") ) return true;
+    return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  }
+
+  /* -------------------------------------------- */
   /*  Events Management                           */
   /* -------------------------------------------- */
 
@@ -751,6 +773,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @property {CrucibleActionEvent[]} roll           Events that contain dice rolls
    * @property {CrucibleActionEvent|null} activation  The activation event (singleton, at most one per actor)
    * @property {CrucibleActionEvent|null} actorUpdate The actor update event (singleton, at most one per actor)
+   * @property {CrucibleActionEvent|null} movement    The movement event (singleton, at most one per actor)
    * @property {boolean} isSelf                       Is this actor the one performing the action?
    * @property {boolean} isTarget                     Was this actor explicitly targeted by the action?
    * @property {boolean} hasRoll                      Does this actor have at least one roll event?
@@ -778,6 +801,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           roll: [],
           activation: null,
           actorUpdate: null,
+          movement: null,
           isSelf: event.target === this.actor,
           isTarget: this.targets?.has(event.target) ?? false,
           hasRoll: false,
@@ -803,6 +827,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       if ( event.type === "activation" ) events.activation = event;
       else if ( event.type === "actorUpdate" ) events.actorUpdate = event;
+      else if ( event.type === "movement" ) events.movement = event;
     }
 
     // allSuccess/allFailure are only meaningful when there are rolls
@@ -1094,7 +1119,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   recordEvent(eventData, {index, start, temporary}={}) {
     const event = new CrucibleActionEvent(eventData, this);
     if ( temporary ) return event;
-    if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
+    if ( CrucibleAction.#SINGLETON_EVENT_TYPES.has(event.type) ) {
       const existing = this.events.find(e => (e.type === event.type) && (e.target === event.target));
       if ( existing ) throw new Error(`Duplicate singleton "${event.type}" event for actor "${event.target.name}"`);
     }
@@ -1788,6 +1813,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
       for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta});
     }
+
+    this.#expireInvisibility();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Stage deletion of the Invisible status on the acting actor if this action breaks invisibility.
+   */
+  #expireInvisibility() {
+    if ( !this.actor?.statuses.has("invisible") ) return;
+    if ( !this.breaksInvisibility ) return;
+    for ( const effect of this.actor.effects ) {
+      if ( !effect.statuses.has("invisible") ) continue;
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: effect.id, _action: "delete"}]});
+    }
   }
 
   /* -------------------------------------------- */
@@ -1955,6 +1996,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const scaling = new Set(this.scaling);
     this.scaling.length = 0;
     this.scaling.push(...scaling);
+
+    // Final cost overrides
+    if ( this.actor.statuses.has("limitless") ) {
+      this.cost.action = 0;
+      this.cost.focus = 0;
+      this.cost.heroism = 0;
+    }
   }
 
   /* -------------------------------------------- */
@@ -2223,10 +2271,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const event of this.events ) {
       const actor = event.target;
       if ( !batches.has(actor) ) batches.set(actor, {
-        resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], statusText: []
+        events: [], resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], movementId: null
       });
       const batch = batches.get(actor);
       const isSelf = actor === this.actor;
+      batch.events.push(event);
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
@@ -2251,17 +2300,85 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Accumulate item snapshots
       if ( event.itemSnapshots ) batch.itemSnapshots.push(...event.itemSnapshots);
 
-      // Accumulate status text
-      if ( event.statusText ) batch.statusText.push(...event.statusText);
+      // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
+      if ( event.type === "movement" ) {
+        batch.movementId = event.movement;
+        if ( reverse && (event.movement === actor.system.status?.freeMovementId) ) {
+          foundry.utils.setProperty(batch.actorUpdates, "system.status.hasMoved", false);
+          foundry.utils.setProperty(batch.actorUpdates, "system.status.freeMovementId", null);
+        }
+      }
     }
 
     // Apply each actor's batch - skip non-persisted actors (e.g. the transient Environment actor used by hazards)
     for ( const [actor, batch] of batches ) {
       if ( !game.actors.has(actor.id) ) continue;
       if ( reverse && batch.itemSnapshots.length ) this.#reverseItemSnapshots(batch);
-      const statusText = batch.statusText.length ? batch.statusText : undefined;
-      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, statusText});
+
+      // Enact or reverse planned movement before committing resources, update token position and free movement state
+      if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
+
+      // Compose scrolling text events
+      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
+      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compose scrolling text events to display above a target actor on action confirmation.
+   * @param {CrucibleActor} actor              The target actor
+   * @param {CrucibleActionEvent[]} events     Events targeting this actor, in stream order
+   * @param {object} options
+   * @param {boolean} options.reverse            Reverse direction of change?
+   * @param {boolean} options.isNegated          Action was negated (e.g. by counterspell)?
+   * @returns {ScrollingTextEvent[]}
+   */
+  #composeTextEvents(actor, events, {reverse, isNegated}) {
+    const textEvents = [];
+    const isSelf = actor === this.actor;
+    const sign = reverse ? -1 : 1;
+    const resources = actor.system.resources;
+    const ActorCls = crucible.api.documents.CrucibleActor;
+    for ( const event of events ) {
+      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
+      if ( includeResources ) {
+        for ( const {resource: name, delta: rawDelta} of event.resources ) {
+          const delta = rawDelta * sign;
+          if ( delta === 0 ) continue;
+          const attr = resources[name];
+          if ( !attr ) continue;
+          textEvents.push(ActorCls.formatScrollingResource(name, delta, attr.max));
+        }
+      }
+      if ( event.statusText?.length ) textEvents.push(...event.statusText);
+    }
+    return textEvents;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Enact or reverse a single planned movement recorded as a `type: "movement"` event in this action.
+   * @param {CrucibleActor} actor      The actor whose token is being moved
+   * @param {string} movementId        The id of the planned movement
+   * @param {boolean} reverse          Reverse the movement instead of enacting it?
+   */
+  async #applyMovement(actor, movementId, reverse) {
+    const token = (actor === this.actor) ? this.token
+      : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
+    if ( !token ) return;
+    const isPlanned = (token.movement?.id === movementId) && (token.movement?.state === "planned");
+    if ( reverse ) {
+      if ( isPlanned ) await token.stopMovement();
+      else await token.revertRecordedMovement(movementId);
+      return;
+    }
+    if ( isPlanned ) {
+      (token._confirmedMovements ??= new Set()).add(movementId);
+      await token.startMovement(movementId);
     }
   }
 
@@ -2707,7 +2824,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // so fabricate a fresh placeholder when reconstituting one from chat
     let actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
     if ( !actor && actionData.tags?.includes("hazard") ) {
-      actor = new Actor.implementation({name: "Environment", type: "adversary"});
+      actor = new Actor.implementation({name: _loc("HAZARD.DefaultActor"), type: "adversary"});
     }
     const item = fromUuidSync(itemUuid);
     const token = fromUuidSync(tokenUuid);
@@ -2796,17 +2913,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {string} [options.damageType]     The damage type inflicted by the hazard.
    * @param {string} [options.resource]       The resource the hazard damages (defaults to "health").
    * @param {string} [options.name]           A custom display name for the hazard.
+   * @param {string} [options.description]    A custom enrichable description.
    * @returns {CrucibleAction}              The resulting CrucibleAction that provides the configured hazard
    */
-  static createHazard({actor, danger=0, tags, defenseType, damageType, resource, name, ...actionData}={}) {
+  static createHazard({actor, danger=0, tags, defenseType, damageType, resource, name, description, ...actionData}={}) {
     actor ||= new Actor.implementation({name: "Environment", type: "adversary"});
     tags = Array.isArray(tags) ? tags.filter(t => t !== "hazard") : [];
     tags.unshift("hazard");
     return new this({
       id: "environmentAttack",
-      name: name || "Environmental Hazard",
+      name: name || _loc("HAZARD.DefaultName"),
       img: "icons/skills/wounds/injury-body-pain-gray.webp",
-      description: "",
+      description: description ?? "",
       target: {type: "single", scope: 4, self: true},
       ...actionData,
       tags

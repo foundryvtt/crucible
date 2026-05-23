@@ -1198,9 +1198,19 @@ pages:
       format: 1
       content: >-
         <p>A creature which is <strong>Invisible</strong> cannot be detected
-        using sight-based perception.</p><section class="construction"><p>More
-        advanced rules for invisibility are planned for a future
-        update.</p></section>
+        using sight-based perception. Special detection modes such as
+        <strong>Thermal Vision</strong>, <strong>Sense Creature</strong>, or
+        <strong>Echolocation</strong> may still detect an Invisible
+        creature.</p><h3>Expiration</h3><p>Invisibility expires when its
+        duration elapses, when the Invisible status is removed, or when the
+        Invisible creature performs an action that reveals their
+        presence.</p><p>An action reveals the actor's presence if any of the
+        following are true:</p><ul><li><p>The action is a
+        <strong>Spell</strong>.</p></li><li><p>The action targets another
+        creature (anything other than <strong>Self</strong>-scope or
+        <strong>None</strong>-scope).</p></li></ul><p>An action with the
+        <strong>Undetectable</strong> tag is an exception: regardless of its
+        target scope or spellcraft, it preserves Invisibility.</p>
     video:
       controls: true
       volume: 0.5
@@ -1541,6 +1551,40 @@ pages:
       modifiedTime: 1773600000000
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.suffocating00000'
+  - sort: 1700000
+    name: Limitless
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: limitless0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Limitless</strong> creature pays no Action, Focus, or
+        Heroism cost when using any Action. This condition is primarily used for
+        system testing and is not intended for typical gameplay.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.356'
+      systemId: crucible
+      systemVersion: 0.9.3
+      createdTime: 1778976000000
+      modifiedTime: 1778976000000
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleConditio.limitless0000000'
 folder: MMeWpMmsLOblp07U
 categories:
   - name: Health

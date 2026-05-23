@@ -1,0 +1,72 @@
+name: Dying Call
+type: talent
+_id: dyingCall0000000
+img: icons/creatures/birds/corvid-call-sound-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>When @ref[actor.name]{this creature} is in the throes of death, it emits
+    one last call, alerting others nearby that it has been killed and calling
+    for vengeance.</p>
+  actions:
+    - id: dyingCall
+      name: Dying Call
+      img: icons/creatures/birds/corvid-call-sound-blue.webp
+      description: >-
+        <p>The @ref[actor.name]{creature} emits a shrill call as a dying act,
+        notifying similar nearby creatures of its death, which are instinctually
+        drawn towards this location.</p>
+      condition: The creature becomes Dead.
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+        self: false
+        size: 50
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+      tags:
+        - vocal
+        - auditory
+        - generic
+      autoFavorite: false
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.3
+  createdTime: 1778767309467
+  modifiedTime: 1778767309468
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+folder: DjDiZofs7UvgUC9D
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+sort: 0
+_key: '!items!dyingCall0000000'

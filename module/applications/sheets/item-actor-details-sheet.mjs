@@ -63,7 +63,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     for ( const [talentIndex, {item: uuid, level}] of talents.entries() ) {
       let talent = await fromUuid(uuid);
       talent ||= new Item.implementation({type: "talent", name: "INVALID"});
-      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level})
+      promises.push(talent.renderInline({showRemove: this.isEditable, showLevel: true, talentIndex, level, uuid})
         .then(html => ({html, name: talent.name, level})));
     }
     const sorted = (await Promise.all(promises))
@@ -79,6 +79,26 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( !this.isEditable ) return;
     const dropZone = this.element.querySelector(".talent-drop");
     dropZone?.addEventListener("drop", this.#onDropTalent.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Sum the numeric values of a set of input elements, applying per-field validation as we go.
+   * @param {Iterable<HTMLInputElement>} inputs
+   * @param {number} [initial=0]
+   * @returns {number}
+   * @protected
+   */
+  _sumValidatedInputs(inputs, initial=0) {
+    let total = initial;
+    for ( const input of inputs ) {
+      const value = input.valueAsNumber;
+      const invalid = !!this.document.getFieldForProperty(input.name).validate(value);
+      input.parentElement.classList.toggle("invalid", invalid);
+      total += value;
+    }
+    return total;
   }
 
   /* -------------------------------------------- */

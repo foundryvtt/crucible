@@ -1,0 +1,65 @@
+name: Assassin
+type: archetype
+_id: assassin00000000
+img: icons/magic/death/skull-humanoid-white-blue.webp
+system:
+  description: <p>Merciless characters adept at infiltration and ruthless killing.</p>
+  identifier: assassin
+  abilities:
+    wisdom: 0
+    presence: 1
+    intellect: 3
+    strength: 2
+    toughness: 2
+    dexterity: 4
+  talents:
+    - item: Compendium.crucible.talent.Item.assassin00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+      level: 0
+    - item: Compendium.crucible.talent.Item.lightWeaponProfi
+      level: 4
+    - item: Compendium.crucible.talent.Item.projectileWeapon
+      level: 2
+    - item: Compendium.crucible.talent.Item.projectileProfic
+      level: 4
+    - item: Compendium.crucible.talent.Item.backstab00000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.hamstring0000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.opportunist00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.subtleextricatio
+      level: 3
+  skills:
+    - athletics
+    - awareness
+    - stealth
+    - intimidation
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.361'
+  systemId: crucible
+  systemVersion: 0.9.3
+  createdTime: 1778766727099
+  modifiedTime: 1778766727100
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!assassin00000000'

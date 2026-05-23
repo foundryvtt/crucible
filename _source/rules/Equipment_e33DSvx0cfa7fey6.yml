@@ -100,21 +100,23 @@ pages:
         weapons.</p><h4>Engaging</h4><p>This weapon is designed to better allow
         you to combat multiple foes, increasing your Engagement by +1. The
         weapon's defensive design reduces its base damage by 1 for one-handed
-        weapons or 2 for two-handed weapons.</p><h4>Oversized</h4><p>This weapon
-        is large for its category and is unwieldy in combat without special
-        training. The weapon gains +1 base damage for one-handed weapons or +2
-        for two-handed weapons, but is slow and provides +2 Banes to Initiative
-        rolls.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
-        while equipped and not Broken. The weapon's defensive balance increases
-        the critical hit threshold for Strikes made with this weapon by +1,
-        making critical hits harder to achieve.</p><h4>Versatile</h4><p>This
-        normally one-handed weapon can be used effectively with two hands. While
-        equipped without any item in the off-hand its base damage is increased
-        by +2 and Action cost is increased by +1.</p><h4>Thrown</h4><p>This
-        weapon can be used to Strike at range up to a distance of 20 feet. When
-        used to Strike a target that is not within melee range, the Weapon
-        becomes unequipped and must be retrieved before it can be used
-        again.</p>
+        weapons or 2 for two-handed weapons.</p><h4>Intuitive</h4><p>This weapon
+        is intuitive enough to be used untrained. The Skill penalty when using
+        this weapon untrained is only -1 instead of
+        -4.</p><h4>Oversized</h4><p>This weapon is large for its category and is
+        unwieldy in combat without special training. The weapon gains +1 base
+        damage for one-handed weapons or +2 for two-handed weapons, but is slow
+        and provides +2 Banes to Initiative rolls.</p><h4>Parrying</h4><p>This
+        weapon provides +1 to Parry defense while equipped and not Broken. The
+        weapon's defensive balance increases the critical hit threshold for
+        Strikes made with this weapon by +1, making critical hits harder to
+        achieve.</p><h4>Versatile</h4><p>This normally one-handed weapon can be
+        used effectively with two hands. While equipped without any item in the
+        off-hand its base damage is increased by +2 and Action cost is increased
+        by +1.</p><h4>Thrown</h4><p>This weapon can be used to Strike at range
+        up to a distance of 20 feet. When used to Strike a target that is not
+        within melee range, the Weapon becomes unequipped and must be retrieved
+        before it can be used again.</p>
       markdown: ''
     video:
       controls: true
@@ -127,10 +129,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.359'
+      coreVersion: '14.361'
       createdTime: 1775568473272
-      modifiedTime: 1775572791370
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1778521450514
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
