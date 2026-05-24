@@ -313,6 +313,15 @@ Hooks.once("init", async function() {
     default: true
   });
 
+  game.settings.register("crucible", "flexibleAncestryAbilities", {
+    name: "SETTINGS.FlexibleAncestryAbilitiesName",
+    hint: "SETTINGS.FlexibleAncestryAbilitiesHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   // Migration Required Version
   game.settings.register("crucible", "migrationVersion", {
     scope: "world",

@@ -681,6 +681,29 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( a.color ) t.selectionColor = a.color;
       if ( a.icon ) t.selectionIcon = a.icon;
       t.selectionLabel = a.name;
+
+      // If flexible ancestry abilities are allowed, prepare form fields to select them
+      const flexible = game.settings.get("crucible", "flexibleAncestryAbilities");
+      const {primary, secondary} = this._clone.system.details.ancestry.abilities;
+      const abilitiesField = crucible.api.models.CrucibleAncestryItem.schema.fields.abilities;
+      const slots = [
+        {role: "primary", id: primary, rank: SYSTEM.ANCESTRIES.primaryAbilityStart},
+        {role: "secondary", id: secondary, rank: SYSTEM.ANCESTRIES.secondaryAbilityStart}
+      ];
+      context.ancestry = {...a, features: a.features.map(f => {
+        if ( f.id !== "abilities" ) return f;
+        if ( flexible ) {
+          const wrapper = document.createElement("div");
+          wrapper.classList.add("ability-select", "standard-form");
+          for ( const s of slots ) {
+            const field = abilitiesField.fields[s.role];
+            wrapper.append(field.toFormGroup({classes: ["slim"], hint: ""},
+              {name: s.role, value: s.id, blank: false, dataset: {role: s.role}}));
+          }
+          return {...f, tags: undefined, html: wrapper.outerHTML};
+        }
+        return {...f, tags: slots.map(s => ({text: `${SYSTEM.ABILITIES[s.id].label} ${s.rank}`}))};
+      })};
     }
     else context.ancestry = null;
   }
@@ -794,6 +817,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( options.parts?.includes("header") ) {
       this.element.querySelector("#hero-creation-name").addEventListener("input", this.#onInputName.bind(this));
     }
+    if ( options.parts?.includes("ancestry") ) {
+      for ( const select of this.element.querySelectorAll(".ability-select select[data-role]") ) {
+        select.addEventListener("change", this.#onChangeAncestryAbility.bind(this));
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -806,6 +834,25 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const hadName = !!this._state.name;
     this._state.name = event.target.value.trim();
     if ( hadName !== !!this._state.name ) this.render({parts: ["header"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle dropdown changes that reassign the chosen Ancestry's Primary or Secondary Ability slot. If the player
+   * picks an ability already held by the other slot, the two are swapped so each slot retains a distinct ability.
+   * @param {Event} event
+   * @returns {Promise<void>}
+   */
+  async #onChangeAncestryAbility(event) {
+    const role = event.target.dataset.role;
+    const value = event.target.value;
+    const current = this._clone.system.details.ancestry.abilities;
+    const other = role === "primary" ? "secondary" : "primary";
+    const next = {primary: current.primary, secondary: current.secondary, [role]: value};
+    if ( current[other] === value ) next[other] = current[role];
+    this._clone.updateSource({"system.details.ancestry.abilities": next});
+    await this.render({parts: [this.step, "header"]});
   }
 
   /* -------------------------------------------- */

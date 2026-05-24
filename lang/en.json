@@ -937,11 +937,11 @@
         "label": "Ability Scores",
         "primary": {
           "hint": "Select a primary ability score which begins at 3.",
-          "label": "Primary Ability"
+          "label": "Primary"
         },
         "secondary": {
           "hint": "Select a secondary ability score which begins at 2.",
-          "label": "Secondary Ability"
+          "label": "Secondary"
         }
       },
       "description": {
@@ -1917,7 +1917,9 @@
     "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists.",
     "CruciblePartyLabel": "Primary Adventuring Party",
     "EnableVFXHint": "Play visual effects animations on the canvas when actions are confirmed.",
-    "EnableVFXName": "Enable Action Visual Effects"
+    "EnableVFXName": "Enable Action Visual Effects",
+    "FlexibleAncestryAbilitiesHint": "When enabled, hero characters may reassign their Ancestry's Primary and Secondary Ability Score bonuses to abilities of their choice during character creation. The Ancestry still contributes the same +2 and +1 starting bonuses; only the abilities receiving them are flexible.",
+    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses"
   },
   "SKILL": {
     "CATEGORY": {

@@ -102,17 +102,26 @@ pages:
         <strong>1</strong>. The values of each Ability Score range from
         <strong>1</strong> to <strong>12</strong>, where the typical value of
         this attribute for a non-remarkable Human is
-        <strong>2</strong>.</p><p>In addition to starting Ability Score values
-        provided by your Ancestry, each character begins with <strong>9 Ability
-        Points</strong> which can be allocated towards any of the six Ability
-        Scores. To spend Ability Points click the up or down arrows to the right
-        of the desired Ability.</p><p>You may only increase a single Ability
-        Score a maximum of 3 times during character creation. A counter at the
-        top of the Ability Scores section displays how many points you have
-        remaining to spend.</p><p>Once you have completed character creation and
-        advanced your character to <strong>Level 1</strong> the starting Ability
-        Scores which you purchased can no longer be changed, but these ability
-        scores may still be increased over time as you continue to level up.</p>
+        <strong>2</strong>.</p><section class="foundryvtt"><h4>Flexible Ancestry
+        Abilities</h4><p>By default, the base Ability score bonuses provided by
+        each Ancestry are pre-configured, however should your Gamemaster desire
+        a more flexible character creation experience, you may enable the
+        <strong>Flexible Ancestry Ability Bonuses</strong> optional setting
+        under <strong>Configure Settings ➤ Crucible</strong>. </p><p>When this
+        option is active, players will be provided with a choice for their
+        Primary (begins at 3) and Secondary (begins at 2) ability bonuses during
+        the Ancestry step of character creation.</p></section><p>In addition to
+        starting Ability Score values provided by your Ancestry, each character
+        begins with <strong>9 Ability Points</strong> which can be allocated
+        towards any of the six Ability Scores. To spend Ability Points click the
+        up or down arrows to the right of the desired Ability.</p><p>You may
+        only increase a single Ability Score a maximum of 3 times during
+        character creation. A counter at the top of the Ability Scores section
+        displays how many points you have remaining to spend.</p><p>Once you
+        have completed character creation and advanced your character to
+        <strong>Level 1</strong> the starting Ability Scores which you purchased
+        can no longer be changed, but these ability scores may still be
+        increased over time as you continue to level up.</p>
     _id: uCwStnXHoUCV2TrK
     image: {}
     video:
@@ -128,10 +137,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
-      createdTime: null
-      modifiedTime: 1762096150117
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      coreVersion: '14.363'
+      createdTime: 1779633159099
+      modifiedTime: 1779633204991
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
       duplicateSource: null
       exportSource: null
