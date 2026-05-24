@@ -15,8 +15,9 @@ system:
       img: icons/skills/melee/strikes-sword-scimitar.webp
       condition: You incapacitate an enemy with a melee attack.
       description: >-
-        <p>After defeating an enemy, you may move up to your
-        <strong>Stride</strong> and attack another foe within melee range.</p>
+        <p>After defeating an enemy, you immediately move up to your
+        <strong>Stride </strong>and <strong>Strike</strong> another foe that you
+        pass next to or end your movement adjacent to.</p>
       cost:
         action: -1
         focus: 1
@@ -25,20 +26,22 @@ system:
         hands: 0
       range:
         maximum: null
-        weapon: true
+        weapon: false
         minimum: null
       target:
-        type: single
+        type: movement
         number: 1
+        limit: 1
         scope: 3
         self: false
       effects: []
       tags:
-        - movement
         - melee
+        - movement
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - str1a
   rune: ''
@@ -50,9 +53,9 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
-  modifiedTime: 1773514792610
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
+  modifiedTime: 1779646718750
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

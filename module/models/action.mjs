@@ -1400,7 +1400,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from the actor's planned movement path.
-   * Tokens whose grid footprint overlaps any portion of the swept path become targets.
+   * A token is targeted if the movement path intersects with its hitbox OR if base-to-base with the final position.
+   * Targets are returned in path-traversal order and capped to the action's defined maximum targets.
    * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromMovement() {
@@ -1408,50 +1409,87 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const sparseWaypoints = this.movement.waypoints;
     if ( !sparseWaypoints.length ) return [];
 
-    // Expand sparse waypoints into every intermediate grid cell traversed.
-    // Blink is a teleport action which getCompleteMovementPath would not expand, treat it as walk instead.
+    // Expand sparse waypoints into every intermediate grid cell traversed
     const expandedWaypoints = sparseWaypoints.map(w => (w.action === "blink" ? {...w, action: "walk"} : w));
     const waypoints = this.token.getCompleteMovementPath([this.movement.origin, ...expandedWaypoints]).slice(1);
+    if ( !waypoints.length ) return [];
 
-    // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
-    const visitedSpaces = new Set();
+    // Grid spaces occupied by the starting position are never targeted
+    const originSpaces = new Set();
+    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(this.movement.origin) ) {
+      originSpaces.add(`${i},${j},${k}`);
+    }
+
+    // Determine the superset of candidate targets filtered by disposition and visibility
+    const adjacencyPad = canvas.dimensions.size / canvas.dimensions.distance; // Pixels per one foot of distance
+    const broadBounds = this.#getMovementFootprintRect(waypoints, adjacencyPad);
+    const targetDispositions = this.#getTargetDispositions();
+    const candidates = canvas.tokens.quadtree.getObjects(broadBounds, {collisionTest: o => {
+      const tokenDoc = o.t.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
+      return !tokenDoc.hidden;
+    }});
+
+    // Padded footprint of the final position used to detect base-to-base adjacency
+    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], adjacencyPad);
+
+    // Walk the path in order, recording the first step at which each candidate is intersected or in base-to-base
+    const encounterStep = new Map();
+    for ( let w = 0; w < waypoints.length; w++ ) {
+      const isFinal = w === (waypoints.length - 1);
+      const occupied = new Set();
+      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
+        const key = `${i},${j},${k}`;
+        if ( !originSpaces.has(key) ) occupied.add(key);
+      }
+      for ( const token of candidates ) {
+        if ( encounterStep.has(token) ) continue;
+        const footprint = token.document.getOccupiedGridSpaceOffsets(token.document._source);
+        const intersects = footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
+        const adjacent = isFinal && finalRect.overlaps(token.bounds);
+        if ( intersects || adjacent ) encounterStep.set(token, w);
+      }
+    }
+
+    // Sort targets by encounter step, tie-breaking by center-to-center distance
+    const finalCenter = {x: finalRect.x + (finalRect.width / 2), y: finalRect.y + (finalRect.height / 2)};
+    const d2 = t => Math.pow(t.center.x - finalCenter.x, 2) + Math.pow(t.center.y - finalCenter.y, 2);
+    let ordered = Array.from(encounterStep.keys()).sort((a, b) => {
+      return (encounterStep.get(a) - encounterStep.get(b)) || (d2(a) - d2(b));
+    });
+
+    // Limit maximum affected targets, skipping those which are already dead
+    if ( this.target.limit && (ordered.length > this.target.limit) ) {
+      ordered = ordered.filter(token => !token.actor?.system.isDead).slice(0, this.target.limit);
+    }
+    return ordered.map(token => CrucibleAction.#getTargetFromToken(token.document));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the bounding rectangle of the token's grid footprint across one or more waypoints, optionally padded.
+   * @param {object[]} waypoints    Waypoint positions to bound
+   * @param {number} [pad=0]        Pixel padding applied to every side
+   * @returns {PIXI.Rectangle}
+   */
+  #getMovementFootprintRect(waypoints, pad=0) {
     let minI = Infinity;
     let minJ = Infinity;
     let maxI = -Infinity;
     let maxJ = -Infinity;
-    for ( let w = 0; w < waypoints.length; w++ ) {
-      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
-        visitedSpaces.add(`${i},${j},${k}`);
+    for ( const wp of waypoints ) {
+      for ( const {i, j} of this.token.getOccupiedGridSpaceOffsets(wp) ) {
         if ( i < minI ) minI = i;
         if ( j < minJ ) minJ = j;
         if ( i > maxI ) maxI = i;
         if ( j > maxJ ) maxJ = j;
       }
     }
-
-    // Remove spaces occupied by the token's starting position
-    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(this.movement.origin) ) {
-      visitedSpaces.delete(`${i},${j},${k}`);
-    }
-
-    // Identify Token targets by filtering the quadtree result for movement bounds
     const {x: x0, y: y0} = canvas.grid.getTopLeftPoint({i: minI, j: minJ});
     const {x: x1, y: y1} = canvas.grid.getTopLeftPoint({i: maxI + 1, j: maxJ + 1});
-    const movementBounds = new PIXI.Rectangle(x0, y0, x1 - x0, y1 - y0);
-    const targetDispositions = this.#getTargetDispositions();
-    const hitTokens = canvas.tokens.quadtree.getObjects(movementBounds, {collisionTest: o => {
-      const tokenDoc = o.t.document;
-      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
-      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
-      if ( tokenDoc.hidden ) return false;
-      const spaces = tokenDoc.getOccupiedGridSpaceOffsets(tokenDoc._source);
-      return spaces.some(({i, j, k}) => visitedSpaces.has(`${i},${j},${k}`));
-    }});
-
-    // Return the array of targets
-    const targets = [];
-    for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
-    return targets;
+    return new PIXI.Rectangle(x0 - pad, y0 - pad, (x1 - x0) + (2 * pad), (y1 - y0) + (2 * pad));
   }
 
   /* -------------------------------------------- */
