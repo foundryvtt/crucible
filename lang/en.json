@@ -921,8 +921,9 @@
   "ADVANCEMENT": {
     "ExpectedLevel": "Expected Level",
     "Important": "Important",
-    "ImportantTooltip": "Important Adversaries track Wounds and Madness.",
     "Level": "Level",
+    "MarkImportant": "Mark as Important",
+    "MarkNotImportant": "Mark not Important",
     "MilestoneAward": "Award Milestones",
     "MilestoneTooltip": "{progress} of {required} milestones until next level",
     "Progress": "Milestone Progress"

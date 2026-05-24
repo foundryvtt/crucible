@@ -11,12 +11,14 @@
                 <span class="total value">{{resources.health.max}}</span>
             </div>
             {{#if actor.system.advancement.important}}
+            {{#if resources.wounds.max}}
             <div class="pool long flexrow">
                 {{formInput fields.resources.fields.wounds.fields.value value=resources.wounds.value type="number"}}
                 <span class="sep">/</span>
                 <span class="total value">{{resources.wounds.max}}</span>
             </div>
             <h4 class="label below" data-tooltip="{{resources.wounds.tooltip}}">{{resources.wounds.label}}</h4>
+            {{/if}}
             {{/if}}
             <div class="threshold wounds" data-tooltip="{{defenses.wounds.tooltip}}">
                 <span class="value">{{defenses.wounds.total}}</span>
@@ -74,12 +76,14 @@
                 <span class="total value">{{resources.morale.max}}</span>
             </div>
             {{#if actor.system.advancement.important}}
+            {{#if resources.madness.max}}
             <div class="pool long flexrow">
                 {{formInput fields.resources.fields.madness.fields.value value=resources.madness.value type="number"}}
                 <span class="sep">/</span>
                 <span class="total value">{{resources.madness.max}}</span>
             </div>
             <h4 class="label below" data-tooltip="{{resources.madness.tooltip}}">{{resources.madness.label}}</h4>
+            {{/if}}
             {{/if}}
             <div class="threshold madness" data-tooltip="{{defenses.madness.tooltip}}">
                 <span class="value">{{defenses.madness.total}}</span>

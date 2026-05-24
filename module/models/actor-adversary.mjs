@@ -102,13 +102,20 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const {rank} = this.advancement;
     const threatConfig = SYSTEM.THREAT_RANKS[rank];
     const expectedSize = this.movement.baseSize + this.movement.sizeBonus;
-    return Object.assign(config, {
+    Object.assign(config, {
       actionMax: threatConfig.actionMax,
       heroismMax: threatConfig.heroismMax,
       healthPerLevel: expectedSize + 2,
       moralePerLevel: expectedSize + 2,
       abilityMax: 18
     });
+
+    // Cap reserve pools for Important adversaries using the Normal threat baseline
+    if ( this.advancement.important && (config.healthMultiplier > 1) ) {
+      config.woundsMultiplier /= config.healthMultiplier;
+      config.madnessMultiplier /= config.moraleMultiplier;
+    }
+    return config;
   }
 
   /* -------------------------------------------- */

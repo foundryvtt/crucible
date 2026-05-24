@@ -881,15 +881,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Compute resource maximums
     for ( const r of Object.values(resources) ) r.max = Math.max(r.base + r.bonus, 0);
 
-    // Specific logic for 0-ability actors
+    // Specific logic for 0-ability actors, convert half the unused pool into a bonus to the used pool
     if ( !this.abilities.toughness.value && !this.abilities.presence.value ) {
       resources.health.max = resources.morale.max = 0;
+      resources.wounds.max = resources.madness.max = 0;
     } else if ( !this.abilities.toughness.value ) {
-      resources.morale.max += resources.health.max;
+      resources.morale.max += Math.floor(resources.health.max / 2);
+      resources.madness.max += Math.floor(resources.wounds.max / 2);
       resources.health.max = 0;
+      resources.wounds.max = 0;
     } else if ( !this.abilities.presence.value ) {
-      resources.health.max += resources.morale.max;
+      resources.health.max += Math.floor(resources.morale.max / 2);
+      resources.wounds.max += Math.floor(resources.madness.max / 2);
       resources.morale.max = 0;
+      resources.madness.max = 0;
     }
     if ( !this.abilities.wisdom.value ) resources.heroism.max = 0;
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
