@@ -920,7 +920,10 @@
   },
   "ADVANCEMENT": {
     "ExpectedLevel": "Oczekiwany poziom",
+    "Important": "Ważny",
     "Level": "Poziom",
+    "MarkImportant": "Oznacz jako ważny",
+    "MarkNotImportant": "Oznacz jako nieistotny",
     "MilestoneAward": "Nagroda za postępy w realizacji kamieni milowych ",
     "MilestoneTooltip": "{progress} w realizacji {required} kamieni milowych do następnego poziomu",
     "Progress": "Postępy w realizacji kamieni milowych"
@@ -1485,6 +1488,7 @@
     "DCAdditionalPassive": "{dcLabel}, Pasywny",
     "DCAdditionalGroup": "{dcLabel}, Grupowy",
     "DCSpecific": "ST {dc}",
+    "DCTargetSpecific": "{skill} ST celu",
     "DiceTotal": "Suma oczek",
     "Enchantment": "Zaklinanie",
     "EnchantmentBonus": "Premia zaklinania",
@@ -1494,7 +1498,8 @@
     "RollTotal": "Suma rzutu",
     "SetDifficulty": "Ustaw poziom trudności",
     "Skill": "Umiejętność",
-    "SkillBonus": "Premia umiejętności"
+    "SkillBonus": "Premia umiejętności",
+    "UnknownScore": "???"
   },
   "FLANKED_EFFECT": {
     "FIELDS": {
