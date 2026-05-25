@@ -1068,6 +1068,20 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
+    const reserveResources = {"resources.health": "health", "resources.morale": "morale"};
+    const resourceName = reserveResources[attribute];
+    if ( resourceName && this.system.usesReserveResources ) {
+      const resource = this.system.resources[resourceName];
+      const delta = isDelta ? value : (value - resource.value);
+      return this.alterResources({[resourceName]: delta});
+    }
+    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+  }
+
+  /* -------------------------------------------- */
   /*  Action Event Management                     */
   /* -------------------------------------------- */
 
