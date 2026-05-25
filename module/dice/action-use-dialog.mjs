@@ -600,7 +600,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       minCost: this.action.range?.minimum ?? undefined,
       maxCost: this.action.range?.maximum ?? undefined,
       direct: movementUsage.direct ?? true,
-      constrainOptions: movementUsage.constrainOptions ?? {}
+      constrainOptions: movementUsage.constrainOptions ?? {},
+      metadata: {crucibleAction: this.action}
     });
     this.#previewMovementAction = null;
 

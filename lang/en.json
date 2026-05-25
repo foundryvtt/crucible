@@ -2399,6 +2399,12 @@
     },
     "MOVEMENT": {
       "ACTIONS": {
+        "blink.label": "Blink",
+        "displace.label": "Teleport",
+        "burrow": {
+          "description": "Tunnel through earth or soft terrain a distance up to half your Stride attribute per Action, passing beneath walls and freely through other creatures. Only creatures with an explicit Burrow speed can use this movement mode.",
+          "label": "Burrow"
+        },
         "climb": {
           "description": "Climb or descend a surface, a distance or elevation up to half your Stride attribute per Action. Creatures with an explicit Climb speed instead use this speed instead of half their Stride.",
           "label": "Climb"
@@ -2420,6 +2426,10 @@
         },
         "normal": {
           "label": "Normal"
+        },
+        "push": {
+          "description": "Forced displacement applied by an external effect such as a knockback. Movement cost is always zero.",
+          "label": "Push"
         },
         "slow": {
           "label": "Cautious"

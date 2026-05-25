@@ -768,6 +768,16 @@ Hooks.on("canvasReady", () => {
   if ( game.user.isGM && globalThis.canvas.scene?._microgrid?.warning ) {
     ui.notifications.warn(globalThis.canvas.scene._microgrid.warning);
   }
+
+  // Use the token-collision movement polygon as the move backend on microgrid scenes
+  CONFIG.Canvas.polygonBackends.move = globalThis.canvas.scene?.useMicrogrid
+    ? canvas.CrucibleMovementPolygon
+    : foundry.canvas.geometry.ClockwiseSweepPolygon;
+});
+
+// Restore the core move backend when a scene is torn down
+Hooks.on("canvasTearDown", () => {
+  CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {

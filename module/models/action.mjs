@@ -54,6 +54,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
+ * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
+ *                                          action used would otherwise enforce it
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`

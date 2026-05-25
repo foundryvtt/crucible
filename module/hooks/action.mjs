@@ -168,6 +168,14 @@ HOOKS.bodyBlock = {
 
 /* -------------------------------------------- */
 
+HOOKS.bullrush = {
+  prepare() {
+    this.usage.movement.ignoreTokens = true;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.causticPhial = {
   prepare() {
     const tiers = {
@@ -1238,6 +1246,14 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.shieldCharge = {
+  prepare() {
+    this.usage.movement.ignoreTokens = true;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.affixActivating = {
   postActivate() {
     const activation = this.events.find(e => e.type === "activation");
@@ -1343,6 +1359,7 @@ HOOKS.tramplingCharge = {
   prepare() {
     this.target.size = this.actor.size;
     this.range.maximum = this.actor.system.movement.stride * 2;
+    this.usage.movement.ignoreTokens = true;
   },
   postActivate() {
     const halfSize = Math.ceil(this.actor.size / 2);
@@ -1351,6 +1368,14 @@ HOOKS.tramplingCharge = {
         for ( const event of events.all ) event.effects.length = 0;
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.tumble = {
+  prepare() {
+    this.usage.movement.ignoreTokens = true;
   }
 };
 

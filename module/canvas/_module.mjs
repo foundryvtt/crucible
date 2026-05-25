@@ -7,6 +7,7 @@ export * as tree from "./tree/_module.mjs";
 export * as grid from "./grid/_module.mjs";
 export * as vfx from "./vfx/_module.mjs";
 export * as movement from "./movement.mjs";
+export {default as CrucibleMovementPolygon} from "./movement-polygon.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
 export {CrucibleTokenRuler};
 
@@ -41,7 +42,8 @@ export function configure() {
     costMultiplier: 0,
     speedMultiplier: Infinity,
     canSelect: false,
-    terrainAction: null
+    terrainAction: null,
+    tokenCollision: false
   };
 
   // Physically forced movement, cost is always zero
@@ -49,13 +51,13 @@ export function configure() {
     order: 998,
     label: "TOKEN.MOVEMENT.ACTIONS.push.label",
     icon: "fa-solid fa-explosion",
-    img: "icons/svg/wing.svg",
+    img: "icons/svg/explosion.svg",
     teleport: false,
     measure: false,
     visualize: true,
     costMultiplier: 0,
     speedMultiplier: 1,
-    canSelect: true,
+    canSelect: notGroup,
     terrainAction: null
   };
 

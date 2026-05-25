@@ -25,6 +25,7 @@ system:
       target:
         type: movement
         number: 1
+        limit: 1
         scope: 3
         self: false
       effects:
