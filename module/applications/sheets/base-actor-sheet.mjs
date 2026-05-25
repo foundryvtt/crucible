@@ -1078,7 +1078,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @type {ApplicationClickAction}
    */
   static async #onSkillRoll(_event, target) {
-    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
+    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true, chatMessage: true});
   }
 
   /* -------------------------------------------- */

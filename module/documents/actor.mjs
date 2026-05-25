@@ -8,6 +8,7 @@ const {DialogV2} = foundry.applications.api;
 /**
  * @import {TRAINING_TYPES} from "../const/talents.mjs";
  * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
+ * @import {GroupCheckSkillConfig} from "../dice/group-check.mjs";
  */
 
 /**
@@ -551,6 +552,34 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Identify the actor's best skill from a set of candidates, ranked by passive score.
+   * @param {Iterable<string>} skillIds    The candidate skill IDs
+   * @returns {string}                     The chosen skill ID
+   */
+  getBestSkill(skillIds) {
+    return Array.from(skillIds)
+      .map(id => ({id, passive: this.system.skills[id]?.passive ?? 0}))
+      .sort((a, b) => b.passive - a.passive)[0].id;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Find the best active user to roll on this actor's behalf, preferring an assigned character match then any
+   * owner, falling back to the active GM.
+   * @returns {User|undefined}    The designated user, or undefined if none is found
+   */
+  getDesignatedUser() {
+    return game.users.getDesignatedUser(user => {
+      if ( !user.active || user.isGM ) return false;
+      if ( user.character === this ) return true;
+      return this.testUserPermission(user, "OWNER");
+    }) ?? game.users.activeGM;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Test whether an Actor has a specific knowledge type.
    * @param {string} knowledgeId
    * @returns {boolean}
@@ -564,28 +593,47 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Roll a skill check for a given skill ID.
-   *
-   * @param {string} skillId              The ID of the skill to roll a check for, for example "stealth"
+   * @param {string} [skillId]            The skill to roll, e.g. "stealth". Omit to use the first of `dialog.skills`.
    * @param {object} [options]            Options which modify how the skill is rolled
-   * @param {number} [options.banes]        A number of special banes applied to the roll, default is 0
-   * @param {number} [options.boons]        A number of special boons applied to the roll, default is 0
+   * @param {number} [options.banes=0]      A number of special banes applied to the roll
+   * @param {number} [options.boons=0]      A number of special boons applied to the roll
    * @param {number} [options.dc]           A known target DC
    * @param {string} [options.messageMode]  The roll visibility mode to use, default is the current dropdown choice
-   * @param {boolean} [options.dialog]      Display a dialog window to further configure the roll. Default is false.
-   * @returns {StandardCheck}             The StandardCheck roll instance which was produced.
+   * @param {object|boolean} [options.dialog]  Present a configuration dialog with these options; pass true for the
+   *                                        default dialog, or omit for none
+   * @param {string} [options.dialog.title]               The dialog window title
+   * @param {boolean} [options.dialog.configurable=true]  Whether the dialog allows GM configuration
+   * @param {Record<string, GroupCheckSkillConfig>} [options.dialog.skills]  Allowed skills offered as choices
+   * @param {boolean} [options.chatMessage=false]  Post the evaluated roll to chat
+   * @returns {Promise<StandardCheck|null>} The evaluated roll, or null if a displayed dialog was cancelled
    */
-  async rollSkill(skillId, {banes=0, boons=0, dc, messageMode, dialog=false}={}) {
-    const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
+  async rollSkill(skillId, {banes=0, boons=0, dc, messageMode, dialog, chatMessage=false}={}) {
+    if ( dialog === true ) dialog = {};
 
-    // Prompt the user with a roll dialog
+    // Resolve the initial skill and DC from a multi-skill choice set
+    const skills = dialog?.skills;
+    if ( skills ) {
+      skillId ??= Object.keys(skills)[0];
+      dc ??= skills[skillId].dc;
+    }
+    const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
+    if ( messageMode ) check.data.messageMode = messageMode;
     const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
+
+    // Optionally prompt the user with a configuration dialog
     if ( dialog ) {
-      const response = await check.dialog({flavor, messageMode});
+      const {title, configurable=true} = dialog;
+      const dialogOptions = {flavor, messageMode, title, configurable};
+      if ( skills && (Object.keys(skills).length > 1) ) dialogOptions.skills = skills;
+      const response = await check.dialog(dialogOptions);
       if ( response === null ) return null;
     }
 
-    // Execute the roll to chat
-    await check.toMessage({flavor, flags: {crucible: {skill: skillId}}});
+    // Evaluate the roll, disallowing interactive evaluation for blind rolls
+    await check.evaluate({allowInteractive: check.data.messageMode !== "blind"});
+
+    // Optionally post the evaluated roll to chat
+    if ( chatMessage ) await check.toMessage({flavor, flags: {crucible: {skill: skillId}}});
     return check;
   }
 

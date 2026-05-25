@@ -113,103 +113,17 @@ export default class GroupCheck extends StandardCheck {
   /* -------------------------------------------- */
 
   /**
-   * Recreate a GroupCheck instance from persisted flags for rendering updates.
-   * @param {GroupCheckFlags} flags     The persisted group check state
-   * @returns {GroupCheck}              A configured group check instance
+   * Silently roll the actor's highest-ranked skill from the allowed set, without presenting a dialog.
+   * @param {CrucibleActor} actor                            The actor performing the check
+   * @param {Record<string, GroupCheckSkillConfig>} skills    The available skills with DCs
+   * @param {object} [options]
+   * @param {number} [options.sharedBoons=0]                 GM-assigned shared boons
+   * @param {number} [options.sharedBanes=0]                 GM-assigned shared banes
+   * @returns {Promise<StandardCheck>}                       The evaluated roll
    */
-  static #fromFlags(flags) {
-    const firstSkill = Object.keys(flags.skills)[0];
-    const data = {type: firstSkill, dc: flags.skills[firstSkill].dc};
-    if ( flags.sharedBoons ) data.boons = {special: {label: "Special", number: flags.sharedBoons}};
-    if ( flags.sharedBanes ) data.banes = {special: {label: "Special", number: flags.sharedBanes}};
-    return new this(data);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Find the best active user to roll for a given actor.
-   * Prefers users whose assigned character matches, then falls back to any owner.
-   * @param {CrucibleActor} actor     The actor to find a user for
-   * @returns {User|undefined}        The matched user, or undefined if none found
-   */
-  static #findUserForActor(actor) {
-    return game.users.getDesignatedUser(user => {
-      if ( !user.active || user.isGM ) return false;
-      if ( user.character === actor ) return true;
-      return actor.testUserPermission(user, "OWNER");
-    }) ?? game.users.activeGM;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare a StandardCheck roll for an actor, present the dialog, and evaluate it.
-   * @param {CrucibleActor} actor The actor performing the check
-   * @param {object} options
-   * @param {string} options.skillId            The skill being checked (single-skill mode)
-   * @param {Record<string, GroupCheckSkillConfig>} [options.skills]  Allowed skills (multi-skill mode)
-   * @param {number} [options.dc=15]            The difficulty class for the check
-   * @param {number} [options.sharedBoons=0]    GM-assigned shared boons
-   * @param {number} [options.sharedBanes=0]    GM-assigned shared banes
-   * @param {string} [options.title]            The dialog title
-   * @param {boolean} [options.configurable=true]  Whether the dialog allows configuration
-   * @returns {Promise<StandardCheck|null>}    The evaluated roll, or null if the dialog was cancelled
-   */
-  static async #prepareAndRoll(actor, {skillId, skills, dc=15, sharedBoons=0, sharedBanes=0, title, messageMode, configurable=true}={}) {
-
-    // Resolve the initial skill from either single-skill or multi-skill mode
-    if ( skills ) {
-      const skillIds = Object.keys(skills);
-      skillId ??= skillIds[0];
-      dc = skills[skillId].dc;
-    }
-
-    const skill = SYSTEM.SKILLS[skillId];
-    const checkData = {dc, boons: sharedBoons, banes: sharedBanes};
-    const pool = skill
-      ? actor.getSkillCheck(skill.id, checkData)
-      : new this({...checkData, type: skillId, actorId: actor.id});
-
-    const dialogOptions = {title, configurable, messageMode};
-    if ( skills && (Object.keys(skills).length > 1) ) dialogOptions.skills = skills;
-    const roll = await pool.dialog(dialogOptions);
-    if ( roll === null ) return null;
-    return roll.evaluate();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Silently prepare and evaluate a roll for an actor without presenting a dialog.
-   * For multi-skill checks, automatically selects the actor's highest-ranked skill.
-   * @param {CrucibleActor} actor                                The actor performing the check
-   * @param {Record<string, GroupCheckSkillConfig>} skills        The available skills with DCs
-   * @param {number} [sharedBoons=0]                             GM-assigned shared boons
-   * @param {number} [sharedBanes=0]                             GM-assigned shared banes
-   * @returns {Promise<StandardCheck>}                           The evaluated roll
-   */
-  static async #silentRoll(actor, skills, {sharedBoons=0, sharedBanes=0}={}) {
-    const skillId = this.#bestSkillForActor(actor, skills);
-    const dc = skills[skillId].dc;
-    const checkData = {dc, boons: sharedBoons, banes: sharedBanes};
-    const pool = actor.getSkillCheck(skillId, checkData);
-    await pool.evaluate();
-    return pool;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Determine the best skill for an actor from the available set based on passive score.
-   * @param {CrucibleActor} actor                                The actor to evaluate
-   * @param {Record<string, GroupCheckSkillConfig>} skills        The available skills
-   * @returns {string}                                           The chosen skill ID
-   */
-  static #bestSkillForActor(actor, skills) {
-    return Object.keys(skills)
-      .map(id => ({id, passive: actor.system.skills[id]?.passive ?? 0}))
-      .sort((a, b) => b.passive - a.passive)[0].id;
+  static async #rollBestAvailableSkill(actor, skills, {sharedBoons=0, sharedBanes=0}={}) {
+    const skillId = actor.getBestSkill(Object.keys(skills));
+    return actor.rollSkill(skillId, {boons: sharedBoons, banes: sharedBanes, dc: skills[skillId].dc});
   }
 
   /* -------------------------------------------- */
@@ -236,7 +150,7 @@ export default class GroupCheck extends StandardCheck {
     const actors = {};
     const unrequested = [];
     for ( const actor of requestedActors ) {
-      const user = local ? null : GroupCheck.#findUserForActor(actor);
+      const user = local ? null : actor.getDesignatedUser();
       actors[actor.id] = {
         actorId: actor.id,
         actorName: actor.name,
@@ -518,7 +432,10 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     if ( !actor ) return {aborted: true};
     if ( !actor.testUserPermission(game.user, "OWNER") ) return {aborted: true};
-    const pool = await this.#prepareAndRoll(actor, {skills, sharedBoons, sharedBanes, messageMode, title, configurable: false});
+    const pool = await actor.rollSkill(undefined, {
+      boons: sharedBoons, banes: sharedBanes, messageMode,
+      dialog: {title, configurable: false, skills}
+    });
     if ( !pool ) return {aborted: true};
     return pool.toJSON();
   }
@@ -648,7 +565,7 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     if ( !actor ) return;
     const {skills} = flags;
-    const roll = await this.#silentRoll(actor, skills, {
+    const roll = await this.#rollBestAvailableSkill(actor, skills, {
       sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes
     });
     const chosenSkillId = roll.data.type;
@@ -685,10 +602,10 @@ export default class GroupCheck extends StandardCheck {
       ? _loc("DICE.GROUP_CHECK.DialogTitle", {skill: SYSTEM.SKILLS[skillIds[0]].label, name: actor.name})
       : `${_loc("ACTION.SkillCheckGeneric")}: ${actor.name}`;
 
-    const roll = await this.#prepareAndRoll(
-      actor,
-      {skills, sharedBoons: flags.sharedBoons, sharedBanes: flags.sharedBanes, title, configurable: false}
-    );
+    const roll = await actor.rollSkill(undefined, {
+      boons: flags.sharedBoons, banes: flags.sharedBanes,
+      dialog: {title, configurable: false, skills}
+    });
     if ( !roll ) return;
 
     const chosenSkillId = roll.data.type;
@@ -744,7 +661,7 @@ export default class GroupCheck extends StandardCheck {
     const actor = game.actors.get(actorId);
     let user;
     if ( entry.userId ) user = game.users.get(entry.userId);
-    if ( !user?.active ) user = this.#findUserForActor(actor);
+    if ( !user?.active ) user = actor.getDesignatedUser();
     if ( !user ) {
       ui.notifications.warn("DICE.GROUP_CHECK.NoUserForActor", {localize: true, format: {name: entry.actorName}});
       return;
