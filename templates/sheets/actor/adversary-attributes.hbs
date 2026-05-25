@@ -3,7 +3,7 @@
 
     <div class="sheet-section resources flexrow">
         <h3>{{localize "ACTOR.SHEET.Resources"}}</h3>
-        <div class="resource health flexcol" style="{{resources.health.cssPct}}">
+        <div class="resource health flexcol" style="{{resources.health.cssStyle}}">
             <h4 class="label above" data-tooltip="{{resources.health.tooltip}}">{{resources.health.label}}</h4>
             <div class="pool short flexrow">
                 {{formInput fields.resources.fields.health.fields.value value=resources.health.value type="number"}}
@@ -68,7 +68,7 @@
             {{/if}}
         </div>
 
-        <div class="resource morale flexcol" style="{{resources.morale.cssPct}}">
+        <div class="resource morale flexcol" style="{{resources.morale.cssStyle}}">
             <h4 class="label above" data-tooltip="{{resources.morale.tooltip}}">{{resources.morale.label}}</h4>
             <div class="pool short flexrow">
                 {{formInput fields.resources.fields.morale.fields.value value=resources.morale.value type="number"}}

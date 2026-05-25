@@ -721,9 +721,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, resource] of Object.entries(rs) ) {
       const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
       r.id = id;
-      r.pct = Math.round(r.value * 100 / r.max);
-      r.cssPct = `--resource-pct: ${100 - r.pct}%`;
+      r.pct = r.max > 0 ? Math.round(r.value * 100 / r.max) : 0;
       resources[r.id] = r;
+    }
+
+    // Assemble inline CSS style for the resource
+    const reservePairs = {health: "wounds", morale: "madness"};
+    for ( const [activeId, reserveId] of Object.entries(reservePairs) ) {
+      let style = `--resource-pct: ${100 - resources[activeId].pct}%;`;
+      const reserve = resources[reserveId];
+      if ( reserve?.value > 0 ) {
+        const color = SYSTEM.RESOURCES[reserveId].color.high.css;
+        style += ` --reserve-pct: ${reserve.pct}%; --reserve-color: ${color}; --reserve-display: block;`;
+      }
+      resources[activeId].cssStyle = style;
     }
 
     // Action

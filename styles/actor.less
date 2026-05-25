@@ -386,6 +386,24 @@
           transition: clip-path 1s;
         }
 
+        // Horizontal Band for Reserve Level
+        &::after {
+          display: var(--reserve-display, none);
+          position: absolute;
+          pointer-events: none;
+          content: "";
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          background-image: linear-gradient(to right, transparent, var(--reserve-color) 50%, transparent);
+          background-repeat: no-repeat;
+          background-size: 100% 3px;
+          background-position: left calc(100% - var(--reserve-pct, 0%));
+          mask: var(--resource-fill) no-repeat center;
+          mask-size: 100px;
+          transition: background-position 1s;
+        }
+
         .threshold {
           position: absolute;
           bottom: -8px;
