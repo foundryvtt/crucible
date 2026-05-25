@@ -1093,6 +1093,30 @@ HOOKS.reload = {
 
 /* -------------------------------------------- */
 
+HOOKS.repercussiveBlock = {
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    const myEvents = targetAction.eventsByActor.get(this.actor);
+    if ( !myEvents ) return;
+    if ( !targetAction.tags.has("melee") ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.REPERCUSSIVE_BLOCK.MeleeOnly"));
+    }
+    if ( targetAction.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.REPERCUSSIVE_BLOCK.AlreadyConfirmed"));
+    }
+    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    for ( const event of myEvents.roll ) {
+      if ( results.BLOCK === event.roll.data.result ) {
+        this.usage.targetAction = targetAction.message.id;
+        return true;
+      }
+    }
+    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.REPERCUSSIVE_BLOCK.InvalidOutcome"));
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.rest = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {

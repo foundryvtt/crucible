@@ -416,6 +416,11 @@
           "AttackMissed": "You may only Interpose against an attack that hit or glanced your ally.",
           "RequiresStrike": "Interpose requires the most recent action to be a weapon Strike.",
           "SingleTarget": "Interpose can only be used against a single-target Strike."
+        },
+        "REPERCUSSIVE_BLOCK": {
+          "AlreadyConfirmed": "The attack against you has already been confirmed and can no longer be reacted to.",
+          "InvalidOutcome": "You may only use Repercussive Block after an attack against you is defended by Block.",
+          "MeleeOnly": "You may only use Repercussive Block against an incoming melee attack."
         }
       },
       "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
