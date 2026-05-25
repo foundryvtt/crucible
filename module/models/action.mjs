@@ -1891,69 +1891,60 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Get all equipped weapons which fulfil the requirements for this action, optionally excluding those which are
-   * valid generally, but are not currently due to a lack of resource or being unloaded
-   * @param {object} [options]              Additional options
-   * @param {boolean} [options.strict]      Whether to filter out invalid items or only mark them invalid
-   * @param {number|null} [options.maxCost] If provided, consider weapons with greater action cost invalid
-   * @returns {{item: CrucibleWeaponItem, label: string, id: string, isValid: boolean}[]}
+   * @typedef CrucibleActionWeaponChoice
+   * @property {CrucibleItem} item    The candidate weapon Item
+   * @property {string} id            The choice identifier: the weapon id, or "mainhandUnarmed"/"offhandUnarmed"
+   * @property {string} label         A display label including the equipment slot
+   * @property {boolean} viable       Whether the weapon satisfies the action's requirement tags
+   * @property {boolean} [valid]      Whether the weapon is currently affordable; annotated by getValidWeaponChoices
    */
-  getValidWeaponChoices({strict=false, maxCost=null}={}) {
-    const choices = [];
-    if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
+
+  /**
+   * Enumerate the equipped weapons structurally eligible for this action, before requirement tags filter viability.
+   * Only weapon state (reload) is considered here; requirement tags (melee, ranged, brute, ...) further restrict the
+   * returned choices during prepare.
+   * @returns {CrucibleActionWeaponChoice[]|null}  The candidate weapons, or null when no choice is presented
+   * @protected
+   */
+  _prepareWeaponChoices() {
+    const isWeaponAction = this.tags.has("strike") || this.tags.has("reload");
+    const isForced = ["mainhand", "offhand", "twohand"].some(t => this.tags.has(t));
+    if ( !isWeaponAction || isForced ) return null;
     const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+    const isReload = this.tags.has("reload");
 
-    // Identify weapons using the union of _source tags and current tags to account for tag removal during configuration
-    const hasMelee = this._source.tags.includes("melee") || this.tags.has("melee");
-    const hasRanged = this._source.tags.includes("ranged") || this.tags.has("ranged");
-    const isValidChoice = weapon => {
-      let available = true;
-      let eligible = true;
+    // Add a weapon as a choice if its reload state qualifies: unloaded for a reload action, loaded for any other;
+    // non-reloadable weapons are never a choice for a reload action
+    const choices = [];
+    const addChoice = (weapon, id, slotLabel) => {
       if ( weapon.config.category.reload ) {
-        available = this.tags.has("reload") ? weapon.system.needsReload : !weapon.system.needsReload;
-      } else if ( this.tags.has("reload") ) eligible = false;
-      if ( maxCost !== null ) available &&= (weapon.system.actionCost <= maxCost);
-      if ( this.tags.has("talisman") && !["talisman1", "talisman2"].includes(weapon.system.category)) eligible = false;
-
-      // Any strike that's neither melee nor ranged shouldn't hard-disqualify weapons based on melee/ranged
-      if ( hasRanged || hasMelee ) {
-        eligible &&= (hasRanged || !weapon.config.category.ranged);
-        eligible &&= (hasMelee || weapon.config.category.ranged);
-      }
-      return {available, eligible};
+        if ( isReload ? !weapon.system.needsReload : weapon.system.needsReload ) return;
+      } else if ( isReload ) return;
+      choices.push({item: weapon, id, label: `${weapon.name} (${slotLabel})`, viable: true});
     };
-    const isNatural = this.tags.has("natural");
-    if ( mh && !isNatural ) {
-      const {available, eligible} = isValidChoice(mh);
-      if ( eligible && (!strict || available) ) choices.push({
-        item: mh,
-        id: mh.id || "mainhandUnarmed",
-        label: `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`,
-        isValid: available
-      });
-    }
-    if ( oh && !isNatural ) {
-      const {available, eligible} = isValidChoice(oh);
-      if ( eligible && (!strict || available) ) choices.push({
-        item: oh,
-        id: oh.id || "offhandUnarmed",
-        label: `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`,
-        isValid: available
-      });
-    }
-    if ( !hasRanged ) {
-      for ( const n of natural ) {
-        const isValid = (maxCost !== null) ? (n.system.actionCost <= maxCost) : true;
-        if ( strict && !isValid ) continue;
-        choices.push({
-          item: n,
-          id: n.id,
-          label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`,
-          isValid
-        });
-      }
-    }
+    if ( mh ) addChoice(mh, mh.id || "mainhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.MAINHAND);
+    if ( oh ) addChoice(oh, oh.id || "offhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.OFFHAND);
+    for ( const n of natural ) addChoice(n, n.id, SYSTEM.WEAPON.PROPERTIES.natural.label);
     return choices;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the prepared viable weapon choices, annotating each with affordability against an action point budget.
+   * @param {object} [options]              Additional options
+   * @param {boolean} [options.strict]      Whether to drop unaffordable choices rather than only marking them
+   * @param {number} [options.maxCost]      An action point budget; weapons exceeding it get valid=false
+   * @returns {CrucibleActionWeaponChoice[]}
+   */
+  getValidWeaponChoices({strict=false, maxCost=Infinity}={}) {
+    const choices = (this.usage.weaponChoices ?? []).filter(c => c.viable);
+    const base = this.usage.baseActionCost ?? this.cost.action;
+    for ( const choice of choices ) {
+      const cost = this.cost.weapon ? (base + (choice.item.system.actionCost || 0)) : this.cost.action;
+      choice.valid = cost <= maxCost;
+    }
+    return strict ? choices.filter(c => c.valid) : choices;
   }
 
   /* -------------------------------------------- */
@@ -2003,6 +1994,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
     }
+
+    // Build the weapon choice set now so requirement tags can filter it during the later prepare pass
+    this.usage.weaponChoices = this._prepareWeaponChoices();
   }
 
   /* -------------------------------------------- */

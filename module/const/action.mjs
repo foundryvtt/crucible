@@ -254,6 +254,12 @@ export const TAGS = {
     label: "ACTION.TAG.Finesse",
     tooltip: "ACTION.TAG.FinesseTooltip",
     category: "requirements",
+    priority: 5,
+    prepare() {
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !c.item.config.category.scaling.includes("dexterity") ) c.viable = false;
+      }
+    },
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleDex"));
@@ -268,6 +274,11 @@ export const TAGS = {
     tooltip: "ACTION.TAG.BruteTooltip",
     category: "requirements",
     priority: 5,
+    prepare() {
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !c.item.config.category.scaling.includes("strength") ) c.viable = false;
+      }
+    },
     canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleStrength"));
@@ -281,11 +292,15 @@ export const TAGS = {
     label: "ACTION.TAG.Projectile",
     tooltip: "ACTION.TAG.ProjectileTooltip",
     category: "requirements",
+    priority: 5,
     propagate: ["ranged"],
+    prepare() {
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !["projectile1", "projectile2"].includes(c.item.system.category) ) c.viable = false;
+      }
+    },
     canUse() {
-      const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-      if ( this.tags.has("offhand") ) return ["projectile1", "projectile2"].includes(oh.category);
-      else return ["projectile1", "projectile2"].includes(mh.category);
+      return this.usage.strikes.every(w => ["projectile1", "projectile2"].includes(w.system.category));
     }
   },
 
@@ -295,11 +310,15 @@ export const TAGS = {
     label: "ACTION.TAG.Mechanical",
     tooltip: "ACTION.TAG.MechanicalTooltip",
     category: "requirements",
+    priority: 5,
     propagate: ["ranged"],
+    prepare() {
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !["mechanical1", "mechanical2"].includes(c.item.system.category) ) c.viable = false;
+      }
+    },
     canUse() {
-      const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-      if ( this.tags.has("offhand") ) return ["mechanical1", "mechanical2"].includes(oh.category);
-      else return ["mechanical1", "mechanical2"].includes(mh.category);
+      return this.usage.strikes.every(w => ["mechanical1", "mechanical2"].includes(w.system.category));
     }
   },
 
@@ -320,11 +339,15 @@ export const TAGS = {
     label: "ACTION.TAG.Talisman",
     tooltip: "ACTION.TAG.TalismanTooltip",
     category: "requirements",
+    priority: 5,
     propagate: ["strike"],
+    prepare() {
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !c.item.config.category.training.includes("talisman") ) c.viable = false;
+      }
+    },
     canUse() {
-      const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-      const categories = ["talisman1", "talisman2"];
-      if ( (!categories.includes(mh?.category) && !categories.includes(oh?.category))
+      if ( !this.usage.strikes.length
         || !this.usage.strikes.every(w => w.config.category.training.includes("talisman")) ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresTalisman", {action: this.name}));
       }
@@ -635,22 +658,23 @@ export const TAGS = {
       }
     },
     prepare() {
-      if ( !this.usage.weapon ) {
-        const valid = this.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
+      // Capture the non-weapon cost before weapon cost is added, so candidate affordability can be measured against it
+      this.usage.baseActionCost = this.cost.action;
 
-        // Prefer mainhand weapon -> offhand weapon -> natural weapons
-        for ( const weapon of valid ) {
-          if ( !weapon.isValid ) continue;
-          this.usage.weapon = weapon.item;
-          break;
-        }
-        this.usage.weapon ??= valid[0]?.item;
+      // Determine eligible weapon if multiple choices are allowed. Discard a prior choice that is no longer viable
+      if ( this.usage.weaponChoices ) {
+        const choices = this.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
+        if ( this.usage.weapon && !choices.some(c => c.item === this.usage.weapon) ) this.usage.weapon = undefined;
+        this.usage.weapon ??= (choices.find(c => c.valid) ?? choices[0])?.item;
       }
-      const {strikes, weapon} = this.usage;
+      const strikes = this.usage.strikes;
 
       // Default weapon-based strikes
-      if ( !strikes.length && weapon ) strikes.push(weapon);
-      if ( !strikes?.length ) return;
+      if ( !strikes.length && this.usage.weapon ) strikes.push(this.usage.weapon);
+      if ( !strikes.length ) return;
+
+      // Reflect the struck weapon as the action's weapon for downstream hooks on forced-weapon actions
+      this.usage.weapon ??= strikes[0];
 
       // Record usage properties
       this.usage.actorStatus.hasAttacked = true;
@@ -729,6 +753,14 @@ export const TAGS = {
     category: "attack",
     propagate: ["strike"],
     priority: 1,
+    prepare() {
+      // A melee action cannot use a ranged weapon unless the action is also ranged-capable
+      if ( !this.tags.has("ranged") ) {
+        for ( const c of this.usage.weaponChoices ?? [] ) {
+          if ( c.item.config.category.ranged ) c.viable = false;
+        }
+      }
+    },
     canUse() {
       if ( !this.actor.equipment.weapons.melee ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresMelee"));
@@ -751,10 +783,12 @@ export const TAGS = {
     },
     prepare() {
       this.usage.actorStatus.rangedAttack = true;
-      if ( !this.usage.weapon ) {
-        const valid = this.getValidWeaponChoices({strict: true});
-        valid.sort((a, b) => a.item.system.actionCost - b.item.system.actionCost);
-        this.usage.weapon = valid[0]?.item;
+
+      // A ranged action cannot use a melee weapon unless the action is also melee-capable
+      if ( !this.tags.has("melee") ) {
+        for ( const c of this.usage.weaponChoices ?? [] ) {
+          if ( !c.item.config.category.ranged ) c.viable = false;
+        }
       }
     }
   },
@@ -851,9 +885,9 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.usage.strikes ||= [];
-      const w = this.usage.weapon ?? this.actor.equipment.weapons.natural[0];
-      if ( w ) this.usage.strikes.push(w);
+      for ( const c of this.usage.weaponChoices ?? [] ) {
+        if ( !c.item.system.properties.has("natural") ) c.viable = false;
+      }
     }
   },
 
