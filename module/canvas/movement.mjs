@@ -63,6 +63,31 @@ export function planForcedMovement(token, ray, {collision=true, snap=true, actio
 }
 
 /* -------------------------------------------- */
+
+/**
+ * Plan a forced movement that displaces a token directly away from or toward an origin point.
+ * A positive `distanceFeet` pushes the token away from `fromPoint`; a negative value pulls it toward `fromPoint`.
+ * @param {Point} fromPoint               The origin point to push away from or pull toward
+ * @param {Token} targetToken             The token object being displaced
+ * @param {number} distanceFeet           Signed displacement distance in feet; positive pushes, negative pulls
+ * @param {object} [options]
+ * @param {number} [options.minGap=0]     Minimum center-to-center distance from the origin to preserve when pulling
+ * @returns {CrucibleActionMovement|null} Movement record, or null if no displacement was possible
+ */
+export function planPushMovement(fromPoint, targetToken, distanceFeet, {minGap=0}={}) {
+  if ( !targetToken || !distanceFeet ) return null;
+  const r0 = new foundry.canvas.geometry.Ray(fromPoint, targetToken.center);
+  if ( r0.distance === 0 ) return null;
+  let distancePx = distanceFeet * canvas.dimensions.distancePixels;
+  if ( distancePx < 0 ) { // Clamp a pull so the token stops short of the origin rather than overshooting it
+    distancePx = Math.max(distancePx, minGap - r0.distance);
+    if ( distancePx >= 0 ) return null;
+  }
+  const ray = new foundry.canvas.geometry.Ray(targetToken.center, r0.project(1 + (distancePx / r0.distance)));
+  return planForcedMovement(targetToken.document, ray);
+}
+
+/* -------------------------------------------- */
 /*  Subsidiary Helpers                          */
 /* -------------------------------------------- */
 

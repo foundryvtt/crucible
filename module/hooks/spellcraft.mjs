@@ -1,31 +1,6 @@
+import {planPushMovement} from "../canvas/movement.mjs";
+
 const HOOKS = {};
-
-/* -------------------------------------------- */
-
-/**
- * Prepare a summon spell action by configuring token data and tagging the action for summoning.
- * @param {number} level
- */
-function prepareSummon(level) {
-  this.tags.add("summon");
-  this.usage.hasDice = false;
-
-  // Configure summon data
-  const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
-  const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
-  const tokenData = {
-    delta: {
-      system: {
-        details: {
-          level,
-          rank: "minion"
-        }
-      }
-    }
-  };
-  const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
-  this.usage.summons = [{actorUuid, tokenData, effectId}];
-}
 
 /* -------------------------------------------- */
 
@@ -95,7 +70,7 @@ HOOKS.aura = {
 
 HOOKS.conjure = {
   prepare() {
-    prepareSummon.call(this, this.actor.system.advancement.threatLevel);
+    _prepareSummon.call(this, this.actor.system.advancement.threatLevel);
   },
   postActivate() {
     const summonEvent = this.events.find(e => e.type === "summon");
@@ -113,7 +88,7 @@ HOOKS.conjure = {
 
 HOOKS.create = {
   prepare() {
-    prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
+    _prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
   },
   postActivate() {
     const summonEvent = this.events.find(e => e.type === "summon");
@@ -141,6 +116,22 @@ HOOKS.reshape = {
   prepare() {
     if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
     else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.pull = {
+  postActivate() {
+    _inflectMovement.call(this, -1);
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.push = {
+  postActivate() {
+    _inflectMovement.call(this, 1);
   }
 };
 
@@ -229,6 +220,58 @@ HOOKS.ward = {
     }]});
   }
 };
+
+/* -------------------------------------------- */
+/*  Helper Functions                            */
+/* -------------------------------------------- */
+
+/**
+ * Prepare a summon spell action by configuring token data and tagging the action for summoning.
+ * @param {number} level
+ */
+function _prepareSummon(level) {
+  this.tags.add("summon");
+  this.usage.hasDice = false;
+
+  // Configure summon data
+  const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
+  const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+  const tokenData = {
+    delta: {
+      system: {
+        details: {
+          level,
+          rank: "minion"
+        }
+      }
+    }
+  };
+  const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
+  this.usage.summons = [{actorUuid, tokenData, effectId}];
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Move spell-affected targets toward (pull) or away from (push) the caster as a free, forced movement.
+ * Distance equals the spell's ability bonus in feet, doubled against a critically-hit target.
+ * @param {-1|1} direction    1 to push affected targets away from the caster, -1 to pull them toward it
+ */
+function _inflectMovement(direction) {
+  const casterToken = this.token?.object;
+  const baseFeet = this.usage.bonuses.ability;
+  if ( !casterToken || (baseFeet <= 0) ) return;
+  for ( const [target, events] of this.eventsByTarget ) {
+    if ( target === this.actor ) continue;
+    if ( this.usage.hasDice && !events.isSuccess ) continue; // Only creatures the spell affected
+    const targetToken = this.targets.get(target)?.token?.object;
+    if ( !targetToken ) continue;
+    const distanceFeet = direction * baseFeet * (events.isCriticalSuccess ? 2 : 1);
+    const minGap = (casterToken.w + targetToken.w) / 2; // Base-to-base contact, clamps a pull short of the caster
+    const plan = planPushMovement(casterToken.center, targetToken, distanceFeet, {minGap});
+    if ( plan ) this.recordEvent({type: "movement", target, movement: plan.id});
+  }
+}
 
 /* -------------------------------------------- */
 

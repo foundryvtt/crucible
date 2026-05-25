@@ -4,8 +4,10 @@ img: icons/skills/movement/arrow-down-pink.webp
 system:
   description: >-
     <p>Empower a spell to attract affected creatures toward the caster.
-    Creatures affected by a spell with the Pull inflection move 1 space closer
-    towards the spellcaster if that destination space is unoccupied.</p>
+    Creatures affected by a spell with the <strong>Pull</strong> inflection move
+    are forcibly moved a distance towards the spellcaster equal to the Ability
+    Bonus that applied to the Spell, potentially colliding with walls or other
+    movement-blocking obstacles.</p>
   actions: []
   inflection: pull
   iconicSpells: 1
@@ -21,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160135
-  modifiedTime: 1773514792586
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779733759613
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.inflectionpull00
   duplicateSource: null
   exportSource: null
