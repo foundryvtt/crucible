@@ -814,12 +814,13 @@ function getPartyActors() {
  * @returns {{actor: CrucibleActor|null, check: StandardCheck}}
  */
 function prepareSkillCheck(event) {
-  const {skillId, dc: dcStr} = event.currentTarget.dataset;
+  const {skillId, dc: dcStr, group} = event.currentTarget.dataset;
   const parsedDc = Number(dcStr);
   const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
   const checkData = {type: skillId, dc};
   const actor = inferEnricherActors(true);
-  const check = actor ? actor.getSkillCheck(skillId, checkData) : new crucible.api.dice.StandardCheck(checkData);
+  const rollCls = group ? crucible.api.dice.GroupCheck : crucible.api.dice.StandardCheck;
+  const check = actor ? actor.getSkillCheck(skillId, checkData) : new rollCls(checkData);
   return {actor, check};
 }
 

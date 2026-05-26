@@ -79,6 +79,12 @@ export default class StandardCheckDialog extends DialogV2 {
   request;
 
   /**
+   * Is this a group check which should result in an aggregate result?
+   * @type {boolean}
+   */
+  isGroupCheck;
+
+  /**
    * Display the skills customization panel.
    * @type {boolean}
    */
@@ -164,6 +170,7 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (${_loc("DICE.DCSpecific", {dc: d[0]})})`})),
       configurable: this.configurable,
       isGM: game.user.isGM,
+      isGroupCheck: this.isGroupCheck,
       request: this.#prepareRequest(),
       customizeSkills: this.#prepareCustomizeSkills(),
       skillSelector: this.#prepareSkillSelector(),
@@ -190,8 +197,8 @@ export default class StandardCheckDialog extends DialogV2 {
     const hasSkills = !this.customizeSkills || (this.#selectedSkills.size > 0);
     const canSubmitGroup = (this.#requestActors.size > 0) && hasSkills;
 
-    // Left toggle: Customize Skills (group checks only)
-    if ( this.isGroupCheck && isConfigurable ) {
+    // Left toggle: Customize Skills (configurable only)
+    if ( isConfigurable ) {
       const chevron = this.customizeSkills ? "fa-chevrons-right" : "fa-chevrons-left";
       buttons.push({type: "button", action: "skillsToggle", cssClass: `icon fa-solid ${chevron}`, tooltip: _loc("DICE.SKILLS.CustomizeSkills"), position: "left"});
     }
@@ -207,8 +214,8 @@ export default class StandardCheckDialog extends DialogV2 {
       {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: _loc("DICE.REQUESTS.AddParty")}
     );
 
-    // Right toggle: Request Rolls (group checks only)
-    if ( this.isGroupCheck && isConfigurable ) {
+    // Right toggle: Request Rolls (configurable only)
+    if ( isConfigurable ) {
       const chevron = this.request ? "fa-chevrons-left" : "fa-chevrons-right";
       buttons.push({type: "button", action: "requestToggle", cssClass: `icon fa-solid ${chevron}`, tooltip: _loc("DICE.REQUESTS.RequestRolls")});
     }
@@ -387,7 +394,8 @@ export default class StandardCheckDialog extends DialogV2 {
     const defaultDc = this.roll.data.dc;
     const skills = {};
     for ( const [id, customDc] of this.#selectedSkills ) skills[id] = {dc: customDc ?? defaultDc};
-    const options = {requestedActors: this.#requestActors, local: true, messageMode: this.messageMode};
+    const aggregate = this.isGroupCheck && this.#requestActors.size > 1;
+    const options = {requestedActors: this.#requestActors, local: true, messageMode: this.messageMode, aggregate};
     if ( Object.keys(skills).length ) options.skills = skills;
     const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.roll.data));
     await groupCheckInstance.requestSubmit(options);
@@ -448,6 +456,12 @@ export default class StandardCheckDialog extends DialogV2 {
       this.roll = actor.getSkillCheck(skillId, {dc, boons: this.roll.data.totalBoons,
         banes: this.roll.data.totalBanes});
       return this.render({window: {title: this.title}});
+    }
+
+    // Toggle group check
+    else if ( event.target.name === "isGroupCheck" ) {
+      this.isGroupCheck = event.target.checked;
+      return this.render();
     }
     super._onChangeForm(formConfig, event);
   }
@@ -528,6 +542,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /**
    * Toggle the request actors panel.
    * @this {StandardCheckDialog}
+   * @param {PointerEvent} _event
    */
   static async #onRequestToggle(_event) {
     this.request = !this.request && game.user.isGM;
@@ -593,7 +608,8 @@ export default class StandardCheckDialog extends DialogV2 {
     const defaultDc = this.roll.data.dc;
     const skills = {};
     for ( const [id, customDc] of this.#selectedSkills ) skills[id] = {dc: customDc ?? defaultDc};
-    const options = {requestedActors: this.#requestActors, messageMode: this.messageMode};
+    const aggregate = this.isGroupCheck && this.#requestActors.size > 1;
+    const options = {requestedActors: this.#requestActors, messageMode: this.messageMode, aggregate};
     if ( Object.keys(skills).length ) options.skills = skills;
     await this.roll.requestGroupCheck(options);
     await this.close();

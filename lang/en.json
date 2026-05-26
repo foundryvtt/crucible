@@ -1445,6 +1445,7 @@
     },
     "GROUP_CHECK": {
       "Title": "Group Skill Check",
+      "TitleSpecific": "Group {skill} Skill Check",
       "DialogTitle": "{skill} Check: {name}",
       "NoUserForActor": "No active user found for: {name}",
       "STATUSES": {
@@ -1466,6 +1467,7 @@
       "AnyActorHint": "Choose any world Actors.",
       "ChooseTarget": "Choose Target",
       "ClearRequest": "Clear Request",
+      "GroupCheck": "Group Check",
       "Request": "Request",
       "RequestRolls": "Request Rolls",
       "SpecificActors": "Specific Actors",

@@ -83,6 +83,12 @@
         <p class="hint">{{localize "ACTION.RequestActorsHint"}}</p>
         {{/each}}
     </div>
+    {{#if (gt request.actors.length 1)}}
+    <div class="form-fields">
+        <input type="checkbox" id="isGroupCheck" name="isGroupCheck" {{checked isGroupCheck}}/>
+        <label for="isGroupCheck">{{localize "DICE.REQUESTS.GroupCheck"}}</label>
+    </div>
+    {{/if}}
 </aside>
 {{/if}}
 

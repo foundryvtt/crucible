@@ -7,12 +7,13 @@ import StandardCheck from "./standard-check.mjs";
 
 /**
  * @typedef GroupCheckFlags
- * @property {string} checkId                        Unique group check ID
- * @property {Record<string, GroupCheckSkillConfig>} skills  Skill ID → config (DC per skill)
- * @property {number} sharedBoons                    GM-assigned shared boons
- * @property {number} sharedBanes                    GM-assigned shared banes
- * @property {string} [messageMode]                  The chat message visibility mode
- * @property {Record<string, GroupCheckActorEntry>} actors   Actor ID → entry
+ * @property {string} checkId                               Unique group check ID
+ * @property {Record<string, GroupCheckSkillConfig>} skills Skill ID → config (DC per skill)
+ * @property {number} sharedBoons                           GM-assigned shared boons
+ * @property {number} sharedBanes                           GM-assigned shared banes
+ * @property {string} [messageMode]                         The chat message visibility mode
+ * @property {Record<string, GroupCheckActorEntry>} actors  Actor ID → entry
+ * @property {boolean} aggregate                            Whether to show an aggregate result
  */
 
 /**
@@ -45,8 +46,8 @@ import StandardCheck from "./standard-check.mjs";
  * @property {string} outcomeKey       Localization key for the aggregate outcome label
  * @property {string} classes          CSS classes describing the outcome (success/failure plus optional critical)
  * @property {string} detail           Pre-localized right-side label that contextualizes the hex score
- * @property {number|string} score    Weighted total (crit success +2, success +1, failure 0, crit failure -1), or
- *                                    {@link StandardCheck.UNKNOWN_SCORE} when any participating roll has no DC set
+ * @property {number|string} score     Weighted total (crit success +2, success +1, failure 0, crit failure -1), or
+ *                                     {@link StandardCheck.UNKNOWN_SCORE} when any participating roll has no DC set
  * @property {number} total            Number of participants whose rolls counted toward the aggregate
  * @property {number} required         Score threshold needed to clear an aggregate success
  * @property {number} skippedCount     Number of participants excluded as skipped
@@ -138,9 +139,10 @@ export default class GroupCheck extends StandardCheck {
    * @param {Record<string, GroupCheckSkillConfig>} [options.skills]  Skill configs. Defaults to single skill from roll data.
    * @param {boolean} [options.local=false]  If true, the GM rolls for all actors locally without dispatching queries.
    * @param {string} [options.messageMode]   The chat message visibility mode chosen by the GM.
+   * @param {boolean} [options.aggregate]    Whether to show an aggregate result
    * @returns {Promise<void>}
    */
-  async requestSubmit({requestedActors, skills, local=false, messageMode}={}) {
+  async requestSubmit({requestedActors, skills, local=false, messageMode, aggregate=true}={}) {
     if ( !requestedActors?.size && !requestedActors?.length ) return;
 
     // Default to single skill from the roll data
@@ -170,13 +172,16 @@ export default class GroupCheck extends StandardCheck {
       sharedBoons: this.data.totalBoons,
       sharedBanes: this.data.totalBanes,
       messageMode,
-      actors
+      actors,
+      aggregate
     };
 
     const content = await GroupCheck.renderGroupCheckCard(groupCheckFlags);
     const skillIds = Object.keys(skills);
     const flavor = (skillIds.length === 1)
-      ? _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillIds[0]].label})
+      ? aggregate
+        ? _loc("DICE.GROUP_CHECK.TitleSpecific", {skill: SYSTEM.SKILLS[skillIds[0]].label})
+        : _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillIds[0]].label})
       : _loc("DICE.GROUP_CHECK.Title");
     const messageData = {
       content,
@@ -343,7 +348,7 @@ export default class GroupCheck extends StandardCheck {
    */
   static async renderGroupCheckCard(flags, rolls=[]) {
     const actors = Object.values(flags.actors).map(entry => GroupCheck.#prepareActorTemplateData(entry, rolls));
-    const aggregate = GroupCheck.#computeAggregate(flags, rolls);
+    const aggregate = flags.aggregate ? GroupCheck.#computeAggregate(flags, rolls) : null;
     return foundry.applications.handlebars.renderTemplate(GroupCheck.#GROUP_CHECK_TEMPLATE, {actors, aggregate});
   }
 
