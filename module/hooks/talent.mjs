@@ -863,8 +863,8 @@ HOOKS.sorcerer00000000 = {
   },
   preActivateAction(item, action) {
     if ( action.tags.has("spell") ) {
-      this.usage.bonuses.damageBonus ||= 0;
-      this.usage.bonuses.damageBonus += this.grimoire.iconicSlots;
+      action.usage.bonuses.damageBonus ||= 0;
+      action.usage.bonuses.damageBonus += this.grimoire.iconicSlots;
     }
   }
 };
