@@ -2183,12 +2183,20 @@ export default class CrucibleActor extends Actor {
       else throw err;
     }
 
-    // Configure and use the equipItem action
+    // If necessary, pop an individual unit off a stacked quantity that can be individually equipped.
+    if ( equipped && !stowDropped && item.isStackable({requiredQuantity: 1}) ) {
+      item = await item.splitStack(1, {equipped: false});
+    }
+
+    // Configure and use the equipItem action if we are in Combat
     slot = (equipped && !stowDropped) ? result.slot : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
-    else if ( action.usage.actorUpdates.items.length ) {
+
+    // Outside of combat, make item updates directly and support automatic stack combination
+    else if ( action?.usage.actorUpdates.items.length ) {
       await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
+      if ( !equipped && !dropped ) await item.combineStack();
     }
   }
 
@@ -2242,7 +2250,7 @@ export default class CrucibleActor extends Actor {
       name: _loc(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}`, {typeLabel}),
       img: item.img,
       cost: {action: ap, hands: this.inCombat ? 1 : 0},
-      description: _loc(`ITEM.ACTIONS.${item.system.dorpped ? "Recover" : "Equip"}Detail`, {item: item.name}),
+      description: _loc(`ITEM.ACTIONS.${item.system.dropped ? "Recover" : "Equip"}Detail`, {item: item.name}),
       target: {type: "self", scope: 1}
     }, {actor: this});
 

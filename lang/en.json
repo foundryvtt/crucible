@@ -1666,10 +1666,15 @@
       "Talents": "Talents"
     },
     "WARNINGS": {
+      "CombineDifferent": "{item} cannot be combined with {target} because the items are not identical.",
+      "CombineEquipped": "{item} cannot be combined into a stack while it is equipped.",
+      "CombineInvalidTarget": "{item} cannot be combined: the target must be a different item on the same actor.",
+      "CombineQuantity": "Cannot combine {quantity} units of {item} which holds a stack of {available}.",
       "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent.",
       "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
+      "SplitQuantity": "Cannot split {quantity} from {item} which holds a stack of {available}.",
       "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first.",
       "LootDropError": "Failed to create loot item \"{name}\". {reason}"
     },

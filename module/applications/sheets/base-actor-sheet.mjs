@@ -1254,9 +1254,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( !this.actor.isOwner ) return;
     const section = event.target.closest("[data-inventory-section]")?.dataset.inventorySection;
     const targetSection = CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type];
+    const targetId = event.target.closest("[data-item-id]")?.dataset.itemId;
+    const targetItem = targetId ? this.actor.items.get(targetId) : null;
 
     // Moving already owned items
     if ( this.actor.uuid === item.parent?.uuid ) {
+
+      // Combine stacks of unequipped items
+      if ( targetItem && item.isStackable({target: targetItem}) ) {
+        await item.combineStack(targetItem);
+        return;
+      }
+
+      // Equip or unequip items
       switch ( section ) {
         case "backpack":
           if ( item.system.equipped ) {
@@ -1281,16 +1291,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       return;
     }
 
-    // Expand the stack of an existing stackable item
+    // Absorb the dropped item into a matching stack already owned by this Actor, if one exists
     const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
-    if ( isPhysical && item.system.properties.has("stackable") ) {
-      const existing = this.actor.itemTypes[item.type].filter(i => (i.system.identifier === item.system.identifier));
-      const toStack = existing.find(i => item.isStackableWith(i));
-      if ( toStack ) {
-        await toStack.update({ "system.quantity": toStack.system.quantity + item.system.quantity});
-        return;
-      }
-    }
+    if ( await item.combineStack(undefined, {actor: this.actor}) ) return;
 
     // Create a new item
     item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
