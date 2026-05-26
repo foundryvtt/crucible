@@ -74,9 +74,10 @@ export default class CrucibleMovementPolygon extends foundry.canvas.geometry.Clo
    * @returns {string|undefined}
    */
   #resolveMovementAction(mover) {
+    if ( !mover ) return undefined;
     const ctx = canvas.tokens._movementPlanningContext;
     const planned = (ctx?.object === mover) ? ctx.allowedActions?.[0] : undefined;
-    return planned ?? mover?.document.movementAction;
+    return planned ?? mover.document.movementAction;
   }
 
   /* -------------------------------------------- */
