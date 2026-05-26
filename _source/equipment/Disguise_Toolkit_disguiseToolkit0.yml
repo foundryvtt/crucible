@@ -13,7 +13,8 @@ system:
   enchantment: mundane
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   description:
     public: >-
       <p>A leather-bound wooden kitbag containing a hand mirror, carefully

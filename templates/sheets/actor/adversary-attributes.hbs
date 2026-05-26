@@ -3,13 +3,23 @@
 
     <div class="sheet-section resources flexrow">
         <h3>{{localize "ACTOR.SHEET.Resources"}}</h3>
-        <div class="resource health flexcol" style="{{resources.health.cssPct}}">
+        <div class="resource health flexcol" style="{{resources.health.cssStyle}}">
             <h4 class="label above" data-tooltip="{{resources.health.tooltip}}">{{resources.health.label}}</h4>
             <div class="pool short flexrow">
                 {{formInput fields.resources.fields.health.fields.value value=resources.health.value type="number"}}
                 <span class="sep">/</span>
                 <span class="total value">{{resources.health.max}}</span>
             </div>
+            {{#if actor.system.advancement.important}}
+            {{#if resources.wounds.max}}
+            <div class="pool long flexrow">
+                {{formInput fields.resources.fields.wounds.fields.value value=resources.wounds.value type="number"}}
+                <span class="sep">/</span>
+                <span class="total value">{{resources.wounds.max}}</span>
+            </div>
+            <h4 class="label below" data-tooltip="{{resources.wounds.tooltip}}">{{resources.wounds.label}}</h4>
+            {{/if}}
+            {{/if}}
             <div class="threshold wounds" data-tooltip="{{defenses.wounds.tooltip}}">
                 <span class="value">{{defenses.wounds.total}}</span>
             </div>
@@ -58,13 +68,23 @@
             {{/if}}
         </div>
 
-        <div class="resource morale flexcol" style="{{resources.morale.cssPct}}">
+        <div class="resource morale flexcol" style="{{resources.morale.cssStyle}}">
             <h4 class="label above" data-tooltip="{{resources.morale.tooltip}}">{{resources.morale.label}}</h4>
             <div class="pool short flexrow">
                 {{formInput fields.resources.fields.morale.fields.value value=resources.morale.value type="number"}}
                 <span class="sep">/</span>
                 <span class="total value">{{resources.morale.max}}</span>
             </div>
+            {{#if actor.system.advancement.important}}
+            {{#if resources.madness.max}}
+            <div class="pool long flexrow">
+                {{formInput fields.resources.fields.madness.fields.value value=resources.madness.value type="number"}}
+                <span class="sep">/</span>
+                <span class="total value">{{resources.madness.max}}</span>
+            </div>
+            <h4 class="label below" data-tooltip="{{resources.madness.tooltip}}">{{resources.madness.label}}</h4>
+            {{/if}}
+            {{/if}}
             <div class="threshold madness" data-tooltip="{{defenses.madness.tooltip}}">
                 <span class="value">{{defenses.madness.total}}</span>
             </div>

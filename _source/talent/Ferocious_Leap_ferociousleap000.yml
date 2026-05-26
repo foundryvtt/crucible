@@ -15,6 +15,7 @@ system:
       tags:
         - melee
         - movement
+        - jump
         - mainhand
       cost:
         action: 0

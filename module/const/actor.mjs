@@ -225,7 +225,9 @@ foundry.utils.deepFreeze(LEVELS);
  * The token movement actions supported by the Crucible system.
  * This constant is the shared source of truth used both to populate CONFIG.Token.movement.actions
  * and to register the corresponding action tags.
- * @type {Record<string, Partial<TokenMovementActionConfigDescriptor>>}
+ * Each entry may specify Crucible-specific `tokenCollision` which determines whether token-to-token collision is
+ * enforced when using this action.
+ * @type {Record<string, Partial<TokenMovementActionConfigDescriptor> & {tokenCollision?: boolean}>}
  */
 export const MOVEMENT_ACTIONS = Object.freeze({
   walk: {
@@ -261,7 +263,8 @@ export const MOVEMENT_ACTIONS = Object.freeze({
     img: "icons/svg/jump.svg",
     costMultiplier: 2,
     speedMultiplier: 1.5,
-    deriveTerrainDifficulty: ({walk, fly}) => Math.max(walk, fly)
+    deriveTerrainDifficulty: ({walk, fly}) => Math.max(walk, fly),
+    tokenCollision: false
   },
   climb: {
     order: 4,
@@ -294,7 +297,20 @@ export const MOVEMENT_ACTIONS = Object.freeze({
     img: "icons/svg/teleport.svg",
     teleport: true,
     speedMultiplier: Infinity,
-    terrainAction: null
+    terrainAction: null,
+    tokenCollision: false
+  },
+  // TODO: gate burrow selectability on a Burrow movement capability when can-fly/can-burrow actor data exists
+  burrow: {
+    order: 8,
+    label: "TOKEN.MOVEMENT.ACTIONS.burrow.label",
+    icon: "fa-solid fa-worm",
+    img: "icons/svg/mole.svg",
+    costMultiplier: 2,
+    speedMultiplier: 0.5,
+    terrainAction: null,
+    walls: null, // Burrowing tunnels beneath walls
+    tokenCollision: false
   }
 });
 

@@ -23,7 +23,8 @@ system:
   broken: false
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   actions: []
 folder: zKA7bUzu7rPpL2lk
 effects: []

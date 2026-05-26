@@ -182,17 +182,14 @@ pages:
         Resources</h2><p>During combat, Health and Morale may only be recovered
         by actions or talents which provide <strong>Restoration</strong>.
         Outside of combat, two actions are available to restore your character's
-        resources.</p><p>The
-        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 recover]
-        action consumes 10 minutes of in-game time and fully replenishes your
-        Health, Morale, Action, and Focus pools. It also removes temporary
-        effects with a short duration. Recover does not reduce Wounds or
-        Madness.</p><p>The
-        @Action[Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9 rest] action
-        consumes 10 hours of in-game time and fully replenishes all active
-        resource pools. Additionally, heroes reduce their accumulated Wounds and
-        Madness by an amount equal to their character level. Rest also removes
-        temporary effects with a longer duration.</p>
+        resources.</p><p>The @Action[default recover] action consumes 10 minutes
+        of in-game time and fully replenishes your Health, Morale, Action, and
+        Focus pools. It also removes temporary effects with a short duration.
+        Recover does not reduce Wounds or Madness.</p><p>The @Action[default
+        rest] action consumes 10 hours of in-game time and fully replenishes all
+        active resource pools. Additionally, heroes reduce their accumulated
+        Wounds and Madness by an amount equal to their character level. Rest
+        also removes temporary effects with a longer duration.</p>
     video:
       controls: true
       volume: 0.5
@@ -358,12 +355,12 @@ pages:
         of combat.</p></section><p>Creatures with zero Toughness are incorporeal
         or otherwise have no meaningful physical form. They have no
         <strong>Health</strong> pool and can become neither @Condition[weakened]
-        nor @Condition[dead]. Any amount of Health they would have possessed
-        contributes to their <strong>Morale</strong> pool instead. The creature
-        becomes @Condition[incapacitated] if their Morale reaches zero.</p><h2
-        class="divider">Dexterity</h2><p>Dexterity is a physical quickness
-        attribute that reflects agility and precision of movement. Dexterity
-        affects <strong>Initiative</strong> in taking action, the
+        nor @Condition[dead]. Half of the Health pool they would have possessed
+        instead contributes as a bonus to their <strong>Morale</strong> pool.
+        The creature becomes @Condition[incapacitated] if their Morale reaches
+        zero.</p><h2 class="divider">Dexterity</h2><p>Dexterity is a physical
+        quickness attribute that reflects agility and precision of movement.
+        Dexterity affects <strong>Initiative</strong> in taking action, the
         <strong>Dodge</strong> component of Physical Defense,
         <strong>Reflex</strong> defense, and the use of weaponry which scales
         with Dexterity.</p><section class="gameplay"><p>Characters with high
@@ -400,19 +397,20 @@ pages:
         no sense of self or meaningful cognitive form. They can neither
         influence the thoughts of others nor have their own behavior influenced.
         They have no <strong>Morale</strong> pool and can become neither
-        @Condition[broken] nor @Condition[insane]. Any amount of Morale they
-        would have possessed contributes to their <strong>Health</strong> pool
-        instead.</p><h2 class="divider">Intellect</h2><p>Intellect is a mental
-        quickness attribute that reflects speed of thought and decisiveness of
-        action. Intellect affects <strong>Initiative</strong> in taking action,
-        the <strong>Reflex</strong> defense, and the size of
-        <strong>Focus</strong> pool.</p><section class="gameplay"><p>Characters
-        with high Intellect are highly adaptable to various circumstances. They
-        apply excellent problem solving and decision making skills to think
-        on-the-fly and synthesize learned knowledge to guide decisive action. By
-        anticipating and outwitting their opponent they can gain the upper hand
-        in any conflict.</p></section><p>Creatures with zero Intellect lack the
-        ability to concentrate or make rapid decisions. They have no
+        @Condition[broken] nor @Condition[insane]. Half of the Morale pool they
+        would have possessed instead contributes as a bonus to their
+        <strong>Health</strong> pool.</p><h2
+        class="divider">Intellect</h2><p>Intellect is a mental quickness
+        attribute that reflects speed of thought and decisiveness of action.
+        Intellect affects <strong>Initiative</strong> in taking action, the
+        <strong>Reflex</strong> defense, and the size of <strong>Focus</strong>
+        pool.</p><section class="gameplay"><p>Characters with high Intellect are
+        highly adaptable to various circumstances. They apply excellent problem
+        solving and decision making skills to think on-the-fly and synthesize
+        learned knowledge to guide decisive action. By anticipating and
+        outwitting their opponent they can gain the upper hand in any
+        conflict.</p></section><p>Creatures with zero Intellect lack the ability
+        to concentrate or make rapid decisions. They have no
         <strong>Focus</strong> and cannot perform any action which requires
         it.</p>
     video:

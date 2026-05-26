@@ -22,7 +22,7 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
 /**
  * @typedef {DiceCheckBonuses} StandardCheckData
  * @property {string} actorId                 The ID of the actor rolling the check
- * @property {number} dc                      The target difficulty of the check
+ * @property {number|null} dc                      The target difficulty of the check
  * @property {string} type                    The type of check being performed
  * @property {number} totalBoons              The computed total number of boons applied to the roll
  * @property {number} totalBanes              The computed total number of banes applied to the roll
@@ -37,7 +37,7 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @property {number} diceTotal                       The sum of the dice before bonuses.
  * @property {object|undefined} damage                The rendered damage breakdown, or undefined if not applicable.
  * @property {string} targetLabel                     Secondary text shown on the primary result line.
- * @property {number} dc                              The difficulty class the roll is checked against.
+ * @property {number|null} dc                              The difficulty class the roll is checked against.
  * @property {string} defenseType                     The defense type label shown alongside the target value.
  * @property {string} formula                         The rendered roll formula.
  * @property {string} cssClass                        CSS classes applied to the rendered dice check wrapper.
@@ -112,6 +112,17 @@ export default class StandardCheck extends Roll {
    * @type {number}
    */
   static QUERY_TIMEOUT = 120_000;
+
+  /* -------------------------------------------- */
+
+  /**
+   * Localized sentinel displayed in place of a numeric score when a check (or any participating check in an
+   * aggregate) has an unset DC.
+   * @type {string}
+   */
+  static get UNKNOWN_SCORE() {
+    return _loc("DICE.UnknownScore");
+  }
 
   /* -------------------------------------------- */
 
@@ -195,7 +206,7 @@ export default class StandardCheck extends Roll {
    * @param {object} data     The initially provided data object
    */
   static #configureData(data) {
-    data.dc = Math.max(data.dc, 0);
+    if ( Number.isNumeric(data.dc) ) data.dc = Math.max(data.dc, 0);
     data.totalBoons = StandardCheck.#prepareBoons(data.boons);
     data.totalBanes = StandardCheck.#prepareBoons(data.banes);
   }
@@ -282,7 +293,7 @@ export default class StandardCheck extends Roll {
    * @returns {{outcome: string, classes: string[]}}
    */
   prepareOutcome() {
-    if ( !this.data.dc ) return {outcome: "COMMON.Unknown", classes: ["unknown"]};
+    if ( !Number.isNumeric(this.data.dc) ) return {outcome: "COMMON.Unknown", classes: ["unknown"]};
     let outcome = "ACTION.EFFECT_RESULT_TYPES.";
     const classes = [];
     if ( this.isCriticalSuccess || this.isCriticalFailure ) {
@@ -315,7 +326,7 @@ export default class StandardCheck extends Roll {
     if ( targetLabel === undefined ) {
       const skill = SYSTEM.SKILLS[this.data.type];
       const label = skill?.label ?? defenseType;
-      const dcLabel = game.user.isGM ? (dc || "??") : "";
+      const dcLabel = game.user.isGM ? (Number.isNumeric(dc) ? String(dc) : "??") : "";
       targetLabel = dcLabel ? `${label} ${dcLabel}` : label;
     }
     return {

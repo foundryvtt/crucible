@@ -920,7 +920,10 @@
   },
   "ADVANCEMENT": {
     "ExpectedLevel": "Expected Level",
+    "Important": "Important",
     "Level": "Level",
+    "MarkImportant": "Mark as Important",
+    "MarkNotImportant": "Mark not Important",
     "MilestoneAward": "Award Milestones",
     "MilestoneTooltip": "{progress} of {required} milestones until next level",
     "Progress": "Milestone Progress"
@@ -934,11 +937,11 @@
         "label": "Ability Scores",
         "primary": {
           "hint": "Select a primary ability score which begins at 3.",
-          "label": "Primary Ability"
+          "label": "Primary"
         },
         "secondary": {
           "hint": "Select a secondary ability score which begins at 2.",
-          "label": "Secondary Ability"
+          "label": "Secondary"
         }
       },
       "description": {
@@ -1485,6 +1488,7 @@
     "DCAdditionalPassive": "{dcLabel}, Passive",
     "DCAdditionalGroup": "{dcLabel}, Group",
     "DCSpecific": "DC {dc}",
+    "DCTargetSpecific": "{skill} DC Target",
     "DiceTotal": "Dice Total",
     "Enchantment": "Enchantment",
     "EnchantmentBonus": "Enchantment Bonus",
@@ -1495,7 +1499,8 @@
     "RollTotal": "Roll Total",
     "SetDifficulty": "Set Difficulty",
     "Skill": "Skill",
-    "SkillBonus": "Skill Bonus"
+    "SkillBonus": "Skill Bonus",
+    "UnknownScore": "???"
   },
   "FLANKED_EFFECT": {
     "FIELDS": {
@@ -1662,10 +1667,15 @@
       "Talents": "Talents"
     },
     "WARNINGS": {
+      "CombineDifferent": "{item} cannot be combined with {target} because the items are not identical.",
+      "CombineEquipped": "{item} cannot be combined into a stack while it is equipped.",
+      "CombineInvalidTarget": "{item} cannot be combined: the target must be a different item on the same actor.",
+      "CombineQuantity": "Cannot combine {quantity} units of {item} which holds a stack of {available}.",
       "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent.",
       "QualityReductionBlocked": "Cannot reduce quality of {name} because it has affixes that require the current capacity.",
+      "SplitQuantity": "Cannot split {quantity} from {item} which holds a stack of {available}.",
       "UniqueWithAffixes": "Cannot mark {name} as unique because it has affixes. Remove all affixes first.",
       "LootDropError": "Failed to create loot item \"{name}\". {reason}"
     },
@@ -1913,7 +1923,9 @@
     "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists.",
     "CruciblePartyLabel": "Primary Adventuring Party",
     "EnableVFXHint": "Play visual effects animations on the canvas when actions are confirmed.",
-    "EnableVFXName": "Enable Action Visual Effects"
+    "EnableVFXName": "Enable Action Visual Effects",
+    "FlexibleAncestryAbilitiesHint": "When enabled, hero characters may reassign their Ancestry's Primary and Secondary Ability Score bonuses to abilities of their choice during character creation. The Ancestry still contributes the same +2 and +1 starting bonuses; only the abilities receiving them are flexible.",
+    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses"
   },
   "SKILL": {
     "CATEGORY": {
@@ -2393,6 +2405,12 @@
     },
     "MOVEMENT": {
       "ACTIONS": {
+        "blink.label": "Blink",
+        "displace.label": "Teleport",
+        "burrow": {
+          "description": "Tunnel through earth or soft terrain a distance up to half your Stride attribute per Action, passing beneath walls and freely through other creatures. Only creatures with an explicit Burrow speed can use this movement mode.",
+          "label": "Burrow"
+        },
         "climb": {
           "description": "Climb or descend a surface, a distance or elevation up to half your Stride attribute per Action. Creatures with an explicit Climb speed instead use this speed instead of half their Stride.",
           "label": "Climb"
@@ -2414,6 +2432,10 @@
         },
         "normal": {
           "label": "Normal"
+        },
+        "push": {
+          "description": "Forced displacement applied by an external effect such as a knockback. Movement cost is always zero.",
+          "label": "Push"
         },
         "slow": {
           "label": "Cautious"

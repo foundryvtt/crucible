@@ -581,16 +581,19 @@ function enrichCondition([match, conditionId]) {
 
 /**
  * Enrich a reference to a specific action using syntax @Action[{ownerUUID} {actionId}].
- * The owner may be an Actor (actions keyed by id) or an Item (actions array searched by id).
+ * The ownerUUID may point towards an Actor or Item, or may be the literal string "default" used for default actions.
  * @param {RegExpMatchArray} matchArray
  * @returns {HTMLEnrichedContentElement|string}
  */
 function enrichAction([match, ownerUUID, actionId]) {
-  const owner = fromUuidSync(ownerUUID);
-  if ( !owner ) return match;
   let action;
-  if ( owner instanceof Actor ) action = owner.actions[actionId];
-  else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
+  if ( ownerUUID === "default" ) action = crucible.api.models.CrucibleAction.getDefaultAction(actionId);
+  else {
+    const owner = fromUuidSync(ownerUUID);
+    if ( !owner ) return match;
+    if ( owner instanceof Actor ) action = owner.actions[actionId];
+    else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
+  }
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
   tag.classList.add("action");

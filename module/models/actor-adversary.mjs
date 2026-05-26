@@ -20,7 +20,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Advancement
     schema.advancement = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 1, min: -5, max: 24, label: "ADVANCEMENT.Level"}),
-      rank: new fields.StringField({required: true, choices: SYSTEM.THREAT_RANKS, initial: "normal"})
+      rank: new fields.StringField({required: true, choices: SYSTEM.THREAT_RANKS, initial: "normal"}),
+      important: new fields.BooleanField({required: true, initial: false})
     });
 
     // Details
@@ -48,11 +49,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       delete abilityField.fields.base;
       delete abilityField.fields.increases;
     }
-
-    // Adversaries only use active resource pools
-    for ( const resource of Object.values(SYSTEM.RESOURCES) ) {
-      if ( resource.type !== "active" ) delete schema.resources.fields[resource.id];
-    }
     return schema;
   }
 
@@ -66,13 +62,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /** @override */
-  get isDead() {
-    return (this.abilities.toughness.value > 0) && (this.resources.health.value === 0);
+  get usesReserveResources() {
+    return this.advancement.important;
   }
 
   /** @override */
-  get isWeakened() {
-    return false;
+  get isDead() {
+    if ( !this.abilities.toughness.value ) return false;
+    return super.isDead;
   }
 
   /** @override */
@@ -82,10 +79,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /** @override */
-  get isInsane() {
-    return false;
-  }
-
   get isIncapacitated() {
     if ( !this.abilities.toughness.value && this.isBroken ) return true;
     return super.isIncapacitated;
@@ -109,13 +102,20 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const {rank} = this.advancement;
     const threatConfig = SYSTEM.THREAT_RANKS[rank];
     const expectedSize = this.movement.baseSize + this.movement.sizeBonus;
-    return Object.assign(config, {
+    Object.assign(config, {
       actionMax: threatConfig.actionMax,
       heroismMax: threatConfig.heroismMax,
       healthPerLevel: expectedSize + 2,
       moralePerLevel: expectedSize + 2,
       abilityMax: 18
     });
+
+    // Cap reserve pools for Important adversaries using the Normal threat baseline
+    if ( this.advancement.important && (config.healthMultiplier > 1) ) {
+      config.woundsMultiplier /= config.healthMultiplier;
+      config.madnessMultiplier /= config.moraleMultiplier;
+    }
+    return config;
   }
 
   /* -------------------------------------------- */

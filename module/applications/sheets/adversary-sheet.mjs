@@ -14,7 +14,8 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       editArchetype: AdversarySheet.#onEditArchetype,
       editTaxonomy: AdversarySheet.#onEditTaxonomy,
       levelDecrease: AdversarySheet.#onLevelDecrease,
-      levelIncrease: AdversarySheet.#onLevelIncrease
+      levelIncrease: AdversarySheet.#onLevelIncrease,
+      toggleImportant: AdversarySheet.#onToggleImportant
     }
   };
 
@@ -39,7 +40,8 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       threat: SYSTEM.THREAT_RANKS[rank],
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
-      canLevelDown: level > -5
+      canLevelDown: level > -5,
+      importantTooltip: _loc(a.system.advancement.important ? "ADVANCEMENT.MarkNotImportant" : "ADVANCEMENT.MarkImportant")
     });
 
     // Incomplete Tasks
@@ -121,6 +123,19 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
     else if ( l === -1 ) next = 1;
     else next = Math.min(l + 1, 24);
     return this.actor.update({"system.advancement.level": next});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle whether this Adversary is designated as Important.
+   * @this {AdversarySheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onToggleImportant(event) {
+    const important = !this.actor.system.advancement.important;
+    return this.actor.update({"system.advancement.important": important});
   }
 
   /* -------------------------------------------- */

@@ -199,7 +199,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isWeakened() {
-    return this.resources.health.value === 0;
+    return this.usesReserveResources && (this.resources.health.value === 0);
   }
 
   /**
@@ -215,7 +215,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isDead() {
-    return this.resources.wounds.value === this.resources.wounds.max;
+    if ( this.usesReserveResources ) return this.resources.wounds.value === this.resources.wounds.max;
+    else return this.resources.health.value === 0;
   }
 
   /**
@@ -232,7 +233,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isInsane() {
-    return this.resources.madness.value === this.resources.madness.max;
+    return this.usesReserveResources && (this.resources.madness.value === this.resources.madness.max);
   }
 
   /**
@@ -241,6 +242,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   get hasFreeMove() {
     return this.equipment.canFreeMove && !this.parent.status.hasMoved;
+  }
+
+  /**
+   * Does this Actor track Wounds & Madness?
+   * @returns {boolean}
+   */
+  get usesReserveResources() {
+    return true;
   }
 
   /* -------------------------------------------- */
@@ -839,12 +848,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Health and Wounds
     const healthBase = Math.max(level, 1) * p.healthPerLevel;
     rs.health.base = Math.ceil((healthBase + (4 * a.toughness.value) + (2 * a.strength.value)) * p.healthMultiplier);
-    if ( "wounds" in rs ) rs.wounds.base = Math.ceil(p.woundsMultiplier * rs.health.base);
+    rs.wounds.base = Math.ceil(p.woundsMultiplier * rs.health.base);
 
     // Morale and Madness
     const moraleBase = Math.max(level, 1) * p.moralePerLevel;
     rs.morale.base = Math.ceil((moraleBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * p.moraleMultiplier);
-    if ( "madness" in rs ) rs.madness.base = Math.ceil(p.madnessMultiplier * rs.morale.base);
+    rs.madness.base = Math.ceil(p.madnessMultiplier * rs.morale.base);
 
     // Resources
     rs.action.base = p.actionMax;
@@ -872,15 +881,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Compute resource maximums
     for ( const r of Object.values(resources) ) r.max = Math.max(r.base + r.bonus, 0);
 
-    // Specific logic for 0-ability actors
+    // Specific logic for 0-ability actors, convert half the unused pool into a bonus to the used pool
     if ( !this.abilities.toughness.value && !this.abilities.presence.value ) {
       resources.health.max = resources.morale.max = 0;
+      resources.wounds.max = resources.madness.max = 0;
     } else if ( !this.abilities.toughness.value ) {
-      resources.morale.max += resources.health.max;
+      resources.morale.max += Math.floor(resources.health.max / 2);
+      resources.madness.max += Math.floor(resources.wounds.max / 2);
       resources.health.max = 0;
+      resources.wounds.max = 0;
     } else if ( !this.abilities.presence.value ) {
-      resources.health.max += resources.morale.max;
+      resources.health.max += Math.floor(resources.morale.max / 2);
+      resources.wounds.max += Math.floor(resources.madness.max / 2);
       resources.morale.max = 0;
+      resources.madness.max = 0;
     }
     if ( !this.abilities.wisdom.value ) resources.heroism.max = 0;
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
@@ -961,8 +975,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const {isIncapacitated, statuses} = this.parent;
 
     // Healing thresholds based on wounds and madness
-    const wounds = resources.wounds?.value ?? ((resources.health.max - resources.health.value) * 2);
-    const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
+    const wounds = this.usesReserveResources
+      ? resources.wounds.value
+      : ((resources.health.max - resources.health.value) * 2);
+    const madness = this.usesReserveResources
+      ? resources.madness.value
+      : ((resources.morale.max - resources.morale.value) * 2);
     defenses.wounds.base += Math.floor(wounds / 10);
     defenses.madness.base += Math.floor(madness / 10);
 
@@ -1127,7 +1145,21 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       delta = gain;
     }
     allocation[resource] = (allocation[resource] || 0) + delta;
-    return {[resource]: delta};
+    const deltas = {[resource]: delta};
+    if ( (amount >= 0) || !this.usesReserveResources ) return deltas;
+    const overflowName = {health: "wounds", morale: "madness"}[resource];
+    const overflow = overflowName ? this.resources[overflowName] : null;
+    if ( !overflow ) return deltas;
+    const primaryLoss = -(deltas[resource] || 0);
+    const remaining = -amount - primaryLoss;
+    if ( remaining <= 0 ) return deltas;
+    const overflowValue = Math.max(overflow.value + (allocation[overflowName] || 0), 0);
+    const gain = Math.min(overflow.max - overflowValue, remaining);
+    if ( gain > 0 ) {
+      deltas[overflowName] = gain;
+      allocation[overflowName] = (allocation[overflowName] || 0) + gain;
+    }
+    return deltas;
   }
 
   /* -------------------------------------------- */

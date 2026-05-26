@@ -194,7 +194,9 @@
   ],
   "documentTypes": {
     "ActiveEffect": {
-      "affix": {},
+      "affix": {
+        "htmlFields": ["actions.*.description"]
+      },
       "flanked": {}
     },
     "Actor": {
@@ -215,7 +217,7 @@
     },
     "Item": {
       "accessory": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "ancestry": {
         "htmlFields": ["description"]
@@ -224,34 +226,34 @@
         "htmlFields": ["description"]
       },
       "armor": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "background": {
         "htmlFields": ["description"]
       },
       "consumable": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "loot": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "schematic": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "spell": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description", "actions.*.description"]
       },
       "talent": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description", "actions.*.description"]
       },
       "taxonomy": {
         "htmlFields": ["description"]
       },
       "tool": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       },
       "weapon": {
-        "htmlFields": ["description.public", "description.secret"]
+        "htmlFields": ["description.public", "description.secret", "actions.*.description"]
       }
     },
     "JournalEntryPage": {

@@ -4,8 +4,10 @@ img: icons/magic/sonic/projectile-shock-wave-blue.webp
 system:
   description: >-
     <p>Empower a spell to repel affected creatures away from the caster.
-    Creatures affected by a spell with the Push inflection move 4 feet away from
-    the spellcaster if that destination is unoccupied.</p>
+    Creatures affected by a spell with the <strong>Push</strong> inflection are
+    forcibly moved a distance away from the spellcaster equal to the Ability
+    Bonus that applied to the Spell, potentially colliding with walls or other
+    movement-blocking obstacles.</p>
   actions: []
   inflection: push
   iconicSpells: 1
@@ -21,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160136
-  modifiedTime: 1773514792586
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779733772191
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.inflectionpush00
   duplicateSource: null
   exportSource: null

@@ -20,11 +20,11 @@ system:
         not end your charge in the same space as another creature.</p>
       tags:
         - shield
-        - movement
         - melee
         - offhand
+        - movement
       cost:
-        action: 2
+        action: 1
         focus: 0
         weapon: true
         heroism: 0
@@ -45,6 +45,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - toustr2
   rune: ''
@@ -56,11 +57,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
-  createdTime: 1772307160146
-  modifiedTime: 1773514792613
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
+  createdTime: 1779831851033
+  modifiedTime: 1779831851033
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
@@ -68,5 +69,5 @@ folder: 08mOaWGw5rYKejer
 sort: 200000
 ownership:
   default: 0
-  AnoypGxxNIMOS0XY: 3
+  QvBFYpRRXHRBcOfP: 3
 _key: '!items!shieldcharge0000'

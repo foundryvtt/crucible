@@ -58,10 +58,14 @@ export function onPointerLeave(event) {
  */
 async function displayActionTooltip(event) {
   const element = event.target;
-  const owner = await fromUuid(element.dataset.uuid);
+  const {uuid, actionId} = element.dataset;
   let action;
-  if ( owner instanceof Actor ) action = owner.actions[element.dataset.actionId];
-  else if ( owner instanceof Item ) action = owner.actions.find(a => a.id === element.dataset.actionId);
+  if ( uuid === "default" ) action = crucible.api.models.CrucibleAction.getDefaultAction(actionId);
+  else {
+    const owner = await fromUuid(uuid);
+    if ( owner instanceof Actor ) action = owner.actions[actionId];
+    else if ( owner instanceof Item ) action = owner.actions.find(a => a.id === actionId);
+  }
   if ( !action ) return;
   event.stopImmediatePropagation();
 

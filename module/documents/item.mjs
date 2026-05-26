@@ -312,6 +312,13 @@ export default class CrucibleItem extends foundry.documents.Item {
 
     // If physical item without stackable, clamp quantity to [0, 1]
     if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
+
+    // An equipped item is always a single unit; stacks may only exist while unequipped
+    const willBeEquipped = data.system?.equipped ?? this.system.equipped;
+    if ( willBeEquipped && ((data.system?.quantity ?? this.system.quantity) !== 1) ) {
+      foundry.utils.setProperty(data, "system.quantity", 1);
+    }
+
     const isStackable = (data.system?.properties && data.system.properties.includes("stackable")) ?? this.system.properties.has("stackable");
     if ( isStackable ) return;
     const currQuantity = data.system?.quantity ?? this.system.quantity;
@@ -445,18 +452,87 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
+  /*  Stack Management                            */
+  /* -------------------------------------------- */
 
   /**
-   * Test whether an item is stackable with another item
-   * @param {CrucibleItem} other
-   * @returns {boolean}
+   * Combine a quantity of this Item into a target stack. On success the target absorbs the chosen quantity, and this
+   * Item is modified only when it is a sibling of the target (shares its parent Actor): its stack is decremented, or
+   * deleted if the full quantity is taken. If no target is provided, the search scope Actor is searched for an eligible
+   * identical stack. All prerequisite checks live here, so this is safe to call with arbitrary input.
+   * @param {CrucibleItem} [target]            The Item to combine into, otherwise search for one
+   * @param {object} [options]
+   * @param {CrucibleActor} [options.actor]    The Actor whose Items are searched for a target; defaults to this.parent.
+   * @param {number} [options.quantity]        How many units of this Item to combine. Defaults to all available
+   * @returns {Promise<CrucibleItem|null>}     The target stack if successful, or null if no eligible target was found
+   * @throws {Error}                           An Error if combining with an explicit, incompatible target or quantity
    */
-  isStackableWith(other) {
+  async combineStack(target, {actor, quantity}={}) {
+    actor ??= this.parent;
+    if ( !(actor instanceof foundry.documents.Actor)
+      || !(this.system instanceof crucible.api.models.CruciblePhysicalItem)
+      || !this.system.properties.has("stackable") ) return null;
+
+    // Search the scope Actor for an eligible identical stack when no explicit target is provided
+    target ??= actor.itemTypes[this.type].find(other => this.isStackable({target: other}));
+    if ( !target ) return null;
+
+    if ( (target === this) || (target.parent !== actor) ) {
+      throw new Error(_loc("ITEM.WARNINGS.CombineInvalidTarget", {item: this.name}));
+    }
+    if ( this.system.equipped || target.system.equipped ) {
+      throw new Error(_loc("ITEM.WARNINGS.CombineEquipped", {item: this.name}));
+    }
+    if ( !this.isStackable({target}) ) {
+      throw new Error(_loc("ITEM.WARNINGS.CombineDifferent", {item: this.name, target: target.name}));
+    }
+
+    // Determine how many units to combine, defaulting to this Item's entire stack
+    quantity ??= this.system.quantity;
+    if ( (quantity < 1) || (quantity > this.system.quantity) ) {
+      throw new Error(_loc("ITEM.WARNINGS.CombineQuantity", {item: this.name, quantity, available: this.system.quantity}));
+    }
+
+    // Absorb the chosen quantity into the target. Modify this Item only when it is a sibling of the target.
+    const embedded = {updateItems: [{_id: target.id, "system.quantity": target.system.quantity + quantity}]};
+    if ( this.parent === target.parent ) {
+      const remaining = this.system.quantity - quantity;
+      if ( remaining > 0 ) embedded.updateItems.push({_id: this.id, "system.quantity": remaining});
+      else embedded.deleteItems = [this.id];
+    }
+    await foundry.documents.modifyBatch(actor.defineBatchOperations({}, embedded));
+    return target;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test the stackability of this Item, optionally against a specific target Item.
+   * A stackable Item must be physical, unequipped, unenchanted, flagged stackable, and hold the required quantity.
+   * When a `target` is provided it must additionally be a distinct, identical, equally-stackable Item.
+   * @param {object} [options]
+   * @param {CrucibleItem} [options.target]        A target Item to combine with; omit to test this Item alone
+   * @param {boolean} [options.allowSelf]          Whether `target` may be this same Item. Defaults to true when no
+   *                                               `target` is provided, and false when an explicit `target` is given.
+   * @param {number} [options.requiredQuantity=0]  This Item's quantity must exceed this value to be stackable
+   * @returns {boolean}                            Whether this Item is stackable under the requested conditions
+   */
+  isStackable({target, allowSelf, requiredQuantity=0}={}) {
+    allowSelf ??= !target;
+
+    // This Item must itself be a physical, unequipped, unenchanted, stackable Item holding the required quantity
     if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
+    if ( this.system.equipped ) return false;
     if ( !this.system.properties.has("stackable") ) return false;
-    if ( this.effects.size || other.effects.size ) return false; // Affixes never stack
+    if ( this.effects.size ) return false;
+    if ( this.system.quantity <= requiredQuantity ) return false;
+    if ( !target ) return true;
+
+    // Assert stackability of the target
+    if ( target === this ) return allowSelf;
+    if ( !target.isStackable() ) return false;
     const cleanData = this.toObject();
-    const cleanOther = other.toObject();
+    const cleanOther = target.toObject();
     for ( const data of [cleanData, cleanOther] ) {
       delete data._id;
       delete data._stats;
@@ -466,6 +542,35 @@ export default class CrucibleItem extends foundry.documents.Item {
       delete data.folder;
     }
     return foundry.utils.equals(cleanData, cleanOther);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Split a quantity off this stack into a new sibling Item carrying the provided state overrides.
+   * The source stack is decremented (or deleted if fully consumed) in the same batch operation.
+   * @param {number} [quantity=1]       The number of units to pop off into the new Item
+   * @param {object} [overrides={}]     System data overrides applied to the new Item (e.g. {equipped: false})
+   * @returns {Promise<CrucibleItem>}   The newly created Item
+   */
+  async splitStack(quantity=1, overrides={}) {
+    const parent = this.parent;
+    if ( !(parent instanceof foundry.documents.Actor) ) throw new Error("Only owned Items can be split.");
+    const remaining = this.system.quantity - quantity;
+    if ( (quantity < 1) || (remaining < 0) ) {
+      throw new Error(_loc("ITEM.WARNINGS.SplitQuantity", {item: this.name, quantity, available: this.system.quantity}));
+    }
+    const newData = this.toObject();
+    newData._id = foundry.utils.randomID();
+    foundry.utils.mergeObject(newData.system, {quantity, ...overrides});
+    const sourceOperation = remaining > 0
+      ? {updateItems: [{_id: this.id, "system.quantity": remaining}]}
+      : {deleteItems: [this.id]};
+    await foundry.documents.modifyBatch(parent.defineBatchOperations({}, {
+      createItems: {changes: [newData], options: {keepId: true}},
+      ...sourceOperation
+    }));
+    return parent.items.get(newData._id);
   }
 
   /* -------------------------------------------- */

@@ -20,7 +20,8 @@ system:
   broken: false
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   actions: []
 folder: 7LUkTLEZvS60KVBp
 effects: []

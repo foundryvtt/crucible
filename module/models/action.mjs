@@ -54,6 +54,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
+ * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
+ *                                          action used would otherwise enforce it
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
@@ -1029,9 +1031,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Prepare Summons
-    if ( this.summon.actorUuid ) {
-      this.usage.summons = [{...this.summon}];
-    }
+    this.usage.summons = this.summon.actorUuid ? [{...this.summon}] : [];
 
     // Reset bonuses
     Object.assign(this.usage.bonuses, {
@@ -1402,7 +1402,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from the actor's planned movement path.
-   * Tokens whose grid footprint overlaps any portion of the swept path become targets.
+   * A token is targeted if the movement path intersects with its hitbox OR if base-to-base with the final position.
+   * Targets are returned in path-traversal order and capped to the action's defined maximum targets.
    * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromMovement() {
@@ -1410,50 +1411,87 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const sparseWaypoints = this.movement.waypoints;
     if ( !sparseWaypoints.length ) return [];
 
-    // Expand sparse waypoints into every intermediate grid cell traversed.
-    // Blink is a teleport action which getCompleteMovementPath would not expand, treat it as walk instead.
+    // Expand sparse waypoints into every intermediate grid cell traversed
     const expandedWaypoints = sparseWaypoints.map(w => (w.action === "blink" ? {...w, action: "walk"} : w));
     const waypoints = this.token.getCompleteMovementPath([this.movement.origin, ...expandedWaypoints]).slice(1);
+    if ( !waypoints.length ) return [];
 
-    // Identify 3d grid space offsets covered by the token's traversed path. Record the bounding offsets.
-    const visitedSpaces = new Set();
+    // Grid spaces occupied by the starting position are never targeted
+    const originSpaces = new Set();
+    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(this.movement.origin) ) {
+      originSpaces.add(`${i},${j},${k}`);
+    }
+
+    // Determine the superset of candidate targets filtered by disposition and visibility
+    const adjacencyPad = canvas.dimensions.size / canvas.dimensions.distance; // Pixels per one foot of distance
+    const broadBounds = this.#getMovementFootprintRect(waypoints, adjacencyPad);
+    const targetDispositions = this.#getTargetDispositions();
+    const candidates = canvas.tokens.quadtree.getObjects(broadBounds, {collisionTest: o => {
+      const tokenDoc = o.t.document;
+      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
+      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
+      return !tokenDoc.hidden;
+    }});
+
+    // Padded footprint of the final position used to detect base-to-base adjacency
+    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], adjacencyPad);
+
+    // Walk the path in order, recording the first step at which each candidate is intersected or in base-to-base
+    const encounterStep = new Map();
+    for ( let w = 0; w < waypoints.length; w++ ) {
+      const isFinal = w === (waypoints.length - 1);
+      const occupied = new Set();
+      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
+        const key = `${i},${j},${k}`;
+        if ( !originSpaces.has(key) ) occupied.add(key);
+      }
+      for ( const token of candidates ) {
+        if ( encounterStep.has(token) ) continue;
+        const footprint = token.document.getOccupiedGridSpaceOffsets(token.document._source);
+        const intersects = footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
+        const adjacent = isFinal && finalRect.overlaps(token.bounds);
+        if ( intersects || adjacent ) encounterStep.set(token, w);
+      }
+    }
+
+    // Sort targets by encounter step, tie-breaking by center-to-center distance
+    const finalCenter = {x: finalRect.x + (finalRect.width / 2), y: finalRect.y + (finalRect.height / 2)};
+    const d2 = t => Math.pow(t.center.x - finalCenter.x, 2) + Math.pow(t.center.y - finalCenter.y, 2);
+    let ordered = Array.from(encounterStep.keys()).sort((a, b) => {
+      return (encounterStep.get(a) - encounterStep.get(b)) || (d2(a) - d2(b));
+    });
+
+    // Limit maximum affected targets, skipping those which are already dead
+    if ( this.target.limit && (ordered.length > this.target.limit) ) {
+      ordered = ordered.filter(token => !token.actor?.system.isDead).slice(0, this.target.limit);
+    }
+    return ordered.map(token => CrucibleAction.#getTargetFromToken(token.document));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the bounding rectangle of the token's grid footprint across one or more waypoints, optionally padded.
+   * @param {object[]} waypoints    Waypoint positions to bound
+   * @param {number} [pad=0]        Pixel padding applied to every side
+   * @returns {PIXI.Rectangle}
+   */
+  #getMovementFootprintRect(waypoints, pad=0) {
     let minI = Infinity;
     let minJ = Infinity;
     let maxI = -Infinity;
     let maxJ = -Infinity;
-    for ( let w = 0; w < waypoints.length; w++ ) {
-      for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
-        visitedSpaces.add(`${i},${j},${k}`);
+    for ( const wp of waypoints ) {
+      for ( const {i, j} of this.token.getOccupiedGridSpaceOffsets(wp) ) {
         if ( i < minI ) minI = i;
         if ( j < minJ ) minJ = j;
         if ( i > maxI ) maxI = i;
         if ( j > maxJ ) maxJ = j;
       }
     }
-
-    // Remove spaces occupied by the token's starting position
-    for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(this.movement.origin) ) {
-      visitedSpaces.delete(`${i},${j},${k}`);
-    }
-
-    // Identify Token targets by filtering the quadtree result for movement bounds
     const {x: x0, y: y0} = canvas.grid.getTopLeftPoint({i: minI, j: minJ});
     const {x: x1, y: y1} = canvas.grid.getTopLeftPoint({i: maxI + 1, j: maxJ + 1});
-    const movementBounds = new PIXI.Rectangle(x0, y0, x1 - x0, y1 - y0);
-    const targetDispositions = this.#getTargetDispositions();
-    const hitTokens = canvas.tokens.quadtree.getObjects(movementBounds, {collisionTest: o => {
-      const tokenDoc = o.t.document;
-      if ( !this.target.self && (tokenDoc.actor === this.actor) ) return false;
-      if ( !targetDispositions.includes(tokenDoc.disposition) ) return false;
-      if ( tokenDoc.hidden ) return false;
-      const spaces = tokenDoc.getOccupiedGridSpaceOffsets(tokenDoc._source);
-      return spaces.some(({i, j, k}) => visitedSpaces.has(`${i},${j},${k}`));
-    }});
-
-    // Return the array of targets
-    const targets = [];
-    for ( const token of hitTokens ) targets.push(CrucibleAction.#getTargetFromToken(token.document));
-    return targets;
+    return new PIXI.Rectangle(x0 - pad, y0 - pad, (x1 - x0) + (2 * pad), (y1 - y0) + (2 * pad));
   }
 
   /* -------------------------------------------- */
@@ -1855,69 +1893,60 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Get all equipped weapons which fulfil the requirements for this action, optionally excluding those which are
-   * valid generally, but are not currently due to a lack of resource or being unloaded
-   * @param {object} [options]              Additional options
-   * @param {boolean} [options.strict]      Whether to filter out invalid items or only mark them invalid
-   * @param {number|null} [options.maxCost] If provided, consider weapons with greater action cost invalid
-   * @returns {{item: CrucibleWeaponItem, label: string, id: string, isValid: boolean}[]}
+   * @typedef CrucibleActionWeaponChoice
+   * @property {CrucibleItem} item    The candidate weapon Item
+   * @property {string} id            The choice identifier: the weapon id, or "mainhandUnarmed"/"offhandUnarmed"
+   * @property {string} label         A display label including the equipment slot
+   * @property {boolean} viable       Whether the weapon satisfies the action's requirement tags
+   * @property {boolean} [valid]      Whether the weapon is currently affordable; annotated by getValidWeaponChoices
    */
-  getValidWeaponChoices({strict=false, maxCost=null}={}) {
-    const choices = [];
-    if ( !["strike", "reload"].some(t => this.tags.has(t)) ) return choices;
+
+  /**
+   * Enumerate the equipped weapons structurally eligible for this action, before requirement tags filter viability.
+   * Only weapon state (reload) is considered here; requirement tags (melee, ranged, brute, ...) further restrict the
+   * returned choices during prepare.
+   * @returns {CrucibleActionWeaponChoice[]|null}  The candidate weapons, or null when no choice is presented
+   * @protected
+   */
+  _prepareWeaponChoices() {
+    const isWeaponAction = this.tags.has("strike") || this.tags.has("reload");
+    const isForced = ["mainhand", "offhand", "twohand"].some(t => this.tags.has(t));
+    if ( !isWeaponAction || isForced ) return null;
     const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+    const isReload = this.tags.has("reload");
 
-    // Identify weapons using the union of _source tags and current tags to account for tag removal during configuration
-    const hasMelee = this._source.tags.includes("melee") || this.tags.has("melee");
-    const hasRanged = this._source.tags.includes("ranged") || this.tags.has("ranged");
-    const isValidChoice = weapon => {
-      let available = true;
-      let eligible = true;
+    // Add a weapon as a choice if its reload state qualifies: unloaded for a reload action, loaded for any other;
+    // non-reloadable weapons are never a choice for a reload action
+    const choices = [];
+    const addChoice = (weapon, id, slotLabel) => {
       if ( weapon.config.category.reload ) {
-        available = this.tags.has("reload") ? weapon.system.needsReload : !weapon.system.needsReload;
-      } else if ( this.tags.has("reload") ) eligible = false;
-      if ( maxCost !== null ) available &&= (weapon.system.actionCost <= maxCost);
-      if ( this.tags.has("talisman") && !["talisman1", "talisman2"].includes(weapon.system.category)) eligible = false;
-
-      // Any strike that's neither melee nor ranged shouldn't hard-disqualify weapons based on melee/ranged
-      if ( hasRanged || hasMelee ) {
-        eligible &&= (hasRanged || !weapon.config.category.ranged);
-        eligible &&= (hasMelee || weapon.config.category.ranged);
-      }
-      return {available, eligible};
+        if ( isReload ? !weapon.system.needsReload : weapon.system.needsReload ) return;
+      } else if ( isReload ) return;
+      choices.push({item: weapon, id, label: `${weapon.name} (${slotLabel})`, viable: true});
     };
-    const isNatural = this.tags.has("natural");
-    if ( mh && !isNatural ) {
-      const {available, eligible} = isValidChoice(mh);
-      if ( eligible && (!strict || available) ) choices.push({
-        item: mh,
-        id: mh.id || "mainhandUnarmed",
-        label: `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`,
-        isValid: available
-      });
-    }
-    if ( oh && !isNatural ) {
-      const {available, eligible} = isValidChoice(oh);
-      if ( eligible && (!strict || available) ) choices.push({
-        item: oh,
-        id: oh.id || "offhandUnarmed",
-        label: `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`,
-        isValid: available
-      });
-    }
-    if ( !hasRanged ) {
-      for ( const n of natural ) {
-        const isValid = (maxCost !== null) ? (n.system.actionCost <= maxCost) : true;
-        if ( strict && !isValid ) continue;
-        choices.push({
-          item: n,
-          id: n.id,
-          label: `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`,
-          isValid
-        });
-      }
-    }
+    if ( mh ) addChoice(mh, mh.id || "mainhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.MAINHAND);
+    if ( oh ) addChoice(oh, oh.id || "offhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.OFFHAND);
+    for ( const n of natural ) addChoice(n, n.id, SYSTEM.WEAPON.PROPERTIES.natural.label);
     return choices;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the prepared viable weapon choices, annotating each with affordability against an action point budget.
+   * @param {object} [options]              Additional options
+   * @param {boolean} [options.strict]      Whether to drop unaffordable choices rather than only marking them
+   * @param {number} [options.maxCost]      An action point budget; weapons exceeding it get valid=false
+   * @returns {CrucibleActionWeaponChoice[]}
+   */
+  getValidWeaponChoices({strict=false, maxCost=Infinity}={}) {
+    const choices = (this.usage.weaponChoices ?? []).filter(c => c.viable);
+    const base = this.usage.baseActionCost ?? this.cost.action;
+    for ( const choice of choices ) {
+      const cost = this.cost.weapon ? (base + (choice.item.system.actionCost || 0)) : this.cost.action;
+      choice.valid = cost <= maxCost;
+    }
+    return strict ? choices.filter(c => c.valid) : choices;
   }
 
   /* -------------------------------------------- */
@@ -1967,6 +1996,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
     }
+
+    // Build the weapon choice set now so requirement tags can filter it during the later prepare pass
+    this.usage.weaponChoices = this._prepareWeaponChoices();
   }
 
   /* -------------------------------------------- */
@@ -2367,7 +2399,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} reverse          Reverse the movement instead of enacting it?
    */
   async #applyMovement(actor, movementId, reverse) {
-    const token = (actor === this.actor) ? this.token
+    const isSelf = actor === this.actor;
+    const token = isSelf ? this.token
       : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
     if ( !token ) return;
     const isPlanned = (token.movement?.id === movementId) && (token.movement?.state === "planned");
@@ -2378,7 +2411,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( isPlanned ) {
       (token._confirmedMovements ??= new Set()).add(movementId);
-      await token.startMovement(movementId);
+      const movementActions = crucible.api.canvas.CrucibleMovementPolygon._movementActions;
+      if ( isSelf ) movementActions.set(movementId, this);
+      try {
+        await token.startMovement(movementId);
+      } finally {
+        if ( isSelf ) movementActions.delete(movementId);
+      }
     }
   }
 
@@ -2929,6 +2968,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       ...actionData,
       tags
     }, {actor, usage: {danger, defenseType, damageType, resource}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Construct an ephemeral CrucibleAction for a system default action by id.
+   * Used for actor-less references such as the `@Action[default <id>]` enricher.
+   * @param {string} actionId       Id of an entry in {@link SYSTEM.ACTION.DEFAULT_ACTIONS}
+   * @returns {CrucibleAction|null}
+   */
+  static getDefaultAction(actionId) {
+    const ad = SYSTEM.ACTION.DEFAULT_ACTIONS.find(a => a.id === actionId);
+    if ( !ad ) return null;
+    return new this(foundry.utils.deepClone(ad));
   }
 
   /* -------------------------------------------- */

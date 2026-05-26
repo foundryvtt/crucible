@@ -159,10 +159,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #prepareWeaponChoice() {
     if ( !this.action.allowWeaponChoice ) return null;
-    const baseActionCost = this.action.cost.action - (this.action.usage.weapon?.system.actionCost ?? 0);
-    const maxCost = this.actor.resources.action.value - baseActionCost;
-    const choices = this.action.getValidWeaponChoices({strict: true, maxCost});
+    const choices = this.action.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
     if ( choices.length <= 1 ) return null;
+    for ( const c of choices ) c.disabled = !c.valid; // Disable unaffordable
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
       label: _loc("ACTION.ChooseWeaponLabel"), hint: _loc("ACTION.ChooseWeaponHint")});
     weapon.name = "weapon";
@@ -595,7 +594,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the movement plan
+    // Await the movement plan; token-collision tests recover this action via ActionUseDialog.instances()
     const plan = await token.object.planMovement({
       allowedActions: movementUsage.action ? [movementUsage.action] : null,
       minCost: this.action.range?.minimum ?? undefined,
@@ -648,8 +647,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const previewMovement = {origin: foundPath[0], waypoints: foundPath.slice(1)};
     Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
     this.#previewMovementAction.acquireTargets({strict: false});
-    const targetTokenIds = Array.from(this.#previewMovementAction.targets.values()).map(t => t.token?.id).filter(Boolean);
-    canvas.tokens.setTargets(targetTokenIds);
+    const targetTokens = Array.from(this.#previewMovementAction.targets.values());
+    canvas.tokens.setTargets(targetTokens.map(t => t.token?.id).filter(Boolean));
   }
 
   /* -------------------------------------------- */
@@ -673,7 +672,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
     if ( canvas.tokens._movementPlanningContext?.object?.document === token ) {
       canvas.tokens._cancelMovementPlanning();
     }
-    canvas.tokens.setTargets([]);
   }
 
   /* -------------------------------------------- */

@@ -25,6 +25,11 @@
             <a>{{#if incomplete.archetype}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{archetypeName}}</a>
         </h2>
         <div class="metadata flexrow">
+            <button type="button" class="important-toggle"
+                    data-tooltip aria-label="{{importantTooltip}}"
+                    data-action="toggleImportant">
+                <i class="fa-{{#if actor.system.advancement.important}}solid{{else}}regular{{/if}} fa-star"></i>
+            </button>
             {{formInput fields.advancement.fields.rank value=source.system.advancement.rank labelAttr="label"}}
             <div class="size flexrow">
                 <span class="label" data-tooltip="TAXONOMY.FIELDS.movement.size.hint">{{localize "TAXONOMY.FIELDS.movement.size.label"}}</span>

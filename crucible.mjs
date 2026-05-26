@@ -313,6 +313,15 @@ Hooks.once("init", async function() {
     default: true
   });
 
+  game.settings.register("crucible", "flexibleAncestryAbilities", {
+    name: "SETTINGS.FlexibleAncestryAbilitiesName",
+    hint: "SETTINGS.FlexibleAncestryAbilitiesHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   // Migration Required Version
   game.settings.register("crucible", "migrationVersion", {
     scope: "world",
@@ -771,6 +780,16 @@ Hooks.on("canvasReady", () => {
   if ( game.user.isGM && scene?._microgrid?.warning ) ui.notifications.warn(scene._microgrid.warning);
   gameCanvas.sceneTextures["crucible.particle.white"] = PIXI.Texture.WHITE;
   canvas.vfx.sprites.registerVFXSprites();
+
+  // Use the token-collision movement polygon as the move backend on microgrid scenes
+  CONFIG.Canvas.polygonBackends.move = scene?.useMicrogrid
+    ? canvas.CrucibleMovementPolygon
+    : foundry.canvas.geometry.ClockwiseSweepPolygon;
+});
+
+// Restore the core move backend when a scene is torn down
+Hooks.on("canvasTearDown", () => {
+  CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
 
 /* -------------------------------------------- */

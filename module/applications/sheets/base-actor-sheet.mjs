@@ -721,9 +721,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, resource] of Object.entries(rs) ) {
       const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
       r.id = id;
-      r.pct = Math.round(r.value * 100 / r.max);
-      r.cssPct = `--resource-pct: ${100 - r.pct}%`;
+      r.pct = r.max > 0 ? Math.round(r.value * 100 / r.max) : 0;
       resources[r.id] = r;
+    }
+
+    // Assemble inline CSS style for the resource
+    const reservePairs = {health: "wounds", morale: "madness"};
+    for ( const [activeId, reserveId] of Object.entries(reservePairs) ) {
+      let style = `--resource-pct: ${100 - resources[activeId].pct}%;`;
+      const reserve = resources[reserveId];
+      if ( reserve?.value > 0 ) {
+        const color = SYSTEM.RESOURCES[reserveId].color.high.css;
+        style += ` --reserve-pct: ${reserve.pct}%; --reserve-color: ${color}; --reserve-display: block;`;
+      }
+      resources[activeId].cssStyle = style;
     }
 
     // Action
@@ -1067,7 +1078,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @type {ApplicationClickAction}
    */
   static async #onSkillRoll(_event, target) {
-    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
+    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true, chatMessage: true});
   }
 
   /* -------------------------------------------- */
@@ -1243,9 +1254,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( !this.actor.isOwner ) return;
     const section = event.target.closest("[data-inventory-section]")?.dataset.inventorySection;
     const targetSection = CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type];
+    const targetId = event.target.closest("[data-item-id]")?.dataset.itemId;
+    const targetItem = targetId ? this.actor.items.get(targetId) : null;
 
     // Moving already owned items
     if ( this.actor.uuid === item.parent?.uuid ) {
+
+      // Combine stacks of unequipped items
+      if ( targetItem && item.isStackable({target: targetItem}) ) {
+        await item.combineStack(targetItem);
+        return;
+      }
+
+      // Equip or unequip items
       switch ( section ) {
         case "backpack":
           if ( item.system.equipped ) {
@@ -1270,16 +1291,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       return;
     }
 
-    // Expand the stack of an existing stackable item
+    // Absorb the dropped item into a matching stack already owned by this Actor, if one exists
     const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
-    if ( isPhysical && item.system.properties.has("stackable") ) {
-      const existing = this.actor.itemTypes[item.type].filter(i => (i.system.identifier === item.system.identifier));
-      const toStack = existing.find(i => item.isStackableWith(i));
-      if ( toStack ) {
-        await toStack.update({ "system.quantity": toStack.system.quantity + item.system.quantity});
-        return;
-      }
-    }
+    if ( await item.combineStack(undefined, {actor: this.actor}) ) return;
 
     // Create a new item
     item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
