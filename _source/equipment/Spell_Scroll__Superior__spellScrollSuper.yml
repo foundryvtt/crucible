@@ -89,12 +89,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.9.4
   createdTime: 1772307157779
-  modifiedTime: 1775502000000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779814529779
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: spellScrollSuper
 sort: 350000
 _key: '!items!spellScrollSuper'

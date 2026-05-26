@@ -12,7 +12,8 @@ system:
   enchantment: mundane
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   description:
     public: >-
       <p>An instrument made from carved wood or bone that, when blown into,

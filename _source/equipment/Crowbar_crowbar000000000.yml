@@ -12,7 +12,8 @@ system:
   enchantment: mundane
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   description:
     public: >-
       <p>A slightly curved bar of strong metal featuring a hook with a flattened

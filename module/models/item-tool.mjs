@@ -31,7 +31,8 @@ export default class CrucibleToolItem extends CruciblePhysicalItem {
 
   /** @override */
   static ITEM_PROPERTIES = {
-    investment: PROPERTIES.investment
+    investment: PROPERTIES.investment,
+    stackable: PROPERTIES.stackable
   };
 
   /** @override */

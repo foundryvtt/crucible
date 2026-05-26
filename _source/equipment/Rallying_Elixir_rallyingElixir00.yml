@@ -11,7 +11,8 @@ system:
   broken: false
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - stackable
   description:
     public: >-
       <p>This potion contains a specialized alchemical formula to rapidly
