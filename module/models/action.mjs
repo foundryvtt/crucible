@@ -2399,7 +2399,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} reverse          Reverse the movement instead of enacting it?
    */
   async #applyMovement(actor, movementId, reverse) {
-    const token = (actor === this.actor) ? this.token
+    const isSelf = actor === this.actor;
+    const token = isSelf ? this.token
       : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
     if ( !token ) return;
     const isPlanned = (token.movement?.id === movementId) && (token.movement?.state === "planned");
@@ -2410,7 +2411,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( isPlanned ) {
       (token._confirmedMovements ??= new Set()).add(movementId);
-      await token.startMovement(movementId);
+      const movementActions = crucible.api.canvas.CrucibleMovementPolygon._movementActions;
+      if ( isSelf ) movementActions.set(movementId, this);
+      try {
+        await token.startMovement(movementId);
+      } finally {
+        if ( isSelf ) movementActions.delete(movementId);
+      }
     }
   }
 

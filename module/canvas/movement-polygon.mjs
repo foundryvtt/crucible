@@ -1,32 +1,21 @@
 /**
- * A movement-collision polygon for Crucible forced movement which can treat other tokens as obstacles.
- * @module canvas/movement-polygon
- */
-
-/**
  * @import {default as Token} from "@client/canvas/placeables/token.mjs";
  * @import {default as CrucibleAction} from "@crucible/models/action.mjs";
  */
 
 /**
- * A {@link foundry.canvas.geometry.ClockwiseSweepPolygon} that injects the footprints of nearby tokens as ephemeral
- * movement-blocking edges, so movement stops short of other creatures using the same walk-back logic that already
- * handles walls. Requires a Scene using the Crucible microgrid.
+ * A {@link foundry.canvas.geometry.ClockwiseSweepPolygon} that injects nearby token footprints as ephemeral
+ * movement-blocking edges, stopping movement short of other creatures. Requires the Crucible microgrid.
  */
 export default class CrucibleMovementPolygon extends foundry.canvas.geometry.ClockwiseSweepPolygon {
 
   /**
-   * The CrucibleAction whose movement is being planned for this test, or null if the movement is not the planned
-   * movement of an action being configured. Sourced from the metadata of the active movement-planning context, scoped
-   * to the moving token so it is never conflated with unrelated movement (keyboard, forced) by the same actor.
-   * @type {CrucibleAction|null}
+   * Maps a planned movement id to the CrucibleAction actualizing it, for the second collision test at confirmation.
+   * Set and deleted by {@link CrucibleAction} around `startMovement`.
+   * @type {Map<string, CrucibleAction>}
+   * @internal
    */
-  get crucibleAction() {
-    const mover = this.config.excludeToken ?? this.config.source?.object;
-    const ctx = canvas.tokens._movementPlanningContext;
-    if ( !mover || (ctx?.object !== mover) ) return null;
-    return ctx.metadata?.crucibleAction ?? null;
-  }
+  static _movementActions = new Map();
 
   /* -------------------------------------------- */
 
@@ -39,38 +28,74 @@ export default class CrucibleMovementPolygon extends foundry.canvas.geometry.Clo
     if ( !this.level?.parent?.useMicrogrid ) {
       throw new Error("CrucibleMovementPolygon requires a Scene using the Crucible microgrid.");
     }
+
+    // Resolve Crucible collision inputs once, preferring any value the caller supplied explicitly
+    const mover = this.config.excludeToken ?? this.config.source?.object;
+    if ( !("crucibleAction" in this.config) ) {
+      this.config.crucibleAction = this.#resolvePlanningAction(mover) ?? this.#resolveActualizingAction(mover);
+    }
+    this.config.action ??= this.#resolveMovementAction(mover);
+    this.config.tokenCollision ??= mover?.inCombat ?? false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Recover the CrucibleAction whose interactive movement this test belongs to, from the open dialog planning it.
+   * @param {Token} mover     The moving token
+   * @returns {CrucibleAction|null}
+   */
+  #resolvePlanningAction(mover) {
+    if ( !mover || (canvas.tokens._movementPlanningContext?.object !== mover) ) return null;
+    for ( const dialog of crucible.api.dice.ActionUseDialog.instances() ) {
+      if ( dialog.action?.token?.object === mover ) return dialog.action;
+    }
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Recover the CrucibleAction actualizing this token's planned movement, registered during action confirmation.
+   * @param {Token} mover     The moving token
+   * @returns {CrucibleAction|null}
+   */
+  #resolveActualizingAction(mover) {
+    const movementId = mover?.document.movement?.id;
+    if ( !movementId ) return null;
+    return CrucibleMovementPolygon._movementActions.get(movementId) ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the movement action: the planned action from the active planning context, else the mover's default.
+   * @param {Token} mover     The moving token
+   * @returns {string|undefined}
+   */
+  #resolveMovementAction(mover) {
+    const ctx = canvas.tokens._movementPlanningContext;
+    const planned = (ctx?.object === mover) ? ctx.allowedActions?.[0] : undefined;
+    return planned ?? mover?.document.movementAction;
   }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   _identifyEdges() {
-    super._identifyEdges(); // Wall edges, unchanged
+    super._identifyEdges(); // Wall edges
     const mover = this.config.excludeToken ?? this.config.source?.object;
     if ( !mover ) return;
-    // An action may exempt its own planned movement from token collision regardless of the movement action used
-    if ( this.crucibleAction?.usage.movement.ignoreTokens ) return;
-    // Movement actions flagged tokenCollision:false (blink, displace, ...) phase through tokens
-    if ( CONFIG.Token.movement.actions[this.#movementAction(mover)]?.tokenCollision === false ) return;
-    // Token collision defaults to active only while the mover is in a tracked combat encounter; an explicit
-    // config.tokenCollision boolean overrides that default.
-    if ( !(this.config.tokenCollision ?? mover.inCombat) ) return;
+
+    // The current CrucibleAction explicitly ignores token collision
+    if ( this.config.crucibleAction?.usage.movement.ignoreTokens ) return;
+
+    // The movement action bypasses token collision
+    if ( CONFIG.Token.movement.actions[this.config.action]?.tokenCollision === false ) return;
+
+    // Token collision must be enabled (defaulted from the mover's combat state at initialization)
+    if ( !this.config.tokenCollision ) return;
     for ( const edge of this.#buildTokenEdges(mover) ) this.edges.add(edge);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Resolve the movement action for this collision test: the per-segment action passed by core, else the planned
-   * action from the active movement-planning context, else the mover's default movement action.
-   * @param {Token} mover     The moving token
-   * @returns {string|undefined}
-   */
-  #movementAction(mover) {
-    if ( this.config.action ) return this.config.action;
-    const ctx = canvas.tokens._movementPlanningContext;
-    const planned = (ctx?.object === mover) ? ctx.allowedActions?.[0] : undefined;
-    return planned ?? mover.document.movementAction;
   }
 
   /* -------------------------------------------- */
@@ -88,8 +113,7 @@ export default class CrucibleMovementPolygon extends foundry.canvas.geometry.Clo
     const moverTop = moverDoc.elevation + (moverDoc.depth * distance);
     const levelId = moverDoc._source.level;
 
-    // A living, same-level creature other than the mover blocks if its vertical range overlaps the mover's volume.
-    // Vertical range is half-open [bottom, top): bottom-inclusive, top-exclusive.
+    // Helper function to determine whether a token is an active blocker
     const isBlocker = token => {
       if ( (token === mover) || !token.actor || token.actor.system.isDead ) return false;
       if ( token.movementAnimationPromise ) return false; // A token mid-movement-animation is not a collider
@@ -100,6 +124,7 @@ export default class CrucibleMovementPolygon extends foundry.canvas.geometry.Clo
       return (moverBottom < top) && (bottom < moverTop);
     };
 
+    // Identify blocking tokens and add temporary movement-blocking edges for them
     const edges = [];
     const collisionTest = ({t}) => isBlocker(t);
     const candidates = canvas.tokens.quadtree.getObjects(this.config.boundingBox, {collisionTest});

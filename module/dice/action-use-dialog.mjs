@@ -594,14 +594,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the movement plan
+    // Await the movement plan; token-collision tests recover this action via ActionUseDialog.instances()
     const plan = await token.object.planMovement({
       allowedActions: movementUsage.action ? [movementUsage.action] : null,
       minCost: this.action.range?.minimum ?? undefined,
       maxCost: this.action.range?.maximum ?? undefined,
       direct: movementUsage.direct ?? true,
-      constrainOptions: movementUsage.constrainOptions ?? {},
-      metadata: {crucibleAction: this.action}
+      constrainOptions: movementUsage.constrainOptions ?? {}
     });
     this.#previewMovementAction = null;
 
@@ -648,8 +647,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const previewMovement = {origin: foundPath[0], waypoints: foundPath.slice(1)};
     Object.defineProperty(this.#previewMovementAction, "movement", {value: previewMovement, configurable: true});
     this.#previewMovementAction.acquireTargets({strict: false});
-    const targetTokenIds = Array.from(this.#previewMovementAction.targets.values()).map(t => t.token?.id).filter(Boolean);
-    canvas.tokens.setTargets(targetTokenIds);
+    const targetTokens = Array.from(this.#previewMovementAction.targets.values());
+    canvas.tokens.setTargets(targetTokens.map(t => t.token?.id).filter(Boolean));
   }
 
   /* -------------------------------------------- */
