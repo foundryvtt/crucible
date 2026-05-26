@@ -25,10 +25,11 @@ import {computeAttackOffset, pickRandom} from "./helpers.mjs";
  * Each array contains #-prefixed scene texture paths. Arrays may be empty if no art exists
  * for that rune/category; the fallback white particle is used in that case.
  * @typedef SpellVFXTextures
+ * @property {string[]} air          Foreground atmospheric residue drifting overhead (haze, mist).
  * @property {string[]} falling      Top-down sprites for elevation drops (e.g., hail, blast debris from above).
+ * @property {string[]} ground       Background debris residue settling underfoot (marks, cracks).
  * @property {string[]} impact       Impact burst textures for singleImpact components.
  * @property {string[]} projectile   Side-view directional sprites for x/y travel (e.g., arrow shafts).
- * @property {string[]} residue      Lingering afterimage/debris textures.
  * @property {string[]} spray        Small mote textures for scatter and halo generators.
  * @property {string[]} streak       Elongated directional textures for beam/ray generators.
  */
@@ -193,10 +194,10 @@ function configureArrowVFXEffect(action) {
     Object.assign(components, gather.components);
     timeline.push(...gather.timeline);
 
-    if ( textures.residue.length ) {
+    if ( textures.air.length ) {
       const residueGather = manifestProjectile.configure({prefix: `arrowManifestResidue_${j}`,
         origin: {x: manifestX, y: manifestY}, gatherRadius: casterRadiusPx * 2.5,
-        textures: textures.residue, duration: gatherDuration, particleLifetime: 500,
+        textures: textures.air, duration: gatherDuration, particleLifetime: 500,
         perFrame: 1, scale: {min: 0.7, max: 1.2}, alpha: {min: 0.3, max: 0.6},
         elevation: particleElevation, position: 0});
       Object.assign(components, residueGather.components);
@@ -258,7 +259,7 @@ function configureArrowVFXEffect(action) {
       impactTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
     }
     else if ( result === T.RESIST ) {
-      impactTexture = pickRandom(textures.residue);
+      impactTexture = pickRandom(textures.air);
       impactSize = 4;
       impactDuration = 1500;
     }
@@ -283,10 +284,10 @@ function configureArrowVFXEffect(action) {
 
   if ( !timeline.length ) return null;
 
-  if ( textures.residue.length ) {
+  if ( textures.air.length ) {
     const casterResidue = airResidue.configure({prefix: "arrowCasterResidue",
       origin: {x: casterCenterX, y: casterCenterY},
-      radius: Math.round(casterRadiusPx * 1.5), textures: textures.residue,
+      radius: Math.round(casterRadiusPx * 1.5), textures: textures.air,
       duration: 300, perFrame: 2, lifetime: {min: 1500, max: 2200},
       alpha: {min: 0.08, max: 0.2}, elevation: casterElevation + 1, position: 0});
     Object.assign(components, casterResidue.components);
@@ -354,9 +355,8 @@ function configureFanVFXEffect(action) {
     elevation: 0, position: 0, ...shared});
 
   // Layer 3 - Overhead residue
-  const residueTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
   const residue = airResidue.configure({prefix: "fanResidue", origin,
-    radius: Math.round(radius * 0.7), textures: residueTextures,
+    radius: Math.round(radius * 0.7), textures: textures.air,
     elevation: particleElevation, position: 200, ...shared});
 
   const result = mergeAnimationBlocks(sweep, cascade, residue);
@@ -529,14 +529,12 @@ function _configureBlastImplodeExplode(action, origin, radius, textures, referen
   const blast = implodeExplode.configure({prefix: "blast", origin, radius, textures: blastTextures,
     position: 0, elevation: shared.elevation});
 
-  const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
   const ground = groundResidue.configure({prefix: "blastGround", origin,
-    radius: Math.round(radius * 0.7), textures: groundTextures,
+    radius: Math.round(radius * 0.7), textures: textures.ground,
     position: EXPLODE_START, ...shared});
 
-  const overheadTextures = textures.residue.filter(t => t.includes("Spray") || t.includes("Snow"));
   const overhead = airResidue.configure({prefix: "blastOverhead", origin,
-    radius: Math.round(radius * 1.2), textures: overheadTextures,
+    radius: Math.round(radius * 1.2), textures: textures.air,
     position: EXPLODE_START + 200, ...shared});
 
   const result = mergeAnimationBlocks(blast, ground, overhead);
@@ -580,15 +578,13 @@ function _configureBlastFallingDebris(action, regionShape, origin, radius, textu
     position: 0, ...shared});
 
   // Layer 2 - Ground impacts spawned in sync with falling debris landings via finalizer
-  const groundTextures = textures.residue.filter(t => t.includes("Blast") || t.includes("Cracks"));
   const ground = groundImpacts.configure({prefix: "blastGround", origin, radius,
-    area: regionShape, textures: groundTextures, duration: STORM_DURATION + 2000,
+    area: regionShape, textures: textures.ground, duration: STORM_DURATION + 2000,
     position: 0, ...shared, elevation: 0});
 
   // Layer 3 - Wintry blizzard haze
-  const cloudTextures = textures.residue.filter(t => t.includes("Snow"));
   const clouds = airResidue.configure({prefix: "blastClouds", origin,
-    radius: Math.round(radius * 1.3), textures: cloudTextures,
+    radius: Math.round(radius * 1.3), textures: textures.air,
     duration: STORM_DURATION,
     position: 0, ...shared, elevation: shared.elevation + 1});
 
@@ -668,10 +664,11 @@ function resolveSpellVFXContext(action) {
     runeColors: RUNE_COLORS[runeId] ?? RUNE_COLORS._default,
     particleElevation: action.region?.elevation.top ?? 0,
     textures: {
+      air: getVFXTexturePaths(runeId, "air"),
       falling: getVFXTexturePaths(runeId, "falling"),
+      ground: getVFXTexturePaths(runeId, "ground"),
       impact: getVFXTexturePaths(runeId, "impact"),
       projectile: getVFXTexturePaths(runeId, "projectile"),
-      residue: getVFXTexturePaths(runeId, "residue"),
       spray: getVFXTexturePaths(runeId, "spray"),
       streak: getVFXTexturePaths(runeId, "streak")
     }

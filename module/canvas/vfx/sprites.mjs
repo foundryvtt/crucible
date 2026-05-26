@@ -95,7 +95,7 @@ function _parseCategory(suffix) {
   }
   return null;
 }
-_parseCategory.CATEGORIES = ["Falling", "Impact", "Projectile", "Residue", "Spray", "Streak"];
+_parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Projectile", "Spray", "Streak"];
 
 /* -------------------------------------------- */
 

@@ -30,7 +30,7 @@ export function setPlaybackRate(rate) {
  *   radialBurst.configure({prefix: "wave", origin, count: 500, speed: 800, duration: 80,
  *     lifetime: 500, visibleFraction: 0.5, textures}),
  *   driftingHaze.configure({prefix: "haze", origin, radius: 100,
- *     textures: crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "residue")})
+ *     textures: crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "air")})
  * );
  */
 export async function preview(...args) {
