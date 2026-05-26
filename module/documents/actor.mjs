@@ -1854,8 +1854,8 @@ export default class CrucibleActor extends Actor {
     if ( !ownedTalent ) throw new Error(`Talent "${ownedTalent.id}" is not owned by Actor "${this.id}"`);
     if ( dialog ) {
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: `Remove Talent: ${ownedTalent.name}`},
-        content: `<p>Remove talent <strong>${ownedTalent.name}</strong>, reclaiming 1 Talent Point?</p>`,
+        window: {title: _loc("TALENT.ACTIONS.RemoveTitle", {name: ownedTalent.name})},
+        content: _loc("TALENT.ACTIONS.Remove", {name: ownedTalent.name}),
         yes: {default: true},
         no: {default: false}
       });

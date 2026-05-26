@@ -161,7 +161,7 @@ export default class StandardCheckDialog extends DialogV2 {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
-      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (DC ${d[0]})`})),
+      difficulties: Object.entries(SYSTEM.DICE.checkDifficulties).map(d => ({dc: d[0], label: `${_loc(d[1])} (${_loc("DICE.DCSpecific", {dc: d[0]})})`})),
       configurable: this.configurable,
       isGM: game.user.isGM,
       request: this.#prepareRequest(),

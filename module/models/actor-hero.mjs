@@ -290,7 +290,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   getTags(scope="full") {
     const tags = {};
-    tags.level = `Level ${this.advancement.level}`;
+    tags.level = _loc("ACTOR.LevelSpecific", {level: this.advancement.level});
     if ( scope === "short" ) return tags;
     if ( this.details.signatureName ) tags.signatureName = this.details.signatureName;
     return tags;

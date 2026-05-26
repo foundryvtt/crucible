@@ -2197,6 +2197,8 @@
       "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
       "PurchaseNodeTitle": "Purchase Talent Node?",
       "PurchaseTitle": "Purchase Talent: {name}",
+      "Remove": "<p>Remove talent <strong>{name}</strong>, reclaiming 1 Talent Point?</p>",
+      "RemoveTitle": "Remove Talent: {name}",
       "Reset": "Reset"
     },
     "FIELDS": {
