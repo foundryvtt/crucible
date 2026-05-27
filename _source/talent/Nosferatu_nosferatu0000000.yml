@@ -16,7 +16,8 @@ system:
       description: >-
         <p>You grasp an enemy and bite it with sharp incisors, rapidly draining
         its blood to heal your own wounds. This attack requires a free hand to
-        grasp your target while you feed.</p>
+        grasp your target while you feed, and recovers your
+        <strong>Toughness</strong> score in <strong>Health</strong>.</p>
       tags:
         - melee
       cost:
@@ -39,6 +40,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - sig3.dexterity.toughness
   rune: ''
@@ -56,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160140
-  modifiedTime: 1773514792598
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779894201478
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null
