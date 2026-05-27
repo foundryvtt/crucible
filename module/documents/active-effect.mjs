@@ -36,6 +36,12 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         if ( region ) await region.delete();
       }
     }
+    if ( this.system.summons ) {
+      for ( const uuid of this.system.summons ) {
+        const token = await fromUuid(uuid);
+        if ( token ) await token.delete();
+      }
+    }
   }
 
   /* -------------------------------------------- */

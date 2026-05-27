@@ -16,7 +16,11 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
   /** @inheritDoc */
   _prepareData() {
     const {cost, name, img, target, description, range} = this;
-    this.rune ??= this.actor?.grimoire.runes.keys().next().value ?? "lightning";
+    const actorRunes = this.actor?.grimoire.runes;
+    if ( actorRunes?.size && !actorRunes.has(this.rune) ) {
+      this.rune = actorRunes.keys().next().value;
+    }
+    else this.rune ??= "lightning";
     this.gesture ??= "touch";
     super._prepareData();
     Object.assign(this, {name, img, target, description, range, cost}); // Undo upstream changes
@@ -73,14 +77,15 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
 
   /** @inheritDoc */
   async _roll(target, token) {
-    // TODO: Ensure this is set earlier
-    this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
-    const {gesture: usedGesture, rune: usedRune} = this.usage.targetAction;
+    const {gesture: usedGesture, rune: usedRune, inflection: usedInflection} = this.usage.targetAction;
     if ( this.rune.id === usedRune?.opposed ) {
-      this.usage.boons.counterspellRune = {label: game.i18n.localize("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
+      this.usage.boons.counterspellRune = {label: _loc("SPELL.COUNTERSPELL.OpposingRune"), number: 2};
     }
     if ( this.gesture.id === usedGesture?.id ) {
-      this.usage.boons.counterspellGesture = {label: game.i18n.localize("SPELL.COUNTERSPELL.SameGesture"), number: 2};
+      this.usage.boons.counterspellGesture = {label: _loc("SPELL.COUNTERSPELL.SameGesture"), number: 2};
+    }
+    if ( usedInflection?.id === "determine" ) {
+      this.usage.banes.counterspellInflection = {label: _loc("SPELL.COMPONENTS.InflectionSpecific", {inflection: usedInflection.name}), number: 2};
     }
     if ( this.usage.targetAction.message ) this.usage.defenseType = "willpower";
     await super._roll(target, token);
