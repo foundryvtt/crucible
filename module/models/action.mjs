@@ -1,10 +1,11 @@
+import StandardCheck from "../dice/standard-check.mjs";
+import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import CrucibleActionConfig from "../applications/config/action-config.mjs";
+
 /**
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
  * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
-import StandardCheck from "../dice/standard-check.mjs";
-import ActionUseDialog from "../dice/action-use-dialog.mjs";
-import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
  * @typedef ActionContext
@@ -2569,7 +2570,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
     }
 
-    // Play the effect
+    // Play the effect. Sound is orchestrated by positionalSound components within the timeline,
+    // so preload and playback are handled internally by VFXEffect#play alongside the visuals.
     if ( CONFIG.debug.vfx ) console.debug(`${this.id} | playVFXEffect`, {components: Object.keys(vfxEffect.components), references});
     try {
       return await vfxEffect.play(references);

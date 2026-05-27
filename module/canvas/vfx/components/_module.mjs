@@ -1,0 +1,19 @@
+import CrucibleProjectileComponent from "./vfx-projectile-component.mjs";
+
+export {default as CrucibleVFXComponent} from "./vfx-component.mjs";
+export {CrucibleProjectileComponent};
+
+/**
+ * Concrete Crucible VFX component classes to register into CONFIG.Canvas.vfx.components, keyed by
+ * their static TYPE. The abstract CrucibleVFXComponent base is excluded.
+ * @type {(typeof CrucibleProjectileComponent)[]}
+ */
+export const CRUCIBLE_VFX_COMPONENTS = [CrucibleProjectileComponent];
+
+/**
+ * Register Crucible VFX component subclasses into the shared component registry. Coexists with the
+ * core components registered by foundry's vfx.configure(); neither resets the registry.
+ */
+export function registerComponents() {
+  for ( const cls of CRUCIBLE_VFX_COMPONENTS ) CONFIG.Canvas.vfx.components[cls.TYPE] = cls;
+}

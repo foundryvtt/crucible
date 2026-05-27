@@ -1,9 +1,9 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
 import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
   rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
-  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris,
-  manifestProjectile, projectileTrail} from "./animations.mjs";
+  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
 import {computeAttackOffset, pickRandom} from "./helpers.mjs";
+import {getVFXSound} from "./sounds.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -136,21 +136,27 @@ function configureArrowVFXEffect(action) {
   const references = {tokenMesh: "^token.object.mesh"};
 
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const gridSize = canvas.dimensions.size;
-  const distancePixels = canvas.dimensions.distancePixels;
   const casterToken = action.token;
   const casterCenterX = casterToken.x + ((casterToken.width * gridSize) / 2);
   const casterCenterY = casterToken.y + ((casterToken.height * gridSize) / 2);
   const casterRadiusPx = (casterToken.width * gridSize) / 2;
+  const casterElevation = casterToken.elevation ?? 0;
+  const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
 
   const CHARGE_DURATION = 700;
-  const GATHER_OVERLAP = 200; // Gather continues this long past projectile launch
-  const PROJECTILE_SPEED = 150; // Feet-per-second
-  const IMPACT_DURATION = 1000;
-  const casterElevation = casterToken.elevation ?? 0;
+  const GATHER_DURATION = CHARGE_DURATION + 200; // Gather continues briefly past launch
   const runeProps = RUNE_VFX_PROPS.arrow?.[action.rune.id] ?? {};
-  const arrowStickDuration = runeProps.stickDuration ?? 0;
-  const projectileSize = runeProps.projectileSize ?? 3;
+
+  // Resolve sounds once; the component plays each on its phase. Variant choice is baked here so all
+  // clients hear the same sequence. align START fires each sound at its phase start.
+  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
+  const chargeSound = sound(getVFXSound(action.rune.id, "charge"));
+  // Arrow flight is brief (~190ms here), so the 200ms WhooshFast matches it; longer-flight
+  // projectiles can use generic whooshMedium (500ms).
+  const whooshSound = sound(getVFXSound("generic", "whooshFast"));
 
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -162,152 +168,92 @@ function configureArrowVFXEffect(action) {
 
     const targetTokenRef = `target_${j}_token`;
     const targetMeshRef = `target_${j}_tokenMesh`;
-    const manifestRef = `arrowManifest_${j}_point`;
     Object.assign(references, {
       [targetTokenRef]: `@${token.uuid}`,
       [targetMeshRef]: `^${targetTokenRef}.object.mesh`
     });
 
-    // Manifest point sits 1 caster radius forward toward the target so the projectile materializes
-    // in front of the caster rather than at their center
+    // Manifest point: one caster radius forward toward the target, so the projectile materializes
+    // in front of the caster rather than at their center.
     const tcx = token.x + ((token.width * gridSize) / 2);
     const tcy = token.y + ((token.height * gridSize) / 2);
-    const dx = tcx - casterCenterX;
-    const dy = tcy - casterCenterY;
-    const dirDist = Math.max(1, Math.hypot(dx, dy));
-    const manifestOffsetX = (dx / dirDist) * casterRadiusPx;
-    const manifestOffsetY = (dy / dirDist) * casterRadiusPx;
-    const manifestX = casterCenterX + manifestOffsetX;
-    const manifestY = casterCenterY + manifestOffsetY;
-
+    const dirDist = Math.max(1, Math.hypot(tcx - casterCenterX, tcy - casterCenterY));
+    const manifestX = casterCenterX + (((tcx - casterCenterX) / dirDist) * casterRadiusPx);
+    const manifestY = casterCenterY + (((tcy - casterCenterY) / dirDist) * casterRadiusPx);
     const offset = computeAttackOffset(token, result);
-    const projectileEnd = {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}};
 
-    // Gather extends past chargeEnd so spawning continues briefly into the flight phase rather
-    // than cutting off abruptly at projectile launch
-    const gatherDuration = CHARGE_DURATION + GATHER_OVERLAP;
-    const gatherTextures = textures.spray.length ? textures.spray : textures.impact;
-    const gather = manifestProjectile.configure({prefix: `arrowManifest_${j}`,
-      origin: {x: manifestX, y: manifestY}, gatherRadius: casterRadiusPx * 2.0,
-      textures: gatherTextures, duration: gatherDuration, particleLifetime: 350,
-      perFrame: 8, elevation: particleElevation, position: 0});
-    Object.assign(components, gather.components);
-    timeline.push(...gather.timeline);
-
-    if ( textures.air.length ) {
-      const residueGather = manifestProjectile.configure({prefix: `arrowManifestResidue_${j}`,
-        origin: {x: manifestX, y: manifestY}, gatherRadius: casterRadiusPx * 2.5,
-        textures: textures.air, duration: gatherDuration, particleLifetime: 500,
-        perFrame: 1, scale: {min: 0.7, max: 1.2}, alpha: {min: 0.3, max: 0.6},
-        elevation: particleElevation, position: 0});
-      Object.assign(components, residueGather.components);
-      timeline.push(...residueGather.timeline);
-    }
-
-    // Sort = caster mesh sort + 1 mirrors strikes' tokenMesh + {sort: 1} delta: projectile renders
-    // just above the caster during the manifest phase
-    const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
+    // Register the manifest point as a reference. Every element of a VFXReferenceObjectField array
+    // must be a reference: resolveReferences builds a partial array update of only the resolved
+    // (reference) elements, so a literal sibling would be dropped to a hole by updateSource.
+    const manifestRef = `arrow_${j}_manifest`;
     references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
-      sort: casterMeshSort + 1,
-      sortLayer: foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS.TOKENS};
-    const projectileTexture = pickRandom(textures.projectile)
-      ?? getRandomSprite("projectiles", "arrow");
-    const projectileName = `arrowProjectile_${j}`;
-    // The singleAttack impact phase keeps the projectile sprite at the impact location for
-    // impact.duration ms before fading; non-zero stickDuration enables that "embedded" effect
+      sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
+
+    // Per-result impact: HIT/GLANCE burst, RESIST air puff, MISS/DODGE nothing. Stick only on a hit.
     const isHit = (result === T.HIT) || (result === T.GLANCE);
-    const stickDuration = (isHit && arrowStickDuration) ? arrowStickDuration : 0;
-    components[projectileName] = {
-      type: "singleAttack",
-      path: [
-        {reference: manifestRef, deltas: {}},
-        projectileEnd
-      ],
-      charge: {
-        duration: CHARGE_DURATION,
-        animations: [{function: "projectileFadeIn"}]
-      },
-      projectile: {
-        texture: projectileTexture,
-        animations: [{function: "projectileFlight"}],
-        size: projectileSize,
-        speed: PROJECTILE_SPEED
-      },
-      impact: {duration: stickDuration}
-    };
-    timeline.push({component: projectileName, position: 0});
-
-    if ( runeProps.trail && textures.streak.length ) {
-      const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
-      const flightMs = (distPx / (PROJECTILE_SPEED * distancePixels)) * 1000;
-      const trail = projectileTrail.configure({prefix: `arrowTrail_${j}`,
-        projectileComponentName: projectileName, textures: textures.streak,
-        duration: Math.round(flightMs) + 100,
-        align: true, flipX: true, perFrame: 4, blend: PIXI.BLEND_MODES.ADD,
-        scale: {min: 0.3, max: 0.6}, alpha: {min: 0.4, max: 0.8},
-        elevation: casterElevation + 1, position: CHARGE_DURATION});
-      Object.assign(components, trail.components);
-      timeline.push(...trail.timeline);
-    }
-
-    // HIT/GLANCE: impact burst. RESIST: residue dissipation (spell reached target but deflected).
-    // MISS/DODGE: no impact (projectile flies past)
-    let impactTexture = null;
-    let impactSize = 3;
-    let impactDuration = IMPACT_DURATION;
-    if ( (result === T.HIT) || (result === T.GLANCE) ) {
-      impactTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+    const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
+    let burst = null;
+    let impactSound = null;
+    if ( isHit ) {
+      burst = {texture: pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood"), size: 3, duration: 1000};
+      impactSound = sound(getVFXSound(action.rune.id, "impact"));
     }
     else if ( result === T.RESIST ) {
-      impactTexture = pickRandom(textures.air);
-      impactSize = 4;
-      impactDuration = 1500;
+      const puff = pickRandom(textures.air);
+      if ( puff ) burst = {texture: puff, size: 4, duration: 1500};
+      // No impact sound on a resist - the spell fizzled. (TODO: a dedicated "fizzle" sfx if delivered.)
     }
 
-    if ( impactTexture ) {
-      const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
-      const flightMs = (distPx / (PROJECTILE_SPEED * distancePixels)) * 1000;
-      const impactPosition = CHARGE_DURATION + Math.round(flightMs);
-
-      const impactName = `arrowImpact_${j}`;
-      components[impactName] = {
-        type: "singleImpact",
-        position: {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}},
-        texture: impactTexture,
-        duration: impactDuration,
-        size: impactSize
-      };
-      timeline.push({component: impactName, position: impactPosition});
+    // Charge particles: dense motes plus a soft atmospheric gather and lingering caster residue,
+    // all converging on / left at the manifest point.
+    const gatherTextures = textures.spray.length ? textures.spray : textures.impact;
+    const chargeParticles = [{
+      animation: "particleGather", anchor: "origin", textures: gatherTextures, duration: GATHER_DURATION,
+      params: {gatherRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480, elevation: particleElevation}
+    }];
+    if ( textures.air.length ) {
+      chargeParticles.push({
+        animation: "particleGather", anchor: "origin", textures: textures.air, duration: GATHER_DURATION,
+        params: {gatherRadius: casterRadiusPx * 2.5, lifetime: 500, spawnRate: 60,
+          alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: particleElevation}
+      }, {
+        animation: "particleResidue", anchor: "origin", textures: textures.air, duration: 300,
+        params: {radius: Math.round(casterRadiusPx * 1.5), lifetime: {min: 1500, max: 2200},
+          spawnRate: 120, count: 30, initial: 0.3, alpha: {min: 0.05, max: 0.18},
+          elevation: casterElevation + 1}
+      });
     }
+
+    // Optional per-rune flight trail (follows the projectile container, set in the component).
+    const projectileParticles = [];
+    if ( runeProps.trail && textures.streak.length ) {
+      projectileParticles.push({
+        animation: "particleTrail", anchor: "projectile", textures: textures.streak,
+        params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
+          alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
+          blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1}
+      });
+    }
+
+    components[`arrow_${j}`] = {
+      type: "crucibleProjectile",
+      path: [
+        {reference: manifestRef, deltas: {}},
+        {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
+      ],
+      charge: {duration: CHARGE_DURATION, sound: chargeSound,
+        animations: [{function: "projectileFadeIn"}], particles: chargeParticles},
+      projectile: {texture: pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"),
+        size: runeProps.projectileSize ?? 3, speed: 150, sound: whooshSound,
+        animations: [{function: "projectileFlight"}], particles: projectileParticles},
+      impact: {stickDuration, sound: impactSound, burst, particles: []}
+    };
+    timeline.push({component: `arrow_${j}`, position: 0});
     j++;
   }
 
   if ( !timeline.length ) return null;
-
-  if ( textures.air.length ) {
-    const casterResidue = airResidue.configure({prefix: "arrowCasterResidue",
-      origin: {x: casterCenterX, y: casterCenterY},
-      radius: Math.round(casterRadiusPx * 1.5), textures: textures.air,
-      duration: 300, perFrame: 2, lifetime: {min: 1500, max: 2200},
-      alpha: {min: 0.08, max: 0.2}, elevation: casterElevation + 1, position: 0});
-    Object.assign(components, casterResidue.components);
-    timeline.push(...casterResidue.timeline);
-  }
-
   return {components, timeline, references};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Finalize the VFX for an Arrow gesture at play-time.
- * @param {CrucibleSpellAction} action
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
- * @param {Record<string, any>} references
- */
-function finalizeArrowVFXEffect(action, vfxEffect, references) {
-  manifestProjectile.finalize(vfxEffect, references);
-  projectileTrail.finalize(vfxEffect, references);
 }
 
 /* -------------------------------------------- */
@@ -602,6 +548,15 @@ function _configureBlastFallingDebris(action, regionShape, origin, radius, textu
   };
   addImpactComponents(action, result.components, result.timeline, result.references,
     blastGetImpactPosition, textures.impact, origin);
+
+  // PLACEHOLDER - blast sound, not yet wired. Two gaps to resolve with the team before this works
+  // as positionalSound components:
+  //  - Sustained damage loop (S3) wants a looping positionalSound, but core positionalSound is
+  //    one-shot. Needs an upstream loop option or a Crucible component subclass.
+  //  - Per-shard impacts are spawned at play time by the groundImpacts finalizer, so they cannot be
+  //    enumerated as static components at configure time. Either precompute deterministic landing
+  //    cues, or add a play-time component-spawn hook the finalizer can call.
+  // See configureArrowVFXEffect for the fully-declarative positionalSound pattern.
   return result;
 }
 
@@ -865,7 +820,7 @@ const RUNE_COLORS = {
  * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function, finalize?: function}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: {configure: configureArrowVFXEffect, finalize: finalizeArrowVFXEffect},
+  arrow: {configure: configureArrowVFXEffect},
   aspect: {},
   aura: {},
   blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},

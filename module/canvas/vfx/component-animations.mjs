@@ -1,3 +1,5 @@
+import {PARTICLE_BEHAVIORS} from "./particle-behaviors.mjs";
+
 /**
  * Crucible-defined VFX component animations, registered into `CONFIG.Canvas.vfx.animations` for
  * use in `singleAttack`/`singleImpact` component animation arrays.
@@ -59,7 +61,12 @@ export const COMPONENT_ANIMATIONS = {
  * Register all Crucible component animations into the global VFX animation registry.
  */
 export function registerComponentAnimations() {
+  // Timeline animators (expose `animate`) and particle behaviors (expose `setup` returning generator
+  // config) share the one registry; the consuming site decides which contract it invokes.
   for ( const [name, animation] of Object.entries(COMPONENT_ANIMATIONS) ) {
     CONFIG.Canvas.vfx.animations[name] = animation;
+  }
+  for ( const [name, behavior] of Object.entries(PARTICLE_BEHAVIORS) ) {
+    CONFIG.Canvas.vfx.animations[name] = behavior;
   }
 }
