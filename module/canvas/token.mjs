@@ -4,6 +4,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /** @inheritDoc */
   static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
+    refreshElevation: { propagate: ["refreshTooltip", "refreshMesh"] },
     refreshFlanking: {}
   });
 
@@ -145,6 +146,21 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _refreshBorder() {
     if ( !canvas.scene.useMicrogrid ) super._refreshBorder();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _refreshMeshSizeAndScale() {
+    super._refreshMeshSizeAndScale();
+    if ( !crucible.CONFIG.elevationScaling || !canvas.level ) return;
+    // Calculate elevation relative to the viewed level so that tokens farther away from the 'camera' appear smaller.
+    const elevation = this.document.elevation - canvas.level.elevation.base;
+    if ( elevation >= 0 ) return; // Do not make 'closer' tokens bigger.
+    // Hyperbolic falloff.
+    const factor = Math.max(.5, 1 / (1 - (elevation / 90)));
+    this.mesh.scale.x *= factor;
+    this.mesh.scale.y *= factor;
   }
 
   /* -------------------------------------------- */
