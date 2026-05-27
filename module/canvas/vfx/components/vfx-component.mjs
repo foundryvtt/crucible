@@ -108,13 +108,25 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @param {number} [options.align]               A {@link SOUND_ALIGNMENT} value (default START).
    * @param {number} [options.radius=30]           Audible radius in distance units.
    * @param {number} [options.volume=1]            Playback volume in [0, 1].
+   * @param {boolean} [options.loop=false]         Loop the source for the phase duration, then fade out.
+   * @param {number} [options.fade=0]              Fade-in/out duration (ms) applied when looping.
+   * @param {number} [options.offset=0]            Start offset (ms) added to the play time; negative starts earlier.
+   * @param {number} [options.release=0]           Extra ms a looping sound lingers past the phase end before stopping.
    */
-  _scheduleSound(sound, origin, {position=0, duration=0, align=SOUND_ALIGNMENT.START, radius=30, volume=1}={}) {
+  _scheduleSound(sound, origin, {position=0, duration=0, align=SOUND_ALIGNMENT.START, radius=30, volume=1,
+    loop=false, fade=0, offset=0, release=0}={}) {
     if ( !sound ) return;
-    const at = Math.max(0, position + this._alignSound(sound, duration, align));
+    const at = Math.max(0, position + offset + this._alignSound(sound, duration, align));
+    const playbackOptions = loop ? {loop: true, fade} : {};
     this.timeline.call(() => {
-      sound.playAtPosition(origin, radius, {volume, gmAlways: true}).catch(err => console.warn(err));
+      sound.playAtPosition(origin, radius, {volume, gmAlways: true, playbackOptions}).catch(err => console.warn(err));
     }, at);
+
+    // A looping sound fades out starting at the phase end (plus any release), so it lingers, not cuts off
+    if ( loop && (duration > 0) ) {
+      const stopAt = Math.max(at, position + duration + release);
+      this.timeline.call(() => sound.stop({fade: fade || 250}).catch(err => console.warn(err)), stopAt);
+    }
   }
 
   /* -------------------------------------------- */

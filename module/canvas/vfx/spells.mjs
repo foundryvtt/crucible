@@ -1,6 +1,5 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
-import {mergeAnimationBlocks, getParticleScaleFactor,
-  rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
+import {mergeAnimationBlocks, coneSweepEmitter, expandingCascade,
   airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./blocks.mjs";
 import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
@@ -422,82 +421,157 @@ function finalizeFanVFXEffect(action, vfxEffect, references) {
 /* -------------------------------------------- */
 
 /**
- * Configure the VFX for a Ray gesture composed spell.
- * The ray is represented as two particle generators anchored at the origin of the line-shaped region:
- * a tight forward beam and a wider spillage halo that cascades off the beam's edges.
- * Particle color is determined by the spell's rune.
+ * Configure the VFX for a Ray gesture composed spell as a single {@link CrucibleRayComponent}: a charge
+ * at the source, a beam delivered along the line region, and per-target impacts staggered by the time
+ * the beam front reaches each target. The charge and delivery looks are rune-specific (this is frost).
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
 function configureRayVFXEffect(action) {
   const shape = action.region?.shapes[0];
   if ( !shape || (shape.type !== "line") ) return null;
-
-  const {x, y, length, width, rotation} = shape.toObject();
-  const origin = {x, y};
   const {textures} = resolveSpellVFXContext(action);
-  const MASK_RADIUS_FACTOR = 1.5;
+  const {x, y, length, width, rotation} = shape.toObject();
+  const rotRad = Math.toRadians(rotation);
+  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+  const gridSize = canvas.dimensions.size;
+  const casterToken = action.token;
+  const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
+  const beamElevation = (casterToken.elevation ?? 0) + 1;
+  const tokenRadius = (casterToken.width * gridSize) / 2;
+  const beamOffset = Math.round(tokenRadius / 3);
+  const beamLength = length - beamOffset;
+  const spawnRadius = Math.max(8, width / 2);
+
+  const CHARGE_DURATION = 700;
+  const BEAM_SPEED = 3000;          // Base px/sec; the component grid-scales it for particles and timing
+  const DELIVERY_DURATION = 3000;   // Ms the beam emits
+
+  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
+
+  // The beam's "damage" cue: gentle fade, started during the charge (overlapping its cue) and lingering
+  // past the visual end so it does not cut off abruptly
+  const deliverySound = sound(getVFXSound(action.rune.id, "damage"));
+  if ( deliverySound ) Object.assign(deliverySound, {loop: true, fade: 700, offset: -500, release: 600});
+
+  // The ray source sits slightly forward of the region origin along the heading. wallMask resolves to a
+  // move-polygon used to keep the beam from visibly crossing walls.
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(length * MASK_RADIUS_FACTOR)}
+    rayOrigin: {x: x + (Math.cos(rotRad) * beamOffset), y: y + (Math.sin(rotRad) * beamOffset),
+      elevation: beamElevation, sort: casterMeshSort + 1, sortLayer: SL.TOKENS},
+    wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
   };
-  const pointSourceMask = {reference: "wallMask"};
-  const beamElevation = (action.token?.elevation ?? 0) + 1;
-  const shared = {elevation: beamElevation, pointSourceMask};
-  const spawnRadius = Math.max(8, width / 2);
-  const BEAM_SPEED = 2500;
-  const CASCADE_DURATION = 2000;
-  const BEAM_DURATION = CASCADE_DURATION + 500;
 
-  // Offset the beam origin slightly in front of the caster
-  const tokenRadius = action.token.getSize().width / 2;
-  const rotRad = Math.toRadians(rotation);
-  const beamOffset = Math.round(tokenRadius / 3);
-  const beamOrigin = {x: x + (Math.cos(rotRad) * beamOffset), y: y + (Math.sin(rotRad) * beamOffset)};
-  const beamLength = length - beamOffset;
+  // Targets struck by the ray; each is impacted as the beam front reaches it. targetData carries the
+  // per-target attack result (index-aligned), letting the component pick a hit or miss impact.
+  const targets = [];
+  const targetData = [];
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const tokenRef = `rayTarget_${j}_token`;
+    const meshRef = `rayTarget_${j}_tokenMesh`;
+    references[tokenRef] = `@${token.uuid}`;
+    references[meshRef] = `^${tokenRef}.object.mesh`;
+    targets.push({reference: meshRef, deltas: {}});
+    targetData.push({result: group.roll[0]?.roll?.data.result ?? null, id: token.id});
+    j++;
+  }
+  if ( !targets.length ) return null;
 
-  const beam = rayBeam.configure({prefix: "rayBeam", origin: beamOrigin, rotation, length: beamLength,
-    textures: textures.streak, spawnRadius, speed: BEAM_SPEED,
-    duration: BEAM_DURATION, blend: PIXI.BLEND_MODES.ADD, position: 0, ...shared});
-  const spillage = castoffFlare.configure({prefix: "castoffFlare", origin: beamOrigin, rotation, length: beamLength,
-    textures: textures.spray, spawnRadius, speed: BEAM_SPEED,
-    duration: BEAM_DURATION, blend: PIXI.BLEND_MODES.ADD, position: 0, ...shared});
-
-  // Ground cascade: impact particles marching along the ray path
-  const cascadeTextures = getVFXTexturePaths(action.rune.id, "impact");
-  const cascade = linearCascade.configure({prefix: "rayCascade", origin, rotation, length,
-    textures: cascadeTextures, width: width * 0.8, duration: CASCADE_DURATION,
-    elevation: 0, position: 0, pointSourceMask: shared.pointSourceMask});
-
-  const result = mergeAnimationBlocks(beam, spillage, cascade);
-  Object.assign(result.references, references);
-
-  // Impact timing: fire when the beam front arrives at the target.
-  const gridScale = getParticleScaleFactor();
-  const beamSpeed = BEAM_SPEED * gridScale;
-  const gridSize = canvas.dimensions.size;
-  const rayGetImpactPosition = token => {
-    const cx = token.x + (token.width * gridSize / 2);
-    const cy = token.y + (token.height * gridSize / 2);
-    const dist = Math.hypot(cx - x, cy - y);
-    return Math.round(dist / beamSpeed * 1000);
+  const components = {
+    ray: {
+      type: "crucibleRay",
+      origin: {reference: "rayOrigin", deltas: {}},
+      rotation: rotRad,
+      length: beamLength,
+      charge: {duration: CHARGE_DURATION, sound: sound(getVFXSound(action.rune.id, "charge")), animations: [],
+        particles: textures.spray.length ? [{
+          animation: "chargeParticleGather", anchor: "origin", textures: textures.spray, duration: CHARGE_DURATION,
+          params: {chargeRadius: tokenRadius * 2, lifetime: 350, spawnRate: 360, elevation: beamElevation}
+        }] : []},
+      delivery: {speed: BEAM_SPEED, duration: DELIVERY_DURATION,
+        sound: deliverySound, animations: [],
+        particles: [
+          // Concentrated forward beam: a tight rectangular profile fired along the heading
+          ...(textures.streak.length ? [{
+            animation: "deliveryParticleBeam", anchor: "origin", textures: textures.streak,
+            duration: DELIVERY_DURATION, mask: true,
+            params: {speed: BEAM_SPEED, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
+              rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
+              fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.ADD, elevation: beamElevation}
+          }] : []),
+          // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
+          ...(textures.spray.length ? [{
+            animation: "deliveryParticleCastoff", anchor: "origin", textures: textures.spray,
+            duration: DELIVERY_DURATION, mask: true,
+            params: {speed: BEAM_SPEED, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
+              rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
+              scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.ADD,
+              elevation: beamElevation}
+          }] : []),
+          // Ground cascade: static shards deposited along the beam path as the front sweeps through
+          ...(textures.impact.length ? [{
+            animation: "rayGroundCascade", anchor: "origin", textures: textures.impact,
+            duration: DELIVERY_DURATION, mask: true,
+            params: {width: Math.round(width * 0.8), spacing: 20, alpha: {min: 0.6, max: 0.9},
+              scale: {min: 0.6, max: 1.0}, elevation: 0}
+          }] : [])
+        ]},
+      impact: {
+        // Struck targets: a flashing frost burst, a per-target recoil, plus a spray of shards
+        hit: {sound: sound(getVFXSound(action.rune.id, "impact")),
+          animations: [
+            {function: "impactRecoil", params: {distance: 12, duration: 320}},
+            ...(textures.impact.length
+              ? [{function: "impactBurst",
+                params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
+              : [])
+          ],
+          particles: textures.spray.length ? [{
+            animation: "impactParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
+            params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
+              lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
+              elevation: beamElevation}
+          }] : []},
+        // Resisting targets: a softer, flashless dissipating puff and a distinct sound
+        miss: {sound: sound(getVFXSound(action.rune.id, "miss")),
+          animations: textures.air.length
+            ? [{function: "impactBurst",
+              params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
+            : [],
+          particles: []}
+      },
+      targets,
+      targetData
+    }
   };
-  addImpactComponents(action, result.components, result.timeline, result.references,
-    rayGetImpactPosition, textures.impact, origin);
-  return result;
+  return {components, timeline: [{component: "ray", position: 0}], references};
 }
 
 /* -------------------------------------------- */
 
 /**
- * Finalize the VFX for a Ray gesture at play-time.
- * Delegates to the linearCascade block to inject marching spawn callbacks.
+ * Finalize the Ray VFX at play-time: inject the resolved struck-token meshes (parallel to `targets`) and
+ * the resolved beam wall-mask into the ray component.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
 function finalizeRayVFXEffect(action, vfxEffect, references) {
-  linearCascade.finalize(vfxEffect, references);
+  for ( const component of Object.values(vfxEffect.components) ) {
+    if ( component.type !== "crucibleRay" ) continue;
+    const meshes = [];
+    for ( let i = 1; (`rayTarget_${i}_tokenMesh` in references); i++ ) {
+      meshes.push(references[`rayTarget_${i}_tokenMesh`]);
+    }
+    component._targetMeshes = meshes;
+    component._beamMask = references.wallMask ?? null;
+  }
 }
 
 /* -------------------------------------------- */

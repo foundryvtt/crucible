@@ -83,9 +83,10 @@ function impactRecoilAnimation(defaultOscillations) {
       params._dx = Math.cos(dir);
       params._dy = Math.sin(dir);
       params._base = null;
+      params._target = this.state.targetMesh; // Capture per-target so multi-target dispatch stays correct
     },
     animate(t, phase, params) {
-      const target = this.state.targetMesh;
+      const target = params._target;
       if ( !target || target.destroyed ) return;
       const rp = (t * phase.duration) / (params.duration ?? 320);
       if ( rp >= 1 ) return; // Recoil done; leave the token at rest
@@ -95,7 +96,7 @@ function impactRecoilAnimation(defaultOscillations) {
     },
     tearDown(phase, params) {
       // Restore the token to rest if the recoil was interrupted mid-displacement.
-      const target = this.state.targetMesh;
+      const target = params._target;
       if ( params._base && target && !target.destroyed ) target.position.set(params._base.x, params._base.y);
     }
   };

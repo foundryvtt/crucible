@@ -234,6 +234,119 @@ const impactParticleBurst = {
 /* -------------------------------------------- */
 
 /**
+ * Forward beam: particles stream from the anchor along the ray heading (`this.state.rotation`) to form
+ * a beam. Set the layer `lifetime` to `length / speed` so particles reach the beam's end; widen
+ * `spread` for a spillage halo.
+ * Tuning (`params`): `speed` (px/sec); `spread` (rad angular spread); `radius` (px spawn); `blend`.
+ * @type {CrucibleParticleBehavior}
+ */
+const deliveryParticleBeam = {
+  setup(phase, layer) {
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const params = layer.params;
+
+    // Grid-scale the px/sec speed so the beam covers consistent feet-per-second across grid sizes
+    const speed = (params.speed ?? 2500) * this.state.gridScale;
+    const headingDeg = Math.toDegrees(this.state.rotation);
+    const angleSpread = params.angleSpread ?? 0.5; // Degrees: a tight, concentrated beam
+
+    // Spawn along a line perpendicular to the heading for a rectangular beam profile (not a cone)
+    const perpRad = this.state.rotation + (Math.PI / 2);
+    const halfWidth = Math.max(8, params.radius ?? 8);
+
+    // Live long enough to traverse the beam's full length at the scaled speed
+    const reach = Math.max(300, Math.round((this.state.length / speed) * 1000));
+    return {
+      area: {
+        from: {x: anchor.x + (Math.cos(perpRad) * halfWidth), y: anchor.y + (Math.sin(perpRad) * halfWidth)},
+        to: {x: anchor.x - (Math.cos(perpRad) * halfWidth), y: anchor.y - (Math.sin(perpRad) * halfWidth)}
+      },
+      velocity: {speed: [speed * 0.9, speed * 1.1], angle: [headingDeg - angleSpread, headingDeg + angleSpread]},
+      rotation: {alignVelocity: true, spread: params.rotationSpread ?? 0.05},
+      lifetime: {min: Math.round(reach * 0.85), max: reach},
+      fade: params.fade ?? {in: 30, out: 150},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Slow, wide cast-off flare flaring from the beam source: a short-lived spray fanning out around the
+ * heading near the origin (it does not travel the beam's length), softening the beam's root.
+ * Tuning (`params`): `speed` (px/sec base, grid-scaled), `coneDeg` (half-angle), `radius` (spawn).
+ * @type {CrucibleParticleBehavior}
+ */
+const deliveryParticleCastoff = {
+  setup(phase, layer) {
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const params = layer.params;
+    const speed = (params.speed ?? 2500) * this.state.gridScale;
+    const headingDeg = Math.toDegrees(this.state.rotation);
+    const coneDeg = params.coneDeg ?? 60;
+    return {
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius: Math.max(8, params.radius ?? 8)},
+      velocity: {speed: [speed * 0.05, speed * 0.15], angle: [headingDeg - coneDeg, headingDeg + coneDeg]},
+      rotation: {alignVelocity: true, spread: params.rotationSpread ?? 0.3},
+      lifetime: params.lifetime ? {min: params.lifetime.min, max: params.lifetime.max} : {min: 200, max: 400},
+      fade: params.fade ?? {in: 0, out: 150},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Ground cascade beneath a ray: static particles deposited along the beam line as a front sweeps from
+ * origin to end over the phase duration, lingering and fading where they land (a trail carved by the
+ * beam). The front advances linearly over `duration` (decoupled from the fast beam particle speed).
+ * Tuning (`params`): `width` (px lateral half-spread), `spacing` (px between deposits).
+ * @type {CrucibleParticleBehavior}
+ */
+const rayGroundCascade = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const {origin, rotation, length, gridScale} = this.state;
+    const duration = layer.duration ?? phase.duration;
+    const halfWidth = (params.width ?? 20) * gridScale;
+    const spacing = (params.spacing ?? 20) * gridScale;
+    const cosR = Math.cos(rotation);
+    const sinR = Math.sin(rotation);
+    const perpCos = Math.cos(rotation + (Math.PI / 2));
+    const perpSin = Math.sin(rotation + (Math.PI / 2));
+    let elapsed = 0;
+    let frontDist = 0;
+    return {
+      // Steady deposit rate that lays one particle per `spacing` over the sweep duration
+      spawnRate: Math.max(1, Math.round((length / spacing) * (1000 / duration))),
+      area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {initial: rotation, spread: 0.3},
+      lifetime: {min: duration + 1000, max: duration + 2000},
+      fade: params.fade ?? {in: 0, out: 800},
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      onTick: dt => {
+        elapsed += dt;
+        frontDist = Math.clamp(elapsed / duration, 0, 1) * length;
+      },
+      onSpawn: (p, {generator}) => {
+        // Place each particle at the current front (slightly behind, jittered) with lateral spread
+        const dist = frontDist * (0.85 + (Math.random() * 0.15));
+        const lateral = ((Math.random() * 2) - 1) * halfWidth;
+        p.x = (origin.x + (cosR * dist) + (perpCos * lateral)) - generator.bounds.x;
+        p.y = (origin.y + (sinR * dist) + (perpSin * lateral)) - generator.bounds.y;
+        p.movementSpeed.x = 0;
+        p.movementSpeed.y = 0;
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible particle behaviors, keyed by registry name.
  * @type {Record<string, CrucibleParticleBehavior>}
  */
@@ -243,5 +356,8 @@ export const PARTICLE_ANIMATIONS = {
   chargeParticleBloom,
   projectileParticleTrail,
   chargeParticleResidue,
-  impactParticleBurst
+  impactParticleBurst,
+  deliveryParticleBeam,
+  deliveryParticleCastoff,
+  rayGroundCascade
 };
