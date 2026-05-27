@@ -596,7 +596,7 @@ export const TAGS = {
         let worldActor = game.actors.get(sourceActor.id);
         if ( !worldActor ) {
           worldActor = await game.actors.importFromCompendium(sourceActor.collection, sourceActor.id, {ownership},
-            {keepId: true});
+            {keepId: true, clearOwnership: false});
         }
         else await worldActor.update({ownership});
 
