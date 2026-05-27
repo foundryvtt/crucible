@@ -1691,7 +1691,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
     if ( !this.effects.length && !regionEffectRequired ) return;
     const eventsByActor = this.eventsByActor;
-    for ( const [target, events] of eventsByActor ) {
+    for ( const [target] of this.targets ) {
+      const events = eventsByActor.get(target);
       for ( const [i, effectData] of this.effects.entries() ) {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
@@ -1748,7 +1749,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Identify the qualifying CrucibleActionEvent which enables an ActionEffect to be applied.
    * Return true if the effect may be applied unconditionally, or false if qualifications are unmet.
    * @param {CrucibleActor} target              The target actor
-   * @param {ActorEventGroup} events            The pre-classified event group for this target
+   * @param {ActorEventGroup|undefined} events            The pre-classified event group for this target
    * @param {Map<CrucibleActor, ActorEventGroup>} eventsByActor  Full events-by-actor map
    * @param {ActionEffect} effectData           Effect data to consider
    * @returns {CrucibleActionEvent|true|false}
@@ -1760,18 +1761,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Eliminate conditions where the effect cannot apply
     if ( scope === scopes.NONE ) return false;
-    if ( (scope === scopes.SELF) && !events.isSelf ) return false;
-    if ( events.isSelf ) {
+    if ( (scope === scopes.SELF) && !events?.isSelf ) return false;
+    if ( events?.isSelf ) {
       const canAffectSelf = (scope === scopes.SELF) || (events.isTarget && (scope === scopes.ALL));
       if ( !canAffectSelf ) return false;
     }
 
     // Test the rolls for this target
-    const result = CrucibleAction.#testEventResult(events.roll, resultType, resultAll);
+    const result = CrucibleAction.#testEventResult(events?.roll ?? [], resultType, resultAll);
     if ( result ) return result;
 
     // A SELF effect may still apply based on other targets' rolls if self has no immediate rolls
-    if ( (scope === scopes.SELF) && !events.isTarget ) {
+    if ( (scope === scopes.SELF) && events && !events.isTarget ) {
       for ( const [actor, otherEvents] of eventsByActor ) {
         if ( actor === target ) continue;
         const otherResult = CrucibleAction.#testEventResult(otherEvents.roll, resultType, resultAll);
