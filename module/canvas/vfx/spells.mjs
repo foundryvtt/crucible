@@ -163,7 +163,8 @@ function configureArrowVFXEffect(action) {
     if ( !group.hasRoll ) continue;
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
-    const result = group.roll[0]?.roll?.data.result;
+    const roll = group.roll[0]?.roll;
+    const result = roll?.data.result;
     if ( !result ) continue;
 
     const targetTokenRef = `target_${j}_token`;
@@ -189,21 +190,27 @@ function configureArrowVFXEffect(action) {
     references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
       sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
 
-    // Per-result impact: HIT/GLANCE land with an impact burst + impact sound; anything else (resisted
-    // or missed) plays the rune's miss cue, with a dissipating air puff on a resist. Stick only on a hit.
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
-    let burst = null;
     let impactSound = null;
+    const impactAnimations = [];
     if ( isHit ) {
-      burst = {texture: pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood"), size: 3, duration: 1000};
+      const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+      // Match the burst to the stick so both exit together
+      impactAnimations.push({function: "impactBurst",
+        params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
+      impactAnimations.push(roll?.isCriticalSuccess
+        ? {function: "impactShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
+        : {function: "impactRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
     }
     else {
       impactSound = sound(getVFXSound(action.rune.id, "miss"));
       if ( result === T.RESIST ) {
         const puff = pickRandom(textures.air);
-        if ( puff ) burst = {texture: puff, size: 4, duration: 1500};
+        // A resisted spell fizzles: a dissipating puff, no flash
+        if ( puff ) impactAnimations.push({function: "impactBurst",
+          params: {texture: puff, size: 4, duration: 1500, flash: false}});
       }
     }
 
@@ -211,9 +218,9 @@ function configureArrowVFXEffect(action) {
     // lingering residue. Per-rune overrides come from runeProps (see RUNE_VFX_PROPS).
     const gatherBehavior = runeProps.gather ?? "chargeParticleGather";
     const gatherAnchor = runeProps.gatherAnchor ?? "origin";
-    // A caster-anchored gather draws above the caster token: elevation is the primary sort key and the
+    // A source-anchored gather draws above the source token: elevation is the primary sort key and the
     // particle container carries no sortLayer, so a same-elevation layer can never out-sort the token.
-    const gatherElevation = (gatherAnchor === "caster") ? (casterElevation + 1) : particleElevation;
+    const gatherElevation = (gatherAnchor === "source") ? (casterElevation + 1) : particleElevation;
     // Residue sits under the caster (beneath the token, since the particle container has no sortLayer)
     // when runeProps.residueUnder is set; otherwise it floats just overhead like the gather.
     const residueElevation = runeProps.residueUnder ? casterElevation : (casterElevation + 1);
@@ -257,14 +264,12 @@ function configureArrowVFXEffect(action) {
         {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
       ],
       pathType: runeProps.path ?? {type: "linear", params: {}},
-      caster: {x: casterCenterX, y: casterCenterY, elevation: casterElevation,
-        sort: casterMeshSort, sortLayer: SL.TOKENS},
       charge: {duration: CHARGE_DURATION, sound: chargeSound,
         animations: [{function: "chargeSpriteFadeIn"}], particles: chargeParticles},
       projectile: {texture: pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"),
         size: runeProps.projectileSize ?? 3, speed: 150, sound: whooshSound,
         animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
-      impact: {stickDuration, sound: impactSound, burst, particles: []}
+      impact: {duration: stickDuration, sound: impactSound, animations: impactAnimations, particles: []}
     };
     timeline.push({component: `arrow_${j}`, position: 0});
     j++;
@@ -272,6 +277,23 @@ function configureArrowVFXEffect(action) {
 
   if ( !timeline.length ) return null;
   return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Inject the resolved source mesh and per-target struck mesh into each arrow projectile component.
+ * @param {CrucibleSpellAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} references
+ */
+function finalizeArrowVFXEffect(action, vfxEffect, references) {
+  for ( const [name, component] of Object.entries(vfxEffect.components) ) {
+    const match = name.match(/^arrow_(\d+)$/);
+    if ( !match ) continue;
+    component._sourceMesh = references.tokenMesh ?? null;
+    component._recoilTarget = references[`target_${match[1]}_tokenMesh`] ?? null;
+  }
 }
 
 /* -------------------------------------------- */
@@ -723,7 +745,7 @@ function addImpactComponents(action, components, timeline, references, getImpact
  * - `gather` (string): a registered charge-phase particle behavior for the gather (default
  *   `chargeParticleGather`); e.g. `chargeParticleVortex` for a swirling collapse.
  * - `gatherAnchor` (string): where the charge particles center - `origin` (the forward manifest point,
- *   default) or `caster` (the spellcaster token center).
+ *   default) or `source` (the launching token center).
  * - `gatherTail` (number): ms the charge gather keeps emitting past the projectile-release label
  *   (default 200, overlapping the launch); negative ends emission before release.
  * - `smoke` (boolean): emit the soft atmospheric (air) smoke gather layer during charge (default true;
@@ -747,7 +769,7 @@ const RUNE_VFX_PROPS = {
   arrow: {
     frost: {stickDuration: 1500, projectileSize: 2, trail: true},
     life: {stickDuration: 1500, projectileSize: 2, trail: true},
-    flame: {projectileSize: 3, trail: true, gather: "chargeParticleVortex", gatherAnchor: "caster",
+    flame: {projectileSize: 3, trail: true, gather: "chargeParticleVortex", gatherAnchor: "source",
       gatherTail: -100, smoke: false,
       // Fire vortex above the caster; its motes ramp down as it collapses, with a wide alpha range for
       // varied transparency.
@@ -866,7 +888,7 @@ export const RUNE_COLORS = {
  * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function, finalize?: function}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: {configure: configureArrowVFXEffect},
+  arrow: {configure: configureArrowVFXEffect, finalize: finalizeArrowVFXEffect},
   aspect: {},
   aura: {},
   blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},

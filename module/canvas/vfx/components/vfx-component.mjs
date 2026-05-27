@@ -149,9 +149,43 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Apply the standard Crucible impact-sprite treatment on the component timeline: fade in while
-   * scaling up on arrival, then settle to a slightly smaller scale while fading out, with an optional
-   * brief ADD-blend flash that cools to NORMAL. Shared baseline for impacts across all gestures.
+   * Create a transparent {@link VFXCanvasContainer} holding a sized {@link PrimarySpriteMesh} (named
+   * "mesh") at a point.
+   * @param {string} texture   The texture path.
+   * @param {number} size      Sprite size in feet (fit to the larger dimension).
+   * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
+   * @returns {VFXCanvasContainer}
+   */
+  _createSprite(texture, size, point) {
+    const container = new foundry.canvas.vfx.VFXCanvasContainer();
+    container.position.set(point.x, point.y);
+    container.elevation = point.elevation;
+    container.sort = point.sort;
+    container.sortLayer = point.sortLayer;
+    container.alpha = 0;
+    const tex = foundry.canvas.getTexture(texture);
+    if ( !tex ) return container;
+    const mesh = new foundry.canvas.primary.PrimarySpriteMesh(tex);
+    mesh.name = "mesh";
+    mesh.anchor.set(0.5, 0.5);
+    if ( Number.isNumeric(size) ) {
+      if ( mesh.width >= mesh.height ) {
+        mesh.width = size * canvas.dimensions.distancePixels;
+        mesh.scale.y = mesh.scale.x;
+      } else {
+        mesh.height = size * canvas.dimensions.distancePixels;
+        mesh.scale.x = mesh.scale.y;
+      }
+    }
+    container.addChild(mesh);
+    return container;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pop an impact sprite in with a scale-up, then settle smaller while fading out, with an optional
+   * ADD-blend flash on arrival that cools to NORMAL.
    * @param {PIXI.Container} container   The impact sprite container (its child mesh is named "mesh").
    * @param {number} start              Timeline position (ms) at which the impact arrives.
    * @param {number} hold               On-screen duration (ms) from arrival to fully faded.
