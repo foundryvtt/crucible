@@ -305,7 +305,7 @@ function configureArrowVFXEffect(action) {
           : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
         size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: whooshSound,
         animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
-      impact: {duration: stickDuration, sound: impactSound, animations: impactAnimations,
+      impact: {stick: stickDuration, sound: impactSound, animations: impactAnimations,
         particles: impactParticles}
     };
     timeline.push({component: `arrow_${j}`, position: 0});
@@ -319,7 +319,7 @@ function configureArrowVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
- * Inject the resolved source mesh and per-target struck mesh into each arrow projectile component.
+ * Enact final runtime configurations of an arrow animation before it is played.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
@@ -329,7 +329,7 @@ function finalizeArrowVFXEffect(action, vfxEffect, references) {
     const match = name.match(/^arrow_(\d+)$/);
     if ( !match ) continue;
     component._originMesh = references.tokenMesh ?? null;
-    component._recoilTarget = references[`target_${match[1]}_tokenMesh`] ?? null;
+    component._targetMesh = references[`target_${match[1]}_tokenMesh`] ?? null;
   }
 }
 

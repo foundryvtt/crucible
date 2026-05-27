@@ -1,24 +1,19 @@
 /**
  * Crucible particle behaviors: registered VFX animations that configure a {@link ParticleGenerator}.
- * Each exposes the behavior contract `setup(context) -> object`, returning the behavior-specific raw
- * generator config (area, velocity, rotation, blend, drift, onSpawn, onTick) merged over the
- * component-owned material (textures, lifetime, scale, alpha, density). See `animations/_module.mjs`
- * for the naming convention.
- */
-
-/**
- * @typedef CrucibleParticleContext
- * @property {{x: number, y: number}} anchor   Resolved spawn origin for the layer.
- * @property {number} gridScale                Particle scale factor (the system's getParticleScaleFactor()).
- * @property {number} lifetime                 Resolved particle lifetime in ms.
- * @property {object} params                   Behavior-specific tuning from the layer's `params`.
- * @property {object} state                    Phase state, e.g. `state.projectile.container`.
+ * Like sprite animations, each behavior's hooks are bound to the owning {@link CrucibleVFXComponent} and
+ * receive `(phase, layer)`. `setup` returns the behavior's generator config contribution (area, velocity,
+ * rotation, blend, drift, onSpawn, onTick) merged over the component-owned material; the optional
+ * `schedule` adds bespoke timeline work and the optional `tearDown` undoes side effects on stop. The
+ * resolved spawn anchor is `this.state.anchors[layer.anchor]`. See `animations/_module.mjs` for naming.
+ *
+ * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
  */
 
 /**
  * @typedef CrucibleParticleBehavior
- * @property {(context: CrucibleParticleContext) => object} setup
- *   Returns behavior-specific raw ParticleGenerator config keys to merge into the layer's config.
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => object} [setup]
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => void} [schedule]
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => void} [tearDown]
  */
 
 /**
@@ -28,9 +23,13 @@
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleGather = {
-  setup({anchor, gridScale, lifetime, params}) {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const chargeRadius = params.chargeRadius;
-    const radiusPx = chargeRadius * gridScale;
+    const radiusPx = chargeRadius * this.state.gridScale;
+    const lt = params.lifetime ?? 1000;
+    const lifetime = (typeof lt === "object") ? lt.max : lt; // Resolved max lifetime (ms)
     const speed = (radiusPx / lifetime) * 1000; // Px/sec to traverse the radius within one lifetime
     const bandWidth = Math.max(2, chargeRadius * 0.05); // RingShapeData throws on a zero-thickness band
     return {
@@ -63,7 +62,9 @@ const chargeParticleGather = {
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleVortex = {
-  setup({anchor, params}) {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const chargeRadius = params.chargeRadius;
     const bandWidth = Math.max(2, chargeRadius * 0.15); // Thicker band for a fuller ring
     const swirl = params.swirlSpeed ?? 3;               // Rad/sec orbital velocity; slow reads as ominous
@@ -107,8 +108,9 @@ const chargeParticleVortex = {
  * @type {CrucibleParticleBehavior}
  */
 const projectileParticleTrail = {
-  setup({state, params}) {
-    const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = params;
+  setup(phase, layer) {
+    const {state} = this;
+    const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = layer.params;
     const POSITION_STEP = 4; // Quantize spawn-area moves to throttle updateSource calls
     let shape = null;
     let lastX = -Infinity;
@@ -162,7 +164,9 @@ const projectileParticleTrail = {
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleResidue = {
-  setup({anchor, params}) {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const {radius, speed = {min: 12, max: 55}} = params;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
@@ -182,7 +186,9 @@ const chargeParticleResidue = {
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleBloom = {
-  setup({anchor, params}) {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const grow = params.growFraction ?? 0.4;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius: params.chargeRadius},
@@ -211,7 +217,9 @@ const chargeParticleBloom = {
  * @type {CrucibleParticleBehavior}
  */
 const impactParticleBurst = {
-  setup({anchor, params}) {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const {radius = 8, speed = {min: 60, max: 180}} = params;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},

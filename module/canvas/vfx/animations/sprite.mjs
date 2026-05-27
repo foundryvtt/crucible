@@ -3,19 +3,37 @@
  */
 
 /**
- * @import {VFXComponentAnimation} from "@client/canvas/vfx/_types.mjs";
+ * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
+ */
+
+/**
+ * @callback CrucibleVFXAnimationScheduler
+ * @this {CrucibleVFXComponent}             The component this animation is attached to
+ * @param {object} phase                    The phase of the effect timeline this animation belongs to
+ * @param {object} params                   Animation parameters established at configure-time
+ */
+
+/**
+ * A Crucible VFX component animation: optional lifecycle hooks bound to the owning component, each given
+ * the current `phase`. `setup` prepares `this.state`/`params` once; `animate` runs each frame with
+ * normalized phase progress `t`; `schedule` adds bespoke timeline entries or managed display objects.
+ * @typedef CrucibleVFXComponentAnimation
+ * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [setup]
+ * @property {(this: CrucibleVFXComponent, t: number, phase: object, params: object) => void} [animate]
+ * @property {CrucibleVFXAnimationScheduler} [schedule]
+ * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [tearDown]
  */
 
 /**
  * Fade the projectile container's alpha 0 -> 1 over the charge phase.
- * @type {VFXComponentAnimation}
+ * @type {CrucibleVFXComponentAnimation}
  */
 const chargeSpriteFadeIn = {
-  setup(state, params) {
+  setup(phase, params) {
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "inQuad");
   },
-  animate(t, state, params) {
-    const container = state.projectile?.container;
+  animate(t, phase, params) {
+    const container = this.state.projectile?.container;
     if ( container ) container.alpha = params.ease(t);
   }
 };
@@ -26,19 +44,19 @@ const chargeSpriteFadeIn = {
  * Drive the projectile container along its precomputed flight path during the projectile phase.
  * Mirrors upstream `followPath` minus the `mesh.anchor.x` lerp that continues the bow `drawBack`
  * charge animation - spell projectiles have no drawback so the trailing-anchor jump is incorrect.
- * @type {VFXComponentAnimation}
+ * @type {CrucibleVFXComponentAnimation}
  */
 const projectileSpriteFlight = {
-  setup(state, params) {
-    state.lastPathIndex = 0;
+  setup(phase, params) {
+    this.state.lastPathIndex = 0;
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "linear", params.easingParams);
   },
-  animate(t, state, params) {
-    const target = params.target || state.projectile?.container;
+  animate(t, phase, params) {
+    const target = params.target || this.state.projectile?.container;
     if ( !target ) return;
     const w = params.ease(t);
-    const point = state.flightPath.interpolatedPoint(w, state.lastPathIndex);
-    state.lastPathIndex = point.index;
+    const point = this.state.flightPath.interpolatedPoint(w, this.state.lastPathIndex);
+    this.state.lastPathIndex = point.index;
     target.x = point.x;
     target.y = point.y;
     target.rotation = point.rotation;
@@ -52,27 +70,33 @@ const projectileSpriteFlight = {
 /* -------------------------------------------- */
 
 /**
- * Build an impact animator that displaces `state.recoilTarget` along the origin->destination direction
+ * Build an impact animator that displaces `state.targetMesh` along the origin->destination direction
  * with a kick and damped settle (`params`: `distance`, `duration`, `oscillations`).
  * @param {number} defaultOscillations
- * @returns {VFXComponentAnimation}
+ * @returns {CrucibleVFXComponentAnimation}
  */
 function impactRecoilAnimation(defaultOscillations) {
   return {
-    setup(state, params) {
-      const dir = Math.atan2(state.destination.y - state.origin.y, state.destination.x - state.origin.x);
+    setup(phase, params) {
+      const {origin, destination} = this.state;
+      const dir = Math.atan2(destination.y - origin.y, destination.x - origin.x);
       params._dx = Math.cos(dir);
       params._dy = Math.sin(dir);
       params._base = null;
     },
-    animate(t, state, params, phaseDuration) {
-      const target = state.recoilTarget;
+    animate(t, phase, params) {
+      const target = this.state.targetMesh;
       if ( !target || target.destroyed ) return;
-      const rp = (t * phaseDuration) / (params.duration ?? 320);
+      const rp = (t * phase.duration) / (params.duration ?? 320);
       if ( rp >= 1 ) return; // Recoil done; leave the token at rest
       if ( !params._base ) params._base = {x: target.position.x, y: target.position.y};
       const offset = (params.distance ?? 12) * _recoilMagnitude(rp, params.oscillations ?? defaultOscillations);
       target.position.set(params._base.x + (params._dx * offset), params._base.y + (params._dy * offset));
+    },
+    tearDown(phase, params) {
+      // Restore the token to rest if the recoil was interrupted mid-displacement.
+      const target = this.state.targetMesh;
+      if ( params._base && target && !target.destroyed ) target.position.set(params._base.x, params._base.y);
     }
   };
 }
@@ -97,13 +121,13 @@ function _recoilMagnitude(rp, oscillations) {
 
 /**
  * Light directional recoil for a standard hit: the struck token rocks back and returns to rest.
- * @type {VFXComponentAnimation}
+ * @type {CrucibleVFXComponentAnimation}
  */
 const impactRecoil = impactRecoilAnimation(0);
 
 /**
  * Heavier recoil for a critical hit: a stronger kick that overshoots and bounces (damped reverb).
- * @type {VFXComponentAnimation}
+ * @type {CrucibleVFXComponentAnimation}
  */
 const impactShake = impactRecoilAnimation(3);
 
@@ -112,20 +136,43 @@ const impactShake = impactRecoilAnimation(3);
 /* -------------------------------------------- */
 
 /**
- * Spawn an impact sprite at the point-of-impact, oriented with the direction of impact.
- * Apply animation treatment to the impact sprite that varies its scale, alpha, and blend mode over time.
- * @type {VFXComponentAnimation}
+ * Spawn an impact sprite at the point of impact, oriented along the incoming direction, then pop it in
+ * with a scale-up and ADD-blend flash before settling smaller and fading out over the rest of the hold.
+ * Tuning (`params`): `texture` (required), `size`, `duration`, `scaleStart`, `scaleSettle`, `flash`,
+ * `flashDuration`.
+ * @type {CrucibleVFXComponentAnimation}
  */
 const impactBurst = {
-  schedule(component, state, params, start) {
+  schedule(phase, params) {
     if ( !params.texture ) return;
-    const sprite = component._createSprite(params.texture, params.size ?? 3, state.destination);
-    const container = component.addManagedDisplayObject(sprite);
-    container.rotation = Math.atan2(state.destination.y - state.origin.y, state.destination.x - state.origin.x);
-    component._animateImpactSprite(container, start, params.duration ?? 1000, {
-      scaleStart: params.scaleStart, scaleSettle: params.scaleSettle,
-      flash: params.flash, flashDuration: params.flashDuration
-    });
+    const {origin, destination} = this.state;
+    const container = this.addManagedDisplayObject(this._createSprite(params.texture, params.size ?? 3, destination));
+    container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x);
+
+    // A quick arrival pop, then a gradual settle + fade-out over the remainder of the hold.
+    const start = phase.start;
+    const hold = params.duration ?? phase.duration;
+    if ( hold <= 0 ) return;
+    const rise = Math.min(hold / 10, 120);
+    const settle = hold - rise;
+    const {scaleStart = 0.5, scaleSettle = 0.9, flash = true, flashDuration = 150} = params;
+
+    // Fade in on arrival, then fade out gradually across the settle window (alongside the scale).
+    this.timeline.add(container, {alpha: {from: 0, to: 1, duration: rise}}, start)
+      .add(container, {alpha: {from: 1, to: 0, duration: settle}}, start + rise);
+
+    // Pop up to full size on arrival, then ease down to the settle scale over the same window.
+    container.scale.set(scaleStart);
+    this.timeline.add(container.scale, {x: {from: scaleStart, to: 1}, y: {from: scaleStart, to: 1}, duration: rise},
+      start)
+      .add(container.scale, {x: {to: scaleSettle}, y: {to: scaleSettle}, duration: settle}, start + rise);
+
+    // Flash ADD blend on arrival, then cool to NORMAL.
+    const mesh = flash ? container.getChildByName?.("mesh") : null;
+    if ( mesh ) {
+      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.ADD, start);
+      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.NORMAL, start + flashDuration);
+    }
   }
 };
 
@@ -133,7 +180,7 @@ const impactBurst = {
 
 /**
  * Crucible sprite animators, keyed by registry name.
- * @type {Record<string, VFXComponentAnimation>}
+ * @type {Record<string, CrucibleVFXComponentAnimation>}
  */
 export const SPRITE_ANIMATIONS = {
   chargeSpriteFadeIn,

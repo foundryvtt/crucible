@@ -21,6 +21,36 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     };
   }
 
+  /**
+   * Labeled timeline positions for the component animation.
+   * @type {Record<string, number>}
+   */
+  timings = {};
+
+  /**
+   * Shared animation state used across multiple phases of component animation.
+   * @type {object}
+   */
+  state = {};
+
+  /**
+   * ParticleGenerators spawned by this component.
+   * @type {Set<ParticleGenerator>}
+   */
+  #generators;
+
+  /**
+   * Sounds loaded by this component.
+   * @type {Set<Sound>}
+   */
+  #sounds;
+
+  /**
+   * Animation tearDown callbacks to invoke when the component stops.
+   * @type {Function[]}
+   */
+  #tearDowns = [];
+
   /* -------------------------------------------- */
   /*  Determinism                                 */
   /* -------------------------------------------- */
@@ -53,12 +83,6 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Sounds loaded by this component, tracked so they can be stopped on teardown.
-   * @type {Set<Sound>}
-   */
-  #sounds = new Set();
-
-  /**
    * Load a sound on the environment channel for later positional playback. Call from `_load`.
    * @param {string} src                The audio source path.
    * @returns {Promise<Sound|null>}     The loaded Sound, or null if no src was provided.
@@ -67,6 +91,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     if ( !src ) return null;
     const sound = new foundry.audio.Sound(src, {context: game.audio.environment});
     await sound.load();
+    this.#sounds ||= new Set();
     this.#sounds.add(sound);
     return sound;
   }
@@ -156,21 +181,14 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * ParticleGenerators spawned by this component, tracked for teardown.
-   * @type {Set<ParticleGenerator>}
-   */
-  #generators = new Set();
-
-  /**
-   * Construct and track a {@link ParticleGenerator}, scheduling start at `position`, soft-stop after
-   * `config.duration`, and hard-stop once the last particles expire. Generators do not self-stop from
-   * `config.duration`; a generator without a duration runs until the component is torn down.
+   * Construct a {@link ParticleGenerator} instance, and schedule it to play over the course of the effect timeline.
    * @param {ParticleGeneratorConfiguration} config   Configuration passed to the generator constructor.
    * @param {number} [position=0]   Timeline offset (ms) at which the generator begins emitting.
    * @returns {ParticleGenerator}
    */
   _spawnGenerator(config, position=0) {
     const generator = new foundry.canvas.animation.ParticleGenerator(config);
+    this.#generators ||= new Set();
     this.#generators.add(generator);
     this.timeline.call(() => generator.start(), position);
     if ( config.duration ) {
@@ -183,54 +201,27 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   }
 
   /* -------------------------------------------- */
-  /*  Impact Sprites                              */
+  /*  Lifecycle                                   */
   /* -------------------------------------------- */
 
   /**
-   * Pop an impact sprite in with a scale-up, then settle smaller while fading out, with an optional
-   * ADD-blend flash on arrival that cools to NORMAL.
-   * @param {PIXI.Container} container   The impact sprite container (its child mesh is named "mesh").
-   * @param {number} start              Timeline position (ms) at which the impact arrives.
-   * @param {number} hold               On-screen duration (ms) from arrival to fully faded.
-   * @param {object} [options]
-   * @param {number} [options.scaleStart=0.5]     Arrival scale multiplier, grown to 1.0 over the fade-in.
-   * @param {number} [options.scaleSettle=0.9]    Scale settled to over the remaining hold while fading out.
-   * @param {boolean} [options.flash=true]        Flash ADD blend on arrival before cooling to NORMAL.
-   * @param {number} [options.flashDuration=150]  Duration (ms) of the ADD-blend flash.
-   * @internal
+   * Register an animation tearDown callback, invoked when the component stops.
+   * @param {function} callback
    */
-  _animateImpactSprite(container, start, hold, {scaleStart=0.5, scaleSettle=0.9, flash=true, flashDuration=150}={}) {
-    if ( !container || (hold <= 0) ) return;
-    const rise = Math.min(hold / 10, 120); // Quick arrival pop; the rest is a gradual settle + fade-out
-    const settle = hold - rise;
-
-    // Fade in on arrival, then fade out gradually across the whole settle window (alongside the scale)
-    this.timeline.add(container, {alpha: {from: 0, to: 1, duration: rise}}, start)
-      .add(container, {alpha: {from: 1, to: 0, duration: settle}}, start + rise);
-
-    // Pop up to full size on arrival, then ease down to the settle scale over the same window
-    container.scale.set(scaleStart);
-    this.timeline.add(container.scale, {x: {from: scaleStart, to: 1}, y: {from: scaleStart, to: 1}, duration: rise},
-      start)
-      .add(container.scale, {x: {to: scaleSettle}, y: {to: scaleSettle}, duration: settle}, start + rise);
-
-    // Flash ADD blend on arrival, then cool to NORMAL
-    const mesh = flash ? container.getChildByName?.("mesh") : null;
-    if ( mesh ) {
-      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.ADD, start);
-      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.NORMAL, start + flashDuration);
-    }
+  _registerTearDown(callback) {
+    this.#tearDowns.push(callback);
   }
 
-  /* -------------------------------------------- */
-  /*  Lifecycle                                   */
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   async _stop() {
-    for ( const generator of this.#generators ) generator.stop({hard: true});
+    for ( const tearDown of this.#tearDowns ) {
+      try { tearDown(); } catch(err) { console.warn(err); }
+    }
+    for ( const generator of this.#generators ?? [] ) generator.stop({hard: true});
     const stops = [];
-    for ( const sound of this.#sounds ) {
+    for ( const sound of this.#sounds ?? [] ) {
       if ( sound.playing ) stops.push(sound.stop());
     }
     await Promise.allSettled(stops);
