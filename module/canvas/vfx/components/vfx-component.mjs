@@ -114,7 +114,45 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   }
 
   /* -------------------------------------------- */
-  /*  Particle Generators                         */
+  /*  Sprite Helpers                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Create a transparent {@link VFXCanvasContainer} holding a sized {@link PrimarySpriteMesh} (named
+   * "mesh") at a point.
+   * @param {string} texture   The texture path.
+   * @param {number} size      Sprite size in feet (fit to the larger dimension).
+   * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
+   * @returns {VFXCanvasContainer}
+   * @internal
+   */
+  _createSprite(texture, size, point) {
+    const container = new foundry.canvas.vfx.VFXCanvasContainer();
+    container.position.set(point.x, point.y);
+    container.elevation = point.elevation;
+    container.sort = point.sort;
+    container.sortLayer = point.sortLayer;
+    container.alpha = 0;
+    const tex = foundry.canvas.getTexture(texture);
+    if ( !tex ) return container;
+    const mesh = new foundry.canvas.primary.PrimarySpriteMesh(tex);
+    mesh.name = "mesh";
+    mesh.anchor.set(0.5, 0.5);
+    if ( Number.isNumeric(size) ) {
+      if ( mesh.width >= mesh.height ) {
+        mesh.width = size * canvas.dimensions.distancePixels;
+        mesh.scale.y = mesh.scale.x;
+      } else {
+        mesh.height = size * canvas.dimensions.distancePixels;
+        mesh.scale.x = mesh.scale.y;
+      }
+    }
+    container.addChild(mesh);
+    return container;
+  }
+
+  /* -------------------------------------------- */
+  /*  Particle Helpers                            */
   /* -------------------------------------------- */
 
   /**
@@ -149,41 +187,6 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Create a transparent {@link VFXCanvasContainer} holding a sized {@link PrimarySpriteMesh} (named
-   * "mesh") at a point.
-   * @param {string} texture   The texture path.
-   * @param {number} size      Sprite size in feet (fit to the larger dimension).
-   * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
-   * @returns {VFXCanvasContainer}
-   */
-  _createSprite(texture, size, point) {
-    const container = new foundry.canvas.vfx.VFXCanvasContainer();
-    container.position.set(point.x, point.y);
-    container.elevation = point.elevation;
-    container.sort = point.sort;
-    container.sortLayer = point.sortLayer;
-    container.alpha = 0;
-    const tex = foundry.canvas.getTexture(texture);
-    if ( !tex ) return container;
-    const mesh = new foundry.canvas.primary.PrimarySpriteMesh(tex);
-    mesh.name = "mesh";
-    mesh.anchor.set(0.5, 0.5);
-    if ( Number.isNumeric(size) ) {
-      if ( mesh.width >= mesh.height ) {
-        mesh.width = size * canvas.dimensions.distancePixels;
-        mesh.scale.y = mesh.scale.x;
-      } else {
-        mesh.height = size * canvas.dimensions.distancePixels;
-        mesh.scale.x = mesh.scale.y;
-      }
-    }
-    container.addChild(mesh);
-    return container;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Pop an impact sprite in with a scale-up, then settle smaller while fading out, with an optional
    * ADD-blend flash on arrival that cools to NORMAL.
    * @param {PIXI.Container} container   The impact sprite container (its child mesh is named "mesh").
@@ -194,6 +197,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @param {number} [options.scaleSettle=0.9]    Scale settled to over the remaining hold while fading out.
    * @param {boolean} [options.flash=true]        Flash ADD blend on arrival before cooling to NORMAL.
    * @param {number} [options.flashDuration=150]  Duration (ms) of the ADD-blend flash.
+   * @internal
    */
   _animateImpactSprite(container, start, hold, {scaleStart=0.5, scaleSettle=0.9, flash=true, flashDuration=150}={}) {
     if ( !container || (hold <= 0) ) return;

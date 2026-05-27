@@ -124,6 +124,24 @@ export function getVFXTexturePaths(rune, category) {
 /* -------------------------------------------- */
 
 /**
+ * Get the rune's texture paths whose frame name begins with any of the given prefixes, for selecting a
+ * specific sub-set of a category (e.g. "SprayLeaf"/"SprayBubble" without "SprayWispy").
+ * @param {string} rune        The rune identifier, e.g. "life"
+ * @param {...string} prefixes Frame-name prefixes (the part after "rune/"), e.g. "SprayLeaf"
+ * @returns {string[]}
+ */
+export function getVFXFrames(rune, ...prefixes) {
+  const byCategory = VFX_TEXTURES[rune];
+  if ( !byCategory ) return [];
+  return Object.values(byCategory).flat().filter(path => {
+    const frame = path.split("/").pop();
+    return prefixes.some(p => frame.startsWith(p));
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
  * Choose a random sprite to use from a provided list of options.
  * Prefix the returned path with a specific path prefix.
  * @param {string} domain     The outer domain in VFX_SPRITES

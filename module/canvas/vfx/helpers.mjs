@@ -34,6 +34,18 @@ export function computeAttackOffset(token, result) {
 /* -------------------------------------------- */
 
 /**
+ * The center point of a token in canvas pixels.
+ * @param {CrucibleToken} token
+ * @returns {{x: number, y: number}}
+ */
+export function tokenCenter(token) {
+  const size = canvas.dimensions.size;
+  return {x: token.x + ((token.width * size) / 2), y: token.y + ((token.height * size) / 2)};
+}
+
+/* -------------------------------------------- */
+
+/**
  * Pick a random element from an array, returning null for empty/missing arrays.
  * @param {any[]|undefined} arr
  * @returns {any|null}

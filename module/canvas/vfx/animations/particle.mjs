@@ -24,17 +24,17 @@
 /**
  * Inward convergence: particles spawn on a ring around the anchor and travel straight to its center
  * over their lifetime, dying at the manifest point.
- * Tuning (`params`): `gatherRadius` (px, required).
+ * Tuning (`params`): `chargeRadius` (px, required).
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleGather = {
   setup({anchor, gridScale, lifetime, params}) {
-    const gatherRadius = params.gatherRadius;
-    const radiusPx = gatherRadius * gridScale;
+    const chargeRadius = params.chargeRadius;
+    const radiusPx = chargeRadius * gridScale;
     const speed = (radiusPx / lifetime) * 1000; // Px/sec to traverse the radius within one lifetime
-    const bandWidth = Math.max(2, gatherRadius * 0.05); // RingShapeData throws on a zero-thickness band
+    const bandWidth = Math.max(2, chargeRadius * 0.05); // RingShapeData throws on a zero-thickness band
     return {
-      area: {type: "ring", x: anchor.x, y: anchor.y, radius: gatherRadius,
+      area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
         innerWidth: bandWidth, outerWidth: bandWidth},
       rotation: {alignVelocity: true, spread: 0.2},
       velocity: {speed: [0, 0], angle: [0, 360]},
@@ -58,14 +58,14 @@ const chargeParticleGather = {
  * parametric (functions of age), driven from `onUpdate` not `onTick` so they keep moving after the
  * generator soft-stops rather than freezing mid-spin. An outward-bursting variant belongs in a separate
  * `chargeParticleVortexBurst`, not a branch here.
- * Tuning (`params`): `gatherRadius` (px, required), `swirlSpeed` (rad/sec orbit), `spinSpeed` (rad/sec
+ * Tuning (`params`): `chargeRadius` (px, required), `swirlSpeed` (rad/sec orbit), `spinSpeed` (rad/sec
  * self-rotation, default = swirl), `fade` ({in, out} of lifetime).
  * @type {CrucibleParticleBehavior}
  */
 const chargeParticleVortex = {
   setup({anchor, params}) {
-    const gatherRadius = params.gatherRadius;
-    const bandWidth = Math.max(2, gatherRadius * 0.15); // Thicker band than gather for a fuller ring
+    const chargeRadius = params.chargeRadius;
+    const bandWidth = Math.max(2, chargeRadius * 0.15); // Thicker band for a fuller ring
     const swirl = params.swirlSpeed ?? 3;               // Rad/sec orbital velocity; slow reads as ominous
     const spin = params.spinSpeed ?? swirl;             // Rad/sec self-rotation, same direction as the orbit
 
@@ -82,7 +82,7 @@ const chargeParticleVortex = {
       p.rotation = p._vortexSpin + (spin * p.elapsedTime * 0.001);
     };
     return {
-      area: {type: "ring", x: anchor.x, y: anchor.y, radius: gatherRadius,
+      area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
         innerWidth: bandWidth, outerWidth: bandWidth},
       velocity: {speed: [0, 0], angle: [0, 360]}, // Held at 0; onSpawn/onUpdate drive position parametrically
       fade: params.fade ?? {in: 0.15, out: 0.45},  // Fade in on spawn, fade out as it collapses to center
@@ -155,7 +155,7 @@ const projectileParticleTrail = {
 /* -------------------------------------------- */
 
 /**
- * Lingering atmospheric haze drifting outward from the anchor, left behind after a charge gather.
+ * Lingering atmospheric haze drifting outward from the anchor, left behind after the charge.
  * Defaults to ADD blend (glowing haze); pass `blend: PIXI.BLEND_MODES.NORMAL` (with a dark tint) for
  * sooty smoke instead.
  * Tuning (`params`): `radius` (px, required), `speed` ({min, max}), `blend`.
@@ -176,12 +176,64 @@ const chargeParticleResidue = {
 /* -------------------------------------------- */
 
 /**
+ * Blooming growth: particles spawn scattered within a radius and stay put, fading in while scaling up
+ * from tiny to full (little flowers springing up) then fading out. Lazy and gentle.
+ * Tuning (`params`): `chargeRadius` (px, required); `growFraction` (0..1 of life spent growing).
+ * @type {CrucibleParticleBehavior}
+ */
+const chargeParticleBloom = {
+  setup({anchor, params}) {
+    const grow = params.growFraction ?? 0.4;
+    return {
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius: params.chargeRadius},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {spread: Math.PI},
+      fade: params.fade ?? {in: 0.3, out: 0.4},
+      onSpawn: p => {
+        p._bloom = p.scale.x;
+        p.scale.set(p._bloom * 0.1);
+      },
+      onUpdate: p => {
+        const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
+        const g = Math.min(age / grow, 1);
+        p.scale.set(p._bloom * (0.1 + (0.9 * (1 - Math.pow(1 - g, 2)))));
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Outward burst: particles spawn at a point and fly out radially, drifting and fading - an impact
+ * "pop" (e.g. a shower of leaves and bubbles). Pair with `initial: 1` for an instantaneous spray.
+ * Tuning (`params`): `radius` (px spawn spread); `speed` ({min, max} px/sec); `blend`.
+ * @type {CrucibleParticleBehavior}
+ */
+const impactParticleBurst = {
+  setup({anchor, params}) {
+    const {radius = 8, speed = {min: 60, max: 180}} = params;
+    return {
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius},
+      velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
+      rotation: {alignVelocity: false, spread: Math.PI},
+      drift: {enabled: true, intensity: 0.5},
+      blend: params.blend ?? 0
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible particle behaviors, keyed by registry name.
  * @type {Record<string, CrucibleParticleBehavior>}
  */
 export const PARTICLE_ANIMATIONS = {
   chargeParticleGather,
   chargeParticleVortex,
+  chargeParticleBloom,
   projectileParticleTrail,
-  chargeParticleResidue
+  chargeParticleResidue,
+  impactParticleBurst
 };

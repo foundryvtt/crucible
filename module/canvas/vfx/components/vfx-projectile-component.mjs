@@ -94,7 +94,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
    * One particle layer. `animation` names a registered particle behavior (its `setup` returns the
    * layer's shape/motion/callbacks); `anchor` is where it spawns; `params` carries the material and
    * behavior tuning the component and behavior interpret (lifetime, alpha, scale, spawnRate,
-   * elevation, sort, gatherRadius, align, radius, ...).
+   * elevation, sort, chargeRadius, align, radius, ...).
    */
   static #particleField() {
     return new SchemaField({
@@ -122,10 +122,10 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   _recoilTarget = null;
 
   /**
-   * Launching token mesh anchoring the "source" particle anchor, injected by finalizeVFX.
+   * The mesh of the Action origin Token.
    * @type {PIXI.DisplayObject|null}
    */
-  _sourceMesh = null;
+  _originMesh = null;
 
   /** @inheritDoc */
   async _load() {
@@ -179,7 +179,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       charge: this.charge, projectile: this.projectile, impact: this.impact,
       recoilTarget: this._recoilTarget
     };
-    const source = this._sourceMesh ? {x: this._sourceMesh.x, y: this._sourceMesh.y} : origin;
+    const source = this._originMesh ? {x: this._originMesh.x, y: this._originMesh.y} : origin;
     const anchors = {origin, destination, projectile: this.projectile.container, source};
 
     // Charge phase
@@ -276,7 +276,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       const generator = this._spawnGenerator(config, start + layer.offset);
 
       // Optional emission ramp: tween spawnRate from its initial value to params.spawnRateEnd across the
-      // layer, e.g. to crossfade a flame-heavy gather toward smoke as the energy burns down.
+      // layer, e.g. to crossfade a flame-heavy charge toward smoke as the energy burns down.
       if ( (params.spawnRateEnd !== undefined) && (params.spawnRateEnd !== config.spawnRate) ) {
         this.timeline.add(generator,
           {spawnRate: {from: config.spawnRate, to: params.spawnRateEnd, duration: config.duration}},

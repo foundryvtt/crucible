@@ -112,16 +112,15 @@ const impactShake = impactRecoilAnimation(3);
 /* -------------------------------------------- */
 
 /**
- * Spawn a sized burst sprite at the impact point facing the incoming direction and play the impact
- * treatment (`params`: `texture`, `size`, `duration`, `scaleStart`, `scaleSettle`, `flash`, `flashDuration`).
+ * Spawn an impact sprite at the point-of-impact, oriented with the direction of impact.
+ * Apply animation treatment to the impact sprite that varies its scale, alpha, and blend mode over time.
  * @type {VFXComponentAnimation}
  */
 const impactBurst = {
   schedule(component, state, params, start) {
     if ( !params.texture ) return;
-    const container = component.addManagedDisplayObject(
-      component._createSprite(params.texture, params.size ?? 3, state.destination));
-    // Face the burst along the incoming direction (rotation 0 when the origin is due west).
+    const sprite = component._createSprite(params.texture, params.size ?? 3, state.destination);
+    const container = component.addManagedDisplayObject(sprite);
     container.rotation = Math.atan2(state.destination.y - state.origin.y, state.destination.x - state.origin.x);
     component._animateImpactSprite(container, start, params.duration ?? 1000, {
       scaleStart: params.scaleStart, scaleSettle: params.scaleSettle,

@@ -1,8 +1,8 @@
-import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
+import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {mergeAnimationBlocks, getParticleScaleFactor,
   rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
   airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./blocks.mjs";
-import {computeAttackOffset, pickRandom} from "./helpers.mjs";
+import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 
 /**
@@ -138,25 +138,24 @@ function configureArrowVFXEffect(action) {
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const gridSize = canvas.dimensions.size;
   const casterToken = action.token;
-  const casterCenterX = casterToken.x + ((casterToken.width * gridSize) / 2);
-  const casterCenterY = casterToken.y + ((casterToken.height * gridSize) / 2);
+  const {x: casterCenterX, y: casterCenterY} = tokenCenter(casterToken);
   const casterRadiusPx = (casterToken.width * gridSize) / 2;
   const casterElevation = casterToken.elevation ?? 0;
   const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
 
-  const CHARGE_DURATION = 700;
   const runeProps = RUNE_VFX_PROPS.arrow?.[action.rune.id] ?? {};
-  const gatherTail = runeProps.gatherTail ?? 200; // Ms the gather keeps emitting past the projectile-release label
-  const GATHER_DURATION = CHARGE_DURATION + gatherTail;
+  const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
+  const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
+  const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;
 
   // Resolve sounds once; the component plays each on its phase. Variant choice is baked here so all
   // clients hear the same sequence. align START fires each sound at its phase start.
   const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
   const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
   const chargeSound = sound(getVFXSound(action.rune.id, "charge"));
-  // Arrow flight is brief (~190ms here), so the 200ms WhooshFast matches it; longer-flight
-  // projectiles can use generic whooshMedium (500ms).
-  const whooshSound = sound(getVFXSound("generic", "whooshFast"));
+  // Whoosh on launch; runes may pick a longer cue or opt out (whoosh: null) for a silent drift.
+  const whooshKey = ("whoosh" in runeProps) ? runeProps.whoosh : "whooshFast";
+  const whooshSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
 
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -176,8 +175,7 @@ function configureArrowVFXEffect(action) {
 
     // Manifest point: one caster radius forward toward the target, so the projectile materializes
     // in front of the caster rather than at their center.
-    const tcx = token.x + ((token.width * gridSize) / 2);
-    const tcy = token.y + ((token.height * gridSize) / 2);
+    const {x: tcx, y: tcy} = tokenCenter(token);
     const dirDist = Math.max(1, Math.hypot(tcx - casterCenterX, tcy - casterCenterY));
     const manifestX = casterCenterX + (((tcx - casterCenterX) / dirDist) * casterRadiusPx);
     const manifestY = casterCenterY + (((tcy - casterCenterY) / dirDist) * casterRadiusPx);
@@ -194,19 +192,33 @@ function configureArrowVFXEffect(action) {
     const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
     let impactSound = null;
     const impactAnimations = [];
+    const impactParticles = [];
     if ( isHit ) {
-      const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-      // Match the burst to the stick so both exit together
-      impactAnimations.push({function: "impactBurst",
-        params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
-      impactAnimations.push(roll?.isCriticalSuccess
-        ? {function: "impactShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
-        : {function: "impactRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
+      if ( runeProps.impactSprite !== false ) {
+        const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+        impactAnimations.push({function: "impactBurst", // Match the burst to the stick so both exit together
+          params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
+      }
+      if ( runeProps.recoil !== false ) {
+        impactAnimations.push(roll?.isCriticalSuccess
+          ? {function: "impactShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
+          : {function: "impactRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
+      }
+      // Optional impact particle pop, e.g. a shower of leaves and bubbles for life
+      if ( runeProps.impactSpray ) {
+        const sprayTextures = getVFXFrames(action.rune.id, ...runeProps.impactSpray.frames);
+        if ( sprayTextures.length ) impactParticles.push({
+          animation: "impactParticleBurst", anchor: "destination", textures: sprayTextures, duration: 200,
+          params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
+            lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
+            elevation: (token.elevation ?? 0) + 1, ...runeProps.impactSpray.params}
+        });
+      }
     }
     else {
       impactSound = sound(getVFXSound(action.rune.id, "miss"));
-      if ( result === T.RESIST ) {
+      if ( (result === T.RESIST) && (runeProps.impactSprite !== false) ) {
         const puff = pickRandom(textures.air);
         // A resisted spell fizzles: a dissipating puff, no flash
         if ( puff ) impactAnimations.push({function: "impactBurst",
@@ -214,31 +226,48 @@ function configureArrowVFXEffect(action) {
       }
     }
 
-    // Charge particles: dense motes (spray), an optional atmospheric smoke gather, and an optional
+    // Charge particles: one or more charge layers, an optional atmospheric smoke layer, and an optional
     // lingering residue. Per-rune overrides come from runeProps (see RUNE_VFX_PROPS).
-    const gatherBehavior = runeProps.gather ?? "chargeParticleGather";
-    const gatherAnchor = runeProps.gatherAnchor ?? "origin";
-    // A source-anchored gather draws above the source token: elevation is the primary sort key and the
-    // particle container carries no sortLayer, so a same-elevation layer can never out-sort the token.
-    const gatherElevation = (gatherAnchor === "source") ? (casterElevation + 1) : particleElevation;
-    // Residue sits under the caster (beneath the token, since the particle container has no sortLayer)
-    // when runeProps.residueUnder is set; otherwise it floats just overhead like the gather.
+    const chargeBehavior = runeProps.chargeBehavior ?? "chargeParticleGather";
+    const chargeAnchor = runeProps.chargeAnchor ?? "origin";
+    // A layer drawn "above" sits over the token (elevation is the primary sort key and the particle
+    // container has no sortLayer, so a same-elevation layer can never out-sort the token); otherwise a
+    // source-anchored layer sits at the token's ground level and an origin-anchored one at the region.
+    const elevationFor = above => above ? (casterElevation + 1)
+      : ((chargeAnchor === "source") ? casterElevation : particleElevation);
+    const chargeElevation = elevationFor(runeProps.chargeAbove);
     const residueElevation = runeProps.residueUnder ? casterElevation : (casterElevation + 1);
-    const gatherTextures = textures.spray.length ? textures.spray : textures.impact;
-    const chargeParticles = [{
-      animation: gatherBehavior, anchor: gatherAnchor, textures: gatherTextures, duration: GATHER_DURATION,
-      params: {gatherRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480,
-        elevation: gatherElevation, ...runeProps.sprayParams}
-    }];
+
+    // Either an explicit list of charge layers (per-layer elevation/radius/density) or a single default
+    // spray layer.
+    const chargeParticles = [];
+    if ( runeProps.chargeLayers ) {
+      for ( const layer of runeProps.chargeLayers ) {
+        const layerTextures = layer.categories.flatMap(c => textures[c] ?? []);
+        if ( !layerTextures.length ) continue;
+        chargeParticles.push({
+          animation: chargeBehavior, anchor: chargeAnchor, textures: layerTextures, duration: CHARGE_EMIT_DURATION,
+          params: {chargeRadius: casterRadiusPx * (layer.radiusFactor ?? 2.0),
+            elevation: elevationFor(layer.above), ...layer.params}
+        });
+      }
+    }
+    else {
+      const chargeTextures = textures.spray.length ? textures.spray : textures.impact;
+      chargeParticles.push({
+        animation: chargeBehavior, anchor: chargeAnchor, textures: chargeTextures, duration: CHARGE_EMIT_DURATION,
+        params: {chargeRadius: casterRadiusPx * 2.0, lifetime: 350,
+          spawnRate: 480, elevation: chargeElevation, ...runeProps.sprayParams}
+      });
+    }
     if ( textures.air.length ) {
       if ( runeProps.smoke !== false ) chargeParticles.push({
-        animation: gatherBehavior, anchor: gatherAnchor, textures: textures.air, duration: GATHER_DURATION,
-        params: {gatherRadius: casterRadiusPx * 2.5, lifetime: 500, spawnRate: 60,
-          alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: gatherElevation,
-          ...runeProps.smokeParams}
+        animation: chargeBehavior, anchor: chargeAnchor, textures: textures.air, duration: CHARGE_EMIT_DURATION,
+        params: {chargeRadius: casterRadiusPx * 2.5, lifetime: 500, spawnRate: 60,
+          alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: chargeElevation}
       });
       if ( runeProps.residue !== false ) chargeParticles.push({
-        animation: "chargeParticleResidue", anchor: gatherAnchor, textures: textures.air,
+        animation: "chargeParticleResidue", anchor: chargeAnchor, textures: textures.air,
         offset: runeProps.residueOffset ?? 0, duration: runeProps.residueDuration ?? 300,
         params: {radius: Math.round(casterRadiusPx * 1.5), lifetime: {min: 1500, max: 2200},
           spawnRate: 120, count: 30, initial: 0.3, alpha: {min: 0.05, max: 0.18},
@@ -246,14 +275,18 @@ function configureArrowVFXEffect(action) {
       });
     }
 
-    // Optional per-rune flight trail (follows the projectile container, set in the component).
+    // Optional per-rune flight trail (follows the projectile). `trail` is `true` for the default
+    // directional streaks, or {frames|categories, params} to customize the textures and behavior.
     const projectileParticles = [];
-    if ( runeProps.trail && textures.streak.length ) {
-      projectileParticles.push({
-        animation: "projectileParticleTrail", anchor: "projectile", textures: textures.streak,
+    if ( runeProps.trail ) {
+      const trail = runeProps.trail;
+      const trailTextures = trail.frames ? getVFXFrames(action.rune.id, ...trail.frames)
+        : (trail.categories ? trail.categories.flatMap(c => textures[c] ?? []) : textures.streak);
+      if ( trailTextures.length ) projectileParticles.push({
+        animation: "projectileParticleTrail", anchor: "projectile", textures: trailTextures,
         params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
           alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
-          blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1}
+          blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1, ...(trail.params ?? {})}
       });
     }
 
@@ -266,10 +299,14 @@ function configureArrowVFXEffect(action) {
       pathType: runeProps.path ?? {type: "linear", params: {}},
       charge: {duration: CHARGE_DURATION, sound: chargeSound,
         animations: [{function: "chargeSpriteFadeIn"}], particles: chargeParticles},
-      projectile: {texture: pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"),
-        size: runeProps.projectileSize ?? 3, speed: 150, sound: whooshSound,
+      projectile: {
+        texture: runeProps.projectileFrame
+          ? getVFXTexturePath(runeProps.projectileFrame)
+          : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
+        size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: whooshSound,
         animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
-      impact: {duration: stickDuration, sound: impactSound, animations: impactAnimations, particles: []}
+      impact: {duration: stickDuration, sound: impactSound, animations: impactAnimations,
+        particles: impactParticles}
     };
     timeline.push({component: `arrow_${j}`, position: 0});
     j++;
@@ -291,7 +328,7 @@ function finalizeArrowVFXEffect(action, vfxEffect, references) {
   for ( const [name, component] of Object.entries(vfxEffect.components) ) {
     const match = name.match(/^arrow_(\d+)$/);
     if ( !match ) continue;
-    component._sourceMesh = references.tokenMesh ?? null;
+    component._originMesh = references.tokenMesh ?? null;
     component._recoilTarget = references[`target_${match[1]}_tokenMesh`] ?? null;
   }
 }
@@ -741,16 +778,31 @@ function addImpactComponents(action, components, timeline, references, getImpact
  *   HIT/GLANCE before fading out. Omit or 0 for no stick. Best for "physical" runes whose
  *   projectile reads as a tangible object embedded in the target.
  * - `projectileSize` (number): override the projectile sprite size in feet (default 3).
- * - `trail` (boolean): emit a subtle particle trail behind the projectile during flight.
- * - `gather` (string): a registered charge-phase particle behavior for the gather (default
- *   `chargeParticleGather`); e.g. `chargeParticleVortex` for a swirling collapse.
- * - `gatherAnchor` (string): where the charge particles center - `origin` (the forward manifest point,
+ * - `projectileFrame` (string): a specific projectile texture frame (e.g. "life/ProjectileBubble");
+ *   defaults to a random `projectile`-category texture.
+ * - `projectileSpeed` (number): flight speed in feet/sec (default 150).
+ * - `whoosh` (string|null): generic launch-whoosh sound key (default "whooshFast"); null for silence.
+ * - `chargeDuration` (number): charge phase length in ms (default 700).
+ * - `trail` (boolean|{frames|categories, params}): emit a particle trail behind the projectile; `true`
+ *   uses directional streak textures, or pass texture frames/categories and behavior params to customize.
+ * - `chargeBehavior` (string): the registered charge-phase particle behavior (default
+ *   `chargeParticleGather`); e.g. `chargeParticleVortex` (swirl) or `chargeParticleBloom` (growth).
+ * - `chargeAnchor` (string): where the charge particles center - `origin` (the forward manifest point,
  *   default) or `source` (the launching token center).
- * - `gatherTail` (number): ms the charge gather keeps emitting past the projectile-release label
+ * - `chargeAbove` (boolean): draw the charge particles above the token rather than at its ground level.
+ * - `chargeCategories` (string[]): texture categories combined for the single default charge layer (["spray"]).
+ * - `chargeRadiusFactor` (number): charge radius as a multiple of the source token radius (default 2.0).
+ * - `chargeLayers` ([{categories, above, radiusFactor, params}]): replaces the single default charge layer with
+ *   explicit layers, each with its own elevation (`above`), radius, and material params.
+ * - `impactSprite` (boolean): show the impact burst sprite on a hit (default true).
+ * - `recoil` (boolean): rock/shake the struck token on a hit (default true).
+ * - `impactSpray` ({frames, params}): an impact particle pop from the named frames (e.g. SprayLeaf,
+ *   SprayBubble) with optional material overrides.
+ * - `chargeTail` (number): ms the charge particles keep emitting past the projectile-release label
  *   (default 200, overlapping the launch); negative ends emission before release.
- * - `smoke` (boolean): emit the soft atmospheric (air) smoke gather layer during charge (default true;
- *   set false for a fire-only gather).
- * - `residue` (boolean): emit the lingering atmospheric residue after the gather (default true; set
+ * - `smoke` (boolean): emit the soft atmospheric (air) smoke layer during charge (default true;
+ *   set false for a fire-only charge).
+ * - `residue` (boolean): emit the lingering atmospheric residue after the charge (default true; set
  *   false to leave nothing behind).
  * - `residueUnder` (boolean): draw the residue beneath the caster token rather than just overhead.
  * - `residueOffset` / `residueDuration` (number): ms the residue layer waits before emitting and how
@@ -758,7 +810,7 @@ function addImpactComponents(action, components, timeline, references, getImpact
  * - `residueParams` (object): residue material overrides (alpha, scale, tint, blend, lifetime, fade,
  *   spawnRate, count, ...); pass `blend: PIXI.BLEND_MODES.NORMAL` with a dark tint for sooty smoke.
  * - `sprayParams` / `smokeParams` (object): per-layer material overrides merged into the spray (mote)
- *   and air (smoke) gather layers respectively - `tint`, `scale`, `alpha`, `spawnRate`, `spawnRateEnd`
+ *   and air (smoke) charge layers respectively - `tint`, `scale`, `alpha`, `spawnRate`, `spawnRateEnd`
  *   (an emission ramp end value), etc.
  * - `path` ({type, params}): a `CONFIG.Canvas.vfx.paths` generator for the flight trajectory
  *   (default linear); e.g. `{type: "weave", params: {arcCount, amplitude}}` for a serpentine bolt.
@@ -768,9 +820,26 @@ function addImpactComponents(action, components, timeline, references, getImpact
 const RUNE_VFX_PROPS = {
   arrow: {
     frost: {stickDuration: 1500, projectileSize: 2, trail: true},
-    life: {stickDuration: 1500, projectileSize: 2, trail: true},
-    flame: {projectileSize: 3, trail: true, gather: "chargeParticleVortex", gatherAnchor: "source",
-      gatherTail: -100, smoke: false,
+    // Life is slow and gentle: a lazy bloom of growth around the caster, a drifting bubble, and a
+    // soothing leaf/bubble shower on impact. No stick, recoil, impact sprite, whoosh, or trail.
+    life: {projectileSize: 3, projectileFrame: "life/ProjectileBubble", projectileSpeed: 30,
+      whoosh: null, chargeDuration: 1500, impactSprite: false, recoil: false,
+      // A lazy bubble trail: slow, long-lived SprayBubble motes drifting behind the projectile.
+      trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
+        lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},
+        alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}},
+      chargeBehavior: "chargeParticleBloom", chargeAnchor: "source", smoke: false, residue: false,
+      // Ground growth spreads at the caster's feet (below the token); leaf/mote spray clusters tighter
+      // and overhead (above the token), denser than the ground.
+      chargeLayers: [
+        {categories: ["ground"], above: false, radiusFactor: 3.0,
+          params: {lifetime: {min: 900, max: 1500}, spawnRate: 10, scale: {min: 0.5, max: 1.0}}},
+        {categories: ["spray"], above: true, radiusFactor: 1.6,
+          params: {lifetime: {min: 900, max: 1500}, spawnRate: 110, scale: {min: 0.5, max: 1.0}}}
+      ],
+      impactSpray: {frames: ["SprayLeaf", "SprayBubble"]}},
+    flame: {projectileSize: 3, trail: true, chargeBehavior: "chargeParticleVortex", chargeAnchor: "source",
+      chargeAbove: true, chargeTail: -100, smoke: false,
       // Fire vortex above the caster; its motes ramp down as it collapses, with a wide alpha range for
       // varied transparency.
       sprayParams: {spawnRate: 560, spawnRateEnd: 160, scale: {min: 1.25, max: 2.0},
