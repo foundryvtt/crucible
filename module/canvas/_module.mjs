@@ -1,7 +1,7 @@
 import CrucibleTokenRuler from "./token-ruler.mjs";
 import CrucibleTokenHUD from "../applications/hud/token-hud.mjs";
 import {MOVEMENT_ACTIONS, TRAVEL_PACES} from "../const/actor.mjs";
-import {registerComponentAnimations} from "./vfx/component-animations.mjs";
+import {registerVFXAnimations} from "./vfx/animations/_module.mjs";
 import {registerComponents} from "./vfx/components/_module.mjs";
 
 export * as detectionModes from "./detection-modes/_module.mjs";
@@ -24,7 +24,7 @@ export function configure() {
 
   // TODO enable experimental VFX framework
   CONFIG.Canvas.vfx.enabled = true;
-  registerComponentAnimations();
+  registerVFXAnimations();
   registerComponents();
 
   // Movement Actions

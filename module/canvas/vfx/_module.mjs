@@ -1,4 +1,5 @@
-export * as animations from "./animations.mjs";
+export * as animations from "./animations/_module.mjs";
+export * as blocks from "./blocks.mjs";
 export * as sounds from "./sounds.mjs";
 export * as spells from "./spells.mjs";
 export * as sprites from "./sprites.mjs";
@@ -20,7 +21,7 @@ export function setPlaybackRate(rate) {
  * lifecycle. Pass VFXAnimationResult objects (as returned by block configure methods) and they
  * are merged, constructed as a VFXEffect, and played.
  *
- * @param {...import("./animations.mjs").VFXAnimationResult} blocks
+ * @param {...import("./blocks.mjs").VFXAnimationResult} blocks
  * @returns {Promise<void>}
  *
  * @example
@@ -35,7 +36,7 @@ export function setPlaybackRate(rate) {
  * );
  */
 export async function preview(...args) {
-  const {mergeAnimationBlocks} = await import("./animations.mjs");
+  const {mergeAnimationBlocks} = await import("./blocks.mjs");
 
   // Separate animation block results, block objects with finalize hooks, and bare finalize functions
   const results = [];

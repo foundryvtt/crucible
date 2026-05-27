@@ -23,7 +23,7 @@ const VFX_ATLASES = [
  * For example, `VFX_TEXTURES.frost.spray` contains `["#crucible.vfx.frost/SprayShard1", ...]`.
  *
  * Categories correspond to the particle type prefixes in the atlas frame names:
- * Falling, Impact, Projectile, Residue, Spray, Streak.
+ * Air, Aura, Disc, Falling, Ground, Impact, Projectile, Spray, Streak.
  * - Projectile: side-view directional sprites for x/y travel (e.g., arrow shafts).
  * - Falling: top-down descending sprites for elevation drops (e.g., hail, debris from above).
  * @type {Record<string, Record<string, string[]>>}

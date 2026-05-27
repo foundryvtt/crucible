@@ -124,11 +124,9 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   #generators = new Set();
 
   /**
-   * Construct and track a {@link ParticleGenerator}, then schedule its start, soft-stop, and hard-stop
-   * on the component timeline. Construction is eager so configuration errors surface during `_draw`;
-   * `start` fires at `position`, emission soft-stops after `config.duration`, and a hard-stop follows
-   * once the last particles have lived out their lifetime. Generators without a duration run until the
-   * component is torn down.
+   * Construct and track a {@link ParticleGenerator}, scheduling start at `position`, soft-stop after
+   * `config.duration`, and hard-stop once the last particles expire. Generators do not self-stop from
+   * `config.duration`; a generator without a duration runs until the component is torn down.
    * @param {ParticleGeneratorConfiguration} config   Configuration passed to the generator constructor.
    * @param {number} [position=0]   Timeline offset (ms) at which the generator begins emitting.
    * @returns {ParticleGenerator}
@@ -144,6 +142,46 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       this.timeline.call(() => generator.stop({hard: true}), position + config.duration + maxLifetime);
     }
     return generator;
+  }
+
+  /* -------------------------------------------- */
+  /*  Impact Sprites                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Apply the standard Crucible impact-sprite treatment on the component timeline: fade in while
+   * scaling up on arrival, then settle to a slightly smaller scale while fading out, with an optional
+   * brief ADD-blend flash that cools to NORMAL. Shared baseline for impacts across all gestures.
+   * @param {PIXI.Container} container   The impact sprite container (its child mesh is named "mesh").
+   * @param {number} start              Timeline position (ms) at which the impact arrives.
+   * @param {number} hold               On-screen duration (ms) from arrival to fully faded.
+   * @param {object} [options]
+   * @param {number} [options.scaleStart=0.5]     Arrival scale multiplier, grown to 1.0 over the fade-in.
+   * @param {number} [options.scaleSettle=0.9]    Scale settled to over the remaining hold while fading out.
+   * @param {boolean} [options.flash=true]        Flash ADD blend on arrival before cooling to NORMAL.
+   * @param {number} [options.flashDuration=150]  Duration (ms) of the ADD-blend flash.
+   */
+  _animateImpactSprite(container, start, hold, {scaleStart=0.5, scaleSettle=0.9, flash=true, flashDuration=150}={}) {
+    if ( !container || (hold <= 0) ) return;
+    const rise = Math.min(hold / 10, 120); // Quick arrival pop; the rest is a gradual settle + fade-out
+    const settle = hold - rise;
+
+    // Fade in on arrival, then fade out gradually across the whole settle window (alongside the scale)
+    this.timeline.add(container, {alpha: {from: 0, to: 1, duration: rise}}, start)
+      .add(container, {alpha: {from: 1, to: 0, duration: settle}}, start + rise);
+
+    // Pop up to full size on arrival, then ease down to the settle scale over the same window
+    container.scale.set(scaleStart);
+    this.timeline.add(container.scale, {x: {from: scaleStart, to: 1}, y: {from: scaleStart, to: 1}, duration: rise},
+      start)
+      .add(container.scale, {x: {to: scaleSettle}, y: {to: scaleSettle}, duration: settle}, start + rise);
+
+    // Flash ADD blend on arrival, then cool to NORMAL
+    const mesh = flash ? container.getChildByName?.("mesh") : null;
+    if ( mesh ) {
+      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.ADD, start);
+      this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.NORMAL, start + flashDuration);
+    }
   }
 
   /* -------------------------------------------- */

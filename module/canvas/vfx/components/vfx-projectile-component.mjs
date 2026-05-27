@@ -1,7 +1,7 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
-import {getParticleScaleFactor} from "../animations.mjs";
+import {getParticleScaleFactor} from "../blocks.mjs";
 
-const {ArrayField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
+const {ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a single projectile attack: a charge phase, a flight phase along a
@@ -37,6 +37,16 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         params: new ObjectField({required: false})
       }),
 
+      // Optional caster anchor (token center), independent of the projectile origin: charge particles
+      // that should swirl around the spellcaster anchor here rather than at the forward manifest point.
+      caster: new SchemaField({
+        x: new NumberField({required: true, nullable: false}),
+        y: new NumberField({required: true, nullable: false}),
+        elevation: new NumberField({required: true, nullable: false, initial: 0}),
+        sort: new NumberField({nullable: false, initial: 0}),
+        sortLayer: new NumberField({nullable: false, initial: SL.TOKENS})
+      }, {required: false, nullable: true, initial: null}),
+
       charge: new SchemaField({
         duration: new NumberField({required: true, nullable: false, initial: 700}),
         sound: self.#soundField(),
@@ -57,10 +67,16 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         stickDuration: new NumberField({required: true, nullable: false, initial: 0}),
         sound: self.#soundField(),
         // Optional single burst sprite, decoupled from the projectile stick; null on a clean miss.
+        // scaleStart/scaleSettle/flash/flashDuration drive the shared impact treatment (see
+        // CrucibleVFXComponent#_animateImpactSprite).
         burst: new SchemaField({
           texture: new StringField({required: true, blank: false}),
           size: new NumberField({required: true, nullable: false, initial: 3}),
-          duration: new NumberField({required: true, nullable: false, initial: 1000})
+          duration: new NumberField({required: true, nullable: false, initial: 1000}),
+          scaleStart: new NumberField({required: true, nullable: false, initial: 0.5}),
+          scaleSettle: new NumberField({required: true, nullable: false, initial: 0.9}),
+          flash: new BooleanField({initial: true}),
+          flashDuration: new NumberField({required: true, nullable: false, initial: 150})
         }, {required: false, nullable: true, initial: null}),
         animations: self.#animationsField(),
         particles: new ArrayField(self.#particleField())
@@ -103,7 +119,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     return new SchemaField({
       animation: new StringField({required: true, blank: false}),
       anchor: new StringField({required: true, blank: false, initial: "origin",
-        choices: ["origin", "destination", "projectile"]}),
+        choices: ["origin", "destination", "projectile", "caster"]}),
       textures: new ArrayField(new StringField({required: true, blank: false})),
       offset: new NumberField({required: true, nullable: false, initial: 0}),  // Milliseconds after phase start
       duration: new NumberField({nullable: true, initial: null}),              // Null uses the phase length
@@ -163,6 +179,8 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     if ( this.impact.burst ) {
       this.impact.container = this.addManagedDisplayObject(
         this.#createSprite(this.impact.burst.texture, this.impact.burst.size, destination));
+      // Face the burst along the incoming direction (rotation 0 when the origin is due west).
+      this.impact.container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x);
     }
 
     // Shared animation state passed to phase animators (mirrors VFXSingleAttackComponent#state).
@@ -170,7 +188,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       origin, destination, flightPath, lastPathIndex: 0,
       charge: this.charge, projectile: this.projectile, impact: this.impact
     };
-    const anchors = {origin, destination, projectile: this.projectile.container};
+    const anchors = {origin, destination, projectile: this.projectile.container, caster: this.caster ?? origin};
 
     // Charge phase
     this.#drivePhaseAnimations(this.charge, state, timings.chargeStart, this.charge.duration);
@@ -248,6 +266,8 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         count: params.count ?? null,
         initial: params.initial ?? 0,
         blend: params.blend ?? 0,
+        tint: params.tint ?? 0xFFFFFF, // Multiplied into the texture; a dark value darkens (e.g. sooty smoke)
+        fade: params.fade,             // Optional {in, out} alpha envelope (fractions of lifetime or ms)
         spawnRate: params.spawnRate ?? 240,
         lifetime,
         alpha: params.alpha ? [params.alpha.min, params.alpha.max] : [1, 1],
@@ -257,16 +277,24 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         duration: layer.duration ?? duration,
         ...behavior.setup(context)
       };
-      this._spawnGenerator(config, start + layer.offset);
+      const generator = this._spawnGenerator(config, start + layer.offset);
+
+      // Optional emission ramp: tween spawnRate from its initial value to params.spawnRateEnd across the
+      // layer, e.g. to crossfade a flame-heavy gather toward smoke as the energy burns down.
+      if ( (params.spawnRateEnd !== undefined) && (params.spawnRateEnd !== config.spawnRate) ) {
+        this.timeline.add(generator,
+          {spawnRate: {from: config.spawnRate, to: params.spawnRateEnd, duration: config.duration}},
+          start + layer.offset);
+      }
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Fade the impact burst in and out and fade the projectile out. When the projectile sticks, the
-   * burst holds for the same duration so both exit together; otherwise the burst plays for its own
-   * duration and the projectile vanishes at impact.
+   * Apply the shared impact treatment to the burst and fade the projectile out. When the projectile
+   * sticks, the burst holds for the stick duration so both exit together; otherwise it plays for its
+   * own duration and the projectile vanishes at impact.
    * @param {object} timings   The computed phase timings.
    */
   #animateImpact(timings) {
@@ -274,9 +302,9 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     const stick = this.impact.stickDuration;
     const hold = (stick > 0) ? stick : (this.impact.burst?.duration ?? 0);
     if ( this.impact.container ) {
-      const fade = Math.min(hold / 8, 150);
-      this.timeline.add(this.impact.container, {alpha: {from: 0, to: 1, duration: fade}}, impactStart)
-        .add(this.impact.container, {alpha: {from: 1, to: 0, duration: fade}}, impactStart + hold - fade);
+      const {scaleStart, scaleSettle, flash, flashDuration} = this.impact.burst;
+      this._animateImpactSprite(this.impact.container, impactStart, hold,
+        {scaleStart, scaleSettle, flash, flashDuration});
     }
     const fadeStart = (stick > 0) ? (impactStart + stick - 150) : impactStart;
     this.timeline.add(this.projectile.container, {alpha: {to: 0, duration: 150}}, fadeStart);

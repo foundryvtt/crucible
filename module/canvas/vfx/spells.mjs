@@ -1,7 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths} from "./sprites.mjs";
-import {particleGenerator, mergeAnimationBlocks, getParticleScaleFactor,
+import {mergeAnimationBlocks, getParticleScaleFactor,
   rayBeam, castoffFlare, linearCascade, coneSweepEmitter, expandingCascade,
-  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./animations.mjs";
+  airResidue, groundResidue, groundImpacts, implodeExplode, fallingDebris} from "./blocks.mjs";
 import {computeAttackOffset, pickRandom} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 
@@ -15,9 +15,8 @@ import {getVFXSound} from "./sounds.mjs";
 /**
  * Resolved context shared across all components within a single spell VFX configuration.
  * @typedef SpellVFXContext
- * @property {{primary: number[], secondary: number[], residue: number[]}} runeColors  Color palettes for the action's rune.
- * @property {number} particleElevation                       Elevation at which particle containers render.
- * @property {SpellVFXTextures} textures                      Resolved texture paths for the action's rune.
+ * @property {number} particleElevation   Elevation at which particle containers render.
+ * @property {SpellVFXTextures} textures   Resolved texture paths for the action's rune.
  */
 
 /**
@@ -146,8 +145,9 @@ function configureArrowVFXEffect(action) {
   const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
 
   const CHARGE_DURATION = 700;
-  const GATHER_DURATION = CHARGE_DURATION + 200; // Gather continues briefly past launch
   const runeProps = RUNE_VFX_PROPS.arrow?.[action.rune.id] ?? {};
+  const gatherTail = runeProps.gatherTail ?? 200; // Ms the gather keeps emitting past the projectile-release label
+  const GATHER_DURATION = CHARGE_DURATION + gatherTail;
 
   // Resolve sounds once; the component plays each on its phase. Variant choice is baked here so all
   // clients hear the same sequence. align START fires each sound at its phase start.
@@ -189,7 +189,8 @@ function configureArrowVFXEffect(action) {
     references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
       sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
 
-    // Per-result impact: HIT/GLANCE burst, RESIST air puff, MISS/DODGE nothing. Stick only on a hit.
+    // Per-result impact: HIT/GLANCE land with an impact burst + impact sound; anything else (resisted
+    // or missed) plays the rune's miss cue, with a dissipating air puff on a resist. Stick only on a hit.
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
     let burst = null;
@@ -198,29 +199,43 @@ function configureArrowVFXEffect(action) {
       burst = {texture: pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood"), size: 3, duration: 1000};
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
     }
-    else if ( result === T.RESIST ) {
-      const puff = pickRandom(textures.air);
-      if ( puff ) burst = {texture: puff, size: 4, duration: 1500};
-      // No impact sound on a resist - the spell fizzled. (TODO: a dedicated "fizzle" sfx if delivered.)
+    else {
+      impactSound = sound(getVFXSound(action.rune.id, "miss"));
+      if ( result === T.RESIST ) {
+        const puff = pickRandom(textures.air);
+        if ( puff ) burst = {texture: puff, size: 4, duration: 1500};
+      }
     }
 
-    // Charge particles: dense motes plus a soft atmospheric gather and lingering caster residue,
-    // all converging on / left at the manifest point.
+    // Charge particles: dense motes (spray), an optional atmospheric smoke gather, and an optional
+    // lingering residue. Per-rune overrides come from runeProps (see RUNE_VFX_PROPS).
+    const gatherBehavior = runeProps.gather ?? "chargeParticleGather";
+    const gatherAnchor = runeProps.gatherAnchor ?? "origin";
+    // A caster-anchored gather draws above the caster token: elevation is the primary sort key and the
+    // particle container carries no sortLayer, so a same-elevation layer can never out-sort the token.
+    const gatherElevation = (gatherAnchor === "caster") ? (casterElevation + 1) : particleElevation;
+    // Residue sits under the caster (beneath the token, since the particle container has no sortLayer)
+    // when runeProps.residueUnder is set; otherwise it floats just overhead like the gather.
+    const residueElevation = runeProps.residueUnder ? casterElevation : (casterElevation + 1);
     const gatherTextures = textures.spray.length ? textures.spray : textures.impact;
     const chargeParticles = [{
-      animation: "particleGather", anchor: "origin", textures: gatherTextures, duration: GATHER_DURATION,
-      params: {gatherRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480, elevation: particleElevation}
+      animation: gatherBehavior, anchor: gatherAnchor, textures: gatherTextures, duration: GATHER_DURATION,
+      params: {gatherRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480,
+        elevation: gatherElevation, ...runeProps.sprayParams}
     }];
     if ( textures.air.length ) {
-      chargeParticles.push({
-        animation: "particleGather", anchor: "origin", textures: textures.air, duration: GATHER_DURATION,
+      if ( runeProps.smoke !== false ) chargeParticles.push({
+        animation: gatherBehavior, anchor: gatherAnchor, textures: textures.air, duration: GATHER_DURATION,
         params: {gatherRadius: casterRadiusPx * 2.5, lifetime: 500, spawnRate: 60,
-          alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: particleElevation}
-      }, {
-        animation: "particleResidue", anchor: "origin", textures: textures.air, duration: 300,
+          alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: gatherElevation,
+          ...runeProps.smokeParams}
+      });
+      if ( runeProps.residue !== false ) chargeParticles.push({
+        animation: "chargeParticleResidue", anchor: gatherAnchor, textures: textures.air,
+        offset: runeProps.residueOffset ?? 0, duration: runeProps.residueDuration ?? 300,
         params: {radius: Math.round(casterRadiusPx * 1.5), lifetime: {min: 1500, max: 2200},
           spawnRate: 120, count: 30, initial: 0.3, alpha: {min: 0.05, max: 0.18},
-          elevation: casterElevation + 1}
+          elevation: residueElevation, ...runeProps.residueParams}
       });
     }
 
@@ -228,7 +243,7 @@ function configureArrowVFXEffect(action) {
     const projectileParticles = [];
     if ( runeProps.trail && textures.streak.length ) {
       projectileParticles.push({
-        animation: "particleTrail", anchor: "projectile", textures: textures.streak,
+        animation: "projectileParticleTrail", anchor: "projectile", textures: textures.streak,
         params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
           alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
           blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1}
@@ -241,11 +256,14 @@ function configureArrowVFXEffect(action) {
         {reference: manifestRef, deltas: {}},
         {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
       ],
+      pathType: runeProps.path ?? {type: "linear", params: {}},
+      caster: {x: casterCenterX, y: casterCenterY, elevation: casterElevation,
+        sort: casterMeshSort, sortLayer: SL.TOKENS},
       charge: {duration: CHARGE_DURATION, sound: chargeSound,
-        animations: [{function: "projectileFadeIn"}], particles: chargeParticles},
+        animations: [{function: "chargeSpriteFadeIn"}], particles: chargeParticles},
       projectile: {texture: pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"),
         size: runeProps.projectileSize ?? 3, speed: 150, sound: whooshSound,
-        animations: [{function: "projectileFlight"}], particles: projectileParticles},
+        animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
       impact: {stickDuration, sound: impactSound, burst, particles: []}
     };
     timeline.push({component: `arrow_${j}`, position: 0});
@@ -275,7 +293,7 @@ function configureFanVFXEffect(action) {
 
   const {x, y, radius, angle, rotation} = shape.toObject();
   const origin = {x, y};
-  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
+  const {particleElevation, textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -358,7 +376,7 @@ function configureRayVFXEffect(action) {
 
   const {x, y, length, width, rotation} = shape.toObject();
   const origin = {x, y};
-  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
+  const {textures} = resolveSpellVFXContext(action);
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -440,7 +458,7 @@ function configureBlastVFXEffect(action) {
   const shapeSource = shape.toObject();
   const {x, y, radius} = shapeSource;
   const origin = {x, y};
-  const {runeColors, particleElevation, textures} = resolveSpellVFXContext(action);
+  const {particleElevation, textures} = resolveSpellVFXContext(action);
 
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
@@ -608,15 +626,13 @@ function finalizeBlastVFXEffect(action, vfxEffect, references) {
 
 /**
  * Resolve shared VFX context common to all spell particle generators for this action.
- * Extracts the rune color palette, particle elevation, and per-category texture paths,
- * which are identical across every component in a given configurator.
+ * Extracts the particle elevation and per-category texture paths, identical across every component.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXContext}
  */
 function resolveSpellVFXContext(action) {
   const runeId = action.rune.id;
   return {
-    runeColors: RUNE_COLORS[runeId] ?? RUNE_COLORS._default,
     particleElevation: action.region?.elevation.top ?? 0,
     textures: {
       air: getVFXTexturePaths(runeId, "air"),
@@ -704,12 +720,46 @@ function addImpactComponents(action, components, timeline, references, getImpact
  *   projectile reads as a tangible object embedded in the target.
  * - `projectileSize` (number): override the projectile sprite size in feet (default 3).
  * - `trail` (boolean): emit a subtle particle trail behind the projectile during flight.
+ * - `gather` (string): a registered charge-phase particle behavior for the gather (default
+ *   `chargeParticleGather`); e.g. `chargeParticleVortex` for a swirling collapse.
+ * - `gatherAnchor` (string): where the charge particles center - `origin` (the forward manifest point,
+ *   default) or `caster` (the spellcaster token center).
+ * - `gatherTail` (number): ms the charge gather keeps emitting past the projectile-release label
+ *   (default 200, overlapping the launch); negative ends emission before release.
+ * - `smoke` (boolean): emit the soft atmospheric (air) smoke gather layer during charge (default true;
+ *   set false for a fire-only gather).
+ * - `residue` (boolean): emit the lingering atmospheric residue after the gather (default true; set
+ *   false to leave nothing behind).
+ * - `residueUnder` (boolean): draw the residue beneath the caster token rather than just overhead.
+ * - `residueOffset` / `residueDuration` (number): ms the residue layer waits before emitting and how
+ *   long it emits (defaults 0 / 300).
+ * - `residueParams` (object): residue material overrides (alpha, scale, tint, blend, lifetime, fade,
+ *   spawnRate, count, ...); pass `blend: PIXI.BLEND_MODES.NORMAL` with a dark tint for sooty smoke.
+ * - `sprayParams` / `smokeParams` (object): per-layer material overrides merged into the spray (mote)
+ *   and air (smoke) gather layers respectively - `tint`, `scale`, `alpha`, `spawnRate`, `spawnRateEnd`
+ *   (an emission ramp end value), etc.
+ * - `path` ({type, params}): a `CONFIG.Canvas.vfx.paths` generator for the flight trajectory
+ *   (default linear); e.g. `{type: "weave", params: {arcCount, amplitude}}` for a serpentine bolt.
  *
  * @type {Record<string, Record<string, object>>}
  */
 const RUNE_VFX_PROPS = {
   arrow: {
-    frost: {stickDuration: 1500, projectileSize: 2, trail: true}
+    frost: {stickDuration: 1500, projectileSize: 2, trail: true},
+    life: {stickDuration: 1500, projectileSize: 2, trail: true},
+    flame: {projectileSize: 3, trail: true, gather: "chargeParticleVortex", gatherAnchor: "caster",
+      gatherTail: -100, smoke: false,
+      // Fire vortex above the caster; its motes ramp down as it collapses, with a wide alpha range for
+      // varied transparency.
+      sprayParams: {spawnRate: 560, spawnRateEnd: 160, scale: {min: 1.25, max: 2.0},
+        alpha: {min: 0.4, max: 0.9}},
+      // A subtle dark smoke beneath the caster: starts halfway through the charge and lingers ~0.5s
+      // past release (NORMAL blend + dark tint rather than the default glowing ADD haze).
+      residueUnder: true, residueOffset: 350, residueDuration: 300, // Offset is ~half the 700ms charge
+      residueParams: {spawnRate: 70, count: null, initial: 0.2, lifetime: {min: 500, max: 800},
+        alpha: {min: 0.2, max: 0.45}, scale: {min: 0.7, max: 1.2}, tint: 0x6B5A48,
+        blend: PIXI.BLEND_MODES.NORMAL, fade: {in: 0.2, out: 0.4}},
+      path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}}
   }
 };
 
@@ -718,15 +768,11 @@ const RUNE_VFX_PROPS = {
 /* -------------------------------------------- */
 
 /**
- * Per-rune color palettes for spell particle tinting.
- * Each entry has three palettes: beam (main directional stream), spillage (cascading halo), and
- * afterimage (lingering residue that outlasts the primary effect). Colors are plain hex numbers
- * passed to ParticleGenerator's debug.tint palette, which randomly assigns one color per particle.
- * Uses raw hex literals rather than Color instances to avoid PIXI tint coercion issues with
- * Number subclasses. Chosen to work with PIXI.BLEND_MODES.ADD against a dark scene background.
+ * Per-rune particle tint palettes (primary / secondary / residue), as raw hex literals.
+ * Not currently wired to any configurator; retained for future rune-tinted particle effects.
  * @type {Record<string, {primary: number[], secondary: number[], residue: number[]}>}
  */
-const RUNE_COLORS = {
+export const RUNE_COLORS = {
   control: {
     // Psychic control and coercion: red-pink spectrum
     primary: [0xFF1133, 0xFF3366, 0xFF5588],

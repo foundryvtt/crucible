@@ -1,14 +1,15 @@
-import {PARTICLE_BEHAVIORS} from "./particle-behaviors.mjs";
-
 /**
- * Crucible-defined VFX component animations, registered into `CONFIG.Canvas.vfx.animations` for
- * use in `singleAttack`/`singleImpact` component animation arrays.
+ * Crucible sprite animators: registered VFX animations that drive a display object (the projectile
+ * container) over a phase's timeline. Each exposes the timeline-animator contract: an optional
+ * `setup(state, params)` run once, then `animate(t, state, params)` called each frame against a
+ * linear progress tween. See `animations/_module.mjs` for the naming convention.
  */
 
 /**
- * Fade the projectile container's alpha 0 -> 1 over the bound timeline range.
+ * Fade the projectile container's alpha 0 -> 1 over the charge phase.
+ * @type {import("@client/canvas/vfx/_types.mjs").VFXComponentAnimation}
  */
-const projectileFadeIn = {
+const chargeSpriteFadeIn = {
   setup(state, params) {
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "inQuad");
   },
@@ -21,11 +22,12 @@ const projectileFadeIn = {
 /* -------------------------------------------- */
 
 /**
- * Drive the projectile container along its precomputed flight path.
+ * Drive the projectile container along its precomputed flight path during the projectile phase.
  * Mirrors upstream `followPath` minus the `mesh.anchor.x` lerp that continues the bow `drawBack`
  * charge animation - spell projectiles have no drawback so the trailing-anchor jump is incorrect.
+ * @type {import("@client/canvas/vfx/_types.mjs").VFXComponentAnimation}
  */
-const projectileFlight = {
+const projectileSpriteFlight = {
   setup(state, params) {
     state.lastPathIndex = 0;
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "linear", params.easingParams);
@@ -47,26 +49,10 @@ const projectileFlight = {
 /* -------------------------------------------- */
 
 /**
- * The full set of Crucible-defined VFX component animations, keyed by registry name.
+ * Crucible sprite animators, keyed by registry name.
  * @type {Record<string, import("@client/canvas/vfx/_types.mjs").VFXComponentAnimation>}
  */
-export const COMPONENT_ANIMATIONS = {
-  projectileFadeIn,
-  projectileFlight
+export const SPRITE_ANIMATIONS = {
+  chargeSpriteFadeIn,
+  projectileSpriteFlight
 };
-
-/* -------------------------------------------- */
-
-/**
- * Register all Crucible component animations into the global VFX animation registry.
- */
-export function registerComponentAnimations() {
-  // Timeline animators (expose `animate`) and particle behaviors (expose `setup` returning generator
-  // config) share the one registry; the consuming site decides which contract it invokes.
-  for ( const [name, animation] of Object.entries(COMPONENT_ANIMATIONS) ) {
-    CONFIG.Canvas.vfx.animations[name] = animation;
-  }
-  for ( const [name, behavior] of Object.entries(PARTICLE_BEHAVIORS) ) {
-    CONFIG.Canvas.vfx.animations[name] = behavior;
-  }
-}

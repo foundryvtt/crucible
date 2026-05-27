@@ -79,7 +79,7 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.9,"y":0.5}
+	"anchor": {"x":0.95,"y":0.5}
 },
 "flame/ImpactFlames":
 {
@@ -97,7 +97,7 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.9,"y":0.5}
+	"anchor": {"x":0.98,"y":0.5}
 },
 "flame/ProjectileBlazing":
 {
@@ -304,7 +304,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":10,"w":121,"h":107},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.25,"y":0.5}
 },
 "frost/ImpactShards":
 {
@@ -331,7 +331,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":3,"w":120,"h":121},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
+	"anchor": {"x":0.15,"y":0.5}
 },
 "frost/ProjectileChunk":
 {
@@ -592,7 +592,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":2,"w":119,"h":124},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.85,"y":0.5}
+	"anchor": {"x":0.9,"y":0.5}
 },
 "life/ImpactWispy":
 {
@@ -601,7 +601,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":123},
 	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.85,"y":0.5}
+	"anchor": {"x":0.9,"y":0.5}
 },
 "life/ProjectileBubble":
 {
@@ -763,6 +763,6 @@
 	"format": "BASISU_ETC1S",
 	"size": {"w":256,"h":2444},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:fd753ee39c88b71aeff7f9cdf0df6439:6fa32ae16ff30139fb908c61eec60dec:f62ce8200f4d7a9ca7b0203f0788715d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5e2bce7539ccb135c621f1c13cb701ec:6fa32ae16ff30139fb908c61eec60dec:f62ce8200f4d7a9ca7b0203f0788715d$"
 }
 }

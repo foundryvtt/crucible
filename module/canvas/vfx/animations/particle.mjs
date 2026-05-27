@@ -1,11 +1,9 @@
 /**
- * Crucible particle behaviors, registered into `CONFIG.Canvas.vfx.animations` alongside the timeline
- * animators. A particle behavior is referenced by name from a particle layer's `animation` field and,
- * unlike a timeline animator (which exposes `animate`), exposes `setup(context)` that RETURNS the
- * behavior-specific raw ParticleGenerator config (area, velocity, rotation, blend, drift, onSpawn,
- * onTick). The component supplies the generic material (textures, lifetime, scale, alpha, density) and
- * merges the behavior's contribution over it. Names are `particle*` prefixed so registry entries
- * self-identify as behaviors rather than timeline animators.
+ * Crucible particle behaviors: registered VFX animations that configure a {@link ParticleGenerator}.
+ * Each exposes the behavior contract `setup(context) -> object`, returning the behavior-specific raw
+ * generator config (area, velocity, rotation, blend, drift, onSpawn, onTick) merged over the
+ * component-owned material (textures, lifetime, scale, alpha, density). See `animations/_module.mjs`
+ * for the naming convention.
  */
 
 /**
@@ -24,12 +22,12 @@
  */
 
 /**
- * Inward convergence: particles spawn on a ring around the anchor and travel to its center over their
- * lifetime, dying at the manifest point. Ported from the former `manifestProjectile` block.
+ * Inward convergence: particles spawn on a ring around the anchor and travel straight to its center
+ * over their lifetime, dying at the manifest point.
  * Tuning (`params`): `gatherRadius` (px, required).
  * @type {CrucibleParticleBehavior}
  */
-const particleGather = {
+const chargeParticleGather = {
   setup({anchor, gridScale, lifetime, params}) {
     const gatherRadius = params.gatherRadius;
     const radiusPx = gatherRadius * gridScale;
@@ -55,12 +53,60 @@ const particleGather = {
 /* -------------------------------------------- */
 
 /**
- * Trailing stream that follows the projectile container each frame. Ported from the former
- * `projectileTrail` block; the container is now read directly from phase state rather than a sibling.
+ * Imploding vortex: ring-spawned motes orbit the anchor while their radius collapses to the center
+ * over their lifetime, spinning on their own axis and fading as they arrive. Position/rotation are
+ * parametric (functions of age), driven from `onUpdate` not `onTick` so they keep moving after the
+ * generator soft-stops rather than freezing mid-spin. An outward-bursting variant belongs in a separate
+ * `chargeParticleVortexBurst`, not a branch here.
+ * Tuning (`params`): `gatherRadius` (px, required), `swirlSpeed` (rad/sec orbit), `spinSpeed` (rad/sec
+ * self-rotation, default = swirl), `fade` ({in, out} of lifetime).
+ * @type {CrucibleParticleBehavior}
+ */
+const chargeParticleVortex = {
+  setup({anchor, params}) {
+    const gatherRadius = params.gatherRadius;
+    const bandWidth = Math.max(2, gatherRadius * 0.15); // Thicker band than gather for a fuller ring
+    const swirl = params.swirlSpeed ?? 3;               // Rad/sec orbital velocity; slow reads as ominous
+    const spin = params.spinSpeed ?? swirl;             // Rad/sec self-rotation, same direction as the orbit
+
+    // Place a particle for its current age: collapse its radius toward the center, advance its orbit,
+    // and spin it on its own axis. Shared by onSpawn (first frame) and onUpdate (every frame after).
+    const place = (p, generator) => {
+      const ox = anchor.x - generator.bounds.x; // Anchor expressed in generator-local space
+      const oy = anchor.y - generator.bounds.y;
+      const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
+      const r = p._vortexRadius * (1 - age);
+      const a = p._vortexAngle + (swirl * p.elapsedTime * 0.001);
+      p.x = ox + (Math.cos(a) * r);
+      p.y = oy + (Math.sin(a) * r);
+      p.rotation = p._vortexSpin + (spin * p.elapsedTime * 0.001);
+    };
+    return {
+      area: {type: "ring", x: anchor.x, y: anchor.y, radius: gatherRadius,
+        innerWidth: bandWidth, outerWidth: bandWidth},
+      velocity: {speed: [0, 0], angle: [0, 360]}, // Held at 0; onSpawn/onUpdate drive position parametrically
+      fade: params.fade ?? {in: 0.15, out: 0.45},  // Fade in on spawn, fade out as it collapses to center
+      onSpawn: (p, {generator}) => {
+        const sx = p.x + generator.bounds.x;
+        const sy = p.y + generator.bounds.y;
+        p._vortexAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
+        p._vortexRadius = Math.hypot(sx - anchor.x, sy - anchor.y);
+        p._vortexSpin = Math.random() * Math.PI * 2; // Random initial orientation, then a steady spin
+        place(p, generator);
+      },
+      onUpdate: (p, {generator}) => place(p, generator)
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Trailing stream that follows the projectile container each frame.
  * Tuning (`params`): `align` (bool), `flipX` (bool), `rotationSpread` (number), `speed` ({min, max}).
  * @type {CrucibleParticleBehavior}
  */
-const particleTrail = {
+const projectileParticleTrail = {
   setup({state, params}) {
     const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = params;
     const POSITION_STEP = 4; // Quantize spawn-area moves to throttle updateSource calls
@@ -109,17 +155,19 @@ const particleTrail = {
 /* -------------------------------------------- */
 
 /**
- * Lingering atmospheric haze drifting outward from the anchor in ADD blend. Ported from the former
- * `airResidue` block. Tuning (`params`): `radius` (px, required), `speed` ({min, max}).
+ * Lingering atmospheric haze drifting outward from the anchor, left behind after a charge gather.
+ * Defaults to ADD blend (glowing haze); pass `blend: PIXI.BLEND_MODES.NORMAL` (with a dark tint) for
+ * sooty smoke instead.
+ * Tuning (`params`): `radius` (px, required), `speed` ({min, max}), `blend`.
  * @type {CrucibleParticleBehavior}
  */
-const particleResidue = {
+const chargeParticleResidue = {
   setup({anchor, params}) {
     const {radius, speed = {min: 12, max: 55}} = params;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
       velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
-      blend: PIXI.BLEND_MODES.ADD,
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       drift: {enabled: true, intensity: 0.5}
     };
   }
@@ -128,11 +176,12 @@ const particleResidue = {
 /* -------------------------------------------- */
 
 /**
- * The full set of Crucible particle behaviors, keyed by registry name.
+ * Crucible particle behaviors, keyed by registry name.
  * @type {Record<string, CrucibleParticleBehavior>}
  */
-export const PARTICLE_BEHAVIORS = {
-  particleGather,
-  particleTrail,
-  particleResidue
+export const PARTICLE_ANIMATIONS = {
+  chargeParticleGather,
+  chargeParticleVortex,
+  projectileParticleTrail,
+  chargeParticleResidue
 };

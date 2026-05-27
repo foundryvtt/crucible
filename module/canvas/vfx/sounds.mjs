@@ -55,20 +55,41 @@ export const VFX_SOUNDS = {
  * Per-rune spell sound library, the audio analog of the per-rune texture library (VFX_TEXTURES /
  * RUNE_COLORS): static reference data describing which sound files exist for each rune and their
  * playback metadata. Sound types follow the S1-S4 taxonomy: `charge` (S1 one-shot), `passive`
- * (S2 loop), `damage` (S3 loop), `impact` (S4 one-shot). The pseudo-rune `generic` holds
- * rune-agnostic sounds such as the projectile `whoosh`.
+ * (S2 loop), `damage` (S3 loop), `impact` (S4 one-shot), plus `miss` (one-shot, played when a spell
+ * is resisted or misses). The pseudo-rune `generic` holds rune-agnostic sounds such as the
+ * projectile `whoosh`.
  * @type {Record<string, {prefix: string} & Record<string, VFXSoundEntry[]>>}
  */
 export const RUNE_SOUNDS = {
   frost: {
     prefix: "systems/crucible/assets/sfx/frost",
-    charge: [{src: "FrostChargeUp.ogg", duration: 1.409}],
-    passive: [{src: "FrostPassiveLoop.ogg", loop: true}],
-    damage: [{src: "FrostDamageLoop.ogg", loop: true}],
+    charge: [{src: "FrostChargeUpMedium.ogg", duration: 1.409}],
+    passive: [{src: "FrostLoopPassive.ogg", loop: true}],
+    damage: [{src: "FrostLoopDamage.ogg", loop: true}],
     impact: [
       {src: "FrostImpact1.ogg", duration: 2.022},
       {src: "FrostImpact2.ogg", duration: 2.861},
       {src: "FrostImpact3.ogg", duration: 3.111}
+    ],
+    miss: [
+      {src: "FrostMiss1.ogg", duration: 0.988},
+      {src: "FrostMiss2.ogg", duration: 1.018}
+    ]
+  },
+  flame: {
+    prefix: "systems/crucible/assets/sfx/flame",
+    // FlameChargeUpLarge.ogg (1.669s) is reserved for larger gestures; the arrow uses the medium charge.
+    charge: [{src: "FlameChargeUpMedium.ogg", duration: 1.562}],
+    passive: [{src: "FlameLoopPassive.ogg", loop: true}],
+    damage: [{src: "FlameLoopDamage.ogg", loop: true}],
+    impact: [
+      {src: "FlameImpact1.ogg", duration: 1.184},
+      {src: "FlameImpact2.ogg", duration: 1.184},
+      {src: "FlameImpact3.ogg", duration: 1.184}
+    ],
+    miss: [
+      {src: "FlameMiss1.ogg", duration: 1.092},
+      {src: "FlameMiss2.ogg", duration: 1.395}
     ]
   },
   generic: {
@@ -86,7 +107,7 @@ export const RUNE_SOUNDS = {
  * descriptor, or null if the rune has no such sound. Variant selection happens here so the choice is
  * made once on the originating client and baked into the serialized component config.
  * @param {string} rune    Rune id, or "generic" for rune-agnostic sounds.
- * @param {string} type    Sound type: "charge" | "passive" | "damage" | "impact" | "whoosh".
+ * @param {string} type    Sound type: "charge" | "passive" | "damage" | "impact" | "miss" | "whoosh".
  * @returns {VFXSoundDescriptor|null}
  */
 export function getVFXSound(rune, type) {
