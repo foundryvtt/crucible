@@ -22,7 +22,7 @@ HOOKS.antitoxin = {
   postActivate() {
     const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
     const neutralizeAmount = tiers[this.item.system.quality];
-    for ( const target of this.targets.keys() ) {
+    for ( const [target] of this.targets ) {
       const effects = [];
       for ( const effect of target.effects ) {
         if ( !effect.statuses.has("poisoned") || !effect.system.dot?.length ) continue;
@@ -525,7 +525,7 @@ HOOKS.healingElixir = {
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
-    for ( const target of this.targets ) {
+    for ( const [target] of this.targets ) {
       this.recordEvent({target, resources: [{resource: "health", delta: amount}]});
     }
   }
@@ -673,7 +673,7 @@ HOOKS.executionersStrike = {
 HOOKS.extollDeeds = {
   postActivate() {
     const morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
-    for ( const target of this.targets ) {
+    for ( const [target] of this.targets ) {
       this.recordEvent({target, resources: [{resource: "morale", delta: morale}]});
     }
   }
@@ -995,7 +995,7 @@ HOOKS.poisonIngest = {
 HOOKS.rallyingCry = {
   postActivate() {
     const amount = this.actor.abilities.presence.value;
-    for ( const target of this.targets ) {
+    for ( const [target] of this.targets ) {
       this.recordEvent({target, resources: [{resource: "morale", delta: amount}]});
     }
   }
@@ -1008,7 +1008,7 @@ HOOKS.rallyingElixir = {
     const quality = this.usage.consumable.config.quality;
     let amount = 6;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
-    for ( const target of this.targets ) {
+    for ( const [target] of this.targets ) {
       this.recordEvent({target, resources: [{resource: "morale", delta: amount}]});
     }
   }
