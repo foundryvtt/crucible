@@ -153,14 +153,24 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   _refreshMeshSizeAndScale() {
     super._refreshMeshSizeAndScale();
-    if ( !crucible.CONFIG.elevationScaling || !canvas.level ) return;
-    // Calculate elevation relative to the viewed level so that tokens farther away from the 'camera' appear smaller.
-    const elevation = this.document.elevation - canvas.level.elevation.base;
-    if ( elevation >= 0 ) return; // Do not make 'closer' tokens bigger.
-    // Hyperbolic falloff.
-    const factor = Math.max(.5, 1 / (1 - (elevation / 90)));
-    this.mesh.scale.x *= factor;
-    this.mesh.scale.y *= factor;
+    const factor = this.getMicrogridScaleFactor();
+    const {x: sx, y: sy} = this.mesh.scale;
+    this.mesh.scale.set(sx * factor, sy * factor);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the desired adjusted scale of this token when applied to the Crucible microgrid.
+   * Shrink or enlarge tokens with hyperbolic falloff factor, clamped to an allowed range of [0.5, 1.5]
+   * @returns {number}
+   */
+  getMicrogridScaleFactor() {
+    if ( !crucible.CONFIG.elevationScaling || !canvas.level || !this.document.parent.useMicrogrid ) return 1;
+    const de = this.document.elevation - canvas.level.elevation.base;
+    if ( de === 0 ) return 1;
+    if ( de < 0 ) return Math.max(0.5, 1 / (1 - (de / 90)));  // Reaches 0.5 at -90ft
+    if ( de > 0 ) return Math.min(1.5, 1 / (1 - (de / 270))); // Reaches 1.5 at +90ft
   }
 
   /* -------------------------------------------- */
@@ -330,6 +340,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         ??= segment.actionConfig.getCostFunction(this.document, options);
       return calculateActionCost(terrainCost, from, to, distance, segment);
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getMovementCollisionTestConfiguration(segment, options) {
+    const config = super._getMovementCollisionTestConfiguration(segment, options);
+    let tokenCollision = this.inCombat;
+    if ( options.crucible?.ignoreTokens ) tokenCollision = false;
+    if ( segment.actionConfig?.tokenCollision === false ) tokenCollision = false;
+    config.tokenCollision = tokenCollision;
+    return config;
   }
 
   /* -------------------------------------------- */
