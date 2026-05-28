@@ -1,6 +1,6 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
 import {getParticleScaleFactor} from "../blocks.mjs";
-const {NumberField} = foundry.data.fields;
+const {BooleanField, NumberField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
@@ -20,6 +20,13 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
   /** @override */
   static TYPE = "crucibleRay";
 
+  /**
+   * The mesh of the Action origin Token, injected by finalizeVFX; used to anchor charge particles at the
+   * caster (the `source` anchor) so rays can reuse caster-anchored arrow charge configs.
+   * @type {PIXI.DisplayObject|null}
+   */
+  _originMesh = null;
+
   /* -------------------------------------------- */
   /*  Component Schema                            */
   /* -------------------------------------------- */
@@ -35,11 +42,14 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       length: new NumberField({required: true, nullable: false, initial: 0})
     });
 
-    // The beam delivery adds a travel `speed` (px/sec) driving per-target impact timing, and a `duration`
-    // for how long the beam persists/emits.
+    // The beam delivery adds a travel `speed` (px/sec) driving per-target impact timing, a `duration`
+    // for how long the beam persists/emits, and an `eruptive` flag that switches impact timing from
+    // staggered-per-target (a beam, default) to simultaneous-at-completion (e.g. a flame line that builds
+    // then bursts: all targets struck at `deliveryStart + duration`).
     schema.delivery.extendFields({
       speed: new NumberField({required: true, nullable: false, initial: 2500}),
-      duration: new NumberField({required: true, nullable: false, initial: 2000})
+      duration: new NumberField({required: true, nullable: false, initial: 2000}),
+      eruptive: new BooleanField({initial: false})
     });
     return schema;
   }
@@ -81,13 +91,20 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       deliveryEnd: this.charge.duration + this.delivery.duration
     };
 
+    // The caster's mesh position when injected, else the ray origin; backs the `source` anchor for
+    // caster-anchored charge particles (parity with the arrow's source-anchored charge).
+    const source = this._originMesh ? {x: this._originMesh.x, y: this._originMesh.y} : origin;
+
     // Shared state for phase animators; per-impact context is written transiently by _attachImpacts.
+    // `deliveryArea` is the ray's geometry expressed as a ParticleGenerator-native area shape (a line
+    // from origin to end), consumed by shape-agnostic delivery behaviors such as shapeParticleCombustion.
     this.state = {
-      origin, end, rotation: this.rotation, length: this.length, direction: dir,
+      origin, end, source, rotation: this.rotation, length: this.length, direction: dir,
       gridScale: getParticleScaleFactor(),
       charge: this.charge, delivery: this.delivery,
       destination: end, targetMesh: null,
-      anchors: {origin, end, target: end}
+      deliveryArea: {from: {x: origin.x, y: origin.y}, to: {x: end.x, y: end.y}},
+      anchors: {origin, end, source, target: end}
     };
 
     // Charge phase (at the source)
@@ -111,10 +128,13 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
   /* -------------------------------------------- */
 
   /**
-   * The beam front reaches each target at a time proportional to its distance from the source.
+   * For a beam (default), the front reaches each target at a time proportional to its distance from the
+   * source. For an eruptive delivery (e.g. a flame line that builds then bursts), all targets are struck
+   * simultaneously when the line completes.
    * @override
    */
   _impactStart(target) {
+    if ( this.delivery.eruptive ) return this.timings.deliveryStart + this.delivery.duration;
     const beamSpeed = this.delivery.speed * this.state.gridScale;
     const dist = Math.hypot(target.x - this.origin.x, target.y - this.origin.y);
     return this.timings.deliveryStart + ((dist / beamSpeed) * 1000);

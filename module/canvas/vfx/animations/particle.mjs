@@ -1,37 +1,54 @@
 /**
- * Crucible particle behaviors: registered VFX animations that configure a {@link ParticleGenerator}.
- * Like sprite animations, each behavior's hooks are bound to the owning {@link CrucibleVFXComponent} and
- * receive `(phase, layer)`. `setup` returns the behavior's generator config contribution (area, velocity,
- * rotation, blend, drift, onSpawn, onTick) merged over the component-owned material; the optional
- * `schedule` adds bespoke timeline work and the optional `tearDown` undoes side effects on stop. The
- * resolved spawn anchor is `this.state.anchors[layer.anchor]`. See `animations/_module.mjs` for naming.
- *
+ * Registered VFX animation functions used for particle generators during animation.
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
  */
 
 /**
- * @typedef CrucibleParticleBehavior
- * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => object} [setup]
- * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => void} [schedule]
- * @property {(this: CrucibleVFXComponent, phase: object, layer: object) => void} [tearDown]
+ * A particle generator layer config. The optional generic parameter describes the shape of `params`.
+ * @template [TParams=object]
+ * @typedef {object} CrucibleParticleLayer
+ * @property {TParams} params
+ * @property {string} animation
+ * @property {string} [anchor]
+ * @property {string[]} textures
+ * @property {number} [duration]
+ * @property {number} [offset]
+ * @property {boolean} [mask]
  */
 
 /**
- * Inward convergence: particles spawn on a ring around the anchor and travel straight to its center
- * over their lifetime, dying at the manifest point.
- * Tuning (`params`): `chargeRadius` (px, required).
- * @type {CrucibleParticleBehavior}
+ * Behavior contract for a particle generator layer. The optional generic forwards into the layer so
+ * `setup()` sees strongly-typed `layer.params`.
+ * @template [TParams=object]
+ * @typedef CrucibleParticleBehavior
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: CrucibleParticleLayer<TParams>) => object} [setup]
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: CrucibleParticleLayer<TParams>) => void} [schedule]
+ * @property {(this: CrucibleVFXComponent, phase: object, layer: CrucibleParticleLayer<TParams>) => void} [tearDown]
  */
-const chargeParticleGather = {
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef CircleParticleGatherParams
+ * @property {number} chargeRadius
+ * @property {number|{min: number, max: number}} [lifetime]
+ */
+
+/**
+ * Inward convergence. Motes appear on a ring around the anchor and travel straight in to its center,
+ * dying at the manifest point. Iron filings drawn to a magnet.
+ * @type {CrucibleParticleBehavior<CircleParticleGatherParams>}
+ */
+const circleParticleGather = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const chargeRadius = params.chargeRadius;
     const radiusPx = chargeRadius * this.state.gridScale;
     const lt = params.lifetime ?? 1000;
-    const lifetime = (typeof lt === "object") ? lt.max : lt; // Resolved max lifetime (ms)
-    const speed = (radiusPx / lifetime) * 1000; // Px/sec to traverse the radius within one lifetime
-    const bandWidth = Math.max(2, chargeRadius * 0.05); // RingShapeData throws on a zero-thickness band
+    const lifetime = (typeof lt === "object") ? lt.max : lt;
+    const speed = (radiusPx / lifetime) * 1000;
+    const bandWidth = Math.max(2, chargeRadius * 0.05); // RingShapeData rejects zero-width bands
     return {
       area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
         innerWidth: bandWidth, outerWidth: bandWidth},
@@ -52,28 +69,30 @@ const chargeParticleGather = {
 /* -------------------------------------------- */
 
 /**
- * Imploding vortex: ring-spawned motes orbit the anchor while their radius collapses to the center
- * over their lifetime, spinning on their own axis and fading as they arrive. Position/rotation are
- * parametric (functions of age), driven from `onUpdate` not `onTick` so they keep moving after the
- * generator soft-stops rather than freezing mid-spin. An outward-bursting variant belongs in a separate
- * `chargeParticleVortexBurst`, not a branch here.
- * Tuning (`params`): `chargeRadius` (px, required), `swirlSpeed` (rad/sec orbit), `spinSpeed` (rad/sec
- * self-rotation, default = swirl), `fade` ({in, out} of lifetime).
- * @type {CrucibleParticleBehavior}
+ * @typedef CircleParticleVortexParams
+ * @property {number} chargeRadius
+ * @property {number} [swirlSpeed]  Orbital angular velocity (rad/sec); default 3.
+ * @property {number} [spinSpeed]   Self-rotation angular velocity (rad/sec); defaults to swirl.
+ * @property {{in: number, out: number}} [fade]
  */
-const chargeParticleVortex = {
+
+/**
+ * Imploding spiral. Motes orbit the anchor while their radius collapses toward center, spinning on
+ * their own axis and fading as they arrive. A small whirlpool drawing energy to a focal point.
+ * @type {CrucibleParticleBehavior<CircleParticleVortexParams>}
+ */
+const circleParticleVortex = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const chargeRadius = params.chargeRadius;
-    const bandWidth = Math.max(2, chargeRadius * 0.15); // Thicker band for a fuller ring
-    const swirl = params.swirlSpeed ?? 3;               // Rad/sec orbital velocity; slow reads as ominous
-    const spin = params.spinSpeed ?? swirl;             // Rad/sec self-rotation, same direction as the orbit
+    const bandWidth = Math.max(2, chargeRadius * 0.15);
+    const swirl = params.swirlSpeed ?? 3;
+    const spin = params.spinSpeed ?? swirl;
 
-    // Place a particle for its current age: collapse its radius toward the center, advance its orbit,
-    // and spin it on its own axis. Shared by onSpawn (first frame) and onUpdate (every frame after).
+    // Drive position/rotation parametrically from age so motion continues after the generator soft-stops
     const place = (p, generator) => {
-      const ox = anchor.x - generator.bounds.x; // Anchor expressed in generator-local space
+      const ox = anchor.x - generator.bounds.x;
       const oy = anchor.y - generator.bounds.y;
       const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
       const r = p._vortexRadius * (1 - age);
@@ -85,14 +104,14 @@ const chargeParticleVortex = {
     return {
       area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
         innerWidth: bandWidth, outerWidth: bandWidth},
-      velocity: {speed: [0, 0], angle: [0, 360]}, // Held at 0; onSpawn/onUpdate drive position parametrically
-      fade: params.fade ?? {in: 0.15, out: 0.45},  // Fade in on spawn, fade out as it collapses to center
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      fade: params.fade ?? {in: 0.15, out: 0.45},
       onSpawn: (p, {generator}) => {
         const sx = p.x + generator.bounds.x;
         const sy = p.y + generator.bounds.y;
         p._vortexAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
         p._vortexRadius = Math.hypot(sx - anchor.x, sy - anchor.y);
-        p._vortexSpin = Math.random() * Math.PI * 2; // Random initial orientation, then a steady spin
+        p._vortexSpin = Math.random() * Math.PI * 2;
         place(p, generator);
       },
       onUpdate: (p, {generator}) => place(p, generator)
@@ -103,11 +122,19 @@ const chargeParticleVortex = {
 /* -------------------------------------------- */
 
 /**
- * Trailing stream that follows the projectile container each frame.
- * Tuning (`params`): `align` (bool), `flipX` (bool), `rotationSpread` (number), `speed` ({min, max}).
- * @type {CrucibleParticleBehavior}
+ * @typedef ProjectileParticleTrailParams
+ * @property {boolean} [align]  Lock streaks to projectile heading (directional wake) vs scatter outward.
+ * @property {boolean} [flipX]  Mirror sprite horizontally for asymmetric streak textures.
+ * @property {number} [rotationSpread]
+ * @property {{min: number, max: number}} [speed]
  */
-const deliveryProjectileTrail = {
+
+/**
+ * Trailing stream chasing the projectile through space. Aligned streaks read as a directional wake of
+ * sparks, embers, or vapor; scattered mode disperses outward in a trail of drifting debris.
+ * @type {CrucibleParticleBehavior<ProjectileParticleTrailParams>}
+ */
+const projectileParticleTrail = {
   setup(phase, layer) {
     const {state} = this;
     const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = layer.params;
@@ -116,8 +143,7 @@ const deliveryProjectileTrail = {
     let lastX = -Infinity;
     let lastY = -Infinity;
     const config = {
-      area: {type: "circle", x: 0, y: 0, radius: 4}, // Placeholder; onTick relocates it each frame
-      // Align mode keeps particles where they spawn (the projectile moves on); scatter sprays outward
+      area: {type: "circle", x: 0, y: 0, radius: 4},
       rotation: align ? {spread: rotationSpread} : {alignVelocity: false, spread: Math.PI},
       velocity: align ? {speed: [0, 0], angle: [0, 360]} : {speed: [speed.min, speed.max], angle: [0, 360]},
       onTick: (_dt, generator) => {
@@ -138,7 +164,6 @@ const deliveryProjectileTrail = {
         }
       }
     };
-    // Align mode locks each particle's rotation to the projectile heading for directional streaks
     if ( align ) {
       config.onSpawn = p => {
         const container = state.delivery?.container;
@@ -157,13 +182,18 @@ const deliveryProjectileTrail = {
 /* -------------------------------------------- */
 
 /**
- * Lingering atmospheric haze drifting outward from the anchor, left behind after the charge.
- * Defaults to ADD blend (glowing haze); pass `blend: PIXI.BLEND_MODES.NORMAL` (with a dark tint) for
- * sooty smoke instead.
- * Tuning (`params`): `radius` (px, required), `speed` ({min, max}), `blend`.
- * @type {CrucibleParticleBehavior}
+ * @typedef CircleParticleResidueParams
+ * @property {number} radius
+ * @property {{min: number, max: number}} [speed]
+ * @property {number} [blend]  Defaults to ADD (glowing haze); use NORMAL with a dark tint for sooty smoke.
  */
-const chargeParticleResidue = {
+
+/**
+ * Lingering haze drifting outward from the anchor. The leftover atmosphere of a charge, a glowing
+ * exhalation or a sooty breath when blended NORMAL with a dark tint.
+ * @type {CrucibleParticleBehavior<CircleParticleResidueParams>}
+ */
+const circleParticleResidue = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
@@ -180,12 +210,18 @@ const chargeParticleResidue = {
 /* -------------------------------------------- */
 
 /**
- * Blooming growth: particles spawn scattered within a radius and stay put, fading in while scaling up
- * from tiny to full (little flowers springing up) then fading out. Lazy and gentle.
- * Tuning (`params`): `chargeRadius` (px, required); `growFraction` (0..1 of life spent growing).
- * @type {CrucibleParticleBehavior}
+ * @typedef CircleParticleBloomParams
+ * @property {number} chargeRadius
+ * @property {number} [growFraction]  Fraction of lifetime spent scaling up (default 0.4).
+ * @property {{in: number, out: number}} [fade]
  */
-const chargeParticleBloom = {
+
+/**
+ * Blooming growth. Motes scatter within a radius and stay put, fading in while scaling from a speck
+ * to full size. Little flowers springing up, then quietly fading. Lazy and gentle.
+ * @type {CrucibleParticleBehavior<CircleParticleBloomParams>}
+ */
+const circleParticleBloom = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
@@ -211,12 +247,18 @@ const chargeParticleBloom = {
 /* -------------------------------------------- */
 
 /**
- * Outward burst: particles spawn at a point and fly out radially, drifting and fading - an impact
- * "pop" (e.g. a shower of leaves and bubbles). Pair with `initial: 1` for an instantaneous spray.
- * Tuning (`params`): `radius` (px spawn spread); `speed` ({min, max} px/sec); `blend`.
- * @type {CrucibleParticleBehavior}
+ * @typedef CircleParticleBurstParams
+ * @property {number} [radius]
+ * @property {{min: number, max: number}} [speed]
+ * @property {number} [blend]
  */
-const impactParticleBurst = {
+
+/**
+ * Outward burst at impact. A shower of bits flying radially out and tumbling away. The pop of
+ * leaves, embers, bubbles, or shards from a hit.
+ * @type {CrucibleParticleBehavior<CircleParticleBurstParams>}
+ */
+const circleParticleBurst = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
@@ -234,27 +276,33 @@ const impactParticleBurst = {
 /* -------------------------------------------- */
 
 /**
- * Forward beam: particles stream from the anchor along the ray heading (`this.state.rotation`) to form
- * a beam. Set the layer `lifetime` to `length / speed` so particles reach the beam's end; widen
- * `spread` for a spillage halo.
- * Tuning (`params`): `speed` (px/sec); `spread` (rad angular spread); `radius` (px spawn); `blend`.
- * @type {CrucibleParticleBehavior}
+ * @typedef RayParticleBeamParams
+ * @property {number} [speed]        Px/sec base, grid-scaled; default 2500.
+ * @property {number} [angleSpread]  Degree variance around the heading.
+ * @property {number} [radius]       Half-width of the rectangular spawn line.
+ * @property {number} [rotationSpread]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
  */
-const deliveryRayBeam = {
+
+/**
+ * Forward beam streaming from the anchor along the ray heading. A tight rectangular column of motion
+ * tearing through air. Widen `angleSpread` for a halo of spillage around the beam.
+ * @type {CrucibleParticleBehavior<RayParticleBeamParams>}
+ */
+const rayParticleBeam = {
   setup(phase, layer) {
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const params = layer.params;
-
-    // Grid-scale the px/sec speed so the beam covers consistent feet-per-second across grid sizes
     const speed = (params.speed ?? 2500) * this.state.gridScale;
     const headingDeg = Math.toDegrees(this.state.rotation);
-    const angleSpread = params.angleSpread ?? 0.5; // Degrees: a tight, concentrated beam
+    const angleSpread = params.angleSpread ?? 0.5;
 
     // Spawn along a line perpendicular to the heading for a rectangular beam profile (not a cone)
     const perpRad = this.state.rotation + (Math.PI / 2);
     const halfWidth = Math.max(8, params.radius ?? 8);
 
-    // Live long enough to traverse the beam's full length at the scaled speed
+    // Lifetime ensures particles reach the beam's end at the scaled speed
     const reach = Math.max(300, Math.round((this.state.length / speed) * 1000));
     return {
       area: {
@@ -273,12 +321,22 @@ const deliveryRayBeam = {
 /* -------------------------------------------- */
 
 /**
- * Slow, wide cast-off flare flaring from the beam source: a short-lived spray fanning out around the
- * heading near the origin (it does not travel the beam's length), softening the beam's root.
- * Tuning (`params`): `speed` (px/sec base, grid-scaled), `coneDeg` (half-angle), `radius` (spawn).
- * @type {CrucibleParticleBehavior}
+ * @typedef RayParticleCastoffParams
+ * @property {number} [speed]
+ * @property {number} [coneDeg]
+ * @property {number} [radius]
+ * @property {number} [rotationSpread]
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
  */
-const deliveryRayCastoff = {
+
+/**
+ * Wide flare at the beam's root. A short-lived spray fanning around the heading near the source,
+ * softening where the beam emerges from the caster. Local to the origin - does not travel the beam.
+ * @type {CrucibleParticleBehavior<RayParticleCastoffParams>}
+ */
+const rayParticleCastoff = {
   setup(phase, layer) {
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const params = layer.params;
@@ -299,13 +357,26 @@ const deliveryRayCastoff = {
 /* -------------------------------------------- */
 
 /**
- * Ground cascade beneath a ray: static particles deposited along the beam line as a front sweeps from
- * origin to end over the phase duration, lingering and fading where they land (a trail carved by the
- * beam). The front advances linearly over `duration` (decoupled from the fast beam particle speed).
- * Tuning (`params`): `width` (px lateral half-spread), `spacing` (px between deposits).
- * @type {CrucibleParticleBehavior}
+ * @typedef RayParticleGroundCascadeParams
+ * @property {number} [width]            Half lateral spread of deposits in px (default 20).
+ * @property {number} [spacing]          Spacing between deposits in px (default 20).
+ * @property {boolean} [burnToEnd]       Deposits stay lit until the front reaches the end then fade together.
+ * @property {number} [burnTail]         Ms past completion before burnToEnd extinction (default 400).
+ * @property {{min: number, max: number}|number} [lifetime]  Lifetime when not burnToEnd.
+ * @property {number} [fadeOutMs]        Cap on burnToEnd fade-out duration (default 250).
+ * @property {object} [velocity]         Override the static {0,0} velocity (rising smoke instead of pinned deposits).
+ * @property {number} [rotationSpread]   Radians of jitter around the beam axis (default 0.3).
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
  */
-const deliveryRayGroundCascade = {
+
+/**
+ * A trail laid down along the beam's path as a front sweeps from origin to end. Scorched earth,
+ * frosted ground, a fuse being lit. `burnToEnd` keeps the whole line lit through completion and
+ * extinguishes together; `velocity` lets the deposits drift instead of staying static.
+ * @type {CrucibleParticleBehavior<RayParticleGroundCascadeParams>}
+ */
+const rayParticleGroundCascade = {
   setup(phase, layer) {
     const params = layer.params ?? {};
     const {origin, rotation, length, gridScale} = this.state;
@@ -316,15 +387,29 @@ const deliveryRayGroundCascade = {
     const sinR = Math.sin(rotation);
     const perpCos = Math.cos(rotation + (Math.PI / 2));
     const perpSin = Math.sin(rotation + (Math.PI / 2));
+    const burnToEnd = !!params.burnToEnd;
+    const burnTail = params.burnTail ?? 400;
+    const drift = !!params.velocity;
     let elapsed = 0;
     let frontDist = 0;
+
+    // Lifetime is positional per-particle in burnToEnd mode; otherwise honor params.lifetime or default generously
+    let lifetime;
+    if ( burnToEnd ) lifetime = {min: duration + burnTail, max: duration + burnTail};
+    else if ( params.lifetime ) {
+      lifetime = (typeof params.lifetime === "object")
+        ? params.lifetime
+        : {min: Math.round(params.lifetime * 0.85), max: params.lifetime};
+    }
+    else lifetime = {min: duration + 1000, max: duration + 2000};
+
     return {
-      // Steady deposit rate that lays one particle per `spacing` over the sweep duration
+      // One particle per `spacing` over the sweep duration
       spawnRate: Math.max(1, Math.round((length / spacing) * (1000 / duration))),
       area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
-      velocity: {speed: [0, 0], angle: [0, 360]},
-      rotation: {initial: rotation, spread: 0.3},
-      lifetime: {min: duration + 1000, max: duration + 2000},
+      velocity: params.velocity ?? {speed: [0, 0], angle: [0, 360]},
+      rotation: {initial: rotation, spread: params.rotationSpread ?? 0.3},
+      lifetime,
       fade: params.fade ?? {in: 0, out: 800},
       blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: dt => {
@@ -332,14 +417,118 @@ const deliveryRayGroundCascade = {
         frontDist = Math.clamp(elapsed / duration, 0, 1) * length;
       },
       onSpawn: (p, {generator}) => {
-        // Place each particle at the current front (slightly behind, jittered) with lateral spread
+        // Place at the current front (slightly behind, jittered) with lateral spread
         const dist = frontDist * (0.85 + (Math.random() * 0.15));
         const lateral = ((Math.random() * 2) - 1) * halfWidth;
         p.x = (origin.x + (cosR * dist) + (perpCos * lateral)) - generator.bounds.x;
         p.y = (origin.y + (sinR * dist) + (perpSin * lateral)) - generator.bounds.y;
-        p.movementSpeed.x = 0;
-        p.movementSpeed.y = 0;
+        if ( !drift ) {
+          p.movementSpeed.x = 0;
+          p.movementSpeed.y = 0;
+        }
+        // Positional lifetime: later spawns live shorter so all extinguish together at sweep end;
+        // fadeOutDuration is recomputed because _setupParticleBase used the config lifetime
+        if ( burnToEnd ) {
+          const remaining = Math.max(60, (duration - elapsed) + burnTail);
+          p.lifetime = remaining;
+          p.fadeInDuration = Math.min(60, remaining * 0.2);
+          p.fadeOutDuration = Math.min(params.fadeOutMs ?? 250, remaining * 0.5);
+        }
       }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef ShapeParticleCombustionParams
+ * @property {number} [count]
+ * @property {number} [initial]
+ * @property {{min: number, max: number}} [speed]       Radial outward drift (small by design).
+ * @property {number} [rotationSpread]
+ * @property {{min: number, max: number}} [scale]       Per-particle base random range.
+ * @property {Array<{time: number, value: number}>} [scaleCurve]  Over-lifetime multiplier.
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ * @property {object} [area]        Override the component-supplied deliveryArea.
+ */
+
+/**
+ * Region-wide ignition. The whole delivery area erupts simultaneously in a single intense flash.
+ * Top-down view - the upward billow reads as scale growth over each particle's lifetime, with a gentle
+ * radial drift suggesting the fireball expanding outward in plan view. Geometry-agnostic; reads the
+ * emission area from `state.deliveryArea` (line for a ray, circle for a blast, polygon for a cone).
+ * @type {CrucibleParticleBehavior<ShapeParticleCombustionParams>}
+ */
+const shapeParticleCombustion = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const area = params.area ?? this.state.deliveryArea;
+    const gridScale = this.state.gridScale;
+    const baseScale = params.scale ?? {min: 0.7, max: 1.2};
+    const scaleCurve = params.scaleCurve ?? [
+      {time: 0, value: 0.5},
+      {time: 0.4, value: 1.4},
+      {time: 1.0, value: 1.8}
+    ];
+    return {
+      spawnRate: 0,
+      area,
+      velocity: {speed: [params.speed?.min ?? 20, params.speed?.max ?? 70], angle: [0, 360]},
+      rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
+      scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
+      lifetime: params.lifetime ?? {min: 600, max: 1100},
+      fade: params.fade ?? {in: 30, out: 350},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef ShapeParticleResidueParams
+ * @property {number} [count]
+ * @property {number} [initial]
+ * @property {{min: number, max: number}} [speed]
+ * @property {number} [rotationSpread]
+ * @property {{min: number, max: number}} [scale]
+ * @property {Array<{time: number, value: number}>} [scaleCurve]
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [tint]
+ * @property {number} [blend]
+ * @property {object} [area]
+ */
+
+/**
+ * Lingering haze drifting across the delivery region after a combustion. Smoke or dust settling and
+ * dissipating slowly over a few seconds. Same geometry-agnostic billow as combustion, tuned for long,
+ * low-alpha drift rather than an intense flash.
+ * @type {CrucibleParticleBehavior<ShapeParticleResidueParams>}
+ */
+const shapeParticleResidue = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const area = params.area ?? this.state.deliveryArea;
+    const gridScale = this.state.gridScale;
+    const baseScale = params.scale ?? {min: 1.2, max: 2.0};
+    const scaleCurve = params.scaleCurve ?? [
+      {time: 0, value: 0.7},
+      {time: 0.4, value: 1.4},
+      {time: 1.0, value: 2.0}
+    ];
+    return {
+      spawnRate: 0,
+      area,
+      velocity: {speed: [params.speed?.min ?? 5, params.speed?.max ?? 25], angle: [0, 360]},
+      rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
+      scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
+      lifetime: params.lifetime ?? {min: 1800, max: 3000},
+      fade: params.fade ?? {in: 200, out: 1200},
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL
     };
   }
 };
@@ -351,13 +540,15 @@ const deliveryRayGroundCascade = {
  * @type {Record<string, CrucibleParticleBehavior>}
  */
 export const PARTICLE_ANIMATIONS = {
-  chargeParticleGather,
-  chargeParticleVortex,
-  chargeParticleBloom,
-  deliveryProjectileTrail,
-  chargeParticleResidue,
-  impactParticleBurst,
-  deliveryRayBeam,
-  deliveryRayCastoff,
-  deliveryRayGroundCascade
+  circleParticleGather,
+  circleParticleVortex,
+  circleParticleBloom,
+  projectileParticleTrail,
+  circleParticleResidue,
+  circleParticleBurst,
+  rayParticleBeam,
+  rayParticleCastoff,
+  rayParticleGroundCascade,
+  shapeParticleCombustion,
+  shapeParticleResidue
 };

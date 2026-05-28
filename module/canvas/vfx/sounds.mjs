@@ -83,9 +83,13 @@ export const RUNE_SOUNDS = {
     passive: [{src: "FlameLoopPassive.ogg", loop: true}],
     damage: [{src: "FlameLoopDamage.ogg", loop: true}],
     impact: [
-      {src: "FlameImpact1.ogg", duration: 1.184},
-      {src: "FlameImpact2.ogg", duration: 1.184},
-      {src: "FlameImpact3.ogg", duration: 1.184}
+      {src: "FlameImpact1.ogg", duration: 1.915},
+      {src: "FlameImpact2.ogg", duration: 2.013}
+    ],
+    impactHeavy: [
+      {src: "FlameImpactHeavy1.ogg", duration: 1.850},
+      {src: "FlameImpactHeavy2.ogg", duration: 1.915},
+      {src: "FlameImpactHeavy3.ogg", duration: 2.013}
     ],
     miss: [
       {src: "FlameMiss1.ogg", duration: 1.092},
@@ -107,7 +111,7 @@ export const RUNE_SOUNDS = {
  * descriptor, or null if the rune has no such sound. Variant selection happens here so the choice is
  * made once on the originating client and baked into the serialized component config.
  * @param {string} rune    Rune id, or "generic" for rune-agnostic sounds.
- * @param {string} type    Sound type: "charge" | "passive" | "damage" | "impact" | "miss" | "whoosh".
+ * @param {string} type    Sound type: "charge" | "passive" | "damage" | "impact" | "impactHeavy" | "miss" | "whoosh".
  * @returns {VFXSoundDescriptor|null}
  */
 export function getVFXSound(rune, type) {
