@@ -402,6 +402,9 @@ HOOKS.fall = {
   },
   configureVFX(vfxConfig) {
     return crucible.api.canvas.vfx.landing.configureLandingVFXEffect(this) ?? vfxConfig;
+  },
+  finalizeVFX(vfxEffect, references) {
+    crucible.api.canvas.vfx.landing.finalizeLandingVFXEffect(this, vfxEffect, references);
   }
 };
 

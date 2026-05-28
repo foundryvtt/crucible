@@ -38,11 +38,7 @@ export function configureLandingVFXEffect(action) {
         alpha: [.95, 1],
         manual: false,
         rotation: [0, 360],
-        velocity: { angle: [0, 360], speed: [10, 50] },
-        onSpawn: p => {
-          p.texture = PIXI.Texture.WHITE;
-          p.tint = DUST_TINTS[(Math.random() * DUST_TINTS.length) | 0];
-        }
+        velocity: { angle: [0, 360], speed: [10, 50] }
       },
       duration: 200,
       fade: { in: 50, out: 400 },
@@ -52,7 +48,7 @@ export function configureLandingVFXEffect(action) {
       // PIXI.Texture.WHITE is 16x16, so rendered size = scale * 16. This range yields ~1-2px grains.
       scale: { min: .1, max: .15 },
       // Required to satisfy VFXParticleGeneratorComponent's 'no valid textures' guard. The actual texture used at
-      // render time is set per-particle to PIXI.Texture.WHITE in config.onSpawn.
+      // render time is set per-particle to PIXI.Texture.WHITE in config.onSpawn (see finalizeLandingVFXEffect).
       textures: ["ui/particles/snow.png"],
       type: "particleGenerator"
     }
@@ -79,4 +75,21 @@ export function configureLandingVFXEffect(action) {
   }
   vfxConfig.references = { burst: { x: center.x, y: center.y, radius } };
   return vfxConfig;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Tints each dust particle with a randomized earth tone over a PIXI.Texture.WHITE source.
+ * @param {CrucibleAction} action
+ * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
+ * @param {Record<string, any>} _references
+ */
+export function finalizeLandingVFXEffect(action, vfxEffect, _references) {
+  const dust = vfxEffect.components?.dust;
+  if ( !dust ) return;
+  dust.config.onSpawn = p => {
+    p.texture = PIXI.Texture.WHITE;
+    p.tint = DUST_TINTS[(Math.random() * DUST_TINTS.length) | 0];
+  };
 }
