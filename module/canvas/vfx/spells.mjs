@@ -147,14 +147,20 @@ function configureArrowVFXEffect(action) {
   const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
   const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;
 
-  // Resolve sounds once; the component plays each on its phase. Variant choice is baked here so all
-  // clients hear the same sequence. align START fires each sound at its phase start.
+  // Resolve sound choices and configure their playback
   const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
-  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
   const chargeSound = sound(getVFXSound(action.rune.id, "charge"));
-  // Whoosh on launch; runes may pick a longer cue or opt out (whoosh: null) for a silent drift.
-  const whooshKey = ("whoosh" in runeProps) ? runeProps.whoosh : "whooshFast";
-  const whooshSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
+  let flightSound;
+  if ( runeProps.flightSound ) {
+    const {rune, type, ...envelope} = runeProps.flightSound;
+    flightSound = sound(getVFXSound(rune, type));
+    if ( flightSound ) Object.assign(flightSound, envelope);
+  }
+  else {
+    const whooshKey = ("whoosh" in runeProps) ? runeProps.whoosh : "whooshFast";
+    flightSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
+  }
 
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -259,7 +265,7 @@ function configureArrowVFXEffect(action) {
         texture: runeProps.projectileFrame
           ? getVFXTexturePath(runeProps.projectileFrame)
           : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
-        size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: whooshSound,
+        size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: flightSound,
         animations: [{function: "deliveryProjectileFlight"}], particles: projectileParticles},
       impacts: [{
         result, id: token.id, stick: stickDuration,
@@ -724,11 +730,12 @@ function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
  * @param {CrucibleSpellAction} ctx.action
  * @param {function} ctx.sound      The sound-descriptor builder closure used by the configurator.
  * @param {object} params           Envelope params (fade, offset, release).
+ * @param {string} [soundType]      RUNE_SOUNDS type key to resolve; defaults to "damage".
  * @returns {object|null}
  */
-function _resolveDeliverySound(ctx, params) {
+function _resolveDeliverySound(ctx, params, soundType="damage") {
   const {action, sound} = ctx;
-  const descriptor = sound(getVFXSound(action.rune.id, "damage"));
+  const descriptor = sound(getVFXSound(action.rune.id, soundType));
   if ( descriptor ) Object.assign(descriptor, {loop: true, ...params});
   return descriptor;
 }
@@ -802,7 +809,7 @@ function _buildRayChargeAndDelivery(action, ctx) {
     ? _resolveChargeLayers(runeProps, chargeCtx,
       {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration})
     : [];
-  const deliverySound = _resolveDeliverySound(ctx, runeProps.deliverySound);
+  const deliverySound = _resolveDeliverySound(ctx, runeProps.deliverySound, runeProps.deliverySoundType);
   const deliveryLayers = runeProps.buildDelivery(ctx);
   return {
     chargeParticles,
@@ -947,13 +954,11 @@ const _CHARGE_LIFE = {
  */
 const ARROW_VFX_PROPS = {
   frost: {stickDuration: 1500, projectileSize: 2, trail: true},
-  // Life is slow and gentle: a lazy bloom of growth around the caster, a drifting bubble, and a
-  // soothing leaf/bubble shower on impact. No stick, recoil, impact sprite, whoosh, or trail.
   life: {
     ..._CHARGE_LIFE,
     projectileSize: 3, projectileFrame: "life/ProjectileBubble", projectileSpeed: 30,
-    whoosh: null, chargeDuration: 1500, impactSprite: false, recoil: false,
-    // A lazy bubble trail: slow, long-lived SprayBubble motes drifting behind the projectile.
+    flightSound: {rune: "life", type: "passive", offset: -1200, release: 400, fade: 400},
+    chargeDuration: 1500, impactSprite: false, recoil: false,
     trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
       lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},
       alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}},
@@ -1014,29 +1019,24 @@ const RAY_IMPACT_TIMINGS = {
  * @type {Record<string, object>}
  */
 const RAY_VFX_PROPS = {
-  // Frost ray: a generic source gather charge plus a fast, sustained particle beam with cast-off
-  // flare and ground cascade. Impacts are staggered per-target by beam-front arrival.
   frost: {
     beamSpeed: 3000, deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 700, offset: -500, release: 600},
     sprayParams: {spawnRate: 360}, smoke: false, residue: false,
-
     buildDelivery(ctx) {
       const {textures, beamElevation, spawnRadius, width} = ctx;
       const BEAM_SPEED = this.beamSpeed;
       const DELIVERY_DURATION = this.deliveryDuration;
       return [
-        // Concentrated forward beam: a tight rectangular profile fired along the heading
-        {
+        { // Concentrated forward beam: a tight rectangular profile fired along the heading
           animation: "rayParticleBeam", anchor: "origin", textures: textures.streak,
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: BEAM_SPEED, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
             rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
             fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.ADD, elevation: beamElevation}
         },
-        // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
-        {
+        { // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: BEAM_SPEED, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
@@ -1044,8 +1044,7 @@ const RAY_VFX_PROPS = {
             scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.ADD,
             elevation: beamElevation}
         },
-        // Ground cascade: static shards deposited along the beam path as the front sweeps through
-        {
+        { // Ground cascade: static shards deposited along the beam path as the front sweeps through
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.impact,
           duration: DELIVERY_DURATION, mask: true,
           params: {width: Math.round(width * 0.8), spacing: 20, alpha: {min: 0.6, max: 0.9},
@@ -1055,25 +1054,18 @@ const RAY_VFX_PROPS = {
     }
   },
 
-  // Fire ray: the flame arrow's charge (vortex above caster + dark smoke beneath) followed by a slow
-  // flame line that progressively ignites origin -> end, then a simultaneous eruption at completion
-  // with scorch + smoke residue. Impacts fire together at line completion (impactTiming: "atEnd")
-  // using a heavier impact sound to read as a global eruption.
   flame: {
     ..._CHARGE_FLAME,
     deliveryDuration: 1200, // LINE_DURATION - ms for the flame line to traverse origin -> end
     impactTiming: "atEnd",
     deliverySound: {fade: 600, offset: -400, release: 500},
     impactSound: "impactHeavy",
-
     buildDelivery(ctx) {
       const {textures, beamElevation, width, casterElevation} = ctx;
       const LINE_DURATION = this.deliveryDuration;
       const ERUPTION_DURATION = 500;
       return [
-        // Flame line: streak particles igniting at the marching front, each with a positional lifetime
-        // so the whole line is ablaze together at completion and all extinguish into the eruption.
-        {
+        { // Flame line: streak particles igniting at the marching front
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.streak,
           duration: LINE_DURATION, mask: true,
           params: {width: Math.round(width * 0.35), spacing: 10, burnToEnd: true, burnTail: 400,
@@ -1082,8 +1074,7 @@ const RAY_VFX_PROPS = {
             fade: {in: 20, out: 200}, fadeOutMs: 200,
             blend: PIXI.BLEND_MODES.ADD, elevation: 1}
         },
-        // Ground scorch: static dark deposits along the line, lingering past the eruption as scorch.
-        {
+        { // Ground scorch: static dark deposits along the line, lingering past the eruption as scorch
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.ground,
           duration: LINE_DURATION, mask: true,
           params: {width: Math.round(width * 0.7), spacing: 28,
@@ -1091,8 +1082,7 @@ const RAY_VFX_PROPS = {
             scale: {min: 0.9, max: 1.6}, alpha: {min: 0.45, max: 0.8},
             fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
         },
-        // Ground smoke: low haze rising slowly along the line, drifting up and dissipating.
-        {
+        { // Ground smoke: low haze rising slowly along the line, drifting up and dissipating
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.air,
           duration: LINE_DURATION, mask: true,
           params: {width: Math.round(width * 0.4), spacing: 38,
@@ -1102,8 +1092,7 @@ const RAY_VFX_PROPS = {
             fade: {in: 200, out: 700}, tint: 0x6B5A48,
             blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1}
         },
-        // Combustion: at LINE_DURATION the whole line bursts in a single intense gout.
-        {
+        { // Combustion: at LINE_DURATION the whole line bursts in a single intense gout
           animation: "shapeParticleCombustion", anchor: "origin", textures: textures.spray,
           offset: LINE_DURATION, duration: ERUPTION_DURATION, mask: true,
           params: {count: 220, initial: 220,
@@ -1114,8 +1103,7 @@ const RAY_VFX_PROPS = {
             alpha: {min: 0.75, max: 1.0},
             fade: {in: 30, out: 400}, blend: PIXI.BLEND_MODES.ADD, elevation: beamElevation}
         },
-        // Residue: drifting smoke trail left behind by the eruption.
-        {
+        { // Residue: drifting smoke trail left behind by the eruption
           animation: "shapeParticleResidue", anchor: "origin", textures: textures.air,
           offset: LINE_DURATION + 250, duration: ERUPTION_DURATION, mask: true,
           params: {count: 32, initial: 32,
@@ -1131,15 +1119,14 @@ const RAY_VFX_PROPS = {
     }
   },
 
-  // Life ray: the Life Arrow charge sustained at the caster across the full delivery, plus a leaf
-  // jet down the heading - StreakLeafy streaks driving forward with a SprayLeaf cloud tumbling
-  // alongside. A magical leaf-blower of healing. Impacts fire per-target as the beam reaches each.
   life: {
     ..._CHARGE_LIFE,
-    beamSpeed: 750, // Px/sec base; gentle healing breeze, not a spew
+    beamSpeed: 750, // In px/second TODO needs to be in ft/sec independent of grid size
     deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 500, offset: -300, release: 600},
+    // FIXME: temporary until the life active damage loop ships; remove `deliverySoundType` then.
+    deliverySoundType: "passive",
     sustainedChargeAnchor: "source",
     softImpact: true,
     softImpactFrames: ["SprayLeaf", "SprayBubble"],

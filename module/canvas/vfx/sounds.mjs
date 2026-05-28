@@ -96,6 +96,15 @@ export const RUNE_SOUNDS = {
       {src: "FlameMiss2.ogg", duration: 1.395}
     ]
   },
+  life: {
+    prefix: "systems/crucible/assets/sfx/life",
+    charge: [{src: "LifeChargeUp.ogg", duration: 1.456}],
+    passive: [{src: "LifeLoopPassive.ogg", loop: true}],
+    impact: [
+      {src: "LifeImpact1.ogg", duration: 1.683},
+      {src: "LifeImpact2.ogg", duration: 1.765}
+    ]
+  },
   generic: {
     prefix: "systems/crucible/assets/sfx/generic",
     charge: [{src: "MagicChargeUp.ogg", duration: 1.819}],
