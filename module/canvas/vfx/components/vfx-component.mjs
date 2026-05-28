@@ -1,3 +1,5 @@
+import VFXResolvedReferenceField from "../fields/vfx-resolved-reference-field.mjs";
+
 const {ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
 
@@ -17,10 +19,23 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   static defineSchema() {
     return {
       ...super.defineSchema(),
-      charge: this._phaseField({duration: new NumberField({required: true, nullable: false, initial: 700})}),
+      // Charge phase: `duration` is the timeline length; `distance` is the offset from the action's
+      // origin mesh center at which the charge animation occurs. Subclasses interpret distance against
+      // their own geometry (e.g. a ray offsets along the heading; a fan along the cone axis).
+      charge: this._phaseField({
+        duration: new NumberField({required: true, nullable: false, initial: 700}),
+        distance: new NumberField({required: true, nullable: false, initial: 0})
+      }),
       delivery: this._phaseField(),
       impacts: new ArrayField(this._impactField()),
-      seed: new NumberField({initial: null})
+      seed: new NumberField({initial: null}),
+      // Scene-object references, all resolved at play-time by the framework:
+      // - `originMesh` -> the action's origin token mesh (backs the `source` anchor for charge particles)
+      // - `targetMeshes` -> per-impact target meshes (parallel to `impacts`); used by impact recoil etc.
+      // - `mask` -> a wall-mask polygon honored by particle layers flagged `mask: true`
+      originMesh: new VFXResolvedReferenceField(),
+      targetMeshes: new ArrayField(new VFXResolvedReferenceField()),
+      mask: new VFXResolvedReferenceField()
     };
   }
 
@@ -170,21 +185,6 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @type {Function[]}
    */
   #tearDowns = [];
-
-  /**
-   * A resolved point-source polygon mask injected at finalize, applied to particle layers flagged `mask`.
-   * @type {PointSourcePolygon|null}
-   * @protected
-   */
-  _mask = null;
-
-  /**
-   * Target-token meshes, indexed parallel to `impacts`, injected at finalize for impacts that displace
-   * their target (e.g. recoil). Components whose impacts do not displace targets can ignore this.
-   * @type {(PIXI.DisplayObject|null)[]}
-   * @protected
-   */
-  _targetMeshes = [];
 
   /* -------------------------------------------- */
   /*  Determinism                                 */
@@ -405,7 +405,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
           scale: params.scale ? [params.scale.min * gridScale, params.scale.max * gridScale] : [gridScale, gridScale],
           elevation: params.elevation ?? 0, sort: params.sort ?? 0,
           duration: layer.duration ?? phase.duration,
-          pointSourceMask: layer.mask ? (this._mask ?? null) : null,
+          pointSourceMask: layer.mask ? (this.mask ?? null) : null,
           ...behavior.setup.call(this, phase, layer)
         };
         const generator = this._spawnGenerator(config, phase.start + layer.offset);
@@ -481,7 +481,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     this.state.impacts = {};
     let maxEnd = 0;
     this.impacts.forEach((impact, i) => {
-      const mesh = this._targetMeshes[i] ?? null;
+      const mesh = this.targetMeshes[i] ?? null;
       const target = this._impactTarget(impact, i);
       const start = this._impactStart(impact, target, i);
       const duration = Math.max(impact.stick ?? 0, ...impact.animations.map(a => a.params?.duration ?? 0), 0);
@@ -518,7 +518,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    */
   _impactTarget(impact, i) {
     const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-    const mesh = this._targetMeshes[i];
+    const mesh = this.targetMeshes[i];
     if ( mesh ) return {x: mesh.x, y: mesh.y, elevation: mesh.elevation ?? 0,
       sort: mesh.sort ?? 0, sortLayer: mesh.sortLayer ?? SL.TOKENS};
     return this.state.destination ?? this.state.end ?? this.state.origin;

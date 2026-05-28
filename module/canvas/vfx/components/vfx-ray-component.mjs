@@ -1,26 +1,29 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
 import {getParticleScaleFactor} from "../blocks.mjs";
-const {NumberField} = foundry.data.fields;
+const {EmbeddedDataField, NumberField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
- * Incorporates three sequential animation phases, mirroring {@link CrucibleProjectileComponent}:
- * - Charge-up (at the source)
- * - Delivery (the beam traveling out along its line)
- * - Impacts (one self-contained impact per target)
+ * Three sequential animation phases:
+ * - Charge-up (at the charge point - the visible front of the caster, `chargeDistance` ahead of the
+ *   region shape's origin along the heading)
+ * - Delivery (the beam traveling from the charge point along the heading toward the shape's end)
+ * - Impacts (one self-contained impact per target, each with its own configurator-baked start time)
+ *
+ * Geometry is persisted as a snapshot of the action's region shape at configure-time. We do NOT hold
+ * a live reference to the region document, because regions used for spell targeting are deleted on
+ * action confirmation - the VFXEffect must contain everything it needs to play afterward. This is
+ * the AoE analogue of `path` on {@link CrucibleProjectileComponent}: both serialize geometry into the
+ * persisted component data. Source-token + target-token meshes and the wall-mask polygon ARE still
+ * reference-resolved by the framework at play-time (they're live scene objects, not persisted data).
+ * The inherited `charge.distance` field captures the small forward offset that pulls the visible ray
+ * out of the caster's body.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
   /** @override */
   static TYPE = "crucibleRay";
-
-  /**
-   * The mesh of the Action origin Token, injected by finalizeVFX; used to anchor charge particles at the
-   * caster (the `source` anchor) so rays can reuse caster-anchored arrow charge configs.
-   * @type {PIXI.DisplayObject|null}
-   */
-  _originMesh = null;
 
   /* -------------------------------------------- */
   /*  Component Schema                            */
@@ -30,14 +33,10 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
   static defineSchema() {
     const schema = super.defineSchema();
 
-    // The beam source, its heading (radians), and its reach (px) define the line the ray travels.
-    Object.assign(schema, {
-      origin: CrucibleRayComponent._pointField(),
-      rotation: new NumberField({required: true, nullable: false, initial: 0}),
-      length: new NumberField({required: true, nullable: false, initial: 0})
-    });
+    // Ray shape must be a LineShapeData instance
+    schema.shape = new EmbeddedDataField(foundry.data.LineShapeData, {required: true, nullable: false});
 
-    // Augment delivery schema with ray-specific fields
+    // Extend delivery schema with duration
     schema.delivery.extendFields({
       duration: new NumberField({required: true, nullable: false, initial: 2000})
     });
@@ -65,15 +64,27 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
   /** @override */
   async _draw() {
-    const origin = this.origin;
-    const dir = {x: Math.cos(this.rotation), y: Math.sin(this.rotation)};
+    // Derive geometry from the persisted shape + charge.distance offset. The visible ray starts at the
+    // charge point (forward of the shape's origin) so the beam appears at the caster's front rather
+    // than inside their token; the effective beam reach is reduced by the same amount.
+    const {x: shapeX, y: shapeY, length: shapeLength, rotation: rotationDeg} = this.shape;
+    const rotation = Math.toRadians(rotationDeg);
+    const dir = {x: Math.cos(rotation), y: Math.sin(rotation)};
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    const meshElevation = this.originMesh?.elevation ?? 0;
+    const meshSort = this.originMesh?.sort ?? 0;
+    const chargeDistance = this.charge.distance;
+    const origin = {
+      x: shapeX + (dir.x * chargeDistance), y: shapeY + (dir.y * chargeDistance),
+      elevation: meshElevation + 1, sort: meshSort + 1, sortLayer: SL.TOKENS
+    };
+    const length = shapeLength - chargeDistance;
     const end = {
-      x: origin.x + (dir.x * this.length),
-      y: origin.y + (dir.y * this.length),
+      x: origin.x + (dir.x * length), y: origin.y + (dir.y * length),
       elevation: origin.elevation, sort: origin.sort, sortLayer: origin.sortLayer
     };
 
-    // Phase timings: charge, then beam delivery. Impacts are scheduled per target within delivery.
+    // Phase timings: charge, then beam delivery. Per-impact timings are baked by the configurator.
     this.timings = {
       chargeStart: 0,
       chargeEnd: this.charge.duration,
@@ -83,13 +94,13 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
     // The caster's mesh position when injected, else the ray origin; backs the `source` anchor for
     // caster-anchored charge particles (parity with the arrow's source-anchored charge).
-    const source = this._originMesh ? {x: this._originMesh.x, y: this._originMesh.y} : origin;
+    const source = this.originMesh ? {x: this.originMesh.x, y: this.originMesh.y} : origin;
 
     // Shared state for phase animators; per-impact context is written transiently by _attachImpacts.
-    // `deliveryArea` is the ray's geometry expressed as a ParticleGenerator-native area shape (a line
-    // from origin to end), consumed by shape-agnostic delivery behaviors such as shapeParticleCombustion.
+    // `deliveryArea` is the ray's geometry expressed as a ParticleGenerator-native line shape from
+    // origin to end, consumed by shape-agnostic delivery behaviors such as shapeParticleCombustion.
     this.state = {
-      origin, end, source, rotation: this.rotation, length: this.length, direction: dir,
+      origin, end, source, rotation, length, direction: dir,
       gridScale: getParticleScaleFactor(),
       charge: this.charge, delivery: this.delivery,
       destination: end, targetMesh: null,

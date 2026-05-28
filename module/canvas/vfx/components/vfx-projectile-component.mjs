@@ -14,12 +14,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   /** @override */
   static TYPE = "crucibleProjectile";
 
-  /**
-   * The mesh of the Action origin Token.
-   * @type {PIXI.DisplayObject|null}
-   */
-  _originMesh = null;
-
   /* -------------------------------------------- */
   /*  Component Schema                            */
   /* -------------------------------------------- */
@@ -93,7 +87,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       this._createSprite(this.delivery.texture, this.delivery.size, origin));
 
     // Shared state for phase animators
-    const source = this._originMesh ? {x: this._originMesh.x, y: this._originMesh.y} : origin;
+    const source = this.originMesh ? {x: this.originMesh.x, y: this.originMesh.y} : origin;
     this.state = {
       origin,
       source,
@@ -103,7 +97,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       gridScale: getParticleScaleFactor(),
       charge: this.charge,
       delivery: this.delivery,
-      targetMesh: this._targetMeshes[0] ?? null,
+      targetMesh: this.targetMeshes[0] ?? null,
       anchors: {origin, destination, delivery: this.delivery.container, source}
     };
 

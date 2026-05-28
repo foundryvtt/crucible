@@ -389,48 +389,52 @@ function finalizeFanVFXEffect(action, vfxEffect, references) {
  * @returns {SpellVFXData|null}
  */
 function configureRayVFXEffect(action) {
-  const shape = action.region?.shapes[0];
-  if ( !shape || (shape.type !== "line") ) return null;
+  const regionShape = action.region?.shapes[0];
+  if ( !regionShape || (regionShape.type !== "line") ) return null;
   const runeProps = SPELL_VFX_GESTURES.ray.runes?.[action.rune.id];
   if ( !runeProps ) return null; // No ray-gesture config for this rune; skip VFX
   const {textures} = resolveSpellVFXContext(action);
-  const {x, y, length, width, rotation} = shape.toObject();
+  // Snapshot the region shape into the persisted component data. The action.region document is deleted
+  // on action confirmation, so the VFXEffect must carry its own geometry; cf. {@link CrucibleProjectileComponent}'s
+  // persisted `path` for the analogous case.
+  const shapeData = regionShape.toObject();
+  const {x, y, length, width, rotation} = shapeData;
   const rotRad = Math.toRadians(rotation);
-  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const gridSize = canvas.dimensions.size;
   const casterToken = action.token;
-  const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
   const casterElevation = casterToken.elevation ?? 0;
   const beamElevation = casterElevation + 1;
   const casterRadiusPx = (casterToken.width * gridSize) / 2;
-  const beamOffset = Math.round(casterRadiusPx / 3);
-  const beamLength = length - beamOffset;
+  const chargeDistance = casterRadiusPx;       // Half the caster token width: pulls the charge to the token's front edge
+  const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
   const CHARGE_DURATION = 700;
 
   const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
   const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
 
-  // Shared references: the caster mesh (used by finalize for the `source` anchor), the ray's
-  // forward-offset origin point, and a move-polygon mask keeping the delivery from crossing walls.
+  // References resolved at play-time: the caster's mesh (backs the `source` anchor) and a move-polygon
+  // mask for wall-aware particles. The shape itself is persisted directly on the component.
   const references = {
     tokenMesh: "^token.object.mesh",
-    rayOrigin: {x: x + (Math.cos(rotRad) * beamOffset), y: y + (Math.sin(rotRad) * beamOffset),
-      elevation: beamElevation, sort: casterMeshSort + 1, sortLayer: SL.TOKENS},
     wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
   };
 
-  // Per-target impacts (rune-driven visuals + configurator-baked timing). Each impact is self-contained:
-  // target reference + result + sound + animations + particles + `start` ms baked from the rune's
-  // impactTiming strategy. The component just reads impact.start; it no longer encodes timing policy.
+  // Per-target impacts (rune-driven visuals + configurator-baked timing). Each impact carries the
+  // target's mesh reference + result + sound + animations + particles + `start` ms baked from the
+  // rune's impactTiming strategy. The component just reads impact.start.
   const impactType = runeProps.impactSound ?? "impact";
   const hitTreatment = _resolveRayHitTreatment(action, {textures, beamElevation}, runeProps);
   const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
-  const timingCtx = {origin: references.rayOrigin, beamSpeed: runeProps.beamSpeed,
+  // Charge-point origin used by impact timing: shape origin shifted forward by chargeDistance, parallel
+  // to what the component derives in _draw - so beam-front math agrees with the visual emission point.
+  const chargeOrigin = {x: x + (Math.cos(rotRad) * chargeDistance), y: y + (Math.sin(rotRad) * chargeDistance)};
+  const timingCtx = {origin: chargeOrigin, beamSpeed: runeProps.beamSpeed,
     gridScale: getParticleScaleFactor(), deliveryStart: CHARGE_DURATION,
     deliveryDuration: runeProps.deliveryDuration};
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const impacts = [];
+  const targetMeshRefs = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -442,6 +446,7 @@ function configureRayVFXEffect(action) {
     const meshRef = `rayTarget_${j}_tokenMesh`;
     references[tokenRef] = `@${token.uuid}`;
     references[meshRef] = `^${tokenRef}.object.mesh`;
+    targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
 
     impacts.push(isHit
@@ -469,38 +474,18 @@ function configureRayVFXEffect(action) {
   const components = {
     ray: {
       type: "crucibleRay",
-      origin: {reference: "rayOrigin", deltas: {}},
-      rotation: rotRad,
-      length: beamLength,
-      charge: {duration: CHARGE_DURATION, sound: sound(getVFXSound(action.rune.id, "charge")),
+      shape: shapeData,
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: targetMeshRefs,
+      mask: {reference: "wallMask"},
+      charge: {duration: CHARGE_DURATION, distance: chargeDistance,
+        sound: sound(getVFXSound(action.rune.id, "charge")),
         animations: [], particles: chargeParticles},
       delivery,
       impacts
     }
   };
   return {components, timeline: [{component: "ray", position: 0}], references};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Finalize the Ray VFX at play-time: inject the resolved struck-token meshes (parallel to `impacts`) and
- * the resolved beam wall-mask into the ray component.
- * @param {CrucibleSpellAction} action
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
- * @param {Record<string, any>} references
- */
-function finalizeRayVFXEffect(action, vfxEffect, references) {
-  for ( const component of Object.values(vfxEffect.components) ) {
-    if ( component.type !== "crucibleRay" ) continue;
-    const meshes = [];
-    for ( let i = 1; (`rayTarget_${i}_tokenMesh` in references); i++ ) {
-      meshes.push(references[`rayTarget_${i}_tokenMesh`]);
-    }
-    component._targetMeshes = meshes;
-    component._mask = references.wallMask ?? null;
-    component._originMesh = references.tokenMesh ?? null;
-  }
 }
 
 /* -------------------------------------------- */
@@ -1224,7 +1209,7 @@ const SPELL_VFX_GESTURES = {
   fan: {configure: configureFanVFXEffect, finalize: finalizeFanVFXEffect},
   influence: {},
   pulse: {},
-  ray: {configure: configureRayVFXEffect, finalize: finalizeRayVFXEffect, runes: RAY_VFX_PROPS},
+  ray: {configure: configureRayVFXEffect, runes: RAY_VFX_PROPS},
   sense: {},
   step: {},
   strike: {},
