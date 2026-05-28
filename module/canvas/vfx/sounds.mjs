@@ -52,8 +52,8 @@ export const VFX_SOUNDS = {
  */
 
 /**
- * Per-rune spell sound library, the audio analog of the per-rune texture library (VFX_TEXTURES /
- * RUNE_COLORS): static reference data describing which sound files exist for each rune and their
+ * Per-rune spell sound library, the audio analog of the per-rune texture library (VFX_TEXTURES):
+ * static reference data describing which sound files exist for each rune and their
  * playback metadata. Sound types follow the S1-S4 taxonomy: `charge` (S1 one-shot), `passive`
  * (S2 loop), `damage` (S3 loop), `impact` (S4 one-shot), plus `miss` (one-shot, played when a spell
  * is resisted or misses). The pseudo-rune `generic` holds rune-agnostic sounds such as the

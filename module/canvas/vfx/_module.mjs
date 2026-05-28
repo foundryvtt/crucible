@@ -25,14 +25,11 @@ export function setPlaybackRate(rate) {
  * @returns {Promise<void>}
  *
  * @example
- * const {radialBurst, driftingHaze, getVFXTexturePaths} = crucible.api.canvas.vfx;
+ * const {airResidue} = crucible.api.canvas.vfx.blocks;
  * const origin = {x: 2700, y: 2400};
- * const textures = crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "spray");
+ * const textures = crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "air");
  * await crucible.api.canvas.vfx.preview(
- *   radialBurst.configure({prefix: "wave", origin, count: 500, speed: 800, duration: 80,
- *     lifetime: 500, visibleFraction: 0.5, textures}),
- *   driftingHaze.configure({prefix: "haze", origin, radius: 100,
- *     textures: crucible.api.canvas.vfx.sprites.getVFXTexturePaths("frost", "air")})
+ *   airResidue.configure({prefix: "haze", origin, radius: 100, textures})
  * );
  */
 export async function preview(...args) {
