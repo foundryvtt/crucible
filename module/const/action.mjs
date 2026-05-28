@@ -1233,6 +1233,28 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
+
+      // Derive the post-move movement-state status (falling/flying/burrowing) from the planned final waypoint and
+      // record the delta as a standard effect event. These three statuses are mutually exclusive: at most one is
+      // active at a time, and any others are cleared.
+      const final = this.movement?.waypoints?.at(-1);
+      if ( !final || !this.token ) return;
+      const { burrowing, falling, flying } = CONFIG.statusEffects;
+      let toAdd;
+      if ( final.action === "fly" ) toAdd = flying;
+      else if ( final.action === "burrow" ) toAdd = burrowing;
+      else if ( this.token._isHoveringAboveSurface(final) ) toAdd = falling;
+      const effects = [];
+      if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
+        const { _id, img, name } = toAdd;
+        effects.push({ _id, img, name, statuses: [toAdd.id] });
+      }
+      for ( const { id } of [burrowing, falling, flying] ) {
+        if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
+          effects.push({ _id: CONFIG.statusEffects[id]._id, _action: "delete" });
+        }
+      }
+      if ( effects.length ) this.recordEvent({ type: "effect", target: this.actor, effects });
     },
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");

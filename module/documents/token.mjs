@@ -134,17 +134,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /** @inheritDoc */
   _onUpdateMovement(movement, operation, user) {
     super._onUpdateMovement(movement, operation, user);
-    if ( !user.isSelf ) return;                                 // Must be the user who initiated movement
-
-    const { actor } = this;
-    if ( actor ) {
-      const isHovering = this.#isHoveringAboveSurface();
-      const isFalling = actor.statuses.has("falling");
-      if ( isHovering && !isFalling ) actor.toggleStatusEffect("falling", { active: true });
-      else if ( !isHovering && isFalling ) actor.toggleStatusEffect("falling", { active: false });
-    }
-
-    if ( !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene
+    if ( !user.isSelf                                           // Must be the user who initiated movement
+      || !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene
       || !this.actor?.inCombat ) return;                        // Must have an Actor in combat
 
     // Revert the corresponding movement action when a movement is undone
@@ -233,7 +224,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     if ( !actor?.statuses.has("falling") ) return;
     if ( !actor.canUserModify(game.user, "update") ) return;
 
-    const surface = this.#findSupportingSurface();
+    const surface = this._findSupportingSurface();
     if ( !surface || (surface.elevation >= elevation) ) {
       ui.notifications.warn("TOKEN.WARNING.NoLandingSurface", { format: { name } });
       return;
@@ -247,20 +238,20 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
-   * Find the highest movement-restricting surface at or below the token's current elevation whose 2D footprint contains
-   * at least 75% of the token's containment points. This is the surface the token is either standing on (when its
-   * elevation matches the token's) or hovering above.
+   * Find the highest movement-restricting surface at or below the given elevation whose 2D footprint contains at least
+   * 75% of the token's containment points. This is the surface the token is either standing on (when its elevation
+   * matches it) or hovering above.
+   * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
    * @returns {RegionSurface|null}
+   * @internal
    */
-  #findSupportingSurface() {
+  _findSupportingSurface(position=this._source) {
     const scene = this.parent;
     if ( !scene ) return null;
-    const { elevation, level } = this;
+    const { elevation, level } = position;
     const surfaces = scene.getSurfaces({ level, type: "move" });
     if ( !surfaces.length ) return null;
-
-    // Get test points from source to avoid incorrect determination during animation.
-    const points = this.getContainmentTestPoints(this._source);
+    const points = this.getContainmentTestPoints(position);
 
     // Walk surfaces from highest to lowest and return the first whose footprint contains 75%+ of the token.
     // Scene#getSurfaces already orders surfaces by elevation.
@@ -279,14 +270,16 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
    * Determine whether this token is hovering above a movement-restricting surface in the current scene. Returns false
    * when the token is on the ground, over a void with no surface below it, or has a status that exempts it from
    * falling, i.e. FLY/HOVER.
+   * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
    * @returns {boolean}
+   * @internal
    */
-  #isHoveringAboveSurface() {
-    const { actor, elevation } = this;
+  _isHoveringAboveSurface(position=this._source) {
+    const { actor } = this;
     if ( !actor ) return false;
-    const { FLY, HOVER } = CONFIG.specialStatusEffects;
-    if ( actor.statuses.has(FLY) || actor.statuses.has(HOVER) ) return false;
-    const surface = this.#findSupportingSurface();
-    return !!surface && (surface.elevation < elevation);
+    const { BURROW, FLY, HOVER } = CONFIG.specialStatusEffects;
+    if ( actor.statuses.has(BURROW) || actor.statuses.has(FLY) || actor.statuses.has(HOVER) ) return false;
+    const surface = this._findSupportingSurface(position);
+    return !!surface && (surface.elevation < position.elevation);
   }
 }
