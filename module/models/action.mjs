@@ -2842,8 +2842,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.reverse=false]
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
-    action ||= this.fromChatMessage(message);
-    await action.confirm({reverse});
+    // Bail if a reverse-confirm is already in flight for this message.
+    if ( reverse && message?._reversing ) return;
+    if ( reverse && message ) message._reversing = true;
+    try {
+      action ||= this.fromChatMessage(message);
+      await action.confirm({reverse});
+    } finally {
+      if ( reverse && message ) message._reversing = false;
+    }
   }
 
   /* -------------------------------------------- */

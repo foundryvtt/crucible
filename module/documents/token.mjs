@@ -172,6 +172,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   async #revertUndoneMovement(movementId) {
     const message = game.messages.contents.findLast(m => m.flags?.crucible?.movement === movementId);
     if ( !message ) return;
+    // The action's own reverse flow is already handling this message; do not re-reverse or delete it.
+    if ( message._reversing ) return;
     if ( message.flags.crucible?.confirmed ) {
       await crucible.api.models.CrucibleAction.confirmMessage(message, {reverse: true});
     }
