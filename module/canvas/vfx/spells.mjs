@@ -452,6 +452,7 @@ function configureRayVFXEffect(action) {
   const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
   const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
   const isFire = action.rune.id === "flame";
+  const isLife = action.rune.id === "life";
 
   // Shared references: the caster mesh (used by finalize for the `source` anchor), the ray's
   // forward-offset origin point, and a move-polygon mask keeping the delivery from crossing walls.
@@ -481,24 +482,40 @@ function configureRayVFXEffect(action) {
     // For eruptive fire delivery the per-target impacts fire simultaneously at line completion; using
     // impactHeavy positions a chord of heavy thuds at the targets, reading as one global eruption.
     const impactType = isFire ? "impactHeavy" : "impact";
+
+    // Hit composition is rune-flavored: life skips recoil + impact flash (a gentle restorative arrival,
+    // not a strike) and uses a leaf/bubble shower matching the Life Arrow's impactSpray.
+    let hitAnimations;
+    let hitParticles;
+    if ( isLife ) {
+      hitAnimations = [];
+      const sprayTextures = getVFXFrames(action.rune.id, "SprayLeaf", "SprayBubble");
+      hitParticles = sprayTextures.length ? [{
+        animation: "circleParticleBurst", anchor: "target", textures: sprayTextures, duration: 200,
+        params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
+          lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
+          elevation: beamElevation}
+      }] : [];
+    }
+    else {
+      hitAnimations = [
+        {function: "impactSpriteRecoil", params: {distance: 12, duration: 320}},
+        ...(textures.impact.length
+          ? [{function: "impactSpriteBurst",
+            params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
+          : [])
+      ];
+      hitParticles = textures.spray.length ? [{
+        animation: "circleParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
+        params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
+          lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
+          elevation: beamElevation}
+      }] : [];
+    }
+
     impacts.push(isHit
-      ? {
-        // Struck target: a per-target recoil, a flashing rune burst, plus a spray of debris
-        result, id: token.id, sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: [
-          {function: "impactSpriteRecoil", params: {distance: 12, duration: 320}},
-          ...(textures.impact.length
-            ? [{function: "impactSpriteBurst",
-              params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
-            : [])
-        ],
-        particles: textures.spray.length ? [{
-          animation: "circleParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
-          params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
-            lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
-            elevation: beamElevation}
-        }] : []
-      }
+      ? {result, id: token.id, sound: sound(getVFXSound(action.rune.id, impactType)),
+        animations: hitAnimations, particles: hitParticles}
       : {
         // Resisting target: a softer, flashless dissipating puff and a distinct sound
         result, id: token.id, sound: sound(getVFXSound(action.rune.id, "miss")),
@@ -515,9 +532,11 @@ function configureRayVFXEffect(action) {
   // Rune-branched charge + delivery construction
   const buildContext = {textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,
     casterElevation, CHARGE_DURATION, action, sound};
-  const {chargeParticles, delivery} = isFire
-    ? _buildFireRayChargeAndDelivery(buildContext)
-    : _buildFrostRayChargeAndDelivery(buildContext);
+  let buildResult;
+  if ( isFire ) buildResult = _buildFireRayChargeAndDelivery(buildContext);
+  else if ( isLife ) buildResult = _buildLifeRayChargeAndDelivery(buildContext);
+  else buildResult = _buildFrostRayChargeAndDelivery(buildContext);
+  const {chargeParticles, delivery} = buildResult;
 
   const components = {
     ray: {
@@ -567,7 +586,7 @@ function _buildFrostRayChargeAndDelivery(ctx) {
       }] : []),
       // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
       ...(textures.spray.length ? [{
-        animation: "rayParticleCastoff", anchor: "origin", textures: textures.spray,
+        animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
         duration: DELIVERY_DURATION, mask: true,
         params: {speed: BEAM_SPEED, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
           rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
@@ -692,6 +711,89 @@ function _buildFireRayChargeAndDelivery(ctx) {
           alpha: {min: 0.06, max: 0.18},
           fade: {in: 300, out: 1400}, tint: 0x6B5A48,
           blend: PIXI.BLEND_MODES.NORMAL, elevation: beamElevation}
+      }] : [])
+    ]
+  };
+  return {chargeParticles, delivery};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Life ray: a Life Arrow charge sustained at the caster across the full delivery duration, plus a
+ * directional jet of leaves down the ray heading - StreakLeafy streaks driving forward with a wider
+ * SprayLeaf cloud tumbling alongside, all rendered above the tokens. A magical leaf-blower of healing.
+ * Impacts fire per-target as the beam reaches each (`eruptive: false`).
+ * @param {object} ctx
+ * @returns {{chargeParticles: object[], delivery: object}}
+ */
+function _buildLifeRayChargeAndDelivery(ctx) {
+  const {textures, spawnRadius, casterRadiusPx, casterElevation, CHARGE_DURATION, action, sound} = ctx;
+  const BEAM_SPEED = 750;            // Px/sec base; gentle healing breeze, not a spew
+  const DELIVERY_DURATION = 3000;    // Ms of sustained jet emission
+
+  // Port the Life Arrow's charge layers (ground bloom + overhead spray motes). The same layers are
+  // duplicated into the delivery phase so the channel keeps "charging" at the caster across the ray.
+  const lifeProps = RUNE_VFX_PROPS.arrow.life;
+  const buildLifeChargeLayers = duration => {
+    const layers = [];
+    for ( const layer of lifeProps.chargeLayers ) {
+      const layerTextures = layer.categories.flatMap(c => textures[c] ?? []);
+      if ( !layerTextures.length ) continue;
+      layers.push({
+        animation: lifeProps.chargeBehavior, anchor: "source", textures: layerTextures, duration,
+        params: {chargeRadius: casterRadiusPx * (layer.radiusFactor ?? 2.0),
+          elevation: layer.above ? (casterElevation + 1) : casterElevation, ...layer.params}
+      });
+    }
+    return layers;
+  };
+  const chargeParticles = buildLifeChargeLayers(CHARGE_DURATION);
+  const sustainedChargeLayers = buildLifeChargeLayers(DELIVERY_DURATION);
+
+  // Leaf jet textures: tight directional streaks + wider tumbling spray, both leaf-themed.
+  const streakLeafyTextures = getVFXFrames(action.rune.id, "StreakLeafy");
+  const sprayLeafTextures = getVFXFrames(action.rune.id, "SprayLeaf");
+
+  // No life sounds shipped yet; sound() returns null and the helpers handle it gracefully.
+  const deliverySound = sound(getVFXSound(action.rune.id, "damage"));
+  if ( deliverySound ) Object.assign(deliverySound, {loop: true, fade: 500, offset: -300, release: 600});
+
+  const delivery = {
+    speed: BEAM_SPEED,
+    duration: DELIVERY_DURATION,
+    eruptive: false,
+    sound: deliverySound,
+    animations: [],
+    particles: [
+      ...sustainedChargeLayers,
+      // Main jet: StreakLeafy streaks tearing down the ray heading - the visible "beam" of the jet.
+      // Sparse, full-alpha, full-scale so individual leaves read rather than blending into a streak.
+      ...(streakLeafyTextures.length ? [{
+        animation: "rayParticleBeam", anchor: "origin", textures: sprayLeafTextures,
+        duration: DELIVERY_DURATION, mask: true,
+        params: {speed: BEAM_SPEED, angleSpread: 1, radius: spawnRadius, spawnRate: 100,
+          rotationSpread: 0.1, rotationSpeed: {min: -2.5, max: 2.5},
+          scale: {min: 1.0, max: 1.15}, fade: {in: 30, out: 200},
+          blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1}
+      }] : []),
+      // Cast-off leaves: spawn at the advancing head of the leaf jet and fly off at angles within +/-
+      // 45 degrees of the heading. headSpeed = BEAM_SPEED locks the spawn point to the jet's leading
+      // edge so leaves shed alongside the front rather than uniformly along the rectangle.
+      ...(sprayLeafTextures.length ? [{
+        animation: "rayParticleHeadCastoff", anchor: "origin", textures: sprayLeafTextures,
+        duration: DELIVERY_DURATION, mask: true,
+        params: {speed: 150, headSpeed: BEAM_SPEED, headJitter: 25, angleSpread: 45, spawnRate: 50,
+          alignVelocity: false, rotationSpread: Math.PI, rotationSpeed: {min: -2.5, max: 2.5},
+          lifetime: {min: 800, max: 1400},
+          scale: {min: 0.8, max: 1.0},
+          fade: {in: 40, out: 250},
+          blend: {curve: [
+            {time: 0, value: PIXI.BLEND_MODES.ADD},
+            {time: 0.4, value: PIXI.BLEND_MODES.NORMAL},
+            {time: 1, value: PIXI.BLEND_MODES.NORMAL}
+          ]},
+          elevation: casterElevation + 1}
       }] : [])
     ]
   };

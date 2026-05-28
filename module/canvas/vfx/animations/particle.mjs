@@ -277,17 +277,21 @@ const circleParticleBurst = {
 
 /**
  * @typedef RayParticleBeamParams
- * @property {number} [speed]        Px/sec base, grid-scaled; default 2500.
- * @property {number} [angleSpread]  Degree variance around the heading.
- * @property {number} [radius]       Half-width of the rectangular spawn line.
+ * @property {number} [speed]              Px/sec base, grid-scaled; default 2500.
+ * @property {number} [angleSpread]        Degree variance around the heading.
+ * @property {number} [radius]             Half-width of the rectangular spawn line.
  * @property {number} [rotationSpread]
+ * @property {boolean} [alignVelocity]     Default true (streaks point along motion); false to free-rotate.
+ * @property {{min: number, max: number}} [rotationSpeed]  Per-particle tumbling (rad/sec).
+ * @property {{min: number, max: number}} [lifetime]       Override the reach-derived lifetime.
  * @property {{in: number, out: number}} [fade]
  * @property {number} [blend]
  */
 
 /**
  * Forward beam streaming from the anchor along the ray heading. A tight rectangular column of motion
- * tearing through air. Widen `angleSpread` for a halo of spillage around the beam.
+ * tearing through air. Widen `angleSpread` for a halo of spillage around the beam, override `lifetime`
+ * + `rotationSpeed` + `alignVelocity:false` for in-place tumbling debris carried by the beam.
  * @type {CrucibleParticleBehavior<RayParticleBeamParams>}
  */
 const rayParticleBeam = {
@@ -302,7 +306,8 @@ const rayParticleBeam = {
     const perpRad = this.state.rotation + (Math.PI / 2);
     const halfWidth = Math.max(8, params.radius ?? 8);
 
-    // Lifetime ensures particles reach the beam's end at the scaled speed
+    // Reach-derived lifetime keeps particles alive across the beam at speed; overridable for in-place
+    // debris that should die well before crossing the full length.
     const reach = Math.max(300, Math.round((this.state.length / speed) * 1000));
     return {
       area: {
@@ -310,8 +315,12 @@ const rayParticleBeam = {
         to: {x: anchor.x - (Math.cos(perpRad) * halfWidth), y: anchor.y - (Math.sin(perpRad) * halfWidth)}
       },
       velocity: {speed: [speed * 0.9, speed * 1.1], angle: [headingDeg - angleSpread, headingDeg + angleSpread]},
-      rotation: {alignVelocity: true, spread: params.rotationSpread ?? 0.05},
-      lifetime: {min: Math.round(reach * 0.85), max: reach},
+      rotation: {
+        alignVelocity: params.alignVelocity ?? true,
+        spread: params.rotationSpread ?? 0.05,
+        speed: params.rotationSpeed
+      },
+      lifetime: params.lifetime ?? {min: Math.round(reach * 0.85), max: reach},
       fade: params.fade ?? {in: 30, out: 150},
       blend: params.blend ?? PIXI.BLEND_MODES.ADD
     };
@@ -321,7 +330,81 @@ const rayParticleBeam = {
 /* -------------------------------------------- */
 
 /**
- * @typedef RayParticleCastoffParams
+ * @typedef RayParticleHeadCastoffParams
+ * @property {number} [speed]              Cast-off particle velocity (px/sec base, grid-scaled).
+ * @property {number} [headSpeed]          Rate the head advances along the ray (px/sec base, grid-scaled).
+ *                                          Defaults to `length / (layer.duration ?? phase.duration)`.
+ * @property {number} [headJitter]         Spawn jitter radius around the head (px base, grid-scaled).
+ * @property {number} [angleSpread]        Degrees +/- around the ray heading (default 45).
+ * @property {boolean} [alignVelocity]     Default false (free-tumbling); true to lock rotation to motion.
+ * @property {number} [rotationSpread]     Initial rotation spread in radians (default Math.PI).
+ * @property {{min: number, max: number}} [rotationSpeed]  Per-particle tumbling (rad/sec).
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {PIXI.BLEND_MODES|ParticleGeneratorBlendValue} [blend]  Static blend mode or over-lifetime
+ *   step-curve transition; resolved by the upstream ParticleGenerator.
+ */
+
+/**
+ * Cast-off shed at the advancing head of the beam: particles spawn at the leading edge as it sweeps
+ * origin -> end, then fly off at angles within `angleSpread` of the heading. Reads as leaves shed by a
+ * passing jet, sparks falling off the front of a beam, or debris jettisoned from a charging line of
+ * force. The head position is `origin + heading * headDist`, where `headDist` advances at `headSpeed`
+ * (defaulting to "traverse `length` over the layer duration"). Pair with the main beam's BEAM_SPEED to
+ * keep the cast-off head visually locked to the jet's leading edge. Pass a `blend` curve to make the
+ * leading edge arrive bright (ADD) and cool to NORMAL as particles trail behind.
+ * @type {CrucibleParticleBehavior<RayParticleHeadCastoffParams>}
+ */
+const rayParticleHeadCastoff = {
+  setup(phase, layer) {
+    const params = layer.params;
+    const {origin, rotation, length, gridScale} = this.state;
+    const cosR = Math.cos(rotation);
+    const sinR = Math.sin(rotation);
+    const speed = (params.speed ?? 400) * gridScale;
+    const duration = layer.duration ?? phase.duration;
+    const headSpeed = params.headSpeed != null
+      ? (params.headSpeed * gridScale)
+      : (length / (duration / 1000));
+    const headingDeg = Math.toDegrees(rotation);
+    const angleSpread = params.angleSpread ?? 45;
+    const headJitter = (params.headJitter ?? 20) * gridScale;
+    const rotationCfg = {alignVelocity: params.alignVelocity ?? false,
+      spread: params.rotationSpread ?? Math.PI};
+    if ( params.rotationSpeed ) rotationCfg.speed = params.rotationSpeed;
+
+    let elapsed = 0;
+    let headDist = 0;
+    return {
+      // Placeholder spawn area; onSpawn places each particle relative to the advancing head
+      area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
+      velocity: {speed: [speed * 0.7, speed],
+        angle: [headingDeg - angleSpread, headingDeg + angleSpread]},
+      rotation: rotationCfg,
+      ...(params.lifetime ? {lifetime: params.lifetime} : {}),
+      fade: params.fade ?? {in: 40, out: 250},
+      // FIXME: degrade blend curve to initial value; remove in core 14.364+
+      blend: params.blend?.curve?.[0]?.value ?? params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      onTick: dt => {
+        elapsed += dt;
+        headDist = Math.min((elapsed / 1000) * headSpeed, length);
+      },
+      onSpawn: (p, {generator}) => {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.sqrt(Math.random()) * headJitter;
+        const sceneX = origin.x + (cosR * headDist) + (Math.cos(angle) * r);
+        const sceneY = origin.y + (sinR * headDist) + (Math.sin(angle) * r);
+        p.x = sceneX - generator.bounds.x;
+        p.y = sceneY - generator.bounds.y;
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef RayParticleRootCastoffParams
  * @property {number} [speed]
  * @property {number} [coneDeg]
  * @property {number} [radius]
@@ -334,9 +417,9 @@ const rayParticleBeam = {
 /**
  * Wide flare at the beam's root. A short-lived spray fanning around the heading near the source,
  * softening where the beam emerges from the caster. Local to the origin - does not travel the beam.
- * @type {CrucibleParticleBehavior<RayParticleCastoffParams>}
+ * @type {CrucibleParticleBehavior<RayParticleRootCastoffParams>}
  */
-const rayParticleCastoff = {
+const rayParticleRootCastoff = {
   setup(phase, layer) {
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const params = layer.params;
@@ -547,7 +630,8 @@ export const PARTICLE_ANIMATIONS = {
   circleParticleResidue,
   circleParticleBurst,
   rayParticleBeam,
-  rayParticleCastoff,
+  rayParticleRootCastoff,
+  rayParticleHeadCastoff,
   rayParticleGroundCascade,
   shapeParticleCombustion,
   shapeParticleResidue
