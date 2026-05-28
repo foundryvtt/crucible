@@ -107,7 +107,7 @@ const chargeParticleVortex = {
  * Tuning (`params`): `align` (bool), `flipX` (bool), `rotationSpread` (number), `speed` ({min, max}).
  * @type {CrucibleParticleBehavior}
  */
-const projectileParticleTrail = {
+const deliveryProjectileTrail = {
   setup(phase, layer) {
     const {state} = this;
     const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = layer.params;
@@ -121,7 +121,7 @@ const projectileParticleTrail = {
       rotation: align ? {spread: rotationSpread} : {alignVelocity: false, spread: Math.PI},
       velocity: align ? {speed: [0, 0], angle: [0, 360]} : {speed: [speed.min, speed.max], angle: [0, 360]},
       onTick: (_dt, generator) => {
-        const container = state.projectile?.container;
+        const container = state.delivery?.container;
         if ( !container ) return;
         const x = Math.round(container.x / POSITION_STEP) * POSITION_STEP;
         const y = Math.round(container.y / POSITION_STEP) * POSITION_STEP;
@@ -141,7 +141,7 @@ const projectileParticleTrail = {
     // Align mode locks each particle's rotation to the projectile heading for directional streaks
     if ( align ) {
       config.onSpawn = p => {
-        const container = state.projectile?.container;
+        const container = state.delivery?.container;
         if ( !container ) return;
         const variance = (Math.random() - 0.5) * rotationSpread * 2;
         p.rotation = container.rotation + variance;
@@ -240,7 +240,7 @@ const impactParticleBurst = {
  * Tuning (`params`): `speed` (px/sec); `spread` (rad angular spread); `radius` (px spawn); `blend`.
  * @type {CrucibleParticleBehavior}
  */
-const deliveryParticleBeam = {
+const deliveryRayBeam = {
   setup(phase, layer) {
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const params = layer.params;
@@ -278,7 +278,7 @@ const deliveryParticleBeam = {
  * Tuning (`params`): `speed` (px/sec base, grid-scaled), `coneDeg` (half-angle), `radius` (spawn).
  * @type {CrucibleParticleBehavior}
  */
-const deliveryParticleCastoff = {
+const deliveryRayCastoff = {
   setup(phase, layer) {
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const params = layer.params;
@@ -305,7 +305,7 @@ const deliveryParticleCastoff = {
  * Tuning (`params`): `width` (px lateral half-spread), `spacing` (px between deposits).
  * @type {CrucibleParticleBehavior}
  */
-const rayGroundCascade = {
+const deliveryRayGroundCascade = {
   setup(phase, layer) {
     const params = layer.params ?? {};
     const {origin, rotation, length, gridScale} = this.state;
@@ -354,10 +354,10 @@ export const PARTICLE_ANIMATIONS = {
   chargeParticleGather,
   chargeParticleVortex,
   chargeParticleBloom,
-  projectileParticleTrail,
+  deliveryProjectileTrail,
   chargeParticleResidue,
   impactParticleBurst,
-  deliveryParticleBeam,
-  deliveryParticleCastoff,
-  rayGroundCascade
+  deliveryRayBeam,
+  deliveryRayCastoff,
+  deliveryRayGroundCascade
 };

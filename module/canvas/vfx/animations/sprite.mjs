@@ -28,12 +28,12 @@
  * Fade the projectile container's alpha 0 -> 1 over the charge phase.
  * @type {CrucibleVFXComponentAnimation}
  */
-const chargeSpriteFadeIn = {
+const chargeProjectileFadeIn = {
   setup(phase, params) {
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "inQuad");
   },
   animate(t, phase, params) {
-    const container = this.state.projectile?.container;
+    const container = this.state.delivery?.container;
     if ( container ) container.alpha = params.ease(t);
   }
 };
@@ -41,18 +41,18 @@ const chargeSpriteFadeIn = {
 /* -------------------------------------------- */
 
 /**
- * Drive the projectile container along its precomputed flight path during the projectile phase.
+ * Drive the projectile container along its precomputed flight path during the delivery phase.
  * Mirrors upstream `followPath` minus the `mesh.anchor.x` lerp that continues the bow `drawBack`
  * charge animation - spell projectiles have no drawback so the trailing-anchor jump is incorrect.
  * @type {CrucibleVFXComponentAnimation}
  */
-const projectileSpriteFlight = {
+const deliveryProjectileFlight = {
   setup(phase, params) {
     this.state.lastPathIndex = 0;
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "linear", params.easingParams);
   },
   animate(t, phase, params) {
-    const target = params.target || this.state.projectile?.container;
+    const target = params.target || this.state.delivery?.container;
     if ( !target ) return;
     const w = params.ease(t);
     const point = this.state.flightPath.interpolatedPoint(w, this.state.lastPathIndex);
@@ -124,13 +124,13 @@ function _recoilMagnitude(rp, oscillations) {
  * Light directional recoil for a standard hit: the struck token rocks back and returns to rest.
  * @type {CrucibleVFXComponentAnimation}
  */
-const impactRecoil = impactRecoilAnimation(0);
+const impactSpriteRecoil = impactRecoilAnimation(0);
 
 /**
  * Heavier recoil for a critical hit: a stronger kick that overshoots and bounces (damped reverb).
  * @type {CrucibleVFXComponentAnimation}
  */
-const impactShake = impactRecoilAnimation(3);
+const impactSpriteShake = impactRecoilAnimation(3);
 
 /* -------------------------------------------- */
 /*  Impact Sprite                               */
@@ -143,7 +143,7 @@ const impactShake = impactRecoilAnimation(3);
  * `flashDuration`.
  * @type {CrucibleVFXComponentAnimation}
  */
-const impactBurst = {
+const impactSpriteBurst = {
   schedule(phase, params) {
     if ( !params.texture ) return;
     const {origin, destination} = this.state;
@@ -184,9 +184,9 @@ const impactBurst = {
  * @type {Record<string, CrucibleVFXComponentAnimation>}
  */
 export const SPRITE_ANIMATIONS = {
-  chargeSpriteFadeIn,
-  projectileSpriteFlight,
-  impactBurst,
-  impactRecoil,
-  impactShake
+  chargeProjectileFadeIn,
+  deliveryProjectileFlight,
+  impactSpriteBurst,
+  impactSpriteRecoil,
+  impactSpriteShake
 };

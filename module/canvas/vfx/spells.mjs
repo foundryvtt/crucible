@@ -196,13 +196,13 @@ function configureArrowVFXEffect(action) {
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
       if ( runeProps.impactSprite !== false ) {
         const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-        impactAnimations.push({function: "impactBurst", // Match the burst to the stick so both exit together
+        impactAnimations.push({function: "impactSpriteBurst", // Match the burst to the stick so both exit together
           params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
       }
       if ( runeProps.recoil !== false ) {
         impactAnimations.push(roll?.isCriticalSuccess
-          ? {function: "impactShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
-          : {function: "impactRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
+          ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
+          : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
       }
       // Optional impact particle pop, e.g. a shower of leaves and bubbles for life
       if ( runeProps.impactSpray ) {
@@ -220,7 +220,7 @@ function configureArrowVFXEffect(action) {
       if ( (result === T.RESIST) && (runeProps.impactSprite !== false) ) {
         const puff = pickRandom(textures.air);
         // A resisted spell fizzles: a dissipating puff, no flash
-        if ( puff ) impactAnimations.push({function: "impactBurst",
+        if ( puff ) impactAnimations.push({function: "impactSpriteBurst",
           params: {texture: puff, size: 4, duration: 1500, flash: false}});
       }
     }
@@ -282,7 +282,7 @@ function configureArrowVFXEffect(action) {
       const trailTextures = trail.frames ? getVFXFrames(action.rune.id, ...trail.frames)
         : (trail.categories ? trail.categories.flatMap(c => textures[c] ?? []) : textures.streak);
       if ( trailTextures.length ) projectileParticles.push({
-        animation: "projectileParticleTrail", anchor: "projectile", textures: trailTextures,
+        animation: "deliveryProjectileTrail", anchor: "delivery", textures: trailTextures,
         params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
           alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
           blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1, ...(trail.params ?? {})}
@@ -297,13 +297,13 @@ function configureArrowVFXEffect(action) {
       ],
       pathType: runeProps.path ?? {type: "linear", params: {}},
       charge: {duration: CHARGE_DURATION, sound: chargeSound,
-        animations: [{function: "chargeSpriteFadeIn"}], particles: chargeParticles},
-      projectile: {
+        animations: [{function: "chargeProjectileFadeIn"}], particles: chargeParticles},
+      delivery: {
         texture: runeProps.projectileFrame
           ? getVFXTexturePath(runeProps.projectileFrame)
           : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
         size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: whooshSound,
-        animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
+        animations: [{function: "deliveryProjectileFlight"}], particles: projectileParticles},
       impacts: [{
         result, id: token.id, stick: stickDuration,
         sound: impactSound, animations: impactAnimations, particles: impactParticles
@@ -486,9 +486,9 @@ function configureRayVFXEffect(action) {
         // Struck target: a per-target recoil, a flashing frost burst, and a spray of shards
         result, id: token.id, sound: sound(getVFXSound(action.rune.id, "impact")),
         animations: [
-          {function: "impactRecoil", params: {distance: 12, duration: 320}},
+          {function: "impactSpriteRecoil", params: {distance: 12, duration: 320}},
           ...(textures.impact.length
-            ? [{function: "impactBurst",
+            ? [{function: "impactSpriteBurst",
               params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
             : [])
         ],
@@ -503,7 +503,7 @@ function configureRayVFXEffect(action) {
         // Resisting target: a softer, flashless dissipating puff and a distinct sound
         result, id: token.id, sound: sound(getVFXSound(action.rune.id, "miss")),
         animations: textures.air.length
-          ? [{function: "impactBurst",
+          ? [{function: "impactSpriteBurst",
             params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
           : [],
         particles: []
@@ -528,7 +528,7 @@ function configureRayVFXEffect(action) {
         particles: [
           // Concentrated forward beam: a tight rectangular profile fired along the heading
           ...(textures.streak.length ? [{
-            animation: "deliveryParticleBeam", anchor: "origin", textures: textures.streak,
+            animation: "deliveryRayBeam", anchor: "origin", textures: textures.streak,
             duration: DELIVERY_DURATION, mask: true,
             params: {speed: BEAM_SPEED, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
               rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
@@ -536,7 +536,7 @@ function configureRayVFXEffect(action) {
           }] : []),
           // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           ...(textures.spray.length ? [{
-            animation: "deliveryParticleCastoff", anchor: "origin", textures: textures.spray,
+            animation: "deliveryRayCastoff", anchor: "origin", textures: textures.spray,
             duration: DELIVERY_DURATION, mask: true,
             params: {speed: BEAM_SPEED, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
               rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
@@ -545,7 +545,7 @@ function configureRayVFXEffect(action) {
           }] : []),
           // Ground cascade: static shards deposited along the beam path as the front sweeps through
           ...(textures.impact.length ? [{
-            animation: "rayGroundCascade", anchor: "origin", textures: textures.impact,
+            animation: "deliveryRayGroundCascade", anchor: "origin", textures: textures.impact,
             duration: DELIVERY_DURATION, mask: true,
             params: {width: Math.round(width * 0.8), spacing: 20, alpha: {min: 0.6, max: 0.9},
               scale: {min: 0.6, max: 1.0}, elevation: 0}

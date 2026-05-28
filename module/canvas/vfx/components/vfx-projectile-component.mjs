@@ -3,11 +3,8 @@ import {getParticleScaleFactor} from "../blocks.mjs";
 const {ArrayField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 
 /**
- * A Crucible VFX component for a single projectile attack.
- * Incorporates three sequential animation phases:
- * - Charge-up
- * - Flight
- * - Impact
+ * A Crucible VFX component for a single projectile attack, using the inherited charge/delivery/impacts
+ * phase structure where the delivery phase is the projectile's flight (a sprite flown along a path).
  * Each phase can incorporate custom particle emitter and animation behaviors. The phase-dispatch
  * machinery is inherited from {@link CrucibleVFXComponent}.
  * @extends {CrucibleVFXComponent}
@@ -29,42 +26,29 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
 
   /** @inheritDoc */
   static defineSchema() {
-    const self = CrucibleProjectileComponent;
-    return {
-      ...super.defineSchema(),
+    const schema = super.defineSchema();
 
-      // Projectile trajectory as a VFXPath
-      path: new ArrayField(self._pointField(), {required: true, min: 2}),
+    // Projectile trajectory as a VFXPath
+    Object.assign(schema, {
+      path: new ArrayField(CrucibleProjectileComponent._pointField(), {required: true, min: 2}),
       pathType: new SchemaField({
         type: new StringField({required: true, blank: false, initial: "linear"}),
         params: new ObjectField({required: false})
-      }),
+      })
+    });
 
-      // Charging or drawing the projectile before launching it
-      charge: new SchemaField({
-        duration: new NumberField({required: true, nullable: false, initial: 700}),
-        sound: self._soundField(),
-        animations: self._animationsField(),
-        particles: new ArrayField(self._particleField())
-      }),
+    // Extended fields for projectile delivery
+    schema.delivery.extendFields({
+      texture: new StringField({required: true, blank: false}),
+      size: new NumberField({required: true, nullable: false, initial: 3}),
+      speed: new NumberField({required: true, nullable: false, initial: 150})
+    });
 
-      // The flight of the projectile itself
-      projectile: new SchemaField({
-        texture: new StringField({required: true, blank: false}),
-        size: new NumberField({required: true, nullable: false, initial: 3}),    // Size in feet
-        speed: new NumberField({required: true, nullable: false, initial: 150}), // Feet per second
-        sound: self._soundField(),
-        animations: self._animationsField(),
-        particles: new ArrayField(self._particleField())
-      }),
-
-      // The impact(s) of the projectile against its target. A single projectile resolves one impact, so
-      // this is a length-1 array (multi-target arrows emit one component per target). `stick` is how long a
-      // hit projectile lingers (stuck) before fading; the impact window is the max of it and the animations.
-      impacts: new ArrayField(self._impactField({
-        stick: new NumberField({required: true, nullable: false, initial: 0})
-      }))
-    };
+    // Extended fields for projectile impact
+    schema.impacts.element.extendFields({
+      stick: new NumberField({required: true, nullable: false, initial: 0})
+    });
+    return schema;
   }
 
   /* -------------------------------------------- */
@@ -73,8 +57,8 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
 
   /** @override */
   async _load() {
-    this.assetPaths.add(this.projectile.texture);
-    for ( const phase of [this.charge, this.projectile, ...this.impacts] ) {
+    this.assetPaths.add(this.delivery.texture);
+    for ( const phase of [this.charge, this.delivery, ...this.impacts] ) {
       for ( const layer of phase.particles ) {
         for ( const texture of layer.textures ) this.assetPaths.add(texture);
       }
@@ -95,18 +79,18 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     const destination = this.path.at(-1);
     const flightPath = foundry.canvas.vfx.VFXPath.create(this.pathType.type, this.path, this.pathType.params);
 
-    const flightMS = (flightPath.pathLength * 1000) / (this.projectile.speed * distancePixels);
+    const flightMS = (flightPath.pathLength * 1000) / (this.delivery.speed * distancePixels);
     const timings = this.timings = {
       chargeStart: 0,
       chargeEnd: this.charge.duration,
-      projectileStart: this.charge.duration,
-      projectileEnd: this.charge.duration + flightMS,
+      deliveryStart: this.charge.duration,
+      deliveryEnd: this.charge.duration + flightMS,
       impactStart: this.charge.duration + flightMS
     };
 
-    // The flying projectile sprite; the impact burst sprite is created by the impactBurst animation.
-    this.projectile.container = this.addManagedDisplayObject(
-      this._createSprite(this.projectile.texture, this.projectile.size, origin));
+    // The flying projectile sprite; the impact burst sprite is created by the impactSpriteBurst animation.
+    this.delivery.container = this.addManagedDisplayObject(
+      this._createSprite(this.delivery.texture, this.delivery.size, origin));
 
     // Shared state for phase animators
     const source = this._originMesh ? {x: this._originMesh.x, y: this._originMesh.y} : origin;
@@ -118,9 +102,9 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       lastPathIndex: 0,
       gridScale: getParticleScaleFactor(),
       charge: this.charge,
-      projectile: this.projectile,
+      delivery: this.delivery,
       targetMesh: this._targetMeshes[0] ?? null,
-      anchors: {origin, destination, projectile: this.projectile.container, source}
+      anchors: {origin, destination, delivery: this.delivery.container, source}
     };
 
     // Charge phase
@@ -129,11 +113,11 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     this._schedulePhaseSound(this.charge, origin);
     this._attachParticles(this.charge);
 
-    // Projectile phase
-    Object.assign(this.projectile, {start: timings.projectileStart, end: timings.projectileEnd, duration: flightMS});
-    this._attachAnimations(this.projectile);
-    this._schedulePhaseSound(this.projectile, origin);
-    this._attachParticles(this.projectile);
+    // Delivery phase (the projectile's flight)
+    Object.assign(this.delivery, {start: timings.deliveryStart, end: timings.deliveryEnd, duration: flightMS});
+    this._attachAnimations(this.delivery);
+    this._schedulePhaseSound(this.delivery, origin);
+    this._attachParticles(this.delivery);
 
     // Impact phase (resounds at the target). Impacts dispatch their own visuals at impactStart.
     this.#animateProjectileExit(timings);
@@ -161,6 +145,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   #animateProjectileExit(timings) {
     const stick = this.impacts[0]?.stick ?? 0;
     const fadeStart = (stick > 0) ? (timings.impactStart + stick - 150) : timings.impactStart;
-    this.timeline.add(this.projectile.container, {alpha: {to: 0, duration: 150}}, fadeStart);
+    this.timeline.add(this.delivery.container, {alpha: {to: 0, duration: 150}}, fadeStart);
   }
 }

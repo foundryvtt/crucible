@@ -17,6 +17,9 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   static defineSchema() {
     return {
       ...super.defineSchema(),
+      charge: this._phaseField({duration: new NumberField({required: true, nullable: false, initial: 700})}),
+      delivery: this._phaseField(),
+      impacts: new ArrayField(this._impactField()),
       seed: new NumberField({initial: null})
     };
   }
@@ -92,6 +95,24 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     return new SchemaField({
       result: new NumberField({required: false, nullable: true, initial: null}),
       id: new StringField({required: false, blank: true}),
+      sound: this._soundField(),
+      animations: this._animationsField(),
+      particles: new ArrayField(this._particleField()),
+      ...extraFields
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A standard animation phase: a positional sound cue, timeline animations, and particle layers, plus any
+   * component-specific `extraFields` (e.g. a charge `duration`, or a delivery's projectile sprite fields).
+   * @param {Record<string, DataField>} [extraFields]
+   * @returns {SchemaField}
+   * @protected
+   */
+  static _phaseField(extraFields={}) {
+    return new SchemaField({
       sound: this._soundField(),
       animations: this._animationsField(),
       particles: new ArrayField(this._particleField()),

@@ -1,6 +1,6 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
 import {getParticleScaleFactor} from "../blocks.mjs";
-const {ArrayField, NumberField, SchemaField} = foundry.data.fields;
+const {NumberField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
@@ -26,36 +26,22 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
   /** @inheritDoc */
   static defineSchema() {
-    const self = CrucibleRayComponent;
-    return {
-      ...super.defineSchema(),
+    const schema = super.defineSchema();
 
-      // The beam source, its heading (radians), and its reach (px) define the line the ray travels.
-      origin: self._pointField(),
+    // The beam source, its heading (radians), and its reach (px) define the line the ray travels.
+    Object.assign(schema, {
+      origin: CrucibleRayComponent._pointField(),
       rotation: new NumberField({required: true, nullable: false, initial: 0}),
-      length: new NumberField({required: true, nullable: false, initial: 0}),
+      length: new NumberField({required: true, nullable: false, initial: 0})
+    });
 
-      // Charging the ray before it fires
-      charge: new SchemaField({
-        duration: new NumberField({required: true, nullable: false, initial: 700}),
-        sound: self._soundField(),
-        animations: self._animationsField(),
-        particles: new ArrayField(self._particleField())
-      }),
-
-      // The beam delivery itself. `speed` (px/sec) sets how fast the beam front travels, which drives
-      // per-target impact timing; `duration` is how long the beam persists/emits.
-      delivery: new SchemaField({
-        speed: new NumberField({required: true, nullable: false, initial: 2500}),
-        duration: new NumberField({required: true, nullable: false, initial: 2000}),
-        sound: self._soundField(),
-        animations: self._animationsField(),
-        particles: new ArrayField(self._particleField())
-      }),
-
-      // One self-contained impact per struck target; the configurator bakes each target's hit/miss look.
-      impacts: new ArrayField(self._impactField())
-    };
+    // The beam delivery adds a travel `speed` (px/sec) driving per-target impact timing, and a `duration`
+    // for how long the beam persists/emits.
+    schema.delivery.extendFields({
+      speed: new NumberField({required: true, nullable: false, initial: 2500}),
+      duration: new NumberField({required: true, nullable: false, initial: 2000})
+    });
+    return schema;
   }
 
   /* -------------------------------------------- */
