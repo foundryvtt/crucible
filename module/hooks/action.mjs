@@ -395,7 +395,7 @@ HOOKS.fall = {
     const movement = crucible.api.canvas.movement.planMovement(this.token, [{
       action: "fall",
       elevation: surface.elevation
-    }]);
+    }], { animate: false });
     if ( !movement ) return;
     Object.defineProperty(this, "movement", { value: movement, configurable: true });
     this.recordEvent({ movement: movement.id, target: this.actor, type: "movement" });
@@ -405,6 +405,11 @@ HOOKS.fall = {
   },
   finalizeVFX(vfxEffect, references) {
     crucible.api.canvas.vfx.landing.finalizeLandingVFXEffect(this, vfxEffect, references);
+  },
+  postActivate() {
+    const { falling } = CONFIG.statusEffects;
+    if ( !this.actor.statuses.has(falling.id) ) return;
+    this.recordEvent({ type: "effect", target: this.actor, effects: [{ _id: falling._id, _action: "delete" }] });
   }
 };
 

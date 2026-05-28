@@ -18,12 +18,12 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * Compose a planned movement (`TokenDocument#move` with `planned: true`) that resolves only on `startMovement`.
  * @param {TokenDocument} token              The token to be moved
  * @param {TokenMovementWaypoint[]} waypoints  Pre-computed waypoints describing the movement path
- * @param {object} [options]
+ * @param {object} [options]                   Additional options forwarded to `TokenDocument#move`.
  * @param {object} [options.constrainOptions]  Constrain options carried through to actualization; the `crucible`
  *                                             namespace propagates intent to the token's collision-test override.
  * @returns {CrucibleActionMovement|null}    Movement record `{id, origin, waypoints, cost}`, or null on invalid input
  */
-export function planMovement(token, waypoints, {constrainOptions}={}) {
+export function planMovement(token, waypoints, options={}) {
   if ( !token || !waypoints?.length ) return null;
   const id = foundry.utils.randomID();
   const origin = _tokenPosition(token);
@@ -31,7 +31,7 @@ export function planMovement(token, waypoints, {constrainOptions}={}) {
   const {cost} = tokenObject
     ? tokenObject.measureMovementPath([origin, ...waypoints])
     : token.measureMovementPath([origin, ...waypoints]);
-  token.move(waypoints, {id, planned: true, constrainOptions}).catch(err => console.error(err));
+  token.move(waypoints, {id, planned: true, ...options}).catch(err => console.error(err));
   return {id, origin, waypoints, cost};
 }
 
