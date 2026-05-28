@@ -2412,13 +2412,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( isPlanned ) {
       (token._confirmedMovements ??= new Set()).add(movementId);
-      const movementActions = crucible.api.canvas.CrucibleMovementPolygon._movementActions;
-      if ( isSelf ) movementActions.set(movementId, this);
-      try {
-        await token.startMovement(movementId);
-      } finally {
-        if ( isSelf ) movementActions.delete(movementId);
-      }
+      await token.startMovement(movementId);
     }
   }
 

@@ -9,7 +9,7 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * @import {ElevatedPoint, Point} from "@common/_types.mjs";
  * @import {TokenMovementWaypoint, TokenPosition} from "@common/documents/_types.mjs";
  * @import {default as Ray} from "@client/canvas/geometry/shapes/ray.mjs";
- * @import {default as CrucibleAction, CrucibleActionMovement} from "@crucible/models/action.mjs";
+ * @import {CrucibleActionMovement} from "@crucible/models/action.mjs";
  */
 
 /* -------------------------------------------- */
@@ -18,9 +18,12 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * Compose a planned movement (`TokenDocument#move` with `planned: true`) that resolves only on `startMovement`.
  * @param {TokenDocument} token              The token to be moved
  * @param {TokenMovementWaypoint[]} waypoints  Pre-computed waypoints describing the movement path
+ * @param {object} [options]
+ * @param {object} [options.constrainOptions]  Constrain options carried through to actualization; the `crucible`
+ *                                             namespace propagates intent to the token's collision-test override.
  * @returns {CrucibleActionMovement|null}    Movement record `{id, origin, waypoints, cost}`, or null on invalid input
  */
-export function planMovement(token, waypoints) {
+export function planMovement(token, waypoints, {constrainOptions}={}) {
   if ( !token || !waypoints?.length ) return null;
   const id = foundry.utils.randomID();
   const origin = _tokenPosition(token);
@@ -28,7 +31,7 @@ export function planMovement(token, waypoints) {
   const {cost} = tokenObject
     ? tokenObject.measureMovementPath([origin, ...waypoints])
     : token.measureMovementPath([origin, ...waypoints]);
-  token.move(waypoints, {id, planned: true}).catch(err => console.error(err));
+  token.move(waypoints, {id, planned: true, constrainOptions}).catch(err => console.error(err));
   return {id, origin, waypoints, cost};
 }
 
@@ -40,23 +43,24 @@ export function planMovement(token, waypoints) {
  * @param {TokenDocument} token             The token being forcibly moved
  * @param {Ray} ray                         Desired vector and distance of forced movement
  * @param {object} [options]
- * @param {boolean} [options.collision=true]  Constrain by movement-blocking walls
- * @param {boolean} [options.snap=true]       Snap the destination to the grid (with walk-back safety)
- * @param {string} [options.action="push"]    Movement-action label applied to the resulting waypoint
- * @param {boolean} [options.tokenCollision]  Treat other tokens as obstacles, enforcing collision with their hitbox
- * @param {CrucibleAction|null} [options.crucibleAction]  Action driving the movement whose exemptions apply
+ * @param {boolean} [options.collision=true]   Constrain by movement-blocking walls
+ * @param {boolean} [options.snap=true]        Snap the destination to the grid (with walk-back safety)
+ * @param {string} [options.action="push"]     Movement-action label applied to the resulting waypoint
+ * @param {boolean} [options.tokenCollision]   Treat other tokens as obstacles; defaults to the mover's combat state
+ * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
  * @returns {CrucibleActionMovement|null}   Movement record, or null if no displacement was possible
  */
 export function planForcedMovement(token, ray,
-  {collision=true, snap=true, action="push", tokenCollision, crucibleAction=null}={}) {
+  {collision=true, snap=true, action="push", tokenCollision, ignoreTokens=false}={}) {
   if ( !token || !ray ) return null;
   if ( (ray.dx === 0) && (ray.dy === 0) ) return null;
   const tokenObject = token.object;
   if ( !tokenObject ) return null;
-  const waypoint = _resolveForcedDestination(tokenObject, ray, {collision, snap, action, tokenCollision,
-    crucibleAction});
+  const effectiveTokenCollision = (tokenCollision ?? tokenObject.inCombat) && !ignoreTokens;
+  const waypoint = _resolveForcedDestination(tokenObject, ray, {collision, snap, action,
+    tokenCollision: effectiveTokenCollision});
   if ( !waypoint ) return null;
-  return planMovement(token, [waypoint]);
+  return planMovement(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens}}});
 }
 
 /* -------------------------------------------- */
@@ -69,12 +73,12 @@ export function planForcedMovement(token, ray,
  * @param {number} distanceFeet           Signed displacement distance in feet; positive pushes, negative pulls
  * @param {object} [options]
  * @param {number} [options.minGap=0]     Minimum center-to-center distance from the origin to preserve when pulling
- * @param {boolean} [options.tokenCollision]  Treat other tokens as obstacles, enforcing collision with their hitbox
- * @param {CrucibleAction|null} [options.crucibleAction]  Action driving the push whose exemptions apply; null for none
+ * @param {boolean} [options.tokenCollision]  Treat other tokens as obstacles; defaults to the mover's combat state
+ * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
  * @returns {CrucibleActionMovement|null} Movement record, or null if no displacement was possible
  */
 export function planPushMovement(fromPoint, targetToken, distanceFeet,
-  {minGap=0, tokenCollision, crucibleAction=null}={}) {
+  {minGap=0, tokenCollision, ignoreTokens=false}={}) {
   if ( !targetToken || !distanceFeet ) return null;
   const r0 = new foundry.canvas.geometry.Ray(fromPoint, targetToken.center);
   if ( r0.distance === 0 ) return null;
@@ -84,7 +88,7 @@ export function planPushMovement(fromPoint, targetToken, distanceFeet,
     if ( distancePx >= 0 ) return null;
   }
   const ray = new foundry.canvas.geometry.Ray(targetToken.center, r0.project(1 + (distancePx / r0.distance)));
-  return planForcedMovement(targetToken.document, ray, {tokenCollision, crucibleAction});
+  return planForcedMovement(targetToken.document, ray, {tokenCollision, ignoreTokens});
 }
 
 /* -------------------------------------------- */
@@ -107,11 +111,10 @@ function _tokenPosition(token) {
  * Resolve a forced-movement destination into a single snapped, wall-constrained waypoint.
  * @param {Token} tokenObject
  * @param {Ray} ray
- * @param {{collision: boolean, snap: boolean, action: string, tokenCollision: boolean,
- *   crucibleAction: CrucibleAction|null}} options
+ * @param {{collision: boolean, snap: boolean, action: string, tokenCollision: boolean}} options
  * @returns {TokenMovementWaypoint|null}
  */
-function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, tokenCollision, crucibleAction}) {
+function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, tokenCollision}) {
   const gridSize = canvas.grid.size;
   const halfW = (tokenObject.document.width * gridSize) / 2;
   const halfH = (tokenObject.document.height * gridSize) / 2;
@@ -120,15 +123,14 @@ function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, t
 
   // Constrain center to the first wall or token collision along the ray when requested
   const destinationCenter = _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation,
-    collision, tokenCollision, crucibleAction);
+    collision, tokenCollision);
   if ( !destinationCenter ) return null;
 
   // Convert center -> top-left (preserving elevation), then snap in 3D with walk-back safety if requested
   let topLeft = {x: destinationCenter.x - halfW, y: destinationCenter.y - halfH,
     elevation: destinationCenter.elevation};
   if ( snap ) {
-    topLeft = _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision,
-      crucibleAction);
+    topLeft = _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision);
     if ( !topLeft ) return null;
   }
 
@@ -152,11 +154,9 @@ function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, t
  * @param {number} destinationElevation
  * @param {boolean} collision
  * @param {boolean} tokenCollision
- * @param {CrucibleAction|null} crucibleAction
  * @returns {ElevatedPoint|null} Constrained destination center, or null on zero-length ray
  */
-function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation, collision, tokenCollision,
-  crucibleAction) {
+function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation, collision, tokenCollision) {
   const destination = {x: ray.B.x, y: ray.B.y, elevation: destinationElevation};
   if ( !collision ) return destination;
   const len = Math.hypot(ray.dx, ray.dy);
@@ -164,7 +164,7 @@ function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationE
   const origin = {x: ray.A.x, y: ray.A.y, elevation: originElevation};
   const level = tokenObject.scene.levels.get(tokenObject.document._source.level);
   const collisionVertex = CrucibleMovementPolygon.testCollision(origin, destination,
-    {type: "move", mode: "closest", level, excludeToken: tokenObject, tokenCollision, crucibleAction});
+    {type: "move", mode: "closest", level, excludeToken: tokenObject, tokenCollision});
   if ( !collisionVertex ) return destination;
   const dist = Math.hypot(collisionVertex.x - ray.A.x, collisionVertex.y - ray.A.y);
   const safeDist = Math.max(0, dist - 1);
@@ -188,11 +188,9 @@ function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationE
  * @param {number} originElevation
  * @param {boolean} collision
  * @param {boolean} tokenCollision
- * @param {CrucibleAction|null} crucibleAction
  * @returns {ElevatedPoint|null}  Snapped top-left, or null if no safe cell was found
  */
-function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision,
-  crucibleAction) {
+function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision) {
   const gridSize = canvas.grid.size;
   const SNAP_MODE = CONST.GRID_SNAPPING_MODES.TOP_LEFT_VERTEX;
   let snapped = canvas.grid.getSnappedPoint(topLeft, {mode: SNAP_MODE});
@@ -207,7 +205,7 @@ function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originEleva
 
   while ( CrucibleMovementPolygon.testCollision(origin,
     {x: snapped.x + halfW, y: snapped.y + halfH, elevation: snapped.elevation},
-    {type: "move", mode: "any", level, excludeToken: tokenObject, tokenCollision, crucibleAction}) ) {
+    {type: "move", mode: "any", level, excludeToken: tokenObject, tokenCollision}) ) {
     const stepped = {x: snapped.x - (ux * gridSize), y: snapped.y - (uy * gridSize), elevation: snapped.elevation};
     snapped = canvas.grid.getSnappedPoint(stepped, {mode: SNAP_MODE});
     const distFromOrigin = Math.hypot((snapped.x + halfW) - ray.A.x, (snapped.y + halfH) - ray.A.y);

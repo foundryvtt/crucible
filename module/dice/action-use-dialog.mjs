@@ -594,13 +594,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the movement plan; token-collision tests recover this action via ActionUseDialog.instances()
+    // Await the user designating a movement plan, including crucible-specific movement constraint options
     const plan = await token.object.planMovement({
       allowedActions: movementUsage.action ? [movementUsage.action] : null,
       minCost: this.action.range?.minimum ?? undefined,
       maxCost: this.action.range?.maximum ?? undefined,
       direct: movementUsage.direct ?? true,
-      constrainOptions: movementUsage.constrainOptions ?? {}
+      constrainOptions: {
+        ...(movementUsage.constrainOptions ?? {}),
+        crucible: {ignoreTokens: movementUsage.ignoreTokens ?? false}
+      }
     });
     this.#previewMovementAction = null;
 

@@ -111,7 +111,13 @@ Hooks.once("init", async function() {
      * The languages a creature can know.
      * @type {Record<string, {label: string, category?: string}>}
      */
-    languages: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGES)
+    languages: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGES),
+
+    /**
+     * Visually scale tokens smaller the farther they are away from the 'camera' (viewed level).
+     * @type {boolean}
+     */
+    elevationScaling: true
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;

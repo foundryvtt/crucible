@@ -4,6 +4,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /** @inheritDoc */
   static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
+    refreshElevation: { propagate: ["refreshTooltip", "refreshMesh"] },
     refreshFlanking: {}
   });
 
@@ -145,6 +146,31 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _refreshBorder() {
     if ( !canvas.scene.useMicrogrid ) super._refreshBorder();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _refreshMeshSizeAndScale() {
+    super._refreshMeshSizeAndScale();
+    const factor = this.getMicrogridScaleFactor();
+    const {x: sx, y: sy} = this.mesh.scale;
+    this.mesh.scale.set(sx * factor, sy * factor);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the desired adjusted scale of this token when applied to the Crucible microgrid.
+   * Shrink or enlarge tokens with hyperbolic falloff factor, clamped to an allowed range of [0.5, 1.5]
+   * @returns {number}
+   */
+  getMicrogridScaleFactor() {
+    if ( !crucible.CONFIG.elevationScaling || !canvas.level || !this.document.parent.useMicrogrid ) return 1;
+    const de = this.document.elevation - canvas.level.elevation.base;
+    if ( de === 0 ) return 1;
+    if ( de < 0 ) return Math.max(0.5, 1 / (1 - (de / 90)));  // Reaches 0.5 at -90ft
+    if ( de > 0 ) return Math.min(1.5, 1 / (1 - (de / 270))); // Reaches 1.5 at +90ft
   }
 
   /* -------------------------------------------- */
@@ -314,6 +340,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         ??= segment.actionConfig.getCostFunction(this.document, options);
       return calculateActionCost(terrainCost, from, to, distance, segment);
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getMovementCollisionTestConfiguration(segment, options) {
+    const config = super._getMovementCollisionTestConfiguration(segment, options);
+    let tokenCollision = this.inCombat;
+    if ( options.crucible?.ignoreTokens ) tokenCollision = false;
+    if ( segment.actionConfig?.tokenCollision === false ) tokenCollision = false;
+    config.tokenCollision = tokenCollision;
+    return config;
   }
 
   /* -------------------------------------------- */
