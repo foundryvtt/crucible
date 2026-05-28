@@ -95,6 +95,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     return new SchemaField({
       result: new NumberField({required: false, nullable: true, initial: null}),
       id: new StringField({required: false, blank: true}),
+      start: new NumberField({required: false, nullable: true, initial: null}),
       sound: this._soundField(),
       animations: this._animationsField(),
       particles: new ArrayField(this._particleField()),
@@ -482,7 +483,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     this.impacts.forEach((impact, i) => {
       const mesh = this._targetMeshes[i] ?? null;
       const target = this._impactTarget(impact, i);
-      const start = this._impactStart(target, i);
+      const start = this._impactStart(impact, target, i);
       const duration = Math.max(impact.stick ?? 0, ...impact.animations.map(a => a.params?.duration ?? 0), 0);
       const end = start + duration;
       maxEnd = Math.max(maxEnd, end);
@@ -526,15 +527,18 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * The timeline start (ms) of an impact at strike point `target`. The default is a single shared moment;
-   * override for trajectory-dependent staggering (e.g. a beam reaching targets at different times).
+   * The timeline start (ms) of an impact. Reads the impact's own `start` field when the configurator
+   * baked one in (the common case for trajectory-dependent staggering, e.g. a ray's beam-front
+   * arrival); otherwise falls back to a single shared `this.timings.impactStart`. Subclasses can
+   * override for runtime-computed timing, but baking at configure-time is preferred.
+   * @param {object} impact                   The impact entry.
    * @param {{x: number, y: number}} target   The impact's strike point.
    * @param {number} i                        Its index in `impacts`.
    * @returns {number}
    * @protected
    */
-  _impactStart(target, i) {
-    return this.timings.impactStart ?? 0;
+  _impactStart(impact, target, i) {
+    return impact.start ?? this.timings.impactStart ?? 0;
   }
 
   /* -------------------------------------------- */

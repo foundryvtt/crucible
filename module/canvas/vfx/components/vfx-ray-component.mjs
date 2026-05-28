@@ -1,18 +1,13 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
 import {getParticleScaleFactor} from "../blocks.mjs";
-const {BooleanField, NumberField} = foundry.data.fields;
+const {NumberField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
  * Incorporates three sequential animation phases, mirroring {@link CrucibleProjectileComponent}:
  * - Charge-up (at the source)
- * - Delivery (the beam travelling out along its line)
- * - Impacts (one self-contained impact per target, staggered by when the beam front reaches each)
- * Each phase carries this-bound animations and particle behaviors selected by registry name, so the
- * specific look of any one ray (frost beam, lightning arc, ...) is chosen via those animations, not
- * hardcoded here. The phase-dispatch and impact machinery is inherited from {@link CrucibleVFXComponent};
- * this class only contributes the beam geometry, the charge/delivery phases, and the beam-front timing
- * via {@link _impactStart}.
+ * - Delivery (the beam traveling out along its line)
+ * - Impacts (one self-contained impact per target)
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleRayComponent extends CrucibleVFXComponent {
@@ -42,14 +37,9 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       length: new NumberField({required: true, nullable: false, initial: 0})
     });
 
-    // The beam delivery adds a travel `speed` (px/sec) driving per-target impact timing, a `duration`
-    // for how long the beam persists/emits, and an `eruptive` flag that switches impact timing from
-    // staggered-per-target (a beam, default) to simultaneous-at-completion (e.g. a flame line that builds
-    // then bursts: all targets struck at `deliveryStart + duration`).
+    // Augment delivery schema with ray-specific fields
     schema.delivery.extendFields({
-      speed: new NumberField({required: true, nullable: false, initial: 2500}),
-      duration: new NumberField({required: true, nullable: false, initial: 2000}),
-      eruptive: new BooleanField({initial: false})
+      duration: new NumberField({required: true, nullable: false, initial: 2000})
     });
     return schema;
   }
@@ -120,23 +110,8 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
     this._schedulePhaseSound(this.delivery, origin);
     this._attachParticles(this.delivery);
 
-    // Impacts, staggered per target by the beam-front arrival time (see _impactStart)
+    // Impacts dispatch at each impact's configurator-baked `start` time
     this._attachImpacts();
     this.timeline.label("end", Math.max(this.timings.deliveryEnd, this.timings.impactEnd));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * For a beam (default), the front reaches each target at a time proportional to its distance from the
-   * source. For an eruptive delivery (e.g. a flame line that builds then bursts), all targets are struck
-   * simultaneously when the line completes.
-   * @override
-   */
-  _impactStart(target) {
-    if ( this.delivery.eruptive ) return this.timings.deliveryStart + this.delivery.duration;
-    const beamSpeed = this.delivery.speed * this.state.gridScale;
-    const dist = Math.hypot(target.x - this.origin.x, target.y - this.origin.y);
-    return this.timings.deliveryStart + ((dist / beamSpeed) * 1000);
   }
 }
