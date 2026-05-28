@@ -1,4 +1,4 @@
-const {NumberField} = foundry.data.fields;
+const {ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
 
 /**
@@ -19,6 +19,80 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       ...super.defineSchema(),
       seed: new NumberField({initial: null})
     };
+  }
+
+  /* -------------------------------------------- */
+  /*  Schema Helpers                              */
+  /* -------------------------------------------- */
+
+  /**
+   * A reference-resolvable canvas point (position plus render ordering), for origins, paths, and targets.
+   * @returns {VFXReferenceObjectField}
+   * @protected
+   */
+  static _pointField() {
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    return new foundry.canvas.vfx.fields.VFXReferenceObjectField(new SchemaField({
+      x: new NumberField({required: true, nullable: false}),
+      y: new NumberField({required: true, nullable: false}),
+      elevation: new NumberField({required: true, nullable: false, initial: 0}),
+      sort: new NumberField({nullable: false, initial: 0}),
+      sortLayer: new NumberField({nullable: false, initial: SL.TOKENS})
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Timeline animators referenced by a phase: registered CONFIG.Canvas.vfx.animations names plus params.
+   * @returns {ArrayField}
+   * @protected
+   */
+  static _animationsField() {
+    return new ArrayField(new SchemaField({
+      function: new StringField({required: true, blank: false}),
+      params: new ObjectField({required: false})
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A nullable per-phase positional sound cue; `loop`/`fade`/`offset`/`release` shape looping playback.
+   * @returns {SchemaField}
+   * @protected
+   */
+  static _soundField() {
+    return new SchemaField({
+      src: new StringField({required: true, blank: false}),
+      align: new NumberField({required: true, nullable: false, initial: SOUND_ALIGNMENT.START}),
+      volume: new foundry.data.fields.AlphaField(),
+      radius: new NumberField({required: true, nullable: false, initial: 30}),
+      loop: new BooleanField({initial: false}),
+      fade: new NumberField({required: true, nullable: false, initial: 0}),
+      offset: new NumberField({required: true, nullable: false, initial: 0}),
+      release: new NumberField({required: true, nullable: false, initial: 0})
+    }, {required: false, nullable: true, initial: null});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A single particle generator layer. `anchor` names a key into `this.state.anchors`; `mask` flags the
+   * layer to honor the component's resolved point-source mask.
+   * @returns {SchemaField}
+   * @protected
+   */
+  static _particleField() {
+    return new SchemaField({
+      animation: new StringField({required: true, blank: false}),
+      anchor: new StringField({required: true, blank: false, initial: "origin"}),
+      textures: new ArrayField(new StringField({required: true, blank: false})),
+      offset: new NumberField({required: true, nullable: false, initial: 0}),  // Milliseconds after phase start
+      duration: new NumberField({nullable: true, initial: null}),              // Null uses the phase length
+      mask: new BooleanField({initial: false}),
+      params: new ObjectField({required: false})
+    });
   }
 
   /**
@@ -50,6 +124,13 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @type {Function[]}
    */
   #tearDowns = [];
+
+  /**
+   * A resolved point-source polygon mask injected at finalize, applied to particle layers flagged `mask`.
+   * @type {PointSourcePolygon|null}
+   * @protected
+   */
+  _mask = null;
 
   /* -------------------------------------------- */
   /*  Determinism                                 */
@@ -210,6 +291,126 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       this.timeline.call(() => generator.stop({hard: true}), position + config.duration + maxLifetime);
     }
     return generator;
+  }
+
+  /* -------------------------------------------- */
+  /*  Phase Dispatch                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Setup, schedule, animate, and register-teardown the registered animations of a phase.
+   * @param {object} phase   A phase config carrying `animations`, `start`, and `duration`.
+   * @protected
+   */
+  _attachAnimations(phase) {
+    for ( const entry of phase.animations ) {
+      const animation = this._animationEntry(entry.function);
+      if ( !animation ) continue;
+
+      // Clone per dispatch: a phase (e.g. a shared impact template) may be dispatched more than once and
+      // animations write per-invocation scratch into params, which must not collide between dispatches.
+      const params = {...(entry.params ?? {})};
+      if ( typeof animation.setup === "function" ) animation.setup.call(this, phase, params);
+      if ( typeof animation.schedule === "function" ) animation.schedule.call(this, phase, params);
+      if ( typeof animation.animate === "function" ) {
+        const progress = {t: 0};
+        this.timeline.add(progress, {
+          t: {from: 0, to: 1}, duration: phase.duration, ease: "linear",
+          onRender: () => animation.animate.call(this, progress.t, phase, params)
+        }, phase.start);
+      }
+      if ( typeof animation.tearDown === "function" ) {
+        this._registerTearDown(() => animation.tearDown.call(this, phase, params));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Spawn each particle layer of a phase: the behavior's `setup` contribution is merged over the
+   * component-owned material config; optional `schedule` and `tearDown` hooks are honored.
+   * @param {object} phase   A phase config carrying `particles`, `start`, and `duration`.
+   * @protected
+   */
+  _attachParticles(phase) {
+    for ( const layer of phase.particles ) {
+      const behavior = this._animationEntry(layer.animation);
+      if ( !behavior ) continue;
+      const params = layer.params ?? {};
+      const textures = layer.textures.map(path => foundry.canvas.getTexture(path)).filter(Boolean);
+      if ( textures.length && (typeof behavior.setup === "function") ) {
+        const gridScale = this.state.gridScale;
+        const config = {
+          textures, manual: false, mode: "effect",
+          count: params.count ?? null, initial: params.initial ?? 0,
+          blend: params.blend ?? 0, tint: params.tint ?? 0xFFFFFF, fade: params.fade,
+          spawnRate: params.spawnRate ?? 240,
+          lifetime: this._normalizeLifetime(params.lifetime ?? 1000),
+          alpha: params.alpha ? [params.alpha.min, params.alpha.max] : [1, 1],
+          scale: params.scale ? [params.scale.min * gridScale, params.scale.max * gridScale] : [gridScale, gridScale],
+          elevation: params.elevation ?? 0, sort: params.sort ?? 0,
+          duration: layer.duration ?? phase.duration,
+          pointSourceMask: layer.mask ? (this._mask ?? null) : null,
+          ...behavior.setup.call(this, phase, layer)
+        };
+        const generator = this._spawnGenerator(config, phase.start + layer.offset);
+
+        // Optionally govern the rate of particle emission over time
+        if ( (params.spawnRateEnd !== undefined) && (params.spawnRateEnd !== config.spawnRate) ) {
+          this.timeline.add(generator,
+            {spawnRate: {from: config.spawnRate, to: params.spawnRateEnd, duration: config.duration}},
+            phase.start + layer.offset);
+        }
+      }
+      if ( typeof behavior.schedule === "function" ) behavior.schedule.call(this, phase, layer);
+      if ( typeof behavior.tearDown === "function" ) {
+        this._registerTearDown(() => behavior.tearDown.call(this, phase, layer));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Schedule a phase's loaded sound (if any) at a focal point, aligned within the phase window.
+   * @param {object} phase                    A phase config carrying `sound.instance`, `start`, `duration`.
+   * @param {{x: number, y: number}} origin   Positional origin for playback.
+   * @protected
+   */
+  _schedulePhaseSound(phase, origin) {
+    const config = phase.sound;
+    if ( !config?.instance ) return;
+    this._scheduleSound(config.instance, origin, {position: phase.start, duration: phase.duration,
+      align: config.align, radius: config.radius, volume: config.volume ?? 1, loop: config.loop,
+      fade: config.fade, offset: config.offset, release: config.release});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Read a registered animation/behavior by name; warn if missing.
+   * @param {string} name   A CONFIG.Canvas.vfx.animations key.
+   * @returns {object|undefined}
+   * @protected
+   */
+  _animationEntry(name) {
+    const entry = CONFIG.Canvas.vfx.animations[name];
+    if ( !entry ) console.warn(`Crucible VFX: animation "${name}" is not registered.`);
+    return entry;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Normalize a lifetime to a {min, max} range in ms.
+   * @param {number|{min: number, max: number}} lifetime   A scalar or pre-formed range.
+   * @returns {{min: number, max: number}}
+   * @protected
+   */
+  _normalizeLifetime(lifetime) {
+    if ( (typeof lifetime === "object") && (lifetime !== null) ) return lifetime;
+    return {min: Math.round(lifetime * 0.85), max: lifetime};
   }
 
   /* -------------------------------------------- */

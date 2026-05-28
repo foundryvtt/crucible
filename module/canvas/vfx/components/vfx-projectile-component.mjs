@@ -8,7 +8,8 @@ const {ArrayField, NumberField, ObjectField, SchemaField, StringField} = foundry
  * - Charge-up
  * - Flight
  * - Impact
- * Each phase can incorporate custom particle emitter and animation behaviors.
+ * Each phase can incorporate custom particle emitter and animation behaviors. The phase-dispatch
+ * machinery is inherited from {@link CrucibleVFXComponent}.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
@@ -34,19 +35,12 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
 
   /** @inheritDoc */
   static defineSchema() {
-    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
     const self = CrucibleProjectileComponent;
     return {
       ...super.defineSchema(),
 
       // Projectile trajectory as a VFXPath
-      path: new ArrayField(new foundry.canvas.vfx.fields.VFXReferenceObjectField(new SchemaField({
-        x: new NumberField({required: true, nullable: false}),
-        y: new NumberField({required: true, nullable: false}),
-        elevation: new NumberField({required: true, nullable: false, initial: 0}),
-        sort: new NumberField({nullable: false, initial: 0}),
-        sortLayer: new NumberField({nullable: false, initial: SL.TOKENS})
-      })), {required: true, min: 2}),
+      path: new ArrayField(self._pointField(), {required: true, min: 2}),
       pathType: new SchemaField({
         type: new StringField({required: true, blank: false, initial: "linear"}),
         params: new ObjectField({required: false})
@@ -55,9 +49,9 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       // Charging or drawing the projectile before launching it
       charge: new SchemaField({
         duration: new NumberField({required: true, nullable: false, initial: 700}),
-        sound: self.#soundField(),
-        animations: self.#animationsField(),
-        particles: new ArrayField(self.#particleField())
+        sound: self._soundField(),
+        animations: self._animationsField(),
+        particles: new ArrayField(self._particleField())
       }),
 
       // The flight of the projectile itself
@@ -65,67 +59,20 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         texture: new StringField({required: true, blank: false}),
         size: new NumberField({required: true, nullable: false, initial: 3}),    // Size in feet
         speed: new NumberField({required: true, nullable: false, initial: 150}), // Feet per second
-        sound: self.#soundField(),
-        animations: self.#animationsField(),
-        particles: new ArrayField(self.#particleField())
+        sound: self._soundField(),
+        animations: self._animationsField(),
+        particles: new ArrayField(self._particleField())
       }),
 
       // The impact of the projectile against its target. `stick` is how long a hit projectile lingers
       // (stuck) before fading; the full impact window is the max of it and the impact.animations durations.
       impact: new SchemaField({
         stick: new NumberField({required: true, nullable: false, initial: 0}),
-        sound: self.#soundField(),
-        animations: self.#animationsField(),
-        particles: new ArrayField(self.#particleField())
+        sound: self._soundField(),
+        animations: self._animationsField(),
+        particles: new ArrayField(self._particleField())
       })
     };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Timeline animators referenced by a phase: registered names + params.
-   * @returns {ArrayField}
-   */
-  static #animationsField() {
-    return new ArrayField(new SchemaField({
-      function: new StringField({required: true, blank: false}), // A CONFIG.Canvas.vfx.animations key
-      params: new ObjectField({required: false})
-    }));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * A nullable per-phase positional sound cue; `radius` is per-sound.
-   * @returns {SchemaField}
-   */
-  static #soundField() {
-    return new SchemaField({
-      src: new StringField({required: true, blank: false}),
-      align: new NumberField({required: true, nullable: false,
-        initial: foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START}),
-      volume: new foundry.data.fields.AlphaField(),
-      radius: new NumberField({required: true, nullable: false, initial: 30})
-    }, {required: false, nullable: true, initial: null});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * A schema field used to represent a single particle generator layer.
-   * @returns {SchemaField}
-   */
-  static #particleField() {
-    return new SchemaField({
-      animation: new StringField({required: true, blank: false}),
-      anchor: new StringField({required: true, blank: false, initial: "origin",
-        choices: ["origin", "destination", "projectile", "source"]}),
-      textures: new ArrayField(new StringField({required: true, blank: false})),
-      offset: new NumberField({required: true, nullable: false, initial: 0}),  // Milliseconds after phase start
-      duration: new NumberField({nullable: true, initial: null}),              // Null uses the phase length
-      params: new ObjectField({required: false})
-    });
   }
 
   /* -------------------------------------------- */
@@ -191,114 +138,23 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
 
     // Charge phase
     Object.assign(this.charge, {start: timings.chargeStart, end: timings.chargeEnd});
-    this.#attachAnimations(this.charge);
-    this.#scheduleSound(this.charge);
-    this.#attachParticles(this.charge);
+    this._attachAnimations(this.charge);
+    this._schedulePhaseSound(this.charge, origin);
+    this._attachParticles(this.charge);
 
     // Projectile phase
     Object.assign(this.projectile, {start: timings.projectileStart, end: timings.projectileEnd, duration: flightMS});
-    this.#attachAnimations(this.projectile);
-    this.#scheduleSound(this.projectile);
-    this.#attachParticles(this.projectile);
+    this._attachAnimations(this.projectile);
+    this._schedulePhaseSound(this.projectile, origin);
+    this._attachParticles(this.projectile);
 
-    // Impact phase
+    // Impact phase (resounds at the target)
     Object.assign(this.impact, {start: timings.impactStart, end: timings.impactEnd, duration: impactDuration});
     this.#animateProjectileExit(timings);
-    this.#attachAnimations(this.impact);
-    this.#scheduleSound(this.impact);
-    this.#attachParticles(this.impact);
+    this._attachAnimations(this.impact);
+    this._schedulePhaseSound(this.impact, destination);
+    this._attachParticles(this.impact);
     this.timeline.label("end", timings.impactEnd);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Setup and schedule custom animations for the phase.
-   * @param {object} phase       The phase config (charge/projectile/impact).
-   */
-  #attachAnimations(phase) {
-    for ( const entry of phase.animations ) {
-      const animation = this.#animationEntry(entry.function);
-      if ( !animation ) continue;
-      const params = entry.params ?? {};
-
-      // Animation setup
-      if ( typeof animation.setup === "function" ) animation.setup.call(this, phase, params);
-
-      // Animation timeline scheduling
-      if ( typeof animation.schedule === "function" ) animation.schedule.call(this, phase, params);
-
-      // Animation ticker
-      if ( typeof animation.animate === "function" ) {
-        const progress = {t: 0};
-        this.timeline.add(progress, {
-          t: {from: 0, to: 1},
-          duration: phase.duration,
-          ease: "linear",
-          onRender: () => animation.animate.call(this, progress.t, phase, params)
-        }, phase.start);
-      }
-
-      // Animation teardown, invoked when the component stops
-      if ( typeof animation.tearDown === "function" ) {
-        this._registerTearDown(() => animation.tearDown.call(this, phase, params));
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Attach particle generators to a phase. Mirrors {@link #attachAnimations}: each behavior's hooks are
-   * bound to this component and given `(phase, layer)`. `setup` returns the behavior's motion/shape
-   * contribution merged over the component-owned material config to spawn a generator; the optional
-   * `schedule` adds bespoke timeline work; the optional `tearDown` is invoked when the component stops.
-   * @param {object} phase   The phase config (charge/projectile/impact).
-   */
-  #attachParticles(phase) {
-    for ( const layer of phase.particles ) {
-      const behavior = this.#animationEntry(layer.animation);
-      if ( !behavior ) continue;
-      const params = layer.params ?? {};
-
-      // Default generator: component-owned material merged with the behavior's motion contribution
-      const textures = layer.textures.map(path => foundry.canvas.getTexture(path)).filter(Boolean);
-      if ( textures.length && (typeof behavior.setup === "function") ) {
-        const gridScale = this.state.gridScale;
-        const config = {
-          textures,
-          manual: false,
-          mode: "effect",
-          count: params.count ?? null,
-          initial: params.initial ?? 0,
-          blend: params.blend ?? 0,
-          tint: params.tint ?? 0xFFFFFF,
-          fade: params.fade,
-          spawnRate: params.spawnRate ?? 240,
-          lifetime: this.#normalizeLifetime(params.lifetime ?? 1000),
-          alpha: params.alpha ? [params.alpha.min, params.alpha.max] : [1, 1],
-          scale: params.scale ? [params.scale.min * gridScale, params.scale.max * gridScale] : [gridScale, gridScale],
-          elevation: params.elevation ?? 0,
-          sort: params.sort ?? 0,
-          duration: layer.duration ?? phase.duration,
-          ...behavior.setup.call(this, phase, layer)
-        };
-        const generator = this._spawnGenerator(config, phase.start + layer.offset);
-
-        // Optionally govern the rate of particle emission over time
-        if ( (params.spawnRateEnd !== undefined) && (params.spawnRateEnd !== config.spawnRate) ) {
-          this.timeline.add(generator,
-            {spawnRate: {from: config.spawnRate, to: params.spawnRateEnd, duration: config.duration}},
-            phase.start + layer.offset);
-        }
-      }
-
-      // Optional bespoke timeline scheduling and teardown
-      if ( typeof behavior.schedule === "function" ) behavior.schedule.call(this, phase, layer);
-      if ( typeof behavior.tearDown === "function" ) {
-        this._registerTearDown(() => behavior.tearDown.call(this, phase, layer));
-      }
-    }
   }
 
   /* -------------------------------------------- */
@@ -311,47 +167,5 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     const stick = this.impact.stick;
     const fadeStart = (stick > 0) ? (timings.impactStart + stick - 150) : timings.impactStart;
     this.timeline.add(this.projectile.container, {alpha: {to: 0, duration: 150}}, fadeStart);
-  }
-
-  /* -------------------------------------------- */
-  /*  Helpers                                     */
-  /* -------------------------------------------- */
-
-  /**
-   * Read a registry entry directly (no shape assertion); warn if missing.
-   * @param {string} name   A CONFIG.Canvas.vfx.animations key.
-   * @returns {object|undefined}
-   */
-  #animationEntry(name) {
-    const entry = CONFIG.Canvas.vfx.animations[name];
-    if ( !entry ) console.warn(`Crucible VFX: animation "${name}" is not registered.`);
-    return entry;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Normalize a lifetime input (number or {min, max}) to a {min, max} range in ms.
-   * @param {number|{min: number, max: number}} lifetime
-   * @returns {{min: number, max: number}}
-   */
-  #normalizeLifetime(lifetime) {
-    if ( (typeof lifetime === "object") && (lifetime !== null) ) return lifetime;
-    return {min: Math.round(lifetime * 0.85), max: lifetime};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Schedule the phase's loaded sound (if any) at its focal point, aligned within the phase window.
-   * @param {object} phase   The phase config (carrying its loaded `sound.instance` and start/duration).
-   */
-  #scheduleSound(phase) {
-    const config = phase.sound;
-    if ( !config?.instance ) return;
-    // Impact resounds at the target; charge and flight emanate from the source.
-    const origin = (phase === this.impact) ? this.state.destination : this.state.origin;
-    this._scheduleSound(config.instance, origin, {position: phase.start, duration: phase.duration,
-      align: config.align, radius: config.radius, volume: config.volume ?? 1});
   }
 }

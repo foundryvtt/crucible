@@ -570,7 +570,7 @@ function finalizeRayVFXEffect(action, vfxEffect, references) {
       meshes.push(references[`rayTarget_${i}_tokenMesh`]);
     }
     component._targetMeshes = meshes;
-    component._beamMask = references.wallMask ?? null;
+    component._mask = references.wallMask ?? null;
   }
 }
 
