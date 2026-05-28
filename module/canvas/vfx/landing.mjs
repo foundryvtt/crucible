@@ -7,13 +7,15 @@ const DUST_TINTS = [0x6B5238, 0x4A3826, 0x2A1E14];
 /* -------------------------------------------- */
 
 /**
- * Play a dust-burst and camera shake effect when a token lands after a plummet.
- * @param {CrucibleToken} token  The token that just landed.
- * @param {number} distance      The distance fallen in scene units.
- * @returns {Promise<boolean>|void}
+ * Configure the VFXEffect data for a token landing after a plummet.
+ * @param {CrucibleAction} action  The fall action being animated.
+ * @returns {object|null}          The vfxConfig object, or null if the action has no fall to animate.
  */
-export function playLandingVfx(token, distance) {
-  if ( !canvas.ready || (distance <= 0) ) return;
+export function configureLandingVFXEffect(action) {
+  const distance = action.usage.fallDistance;
+  if ( !distance || (distance <= 0) ) return null;
+  const { token } = action;
+  if ( !token ) return null;
 
   const center = token.getCenterPoint();
   const gridSize = canvas.grid?.size ?? 100;
@@ -55,6 +57,7 @@ export function playLandingVfx(token, distance) {
       type: "particleGenerator"
     }
   };
+
   if ( shake.amp > 1 ) components.shake = {
     duration: shake.ms,
     maxDisplacement: shake.amp,
@@ -65,6 +68,15 @@ export function playLandingVfx(token, distance) {
 
   const timeline = [{ component: "dust", position: 0 }];
   if ( shake.amp > 1 ) timeline.push({ component: "shake", position: 0 });
-  const effect = new foundry.canvas.vfx.VFXEffect({ components, timeline, name: "crucible.landingDust" });
-  return effect.play({ burst: { radius, x: center.x, y: center.y } });
+
+  let vfxConfig;
+  try {
+    const effect = new foundry.canvas.vfx.VFXEffect({ components, timeline, name: "crucible.landingDust" });
+    vfxConfig = effect.toObject();
+  } catch ( cause ) {
+    console.error(new Error(`Landing VFX configuration failed for Action "${action.id}"`, { cause }));
+    return null;
+  }
+  vfxConfig.references = { burst: { x: center.x, y: center.y, radius } };
+  return vfxConfig;
 }

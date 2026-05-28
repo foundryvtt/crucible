@@ -373,6 +373,40 @@ HOOKS.electrochargeAmpoule = {
 
 /* -------------------------------------------- */
 
+HOOKS.fall = {
+  canUse() {
+    if ( !this.actor.statuses.has("falling") ) return false;
+  },
+  prepare() {
+    const surface = this.token?._findSupportingSurface();
+    const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
+    Object.assign(this.usage, { damageType: "bludgeoning", fallDistance: distance });
+    Object.assign(this.usage.bonuses, { ability: distance, base: 1 });
+    this.usage.defenseType = distance > 30 ? "fortitude" : "reflex";
+    if ( distance > 30 ) this.tags.add("severe");
+    // Apply prone unless the hazard is resisted.
+    this.effects = [{ statuses: ["prone"], result: { type: "success" } }];
+  },
+  preActivate() {
+    const distance = this.usage.fallDistance;
+    if ( distance <= 0 ) return;
+    const surface = this.token._findSupportingSurface();
+    if ( !surface ) return;
+    const movement = crucible.api.canvas.movement.planMovement(this.token, [{
+      action: "fall",
+      elevation: surface.elevation
+    }]);
+    if ( !movement ) return;
+    Object.defineProperty(this, "movement", { value: movement, configurable: true });
+    this.recordEvent({ movement: movement.id, target: this.actor, type: "movement" });
+  },
+  configureVFX(vfxConfig) {
+    return crucible.api.canvas.vfx.landing.configureLandingVFXEffect(this) ?? vfxConfig;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);

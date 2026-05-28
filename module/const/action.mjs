@@ -939,7 +939,7 @@ export const TAGS = {
     priority: 9,
     prepare() {
       this.usage.hasDice = true;
-      this.usage.bonuses.enchantment = this.item.system.config?.enchantment.bonus || 0;
+      this.usage.bonuses.enchantment = this.item?.system.config?.enchantment.bonus || 0;
       this.usage.defenseType ??= "physical";
       this.usage.resource ??= "health";
       this.usage.damageType ??= "void";
@@ -1404,6 +1404,17 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 1
     },
     tags: ["movement"]
+  },
+
+  // Fall
+  {
+    id: "fall",
+    name: "ACTION.DEFAULT_ACTIONS.Fall.Name",
+    img: "systems/crucible/icons/statuses/falling.svg",
+    description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
+    target: { type: "self", scope: 1 },
+    cost: { action: 0 },
+    tags: ["generic"]
   },
 
   // Defend

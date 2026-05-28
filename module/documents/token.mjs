@@ -1,5 +1,3 @@
-import { playLandingVfx } from "../canvas/vfx/landing.mjs";
-
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
   /**
@@ -73,8 +71,6 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     if ( this.isGroup && ("movementAction" in change) && (game.userId === userId) && !options._crucibleRelatedUpdate ) {
       this.actor.update({"system.movement.pace": change.movementAction}, {_crucibleRelatedUpdate: true});
     }
-    const distance = foundry.utils.getProperty(options, "crucible.fall.distance");
-    if ( distance ) playLandingVfx(this, distance);
   }
 
   /* -------------------------------------------- */
@@ -184,57 +180,6 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
 
   /* -------------------------------------------- */
   /*  Falling                                     */
-  /* -------------------------------------------- */
-
-  /**
-   * Apply a falling hazard to this token.
-   * @param {number} distance   The distance fallen, in feet.
-   * @param {object} [options]  Additional hazard data which overrides the values derived from the fall distance.
-   * @returns {Promise<void>}
-   */
-  async fall(distance, options={}) {
-    const { actor } = this;
-    if ( !actor || (distance <= 10) ) return;
-
-    // Falls of 11-30 feet challenge Reflex dealing Bludgeoning damage to Health. Falls of 31+ feet are a Severe
-    // hazard challenging Fortitude.
-    const severe = distance > 30;
-    const tags = severe ? ["fortitude", "severe", "bludgeoning"] : ["reflex", "health", "bludgeoning"];
-
-    // Unless the hazard is resisted, the creature also falls prone.
-    const action = crucible.api.models.CrucibleAction.createHazard({
-      actor, tags,
-      danger: distance,
-      name: game.i18n.localize("HAZARD.Falling"),
-      effects: [{ statuses: ["prone"], result: { type: "success" } }],
-      ...options
-    });
-    await action.use({ dialog: false });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Plummet this token straight down to the highest movement-restricting surface beneath it, applying hazards as
-   * appropriate.
-   * @returns {Promise<void>}
-   */
-  async plummet() {
-    const { actor, elevation, name } = this;
-    if ( !actor?.statuses.has("falling") ) return;
-    if ( !actor.canUserModify(game.user, "update") ) return;
-
-    const surface = this._findSupportingSurface();
-    if ( !surface || (surface.elevation >= elevation) ) {
-      ui.notifications.warn("TOKEN.WARNING.NoLandingSurface", { format: { name } });
-      return;
-    }
-
-    const distance = this.elevation - surface.elevation;
-    await this.move({ elevation: surface.elevation }, { animate: false, crucible: { fall: { distance } } });
-    await this.fall(distance);
-  }
-
   /* -------------------------------------------- */
 
   /**

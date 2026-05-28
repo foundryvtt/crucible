@@ -46,6 +46,10 @@
         "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and one less than your current Initiative. You will act at this new Initiative value, and if other combatants share that value you will act before them. You may only delay your turn once per round.",
         "Name": "Delay"
       },
+      "Fall": {
+        "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
+        "Name": "Fall"
+      },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
@@ -2537,7 +2541,6 @@
     "CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
     "CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because the {type} item slot is already in use.",
     "CannotEquipTaxonomy": "Actor {actor} cannot equip {item} because the \"{taxonomy}\" taxonomy is incapable of using equipment.",
-    "NoLandingSurface": "Cannot plummet {name}, no surface below.",
     "NoParty": "You must have a primary party configured for this.",
     "SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks."
   },
