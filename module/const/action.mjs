@@ -214,6 +214,7 @@ export const TAG_CATEGORIES = defineEnum({
  * @property {(this: CrucibleAction) => void} [postActivate]
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [postConfirm]
  * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [resolveVFX]
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [finalizeVFX]
@@ -1266,6 +1267,12 @@ export const TAGS = {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
+    },
+    async postConfirm(reverse) {
+      // Fall is not movement-tagged, so its own confirm does not re-enter this branch.
+      if ( reverse || !this.token ) return;
+      if ( !this.actor.statuses.has(CONFIG.statusEffects.falling.id) ) return;
+      await this.actor.actions.fall.use({ token: this.token });
     }
   }
 };
