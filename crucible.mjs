@@ -293,6 +293,8 @@ Hooks.once("init", async function() {
   Object.defineProperty(CONFIG, "statusEffects", {value: statusEffects, configurable: true, enumerable: true});
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";
+  CONFIG.specialStatusEffects.FLY = "flying";
+  CONFIG.specialStatusEffects.HOVER = "hovering";
 
   // Canvas Configuration
   canvas.configure();

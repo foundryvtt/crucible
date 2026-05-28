@@ -99,6 +99,20 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.burrowing0000000"
   },
+  flying: {
+    id: "flying",
+    name: "ACTIVE_EFFECT.STATUSES.Flying",
+    img: "icons/svg/wing.svg",
+    hud: nonGroupTypes,
+    page: "" // TODO
+  },
+  hovering: {
+    id: "hovering",
+    name: "ACTIVE_EFFECT.STATUSES.Hovering",
+    img: "icons/svg/up.svg",
+    hud: nonGroupTypes,
+    page: "" // TODO
+  },
   deafened: {
     id: "deafened",
     name: "ACTIVE_EFFECT.STATUSES.Deaf",
