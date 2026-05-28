@@ -1247,8 +1247,8 @@ export const TAGS = {
       else if ( this.token._isHoveringAboveSurface(final) ) toAdd = falling;
       const effects = [];
       if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
-        const { _id, img, name } = toAdd;
-        effects.push({ _id, img, name, statuses: [toAdd.id] });
+        const { _id, id, img, name } = toAdd;
+        effects.push({ _id, img, name: _loc(name), statuses: [id] });
       }
       for ( const { id } of [burrowing, falling, flying] ) {
         if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {

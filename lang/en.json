@@ -2427,6 +2427,10 @@
           "description": "Move while Prone a distance up to half your Stride attribute per Action.",
           "label": "Crawl"
         },
+        "fall": {
+          "description": "Gravitational descent toward a supporting surface. Movement cost is always zero.",
+          "label": "Fall"
+        },
         "fast": {
           "label": "Hurried"
         },

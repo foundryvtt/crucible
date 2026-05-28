@@ -65,6 +65,22 @@ export function configure() {
     terrainAction: null
   };
 
+  // Falling.
+  CONFIG.Token.movement.actions.fall = {
+    order: 997,
+    label: "TOKEN.MOVEMENT.ACTIONS.fall.label",
+    icon: "fa-solid fa-arrow-down-long",
+    img: "icons/svg/falling.svg",
+    teleport: false,
+    measure: false,
+    visualize: true,
+    costMultiplier: 0,
+    speedMultiplier: 1,
+    canSelect: false,
+    terrainAction: null,
+    tokenCollision: false
+  };
+
   // Add party travel options
   for ( const [id, cfg] of Object.entries(TRAVEL_PACES) ) {
     CONFIG.Token.movement.actions[id] = {...cfg, canSelect: groupOnly, group: true};
