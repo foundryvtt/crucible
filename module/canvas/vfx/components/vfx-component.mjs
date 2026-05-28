@@ -78,6 +78,30 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
+   * One impact in a component's `impacts` array: a self-contained per-target visual whose `sound`,
+   * `animations`, and `particles` are the look the configurator baked for this target (hit vs miss decided
+   * there). The struck point is not stored here - it is resolved at runtime by {@link _impactTarget} from
+   * the target's injected mesh, because a reference field sharing an array element with literal data is
+   * wiped by `VFXEffect#resolveReferences` (its partial array update replaces the element). Subclasses pass
+   * `extraFields` for component-specific data (e.g. `stick`).
+   * @param {Record<string, DataField>} [extraFields]
+   * @returns {SchemaField}
+   * @protected
+   */
+  static _impactField(extraFields={}) {
+    return new SchemaField({
+      result: new NumberField({required: false, nullable: true, initial: null}),
+      id: new StringField({required: false, blank: true}),
+      sound: this._soundField(),
+      animations: this._animationsField(),
+      particles: new ArrayField(this._particleField()),
+      ...extraFields
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * A single particle generator layer. `anchor` names a key into `this.state.anchors`; `mask` flags the
    * layer to honor the component's resolved point-source mask.
    * @returns {SchemaField}
@@ -131,6 +155,14 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @protected
    */
   _mask = null;
+
+  /**
+   * Target-token meshes, indexed parallel to `impacts`, injected at finalize for impacts that displace
+   * their target (e.g. recoil). Components whose impacts do not displace targets can ignore this.
+   * @type {(PIXI.DisplayObject|null)[]}
+   * @protected
+   */
+  _targetMeshes = [];
 
   /* -------------------------------------------- */
   /*  Determinism                                 */
@@ -411,6 +443,77 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   _normalizeLifetime(lifetime) {
     if ( (typeof lifetime === "object") && (lifetime !== null) ) return lifetime;
     return {min: Math.round(lifetime * 0.85), max: lifetime};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Dispatch each impact's own visuals at its scheduled time. Each impact carries its own target, sound,
+   * animations, and particles (the configurator baked the hit/miss look per target), so this loop is
+   * trajectory-agnostic. `this.state.impacts` is the authoritative record; transient `this.state` pointers
+   * are set immediately before each synchronous dispatch for the shared, this-bound impact animations.
+   * @returns {number}   The latest impact end time (ms), for the caller's "end" label.
+   * @protected
+   */
+  _attachImpacts() {
+    this.state.impacts = {};
+    let maxEnd = 0;
+    this.impacts.forEach((impact, i) => {
+      const mesh = this._targetMeshes[i] ?? null;
+      const target = this._impactTarget(impact, i);
+      const start = this._impactStart(target, i);
+      const duration = Math.max(impact.stick ?? 0, ...impact.animations.map(a => a.params?.duration ?? 0), 0);
+      const end = start + duration;
+      maxEnd = Math.max(maxEnd, end);
+      const key = impact.id || String(i);
+      this.state.impacts[key] = {id: key, index: i, result: impact.result, destination: target, mesh,
+        start, end, duration, anchors: {...this.state.anchors, target, destination: target}};
+
+      // Transient current-impact context read synchronously by the shared impact animations
+      this.state.destination = target;
+      this.state.targetMesh = mesh;
+      this.state.anchors.target = target;
+      this.state.anchors.destination = target;
+
+      const phase = {...impact, start, end, duration};
+      this._attachAnimations(phase);
+      this._schedulePhaseSound(phase, target);
+      this._attachParticles(phase);
+    });
+    this.timings.impactEnd = maxEnd;
+    return maxEnd;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the canvas point an impact strikes. The default reads the injected target mesh; override when
+   * the strike point differs from the target's mesh position (e.g. a projectile's offset landing point).
+   * @param {object} impact   The impact entry.
+   * @param {number} i        Its index in `impacts`.
+   * @returns {{x: number, y: number, elevation: number, sort: number, sortLayer: number}}
+   * @protected
+   */
+  _impactTarget(impact, i) {
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    const mesh = this._targetMeshes[i];
+    if ( mesh ) return {x: mesh.x, y: mesh.y, elevation: mesh.elevation ?? 0,
+      sort: mesh.sort ?? 0, sortLayer: mesh.sortLayer ?? SL.TOKENS};
+    return this.state.destination ?? this.state.end ?? this.state.origin;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The timeline start (ms) of an impact at strike point `target`. The default is a single shared moment;
+   * override for trajectory-dependent staggering (e.g. a beam reaching targets at different times).
+   * @param {{x: number, y: number}} target   The impact's strike point.
+   * @param {number} i                        Its index in `impacts`.
+   * @returns {number}
+   * @protected
+   */
+  _impactStart(target, i) {
+    return this.timings.impactStart ?? 0;
   }
 
   /* -------------------------------------------- */

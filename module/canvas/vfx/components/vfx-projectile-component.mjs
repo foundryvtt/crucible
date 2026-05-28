@@ -18,12 +18,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   static TYPE = "crucibleProjectile";
 
   /**
-   * Struck-token object displaced by impactRecoil/impactShake, injected by finalizeVFX.
-   * @type {PIXI.DisplayObject|null}
-   */
-  _targetMesh = null;
-
-  /**
    * The mesh of the Action origin Token.
    * @type {PIXI.DisplayObject|null}
    */
@@ -64,14 +58,12 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
         particles: new ArrayField(self._particleField())
       }),
 
-      // The impact of the projectile against its target. `stick` is how long a hit projectile lingers
-      // (stuck) before fading; the full impact window is the max of it and the impact.animations durations.
-      impact: new SchemaField({
-        stick: new NumberField({required: true, nullable: false, initial: 0}),
-        sound: self._soundField(),
-        animations: self._animationsField(),
-        particles: new ArrayField(self._particleField())
-      })
+      // The impact(s) of the projectile against its target. A single projectile resolves one impact, so
+      // this is a length-1 array (multi-target arrows emit one component per target). `stick` is how long a
+      // hit projectile lingers (stuck) before fading; the impact window is the max of it and the animations.
+      impacts: new ArrayField(self._impactField({
+        stick: new NumberField({required: true, nullable: false, initial: 0})
+      }))
     };
   }
 
@@ -82,7 +74,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   /** @override */
   async _load() {
     this.assetPaths.add(this.projectile.texture);
-    for ( const phase of [this.charge, this.projectile, this.impact] ) {
+    for ( const phase of [this.charge, this.projectile, ...this.impacts] ) {
       for ( const layer of phase.particles ) {
         for ( const texture of layer.textures ) this.assetPaths.add(texture);
       }
@@ -103,7 +95,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     const destination = this.path.at(-1);
     const flightPath = foundry.canvas.vfx.VFXPath.create(this.pathType.type, this.path, this.pathType.params);
 
-    // Impact window = the longest of the stick and the impact animation durations
     const flightMS = (flightPath.pathLength * 1000) / (this.projectile.speed * distancePixels);
     const timings = this.timings = {
       chargeStart: 0,
@@ -112,9 +103,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       projectileEnd: this.charge.duration + flightMS,
       impactStart: this.charge.duration + flightMS
     };
-    const impactDuration = Math.max(this.impact.stick,
-      ...this.impact.animations.map(a => a.params?.duration ?? 0), 0);
-    timings.impactEnd = timings.impactStart + impactDuration;
 
     // The flying projectile sprite; the impact burst sprite is created by the impactBurst animation.
     this.projectile.container = this.addManagedDisplayObject(
@@ -131,8 +119,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
       gridScale: getParticleScaleFactor(),
       charge: this.charge,
       projectile: this.projectile,
-      impact: this.impact,
-      targetMesh: this._targetMesh,
+      targetMesh: this._targetMeshes[0] ?? null,
       anchors: {origin, destination, projectile: this.projectile.container, source}
     };
 
@@ -148,13 +135,21 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     this._schedulePhaseSound(this.projectile, origin);
     this._attachParticles(this.projectile);
 
-    // Impact phase (resounds at the target)
-    Object.assign(this.impact, {start: timings.impactStart, end: timings.impactEnd, duration: impactDuration});
+    // Impact phase (resounds at the target). Impacts dispatch their own visuals at impactStart.
     this.#animateProjectileExit(timings);
-    this._attachAnimations(this.impact);
-    this._schedulePhaseSound(this.impact, destination);
-    this._attachParticles(this.impact);
-    this.timeline.label("end", timings.impactEnd);
+    this._attachImpacts();
+    this.timeline.label("end", this.timings.impactEnd);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The projectile strikes where it lands: the resolved path destination (which carries the per-result
+   * offset), not the bare target mesh position.
+   * @override
+   */
+  _impactTarget() {
+    return this.state.destination;
   }
 
   /* -------------------------------------------- */
@@ -164,7 +159,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
    * @param {object} timings   The computed phase timings.
    */
   #animateProjectileExit(timings) {
-    const stick = this.impact.stick;
+    const stick = this.impacts[0]?.stick ?? 0;
     const fadeStart = (stick > 0) ? (timings.impactStart + stick - 150) : timings.impactStart;
     this.timeline.add(this.projectile.container, {alpha: {to: 0, duration: 150}}, fadeStart);
   }

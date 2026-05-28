@@ -304,8 +304,10 @@ function configureArrowVFXEffect(action) {
           : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
         size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: whooshSound,
         animations: [{function: "projectileSpriteFlight"}], particles: projectileParticles},
-      impact: {stick: stickDuration, sound: impactSound, animations: impactAnimations,
-        particles: impactParticles}
+      impacts: [{
+        result, id: token.id, stick: stickDuration,
+        sound: impactSound, animations: impactAnimations, particles: impactParticles
+      }]
     };
     timeline.push({component: `arrow_${j}`, position: 0});
     j++;
@@ -328,7 +330,7 @@ function finalizeArrowVFXEffect(action, vfxEffect, references) {
     const match = name.match(/^arrow_(\d+)$/);
     if ( !match ) continue;
     component._originMesh = references.tokenMesh ?? null;
-    component._targetMesh = references[`target_${match[1]}_tokenMesh`] ?? null;
+    component._targetMeshes = [references[`target_${match[1]}_tokenMesh`] ?? null];
   }
 }
 
@@ -464,24 +466,51 @@ function configureRayVFXEffect(action) {
     wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
   };
 
-  // Targets struck by the ray; each is impacted as the beam front reaches it. targetData carries the
-  // per-target attack result (index-aligned), letting the component pick a hit or miss impact.
-  const targets = [];
-  const targetData = [];
+  // One self-contained impact per struck target. The beam reaches each at a staggered time (see the
+  // component's _impactStart); the hit-vs-miss visual is baked here from each target's attack result.
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const impacts = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result ?? null;
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
     const tokenRef = `rayTarget_${j}_token`;
     const meshRef = `rayTarget_${j}_tokenMesh`;
     references[tokenRef] = `@${token.uuid}`;
     references[meshRef] = `^${tokenRef}.object.mesh`;
-    targets.push({reference: meshRef, deltas: {}});
-    targetData.push({result: group.roll[0]?.roll?.data.result ?? null, id: token.id});
+    impacts.push(isHit
+      ? {
+        // Struck target: a per-target recoil, a flashing frost burst, and a spray of shards
+        result, id: token.id, sound: sound(getVFXSound(action.rune.id, "impact")),
+        animations: [
+          {function: "impactRecoil", params: {distance: 12, duration: 320}},
+          ...(textures.impact.length
+            ? [{function: "impactBurst",
+              params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
+            : [])
+        ],
+        particles: textures.spray.length ? [{
+          animation: "impactParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
+          params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
+            lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
+            elevation: beamElevation}
+        }] : []
+      }
+      : {
+        // Resisting target: a softer, flashless dissipating puff and a distinct sound
+        result, id: token.id, sound: sound(getVFXSound(action.rune.id, "miss")),
+        animations: textures.air.length
+          ? [{function: "impactBurst",
+            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
+          : [],
+        particles: []
+      });
     j++;
   }
-  if ( !targets.length ) return null;
+  if ( !impacts.length ) return null;
 
   const components = {
     ray: {
@@ -522,32 +551,7 @@ function configureRayVFXEffect(action) {
               scale: {min: 0.6, max: 1.0}, elevation: 0}
           }] : [])
         ]},
-      impact: {
-        // Struck targets: a flashing frost burst, a per-target recoil, plus a spray of shards
-        hit: {sound: sound(getVFXSound(action.rune.id, "impact")),
-          animations: [
-            {function: "impactRecoil", params: {distance: 12, duration: 320}},
-            ...(textures.impact.length
-              ? [{function: "impactBurst",
-                params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}]
-              : [])
-          ],
-          particles: textures.spray.length ? [{
-            animation: "impactParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
-            params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
-              lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
-              elevation: beamElevation}
-          }] : []},
-        // Resisting targets: a softer, flashless dissipating puff and a distinct sound
-        miss: {sound: sound(getVFXSound(action.rune.id, "miss")),
-          animations: textures.air.length
-            ? [{function: "impactBurst",
-              params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
-            : [],
-          particles: []}
-      },
-      targets,
-      targetData
+      impacts
     }
   };
   return {components, timeline: [{component: "ray", position: 0}], references};
@@ -556,7 +560,7 @@ function configureRayVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
- * Finalize the Ray VFX at play-time: inject the resolved struck-token meshes (parallel to `targets`) and
+ * Finalize the Ray VFX at play-time: inject the resolved struck-token meshes (parallel to `impacts`) and
  * the resolved beam wall-mask into the ray component.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect

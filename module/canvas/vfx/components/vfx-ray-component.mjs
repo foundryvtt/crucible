@@ -1,35 +1,24 @@
 import CrucibleVFXComponent from "./vfx-component.mjs";
 import {getParticleScaleFactor} from "../blocks.mjs";
-const {ArrayField, NumberField, SchemaField, StringField} = foundry.data.fields;
+const {ArrayField, NumberField, SchemaField} = foundry.data.fields;
 
 /**
  * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
  * Incorporates three sequential animation phases, mirroring {@link CrucibleProjectileComponent}:
  * - Charge-up (at the source)
  * - Delivery (the beam travelling out along its line)
- * - Impact (applied per target, staggered by when the beam front reaches each target)
+ * - Impacts (one self-contained impact per target, staggered by when the beam front reaches each)
  * Each phase carries this-bound animations and particle behaviors selected by registry name, so the
  * specific look of any one ray (frost beam, lightning arc, ...) is chosen via those animations, not
- * hardcoded here. The phase-dispatch machinery is inherited from {@link CrucibleVFXComponent}.
- *
- * Multi-target impacts are recorded authoritatively in `this.state.impacts` (one entry per target with
- * its own destination/mesh/result/timings). Dispatch reuses the shared impact animations by also setting
- * transient per-target pointers on `this.state` immediately before each synchronous dispatch. Any
- * animation that reads `this.state` at frame time (e.g. a recoil) must capture its target in `setup`
- * from the relevant impact entry for this to be multi-target-safe (see impactRecoilAnimation).
+ * hardcoded here. The phase-dispatch and impact machinery is inherited from {@link CrucibleVFXComponent};
+ * this class only contributes the beam geometry, the charge/delivery phases, and the beam-front timing
+ * via {@link _impactStart}.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
   /** @override */
   static TYPE = "crucibleRay";
-
-  /**
-   * Struck-token meshes, indexed parallel to `targets`, injected by finalizeVFX (for impacts that
-   * displace the target). Rays that do not displace targets can ignore this.
-   * @type {(PIXI.DisplayObject|null)[]}
-   */
-  _targetMeshes = [];
 
   /* -------------------------------------------- */
   /*  Component Schema                            */
@@ -64,34 +53,9 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
         particles: new ArrayField(self._particleField())
       }),
 
-      // Per-target impact templates. The beam picks `hit` or `miss` per target based on its attack result,
-      // so a struck target and a resisting target can show distinct visuals and sounds.
-      impact: new SchemaField({
-        hit: self.#impactTemplateField(),
-        miss: self.#impactTemplateField()
-      }),
-
-      // Targets struck by the ray; each impacted at a staggered time by its distance from the origin
-      targets: new ArrayField(self._pointField()),
-
-      // Per-target metadata index-aligned with `targets`: the attack result (RESULT_TYPES) and token id.
-      targetData: new ArrayField(new SchemaField({
-        result: new NumberField({required: false, nullable: true, initial: null}),
-        id: new StringField({required: false, blank: true})
-      }))
+      // One self-contained impact per struck target; the configurator bakes each target's hit/miss look.
+      impacts: new ArrayField(self._impactField())
     };
-  }
-
-  /* -------------------------------------------- */
-
-  /** One impact variant (hit or miss): its sound, sprite animations, and particle layers. @returns {SchemaField} */
-  static #impactTemplateField() {
-    const self = CrucibleRayComponent;
-    return new SchemaField({
-      sound: self._soundField(),
-      animations: self._animationsField(),
-      particles: new ArrayField(self._particleField())
-    });
   }
 
   /* -------------------------------------------- */
@@ -100,7 +64,7 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
 
   /** @override */
   async _load() {
-    for ( const phase of [this.charge, this.delivery, this.impact.hit, this.impact.miss] ) {
+    for ( const phase of [this.charge, this.delivery, ...this.impacts] ) {
       for ( const layer of phase.particles ) {
         for ( const texture of layer.textures ) this.assetPaths.add(texture);
       }
@@ -131,14 +95,11 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       deliveryEnd: this.charge.duration + this.delivery.duration
     };
 
-    // Shared state for phase animators
+    // Shared state for phase animators; per-impact context is written transiently by _attachImpacts.
     this.state = {
       origin, end, rotation: this.rotation, length: this.length, direction: dir,
       gridScale: getParticleScaleFactor(),
       charge: this.charge, delivery: this.delivery,
-      // Authoritative per-target impact bookkeeping, keyed by target id (or index); populated below
-      impacts: {},
-      // Per-target impact context written here transiently before each target's synchronous dispatch
       destination: end, targetMesh: null,
       anchors: {origin, end, target: end}
     };
@@ -156,49 +117,20 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
     this._schedulePhaseSound(this.delivery, origin);
     this._attachParticles(this.delivery);
 
-    // Impact phase, staggered per target by the beam-front arrival time
-    this.#attachImpacts();
-    this.timeline.label("end", this.timings.deliveryEnd);
+    // Impacts, staggered per target by the beam-front arrival time (see _impactStart)
+    this._attachImpacts();
+    this.timeline.label("end", Math.max(this.timings.deliveryEnd, this.timings.impactEnd));
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Build the per-target impact record and dispatch each target's impact when the beam front reaches it.
-   * Each target's hit/miss template is chosen from its attack result; the record (`this.state.impacts`)
-   * is authoritative, while the transient `this.state` pointers are what the shared, this-bound impact
-   * animations read at synchronous dispatch time.
+   * The beam front reaches each target at a time proportional to its distance from the source.
+   * @override
    */
-  #attachImpacts() {
-    const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-    const beamSpeed = this.delivery.speed * this.state.gridScale; // Matches the scaled beam particle speed
-    this.targets.forEach((target, i) => {
-      const data = this.targetData[i] ?? {};
-      const isHit = (data.result === T.HIT) || (data.result === T.GLANCE);
-      const template = isHit ? this.impact.hit : this.impact.miss;
-      const dist = Math.hypot(target.x - this.origin.x, target.y - this.origin.y);
-      const start = this.timings.deliveryStart + ((dist / beamSpeed) * 1000);
-      const duration = Math.max(...template.animations.map(a => a.params?.duration ?? 0), 0);
-      const key = data.id || String(i);
-
-      const impact = {
-        id: key, index: i, result: data.result, isHit,
-        destination: target, mesh: this._targetMeshes[i] ?? null,
-        start, end: start + duration, duration,
-        anchors: {origin: this.state.anchors.origin, end: this.state.anchors.end, target, destination: target}
-      };
-      this.state.impacts[key] = impact;
-
-      // Transient current-target context read synchronously by the shared impact animations
-      this.state.destination = target;
-      this.state.targetMesh = impact.mesh;
-      this.state.anchors.target = target;
-      this.state.anchors.destination = target;
-
-      const phase = {...template, start, end: impact.end, duration};
-      this._attachAnimations(phase);
-      this._schedulePhaseSound(phase, target);
-      this._attachParticles(phase);
-    });
+  _impactStart(target) {
+    const beamSpeed = this.delivery.speed * this.state.gridScale;
+    const dist = Math.hypot(target.x - this.origin.x, target.y - this.origin.y);
+    return this.timings.deliveryStart + ((dist / beamSpeed) * 1000);
   }
 }
