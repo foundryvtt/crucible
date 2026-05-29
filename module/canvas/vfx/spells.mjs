@@ -100,6 +100,32 @@ function _pushTargetScrollingText(scrollingText, action, targetActor, targetEven
 /* -------------------------------------------- */
 
 /**
+ * Push the caster's selfEvents (activation cost, heroism, etc.) onto a component's scrollingText
+ * array. Skipped when the caster is also a target, since {@link _pushTargetScrollingText} already
+ * surfaces those events from the target loop.
+ * @param {object[]} scrollingText      The component's scrollingText array (mutated).
+ * @param {CrucibleSpellAction} action
+ * @param {string} meshRef              Reference key of the caster's mesh.
+ * @param {number} [time=0]             Component-timeline ms at which the caster text fires.
+ */
+function _pushCasterScrollingText(scrollingText, action, meshRef, time=0) {
+  if ( action.eventsByTarget.has(action.actor) ) return;
+  const selfEvents = action.selfEvents?.all ?? [];
+  if ( !selfEvents.length ) return;
+  const events = action.constructor.composeTextEvents(action.actor, selfEvents,
+    {reverse: false, isNegated: false, selfActor: action.actor});
+  events.forEach((evt, i) => scrollingText.push({
+    target: {reference: meshRef},
+    text: evt.text,
+    time: time + (i * 200),
+    fontSize: evt.fontSize ?? 32,
+    fillColor: evt.fillColor ?? "#ffffff"
+  }));
+}
+
+/* -------------------------------------------- */
+
+/**
  * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
  * serialization (e.g., callback functions). Called on every client at play time, after the
  * VFXEffect has been constructed from deserialized config but before it plays.
@@ -306,6 +332,7 @@ function configureArrowVFXEffect(action) {
   }
 
   if ( !timeline.length ) return null;
+  if ( components.arrow_1 ) _pushCasterScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
   return {components, timeline, references};
 }
 
@@ -413,6 +440,8 @@ function configureFanVFXEffect(action) {
     }
   }
 
+  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+
   const deliverySound = runeProps.deliverySoundType
     ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
     : null;
@@ -519,6 +548,8 @@ function configureRayVFXEffect(action) {
     _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
+
+  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
 
   // Build VFXEffect configuration
   const buildContext = {textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,

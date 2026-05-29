@@ -2764,17 +2764,34 @@ export default class CrucibleActor extends Actor {
    * @param {string} resourceName    Resource id (e.g. "health")
    * @param {number} delta           Signed delta to display
    * @param {number} max             Maximum pool size, used to scale font size
+   * @param {object} [options]
+   * @param {boolean} [options.restoration=false]  Marks zero-delta as ineffective healing (vs ineffective
+   *                                                damage) so the color stays "heal" rather than "high".
    * @returns {ScrollingTextEvent}
    */
-  static formatScrollingResource(resourceName, delta, max) {
+  static formatScrollingResource(resourceName, delta, max, {restoration=false}={}) {
     const resource = SYSTEM.RESOURCES[resourceName];
     const text = `${delta.signedString()} ${resource.label}`;
     const pct = Math.clamp(Math.abs(delta) / (max || 1), 0, 1);
     const fontSize = delta === 0 ? 18 : (32 + (64 * pct));
     const healSign = resource.type === "active" ? 1 : -1;
-    const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
-    const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
-    return {text, fontSize, fillColor};
+    const isHeal = (delta === 0) ? restoration : (Math.sign(delta) === healSign);
+    return {text, fontSize, fillColor: CrucibleActor.getResourceColor(resourceName, isHeal)};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the scrolling-text fill color for a resource. Resources expose a single Color or an
+   * object keyed by `heal`/`high` variants; this helper picks the variant by intent.
+   * @param {string} resourceName    Resource id (e.g. "health").
+   * @param {boolean} isRestoration  True for a healing/restorative intent, false for damage.
+   * @returns {Color|string}
+   */
+  static getResourceColor(resourceName, isRestoration) {
+    const color = SYSTEM.RESOURCES[resourceName]?.color;
+    if ( !color ) return "#ffffff";
+    return color instanceof Color ? color : color[isRestoration ? "heal" : "high"];
   }
 
   /* -------------------------------------------- */

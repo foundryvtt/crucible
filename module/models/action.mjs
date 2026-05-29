@@ -1835,29 +1835,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Allocate resource changes
       const damage = event.roll.data.damage || {};
+      if ( damage.harmless ) continue;
       const resource = damage.resource ?? "health";
       const cfg = SYSTEM.RESOURCES[resource];
-      const amount = (damage.total ?? 0) * (damage.restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
+      const restoration = !!(damage.restoration ?? this.damage?.restoration);
+      const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
 
       // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
       if ( amount === 0 ) {
-        event.resources.push({resource, delta: 0});
+        event.resources.push({resource, delta: 0, restoration});
         continue;
       }
 
       // Allocate without specific system target (in theory should not happen?)
       if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount});
+        event.resources.push({resource, delta: amount, restoration});
         continue;
       }
 
-      // Allocate to specific Actor per system type
+      // Allocate resource changes to a specific Actor
       if ( !allocations.has(event.target) ) allocations.set(event.target, {});
       const allocation = allocations.get(event.target);
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta});
+      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration});
+      else for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta, restoration});
     }
 
+    // Expire an invisibility status
     this.#expireInvisibility();
   }
 
@@ -2356,9 +2360,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      // Compose scrolling text events. When the action's VFXEffect carries scrollingText markers,
-      // suppress the default per-update display - the VFXEffect will dispatch text at impact time.
-      // Reverse plays no VFX, so always allow default text display on reverse.
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
@@ -2378,8 +2379,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {ScrollingTextEvent[]}
    */
   #composeTextEvents(actor, events, {reverse, isNegated}) {
-    return this.constructor.composeTextEvents(actor, events, {reverse, isNegated, selfActor: this.actor});
+    return this.constructor.composeTextEvents(actor, events,
+      {reverse, isNegated, selfActor: this.actor});
   }
+
+  /* -------------------------------------------- */
 
   /**
    * Compose scrolling text events for a target actor from a slice of an action's event stream.
@@ -2395,17 +2399,31 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const sign = reverse ? -1 : 1;
     const resources = actor.system.resources;
     const ActorCls = crucible.api.documents.CrucibleActor;
+    const AttackRollCls = crucible.api.dice.AttackRoll;
+    const T = AttackRollCls.RESULT_TYPES;
+
     for ( const event of events ) {
-      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
-      if ( includeResources ) {
-        for ( const {resource: name, delta: rawDelta} of event.resources ) {
-          const delta = rawDelta * sign;
-          const attr = resources[name];
-          if ( !attr ) continue;
-          textEvents.push(ActorCls.formatScrollingResource(name, delta, attr.max));
-        }
-      }
       if ( event.statusText?.length ) textEvents.push(...event.statusText);
+      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
+      if ( !includeResources ) continue;
+
+      const result = event.roll?.data?.result;
+      const isAttackResult = (typeof result === "number") && (result in AttackRollCls.RESULT_TYPE_LABELS);
+      const isHit = (result === T.HIT) || (result === T.GLANCE);
+      if ( isAttackResult && !isHit ) {
+        const label = game.i18n.localize(AttackRollCls.RESULT_TYPE_LABELS[result]);
+        textEvents.push({text: label, fontSize: 28, fillColor: "#cccccc"});
+        continue;
+      }
+
+      // Record individual resource changes for hits
+      for ( const {resource: name, delta: rawDelta, restoration} of event.resources ) {
+        const delta = rawDelta * sign;
+        const attr = resources[name];
+        if ( !attr ) continue;
+        const effective = Math.clamp(attr.value + delta, 0, attr.max) - attr.value;
+        textEvents.push(ActorCls.formatScrollingResource(name, effective, attr.max, {restoration}));
+      }
     }
     return textEvents;
   }
