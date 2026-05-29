@@ -1,6 +1,5 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
-import {mergeAnimationBlocks, airResidue, groundImpacts, fallingDebris,
-  getParticleScaleFactor} from "./blocks.mjs";
+import {getParticleScaleFactor} from "./blocks.mjs";
 import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
@@ -263,8 +262,12 @@ function configureArrowVFXEffect(action) {
           : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
       }
       if ( runeProps.impactParticles ) {
-        particles.push(_buildImpactParticles(action, runeProps.impactParticles,
-          {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
+        const specs = Array.isArray(runeProps.impactParticles)
+          ? runeProps.impactParticles : [runeProps.impactParticles];
+        for ( const spec of specs ) {
+          particles.push(_buildImpactParticles(action, spec,
+            {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
+        }
       }
       if ( runeProps.impactGlow ) {
         animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
@@ -576,133 +579,205 @@ function configureRayVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
- * Configure the VFX for a Blast gesture composed spell. Currently dispatches to the falling-debris
- * variant (ice storm / hail) regardless of rune.
+ * Per-target impact timing strategies for Blast spells. Each function returns an absolute timeline
+ * ms for a single impact. Strategies are referenced by name from a rune's `impactTiming` field; the
+ * configurator dispatches via {@link BLAST_IMPACT_TIMINGS} and bakes the result into each impact
+ * entry's `start`.
+ * @type {Record<string, (target: {x: number, y: number}, ctx: object) => number>}
+ */
+const BLAST_IMPACT_TIMINGS = {
+  atStart(target, {deliveryStart}) {
+    return deliveryStart;
+  },
+  atEnd(target, {deliveryStart, deliveryDuration}) {
+    return deliveryStart + deliveryDuration;
+  },
+  fromCenter(target, {origin, radius, deliveryStart, deliveryDuration}) {
+    const dist = Math.hypot(target.x - origin.x, target.y - origin.y);
+    const t = Math.clamp(dist / Math.max(radius, 1), 0, 1);
+    return deliveryStart + Math.round(t * deliveryDuration * 0.5);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Configure the VFX for a Blast gesture composed spell as a {@link CrucibleBlastComponent} for the
+ * explosion + per-target impacts, with optional precursor: when the rune declares a `projectile`
+ * (e.g. a fireball flying from caster to blast center on a serpentine path), a separate
+ * {@link CrucibleProjectileComponent} is built that carries the charge phase and delivers the
+ * projectile; the blast's own charge.duration is then 0 and its component position on the parent
+ * timeline is shifted to start when the projectile arrives at the blast center.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
 function configureBlastVFXEffect(action) {
-  const shape = action.region?.shapes[0];
-  if ( !shape || (shape.type !== "circle") ) return null;
-
-  const shapeSource = shape.toObject();
-  const {x, y, radius} = shapeSource;
+  const regionShape = action.region?.shapes[0];
+  if ( !regionShape || (regionShape.type !== "circle") ) return null;
+  const runeProps = SPELL_VFX_GESTURES.blast.runes?.[action.rune.id];
+  if ( !runeProps ) return null;
+  const {textures} = resolveSpellVFXContext(action);
+  const shapeData = regionShape.toObject();
+  const {x, y, radius} = shapeData;
   const origin = {x, y};
-  const {particleElevation, textures} = resolveSpellVFXContext(action);
+  const casterToken = action.token;
+  const gridSize = canvas.dimensions.size;
+  const casterRadiusPx = (casterToken.width * gridSize) / 2;
+  const casterElevation = casterToken.elevation ?? 0;
+  const particleElevation = (action.region?.elevation?.top ?? casterElevation) + 1;
+  const CHARGE_DURATION = runeProps.chargeDuration ?? 0;
+  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+  const distancePixels = canvas.dimensions.distancePixels;
+
+  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
 
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
-
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
-  const pointSourceMask = {reference: "wallMask"};
-  const coverageArea = action.region?.area;
-  const shared = {elevation: particleElevation, pointSourceMask, coverageArea};
 
-  return _configureBlastFallingDebris(action, shapeSource, origin, radius, textures, references, shared);
-}
+  const projectileSpec = runeProps.projectile;
+  let projectileComponent = null;
+  let blastStartPosition = 0;
+  let blastChargeDuration = CHARGE_DURATION;
+  let blastChargeParticles = [];
+  let blastChargeSound = null;
 
-/* -------------------------------------------- */
+  if ( projectileSpec ) {
+    const {x: casterCx, y: casterCy} = tokenCenter(casterToken);
+    const dirDist = Math.max(1, Math.hypot(origin.x - casterCx, origin.y - casterCy));
+    const manifestX = casterCx + (((origin.x - casterCx) / dirDist) * casterRadiusPx);
+    const manifestY = casterCy + (((origin.y - casterCy) / dirDist) * casterRadiusPx);
+    const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
+    const manifestRef = "fireballManifest";
+    const blastCenterRef = "fireballTarget";
+    references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
+      sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
+    references[blastCenterRef] = {x: origin.x, y: origin.y, elevation: particleElevation,
+      sort: 0, sortLayer: SL.TOKENS};
 
-/**
- * Blast variant: falling debris storm. Shards fall from overhead across the blast area,
- * accumulating ground cracks and a fog/cloud layer.
- * The blast region's circle shape source data drives both the visible region and the spawn
- * areas of the falling debris and ground impact generators - one source of truth.
- * @param {CrucibleSpellAction} action
- * @param {object} regionShape   Region shape source data (CircleShapeData.toObject()).
- * @param {{x: number, y: number}} origin
- * @param {number} radius
- * @param {object} textures
- * @param {object} references
- * @param {object} shared
- * @returns {SpellVFXData}
- */
-function _configureBlastFallingDebris(action, regionShape, origin, radius, textures, references, shared) {
-  const STORM_DURATION = 4000;
+    const projectileSpeed = projectileSpec.speed ?? 150;
+    const distPx = Math.hypot(origin.x - manifestX, origin.y - manifestY);
+    const flightMs = (distPx * 1000) / (projectileSpeed * distancePixels);
+    const projectileTexture = projectileSpec.frame
+      ? getVFXTexturePath(projectileSpec.frame)
+      : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
 
-  // Layer 1 - Falling shards across the full region circle
-  const shards = fallingDebris.configure({prefix: "fallingShards", origin, radius,
-    area: regionShape, textures: textures.spray, duration: STORM_DURATION,
-    position: 0, ...shared});
+    const projectileChargeCtx = {runeId: action.rune.id, textures, casterRadiusPx,
+      casterElevation, particleElevation};
+    const projectileChargeLayers = runeProps.buildCharge?.(projectileChargeCtx)
+      ?? _resolveChargeLayers(runeProps, projectileChargeCtx, {duration: CHARGE_DURATION});
+    const projectileChargeSound = ((CHARGE_DURATION > 0) && (runeProps.chargeSound !== false))
+      ? sound(getVFXSound(action.rune.id, "charge")) : null;
+    const whooshKey = ("whoosh" in projectileSpec) ? projectileSpec.whoosh : "whooshFast";
+    const flightSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
 
-  // Layer 2 - Ground impacts spawned in sync with falling debris landings via finalizer
-  const ground = groundImpacts.configure({prefix: "blastGround", origin, radius,
-    area: regionShape, textures: textures.ground, duration: STORM_DURATION + 2000,
-    position: 0, ...shared, elevation: 0});
-
-  // Layer 3 - Wintry blizzard haze
-  const clouds = airResidue.configure({prefix: "blastClouds", origin,
-    radius: Math.round(radius * 1.3), textures: textures.air,
-    duration: STORM_DURATION,
-    position: 0, ...shared, elevation: shared.elevation + 1});
-
-  const result = mergeAnimationBlocks(shards, ground, clouds);
-  Object.assign(result.references, references);
-
-  // Impact timing: stagger across the storm duration based on distance from center
-  const gridSize = canvas.dimensions.size;
-  const blastGetImpactPosition = token => {
-    const cx = token.x + (token.width * gridSize / 2);
-    const cy = token.y + (token.height * gridSize / 2);
-    const dist = Math.hypot(origin.x - cx, origin.y - cy);
-    const t = Math.clamp(dist / radius, 0, 1);
-    return Math.round(t * STORM_DURATION * 0.5);
-  };
-  addImpactComponents(action, result.components, result.timeline, result.references,
-    blastGetImpactPosition, textures.impact, origin);
-
-  // PLACEHOLDER - blast sound, not yet wired. Two gaps to resolve with the team before this works
-  // as positionalSound components:
-  //  - Sustained damage loop (S3) wants a looping positionalSound, but core positionalSound is
-  //    one-shot. Needs an upstream loop option or a Crucible component subclass.
-  //  - Per-shard impacts are spawned at play time by the groundImpacts finalizer, so they cannot be
-  //    enumerated as static components at configure time. Either precompute deterministic landing
-  //    cues, or add a play-time component-spawn hook the finalizer can call.
-  // See configureArrowVFXEffect for the fully-declarative positionalSound pattern.
-  return result;
-}
-
-/* -------------------------------------------- */
-
-/**
- * Finalize the VFX for a Blast gesture at play-time.
- * Delegates to animation block finalize hooks and injects falling debris callbacks.
- * @param {CrucibleSpellAction} action
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
- * @param {Record<string, any>} references
- */
-function finalizeBlastVFXEffect(action, vfxEffect, references) {
-  fallingDebris.finalize(vfxEffect, references);
-
-  // Wire up synchronized ground impacts: when a falling shard lands, spawn an impact at its position
-  const debrisComp = vfxEffect.components.fallingShards;
-  const impactComp = vfxEffect.components.blastGround;
-  if ( debrisComp?.config?.fallingDebris && impactComp ) {
-    const shared = {impactGenerator: null};
-
-    // Capture the impacts generator reference on its first tick and switch to manual spawning
-    const originalImpactTick = impactComp.config.onTick;
-    impactComp.config.onTick = (dt, generator) => {
-      shared.impactGenerator = generator;
-      generator.manualSpawning = true;
-      impactComp.config.onTick = originalImpactTick || null;
-      if ( originalImpactTick ) originalImpactTick(dt, generator);
+    projectileComponent = {
+      type: "crucibleProjectile",
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: [],
+      path: [
+        {reference: manifestRef, deltas: {}},
+        {reference: blastCenterRef, deltas: {}}
+      ],
+      pathType: projectileSpec.path ?? {type: "linear", params: {}},
+      charge: {duration: CHARGE_DURATION, sound: projectileChargeSound,
+        animations: [{function: "chargeProjectileFadeIn"}], particles: projectileChargeLayers},
+      delivery: {texture: projectileTexture, size: projectileSpec.size ?? 3,
+        speed: projectileSpeed, sound: flightSound,
+        animations: [{function: "deliveryProjectileFlight"}], particles: []},
+      impacts: [],
+      scrollingText: []
     };
-
-    // Extend the debris onUpdate to spawn an impact when a shard lands
-    const originalDebrisUpdate = debrisComp.config.onUpdate;
-    debrisComp.config.onUpdate = (p, ctx) => {
-      const wasLanded = p._landed;
-      if ( originalDebrisUpdate ) originalDebrisUpdate(p, ctx);
-      if ( !wasLanded && p._landed && shared.impactGenerator ) {
-        const sceneX = p.x + ctx.generator.bounds.x;
-        const sceneY = p.y + ctx.generator.bounds.y;
-        shared.impactGenerator.spawnParticles(1, {position: {x: sceneX, y: sceneY}});
-      }
-    };
+    blastStartPosition = CHARGE_DURATION + flightMs;
+    blastChargeDuration = 0;
   }
+  else if ( CHARGE_DURATION > 0 ) {
+    const chargeCtx = {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation};
+    blastChargeParticles = runeProps.buildCharge?.(chargeCtx)
+      ?? _resolveChargeLayers(runeProps, chargeCtx, {duration: CHARGE_DURATION});
+    if ( runeProps.chargeSound !== false ) {
+      blastChargeSound = sound(getVFXSound(action.rune.id, "charge"));
+    }
+  }
+
+  const timingFn = BLAST_IMPACT_TIMINGS[runeProps.impactTiming] ?? BLAST_IMPACT_TIMINGS.fromCenter;
+  const timingCtx = {origin, radius, deliveryStart: blastChargeDuration,
+    deliveryDuration: runeProps.deliveryDuration};
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const impactType = runeProps.impactSound ?? "impact";
+  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: particleElevation}, runeProps);
+  const impacts = [];
+  const targetMeshRefs = [];
+  const scrollingText = [];
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result ?? null;
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
+    const tokenRef = `blastTarget_${j}_token`;
+    const meshRef = `blastTarget_${j}_tokenMesh`;
+    references[tokenRef] = `@${token.uuid}`;
+    references[meshRef] = `^${tokenRef}.object.mesh`;
+    targetMeshRefs.push({reference: meshRef});
+    const start = timingFn(tokenCenter(token), timingCtx);
+    impacts.push(isHit
+      ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
+        animations: hitTreatment.animations, particles: hitTreatment.particles}
+      : {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, "miss")),
+        animations: textures.air.length
+          ? [{function: "impactSpriteBurst",
+            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
+          : [],
+        particles: []});
+    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    j++;
+  }
+
+  _pushCasterScrollingText(scrollingText,
+    action, projectileComponent ? "fireballManifest" : "tokenMesh");
+
+  const buildCtx = {action, textures, origin, radius, particleElevation, casterElevation,
+    casterRadiusPx, sound};
+  const deliveryParticles = runeProps.buildDelivery(buildCtx);
+  const sustainedLayers = (runeProps.sustainedChargeAnchor && !projectileComponent)
+    ? _resolveChargeLayers(runeProps,
+      {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation},
+      {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration})
+    : [];
+  const deliverySound = runeProps.deliverySoundType
+    ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
+    : null;
+
+  const sounds = runeProps.buildSounds?.(buildCtx) ?? [];
+
+  const components = {
+    blast: {
+      type: "crucibleBlast",
+      shape: shapeData,
+      casterRadiusPx,
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: targetMeshRefs,
+      mask: {reference: "wallMask"},
+      charge: {duration: blastChargeDuration, sound: blastChargeSound, animations: [],
+        particles: blastChargeParticles},
+      delivery: {duration: runeProps.deliveryDuration, sound: deliverySound, animations: [],
+        particles: [...sustainedLayers, ...deliveryParticles]},
+      impacts,
+      scrollingText,
+      sounds
+    }
+  };
+  const timeline = [{component: "blast", position: blastStartPosition}];
+  if ( projectileComponent ) {
+    components.fireball = projectileComponent;
+    timeline.unshift({component: "fireball", position: 0});
+  }
+  return {components, timeline, references};
 }
 
 /* -------------------------------------------- */
@@ -908,65 +983,6 @@ function _buildRayChargeAndDelivery(action, ctx) {
 }
 
 /* -------------------------------------------- */
-
-/**
- * Add singleImpact components to an in-progress spell VFX configuration for each struck target.
- * Only events with a HIT or GLANCE result produce an impact. Other results are silently skipped.
- * Each impact is positioned at the target token mesh with a small random offset toward the token
- * center. The impact sprite is rotated to face the effect origin.
- * @param {CrucibleSpellAction} action       The spell action being animated.
- * @param {object} components                Component map to add impact entries into.
- * @param {object[]} timeline                Timeline array to push impact entries onto.
- * @param {Record<string, string>} references  References map to register token UUIDs into.
- * @param {function(CrucibleToken): number} getImpactPosition
- *   A function that receives the target token and returns the timeline position (ms) at which
- *   its impact should fire. Called once per HIT/GLANCE target.
- * @param {string[]} impactTextures          An array of #-prefixed scene texture paths for impact
- *                                           sprites. One is chosen at random per target.
- * @param {{x: number, y: number}} origin    The effect origin point. Impact sprites are rotated
- *                                           to face this point.
- */
-function addImpactComponents(action, components, timeline, references, getImpactPosition, impactTextures, origin) {
-  const useSpritesheetImpact = impactTextures.length > 0;
-  const gridSize = canvas.dimensions.size;
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  let j = 1;
-  for ( const [actor, group] of action.eventsByTarget ) {
-    if ( !group.hasRoll ) continue;
-    const roll = group.roll[0]?.roll;
-    const result = roll?.data.result;
-    if ( (result === T.HIT) || (result === T.GLANCE) ) {
-      const token = action.targets.get(actor)?.token;
-      if ( !token ) continue;
-      const targetTokenRef = `target_${j}_token`;
-      const targetMeshRef = `target_${j}_tokenMesh`;
-      Object.assign(references, {
-        [targetTokenRef]: `@${token.uuid}`,
-        [targetMeshRef]: `^${targetTokenRef}.object.mesh`
-      });
-      const w = token.width * gridSize;
-      const h = token.height * gridSize;
-      const dx = Math.mix(-w * 0.1, w * 0.1, Math.random());
-      const dy = Math.mix(-h * 0.1, h * 0.1, Math.random());
-      const impactName = `spellImpact_${j}`;
-      const texture = useSpritesheetImpact
-        ? impactTextures[Math.floor(Math.random() * impactTextures.length)]
-        : getRandomSprite("impacts", "blood");
-      components[impactName] = {
-        type: "singleImpact",
-        position: {reference: targetMeshRef, deltas: {x: dx, y: dy, sort: 1}},
-        origin,
-        texture,
-        duration: 1000,
-        size: 2
-      };
-      timeline.push({component: impactName, position: getImpactPosition(token)});
-    }
-    j++;
-  }
-}
-
-/* -------------------------------------------- */
 /*  Configuration Helpers                       */
 /* -------------------------------------------- */
 
@@ -1022,9 +1038,9 @@ const _CHARGE_LIFE_BLOOMS = {
     {frames: ["GroundRoots"], above: false, radiusFactor: 1.5,
       params: {sort: -1, lifetime: {min: 2000, max: 4000}, spawnRate: 2, scale: {min: 1.25, max: 2.0},
         fade: {in: 0.2, out: 0.9}}},
-    {frames: ["GroundBlooms"], above: false, radiusFactor: 2.5,
+    {frames: ["GroundBlooms"], above: false, radiusFactor: 2,
       params: {sort: 0, lifetime: {min: 2000, max: 4000}, spawnRate: 10, scale: {min: 1.0, max: 1.5}}},
-    {categories: ["spray"], above: true, radiusFactor: 3.0,
+    {categories: ["spray"], above: true, radiusFactor: 2.5,
       params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
         blend: _blendInHot(0.5)}}
   ]
@@ -1363,6 +1379,244 @@ const RAY_VFX_PROPS = {
 /* -------------------------------------------- */
 
 /**
+ * Per-rune VFX overrides for the Blast gesture. Each entry may declare:
+ * - `chargeDuration` (ms): pre-eruption charge phase length (default 0 - skip charge).
+ * - `deliveryDuration` (ms): delivery phase length.
+ * - `impactTiming` (string): named strategy from {@link BLAST_IMPACT_TIMINGS} that computes per-target
+ *   impact start times. Defaults to `"fromCenter"` (staggered outward from blast origin).
+ * - `impactSound` ("impact" | "impactHeavy"): RUNE_SOUNDS key for hit cues.
+ * - `deliverySoundType` (string): RUNE_SOUNDS key for the looping delivery sound (omit for silent).
+ * - `deliverySound` ({fade, offset, release}): envelope params when delivery sound is enabled.
+ * - `buildDelivery(ctx)`: returns the delivery particle-layer array. `ctx` carries `{action,
+ *   textures, origin, radius, particleElevation, casterElevation, casterRadiusPx, sound}`.
+ * - `buildSounds(ctx)` (optional): returns an array of `{sound, time, origin?}` cues scheduled on the
+ *   blast component's `sounds` array, e.g. a sequence of impact-sound cracks across a falling-debris
+ *   storm in addition to the per-target impact sounds.
+ * - `sustainedChargeAnchor` (string): when set, duplicate the charge layers into the delivery phase
+ *   at this anchor (e.g. life blast "channels" the charge across the maelstrom). Ignored when a
+ *   `projectile` precursor is present (the projectile carries the charge instead).
+ * - `projectile` ({speed, size, frame, path, whoosh}): opt-in fireball-style precursor. When set,
+ *   the configurator builds a separate {@link CrucibleProjectileComponent} that carries the charge
+ *   phase + flies a projectile sprite from the caster to the blast center on `path` (a `pathType`
+ *   spec like `{type: "weave", params: {arcCount, amplitude}}`). The blast's own charge.duration
+ *   is then 0 and the blast component shifts on the parent timeline to start when the projectile
+ *   lands. `whoosh` defaults to "whooshFast"; pass `null` to silence the launch cue.
+ * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
+ *   chargeAbove, chargeLayers, sprayParams, ...). When `projectile` is declared these apply to the
+ *   projectile component's charge phase, not the blast component's.
+ * - All the impactXxx fields consumed by {@link _resolveHitTreatment} (impactSprite, recoil,
+ *   impactParticles, impactGlow) - matches the arrow/ray declarative impact shape.
+ * @type {Record<string, object>}
+ */
+const BLAST_VFX_PROPS = {
+
+  // Blast+Frost
+  frost: {
+    ..._CHARGE_FROST_ICICLES,
+    ..._IMPACT_FROST,
+    chargeAnchor: "forward",
+    chargeDuration: 1000,
+    deliveryDuration: 4000,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 700, offset: -500, release: 600},
+    impactTiming: "fromCenter",
+    buildSounds(ctx) {
+      const {action, sound} = ctx;
+      const STORM_DURATION = this.deliveryDuration;
+      const CHARGE_DURATION = this.chargeDuration;
+      const CUES = 6;
+      const cues = [];
+      for ( let i = 0; i < CUES; i++ ) {
+        const cue = sound(getVFXSound(action.rune.id, "impact"));
+        if ( !cue ) break;
+        const t = (i + (Math.random() * 0.6)) / CUES;
+        cues.push({sound: cue, time: CHARGE_DURATION + Math.round(t * STORM_DURATION)});
+      }
+      return cues;
+    },
+    buildDelivery(ctx) {
+      const {action, textures, origin, radius, particleElevation} = ctx;
+      const runeId = action.rune.id;
+      const STORM_DURATION = this.deliveryDuration;
+      const fallingTextures = getVFXFrames(runeId, "Falling");
+      const groundTextures = getVFXTexturePaths(runeId, "ground");
+      const airTextures = textures.air;
+      return [
+        { // Falling shards across the blast circle, shrinking and darkening as they "fall" to the ground
+          animation: "blastParticleFallingDebris", anchor: "origin",
+          textures: fallingTextures.length ? fallingTextures : textures.spray,
+          duration: STORM_DURATION, mask: true,
+          params: {fallDuration: 350, startScale: 2.5, endScale: 1.0, darkening: 0.4,
+            speed: {min: 10, max: 30}, spawnRate: 120,
+            scale: {min: 0.3, max: 0.6}, alpha: {min: 0.7, max: 1.0},
+            elevation: particleElevation,
+            area: {type: "circle", x: origin.x, y: origin.y, radius},
+            blend: PIXI.BLEND_MODES.NORMAL}
+        },
+        { // Ground deposit: persistent cracks/blast marks left behind after the storm
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: groundTextures, duration: STORM_DURATION + 2000, mask: true,
+          params: {spawnRate: 60, count: null,
+            speed: {min: 0, max: 0}, lifetime: {min: 4000, max: 6000},
+            scale: {min: 0.6, max: 1.2}, alpha: {min: 0.6, max: 0.9},
+            scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
+            fade: {in: 0, out: 2500}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
+        },
+        { // Wintry blizzard haze: light ADD-blend air drift across a slightly larger area
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: airTextures, duration: STORM_DURATION, mask: true,
+          params: {spawnRate: 80, count: null,
+            area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 1.3)},
+            speed: {min: 12, max: 55}, lifetime: {min: 2000, max: 2800},
+            scale: {min: 1.0, max: 2.0}, alpha: {min: 0.05, max: 0.18},
+            scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.4}],
+            fade: {in: 150, out: 1800}, blend: PIXI.BLEND_MODES.ADD,
+            elevation: particleElevation + 1}
+        }
+      ];
+    }
+  },
+
+  // Blast+Flame
+  flame: {
+    ..._CHARGE_FLAME_VORTEX,
+    ..._IMPACT_FLAME,
+    chargeDuration: 800,
+    projectile: {
+      speed: 75, size: 3,
+      frame: "flame/ProjectileBlazing",
+      path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}
+    },
+    deliveryDuration: 1500,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 400, offset: -200, release: 800},
+    impactTiming: "atStart",
+    buildDelivery(ctx) {
+      const {action, textures, origin, radius, particleElevation} = ctx;
+      const runeId = action.rune.id;
+      const EXPLOSION_DURATION = this.deliveryDuration;
+      return [
+        { // Combustion burst: explosive radial particles flying outward from the blast origin
+          animation: "shapeParticleCombustion", anchor: "origin",
+          textures: getVFXFrames(runeId, "SprayFlame", "SprayEmbers"),
+          duration: 500, mask: true,
+          params: {count: 500, initial: 500,
+            speed: {min: 80, max: 280},
+            scale: {min: 0.8, max: 1.6},
+            scaleCurve: [{time: 0, value: 0.6}, {time: 0.3, value: 1.4}, {time: 1, value: 1.8}],
+            lifetime: {min: 600, max: 1200},
+            alpha: {min: 0.75, max: 1.0},
+            fade: {in: 30, out: 400},
+            blend: PIXI.BLEND_MODES.ADD,
+            area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.25)},
+            elevation: particleElevation}
+        },
+        { // Ground scorch: persistent dark MULTIPLY-blend marks lingering on the ground
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundScorch"),
+          offset: 200, duration: EXPLOSION_DURATION, mask: true,
+          params: {count: 60, initial: 60,
+            speed: {min: 0, max: 0},
+            lifetime: {min: 5000, max: 7000},
+            scale: {min: 0.7, max: 1.3}, alpha: {min: 0.4, max: 0.7},
+            scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
+            fade: {in: 200, out: 2500},
+            blend: _blendInHot(0.2, {mode: PIXI.BLEND_MODES.MULTIPLY}),
+            elevation: 0}
+        },
+        { // Air smoke residue: brown-tinted smoke drifting upward from the explosion
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: textures.air,
+          offset: 300, duration: EXPLOSION_DURATION, mask: true,
+          params: {count: 40, initial: 40,
+            speed: {min: 10, max: 40},
+            lifetime: {min: 2500, max: 4000},
+            scale: {min: 1.0, max: 1.8}, alpha: {min: 0.2, max: 0.5},
+            scaleCurve: [{time: 0, value: 0.6}, {time: 1, value: 1.4}],
+            fade: {in: 300, out: 1500},
+            tint: 0x6B5A48,
+            blend: PIXI.BLEND_MODES.NORMAL,
+            area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.7)},
+            elevation: particleElevation + 1}
+        }
+      ];
+    }
+  },
+
+  // Blast+Life
+  life: {
+    ..._CHARGE_LIFE_BLOOMS,
+    ..._IMPACT_LIFE,
+    chargeAnchor: "forward",
+    chargeDuration: 1200,
+    sustainedChargeAnchor: "forward",
+    deliveryDuration: 4500,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 500, offset: -300, release: 800},
+    impactTiming: "fromCenter",
+    buildDelivery(ctx) {
+      const {action, textures, origin, radius, particleElevation, casterElevation} = ctx;
+      const runeId = action.rune.id;
+      const MAELSTROM_DURATION = this.deliveryDuration;
+      return [
+        { // Ground roots: filling the blast area as the energy converges
+          animation: "circleParticleBloom", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundRoots"),
+          duration: MAELSTROM_DURATION, mask: true,
+          params: {
+            chargeRadius: Math.round(radius * 1.2),
+            spawnRate: 30, lifetime: {min: 3000, max: 5000},
+            scale: {min: 1.0, max: 1.6}, alpha: {min: 0.7, max: 0.95},
+            growFraction: 0.35,
+            fade: {in: 0.15, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL,
+            sort: 0, elevation: 0}
+        },
+        { // Ground blooms: flowering up across the blast area through the maelstrom
+          animation: "circleParticleBloom", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundBlooms"),
+          duration: MAELSTROM_DURATION, mask: true,
+          params: {chargeRadius: Math.round(radius * 0.8),
+            spawnRate: 50, lifetime: {min: 3000, max: 5000},
+            scale: {min: 1.0, max: 1.5}, alpha: {min: 0.8, max: 1.0},
+            growFraction: 0.3,
+            fade: {in: 0.15, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL,
+            sort: 1, elevation: 0}
+        },
+        { // Tornado of leaf/bubble spray sustained through the maelstrom
+          animation: "circleParticleVortex", anchor: "origin",
+          textures: getVFXFrames(runeId, "SprayLeaf", "SprayBubble"),
+          duration: MAELSTROM_DURATION, mask: true,
+          params: {chargeRadius: Math.round(radius * 1.2),
+            swirlSpeed: 3.5, spinSpeed: 4,
+            spawnRate: 220, lifetime: {min: 1800, max: 2600},
+            scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
+            fade: {in: 0.1, out: 0.4},
+            blend: _blendInHot(0.7, {reverse: true}),
+            elevation: casterElevation + 1}
+        },
+        { // Drifting bubble residue lingering above as the energy dissipates
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "AirBubbles"),
+          offset: 500, duration: MAELSTROM_DURATION, mask: true,
+          params: {spawnRate: 10, count: null,
+            speed: {min: 8, max: 25},
+            lifetime: {min: 3500, max: 5500},
+            scale: {min: 0.6, max: 1.2}, alpha: {min: 0.45, max: 0.85},
+            scaleCurve: [{time: 0, value: 0.6}, {time: 1.0, value: 1.4}],
+            fade: {in: 200, out: 1200},
+            rotationSpeed: {min: -1.2, max: 1.2},
+            blend: PIXI.BLEND_MODES.NORMAL,
+            area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.8)},
+            elevation: particleElevation + 1}
+        }
+      ];
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Per-rune VFX overrides for the Fan gesture. Each entry may declare:
  * - `chargeDuration` (ms): pre-sweep charge phase length, 0 to skip.
  * - `sweepDuration` (ms): delivery (sweep) phase length.
@@ -1586,7 +1840,7 @@ const SPELL_VFX_GESTURES = {
   arrow: {configure: configureArrowVFXEffect, runes: ARROW_VFX_PROPS},
   aspect: {},
   aura: {},
-  blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},
+  blast: {configure: configureBlastVFXEffect, runes: BLAST_VFX_PROPS},
   cone: {},
   conjure: {},
   create: {},

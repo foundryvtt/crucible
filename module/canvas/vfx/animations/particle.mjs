@@ -621,7 +621,8 @@ const shapeParticleCombustion = {
  * @property {number} [count]
  * @property {number} [initial]
  * @property {{min: number, max: number}} [speed]
- * @property {number} [rotationSpread]
+ * @property {number} [rotationSpread]                    Initial rotation jitter (rad). Default Math.PI.
+ * @property {{min: number, max: number}} [rotationSpeed] Per-particle angular velocity (rad/sec).
  * @property {{min: number, max: number}} [scale]
  * @property {Array<{time: number, value: number}>} [scaleCurve]
  * @property {{min: number, max: number}} [lifetime]
@@ -648,11 +649,13 @@ const shapeParticleResidue = {
       {time: 0.4, value: 1.4},
       {time: 1.0, value: 2.0}
     ];
+    const rotation = {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI};
+    if ( params.rotationSpeed ) rotation.speed = params.rotationSpeed;
     return {
       spawnRate: params.spawnRate ?? 0,
       area,
       velocity: {speed: [params.speed?.min ?? 5, params.speed?.max ?? 25], angle: [0, 360]},
-      rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
+      rotation,
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 1800, max: 3000},
       fade: params.fade ?? {in: 200, out: 1200},
@@ -933,6 +936,75 @@ const fanParticleYoyo = {
 /* -------------------------------------------- */
 
 /**
+ * @typedef BlastParticleFallingDebrisParams
+ * @property {number} [fallDuration]   Ms each particle spends "falling" before landing (default 350).
+ * @property {number} [startScale]     Per-particle scale multiplier at spawn (default 4.0) - large to
+ *                                      read as close to the camera in a top-down perspective.
+ * @property {number} [endScale]       Per-particle scale multiplier at landing (default 1.0).
+ * @property {number} [darkening]      Tint darkening at landing (0..1, default 0.4).
+ * @property {{min: number, max: number}} [speed]   Lateral drift while falling (default 10-30 px/s).
+ * @property {{min: number, max: number}} [scale]   Per-particle base random range (default 0.3-0.6).
+ * @property {{min: number, max: number}} [alpha]
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ * @property {object} [area]           Override the component-supplied deliveryArea.
+ */
+
+/**
+ * Debris particles falling from overhead toward the ground in a top-down perspective. Particles spawn
+ * large (close to camera) and shrink + darken as they fall; upon landing they freeze in place and
+ * linger before fading. Suitable for hail, falling rocks, shattered crystal, etc. Geometry-agnostic;
+ * reads the spawn area from `state.deliveryArea` (typically a blast circle).
+ * @type {CrucibleParticleBehavior<BlastParticleFallingDebrisParams>}
+ */
+const blastParticleFallingDebris = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const area = params.area ?? this.state.deliveryArea;
+    const gridScale = this.state.gridScale;
+    const fallDuration = params.fallDuration ?? 350;
+    const startScale = params.startScale ?? 4.0;
+    const endScale = params.endScale ?? 1.0;
+    const darkening = params.darkening ?? 0.4;
+    const speed = params.speed ?? {min: 10, max: 30};
+    return {
+      area,
+      velocity: {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
+      rotation: {spread: params.rotationSpread ?? Math.PI},
+      lifetime: params.lifetime ?? {min: 2500, max: 3100},
+      fade: params.fade ?? {in: 30, out: 600},
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      onSpawn: p => {
+        p._baseScale = p.scale.x;
+        p.scale.set(p._baseScale * startScale, p._baseScale * startScale);
+        p.tint = 0xFFFFFF;
+        p._landed = false;
+      },
+      onUpdate: p => {
+        if ( p._landed ) return;
+        if ( p.elapsedTime >= fallDuration ) {
+          p._landed = true;
+          p.movementSpeed.x = 0;
+          p.movementSpeed.y = 0;
+          p.scale.set(p._baseScale * endScale, p._baseScale * endScale);
+          const b = Math.round(255 * (1.0 - darkening));
+          p.tint = (b << 16) | (b << 8) | b;
+          return;
+        }
+        const t = Math.clamp(p.elapsedTime / fallDuration, 0, 1);
+        const s = p._baseScale * (startScale + (t * (endScale - startScale)));
+        p.scale.set(s, s);
+        const b = Math.round(255 * (1.0 - (t * darkening)));
+        p.tint = (b << 16) | (b << 8) | b;
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible particle behaviors, keyed by registry name.
  * @type {Record<string, CrucibleParticleBehavior>}
  */
@@ -952,5 +1024,6 @@ export const PARTICLE_ANIMATIONS = {
   fanParticleSweep,
   fanParticleCascade,
   fanParticleArcDeposit,
-  fanParticleYoyo
+  fanParticleYoyo,
+  blastParticleFallingDebris
 };

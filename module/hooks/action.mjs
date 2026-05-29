@@ -387,6 +387,7 @@ HOOKS.fall = {
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
     this.usage.fallDistance = distance;
     if ( (distance <= 0) || !surface ) return;
+    this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
 
     // Falls of 10 feet or less deal no damage.
     if ( distance <= 10 ) {

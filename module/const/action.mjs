@@ -1235,9 +1235,7 @@ export const TAGS = {
       }
       status.hasMoved = true;
 
-      // Derive the post-move movement-state status (falling/flying/burrowing) from the planned final waypoint and
-      // record the delta as a standard effect event. These three statuses are mutually exclusive: at most one is
-      // active at a time, and any others are cleared.
+      // Derive any post-movement status (falling/flying/burrowing) from the planned final waypoint.
       const final = this.movement?.waypoints?.at(-1);
       if ( !final || !this.token ) return;
       const { burrowing, falling, flying } = CONFIG.statusEffects;
@@ -1248,7 +1246,9 @@ export const TAGS = {
       const effects = [];
       if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
         const { _id, id, img, name } = toAdd;
-        effects.push({ _id, img, name: _loc(name), statuses: [id] });
+        const effect = { _id, img, name: _loc(name), statuses: [id] };
+        if ( id === falling.id ) effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS; // TODO generalize somehow?
+        effects.push(effect);
       }
       for ( const { id } of [burrowing, falling, flying] ) {
         if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
@@ -1260,16 +1260,14 @@ export const TAGS = {
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
       if ( reverse ) return;
-      // Remove prone condition upon movement confirmation if movement is not exclusively crawling.
-      // This side effect is movement-tag exclusive; forced movements that record a "movement" event without
-      // adopting the tag do not stand the actor up.
+
+      // Remove the prone condition on confirmation if not explicitly crawling
       if ( this.actor.statuses.has("prone") ) {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
     },
     async postConfirm(reverse) {
-      // Fall is not movement-tagged, so its own confirm does not re-enter this branch.
       if ( reverse || !this.token ) return;
       if ( !this.actor.statuses.has(CONFIG.statusEffects.falling.id) ) return;
       await this.actor.actions.fall.use({ token: this.token });

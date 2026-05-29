@@ -19,9 +19,6 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   static defineSchema() {
     return {
       ...super.defineSchema(),
-      // Charge phase: `duration` is the timeline length; `distance` is the offset from the action's
-      // origin mesh center at which the charge animation occurs. Subclasses interpret distance against
-      // their own geometry (e.g. a ray offsets along the heading; a fan along the cone axis).
       charge: this._phaseField({
         duration: new NumberField({required: true, nullable: false, initial: 700}),
         distance: new NumberField({required: true, nullable: false, initial: 0})
@@ -29,10 +26,6 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       delivery: this._phaseField(),
       impacts: new ArrayField(this._impactField()),
       seed: new NumberField({initial: null}),
-      // Scene-object references, all resolved at play-time by the framework:
-      // - `originMesh` -> the action's origin token mesh (backs the `source` anchor for charge particles)
-      // - `targetMeshes` -> per-impact target meshes (parallel to `impacts`); used by impact recoil etc.
-      // - `mask` -> a wall-mask polygon honored by particle layers flagged `mask: true`
       originMesh: new VFXResolvedReferenceField(),
       targetMeshes: new ArrayField(new VFXResolvedReferenceField()),
       mask: new VFXResolvedReferenceField(),
@@ -43,6 +36,11 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
         fontSize: new NumberField({required: true, nullable: false, initial: 32}),
         fillColor: new ColorField({initial: "#ffffff"}),
         jitter: new NumberField({required: true, nullable: false, initial: 0.5})
+      })),
+      sounds: new ArrayField(new SchemaField({
+        sound: this._soundField(),
+        time: new NumberField({required: true, nullable: false, initial: 0}),
+        origin: this._pointField()
       }))
     };
   }
@@ -313,6 +311,9 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       }
       if ( phase.sound ) phase.sound.instance = await this._loadSound(phase.sound.src);
     }
+    for ( const entry of this.sounds ) {
+      if ( entry.sound ) entry.sound.instance = await this._loadSound(entry.sound.src);
+    }
   }
 
   /* -------------------------------------------- */
@@ -329,6 +330,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     this._drawDelivery();
     this._drawImpacts();
     this._attachScrollingText();
+    this._attachSounds();
     this.timeline.label("end", Math.max(this.timings.deliveryEnd ?? 0, this.timings.impactEnd ?? 0));
   }
 
@@ -426,6 +428,26 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
           jitter: entry.jitter
         });
       }, entry.time);
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Timed Sound Cues                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Schedule each declared sound cue on the component timeline at its `time`. Each cue's `origin` is
+   * a reference-resolvable point; when null, the cue plays at the state's origin. Cues are loaded as
+   * part of `_load` (subclasses extend their asset plan to include them).
+   * @protected
+   */
+  _attachSounds() {
+    for ( const entry of this.sounds ) {
+      const cue = entry.sound;
+      if ( !cue?.instance ) continue;
+      const origin = entry.origin ?? this.state.origin;
+      this._scheduleSound(cue.instance, origin,
+        {position: entry.time, align: cue.align, radius: cue.radius, volume: cue.volume});
     }
   }
 

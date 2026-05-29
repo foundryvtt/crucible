@@ -1,9 +1,10 @@
 import CrucibleProjectileComponent from "./vfx-projectile-component.mjs";
 import CrucibleRayComponent from "./vfx-ray-component.mjs";
 import CrucibleFanComponent from "./vfx-fan-component.mjs";
+import CrucibleBlastComponent from "./vfx-blast-component.mjs";
 
 export {default as CrucibleVFXComponent} from "./vfx-component.mjs";
-export {CrucibleProjectileComponent, CrucibleRayComponent, CrucibleFanComponent};
+export {CrucibleProjectileComponent, CrucibleRayComponent, CrucibleFanComponent, CrucibleBlastComponent};
 
 /**
  * Concrete Crucible VFX component classes to register into CONFIG.Canvas.vfx.components, keyed by
@@ -11,7 +12,7 @@ export {CrucibleProjectileComponent, CrucibleRayComponent, CrucibleFanComponent}
  * @type {(typeof CrucibleVFXComponent)[]}
  */
 export const CRUCIBLE_VFX_COMPONENTS = [CrucibleProjectileComponent, CrucibleRayComponent,
-  CrucibleFanComponent];
+  CrucibleFanComponent, CrucibleBlastComponent];
 
 /**
  * Register Crucible VFX component subclasses into the shared component registry. Coexists with the

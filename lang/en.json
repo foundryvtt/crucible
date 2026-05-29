@@ -48,7 +48,8 @@
       },
       "Fall": {
         "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
-        "Name": "Fall"
+        "Name": "Fall",
+        "NameDistance": "Fall ({distance} feet)"
       },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
