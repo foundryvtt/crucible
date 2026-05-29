@@ -222,6 +222,9 @@ function configureArrowVFXEffect(action) {
             elevation: (token.elevation ?? 0) + 1, ...runeProps.impactSpray.params}
         });
       }
+      if ( runeProps.impactGlow ) {
+        impactAnimations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
+      }
     }
     else {
       impactSound = sound(getVFXSound(action.rune.id, "miss"));
@@ -255,6 +258,8 @@ function configureArrowVFXEffect(action) {
 
     components[`arrow_${j}`] = {
       type: "crucibleProjectile",
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: [{reference: targetMeshRef}],
       path: [
         {reference: manifestRef, deltas: {}},
         {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
@@ -279,23 +284,6 @@ function configureArrowVFXEffect(action) {
 
   if ( !timeline.length ) return null;
   return {components, timeline, references};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Enact final runtime configurations of an arrow animation before it is played.
- * @param {CrucibleSpellAction} action
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
- * @param {Record<string, any>} references
- */
-function finalizeArrowVFXEffect(action, vfxEffect, references) {
-  for ( const [name, component] of Object.entries(vfxEffect.components) ) {
-    const match = name.match(/^arrow_(\d+)$/);
-    if ( !match ) continue;
-    component._originMesh = references.tokenMesh ?? null;
-    component._targetMeshes = [references[`target_${match[1]}_tokenMesh`] ?? null];
-  }
 }
 
 /* -------------------------------------------- */
@@ -812,10 +800,12 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
 function _resolveRayHitTreatment(action, ctx, runeProps) {
   const {textures, beamElevation} = ctx;
   const gridSize = canvas.dimensions.size;
+  const glowAnim = runeProps?.impactGlow
+    ? [{function: "impactSpriteGlow", params: runeProps.impactGlow}] : [];
   if ( runeProps?.softImpact ) {
     const sprayTextures = getVFXFrames(action.rune.id, ...(runeProps.softImpactFrames ?? ["SprayLeaf"]));
     return {
-      animations: [],
+      animations: glowAnim,
       particles: [{
         animation: "circleParticleBurst", anchor: "target", textures: sprayTextures, duration: 200,
         params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
@@ -828,7 +818,8 @@ function _resolveRayHitTreatment(action, ctx, runeProps) {
     animations: [
       {function: "impactSpriteRecoil", params: {distance: 12, duration: 320}},
       {function: "impactSpriteBurst",
-        params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}}
+        params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}},
+      ...glowAnim
     ],
     particles: [{
       animation: "circleParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
@@ -963,6 +954,14 @@ const _CHARGE_LIFE = {
   ]
 };
 
+/* Soft pink restorative-magic glow applied to struck targets across all life rune spells. */
+const _GLOW_LIFE = {
+  glowColor: 0xffaadd,
+  outerStrength: 6, innerStrength: 2,
+  distance: 20, quality: 0.5, padding: 16, knockout: false,
+  alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
+};
+
 /**
  * Per-rune VFX overrides for the Arrow gesture.
  *
@@ -1020,7 +1019,8 @@ const ARROW_VFX_PROPS = {
     trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
       lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},
       alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}},
-    impactSpray: {frames: ["SprayLeaf", "SprayBubble"]}
+    impactSpray: {frames: ["SprayLeaf", "SprayBubble"]},
+    impactGlow: _GLOW_LIFE
   },
 
   // Arrow+Flame
@@ -1194,6 +1194,7 @@ const RAY_VFX_PROPS = {
     sustainedChargeAnchor: "source",
     softImpact: true,
     softImpactFrames: ["SprayLeaf", "SprayBubble"],
+    impactGlow: _GLOW_LIFE,
 
     buildDelivery(ctx) {
       const {action, spawnRadius, casterElevation} = ctx;
@@ -1447,7 +1448,9 @@ const FAN_VFX_PROPS = {
       const gridSize = canvas.dimensions.size;
       const sprayTextures = getVFXFrames(action.rune.id, "SprayLeaf", "SprayBubble");
       return {
-        animations: [],
+        animations: [
+          {function: "impactSpriteGlow", params: _GLOW_LIFE}
+        ],
         particles: [
           { // Leaf and bubble spray upon impact
             animation: "circleParticleBurst", anchor: "target", textures: sprayTextures,
@@ -1478,7 +1481,7 @@ const FAN_VFX_PROPS = {
  *   finalize?: function, runes?: Record<string, object>}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: {configure: configureArrowVFXEffect, finalize: finalizeArrowVFXEffect, runes: ARROW_VFX_PROPS},
+  arrow: {configure: configureArrowVFXEffect, runes: ARROW_VFX_PROPS},
   aspect: {},
   aura: {},
   blast: {configure: configureBlastVFXEffect, finalize: finalizeBlastVFXEffect},

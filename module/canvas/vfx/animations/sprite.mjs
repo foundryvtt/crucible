@@ -180,6 +180,73 @@ const impactSpriteBurst = {
 /* -------------------------------------------- */
 
 /**
+ * Apply a short-lived {@link foundry.canvas.rendering.filters.GlowOverlayFilter} to the target mesh
+ * as soft impact feedback. Useful where no recoil or impact sprite applies (e.g. restorative magic).
+ * Accepts every filter knob except `animated` (`padding`, `innerStrength`, `outerStrength`,
+ * `distance`, `glowColor`, `quality`, `knockout`, `alpha`) plus the alpha envelope (`duration`,
+ * `fadeIn`, `fadeOut`). `animated` is force-disabled: the VFXEffect timeline owns all uniform
+ * animation, and the filter's built-in ticker oscillation would run in parallel and fight it.
+ * `glowColor` accepts a hex literal (e.g. 0xffaadd) or an [r,g,b,a] float array.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteGlow = {
+  schedule(phase, params) {
+    const target = this.state.targetMesh;
+    if ( !target || target.destroyed ) return;
+    const FilterClass = foundry.canvas.rendering.filters.GlowOverlayFilter;
+    if ( !FilterClass ) {
+      console.warn("Crucible VFX: GlowOverlayFilter unavailable; impactSpriteGlow has no effect.");
+      return;
+    }
+
+    const {
+      padding = 6, innerStrength = 3, outerStrength = 3,
+      distance = 10, glowColor = 0xffffff, quality = 0.5, knockout = false,
+      alpha = 1, duration, fadeIn = 150, fadeOut = 300
+    } = params;
+    const dur = duration ?? phase.duration ?? 1000;
+    const color = Array.isArray(glowColor) ? glowColor : [
+      ((glowColor >> 16) & 0xff) / 255,
+      ((glowColor >> 8) & 0xff) / 255,
+      (glowColor & 0xff) / 255,
+      1
+    ];
+
+    const filter = FilterClass.create({distance, glowColor: color, quality, knockout, alpha: 0});
+    filter.padding = padding;
+    filter.innerStrength = innerStrength;
+    filter.outerStrength = outerStrength;
+    filter.animated = false;
+
+    // Defer attachment to phase.start. Attaching the filter at draw-time runs its shader against the
+    // mesh for the entire spell preamble even at alpha 0 (the shader does not fully zero out), so the
+    // filter must be joined to the mesh only at the impact moment and detached when the glow ends.
+    const start = phase.start;
+    this.timeline.call(() => {
+      if ( target.destroyed ) return;
+      target.filters = target.filters ? [...target.filters, filter] : [filter];
+    }, start);
+
+    this.timeline
+      .add(filter.uniforms, {alpha: {from: 0, to: alpha, duration: fadeIn}}, start)
+      .add(filter.uniforms, {alpha: {to: 0, duration: fadeOut}}, (start + dur) - fadeOut);
+
+    this.timeline.call(() => {
+      if ( target.destroyed ) return;
+      const filters = target.filters;
+      if ( !filters ) return;
+      const idx = filters.indexOf(filter);
+      if ( idx < 0 ) return;
+      const next = filters.slice();
+      next.splice(idx, 1);
+      target.filters = next.length ? next : null;
+    }, start + dur);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible sprite animators, keyed by registry name.
  * @type {Record<string, CrucibleVFXComponentAnimation>}
  */
@@ -188,5 +255,6 @@ export const SPRITE_ANIMATIONS = {
   deliveryProjectileFlight,
   impactSpriteBurst,
   impactSpriteRecoil,
-  impactSpriteShake
+  impactSpriteShake,
+  impactSpriteGlow
 };
