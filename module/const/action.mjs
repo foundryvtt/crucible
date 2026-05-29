@@ -1421,7 +1421,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
     target: { type: "self", scope: 1 },
     cost: { action: 0 },
-    tags: ["generic"]
+    tags: ["generic"],
+    effects: [{ statuses: ["prone"] }]
   },
 
   // Defend

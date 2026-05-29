@@ -376,21 +376,28 @@ HOOKS.electrochargeAmpoule = {
 HOOKS.fall = {
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
+    if ( Number.isFinite(this.usage.fallDistance) && (this.usage.fallDistance <= 0) ) return false;
   },
   prepare() {
     this.usage.damageType = "bludgeoning";
     this.usage.bonuses.base = 1;
-    // Apply prone unless the hazard is resisted.
-    this.effects = [{ statuses: ["prone"], result: { type: "success" } }];
   },
   preActivate() {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
     this.usage.fallDistance = distance;
-    this.usage.bonuses.ability = distance;
-    this.usage.defenseType = distance > 30 ? "fortitude" : "reflex";
-    if ( distance > 30 ) this.tags.add("severe");
     if ( (distance <= 0) || !surface ) return;
+
+    // Falls of 10 feet or less deal no damage.
+    if ( distance <= 10 ) {
+      this.tags.delete("generic");
+      this.tags.add("harmless");
+    } else {
+      this.usage.bonuses.ability = distance;
+      this.usage.defenseType = distance > 30 ? "fortitude" : "reflex";
+      if ( distance > 30 ) this.tags.add("severe");
+    }
+
     const movement = crucible.api.canvas.movement.planMovement(this.token, [{
       action: "fall",
       elevation: surface.elevation
