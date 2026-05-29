@@ -106,13 +106,6 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "" // TODO
   },
-  hovering: {
-    id: "hovering",
-    name: "ACTIVE_EFFECT.STATUSES.Hovering",
-    img: "icons/svg/up.svg",
-    hud: nonGroupTypes,
-    page: "" // TODO
-  },
   deafened: {
     id: "deafened",
     name: "ACTIVE_EFFECT.STATUSES.Deaf",

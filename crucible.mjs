@@ -294,7 +294,6 @@ Hooks.once("init", async function() {
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";
   CONFIG.specialStatusEffects.FLY = "flying";
-  CONFIG.specialStatusEffects.HOVER = "hovering";
 
   // Canvas Configuration
   canvas.configure();
