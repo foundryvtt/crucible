@@ -1838,7 +1838,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const resource = damage.resource ?? "health";
       const cfg = SYSTEM.RESOURCES[resource];
       const amount = (damage.total ?? 0) * (damage.restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
-      if ( !amount ) continue;
+
+      // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
+      if ( amount === 0 ) {
+        event.resources.push({resource, delta: 0});
+        continue;
+      }
 
       // Allocate without specific system target (in theory should not happen?)
       if ( !event.target?.system ) {
@@ -2351,9 +2356,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      // Compose scrolling text events
+      // Compose scrolling text events. When the action's VFXEffect carries scrollingText markers,
+      // suppress the default per-update display - the VFXEffect will dispatch text at impact time.
+      // Reverse plays no VFX, so always allow default text display on reverse.
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
-      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents});
+      const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
+      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
     }
   }
@@ -2370,8 +2378,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {ScrollingTextEvent[]}
    */
   #composeTextEvents(actor, events, {reverse, isNegated}) {
+    return this.constructor.composeTextEvents(actor, events, {reverse, isNegated, selfActor: this.actor});
+  }
+
+  /**
+   * Compose scrolling text events for a target actor from a slice of an action's event stream.
+   * Public for use by VFX configurators that bake per-target text into a VFXEffect.
+   * @param {CrucibleActor} actor
+   * @param {object[]} events
+   * @param {{reverse: boolean, isNegated: boolean, selfActor: CrucibleActor}} options
+   * @returns {ScrollingTextEvent[]}
+   */
+  static composeTextEvents(actor, events, {reverse, isNegated, selfActor}) {
     const textEvents = [];
-    const isSelf = actor === this.actor;
+    const isSelf = actor === selfActor;
     const sign = reverse ? -1 : 1;
     const resources = actor.system.resources;
     const ActorCls = crucible.api.documents.CrucibleActor;
@@ -2380,7 +2400,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( includeResources ) {
         for ( const {resource: name, delta: rawDelta} of event.resources ) {
           const delta = rawDelta * sign;
-          if ( delta === 0 ) continue;
           const attr = resources[name];
           if ( !attr ) continue;
           textEvents.push(ActorCls.formatScrollingResource(name, delta, attr.max));
@@ -2590,6 +2609,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !(cost.weapon || tags.includes("reload")) ) return false;
     if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
     return this.actor?.equipment.weapons.hasChoice;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Package this Action into drag data used to create a hotbar Macro which re-uses the Action.
+   * @returns {{type: "crucible.action", macroData: object}}
+   */
+  toMacroDragData() {
+    return {
+      type: "crucible.action",
+      macroData: {
+        type: "script",
+        scope: "actor",
+        name: this.name,
+        img: this.img,
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.id}");`
+      }
+    };
   }
 
   /* -------------------------------------------- */

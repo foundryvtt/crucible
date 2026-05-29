@@ -1,6 +1,6 @@
 import VFXResolvedReferenceField from "../fields/vfx-resolved-reference-field.mjs";
 
-const {ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
+const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
 
 /**
@@ -35,7 +35,15 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       // - `mask` -> a wall-mask polygon honored by particle layers flagged `mask: true`
       originMesh: new VFXResolvedReferenceField(),
       targetMeshes: new ArrayField(new VFXResolvedReferenceField()),
-      mask: new VFXResolvedReferenceField()
+      mask: new VFXResolvedReferenceField(),
+      scrollingText: new ArrayField(new SchemaField({
+        target: new VFXResolvedReferenceField(),
+        text: new StringField({required: true, blank: false}),
+        time: new NumberField({required: true, nullable: false, initial: 0}),
+        fontSize: new NumberField({required: true, nullable: false, initial: 32}),
+        fillColor: new ColorField({initial: "#ffffff"}),
+        jitter: new NumberField({required: true, nullable: false, initial: 0.5})
+      }))
     };
   }
 
@@ -282,6 +290,142 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       case SOUND_ALIGNMENT.END: return Math.max(duration - soundMS, 0);
       case SOUND_ALIGNMENT.START_END: return duration;
       default: return 0; // START
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Component Lifecycle                         */
+  /* -------------------------------------------- */
+
+  /**
+   * Walk the component's phases (charge, delivery, each impact) collecting particle textures, animation
+   * sprite textures, and per-phase sounds into the component's load plan. Subclasses extend this when
+   * additional assets need preloading (e.g. a projectile's flight sprite).
+   * @override
+   */
+  async _load() {
+    for ( const phase of [this.charge, this.delivery, ...this.impacts] ) {
+      for ( const layer of phase.particles ) {
+        for ( const texture of layer.textures ) this.assetPaths.add(texture);
+      }
+      for ( const anim of phase.animations ) {
+        if ( anim.params?.texture ) this.assetPaths.add(anim.params.texture);
+      }
+      if ( phase.sound ) phase.sound.instance = await this._loadSound(phase.sound.src);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Canonical draw recipe. Subclasses customize via the hooks below; only override `_draw` itself if
+   * the recipe needs reordering.
+   * @override
+   */
+  async _draw() {
+    this._configureTimings();
+    this._configureState();
+    this._drawCharge();
+    this._drawDelivery();
+    this._drawImpacts();
+    this._attachScrollingText();
+    this.timeline.label("end", Math.max(this.timings.deliveryEnd ?? 0, this.timings.impactEnd ?? 0));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Populate `this.timings` with phase boundaries (chargeStart/End, deliveryStart/End, and optionally
+   * impactStart). Default implementation derives from `charge.duration` and `delivery.duration`;
+   * subclasses override when timing depends on geometry (e.g. projectile flight time).
+   * @protected
+   */
+  _configureTimings() {
+    this.timings = {
+      chargeStart: 0,
+      chargeEnd: this.charge.duration,
+      deliveryStart: this.charge.duration,
+      deliveryEnd: this.charge.duration + (this.delivery.duration ?? 0)
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Populate `this.state` with shared per-frame data (origin, source, anchors, gridScale, etc.) read by
+   * particle behaviors and animations. Required for the rest of the recipe to function.
+   * @abstract
+   * @protected
+   */
+  _configureState() {
+    throw new Error(`${this.constructor.name} must implement _configureState`);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Attach the charge phase to the timeline: stamp timings onto the phase, then dispatch animations,
+   * sound, and particles.
+   * @protected
+   */
+  _drawCharge() {
+    Object.assign(this.charge, {start: this.timings.chargeStart, end: this.timings.chargeEnd});
+    this._attachAnimations(this.charge);
+    this._schedulePhaseSound(this.charge, this.state.origin);
+    this._attachParticles(this.charge);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Attach the delivery phase to the timeline: stamp timings onto the phase, then dispatch animations,
+   * sound, and particles. Subclasses override to layer in delivery-specific scheduling (e.g. the
+   * projectile sprite's exit fade).
+   * @protected
+   */
+  _drawDelivery() {
+    const duration = this.timings.deliveryEnd - this.timings.deliveryStart;
+    Object.assign(this.delivery, {start: this.timings.deliveryStart, end: this.timings.deliveryEnd, duration});
+    this._attachAnimations(this.delivery);
+    this._schedulePhaseSound(this.delivery, this.state.origin);
+    this._attachParticles(this.delivery);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Dispatch the per-target impacts. Default implementation delegates to {@link _attachImpacts};
+   * subclasses rarely need to override this.
+   * @protected
+   */
+  _drawImpacts() {
+    this._attachImpacts();
+  }
+
+  /* -------------------------------------------- */
+  /*  Scrolling Text                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Schedule each declared scrolling-text marker on the component timeline at its `time`. Each marker's
+   * `target` is a reference resolved to a mesh-like object with `x`/`y`; the text scrolls upward from
+   * that position. Called once per component during `_draw`.
+   * @protected
+   */
+  _attachScrollingText() {
+    for ( const entry of this.scrollingText ) {
+      const target = entry.target;
+      if ( !target ) continue;
+      this.timeline.call(() => {
+        canvas.interface.createScrollingText({x: target.x, y: target.y}, entry.text, {
+          anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+          fontSize: entry.fontSize,
+          fill: entry.fillColor,
+          stroke: 0x000000,
+          strokeThickness: 4,
+          jitter: entry.jitter
+        });
+      }, entry.time);
     }
   }
 

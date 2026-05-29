@@ -1,6 +1,7 @@
 <section class="action line-item">
     <header class="action-header">
-        <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+        <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true"
+             data-tooltip="ACTION.DragToHotbar">
         <div class="title">
             <h4>{{action.name}}</h4>
             {{crucibleTags tags.activation tagType="activation"}}

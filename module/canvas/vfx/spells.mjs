@@ -75,6 +75,31 @@ export function configureSpellVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
+ * Push per-target scrolling-text entries onto a component's `scrollingText` array. Composes the
+ * target's text events from its event slice and stages each at impact time, staggered 200ms apart
+ * to avoid overlap when a single hit produces multiple text rows (resource + status).
+ * @param {object[]} scrollingText      The component's scrollingText array (mutated).
+ * @param {CrucibleSpellAction} action
+ * @param {CrucibleActor} targetActor
+ * @param {object[]} targetEvents       The target's slice of the action event stream.
+ * @param {string} meshRef              Reference key of the target's mesh in the VFX references map.
+ * @param {number} impactStart          Component-timeline ms at which this target is struck.
+ */
+function _pushTargetScrollingText(scrollingText, action, targetActor, targetEvents, meshRef, impactStart) {
+  const events = action.constructor.composeTextEvents(targetActor, targetEvents,
+    {reverse: false, isNegated: false, selfActor: action.actor});
+  events.forEach((evt, i) => scrollingText.push({
+    target: {reference: meshRef},
+    text: evt.text,
+    time: impactStart + (i * 200),
+    fontSize: evt.fontSize ?? 32,
+    fillColor: evt.fillColor ?? "#ffffff"
+  }));
+}
+
+/* -------------------------------------------- */
+
+/**
  * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
  * serialization (e.g., callback functions). Called on every client at play time, after the
  * VFXEffect has been constructed from deserialized config but before it plays.
@@ -246,6 +271,13 @@ function configureArrowVFXEffect(action) {
       });
     }
 
+    const projectileSpeed = runeProps.projectileSpeed ?? 150;
+    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
+    const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
+    const arrowScrollingText = [];
+    _pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
+      CHARGE_DURATION + flightMS);
+
     components[`arrow_${j}`] = {
       type: "crucibleProjectile",
       originMesh: {reference: "tokenMesh"},
@@ -261,12 +293,13 @@ function configureArrowVFXEffect(action) {
         texture: runeProps.projectileFrame
           ? getVFXTexturePath(runeProps.projectileFrame)
           : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
-        size: runeProps.projectileSize ?? 3, speed: runeProps.projectileSpeed ?? 150, sound: flightSound,
+        size: runeProps.projectileSize ?? 3, speed: projectileSpeed, sound: flightSound,
         animations: [{function: "deliveryProjectileFlight"}], particles: projectileParticles},
       impacts: [{
         result, id: token.id, stick: stickDuration,
         sound: impactSound, animations, particles
-      }]
+      }],
+      scrollingText: arrowScrollingText
     };
     timeline.push({component: `arrow_${j}`, position: 0});
     j++;
@@ -334,6 +367,7 @@ function configureFanVFXEffect(action) {
   const impactType = runeProps.impactSound ?? "impact";
   const impacts = [];
   const targetMeshRefs = [];
+  const scrollingText = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -361,6 +395,7 @@ function configureFanVFXEffect(action) {
       impacts.push({result, id: token.id, start,
         sound: sound(getVFXSound(action.rune.id, impactType)),
         animations: treatment.animations, particles: treatment.particles});
+      _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
       j++;
     }
     else if ( result === T.RESIST ) {
@@ -373,6 +408,7 @@ function configureFanVFXEffect(action) {
           ? [{function: "impactSpriteBurst",
             params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
           : [], particles: []});
+      _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
       j++;
     }
   }
@@ -394,7 +430,8 @@ function configureFanVFXEffect(action) {
       charge: {duration: chargeDuration, sound: chargeSound,
         animations: [], particles: chargeParticles},
       delivery: {duration: deliveryDuration, sound: deliverySound, animations: [], particles: deliveryParticles},
-      impacts
+      impacts,
+      scrollingText
     }
   };
   return {components, timeline: [{component: "fan", position: 0}], references};
@@ -450,6 +487,7 @@ function configureRayVFXEffect(action) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const impacts = [];
   const targetMeshRefs = [];
+  const scrollingText = [];
   const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
   const impactType = runeProps.impactSound ?? "impact";
   const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
@@ -478,6 +516,7 @@ function configureRayVFXEffect(action) {
           : [],
         particles: []
       });
+    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
@@ -496,7 +535,8 @@ function configureRayVFXEffect(action) {
         sound: sound(getVFXSound(action.rune.id, "charge")),
         animations: [], particles: chargeParticles},
       delivery,
-      impacts
+      impacts,
+      scrollingText
     }
   };
   return {components, timeline: [{component: "ray", position: 0}], references};

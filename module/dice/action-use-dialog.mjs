@@ -207,6 +207,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /** @inheritDoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
+
+    // Allow the action icon to be dragged to the hotbar to create a Macro for the configured action
+    const icon = this.element.querySelector("img.action-drag");
+    if ( icon ) icon.addEventListener("dragstart", this.#onDragStart.bind(this));
+
     if ( !context.requiresRegion || !canvas.ready ) return;
     const regionConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type]?.region;
     if ( !regionConfig ) return;
@@ -216,6 +221,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /**
+   * Package the configured action into drag data when its icon is dragged toward the hotbar.
+   * @param {DragEvent} event
+   */
+  #onDragStart(event) {
+    event.dataTransfer.setData("text/plain", JSON.stringify(this.action.toMacroDragData()));
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */

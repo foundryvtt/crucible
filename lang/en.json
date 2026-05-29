@@ -484,6 +484,7 @@
     "DelayHint": "Choose an Initiative between 1 and {maximum} at which to act. See @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.DPrsFbPo3tD7TJ5g]{Initiative and Turn Order} for how delayed Initiative interacts with tiebreaking.",
     "DelayLabel": "Delayed Initiative",
     "DelayTitle": "Delay Turn",
+    "DragToHotbar": "Drag to the hotbar to create a Macro for this Action.",
     "DurationRounds": "{value}R",
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",

@@ -1050,9 +1050,12 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.reverse]                      Reverse the direction of change?
    * @param {ScrollingTextEvent[]} [options.statusText]      Additive scrolling text appended to cache-diff scrolls
    * @param {ScrollingTextEvent[]} [options.textEvents]      Canonical scrolling text events; overrides cache-diff
+   * @param {boolean} [options.scrollingText=true]           When false, fully suppress scrolling text display
+   *                                                          for this update. Used when a VFXEffect (or other
+   *                                                          orchestrator) will dispatch the text itself.
    * @returns {Promise<CrucibleActor>}                     The updated Actor document
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1112,7 +1115,7 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
-    return this.update(updates, {statusText, textEvents});
+    return this.update(updates, {statusText, textEvents, scrollingText});
   }
 
   /* -------------------------------------------- */
@@ -2613,8 +2616,10 @@ export default class CrucibleActor extends Actor {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
 
-    // Locally display scrolling status updates
-    this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
+    // Locally display scrolling status updates - skip entirely when an orchestrator has taken over
+    if ( options.scrollingText !== false ) {
+      this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
+    }
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
@@ -2765,7 +2770,7 @@ export default class CrucibleActor extends Actor {
     const resource = SYSTEM.RESOURCES[resourceName];
     const text = `${delta.signedString()} ${resource.label}`;
     const pct = Math.clamp(Math.abs(delta) / (max || 1), 0, 1);
-    const fontSize = 32 + (64 * pct);
+    const fontSize = delta === 0 ? 18 : (32 + (64 * pct));
     const healSign = resource.type === "active" ? 1 : -1;
     const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
     const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];

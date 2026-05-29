@@ -6,7 +6,7 @@
             <h3 class="section-header">{{section.label}}</h3>
             <ol class="items-list" data-tooltip-direction="LEFT">
                 {{#each section.effects as |effect|}}
-                <li class="line-item effect" data-effect-id="{{effect.id}}" data-crucible-tooltip="activeEffect" data-uuid="{{effect.uuid}}">
+                <li class="line-item effect draggable" data-effect-id="{{effect.id}}" data-crucible-tooltip="activeEffect" data-uuid="{{effect.uuid}}">
                     <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
                     <div class="title">
                         <h4>{{effect.name}}</h4>

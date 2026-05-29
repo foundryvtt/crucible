@@ -32,11 +32,7 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
   /** @inheritDoc */
   static defineSchema() {
     const schema = super.defineSchema();
-
-    // Ray shape must be a LineShapeData instance
     schema.shape = new EmbeddedDataField(foundry.data.LineShapeData, {required: true, nullable: false});
-
-    // Extend delivery schema with duration
     schema.delivery.extendFields({
       duration: new NumberField({required: true, nullable: false, initial: 2000})
     });
@@ -48,25 +44,7 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
   /* -------------------------------------------- */
 
   /** @override */
-  async _load() {
-    for ( const phase of [this.charge, this.delivery, ...this.impacts] ) {
-      for ( const layer of phase.particles ) {
-        for ( const texture of layer.textures ) this.assetPaths.add(texture);
-      }
-      for ( const anim of phase.animations ) {
-        if ( anim.params?.texture ) this.assetPaths.add(anim.params.texture);
-      }
-      if ( phase.sound ) phase.sound.instance = await this._loadSound(phase.sound.src);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _draw() {
-    // Derive geometry from the persisted shape + charge.distance offset. The visible ray starts at the
-    // charge point (forward of the shape's origin) so the beam appears at the caster's front rather
-    // than inside their token; the effective beam reach is reduced by the same amount.
+  _configureState() {
     const {x: shapeX, y: shapeY, length: shapeLength, rotation: rotationDeg} = this.shape;
     const rotation = Math.toRadians(rotationDeg);
     const dir = {x: Math.cos(rotation), y: Math.sin(rotation)};
@@ -83,22 +61,7 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       x: origin.x + (dir.x * length), y: origin.y + (dir.y * length),
       elevation: origin.elevation, sort: origin.sort, sortLayer: origin.sortLayer
     };
-
-    // Phase timings: charge, then beam delivery. Per-impact timings are baked by the configurator.
-    this.timings = {
-      chargeStart: 0,
-      chargeEnd: this.charge.duration,
-      deliveryStart: this.charge.duration,
-      deliveryEnd: this.charge.duration + this.delivery.duration
-    };
-
-    // The caster's mesh position when injected, else the ray origin; backs the `source` anchor for
-    // caster-anchored charge particles (parity with the arrow's source-anchored charge).
     const source = this.originMesh ? {x: this.originMesh.x, y: this.originMesh.y} : origin;
-
-    // Shared state for phase animators; per-impact context is written transiently by _attachImpacts.
-    // `deliveryArea` is the ray's geometry expressed as a ParticleGenerator-native line shape from
-    // origin to end, consumed by shape-agnostic delivery behaviors such as shapeParticleCombustion.
     this.state = {
       origin, end, source, rotation, length, direction: dir,
       gridScale: getParticleScaleFactor(),
@@ -107,22 +70,5 @@ export default class CrucibleRayComponent extends CrucibleVFXComponent {
       deliveryArea: {from: {x: origin.x, y: origin.y}, to: {x: end.x, y: end.y}},
       anchors: {origin, end, source, target: end}
     };
-
-    // Charge phase (at the source)
-    Object.assign(this.charge, {start: this.timings.chargeStart, end: this.timings.chargeEnd});
-    this._attachAnimations(this.charge);
-    this._schedulePhaseSound(this.charge, origin);
-    this._attachParticles(this.charge);
-
-    // Delivery phase (the beam travelling out along its line)
-    Object.assign(this.delivery,
-      {start: this.timings.deliveryStart, end: this.timings.deliveryEnd, duration: this.delivery.duration});
-    this._attachAnimations(this.delivery);
-    this._schedulePhaseSound(this.delivery, origin);
-    this._attachParticles(this.delivery);
-
-    // Impacts dispatch at each impact's configurator-baked `start` time
-    this._attachImpacts();
-    this.timeline.label("end", Math.max(this.timings.deliveryEnd, this.timings.impactEnd));
   }
 }

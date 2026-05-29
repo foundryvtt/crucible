@@ -49,84 +49,64 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   /*  Component Lifecycle                         */
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   async _load() {
     this.assetPaths.add(this.delivery.texture);
-    for ( const phase of [this.charge, this.delivery, ...this.impacts] ) {
-      for ( const layer of phase.particles ) {
-        for ( const texture of layer.textures ) this.assetPaths.add(texture);
-      }
-      for ( const anim of phase.animations ) {
-        if ( anim.params?.texture ) this.assetPaths.add(anim.params.texture);
-      }
-      // Load the phase sound onto its config so it travels with the phase (no separate sound registry)
-      if ( phase.sound ) phase.sound.instance = await this._loadSound(phase.sound.src);
-    }
+    await super._load();
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _draw() {
+  _configureTimings() {
+    this._origin = this.path[0];
+    this._destination = this.path.at(-1);
+    this._flightPath = foundry.canvas.vfx.VFXPath.create(this.pathType.type, this.path, this.pathType.params);
     const distancePixels = canvas.dimensions.distancePixels;
-    const origin = this.path[0];
-    const destination = this.path.at(-1);
-    const flightPath = foundry.canvas.vfx.VFXPath.create(this.pathType.type, this.path, this.pathType.params);
-
-    const flightMS = (flightPath.pathLength * 1000) / (this.delivery.speed * distancePixels);
-    const timings = this.timings = {
+    const flightMS = (this._flightPath.pathLength * 1000) / (this.delivery.speed * distancePixels);
+    this.timings = {
       chargeStart: 0,
       chargeEnd: this.charge.duration,
       deliveryStart: this.charge.duration,
       deliveryEnd: this.charge.duration + flightMS,
       impactStart: this.charge.duration + flightMS
     };
+  }
 
-    // The flying projectile sprite; the impact burst sprite is created by the impactSpriteBurst animation.
+  /* -------------------------------------------- */
+
+  /** @override */
+  _configureState() {
+    const origin = this._origin;
     this.delivery.container = this.addManagedDisplayObject(
       this._createSprite(this.delivery.texture, this.delivery.size, origin));
-
-    // Shared state for phase animators
     const source = this.originMesh ? {x: this.originMesh.x, y: this.originMesh.y} : origin;
     this.state = {
       origin,
       source,
-      destination,
-      flightPath,
+      destination: this._destination,
+      flightPath: this._flightPath,
       lastPathIndex: 0,
       gridScale: getParticleScaleFactor(),
       charge: this.charge,
       delivery: this.delivery,
       targetMesh: this.targetMeshes[0] ?? null,
-      anchors: {origin, destination, delivery: this.delivery.container, source}
+      anchors: {origin, destination: this._destination, delivery: this.delivery.container, source}
     };
-
-    // Charge phase
-    Object.assign(this.charge, {start: timings.chargeStart, end: timings.chargeEnd});
-    this._attachAnimations(this.charge);
-    this._schedulePhaseSound(this.charge, origin);
-    this._attachParticles(this.charge);
-
-    // Delivery phase (the projectile's flight)
-    Object.assign(this.delivery, {start: timings.deliveryStart, end: timings.deliveryEnd, duration: flightMS});
-    this._attachAnimations(this.delivery);
-    this._schedulePhaseSound(this.delivery, origin);
-    this._attachParticles(this.delivery);
-
-    // Impact phase (resounds at the target). Impacts dispatch their own visuals at impactStart.
-    this.#animateProjectileExit(timings);
-    this._attachImpacts();
-    this.timeline.label("end", this.timings.impactEnd);
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * The projectile strikes where it lands: the resolved path destination (which carries the per-result
-   * offset), not the bare target mesh position.
-   * @override
-   */
-  _impactTarget() {
+  /** @inheritDoc */
+  _drawDelivery() {
+    super._drawDelivery();
+    this.#animateProjectileExit(this.timings);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _impactTarget(_impact, _i) {
     return this.state.destination;
   }
 
