@@ -2313,10 +2313,14 @@
       "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
       "RequiresRuneInflection": "You must know a spellcraft Rune in order to utilize an Inflection."
     },
+    "Banned": "Banned",
+    "Empty": "Empty",
     "GrantsSpells": "<strong>Iconic Spells:</strong>: {name} grants {spells} Iconic Spell slots.",
+    "Locked": "Locked",
     "NodeSpecific": "{nodeType} Node",
     "PointsAvailable": "Points Available",
-    "Prerequisites": "Prerequisites"
+    "Prerequisites": "Prerequisites",
+    "Tier": "Tier {tier}"
   },
   "TAXONOMY": {
     "CATEGORIES": {
