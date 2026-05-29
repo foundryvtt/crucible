@@ -9,3 +9,33 @@ export function getParticleScaleFactor() {
   // TODO needs to not assume microgrid.
   return (canvas?.dimensions?.size ?? 40) / 40;
 }
+
+/**
+ * Per-performance-mode density multipliers applied to every particle layer's `spawnRate`, `count`,
+ * `initial`, and any animated `spawnRateEnd`. Lower values reduce particle quantity at lower
+ * performance modes without changing visual fidelity (size, lifetime, blend). Resolved once at
+ * ready-time onto `canvas.performance.particleDensity` by {@link configurePerformanceMode}.
+ * @type {Record<number, number>}
+ */
+const PARTICLE_DENSITY_FACTORS = {
+  [CONST.CANVAS_PERFORMANCE_MODES.LOW]: 0.25,
+  [CONST.CANVAS_PERFORMANCE_MODES.MED]: 0.5,
+  [CONST.CANVAS_PERFORMANCE_MODES.HIGH]: 1.0,
+  [CONST.CANVAS_PERFORMANCE_MODES.MAX]: 1.0
+};
+
+/**
+ * Cache performance-mode-derived values onto `canvas.performance` for direct read access by
+ * Crucible consumers. Called once during the ready hook; changing performance mode at runtime
+ * requires a session reload to take effect, so a one-shot computation is sufficient. Currently
+ * writes:
+ * - `canvas.performance.particleDensity`: see {@link PARTICLE_DENSITY_FACTORS}. Core's
+ *   Photosensitivity Mode forces the effective performance mode to LOW.
+ * Future performance-mode-specific Crucible settings (e.g. shake intensity, glow filter budget)
+ * can be resolved here alongside particle density.
+ */
+export function configurePerformanceMode() {
+  if ( !canvas?.performance ) return;
+  const mode = canvas.photosensitiveMode ? CONST.CANVAS_PERFORMANCE_MODES.LOW : canvas.performance.mode;
+  canvas.performance.particleDensity = PARTICLE_DENSITY_FACTORS[mode] ?? 1.0;
+}

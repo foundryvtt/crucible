@@ -2616,8 +2616,10 @@ export default class CrucibleActor extends Actor {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
 
-    // Locally display scrolling status updates - skip entirely when an orchestrator has taken over
-    if ( options.scrollingText !== false ) {
+    // Locally display scrolling status updates. Suppression only applies when the local client will
+    // actually play VFX - clients that have opted out of VFX still need their default scrolling text.
+    const suppressForVFX = (options.scrollingText === false) && game.settings.get("crucible", "enableVFX");
+    if ( !suppressForVFX ) {
       this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
     }
 

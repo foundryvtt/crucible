@@ -654,6 +654,9 @@ Hooks.once("ready", async function() {
   document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
   document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
 
+  // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
+  canvas.vfx.blocks.configurePerformanceMode();
+
   // Perform World Migrations
   if ( game.users.activeGM?.isSelf ) {
     const mv = game.settings.get("crucible", "migrationVersion");

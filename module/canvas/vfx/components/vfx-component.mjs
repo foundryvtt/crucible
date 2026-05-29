@@ -554,6 +554,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @protected
    */
   _attachParticles(phase) {
+    const density = canvas.performance.particleDensity ?? 1.0;
     for ( const layer of phase.particles ) {
       const behavior = this._animationEntry(layer.animation);
       if ( !behavior ) continue;
@@ -574,13 +575,21 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
           pointSourceMask: layer.mask ? (this.mask ?? null) : null,
           ...behavior.setup.call(this, phase, layer)
         };
+
+        // Apply particle density multipliers to total count, spawn rate, and initial spawn values
+        if ( config.count != null ) config.count = Math.max(0, Math.round(config.count * density));
+        config.initial = Math.max(0, Math.round(config.initial * density));
+        config.spawnRate = Math.max(0, config.spawnRate * density);
         const generator = this._spawnGenerator(config, phase.start + layer.offset);
 
         // Optionally govern the rate of particle emission over time
-        if ( (params.spawnRateEnd !== undefined) && (params.spawnRateEnd !== config.spawnRate) ) {
-          this.timeline.add(generator,
-            {spawnRate: {from: config.spawnRate, to: params.spawnRateEnd, duration: config.duration}},
-            phase.start + layer.offset);
+        if ( params.spawnRateEnd !== undefined ) {
+          const spawnRateEnd = Math.max(0, params.spawnRateEnd * density);
+          if ( spawnRateEnd !== config.spawnRate ) {
+            this.timeline.add(generator,
+              {spawnRate: {from: config.spawnRate, to: spawnRateEnd, duration: config.duration}},
+              phase.start + layer.offset);
+          }
         }
       }
       if ( typeof behavior.schedule === "function" ) behavior.schedule.call(this, phase, layer);

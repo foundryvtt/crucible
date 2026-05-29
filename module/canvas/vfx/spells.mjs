@@ -262,12 +262,8 @@ function configureArrowVFXEffect(action) {
           : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
       }
       if ( runeProps.impactParticles ) {
-        const specs = Array.isArray(runeProps.impactParticles)
-          ? runeProps.impactParticles : [runeProps.impactParticles];
-        for ( const spec of specs ) {
-          particles.push(_buildImpactParticles(action, spec,
-            {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
-        }
+        particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
+          {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
       }
       if ( runeProps.impactGlow ) {
         animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
@@ -831,7 +827,7 @@ function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
   const behavior = runeProps.chargeBehavior ?? "circleParticleGather";
   const a = anchor ?? runeProps.chargeAnchor ?? "origin";
   const elevationFor = above => above ? (casterElevation + 1)
-    : ((a === "source") ? casterElevation : particleElevation);
+    : (((a === "source") || (a === "forward")) ? casterElevation : particleElevation);
   if ( runeProps.chargeLayers ) {
     return runeProps.chargeLayers.map(layer => {
       const layerTextures = layer.frames ? getVFXFrames(runeId, ...layer.frames)
@@ -876,35 +872,41 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
 /* -------------------------------------------- */
 
 /**
- * Build an impact particle layer config from a rune's `impactParticles` spec. The spec selects
- * textures by `frames` (frame-name prefixes via {@link getVFXFrames}) or `categories` (whole
- * VFX_TEXTURES categories), and supplies optional `params` overrides on top of canonical defaults.
- * Default animation is `circleParticleBurst` (impact spray); override `spec.animation` for other
- * behaviors (e.g. `circleParticleBloom` for growing flora at the target). Default radius is
- * `gridSize * 0.12`; override via `spec.radiusFactor`. Injected as both `radius` and `chargeRadius`
- * so behaviors that read either key are satisfied.
+ * Build impact particle layer configs from a rune's `impactParticles` value. Accepts either a single
+ * spec or an array of specs; always returns an array (possibly empty), so callers do
+ * `particles.push(..._buildImpactParticles(...))` without coercion. Each spec selects textures by
+ * `frames` (frame-name prefixes via {@link getVFXFrames}) or `categories` (whole VFX_TEXTURES
+ * categories), and supplies optional `params` overrides on top of canonical defaults. Default
+ * animation is `circleParticleBurst` (impact spray); override `spec.animation` for other behaviors
+ * (e.g. `circleParticleBloom` for growing flora at the target). Default radius is `gridSize * 0.12`;
+ * override via `spec.radiusFactor`. Injected as both `radius` and `chargeRadius` so behaviors that
+ * read either key are satisfied.
  * @param {CrucibleSpellAction} action
- * @param {{animation?: string, duration?: number, radiusFactor?: number,
- *          frames?: string[], categories?: string[], params?: object}} spec
+ * @param {SpecOrArray} specs   `SpecOrArray = Spec | Spec[]` where each `Spec` has
+ *   `{animation?, duration?, radiusFactor?, frames?, categories?, params?}`.
  * @param {object} ctx
  * @param {string} [ctx.anchor="destination"]   Anchor for the layer (target-side at impact time).
  * @param {number} ctx.elevation                Particle elevation.
- * @param {SpellVFXTextures} [ctx.textures]     Required when `spec.categories` is used.
- * @returns {object}
+ * @param {SpellVFXTextures} [ctx.textures]     Required when any spec uses `categories`.
+ * @returns {object[]}
  */
-function _buildImpactParticles(action, spec, {anchor = "destination", elevation, textures}) {
+function _buildImpactParticles(action, specs, {anchor = "destination", elevation, textures}) {
+  if ( !specs ) return [];
+  const specArray = Array.isArray(specs) ? specs : [specs];
   const gridSize = canvas.dimensions.size;
-  const layerTextures = spec.frames
-    ? getVFXFrames(action.rune.id, ...spec.frames)
-    : spec.categories.flatMap(c => textures[c]);
-  const radius = Math.round(gridSize * (spec.radiusFactor ?? 0.12));
-  return {
-    animation: spec.animation ?? "circleParticleBurst",
-    anchor, textures: layerTextures, duration: spec.duration ?? 200,
-    params: {radius, chargeRadius: radius, speed: {min: 70, max: 210}, count: 50, initial: 1,
-      lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
-      elevation, ...spec.params}
-  };
+  return specArray.map(spec => {
+    const layerTextures = spec.frames
+      ? getVFXFrames(action.rune.id, ...spec.frames)
+      : spec.categories.flatMap(c => textures[c]);
+    const radius = Math.round(gridSize * (spec.radiusFactor ?? 0.12));
+    return {
+      animation: spec.animation ?? "circleParticleBurst",
+      anchor, textures: layerTextures, duration: spec.duration ?? 200,
+      params: {radius, chargeRadius: radius, speed: {min: 70, max: 210}, count: 50, initial: 1,
+        lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
+        elevation, ...spec.params}
+    };
+  });
 }
 
 /* -------------------------------------------- */
@@ -923,21 +925,20 @@ function _buildImpactParticles(action, spec, {anchor = "destination", elevation,
  */
 function _resolveHitTreatment(action, ctx, runeProps) {
   const {textures, elevation} = ctx;
+  const gridSize = canvas.dimensions.size;
   const animations = [];
   const particles = [];
   if ( runeProps?.recoil !== false ) {
-    animations.push({function: "impactSpriteRecoil", params: {distance: 12, duration: 320}});
+    animations.push({function: "impactSpriteRecoil",
+      params: {distance: Math.round(gridSize * 0.12), duration: 320}});
   }
   if ( runeProps?.impactSprite !== false ) {
     animations.push({function: "impactSpriteBurst",
       params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}});
   }
   if ( runeProps?.impactParticles ) {
-    const specs = Array.isArray(runeProps.impactParticles)
-      ? runeProps.impactParticles : [runeProps.impactParticles];
-    for ( const spec of specs ) {
-      particles.push(_buildImpactParticles(action, spec, {anchor: "destination", elevation, textures}));
-    }
+    particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
+      {anchor: "destination", elevation, textures}));
   }
   if ( runeProps?.impactGlow ) {
     animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
@@ -1069,7 +1070,7 @@ const _IMPACT_FLAME = {
 const _IMPACT_LIFE = {
   impactSprite: false, recoil: false,
   impactGlow: {
-    glowColor: Color.from("#ff5dc0"), outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
+    glowColor: 0xff5dc0, outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
     knockout: false, alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
   },
   impactParticles: [
@@ -1447,7 +1448,7 @@ const BLAST_VFX_PROPS = {
           textures: fallingTextures.length ? fallingTextures : textures.spray,
           duration: STORM_DURATION, mask: true,
           params: {fallDuration: 350, startScale: 2.5, endScale: 1.0, darkening: 0.4,
-            speed: {min: 10, max: 30}, spawnRate: 120,
+            speed: {min: 10, max: 30}, spawnRate: 60,
             scale: {min: 0.3, max: 0.6}, alpha: {min: 0.7, max: 1.0},
             elevation: particleElevation,
             area: {type: "circle", x: origin.x, y: origin.y, radius},
@@ -1456,7 +1457,7 @@ const BLAST_VFX_PROPS = {
         { // Ground deposit: persistent cracks/blast marks left behind after the storm
           animation: "shapeParticleResidue", anchor: "origin",
           textures: groundTextures, duration: STORM_DURATION + 2000, mask: true,
-          params: {spawnRate: 60, count: null,
+          params: {spawnRate: 30, count: null,
             speed: {min: 0, max: 0}, lifetime: {min: 4000, max: 6000},
             scale: {min: 0.6, max: 1.2}, alpha: {min: 0.6, max: 0.9},
             scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
@@ -1465,7 +1466,7 @@ const BLAST_VFX_PROPS = {
         { // Wintry blizzard haze: light ADD-blend air drift across a slightly larger area
           animation: "shapeParticleResidue", anchor: "origin",
           textures: airTextures, duration: STORM_DURATION, mask: true,
-          params: {spawnRate: 80, count: null,
+          params: {spawnRate: 40, count: null,
             area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 1.3)},
             speed: {min: 12, max: 55}, lifetime: {min: 2000, max: 2800},
             scale: {min: 1.0, max: 2.0}, alpha: {min: 0.05, max: 0.18},
@@ -1576,7 +1577,7 @@ const BLAST_VFX_PROPS = {
           textures: getVFXFrames(runeId, "GroundBlooms"),
           duration: MAELSTROM_DURATION, mask: true,
           params: {chargeRadius: Math.round(radius * 0.8),
-            spawnRate: 50, lifetime: {min: 3000, max: 5000},
+            spawnRate: 30, lifetime: {min: 3000, max: 5000},
             scale: {min: 1.0, max: 1.5}, alpha: {min: 0.8, max: 1.0},
             growFraction: 0.3,
             fade: {in: 0.15, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL,

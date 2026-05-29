@@ -171,6 +171,7 @@ const circleParticleVortex = {
 const projectileParticleTrail = {
   setup(phase, layer) {
     const {state} = this;
+    const gridScale = state.gridScale;
     const {align = false, flipX = false, rotationSpread = 0.15, speed = {min: 5, max: 25}} = layer.params;
     const POSITION_STEP = 4; // Quantize spawn-area moves to throttle updateSource calls
     let shape = null;
@@ -179,7 +180,8 @@ const projectileParticleTrail = {
     const config = {
       area: {type: "circle", x: 0, y: 0, radius: 4},
       rotation: align ? {spread: rotationSpread} : {alignVelocity: false, spread: Math.PI},
-      velocity: align ? {speed: [0, 0], angle: [0, 360]} : {speed: [speed.min, speed.max], angle: [0, 360]},
+      velocity: align ? {speed: [0, 0], angle: [0, 360]}
+        : {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
       onTick: (_dt, generator) => {
         const container = state.delivery?.container;
         if ( !container ) return;
@@ -231,10 +233,11 @@ const circleParticleResidue = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const gridScale = this.state.gridScale;
     const {radius, speed = {min: 12, max: 55}} = params;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
-      velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
+      velocity: {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
       blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD),
       drift: {enabled: true, intensity: 0.5}
     };
@@ -296,10 +299,11 @@ const circleParticleBurst = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const gridScale = this.state.gridScale;
     const {radius = 8, speed = {min: 60, max: 180}} = params;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
-      velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
+      velocity: {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
       drift: {enabled: true, intensity: 0.5},
       blend: _resolveBlend(params.blend, 0)
@@ -531,11 +535,15 @@ const rayParticleGroundCascade = {
     }
     else lifetime = {min: duration + 1000, max: duration + 2000};
 
+    const velocity = params.velocity
+      ? {speed: [params.velocity.speed[0] * gridScale, params.velocity.speed[1] * gridScale],
+        angle: params.velocity.angle}
+      : {speed: [0, 0], angle: [0, 360]};
     return {
       // One particle per `spacing` over the sweep duration
       spawnRate: Math.max(1, Math.round((length / spacing) * (1000 / duration))),
       area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
-      velocity: params.velocity ?? {speed: [0, 0], angle: [0, 360]},
+      velocity,
       rotation: {initial: rotation, spread: params.rotationSpread ?? 0.3},
       lifetime,
       fade: params.fade ?? {in: 0, out: 800},
@@ -601,10 +609,12 @@ const shapeParticleCombustion = {
       {time: 0.4, value: 1.4},
       {time: 1.0, value: 1.8}
     ];
+    const speedMin = (params.speed?.min ?? 20) * gridScale;
+    const speedMax = (params.speed?.max ?? 70) * gridScale;
     return {
       spawnRate: params.spawnRate ?? 0,
       area,
-      velocity: {speed: [params.speed?.min ?? 20, params.speed?.max ?? 70], angle: [0, 360]},
+      velocity: {speed: [speedMin, speedMax], angle: [0, 360]},
       rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 600, max: 1100},
@@ -651,10 +661,12 @@ const shapeParticleResidue = {
     ];
     const rotation = {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI};
     if ( params.rotationSpeed ) rotation.speed = params.rotationSpeed;
+    const speedMin = (params.speed?.min ?? 5) * gridScale;
+    const speedMax = (params.speed?.max ?? 25) * gridScale;
     return {
       spawnRate: params.spawnRate ?? 0,
       area,
-      velocity: {speed: [params.speed?.min ?? 5, params.speed?.max ?? 25], angle: [0, 360]},
+      velocity: {speed: [speedMin, speedMax], angle: [0, 360]},
       rotation,
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 1800, max: 3000},
@@ -754,7 +766,7 @@ const fanParticleSweep = {
 const fanParticleCascade = {
   setup(phase, layer) {
     const params = layer.params ?? {};
-    const {origin, rotation, halfAngle, radius} = this.state;
+    const {origin, rotation, halfAngle, radius, gridScale} = this.state;
     const maxRadius = Math.round(radius * (params.maxRadiusFactor ?? 0.85));
     const initialOuter = Math.round(radius * (params.initialFactor ?? 0.17));
     const initialHalfWidth = initialOuter / 2;
@@ -766,10 +778,11 @@ const fanParticleCascade = {
     let shape = null;
     let lastRadius = -1;
 
+    const defaultVelocity = {speed: [2 * gridScale, 5 * gridScale], angle: [headingDeg - 1, headingDeg + 1]};
     return {
       area: {type: "ring", x: origin.x, y: origin.y, radius: initialHalfWidth,
         innerWidth: initialHalfWidth, outerWidth: initialHalfWidth},
-      velocity: params.velocity ?? {speed: [2, 5], angle: [headingDeg - 1, headingDeg + 1]},
+      velocity: params.velocity ?? defaultVelocity,
       rotation: {initial: rotation, spread: 0.2},
       lifetime: params.lifetime ?? {min: 400, max: 700},
       fade: params.fade ?? {in: 20, out: 400},
@@ -831,11 +844,11 @@ const fanParticleCascade = {
 const fanParticleArcDeposit = {
   setup(phase, layer) {
     const params = layer.params ?? {};
-    const {origin, radius} = this.state;
+    const {origin, radius, gridScale} = this.state;
     const startAngleRad = params.startAngleRad;
     const endAngleRad = params.endAngleRad;
     const depositRadius = Math.round(radius * (params.radiusFactor ?? 0.9));
-    const radialJitter = params.radialJitter ?? 25;
+    const radialJitter = (params.radialJitter ?? 25) * gridScale;
     const arcSpread = params.arcSpread ?? 0.08;
     const duration = layer.duration ?? phase.duration;
     let elapsed = 0;
