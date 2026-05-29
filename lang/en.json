@@ -1530,6 +1530,10 @@
     "DefaultActor": "Environment",
     "DefaultName": "Environmental Hazard",
     "Hazard": "Hazard",
+    "Parenthetical": "{label} ({tags})",
+    "Rank": "Hazard {danger}",
+    "TooltipDamage": "{rank} vs. {defense} dealing {damage} damage to {resource}",
+    "TooltipRestoration": "{rank} vs. {defense} restoring {resource}",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",
     "CONFIG": {
