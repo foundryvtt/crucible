@@ -1007,7 +1007,11 @@ const _CHARGE_LIFE = {
  * @type {Record<string, object>}
  */
 const ARROW_VFX_PROPS = {
+
+  // Arrow+Frost
   frost: {stickDuration: 1500, projectileSize: 2, trail: true},
+
+  // Arrow+Life
   life: {
     ..._CHARGE_LIFE,
     projectileSize: 3, projectileFrame: "life/ProjectileBubble", projectileSpeed: 30,
@@ -1018,6 +1022,8 @@ const ARROW_VFX_PROPS = {
       alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}},
     impactSpray: {frames: ["SprayLeaf", "SprayBubble"]}
   },
+
+  // Arrow+Flame
   flame: {
     ..._CHARGE_FLAME,
     projectileSize: 3, trail: true,
@@ -1073,6 +1079,8 @@ const RAY_IMPACT_TIMINGS = {
  * @type {Record<string, object>}
  */
 const RAY_VFX_PROPS = {
+
+  // Ray+Frost
   frost: {
     beamSpeed: 3000, deliveryDuration: 3000,
     impactTiming: "beamFront",
@@ -1108,6 +1116,7 @@ const RAY_VFX_PROPS = {
     }
   },
 
+  // Ray+Flame
   flame: {
     ..._CHARGE_FLAME,
     deliveryDuration: 1200, // LINE_DURATION - ms for the flame line to traverse origin -> end
@@ -1173,9 +1182,10 @@ const RAY_VFX_PROPS = {
     }
   },
 
+  // Ray+Life
   life: {
     ..._CHARGE_LIFE,
-    beamSpeed: 750, // In px/second TODO needs to be in ft/sec independent of grid size
+    beamSpeed: 750, // TODO needs to be in ft/sec independent of grid size
     deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 500, offset: -300, release: 600},
@@ -1191,9 +1201,7 @@ const RAY_VFX_PROPS = {
       const DELIVERY_DURATION = this.deliveryDuration;
       const sprayLeafTextures = getVFXFrames(action.rune.id, "SprayLeaf");
       return [
-        // Main jet: tight directional streaks driving forward, full-alpha, full-scale so individual
-        // leaves read rather than blending into a streak. (Currently uses SprayLeaf textures.)
-        {
+        { // Main jet: tight directional SprayLeaf streaks driving forward along the heading
           animation: "rayParticleBeam", anchor: "origin", textures: sprayLeafTextures,
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: BEAM_SPEED, angleSpread: 1, radius: spawnRadius, spawnRate: 100,
@@ -1201,10 +1209,7 @@ const RAY_VFX_PROPS = {
             scale: {min: 1.0, max: 1.15}, fade: {in: 30, out: 200},
             blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1}
         },
-        // Cast-off leaves: spawn at the advancing head of the jet and fly off at +/-45 degrees of
-        // the heading. headSpeed = BEAM_SPEED locks the spawn point to the leading edge so leaves
-        // shed alongside the front rather than uniformly along the rectangle.
-        {
+        { // Cast-off leaves shed at the advancing beam head, fanning at +/-45 deg of the heading
           animation: "rayParticleHeadCastoff", anchor: "origin", textures: sprayLeafTextures,
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: 150, headSpeed: BEAM_SPEED, headJitter: 25, angleSpread: 45, spawnRate: 50,
@@ -1217,7 +1222,8 @@ const RAY_VFX_PROPS = {
               {time: 0.4, value: PIXI.BLEND_MODES.NORMAL},
               {time: 1, value: PIXI.BLEND_MODES.NORMAL}
             ]},
-            elevation: casterElevation + 1}
+            elevation: casterElevation + 1
+          }
         }
       ];
     }
@@ -1241,9 +1247,7 @@ const RAY_VFX_PROPS = {
  */
 const FAN_VFX_PROPS = {
 
-  // Frost fan: faithful port of the legacy aesthetic. No charge - the sweep fires immediately.
-  // The signature rotating arm wipes streaks across the cone with an expanding ground cascade beneath
-  // and a thin overhead haze.
+  // Fan+Frost
   frost: {
     chargeDuration: 0,
     sweepDuration: 400,
@@ -1253,25 +1257,31 @@ const FAN_VFX_PROPS = {
       const sweepInnerRadius = Math.round(action.token.getSize().width / 3);
       const sweepOuterRadius = Math.round(sweepInnerRadius * 1.3);
       return [
-        {animation: "fanParticleSweep", anchor: "origin", textures: textures.streak,
+        { // Rotating arm of frost streaks wiped across the cone
+          animation: "fanParticleSweep", anchor: "origin", textures: textures.streak,
           duration: sweepDuration, mask: true,
           params: {startAngleRad, endAngleRad,
             innerRadius: sweepInnerRadius, outerRadius: sweepOuterRadius, armSpread: 0.15,
             radialSpeed: 800, spawnRate: 360,
             alpha: {min: 0.7, max: 1.0}, scale: {min: 0.375, max: 0.6},
-            elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}},
-        {animation: "fanParticleCascade", anchor: "origin",
+            elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}
+        },
+        { // Expanding ground cascade beneath the sweep
+          animation: "fanParticleCascade", anchor: "origin",
           textures: getVFXTexturePaths(action.rune.id, "impact"),
           duration: 1000, mask: true,
           params: {alpha: {min: 0.5, max: 0.8}, scale: {min: 0.8, max: 1.2},
             lifetime: {min: 400, max: 700}, spawnRate: 240, elevation: 0,
-            blend: PIXI.BLEND_MODES.NORMAL}},
-        {animation: "circleParticleResidue", anchor: "origin", textures: textures.air,
+            blend: PIXI.BLEND_MODES.NORMAL}
+        },
+        { // Thin overhead haze trailing after the sweep
+          animation: "circleParticleResidue", anchor: "origin", textures: textures.air,
           offset: 200, duration: 200, mask: true,
           params: {radius: residueRadius, alpha: {min: 0.05, max: 0.18},
             scale: {min: 1.0, max: 2.0}, lifetime: {min: 2000, max: 2800},
             spawnRate: 80, initial: 0.3, elevation: particleElevation,
-            speed: {min: 12, max: 55}, blend: PIXI.BLEND_MODES.ADD}}
+            speed: {min: 12, max: 55}, blend: PIXI.BLEND_MODES.ADD}
+        }
       ];
     }
   },
@@ -1287,25 +1297,26 @@ const FAN_VFX_PROPS = {
     deliverySound: {fade: 500, offset: -200, release: 1500},
     buildCharge(ctx) {
       const {action, particleElevation} = ctx;
-      return [{
-        animation: "circleParticleGather", anchor: "forward",
-        textures: getVFXFrames(action.rune.id, "SprayFlame"),
-        duration: 200,
-        params: {chargeRadius: 25, lifetime: 180, spawnRate: 600,
-          alpha: {min: 0.75, max: 1.0}, scale: {min: 0.5, max: 0.9},
-          elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}
-      }];
+      return [
+        { // SprayFlame gather condensing at the muzzle just before the jet erupts
+          animation: "circleParticleGather", anchor: "forward",
+          textures: getVFXFrames(action.rune.id, "SprayFlame"),
+          duration: 200,
+          params: {chargeRadius: 25, lifetime: 180, spawnRate: 600,
+            alpha: {min: 0.75, max: 1.0}, scale: {min: 0.5, max: 0.9},
+            elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}
+        }
+      ];
     },
     buildDelivery(ctx) {
       const {action, textures, radius, startAngleRad, endAngleRad, sweepDuration,
         casterElevation, casterRadiusPx} = ctx;
-      // Sweep ring: token-size-relative so the jet emanates from a small arc at the caster's edge
-      // (inner = casterRadius * 2/3, outer = casterRadius), not from token center.
       const innerRadius = Math.round((casterRadiusPx * 2) / 3);
       const outerRadius = Math.round(casterRadiusPx);
       const jetReach = Math.round(radius * 0.6);
       const jetSpeed = 700;
       const jetLifetime = Math.round((jetReach / jetSpeed) * 1000);
+      // Forward + return passes of the sweeping flamethrower jet
       const sweepLayer = (start, end, offset) => ({
         animation: "fanParticleSweep", anchor: "origin", textures: textures.streak,
         duration: sweepDuration, offset, mask: true,
@@ -1319,9 +1330,8 @@ const FAN_VFX_PROPS = {
       return [
         sweepLayer(startAngleRad, endAngleRad, 0),
         sweepLayer(endAngleRad, startAngleRad, sweepDuration),
-        // Scorch arc: static GroundScorch deposits painted along the cone perimeter as the forward
-        // sweep arm crosses each bearing. No velocity - deposits stay where the sweep touches.
-        {animation: "fanParticleArcDeposit", anchor: "origin",
+        { // Static GroundScorch deposits painted along the cone perimeter as the front sweeps
+          animation: "fanParticleArcDeposit", anchor: "origin",
           textures: getVFXFrames(action.rune.id, "GroundScorch"),
           duration: sweepDuration, mask: true,
           params: {
@@ -1337,8 +1347,8 @@ const FAN_VFX_PROPS = {
             ]}
           }
         },
-        // SprayEmbers: a sustained emitter of ADD-blend sparks throughout the delivery
-        {animation: "shapeParticleCombustion", anchor: "origin",
+        { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
+          animation: "shapeParticleCombustion", anchor: "origin",
           textures: getVFXFrames(action.rune.id, "SprayEmbers"),
           duration: sweepDuration * 2, mask: true,
           params: {spawnRate: 180,
@@ -1349,7 +1359,8 @@ const FAN_VFX_PROPS = {
             elevation: casterElevation + 1,
             blend: PIXI.BLEND_MODES.ADD,
             scaleCurve: [{time: 0, value: 1.0}, {time: 1.0, value: 0.4}],
-            fade: {in: 30, out: 500}}}
+            fade: {in: 30, out: 500}}
+        }
       ];
     },
     buildImpact(_action, {textures}) {
