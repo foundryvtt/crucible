@@ -417,9 +417,6 @@ function configureRayVFXEffect(action) {
   const runeProps = SPELL_VFX_GESTURES.ray.runes?.[action.rune.id];
   if ( !runeProps ) return null; // No ray-gesture config for this rune; skip VFX
   const {textures} = resolveSpellVFXContext(action);
-  // Snapshot the region shape into the persisted component data. The action.region document is deleted
-  // on action confirmation, so the VFXEffect must carry its own geometry; cf. {@link CrucibleProjectileComponent}'s
-  // persisted `path` for the analogous case.
   const shapeData = regionShape.toObject();
   const {x, y, length, width, rotation} = shapeData;
   const rotRad = Math.toRadians(rotation);
@@ -432,32 +429,30 @@ function configureRayVFXEffect(action) {
   const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
   const CHARGE_DURATION = 700;
-
   const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
   const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
 
-  // References resolved at play-time: the caster's mesh (backs the `source` anchor) and a move-polygon
-  // mask for wall-aware particles. The shape itself is persisted directly on the component.
+  // Declare necessary references to resolve at play-time
   const references = {
     tokenMesh: "^token.object.mesh",
     wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
   };
 
-  // Per-target impacts (rune-driven visuals + configurator-baked timing). Each impact carries the
-  // target's mesh reference + result + sound + animations + particles + `start` ms baked from the
-  // rune's impactTiming strategy. The component just reads impact.start.
-  const impactType = runeProps.impactSound ?? "impact";
-  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
-  const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
-  // Charge-point origin used by impact timing: shape origin shifted forward by chargeDistance, parallel
-  // to what the component derives in _draw - so beam-front math agrees with the visual emission point.
+  // Configure beam charge point and progression speed
   const chargeOrigin = {x: x + (Math.cos(rotRad) * chargeDistance), y: y + (Math.sin(rotRad) * chargeDistance)};
-  const timingCtx = {origin: chargeOrigin, beamSpeed: runeProps.beamSpeed,
-    gridScale: getParticleScaleFactor(), deliveryStart: CHARGE_DURATION,
-    deliveryDuration: runeProps.deliveryDuration};
+  const gridScale = getParticleScaleFactor();
+  const effectiveBeamSpeed = runeProps.beamSpeed
+    ?? (beamLength / gridScale / (runeProps.deliveryDuration / 1000));
+
+  // Schedule impact for each target when the beam progression reaches it
+  const timingCtx = {origin: chargeOrigin, beamSpeed: effectiveBeamSpeed, gridScale,
+    deliveryStart: CHARGE_DURATION, deliveryDuration: runeProps.deliveryDuration};
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const impacts = [];
   const targetMeshRefs = [];
+  const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
+  const impactType = runeProps.impactSound ?? "impact";
+  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -471,7 +466,6 @@ function configureRayVFXEffect(action) {
     references[meshRef] = `^${tokenRef}.object.mesh`;
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
-
     impacts.push(isHit
       ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
         animations: hitTreatment.animations, particles: hitTreatment.particles}
@@ -487,12 +481,10 @@ function configureRayVFXEffect(action) {
     j++;
   }
 
-  // Dispatch via SPELL_VFX_GESTURES.ray.runes - the interpreter handles charge + sustained charge + delivery
-  // sound + the rune's buildDelivery(ctx) layer composition.
+  // Build VFXEffect configuration
   const buildContext = {textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,
-    casterElevation, CHARGE_DURATION, action, sound};
+    casterElevation, CHARGE_DURATION, action, sound, beamSpeed: effectiveBeamSpeed};
   const {chargeParticles, delivery} = _buildRayChargeAndDelivery(action, buildContext);
-
   const components = {
     ray: {
       type: "crucibleRay",
@@ -738,13 +730,18 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
 /* -------------------------------------------- */
 
 /**
- * Build an impact particle-burst layer config from a rune's `impactParticles` spec. The spec selects
+ * Build an impact particle layer config from a rune's `impactParticles` spec. The spec selects
  * textures by `frames` (frame-name prefixes via {@link getVFXFrames}) or `categories` (whole
  * VFX_TEXTURES categories), and supplies optional `params` overrides on top of canonical defaults.
+ * Default animation is `circleParticleBurst` (impact spray); override `spec.animation` for other
+ * behaviors (e.g. `circleParticleBloom` for growing flora at the target). Default radius is
+ * `gridSize * 0.12`; override via `spec.radiusFactor`. Injected as both `radius` and `chargeRadius`
+ * so behaviors that read either key are satisfied.
  * @param {CrucibleSpellAction} action
- * @param {{frames?: string[], categories?: string[], params?: object}} spec
+ * @param {{animation?: string, duration?: number, radiusFactor?: number,
+ *          frames?: string[], categories?: string[], params?: object}} spec
  * @param {object} ctx
- * @param {string} [ctx.anchor="destination"]   Anchor for the burst (target-side at impact time).
+ * @param {string} [ctx.anchor="destination"]   Anchor for the layer (target-side at impact time).
  * @param {number} ctx.elevation                Particle elevation.
  * @param {SpellVFXTextures} [ctx.textures]     Required when `spec.categories` is used.
  * @returns {object}
@@ -754,9 +751,11 @@ function _buildImpactParticles(action, spec, {anchor = "destination", elevation,
   const layerTextures = spec.frames
     ? getVFXFrames(action.rune.id, ...spec.frames)
     : spec.categories.flatMap(c => textures[c]);
+  const radius = Math.round(gridSize * (spec.radiusFactor ?? 0.12));
   return {
-    animation: "circleParticleBurst", anchor, textures: layerTextures, duration: 200,
-    params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
+    animation: spec.animation ?? "circleParticleBurst",
+    anchor, textures: layerTextures, duration: spec.duration ?? 200,
+    params: {radius, chargeRadius: radius, speed: {min: 70, max: 210}, count: 50, initial: 1,
       lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
       elevation, ...spec.params}
   };
@@ -788,8 +787,11 @@ function _resolveHitTreatment(action, ctx, runeProps) {
       params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}});
   }
   if ( runeProps?.impactParticles ) {
-    particles.push(_buildImpactParticles(action, runeProps.impactParticles,
-      {anchor: "destination", elevation, textures}));
+    const specs = Array.isArray(runeProps.impactParticles)
+      ? runeProps.impactParticles : [runeProps.impactParticles];
+    for ( const spec of specs ) {
+      particles.push(_buildImpactParticles(action, spec, {anchor: "destination", elevation, textures}));
+    }
   }
   if ( runeProps?.impactGlow ) {
     animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
@@ -975,14 +977,30 @@ const _IMPACT_FLAME = {
   }
 };
 
-// Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow + spray
+// Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow +
+// leaf/bubble spray + GroundBlooms growing at the target's feet.
 const _IMPACT_LIFE = {
   impactSprite: false, recoil: false,
   impactGlow: {
     glowColor: Color.from("#ff5dc0"), outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
     knockout: false, alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
   },
-  impactParticles: {frames: ["SprayLeaf", "SprayBubble"]}
+  impactParticles: [
+    {frames: ["SprayLeaf", "SprayBubble"]},
+    {
+      animation: "circleParticleBloom",
+      frames: ["GroundBlooms"],
+      radiusFactor: 0.3,
+      duration: 400,
+      params: {count: 3, initial: 3, spawnRate: 0,
+        lifetime: {min: 3500, max: 5000},
+        scale: {min: 1.0, max: 1.8}, growFraction: 0.35,
+        alpha: {min: 0.85, max: 1.0},
+        fade: {in: 0.1, out: 0.5},
+        blend: PIXI.BLEND_MODES.NORMAL,
+        elevation: 0}
+    }
+  ]
 };
 
 /* -------------------------------------------- */
@@ -1087,14 +1105,18 @@ const RAY_IMPACT_TIMINGS = {
  * {@link ARROW_VFX_PROPS}.
  *
  * Delivery:
- * - `beamSpeed` (number): px/sec base for `beamFront` impact timing and (often) particle velocity.
- *   Configurator-side value; not on the persisted ray-component schema.
+ * - `beamSpeed` (number, optional): px/sec base for `beamFront` impact timing and (often) particle
+ *   velocity. Configurator-side value; not on the persisted ray-component schema. If omitted, the
+ *   configurator auto-derives a speed so the front reaches the end of the beam at exactly
+ *   `deliveryDuration`. Declare an explicit value when the beam should arrive early and sustain
+ *   (e.g. frost ray: 3000 px/s on a ~1500px beam over 3000ms - arrives in ~500ms, sustains).
  * - `deliveryDuration` (number): ms the delivery phase emits.
  * - `deliverySound` ({fade, offset, release}): looping damage-sound envelope for the delivery phase.
  * - `sustainedChargeAnchor` (string): if set, duplicate the charge layers into the delivery phase at
  *   this anchor (e.g. life ray "channels" the charge across the full delivery).
  * - `buildDelivery(ctx)` (function): rune-specific delivery layer composition. Receives the builder
- *   context and returns an array of particle-layer configs for `delivery.particles`.
+ *   context (including the resolved `ctx.beamSpeed`) and returns particle-layer configs for
+ *   `delivery.particles`. Prefer `ctx.beamSpeed` over `this.beamSpeed` so the auto-derive path works.
  *
  * Impact (shape shared with {@link ARROW_VFX_PROPS}: impactSprite/recoil booleans, impactParticles
  * opt-in spec, impactGlow opt-in filter):
@@ -1115,21 +1137,20 @@ const RAY_VFX_PROPS = {
     impactTiming: "beamFront",
     deliverySound: {fade: 700, offset: -500, release: 600},
     buildDelivery(ctx) {
-      const {textures, beamElevation, spawnRadius, width} = ctx;
-      const BEAM_SPEED = this.beamSpeed;
+      const {textures, beamElevation, spawnRadius, width, beamSpeed} = ctx;
       const DELIVERY_DURATION = this.deliveryDuration;
       return [
         { // Concentrated forward beam: a tight rectangular profile fired along the heading
           animation: "rayParticleBeam", anchor: "origin", textures: textures.streak,
           duration: DELIVERY_DURATION, mask: true,
-          params: {speed: BEAM_SPEED, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
+          params: {speed: beamSpeed, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
             rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
             fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.ADD, elevation: beamElevation}
         },
         { // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
           duration: DELIVERY_DURATION, mask: true,
-          params: {speed: BEAM_SPEED, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
+          params: {speed: beamSpeed, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
             rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
             scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.ADD,
             elevation: beamElevation}
@@ -1223,30 +1244,45 @@ const RAY_VFX_PROPS = {
     sustainedChargeAnchor: "source",
 
     buildDelivery(ctx) {
-      const {action, spawnRadius, casterElevation} = ctx;
-      const BEAM_SPEED = this.beamSpeed;
+      const {action, width, casterElevation, beamSpeed} = ctx;
+      const runeId = action.rune.id;
       const DELIVERY_DURATION = this.deliveryDuration;
-      const sprayLeafTextures = getVFXFrames(action.rune.id, "SprayLeaf");
+      const LINGER = 5000;
+      const rootLifetime = {min: DELIVERY_DURATION + LINGER, max: DELIVERY_DURATION + LINGER + 1500};
       return [
-        { // Main jet: tight directional SprayLeaf streaks driving forward along the heading
-          animation: "rayParticleBeam", anchor: "origin", textures: sprayLeafTextures,
+        { // StreakRoots laid along the beam axis with subtle rotation jitter (~+/-10 deg)
+          animation: "rayParticleGroundCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "StreakRoots"),
           duration: DELIVERY_DURATION, mask: true,
-          params: {speed: BEAM_SPEED, angleSpread: 1, radius: spawnRadius, spawnRate: 100,
-            rotationSpread: 0.1, rotationSpeed: {min: -2.5, max: 2.5},
-            scale: {min: 1.0, max: 1.15}, fade: {in: 30, out: 200},
-            blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1}
+          params: {width: Math.round(width * 0.5), spacing: 30,
+            rotationSpread: Math.toRadians(10),
+            lifetime: rootLifetime,
+            scale: {min: 0.9, max: 1.2}, alpha: {min: 0.75, max: 1.0},
+            fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
         },
-        { // Cast-off leaves shed at the advancing beam head, fanning at +/-45 deg of the heading
-          animation: "rayParticleHeadCastoff", anchor: "origin", textures: sprayLeafTextures,
+        { // GroundRoots scattered at random rotations as the front sweeps to the end
+          animation: "rayParticleGroundCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundRoots"),
           duration: DELIVERY_DURATION, mask: true,
-          params: {speed: 150, headSpeed: BEAM_SPEED, headJitter: 25, angleSpread: 45, spawnRate: 50,
-            alignVelocity: false, rotationSpread: Math.PI, rotationSpeed: {min: -2.5, max: 2.5},
-            lifetime: {min: 800, max: 1400},
-            scale: {min: 0.8, max: 1.0},
-            fade: {in: 40, out: 250},
-            blend: _blendInHot(0.4),
-            elevation: casterElevation + 1
-          }
+          params: {width: Math.round(width * 0.7), spacing: 50,
+            rotationSpread: Math.PI,
+            lifetime: rootLifetime,
+            scale: {min: 0.8, max: 1.4}, alpha: {min: 0.5, max: 0.85},
+            fade: {in: 200, out: 1800}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
+        },
+        {
+          animation: "rayParticleHeadCastoff", anchor: "origin",
+          textures: getVFXFrames(runeId, "Spray"),
+          duration: DELIVERY_DURATION, mask: true,
+          params: {speed: 60, headSpeed: beamSpeed, headJitter: 30,
+            angleSpread: 120, alignVelocity: false,
+            rotationSpread: Math.PI, rotationSpeed: {min: -0.3, max: 0.3},
+            spawnRate: 30,
+            lifetime: {min: 500, max: 1000}, lifetimeOriginBoost: 3000,
+            scale: {min: 0.7, max: 1.4}, alpha: {min: 0.35, max: 0.65},
+            fade: {in: 250, out: 1800},
+            blend: PIXI.BLEND_MODES.ADD,
+            elevation: casterElevation + 1}
         }
       ];
     }

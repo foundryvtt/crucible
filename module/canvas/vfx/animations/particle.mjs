@@ -374,6 +374,12 @@ const rayParticleBeam = {
  * @property {number} [rotationSpread]     Initial rotation spread in radians (default Math.PI).
  * @property {{min: number, max: number}} [rotationSpeed]  Per-particle tumbling (rad/sec).
  * @property {{min: number, max: number}} [lifetime]
+ * @property {number} [lifetimeOriginBoost]  Extra ms added to per-particle lifetime, scaled by `(1 - t)`
+ *                                          where `t` is the head's normalized progress in `[0, 1]`.
+ *                                          Maximum at the origin, zero at the end. Regularizes
+ *                                          absolute death times so that particles spawned across the
+ *                                          head's march dissipate around the same moment, rather than
+ *                                          late-spawning particles outliving early-spawning ones.
  * @property {{in: number, out: number}} [fade]
  * @property {PIXI.BLEND_MODES|ParticleGeneratorBlendValue} [blend]  Static blend mode or over-lifetime
  *   step-curve transition; resolved by the upstream ParticleGenerator.
@@ -418,9 +424,11 @@ const rayParticleHeadCastoff = {
       ...(params.lifetime ? {lifetime: params.lifetime} : {}),
       fade: params.fade ?? {in: 40, out: 250},
       blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
-      onTick: dt => {
+      onTick: (dt, generator) => {
+        if ( headDist >= length ) return;
         elapsed += dt;
         headDist = Math.min((elapsed / 1000) * headSpeed, length);
+        if ( headDist >= length ) generator.spawnRate = 0;
       },
       onSpawn: (p, {generator}) => {
         const angle = Math.random() * Math.PI * 2;
@@ -429,6 +437,10 @@ const rayParticleHeadCastoff = {
         const sceneY = origin.y + (sinR * headDist) + (Math.sin(angle) * r);
         p.x = sceneX - generator.bounds.x;
         p.y = sceneY - generator.bounds.y;
+        if ( params.lifetimeOriginBoost ) {
+          const t = length > 0 ? Math.min(headDist / length, 1) : 0;
+          p.lifetime += params.lifetimeOriginBoost * (1 - t);
+        }
       }
     };
   }
