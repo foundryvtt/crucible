@@ -659,7 +659,7 @@
           "base": "Base Engagement",
           "label": "Engagement",
           "labelShort": "Engage",
-          "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
+          "tooltip": "Number of Enemies able to be Engaged<br>(Size - 2) + Engagement Bonus"
         },
         "engagementBonus": {
           "hint": "An additive modifier to base engagement.",
