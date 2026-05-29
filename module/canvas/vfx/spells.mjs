@@ -1189,8 +1189,7 @@ const RAY_VFX_PROPS = {
     deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 500, offset: -300, release: 600},
-    // FIXME: temporary until the life active damage loop ships; remove `deliverySoundType` then.
-    deliverySoundType: "passive",
+    deliverySoundType: "damage",
     sustainedChargeAnchor: "source",
     softImpact: true,
     softImpactFrames: ["SprayLeaf", "SprayBubble"],
@@ -1381,6 +1380,8 @@ const FAN_VFX_PROPS = {
     chargeDuration: 900,
     sweepDuration: 1000,
     impactSound: "impact",
+    deliverySoundType: "damage",
+    deliverySound: {fade: 400, offset: -200, release: 1200},
     impactStart: ({chargeDuration, sweepDuration}) => chargeDuration + Math.round(sweepDuration / 2),
     buildCharge(ctx) {
       const {action, casterRadiusPx, casterElevation} = ctx;
