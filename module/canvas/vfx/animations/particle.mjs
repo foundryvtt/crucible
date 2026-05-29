@@ -3,6 +3,30 @@
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
  */
 
+let _blendCurvesSupported = null;
+
+/**
+ * FIXME: Pre-14.364 fallback for blend mode curves. ParticleGenerator does not accept
+ * `{curve: [...]}` blend descriptors until 14.364; on older versions, degrade to the curve's first
+ * value (a static blend mode) so the spell still plays. On 14.364+, pass the curve through unchanged.
+ * Remove this shim once 14.364 is publicly released.
+ *
+ * Feature-detected by scanning the ParticleGenerator class source for the curve-validator's literal
+ * error string ("blend.curve must end with time 1.") - more reliable than `isNewerVersion` for dev
+ * builds that still report a pre-release version number even with the curve code already merged.
+ * @param {number|{curve: Array}} blend  Blend mode literal or curve descriptor.
+ * @param {number} fallback              Default blend mode if `blend` is null/undefined.
+ * @returns {number|{curve: Array}}
+ */
+function _resolveBlend(blend, fallback) {
+  if ( _blendCurvesSupported === null ) {
+    const src = foundry.canvas.animation.ParticleGenerator?.toString() ?? "";
+    _blendCurvesSupported = /#compileBlendValue/.test(src);
+  }
+  if ( _blendCurvesSupported ) return blend ?? fallback;
+  return blend?.curve?.[0]?.value ?? blend ?? fallback;
+}
+
 /**
  * A particle generator layer config. The optional generic parameter describes the shape of `params`.
  * @template [TParams=object]
@@ -71,14 +95,17 @@ const circleParticleGather = {
 /**
  * @typedef CircleParticleVortexParams
  * @property {number} chargeRadius
- * @property {number} [swirlSpeed]  Orbital angular velocity (rad/sec); default 3.
- * @property {number} [spinSpeed]   Self-rotation angular velocity (rad/sec); defaults to swirl.
+ * @property {number} [swirlSpeed]    Orbital angular velocity (rad/sec); default 3.
+ * @property {number} [spinSpeed]     Self-rotation angular velocity (rad/sec); defaults to swirl.
+ * @property {number} [blendOut]      Blend mode to swap to at `blendOutTime` (per-particle mid-life ramp).
+ * @property {number} [blendOutTime]  Age (0..1) at which to swap to `blendOut` (default 0.5).
  * @property {{in: number, out: number}} [fade]
  */
 
 /**
  * Imploding spiral. Motes orbit the anchor while their radius collapses toward center, spinning on
  * their own axis and fading as they arrive. A small whirlpool drawing energy to a focal point.
+ * Optional `blendOut` swaps blend mode at `blendOutTime` for a build-up-to-hot effect.
  * @type {CrucibleParticleBehavior<CircleParticleVortexParams>}
  */
 const circleParticleVortex = {
@@ -89,6 +116,8 @@ const circleParticleVortex = {
     const bandWidth = Math.max(2, chargeRadius * 0.15);
     const swirl = params.swirlSpeed ?? 3;
     const spin = params.spinSpeed ?? swirl;
+    const blendOut = (typeof params.blendOut === "number") ? params.blendOut : null;
+    const blendOutTime = params.blendOutTime ?? 0.5;
 
     // Drive position/rotation parametrically from age so motion continues after the generator soft-stops
     const place = (p, generator) => {
@@ -100,6 +129,10 @@ const circleParticleVortex = {
       p.x = ox + (Math.cos(a) * r);
       p.y = oy + (Math.sin(a) * r);
       p.rotation = p._vortexSpin + (spin * p.elapsedTime * 0.001);
+      if ( !p._vortexSwapped && (blendOut !== null) && (age >= blendOutTime) ) {
+        p.blendMode = blendOut;
+        p._vortexSwapped = true;
+      }
     };
     return {
       area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
@@ -112,6 +145,7 @@ const circleParticleVortex = {
         p._vortexAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
         p._vortexRadius = Math.hypot(sx - anchor.x, sy - anchor.y);
         p._vortexSpin = Math.random() * Math.PI * 2;
+        p._vortexSwapped = false;
         place(p, generator);
       },
       onUpdate: (p, {generator}) => place(p, generator)
@@ -201,7 +235,7 @@ const circleParticleResidue = {
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
       velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
-      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD),
       drift: {enabled: true, intensity: 0.5}
     };
   }
@@ -268,7 +302,7 @@ const circleParticleBurst = {
       velocity: {speed: [speed.min, speed.max], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
       drift: {enabled: true, intensity: 0.5},
-      blend: params.blend ?? 0
+      blend: _resolveBlend(params.blend, 0)
     };
   }
 };
@@ -322,7 +356,7 @@ const rayParticleBeam = {
       },
       lifetime: params.lifetime ?? {min: Math.round(reach * 0.85), max: reach},
       fade: params.fade ?? {in: 30, out: 150},
-      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
     };
   }
 };
@@ -383,8 +417,7 @@ const rayParticleHeadCastoff = {
       rotation: rotationCfg,
       ...(params.lifetime ? {lifetime: params.lifetime} : {}),
       fade: params.fade ?? {in: 40, out: 250},
-      // FIXME: degrade blend curve to initial value; remove in core 14.364+
-      blend: params.blend?.curve?.[0]?.value ?? params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
       onTick: dt => {
         elapsed += dt;
         headDist = Math.min((elapsed / 1000) * headSpeed, length);
@@ -432,7 +465,7 @@ const rayParticleRootCastoff = {
       rotation: {alignVelocity: true, spread: params.rotationSpread ?? 0.3},
       lifetime: params.lifetime ? {min: params.lifetime.min, max: params.lifetime.max} : {min: 200, max: 400},
       fade: params.fade ?? {in: 0, out: 150},
-      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
     };
   }
 };
@@ -494,7 +527,7 @@ const rayParticleGroundCascade = {
       rotation: {initial: rotation, spread: params.rotationSpread ?? 0.3},
       lifetime,
       fade: params.fade ?? {in: 0, out: 800},
-      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
       onTick: dt => {
         elapsed += dt;
         frontDist = Math.clamp(elapsed / duration, 0, 1) * length;
@@ -557,14 +590,14 @@ const shapeParticleCombustion = {
       {time: 1.0, value: 1.8}
     ];
     return {
-      spawnRate: 0,
+      spawnRate: params.spawnRate ?? 0,
       area,
       velocity: {speed: [params.speed?.min ?? 20, params.speed?.max ?? 70], angle: [0, 360]},
       rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 600, max: 1100},
       fade: params.fade ?? {in: 30, out: 350},
-      blend: params.blend ?? PIXI.BLEND_MODES.ADD
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
     };
   }
 };
@@ -604,14 +637,283 @@ const shapeParticleResidue = {
       {time: 1.0, value: 2.0}
     ];
     return {
-      spawnRate: 0,
+      spawnRate: params.spawnRate ?? 0,
       area,
       velocity: {speed: [params.speed?.min ?? 5, params.speed?.max ?? 25], angle: [0, 360]},
       rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 1800, max: 3000},
       fade: params.fade ?? {in: 200, out: 1200},
-      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL)
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef FanParticleSweepParams
+ * @property {number} startAngleRad                        Initial sweep arm angle (rad). REQUIRED.
+ * @property {number} endAngleRad                          Final sweep arm angle (rad). REQUIRED.
+ * @property {number} [radialSpeed]                        Px/sec base, grid-scaled (default 800).
+ * @property {number} [innerRadius]                        Ring inner radius (px, default radius * 0.15).
+ * @property {number} [outerRadius]                        Ring outer radius (px, default innerRadius * 1.3).
+ * @property {number} [armSpread]                          Angular jitter (rad) around the sweep arm (default 0.15).
+ * @property {{min: number, max: number}|number} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * A rotating arm emitter that sweeps across the cone arc from `startAngleRad` to `endAngleRad`,
+ * spawning particles in a narrow band radial to the current arm angle and propelling them outward.
+ * Angles are baked at configure-time so impact timing and the rendered sweep stay in lockstep.
+ * @type {CrucibleParticleBehavior<FanParticleSweepParams>}
+ */
+const fanParticleSweep = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const {origin, rotation, radius, gridScale} = this.state;
+    const speed = (params.radialSpeed ?? 800) * gridScale;
+    const innerRadius = params.innerRadius ?? Math.round(radius * 0.15);
+    const outerRadius = params.outerRadius ?? Math.round(innerRadius * 1.3);
+    const armSpread = params.armSpread ?? 0.15;
+    const startAngleRad = params.startAngleRad;
+    const endAngleRad = params.endAngleRad;
+    const duration = layer.duration ?? phase.duration;
+    const reach = Math.max(200, Math.round((radius / speed) * 1000 * 1.2));
+    const lifetime = params.lifetime ?? {min: Math.round(reach * 0.5), max: reach};
+    const ringRadius = (innerRadius + outerRadius) / 2;
+    const ringHalfWidth = (outerRadius - innerRadius) / 2;
+    const headingDeg = Math.toDegrees(rotation);
+
+    let elapsed = 0;
+    let currentAngleRad = startAngleRad;
+
+    return {
+      area: {type: "ring", x: origin.x, y: origin.y, radius: ringRadius,
+        innerWidth: ringHalfWidth, outerWidth: ringHalfWidth},
+      velocity: {speed: [speed * 0.7, speed * 1.3], angle: [headingDeg - 5, headingDeg + 5]},
+      rotation: {alignVelocity: true, spread: 0.1},
+      lifetime: (typeof lifetime === "object") ? lifetime : {min: Math.round(lifetime * 0.5), max: lifetime},
+      fade: params.fade ?? {in: 30, out: Math.round(reach * 0.4)},
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD),
+      onTick: dt => {
+        elapsed += dt;
+        const t = Math.clamp(elapsed / duration, 0, 1);
+        currentAngleRad = startAngleRad + (t * (endAngleRad - startAngleRad));
+      },
+      onSpawn: (p, {generator}) => {
+        const sceneX = p.x + generator.bounds.x;
+        const sceneY = p.y + generator.bounds.y;
+        const dist = Math.hypot(sceneX - origin.x, sceneY - origin.y);
+        const particleAngle = currentAngleRad + (((Math.random() * 2) - 1) * armSpread);
+        p.x = (origin.x + (Math.cos(particleAngle) * dist)) - generator.bounds.x;
+        p.y = (origin.y + (Math.sin(particleAngle) * dist)) - generator.bounds.y;
+        const spd = speed * (0.7 + (Math.random() * 0.6));
+        p.movementSpeed.x = Math.cos(particleAngle) * spd;
+        p.movementSpeed.y = Math.sin(particleAngle) * spd;
+        p.rotation = particleAngle + ((Math.random() - 0.5) * 0.2);
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef FanParticleCascadeParams
+ * @property {number} [maxRadiusFactor]   Fraction of cone radius reached at sweep end (default 0.85).
+ * @property {number} [initialFactor]     Starting outer radius as fraction of cone radius (default 0.17).
+ * @property {{min: number, max: number}} [velocity]
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * An expanding ring that grows outward from the origin, constrained to the cone wedge. Out-of-cone
+ * spawns are kicked back inside. Reads as a wave of ground deposit expanding under the swept arm.
+ * @type {CrucibleParticleBehavior<FanParticleCascadeParams>}
+ */
+const fanParticleCascade = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const {origin, rotation, halfAngle, radius} = this.state;
+    const maxRadius = Math.round(radius * (params.maxRadiusFactor ?? 0.85));
+    const initialOuter = Math.round(radius * (params.initialFactor ?? 0.17));
+    const initialHalfWidth = initialOuter / 2;
+    const duration = layer.duration ?? phase.duration;
+    const headingDeg = Math.toDegrees(rotation);
+    const RADIUS_STEP = 4;
+
+    let elapsed = 0;
+    let shape = null;
+    let lastRadius = -1;
+
+    return {
+      area: {type: "ring", x: origin.x, y: origin.y, radius: initialHalfWidth,
+        innerWidth: initialHalfWidth, outerWidth: initialHalfWidth},
+      velocity: params.velocity ?? {speed: [2, 5], angle: [headingDeg - 1, headingDeg + 1]},
+      rotation: {initial: rotation, spread: 0.2},
+      lifetime: params.lifetime ?? {min: 400, max: 700},
+      fade: params.fade ?? {in: 20, out: 400},
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      onTick: (dt, generator) => {
+        elapsed += dt;
+        const t = Math.clamp(elapsed / duration, 0, 1);
+        const centerRadius = Math.round((t * maxRadius) / RADIUS_STEP) * RADIUS_STEP;
+        if ( !shape ) {
+          shape = new foundry.data.RingShapeData({type: "ring", x: origin.x, y: origin.y,
+            radius: centerRadius, innerWidth: initialHalfWidth, outerWidth: initialHalfWidth});
+          generator.spawnArea = shape;
+          lastRadius = centerRadius;
+        }
+        else if ( centerRadius !== lastRadius ) {
+          shape.updateSource({radius: centerRadius});
+          lastRadius = centerRadius;
+        }
+      },
+      onSpawn: (p, {generator}) => {
+        const sceneX = p.x + generator.bounds.x;
+        const sceneY = p.y + generator.bounds.y;
+        const dist = Math.hypot(sceneX - origin.x, sceneY - origin.y);
+        let particleAngle = Math.atan2(sceneY - origin.y, sceneX - origin.x);
+        let delta = particleAngle - rotation;
+        while ( delta > Math.PI ) delta -= Math.PI * 2;
+        while ( delta < -Math.PI ) delta += Math.PI * 2;
+        if ( Math.abs(delta) > halfAngle ) {
+          particleAngle = rotation + (((Math.random() * 2) - 1) * halfAngle);
+          p.x = (origin.x + (Math.cos(particleAngle) * dist)) - generator.bounds.x;
+          p.y = (origin.y + (Math.sin(particleAngle) * dist)) - generator.bounds.y;
+        }
+        p.rotation = particleAngle + ((Math.random() - 0.5) * 0.3);
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef FanParticleArcDepositParams
+ * @property {number} startAngleRad        REQUIRED. Initial sweep arm angle (rad).
+ * @property {number} endAngleRad          REQUIRED. Final sweep arm angle (rad).
+ * @property {number} [radiusFactor]       Fraction of cone radius where deposits land (default 0.9).
+ * @property {number} [radialJitter]       Radial jitter range in px around the deposit radius (default 25).
+ * @property {number} [arcSpread]          Angular jitter (rad) around the current sweep arm (default 0.08).
+ * @property {{min: number, max: number}|number} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * Static deposits painted along the cone perimeter as the sweep arm crosses each bearing. No
+ * velocity - particles stay exactly where they appear, leaving a swept-arc residue (scorch, frost,
+ * etc.) at the cone's outer edge.
+ * @type {CrucibleParticleBehavior<FanParticleArcDepositParams>}
+ */
+const fanParticleArcDeposit = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const {origin, radius} = this.state;
+    const startAngleRad = params.startAngleRad;
+    const endAngleRad = params.endAngleRad;
+    const depositRadius = Math.round(radius * (params.radiusFactor ?? 0.9));
+    const radialJitter = params.radialJitter ?? 25;
+    const arcSpread = params.arcSpread ?? 0.08;
+    const duration = layer.duration ?? phase.duration;
+    let elapsed = 0;
+    let currentAngleRad = startAngleRad;
+    return {
+      area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {alignVelocity: false, spread: Math.PI},
+      fade: params.fade ?? {in: 0, out: 2000},
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      onTick: dt => {
+        elapsed += dt;
+        const t = Math.clamp(elapsed / duration, 0, 1);
+        currentAngleRad = startAngleRad + (t * (endAngleRad - startAngleRad));
+      },
+      onSpawn: (p, {generator}) => {
+        const a = currentAngleRad + (((Math.random() * 2) - 1) * arcSpread);
+        const r = depositRadius + (((Math.random() * 2) - 1) * radialJitter);
+        p.x = (origin.x + (Math.cos(a) * r)) - generator.bounds.x;
+        p.y = (origin.y + (Math.sin(a) * r)) - generator.bounds.y;
+        p.movementSpeed.x = 0;
+        p.movementSpeed.y = 0;
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef FanParticleYoyoParams
+ * @property {number} [count]           Number of wisps (default 5).
+ * @property {number} [reach]           Peak radial extension in px (default state.radius).
+ * @property {number} [armSpread]       Per-wisp angular jitter (rad) around its assigned angle (default 0).
+ * @property {number} [rotationSpeed]   Per-particle spin (rad/sec); 0 to disable (default 0).
+ * @property {number} [blendOut]        Blend mode to swap to at `blendOutTime` for the return trip.
+ * @property {number} [blendOutTime]    Age (0..1) at which to swap to `blendOut` (default 0.5).
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * N wisps fire from the origin out to the cone perimeter and bounce back to the origin in unison.
+ * Angles are evenly distributed across the cone arc; each particle's radial distance follows
+ * `reach * sin(PI * age)`, so all wisps reach peak extension at mid-life and return at end-of-life.
+ * Pair with `count: N` + `initial: 1` + `spawnRate: 0` + a fixed `lifetime` to fire one volley with
+ * no follow-on spawns. Optional `rotationSpeed` spins each wisp on its own axis; optional `blendOut`
+ * swaps blend mode at peak extension for a "hot outbound, cool inbound" look.
+ * @type {CrucibleParticleBehavior<FanParticleYoyoParams>}
+ */
+const fanParticleYoyo = {
+  setup(phase, layer) {
+    const {origin, rotation, halfAngle, radius} = this.state;
+    const params = layer.params ?? {};
+    const count = params.count ?? 5;
+    const reach = params.reach ?? radius;
+    const armSpread = params.armSpread ?? 0;
+    const rotationSpeed = params.rotationSpeed ?? 0;
+    const blendOut = (typeof params.blendOut === "number") ? params.blendOut : null;
+    const blendOutTime = params.blendOutTime ?? 0.5;
+    const angles = [];
+    for ( let i = 0; i < count; i++ ) {
+      const t = (count === 1) ? 0.5 : (i / (count - 1));
+      angles.push((rotation - halfAngle) + (t * 2 * halfAngle));
+    }
+    let nextIndex = 0;
+    return {
+      area: {type: "circle", x: origin.x, y: origin.y, radius: 2},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {alignVelocity: false, spread: 0},
+      fade: params.fade ?? {in: 0.1, out: 0.2},
+      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      onSpawn: (p, {generator}) => {
+        const base = angles[nextIndex % angles.length];
+        nextIndex++;
+        const jitter = armSpread ? (((Math.random() - 0.5) * 2) * armSpread) : 0;
+        p._yoyoAngle = base + jitter;
+        p._yoyoSpin = Math.random() * Math.PI * 2;
+        p._yoyoSwapped = false;
+        p.x = origin.x - generator.bounds.x;
+        p.y = origin.y - generator.bounds.y;
+      },
+      onUpdate: (p, {generator}) => {
+        const age = (p.lifetime > 0) ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
+        const r = reach * Math.sin(Math.PI * age);
+        p.x = (origin.x + (Math.cos(p._yoyoAngle) * r)) - generator.bounds.x;
+        p.y = (origin.y + (Math.sin(p._yoyoAngle) * r)) - generator.bounds.y;
+        p.rotation = p._yoyoSpin + ((rotationSpeed * p.elapsedTime) / 1000);
+        if ( !p._yoyoSwapped && (blendOut !== null) && (age >= blendOutTime) ) {
+          p.blendMode = blendOut;
+          p._yoyoSwapped = true;
+        }
+      }
     };
   }
 };
@@ -634,5 +936,9 @@ export const PARTICLE_ANIMATIONS = {
   rayParticleHeadCastoff,
   rayParticleGroundCascade,
   shapeParticleCombustion,
-  shapeParticleResidue
+  shapeParticleResidue,
+  fanParticleSweep,
+  fanParticleCascade,
+  fanParticleArcDeposit,
+  fanParticleYoyo
 };

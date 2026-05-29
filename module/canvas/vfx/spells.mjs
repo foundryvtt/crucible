@@ -1,8 +1,9 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
-import {mergeAnimationBlocks, coneSweepEmitter, expandingCascade,
-  airResidue, groundImpacts, fallingDebris, getParticleScaleFactor} from "./blocks.mjs";
+import {mergeAnimationBlocks, airResidue, groundImpacts, fallingDebris,
+  getParticleScaleFactor} from "./blocks.mjs";
 import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
+import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -300,87 +301,141 @@ function finalizeArrowVFXEffect(action, vfxEffect, references) {
 /* -------------------------------------------- */
 
 /**
- * Configure the VFX for a Fan gesture composed spell.
- * The fan is animated as a sweeping arm that rotates across the cone from one edge to the other,
- * A single generator emits streak particles from the cone origin. An onTick callback sweeps the
- * emission direction across the cone arc over time, while onSpawn overrides each particle's velocity
- * and rotation to follow the current arm angle. This replaces the earlier N-generator approach with
- * a single animated emitter.
- * Particle color is determined by the spell's rune.
+ * Configure the VFX for a Fan gesture composed spell as a single {@link CrucibleFanComponent}: an
+ * optional charge at the caster, a swept delivery across the cone arc, and per-target impacts whose
+ * `start` is the moment the sweep arm crosses each target's bearing. Per-rune visuals come from
+ * {@link FAN_VFX_PROPS}.
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
 function configureFanVFXEffect(action) {
-  const shape = action.region?.shapes[0];
-  if ( !shape || (shape.type !== "cone") ) return null;
-
-  const {x, y, radius, angle, rotation} = shape.toObject();
+  const regionShape = action.region?.shapes[0];
+  if ( !regionShape || (regionShape.type !== "cone") ) return null;
+  const runeProps = SPELL_VFX_GESTURES.fan.runes?.[action.rune.id];
+  if ( !runeProps ) return null;
+  const {textures, particleElevation} = resolveSpellVFXContext(action);
+  const shapeData = regionShape.toObject();
+  const {x, y, radius, angle, rotation} = shapeData;
   const origin = {x, y};
-  const {particleElevation, textures} = resolveSpellVFXContext(action);
+  const rotRad = Math.toRadians(rotation);
+  const halfAngleRad = Math.toRadians(angle / 2);
+  const gridSize = canvas.dimensions.size;
+  const casterToken = action.token;
+  const casterElevation = casterToken.elevation ?? 0;
+  const casterRadiusPx = (casterToken.width * gridSize) / 2;
+  const chargeDuration = runeProps.chargeDuration ?? 0;
+  const sweepDuration = runeProps.sweepDuration ?? 400;
+  const oscillate = !!runeProps.oscillate;
+  const deliveryDuration = oscillate ? (sweepDuration * 2) : sweepDuration;
   const MASK_RADIUS_FACTOR = 1.5;
+
+  const {startAngleRad, endAngleRad} = CrucibleFanComponent.pickSweepDirection(action, origin, rotRad,
+    halfAngleRad);
+  const sweepRangeRad = endAngleRad - startAngleRad;
+
+  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
+
   const references = {
     tokenMesh: "^token.object.mesh",
-
     wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
   };
-  const pointSourceMask = {reference: "wallMask"};
-  const coverageArea = action.region?.area;
-  const shared = {pointSourceMask, coverageArea};
-  const SWEEP_DURATION = 400;
 
-  // Layer 1 - Sweep streaks
-  const sweepInnerRadius = Math.round(action.token.getSize().width / 3);
-  const sweep = coneSweepEmitter.configure({prefix: "fanSweep", origin, radius, angle, rotation,
-    textures: textures.streak, duration: SWEEP_DURATION,
-    innerRadius: sweepInnerRadius, outerRadius: Math.round(sweepInnerRadius * 1.3),
-    elevation: particleElevation, position: 0, ...shared});
+  let chargeParticles = [];
+  if ( chargeDuration > 0 ) {
+    const chargeCtx = {action, textures, casterRadiusPx, casterElevation, particleElevation};
+    chargeParticles = runeProps.buildCharge?.(chargeCtx)
+      ?? _resolveChargeLayers(runeProps, chargeCtx, {duration: chargeDuration});
+  }
 
-  // Layer 2 - Ground cascade
-  const cascade = expandingCascade.configure({prefix: "fanCascade", origin, radius,
-    textures: getVFXTexturePaths(action.rune.id, "impact"),
-    coneAngle: angle, coneRotation: rotation,
-    elevation: 0, position: 0, ...shared});
+  const buildCtx = {action, textures, origin, radius, startAngleRad, endAngleRad, sweepDuration,
+    particleElevation, casterElevation, casterRadiusPx};
+  const deliveryParticles = runeProps.buildDelivery(buildCtx);
 
-  // Layer 3 - Overhead residue
-  const residue = airResidue.configure({prefix: "fanResidue", origin,
-    radius: Math.round(radius * 0.7), textures: textures.air,
-    elevation: particleElevation, position: 200, ...shared});
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const impactType = runeProps.impactSound ?? "impact";
+  const impacts = [];
+  const targetMeshRefs = [];
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result ?? null;
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
+    const cx = token.x + ((token.width * gridSize) / 2);
+    const cy = token.y + ((token.height * gridSize) / 2);
+    const bearing = Math.atan2(cy - origin.y, cx - origin.x);
+    let delta = bearing - startAngleRad;
+    while ( delta > Math.PI ) delta -= Math.PI * 2;
+    while ( delta < -Math.PI ) delta += Math.PI * 2;
+    const tFrac = Math.clamp(delta / sweepRangeRad, 0, 1);
+    const defaultStart = chargeDuration + Math.round(tFrac * sweepDuration);
+    const start = runeProps.impactStart?.({chargeDuration, sweepDuration, tFrac, token,
+      defaultStart}) ?? defaultStart;
+    const tokenRef = `fanTarget_${j}_token`;
+    const meshRef = `fanTarget_${j}_tokenMesh`;
+    if ( isHit ) {
+      const treatment = runeProps.buildImpact?.(action, {token, textures, particleElevation, origin})
+        ?? _defaultFanHit(textures);
+      references[tokenRef] = `@${token.uuid}`;
+      references[meshRef] = `^${tokenRef}.object.mesh`;
+      targetMeshRefs.push({reference: meshRef});
+      impacts.push({result, id: token.id, start,
+        sound: sound(getVFXSound(action.rune.id, impactType)),
+        animations: treatment.animations, particles: treatment.particles});
+      j++;
+    }
+    else if ( result === T.RESIST ) {
+      references[tokenRef] = `@${token.uuid}`;
+      references[meshRef] = `^${tokenRef}.object.mesh`;
+      targetMeshRefs.push({reference: meshRef});
+      impacts.push({result, id: token.id, start,
+        sound: sound(getVFXSound(action.rune.id, "miss")),
+        animations: textures.air.length
+          ? [{function: "impactSpriteBurst",
+            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
+          : [], particles: []});
+      j++;
+    }
+  }
 
-  const result = mergeAnimationBlocks(sweep, cascade, residue);
-  Object.assign(result.references, references);
+  const deliverySound = runeProps.deliverySoundType
+    ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
+    : null;
+  const chargeSound = ((chargeDuration > 0) && (runeProps.chargeSound !== false))
+    ? sound(getVFXSound(action.rune.id, "charge")) : null;
 
-  // Impact timing: fire when the sweeping arm crosses the target's angular position.
-  const sweepConfig = sweep.components.fanSweep.config.coneSweep;
-  const sweepRangeRad = sweepConfig.endAngleRad - sweepConfig.startAngleRad;
-  const gridSize = canvas.dimensions.size;
-  const fanGetImpactPosition = token => {
-    const cx = token.x + (token.width * gridSize / 2);
-    const cy = token.y + (token.height * gridSize / 2);
-    let bearing = Math.atan2(cy - y, cx - x);
-    const lo = Math.min(sweepConfig.startAngleRad, sweepConfig.endAngleRad);
-    const hi = Math.max(sweepConfig.startAngleRad, sweepConfig.endAngleRad);
-    while ( bearing < lo ) bearing += Math.PI * 2;
-    while ( bearing > hi ) bearing -= Math.PI * 2;
-    const t = Math.clamp((bearing - sweepConfig.startAngleRad) / sweepRangeRad, 0, 1);
-    return Math.round(t * SWEEP_DURATION);
+  const components = {
+    fan: {
+      type: "crucibleFan",
+      shape: shapeData,
+      casterRadiusPx,
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: targetMeshRefs,
+      mask: {reference: "wallMask"},
+      charge: {duration: chargeDuration, sound: chargeSound,
+        animations: [], particles: chargeParticles},
+      delivery: {duration: deliveryDuration, sound: deliverySound, animations: [], particles: deliveryParticles},
+      impacts
+    }
   };
-  addImpactComponents(action, result.components, result.timeline, result.references,
-    fanGetImpactPosition, textures.impact, origin);
-  return result;
+  return {components, timeline: [{component: "fan", position: 0}], references};
 }
 
 /* -------------------------------------------- */
 
 /**
- * Finalize the VFX for a Fan gesture at play-time.
- * Delegates to animation block finalize hooks for sweep, cascade, and residue.
- * @param {CrucibleSpellAction} action
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
- * @param {Record<string, any>} references
+ * Default per-hit treatment for a fan impact: an oriented impact-sprite burst with subtle recoil.
+ * @param {SpellVFXTextures} textures
+ * @returns {{animations: object[], particles: object[]}}
  */
-function finalizeFanVFXEffect(action, vfxEffect, references) {
-  coneSweepEmitter.finalize(vfxEffect, references);
-  expandingCascade.finalize(vfxEffect, references);
+function _defaultFanHit(textures) {
+  const texture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+  return {
+    animations: [{function: "impactSpriteBurst", params: {texture, size: 2, duration: 1000, flash: true}}],
+    particles: []
+  };
 }
 
 /* -------------------------------------------- */
@@ -469,7 +524,6 @@ function configureRayVFXEffect(action) {
       });
     j++;
   }
-  if ( !impacts.length ) return null;
 
   // Dispatch via SPELL_VFX_GESTURES.ray.runes - the interpreter handles charge + sustained charge + delivery
   // sound + the rune's buildDelivery(ctx) layer composition.
@@ -1171,6 +1225,233 @@ const RAY_VFX_PROPS = {
 };
 
 /* -------------------------------------------- */
+
+/**
+ * Per-rune VFX overrides for the Fan gesture. Each entry may declare:
+ * - `chargeDuration` (ms): pre-sweep charge phase length, 0 to skip.
+ * - `sweepDuration` (ms): delivery (sweep) phase length.
+ * - `impactSound` ("impact" | "impactHeavy"): RUNE_SOUNDS key for hit cues.
+ * - `deliverySoundType` (string): RUNE_SOUNDS key for the looping delivery sound (omit for silent).
+ * - `deliverySound` ({fade, offset, release}): envelope params when delivery sound is enabled.
+ * - `buildDelivery(ctx)`: returns the delivery particle-layer array.
+ * - `buildImpact(action, {token, textures, particleElevation, origin})` (optional): per-hit treatment.
+ * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
+ *   chargeAbove, chargeLayers, sprayParams, smoke, residue, residueUnder, residueParams, ...).
+ * @type {Record<string, object>}
+ */
+const FAN_VFX_PROPS = {
+
+  // Frost fan: faithful port of the legacy aesthetic. No charge - the sweep fires immediately.
+  // The signature rotating arm wipes streaks across the cone with an expanding ground cascade beneath
+  // and a thin overhead haze.
+  frost: {
+    chargeDuration: 0,
+    sweepDuration: 400,
+    buildDelivery(ctx) {
+      const {action, textures, radius, startAngleRad, endAngleRad, sweepDuration, particleElevation} = ctx;
+      const residueRadius = Math.round(radius * 0.7);
+      const sweepInnerRadius = Math.round(action.token.getSize().width / 3);
+      const sweepOuterRadius = Math.round(sweepInnerRadius * 1.3);
+      return [
+        {animation: "fanParticleSweep", anchor: "origin", textures: textures.streak,
+          duration: sweepDuration, mask: true,
+          params: {startAngleRad, endAngleRad,
+            innerRadius: sweepInnerRadius, outerRadius: sweepOuterRadius, armSpread: 0.15,
+            radialSpeed: 800, spawnRate: 360,
+            alpha: {min: 0.7, max: 1.0}, scale: {min: 0.375, max: 0.6},
+            elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}},
+        {animation: "fanParticleCascade", anchor: "origin",
+          textures: getVFXTexturePaths(action.rune.id, "impact"),
+          duration: 1000, mask: true,
+          params: {alpha: {min: 0.5, max: 0.8}, scale: {min: 0.8, max: 1.2},
+            lifetime: {min: 400, max: 700}, spawnRate: 240, elevation: 0,
+            blend: PIXI.BLEND_MODES.NORMAL}},
+        {animation: "circleParticleResidue", anchor: "origin", textures: textures.air,
+          offset: 200, duration: 200, mask: true,
+          params: {radius: residueRadius, alpha: {min: 0.05, max: 0.18},
+            scale: {min: 1.0, max: 2.0}, lifetime: {min: 2000, max: 2800},
+            spawnRate: 80, initial: 0.3, elevation: particleElevation,
+            speed: {min: 12, max: 55}, blend: PIXI.BLEND_MODES.ADD}}
+      ];
+    }
+  },
+
+  // Fan+Flame
+  flame: {
+    chargeDuration: 200,
+    chargeSound: false,
+    sweepDuration: 1200,
+    oscillate: true,
+    impactSound: "impact",
+    deliverySoundType: "damage",
+    deliverySound: {fade: 500, offset: -200, release: 1500},
+    buildCharge(ctx) {
+      const {action, particleElevation} = ctx;
+      return [{
+        animation: "circleParticleGather", anchor: "forward",
+        textures: getVFXFrames(action.rune.id, "SprayFlame"),
+        duration: 200,
+        params: {chargeRadius: 25, lifetime: 180, spawnRate: 600,
+          alpha: {min: 0.75, max: 1.0}, scale: {min: 0.5, max: 0.9},
+          elevation: particleElevation, blend: PIXI.BLEND_MODES.ADD}
+      }];
+    },
+    buildDelivery(ctx) {
+      const {action, textures, radius, startAngleRad, endAngleRad, sweepDuration,
+        casterElevation, casterRadiusPx} = ctx;
+      // Sweep ring: token-size-relative so the jet emanates from a small arc at the caster's edge
+      // (inner = casterRadius * 2/3, outer = casterRadius), not from token center.
+      const innerRadius = Math.round((casterRadiusPx * 2) / 3);
+      const outerRadius = Math.round(casterRadiusPx);
+      const jetReach = Math.round(radius * 0.6);
+      const jetSpeed = 700;
+      const jetLifetime = Math.round((jetReach / jetSpeed) * 1000);
+      const sweepLayer = (start, end, offset) => ({
+        animation: "fanParticleSweep", anchor: "origin", textures: textures.streak,
+        duration: sweepDuration, offset, mask: true,
+        params: {startAngleRad: start, endAngleRad: end,
+          innerRadius, outerRadius,
+          radialSpeed: jetSpeed, armSpread: 0.18, spawnRate: 480,
+          lifetime: {min: Math.round(jetLifetime * 0.7), max: jetLifetime},
+          alpha: {min: 0.7, max: 1.0}, scale: {min: 0.7, max: 1.2},
+          elevation: casterElevation + 1, blend: PIXI.BLEND_MODES.ADD}
+      });
+      return [
+        sweepLayer(startAngleRad, endAngleRad, 0),
+        sweepLayer(endAngleRad, startAngleRad, sweepDuration),
+        // Scorch arc: static GroundScorch deposits painted along the cone perimeter as the forward
+        // sweep arm crosses each bearing. No velocity - deposits stay where the sweep touches.
+        {animation: "fanParticleArcDeposit", anchor: "origin",
+          textures: getVFXFrames(action.rune.id, "GroundScorch"),
+          duration: sweepDuration, mask: true,
+          params: {
+            startAngleRad, endAngleRad,
+            radiusFactor: 0.9, radialJitter: 35, arcSpread: 0.07,
+            alpha: {min: 0.25, max: 0.5}, scale: {min: 0.75, max: 1.25},
+            lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
+            fade: {in: 0, out: 2500},
+            blend: {curve: [
+              {time: 0, value: PIXI.BLEND_MODES.MULTIPLY},
+              {time: 0.2, value: PIXI.BLEND_MODES.NORMAL},
+              {time: 1.0, value: PIXI.BLEND_MODES.NORMAL}
+            ]}
+          }
+        },
+        // SprayEmbers: a sustained emitter of ADD-blend sparks throughout the delivery
+        {animation: "shapeParticleCombustion", anchor: "origin",
+          textures: getVFXFrames(action.rune.id, "SprayEmbers"),
+          duration: sweepDuration * 2, mask: true,
+          params: {spawnRate: 180,
+            speed: {min: 30, max: 100},
+            lifetime: {min: 1200, max: 2200},
+            scale: {min: 0.25, max: 0.55}, alpha: {min: 0.7, max: 1.0},
+            rotationSpread: Math.PI,
+            elevation: casterElevation + 1,
+            blend: PIXI.BLEND_MODES.ADD,
+            scaleCurve: [{time: 0, value: 1.0}, {time: 1.0, value: 0.4}],
+            fade: {in: 30, out: 500}}}
+      ];
+    },
+    buildImpact(_action, {textures}) {
+      const texture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
+      return {
+        animations: [
+          {function: "impactSpriteShake", params: {distance: 14, oscillations: 2, duration: 400}},
+          {function: "impactSpriteBurst", params: {texture, size: 3, duration: 900, flash: true}}
+        ],
+        particles: []
+      };
+    }
+  },
+
+  // Fan+Life
+  life: {
+    chargeDuration: 900,
+    sweepDuration: 1000,
+    impactSound: "impact",
+    impactStart: ({chargeDuration, sweepDuration}) => chargeDuration + Math.round(sweepDuration / 2),
+    buildCharge(ctx) {
+      const {action, casterRadiusPx, casterElevation} = ctx;
+      return [{
+        animation: "circleParticleVortex", anchor: "source",
+        textures: getVFXFrames(action.rune.id, "SprayBubble", "SprayLeaf"),
+        duration: 900,
+        params: {chargeRadius: casterRadiusPx * 2.0, swirlSpeed: 4, spinSpeed: 4,
+          lifetime: 700, spawnRate: 360,
+          scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
+          elevation: casterElevation + 1,
+          blend: PIXI.BLEND_MODES.NORMAL,
+          blendOut: PIXI.BLEND_MODES.ADD, blendOutTime: 0.6,
+          fade: {in: 0.15, out: 0.45}}
+      }];
+    },
+    buildDelivery(ctx) {
+      const {action, radius, sweepDuration, particleElevation, casterElevation} = ctx;
+      const runeId = action.rune.id;
+      return [
+        { // Yo-yo discs fired out and return in unison. Six discs which go out hot and return cool
+          animation: "fanParticleYoyo", anchor: "origin",
+          textures: getVFXFrames(runeId, "DiscWispy"),
+          duration: sweepDuration, mask: true,
+          params: {count: 6, initial: 1, spawnRate: 0,
+            reach: Math.round(radius * 0.9),
+            lifetime: {min: sweepDuration, max: sweepDuration},
+            rotationSpeed: 5,
+            blend: PIXI.BLEND_MODES.ADD,
+            blendOut: PIXI.BLEND_MODES.NORMAL, blendOutTime: 0.5,
+            alpha: {min: 0.85, max: 1.0}, scale: {min: 1.0, max: 1.3},
+            elevation: casterElevation + 1,
+            fade: {in: 0.05, out: 0.15}
+          }
+        },
+        { // Magical leaf spray throughout the cone that is highlighted with ADD blend
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "SprayLeaf"),
+          duration: sweepDuration, mask: true,
+          params: {count: 60, initial: 60,
+            speed: {min: 15, max: 50}, lifetime: {min: 1100, max: 1700},
+            scale: {min: 0.5, max: 1.0}, alpha: {min: 0.4, max: 0.85},
+            elevation: particleElevation, rotationSpread: Math.PI,
+            blend: PIXI.BLEND_MODES.ADD,
+            scaleCurve: [{time: 0, value: 0.7}, {time: 1.0, value: 1.1}],
+            fade: {in: 100, out: 500}
+          }
+        },
+        { // AirBubbles residue with long lifetime that outlives the delivery
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "AirBubbles"),
+          duration: sweepDuration, mask: true,
+          params: {count: 40, initial: 40,
+            speed: {min: 8, max: 25}, lifetime: {min: 3500, max: 5500},
+            scale: {min: 0.6, max: 1.2}, alpha: {min: 0.45, max: 0.85},
+            elevation: casterElevation + 2,
+            blend: PIXI.BLEND_MODES.NORMAL,
+            scaleCurve: [{time: 0, value: 0.6}, {time: 1.0, value: 1.4}],
+            fade: {in: 200, out: 1200}
+          }
+        }
+      ];
+    },
+    buildImpact(action, {textures, particleElevation}) {
+      const gridSize = canvas.dimensions.size;
+      const sprayTextures = getVFXFrames(action.rune.id, "SprayLeaf", "SprayBubble");
+      return {
+        animations: [],
+        particles: [
+          { // Leaf and bubble spray upon impact
+            animation: "circleParticleBurst", anchor: "target", textures: sprayTextures,
+            duration: 200,
+            params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 40, initial: 1,
+              lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
+              elevation: particleElevation, blend: PIXI.BLEND_MODES.NORMAL}
+          }
+        ]
+      };
+    }
+  }
+};
+
+/* -------------------------------------------- */
 /*  Gesture Registry                            */
 /* -------------------------------------------- */
 
@@ -1193,7 +1474,7 @@ const SPELL_VFX_GESTURES = {
   cone: {},
   conjure: {},
   create: {},
-  fan: {configure: configureFanVFXEffect, finalize: finalizeFanVFXEffect},
+  fan: {configure: configureFanVFXEffect, runes: FAN_VFX_PROPS},
   influence: {},
   pulse: {},
   ray: {configure: configureRayVFXEffect, runes: RAY_VFX_PROPS},
