@@ -593,7 +593,10 @@
         "Elite": "Elite",
         "Minion": "Minion",
         "Normal": "Normal"
-      }
+      },
+      "NoArchetype": "No Archetype",
+      "NoTaxonomy": "No Taxonomy",
+      "ThreatLevelSpecific": "Threat Level {threat}"
     },
     "CREATION": {
       "AbandonContent": "Discard creation progress and exit the creator?",
