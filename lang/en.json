@@ -1091,6 +1091,7 @@
     "RESULT_TYPES": {
       "Armor": "Armor",
       "Block": "Block",
+      "CriticalHit": "Critical Hit",
       "Dodge": "Dodge",
       "Glance": "Glance",
       "Hit": "Hit",
@@ -1403,11 +1404,13 @@
     "Dodge": "Dodge",
     "Fortitude": "Fortitude",
     "Madness": "Rallying Threshold",
+    "MadnessShort": "Rallying",
     "Parry": "Parry",
     "Physical": "Physical",
     "Reflex": "Reflex",
     "Willpower": "Willpower",
-    "Wounds": "Healing Threshold"
+    "Wounds": "Healing Threshold",
+    "WoundsShort": "Healing"
   },
   "DETECTION_MODES": {
     "Echolocation": "Echolocation",

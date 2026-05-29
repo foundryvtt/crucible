@@ -107,15 +107,19 @@ export default class AttackRoll extends StandardCheck {
       cardData.target = {uuid: this.data.target, name: target?.name ?? "Unknown"};
     }
 
-    // Defense label
+    // Target defense and DC
     const dt = this.data.defenseType;
-    if ( dt in SYSTEM.DEFENSES ) cardData.defenseType = SYSTEM.DEFENSES[dt].label;
+    const defense = SYSTEM.DEFENSES[dt];
+    if ( defense ) cardData.defenseType = defense.shortLabel ?? defense.label;
     else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
     else cardData.defenseType = "DC";
     if ( game.user.isGM ) cardData.targetLabel = `${cardData.defenseType} ${cardData.dc}`;
 
-    // Outcome label
-    cardData.outcome = _loc(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
+    // Roll result
+    const isCritHit = (this.data.result === this.constructor.RESULT_TYPES.HIT) && this.isCriticalSuccess;
+    const outcomeKey = isCritHit ? "ATTACK.RESULT_TYPES.CriticalHit"
+      : this.constructor.RESULT_TYPE_LABELS[this.data.result];
+    cardData.outcome = _loc(outcomeKey);
     return cardData;
   }
 

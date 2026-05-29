@@ -197,48 +197,38 @@ function configureArrowVFXEffect(action) {
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
     let impactSound = null;
-    const impactAnimations = [];
-    const impactParticles = [];
+    const animations = [];
+    const particles = [];
     if ( isHit ) {
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
       if ( runeProps.impactSprite !== false ) {
         const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-        impactAnimations.push({function: "impactSpriteBurst", // Match the burst to the stick so both exit together
+        animations.push({function: "impactSpriteBurst",
           params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
       }
       if ( runeProps.recoil !== false ) {
-        impactAnimations.push(roll?.isCriticalSuccess
+        animations.push(roll?.isCriticalSuccess
           ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
           : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
       }
-      // Optional impact particle pop, e.g. a shower of leaves and bubbles for life. The rune declares
-      // the frame prefixes; if they don't resolve to assets ParticleGenerator surfaces a warning.
-      if ( runeProps.impactSpray ) {
-        impactParticles.push({
-          animation: "circleParticleBurst", anchor: "destination", duration: 200,
-          textures: getVFXFrames(action.rune.id, ...runeProps.impactSpray.frames),
-          params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
-            lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
-            elevation: (token.elevation ?? 0) + 1, ...runeProps.impactSpray.params}
-        });
+      if ( runeProps.impactParticles ) {
+        particles.push(_buildImpactParticles(action, runeProps.impactParticles,
+          {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
       }
       if ( runeProps.impactGlow ) {
-        impactAnimations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
+        animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
       }
     }
     else {
       impactSound = sound(getVFXSound(action.rune.id, "miss"));
-      // A resisted spell fizzles: a dissipating puff, no flash
       if ( (result === T.RESIST) && (runeProps.impactSprite !== false) ) {
-        impactAnimations.push({function: "impactSpriteBurst",
+        animations.push({function: "impactSpriteBurst",
           params: {texture: pickRandom(textures.air), size: 4, duration: 1500, flash: false}});
       }
     }
 
-    // Charge particles: rune-driven charge layers + optional smoke + lingering residue, all from
-    // runeProps via _resolveChargeLayers.
     const chargeParticles = _resolveChargeLayers(runeProps,
-      {textures, casterRadiusPx, casterElevation, particleElevation},
+      {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation},
       {duration: CHARGE_EMIT_DURATION});
 
     // Optional per-rune flight trail (follows the projectile). `trail` is `true` for the default
@@ -275,7 +265,7 @@ function configureArrowVFXEffect(action) {
         animations: [{function: "deliveryProjectileFlight"}], particles: projectileParticles},
       impacts: [{
         result, id: token.id, stick: stickDuration,
-        sound: impactSound, animations: impactAnimations, particles: impactParticles
+        sound: impactSound, animations, particles
       }]
     };
     timeline.push({component: `arrow_${j}`, position: 0});
@@ -364,8 +354,7 @@ function configureFanVFXEffect(action) {
     const tokenRef = `fanTarget_${j}_token`;
     const meshRef = `fanTarget_${j}_tokenMesh`;
     if ( isHit ) {
-      const treatment = runeProps.buildImpact?.(action, {token, textures, particleElevation, origin})
-        ?? _defaultFanHit(textures);
+      const treatment = _resolveHitTreatment(action, {textures, elevation: particleElevation}, runeProps);
       references[tokenRef] = `@${token.uuid}`;
       references[meshRef] = `^${tokenRef}.object.mesh`;
       targetMeshRefs.push({reference: meshRef});
@@ -409,21 +398,6 @@ function configureFanVFXEffect(action) {
     }
   };
   return {components, timeline: [{component: "fan", position: 0}], references};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Default per-hit treatment for a fan impact: an oriented impact-sprite burst with subtle recoil.
- * @param {SpellVFXTextures} textures
- * @returns {{animations: object[], particles: object[]}}
- */
-function _defaultFanHit(textures) {
-  const texture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-  return {
-    animations: [{function: "impactSpriteBurst", params: {texture, size: 2, duration: 1000, flash: true}}],
-    particles: []
-  };
 }
 
 /* -------------------------------------------- */
@@ -473,7 +447,7 @@ function configureRayVFXEffect(action) {
   // target's mesh reference + result + sound + animations + particles + `start` ms baked from the
   // rune's impactTiming strategy. The component just reads impact.start.
   const impactType = runeProps.impactSound ?? "impact";
-  const hitTreatment = _resolveRayHitTreatment(action, {textures, beamElevation}, runeProps);
+  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
   const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
   // Charge-point origin used by impact timing: shape origin shifted forward by chargeDistance, parallel
   // to what the component derives in _draw - so beam-front math agrees with the visual emission point.
@@ -697,14 +671,14 @@ function resolveSpellVFXContext(action) {
 /* -------------------------------------------- */
 
 /**
- * Resolve the full set of charge particle layers for a rune from its per-gesture props entry. Produces:
- * (1) the explicit `chargeLayers` array (each with per-layer categories/radius/elevation/material) OR
- * a single default spray-anchored layer; (2) an optional atmospheric smoke layer (suppressed when
- * runeProps.smoke is false); (3) an optional lingering residue layer (suppressed when
- * runeProps.residue is false). Same shape works for arrow-style charges and ray-style sustained
- * channels - the caller picks the anchor and emission duration.
+ * Resolve the charge particle layers for a rune from its per-gesture props entry. Each `chargeLayers`
+ * entry picks textures by `frames` (frame-name prefixes via {@link getVFXFrames}) or `categories`
+ * (whole VFX_TEXTURES categories). Runes without `chargeLayers` get a single default spray-mote
+ * fallback parameterizable via `sprayParams`. Shape works for arrow-style charges and ray-style
+ * sustained channels - the caller picks the anchor and emission duration.
  * @param {object} runeProps     Per-rune VFX overrides (see ARROW_VFX_PROPS / RAY_VFX_PROPS).
  * @param {object} ctx           Resolution context.
+ * @param {string} ctx.runeId    Required when any chargeLayers entry uses `frames`.
  * @param {SpellVFXTextures} ctx.textures
  * @param {number} ctx.casterRadiusPx
  * @param {number} ctx.casterElevation
@@ -715,51 +689,30 @@ function resolveSpellVFXContext(action) {
  * @returns {object[]}
  */
 function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
-  const {textures, casterRadiusPx, casterElevation, particleElevation = casterElevation} = ctx;
+  const {runeId, textures, casterRadiusPx, casterElevation, particleElevation = casterElevation} = ctx;
   const behavior = runeProps.chargeBehavior ?? "circleParticleGather";
   const a = anchor ?? runeProps.chargeAnchor ?? "origin";
   const elevationFor = above => above ? (casterElevation + 1)
     : ((a === "source") ? casterElevation : particleElevation);
-  const chargeElevation = elevationFor(runeProps.chargeAbove);
-  const residueElevation = runeProps.residueUnder ? casterElevation : (casterElevation + 1);
-  const layers = [];
-
-  // Primary charge content: explicit chargeLayers (each declaring its texture categories) or a single
-  // default spray-mote layer. Categories are declared by the rune - if the asset set is missing them,
-  // ParticleGenerator surfaces a console warning at runtime.
   if ( runeProps.chargeLayers ) {
-    for ( const layer of runeProps.chargeLayers ) {
-      layers.push({
-        animation: behavior, anchor: a, textures: layer.categories.flatMap(c => textures[c]), duration,
-        params: {chargeRadius: casterRadiusPx * (layer.radiusFactor ?? 2.0),
-          elevation: elevationFor(layer.above), ...layer.params}
-      });
-    }
-  }
-  else {
-    layers.push({
-      animation: behavior, anchor: a, textures: textures.spray, duration,
-      params: {chargeRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480,
-        elevation: chargeElevation, ...runeProps.sprayParams}
+    return runeProps.chargeLayers.map(layer => {
+      const layerTextures = layer.frames ? getVFXFrames(runeId, ...layer.frames)
+        : layer.categories.flatMap(c => textures[c]);
+      const rad = casterRadiusPx * (layer.radiusFactor ?? 2.0);
+      return {
+        animation: layer.animation ?? behavior,
+        anchor: a, textures: layerTextures,
+        offset: layer.offset ?? 0,
+        duration: layer.duration ?? duration,
+        params: {chargeRadius: rad, radius: rad, elevation: elevationFor(layer.above), ...layer.params}
+      };
     });
   }
-
-  // Optional atmospheric smoke + lingering residue. Runes opt out with `smoke: false` / `residue: false`;
-  // there is no defensive guard on textures.air - if a rune wants smoke/residue, it must ship air assets.
-  if ( runeProps.smoke !== false ) layers.push({
-    animation: behavior, anchor: a, textures: textures.air, duration,
-    params: {chargeRadius: casterRadiusPx * 2.5, lifetime: 500, spawnRate: 60,
-      alpha: {min: 0.3, max: 0.6}, scale: {min: 0.7, max: 1.2}, elevation: chargeElevation}
-  });
-  if ( runeProps.residue !== false ) layers.push({
-    animation: "circleParticleResidue", anchor: a, textures: textures.air,
-    offset: runeProps.residueOffset ?? 0, duration: runeProps.residueDuration ?? 300,
-    params: {radius: Math.round(casterRadiusPx * 1.5), lifetime: {min: 1500, max: 2200},
-      spawnRate: 120, count: 30, initial: 0.3, alpha: {min: 0.05, max: 0.18},
-      elevation: residueElevation, ...runeProps.residueParams}
-  });
-
-  return layers;
+  return [{
+    animation: behavior, anchor: a, textures: textures.spray, duration,
+    params: {chargeRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480,
+      elevation: elevationFor(runeProps.chargeAbove), ...runeProps.sprayParams}
+  }];
 }
 
 /* -------------------------------------------- */
@@ -785,49 +738,63 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
 /* -------------------------------------------- */
 
 /**
- * Resolve the per-target hit treatment for a ray (animations + particles to apply at each struck
- * target). The treatment is computed once and reused across all hit targets. Runes with `softImpact`
- * (e.g. life) skip the recoil + flash burst (a gentle restorative arrival rather than a strike) and
- * emit a particle spray from `softImpactFrames`; the default treatment is recoil + impact-sprite
- * burst + a small rune-spray. New per-rune impact styles go in RAY_VFX_PROPS.{rune}, not here.
+ * Build an impact particle-burst layer config from a rune's `impactParticles` spec. The spec selects
+ * textures by `frames` (frame-name prefixes via {@link getVFXFrames}) or `categories` (whole
+ * VFX_TEXTURES categories), and supplies optional `params` overrides on top of canonical defaults.
+ * @param {CrucibleSpellAction} action
+ * @param {{frames?: string[], categories?: string[], params?: object}} spec
+ * @param {object} ctx
+ * @param {string} [ctx.anchor="destination"]   Anchor for the burst (target-side at impact time).
+ * @param {number} ctx.elevation                Particle elevation.
+ * @param {SpellVFXTextures} [ctx.textures]     Required when `spec.categories` is used.
+ * @returns {object}
+ */
+function _buildImpactParticles(action, spec, {anchor = "destination", elevation, textures}) {
+  const gridSize = canvas.dimensions.size;
+  const layerTextures = spec.frames
+    ? getVFXFrames(action.rune.id, ...spec.frames)
+    : spec.categories.flatMap(c => textures[c]);
+  return {
+    animation: "circleParticleBurst", anchor, textures: layerTextures, duration: 200,
+    params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
+      lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
+      elevation, ...spec.params}
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the per-target hit treatment for ray and fan impacts from the runeProps declarative toggles
+ * (`impactSprite`, `recoil`, default true) and opt-in fields (`impactParticles`, `impactGlow`).
+ * Computed once and reused across all hit targets. A rune that wants a "soft" restorative arrival
+ * just disables the burst and recoil and supplies its own particle spec.
  * @param {CrucibleSpellAction} action
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
- * @param {number} ctx.beamElevation
- * @param {object} runeProps  Per-rune RAY_VFX_PROPS entry.
+ * @param {number} ctx.elevation
+ * @param {object} runeProps
  * @returns {{animations: object[], particles: object[]}}
  */
-function _resolveRayHitTreatment(action, ctx, runeProps) {
-  const {textures, beamElevation} = ctx;
-  const gridSize = canvas.dimensions.size;
-  const glowAnim = runeProps?.impactGlow
-    ? [{function: "impactSpriteGlow", params: runeProps.impactGlow}] : [];
-  if ( runeProps?.softImpact ) {
-    const sprayTextures = getVFXFrames(action.rune.id, ...(runeProps.softImpactFrames ?? ["SprayLeaf"]));
-    return {
-      animations: glowAnim,
-      particles: [{
-        animation: "circleParticleBurst", anchor: "target", textures: sprayTextures, duration: 200,
-        params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 50, initial: 1,
-          lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
-          elevation: beamElevation}
-      }]
-    };
+function _resolveHitTreatment(action, ctx, runeProps) {
+  const {textures, elevation} = ctx;
+  const animations = [];
+  const particles = [];
+  if ( runeProps?.recoil !== false ) {
+    animations.push({function: "impactSpriteRecoil", params: {distance: 12, duration: 320}});
   }
-  return {
-    animations: [
-      {function: "impactSpriteRecoil", params: {distance: 12, duration: 320}},
-      {function: "impactSpriteBurst",
-        params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}},
-      ...glowAnim
-    ],
-    particles: [{
-      animation: "circleParticleBurst", anchor: "target", textures: textures.spray, duration: 200,
-      params: {radius: Math.round(gridSize * 0.1), speed: {min: 50, max: 150}, count: 24, initial: 1,
-        lifetime: {min: 400, max: 800}, alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9},
-        elevation: beamElevation}
-    }]
-  };
+  if ( runeProps?.impactSprite !== false ) {
+    animations.push({function: "impactSpriteBurst",
+      params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}});
+  }
+  if ( runeProps?.impactParticles ) {
+    particles.push(_buildImpactParticles(action, runeProps.impactParticles,
+      {anchor: "destination", elevation, textures}));
+  }
+  if ( runeProps?.impactGlow ) {
+    animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
+  }
+  return {animations, particles};
 }
 
 /* -------------------------------------------- */
@@ -845,7 +812,7 @@ function _resolveRayHitTreatment(action, ctx, runeProps) {
 function _buildRayChargeAndDelivery(action, ctx) {
   const runeProps = SPELL_VFX_GESTURES.ray.runes?.[action.rune.id];
   if ( !runeProps ) return null;
-  const chargeCtx = {textures: ctx.textures, casterRadiusPx: ctx.casterRadiusPx,
+  const chargeCtx = {runeId: action.rune.id, textures: ctx.textures, casterRadiusPx: ctx.casterRadiusPx,
     casterElevation: ctx.casterElevation, particleElevation: ctx.beamElevation};
   const chargeEmitDuration = ctx.CHARGE_DURATION + (runeProps.chargeTail ?? 0);
   const chargeParticles = _resolveChargeLayers(runeProps, chargeCtx,
@@ -927,40 +894,100 @@ function addImpactComponents(action, components, timeline, references, getImpact
 }
 
 /* -------------------------------------------- */
-/*  Per-Rune VFX Properties                     */
+/*  Configuration Helpers                       */
 /* -------------------------------------------- */
 
-/* Shared charge configurations factored out to keep arrow + ray entries DRY when they share a charge
- * visual (e.g. fire arrow and fire ray both use the vortex-above + dark-smoke-below charge). */
+/**
+ * Helper function to create a blend mode transition curve.
+ * @param {number} t    Normalized time [0, 1] when the blend mode cools from ADD to NORMAL
+ * @param {object} [options]
+ * @param {number} [options.mode=PIXI.BLEND_MODES.ADD]          The "hot" blend mode
+ * @param {boolean} [options.reverse=false]                     Start cool and become "hot" after t
+ * @returns {{curve: Array<{time: number, value: number}>}}
+ */
+function _blendInHot(t, {mode=PIXI.BLEND_MODES.ADD, reverse=false}={}) {
+  const curve = reverse
+    ? [{time: 0, value: PIXI.BLEND_MODES.NORMAL}, {time: t, value: mode}]
+    : [{time: 0, value: mode}, {time: t, value: PIXI.BLEND_MODES.NORMAL}];
+  if ( t < 1 ) curve.push({time: 1, value: curve[1].value});
+  return {curve};
+}
 
-const _CHARGE_FLAME = {
+// Reusable vortex charge-up for Flame spells
+const _CHARGE_FLAME_VORTEX = {
   chargeBehavior: "circleParticleVortex", chargeAnchor: "source",
-  chargeAbove: true, chargeTail: -100, smoke: false,
-  sprayParams: {spawnRate: 560, spawnRateEnd: 160, scale: {min: 1.25, max: 2.0},
-    alpha: {min: 0.4, max: 0.9}},
-  residueUnder: true, residueOffset: 350, residueDuration: 300,
-  residueParams: {spawnRate: 70, count: null, initial: 0.2, lifetime: {min: 500, max: 800},
-    alpha: {min: 0.2, max: 0.45}, scale: {min: 0.7, max: 1.2}, tint: 0x6B5A48,
-    blend: PIXI.BLEND_MODES.NORMAL, fade: {in: 0.2, out: 0.4}}
-};
-
-const _CHARGE_LIFE = {
-  chargeBehavior: "circleParticleBloom", chargeAnchor: "source", smoke: false, residue: false,
   chargeLayers: [
-    {categories: ["ground"], above: false, radiusFactor: 3.0,
-      params: {lifetime: {min: 900, max: 1500}, spawnRate: 10, scale: {min: 0.5, max: 1.0}}},
-    {categories: ["spray"], above: true, radiusFactor: 1.6,
-      params: {lifetime: {min: 900, max: 1500}, spawnRate: 110, scale: {min: 0.5, max: 1.0}}}
+    {categories: ["spray"], above: true, radiusFactor: 2.0,
+      params: {spawnRate: 560, spawnRateEnd: 160, scale: {min: 1.25, max: 2.0}, alpha: {min: 0.4, max: 0.9},
+        blend: PIXI.BLEND_MODES.ADD}},
+    {frames: ["AirSmoke"], above: false, animation: "circleParticleResidue", radiusFactor: 2.0, params: {
+      spawnRate: 25, count: null, initial: 0.2, lifetime: {min: 800, max: 1600},
+      alpha: {min: 0.25, max: 0.5}, scale: {min: 0.75, max: 1.25}, tint: 0x6B5A48,
+      blend: PIXI.BLEND_MODES.NORMAL, fade: {in: 0.25, out: 0.5}
+    }}
   ]
 };
 
-/* Soft pink restorative-magic glow applied to struck targets across all life rune spells. */
-const _GLOW_LIFE = {
-  glowColor: 0xffaadd,
-  outerStrength: 6, innerStrength: 2,
-  distance: 20, quality: 0.5, padding: 16, knockout: false,
-  alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
+// Reusable icicles charge-up for Frost spells
+const _CHARGE_FROST_ICICLES = {
+  chargeBehavior: "circleParticleGather", chargeAnchor: "origin",
+  chargeLayers: [
+    {categories: ["spray"], above: true, radiusFactor: 2.0,
+      params: {lifetime: 350, spawnRate: 480,
+        alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0}, blend: _blendInHot(0.5, {reverse: true})}},
+    {categories: ["air"], above: false, animation: "circleParticleResidue", radiusFactor: 1.5,
+      params: {lifetime: {min: 1500, max: 2200}, spawnRate: 120, count: 30, initial: 0.3,
+        alpha: {min: 0.08, max: 0.22}, scale: {min: 0.8, max: 1.4},
+        blend: PIXI.BLEND_MODES.NORMAL, fade: {in: 0.15, out: 0.5}}}
+  ]
 };
+
+// Reusable bloom charge-up for Life spells
+const _CHARGE_LIFE_BLOOMS = {
+  chargeBehavior: "circleParticleBloom", chargeAnchor: "source",
+  chargeLayers: [
+    {frames: ["GroundRoots"], above: false, radiusFactor: 1.5,
+      params: {sort: -1, lifetime: {min: 2000, max: 4000}, spawnRate: 2, scale: {min: 1.25, max: 2.0},
+        fade: {in: 0.2, out: 0.9}}},
+    {frames: ["GroundBlooms"], above: false, radiusFactor: 2.5,
+      params: {sort: 0, lifetime: {min: 2000, max: 4000}, spawnRate: 10, scale: {min: 1.0, max: 1.5}}},
+    {categories: ["spray"], above: true, radiusFactor: 3.0,
+      params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
+        blend: _blendInHot(0.5)}}
+  ]
+};
+
+// Reusable impact treatment for Frost spells
+const _IMPACT_FROST = {
+  impactParticles: {
+    categories: ["spray"],
+    params: {count: 24, speed: {min: 50, max: 150}, lifetime: {min: 400, max: 800},
+      alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9}}
+  }
+};
+
+// Reusable impact treatment for Flame spells
+const _IMPACT_FLAME = {
+  impactParticles: {
+    categories: ["spray"],
+    params: {count: 24, speed: {min: 50, max: 150}, lifetime: {min: 400, max: 800},
+      alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9}}
+  }
+};
+
+// Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow + spray
+const _IMPACT_LIFE = {
+  impactSprite: false, recoil: false,
+  impactGlow: {
+    glowColor: Color.from("#ff5dc0"), outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
+    knockout: false, alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
+  },
+  impactParticles: {frames: ["SprayLeaf", "SprayBubble"]}
+};
+
+/* -------------------------------------------- */
+/*  Per-Gesture Configuration                   */
+/* -------------------------------------------- */
 
 /**
  * Per-rune VFX overrides for the Arrow gesture.
@@ -982,50 +1009,52 @@ const _GLOW_LIFE = {
  *   `circleParticleGather`); e.g. `circleParticleVortex`, `circleParticleBloom`.
  * - `chargeAnchor` (string): `origin` (the forward manifest point, default) or `source`
  *   (the launching token center).
- * - `chargeAbove` (boolean): draw the charge particles above the token rather than at ground level.
- * - `chargeLayers` ([{categories, above, radiusFactor, params}]): replaces the single default spray
- *   layer with explicit layers, each with its own elevation, radius, and material params.
+ * - `chargeAbove` (boolean): draw the charge particles above the token rather than at ground level
+ *   (only consulted by the default spray-mote fallback when no `chargeLayers` are declared).
+ * - `chargeLayers` ([{frames|categories, above, radiusFactor, animation, offset, duration, params}]):
+ *   explicit charge layers. `frames` selects by frame-name prefix; `categories` selects whole
+ *   VFX_TEXTURES categories. `animation` overrides the rune's chargeBehavior for that one layer
+ *   (e.g. `circleParticleResidue` for a lingering mist layer). `offset` and `duration` override the
+ *   default timing (caller's phase start + duration). Each layer also receives `chargeRadius` and
+ *   `radius` (the same casterRadiusPx-scaled value) plus a derived `elevation` in its params.
  * - `chargeTail` (number): ms the charge particles keep emitting past the projectile-release label
  *   (default 200; negative ends emission before release).
- * - `smoke` (boolean): emit the soft atmospheric (air) smoke layer during charge (default true).
- * - `sprayParams` (object): per-layer material overrides for the default spray (mote) charge layer.
- * - `residue` (boolean): emit the lingering atmospheric residue after the charge (default true).
- * - `residueUnder` (boolean): draw the residue beneath the caster token rather than overhead.
- * - `residueOffset` / `residueDuration` (number): ms the residue waits / emits (defaults 0 / 300).
- * - `residueParams` (object): residue material overrides (alpha, scale, tint, blend, lifetime, fade,
- *   spawnRate, count, ...); pass `blend: PIXI.BLEND_MODES.NORMAL` + dark tint for sooty smoke.
+ * - `sprayParams` (object): per-layer material overrides applied when no `chargeLayers` are declared
+ *   and the default spray-mote fallback layer is used.
  *
  * Impact:
  * - `stickDuration` (number): ms the projectile sprite stays at the impact location after a
  *   HIT/GLANCE before fading. Omit or 0 for no stick.
  * - `impactSprite` (boolean): show the impact burst sprite on a hit (default true).
  * - `recoil` (boolean): rock/shake the struck token on a hit (default true).
- * - `impactSpray` ({frames, params}): an impact particle pop from the named frames (e.g. SprayLeaf,
- *   SprayBubble) with optional material overrides.
+ * - `impactParticles` ({frames|categories, params}): a particle burst at the target on hit. Resolved
+ *   by {@link _buildImpactParticles}; selects textures by frame-name prefixes or VFX_TEXTURES
+ *   categories, with optional `params` overrides on top of canonical defaults.
+ * - `impactGlow` (object): {@link impactSpriteGlow} params for a restorative-magic glow on the target.
  *
  * @type {Record<string, object>}
  */
 const ARROW_VFX_PROPS = {
 
   // Arrow+Frost
-  frost: {stickDuration: 1500, projectileSize: 2, trail: true},
+  frost: {..._CHARGE_FROST_ICICLES, ..._IMPACT_FROST, stickDuration: 1500, projectileSize: 2, trail: true},
 
   // Arrow+Life
   life: {
-    ..._CHARGE_LIFE,
+    ..._CHARGE_LIFE_BLOOMS,
+    ..._IMPACT_LIFE,
     projectileSize: 3, projectileFrame: "life/ProjectileBubble", projectileSpeed: 30,
     flightSound: {rune: "life", type: "passive", offset: -1200, release: 400, fade: 400},
-    chargeDuration: 1500, impactSprite: false, recoil: false,
+    chargeDuration: 1500,
     trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
       lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},
-      alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}},
-    impactSpray: {frames: ["SprayLeaf", "SprayBubble"]},
-    impactGlow: _GLOW_LIFE
+      alpha: {min: 0.4, max: 0.85}, blend: PIXI.BLEND_MODES.NORMAL}}
   },
 
   // Arrow+Flame
   flame: {
-    ..._CHARGE_FLAME,
+    ..._CHARGE_FLAME_VORTEX,
+    ..._IMPACT_FLAME,
     projectileSize: 3, trail: true,
     path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}
   }
@@ -1054,8 +1083,8 @@ const RAY_IMPACT_TIMINGS = {
 
 /**
  * Per-rune VFX overrides for the Ray gesture. Each rune defines its own delivery composition via
- * `buildDelivery(ctx)`; the charge phase uses the same chargeXxx / sprayParams / residueXxx / smoke
- * fields documented on {@link ARROW_VFX_PROPS}.
+ * `buildDelivery(ctx)`; the charge phase uses the same chargeXxx / sprayParams fields documented on
+ * {@link ARROW_VFX_PROPS}.
  *
  * Delivery:
  * - `beamSpeed` (number): px/sec base for `beamFront` impact timing and (often) particle velocity.
@@ -1067,14 +1096,12 @@ const RAY_IMPACT_TIMINGS = {
  * - `buildDelivery(ctx)` (function): rune-specific delivery layer composition. Receives the builder
  *   context and returns an array of particle-layer configs for `delivery.particles`.
  *
- * Impact:
+ * Impact (shape shared with {@link ARROW_VFX_PROPS}: impactSprite/recoil booleans, impactParticles
+ * opt-in spec, impactGlow opt-in filter):
  * - `impactTiming` (string): named strategy from {@link RAY_IMPACT_TIMINGS} that computes per-target
  *   impact start times (e.g. `"beamFront"` for staggered, `"atEnd"` for simultaneous-at-completion).
  * - `impactSound` (string): per-target impact sound type (default "impact"); "impactHeavy" for
  *   runes like fire whose impacts should hit harder.
- * - `softImpact` (boolean): if true, skip recoil + flash-burst at the target and just emit a
- *   particle spray (gentle restorative arrival, used by life).
- * - `softImpactFrames` (string[]): frame prefixes for the softImpact spray textures.
  *
  * @type {Record<string, object>}
  */
@@ -1082,10 +1109,11 @@ const RAY_VFX_PROPS = {
 
   // Ray+Frost
   frost: {
+    ..._CHARGE_FROST_ICICLES,
+    ..._IMPACT_FROST,
     beamSpeed: 3000, deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 700, offset: -500, release: 600},
-    sprayParams: {spawnRate: 360}, smoke: false, residue: false,
     buildDelivery(ctx) {
       const {textures, beamElevation, spawnRadius, width} = ctx;
       const BEAM_SPEED = this.beamSpeed;
@@ -1118,7 +1146,8 @@ const RAY_VFX_PROPS = {
 
   // Ray+Flame
   flame: {
-    ..._CHARGE_FLAME,
+    ..._CHARGE_FLAME_VORTEX,
+    ..._IMPACT_FLAME,
     deliveryDuration: 1200, // LINE_DURATION - ms for the flame line to traverse origin -> end
     impactTiming: "atEnd",
     deliverySound: {fade: 600, offset: -400, release: 500},
@@ -1184,16 +1213,14 @@ const RAY_VFX_PROPS = {
 
   // Ray+Life
   life: {
-    ..._CHARGE_LIFE,
+    ..._CHARGE_LIFE_BLOOMS,
+    ..._IMPACT_LIFE,
     beamSpeed: 750, // TODO needs to be in ft/sec independent of grid size
     deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 500, offset: -300, release: 600},
     deliverySoundType: "damage",
     sustainedChargeAnchor: "source",
-    softImpact: true,
-    softImpactFrames: ["SprayLeaf", "SprayBubble"],
-    impactGlow: _GLOW_LIFE,
 
     buildDelivery(ctx) {
       const {action, spawnRadius, casterElevation} = ctx;
@@ -1217,11 +1244,7 @@ const RAY_VFX_PROPS = {
             lifetime: {min: 800, max: 1400},
             scale: {min: 0.8, max: 1.0},
             fade: {in: 40, out: 250},
-            blend: {curve: [
-              {time: 0, value: PIXI.BLEND_MODES.ADD},
-              {time: 0.4, value: PIXI.BLEND_MODES.NORMAL},
-              {time: 1, value: PIXI.BLEND_MODES.NORMAL}
-            ]},
+            blend: _blendInHot(0.4),
             elevation: casterElevation + 1
           }
         }
@@ -1240,15 +1263,17 @@ const RAY_VFX_PROPS = {
  * - `deliverySoundType` (string): RUNE_SOUNDS key for the looping delivery sound (omit for silent).
  * - `deliverySound` ({fade, offset, release}): envelope params when delivery sound is enabled.
  * - `buildDelivery(ctx)`: returns the delivery particle-layer array.
- * - `buildImpact(action, {token, textures, particleElevation, origin})` (optional): per-hit treatment.
  * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
- *   chargeAbove, chargeLayers, sprayParams, smoke, residue, residueUnder, residueParams, ...).
+ *   chargeAbove, chargeLayers, sprayParams, ...).
+ * - All the impactXxx fields consumed by {@link _resolveHitTreatment} (impactSprite, recoil,
+ *   impactParticles, impactGlow) - matches the arrow/ray declarative impact shape.
  * @type {Record<string, object>}
  */
 const FAN_VFX_PROPS = {
 
   // Fan+Frost
   frost: {
+    ..._IMPACT_FROST,
     chargeDuration: 0,
     sweepDuration: 400,
     buildDelivery(ctx) {
@@ -1288,8 +1313,8 @@ const FAN_VFX_PROPS = {
 
   // Fan+Flame
   flame: {
+    ..._IMPACT_FLAME,
     chargeDuration: 200,
-    chargeSound: false,
     sweepDuration: 1200,
     oscillate: true,
     impactSound: "impact",
@@ -1340,11 +1365,7 @@ const FAN_VFX_PROPS = {
             alpha: {min: 0.25, max: 0.5}, scale: {min: 0.75, max: 1.25},
             lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
             fade: {in: 0, out: 2500},
-            blend: {curve: [
-              {time: 0, value: PIXI.BLEND_MODES.MULTIPLY},
-              {time: 0.2, value: PIXI.BLEND_MODES.NORMAL},
-              {time: 1.0, value: PIXI.BLEND_MODES.NORMAL}
-            ]}
+            blend: _blendInHot(0.2, {mode: PIXI.BLEND_MODES.MULTIPLY})
           }
         },
         { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
@@ -1363,20 +1384,11 @@ const FAN_VFX_PROPS = {
         }
       ];
     },
-    buildImpact(_action, {textures}) {
-      const texture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-      return {
-        animations: [
-          {function: "impactSpriteShake", params: {distance: 14, oscillations: 2, duration: 400}},
-          {function: "impactSpriteBurst", params: {texture, size: 3, duration: 900, flash: true}}
-        ],
-        particles: []
-      };
-    }
   },
 
   // Fan+Life
   life: {
+    ..._IMPACT_LIFE,
     chargeDuration: 900,
     sweepDuration: 1000,
     impactSound: "impact",
@@ -1444,24 +1456,6 @@ const FAN_VFX_PROPS = {
           }
         }
       ];
-    },
-    buildImpact(action, {textures, particleElevation}) {
-      const gridSize = canvas.dimensions.size;
-      const sprayTextures = getVFXFrames(action.rune.id, "SprayLeaf", "SprayBubble");
-      return {
-        animations: [
-          {function: "impactSpriteGlow", params: _GLOW_LIFE}
-        ],
-        particles: [
-          { // Leaf and bubble spray upon impact
-            animation: "circleParticleBurst", anchor: "target", textures: sprayTextures,
-            duration: 200,
-            params: {radius: Math.round(gridSize * 0.12), speed: {min: 70, max: 210}, count: 40, initial: 1,
-              lifetime: {min: 650, max: 1100}, alpha: {min: 0.6, max: 1.0}, scale: {min: 0.5, max: 1.1},
-              elevation: particleElevation, blend: PIXI.BLEND_MODES.NORMAL}
-          }
-        ]
-      };
     }
   }
 };
