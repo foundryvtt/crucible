@@ -163,6 +163,11 @@ export const ACTION_HOOKS = Object.freeze({
     argLabels: ["this: CrucibleAction", "reverse: boolean"],
     async: true
   },
+  postConfirm: {
+    argNames: ["reverse"],
+    argLabels: ["this: CrucibleAction", "reverse: boolean"],
+    async: true
+  },
   summon: {
     argNames: ["reverse"],
     argLabels: ["this: CrucibleAction", "reverse: boolean"],

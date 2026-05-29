@@ -7,6 +7,13 @@ import CrucibleAction from "../models/action.mjs";
  */
 export default class CrucibleChatMessage extends ChatMessage {
 
+  /**
+   * Whether a reverse-confirm is currently in flight for this message.
+   * @type {boolean}
+   * @internal
+   */
+  _reversing;
+
   /* -------------------------------------------- */
   /*  Database Operations                         */
   /* -------------------------------------------- */
@@ -25,7 +32,7 @@ export default class CrucibleChatMessage extends ChatMessage {
     super._onUpdate(data, options, userId);
     const flags = this.flags.crucible || {};
     if ( foundry.utils.hasProperty(data, "flags.crucible.confirmed") ) CrucibleChatMessage.#renderAllSheetSidebars();
-    if ( flags.action && flags.vfxConfig && (data.flags.crucible.confirmed === true) ) this.#playVFXEffect();
+    if ( flags.action && flags.vfxConfig && (foundry.utils.getProperty(data, "flags.crucible.confirmed") === true) ) this.#playVFXEffect();
   }
 
   /* -------------------------------------------- */

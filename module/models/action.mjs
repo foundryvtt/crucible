@@ -523,6 +523,8 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##applyEvents` - Walk the event stream and apply resource changes to each actor. When
  *   `reverse=true`, all deltas are inverted, effects are removed, and item snapshots are restored.
  * - `CrucibleAction##recordHeroism` - Award heroism for confirmed damage-dealing actions.
+ * - Action hooks called: `postConfirm`
+ *    - Fires after `#applyEvents` and the message-confirmed flag flip; used for chaining actions.
  *
  * ## Guidance for Hook Authors
  * - Record events, do not mutate actor state directly. All resource changes, effects, and actor updates must be
@@ -2294,6 +2296,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Mark the message as confirmed (or unconfirmed)
     await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
+
+    // Post-confirm hooks fire after #applyEvents has run and the message-confirmed flag is committed. Used for chaining
+    // actions.
+    for ( const test of this._tests() ) {
+      if ( typeof test.postConfirm !== "function" ) continue;
+      try {
+        await test.postConfirm.call(this, reverse);
+      } catch ( cause ) {
+        console.error(new Error(`"${this.id}" postConfirm failed`, { cause }));
+      }
+    }
     return true;
   }
 
@@ -2885,8 +2898,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.reverse=false]
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
-    action ||= this.fromChatMessage(message);
-    await action.confirm({reverse});
+    // Bail if a reverse-confirm is already in flight for this message.
+    if ( reverse && message?._reversing ) return;
+    if ( reverse && message ) message._reversing = true;
+    try {
+      action ||= this.fromChatMessage(message);
+      await action.confirm({reverse});
+    } finally {
+      if ( reverse && message ) message._reversing = false;
+    }
   }
 
   /* -------------------------------------------- */

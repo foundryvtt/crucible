@@ -46,6 +46,10 @@
         "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and one less than your current Initiative. You will act at this new Initiative value, and if other combatants share that value you will act before them. You may only delay your turn once per round.",
         "Name": "Delay"
       },
+      "Fall": {
+        "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
+        "Name": "Fall"
+      },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
@@ -537,9 +541,11 @@
       "Entropy": "Entropy",
       "Exhausted": "Exhausted",
       "Exposed": "Exposed",
+      "Falling": "Falling",
       "Fear": "Frightened",
       "Flanked": "Flanked",
       "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
+      "Flying": "Flying",
       "Freezing": "Freezing",
       "Guarded": "Guarded",
       "Hastened": "Hastened",
@@ -1531,6 +1537,7 @@
   "HAZARD": {
     "DefaultActor": "Environment",
     "DefaultName": "Environmental Hazard",
+    "Falling": "Falling",
     "Hazard": "Hazard",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",
@@ -2422,6 +2429,10 @@
         "crawl": {
           "description": "Move while Prone a distance up to half your Stride attribute per Action.",
           "label": "Crawl"
+        },
+        "fall": {
+          "description": "Gravitational descent toward a supporting surface. Movement cost is always zero.",
+          "label": "Fall"
         },
         "fast": {
           "label": "Hurried"

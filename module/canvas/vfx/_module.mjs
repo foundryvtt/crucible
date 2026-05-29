@@ -1,5 +1,6 @@
 export * as animations from "./animations/_module.mjs";
 export * as blocks from "./blocks.mjs";
+export * as landing from "./landing.mjs";
 export * as sounds from "./sounds.mjs";
 export * as spells from "./spells.mjs";
 export * as sprites from "./sprites.mjs";

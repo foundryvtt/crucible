@@ -214,6 +214,7 @@ export const TAG_CATEGORIES = defineEnum({
  * @property {(this: CrucibleAction) => void} [postActivate]
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [postConfirm]
  * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [resolveVFX]
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [finalizeVFX]
@@ -939,7 +940,7 @@ export const TAGS = {
     priority: 9,
     prepare() {
       this.usage.hasDice = true;
-      this.usage.bonuses.enchantment = this.item.system.config?.enchantment.bonus || 0;
+      this.usage.bonuses.enchantment = this.item?.system.config?.enchantment.bonus || 0;
       this.usage.defenseType ??= "physical";
       this.usage.resource ??= "health";
       this.usage.damageType ??= "void";
@@ -1233,6 +1234,28 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
+
+      // Derive the post-move movement-state status (falling/flying/burrowing) from the planned final waypoint and
+      // record the delta as a standard effect event. These three statuses are mutually exclusive: at most one is
+      // active at a time, and any others are cleared.
+      const final = this.movement?.waypoints?.at(-1);
+      if ( !final || !this.token ) return;
+      const { burrowing, falling, flying } = CONFIG.statusEffects;
+      let toAdd;
+      if ( final.action === "fly" ) toAdd = flying;
+      else if ( final.action === "burrow" ) toAdd = burrowing;
+      else if ( this.token._isHoveringAboveSurface(final) ) toAdd = falling;
+      const effects = [];
+      if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
+        const { _id, id, img, name } = toAdd;
+        effects.push({ _id, img, name: _loc(name), statuses: [id] });
+      }
+      for ( const { id } of [burrowing, falling, flying] ) {
+        if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
+          effects.push({ _id: CONFIG.statusEffects[id]._id, _action: "delete" });
+        }
+      }
+      if ( effects.length ) this.recordEvent({ type: "effect", target: this.actor, effects });
     },
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
@@ -1244,6 +1267,12 @@ export const TAGS = {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
+    },
+    async postConfirm(reverse) {
+      // Fall is not movement-tagged, so its own confirm does not re-enter this branch.
+      if ( reverse || !this.token ) return;
+      if ( !this.actor.statuses.has(CONFIG.statusEffects.falling.id) ) return;
+      await this.actor.actions.fall.use({ token: this.token });
     }
   }
 };
@@ -1382,6 +1411,18 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 1
     },
     tags: ["movement"]
+  },
+
+  // Fall
+  {
+    id: "fall",
+    name: "ACTION.DEFAULT_ACTIONS.Fall.Name",
+    img: "systems/crucible/icons/statuses/falling.svg",
+    description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
+    target: { type: "self", scope: 1 },
+    cost: { action: 0 },
+    tags: ["generic"],
+    effects: [{ statuses: ["prone"] }]
   },
 
   // Defend

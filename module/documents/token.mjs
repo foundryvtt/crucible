@@ -172,9 +172,82 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   async #revertUndoneMovement(movementId) {
     const message = game.messages.contents.findLast(m => m.flags?.crucible?.movement === movementId);
     if ( !message ) return;
+    // The action's own reverse flow is already handling this message; do not re-reverse or delete it.
+    if ( message._reversing ) return;
     if ( message.flags.crucible?.confirmed ) {
       await crucible.api.models.CrucibleAction.confirmMessage(message, {reverse: true});
     }
     await message.delete();
+  }
+
+  /* -------------------------------------------- */
+  /*  Falling                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Find the highest movement-restricting surface at or below the given elevation whose 2D footprint contains at least
+   * 75% of the token's containment points. This is the surface the token is either standing on (when its elevation
+   * matches it) or hovering above. When no defined surface is found beneath the token, the floor of the lowest level
+   * visible from the token's own level is returned as a synthetic surface.
+   * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
+   * @returns {RegionSurface|{region: null, elevation: number}|null}
+   * @internal
+   */
+  _findSupportingSurface(position=this._source) {
+    const scene = this.parent;
+    if ( !scene ) return null;
+    const { elevation, level } = position;
+    const surfaces = scene.getSurfaces({ level, type: "move" });
+
+    // Walk surfaces from highest to lowest and return the first whose footprint contains the required share of the
+    // token. Scene#getSurfaces already orders surfaces by elevation.
+    if ( surfaces.length ) {
+      const points = this.getContainmentTestPoints(position);
+      const required = Math.ceil(points.length * .75);
+      const allowedMisses = points.length - required;
+
+      for ( let i = surfaces.length; i--; ) {
+        const surface = surfaces[i];
+        if ( surface.elevation > elevation ) continue;
+        let inside = 0;
+        let missed = 0;
+        for ( const p of points ) {
+          if ( surface.region.polygonTree.testPoint(p) ) {
+            if ( ++inside >= required ) return surface;
+          }
+          else if ( ++missed > allowedMisses ) break;
+        }
+      }
+    }
+
+    // No defined surface was found beneath the token. Fall back to the floor of the lowest level visible from the
+    // token's own level.
+    const ownLevel = scene.levels.get(level);
+    if ( !ownLevel ) return null;
+    let { base } = ownLevel.elevation;
+    for ( const id of ownLevel.visibility.levels ) {
+      const visible = scene.levels.get(id);
+      if ( visible ) base = Math.min(base, visible.elevation.base);
+    }
+    return elevation > base ? { region: null, elevation: base } : null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether this token is hovering above a movement-restricting surface in the current scene. Returns false
+   * when the token is on the ground, over a void with no surface below it, or has a status that exempts it from
+   * falling, i.e. FLY/HOVER.
+   * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
+   * @returns {boolean}
+   * @internal
+   */
+  _isHoveringAboveSurface(position=this._source) {
+    const { actor } = this;
+    if ( !actor ) return false;
+    const { BURROW, FLY } = CONFIG.specialStatusEffects;
+    if ( actor.statuses.has(BURROW) || actor.statuses.has(FLY) ) return false;
+    const surface = this._findSupportingSurface(position);
+    return !!surface && (surface.elevation < position.elevation);
   }
 }
