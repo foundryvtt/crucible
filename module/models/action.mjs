@@ -2307,6 +2307,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         console.error(new Error(`"${this.id}" postConfirm failed`, { cause }));
       }
     }
+
+    // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
+    if ( !reverse && !isNegated ) await this.#settleMovement();
     return true;
   }
 
@@ -2439,6 +2442,37 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
     return textEvents;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Revisit any actors moved during this action and trigger a follow-up fall action for each whose token now
+   * hovers above a supporting surface. Runs at the tail of {@link confirm} so the originating action's chat
+   * message is fully confirmed before any chained fall is rolled. Token-level FLY/BURROW exemptions are honored
+   * by {@link CrucibleToken#_isHoveringAboveSurface}.
+   */
+  async #settleMovement() {
+    const fallers = [];
+    const seen = new Set();
+    for ( const event of this.events ) {
+      if ( event.type !== "movement" ) continue;
+      const actor = event.target;
+      if ( seen.has(actor) ) continue;
+      seen.add(actor);
+      const isSelf = actor === this.actor;
+      const token = isSelf ? this.token
+        : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
+      if ( !token ) continue;
+      if ( !token._isHoveringAboveSurface() ) continue;
+      fallers.push({actor, token});
+    }
+    for ( const {actor, token} of fallers ) {
+      if ( !actor.statuses.has(CONFIG.statusEffects.falling.id) ) {
+        await actor.toggleStatusEffect(CONFIG.statusEffects.falling.id, {active: true});
+      }
+      await actor.actions.fall.use({token});
+    }
   }
 
   /* -------------------------------------------- */

@@ -1235,20 +1235,17 @@ export const TAGS = {
       }
       status.hasMoved = true;
 
-      // Derive any post-movement status (falling/flying/burrowing) from the planned final waypoint.
+      // Derive intentional post-movement status (flying/burrowing) from the planned final waypoint action
       const final = this.movement?.waypoints?.at(-1);
       if ( !final || !this.token ) return;
       const { burrowing, falling, flying } = CONFIG.statusEffects;
       let toAdd;
       if ( final.action === "fly" ) toAdd = flying;
       else if ( final.action === "burrow" ) toAdd = burrowing;
-      else if ( this.token._isHoveringAboveSurface(final) ) toAdd = falling;
       const effects = [];
       if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
         const { _id, id, img, name } = toAdd;
-        const effect = { _id, img, name: _loc(name), statuses: [id] };
-        if ( id === falling.id ) effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS; // TODO generalize somehow?
-        effects.push(effect);
+        effects.push({ _id, img, name: _loc(name), statuses: [id] });
       }
       for ( const { id } of [burrowing, falling, flying] ) {
         if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
@@ -1266,11 +1263,6 @@ export const TAGS = {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
-    },
-    async postConfirm(reverse) {
-      if ( reverse || !this.token ) return;
-      if ( !this.actor.statuses.has(CONFIG.statusEffects.falling.id) ) return;
-      await this.actor.actions.fall.use({ token: this.token });
     }
   }
 };
