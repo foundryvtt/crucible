@@ -1222,29 +1222,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @inheritDoc */
   async _onDragStart(event) {
-    await super._onDragStart(event);
     const li = event.currentTarget;
-    let dragData;
 
-    // Action
+    // Crucible Actions. The dataTransfer is only writable during synchronous dragstart handling, so set it first.
     if ( li.classList.contains("action-drag") ) {
       const actionId = li.closest(".action").dataset.actionId;
       const action = this.actor.actions[actionId];
       if ( !action ) return;
-      dragData = {
-        type: "crucible.action",
-        macroData: {
-          type: "script",
-          scope: "actor",
-          name: action.name,
-          img: action.img,
-          command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${actionId}");`
-        }
-      };
+      event.dataTransfer.setData("text/plain", JSON.stringify(action.toMacroDragData()));
+      return;
     }
 
-    // Set data transfer
-    if ( dragData ) event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    // Items and ActiveEffects
+    await super._onDragStart(event);
   }
 
   /* -------------------------------------------- */

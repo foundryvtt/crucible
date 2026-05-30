@@ -1,12 +1,14 @@
 import {getRandomSound} from "./sounds.mjs";
 import {getRandomSprite} from "./sprites.mjs";
+import {computeAttackOffset} from "./helpers.mjs";
 
 /**
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
+ * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
  * @returns {{components: {}, name, timeline: *[]}|null}
  */
-export function configureStrikeVFXEffect(action) {
+export function configureStrikeVFXEffect(action, vfxConfig) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const components = {};
   const timeline = [];
@@ -14,22 +16,23 @@ export function configureStrikeVFXEffect(action) {
 
   // Prepare each weapon strike
   let j=1; // Target
-  for ( const outcome of action.outcomes.values() ) {
-    if ( outcome.target === action.actor ) continue;
-    const token = outcome.token;
-    const targetTokenReference = `outcome_${j}_token`;
-    const targetMeshReference = `outcome_${j}_tokenMesh`;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const targetTokenReference = `target_${j}_token`;
+    const targetMeshReference = `target_${j}_tokenMesh`;
     Object.assign(references, {
       [targetTokenReference]: `@${token.uuid}`,
       [targetMeshReference]: `^${targetTokenReference}.object.mesh`
     });
     let i=1; // Roll
-    for ( const roll of outcome.rolls ) {
-      const weapon = action.usage.strikes[outcome.rolls[0].data.strike];
+    for ( const event of group.roll ) {
+      const roll = event.roll;
+      const weapon = action.usage.strikes[roll.data.strike];
       if ( !["projectile1", "projectile2"].includes(weapon?.category) ) continue;
 
       // Identify impact location
-      const impact = configureImpact(outcome, roll, targetMeshReference);
+      const impact = configureImpact(token, roll, targetMeshReference);
 
       // Add the arrow projectile
       const projectileName = `arrowProjectile_${j}_${i}`;
@@ -64,10 +67,9 @@ export function configureStrikeVFXEffect(action) {
   if ( !timeline.length ) return null;
 
   // Validate that the effect data parses correctly
-  let vfxConfig;
   try {
     const effect = new foundry.canvas.vfx.VFXEffect({name: action.id, components, timeline});
-    vfxConfig = effect.toObject();
+    vfxConfig = effect.toObject(); // TODO replace for now, rather than merge
     vfxConfig.references = references;
   } catch(cause) {
     console.error(new Error(`Strike VFX configuration failed for Action "${this.id}"`, {cause}));
@@ -79,52 +81,42 @@ export function configureStrikeVFXEffect(action) {
 
 /**
  * Get a referenced impact position for a target Token and a given AttackRoll.
- * @param {CrucibleActionOutcome} outcome
+ * @param {CrucibleToken} token
  * @param {AttackRoll} roll
  * @param {string} targetMeshReference
  * @returns {{position: {reference: string, deltas: Record<string, number>}, sound: string|null, texture: string|null}}
  * @internal
  */
-function configureImpact(outcome, roll, targetMeshReference) {
-  const position = {reference: targetMeshReference, deltas: {sort: 1}};
+function configureImpact(token, roll, targetMeshReference) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let sound = null;
   let texture = null;
-  const w = outcome.token.width * canvas.dimensions.size;
-  const h = outcome.token.height * canvas.dimensions.size;
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
 
-  // Customize the impact depending on the roll result
-  let hitRange;
+  // Result-specific sound and impact texture; positional offset is shared via computeAttackOffset
   switch ( roll.data.result ) {
     case T.HIT:
-      hitRange = [0, 0.1];
       sound = getRandomSound("projectile", "hitCreature");
       texture = getRandomSprite("impacts", "blood");
       break;
     case T.ARMOR:
     case T.BLOCK:
-      hitRange = [0, 0.25];
       sound = getRandomSound("projectile", "block");
       break;
     case T.GLANCE:
-      hitRange = [0.25, 0.5];
       sound = getRandomSound("projectile", "hitObject");
       texture = getRandomSprite("impacts", "blood");
       break;
     case T.PARRY:
-      hitRange = [0.25, 0.5];
       sound = getRandomSound("projectile", "block");
       break;
     case T.DODGE:
     case T.MISS:
-      hitRange = [0.5, 1.0];
       sound = getRandomSound("projectile", "miss");
       break;
   }
 
-  // Determine position based on hit range
-  position.deltas.x = Math.mix(w * hitRange[0], w * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
-  position.deltas.y = Math.mix(h * hitRange[0], h * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
+  const offset = computeAttackOffset(token, roll.data.result);
+  const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
   return {position, sound, texture};
 }
 

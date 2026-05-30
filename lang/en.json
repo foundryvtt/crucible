@@ -46,6 +46,11 @@
         "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and one less than your current Initiative. You will act at this new Initiative value, and if other combatants share that value you will act before them. You may only delay your turn once per round.",
         "Name": "Delay"
       },
+      "Fall": {
+        "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
+        "Name": "Fall",
+        "NameDistance": "Fall ({distance} feet)"
+      },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
@@ -484,6 +489,7 @@
     "DelayHint": "Choose an Initiative between 1 and {maximum} at which to act. See @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.DPrsFbPo3tD7TJ5g]{Initiative and Turn Order} for how delayed Initiative interacts with tiebreaking.",
     "DelayLabel": "Delayed Initiative",
     "DelayTitle": "Delay Turn",
+    "DragToHotbar": "Drag to the hotbar to create a Macro for this Action.",
     "DurationRounds": "{value}R",
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
@@ -536,9 +542,11 @@
       "Entropy": "Entropy",
       "Exhausted": "Exhausted",
       "Exposed": "Exposed",
+      "Falling": "Falling",
       "Fear": "Frightened",
       "Flanked": "Flanked",
       "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
+      "Flying": "Flying",
       "Freezing": "Freezing",
       "Guarded": "Guarded",
       "Hastened": "Hastened",
@@ -1091,6 +1099,7 @@
     "RESULT_TYPES": {
       "Armor": "Armor",
       "Block": "Block",
+      "CriticalHit": "Critical Hit",
       "Dodge": "Dodge",
       "Glance": "Glance",
       "Hit": "Hit",
@@ -1403,11 +1412,13 @@
     "Dodge": "Dodge",
     "Fortitude": "Fortitude",
     "Madness": "Rallying Threshold",
+    "MadnessShort": "Rallying",
     "Parry": "Parry",
     "Physical": "Physical",
     "Reflex": "Reflex",
     "Willpower": "Willpower",
-    "Wounds": "Healing Threshold"
+    "Wounds": "Healing Threshold",
+    "WoundsShort": "Healing"
   },
   "DETECTION_MODES": {
     "Echolocation": "Echolocation",
@@ -1493,6 +1504,7 @@
     "Enchantment": "Enchantment",
     "EnchantmentBonus": "Enchantment Bonus",
     "Healing": "Healing",
+    "ReplayAnimation": "Replay Animation",
     "Reverse": "Reverse",
     "Roll": "Roll",
     "RollTotal": "Roll Total",
@@ -1526,6 +1538,7 @@
   "HAZARD": {
     "DefaultActor": "Environment",
     "DefaultName": "Environmental Hazard",
+    "Falling": "Falling",
     "Hazard": "Hazard",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",
@@ -2417,6 +2430,10 @@
         "crawl": {
           "description": "Move while Prone a distance up to half your Stride attribute per Action.",
           "label": "Crawl"
+        },
+        "fall": {
+          "description": "Gravitational descent toward a supporting surface. Movement cost is always zero.",
+          "label": "Fall"
         },
         "fast": {
           "label": "Hurried"

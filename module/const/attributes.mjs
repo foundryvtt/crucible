@@ -300,12 +300,14 @@ export const DEFENSES = {
   wounds: {
     id: "wounds",
     label: "DEFENSES.Wounds",
+    shortLabel: "DEFENSES.WoundsShort",
     tooltip: "DEFENSES.TOOLTIPS.Wounds",
     type: "threshold"
   },
   madness: {
     id: "madness",
     label: "DEFENSES.Madness",
+    shortLabel: "DEFENSES.MadnessShort",
     tooltip: "DEFENSES.TOOLTIPS.Madness",
     type: "threshold"
   }

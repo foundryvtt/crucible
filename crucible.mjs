@@ -293,6 +293,7 @@ Hooks.once("init", async function() {
   Object.defineProperty(CONFIG, "statusEffects", {value: statusEffects, configurable: true, enumerable: true});
   CONFIG.specialStatusEffects.BLIND = "blinded";
   CONFIG.specialStatusEffects.BURROW = "burrowing";
+  CONFIG.specialStatusEffects.FLY = "flying";
 
   // Canvas Configuration
   canvas.configure();
@@ -452,6 +453,7 @@ Hooks.once("init", async function() {
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
+  CONFIG.debug.vfx = true;
   if ( crucible.developmentMode ) {
     registerDevelopmentHooks();
     enableSpellcheckContext();
@@ -527,7 +529,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group"]);
   localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
-  localizeConfigObject(SYSTEM.DEFENSES);
+  localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel"]);
   localizeConfigObject(SYSTEM.RESOURCES);
   localizeConfigObject(SYSTEM.TEMPERATURE_TIERS);
   localizeConfigObject(SYSTEM.THREAT_RANKS);
@@ -652,6 +654,9 @@ Hooks.once("ready", async function() {
   document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
   document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
 
+  // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
+  canvas.vfx.blocks.configurePerformanceMode();
+
   // Perform World Migrations
   if ( game.users.activeGM?.isSelf ) {
     const mv = game.settings.get("crucible", "migrationVersion");
@@ -765,18 +770,29 @@ Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTra
 /* -------------------------------------------- */
 
 /**
+ * Register VFX spritesheet atlases for loading as part of the centralized scene texture load.
+ */
+Hooks.on("canvasInit", () => {
+  canvas.vfx.sprites.loadVFXSpritesheets();
+});
+
+/* -------------------------------------------- */
+
+/**
  * Actions to take when the main game canvas is re-rendered.
  * Re-open the talent tree if it was previously open for a certain Actor.
  */
 Hooks.on("canvasReady", () => {
   if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
-  for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
-  if ( game.user.isGM && globalThis.canvas.scene?._microgrid?.warning ) {
-    ui.notifications.warn(globalThis.canvas.scene._microgrid.warning);
-  }
+  const gameCanvas = globalThis.canvas;
+  const scene = gameCanvas.scene;
+  for ( const token of gameCanvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  if ( game.user.isGM && scene?._microgrid?.warning ) ui.notifications.warn(scene._microgrid.warning);
+  gameCanvas.sceneTextures["crucible.particle.white"] = PIXI.Texture.WHITE;
+  canvas.vfx.sprites.registerVFXSprites();
 
   // Use the token-collision movement polygon as the move backend on microgrid scenes
-  CONFIG.Canvas.polygonBackends.move = globalThis.canvas.scene?.useMicrogrid
+  CONFIG.Canvas.polygonBackends.move = scene?.useMicrogrid
     ? canvas.CrucibleMovementPolygon
     : foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
@@ -786,13 +802,14 @@ Hooks.on("canvasTearDown", () => {
   CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
 
+/* -------------------------------------------- */
+
 Hooks.on("hotbarDrop", async (bar, data, slot) => {
   if ( data.type === "crucible.action" ) {
     const macro = await Macro.create(data.macroData);
     await game.user.assignHotbarMacro(macro, slot);
   }
 });
-
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

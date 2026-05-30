@@ -1050,9 +1050,12 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.reverse]                      Reverse the direction of change?
    * @param {ScrollingTextEvent[]} [options.statusText]      Additive scrolling text appended to cache-diff scrolls
    * @param {ScrollingTextEvent[]} [options.textEvents]      Canonical scrolling text events; overrides cache-diff
+   * @param {boolean} [options.scrollingText=true]           When false, fully suppress scrolling text display
+   *                                                          for this update. Used when a VFXEffect (or other
+   *                                                          orchestrator) will dispatch the text itself.
    * @returns {Promise<CrucibleActor>}                     The updated Actor document
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1112,7 +1115,7 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
-    return this.update(updates, {statusText, textEvents});
+    return this.update(updates, {statusText, textEvents, scrollingText});
   }
 
   /* -------------------------------------------- */
@@ -2613,8 +2616,12 @@ export default class CrucibleActor extends Actor {
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
 
-    // Locally display scrolling status updates
-    this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
+    // Locally display scrolling status updates. Suppression only applies when the local client will
+    // actually play VFX - clients that have opted out of VFX still need their default scrolling text.
+    const suppressForVFX = (options.scrollingText === false) && game.settings.get("crucible", "enableVFX");
+    if ( !suppressForVFX ) {
+      this.#displayUpdateScrollingStatus(data, {textEvents: options.textEvents, statusText: options.statusText});
+    }
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
@@ -2759,17 +2766,34 @@ export default class CrucibleActor extends Actor {
    * @param {string} resourceName    Resource id (e.g. "health")
    * @param {number} delta           Signed delta to display
    * @param {number} max             Maximum pool size, used to scale font size
+   * @param {object} [options]
+   * @param {boolean} [options.restoration=false]  Marks zero-delta as ineffective healing (vs ineffective
+   *                                                damage) so the color stays "heal" rather than "high".
    * @returns {ScrollingTextEvent}
    */
-  static formatScrollingResource(resourceName, delta, max) {
+  static formatScrollingResource(resourceName, delta, max, {restoration=false}={}) {
     const resource = SYSTEM.RESOURCES[resourceName];
     const text = `${delta.signedString()} ${resource.label}`;
     const pct = Math.clamp(Math.abs(delta) / (max || 1), 0, 1);
-    const fontSize = 32 + (64 * pct);
+    const fontSize = delta === 0 ? 18 : (32 + (64 * pct));
     const healSign = resource.type === "active" ? 1 : -1;
-    const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
-    const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
-    return {text, fontSize, fillColor};
+    const isHeal = (delta === 0) ? restoration : (Math.sign(delta) === healSign);
+    return {text, fontSize, fillColor: CrucibleActor.getResourceColor(resourceName, isHeal)};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the scrolling-text fill color for a resource. Resources expose a single Color or an
+   * object keyed by `heal`/`high` variants; this helper picks the variant by intent.
+   * @param {string} resourceName    Resource id (e.g. "health").
+   * @param {boolean} isRestoration  True for a healing/restorative intent, false for damage.
+   * @returns {Color|string}
+   */
+  static getResourceColor(resourceName, isRestoration) {
+    const color = SYSTEM.RESOURCES[resourceName]?.color;
+    if ( !color ) return "#ffffff";
+    return color instanceof Color ? color : color[isRestoration ? "heal" : "high"];
   }
 
   /* -------------------------------------------- */

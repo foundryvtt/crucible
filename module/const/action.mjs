@@ -214,6 +214,10 @@ export const TAG_CATEGORIES = defineEnum({
  * @property {(this: CrucibleAction) => void} [postActivate]
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
+ * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [postConfirm]
+ * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
+ * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [resolveVFX]
+ * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [finalizeVFX]
  */
 
 /**
@@ -543,6 +547,15 @@ export const TAGS = {
       this.usage.actorFlags.lastSpell = this.id;
       this.usage.isAttack = true;
       this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
+    },
+    configureVFX(vfxConfig) {
+      return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
+    },
+    resolveVFX(vfxEffect, references) {
+      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, vfxEffect, references);
+    },
+    finalizeVFX(vfxEffect, references) {
+      crucible.api.canvas.vfx.spells.finalizeSpellVFXEffect(this, vfxEffect, references);
     }
   },
 
@@ -742,6 +755,9 @@ export const TAGS = {
           updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
+    },
+    configureVFX(vfxConfig) {
+      return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this, vfxConfig);
     }
   },
 
@@ -924,7 +940,7 @@ export const TAGS = {
     priority: 9,
     prepare() {
       this.usage.hasDice = true;
-      this.usage.bonuses.enchantment = this.item.system.config?.enchantment.bonus || 0;
+      this.usage.bonuses.enchantment = this.item?.system.config?.enchantment.bonus || 0;
       this.usage.defenseType ??= "physical";
       this.usage.resource ??= "health";
       this.usage.damageType ??= "void";
@@ -1218,17 +1234,43 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = this.movement.id;
       }
       status.hasMoved = true;
+
+      // Derive any post-movement status (falling/flying/burrowing) from the planned final waypoint.
+      const final = this.movement?.waypoints?.at(-1);
+      if ( !final || !this.token ) return;
+      const { burrowing, falling, flying } = CONFIG.statusEffects;
+      let toAdd;
+      if ( final.action === "fly" ) toAdd = flying;
+      else if ( final.action === "burrow" ) toAdd = burrowing;
+      else if ( this.token._isHoveringAboveSurface(final) ) toAdd = falling;
+      const effects = [];
+      if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
+        const { _id, id, img, name } = toAdd;
+        const effect = { _id, img, name: _loc(name), statuses: [id] };
+        if ( id === falling.id ) effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS; // TODO generalize somehow?
+        effects.push(effect);
+      }
+      for ( const { id } of [burrowing, falling, flying] ) {
+        if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
+          effects.push({ _id: CONFIG.statusEffects[id]._id, _action: "delete" });
+        }
+      }
+      if ( effects.length ) this.recordEvent({ type: "effect", target: this.actor, effects });
     },
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
       if ( reverse ) return;
-      // Remove prone condition upon movement confirmation if movement is not exclusively crawling.
-      // This side effect is movement-tag exclusive; forced movements that record a "movement" event without
-      // adopting the tag do not stand the actor up.
+
+      // Remove the prone condition on confirmation if not explicitly crawling
       if ( this.actor.statuses.has("prone") ) {
         const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
         if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
       }
+    },
+    async postConfirm(reverse) {
+      if ( reverse || !this.token ) return;
+      if ( !this.actor.statuses.has(CONFIG.statusEffects.falling.id) ) return;
+      await this.actor.actions.fall.use({ token: this.token });
     }
   }
 };
@@ -1367,6 +1409,18 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 1
     },
     tags: ["movement"]
+  },
+
+  // Fall
+  {
+    id: "fall",
+    name: "ACTION.DEFAULT_ACTIONS.Fall.Name",
+    img: "systems/crucible/icons/statuses/falling.svg",
+    description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
+    target: { type: "self", scope: 1 },
+    cost: { action: 0 },
+    tags: ["generic"],
+    effects: [{ statuses: ["prone"] }]
   },
 
   // Defend

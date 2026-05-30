@@ -1,6 +1,8 @@
 import CrucibleTokenRuler from "./token-ruler.mjs";
 import CrucibleTokenHUD from "../applications/hud/token-hud.mjs";
 import {MOVEMENT_ACTIONS, TRAVEL_PACES} from "../const/actor.mjs";
+import {registerVFXAnimations} from "./vfx/animations/_module.mjs";
+import {registerComponents} from "./vfx/components/_module.mjs";
 
 export * as detectionModes from "./detection-modes/_module.mjs";
 export * as tree from "./tree/_module.mjs";
@@ -22,6 +24,8 @@ export function configure() {
 
   // TODO enable experimental VFX framework
   CONFIG.Canvas.vfx.enabled = true;
+  registerVFXAnimations();
+  registerComponents();
 
   // Movement Actions
   const groupOnly = token => token.actor?.type === "group";
@@ -59,6 +63,22 @@ export function configure() {
     speedMultiplier: 1,
     canSelect: notGroup,
     terrainAction: null
+  };
+
+  // Falling.
+  CONFIG.Token.movement.actions.fall = {
+    order: 997,
+    label: "TOKEN.MOVEMENT.ACTIONS.fall.label",
+    icon: "fa-solid fa-arrow-down-long",
+    img: "icons/svg/falling.svg",
+    teleport: false,
+    measure: false,
+    visualize: true,
+    costMultiplier: 0,
+    speedMultiplier: 1,
+    canSelect: false,
+    terrainAction: null,
+    tokenCollision: false
   };
 
   // Add party travel options

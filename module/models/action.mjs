@@ -1,10 +1,11 @@
+import StandardCheck from "../dice/standard-check.mjs";
+import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import CrucibleActionConfig from "../applications/config/action-config.mjs";
+
 /**
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
  * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
-import StandardCheck from "../dice/standard-check.mjs";
-import ActionUseDialog from "../dice/action-use-dialog.mjs";
-import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
  * @typedef ActionContext
@@ -345,7 +346,7 @@ class CrucibleActionEvent {
 
 /**
  * @typedef CrucibleActionUsageOptions
- * @property {CrucibleTokenObject} [token]  A specific Token which is performing the action
+ * @property {CrucibleToken} [token]  A specific Token which is performing the action
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
  * @property {string} [messageMode]         Which message visibility mode to apply to the resulting message?
  */
@@ -522,6 +523,8 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##applyEvents` - Walk the event stream and apply resource changes to each actor. When
  *   `reverse=true`, all deltas are inverted, effects are removed, and item snapshots are restored.
  * - `CrucibleAction##recordHeroism` - Award heroism for confirmed damage-dealing actions.
+ * - Action hooks called: `postConfirm`
+ *    - Fires after `#applyEvents` and the message-confirmed flag flip; used for chaining actions.
  *
  * ## Guidance for Hook Authors
  * - Record events, do not mutate actor state directly. All resource changes, effects, and actor updates must be
@@ -1834,24 +1837,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Allocate resource changes
       const damage = event.roll.data.damage || {};
+      if ( damage.harmless ) continue;
       const resource = damage.resource ?? "health";
       const cfg = SYSTEM.RESOURCES[resource];
-      const amount = (damage.total ?? 0) * (damage.restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
-      if ( !amount ) continue;
+      const restoration = !!(damage.restoration ?? this.damage?.restoration);
+      const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
 
-      // Allocate without specific system target (in theory should not happen?)
-      if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount});
+      // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
+      if ( amount === 0 ) {
+        event.resources.push({resource, delta: 0, restoration});
         continue;
       }
 
-      // Allocate to specific Actor per system type
+      // Allocate without specific system target (in theory should not happen?)
+      if ( !event.target?.system ) {
+        event.resources.push({resource, delta: amount, restoration});
+        continue;
+      }
+
+      // Allocate resource changes to a specific Actor
       if ( !allocations.has(event.target) ) allocations.set(event.target, {});
       const allocation = allocations.get(event.target);
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta});
+      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration});
+      else for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta, restoration});
     }
 
+    // Expire an invisibility status
     this.#expireInvisibility();
   }
 
@@ -2284,6 +2296,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Mark the message as confirmed (or unconfirmed)
     await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
+
+    // Post-confirm hooks fire after #applyEvents has run and the message-confirmed flag is committed. Used for chaining
+    // actions.
+    for ( const test of this._tests() ) {
+      if ( typeof test.postConfirm !== "function" ) continue;
+      try {
+        await test.postConfirm.call(this, reverse);
+      } catch ( cause ) {
+        console.error(new Error(`"${this.id}" postConfirm failed`, { cause }));
+      }
+    }
     return true;
   }
 
@@ -2350,9 +2373,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      // Compose scrolling text events
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
-      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents});
+      const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
+      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
     }
   }
@@ -2369,23 +2392,51 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {ScrollingTextEvent[]}
    */
   #composeTextEvents(actor, events, {reverse, isNegated}) {
+    return this.constructor.composeTextEvents(actor, events,
+      {reverse, isNegated, selfActor: this.actor});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compose scrolling text events for a target actor from a slice of an action's event stream.
+   * Public for use by VFX configurators that bake per-target text into a VFXEffect.
+   * @param {CrucibleActor} actor
+   * @param {object[]} events
+   * @param {{reverse: boolean, isNegated: boolean, selfActor: CrucibleActor}} options
+   * @returns {ScrollingTextEvent[]}
+   */
+  static composeTextEvents(actor, events, {reverse, isNegated, selfActor}) {
     const textEvents = [];
-    const isSelf = actor === this.actor;
+    const isSelf = actor === selfActor;
     const sign = reverse ? -1 : 1;
     const resources = actor.system.resources;
     const ActorCls = crucible.api.documents.CrucibleActor;
+    const AttackRollCls = crucible.api.dice.AttackRoll;
+    const T = AttackRollCls.RESULT_TYPES;
+
     for ( const event of events ) {
-      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
-      if ( includeResources ) {
-        for ( const {resource: name, delta: rawDelta} of event.resources ) {
-          const delta = rawDelta * sign;
-          if ( delta === 0 ) continue;
-          const attr = resources[name];
-          if ( !attr ) continue;
-          textEvents.push(ActorCls.formatScrollingResource(name, delta, attr.max));
-        }
-      }
       if ( event.statusText?.length ) textEvents.push(...event.statusText);
+      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
+      if ( !includeResources ) continue;
+
+      const result = event.roll?.data?.result;
+      const isAttackResult = (typeof result === "number") && (result in AttackRollCls.RESULT_TYPE_LABELS);
+      const isHit = (result === T.HIT) || (result === T.GLANCE);
+      if ( isAttackResult && !isHit ) {
+        const label = game.i18n.localize(AttackRollCls.RESULT_TYPE_LABELS[result]);
+        textEvents.push({text: label, fontSize: 28, fillColor: "#cccccc"});
+        continue;
+      }
+
+      // Record individual resource changes for hits
+      for ( const {resource: name, delta: rawDelta, restoration} of event.resources ) {
+        const delta = rawDelta * sign;
+        const attr = resources[name];
+        if ( !attr ) continue;
+        const effective = Math.clamp(attr.value + delta, 0, attr.max) - attr.value;
+        textEvents.push(ActorCls.formatScrollingResource(name, effective, attr.max, {restoration}));
+      }
     }
     return textEvents;
   }
@@ -2496,12 +2547,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Configure a VFXEffect instance for this Action.
-   * @returns {foundry.canvas.vfx.VFXEffect|null}
+   * Configure a VFXEffect instance for this Action by delegating to tag-defined configureVFX hooks.
+   * Each hook receives the current configuration and may modify or replace it. The return value of
+   * each hook is passed as input to the next, allowing downstream tags to augment the effect.
+   * @returns {object|null}
    */
-  // TODO re-enable VFX after migrating strikes.mjs to use action.events instead of action.outcomes
   configureVFXEffect() {
-    return null;
+    let vfxConfig = null;
+    for ( const test of this._tests() ) {
+      if ( !(test.configureVFX instanceof Function) ) continue;
+      vfxConfig = test.configureVFX.call(this, vfxConfig) ?? vfxConfig;
+    }
+    return vfxConfig;
   }
 
   /* -------------------------------------------- */
@@ -2542,8 +2599,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Play the effect
-    return vfxEffect.play(references);
+    // Pass 3 - delegate to tag-defined resolveVFX hooks for computing reference values
+    for ( const test of this._tests() ) {
+      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
+    }
+
+    // Resolve VFXReferenceField values using the now-complete references map
+    vfxEffect.resolveReferences(references);
+
+    // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
+    // References are frozen to enforce the contract that finalizeVFX must not modify them.
+    Object.freeze(references);
+    for ( const test of this._tests() ) {
+      if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
+    }
+
+    // Play the effect. Sound is orchestrated by positionalSound components within the timeline,
+    // so preload and playback are handled internally by VFXEffect#play alongside the visuals.
+    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | playVFXEffect`, {components: Object.keys(vfxEffect.components), references});
+    try {
+      return await vfxEffect.play(references);
+    } catch(err) {
+      console.error(`${this.id} | VFX play failed:`, err);
+    }
   }
 
   /* -------------------------------------------- */
@@ -2562,6 +2640,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !(cost.weapon || tags.includes("reload")) ) return false;
     if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
     return this.actor?.equipment.weapons.hasChoice;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Package this Action into drag data used to create a hotbar Macro which re-uses the Action.
+   * @returns {{type: "crucible.action", macroData: object}}
+   */
+  toMacroDragData() {
+    return {
+      type: "crucible.action",
+      macroData: {
+        type: "script",
+        scope: "actor",
+        name: this.name,
+        img: this.img,
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.id}");`
+      }
+    };
   }
 
   /* -------------------------------------------- */
@@ -2685,6 +2782,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return {actor: actor.uuid, token: t.token?.uuid ?? null};
     });
     actionData.vfxConfig = this.configureVFXEffect();
+    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | configureVFXEffect`, actionData.vfxConfig);
     if ( !foundry.utils.isEmpty(this.metadata) ) actionData.metadata = this.metadata;
 
     // Collect rolls from the event stream and assign indices for serialization
@@ -2800,8 +2898,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.reverse=false]
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
-    action ||= this.fromChatMessage(message);
-    await action.confirm({reverse});
+    // Bail if a reverse-confirm is already in flight for this message.
+    if ( reverse && message?._reversing ) return;
+    if ( reverse && message ) message._reversing = true;
+    try {
+      action ||= this.fromChatMessage(message);
+      await action.confirm({reverse});
+    } finally {
+      if ( reverse && message ) message._reversing = false;
+    }
   }
 
   /* -------------------------------------------- */
