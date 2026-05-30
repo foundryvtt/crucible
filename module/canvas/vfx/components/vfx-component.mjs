@@ -102,12 +102,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * One impact in a component's `impacts` array: a self-contained per-target visual whose `sound`,
-   * `animations`, and `particles` are the look the configurator baked for this target (hit vs miss decided
-   * there). The struck point is not stored here - it is resolved at runtime by {@link _impactTarget} from
-   * the target's injected mesh, because a reference field sharing an array element with literal data is
-   * wiped by `VFXEffect#resolveReferences` (its partial array update replaces the element). Subclasses pass
-   * `extraFields` for component-specific data (e.g. `stick`).
+   * A subsidiary SchemaField used for a single impact.
    * @param {Record<string, DataField>} [extraFields]
    * @returns {SchemaField}
    * @protected
@@ -296,9 +291,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Walk the component's phases (charge, delivery, each impact) collecting particle textures, animation
-   * sprite textures, and per-phase sounds into the component's load plan. Subclasses extend this when
-   * additional assets need preloading (e.g. a projectile's flight sprite).
+   * Load all necessary assets that will be required by the phases of this component animation.
    * @override
    */
   async _load() {
@@ -319,8 +312,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Canonical draw recipe. Subclasses customize via the hooks below; only override `_draw` itself if
-   * the recipe needs reordering.
+   * Draw assets and schedule animations used by this component.
    * @override
    */
   async _draw() {
@@ -337,9 +329,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Populate `this.timings` with phase boundaries (chargeStart/End, deliveryStart/End, and optionally
-   * impactStart). Default implementation derives from `charge.duration` and `delivery.duration`;
-   * subclasses override when timing depends on geometry (e.g. projectile flight time).
+   * Populate `this.timings` with phase boundaries and other component-specific markers.
    * @protected
    */
   _configureTimings() {
@@ -645,10 +635,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * Dispatch each impact's own visuals at its scheduled time. Each impact carries its own target, sound,
-   * animations, and particles (the configurator baked the hit/miss look per target), so this loop is
-   * trajectory-agnostic. `this.state.impacts` is the authoritative record; transient `this.state` pointers
-   * are set immediately before each synchronous dispatch for the shared, this-bound impact animations.
+   * Dispatch each impact's own visuals at its scheduled time in the animation timeline.
    * @returns {number}   The latest impact end time (ms), for the caller's "end" label.
    * @protected
    */
@@ -702,10 +689,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /* -------------------------------------------- */
 
   /**
-   * The timeline start (ms) of an impact. Reads the impact's own `start` field when the configurator
-   * baked one in (the common case for trajectory-dependent staggering, e.g. a ray's beam-front
-   * arrival); otherwise falls back to a single shared `this.timings.impactStart`. Subclasses can
-   * override for runtime-computed timing, but baking at configure-time is preferred.
+   * The timeline start (ms) of a specific target impact.
    * @param {object} impact                   The impact entry.
    * @param {{x: number, y: number}} target   The impact's strike point.
    * @param {number} i                        Its index in `impacts`.

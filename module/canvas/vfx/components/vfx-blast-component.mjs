@@ -3,21 +3,7 @@ import {getParticleScaleFactor} from "../blocks.mjs";
 const {EmbeddedDataField, NumberField} = foundry.data.fields;
 
 /**
- * A Crucible VFX component for a blast attack: a radial area-of-effect centered on a region point.
- * Three sequential animation phases:
- * - Charge-up (at the source token via `chargeAnchor: "source"`, at a gather point in front of the
- *   caster facing the blast via `chargeAnchor: "forward"`, or at the blast center via the default
- *   `chargeAnchor: "origin"`)
- * - Delivery (the blast itself, free to express as falling debris, an outward eruption, blooming
- *   growth, etc.)
- * - Impacts (one self-contained impact per struck target, each with its own configurator-baked
- *   `start` time so e.g. a sweeping shockwave can stagger arrivals by distance from center)
- *
- * Geometry is persisted as a snapshot of the action's region shape at configure-time. Regions used
- * for spell targeting are deleted on action confirmation, so the VFXEffect must carry its own
- * geometry. Source-token + target-token meshes and the wall-mask polygon ARE still
- * reference-resolved by the framework at play-time. {@link CrucibleRayComponent} and
- * {@link CrucibleFanComponent} use the same pattern.
+ * A Crucible VFX component for an action that uses the "blast" target type.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleBlastComponent extends CrucibleVFXComponent {

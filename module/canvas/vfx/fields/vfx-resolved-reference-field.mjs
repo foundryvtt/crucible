@@ -2,16 +2,9 @@ const {ObjectField} = foundry.data.fields;
 const {VFXReferenceField} = foundry.canvas.vfx.fields;
 
 /**
- * A {@link VFXReferenceField} that preserves resolved value identity unchanged. Use when the inner
- * reference target is a Document, PIXI display object, geometry instance, or other class whose
- * prototype/methods must survive the schema clean / validate / initialize pipeline (a plain
- * ObjectField would not preserve class identity).
- *
- * The persisted form is the reference shape `{reference, property?, delta?}`; the resolved form is
- * the raw object returned by the framework's reference resolution, with no further transformation.
- *
- * Mirrors {@link foundry.canvas.vfx.fields.VFXPointSourcePolygonField} as a generic - any object
- * instance is accepted on the non-reference path.
+ * A {@link VFXReferenceField} that preserves resolved value identity unchanged.
+ * Use when the inner reference target is a Document, PIXI display object, geometry instance, or other class whose
+ * prototype/methods must survive the schema clean / validate / initialize pipeline.
  */
 export default class VFXResolvedReferenceField extends VFXReferenceField {
   constructor(options, context) {

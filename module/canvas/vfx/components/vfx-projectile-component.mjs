@@ -3,10 +3,7 @@ import {getParticleScaleFactor} from "../blocks.mjs";
 const {ArrayField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 
 /**
- * A Crucible VFX component for a single projectile attack, using the inherited charge/delivery/impacts
- * phase structure where the delivery phase is the projectile's flight (a sprite flown along a path).
- * Each phase can incorporate custom particle emitter and animation behaviors. The phase-dispatch
- * machinery is inherited from {@link CrucibleVFXComponent}.
+ * A Crucible VFX component for an action that uses the "single" target type and transacts a single projectile.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleProjectileComponent extends CrucibleVFXComponent {

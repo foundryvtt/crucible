@@ -3,21 +3,7 @@ import {getParticleScaleFactor} from "../blocks.mjs";
 const {EmbeddedDataField, NumberField} = foundry.data.fields;
 
 /**
- * A Crucible VFX component for a ray attack: a directional beam fired along a line from a source point.
- * Three sequential animation phases:
- * - Charge-up (at the charge point - the visible front of the caster, `chargeDistance` ahead of the
- *   region shape's origin along the heading)
- * - Delivery (the beam traveling from the charge point along the heading toward the shape's end)
- * - Impacts (one self-contained impact per target, each with its own configurator-baked start time)
- *
- * Geometry is persisted as a snapshot of the action's region shape at configure-time. We do NOT hold
- * a live reference to the region document, because regions used for spell targeting are deleted on
- * action confirmation - the VFXEffect must contain everything it needs to play afterward. This is
- * the AoE analogue of `path` on {@link CrucibleProjectileComponent}: both serialize geometry into the
- * persisted component data. Source-token + target-token meshes and the wall-mask polygon ARE still
- * reference-resolved by the framework at play-time (they're live scene objects, not persisted data).
- * The inherited `charge.distance` field captures the small forward offset that pulls the visible ray
- * out of the caster's body.
+ * A Crucible VFX component for an action that uses the "ray" target type.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleRayComponent extends CrucibleVFXComponent {

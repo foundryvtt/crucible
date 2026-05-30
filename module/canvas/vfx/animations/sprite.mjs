@@ -7,20 +7,11 @@
  */
 
 /**
- * @callback CrucibleVFXAnimationScheduler
- * @this {CrucibleVFXComponent}             The component this animation is attached to
- * @param {object} phase                    The phase of the effect timeline this animation belongs to
- * @param {object} params                   Animation parameters established at configure-time
- */
-
-/**
- * A Crucible VFX component animation: optional lifecycle hooks bound to the owning component, each given
- * the current `phase`. `setup` prepares `this.state`/`params` once; `animate` runs each frame with
- * normalized phase progress `t`; `schedule` adds bespoke timeline entries or managed display objects.
+ * A Crucible VFX component animation configuration and callbacks
  * @typedef CrucibleVFXComponentAnimation
  * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [setup]
  * @property {(this: CrucibleVFXComponent, t: number, phase: object, params: object) => void} [animate]
- * @property {CrucibleVFXAnimationScheduler} [schedule]
+ * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [schedule]
  * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [tearDown]
  */
 
@@ -41,9 +32,7 @@ const chargeProjectileFadeIn = {
 /* -------------------------------------------- */
 
 /**
- * Drive the projectile container along its precomputed flight path during the delivery phase.
- * Mirrors upstream `followPath` minus the `mesh.anchor.x` lerp that continues the bow `drawBack`
- * charge animation - spell projectiles have no drawback so the trailing-anchor jump is incorrect.
+ * Animate delivery of a single projectile along its configured flight path.
  * @type {CrucibleVFXComponentAnimation}
  */
 const deliveryProjectileFlight = {
@@ -70,8 +59,8 @@ const deliveryProjectileFlight = {
 /* -------------------------------------------- */
 
 /**
- * Build an impact animator that displaces `state.targetMesh` along the origin->destination direction
- * with a kick and damped settle (`params`: `distance`, `duration`, `oscillations`).
+ * Build an impact animator that displaces `state.targetMesh` along the origin->destination direction.
+ * Impact with a configured magnitude that is heavier in the case of a critical hit.
  * @param {number} defaultOscillations
  * @returns {CrucibleVFXComponentAnimation}
  */
@@ -101,6 +90,8 @@ function impactRecoilAnimation(defaultOscillations) {
     }
   };
 }
+
+/* -------------------------------------------- */
 
 /**
  * Recoil displacement magnitude (0..1 of peak) at recoil progress `rp` in [0, 1]: a fast ease-out kick
@@ -181,12 +172,7 @@ const impactSpriteBurst = {
 
 /**
  * Apply a short-lived {@link foundry.canvas.rendering.filters.GlowOverlayFilter} to the target mesh
- * as soft impact feedback. Useful where no recoil or impact sprite applies (e.g. restorative magic).
- * Accepts every filter knob except `animated` (`padding`, `innerStrength`, `outerStrength`,
- * `distance`, `glowColor`, `quality`, `knockout`, `alpha`) plus the alpha envelope (`duration`,
- * `fadeIn`, `fadeOut`). `animated` is force-disabled: the VFXEffect timeline owns all uniform
- * animation, and the filter's built-in ticker oscillation would run in parallel and fight it.
- * `glowColor` accepts a hex literal (e.g. 0xffaadd) or an [r,g,b,a] float array.
+ * as soft impact feedback. Often used as an alternative to recoil for restoration actions.
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteGlow = {

@@ -1,5 +1,5 @@
 /**
- * The global particle scale multiplier derived from the canvas grid size.
+ * A global particle scale multiplier derived from the canvas grid size.
  * Particle textures are authored at a size appropriate for a 40px microgrid (200px physical grid).
  * On scenes with a different grid size, all particle scales are multiplied by this factor to
  * maintain correct proportions relative to the map.
@@ -27,12 +27,9 @@ const PARTICLE_DENSITY_FACTORS = {
 /**
  * Cache performance-mode-derived values onto `canvas.performance` for direct read access by
  * Crucible consumers. Called once during the ready hook; changing performance mode at runtime
- * requires a session reload to take effect, so a one-shot computation is sufficient. Currently
- * writes:
- * - `canvas.performance.particleDensity`: see {@link PARTICLE_DENSITY_FACTORS}. Core's
- *   Photosensitivity Mode forces the effective performance mode to LOW.
- * Future performance-mode-specific Crucible settings (e.g. shake intensity, glow filter budget)
- * can be resolved here alongside particle density.
+ * requires a session reload to take effect, so a one-shot computation is sufficient.
+ * Writes `canvas.performance.particleDensity` using {@link PARTICLE_DENSITY_FACTORS}.
+ * Photosensitivity Mode forces the effective performance mode to LOW.
  */
 export function configurePerformanceMode() {
   if ( !canvas?.performance ) return;

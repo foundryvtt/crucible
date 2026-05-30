@@ -3,20 +3,7 @@ import {getParticleScaleFactor} from "../blocks.mjs";
 const {EmbeddedDataField, NumberField} = foundry.data.fields;
 
 /**
- * A Crucible VFX component for a fan attack: a sweeping cone fired from a source point. Same three
- * sequential phases as {@link CrucibleRayComponent}:
- * - Charge-up (at the source)
- * - Delivery (the sweep across the cone arc)
- * - Impacts (one self-contained impact per target, each with its own configurator-baked start time)
- *
- * Geometry is persisted as a snapshot of the action's region shape at configure-time. We do NOT hold
- * a live reference to the region document, because regions used for spell targeting are deleted on
- * action confirmation - the VFXEffect must contain everything it needs to play afterward. This is the
- * AoE analogue of `path` on {@link CrucibleProjectileComponent}: both serialize geometry into the
- * persisted component data. The specific visual look of each rune (frost arc, fire wave, ...) is
- * configured at the rune-props layer via registered particle behaviors. Per-target impact timing is
- * baked into each impact's `start` field by the configurator (e.g. fire when the sweeping arm crosses
- * the target's bearing).
+ * A Crucible VFX component for an action that uses the "fan" target type.
  * @extends {CrucibleVFXComponent}
  */
 export default class CrucibleFanComponent extends CrucibleVFXComponent {
