@@ -2297,6 +2297,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Mark the message as confirmed (or unconfirmed)
     await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
 
+    // Defer postConfirm hooks until VFX playback concludes so follow-up prompts do not obscure the primary animation
+    if ( !reverse && this.message?._vfxPlayback ) {
+      const timeout = new Promise(resolve => { setTimeout(resolve, 10000); });
+      await Promise.race([this.message._vfxPlayback.catch(() => {}), timeout]);
+    }
+
     // Post-confirm hooks fire after #applyEvents has run and the message-confirmed flag is committed. Used for chaining
     // actions.
     for ( const test of this._tests() ) {

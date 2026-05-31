@@ -14,6 +14,14 @@ export default class CrucibleChatMessage extends ChatMessage {
    */
   _reversing;
 
+  /**
+   * The in-flight VFX playback triggered by this message's confirmation, if any.
+   * Awaited by {@link CrucibleAction#confirm} to defer postConfirm hooks until animation playback concludes.
+   * @type {Promise<void>|undefined}
+   * @internal
+   */
+  _vfxPlayback;
+
   /* -------------------------------------------- */
   /*  Database Operations                         */
   /* -------------------------------------------- */
@@ -32,7 +40,9 @@ export default class CrucibleChatMessage extends ChatMessage {
     super._onUpdate(data, options, userId);
     const flags = this.flags.crucible || {};
     if ( foundry.utils.hasProperty(data, "flags.crucible.confirmed") ) CrucibleChatMessage.#renderAllSheetSidebars();
-    if ( flags.action && flags.vfxConfig && (foundry.utils.getProperty(data, "flags.crucible.confirmed") === true) ) this.#playVFXEffect();
+    if ( flags.action && flags.vfxConfig && (foundry.utils.getProperty(data, "flags.crucible.confirmed") === true) ) {
+      this._vfxPlayback = this.#playVFXEffect();
+    }
   }
 
   /* -------------------------------------------- */
