@@ -40,7 +40,7 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     const deltaCost = movement.cost - ((freeMovementId && (freeMovementId === waypoint.subpathId)) ? 1 : 0);
     Object.assign(context.distance, {
       units: grid.units,
-      total: (context.distance.total - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
+      total: (waypoint.measurement.distance - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
     });
     context.cost = {
       units: "A",

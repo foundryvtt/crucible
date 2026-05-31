@@ -310,6 +310,11 @@ class CrucibleActionEvent {
     if ( this.statusText ) obj.statusText = this.statusText;
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
+    for ( const effect of obj.effects ) {
+      for ( const setKey of ["regions", "summons"] ) {
+        if ( setKey in effect.system ) effect.system[setKey] = Array.from(effect.system[setKey]);
+      }
+    }
     return obj;
   }
 
@@ -1599,14 +1604,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Record effect events for each target in the event stream based on the action's defined effects.
    * Effects are attached to qualifying roll events where possible, or recorded as standalone effect events.
+   * If action creates a non-ephemeral region, ensure at least one self-effect to record it.
    */
   #recordEffectEvents() {
-    if ( !this.effects.length ) return;
+    let regionEffectRequired = this.region
+      && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
+    if ( !this.effects.length && !regionEffectRequired ) return;
     const eventsByActor = this.eventsByActor;
     for ( const [target, events] of eventsByActor ) {
       for ( const [i, effectData] of this.effects.entries() ) {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
+        if ( regionEffectRequired && (target === this.actor) ) regionEffectRequired = false;
         const {_id, name, duration, statuses: origStatuses, system={}} = effectData;
         const statuses = new Set(origStatuses);
 
@@ -1636,6 +1645,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         // Attach the effect to the qualifying event, or record a standalone effect event
         if ( event instanceof CrucibleActionEvent ) event.effects.push(effect);
         else this.recordEvent({type: "effect", target, effects: [effect]});
+      }
+
+      // If no self effect to track non-ephemeral region on, create one
+      if ( regionEffectRequired && (target === this.actor) ) {
+        this.recordEvent({type: "effect", target, effects: [{
+          _id: SYSTEM.EFFECTS.getEffectId(this.gesture?.id ?? this.id),
+          name: this.name,
+          description: this.description,
+          img: this.img,
+          origin: this.actor.uuid,
+          showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
+          system: {}
+        }]});
       }
     }
   }
@@ -2115,6 +2137,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const isEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
       if ( isEphemeral ) await this.region.delete();
       else if ( !isNegated ) {
+        const regionEffect = this.selfEvents.all.find(e => e.effects.length).effects[0];
+        regionEffect.system.regions ??= [];
+        regionEffect.system.regions.push(this.region.uuid);
         await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
       }
     }
