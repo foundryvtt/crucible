@@ -1236,25 +1236,6 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = id;
       }
       status.hasMoved = true;
-
-      // Derive intentional post-movement status (flying/burrowing) from the planned final waypoint action
-      const final = this.movement?.waypoints?.at(-1);
-      if ( !final || !this.token ) return;
-      const { burrowing, falling, flying } = CONFIG.statusEffects;
-      let toAdd;
-      if ( final.action === "fly" ) toAdd = flying;
-      else if ( final.action === "burrow" ) toAdd = burrowing;
-      const effects = [];
-      if ( toAdd && !this.actor.statuses.has(toAdd.id) ) {
-        const { _id, id, img, name } = toAdd;
-        effects.push({ _id, img, name: _loc(name), statuses: [id] });
-      }
-      for ( const { id } of [burrowing, falling, flying] ) {
-        if ( (id !== toAdd?.id) && this.actor.statuses.has(id) ) {
-          effects.push({ _id: CONFIG.statusEffects[id]._id, _action: "delete" });
-        }
-      }
-      if ( effects.length ) this.recordEvent({ type: "effect", target: this.actor, effects });
     },
     async confirm(reverse) {
       if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");

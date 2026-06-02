@@ -399,18 +399,11 @@ HOOKS.fall = {
       if ( distance > 30 ) this.tags.add("severe");
     }
   },
-  postActivate() {
+  async postActivate() {
     const {distance, elevation} = this.usage.fall;
     if ( !distance ) return;
-
-    // Add the falling status effect
-    const { falling } = CONFIG.statusEffects;
-    if ( this.actor.statuses.has(falling.id) ) {
-      this.recordEvent({ type: "effect", target: this.actor, effects: [{ _id: falling._id, _action: "delete" }] });
-    }
-
-    // Plan falling movement
-    const movement = crucible.api.canvas.movement.planMovement(this.token, [{action: "fall", elevation}], {animate: false});
+    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [{action: "fall", elevation}],
+      {animate: false});
     if ( !movement ) return;
     Object.defineProperty(this, "movement", { value: movement, configurable: true });
     const {origin} = movement;

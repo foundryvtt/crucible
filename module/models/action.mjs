@@ -1823,14 +1823,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Finalize the event stream by recording per-roll resource deltas and critical flags.
-   * Called after all postActivate hooks have had a chance to modify roll data.
+   * Finalize the event stream by recording per-roll resource deltas and critical flags, and deriving post-movement
+   * statuses. Called after all postActivate hooks have had a chance to modify roll data.
    * Allocate resource changes using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to the
    * state of resource pools, allowing for accurate reversal.
    */
   #finalizeEvents() {
     const allocations = new Map();
     for ( const event of this.events ) {
+
+      // Derive the resting movement status (flying/burrowing/falling) for the moved actor as a finalization sub-step
+      if ( event.type === "movement" ) this.#deriveMovementStatus(event);
+
       if ( !event.roll ) continue;
       if ( event.roll.isCriticalSuccess ) event.isCriticalSuccess = true;
       else if ( event.roll.isCriticalFailure ) event.isCriticalFailure = true;
@@ -2453,30 +2457,70 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Revisit any actors moved during this action and trigger a follow-up fall action for each whose token now
-   * hovers above a supporting surface. Runs at the tail of {@link confirm} so the originating action's chat
-   * message is fully confirmed before any chained fall is rolled. Token-level FLY/BURROW exemptions are honored
-   * by {@link CrucibleToken#_isHoveringAboveSurface}.
+   * Derive the resting movement status (flying/burrowing/falling) for one movement event and attach the changes to
+   * that event's own `effects`, so the move and its status apply and reverse together.
+   * @param {CrucibleActionEvent} event   A movement event whose `effects` are mutated in place.
+   */
+  #deriveMovementStatus(event) {
+    const {burrowing, falling, flying} = CONFIG.statusEffects;
+    const {BURROW, FLY} = CONFIG.specialStatusEffects;
+    const actor = event.target;
+
+    // Resolve the moved token and its planned movement, matched by movement id
+    const isSelf = actor === this.actor;
+    const token = isSelf ? this.token
+      : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
+    const plan = (token?.movement?.id === event.movement.id) ? token.movement : null;
+    if ( !plan ) return;
+
+    // A planned move's destination field reads as the origin until executed (token.mjs:1800); the final waypoint is
+    // the true end.
+    const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
+    const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
+
+    // Resting status: fly/burrow from a self-move action, else falling from the end position
+    let toAdd;
+    if ( isSelf && (finalWaypoint?.action === "fly") ) toAdd = flying;
+    else if ( isSelf && (finalWaypoint?.action === "burrow") ) toAdd = burrowing;
+    else {
+      const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
+      const surface = staysAirborne ? null : token._findSupportingSurface(destination);
+      if ( surface && (surface.elevation < destination.elevation) ) toAdd = falling;
+    }
+
+    // Add the derived status, clear superseded ones (self reconciles all three; forced only the falling axis)
+    const clearable = isSelf ? [burrowing.id, falling.id, flying.id] : [falling.id];
+    if ( toAdd && !actor.statuses.has(toAdd.id) ) {
+      const {_id, id, img, name} = toAdd;
+      event.effects.push({_id, img, name: _loc(name), statuses: [id],
+        showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS});
+    }
+    for ( const id of clearable ) {
+      if ( (id !== toAdd?.id) && actor.statuses.has(id) ) {
+        event.effects.push({_id: CONFIG.statusEffects[id]._id, _action: "delete"});
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve falling for any moved actor carrying the falling status by triggering a follow-up fall action.
+   * The status itself is assigned by {@link #deriveMovementStatus}.
    */
   async #settleMovement() {
     const fallers = [];
-    const seen = new Set();
     for ( const event of this.events ) {
       if ( event.type !== "movement" ) continue;
       const actor = event.target;
-      if ( seen.has(actor) ) continue;
-      seen.add(actor);
+      if ( !actor.statuses.has(CONFIG.statusEffects.falling.id) ) continue;
       const isSelf = actor === this.actor;
       const token = isSelf ? this.token
         : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
       if ( !token ) continue;
-      if ( !token._isHoveringAboveSurface() ) continue;
       fallers.push({actor, token});
     }
     for ( const {actor, token} of fallers ) {
-      if ( !actor.statuses.has(CONFIG.statusEffects.falling.id) ) {
-        await actor.toggleStatusEffect(CONFIG.statusEffects.falling.id, {active: true});
-      }
       await actor.actions.fall.use({token});
     }
   }

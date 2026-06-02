@@ -9,30 +9,55 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * @import {ElevatedPoint, Point} from "@common/_types.mjs";
  * @import {TokenMovementWaypoint, TokenPosition} from "@common/documents/_types.mjs";
  * @import {default as Ray} from "@client/canvas/geometry/shapes/ray.mjs";
- * @import {CrucibleActionMovement} from "@crucible/models/action.mjs";
+ */
+
+/**
+ * @typedef CrucibleMovementPlan          A planned token movement, mirroring the return of {@link Token#planMovement}.
+ * @property {string} id                  The planned movement id
+ * @property {TokenPosition} origin       The movement origin
+ * @property {TokenPosition} destination  The canonical movement destination
+ * @property {TokenMovementWaypoint[]} waypoints  The planned path steps, not including the origin
  */
 
 /* -------------------------------------------- */
 
 /**
- * Compose a planned movement (`TokenDocument#move` with `planned: true`) that resolves only on `startMovement`.
- * @param {TokenDocument} token              The token to be moved
+ * Programmatically compose a planned movement, resolving to the canonical plan once it is installed on the token.
+ * Mirror of the interactive {@link foundry.canvas.placeables.Token#planMovement}, but driven by explicit waypoints.
+ *
+ * FIXME: `token.move` resolves only on `startMovement`, so we bridge the core `planToken` hook to learn when the
+ *  planned movement is installed. Drop this once a programmatic core "create plan" API exists.
+ * @param {TokenDocument} token                The token to be moved
  * @param {TokenMovementWaypoint[]} waypoints  Pre-computed waypoints describing the movement path
  * @param {object} [options]                   Additional options forwarded to `TokenDocument#move`.
  * @param {object} [options.constrainOptions]  Constrain options carried through to actualization; the `crucible`
  *                                             namespace propagates intent to the token's collision-test override.
- * @returns {CrucibleActionMovement|null}    Movement record `{id, origin, waypoints, cost}`, or null on invalid input
+ * @returns {Promise<CrucibleMovementPlan|null>}  The canonical planned movement, or null on invalid input or if the
+ *                                             move settled without planning.
  */
-export function planMovement(token, waypoints, options={}) {
-  if ( !token || !waypoints?.length ) return null;
-  const id = foundry.utils.randomID();
-  const origin = _tokenPosition(token);
-  const tokenObject = token.object;
-  const {cost} = tokenObject
-    ? tokenObject.measureMovementPath([origin, ...waypoints])
-    : token.measureMovementPath([origin, ...waypoints]);
-  token.move(waypoints, {id, planned: true, ...options}).catch(err => console.error(err));
-  return {id, origin, waypoints, cost};
+export function createMovementPlan(token, waypoints, options={}) {
+  const {promise, resolve} = Promise.withResolvers();
+  if ( !token || !waypoints?.length ) {
+    resolve(null);
+    return promise;
+  }
+  const id = options.id ?? foundry.utils.randomID();
+  const onPlan = document => {
+    if ( (document !== token) || (token.movement?.id !== id) ) return;
+    Hooks.off("planToken", onPlan);
+    const m = token.movement;
+    // For a planned (unexecuted) move m.destination is the origin (token.mjs:1800); the true end is the last waypoint
+    const waypoints = [...m.passed.waypoints, ...m.pending.waypoints];
+    resolve({id: m.id, origin: m.origin, destination: {...m.origin, ...waypoints.at(-1)}, waypoints});
+  };
+  Hooks.on("planToken", onPlan);
+
+  // Create a movement plan, asynchronously capturing its creation via the planToken hook
+  token.move(waypoints, {...options, id, planned: true}).catch(err => console.error(err)).finally(() => {
+    Hooks.off("planToken", onPlan);
+    resolve(null);
+  });
+  return promise;
 }
 
 /* -------------------------------------------- */
@@ -48,9 +73,9 @@ export function planMovement(token, waypoints, options={}) {
  * @param {string} [options.action="push"]     Movement-action label applied to the resulting waypoint
  * @param {boolean} [options.tokenCollision]   Treat other tokens as obstacles; defaults to the mover's combat state
  * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
- * @returns {CrucibleActionMovement|null}   Movement record, or null if no displacement was possible
+ * @returns {Promise<CrucibleMovementPlan|null>}   The planned movement, or null if no displacement was possible
  */
-export function planForcedMovement(token, ray,
+export async function planForcedMovement(token, ray,
   {collision=true, snap=true, action="push", tokenCollision, ignoreTokens=false}={}) {
   if ( !token || !ray ) return null;
   if ( (ray.dx === 0) && (ray.dy === 0) ) return null;
@@ -60,7 +85,7 @@ export function planForcedMovement(token, ray,
   const waypoint = _resolveForcedDestination(tokenObject, ray, {collision, snap, action,
     tokenCollision: effectiveTokenCollision});
   if ( !waypoint ) return null;
-  return planMovement(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens}}});
+  return createMovementPlan(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens}}});
 }
 
 /* -------------------------------------------- */
@@ -75,9 +100,9 @@ export function planForcedMovement(token, ray,
  * @param {number} [options.minGap=0]     Minimum center-to-center distance from the origin to preserve when pulling
  * @param {boolean} [options.tokenCollision]  Treat other tokens as obstacles; defaults to the mover's combat state
  * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
- * @returns {CrucibleActionMovement|null} Movement record, or null if no displacement was possible
+ * @returns {Promise<CrucibleMovementPlan|null>} The canonical planned movement, or null if no displacement was possible
  */
-export function planPushMovement(fromPoint, targetToken, distanceFeet,
+export async function planPushMovement(fromPoint, targetToken, distanceFeet,
   {minGap=0, tokenCollision, ignoreTokens=false}={}) {
   if ( !targetToken || !distanceFeet ) return null;
   const r0 = new foundry.canvas.geometry.Ray(fromPoint, targetToken.center);
@@ -93,18 +118,6 @@ export function planPushMovement(fromPoint, targetToken, distanceFeet,
 
 /* -------------------------------------------- */
 /*  Subsidiary Helpers                          */
-/* -------------------------------------------- */
-
-/**
- * Build the TokenPosition record for a token's current source state.
- * @param {TokenDocument} token
- * @returns {TokenPosition}
- */
-function _tokenPosition(token) {
-  const {x, y, elevation, width, height, depth, shape, level} = token;
-  return {x, y, elevation, width, height, depth, shape, level};
-}
-
 /* -------------------------------------------- */
 
 /**

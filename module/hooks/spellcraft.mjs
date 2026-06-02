@@ -122,16 +122,16 @@ HOOKS.reshape = {
 /* -------------------------------------------- */
 
 HOOKS.pull = {
-  postActivate() {
-    _inflectMovement.call(this, -1);
+  async postActivate() {
+    await _inflectMovement.call(this, -1);
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.push = {
-  postActivate() {
-    _inflectMovement.call(this, 1);
+  async postActivate() {
+    await _inflectMovement.call(this, 1);
   }
 };
 
@@ -257,7 +257,7 @@ function _prepareSummon(level) {
  * Distance equals the spell's ability bonus in feet, doubled against a critically-hit target.
  * @param {-1|1} direction    1 to push affected targets away from the caster, -1 to pull them toward it
  */
-function _inflectMovement(direction) {
+async function _inflectMovement(direction) {
   const casterToken = this.token?.object;
   const baseFeet = this.usage.bonuses.ability;
   if ( !casterToken || (baseFeet <= 0) ) return;
@@ -268,7 +268,7 @@ function _inflectMovement(direction) {
     if ( !targetToken ) continue;
     const distanceFeet = direction * baseFeet * (events.isCriticalSuccess ? 2 : 1);
     const minGap = (casterToken.w + targetToken.w) / 2; // Base-to-base contact, clamps a pull short of the caster
-    const plan = planPushMovement(casterToken.center, targetToken, distanceFeet, {minGap});
+    const plan = await planPushMovement(casterToken.center, targetToken, distanceFeet, {minGap});
     if ( !plan ) continue;
     const origin = {x: plan.origin.x, y: plan.origin.y, elevation: plan.origin.elevation};
     this.recordEvent({type: "movement", target, movement: {id: plan.id, origin}});
