@@ -382,21 +382,31 @@ HOOKS.fall = {
     this.usage.damageType = "bludgeoning";
     this.usage.bonuses.base = 1;
   },
-  preActivate() {
+  // Use the acquireTargets hook to compute the parameters of the fall because it happens prior to action use dialog
+  acquireTargets(targets) {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
     this.usage.fall = {distance, elevation: surface?.elevation};
     if ( (distance <= 0) || !surface ) return;
     this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
+    this.usage.bonuses.ability = distance;
 
-    // Falls of 10 feet or shorter deal no damage.
-    if ( distance <= 10 ) {
-      this.tags.delete("generic");
-      this.tags.add("harmless");
-    } else {
-      this.usage.bonuses.ability = distance;
-      this.usage.defenseType = distance > 30 ? "fortitude" : "reflex";
-      if ( distance > 30 ) this.tags.add("severe");
+    // Short Falls: harmless for 10ft and below, otherwise Reflex defense
+    if ( distance <= 30 ) {
+      this.usage.defenseType = "reflex";
+      if ( distance <= 10 ) {
+        this.tags.delete("generic");
+        this.tags.add("harmless");
+      } else {
+        this.tags.add("reflex");
+      }
+    }
+
+    // Long Falls: Fortitude defense and severe damage
+    else {
+      this.usage.defenseType = "fortitude";
+      this.tags.add("fortitude");
+      this.tags.add("severe");
     }
   },
   async postActivate() {
