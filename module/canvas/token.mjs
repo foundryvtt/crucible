@@ -356,12 +356,23 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
+  /**
+   * The token animation movement speed for a given Stride, in grid units per second.
+   * Assume 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction.
+   * @param {number} stride
+   * @returns {number}
+   */
+  static movementSpeedForStride(stride) {
+    return (stride * 6) * 2 / (canvas.dimensions.distance * CONFIG.time.roundTime);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   _getAnimationMovementSpeed(_options) {
     const stride = this.actor?.system.movement?.stride;
     if ( !Number.isFinite(stride) ) return CONFIG.Token.movement.defaultSpeed;
-    // Assume 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
-    return (stride * 6) * 2 / (canvas.dimensions.distance * CONFIG.time.roundTime);
+    return CrucibleTokenObject.movementSpeedForStride(stride);
   }
 
   /* -------------------------------------------- */

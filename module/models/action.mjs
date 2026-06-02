@@ -2301,14 +2301,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Mark the message as confirmed (or unconfirmed)
     await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
 
-    // Defer postConfirm hooks until VFX playback concludes so follow-up prompts do not obscure the primary animation
+    // Defer postConfirm hooks until VFX playback concludes, capped at 4 seconds
     if ( !reverse && this.message?._vfxPlayback ) {
-      const timeout = new Promise(resolve => { setTimeout(resolve, 10000); });
-      await Promise.race([this.message._vfxPlayback.catch(() => {}), timeout]);
+      const maxWait = new Promise(resolve => { setTimeout(resolve, 3000); });
+      await Promise.race([this.message._vfxPlayback.catch(() => {}), maxWait]);
     }
 
-    // Post-confirm hooks fire after #applyEvents has run and the message-confirmed flag is committed. Used for chaining
-    // actions.
+    // Post-confirm hooks after #applyEvents has completed and committed changes. Useful for chaining actions.
     for ( const test of this._tests() ) {
       if ( typeof test.postConfirm !== "function" ) continue;
       try {
@@ -2473,8 +2472,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const plan = (token?.movement?.id === event.movement.id) ? token.movement : null;
     if ( !plan ) return;
 
-    // A planned move's destination field reads as the origin until executed (token.mjs:1800); the final waypoint is
-    // the true end.
+    // Planned movement "destination" remains the origin until executed; the final waypoint is the true destination
     const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
     const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
 
@@ -2488,12 +2486,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( surface && (surface.elevation < destination.elevation) ) toAdd = falling;
     }
 
-    // Add the derived status, clear superseded ones (self reconciles all three; forced only the falling axis)
+    // Add a derived status effect change, if applicable
     const clearable = isSelf ? [burrowing.id, falling.id, flying.id] : [falling.id];
     if ( toAdd && !actor.statuses.has(toAdd.id) ) {
       const {_id, id, img, name} = toAdd;
-      event.effects.push({_id, img, name: _loc(name), statuses: [id],
-        showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS});
+      event.effects.push({_id, img, name: _loc(name), statuses: [id], showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS});
     }
     for ( const id of clearable ) {
       if ( (id !== toAdd?.id) && actor.statuses.has(id) ) {

@@ -3,6 +3,7 @@ import {getParticleScaleFactor} from "./blocks.mjs";
 import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
+import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-component.mjs";
 
 /**
  * @typedef SpellVFXData
@@ -182,6 +183,7 @@ function configureArrowVFXEffect(action) {
   const {textures, particleElevation} = resolveSpellVFXContext(action);
   const components = {};
   const timeline = [];
+  const forcedMovements = [];
   const references = {tokenMesh: "^token.object.mesh"};
 
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
@@ -237,6 +239,11 @@ function configureArrowVFXEffect(action) {
     const manifestY = casterCenterY + (((tcy - casterCenterY) / dirDist) * casterRadiusPx);
     const offset = computeAttackOffset(token, result);
 
+    // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
+    const projectileSpeed = runeProps.projectileSpeed ?? 150;
+    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
+    const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
+
     // Register the manifest point as a reference. Every element of a VFXReferenceObjectField array
     // must be a reference: resolveReferences builds a partial array update of only the resolved
     // (reference) elements, so a literal sibling would be dropped to a hole by updateSource.
@@ -245,6 +252,9 @@ function configureArrowVFXEffect(action) {
       sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
 
     const isHit = (result === T.HIT) || (result === T.GLANCE);
+    // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
+    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(
+      forcedMovements, group, targetTokenRef, CHARGE_DURATION + flightMS);
     const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
     let impactSound = null;
     const animations = [];
@@ -256,7 +266,7 @@ function configureArrowVFXEffect(action) {
         animations.push({function: "impactSpriteBurst",
           params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
       }
-      if ( runeProps.recoil !== false ) {
+      if ( (runeProps.recoil !== false) && !knockback ) {
         animations.push(roll?.isCriticalSuccess
           ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
           : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
@@ -296,9 +306,6 @@ function configureArrowVFXEffect(action) {
       });
     }
 
-    const projectileSpeed = runeProps.projectileSpeed ?? 150;
-    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
-    const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
     const arrowScrollingText = [];
     _pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
       CHARGE_DURATION + flightMS);
@@ -332,6 +339,7 @@ function configureArrowVFXEffect(action) {
 
   if ( !timeline.length ) return null;
   if ( components.arrow_1 ) _pushCasterScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
   return {components, timeline, references};
 }
 
@@ -394,7 +402,7 @@ function configureFanVFXEffect(action) {
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
-  const tokenAnimations = [];
+  const forcedMovements = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -421,14 +429,10 @@ function configureFanVFXEffect(action) {
       targetMeshRefs.push({reference: meshRef});
 
       // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
-      const movement = group.movement?.movement;
-      if ( movement?.origin ) {
-        tokenAnimations.push({token: {reference: tokenRef}, movementId: movement.id,
-          origin: {x: movement.origin.x, y: movement.origin.y}, time: start});
-      }
+      const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
       impacts.push({result, id: token.id, start,
         sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: movement?.origin ? [] : treatment.animations, particles: treatment.particles});
+        animations: knockback ? [] : treatment.animations, particles: treatment.particles});
       _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
       j++;
     }
@@ -471,10 +475,7 @@ function configureFanVFXEffect(action) {
     }
   };
   const timeline = [{component: "fan", position: 0}];
-  if ( tokenAnimations.length ) {
-    components.tokenAnimation = {type: "crucibleTokenAnimation", animations: tokenAnimations};
-    timeline.push({component: "tokenAnimation", position: 0});
-  }
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
   return {components, timeline, references};
 }
 
@@ -529,6 +530,7 @@ function configureRayVFXEffect(action) {
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
+  const forcedMovements = [];
   const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
   const impactType = runeProps.impactSound ?? "impact";
   const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
@@ -545,9 +547,10 @@ function configureRayVFXEffect(action) {
     references[meshRef] = `^${tokenRef}.object.mesh`;
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
+    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
     impacts.push(isHit
       ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: hitTreatment.animations, particles: hitTreatment.particles}
+        animations: knockback ? [] : hitTreatment.animations, particles: hitTreatment.particles}
       : {
         // Resisting target: a softer, flashless dissipating puff and a distinct sound
         result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, "miss")),
@@ -582,7 +585,9 @@ function configureRayVFXEffect(action) {
       scrollingText
     }
   };
-  return {components, timeline: [{component: "ray", position: 0}], references};
+  const timeline = [{component: "ray", position: 0}];
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
+  return {components, timeline, references};
 }
 
 /* -------------------------------------------- */
@@ -721,6 +726,7 @@ function configureBlastVFXEffect(action) {
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
+  const forcedMovements = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -734,9 +740,10 @@ function configureBlastVFXEffect(action) {
     references[meshRef] = `^${tokenRef}.object.mesh`;
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
+    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
     impacts.push(isHit
       ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: hitTreatment.animations, particles: hitTreatment.particles}
+        animations: knockback ? [] : hitTreatment.animations, particles: hitTreatment.particles}
       : {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, "miss")),
         animations: textures.air.length
           ? [{function: "impactSpriteBurst",
@@ -786,6 +793,7 @@ function configureBlastVFXEffect(action) {
     components.fireball = projectileComponent;
     timeline.unshift({component: "fireball", position: 0});
   }
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
   return {components, timeline, references};
 }
 
