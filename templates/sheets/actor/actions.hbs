@@ -7,9 +7,9 @@
         <ol class="items-list" data-tooltip-direction="LEFT">
             {{#each section.actions as |action|}}
             <li class="line-item action" data-action-id="{{action.id}}" data-uuid="{{@root.actor.uuid}}" data-crucible-tooltip="action">
-                <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true">
+                <a data-action="actionUse"><img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true"></a>
                 <div class="title">
-                    <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
+                    <h4 class="draggable action-drag" draggable="true" data-action="actionUse"><a>{{action.name}}</a></h4>
                     {{crucibleTags action.tags}}
                 </div>
                 <div class="controls">
@@ -20,6 +20,7 @@
                        aria-label="{{localize favorite.tooltip}}" data-tooltip></a>
                 </div>
             </li>
+            
             {{/each}}
         </ol>
     </div>
