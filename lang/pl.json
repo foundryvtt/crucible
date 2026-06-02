@@ -39,12 +39,17 @@
         "Name": "Rzucenie zaklęcia"
       },
       "Defend": {
-        "Description": "Koncentrujesz się na unikaniu obrażeń, zwiększając swoją fizyczną obronę. Otrzymujesz stan <strong>Strzeżony</strong> do początku swojej następnej tury.",
+        "Description": "Koncentrujesz się na unikaniu obrażeń, zwiększając swoją fizyczną obronę. Otrzymujesz stan <strong>Defensywa</strong> do początku swojej następnej tury.",
         "Name": "Obrona"
       },
       "Delay": {
         "Description": "Możesz opóźnić swoją akcję do późniejszego momentu rundy walki. Wybierz wartość inicjatywy z przedziału od 1 do wartości o jeden mniejszą od twojej aktualnej inicjatywy. Będziesz działać zgodnie z tą nową wartością inicjatywy, a jeśli inni uczestnicy walki mają taką samą wartość, będziesz działać przed nimi. Możesz opóźnić swoją turę tylko raz na rundę.",
         "Name": "Opóźnienie"
+      },
+      "Fall": {
+        "Description": "Spadasz na powierzchnię znajdującą się pod tobą. Upadki z wysokości od 11 do 30 stóp wymagają rzutu na Refleks i zadają obrażenia obuchowe. Upadki z wysokości powyżej 30 stóp stanowią ciężkie zagrożenie wymagające rzutu na Wytrwałość. Jeśli rzut nie powiedzie się, postać staje się przewrócona.",
+        "Name": "Upadek",
+        "NameDistance": "Upadek ({distance} stóp)"
       },
       "Investiture": {
         "Description": "Poświęć czas poza walką na dostrojenie się do wyposażonych przedmiotów magicznych, dzięki czemu przejdą one w stan „Zainwestowane”.",
@@ -275,7 +280,7 @@
       "Finesse": "Finezyjne",
       "FinesseTooltip": "Wykonanie tej akcji wymaga pewnej zręczności. Musisz dzierżyć broń, której skuteczność zależy od Zręczności.",
       "Flanking": "Flankowanie",
-      "FlankingTooltip": "Ta akcja może być wykonana tylko wobec flankowanego celu lub nieświadomego zagrożenia.",
+      "FlankingTooltip": "Ta akcja może być wykonana tylko wobec oskrzydlonego celu lub nieświadomego zagrożenia.",
       "Generic": "Ogólny",
       "GenericTooltip": "Akcje, które wykonują ogólny atak bez użycia konkretnego zaklęcia lub broni.",
       "Harmless": "Nieszkodliwy",
@@ -458,7 +463,7 @@
       "NoConsumableUses": "Przedmiot eksploatacyjny „{item}” nie ma już żadnych pozostałych zastosowań dla akcji „{action}”",
       "NonCombat": "Nie możesz wykonać {action} podczas walki.",
       "NoReloadRequired": "Twoja broń nie wymaga przeładowania",
-      "NotFlanked": "{action} wymaga flankowanego celu. Cel „{target}” nie jest flankowany.",
+      "NotFlanked": "{action} wymaga oskrzydlenia celu. Cel „{target}” nie jest oskrzydlony.",
       "NoViewedScene": "Aby wykonać tę akcję, konieczne jest wyświetlenie sceny.",
       "ReactionUnaware": "Nie możesz użyć reakcji, gdy jesteś Nieświadomy!",
       "RequiresMelee": "Aby wykonać tę akcję, musisz mieć wyposażoną broń do walki wręcz.",
@@ -484,6 +489,7 @@
     "DelayHint": "Wybierz wartość inicjatywy z przedziału od 1 do {maximum}, przy której chcesz wykonać akcję. Informacje na temat tego, jak opóźniona inicjatywa wpływa na rozstrzyganie remisów, znajdziesz pod adresem @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.DPrsFbPo3tD7TJ5g]{Inicjatywa i kolejność tur}.",
     "DelayLabel": "Opóźniona inicjatywa",
     "DelayTitle": "Opóźnienie tury",
+    "DragToHotbar": "Przeciągnij na pasek skrótów, aby utworzyć makro dla tej akcji.",
     "DurationRounds": "{value}R",
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Do zakończenia",
@@ -536,11 +542,13 @@
       "Entropy": "Entropiczny",
       "Exhausted": "Wyczerpany",
       "Exposed": "Odsłonięty",
+      "Falling": "Spadanie",
       "Fear": "Przerażony",
-      "Flanked": "Flankowany",
+      "Flanked": "Oskrzydlenie",
       "FlankedDescription": "Otaczają cię liczni przeciwnicy, którzy otrzymują dodatkowe Korzyści do swoich ataków!",
+      "Flying": "Latanie",
       "Freezing": "Zamrożenia",
-      "Guarded": "Strzeżony",
+      "Guarded": "Defensywa",
       "Hastened": "Przyśpieszony",
       "Incapacitated": "Obezwładniony",
       "Insane": "Obłąkany",
@@ -805,7 +813,7 @@
         "header": "Talenty pasywne"
       },
       "SIGNATURE": {
-        "header": "Talenty charakterystyczne"
+        "header": "Talenty popisowe"
       },
       "SPELL": {
         "header": "Talenty czaroznastwa"
@@ -937,11 +945,11 @@
         "label": "Wartości atrybutów",
         "primary": {
           "hint": "Wybierz podstawowy atrybut, którego wartość początkowa wynosi 3.",
-          "label": "Podstawowy atrybut"
+          "label": "Podstawowy"
         },
         "secondary": {
-          "hint": "Wybierz dodatkowy atrybut, której wartość początkowa wynosi 2.",
-          "label": "Dodatkowy atrybut"
+          "hint": "Wybierz drugorzędny atrybut, której wartość początkowa wynosi 2.",
+          "label": "Drugorzędny"
         }
       },
       "description": {
@@ -1004,7 +1012,7 @@
       "TemperatureBlank": "Wartość domyślna ({temperature})"
     },
     "WARNINGS": {
-      "Abilities": "Podstawowe i dodatkowe atrybuty dla Pochodzenia nie mogą być takie same.",
+      "Abilities": "Podstawowe i drugorzędne atrybuty dla Pochodzenia nie mogą być takie same.",
       "ResistancesBoth": "Jeśli definiujesz Odporność lub Podatność, musisz przypisać obie te wartości.",
       "ResistancesDifferent": "Wybrana Odporność i Podatność dla danego Pochodzenia nie mogą być takie same."
     }
@@ -1091,6 +1099,7 @@
     "RESULT_TYPES": {
       "Armor": "Pancerz",
       "Block": "Blok",
+      "CriticalHit": "Krytyczne trafienie",
       "Dodge": "Unik",
       "Glance": "Draśnięcie",
       "Hit": "Trafienie",
@@ -1323,7 +1332,7 @@
   },
   "CONTROLS": {
     "CrucibleForcedMovement": "Wymuszony ruch",
-    "VisualizeFlanking": "Wizualizacja flankowania"
+    "VisualizeFlanking": "Wizualizacja oskrzydlenia"
   },
   "CRUCIBLE": {
     "SHEETS": {
@@ -1403,11 +1412,13 @@
     "Dodge": "Unik",
     "Fortitude": "Wytrwałość",
     "Madness": "Próg mobilizacji",
+    "MadnessShort": "Mobilizacji",
     "Parry": "Parowanie",
     "Physical": "Fizyczne",
     "Reflex": "Refleks",
     "Willpower": "Wola",
-    "Wounds": "Próg uzdrawiania"
+    "Wounds": "Próg leczenia",
+    "WoundsShort": "Uzdrawianie"
   },
   "DETECTION_MODES": {
     "Echolocation": "Echolokacja",
@@ -1493,6 +1504,7 @@
     "Enchantment": "Zaklinanie",
     "EnchantmentBonus": "Premia zaklinania",
     "Healing": "Uzdrawianie",
+    "ReplayAnimation": "Ponownie odtwórz animację",
     "Reverse": "Wycofaj",
     "Roll": "Rzut",
     "RollTotal": "Suma rzutu",
@@ -1510,7 +1522,7 @@
         "label": "Zaangażowani wrogowie"
       },
       "flanked": {
-        "label": "Etap flankowania"
+        "label": "Etap oskrzydlenia"
       }
     }
   },
@@ -1526,6 +1538,7 @@
   "HAZARD": {
     "DefaultActor": "Środowisko",
     "DefaultName": "Zagrożenie środowiskowe",
+    "Falling": "Spadanie",
     "Hazard": "Zagrożenie",
     "UseHazard": "Użycie zagrożenia",
     "WindowTitle": "Zagrożenie: {name}",
@@ -1666,10 +1679,15 @@
       "Talents": "Talenty"
     },
     "WARNINGS": {
+      "CombineDifferent": "{item} nie można połączyć z {target}, ponieważ przedmioty te nie są identyczne.",
+      "CombineEquipped": "{item} nie można połączyć w stos, gdy jest wyposażony.",
+      "CombineInvalidTarget": "Nie można połączyć {item}: przedmiot docelowy musi być innym elementem należącym do tego samego aktora.",
+      "CombineQuantity": "Nie można połączyć {quantity} sztuk {item}, który może pomieścić {available} sztuk w jednym stosie.",
       "HookAlreadyExists": "{item} zawiera już deklarację funkcji dla uchwytu „{hook}”.",
       "InvalidIdentifier": "Nieprawidłowa wartość identyfikatora Crucible „{id}”, która musi być alfanumeryczna i nie może zawierać spacji ani znaków specjalnych",
       "NotTalent": "Upuszczony dokument musi być talentem.",
       "QualityReductionBlocked": "Nie można obniżyć jakości {name}, ponieważ zawiera on afiksy wymagające obecnej pojemności.",
+      "SplitQuantity": "Nie można rozdzielić {quantity} z {item}, która zawiera stos {available}.",
       "UniqueWithAffixes": "Nie można oznaczyć {name} jako unikalnego, ponieważ zawiera afiksy. Najpierw usuń wszystkie afiksy.",
       "LootDropError": "Nie udało się utworzyć łupu \"{name}\". {reason}"
     },
@@ -1917,7 +1935,9 @@
     "CruciblePartyHint": "Skonfiguruj, który aktor grupy jest grupą głównych bohaterów.",
     "CruciblePartyLabel": "Główna grupa poszukiwaczy przygód",
     "EnableVFXHint": "Po zatwierdzeniu akcji wyświetl animacje efektów wizualnych na płótnie.",
-    "EnableVFXName": "Włącz efekty wizualne akcji"
+    "EnableVFXName": "Włącz efekty wizualne akcji",
+    "FlexibleAncestryAbilitiesHint": "Po włączeniu tej opcji bohaterowie mogą podczas tworzenia postaci przydzielić premie do głównych i dodatkowych atrybutów swoich pochodzeń na dowolne atrybuty. Pochodzenia nadal zapewniają te same premie początkowe w wysokości +2 i +1; elastyczność dotyczy jedynie wyboru atrybutów, na które są one przyznawane.",
+    "FlexibleAncestryAbilitiesName": "Elastyczne premie do atrybutów wynikające z pochodzenia"
   },
   "SKILL": {
     "CATEGORY": {
@@ -2077,7 +2097,7 @@
       "Blast": "Wybuchu",
       "Cone": "Stożka",
       "Conjure": "Przywoływanie",
-      "Create": "Stworzenie",
+      "Create": "Wytwór",
       "Fan": "Wachlarza",
       "Influence": "Wpływu",
       "Pulse": "Impulsu",
@@ -2393,10 +2413,16 @@
     "LABELS": {
       "Enemies": "{enemies} wrogów",
       "Engagement": "Zaangażowanie {engagement}",
-      "Flanked": "Flankowanie {flanked}"
+      "Flanked": "Oskrzydlenie {flanked}"
     },
     "MOVEMENT": {
       "ACTIONS": {
+        "blink.label": "Mignięcie",
+        "displace.label": "Teleportacja",
+        "burrow": {
+          "description": "Wykop tunel w ziemi lub miękkim podłożu na odległość równą połowie twojej wartości Biegu na akcję, przechodząc pod ścianami i swobodnie przez inne stworzenia. Tylko stworzenia posiadające wyraźnie określoną szybkość kopania mogą korzystać z tego trybu ruchu.",
+          "label": "Przekopywanie"
+        },
         "climb": {
           "description": "Wspinaj się lub schodź po powierzchni, pokonując odległość lub wysokość równą połowie swojej wartości atrybutu Bieg na Akcję. Stworzenia posiadające wyraźną szybkość wspinania się używają tej szybkości zamiast połowy swojej wartości Bieg.",
           "label": "Wspinaczka"
@@ -2404,6 +2430,10 @@
         "crawl": {
           "description": "Poruszaj się w pozycji leżącej na odległość równą połowie Twojej wartości atrybutu Bieg na każdą Akcję.",
           "label": "Czołganie się"
+        },
+        "fall": {
+          "description": "Opadanie grawitacyjne w kierunku podłoża. Koszt ruchu wynosi zawsze zero.",
+          "label": "Upadek"
         },
         "fast": {
           "label": "Pośpieszny"
@@ -2418,6 +2448,10 @@
         },
         "normal": {
           "label": "Normalny"
+        },
+        "push": {
+          "description": "Wymuszone przemieszczenie spowodowane czynnikiem zewnętrznym, np. odrzutem. Koszt ruchu wynosi zawsze zero.",
+          "label": "Odepchnięcie"
         },
         "slow": {
           "label": "Ostrożny"
@@ -2463,7 +2497,7 @@
   "TYPES": {
     "ActiveEffect": {
       "affix": "Afiks",
-      "flanked": "Flankowany"
+      "flanked": "Oskrzydlenie"
     },
     "Actor": {
       "adversary": "Przeciwnik",
@@ -2513,7 +2547,7 @@
     "CannotEquipActionCost": "Nie możesz wyposażyć się w broń, ponieważ nie masz dostępnych Punktów Akcji.",
     "CannotEquipInCombat": "Aktor {act} nie może wyposażyć się ani zdjąć {item} podczas walki.",
     "CannotEquipInvalidCategory": "Aktor {actor} nie może używać {item} w miejscu na wyposażenie {type}.",
-    "CannotEquipSlotInUse": "Aktor {actor} nie może wyposażyć się w {item}, ponieważ miejsce na przedmiot {type} jest już zajęte.",
+    "CannotEquipSlotInUse": "Aktor {actor} nie może wyposażyć się w {item}, ponieważ miejsce na przedmiot typu {type} jest już zajęte.",
     "CannotEquipTaxonomy": "Aktor {actor} nie może wyposażyć się w {item}, ponieważ taksonomia \"{taxonomy}\" nie pozwala na używanie wyposażenia.",
     "NoParty": "Musisz mieć skonfigurowaną główną drużynę.",
     "SkillRequireAncestryBackground": "Przed nabyciem rangi Umiejętności należy przypisać zarówno Pochodzenie, jak i Przeszłość."
