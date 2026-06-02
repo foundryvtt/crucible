@@ -705,11 +705,31 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
+
+    // Take over a VFX-deferred forced movement's animation on clients with VFX enabled
+    this.#interceptVFXMovement(options);
+
     if ( !canvas.scene.useMicrogrid ) return;
 
     // Flanking Updates
     const flankingChange = ["x", "y", "elevation", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
     if ( flankingChange ) this.refreshFlanking();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * On a VFX-enabled client, cancel a VFX-deferred secondary movement's core animation and hold the token at its
+   * pre-move origin, so the action's VFX can play the displacement as the impact animation.
+   * @param {object} options    Update options, carrying the per-token movement record under `_movement`.
+   */
+  #interceptVFXMovement(options) {
+    if ( !game.settings.get("crucible", "enableVFX") ) return;
+    const movement = options._movement?.[this.document.id];
+    const origin = movement?.constrainOptions?.crucible?.deferAnimation ? movement.origin : null;
+    if ( !origin ) return;
+    this.stopAnimation();
+    this.animate({x: origin.x, y: origin.y}, {duration: 0});
   }
 
   /* -------------------------------------------- */

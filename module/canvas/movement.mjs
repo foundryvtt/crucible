@@ -85,7 +85,8 @@ export async function planForcedMovement(token, ray,
   const waypoint = _resolveForcedDestination(tokenObject, ray, {collision, snap, action,
     tokenCollision: effectiveTokenCollision});
   if ( !waypoint ) return null;
-  return createMovementPlan(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens}}});
+  // Tag as an action-driven secondary movement: receiving clients with VFX enabled may take over its animation
+  return createMovementPlan(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens, deferAnimation: true}}});
 }
 
 /* -------------------------------------------- */

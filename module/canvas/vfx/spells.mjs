@@ -394,6 +394,7 @@ function configureFanVFXEffect(action) {
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
+  const tokenAnimations = [];
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -418,9 +419,16 @@ function configureFanVFXEffect(action) {
       references[tokenRef] = `@${token.uuid}`;
       references[meshRef] = `^${tokenRef}.object.mesh`;
       targetMeshRefs.push({reference: meshRef});
+
+      // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
+      const movement = group.movement?.movement;
+      if ( movement?.origin ) {
+        tokenAnimations.push({token: {reference: tokenRef}, movementId: movement.id,
+          origin: {x: movement.origin.x, y: movement.origin.y}, time: start});
+      }
       impacts.push({result, id: token.id, start,
         sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: treatment.animations, particles: treatment.particles});
+        animations: movement?.origin ? [] : treatment.animations, particles: treatment.particles});
       _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
       j++;
     }
@@ -462,7 +470,12 @@ function configureFanVFXEffect(action) {
       scrollingText
     }
   };
-  return {components, timeline: [{component: "fan", position: 0}], references};
+  const timeline = [{component: "fan", position: 0}];
+  if ( tokenAnimations.length ) {
+    components.tokenAnimation = {type: "crucibleTokenAnimation", animations: tokenAnimations};
+    timeline.push({component: "tokenAnimation", position: 0});
+  }
+  return {components, timeline, references};
 }
 
 /* -------------------------------------------- */
