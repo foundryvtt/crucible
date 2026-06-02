@@ -59,8 +59,9 @@ const deliveryProjectileFlight = {
 /* -------------------------------------------- */
 
 /**
- * Build an impact animator that displaces `state.targetMesh` along the origin->destination direction.
- * Impact with a configured magnitude that is heavier in the case of a critical hit.
+ * Build an impact animator that recoils `state.targetMesh` along origin->destination, heavier on a critical hit.
+ * Displaces via mesh `anchor` (an uncontended channel) not `position`, so the recoil composes with concurrent token
+ * movement and never strands the mesh.
  * @param {number} defaultOscillations
  * @returns {CrucibleVFXComponentAnimation}
  */
@@ -71,22 +72,32 @@ function impactRecoilAnimation(defaultOscillations) {
       const dir = Math.atan2(destination.y - origin.y, destination.x - origin.x);
       params._dx = Math.cos(dir);
       params._dy = Math.sin(dir);
-      params._base = null;
       params._target = this.state.targetMesh; // Capture per-target so multi-target dispatch stays correct
+      params._baseAnchor = params._target ? {x: params._target.anchor.x, y: params._target.anchor.y} : null;
     },
     animate(t, phase, params) {
       const target = params._target;
-      if ( !target || target.destroyed ) return;
+      const tex = target?.texture;
+      if ( !target || target.destroyed || !params._baseAnchor || !tex ) return;
       const rp = (t * phase.duration) / (params.duration ?? 320);
-      if ( rp >= 1 ) return; // Recoil done; leave the token at rest
-      if ( !params._base ) params._base = {x: target.position.x, y: target.position.y};
+      if ( rp >= 1 ) return; // Recoil settled; tearDown restores the resting anchor
       const offset = (params.distance ?? 12) * _recoilMagnitude(rp, params.oscillations ?? defaultOscillations);
-      target.position.set(params._base.x + (params._dx * offset), params._base.y + (params._dy * offset));
+
+      // Convert px displacement to a normalized anchor delta over the mesh display size; anchor offsets the sprite
+      // opposite to its sign, so subtract to recoil along origin->destination
+      const w = (Math.abs(target.scale.x) * tex.width) || 1;
+      const h = (Math.abs(target.scale.y) * tex.height) || 1;
+      target.anchor.set(
+        params._baseAnchor.x - ((params._dx * offset) / w),
+        params._baseAnchor.y - ((params._dy * offset) / h)
+      );
     },
     tearDown(phase, params) {
-      // Restore the token to rest if the recoil was interrupted mid-displacement.
+      // Restore the resting anchor; safe to set absolutely because nothing else animates the mesh anchor
       const target = params._target;
-      if ( params._base && target && !target.destroyed ) target.position.set(params._base.x, params._base.y);
+      if ( params._baseAnchor && target && !target.destroyed ) {
+        target.anchor.set(params._baseAnchor.x, params._baseAnchor.y);
+      }
     }
   };
 }

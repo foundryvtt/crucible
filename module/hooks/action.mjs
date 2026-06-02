@@ -385,11 +385,11 @@ HOOKS.fall = {
   preActivate() {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
-    this.usage.fallDistance = distance;
+    this.usage.fall = {distance, elevation: surface?.elevation};
     if ( (distance <= 0) || !surface ) return;
     this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
 
-    // Falls of 10 feet or less deal no damage.
+    // Falls of 10 feet or shorter deal no damage.
     if ( distance <= 10 ) {
       this.tags.delete("generic");
       this.tags.add("harmless");
@@ -398,19 +398,24 @@ HOOKS.fall = {
       this.usage.defenseType = distance > 30 ? "fortitude" : "reflex";
       if ( distance > 30 ) this.tags.add("severe");
     }
-
-    const movement = crucible.api.canvas.movement.planMovement(this.token, [{
-      action: "fall",
-      elevation: surface.elevation
-    }], { animate: false });
-    if ( !movement ) return;
-    Object.defineProperty(this, "movement", { value: movement, configurable: true });
-    this.recordEvent({ movement: movement.id, target: this.actor, type: "movement" });
   },
   postActivate() {
+    const {distance, elevation} = this.usage.fall;
+    if ( !distance ) return;
+
+    // Add the falling status effect
     const { falling } = CONFIG.statusEffects;
-    if ( !this.actor.statuses.has(falling.id) ) return;
-    this.recordEvent({ type: "effect", target: this.actor, effects: [{ _id: falling._id, _action: "delete" }] });
+    if ( this.actor.statuses.has(falling.id) ) {
+      this.recordEvent({ type: "effect", target: this.actor, effects: [{ _id: falling._id, _action: "delete" }] });
+    }
+
+    // Plan falling movement
+    const movement = crucible.api.canvas.movement.planMovement(this.token, [{action: "fall", elevation}], {animate: false});
+    if ( !movement ) return;
+    Object.defineProperty(this, "movement", { value: movement, configurable: true });
+    const {origin} = movement;
+    this.recordEvent({type: "movement", target: this.actor,
+      movement: {id: movement.id, origin: {x: origin.x, y: origin.y, elevation: origin.elevation}}});
   },
   configureVFX(vfxConfig) {
     return crucible.api.canvas.vfx.landing.configureLandingVFXEffect(this) ?? vfxConfig;

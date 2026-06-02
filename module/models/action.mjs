@@ -161,7 +161,7 @@ class CrucibleActionEvent {
    * @param {CrucibleActor} data.target             The target Actor for this event
    * @param {Roll} [data.roll=null]                 The Roll instance
    * @param {CrucibleItemSnapshot} [data.weapon]    Weapon snapshot, present for strike-type events
-   * @param {string} [data.movement]                The movement ID, if any
+   * @param {{id: string, origin: TokenPosition}} [data.movement]  Movement id and pre-move origin, for movement events
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
    * @param {CrucibleItemSnapshot[]} [data.itemSnapshots]  Pre-action item state for reversal
@@ -2366,8 +2366,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
       if ( event.type === "movement" ) {
-        batch.movementId = event.movement;
-        if ( reverse && (event.movement === actor.system.status?.freeMovementId) ) {
+        batch.movementId = event.movement.id;
+        if ( reverse && (event.movement.id === actor.system.status?.freeMovementId) ) {
           foundry.utils.setProperty(batch.actorUpdates, "system.status.hasMoved", false);
           foundry.utils.setProperty(batch.actorUpdates, "system.status.freeMovementId", null);
         }

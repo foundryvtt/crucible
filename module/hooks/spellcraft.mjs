@@ -269,7 +269,9 @@ function _inflectMovement(direction) {
     const distanceFeet = direction * baseFeet * (events.isCriticalSuccess ? 2 : 1);
     const minGap = (casterToken.w + targetToken.w) / 2; // Base-to-base contact, clamps a pull short of the caster
     const plan = planPushMovement(casterToken.center, targetToken, distanceFeet, {minGap});
-    if ( plan ) this.recordEvent({type: "movement", target, movement: plan.id});
+    if ( !plan ) continue;
+    const origin = {x: plan.origin.x, y: plan.origin.y, elevation: plan.origin.elevation};
+    this.recordEvent({type: "movement", target, movement: {id: plan.id, origin}});
   }
 }
 

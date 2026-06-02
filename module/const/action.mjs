@@ -1230,8 +1230,10 @@ export const TAGS = {
       const status = actorUpdateEvent.actorUpdates.system.status;
       const {freeMove} = this.usage;
       if ( this.movement?.id ) {
-        this.recordEvent({type: "movement", target: this.actor, movement: this.movement.id});
-        if ( freeMove ) status.freeMovementId = this.movement.id;
+        const {id, origin} = this.movement;
+        this.recordEvent({type: "movement", target: this.actor,
+          movement: {id, origin: {x: origin.x, y: origin.y, elevation: origin.elevation}}});
+        if ( freeMove ) status.freeMovementId = id;
       }
       status.hasMoved = true;
 

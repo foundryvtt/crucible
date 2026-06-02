@@ -12,7 +12,7 @@ const DUST_TINTS = [0x6B5238, 0x4A3826, 0x2A1E14];
  * @returns {object|null}          The vfxConfig object, or null if the action has no fall to animate.
  */
 export function configureLandingVFXEffect(action) {
-  const distance = action.usage.fallDistance;
+  const distance = action.usage.fall?.distance;
   if ( !distance || (distance <= 0) ) return null;
   const { token } = action;
   if ( !token ) return null;
