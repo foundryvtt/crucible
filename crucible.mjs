@@ -476,6 +476,7 @@ Hooks.once("init", async function() {
 
 Hooks.once("canvasConfig", () => {
   canvas.grid.CrucibleHitBoxShader.registerPlugin();
+  canvas.particles.CrucibleParticleShader.registerPlugin();
 });
 
 /* -------------------------------------------- */

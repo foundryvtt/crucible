@@ -3,30 +3,6 @@
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
  */
 
-let _blendCurvesSupported = null;
-
-/**
- * FIXME: Pre-14.364 fallback for blend mode curves. ParticleGenerator does not accept
- * `{curve: [...]}` blend descriptors until 14.364; on older versions, degrade to the curve's first
- * value (a static blend mode) so the spell still plays. On 14.364+, pass the curve through unchanged.
- * Remove this shim once 14.364 is publicly released.
- *
- * Feature-detected by scanning the ParticleGenerator class source for the curve-validator's literal
- * error string ("blend.curve must end with time 1.") - more reliable than `isNewerVersion` for dev
- * builds that still report a pre-release version number even with the curve code already merged.
- * @param {number|{curve: Array}} blend  Blend mode literal or curve descriptor.
- * @param {number} fallback              Default blend mode if `blend` is null/undefined.
- * @returns {number|{curve: Array}}
- */
-function _resolveBlend(blend, fallback) {
-  if ( _blendCurvesSupported === null ) {
-    const src = foundry.canvas.animation.ParticleGenerator?.toString() ?? "";
-    _blendCurvesSupported = /#compileBlendValue/.test(src);
-  }
-  if ( _blendCurvesSupported ) return blend ?? fallback;
-  return blend?.curve?.[0]?.value ?? blend ?? fallback;
-}
-
 /**
  * A particle generator layer config. The optional generic parameter describes the shape of `params`.
  * @template [TParams=object]
@@ -56,6 +32,7 @@ function _resolveBlend(blend, fallback) {
  * @typedef CircleParticleGatherParams
  * @property {number} chargeRadius
  * @property {number|{min: number, max: number}} [lifetime]
+ * @property {number} [blend]  Defaults to ADD.
  */
 
 /**
@@ -78,6 +55,7 @@ const circleParticleGather = {
         innerWidth: bandWidth, outerWidth: bandWidth},
       rotation: {alignVelocity: true, spread: 0.2},
       velocity: {speed: [0, 0], angle: [0, 360]},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       onSpawn: (p, {generator}) => {
         const sceneX = p.x + generator.bounds.x;
         const sceneY = p.y + generator.bounds.y;
@@ -97,15 +75,13 @@ const circleParticleGather = {
  * @property {number} chargeRadius
  * @property {number} [swirlSpeed]    Orbital angular velocity (rad/sec); default 3.
  * @property {number} [spinSpeed]     Self-rotation angular velocity (rad/sec); defaults to swirl.
- * @property {number} [blendOut]      Blend mode to swap to at `blendOutTime` (per-particle mid-life ramp).
- * @property {number} [blendOutTime]  Age (0..1) at which to swap to `blendOut` (default 0.5).
  * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]  Defaults to ADD.
  */
 
 /**
  * Imploding spiral. Motes orbit the anchor while their radius collapses toward center, spinning on
  * their own axis and fading as they arrive. A small whirlpool drawing energy to a focal point.
- * Optional `blendOut` swaps blend mode at `blendOutTime` for a build-up-to-hot effect.
  * @type {CrucibleParticleBehavior<CircleParticleVortexParams>}
  */
 const circleParticleVortex = {
@@ -116,8 +92,6 @@ const circleParticleVortex = {
     const bandWidth = Math.max(2, chargeRadius * 0.15);
     const swirl = params.swirlSpeed ?? 3;
     const spin = params.spinSpeed ?? swirl;
-    const blendOut = (typeof params.blendOut === "number") ? params.blendOut : null;
-    const blendOutTime = params.blendOutTime ?? 0.5;
 
     // Drive position/rotation parametrically from age so motion continues after the generator soft-stops
     const place = (p, generator) => {
@@ -129,23 +103,19 @@ const circleParticleVortex = {
       p.x = ox + (Math.cos(a) * r);
       p.y = oy + (Math.sin(a) * r);
       p.rotation = p._vortexSpin + (spin * p.elapsedTime * 0.001);
-      if ( !p._vortexSwapped && (blendOut !== null) && (age >= blendOutTime) ) {
-        p.blendMode = blendOut;
-        p._vortexSwapped = true;
-      }
     };
     return {
       area: {type: "ring", x: anchor.x, y: anchor.y, radius: chargeRadius,
         innerWidth: bandWidth, outerWidth: bandWidth},
       velocity: {speed: [0, 0], angle: [0, 360]},
       fade: params.fade ?? {in: 0.15, out: 0.45},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       onSpawn: (p, {generator}) => {
         const sx = p.x + generator.bounds.x;
         const sy = p.y + generator.bounds.y;
         p._vortexAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
         p._vortexRadius = Math.hypot(sx - anchor.x, sy - anchor.y);
         p._vortexSpin = Math.random() * Math.PI * 2;
-        p._vortexSwapped = false;
         place(p, generator);
       },
       onUpdate: (p, {generator}) => place(p, generator)
@@ -238,7 +208,7 @@ const circleParticleResidue = {
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
       velocity: {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD),
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       drift: {enabled: true, intensity: 0.5}
     };
   }
@@ -306,7 +276,7 @@ const circleParticleBurst = {
       velocity: {speed: [speed.min * gridScale, speed.max * gridScale], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
       drift: {enabled: true, intensity: 0.5},
-      blend: _resolveBlend(params.blend, 0)
+      blend: params.blend ?? 0
     };
   }
 };
@@ -323,7 +293,7 @@ const circleParticleBurst = {
  * @property {{min: number, max: number}} [rotationSpeed]  Per-particle tumbling (rad/sec).
  * @property {{min: number, max: number}} [lifetime]       Override the reach-derived lifetime.
  * @property {{in: number, out: number}} [fade]
- * @property {number} [blend]
+ * @property {number} [blend]           Defaults to ADD.
  */
 
 /**
@@ -360,7 +330,7 @@ const rayParticleBeam = {
       },
       lifetime: params.lifetime ?? {min: Math.round(reach * 0.85), max: reach},
       fade: params.fade ?? {in: 30, out: 150},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
     };
   }
 };
@@ -385,8 +355,7 @@ const rayParticleBeam = {
  *                                          head's march dissipate around the same moment, rather than
  *                                          late-spawning particles outliving early-spawning ones.
  * @property {{in: number, out: number}} [fade]
- * @property {PIXI.BLEND_MODES|ParticleGeneratorBlendValue} [blend]  Static blend mode or over-lifetime
- *   step-curve transition; resolved by the upstream ParticleGenerator.
+ * @property {number} [blend]
  */
 
 /**
@@ -395,8 +364,7 @@ const rayParticleBeam = {
  * passing jet, sparks falling off the front of a beam, or debris jettisoned from a charging line of
  * force. The head position is `origin + heading * headDist`, where `headDist` advances at `headSpeed`
  * (defaulting to "traverse `length` over the layer duration"). Pair with the main beam's BEAM_SPEED to
- * keep the cast-off head visually locked to the jet's leading edge. Pass a `blend` curve to make the
- * leading edge arrive bright (ADD) and cool to NORMAL as particles trail behind.
+ * keep the cast-off head visually locked to the jet's leading edge.
  * @type {CrucibleParticleBehavior<RayParticleHeadCastoffParams>}
  */
 const rayParticleHeadCastoff = {
@@ -427,7 +395,7 @@ const rayParticleHeadCastoff = {
       rotation: rotationCfg,
       ...(params.lifetime ? {lifetime: params.lifetime} : {}),
       fade: params.fade ?? {in: 40, out: 250},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: (dt, generator) => {
         if ( headDist >= length ) return;
         elapsed += dt;
@@ -481,7 +449,7 @@ const rayParticleRootCastoff = {
       rotation: {alignVelocity: true, spread: params.rotationSpread ?? 0.3},
       lifetime: params.lifetime ? {min: params.lifetime.min, max: params.lifetime.max} : {min: 200, max: 400},
       fade: params.fade ?? {in: 0, out: 150},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
     };
   }
 };
@@ -547,7 +515,7 @@ const rayParticleGroundCascade = {
       rotation: {initial: rotation, spread: params.rotationSpread ?? 0.3},
       lifetime,
       fade: params.fade ?? {in: 0, out: 800},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: dt => {
         elapsed += dt;
         frontDist = Math.clamp(elapsed / duration, 0, 1) * length;
@@ -619,7 +587,7 @@ const shapeParticleCombustion = {
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 600, max: 1100},
       fade: params.fade ?? {in: 30, out: 350},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD)
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD
     };
   }
 };
@@ -671,7 +639,7 @@ const shapeParticleResidue = {
       scale: {min: baseScale.min * gridScale, max: baseScale.max * gridScale, curve: scaleCurve},
       lifetime: params.lifetime ?? {min: 1800, max: 3000},
       fade: params.fade ?? {in: 200, out: 1200},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL)
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL
     };
   }
 };
@@ -724,7 +692,7 @@ const fanParticleSweep = {
       rotation: {alignVelocity: true, spread: 0.1},
       lifetime: (typeof lifetime === "object") ? lifetime : {min: Math.round(lifetime * 0.5), max: lifetime},
       fade: params.fade ?? {in: 30, out: Math.round(reach * 0.4)},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.ADD),
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       onTick: dt => {
         elapsed += dt;
         const t = Math.clamp(elapsed / duration, 0, 1);
@@ -786,7 +754,7 @@ const fanParticleCascade = {
       rotation: {initial: rotation, spread: 0.2},
       lifetime: params.lifetime ?? {min: 400, max: 700},
       fade: params.fade ?? {in: 20, out: 400},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: (dt, generator) => {
         elapsed += dt;
         const t = Math.clamp(elapsed / duration, 0, 1);
@@ -858,7 +826,7 @@ const fanParticleArcDeposit = {
       velocity: {speed: [0, 0], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
       fade: params.fade ?? {in: 0, out: 2000},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: dt => {
         elapsed += dt;
         const t = Math.clamp(elapsed / duration, 0, 1);
@@ -884,10 +852,8 @@ const fanParticleArcDeposit = {
  * @property {number} [reach]           Peak radial extension in px (default state.radius).
  * @property {number} [armSpread]       Per-wisp angular jitter (rad) around its assigned angle (default 0).
  * @property {number} [rotationSpeed]   Per-particle spin (rad/sec); 0 to disable (default 0).
- * @property {number} [blendOut]        Blend mode to swap to at `blendOutTime` for the return trip.
- * @property {number} [blendOutTime]    Age (0..1) at which to swap to `blendOut` (default 0.5).
  * @property {{in: number, out: number}} [fade]
- * @property {number} [blend]
+ * @property {number} [blend]           Defaults to ADD.
  */
 
 /**
@@ -895,8 +861,7 @@ const fanParticleArcDeposit = {
  * Angles are evenly distributed across the cone arc; each particle's radial distance follows
  * `reach * sin(PI * age)`, so all wisps reach peak extension at mid-life and return at end-of-life.
  * Pair with `count: N` + `initial: 1` + `spawnRate: 0` + a fixed `lifetime` to fire one volley with
- * no follow-on spawns. Optional `rotationSpeed` spins each wisp on its own axis; optional `blendOut`
- * swaps blend mode at peak extension for a "hot outbound, cool inbound" look.
+ * no follow-on spawns. Optional `rotationSpeed` spins each wisp on its own axis.
  * @type {CrucibleParticleBehavior<FanParticleYoyoParams>}
  */
 const fanParticleYoyo = {
@@ -907,8 +872,6 @@ const fanParticleYoyo = {
     const reach = params.reach ?? radius;
     const armSpread = params.armSpread ?? 0;
     const rotationSpeed = params.rotationSpeed ?? 0;
-    const blendOut = (typeof params.blendOut === "number") ? params.blendOut : null;
-    const blendOutTime = params.blendOutTime ?? 0.5;
     const angles = [];
     for ( let i = 0; i < count; i++ ) {
       const t = (count === 1) ? 0.5 : (i / (count - 1));
@@ -920,14 +883,13 @@ const fanParticleYoyo = {
       velocity: {speed: [0, 0], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: 0},
       fade: params.fade ?? {in: 0.1, out: 0.2},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
       onSpawn: (p, {generator}) => {
         const base = angles[nextIndex % angles.length];
         nextIndex++;
         const jitter = armSpread ? (((Math.random() - 0.5) * 2) * armSpread) : 0;
         p._yoyoAngle = base + jitter;
         p._yoyoSpin = Math.random() * Math.PI * 2;
-        p._yoyoSwapped = false;
         p.x = origin.x - generator.bounds.x;
         p.y = origin.y - generator.bounds.y;
       },
@@ -937,10 +899,6 @@ const fanParticleYoyo = {
         p.x = (origin.x + (Math.cos(p._yoyoAngle) * r)) - generator.bounds.x;
         p.y = (origin.y + (Math.sin(p._yoyoAngle) * r)) - generator.bounds.y;
         p.rotation = p._yoyoSpin + ((rotationSpeed * p.elapsedTime) / 1000);
-        if ( !p._yoyoSwapped && (blendOut !== null) && (age >= blendOutTime) ) {
-          p.blendMode = blendOut;
-          p._yoyoSwapped = true;
-        }
       }
     };
   }
@@ -987,7 +945,7 @@ const blastParticleFallingDebris = {
       rotation: {spread: params.rotationSpread ?? Math.PI},
       lifetime: params.lifetime ?? {min: 2500, max: 3100},
       fade: params.fade ?? {in: 30, out: 600},
-      blend: _resolveBlend(params.blend, PIXI.BLEND_MODES.NORMAL),
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onSpawn: p => {
         p._baseScale = p.scale.x;
         p.scale.set(p._baseScale * startScale, p._baseScale * startScale);

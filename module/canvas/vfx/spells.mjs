@@ -988,17 +988,18 @@ function _buildRayChargeAndDelivery(action, ctx) {
 /* -------------------------------------------- */
 
 /**
- * Helper function to create a blend mode transition curve.
- * @param {number} t    Normalized time [0, 1] when the blend mode cools from ADD to NORMAL
+ * Build a particle exposure curve that starts hot and settles back to normal.
+ * @param {number} t    Normalized time [0, 1] when the particle cools to normal exposure
  * @param {object} [options]
- * @param {number} [options.mode=PIXI.BLEND_MODES.ADD]          The "hot" blend mode
- * @param {boolean} [options.reverse=false]                     Start cool and become "hot" after t
+ * @param {boolean} [options.reverse=false]  Start normal and become hot after t
+ * @param {number} [options.normal=0]        The normal exposure value
+ * @param {number} [options.hot=1]           The hot exposure value
  * @returns {{curve: Array<{time: number, value: number}>}}
  */
-function _blendInHot(t, {mode=PIXI.BLEND_MODES.ADD, reverse=false}={}) {
+function _exposureInHot(t, {reverse=false, normal=0, hot=1.0}={}) {
   const curve = reverse
-    ? [{time: 0, value: PIXI.BLEND_MODES.NORMAL}, {time: t, value: mode}]
-    : [{time: 0, value: mode}, {time: t, value: PIXI.BLEND_MODES.NORMAL}];
+    ? [{time: 0, value: normal}, {time: t, value: hot}]
+    : [{time: 0, value: hot}, {time: t, value: normal}];
   if ( t < 1 ) curve.push({time: 1, value: curve[1].value});
   return {curve};
 }
@@ -1024,7 +1025,8 @@ const _CHARGE_FROST_ICICLES = {
   chargeLayers: [
     {categories: ["spray"], above: true, radiusFactor: 2.0,
       params: {lifetime: 350, spawnRate: 480,
-        alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0}, blend: _blendInHot(0.5, {reverse: true})}},
+        alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0},
+        exposure: _exposureInHot(0.5, {reverse: true})}},
     {categories: ["air"], above: false, animation: "circleParticleResidue", radiusFactor: 1.5,
       params: {lifetime: {min: 1500, max: 2200}, spawnRate: 120, count: 30, initial: 0.3,
         alpha: {min: 0.08, max: 0.22}, scale: {min: 0.8, max: 1.4},
@@ -1043,7 +1045,7 @@ const _CHARGE_LIFE_BLOOMS = {
       params: {sort: 0, lifetime: {min: 2000, max: 4000}, spawnRate: 10, scale: {min: 1.0, max: 1.5}}},
     {categories: ["spray"], above: true, radiusFactor: 2.5,
       params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
-        blend: _blendInHot(0.5)}}
+        exposure: _exposureInHot(0.5)}}
   ]
 };
 
@@ -1522,7 +1524,8 @@ const BLAST_VFX_PROPS = {
             scale: {min: 0.7, max: 1.3}, alpha: {min: 0.4, max: 0.7},
             scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
             fade: {in: 200, out: 2500},
-            blend: _blendInHot(0.2, {mode: PIXI.BLEND_MODES.MULTIPLY}),
+            blend: PIXI.BLEND_MODES.MULTIPLY,
+            exposure: _exposureInHot(0.2),
             elevation: 0}
         },
         { // Air smoke residue: brown-tinted smoke drifting upward from the explosion
@@ -1556,7 +1559,7 @@ const BLAST_VFX_PROPS = {
     deliverySound: {fade: 500, offset: -300, release: 800},
     impactTiming: "fromCenter",
     buildDelivery(ctx) {
-      const {action, textures, origin, radius, particleElevation, casterElevation} = ctx;
+      const {action, origin, radius, particleElevation, casterElevation} = ctx;
       const runeId = action.rune.id;
       const MAELSTROM_DURATION = this.deliveryDuration;
       return [
@@ -1592,7 +1595,7 @@ const BLAST_VFX_PROPS = {
             spawnRate: 220, lifetime: {min: 1800, max: 2600},
             scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
             fade: {in: 0.1, out: 0.4},
-            blend: _blendInHot(0.7, {reverse: true}),
+            exposure: _exposureInHot(0.7, {reverse: true}),
             elevation: casterElevation + 1}
         },
         { // Drifting bubble residue lingering above as the energy dissipates
@@ -1727,7 +1730,8 @@ const FAN_VFX_PROPS = {
             alpha: {min: 0.25, max: 0.5}, scale: {min: 0.75, max: 1.25},
             lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
             fade: {in: 0, out: 2500},
-            blend: _blendInHot(0.2, {mode: PIXI.BLEND_MODES.MULTIPLY})
+            blend: PIXI.BLEND_MODES.MULTIPLY,
+            exposure: _exposureInHot(0.2)
           }
         },
         { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
@@ -1745,7 +1749,7 @@ const FAN_VFX_PROPS = {
             fade: {in: 30, out: 500}}
         }
       ];
-    },
+    }
   },
 
   // Fan+Life
@@ -1768,7 +1772,7 @@ const FAN_VFX_PROPS = {
           scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
           elevation: casterElevation + 1,
           blend: PIXI.BLEND_MODES.NORMAL,
-          blendOut: PIXI.BLEND_MODES.ADD, blendOutTime: 0.6,
+          exposure: _exposureInHot(0.6, {reverse: true}),
           fade: {in: 0.15, out: 0.45}}
       }];
     },
@@ -1784,8 +1788,7 @@ const FAN_VFX_PROPS = {
             reach: Math.round(radius * 0.9),
             lifetime: {min: sweepDuration, max: sweepDuration},
             rotationSpeed: 5,
-            blend: PIXI.BLEND_MODES.ADD,
-            blendOut: PIXI.BLEND_MODES.NORMAL, blendOutTime: 0.5,
+            exposure: _exposureInHot(0.5),
             alpha: {min: 0.85, max: 1.0}, scale: {min: 1.0, max: 1.3},
             elevation: casterElevation + 1,
             fade: {in: 0.05, out: 0.15}

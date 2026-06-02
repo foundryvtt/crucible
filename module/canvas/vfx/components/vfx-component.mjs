@@ -1,4 +1,5 @@
 import VFXResolvedReferenceField from "../fields/vfx-resolved-reference-field.mjs";
+import CrucibleParticleShader from "../../particles/particle-shader.mjs";
 
 const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
@@ -554,6 +555,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
         const gridScale = this.state.gridScale;
         const config = {
           textures, manual: false, mode: "effect",
+          shaderClass: params.shaderClass ?? CrucibleParticleShader,
           count: params.count ?? null, initial: params.initial ?? 0,
           blend: params.blend ?? 0, tint: params.tint ?? 0xFFFFFF, fade: params.fade,
           spawnRate: params.spawnRate ?? 240,
@@ -565,6 +567,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
           pointSourceMask: layer.mask ? (this.mask ?? null) : null,
           ...behavior.setup.call(this, phase, layer)
         };
+        this.#configureParticleExposure(config, params.exposure);
 
         // Apply particle density multipliers to total count, spawn rate, and initial spawn values
         if ( config.count != null ) config.count = Math.max(0, Math.round(config.count * density));
@@ -587,6 +590,89 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
         this._registerTearDown(() => behavior.tearDown.call(this, phase, layer));
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add exposure handling to a particle generator config.
+   * @param {ParticleGeneratorConfiguration} config   Particle generator configuration.
+   * @param {number|object|null} exposure             Exposure config. A value of 0 renders normally.
+   */
+  #configureParticleExposure(config, exposure) {
+    if ( exposure == null ) return;
+
+    const onSpawn = config.onSpawn;
+    const onUpdate = config.onUpdate;
+    const compute = this.#compileParticleExposure(exposure);
+    config.onSpawn = (particle, context) => {
+      onSpawn?.(particle, context);
+      particle.exposure = compute(particle, context);
+    };
+    if ( compute.dynamic || onUpdate ) {
+      config.onUpdate = (particle, context) => {
+        onUpdate?.(particle, context);
+        particle.exposure = compute(particle, context);
+      };
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compile a particle exposure config into a runtime function.
+   * @param {number|object} exposure  The exposure config.
+   * @returns {function}
+   */
+  #compileParticleExposure(exposure) {
+    if ( typeof exposure === "number" ) {
+      const value = Math.clamp(exposure, -1, 1);
+      const compute = () => value;
+      compute.dynamic = false;
+      return compute;
+    }
+
+    const {min=0, max=min, curve, fn} = exposure;
+    const hasRange = ("min" in exposure) || ("max" in exposure);
+    const compute = (particle, context) => {
+      if ( fn ) return Math.clamp(fn(particle, context), -1, 1);
+      let value = particle._crucibleExposure;
+      if ( value == null ) {
+        value = Math.clamp(min + (this.rng() * (max - min)), -1, 1);
+        particle._crucibleExposure = value;
+      }
+      if ( curve ) {
+        const curveValue = this.#evaluateParticleExposureCurve(curve, particle);
+        value = hasRange ? value * curveValue : curveValue;
+      }
+      return Math.clamp(value, -1, 1);
+    };
+    compute.dynamic = !!(curve || fn);
+    return compute;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Evaluate an exposure curve at the particle's normalized age.
+   * @param {object[]} curve       Exposure curve points.
+   * @param {ParticleMesh} particle
+   * @returns {number}
+   */
+  #evaluateParticleExposureCurve(curve, particle) {
+    const age = particle.lifetime > 0 ? Math.clamp(particle.elapsedTime / particle.lifetime, 0, 1) : 1;
+    let previous = curve[0];
+    for ( let i = 1; i < curve.length; i++ ) {
+      const point = curve[i];
+      if ( age > point.time ) {
+        previous = point;
+        continue;
+      }
+      const span = point.time - previous.time;
+      const t = span > 0 ? Math.clamp((age - previous.time) / span, 0, 1) : 0;
+      return previous.value + ((point.value - previous.value) * t);
+    }
+    return previous.value;
   }
 
   /* -------------------------------------------- */
