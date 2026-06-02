@@ -104,14 +104,21 @@ export default class CrucibleParticleShader extends foundry.canvas.rendering.sha
     flat in float vExposure;
     
     uniform sampler2D uSamplers[%count%];
-    
+
     out vec4 fragColor;
-    
+
+    // Exposure response. vExposure in [-1, 1]: the [-0.5, 0.5] band gives moderate shifts while [-1, 1] is extreme.
+    const float EXPOSURE_HOT_GAIN = 2.0;
+    const float EXPOSURE_WHITE = 1.5;
+
     void main() {
       vec4 color;
       %forloop%
       color *= vColor;
-      color.rgb *= 1.0 + vExposure;
+      float e = vExposure;
+      float gain = (e > 0.0) ? (1.0 + (e * EXPOSURE_HOT_GAIN)) : (1.0 + e);
+      color.rgb *= max(gain, 0.0);
+      color.rgb += vec3(color.a) * (max(e, 0.0) * EXPOSURE_WHITE);
       fragColor = color;
     }
     `;

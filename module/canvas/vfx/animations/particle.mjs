@@ -883,7 +883,7 @@ const fanParticleYoyo = {
       velocity: {speed: [0, 0], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: 0},
       fade: params.fade ?? {in: 0.1, out: 0.2},
-      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onSpawn: (p, {generator}) => {
         const base = angles[nextIndex % angles.length];
         nextIndex++;

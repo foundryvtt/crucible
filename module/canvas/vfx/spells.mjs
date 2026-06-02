@@ -1017,7 +1017,7 @@ function _buildRayChargeAndDelivery(action, ctx) {
  * @param {number} [options.hot=1]           The hot exposure value
  * @returns {{curve: Array<{time: number, value: number}>}}
  */
-function _exposureInHot(t, {reverse=false, normal=0, hot=1.0}={}) {
+function _exposureInHot(t, {reverse=false, normal=0, hot=0.5}={}) {
   const curve = reverse
     ? [{time: 0, value: normal}, {time: t, value: hot}]
     : [{time: 0, value: hot}, {time: t, value: normal}];
@@ -1244,6 +1244,12 @@ const RAY_VFX_PROPS = {
   frost: {
     ..._CHARGE_FROST_ICICLES,
     ..._IMPACT_FROST,
+    chargeLayers: [
+      {..._CHARGE_FROST_ICICLES.chargeLayers[0],
+        params: {..._CHARGE_FROST_ICICLES.chargeLayers[0].params,
+          blend: PIXI.BLEND_MODES.NORMAL, exposure: 1.0}},
+      _CHARGE_FROST_ICICLES.chargeLayers[1]
+    ],
     beamSpeed: 3000, deliveryDuration: 3000,
     impactTiming: "beamFront",
     deliverySound: {fade: 700, offset: -500, release: 600},
@@ -1256,15 +1262,16 @@ const RAY_VFX_PROPS = {
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: beamSpeed, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
             rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
-            fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.ADD, elevation: beamElevation}
+            fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
+            exposure: _exposureInHot(0.5), elevation: beamElevation}
         },
         { // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
           duration: DELIVERY_DURATION, mask: true,
           params: {speed: beamSpeed, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
             rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
-            scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.ADD,
-            elevation: beamElevation}
+            scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
+            exposure: _exposureInHot(0.5), elevation: beamElevation}
         },
         { // Ground cascade: static shards deposited along the beam path as the front sweeps through
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.impact,
@@ -1304,7 +1311,8 @@ const RAY_VFX_PROPS = {
           params: {width: Math.round(width * 0.7), spacing: 28,
             lifetime: {min: LINE_DURATION + 3500, max: LINE_DURATION + 5000},
             scale: {min: 0.9, max: 1.6}, alpha: {min: 0.45, max: 0.8},
-            fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
+            fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL,
+            exposure: _exposureInHot(1, {normal: -1, hot: 1}), elevation: 0}
         },
         { // Ground smoke: low haze rising slowly along the line, drifting up and dissipating
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.air,
@@ -1535,7 +1543,7 @@ const BLAST_VFX_PROPS = {
             area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.25)},
             elevation: particleElevation}
         },
-        { // Ground scorch: persistent dark MULTIPLY-blend marks lingering on the ground
+        { // Ground scorch: char marks that flash hot on impact then cool to dark char as they linger
           animation: "shapeParticleResidue", anchor: "origin",
           textures: getVFXFrames(runeId, "GroundScorch"),
           offset: 200, duration: EXPLOSION_DURATION, mask: true,
@@ -1545,8 +1553,8 @@ const BLAST_VFX_PROPS = {
             scale: {min: 0.7, max: 1.3}, alpha: {min: 0.4, max: 0.7},
             scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
             fade: {in: 200, out: 2500},
-            blend: PIXI.BLEND_MODES.MULTIPLY,
-            exposure: _exposureInHot(0.2),
+            blend: PIXI.BLEND_MODES.NORMAL,
+            exposure: _exposureInHot(1, {normal: -1, hot: 1}),
             elevation: 0}
         },
         { // Air smoke residue: brown-tinted smoke drifting upward from the explosion
@@ -1751,8 +1759,8 @@ const FAN_VFX_PROPS = {
             alpha: {min: 0.25, max: 0.5}, scale: {min: 0.75, max: 1.25},
             lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
             fade: {in: 0, out: 2500},
-            blend: PIXI.BLEND_MODES.MULTIPLY,
-            exposure: _exposureInHot(0.2)
+            blend: PIXI.BLEND_MODES.NORMAL,
+            exposure: _exposureInHot(1, {normal: -1, hot: 1})
           }
         },
         { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
@@ -1809,7 +1817,7 @@ const FAN_VFX_PROPS = {
             reach: Math.round(radius * 0.9),
             lifetime: {min: sweepDuration, max: sweepDuration},
             rotationSpeed: 5,
-            exposure: _exposureInHot(0.5),
+            exposure: _exposureInHot(1.0),
             alpha: {min: 0.85, max: 1.0}, scale: {min: 1.0, max: 1.3},
             elevation: casterElevation + 1,
             fade: {in: 0.05, out: 0.15}

@@ -57,6 +57,23 @@ export function addChatMessageContextOptions(_app, options) {
     }
   });
 
+  // Replay VFX animation
+  options.push({
+    label: _loc("DICE.ReplayAnimation"),
+    icon: '<i class="fas fa-wand-magic-sparkles"></i>',
+    visible: li => {
+      const message = game.messages.get(li.dataset.messageId);
+      const flags = message.flags.crucible || {};
+      if ( !game.settings.get("crucible", "enableVFX") ) return false;
+      return flags.action && flags.confirmed && flags.vfxConfig;
+    },
+    onClick: (_e, li) => {
+      const messageId = li.dataset.messageId;
+      game.socket.emit("system.crucible", {action: "replayActionVFX", data: {messageId}});
+      _replayActionVFX(messageId);
+    }
+  });
+
   // Confirm Action usage
   options.push({
     label: _loc("DICE.Confirm"),
@@ -72,7 +89,7 @@ export function addChatMessageContextOptions(_app, options) {
     }
   });
 
-  // Reverse damage
+  // Reverse Action
   options.push({
     label: _loc("DICE.Reverse"),
     icon: '<i class="fas fa-hexagon-xmark"></i>',
@@ -84,23 +101,6 @@ export function addChatMessageContextOptions(_app, options) {
     onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirmMessage(message, {reverse: true});
-    }
-  });
-
-  // Replay VFX animation
-  options.push({
-    label: _loc("DICE.ReplayAnimation"),
-    icon: '<i class="fas fa-wand-magic-sparkles"></i>',
-    visible: li => {
-      const message = game.messages.get(li.dataset.messageId);
-      const flags = message.flags.crucible || {};
-      if ( !game.settings.get("crucible", "enableVFX") ) return false;
-      return flags.action && flags.confirmed && flags.vfxConfig;
-    },
-    onClick: (_e, li) => {
-      const messageId = li.dataset.messageId;
-      game.socket.emit("system.crucible", {action: "replayActionVFX", data: {messageId}});
-      _replayActionVFX(messageId);
     }
   });
   return options;
