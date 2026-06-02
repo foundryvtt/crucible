@@ -245,8 +245,8 @@ pages:
         the DC by more than 6. The GM may choose to apply additional
         consequences or benefits based on these critical outcomes.</p><section
         class="formula"><p class="value">Skill Check</p><p
-        class="equals">=</p><p class="equation">3d8[Boons,Banes] + Average of
-        Ability Bonuses (Round Up) + Skill Bonus + Enchantment
+        class="equals">=</p><p class="equation">3d8[Boons,Banes] + (Sum of
+        Scaling Abilities / 4) (Round Up) + Skill Bonus + Enchantment
         Bonus</p></section><section class="foundryvtt"><h4>Player's
         Guidance</h4><p>You can roll a skill check at any time from the skill
         tab of your character sheet, simply by clicking on the skill
@@ -353,12 +353,12 @@ pages:
       WRGzDgYAt3ZuX6TU: 3
     flags: {}
     _stats:
-      coreVersion: '14.361'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.9.2
       createdTime: 1778425064356
-      modifiedTime: 1778425238549
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1780404461686
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null

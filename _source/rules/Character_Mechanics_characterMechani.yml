@@ -60,7 +60,7 @@ pages:
         represent physical resistance and mental resilience respectively.
         Fortitude defense is calculated as:</p><section class="formula"><p
         class="value">Fortitude Defense</p><p class="equals">=</p><p
-        class="equation">12 + ((Strength + Wisdom) / 2) + Fortitude
+        class="equation">12 + ((Strength + Wisdom) / 4) + Fortitude
         Bonus</p></section><h3
         class="divider">Willpower</h3><p><strong>Willpower Defense</strong>
         describes a character's ability to withstand mental or emotional
@@ -69,7 +69,7 @@ pages:
         determination respectively. Willpower defense is calculated
         as:</p><section class="formula"><p class="value">Willpower Defense</p><p
         class="equals">=</p><p class="equation">12 + ((Toughness + Presence) /
-        2) + Willpower Bonus</p></section><h3
+        4) + Willpower Bonus</p></section><h3
         class="divider">Reflex</h3><p><strong>Reflex Defense</strong> describes
         a character's ability to avoid harm that would otherwise occur in a
         specific area. Reflex is modified by <strong>Dexterity</strong> and
@@ -77,7 +77,7 @@ pages:
         rapidity of thought respectively. Reflex defense is calculated
         as:</p><section class="formula"><p class="value">Reflex Defense</p><p
         class="equals">=</p><p class="equation">12 + ((Dexterity + Intellect) /
-        2) + Reflex Bonus</p></section><p>Note that Reflex is typically used as
+        4) + Reflex Bonus</p></section><p>Note that Reflex is typically used as
         the defense type for intangible - but otherwise physical - sources of
         harm, while Physical Defense is used to defend against tangible
         attacks.</p><h2 class="divider">Restoration
@@ -119,12 +119,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697191065
-      modifiedTime: 1768862309118
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780404092331
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.Defenses00000000'
   - _id: Resources0000000
     name: Resources
@@ -467,12 +467,12 @@ pages:
         a different
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability}
         which affects scaling and other aspects of those
-        talents.</p><figure><img class="noborder"
+        talents.</p><figure><img
         src="systems/crucible/assets/journals/talent-explainer.webp"
-        /><figcaption>The Talent Tree is divided into sextants based on
-        Abilities</figcaption></figure><p>The Talent Tree is composed of several
-        subcomponents which help you plot growth and progression for your
-        character.</p><h2 class="divider">Nodes</h2><p>Each sextant of the
+        class="noborder"><figcaption>The Talent Tree is divided into sextants
+        based on Abilities</figcaption></figure><p>The Talent Tree is composed
+        of several subcomponents which help you plot growth and progression for
+        your character.</p><h2 class="divider">Nodes</h2><p>Each sextant of the
         Talent tree is composed of a number of <strong>Nodes</strong> which can
         contain one or more <strong>Talents</strong>. A Node which lie closer to
         the border between two sextants will often feature abilities which
@@ -492,7 +492,7 @@ pages:
         unit of the talent tree. Each talent grants your character-specific
         abilities or bonuses. Many Talents have requirements which must be met
         before they can be purchased, such as attaining a certain level of
-        Ability bonus or degree of training in a Skill.</p><h2
+        Ability score or degree of training in a Skill.</p><h2
         class="divider">Training Talents</h2><p>Training talents are specific
         types of talent nodes that grant advancements to Skills, or progress
         Weapon or Tradecraft training. Weapon or Tradecraft Training Talents
@@ -539,12 +539,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1761772015764
-      modifiedTime: 1766420085983
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780404925665
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.talents000000000'
   - _id: ancestry00000000
     name: Ancestry
