@@ -923,7 +923,8 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
       }
       if ( !found ) return new Text(match);
     }
-    label = crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixDocs, quality);
+    label = crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixDocs,
+      baseItem.system.properties?.has("natural") ? "" : quality);
   }
   if ( !label ) label = baseItem.name;
 

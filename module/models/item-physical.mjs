@@ -301,7 +301,9 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * The "standard" quality tier is the unmarked state and never contributes a prefix.
    * @param {string} baseName           The name of the base item being composed
    * @param {CrucibleItem[]} affixes    Affixes which belong to the item
-   * @param {string} quality            A quality tier id, applied when the item has no prefix affixes
+   * @param {string} quality            A quality tier id, applied when the item has no prefix affixes.
+   *                                    Pass a blank string for items which never display quality, such as
+   *                                    natural weapons and armor.
    * @returns {string}                  The composed item name
    */
   static composeItemName(baseName, affixes, quality) {
