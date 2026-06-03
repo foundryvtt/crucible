@@ -449,7 +449,7 @@
       "MovementTooShort": "The planned movement path does not meet the minimum range required by this action.",
       "MustFollowMainhandStrike": "You may only perform the {action} action after a basic Strike action with your mainhand weapon.",
       "MustFollowMeleeDefense": "You may only perform the {action} action after defending a melee attack with a {defense}.",
-      "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.", 
+      "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.",
       "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
       "MustReactHit": "You may only perform the {action} action in response to an attack that hit or glanced.",
@@ -2381,6 +2381,10 @@
         "temperature.hint": "The body temperature of creatures with this Taxonomy. If left blank, defaults to the temperature of the chosen creature category.",
         "temperature.label": "Body Temperature"
       },
+      "equipment": {
+        "hint": "Configure equipment which creatures of this Taxonomy possess automatically.",
+        "label": "Granted Equipment"
+      },
       "identifier": {
         "hint": "A string identifier used to uniquely reference this Taxonomy in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
         "label": "Identifier"
@@ -2417,6 +2421,7 @@
       "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
+      "EquipmentNotNatural": "Taxonomy \"{name}\" cannot use equipment that does not have the natural tag.",
       "InvalidAbilities": "The sum of initial ability values must equal 12. Currently {sum}",
       "InvalidResistances": "The sum of resistance scaling values must equal zero. Currently {sum}"
     }

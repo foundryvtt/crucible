@@ -4,7 +4,7 @@
     {{#if equipment.length}}
     <div class="equipment-list flexcol scrollable">
         {{#each equipment}}
-        {{> (lookup @root "equipmentPartial") equipment=this isEditable=@root.isEditable}}
+        {{{this}}}
         {{/each}}
     </div>
     {{/if}}

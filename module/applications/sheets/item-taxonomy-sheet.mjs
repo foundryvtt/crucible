@@ -8,12 +8,23 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     item: {
-      type: "taxonomy"
+      type: "taxonomy",
+      includesEquipment: true
     }
   };
 
   static {
     this._initializeItemSheetClass();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _validateDroppedEquipment(item) {
+    super._validateDroppedEquipment(item);
+    if ( !this.document.system.characteristics.equipment && !item.system.properties.has("natural") ) {
+      throw new Error(_loc("TAXONOMY.WARNINGS.EquipmentNotNatural", {name: this.document.name}));
+    }
   }
 
   /* -------------------------------------------- */
