@@ -56,6 +56,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-physical.hbs";
 
   /**
+   * The template used to render this physical item inline.
+   * @type {string}
+   */
+  static INLINE_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/equipment-inline.hbs";
+
+  /**
    * Is this item type equipable?
    * @type {boolean}
    */
@@ -378,6 +384,39 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       item,
       tags: preparedTags,
       actions: await item.prepareActionsContext()
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render this physical item as HTML for inline display.
+   * @param {object} [options]
+   * @param {boolean} [options.showRemove]     Whether to show a "Remove Equipment" button
+   * @param {boolean} [options.showEquipped]   Whether to show an "Equipped" toggle button
+   * @param {number} [options.equipmentIndex]  Index in a granted equipment list, rendering a quantity input
+   * @param {number} [options.quantity]        A granted quantity which overrides the item's own quantity
+   * @param {boolean} [options.equipped]       A granted equipped state which overrides the item's own state
+   * @param {string} [options.uuid]            Override the emitted data-uuid, e.g. for an invalid placeholder
+   * @returns {Promise<string>}
+   */
+  async renderInline({showRemove=false, showEquipped=false, equipmentIndex, quantity, equipped, uuid}={}) {
+    quantity ??= this.quantity;
+    equipped ??= this.equipped;
+    return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
+      uuid: uuid ?? this.parent.uuid,
+      name: this.parent.name,
+      img: this.parent.img,
+      cssClass: [this.parent.type, equipped ? "equipped" : ""].filterJoin(" "),
+      description: await CONFIG.ux.TextEditor.enrichHTML(this.description.public, {relativeTo: this.parent}),
+      tags: this.getTags(),
+      showControls: showRemove || showEquipped,
+      showRemove,
+      showEquipped,
+      showQuantity: equipmentIndex !== undefined,
+      equipmentIndex,
+      quantity,
+      equipped
     });
   }
 

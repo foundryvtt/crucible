@@ -10,6 +10,7 @@ const CONFIG = {
   dataPath: "packs",
   sourcePath: "_source",
   databases: [
+    "adversary-equipment",
     "adversary-talents",
     "affixes",
     "ancestry",
