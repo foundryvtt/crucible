@@ -51,6 +51,21 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const allowed = await super._preCreate(data, options, user);
     if ( allowed === false ) return false;
 
+    // Embed the condition rules description of each imparted status into the effect description.
+    let description = this._source.description ?? "";
+    const includeHeading = !!description || (this.statuses.size > 1);
+    let hasNewStatuses = false;
+    for ( const statusId of this.statuses ) {
+      const pageUuid = CONFIG.statusEffects[statusId]?.page;
+      if ( !pageUuid || description.includes(`data-status="${statusId}"`) ) continue;
+      const page = await fromUuid(pageUuid);
+      if ( !page ) continue;
+      const heading = includeHeading ? `<h3 class="divider">${page.name}</h3>` : "";
+      description += `<section class="effect-status" data-status="${statusId}">${heading}@Embed[${pageUuid} inline]</section>`;
+      hasNewStatuses = true;
+    }
+    if ( hasNewStatuses ) this.updateSource({description});
+
     // Affix effects specifically
     if ( this.type === "affix" ) {
       if ( !this.parent ) return; // Compendium-level AE, no parent restrictions
