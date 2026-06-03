@@ -131,6 +131,17 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       ui.notifications.warn(err.message);
       return false;
     }
+
+    // Record whether the parent Item bears its procedural name before the affix change
+    operation.updateProceduralName = await parent.hasProceduralName();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static async _onCreateOperation(documents, operation, user) {
+    await super._onCreateOperation(documents, operation, user);
+    if ( user.isSelf && operation.updateProceduralName ) await operation.parent.setProceduralName();
   }
 
   /* -------------------------------------------- */
@@ -158,6 +169,29 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       ui.notifications.warn(err.message);
       return false;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pre-delete operation for ActiveEffects. Records procedural naming of a parent Item losing affixes.
+   * @override
+   */
+  static async _preDeleteOperation(documents, operation, user) {
+    const allowed = await super._preDeleteOperation(documents, operation, user);
+    if ( allowed === false ) return false;
+    const parent = operation.parent;
+    if ( !(parent instanceof foundry.documents.Item) || !parent.system.constructor.AFFIXABLE ) return;
+    if ( !documents.some(d => d.type === "affix") ) return;
+    operation.updateProceduralName = await parent.hasProceduralName();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static async _onDeleteOperation(documents, operation, user) {
+    await super._onDeleteOperation(documents, operation, user);
+    if ( user.isSelf && operation.updateProceduralName ) await operation.parent.setProceduralName();
   }
 
   /* -------------------------------------------- */

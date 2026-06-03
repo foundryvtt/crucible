@@ -560,9 +560,19 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+
+    // Configure allowed duration properties
     const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+    const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
+    aeDuration.extendFields({
+      units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
+    });
+
+    // Limit allowed effect scopes
     const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
     delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+
+    // Return action schema
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -1702,14 +1712,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const {_id, name, duration, statuses: origStatuses, system={}} = effectData;
         const statuses = new Set(origStatuses);
 
-        // Prepare effect data
+        // Prepare effect data, omitting blank-units durations which are invalid for the core ActiveEffect schema
         const effect = {
           _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
           name: name || this.name,
           description: this.description,
           img: this.img,
           origin: this.actor.uuid,
-          duration,
+          duration: duration.units ? duration : undefined,
           system
         };
 
