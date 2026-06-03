@@ -143,7 +143,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.reduce((acc, v) => {
         if ( ["months", "turns"].includes(v) ) return acc;
         return [...acc, {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)}];
-      }, []),
+      }, [{value: "", label: ""}]),
       effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
     };
   }
@@ -235,6 +235,11 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     const submitData = foundry.utils.expandObject(formData.object);
     submitData.effects = Object.values(submitData.effects || {});
     foundry.utils.mergeObject(submitData, updateData);
+
+    // Duration units require a numeric duration value
+    for ( const effect of submitData.effects ) {
+      if ( effect.duration && !Number.isFinite(effect.duration?.value) ) effect.duration.units = "";
+    }
 
     // Validate action update
     let actionData;

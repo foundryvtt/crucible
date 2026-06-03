@@ -37,10 +37,6 @@ system:
           scope: 3
           statuses:
             - restrained
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           result:
             type: success
             all: false

@@ -53,11 +53,6 @@ system:
             type: any
             all: false
           statuses: []
-          duration:
-            value: null
-            units: seconds
-            expiry: null
-            expired: false
           system:
             changes: []
             dot: []

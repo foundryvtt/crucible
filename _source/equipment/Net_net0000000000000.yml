@@ -54,9 +54,6 @@ system:
             all: false
           statuses:
             - restrained
-          duration:
-            turns: null
-            rounds: null
           changes: []
           system:
             dot: []

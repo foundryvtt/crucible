@@ -36,10 +36,6 @@ system:
             type: success
             all: false
           statuses: []
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           system:
             dot: []
             maintenance: null
