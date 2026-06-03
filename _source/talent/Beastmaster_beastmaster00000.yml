@@ -4,8 +4,8 @@ img: icons/creatures/mammals/wolf-shadow-black.webp
 system:
   description: >-
     <p>You have trained your animal companion to aid you in combat. Your
-    companion may participate in encounters as an allied
-    combatant.</p><p><strong>WIP: This talent is not yet automated.</strong></p>
+    companion may participate in encounters as an allied combatant.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
   nodes:
     - sig3.toughness
@@ -25,7 +25,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160127
-  modifiedTime: 1780510060107
+  modifiedTime: 1780514125875
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
   duplicateSource: null

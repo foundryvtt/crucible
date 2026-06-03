@@ -14,8 +14,9 @@ system:
       description: >-
         <p>You redirect the force of a melee attack which misses you, pivoting
         it to instead hit some other adjacent enemy. Your attacker must re-roll
-        their attack targeting their ally instead.</p><p><strong>WIP: This
-        action is not yet automated.</strong></p>
+        their attack targeting their ally instead.</p><h3
+        class="divider">Playtest Notes</h3><p>This action is not yet
+        automated.</p>
       tags:
         - reaction
       cost:
@@ -60,7 +61,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160132
-  modifiedTime: 1780510133730
+  modifiedTime: 1780514149621
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

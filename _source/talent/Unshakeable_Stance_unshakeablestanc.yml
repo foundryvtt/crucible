@@ -5,7 +5,8 @@ system:
   description: >-
     <p>You cannot be unvoluntarily Moved or knocked Prone by any action that is
     not a Critical Success rolled by an enemy or a Critical Failure rolled by
-    yourself.</p><p><strong>WIP: This talent is not yet automated.</strong></p>
+    yourself.</p><h3 class="divider">Playtest Notes</h3><p>This talent is not
+    yet automated.</p>
   actions: []
   nodes:
     - tou3b
@@ -24,7 +25,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160153
-  modifiedTime: 1780509771589
+  modifiedTime: 1780514259073
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.unshakeablestanc
   duplicateSource: null

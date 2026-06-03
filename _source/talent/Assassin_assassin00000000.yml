@@ -17,8 +17,8 @@ system:
         about your target. If successful, you learn all damage types against
         which the target is Vulnerable. Your minimum Initiative during the first
         round of Combat becomes one greater than the Initiative of your marked
-        target.</p><p><strong>WIP: This action is not yet
-        automated.</strong></p>
+        target.</p><h3 class="divider">Playtest Notes</h3><p>This action is not
+        yet automated.</p>
       tags:
         - undetectable
       cost:
@@ -61,7 +61,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160126
-  modifiedTime: 1780510093130
+  modifiedTime: 1780514102641
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.assassin00000000
   duplicateSource: null

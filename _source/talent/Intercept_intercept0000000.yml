@@ -17,8 +17,9 @@ system:
         <strong>Stride</strong> to interpose yourself and block their
         path.</p><p>If the enemy moves out of your Engagement radius or attacks
         any other creature during their turn, you may make a @Action[default
-        reactiveStrike] against them.</p><p><strong>WIP: The interruption of
-        enemy movement is not yet automated.</strong></p>
+        reactiveStrike] against them.</p><h3 class="divider">Playtest
+        Notes</h3><p>The interruption of enemy movement is not yet
+        automated.</p>
       tags:
         - reaction
         - movement
@@ -58,7 +59,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160136
-  modifiedTime: 1780509867073
+  modifiedTime: 1780514184860
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
