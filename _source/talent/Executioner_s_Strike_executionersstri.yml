@@ -35,9 +35,10 @@ system:
             all: false
           statuses: []
           duration:
-            value: null
-            units: seconds
-            expiry: null
+            value: 3
+            units: rounds
+            expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
@@ -53,6 +54,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - str4b
   rune: ''
@@ -66,11 +68,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160131
-  modifiedTime: 1773514792573
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780507430766
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
