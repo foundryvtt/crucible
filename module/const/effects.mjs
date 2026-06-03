@@ -29,7 +29,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=3, damageTyp
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Bleeding"),
-    name: "Bleeding",
+    name: _loc(CONFIG.statusEffects.bleeding.name),
     img: "icons/skills/wounds/blood-spurt-spray-red.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -55,7 +55,7 @@ export function burning(actor, {ability="intellect", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Burning"),
-    name: "Burning",
+    name: _loc(CONFIG.statusEffects.burning.name),
     img: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -85,7 +85,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Freezing"),
-    name: "Freezing",
+    name: _loc(CONFIG.statusEffects.freezing.name),
     img: "icons/magic/water/orb-ice-web.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -111,7 +111,7 @@ export function confused(actor, {ability="intellect", amount, turns=2}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Confused"),
-    name: "Confused",
+    name: _loc(CONFIG.statusEffects.confused.name),
     img: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -137,7 +137,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Corroding"),
-    name: "Corroding",
+    name: _loc(CONFIG.statusEffects.corroding.name),
     img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -161,7 +161,7 @@ export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
-    name: "Decaying",
+    name: _loc(CONFIG.statusEffects.decaying.name),
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -185,7 +185,7 @@ export function entropy(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Entropy"),
-    name: "Entropy",
+    name: _loc(CONFIG.statusEffects.entropy.name),
     img: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -210,7 +210,7 @@ export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Irradiated"),
-    name: "Irradiated",
+    name: _loc(CONFIG.statusEffects.irradiated.name),
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -239,7 +239,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Mending"),
-    name: "Mending",
+    name: _loc(CONFIG.statusEffects.mending.name),
     img: "icons/magic/life/cross-beam-green.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -263,7 +263,7 @@ export function inspired(actor, {ability="presence", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Inspired"),
-    name: "Inspired",
+    name: _loc(CONFIG.statusEffects.inspired.name),
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -288,7 +288,7 @@ export function dominated(actor, {ability="wisdom", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Dominated"),
-    name: "Dominated",
+    name: _loc(CONFIG.statusEffects.dominated.name),
     img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -314,7 +314,7 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
   amount ??= actor.getAbilityBonus(ability, 1);
   return {
     _id: getEffectId("Poisoned"),
-    name: "Poisoned",
+    name: _loc(CONFIG.statusEffects.poisoned.name),
     img: "icons/magic/unholy/orb-smoking-green.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -340,7 +340,7 @@ export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
 export function suffocating(actor, {amount=6, turns}={}) {
   return {
     _id: getEffectId("Suffocating"),
-    name: "Suffocating",
+    name: _loc(CONFIG.statusEffects.suffocating.name),
     img: "icons/magic/water/vortex-water-whirlpool.webp",
     duration: turns ? {value: turns, units: "rounds", expiry: "turnStart"} : {},
     origin: actor?.uuid,
@@ -370,7 +370,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Shocked"),
-    name: "Shocked",
+    name: _loc(CONFIG.statusEffects.shocked.name),
     img: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
@@ -394,7 +394,7 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
 export function staggered(actor, {turns=1}={}) {
   return {
     _id: getEffectId("Staggered"),
-    name: "Staggered",
+    name: _loc(CONFIG.statusEffects.staggered.name),
     img: "icons/skills/melee/strike-hammer-destructive-orange.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,

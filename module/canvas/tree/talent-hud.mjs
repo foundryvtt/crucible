@@ -68,10 +68,10 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     const tagGroups = [];
 
     // Node tags
-    const nodeTags = [{label: `Tier ${node.tier}`}, {label: node.id}];
-    if ( state.banned ) nodeTags.push({label: "Banned", class: "unmet"});
-    else if ( !state.unlocked ) nodeTags.push({label: "Locked", class: "unmet"});
-    if ( !node.talents.size ) nodeTags.push({label: "Empty", class: "unmet"});
+    const nodeTags = [{label: _loc("TALENT.Tier", {tier: node.tier})}, {label: node.id}];
+    if ( state.banned ) nodeTags.push({label: _loc("TALENT.Banned"), class: "unmet"});
+    else if ( !state.unlocked ) nodeTags.push({label: _loc("TALENT.Locked"), class: "unmet"});
+    if ( !node.talents.size ) nodeTags.push({label: _loc("TALENT.Empty"), class: "unmet"});
     const nodeType = _loc(`TALENT.NODES.${node.type.capitalize()}`);
     tagGroups.push({
       id: node.type,

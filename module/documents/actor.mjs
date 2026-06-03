@@ -1857,8 +1857,8 @@ export default class CrucibleActor extends Actor {
     if ( !ownedTalent ) throw new Error(`Talent "${ownedTalent.id}" is not owned by Actor "${this.id}"`);
     if ( dialog ) {
       const confirm = await foundry.applications.api.DialogV2.confirm({
-        window: {title: `Remove Talent: ${ownedTalent.name}`},
-        content: `<p>Remove talent <strong>${ownedTalent.name}</strong>, reclaiming 1 Talent Point?</p>`,
+        window: {title: _loc("TALENT.ACTIONS.RemoveTitle", {name: ownedTalent.name})},
+        content: _loc("TALENT.ACTIONS.Remove", {name: ownedTalent.name}),
         yes: {default: true},
         no: {default: false}
       });
@@ -2218,10 +2218,10 @@ export default class CrucibleActor extends Actor {
     const typeLabel = _loc(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
       id: "equipItem",
-      name: dropped ? `Drop ${typeLabel}` : `Un-equip ${typeLabel}`,
+      name: _loc(`ITEM.ACTIONS.${dropped ? "Drop" : "UnEquip"}`, {typeLabel}),
       img: item.img,
       cost: {action: ap},
-      description: `${dropped ? "Drop" : "Un-equip"} the ${item.name}.`,
+      description: _loc(`ITEM.ACTIONS.${dropped ? "Drop" : "UnEquip"}Detail`, {item: item.name}),
       target: {type: "self", scope: 1}
     }, {actor: this});
 

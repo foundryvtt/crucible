@@ -601,7 +601,10 @@
         "Elite": "Elite",
         "Minion": "Minion",
         "Normal": "Normal"
-      }
+      },
+      "NoArchetype": "No Archetype",
+      "NoTaxonomy": "No Taxonomy",
+      "ThreatLevelSpecific": "Threat Level {threat}"
     },
     "CREATION": {
       "AbandonContent": "Discard creation progress and exit the creator?",
@@ -664,7 +667,7 @@
           "base": "Base Engagement",
           "label": "Engagement",
           "labelShort": "Engage",
-          "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
+          "tooltip": "Number of Enemies able to be Engaged<br>(Size - 2) + Engagement Bonus"
         },
         "engagementBonus": {
           "hint": "An additive modifier to base engagement.",
@@ -1540,6 +1543,10 @@
     "DefaultName": "Environmental Hazard",
     "Falling": "Falling",
     "Hazard": "Hazard",
+    "Parenthetical": "{label} ({tags})",
+    "Rank": "Hazard {danger}",
+    "TooltipDamage": "{rank} vs. {defense} dealing {damage} damage to {resource}",
+    "TooltipRestoration": "{rank} vs. {defense} restoring {resource}",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",
     "CONFIG": {
@@ -1567,6 +1574,7 @@
       "Create": "Create Item",
       "Delete": "Delete Item",
       "Drop": "Drop Weapon",
+      "DropDetail": "Drop the {item}",
       "Edit": "Edit Item",
       "Equip": "Equip {typeLabel}",
       "EquipDetail": "Equip the {item}",
@@ -1574,7 +1582,8 @@
       "RecoverAllContent": "Pick up all of {actor}'s dropped items?",
       "RecoverAllTitle": "Recover Dropped Items",
       "RecoverDetail": "Recover the dropped {item}",
-      "UnEquip": "Un-equip {typeLabel}"
+      "UnEquip": "Un-equip {typeLabel}",
+      "UnEquipDetail": "Un-equip the {item}"
     },
     "COMPOSED_NAME": {
       "Prefix": "{prefixes} {name}",
@@ -2215,6 +2224,8 @@
       "PurchaseNodeReverse": "Remove point spent on empty node \"{node}\"?",
       "PurchaseNodeTitle": "Purchase Talent Node?",
       "PurchaseTitle": "Purchase Talent: {name}",
+      "Remove": "<p>Remove talent <strong>{name}</strong>, reclaiming 1 Talent Point?</p>",
+      "RemoveTitle": "Remove Talent: {name}",
       "Reset": "Reset"
     },
     "FIELDS": {
@@ -2320,10 +2331,14 @@
       "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
       "RequiresRuneInflection": "You must know a spellcraft Rune in order to utilize an Inflection."
     },
+    "Banned": "Banned",
+    "Empty": "Empty",
     "GrantsSpells": "<strong>Iconic Spells:</strong>: {name} grants {spells} Iconic Spell slots.",
+    "Locked": "Locked",
     "NodeSpecific": "{nodeType} Node",
     "PointsAvailable": "Points Available",
-    "Prerequisites": "Prerequisites"
+    "Prerequisites": "Prerequisites",
+    "Tier": "Tier {tier}"
   },
   "TAXONOMY": {
     "CATEGORIES": {

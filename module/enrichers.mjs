@@ -500,21 +500,22 @@ function enrichHazard([_match, terms, name]) {
   const {damageType, defenseType, resource, restoration} = action.usage;
 
   // Prepare label
-  const hazardRank = `Hazard ${danger}`;
+  const hazardRank = _loc("HAZARD.Rank", {danger});
   const parenthetical = name ? [hazardRank] : [];
   for ( const t of tags ) {
     const cfg = SYSTEM.ACTION.TAGS[t];
     if ( cfg && cfg.label && !cfg.internal ) parenthetical.push(_loc(cfg.label));
   }
   let label = name || hazardRank;
-  if ( parenthetical.length ) label += ` (${parenthetical.join(", ")})`;
-
+  const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "short", type: "unit"});
+  if ( parenthetical.length ) label = _loc("HAZARD.Parenthetical", {label, tags: listFormatter.format(parenthetical)});
   // Prepare tooltip
   const defenseLabel = _loc(SYSTEM.DEFENSES[defenseType]?.label);
   const resourceLabel = _loc(SYSTEM.RESOURCES[resource]?.label);
   const damageLabel = _loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || "";
-  const tooltip = restoration ? `${hazardRank} vs. ${defenseLabel} restoring ${resourceLabel}`
-    : `${hazardRank} vs. ${defenseLabel} dealing ${damageLabel} damage to ${resourceLabel}`;
+  const tooltip = restoration
+    ? _loc("HAZARD.TooltipRestoration", {rank: hazardRank, defense: defenseLabel, resource: resourceLabel})
+    : _loc("HAZARD.TooltipDamage", {rank: hazardRank, defense: defenseLabel, damage: damageLabel, resource: resourceLabel});
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");

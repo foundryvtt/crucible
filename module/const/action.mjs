@@ -385,7 +385,7 @@ export const TAGS = {
   afterStrike: {
     tag: "afterStrike",
     label: "ACTION.TAG.AfterStrike",
-    tooltip: "ACTION.TAG.ActorStrikeTooltip",
+    tooltip: "ACTION.TAG.AfterStrikeTooltip",
     category: "requirements",
     canUse() {
       const lastAction = this.actor.lastConfirmedAction;

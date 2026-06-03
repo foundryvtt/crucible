@@ -1112,7 +1112,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       bonusAttribute: "engagementBonus",
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditEngagement",
-      baseLabel: "ACTOR.FIELDS.movement.engagement.base"
+      baseLabel: "ACTOR.FIELDS.movement.engagement.base",
+      baseHint: _loc("ACTOR.FIELDS.movement.engagement.tooltip").split("<br>")[0]
     });
   }
 
@@ -1129,7 +1130,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       bonusAttribute: "sizeBonus",
       minValue: 1,
       editLabel: "ACTOR.ACTIONS.EditSize",
-      baseLabel: "ACTOR.FIELDS.movement.size.base"
+      baseLabel: "ACTOR.FIELDS.movement.size.base",
+      baseHint: "ACTOR.FIELDS.movement.size.tooltip"
     });
   }
 
@@ -1146,7 +1148,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       bonusAttribute: "strideBonus",
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditMovement",
-      baseLabel: "ACTOR.FIELDS.movement.stride.base"
+      baseLabel: "ACTOR.FIELDS.movement.stride.base",
+      baseHint: "ACTOR.FIELDS.movement.stride.tooltip"
     });
   }
 
@@ -1193,9 +1196,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {number} [options.minValue]
    * @param {string} [options.editLabel]
    * @param {string} [options.baseLabel]
+   * @param {string} [options.baseHint]
    * @returns {Promise<void>}
    */
-  async #editMovementBonusDialog({baseAttribute, bonusAttribute, minValue, editLabel, baseLabel}={}) {
+  async #editMovementBonusDialog({baseAttribute, bonusAttribute, minValue, editLabel, baseLabel, baseHint}={}) {
     const bonusField = this.actor.system.schema.getField(`movement.${bonusAttribute}`);
     if ( !bonusField ) throw new Error(`Actor ${this.actor.name} does not have a movement.${bonusAttribute} field`);
     const baseValue = this.actor.system.movement[baseAttribute];
@@ -1203,7 +1207,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const minBonus = minValue - baseValue;
 
     // Structure form content
-    const baseGroup = bonusField.toFormGroup({label: _loc(baseLabel), classes: ["slim"]},
+    const baseGroup = bonusField.toFormGroup({label: _loc(baseLabel), hint: _loc(baseHint), classes: ["slim"]},
       {name: "", value: baseValue, disabled: true});
     const bonusGroup = bonusField.toFormGroup({classes: ["slim"]}, {value: bonusValue, min: minBonus, step: 1});
     bonusGroup.querySelector("input").toggleAttribute("autofocus", true);
