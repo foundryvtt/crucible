@@ -6,21 +6,23 @@ flags:
   core: {}
 system:
   description: >-
-    You protect your allies, intercepting blows that might otherwise be directed
-    towards your companions.
+    <p>You protect your allies, intercepting blows that might otherwise be
+    directed towards your companions.</p>
   actions:
     - id: intercept
       condition: An enemy moves into or through your Engagement radius.
       description: >-
         <p>You intercept the path of an enemy which enters your
-        <strong>Engagement</strong> radius, immediatly moving up to your
+        <strong>Engagement</strong> radius, immediately moving up to your
         <strong>Stride</strong> to interpose yourself and block their
         path.</p><p>If the enemy moves out of your Engagement radius or attacks
         any other creature during their turn, you may make a @Action[default
-        reactiveStrike] against them.</p>
+        reactiveStrike] against them.</p><h3 class="divider">Playtest
+        Notes</h3><p>The interruption of enemy movement is not yet
+        automated.</p>
       tags:
-        - movement
         - reaction
+        - movement
       cost:
         action: 0
         focus: 1
@@ -42,6 +44,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - dextou1
   rune: ''
@@ -53,11 +56,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160136
-  modifiedTime: 1773514792588
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780514184860
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null
