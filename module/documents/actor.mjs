@@ -2062,12 +2062,16 @@ export default class CrucibleActor extends Actor {
       updateItems.push(...talentsToCreate);                     // Add new Talent
 
       // Grant Equipment
-      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) {
+      for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
         const item = await fromUuid(uuid);
         if ( !item ) continue;
         const itemData = this._cleanItemData(item);
         Object.assign(itemData.system, {quantity, equipped});
         if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        if ( autoScale ) {
+          itemData.system.quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+          foundry.utils.setProperty(itemData, "flags.crucible.autoScale", true);
+        }
         updateItems.push(itemData); // Always update equipment, even if already owned
       }
 
@@ -2627,7 +2631,7 @@ export default class CrucibleActor extends Actor {
       this.#updateSize(data, options);
       this.#updatePace(data, options);
       this.#applyResourceStatuses(data);
-      this.#grantDetailTalents(data);
+      this.#syncGrantedItems(data);
     }
 
     // Update flanking
@@ -2908,11 +2912,12 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Ensure Talents granted by details items (Ancestry and Background for Heroes, Archetype and Taxonomy for
-   * Adversaries) are present if they should be, and not present if they should not be.
+   * Synchronize Items granted by details items when the Actor level changes.
+   * Talents are granted or removed according to their required level.
+   * Granted equipment adjusts its quality tier as level changes.
    * @param {object} data
    */
-  async #grantDetailTalents(data) {
+  async #syncGrantedItems(data) {
     if ( !("level" in (data.system?.advancement ?? {})) ) return;
     let deleteItemIds = new Set();
     const createItems = [];
@@ -2925,8 +2930,18 @@ export default class CrucibleActor extends Actor {
       // Ensure no duplicate talents from multiple detail items
       createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
     }
+
+    // Adjust the quality of automatically scaled equipment
+    const updateItems = [];
+    for ( const item of this.items ) {
+      if ( item.getFlag("crucible", "autoScale") !== true ) continue;
+      const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+      if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+    }
+
     const batchOperations = this.defineBatchOperations({}, {
       createItems: {changes: createItems, options: {keepId: true}},
+      updateItems: {changes: updateItems, options: {_crucibleAutoScale: true}},
       deleteItems: Array.from(deleteItemIds)
     });
     if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);

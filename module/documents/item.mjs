@@ -351,11 +351,20 @@ export default class CrucibleItem extends foundry.documents.Item {
       }
     }
 
-    // Procedurally rename the item when its quality tier changes
+    // Respond to a quality tier change
     const newQuality = data.system?.quality;
-    const isRenamed = ("name" in data) && (data.name !== this.name);
-    if ( newQuality && (newQuality !== this.system.quality) && !isRenamed && (await this.hasProceduralName()) ) {
-      data.name = await this.getProceduralName({quality: newQuality});
+    if ( newQuality && (newQuality !== this.system.quality) ) {
+
+      // Take manual control of an automatically scaled item, unless the change came from the scaling workflow
+      if ( !options._crucibleAutoScale && (this.getFlag("crucible", "autoScale") === true) ) {
+        foundry.utils.setProperty(data, "flags.crucible.autoScale", false);
+      }
+
+      // Procedurally rename the item, unless the update also explicitly renames it
+      const isRenamed = ("name" in data) && (data.name !== this.name);
+      if ( !isRenamed && (await this.hasProceduralName()) ) {
+        data.name = await this.getProceduralName({quality: newQuality});
+      }
     }
   }
 

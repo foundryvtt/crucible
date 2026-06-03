@@ -1675,6 +1675,7 @@
       "Equipment": "Equipment Details",
       "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
       "EquipmentRemove": "Remove Equipment",
+      "EquipmentScale": "Automatically scale quality with creature level",
       "ScaledPrice": "Scaled Price",
       "Spellcraft": "Spellcraft",
       "SpellDrop": "Add an iconic spell by dragging and dropping a Spell item into this area.",

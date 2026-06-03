@@ -13,7 +13,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   static DEFAULT_OPTIONS = {
     actions: {
       removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
-      toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
+      toggleEquipment: CrucibleActorDetailsItemSheet.#toggleEquipmentOption,
       removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent,
       removeSpell: CrucibleActorDetailsItemSheet.#onRemoveSpell
     }
@@ -61,11 +61,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareEquipment() {
     const equipment = this.document.system.equipment;
     const promises = [];
-    for ( const [equipmentIndex, {item: uuid, quantity, equipped}] of equipment.entries() ) {
+    for ( const [equipmentIndex, {item: uuid, quantity, equipped, autoScale}] of equipment.entries() ) {
       promises.push(fromUuid(uuid).then(item => {
         item ||= new Item.implementation({type: "loot", name: "INVALID"});
         return item.renderInline({showRemove: this.isEditable, showEquipped: this.isEditable,
-          equipmentIndex, quantity, equipped, uuid});
+          showScaled: this.isEditable, equipmentIndex, quantity, equipped, scaled: autoScale, uuid});
       }));
     }
     return Promise.all(promises);
@@ -268,18 +268,17 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
-   * Toggle the equipped state of an equipment entry on the item.
+   * Toggle a boolean option of an equipment entry on the item, identified by the button's data-toggle attribute.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
-  static async #toggleEquipped(event) {
-    const item = event.target.closest(".equipment");
+  static async #toggleEquipmentOption(event, target) {
+    const toggle = target.dataset.toggle;
+    const uuid = target.closest(".equipment").dataset.uuid;
     const equipment = this.document.system.equipment;
-    const uuid = item.dataset.uuid;
-    const existingItem = equipment.find(i => i.item === uuid);
-    existingItem.equipped = !existingItem.equipped;
-    const updateData = {system: {equipment}};
-    return this._processSubmitData(event, this.form, updateData);
+    const entry = equipment.find(i => i.item === uuid);
+    entry[toggle] = !entry[toggle];
+    return this._processSubmitData(event, this.form, {system: {equipment}});
   }
 
   /* -------------------------------------------- */

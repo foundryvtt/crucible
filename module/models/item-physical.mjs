@@ -394,13 +394,16 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @param {object} [options]
    * @param {boolean} [options.showRemove]     Whether to show a "Remove Equipment" button
    * @param {boolean} [options.showEquipped]   Whether to show an "Equipped" toggle button
+   * @param {boolean} [options.showScaled]     Whether to show a "Scale Automatically" toggle button
    * @param {number} [options.equipmentIndex]  Index in a granted equipment list, rendering a quantity input
    * @param {number} [options.quantity]        A granted quantity which overrides the item's own quantity
    * @param {boolean} [options.equipped]       A granted equipped state which overrides the item's own state
+   * @param {boolean} [options.scaled]         A granted automatic scaling state to display
    * @param {string} [options.uuid]            Override the emitted data-uuid, e.g. for an invalid placeholder
    * @returns {Promise<string>}
    */
-  async renderInline({showRemove=false, showEquipped=false, equipmentIndex, quantity, equipped, uuid}={}) {
+  async renderInline({showRemove=false, showEquipped=false, showScaled=false, equipmentIndex, quantity, equipped,
+    scaled=false, uuid}={}) {
     quantity ??= this.quantity;
     equipped ??= this.equipped;
     return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
@@ -410,13 +413,15 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       cssClass: [this.parent.type, equipped ? "equipped" : ""].filterJoin(" "),
       description: await CONFIG.ux.TextEditor.enrichHTML(this.description.public, {relativeTo: this.parent}),
       tags: this.getTags(),
-      showControls: showRemove || showEquipped,
+      showControls: showRemove || showEquipped || showScaled,
       showRemove,
       showEquipped,
+      showScaled,
       showQuantity: equipmentIndex !== undefined,
       equipmentIndex,
       quantity,
-      equipped
+      equipped,
+      scaled
     });
   }
 

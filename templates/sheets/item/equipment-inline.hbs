@@ -11,8 +11,13 @@
     {{#if showControls}}
     <div class="controls">
         {{#if showEquipped}}
-        <a class="button icon fa-solid fa-shield toggle-equipped" data-action="toggleEquipped"
-            aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></a>
+        <a class="button icon toggle fa-solid fa-shield {{#if equipped}}active{{/if}}" data-action="toggleEquipment"
+           data-toggle="equipped" aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></a>
+        {{/if}}
+        {{#if showScaled}}
+        <a class="button icon toggle fa-solid fa-arrow-up-right-dots {{#if scaled}}active{{/if}}"
+           data-action="toggleEquipment" data-toggle="autoScale"
+           aria-label="{{localize 'ITEM.SHEET.EquipmentScale'}}" data-tooltip></a>
         {{/if}}
         {{#if showRemove}}
         <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"

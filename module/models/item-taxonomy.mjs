@@ -40,7 +40,8 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       equipment: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1}),
-        equipped: new fields.BooleanField()
+        equipped: new fields.BooleanField(),
+        autoScale: new fields.BooleanField()
       })),
       characteristics: new fields.SchemaField({
         equipment: new fields.BooleanField(),

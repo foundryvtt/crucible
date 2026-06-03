@@ -70,6 +70,22 @@ export const QUALITY_TIERS = defineEnum({
 });
 
 /**
+ * Quality tier progression used for automatically scaled equipment granted by Archetype or Taxonomy items.
+ * Type offsets shift the 6-level threshold cadence so that creature power increases are distributed across levels.
+ * Item types with a positive offset degrade to shoddy quality once (level + offset) is zero or lower.
+ */
+export const QUALITY_SCALING = {
+  offsets: {armor: 2, weapon: 1},
+  tiers: ["shoddy", "standard", "fine", "superior", "masterwork"],
+  getQuality(level, type) {
+    const offset = this.offsets[type] ?? 0;
+    const shifted = level + offset;
+    if ( (offset > 0) && (shifted <= 0) ) return this.tiers[0];
+    return this.tiers[Math.clamp(1 + Math.floor(shifted / 6), 1, 4)];
+  }
+};
+
+/**
  * The possible enchantment tiers that a physical item can possess.
  * @type {Readonly<Record<string, ItemEnchantmentTier>>}
  */
