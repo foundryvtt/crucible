@@ -407,25 +407,15 @@
     },
     "WARNINGS": {
       "SPECIFIC": {
-        "BODY_BLOCK": {
-          "AlreadyConfirmed": "The attack against you has already been confirmed and can no longer be blocked.",
-          "InvalidOutcome": "You may only use Body Block after an attack against you is defended by Armor or a Glance.",
-          "MeleeOnly": "You may only use Body Block against an incoming melee attack."
-        },
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round.",
           "WrongTurn": "You may only use the Delay action on your own turn in combat."
-        },
-        "INTERPOSE": {
-          "AllyMustBeTarget": "The selected ally must be the target of the most recent Strike.",
-          "AttackMissed": "You may only Interpose against an attack that hit or glanced your ally.",
-          "RequiresStrike": "Interpose requires the most recent action to be a weapon Strike.",
-          "SingleTarget": "Interpose can only be used against a single-target Strike."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
         }
       },
+      "AlreadyConfirmed": "The action against you has already been confirmed and can no longer be reacted to.",
       "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
@@ -462,9 +452,13 @@
       "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.", 
       "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
+      "MustReactHit": "You may only perform the {action} action in response to an attack that hit or glanced.",
+      "MustReactSingleTarget": "You may only perform the {action} action in response to an action that had a single target.",
+      "MustReactStrike": "You may only perform the {action} action in response to a weapon Strike.",
       "MustReload": "Your weapon requires reloading in order to use this action.",
       "MustScaleDex": "Every weapon used in this action must scale using dexterity.",
       "MustScaleStrength": "Every weapon used in this action must scale using strength.",
+      "MustTargetTarget": "The {action} action requires that you target the target of the most recent action.",
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
