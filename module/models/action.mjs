@@ -1691,7 +1691,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
     if ( !this.effects.length && !regionEffectRequired ) return;
     const eventsByActor = this.eventsByActor;
-    for ( const [target] of this.targets ) {
+    const allActors = Array.from(this.targets.keys());
+    if ( !this.targets.has(this.actor) ) allActors.push(this.actor);
+    for ( const target of allActors ) {
       const events = eventsByActor.get(target);
       for ( const [i, effectData] of this.effects.entries() ) {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
@@ -1748,10 +1750,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Identify the qualifying CrucibleActionEvent which enables an ActionEffect to be applied.
    * Return true if the effect may be applied unconditionally, or false if qualifications are unmet.
-   * @param {CrucibleActor} target              The target actor
-   * @param {ActorEventGroup|undefined} events            The pre-classified event group for this target
+   * @param {CrucibleActor} target                               The target actor
+   * @param {ActorEventGroup|undefined} events                   The pre-classified event group for this target
    * @param {Map<CrucibleActor, ActorEventGroup>} eventsByActor  Full events-by-actor map
-   * @param {ActionEffect} effectData           Effect data to consider
+   * @param {ActionEffect} effectData                            Effect data to consider
    * @returns {CrucibleActionEvent|true|false}
    */
   #getQualifyingEvent(target, events, eventsByActor, effectData) {
