@@ -7,9 +7,9 @@ flags:
   core: {}
 system:
   description: >-
-    An challenging unarmed technique which targets vital pressure points on the
-    bodies of your adversaries. You unleash a debilitating strike which, if
-    successful, leaves your enemy Stunned.
+    <p>A challenging unarmed technique which targets vital pressure points on
+    the bodies of your adversaries. You unleash a debilitating strike which, if
+    successful, leaves your enemy Stunned.</p>
   actions:
     - id: stunningStrike
       condition: ''
@@ -70,11 +70,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160150
-  modifiedTime: 1773514792619
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779907081391
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
   exportSource: null

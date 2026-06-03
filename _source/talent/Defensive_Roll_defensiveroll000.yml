@@ -19,8 +19,8 @@ system:
         <strong>Focus</strong> to leap into a defensive roll, moving up to your
         <strong>Size</strong> in any direction.</p>
       tags:
-        - movement
         - reaction
+        - movement
       cost:
         action: 0
         focus: 1
@@ -28,7 +28,7 @@ system:
         heroism: 0
         hands: 0
       target:
-        type: single
+        type: self
         number: 1
         scope: 0
         self: false
@@ -40,6 +40,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - dex2a
   rune: ''
@@ -51,11 +52,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160130
-  modifiedTime: 1773514792568
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1779903675081
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

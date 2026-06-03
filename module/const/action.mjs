@@ -598,7 +598,7 @@ export const TAGS = {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
 
-      // Create summoned tokens
+      // Create summoned tokens, track non-permanent ones
       const summonedTokens = [];
       for ( const event of summonEvents ) {
         const summon = event.summon;
@@ -633,7 +633,7 @@ export const TAGS = {
         Object.assign(tokenData, {actorId: worldActor.id, actorLink: false});
         const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: this.token.parent});
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
-        summonedTokens.push(token.uuid);
+        if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 
         // Create a Combatant
         if ( this.actor.inCombat ) {

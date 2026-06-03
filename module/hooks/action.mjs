@@ -176,6 +176,24 @@ HOOKS.bullrush = {
 
 /* -------------------------------------------- */
 
+/**
+ * Shared helper for checking eligibility of an action based on the result of the most recent action
+ * @param {CrucibleAction} action
+ * @param {object} options
+ * @param {number} options.requiredResult
+ * @throws {Error}
+ */
+function _canUsePostDefend(action, {requiredResult}) {
+  const lastAction = ChatMessage.implementation.getLastAction();
+  const rolls = lastAction?.eventsByTarget.get(action.actor)?.roll ?? [];
+  if ( !lastAction?.tags.has("melee") || !rolls.some(r => r.roll.data.result === requiredResult) ) {
+    const resultLabel = _loc(crucible.api.dice.AttackRoll.RESULT_TYPE_LABELS[requiredResult]);
+    throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.causticPhial = {
   prepare() {
     const tiers = {
@@ -243,6 +261,30 @@ HOOKS.conjureArmament = {
 
 /* -------------------------------------------- */
 
+HOOKS.counterEvade = {
+  canUse() {
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.counterRiposte = {
+  canUse() {
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.PARRY});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.counterStrike = {
+  canUse() {
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.BLOCK});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.counterspell = {
   initialize() {
     Object.assign(this.usage.context, {
@@ -260,6 +302,9 @@ HOOKS.counterspell = {
     const lastAction = ChatMessage.implementation.getLastAction();
     const wasSpell = lastAction && (lastAction.tags.has("composed") || lastAction.tags.has("iconicSpell"));
     if ( !wasSpell ) throw new Error(_loc("SPELL.COUNTERSPELL.WARNINGS.BadTarget"));
+  },
+  configure() {
+    this.usage.targetAction ??= ChatMessage.implementation.getLastAction();
   },
   async roll(target) {
     if ( this.usage.targetAction.message ) return;
@@ -309,6 +354,17 @@ HOOKS.decisiveAction = {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
     const activation = this.events.find(e => e.type === "activation");
     if ( activation ) activation.resources.push({resource: "action", delta: amount});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.defensiveRoll = {
+  prepare() {
+    this.range.maximum = this.actor.system.movement.size;
+  },
+  canUse() {
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE});
   }
 };
 
@@ -614,6 +670,9 @@ HOOKS.laughingMatter = {
 /* -------------------------------------------- */
 
 HOOKS.lastStand = {
+  prepare() {
+    this.usage.hasDice = false;
+  },
   postActivate() {
     const selfEvents = this.selfEvents;
     const health = this.actor.abilities.toughness.value * 2;
@@ -622,7 +681,7 @@ HOOKS.lastStand = {
     const effectEvent = selfEvents?.all.find(e => e.effects.length);
     if ( !effectEvent ) return;
     effectEvent.effects[0].system.changes ||= [];
-    effectEvent.effects[0].system.changes.push({key: "system.defenses.wounds.bonus", type: "add", value: 2});
+    effectEvent.effects[0].system.changes.push({key: "system.defenses.wounds.bonus", type: "subtract", value: 2});
   }
 };
 
@@ -665,6 +724,13 @@ HOOKS.executionersStrike = {
       damageType: weapon.system.damageType
     });
     this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
+  },
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      const {health} = target.actor.resources;
+      if ( health.value < health.max ) continue;
+      target.error ??= _loc("ACTION.WARNINGS.RequiresTargetWounded", {action: this.name});
+    }
   }
 };
 
@@ -891,6 +957,17 @@ HOOKS.medicinalCompound = {
         {amount, resource: "health", restoration: true},
         {amount, resource: "morale", restoration: true}
       );
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.offhandStrike = {
+  canUse() {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( lastAction.events.find(e => e.type === "strike")?.weapon.system.slot !== SYSTEM.WEAPON.SLOTS.MAINHAND ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowMainhandStrike", {action: this.name}));
     }
   }
 };
@@ -1262,7 +1339,7 @@ HOOKS.restrainingChomp = {
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {
-      if ( !target.actor.system.isDead ) target.error ??= `${this.name} requires a Dead target.`;
+      if ( !target.actor.system.isDead ) target.error ??= _loc("ACTION.WARNINGS.SPECIFIC.REVIVE.RequiresDead");
     }
   },
   postActivate() {
@@ -1280,12 +1357,22 @@ HOOKS.revive = {
 HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;
+  },
+  canUse() {
+    const lastAction = ChatMessage.implementation.getLastAction({confirmed: true, actor: this.actor});
+    if ( (lastAction?.actor !== this.actor) || !lastAction.tags.has("melee")
+      || !lastAction.events.some(e => (e.type === "strike") && e.target.isIncapacitated) ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeKill", {action: this.name}));
+    }
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.secondWind = {
+  prepare() {
+    this.usage.hasDice = false;
+  },
   postActivate() {
     const health = this.actor.system.abilities.toughness.value;
     this.recordEvent({resources: [{resource: "health", delta: health}]});

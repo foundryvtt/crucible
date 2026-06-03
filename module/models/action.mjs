@@ -2281,7 +2281,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Additional Actor-specific consequences when the action deals damage to a target
-    if ( !isNegated && this.events.some(e => (e.target !== this.actor) && e.isDamage) ) {
+    if ( !isNegated && this.events.some(e => (e.target !== this.actor) && (e.isDamage || e.isHealing)) ) {
       this.actor._onDealDamage(this);
     }
 
