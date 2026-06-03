@@ -538,7 +538,7 @@ HOOKS.feintingStrike = {
 
 HOOKS.flyingKick = {
   prepare() {
-    this.cost.action = this.usage.baseActionCost + (this.usage.weapon?.system.actionCost ?? 0);
+    this.range.maximum = this.actor.system.movement.stride;
   }
 };
 
@@ -750,12 +750,12 @@ HOOKS.executionersStrike = {
     });
     this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
   },
-  acquireTargets(targets) {
-    for ( const target of targets ) {
-      const {health} = target.actor.resources;
-      if ( health.value < (health.max / 2) ) continue;
-      target.error ??= _loc("ACTION.WARNINGS.RequiresTargetWounded", {action: this.name});
-    }
+  preActivate() {
+    const target = this.targets.keys().next().value;
+    const {health} = target.resources;
+    if ( health.value < (health.max / 2) ) return;
+    this.effects = [];
+    this.tags.delete("deadly");
   }
 };
 
