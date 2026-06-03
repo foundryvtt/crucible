@@ -88,6 +88,20 @@ HOOKS.armoredInstinct0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.assassin00000000 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
+    if ( !target.statuses.has("unaware") ) return;
+
+    // Don't want to double-deadly
+    if ( action.tags.has("deadly") ) return;
+    action.tags.add("deadly");
+    rollData.multiplier += 1;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.bard000000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
@@ -129,6 +143,16 @@ HOOKS.battlefocus00000 = {
     }
   }
 };
+
+/* -------------------------------------------- */
+
+HOOKS.berserker0000000 = {
+  prepareAttack(_item, action, _target, rollData) {
+    if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("berserkerRage")) ) return;
+    if ( !action.tags.has("melee") ) return;
+    rollData.damageBonus += 4;
+  }
+}
 
 /* -------------------------------------------- */
 
@@ -231,7 +255,7 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
     },
     receiveAttack(_item, _action, roll) {
       const dmg = roll.data.damage;
-      if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
+      if ( (dmg?.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
       const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
       dmg.restoration = true;
       dmg.total = dmg.resistance - unmitigatedTotal;
@@ -267,6 +291,11 @@ HOOKS.chirurgeon000000 = {
     if ( action.tags.has("medicine") && this.inCombat ) {
       action.usage.boons[item.id] = {label: item.name, number: 1};
     }
+  },
+  prepareSkillCheck(item, skill, rollData) {
+    if ( (rollData.type === "medicine") && this.inCombat ) {
+      rollData.boons[item.id] = {label: item.name, number: 1};
+    }
   }
 };
 
@@ -274,6 +303,7 @@ HOOKS.chirurgeon000000 = {
 
 HOOKS.concussiveblows0 = {
   applyCriticalEffects(_item, action) {
+    if ( !action.tags.has("melee") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
@@ -392,7 +422,19 @@ HOOKS.evasiveshot00000 = {
 
 HOOKS.evasiveArmor0000 = {
   prepareDefenses(_item, defenses) {
-    const excess = defenses.reflex.total - defenses.physical.total;
+    const defenseTotals = {};
+    for ( const defense of ["reflex", "armor", "dodge", "block", "parry"] ) {
+      defenseTotals[defense] = defenses[defense].base + defenses[defense].bonus;
+    }
+    if ( this.statuses.has("exposed") ) defenseTotals.armor -= Math.min(defenses.armor.base, 2);
+    if ( this.statuses.has("enraged") ) defenseTotals.parry = defenseTotals.block = 0;
+    if ( this.statuses.has("exhausted") ) {
+      defenseTotals.dodge = Math.ceil(defenseTotals.dodge / 2);
+      defenseTotals.reflex = Math.ceil(defenseTotals.reflex / 2);
+    }
+    if ( this.isIncapacitated ) defenseTotals.dodge = defenseTotals.parry = defenseTotals.block = 0;
+    const physicalTotal = defenseTotals.armor + defenseTotals.dodge + defenseTotals.block + defenseTotals.parry;
+    const excess = defenseTotals.reflex - physicalTotal;
     if ( excess > 0 ) defenses.armor.bonus += excess;
   }
 };
@@ -518,6 +560,26 @@ HOOKS.irrepressiblespi = {
 
 /* -------------------------------------------- */
 
+HOOKS.justiciar0000000 = {
+  applyCriticalEffects(item, action) {
+    for ( const event of action.events ) {
+      if ( (event.target === this || !event.isCriticalSuccess || !event.damagesHealth) ) continue;
+      const idx = action.events.indexOf(event) + 1;
+      const {overflow, resistance, multiplier} = event.roll.data.damage;
+      const moraleDamage = crucible.api.models.CrucibleAction.computeDamage({overflow, resistance, multiplier});
+      if ( moraleDamage ) {
+        action.recordEvent({
+          target: event.target,
+          resources: [{resource: "morale", delta: -moraleDamage}],
+          statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]
+        }, {index: idx});
+      }
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.kineturge0000000 = {
   applyCriticalEffects(_item, action) {
     if ( action.rune?.id !== "kinesis" ) return;
@@ -607,7 +669,7 @@ HOOKS.mesmer0000000000 = {
 HOOKS.neverYield000000 = {
   // Intentionally uses prepareDefenses because this must run after #prepareFinalResources applies the weakened penalty
   prepareDefenses(_item, _defenses) {
-    if ( this.isWeakened ) this.resources.action.max += 1;
+    if ( this.system.isWeakened ) this.resources.action.max += 1;
   }
 };
 
@@ -689,6 +751,11 @@ HOOKS.planneddefense00 = {
 /* -------------------------------------------- */
 
 HOOKS.poisoner00000000 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( rollData.damageType === "poison" ) {
+      rollData.damageBonus += 2;
+    }
+  },
   applyCriticalEffects(_item, action) {
     if ( !this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) return;
     if ( !action.tags.has("melee") ) return;
@@ -739,8 +806,8 @@ HOOKS.powerfulThrow000 = {
 /* -------------------------------------------- */
 
 HOOKS.preparedness0000 = {
-  preActivateAction(item, action) {
-    if ( action.id !== "equipWeapon" ) return;
+  prepareAction(item, action) {
+    if ( action.id !== "equipItem" ) return;
     if ( action.cost.action && !this.system.status.hasMoved ) {
       action.cost.action = 0;
       action.usage.actorStatus.hasMoved = true;
@@ -821,6 +888,14 @@ HOOKS.saboteur00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.skirmisher000000 = {
+  defendAttack(item, action, origin, rollData) {
+    if ( action.id === "reactiveStrike" ) rollData.banes[item.skirmisher] = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.inexorableFlame0 = {
   prepareSpells(_item, grimoire) {
     const flame = grimoire.runes.get("flame");
@@ -863,8 +938,8 @@ HOOKS.sorcerer00000000 = {
   },
   preActivateAction(item, action) {
     if ( action.tags.has("spell") ) {
-      action.usage.bonuses.damageBonus ||= 0;
-      action.usage.bonuses.damageBonus += this.grimoire.iconicSlots;
+      action.damage.bonus ??= 0;
+      action.damage.bonus += this.grimoire.iconicSlots;
     }
   }
 };
@@ -907,7 +982,7 @@ HOOKS.spellmute0000000 = {
 HOOKS.stilllake0000000 = {
   defendAttack(item, action, _origin, rollData) {
     if ( !action.tags.has("skill") ) return;
-    if ( CONFIG.SYSTEM.SKILLS[action.usage.skillId].category !== "soc" ) return;
+    if ( SYSTEM.SKILLS[action.usage.skillId].category !== "soc" ) return;
     rollData.banes.stillLake = {label: item.name, number: 2};
   }
 };

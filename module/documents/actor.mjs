@@ -256,11 +256,8 @@ export default class CrucibleActor extends Actor {
 
   /** @inheritdoc */
   applyActiveEffects(phase) {
-    // Before applying active effects, apply data based on prepared embedded Item documents
-    // TODO in V14 this can be removed in favor of phased AE application
-    const items = this.itemTypes;
-    // TODO: This is a temporary fix for double item prep
-    if ( phase !== "final" ) this.system.prepareItems(items);
+    // Owned Item preparation happens prior to the initial active effect application phase
+    if ( phase === "initial" ) this.system.prepareItems(this.itemTypes);
     super.applyActiveEffects(phase);
   }
 
@@ -1154,6 +1151,7 @@ export default class CrucibleActor extends Actor {
       const forceUpdate = effectData._action === "update";
       const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
       const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
+      if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
       if ( shouldUpdate ) toUpdate.push(effectData);
       else if ( shouldDelete ) toDelete.push(effectData._id);
       else if ( !reverse ) toCreate.push(effectData);
@@ -2415,6 +2413,7 @@ export default class CrucibleActor extends Actor {
         description: _loc("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
         img: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
+        showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
         system: {
           enemies: engagement.enemies.size,
           allies: engagement.allies.size,

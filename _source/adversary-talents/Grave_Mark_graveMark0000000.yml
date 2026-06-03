@@ -46,10 +46,6 @@ system:
             all: false
           statuses:
             - exhausted
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           system:
             dot: []
             maintenance: null

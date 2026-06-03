@@ -249,16 +249,14 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @inheritDoc */
   getTags(scope="full") {
-    const parentTags = super.getTags(scope);
-    const tags = {};
+    const tags = super.getTags(scope);
 
     // Equipment Slot and Type
-    if ( this.properties.has("natural") ) tags.natural = SYSTEM.WEAPON.PROPERTIES.natural.label;
+    if ( this.properties.has("natural") ) tags.equipped = SYSTEM.WEAPON.PROPERTIES.natural.label;
     else if ( this.equipped ) {
       const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([_k, v]) => v === this.slot)[0];
-      tags.slot = SYSTEM.WEAPON.SLOTS.labels[slotKey];
+      tags.equipped = SYSTEM.WEAPON.SLOTS.labels[slotKey];
     }
-    Object.assign(tags, parentTags);
 
     // Damage and Range
     tags.damage = _loc("ITEM.PROPERTIES.Damage", {damage: this.damage.weapon});

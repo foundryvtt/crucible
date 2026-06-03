@@ -1,4 +1,8 @@
 /**
+ * @import CrucibleActiveEffect from "./active-effect.mjs"
+ */
+
+/**
  * @typedef CrucibleItemSnapshot
  * A serializable snapshot of item stateful data, captured at action-use time. Structured as an item update object.
  * Each item subtype declares its own STATEFUL_FIELDS; properties not relevant to a given subtype will be absent.
@@ -241,8 +245,8 @@ export default class CrucibleItem extends foundry.documents.Item {
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
     // Compose the item name
-    itemData.name = name || crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixEffects)
-      || baseItem.name;
+    itemData.name = name || crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixEffects,
+      itemData.system.quality) || baseItem.name;
 
     // Flag compendium source
     itemData._stats ??= {};
@@ -345,6 +349,13 @@ export default class CrucibleItem extends foundry.documents.Item {
           delete data.system.quality;
         }
       }
+    }
+
+    // Procedurally rename the item when its quality tier changes
+    const newQuality = data.system?.quality;
+    const isRenamed = ("name" in data) && (data.name !== this.name);
+    if ( newQuality && (newQuality !== this.system.quality) && !isRenamed && (await this.hasProceduralName()) ) {
+      data.name = await this.getProceduralName({quality: newQuality});
     }
   }
 
@@ -734,7 +745,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Compose item name
     const composed = baseItem.system.constructor.composeItemName(baseItem.name, affixEffects.map(ae => ({
       name: ae.name, system: ae.system
-    })), {quality: chosen.quality});
+    })), chosen.quality.id);
     if ( composed ) itemData.name = composed;
 
     // Flag compendium source
@@ -782,6 +793,76 @@ export default class CrucibleItem extends foundry.documents.Item {
     tokens.push(`quality=${this.system.quality}`);
     if ( this.system.broken ) tokens.push("broken=true");
     return `@Loot[${baseUuid} ${tokens.join(" ")}]{${this.name}}`;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the canonical procedural name of this Item, composed of its base item name, affixes, and quality tier.
+   * Counterfactual overrides may be provided for any component of the composed name.
+   * @param {object} [options]
+   * @param {string} [options.baseName]                 A base item name overriding the resolved base item
+   * @param {CrucibleActiveEffect[]} [options.affixes]  Affix effects overriding the item's own affixes
+   * @param {string} [options.quality]                  A quality tier id overriding the item's current quality
+   * @returns {Promise<string>}    The procedural name, or the current name if one cannot be composed
+   */
+  async getProceduralName({baseName, affixes, quality=this.system.quality}={}) {
+    if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return this.name;
+    baseName ??= await this.#getBaseItemName();
+    if ( !baseName ) return this.name;
+    affixes ??= this.effects.filter(e => e.type === "affix");
+    return this.system.constructor.composeItemName(baseName, affixes, quality);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Item currently bears its procedural name, with or without an explicit quality tier prefix.
+   * @returns {Promise<boolean>}
+   */
+  async hasProceduralName() {
+    if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
+    const baseName = await this.#getBaseItemName();
+    if ( !baseName ) return false;
+    const affixes = this.effects.filter(e => e.type === "affix");
+    const cls = this.system.constructor;
+    for ( const quality of Object.keys(crucible.CONST.ITEM.QUALITY_TIERS) ) {
+      if ( this.name === cls.composeItemName(baseName, affixes, quality) ) return true;
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Set this Item's name to its canonical procedural name.
+   * @returns {Promise<void>}
+   */
+  async setProceduralName() {
+    await this.update({name: await this.getProceduralName()});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the name of the base item from which this Item is derived.
+   * Prefers the recorded compendium source, falling back to an equipment pack index search on type and identifier.
+   * @returns {Promise<string|null>}
+   */
+  async #getBaseItemName() {
+    const sourceUuid = this._stats?.compendiumSource;
+    const source = sourceUuid ? await fromUuid(sourceUuid) : null;
+    if ( source ) return source.name;
+    if ( !this.system.identifier ) return null;
+    for ( const packId of crucible.CONFIG.packs.equipment ) {
+      const pack = game.packs.get(packId);
+      if ( !pack ) continue;
+      if ( !pack.indexed ) await pack.getIndex();
+      for ( const entry of pack.index.values() ) {
+        if ( (entry.type === this.type) && (entry.system?.identifier === this.system.identifier) ) return entry.name;
+      }
+    }
+    return null;
   }
 
   /* -------------------------------------------- */

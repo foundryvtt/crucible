@@ -320,7 +320,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _canUse() {
     super._canUse();
     if ( this.inflection && this.actor.statuses.has("silenced") ) {
-      throw new Error(_loc("SPELL.WARNINGS.CannotUseSilenced"));
+      const inflectionTalent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
+      if ( !this.actor.talentIds.has("legerdemain00000") || ((inflectionTalent?.tier ?? 0) > 2) ) {
+        throw new Error(_loc("SPELL.WARNINGS.CannotUseSilenced"));
+      }
     }
   }
 
@@ -440,11 +443,14 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Show unmet for inflection if silenced
     if ( tags.context.inflection && this.actor?.statuses.has("silenced") ) {
-      tags.context.inflection = {
-        label: tags.context.inflection,
-        unmet: true,
-        tooltip: _loc("SPELL.WARNINGS.CannotUseSilenced")
-      };
+      const inflectionTalent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
+      if ( !this.actor.talentIds.has("legerdemain00000") || ((inflectionTalent?.tier ?? 0) > 2) ) {
+        tags.context.inflection = {
+          label: tags.context.inflection,
+          unmet: true,
+          tooltip: _loc("SPELL.WARNINGS.CannotUseSilenced")
+        };
+      }
     }
     return tags;
   }

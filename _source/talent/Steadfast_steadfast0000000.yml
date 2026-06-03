@@ -31,10 +31,6 @@ system:
           scope: 1
           statuses:
             - resolute
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           result:
             type: success
             all: false

@@ -907,7 +907,7 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
-  if ( !label && affixes.length ) {
+  if ( !label && (affixes.length || quality) ) {
     const affixPacks = Array.from(crucible.CONFIG.packs.affix).map(id => game.packs.get(id)).filter(Boolean);
     const affixDocs = [];
     for ( const {id} of affixes ) {
@@ -923,8 +923,7 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
       }
       if ( !found ) return new Text(match);
     }
-    const CPI = crucible.api.models.CruciblePhysicalItem;
-    label = CPI.composeItemName(baseItem.name, affixDocs) || baseItem.name;
+    label = crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixDocs, quality);
   }
   if ( !label ) label = baseItem.name;
 

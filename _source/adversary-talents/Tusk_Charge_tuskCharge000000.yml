@@ -36,10 +36,6 @@ system:
             all: false
           statuses:
             - prone
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           system:
             changes: []
             dot: []

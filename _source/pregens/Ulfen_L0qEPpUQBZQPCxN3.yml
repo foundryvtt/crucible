@@ -633,11 +633,6 @@ items:
               result:
                 type: success
                 all: false
-              duration:
-                value: null
-                units: seconds
-                expiry: null
-                expired: false
           img: null
           range:
             minimum: null
@@ -784,11 +779,6 @@ items:
                 type: success
                 all: false
               statuses: []
-              duration:
-                value: null
-                units: seconds
-                expiry: null
-                expired: false
               system:
                 changes: []
                 dot: []

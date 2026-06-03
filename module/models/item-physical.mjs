@@ -248,13 +248,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
-   * Compose a deterministic name for an item based on a base item name and its applied affixes.
-   * TODO use localization format or Intl.ListFormatter somehow
-   * @param {string} baseName
-   * @param {CrucibleAffixEffectData[]} affixes
-   * @returns {string|null}
-   */
-  /**
    * Derive an enchantment tier from a total affix tier value.
    * @param {number} affixTiers     The sum of all affix tier values on the item
    * @returns {ItemEnchantmentTier}
@@ -299,19 +292,20 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /**
    * Construct a deterministic name for an Item using a base item and an array of affixes.
+   * The "standard" quality tier is the unmarked state and never contributes a prefix.
    * @param {string} baseName           The name of the base item being composed
    * @param {CrucibleItem[]} affixes    Affixes which belong to the item
-   * @param {object} [options]          Options which affect naming scheme
-   * @param {string} [options.quality]    A quality tier of the item, used if there are no prefixes
+   * @param {string} quality            A quality tier id, applied when the item has no prefix affixes
    * @returns {string}                  The composed item name
    */
-  static composeItemName(baseName, affixes, {quality}={}) {
+  static composeItemName(baseName, affixes, quality) {
 
     // No affixes, quality only
-    const qualityPrefix = quality ? _loc(quality.label) : "";
+    const qualityTier = quality === "standard" ? null : SYSTEM.ITEM.QUALITY_TIERS[quality];
+    const qualityPrefix = qualityTier ? _loc(qualityTier.label) : "";
     if ( !affixes.length ) {
       if ( !qualityPrefix ) return baseName;
-      return _loc("ITEM.COMPOSED_NAME.Prefix", {prefixes: qualityPrefix, name});
+      return _loc("ITEM.COMPOSED_NAME.Prefix", {prefixes: qualityPrefix, name: baseName});
     }
 
     // Organize affixes

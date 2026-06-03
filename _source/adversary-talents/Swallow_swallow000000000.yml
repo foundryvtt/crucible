@@ -48,11 +48,6 @@ system:
             - restrained
             - blinded
             - corroding
-          duration:
-            value: null
-            units: hours
-            expiry: null
-            expired: false
           system:
             changes: []
             dot: []

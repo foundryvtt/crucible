@@ -392,11 +392,6 @@ actors:
                     all: false
                   statuses:
                     - prone
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
                   system:
                     changes: []
                     dot: []
@@ -1277,11 +1272,6 @@ actors:
                   scope: 3
                   statuses:
                     - prone
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
                   result:
                     type: success
                     all: false
@@ -4479,11 +4469,6 @@ actors:
                   scope: 3
                   statuses:
                     - prone
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
                   result:
                     type: success
                     all: false
@@ -5423,11 +5408,6 @@ actors:
                   result:
                     type: success
                     all: false
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
               img: null
               range:
                 minimum: null
@@ -5613,11 +5593,6 @@ actors:
                     all: false
                   statuses:
                     - prone
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
                   system:
                     changes: []
                     dot: []
@@ -19269,11 +19244,6 @@ actors:
                   result:
                     type: success
                     all: false
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
               img: null
               range:
                 minimum: null
@@ -19417,11 +19387,6 @@ actors:
                     type: success
                     all: false
                   statuses: []
-                  duration:
-                    value: null
-                    units: seconds
-                    expiry: null
-                    expired: false
                   system:
                     changes: []
                     dot: []

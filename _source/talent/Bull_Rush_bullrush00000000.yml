@@ -35,10 +35,6 @@ system:
           scope: 3
           statuses:
             - prone
-          duration:
-            value: null
-            units: seconds
-            expiry: null
           result:
             type: success
             all: false
