@@ -180,15 +180,15 @@ HOOKS.bullrush = {
  * Shared helper for checking eligibility of an action based on the result of the most recent action
  * @param {CrucibleAction} action
  * @param {object} options
- * @param {"parry"|"block"|"dodge"} options.requiredResult
+ * @param {number} options.requiredResult
  * @throws {Error}
  */
 function _canUsePostDefend(action, {requiredResult}) {
   const lastAction = ChatMessage.implementation.getLastAction();
   const rolls = lastAction?.eventsByTarget.get(action.actor)?.roll ?? [];
-  const requiredResultNumber = crucible.api.dice.AttackRoll.RESULT_TYPES[requiredResult.toUpperCase()];
-  if ( !lastAction?.tags.has("melee") || !rolls.some(r => r.roll.data.result === requiredResultNumber) ) {
-    throw new Error(_loc(`ACTION.WARNINGS.MustFollowMelee${requiredResult.titleCase()}`, {action: action.name}));
+  if ( !lastAction?.tags.has("melee") || !rolls.some(r => r.roll.data.result === requiredResult) ) {
+    const resultLabel = _loc(crucible.api.dice.AttackRoll.RESULT_TYPE_LABELS[requiredResult]);
+    throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
   }
 }
 
@@ -263,7 +263,7 @@ HOOKS.conjureArmament = {
 
 HOOKS.counterEvade = {
   canUse() {
-    _canUsePostDefend(this, {requiredResult: "dodge"});
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE});
   }
 };
 
@@ -271,7 +271,7 @@ HOOKS.counterEvade = {
 
 HOOKS.counterRiposte = {
   canUse() {
-    _canUsePostDefend(this, {requiredResult: "parry"});
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.PARRY});
   }
 };
 
@@ -279,7 +279,7 @@ HOOKS.counterRiposte = {
 
 HOOKS.counterStrike = {
   canUse() {
-    _canUsePostDefend(this, {requiredResult: "block"});
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.BLOCK});
   }
 };
 
@@ -364,7 +364,7 @@ HOOKS.defensiveRoll = {
     this.range.maximum = this.actor.system.movement.size;
   },
   canUse() {
-    _canUsePostDefend(this, {requiredResult: "dodge"});
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE});
   }
 };
 

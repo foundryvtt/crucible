@@ -890,7 +890,7 @@ HOOKS.saboteur00000000 = {
 
 HOOKS.skirmisher000000 = {
   defendAttack(item, action, origin, rollData) {
-    if ( action.id === "reactiveStrike" ) rollData.banes.skirmisher = {label: item.name, number: 2};
+    if ( action.id === "reactiveStrike" ) rollData.banes[item.skirmisher] = {label: item.name, number: 2};
   }
 };
 
