@@ -1151,7 +1151,7 @@ export default class CrucibleActor extends Actor {
       const forceUpdate = effectData._action === "update";
       const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
       const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
-      if ( effectData.statuses.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
+      if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
       if ( shouldUpdate ) toUpdate.push(effectData);
       else if ( shouldDelete ) toDelete.push(effectData._id);
       else if ( !reverse ) toCreate.push(effectData);
