@@ -17,10 +17,11 @@ system:
         <p><strong>Move</strong> forward between 3 feet and 6 feet in a straight
         line to kick an enemy with an empowered <strong>Strike</strong>.</p>
       tags:
-        - melee
         - unarmed
+        - melee
         - mainhand
         - empowered
+        - movement
       cost:
         action: 1
         focus: 0
@@ -28,10 +29,11 @@ system:
         heroism: 0
         hands: 0
       target:
-        type: single
+        type: movement
         number: 1
-        scope: 0
+        scope: 3
         self: false
+        limit: 1
       effects: []
       condition: ''
       range:
@@ -41,6 +43,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - dextou1
   rune: ''
@@ -52,11 +55,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160132
-  modifiedTime: 1773514792577
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780504791744
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
   exportSource: null
