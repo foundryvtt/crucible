@@ -8,6 +8,10 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
   /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
+    const {TOKEN_ENTER, TOKEN_EXIT, TOKEN_MOVE_IN, TOKEN_MOVE_OUT, TOKEN_MOVE_WITHIN,
+      TOKEN_TURN_START, TOKEN_TURN_END, TOKEN_ROUND_START, TOKEN_ROUND_END} = CONST.REGION_EVENTS;
+    const validEvents = [TOKEN_ENTER, TOKEN_EXIT, TOKEN_MOVE_IN, TOKEN_MOVE_OUT, TOKEN_MOVE_WITHIN,
+      TOKEN_TURN_START, TOKEN_TURN_END, TOKEN_ROUND_START, TOKEN_ROUND_END];
     const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
     return {
       actionIdentifier: new fields.StringField({initial: null, required: true, nullable: true}),
@@ -22,7 +26,7 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
           if ( (type !== "Actor") || !foundry.data.validators.isValidId(id) ) return false;
         }
       }),
-      events: this._createEventsField({initial: ["tokenEnter", "tokenTurnStart"]}),
+      events: this._createEventsField({events: validEvents, initial: ["tokenEnter", "tokenTurnStart"]}),
       oncePerRound: new fields.BooleanField({initial: true, required: true, nullable: false})
     };
   }
