@@ -132,14 +132,18 @@
       border: none;
       margin: 0;
       input {
+        --input-background-color: var(--color-cool-5-50);
+        --input-text-color: var(--color-text-primary);
         display: block;
         height: 60px;
         width: 100%;
         margin: 0;
         padding: 0 0.5rem;
-        background: var(--color-cool-5-50);
-        border: none;
         font-size: var(--font-size-24);
+        &:disabled {
+          --input-background-color: var(--color-cool-5-50);
+          --input-text-color: var(--color-text-primary);
+        }
       }
     }
     .metadata {
