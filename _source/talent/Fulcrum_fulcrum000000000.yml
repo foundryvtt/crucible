@@ -12,9 +12,10 @@ system:
       name: Conserve Momentum
       condition: You Block, Parry, or Dodge an incoming melee Strike.
       description: >-
-        You redirect the force of a melee attack which misses you, pivoting it
-        to instead hit some other adjacent enemy. Your attacker must re-roll
-        their attack targetting their ally instead.
+        <p>You redirect the force of a melee attack which misses you, pivoting
+        it to instead hit some other adjacent enemy. Your attacker must re-roll
+        their attack targeting their ally instead.</p><p><strong>WIP: This
+        action is not yet automated.</strong></p>
       tags:
         - reaction
       cost:
@@ -29,7 +30,7 @@ system:
         scope: 3
         self: false
       effects: []
-      img: null
+      img: icons/magic/symbols/chevron-elipse-circle-blue.webp
       range:
         minimum: null
         maximum: null
@@ -37,6 +38,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - sig3.toughness
     - sig3.intellect
@@ -55,11 +57,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160132
-  modifiedTime: 1773514792577
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780510133730
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

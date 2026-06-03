@@ -7,7 +7,8 @@ system:
     danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
     that you are not Unaware, you may immediately move 4 feet in any permitted
     direction.</p><p>If multiple combatants have this feature, repositioning
-    occurs in reverse order of Initiative.</p>
+    occurs in reverse order of Initiative.</p><p><strong>WIP: This talent is not
+    yet automated.</strong></p>
   actions: []
   nodes:
     - int3b
@@ -26,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160149
-  modifiedTime: 1773514792618
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780509894754
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.strategicreposit
   duplicateSource: null
   exportSource: null
