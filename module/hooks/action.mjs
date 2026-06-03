@@ -429,6 +429,23 @@ HOOKS.electrochargeAmpoule = {
 
 /* -------------------------------------------- */
 
+// TODO: Currently this will consume free movement. Determine how to make that not the case while still properly
+// showing 0 cost on the token ruler
+HOOKS.evasiveShot = {
+  prepare() {
+    this.range.maximum = this.actor.system.movement.stride / 2;
+    this.cost.action = 0;
+  },
+  canUse() {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction?.tags.has("ranged") ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
@@ -514,6 +531,14 @@ HOOKS.feintingStrike = {
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flyingKick = {
+  prepare() {
+    this.cost.action = this.usage.baseActionCost + (this.usage.weapon?.system.actionCost ?? 0);
   }
 };
 
@@ -728,7 +753,7 @@ HOOKS.executionersStrike = {
   acquireTargets(targets) {
     for ( const target of targets ) {
       const {health} = target.actor.resources;
-      if ( health.value < health.max ) continue;
+      if ( health.value < (health.max / 2) ) continue;
       target.error ??= _loc("ACTION.WARNINGS.RequiresTargetWounded", {action: this.name});
     }
   }
@@ -1125,7 +1150,7 @@ HOOKS.reactiveStrike = {
 
 HOOKS.readScroll = {
   prepare() {
-    this.name = `Read ${this.item.name}`;
+    this.name = _loc("ITEM.ACTIONS.Read", {item: this.item.name});
   },
   canUse() {
     const {runes, gestures, inflections} = this.item.system.scroll;

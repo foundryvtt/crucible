@@ -460,6 +460,7 @@
       "MustFollowMainhandStrike": "You may only perform the {action} action after a basic Strike action with your mainhand weapon.",
       "MustFollowMeleeDefense": "You may only perform the {action} action after defending a melee attack with a {defense}.",
       "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.", 
+      "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
       "MustReload": "Your weapon requires reloading in order to use this action.",
       "MustScaleDex": "Every weapon used in this action must scale using dexterity.",
