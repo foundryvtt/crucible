@@ -1,0 +1,44 @@
+name: Horns
+type: weapon
+img: icons/commodities/bones/horns-pointed-grey.webp
+effects: []
+folder: creatureParts000
+flags: {}
+system:
+  category: heavy1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has stout, curved horns used for
+      goring.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: horns
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532697562
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: horns00000000000
+sort: 287500
+_key: '!items!horns00000000000'

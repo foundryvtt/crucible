@@ -1,0 +1,44 @@
+name: Shadow Bite
+type: weapon
+img: icons/creatures/mammals/wolf-shadow-black.webp
+effects: []
+folder: damageTypedBites
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} bites with jaws of devouring
+      darkness.</p>
+    private: ''
+  damageType: void
+  broken: false
+  identifier: shadowBite
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780529553862
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: shadowBite000000
+sort: 3500000
+_key: '!items!shadowBite000000'

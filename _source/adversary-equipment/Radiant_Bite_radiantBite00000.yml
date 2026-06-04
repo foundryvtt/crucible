@@ -1,0 +1,44 @@
+name: Radiant Bite
+type: weapon
+img: icons/creatures/abilities/mouth-teeth-sharp.webp
+effects: []
+folder: damageTypedBites
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} bites with jaws shining with searing
+      light.</p>
+    private: ''
+  damageType: radiant
+  broken: false
+  identifier: radiantBite
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780529553862
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: radiantBite00000
+sort: 3700000
+_key: '!items!radiantBite00000'

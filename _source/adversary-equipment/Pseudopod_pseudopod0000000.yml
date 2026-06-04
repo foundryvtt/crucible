@@ -1,0 +1,44 @@
+name: Pseudopod
+type: weapon
+img: icons/creatures/slimes/slime-movement-dripping-pseudopods-green.webp
+effects: []
+folder: creatureParts000
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} lashes out with an amorphous limb of
+      slime.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: pseudopod
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532699038
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: pseudopod0000000
+sort: 262500
+_key: '!items!pseudopod0000000'

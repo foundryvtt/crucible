@@ -1,0 +1,44 @@
+name: Giant Jaws
+type: weapon
+img: icons/creatures/abilities/mouth-teeth-rows-red.webp
+effects: []
+folder: giantParts000000
+flags: {}
+system:
+  category: heavy2
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has cavernous jaws that engulf and crush
+      its prey.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: giantJaws
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532858085
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: giantJaws0000000
+sort: -100000
+_key: '!items!giantJaws0000000'
