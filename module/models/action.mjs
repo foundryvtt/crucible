@@ -2699,7 +2699,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Resolve VFXReferenceField values using the now-complete references map
-    vfxEffect.resolveReferences(references);
+    // FIXME: restore the line below and delete #resolveVFXReferences once the minimum core build exceeds 14.363
+    // vfxEffect.resolveReferences(references);
+    CrucibleAction.#resolveVFXReferences(vfxEffect, references);
 
     // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
     // References are frozen to enforce the contract that finalizeVFX must not modify them.
@@ -2716,6 +2718,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } catch(err) {
       console.error(`${this.id} | VFX play failed:`, err);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve VFXReferenceField values into a complete data tree before core resolution runs.
+   * FIXME: core commit b5fd29e7 fixes VFXEffect#resolveReferences dropping array element sibling data.
+   * Delete this shim and call vfxEffect.resolveReferences(references) once the minimum core build exceeds 14.363.
+   * @param {foundry.canvas.vfx.VFXEffect} vfxEffect       The constructed effect awaiting reference resolution
+   * @param {Record<string, any>} references               The complete references map
+   */
+  static #resolveVFXReferences(vfxEffect, references) {
+    const {VFXReferenceField} = foundry.canvas.vfx.fields;
+    let resolved = false;
+    const resolvedUpdates = vfxEffect.schema.apply(function(source, _options) {
+      if ( !(this instanceof VFXReferenceField) ) return source;
+      if ( !VFXReferenceField.isReference(source) ) return source;
+      resolved = true;
+      return this.resolve(source, references);
+    }, vfxEffect._source, {partial: true});
+    if ( resolved ) vfxEffect.updateSource(resolvedUpdates);
   }
 
   /* -------------------------------------------- */
