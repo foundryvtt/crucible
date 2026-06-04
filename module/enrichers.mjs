@@ -56,9 +56,9 @@ export function registerEnrichers() {
       enricher: enrichCondition
     },
     {
-      id: "crucibleTag",
-      pattern: /@Tag\[(\w+)]/g,
-      enricher: enrichTag
+      id: "crucibleActionTag",
+      pattern: /@ActionTag\[(\w+)]/g,
+      enricher: enrichActionTag
     },
     {
       id: "crucibleAction",
