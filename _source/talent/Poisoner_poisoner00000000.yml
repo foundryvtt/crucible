@@ -5,14 +5,14 @@ system:
   description: >-
     <p>You can apply Poison to weapons which deal Slashing or Piercing damage.
     You deal an additional +2 damage whenever you deal Poison damage and your
-    Strikes cause the <strong>Poisoned</strong> condition on Critical Strikes
-    which deal damage to Health.</p>
+    Strikes cause the @Condition[poisoned] condition on Critical Strikes which
+    deal damage to Health.</p>
   actions:
     - id: poisonBlades
       name: Poison Blades
       description: >-
         <p>You nimbly lather your blades in toxic alchemical oils which apply
-        the Poisoned condition on Critical Strikes.</p>
+        the @Condition[poisoned] condition on Critical Strikes.</p>
       tags: []
       cost:
         action: 2

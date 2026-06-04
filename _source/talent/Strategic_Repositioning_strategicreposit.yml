@@ -5,10 +5,10 @@ system:
   description: >-
     <p>You are always thinking ahead about where to position yourself should
     danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
-    that you are not Unaware, you may immediately move 4 feet in any permitted
-    direction.</p><p>If multiple combatants have this feature, repositioning
-    occurs in reverse order of Initiative.</p><h3 class="divider">Playtest
-    Notes</h3><p>This talent is not yet automated.</p>
+    that you are not @Condition[unaware], you may immediately move 4 feet in any
+    permitted direction.</p><p>If multiple combatants have this feature,
+    repositioning occurs in reverse order of Initiative.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
   nodes:
     - int3b

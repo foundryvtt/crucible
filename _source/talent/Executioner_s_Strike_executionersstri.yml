@@ -9,9 +9,9 @@ system:
       condition: Your target is Bloodied.
       description: >-
         <p>You deliver a Deadly Strike with a two-handed heavy weapon. If your
-        attack is successful, your opponent also suffers the Bleeding condition
-        for 3 Rounds, taking additional damage each Round equal to your Strength
-        score.</p>
+        attack is successful, your opponent also suffers the
+        @Condition[bleeding] condition for 3 Rounds, taking additional damage
+        each Round equal to your Strength score.</p>
       tags:
         - melee
         - twohand

@@ -3,10 +3,10 @@ type: talent
 img: icons/magic/earth/construct-stone.webp
 system:
   description: >-
-    <p>You cannot be unvoluntarily Moved or knocked Prone by any action that is
-    not a Critical Success rolled by an enemy or a Critical Failure rolled by
-    yourself.</p><h3 class="divider">Playtest Notes</h3><p>This talent is not
-    yet automated.</p>
+    <p>You cannot be unvoluntarily Moved or knocked @Condition[prone] by any
+    action that is not a Critical Success rolled by an enemy or a Critical
+    Failure rolled by yourself.</p><h3 class="divider">Playtest
+    Notes</h3><p>This talent is not yet automated.</p>
   actions: []
   nodes:
     - tou3b

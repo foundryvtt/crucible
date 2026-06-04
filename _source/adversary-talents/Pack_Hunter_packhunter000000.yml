@@ -5,7 +5,7 @@ system:
   description: >-
     <p>This creature is a pack hunter, relying on its allies to flank and
     harrass a target to render it exposed to further harm.</p><p>This creature
-    doubles number of Boons awarded from attacking a <strong>Flanked</strong>
+    doubles number of Boons awarded from attacking a @Condition[flanked]
     enemy.</p>
   actions: []
   nodes: []
@@ -25,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.360'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307157335
-  modifiedTime: 1776980125581
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1780572558726
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

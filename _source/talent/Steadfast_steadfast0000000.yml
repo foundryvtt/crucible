@@ -11,9 +11,9 @@ system:
       name: Steadfast Resolve
       condition: ''
       description: >-
-        <p>You harden yourself against demoralization. Your Morale is increased
-        by your Wisdom score and you temporarily gain the Resolute
-        condition.</p>
+        <p>You harden yourself against demoralization. Your
+        <strong>Morale</strong> is increased by your <strong>Wisdom</strong>
+        score and you temporarily gain the @Condition[resolute] condition.</p>
       tags: []
       cost:
         action: 2
@@ -40,6 +40,11 @@ system:
             maintenance: null
             regions: []
             summons: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
       img: icons/magic/life/heart-red-blue.webp
       range:
         maximum: null
@@ -48,6 +53,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - wis2b
   rune: ''
@@ -65,11 +71,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160148
-  modifiedTime: 1773514792616
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780578604781
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.steadfast0000000
   duplicateSource: null
   exportSource: null

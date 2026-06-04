@@ -8,8 +8,9 @@ system:
   actions:
     - id: dirtyTricks
       description: >-
-        <p>You fling debris into the eyes of an enemy. If the Strike is
-        successful, they are Blinded until the end of their next Turn.</p>
+        <p>You fling debris into the eyes of an enemy. If the
+        <strong>Strike</strong> is successful, they are @Condition[blinded]
+        until the end of their next <strong>Turn</strong>.</p>
       tags:
         - harmless
         - reflex
@@ -73,8 +74,8 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160130
-  modifiedTime: 1779891477749
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1780576503785
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.dirtytricks00000
   duplicateSource: null
   exportSource: null

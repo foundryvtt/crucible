@@ -18,7 +18,7 @@ system:
         <p>When you defend against a melee attack with a <strong>Parry</strong>,
         you may react and expend <strong>Focus</strong> to retaliate with a
         reduced-cost <strong>Strike</strong> which benefits from the
-        <strong>Exposed</strong> condition.</p>
+        @Condition[exposed] condition.</p>
       cost:
         action: -1
         focus: 1

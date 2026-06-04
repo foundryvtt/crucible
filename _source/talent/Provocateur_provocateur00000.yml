@@ -3,23 +3,25 @@ type: talent
 img: icons/magic/control/mouth-smile-deception-purple.webp
 system:
   description: >-
-    You specialize in barbed repartee crafted to highlight your opponent's
-    shortcomings. In combat you can launch quips which provoke your foes.
+    <p>You specialize in barbed repartee crafted to highlight your opponent's
+    shortcomings. In combat you can launch quips which provoke your foes.</p>
   actions:
     - id: scathingMockery
       name: Scathing Mockery
       condition: Your target can hear and understand you.
       description: >-
-        You exaggerate your opponent's shortcomings with a scathing bon mot,
-        performing a Diplomacy skill attack against your target's Willpower. On
-        a success they suffer modest Psychic damage to Morale and become Enraged
-        for 1 Round.
+        <p>You exaggerate your opponent's shortcomings with a scathing bon mot,
+        performing a <strong>Diplomacy</strong> skill attack against your
+        target's <strong>Willpower</strong>. On a success they suffer modest
+        <strong>Psychic</strong> damage to <strong>Morale</strong> and become
+        @Condition[enraged] for 1 Round.</p>
       tags:
-        - diplomacy
+        - weakened
         - willpower
         - psychic
         - morale
-        - weakened
+        - skill
+        - diplomacy
       cost:
         action: 1
         focus: 1
@@ -32,23 +34,25 @@ system:
         scope: 3
         self: false
       effects:
-        - duration:
-            value: 1
-            units: rounds
-            expiry: turnStart
-          statuses:
-            - enraged
-          name: ''
+        - name: ''
+          scope: 1
           result:
             type: success
             all: false
+          statuses:
+            - enraged
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
             maintenance: null
             regions: []
             summons: []
-      img: null
+      img: icons/magic/control/mouth-smile-deception-purple.webp
       range:
         minimum: null
         maximum: null
@@ -56,6 +60,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - wis2c
   rune: ''
@@ -73,11 +78,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160142
-  modifiedTime: 1773514792605
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780578530261
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null
