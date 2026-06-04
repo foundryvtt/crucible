@@ -589,7 +589,7 @@ function enrichCondition([match, conditionId]) {
  * Enrich a condition reference into an interactive element displaying the tag name and tooltip.
  * @param {RegExpMatchArray} matchArray
  */
-function enrichTag([match, tagId]) {
+function enrichActionTag([match, tagId]) {
   console.log(tagId);
   const cfg = SYSTEM.ACTION.TAGS[tagId];
   if ( !cfg ) return new Text(match);
