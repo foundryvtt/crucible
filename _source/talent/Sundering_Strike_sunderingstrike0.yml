@@ -15,8 +15,8 @@ system:
       condition: ''
       description: >-
         <p>You make a <strong>Strike</strong> with a Strength-scaling weapon
-        which, if successful, applies the <strong>Exposed </strong>condition to
-        your target for 3 rounds. This attack is <strong>Difficult</strong> to
+        which, if successful, applies the @Condition[exposed] condition to your
+        target for 3 rounds. This attack is <strong>Difficult</strong> to
         perform and deals reduced damage.</p>
       tags:
         - brute
