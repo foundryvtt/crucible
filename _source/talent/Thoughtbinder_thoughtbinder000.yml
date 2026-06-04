@@ -7,7 +7,7 @@ system:
   description: >-
     <p>You are highly skilled in weaving the Rune of Control. Spells which use
     this Rune cause the @Condition[dominated] condition on Critical
-    Hits.</p><p>The Dominated effect lasts for <strong>1 Round</strong> and
+    Hits.</p><p>The Dominated effect lasts for <strong>3 Rounds</strong> and
     deals your <strong>Wisdom</strong> ability score as additional
     <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
   actions: []
@@ -28,12 +28,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.4
   createdTime: 1762832897720
-  modifiedTime: 1773514792623
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1780502985149
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: thoughtbinder000
 sort: 125000
 _key: '!items!thoughtbinder000'

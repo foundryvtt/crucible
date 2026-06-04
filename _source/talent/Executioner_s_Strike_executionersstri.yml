@@ -6,12 +6,13 @@ system:
   description: <p>You deliver a single decisive strike against a wounded enemy.</p>
   actions:
     - id: executionersStrike
-      condition: Your target is Bloodied.
+      condition: ''
       description: >-
-        <p>You deliver a Deadly Strike with a two-handed heavy weapon. If your
-        attack is successful, your opponent also suffers the
-        @Condition[bleeding] condition for 3 Rounds, taking additional damage
-        each Round equal to your Strength score.</p>
+        <p>You deliver a Strike with a two-handed weapon. If your attack is
+        successful and your opponent is under half their maximum
+        <strong>Health</strong>, the Strike is <strong>Deadly</strong>, and the
+        opponent suffers the @Condition[bleeding] condition for 3 Rounds, taking
+        additional damage each Round equal to your Strength score.</p>
       tags:
         - melee
         - twohand
@@ -34,6 +35,11 @@ system:
             type: success
             all: false
           statuses: []
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
@@ -49,6 +55,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - str4b
   rune: ''
@@ -62,11 +69,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160131
-  modifiedTime: 1773514792573
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780538015166
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

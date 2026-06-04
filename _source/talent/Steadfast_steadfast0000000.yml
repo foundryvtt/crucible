@@ -29,11 +29,16 @@ system:
       effects:
         - name: Steadfast Resolve
           scope: 1
-          statuses:
-            - resolute
           result:
             type: success
             all: false
+          statuses:
+            - resolute
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
           system:
             changes: []
             dot: []
@@ -74,8 +79,8 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160148
-  modifiedTime: 1780578604781
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1780502532971
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.steadfast0000000
   duplicateSource: null
   exportSource: null
