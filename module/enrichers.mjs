@@ -56,6 +56,11 @@ export function registerEnrichers() {
       enricher: enrichCondition
     },
     {
+      id: "crucibleTag",
+      pattern: /@Tag\[(\w+)]/g,
+      enricher: enrichTag
+    },
+    {
       id: "crucibleAction",
       pattern: /@Action\[([\w-.]+) (\w+)]/g,
       enricher: enrichAction
@@ -573,6 +578,26 @@ function enrichCondition([match, conditionId]) {
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
   tag.classList.add("condition");
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Tags                                  */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a condition reference into an interactive element displaying the tag name and tooltip.
+ * @param {RegExpMatchArray} matchArray
+ */
+function enrichTag([match, tagId]) {
+  console.log(tagId);
+  const cfg = SYSTEM.ACTION.TAGS[tagId];
+  if ( !cfg ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = cfg.label;
+  tag.dataset.crucibleTooltip = "tag";
+  tag.dataset.tag = tagId;
+  tag.classList.add("tag");
   return tag;
 }
 
