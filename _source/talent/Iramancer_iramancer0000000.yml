@@ -4,8 +4,9 @@ _id: iramancer0000000
 img: icons/magic/unholy/hand-claw-glow-orange.webp
 system:
   description: >-
-    Your feats of arcana are fueled by anger. While Enraged you may still spend
-    Focus and you deal 2 additional damage to all spell attacks.
+    <p>Your feats of arcana are fueled by anger. While @Condition[enraged] you
+    may still spend <strong>Focus</strong> and you deal 2 additional damage to
+    all spell attacks.</p>
   actions: []
   nodes:
     - pre2b
@@ -20,11 +21,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160137
-  modifiedTime: 1773514792590
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780578043456
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

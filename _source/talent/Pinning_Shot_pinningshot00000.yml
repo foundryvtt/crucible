@@ -12,7 +12,7 @@ system:
       description: >-
         <p>You <strong>Strike</strong> from distance. The attack is
         <strong>Difficult</strong>, however if your target is it it becomes
-        <strong>Restrained</strong> until the end of their next Turn.</p>
+        @Condition[restrained] until the end of their next Turn.</p>
       tags:
         - ranged
         - difficult

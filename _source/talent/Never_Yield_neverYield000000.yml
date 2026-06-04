@@ -5,7 +5,7 @@ img: icons/skills/melee/strike-polearm-light-orange.webp
 system:
   description: >-
     <p>Your determination refuses to let your body's limits slow you down. While
-    <strong>Weakened</strong>, your action point penalty is reduced from -2 to
+    @Condition[weakened], your action point penalty is reduced from -2 to
     -1.</p>
   actions: []
   nodes:

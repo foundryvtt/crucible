@@ -14,9 +14,9 @@ system:
       description: >-
         <p>The creature chomps down upon its target. If the attack is successful
         and the target is equal or lesser in <strong>Size</strong>, the target
-        is also <strong>Restrained</strong> until this creature chooses to
-        release it or the restraint is otherwise broken. Only one target may be
-        restrained by this action at a given time.</p>
+        is also @Condition[restrained] until this creature chooses to release it
+        or the restraint is otherwise broken. Only one target may be restrained
+        by this action at a given time.</p>
       cost:
         action: 0
         focus: 1

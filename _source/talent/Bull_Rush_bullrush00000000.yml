@@ -12,9 +12,9 @@ system:
         <p>Make an <strong>Athletics </strong>skill Attack against an adjacent
         enemy contested by your target's Fortitude defense. On a success you may
         move up to your <strong>Stride</strong> directly through the enemy's
-        space. Your enemy is knocked Prone and may not make any attack of
-        opportunity against you. On a failure your movement is blocked and your
-        remain in your current position.</p>
+        space. Your enemy is knocked @Condition[prone] and may not make any
+        attack of opportunity against you. On a failure your movement is blocked
+        and your remain in your current position.</p>
       tags:
         - harmless
         - fortitude

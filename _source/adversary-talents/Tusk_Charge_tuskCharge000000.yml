@@ -11,7 +11,7 @@ system:
       description: >-
         <p>Charge in a direct line up to your Stride and make a Strike against
         the first creature you encounter. If successful, the target is knocked
-        Prone.</p>
+        @Condition[prone].</p>
       tags:
         - movement
         - melee

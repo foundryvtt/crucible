@@ -12,10 +12,10 @@ system:
         You have suffered damage to your Health pool since your last turn in
         Combat.
       description: >-
-        You become Enraged. While Enraged you deal 4 additional damage on all
-        melee attacks. You may attempt to end the effect on your own turn by
-        succeeding on a Willpower test against a DC of 20. The effect ends
-        automatically when Combat is concluded.
+        You become @Condition[enraged]. While Enraged you deal 4 additional
+        damage on all melee attacks. You may attempt to end the effect on your
+        own turn by succeeding on a Willpower test against a DC of 20. The
+        effect ends automatically when Combat is concluded.
       tags: []
       cost:
         action: 1
