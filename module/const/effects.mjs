@@ -152,12 +152,12 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 }
 
 /**
- * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
+ * Generate a standardized decay effect, dealing half-Presence in corruption damage to Health.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
+export function decay(actor, {ability="presence", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),

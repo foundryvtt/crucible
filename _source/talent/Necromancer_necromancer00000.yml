@@ -7,7 +7,7 @@ system:
     <p>You are highly skilled in weaving the Rune of Death. Spells which use
     this Rune cause the @Condition[decaying] condition on Critical
     Hits.</p><p>The Decaying effect lasts for <strong>3 Rounds</strong> and
-    deals half your <strong>Wisdom</strong> score as <strong>Corruption</strong>
+    deals half your <strong>Presence</strong> score as <strong>Corruption</strong>
     damage to <strong>Health</strong> each Round.</p>
   actions: []
   nodes:
