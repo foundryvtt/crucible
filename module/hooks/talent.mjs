@@ -407,19 +407,6 @@ HOOKS.echolocation0000 = {
 
 /* -------------------------------------------- */
 
-HOOKS.evasiveshot00000 = {
-  prepareAttack(item, action, _target, _rollData) {
-    if ( !action.tags.has("strike") ) return;
-    const isRanged = action.usage.strikes.some(w => w.system.config.category.ranged);
-    if ( isRanged ) {
-      const movementBonus = (this.system.status.movement?.bonus ?? 0) + Math.ceil(this.system.movement.stride / 2);
-      foundry.utils.setProperty(action.usage.actorStatus, "movement.bonus", movementBonus);
-    }
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.evasiveArmor0000 = {
   prepareDefenses(_item, defenses) {
     const defenseTotals = {};
@@ -1011,6 +998,14 @@ HOOKS.stronggrip000000 = {
     const isTwoHanded = this.equipment.weapons.twoHanded;
     const isMelee = !this.equipment.weapons.ranged;
     if ( isDisarm && isTwoHanded && isMelee ) rollData.banes.strongGrip = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.subtleextricatio = {
+  defendAttack(item, action, _origin, rollData) {
+    if ( action.id === "reactiveStrike" ) rollData.banes[item.id] = {label: item.name, number: 1};
   }
 };
 

@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You are highly skilled in weaving the Rune of Flame. Spells which use
     this Rune cause @Condition[burning] on Critical Hits.</p><p>The Burning
-    effect lasts for <strong>1 Round</strong> and deals your
+    effect lasts for <strong>3 Rounds</strong> and deals half your
     <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
     <strong>Health</strong> and <strong>Morale</strong>.</p>
   actions: []
@@ -26,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160142
-  modifiedTime: 1773514792605
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780502923009
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.pyromancer000000
   duplicateSource: null
   exportSource: null
