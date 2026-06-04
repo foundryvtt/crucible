@@ -1492,7 +1492,12 @@ pages:
       content: >-
         <p>A creature that is submerged entirely within the ground is
         <strong>Burrowing</strong>. While Burrowing, a creature cannot see or be
-        seen using light-based perception.</p>
+        seen using light-based perception.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>The Burrowing condition is
+        applied automatically when a creature ends its own movement using the
+        <strong>Burrow</strong> movement action, and is removed automatically
+        when that creature later ends a movement using any other movement
+        action.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -1514,6 +1519,48 @@ pages:
       modifiedTime: 1770322273309
       lastModifiedBy: ifaQA7jTJsr3UWFE
     _key: '!journal.pages!crucibleConditio.burrowing0000000'
+  - _id: flying0000000000
+    name: Flying
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is aloft in the air with no supporting surface
+        beneath it is <strong>Flying</strong>. A Flying creature does not fall,
+        and Forced Movement cannot knock it from the air; a Flying creature
+        which is pushed, pulled, or knocked back is displaced through the air
+        without falling.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>The Flying condition is applied
+        automatically when a creature ends its own movement using the
+        <strong>Fly</strong> movement action, and is removed automatically when
+        that creature later ends a movement using any other movement
+        action.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: BuMJalJaEUNCX29d
+    sort: 1325000
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.363'
+      systemId: crucible
+      systemVersion: 0.9.5
+      createdTime: 1780580000000
+      modifiedTime: 1780580000000
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.flying0000000000'
   - sort: 1612500
     name: Suffocating
     type: text
