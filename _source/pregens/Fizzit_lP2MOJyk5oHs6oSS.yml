@@ -76,6 +76,8 @@ system:
         stride: 8
       name: Gnome
       img: icons/commodities/tech/cog-brass.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were always most at home in a library or classroom. Your studies
@@ -290,11 +292,11 @@ items:
       identifier: ringMail
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438945
-      modifiedTime: 1776203438945
+      systemVersion: 0.9.5
+      createdTime: 1780588142907
+      modifiedTime: 1780588142907
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -335,11 +337,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438945
-      modifiedTime: 1776203438945
+      systemVersion: 0.9.5
+      createdTime: 1780588142908
+      modifiedTime: 1780588142908
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -378,11 +380,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438945
-      modifiedTime: 1776203438945
+      systemVersion: 0.9.5
+      createdTime: 1780588142908
+      modifiedTime: 1780588142908
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -411,6 +413,7 @@ items:
             attempting to identify a vulnerability in its defenses.</p>
           tags:
             - harmless
+            - undetectable
           cost:
             action: 1
             focus: 1
@@ -433,6 +436,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -445,12 +449,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438946
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142908
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438946
+      createdTime: 1780588142908
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -485,12 +489,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438946
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142908
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438946
+      createdTime: 1780588142908
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -531,12 +535,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438946
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142908
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438946
+      createdTime: 1780588142908
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -569,12 +573,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438946
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142909
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438946
+      createdTime: 1780588142909
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -606,12 +610,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438946
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142909
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438946
+      createdTime: 1780588142909
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -646,12 +650,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438947
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142909
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438947
+      createdTime: 1780588142909
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -684,12 +688,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438947
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142909
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438947
+      createdTime: 1780588142909
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -758,6 +762,7 @@ items:
             actorUuid: null
             permanent: true
           inflection: ''
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -771,12 +776,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438947
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142910
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438947
+      createdTime: 1780588142910
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -824,6 +829,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - sig3.presence.intellect
       rune: ''
@@ -836,11 +842,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438947
-      modifiedTime: 1776203438947
+      systemVersion: 0.9.5
+      createdTime: 1780588142910
+      modifiedTime: 1780588142910
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -895,11 +901,10 @@ items:
           effects: []
           tags:
             - noncombat
-            - skill
-            - wilderness
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -910,11 +915,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438947
-      modifiedTime: 1776203438947
+      systemVersion: 0.9.5
+      createdTime: 1780588142910
+      modifiedTime: 1780588142910
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -985,6 +990,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: illusion
       nodes:
         - int0a
@@ -998,11 +1004,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438948
-      modifiedTime: 1776203438948
+      systemVersion: 0.9.5
+      createdTime: 1780588142911
+      modifiedTime: 1780588142911
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1020,10 +1026,10 @@ items:
       description: >-
         <p>You are highly skilled in weaving the Rune of Lightning. Spells which
         use this Rune cause the @Condition[shocked] condition on Critical
-        Hits.</p><p>The Shocked effect lasts for <strong>1 Round</strong>, deals
-        half your <strong>Intellect</strong> score as <strong>Lightning</strong>
-        damage to <strong>Morale</strong>, and applies the @Condition[staggered]
-        condition.</p>
+        Hits.</p><p>The Shocked effect lasts for <strong>3 Rounds</strong>,
+        deals half your <strong>Intellect</strong> score as
+        <strong>Lightning</strong> damage to <strong>Morale</strong>, and
+        applies the @Condition[staggered] condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1038,11 +1044,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438948
-      modifiedTime: 1776203438948
+      systemVersion: 0.9.5
+      createdTime: 1780588142911
+      modifiedTime: 1780588142911
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1078,11 +1084,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438949
-      modifiedTime: 1776203438949
+      systemVersion: 0.9.5
+      createdTime: 1780588142911
+      modifiedTime: 1780588142911
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1150,6 +1156,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: lightning
       training:
         type: lightning
@@ -1163,11 +1170,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438949
-      modifiedTime: 1776203438949
+      systemVersion: 0.9.5
+      createdTime: 1780588142911
+      modifiedTime: 1780588142911
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1239,6 +1246,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: kinesis
       nodes:
         - pre0b
@@ -1252,11 +1260,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438950
-      modifiedTime: 1776203438950
+      systemVersion: 0.9.5
+      createdTime: 1780588142912
+      modifiedTime: 1780588142912
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1322,6 +1330,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: frost
       nodes:
         - wis0b
@@ -1335,11 +1344,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438950
-      modifiedTime: 1776203438950
+      systemVersion: 0.9.5
+      createdTime: 1780588142912
+      modifiedTime: 1780588142912
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1395,6 +1404,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: talisman
@@ -1407,11 +1417,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438950
-      modifiedTime: 1776203438950
+      systemVersion: 0.9.5
+      createdTime: 1780588142912
+      modifiedTime: 1780588142912
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1460,6 +1470,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: mechanical
@@ -1472,12 +1483,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438950
-      createdTime: 1776203438950
+      modifiedTime: 1780588142912
+      createdTime: 1780588142912
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1526,6 +1537,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -1536,11 +1548,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438950
-      modifiedTime: 1776203438950
+      systemVersion: 0.9.5
+      createdTime: 1780588142913
+      modifiedTime: 1780588142913
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1585,11 +1597,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438951
-      modifiedTime: 1776203438951
+      systemVersion: 0.9.5
+      createdTime: 1780588142913
+      modifiedTime: 1780588142913
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1629,11 +1641,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438943
-      modifiedTime: 1776203438943
+      systemVersion: 0.9.5
+      createdTime: 1780588142913
+      modifiedTime: 1780588142913
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1732,11 +1744,11 @@ flags:
         messageId: t3WM9HAg9PzUI3c7
         combat: null
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438943
-  modifiedTime: 1776203438943
+  systemVersion: 0.9.5
+  createdTime: 1780588142907
+  modifiedTime: 1780588142907
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

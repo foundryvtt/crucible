@@ -76,6 +76,8 @@ system:
         stride: 10
       name: Elvish
       img: icons/magic/nature/leaf-rune-glow-green.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>Yours has been an itinerant life. You enjoy nothing more than the
@@ -259,49 +261,6 @@ prototypeToken:
   movementAction: null
   depth: 4
 items:
-  - _id: WYw63RWi2vcIPylm
-    name: Longbow
-    type: weapon
-    img: icons/weapons/bows/longbow-leather-green.webp
-    effects: []
-    folder: NNHjWBS5AM148J20
-    flags: {}
-    system:
-      category: projectile2
-      quantity: 1
-      weight: 3
-      price: 360
-      quality: standard
-      enchantment: mundane
-      equipped: true
-      properties: []
-      description:
-        public: >-
-          <p>A tall, self-bow often taller than the archer who draws it, the
-          longbow requires great strength and years of practice to master,
-          sending arrows with deadly force across the battlefield.</p>
-        private: ''
-      damageType: piercing
-      broken: false
-      slot: 3
-      actions: []
-      identifier: longbow
-      invested: false
-      dropped: false
-    _stats:
-      systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427791
-      modifiedTime: 1776203427791
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    sort: 50000
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.WYw63RWi2vcIPylm'
   - _id: CItsWhgzGd5hXOQD
     name: Scimitar
     type: weapon
@@ -333,10 +292,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427793
-      modifiedTime: 1776203427793
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136421
+      modifiedTime: 1780588136421
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -375,10 +334,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427793
-      modifiedTime: 1776203427793
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136421
+      modifiedTime: 1780588136421
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -411,12 +370,12 @@ items:
     sort: -275000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427793
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136421
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427793
+      createdTime: 1780588136421
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -437,7 +396,7 @@ items:
           description: >-
             <p>You <strong>Strike</strong> from distance. The attack is
             <strong>Difficult</strong>, however if your target is it it becomes
-            <strong>Restrained</strong> until the end of their next Turn.</p>
+            @Condition[restrained] until the end of their next Turn.</p>
           tags:
             - ranged
             - difficult
@@ -480,6 +439,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex3a
       rune: ''
@@ -492,12 +452,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427794
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136421
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427794
+      createdTime: 1780588136421
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -534,11 +494,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427794
-      modifiedTime: 1776203427794
+      systemVersion: 0.9.5
+      createdTime: 1780588136421
+      modifiedTime: 1780588136421
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -608,6 +568,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: illusion
       nodes:
         - int0a
@@ -621,12 +582,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427794
-      createdTime: 1776203427794
+      modifiedTime: 1780588136422
+      createdTime: 1780588136422
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -676,6 +637,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: projectile
@@ -688,11 +650,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427794
-      modifiedTime: 1776203427794
+      systemVersion: 0.9.5
+      createdTime: 1780588136422
+      modifiedTime: 1780588136422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -741,6 +703,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex1a
       rune: ''
@@ -751,12 +714,12 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427795
-      createdTime: 1776203427795
+      modifiedTime: 1780588136422
+      createdTime: 1780588136422
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -765,16 +728,59 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.precisionshot000'
+  - name: Shortbow
+    type: weapon
+    img: icons/weapons/bows/shortbow-leather.webp
+    effects: []
+    flags: {}
+    system:
+      category: projectile2
+      quantity: 1
+      weight: 2
+      price: 240
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description:
+        public: >-
+          <p>Compact and quick to draw, the shortbow excels in rapid,
+          close-quarters archery and skirmishes, favored by scouts, hunters, and
+          swift-footed raiders.</p>
+        private: ''
+      damageType: piercing
+      broken: false
+      identifier: shortbow
+      invested: false
+      actions: []
+      dropped: false
+      slot: 3
+    _stats:
+      coreVersion: '14.363'
+      systemId: crucible
+      systemVersion: 0.9.5
+      createdTime: 1780588136420
+      modifiedTime: 1780588136420
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: GO04lQS1VSYuK8fx
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.GO04lQS1VSYuK8fx'
 effects: []
 flags:
   core: {}
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
-  createdTime: 1776203427791
-  modifiedTime: 1776203427791
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1780588136420
+  modifiedTime: 1780588136420
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

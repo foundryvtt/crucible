@@ -76,6 +76,8 @@ system:
         vulnerability: ''
       name: Human
       img: icons/skills/social/diplomacy-handshake.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were part of a law enforcement organization. You learned how to
@@ -292,11 +294,11 @@ items:
       identifier: scaleMail
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438953
-      modifiedTime: 1776203438953
+      systemVersion: 0.9.5
+      createdTime: 1780588142890
+      modifiedTime: 1780588142890
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -336,11 +338,11 @@ items:
       identifier: greataxe
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438953
-      modifiedTime: 1776203438953
+      systemVersion: 0.9.5
+      createdTime: 1780588142890
+      modifiedTime: 1780588142890
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -390,6 +392,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -404,12 +407,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438953
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142890
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438953
+      createdTime: 1780588142890
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -458,6 +461,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -468,12 +472,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438954
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142890
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438954
+      createdTime: 1780588142890
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -525,6 +529,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -535,12 +540,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438954
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142891
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438954
+      createdTime: 1780588142891
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -570,12 +575,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438954
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142891
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438954
+      createdTime: 1780588142891
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -599,10 +604,10 @@ items:
             You have suffered damage to your Health pool since your last turn in
             Combat.
           description: >-
-            You become Enraged. While Enraged you deal 4 additional damage on
-            all melee attacks. You may attempt to end the effect on your own
-            turn by succeeding on a Willpower test against a DC of 20. The
-            effect ends automatically when Combat is concluded.
+            You become @Condition[enraged]. While Enraged you deal 4 additional
+            damage on all melee attacks. You may attempt to end the effect on
+            your own turn by succeeding on a Willpower test against a DC of 20.
+            The effect ends automatically when Combat is concluded.
           tags: []
           cost:
             action: 1
@@ -633,6 +638,11 @@ items:
               result:
                 type: success
                 all: false
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
           img: null
           range:
             minimum: null
@@ -641,6 +651,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - sig3.toughness.strength
       rune: ''
@@ -654,12 +665,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438955
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142891
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438955
+      createdTime: 1780588142891
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -691,12 +702,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438955
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142891
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438955
+      createdTime: 1780588142891
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -729,12 +740,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438955
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142892
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438955
+      createdTime: 1780588142892
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -751,12 +762,14 @@ items:
       description: <p>You deliver a single decisive strike against a wounded enemy.</p>
       actions:
         - id: executionersStrike
-          condition: Your target is Bloodied.
+          condition: ''
           description: >-
-            <p>You deliver a Deadly Strike with a two-handed heavy weapon. If
-            your attack is successful, your opponent also suffers the Bleeding
-            condition for 3 Rounds, taking additional damage each Round equal to
-            your Strength score.</p>
+            <p>You deliver a Strike with a two-handed weapon. If your attack is
+            successful and your opponent is under half their maximum
+            <strong>Health</strong>, the Strike is <strong>Deadly</strong>, and
+            the opponent suffers the @Condition[bleeding] condition for 3
+            Rounds, taking additional damage each Round equal to your Strength
+            score.</p>
           tags:
             - melee
             - twohand
@@ -779,6 +792,11 @@ items:
                 type: success
                 all: false
               statuses: []
+              duration:
+                value: 3
+                units: rounds
+                expiry: turnStart
+                expired: false
               system:
                 changes: []
                 dot: []
@@ -794,6 +812,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - str4b
       rune: ''
@@ -806,12 +825,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438955
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142894
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438955
+      createdTime: 1780588142894
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -825,9 +844,10 @@ items:
     img: icons/magic/earth/construct-stone.webp
     system:
       description: >-
-        You cannot be unvoluntarily Moved or knocked Prone by any action that is
-        not a Critical Success rolled by an enemy or a Critical Failure rolled
-        by yourself.
+        <p>You cannot be unvoluntarily Moved or knocked @Condition[prone] by any
+        action that is not a Critical Success rolled by an enemy or a Critical
+        Failure rolled by yourself.</p><h3 class="divider">Playtest
+        Notes</h3><p>This talent is not yet automated.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -842,12 +862,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438955
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142895
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438955
+      createdTime: 1780588142895
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -874,9 +894,9 @@ items:
           img: icons/skills/melee/strikes-sword-scimitar.webp
           condition: You incapacitate an enemy with a melee attack.
           description: >-
-            <p>After defeating an enemy, you may move up to your
-            <strong>Stride</strong> and attack another foe within melee
-            range.</p>
+            <p>After defeating an enemy, you immediately move up to your
+            <strong>Stride </strong>and <strong>Strike</strong> another foe that
+            you pass next to or end your movement adjacent to.</p>
           cost:
             action: -1
             focus: 1
@@ -885,20 +905,22 @@ items:
             hands: 0
           range:
             maximum: null
-            weapon: true
+            weapon: false
             minimum: null
           target:
-            type: single
+            type: movement
             number: 1
+            limit: 1
             scope: 3
             self: false
           effects: []
           tags:
-            - movement
             - melee
+            - movement
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -909,12 +931,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438956
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142895
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438956
+      createdTime: 1780588142895
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -938,8 +960,8 @@ items:
           name: Second Wind
           condition: ''
           description: >-
-            <p>You focus your energy and recover your Toughness score in
-            Health.</p>
+            <p>You focus your energy and recover your <strong>Toughness</strong>
+            score in <strong>Health</strong>.</p>
           tags:
             - healing
           cost:
@@ -962,6 +984,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -972,12 +995,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438956
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142896
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438956
+      createdTime: 1780588142896
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -995,21 +1018,23 @@ items:
       core: {}
     system:
       description: >-
-        You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.
+        <p>You protect your allies, intercepting blows that might otherwise be
+        directed towards your companions.</p>
       actions:
         - id: intercept
           condition: An enemy moves into or through your Engagement radius.
           description: >-
             <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediatly moving up to your
+            <strong>Engagement</strong> radius, immediately moving up to your
             <strong>Stride</strong> to interpose yourself and block their
             path.</p><p>If the enemy moves out of your Engagement radius or
             attacks any other creature during their turn, you may make a
-            <strong>Reactive Strike</strong> against them.</p>
+            @Action[default reactiveStrike] against them.</p><h3
+            class="divider">Playtest Notes</h3><p>The interruption of enemy
+            movement is not yet automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -1031,6 +1056,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -1041,12 +1067,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438956
-      createdTime: 1776203438956
+      modifiedTime: 1780588142896
+      createdTime: 1780588142896
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1136,6 +1162,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: unarmed
@@ -1149,12 +1176,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438956
-      createdTime: 1776203438956
+      modifiedTime: 1780588142896
+      createdTime: 1780588142896
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1178,14 +1205,14 @@ items:
           img: icons/skills/melee/shield-damaged-broken-gold.webp
           condition: ''
           description: >-
-            <p>You make a <strong>Strike</strong> with your mainhand weapon
-            which, if successful, applies the <strong>Exposed </strong>condition
-            to your target for 3 rounds. This attack is
-            <strong>Difficult</strong> to perform and deals reduced damage.</p>
+            <p>You make a <strong>Strike</strong> with a Strength-scaling weapon
+            which, if successful, applies the @Condition[exposed] condition to
+            your target for 3 rounds. This attack is <strong>Difficult</strong>
+            to perform and deals reduced damage.</p>
           tags:
+            - brute
             - melee
             - difficult
-            - brute
           cost:
             action: 0
             focus: 1
@@ -1223,6 +1250,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - str3a
       rune: ''
@@ -1233,11 +1261,11 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438957
-      modifiedTime: 1776203438957
+      systemVersion: 0.9.5
+      createdTime: 1780588142897
+      modifiedTime: 1780588142897
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1289,6 +1317,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: heavy
@@ -1301,11 +1330,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438957
-      modifiedTime: 1776203438957
+      systemVersion: 0.9.5
+      createdTime: 1780588142897
+      modifiedTime: 1780588142897
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1338,11 +1367,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438957
-      modifiedTime: 1776203438957
+      systemVersion: 0.9.5
+      createdTime: 1780588142898
+      modifiedTime: 1780588142898
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1374,11 +1403,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438958
-      modifiedTime: 1776203438958
+      systemVersion: 0.9.5
+      createdTime: 1780588142898
+      modifiedTime: 1780588142898
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1411,11 +1440,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438958
-      modifiedTime: 1776203438958
+      systemVersion: 0.9.5
+      createdTime: 1780588142898
+      modifiedTime: 1780588142898
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1464,6 +1493,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -1474,11 +1504,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438958
-      modifiedTime: 1776203438958
+      systemVersion: 0.9.5
+      createdTime: 1780588142898
+      modifiedTime: 1780588142898
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1519,11 +1549,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438959
-      modifiedTime: 1776203438959
+      systemVersion: 0.9.5
+      createdTime: 1780588142899
+      modifiedTime: 1780588142899
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1590,6 +1620,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -1600,11 +1631,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438959
-      modifiedTime: 1776203438959
+      systemVersion: 0.9.5
+      createdTime: 1780588142899
+      modifiedTime: 1780588142899
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1629,11 +1660,11 @@ flags:
           combatantId: 9OhW0GfLeDPN6scA
           tokenId: ml1efMTNhGS9kbqS
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438952
-  modifiedTime: 1776203438952
+  systemVersion: 0.9.5
+  createdTime: 1780588142889
+  modifiedTime: 1780588142889
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

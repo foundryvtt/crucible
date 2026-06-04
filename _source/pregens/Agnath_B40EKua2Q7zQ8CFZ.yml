@@ -76,6 +76,8 @@ system:
         stride: 10
       name: Orcish
       img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were a rank-and-file member of a military organization of some
@@ -289,11 +291,11 @@ items:
       identifier: splintMail
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438937
-      modifiedTime: 1776203438937
+      systemVersion: 0.9.5
+      createdTime: 1780588142883
+      modifiedTime: 1780588142883
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -325,12 +327,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438937
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142883
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438937
+      createdTime: 1780588142883
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -366,12 +368,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438938
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142884
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438938
+      createdTime: 1780588142884
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -411,12 +413,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438938
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142884
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438938
+      createdTime: 1780588142884
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -447,12 +449,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438938
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142884
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438938
+      createdTime: 1780588142884
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -486,12 +488,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438938
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142884
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438938
+      createdTime: 1780588142884
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -522,12 +524,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438939
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142884
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438939
+      createdTime: 1780588142884
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -557,8 +559,7 @@ items:
             <p>When you defend against a melee attack with a
             <strong>Parry</strong>, you may react and expend
             <strong>Focus</strong> to retaliate with a reduced-cost
-            <strong>Strike</strong> which benefits from the
-            <strong>Exposed</strong> condition.</p>
+            <strong>Strike</strong> which is <strong>Accurate</strong>.</p>
           cost:
             action: -1
             focus: 1
@@ -574,6 +575,7 @@ items:
           tags:
             - reaction
             - melee
+            - accurate
           range:
             maximum: 1
             weapon: true
@@ -581,6 +583,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -591,12 +594,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438939
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142885
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438939
+      createdTime: 1780588142885
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -622,9 +625,9 @@ items:
           img: icons/skills/melee/strikes-sword-scimitar.webp
           condition: You incapacitate an enemy with a melee attack.
           description: >-
-            <p>After defeating an enemy, you may move up to your
-            <strong>Stride</strong> and attack another foe within melee
-            range.</p>
+            <p>After defeating an enemy, you immediately move up to your
+            <strong>Stride </strong>and <strong>Strike</strong> another foe that
+            you pass next to or end your movement adjacent to.</p>
           cost:
             action: -1
             focus: 1
@@ -633,20 +636,22 @@ items:
             hands: 0
           range:
             maximum: null
-            weapon: true
+            weapon: false
             minimum: null
           target:
-            type: single
+            type: movement
             number: 1
+            limit: 1
             scope: 3
             self: false
           effects: []
           tags:
-            - movement
             - melee
+            - movement
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -657,12 +662,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438939
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142885
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438939
+      createdTime: 1780588142885
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -679,7 +684,7 @@ items:
       description: >-
         <p>Your prodigious hardiness conveys a supernatural capability to
         recover from wounds quickly. At the start of your turn if you are not
-        Weakened you gain <strong>+1 Health</strong>.</p>
+        @Condition[weakened] you gain <strong>+1 Health</strong>.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -693,12 +698,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438939
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142885
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438939
+      createdTime: 1780588142885
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -737,11 +742,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438940
-      modifiedTime: 1776203438940
+      systemVersion: 0.9.5
+      createdTime: 1780588142885
+      modifiedTime: 1780588142885
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -778,12 +783,12 @@ items:
     sort: 40000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438940
-      createdTime: 1776203438940
+      modifiedTime: 1780588142885
+      createdTime: 1780588142885
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -817,12 +822,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438940
-      createdTime: 1776203438940
+      modifiedTime: 1780588142886
+      createdTime: 1780588142886
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -871,6 +876,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: heavy
@@ -884,12 +890,12 @@ items:
     sort: 150000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438941
-      createdTime: 1776203438941
+      modifiedTime: 1780588142886
+      createdTime: 1780588142886
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -921,12 +927,12 @@ items:
     sort: 300000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438941
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142886
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438941
+      createdTime: 1780588142886
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -962,12 +968,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438941
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142886
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438941
+      createdTime: 1780588142886
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -997,12 +1003,12 @@ items:
     sort: 50000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438941
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142886
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438941
+      createdTime: 1780588142886
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1032,11 +1038,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438941
-      modifiedTime: 1776203438941
+      systemVersion: 0.9.5
+      createdTime: 1780588142887
+      modifiedTime: 1780588142887
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1063,14 +1069,14 @@ items:
           img: icons/skills/melee/shield-damaged-broken-gold.webp
           condition: ''
           description: >-
-            <p>You make a <strong>Strike</strong> with your mainhand weapon
-            which, if successful, applies the <strong>Exposed </strong>condition
-            to your target for 3 rounds. This attack is
-            <strong>Difficult</strong> to perform and deals reduced damage.</p>
+            <p>You make a <strong>Strike</strong> with a Strength-scaling weapon
+            which, if successful, applies the @Condition[exposed] condition to
+            your target for 3 rounds. This attack is <strong>Difficult</strong>
+            to perform and deals reduced damage.</p>
           tags:
+            - brute
             - melee
             - difficult
-            - brute
           cost:
             action: 0
             focus: 1
@@ -1108,6 +1114,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - str3a
       rune: ''
@@ -1118,11 +1125,11 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438942
-      modifiedTime: 1776203438942
+      systemVersion: 0.9.5
+      createdTime: 1780588142887
+      modifiedTime: 1780588142887
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1140,7 +1147,7 @@ items:
       description: >-
         <p>You are highly skilled in weaving the Rune of Flame. Spells which use
         this Rune cause @Condition[burning] on Critical Hits.</p><p>The Burning
-        effect lasts for <strong>1 Round</strong> and deals your
+        effect lasts for <strong>3 Rounds</strong> and deals half your
         <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
         <strong>Health</strong> and <strong>Morale</strong>.</p>
       actions: []
@@ -1157,11 +1164,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438942
-      modifiedTime: 1776203438942
+      systemVersion: 0.9.5
+      createdTime: 1780588142887
+      modifiedTime: 1780588142887
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1201,11 +1208,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438942
-      modifiedTime: 1776203438942
+      systemVersion: 0.9.5
+      createdTime: 1780588142887
+      modifiedTime: 1780588142887
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1274,6 +1281,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: lightning
       training:
         type: lightning
@@ -1287,11 +1295,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438942
-      modifiedTime: 1776203438942
+      systemVersion: 0.9.5
+      createdTime: 1780588142887
+      modifiedTime: 1780588142887
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1353,6 +1361,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: flame
       nodes:
         - int0a
@@ -1366,11 +1375,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438942
-      modifiedTime: 1776203438942
+      systemVersion: 0.9.5
+      createdTime: 1780588142888
+      modifiedTime: 1780588142888
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1407,11 +1416,11 @@ flags:
           combatantId: h5BoLzXPp70rdtTJ
           tokenId: dADEtTB8iYFSmMKd
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438935
-  modifiedTime: 1776203438935
+  systemVersion: 0.9.5
+  createdTime: 1780588142882
+  modifiedTime: 1780588142882
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

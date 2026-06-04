@@ -76,6 +76,8 @@ system:
         stride: 8
       name: Dwarven
       img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were part of a law enforcement organization. You learned how to
@@ -282,10 +284,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427804
-      modifiedTime: 1776203427804
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136432
+      modifiedTime: 1780588136432
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -326,10 +328,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427804
-      modifiedTime: 1776203427804
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136433
+      modifiedTime: 1780588136433
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -369,10 +371,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427805
-      modifiedTime: 1776203427805
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136433
+      modifiedTime: 1780588136433
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -423,6 +425,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -437,12 +440,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427805
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136433
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427805
+      createdTime: 1780588136433
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -507,6 +510,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -520,12 +524,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427806
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136434
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427806
+      createdTime: 1780588136434
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -550,8 +554,8 @@ items:
           name: Second Wind
           condition: ''
           description: >-
-            <p>You focus your energy and recover your Toughness score in
-            Health.</p>
+            <p>You focus your energy and recover your <strong>Toughness</strong>
+            score in <strong>Health</strong>.</p>
           tags:
             - healing
           cost:
@@ -574,6 +578,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -584,12 +589,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427806
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136434
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427806
+      createdTime: 1780588136434
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -628,12 +633,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427806
-      createdTime: 1776203427806
+      modifiedTime: 1780588136434
+      createdTime: 1780588136434
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -667,12 +672,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427807
-      createdTime: 1776203427807
+      modifiedTime: 1780588136435
+      createdTime: 1780588136435
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -759,6 +764,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: unarmed
@@ -772,12 +778,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427807
-      createdTime: 1776203427807
+      modifiedTime: 1780588136435
+      createdTime: 1780588136435
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -793,21 +799,23 @@ items:
       core: {}
     system:
       description: >-
-        You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.
+        <p>You protect your allies, intercepting blows that might otherwise be
+        directed towards your companions.</p>
       actions:
         - id: intercept
           condition: An enemy moves into or through your Engagement radius.
           description: >-
             <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediatly moving up to your
+            <strong>Engagement</strong> radius, immediately moving up to your
             <strong>Stride</strong> to interpose yourself and block their
             path.</p><p>If the enemy moves out of your Engagement radius or
             attacks any other creature during their turn, you may make a
-            <strong>Reactive Strike</strong> against them.</p>
+            @Action[default reactiveStrike] against them.</p><h3
+            class="divider">Playtest Notes</h3><p>The interruption of enemy
+            movement is not yet automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -829,6 +837,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -839,12 +848,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427807
-      createdTime: 1776203427807
+      modifiedTime: 1780588136435
+      createdTime: 1780588136435
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -877,12 +886,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427808
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136435
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427808
+      createdTime: 1780588136435
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -898,10 +907,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
-  createdTime: 1776203427803
-  modifiedTime: 1776203427803
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1780588136432
+  modifiedTime: 1780588136432
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
