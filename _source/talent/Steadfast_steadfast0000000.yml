@@ -11,9 +11,9 @@ system:
       name: Steadfast Resolve
       condition: ''
       description: >-
-        <p>You harden yourself against demoralization. Your Morale is increased
-        by your Wisdom score and you temporarily gain the Resolute
-        condition.</p>
+        <p>You harden yourself against demoralization. Your
+        <strong>Morale</strong> is increased by your <strong>Wisdom</strong>
+        score and you temporarily gain the @Condition[resolute] condition.</p>
       tags: []
       cost:
         action: 2

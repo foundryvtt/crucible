@@ -12,7 +12,7 @@ system:
         <p>You make a <strong>Strike</strong> attack with your mainhand weapon.
         This technique is <strong>Difficult</strong> to execute and deals
         reduced damage, but if successful renders your target
-        <strong>Prone</strong>.</p>
+        @Condition[prone].</p>
       tags:
         - brute
         - melee

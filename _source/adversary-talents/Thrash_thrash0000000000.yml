@@ -13,7 +13,7 @@ system:
       condition: The target is Restrained by this creature.
       description: >-
         <p>The creature deals <strong>Deadly</strong> damage to a target that it
-        currently has <strong>Restrained</strong>.</p>
+        currently has @Condition[restrained].</p>
       cost:
         action: 0
         focus: 0

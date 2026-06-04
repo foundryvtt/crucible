@@ -5,7 +5,7 @@ img: icons/skills/melee/shield-block-gray-yellow.webp
 system:
   description: >-
     You are highly skilled in using shields to adopt a defensive posture. You
-    gain double the benefit of the <strong>Guarded</strong> condition against
+    gain double the benefit of the @Condition[guarded] condition against
     <strong>Weapon Attacks</strong> while wielding a shield.
   actions: []
   nodes:

@@ -16,7 +16,7 @@ system:
       description: >-
         <p>You make a <strong>Thrown </strong>weapon attack, targeting a weak
         point in your enemy's defences. If the attack hits, the target becomes
-        <strong>Exposed</strong> until the start of their next Turn.</p>
+        @Condition[exposed] until the start of their next Turn.</p>
       cost:
         action: 0
         focus: 1

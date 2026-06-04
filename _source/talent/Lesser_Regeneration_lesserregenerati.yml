@@ -5,8 +5,8 @@ img: icons/magic/life/crosses-trio-red.webp
 system:
   description: >-
     <p>Your prodigious hardiness conveys a supernatural capability to recover
-    from wounds quickly. At the start of your turn if you are not Weakened you
-    gain <strong>+1 Health</strong>.</p>
+    from wounds quickly. At the start of your turn if you are not
+    @Condition[weakened] you gain <strong>+1 Health</strong>.</p>
   actions: []
   nodes:
     - tou2c

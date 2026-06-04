@@ -4,7 +4,8 @@ img: icons/magic/light/projectile-smoke-pink.webp
 system:
   description: >-
     Your tenacity gives you an irrepressible spirit which resists the onset of
-    despair. At the start of your turn if you are not Broken you gain 1 Morale.
+    despair. At the start of your turn if you are not @Condition[broken] you
+    gain 1 Morale.
   actions: []
   nodes:
     - wis2b
