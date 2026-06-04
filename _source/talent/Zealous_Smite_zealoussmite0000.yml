@@ -8,7 +8,7 @@ system:
     weapon.</p>
   actions:
     - id: zealousSmite
-      condition: You are attacking an Exposed enemy with a Heavy weapon.
+      condition: You are attacking an enemy with a Strength-based weapon.
       description: >-
         <p>You <strong>Strike</strong> using a Strength-based weapon. The attack
         becomes <strong>Deadly</strong> and any damage dealt is
@@ -39,6 +39,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - strwis1
   rune: ''
@@ -55,7 +56,7 @@ _stats:
   systemVersion: 0.9.4
   coreVersion: '14.363'
   createdTime: 1772307160154
-  modifiedTime: 1780502711329
+  modifiedTime: 1780537641779
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

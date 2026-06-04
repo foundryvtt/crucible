@@ -147,7 +147,7 @@ HOOKS.blastFlask = {
 HOOKS.bodyBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
-    if ( targetAction.message.flags.crucible.confirmed ) {
+    if ( targetAction?.message.flags.crucible.confirmed ) {
       throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
     }
     const {RESULT_TYPES, RESULT_TYPE_LABELS} = game.system.api.dice.AttackRoll;
@@ -155,7 +155,7 @@ HOOKS.bodyBlock = {
     const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "disjunction"});
     const validDefenses = listFormatter.format(validResultTypes.map(r => _loc(RESULT_TYPE_LABELS[r])));
     const invalidError = _loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: this.name, defense: validDefenses});
-    if ( !targetAction.tags.has("melee") ) {
+    if ( !targetAction?.tags.has("melee") ) {
       throw new Error(invalidError);
     }
     const myEvents = targetAction.eventsByActor.get(this.actor);
@@ -436,7 +436,7 @@ HOOKS.electrochargeAmpoule = {
 // showing 0 cost on the token ruler
 HOOKS.evasiveShot = {
   prepare() {
-    this.range.maximum = this.actor.system.movement.stride / 2;
+    this.range.maximum = Math.round(this.actor.system.movement.stride / 2);
     this.cost.action = 0;
   },
   canUse() {
@@ -759,6 +759,7 @@ HOOKS.executionersStrike = {
     if ( health.value < (health.max / 2) ) return;
     this.effects = [];
     this.tags.delete("deadly");
+    this.usage.bonuses.multiplier -= 1;
   }
 };
 
@@ -1268,7 +1269,7 @@ HOOKS.reload = {
 HOOKS.repercussiveBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
-    if ( targetAction.message.flags.crucible.confirmed ) {
+    if ( targetAction?.message.flags.crucible.confirmed ) {
       throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
     }
     _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.BLOCK});
