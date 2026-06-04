@@ -577,6 +577,7 @@ function enrichCondition([match, conditionId]) {
   tag.innerHTML = _loc(cfg.name);
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
+  tag.classList.add("inline-enriched");
   tag.classList.add("condition");
   return tag;
 }
@@ -597,6 +598,7 @@ function enrichActionTag([match, tagId]) {
   tag.innerHTML = cfg.label;
   tag.dataset.crucibleTooltip = "tag";
   tag.dataset.tag = tagId;
+  tag.classList.add("inline-enriched");
   tag.classList.add("tag");
   return tag;
 }
