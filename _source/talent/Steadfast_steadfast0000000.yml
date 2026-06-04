@@ -45,11 +45,6 @@ system:
             maintenance: null
             regions: []
             summons: []
-          duration:
-            value: null
-            units: ''
-            expiry: null
-            expired: false
       img: icons/magic/life/heart-red-blue.webp
       range:
         maximum: null
