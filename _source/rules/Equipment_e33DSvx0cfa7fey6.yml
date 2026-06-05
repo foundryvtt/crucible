@@ -179,7 +179,10 @@ pages:
         equipped items.</p><h4>Unique Items</h4><p>Some items are designated as
         <strong>Unique</strong>, representing one-of-a-kind artifacts or items
         of singular craftsmanship. Unique items cannot be enchanted with affixes
-        and instead retain a manually assigned enchantment tier.</p><h2
+        and instead retain a manually assigned enchantment
+        tier.</p><h4>Stackable</h4><p>Some items - typically consumables, tools,
+        and loot - are <strong>Stackable</strong>, allowing multiple identical
+        units to be carried as a single inventory entry with a quantity.</p><h2
         class="divider">Investment</h2><p>Some items require
         <strong>Investment</strong> in order to fully benefit from their
         properties. Items which require Investment may be Equipped and used to
@@ -192,6 +195,20 @@ pages:
         permit the Actor to perform.</p><p>When performing the @Action[default
         recover] or @Action[default rest] Actions, any Item that was previously
         Invested but is now unequipped will no longer be invested.</p><h2
+        class="divider">Item Stacking</h2><p>Items with the
+        <strong>Stackable</strong> property can be combined into a single
+        inventory stack with a quantity, so long as the items are truly
+        identical. Items which differ in quality, enchantment, or any other
+        property do not stack, and enchanted items never stack.</p><p>Equipped
+        items never stack. A stack represents identical items stowed together in
+        a character's backpack; when an item is equipped, it becomes an
+        individual item distinct from any remaining stacked
+        quantity.</p><section class="foundryvtt"><h4>Automation</h4><p>When you
+        equip an item from a stack, one unit is automatically split off the
+        stack and equipped individually. When you un-equip that item and return
+        it to your backpack, it automatically recombines with an identical stack
+        if one exists. Dragging one stackable item onto an identical item in
+        your inventory combines them into a single stack.</p></section><h2
         class="divider">Item Value Scaling</h2><p>The base cost of an item is
         defined by its Standard quality, Mundane enchantment variety. The
         currency cost of the item scales with its Rarity score according to the

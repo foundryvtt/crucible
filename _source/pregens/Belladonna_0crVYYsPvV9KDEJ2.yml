@@ -76,6 +76,8 @@ system:
         vulnerability: ''
       name: Human
       img: icons/skills/social/diplomacy-handshake.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>Few learn to survive the way you did. Yours was a harsh education in
@@ -296,11 +298,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438999
-      modifiedTime: 1776203438999
+      systemVersion: 0.9.5
+      createdTime: 1780588142932
+      modifiedTime: 1780588142932
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,11 +344,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438999
-      modifiedTime: 1776203438999
+      systemVersion: 0.9.5
+      createdTime: 1780588142932
+      modifiedTime: 1780588142932
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -384,11 +386,11 @@ items:
       identifier: studdedLeatherArmor
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439000
-      modifiedTime: 1776203439000
+      systemVersion: 0.9.5
+      createdTime: 1780588142932
+      modifiedTime: 1780588142932
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -438,6 +440,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -452,12 +455,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439000
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142933
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439000
+      createdTime: 1780588142933
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -509,6 +512,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -519,12 +523,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439000
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142933
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439000
+      createdTime: 1780588142933
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -539,9 +543,10 @@ items:
     system:
       description: >-
         <p>Your precision with weapons which deal Slashing or Piercing damage
-        can cause the Bleeding condition on Critical Hits which deal damage to
-        Health.</p><p>The Bleeding effect lasts for 1 round and deals your
-        Dexterity score as additional damage to Health.</p>
+        can cause the @Condition[bleeding] condition on Critical Hits which deal
+        damage to Health.</p><p>The @Condition[bleeding] effect lasts for 3
+        rounds and deals your Dexterity score as additional damage to
+        Health.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -556,12 +561,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439000
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142933
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439000
+      createdTime: 1780588142933
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -596,7 +601,7 @@ items:
             - reaction
             - melee
           cost:
-            action: -2
+            action: -1
             focus: 1
             weapon: true
             heroism: 0
@@ -614,6 +619,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -624,12 +630,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439001
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142933
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439001
+      createdTime: 1780588142933
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -660,12 +666,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439001
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142934
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439001
+      createdTime: 1780588142934
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -695,12 +701,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439001
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142934
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439001
+      createdTime: 1780588142934
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -730,8 +736,8 @@ items:
             <strong>Focus</strong> to leap into a defensive roll, moving up to
             your <strong>Size</strong> in any direction.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -739,7 +745,7 @@ items:
             heroism: 0
             hands: 0
           target:
-            type: single
+            type: self
             number: 1
             scope: 0
             self: false
@@ -751,6 +757,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -761,12 +768,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439001
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142934
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439001
+      createdTime: 1780588142934
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -783,7 +790,7 @@ items:
       description: >-
         <p>You are adept at entering and exiting the fray. When moving out of
         the <strong>Engagement</strong> radius of an enemy, that enemy has 2
-        Banes to any <strong>Reactive Strike</strong> against you.</p>
+        Banes to any @Action[default reactiveStrike] against you.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -797,12 +804,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439001
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142934
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439001
+      createdTime: 1780588142934
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -835,12 +842,12 @@ items:
     sort: -75000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439002
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142934
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439002
+      createdTime: 1780588142934
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -894,6 +901,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: light
@@ -907,12 +915,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439002
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142935
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439002
+      createdTime: 1780588142935
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -927,21 +935,23 @@ items:
       core: {}
     system:
       description: >-
-        You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.
+        <p>You protect your allies, intercepting blows that might otherwise be
+        directed towards your companions.</p>
       actions:
         - id: intercept
           condition: An enemy moves into or through your Engagement radius.
           description: >-
             <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediatly moving up to your
+            <strong>Engagement</strong> radius, immediately moving up to your
             <strong>Stride</strong> to interpose yourself and block their
             path.</p><p>If the enemy moves out of your Engagement radius or
             attacks any other creature during their turn, you may make a
-            <strong>Reactive Strike</strong> against them.</p>
+            @Action[default reactiveStrike] against them.</p><h3
+            class="divider">Playtest Notes</h3><p>The interruption of enemy
+            movement is not yet automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -963,6 +973,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -973,12 +984,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203439002
-      createdTime: 1776203439002
+      modifiedTime: 1780588142935
+      createdTime: 1780588142935
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1018,12 +1029,12 @@ items:
     sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203439002
-      createdTime: 1776203439002
+      modifiedTime: 1780588142935
+      createdTime: 1780588142935
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1058,12 +1069,12 @@ items:
     sort: 120000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203439002
-      createdTime: 1776203439002
+      modifiedTime: 1780588142935
+      createdTime: 1780588142935
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1100,11 +1111,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439002
-      modifiedTime: 1776203439002
+      systemVersion: 0.9.5
+      createdTime: 1780588142936
+      modifiedTime: 1780588142936
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1129,7 +1140,8 @@ items:
       enchantment: mundane
       equipped: true
       invested: false
-      properties: []
+      properties:
+        - stackable
       description:
         public: >-
           <p>This potion contains a specialized alchemical formula to rapidly
@@ -1174,6 +1186,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       uses:
         value: 1
         max: 1
@@ -1184,11 +1197,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439003
-      modifiedTime: 1776203439003
+      systemVersion: 0.9.5
+      createdTime: 1780588142936
+      modifiedTime: 1780588142936
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1205,7 +1218,7 @@ items:
     system:
       identifier: antitoxin
       category: flask
-      quantity: 0
+      quantity: 1
       weight: 1
       price: 250
       quality: standard
@@ -1261,6 +1274,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       uses:
         value: 1
         max: 1
@@ -1271,11 +1285,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439003
-      modifiedTime: 1776203439003
+      systemVersion: 0.9.5
+      createdTime: 1780588142936
+      modifiedTime: 1780588142936
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1369,6 +1383,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
         - id: poisonApply
           name: Apply Poison
           img: >-
@@ -1400,6 +1415,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       uses:
         value: 1
         max: 1
@@ -1410,11 +1426,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439003
-      modifiedTime: 1776203439003
+      systemVersion: 0.9.5
+      createdTime: 1780588142937
+      modifiedTime: 1780588142937
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1452,11 +1468,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439003
-      modifiedTime: 1776203439003
+      systemVersion: 0.9.5
+      createdTime: 1780588142937
+      modifiedTime: 1780588142937
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1484,8 +1500,7 @@ items:
           description: >-
             <p>You make a <strong>Thrown </strong>weapon attack, targeting a
             weak point in your enemy's defences. If the attack hits, the target
-            becomes <strong>Exposed</strong> until the start of their next
-            Turn.</p>
+            becomes @Condition[exposed] until the start of their next Turn.</p>
           cost:
             action: 0
             focus: 1
@@ -1526,6 +1541,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -1536,11 +1552,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439003
-      modifiedTime: 1776203439003
+      systemVersion: 0.9.5
+      createdTime: 1780588142937
+      modifiedTime: 1780588142937
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1591,6 +1607,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - int3b
       rune: ''
@@ -1603,11 +1620,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439004
-      modifiedTime: 1776203439004
+      systemVersion: 0.9.5
+      createdTime: 1780588142938
+      modifiedTime: 1780588142938
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1622,22 +1639,25 @@ items:
     img: icons/magic/death/skull-humanoid-white-blue.webp
     system:
       description: >-
-        <p>You specialize in bringing death the the unwary. Any Strike or Spell
-        attack against an <strong>Unaware</strong> target becomes
-        <strong>Deadly</strong>.</p><p>An Unaware creature hit by your attack
-        may not alert its allies until its own turn in Combat.</p>
+        <p>You specialize in bringing death the the unwary. Any
+        <strong>Strike</strong> or <strong>Spell</strong> attack against an
+        @Condition[unaware] target becomes <strong>Deadly</strong>.</p><p>An
+        <strong>Unaware</strong> creature hit by your attack may not alert its
+        allies until its own turn in <strong>Combat</strong>.</p>
       actions:
         - id: markForDeath
           name: Mark For Death
           img: icons/magic/death/skull-humanoid-white-blue.webp
           condition: You are unobserved.
           description: >-
-            You spend 1 minute studying a creature. Perform a Knowledge Test
+            <p>You spend 1 minute studying a creature. Perform a Knowledge Test
             about your target. If successful, you learn all damage types against
             which the target is Vulnerable. Your minimum Initiative during the
             first round of Combat becomes one greater than the Initiative of
-            your marked target.</p>
-          tags: []
+            your marked target.</p><h3 class="divider">Playtest
+            Notes</h3><p>This action is not yet automated.</p>
+          tags:
+            - undetectable
           cost:
             action: 0
             focus: 1
@@ -1657,6 +1677,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - sig3.intellect.dexterity
       rune: ''
@@ -1670,11 +1691,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439004
-      modifiedTime: 1776203439004
+      systemVersion: 0.9.5
+      createdTime: 1780588142938
+      modifiedTime: 1780588142938
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1730,6 +1751,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -1740,11 +1762,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439004
-      modifiedTime: 1776203439004
+      systemVersion: 0.9.5
+      createdTime: 1780588142938
+      modifiedTime: 1780588142938
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1776,11 +1798,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439004
-      modifiedTime: 1776203439004
+      systemVersion: 0.9.5
+      createdTime: 1780588142938
+      modifiedTime: 1780588142938
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1818,11 +1840,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203439004
-      modifiedTime: 1776203439004
+      systemVersion: 0.9.5
+      createdTime: 1780588142939
+      modifiedTime: 1780588142939
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1845,7 +1867,7 @@ items:
           name: Offhand Strike
           description: >-
             <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
+            weapon, you make a reduced-cost follow-up <strong>Strike</strong>
             with your <strong>offhand</strong> weapon.</p>
           tags:
             - afterStrike
@@ -1871,6 +1893,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex1b
       iconicSpells: 0
@@ -1884,11 +1907,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438998
-      modifiedTime: 1776203438998
+      systemVersion: 0.9.5
+      createdTime: 1780588142939
+      modifiedTime: 1780588142939
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1914,8 +1937,8 @@ items:
         - id: backstab
           condition: You are attacking a target with the Flanked condition.
           description: >-
-            <p>You <strong>Strike</strong> with your mainhand weapon against a
-            <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
+            <p>You <strong>Strike</strong> with your weapon against a
+            @Condition[flanked] target, dealing <strong>Deadly</strong>
             damage.</p>
           tags:
             - finesse
@@ -1943,6 +1966,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -1953,12 +1977,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203439005
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142939
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203439005
+      createdTime: 1780588142939
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1974,11 +1998,11 @@ flags:
   crucible:
     actionHistory: []
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438998
-  modifiedTime: 1776203438998
+  systemVersion: 0.9.5
+  createdTime: 1780588142931
+  modifiedTime: 1780588142931
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

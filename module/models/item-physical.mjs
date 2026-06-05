@@ -384,6 +384,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const item = this.parent;
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
       item,
+      descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(this.description.public, {relativeTo: item}),
       tags: preparedTags,
       actions: await item.prepareActionsContext()
     });

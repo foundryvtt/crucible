@@ -147,22 +147,25 @@ HOOKS.blastFlask = {
 HOOKS.bodyBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
+    if ( targetAction?.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
+    }
+    const {RESULT_TYPES, RESULT_TYPE_LABELS} = game.system.api.dice.AttackRoll;
+    const validResultTypes = [RESULT_TYPES.GLANCE, RESULT_TYPES.ARMOR];
+    const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "disjunction"});
+    const validDefenses = listFormatter.format(validResultTypes.map(r => _loc(RESULT_TYPE_LABELS[r])));
+    const invalidError = _loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: this.name, defense: validDefenses});
+    if ( !targetAction?.tags.has("melee") ) {
+      throw new Error(invalidError);
+    }
     const myEvents = targetAction.eventsByActor.get(this.actor);
-    if ( !myEvents ) return;
-    if ( !targetAction.tags.has("melee") ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.MeleeOnly"));
-    }
-    if ( targetAction.message.flags.crucible.confirmed ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.AlreadyConfirmed"));
-    }
-    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
-    for ( const event of myEvents.roll ) {
-      if ( [results.ARMOR, results.GLANCE].includes(event.roll.data.result) ) {
+    for ( const event of myEvents?.roll ?? [] ) {
+      if ( validResultTypes.includes(event.roll.data.result) ) {
         this.usage.targetAction = targetAction.message.id;
         return true;
       }
     }
-    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.InvalidOutcome"));
+    throw new Error(invalidError);
   }
 };
 
@@ -429,6 +432,23 @@ HOOKS.electrochargeAmpoule = {
 
 /* -------------------------------------------- */
 
+// TODO: Currently this will consume free movement. Determine how to make that not the case while still properly
+// showing 0 cost on the token ruler
+HOOKS.evasiveShot = {
+  prepare() {
+    this.range.maximum = Math.round(this.actor.system.movement.stride / 2);
+    this.cost.action = 0;
+  },
+  canUse() {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction?.tags.has("ranged") ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
@@ -514,6 +534,14 @@ HOOKS.feintingStrike = {
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flyingKick = {
+  prepare() {
+    this.range.maximum = this.actor.system.movement.stride;
   }
 };
 
@@ -725,12 +753,13 @@ HOOKS.executionersStrike = {
     });
     this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
   },
-  acquireTargets(targets) {
-    for ( const target of targets ) {
-      const {health} = target.actor.resources;
-      if ( health.value < health.max ) continue;
-      target.error ??= _loc("ACTION.WARNINGS.RequiresTargetWounded", {action: this.name});
-    }
+  preActivate() {
+    const target = this.targets.keys().next().value;
+    const {health} = target.resources;
+    if ( health.value < (health.max / 2) ) return;
+    this.effects = [];
+    this.tags.delete("deadly");
+    this.usage.bonuses.multiplier -= 1;
   }
 };
 
@@ -807,27 +836,29 @@ HOOKS.interpose = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
     if ( !targetAction?.tags.has("strike") ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.RequiresStrike"));
+      throw new Error(_loc("ACTION.WARNINGS.MustReactStrike", {action: this.name}));
+    }
+    const targetActors = [...targetAction.eventsByTarget.keys()];
+    if ( targetActors.length !== 1 ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustReactSingleTarget", {action: this.name}));
+    }
+    const targetEvents = targetAction.eventsByTarget.get(targetActors[0]);
+    const {RESULT_TYPES} = game.system.api.dice.AttackRoll;
+    const wasHit = targetEvents.roll?.some(e => e.roll?.data?.result >= RESULT_TYPES.GLANCE);
+    if ( !wasHit ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustReactHit", {action: this.name}));
     }
     this.usage.priorAction = targetAction;
   },
-  preActivate() {
+  acquireTargets(targets) {
     const targetAction = this.usage.priorAction;
-    const targetActors = [...targetAction.eventsByTarget.keys()];
-    if ( targetActors.length !== 1 ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.SingleTarget"));
+    const [target] = [...targetAction.eventsByTarget.keys()];
+    if ( targets.length && (targets[0]?.actor !== target) ) {
+      targets[0].error = _loc("ACTION.WARNINGS.MustTargetTarget", {action: this.name});
     }
-    const [ally] = this.targets.keys();
-    if ( targetActors[0] !== ally ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AllyMustBeTarget"));
-    }
-    const allyEvents = targetAction.eventsByActor.get(ally);
-    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
-    const wasHit = allyEvents?.roll.some(e => e.roll?.data?.result >= RESULTS.GLANCE);
-    if ( !wasHit ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AttackMissed"));
-    }
-    this.metadata.targetMessageId = targetAction.message.id;
+  },
+  preActivate() {
+    this.metadata.targetMessageId = this.usage.priorAction.message.id;
   },
   async confirm(reverse) {
     const targetMessageId = this.metadata.targetMessageId;
@@ -1125,7 +1156,7 @@ HOOKS.reactiveStrike = {
 
 HOOKS.readScroll = {
   prepare() {
-    this.name = `Read ${this.item.name}`;
+    this.name = _loc("ITEM.ACTIONS.Read", {item: this.item.name});
   },
   canUse() {
     const {runes, gestures, inflections} = this.item.system.scroll;
@@ -1236,16 +1267,13 @@ HOOKS.reload = {
 /* -------------------------------------------- */
 
 HOOKS.repercussiveBlock = {
-  postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
-      if ( !events.allSuccess ) continue;
-      const {mainhand} = target.equipment.weapons; // TODO - react to the prior action?
-      if ( !mainhand?.id || mainhand.properties.has("natural") ) continue;
-      this.recordEvent({type: "actorUpdate", target,
-        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
-        itemSnapshots: [mainhand.snapshot()],
-        statusText: [{text: "Disarmed!", fontSize: 64}]});
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    if ( targetAction?.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
     }
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.BLOCK});
+    this.usage.targetAction = targetAction.message.id;
   }
 };
 

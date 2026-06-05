@@ -104,7 +104,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Flying",
     img: "icons/svg/wing.svg",
     hud: nonGroupTypes,
-    page: "" // TODO
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.flying0000000000"
   },
   deafened: {
     id: "deafened",

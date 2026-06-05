@@ -241,7 +241,7 @@ pages:
         follows:</p><ol><li><p><strong>Distance</strong> is computed
         center-point to center-point, where the distance of diagonal movement is
         computed using the <strong>Exact √2</strong> diagonal measurement
-        mode.</p></li><li><p><strong>Effective Distance</strong> is compted by
+        mode.</p></li><li><p><strong>Effective Distance</strong> is computed by
         applying the following modifiers in order:</p><ol
         style="list-style-type:lower-alpha"><li><p><strong>Status
         Conditions</strong> are applied first, as described
@@ -273,36 +273,80 @@ pages:
         doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
         water, your <strong>Effective Distance</strong> traveled is
         doubled.</p><h4>Fly</h4><p>Used by creatures which can fly or hover.
-        Movement while flying is faster than
-        walking.</p><h4>Blink</h4><p>Magical teleportation that ignores terrain
-        and movement cost entirely.</p><h2 class="divider">Free
-        Movement</h2><p>Each creature has the opportunity to perform one free
-        <strong>Movement</strong> action per round of Combat. This means that
-        the first Action performed each round which involves the Movement tag is
-        discounted at -1 Action cost. This will typically make the action free
-        to perform, but in some cases may simply reduce its overall
-        cost.</p><p>Free Movement is not available to creatures that are
-        @Condition[Weakened], @Condition[Prone], or @Condition[Slowed].
-        Creatures wearing <strong>Heavy</strong> armor also lose access to free
-        Movement unless they have the
+        Movement while flying is faster than walking. A creature which ends its
+        movement while flying gains the @Condition[flying]
+        condition.</p><h4>Blink</h4><p>Magical teleportation that ignores
+        terrain and movement cost entirely.</p><h4>Burrow</h4><p>Used by
+        creatures capable of tunneling through the earth. Your <strong>Effective
+        Distance</strong> traveled is doubled. Burrowing movement passes beneath
+        walls, obstacles, and other creatures on the surface above. A creature
+        which ends its movement while burrowing gains the @Condition[burrowing]
+        condition.</p><h2 class="divider">Free Movement</h2><p>Each creature has
+        the opportunity to perform one free <strong>Movement</strong> action per
+        round of Combat. This means that the first Action performed each round
+        which involves the Movement tag is discounted at -1 Action cost. This
+        will typically make the action free to perform, but in some cases may
+        simply reduce its overall cost.</p><p>Free Movement is not available to
+        creatures that are @Condition[weakened], @Condition[prone], or
+        @Condition[slowed]. Creatures wearing <strong>Heavy</strong> armor also
+        lose access to free Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
         Efficiency} talent.</p><h2 class="divider">Terrain</h2><p>Difficult
         terrain increases the cost of movement while traversing it. Difficult
         terrain can be defined using Foundry VTT Scene Regions with the
         <strong>Modify Movement Cost</strong> behavior, which is fully
         integrated with Crucible movement cost computation.</p><h2
-        class="divider">Forced Movement</h2><p>Sometimes, an Action produces a
-        side effect that requires a creature to move involuntarily. This is
-        referred to as <strong>Forced Movement</strong>, and represents
-        situations like being knocked aside by a powerful blow, falling off a
-        ledge, or being dragged along by captors. This type of movement does not
-        incur any Action cost, nor does it consume Free Movement.</p><section
-        class="foundryvtt"><h4>Forced Movement Toggle</h4><p>Gamemasters are
-        responsible for managing this type of special movement, and can do so by
-        enabling the Forced Movement toggle in the Scene Controls menu using the
-        <span class="ref"><i class="fa-solid fa-wind"></i></span>
-        icon.</p><p>Movement made while this toggle is enabled will incur no
-        cost and will be annotated as "Forced" in their Ruler measurement
+        class="divider">Creature Collision</h2><p>While in Combat, creatures
+        treat other creatures as obstacles which block movement. A creature may
+        not move through the space occupied by another creature, whether that
+        creature is an ally or an enemy. Dead creatures do not block movement,
+        nor do creatures at a different elevation, such as a flying creature
+        above the battlefield or a burrowing creature beneath it.</p><p>Blocked
+        movement does not mean that creatures must keep a respectful distance -
+        a creature can press into and partially overlap the edge of another
+        creature's space, but cannot push fully through it.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>Token collision happens
+        automatically whenever the moving Token belongs to an active Combat
+        encounter. Outside of Combat, Tokens move freely through one another.
+        When a moving Token bumps into another, its movement simply stops at the
+        point of contact, just as if it had hit a wall.</p></section><p>Certain
+        movement actions are exempt from this restriction. <strong>Jump</strong>
+        movement vaults over obstructing creatures, <strong>Burrow</strong>
+        movement tunnels beneath them, and <strong>Blink</strong> movement
+        teleports past them entirely. Certain Actions also allow movement
+        through otherwise obstructing creatures as part of their effect, for
+        example @UUID[Compendium.crucible.talent.Item.tumblethrough000]{Tumble
+        Through} or
+        @UUID[Compendium.crucible.talent.Item.shieldcharge0000]{Shield
+        Charge}.</p><p><strong>Forced Movement</strong> respects creature
+        obstacles in the same way: a creature which is pushed, pulled, or
+        knocked back stops its involuntary movement when it collides with
+        another creature.</p><section class="construction"><h4>Under
+        Construction</h4><p>Token Collision mechanics and the rules for handling
+        collision and overlap between creatures are still being developed and
+        are not yet final. Expect these rules to evolve in future
+        releases.</p></section><h2 class="divider">Forced
+        Movement</h2><p>Sometimes, an Action produces a side effect that
+        requires a creature to move involuntarily. This is referred to as
+        <strong>Forced Movement</strong>, and represents situations like being
+        knocked aside by a powerful blow, falling off a ledge, or being dragged
+        along by captors. This type of movement does not incur any Action cost,
+        nor does it consume Free Movement.</p><p>Forced Movement is usually
+        produced automatically by the Action which causes it. Effects which
+        push, pull, or knock a target back - such as the <strong>Push</strong>
+        and <strong>Pull</strong> spell Inflections - plan and execute this
+        secondary movement as part of resolving the Action, timed to coincide
+        with the moment of impact in the Action's animation. Forced Movement
+        cannot push a creature through walls or through other creatures, and a
+        creature carried over an edge will
+        @UUID[Compendium.crucible.rules.JournalEntry.exploration00000.JournalEntryPage.environmentalHaz]{Fall}.</p><section
+        class="foundryvtt"><h4>Forced Movement Toggle</h4><p>For situations
+        which are not automated by a specific Action - like being dragged along
+        by captors - the Gamemaster can move a Token manually as Forced Movement
+        by enabling the Forced Movement toggle in the Scene Controls menu using
+        the <span class="ref"><i class="fa-solid fa-wind"></i></span>
+        icon.</p><p>Movement made while this toggle is enabled incurs no cost
+        and is annotated as "Forced" in its Ruler measurement
         tooltip.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
         or obstacles can be counted as Cover - providing additional protection
         from incoming Spell or Weapon attacks. When a direct single-target
@@ -332,10 +376,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       createdTime: 1684374473225
-      modifiedTime: 1777850642905
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1780579467460
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null

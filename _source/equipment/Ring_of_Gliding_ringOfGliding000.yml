@@ -50,7 +50,7 @@ effects:
           img: icons/creatures/magical/spirit-undead-winged-ghost.webp
           condition: ''
           description: >-
-            <p>If used while <strong>Falling</strong>, you may laterally move a
+            <p>If used while @Condition[falling], you may laterally move a
             number of spaces from your initial location as you glide. The
             gliding distance depends on the <strong>Tier</strong> of this
             prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1

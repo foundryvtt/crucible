@@ -14,14 +14,14 @@ system:
       img: icons/skills/melee/shield-damaged-broken-gold.webp
       condition: ''
       description: >-
-        <p>You make a <strong>Strike</strong> with your mainhand weapon which,
-        if successful, applies the <strong>Exposed </strong>condition to your
+        <p>You make a <strong>Strike</strong> with a Strength-scaling weapon
+        which, if successful, applies the @Condition[exposed] condition to your
         target for 3 rounds. This attack is <strong>Difficult</strong> to
         perform and deals reduced damage.</p>
       tags:
+        - brute
         - melee
         - difficult
-        - brute
       cost:
         action: 0
         focus: 1
@@ -42,6 +42,7 @@ system:
             value: 3
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
@@ -58,6 +59,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - str3a
   rune: ''
@@ -69,11 +71,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160150
-  modifiedTime: 1773514792619
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780537530593
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

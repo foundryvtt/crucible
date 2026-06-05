@@ -15,8 +15,8 @@ system:
         <strong>Fortitude</strong> defense of an adjacent enemy. If your
         <strong>Initiative</strong> is superior to that of your target, you gain
         <strong>+1 Boon</strong> to this attack.</p><p>The attack is
-        <strong>Difficult</strong> and only deals <strong>Weakened</strong>
-        damage, but if successful it inflicts the @Condition[staggered] for one
+        <strong>Difficult</strong> and only deals @Condition[weakened] damage,
+        but if successful it inflicts the @Condition[staggered] for one
         round.</p><p>This action always uses an Unarmed weapon, even if your
         weapon slots are otherwise occupied.</p>
       cost:

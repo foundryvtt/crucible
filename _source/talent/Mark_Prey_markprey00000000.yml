@@ -9,7 +9,7 @@ system:
     - id: markPrey
       description: >-
         <p>You Strike using a special shot. If your attack is successful the
-        target is <strong>Exposed</strong> for the next 3 Turns.</p>
+        target is @Condition[exposed] for the next 3 Turns.</p>
       tags:
         - ranged
         - difficult

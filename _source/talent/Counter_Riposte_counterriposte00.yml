@@ -17,8 +17,8 @@ system:
       description: >-
         <p>When you defend against a melee attack with a <strong>Parry</strong>,
         you may react and expend <strong>Focus</strong> to retaliate with a
-        reduced-cost <strong>Strike</strong> which benefits from the
-        <strong>Exposed</strong> condition.</p>
+        reduced-cost <strong>Strike</strong> which is
+        <strong>Accurate</strong>.</p>
       cost:
         action: -1
         focus: 1
@@ -34,6 +34,7 @@ system:
       tags:
         - reaction
         - melee
+        - accurate
       range:
         maximum: 1
         weapon: true
@@ -41,6 +42,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
+      autoFavorite: false
   nodes:
     - str2a
   rune: ''
@@ -52,11 +54,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160129
-  modifiedTime: 1773514792566
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780503315261
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

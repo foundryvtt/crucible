@@ -97,9 +97,21 @@ pages:
         danger of the hazard is equal to the distance fallen in feet. For
         example, for a 60 foot fall:</p><p>[[/hazard 60 fortitude
         severe]]{Serious Fall}</p><p>Unless the hazard is resisted, the creature
-        also becomes @Condition[prone].</p></dd></dl><h3
-        class="divider">Exposure</h3><p>Where Conditions like
-        @Condition[burning] and @Condition[freezing] apply to extreme, but
+        also becomes @Condition[prone].</p></dd></dl><section
+        class="foundryvtt"><h4>Automation</h4><p>Falling is automated during
+        token movement. A creature whose movement ends in mid-air with no
+        supporting surface beneath it gains the falling condition, and a
+        <strong>Fall</strong> action is automatically prompted. This prompt is
+        presented to the Gamemaster as the user who confirms the original action
+        which caused the fall. The Fall action measures the distance to the
+        surface below, applies the appropriate severity of falling damage, drops
+        the creature down to that surface, and applies the @Condition[prone]
+        condition. Falls of 10 feet or less are harmless and deal no
+        damage.</p><p>This automation applies both to a creature's own movement
+        and to Forced Movement which carries it over an edge. Creatures which
+        are @Condition[flying] or @Condition[burrowing] do not
+        fall.</p></section><h3 class="divider">Exposure</h3><p>Where Conditions
+        like @Condition[burning] and @Condition[freezing] apply to extreme, but
         acute, cases of exposure to drastic elemental damage, exposure hazards
         apply to more prolonged cases such as desert or arctic travel where the
         environment is so unforgiving that it poses a persistent drain to a

@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>The creature uses it slippery form to escape restraints, immediately
-        ending the <strong>Restrained</strong> condition.</p>
+        ending the @Condition[restrained] condition.</p>
       cost:
         action: 0
         focus: 1

@@ -5,9 +5,8 @@ img: icons/magic/air/wind-stream-blue-gray.webp
 system:
   description: >-
     <p>You understand how to move away from an opponent without exposing
-    yourself to the worst attacks in return. Any <strong>Disengagement
-    Attack</strong> against you is performed without the 2 Boons that would
-    ordinarily apply to such an attack.</p>
+    yourself to the worst attacks in return. Any <strong>Reactive
+    Strike</strong> against you is performed with <strong>+1 Bane</strong>.</p>
   actions: []
   nodes:
     - intdex2
@@ -27,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160150
-  modifiedTime: 1773514792619
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780501015695
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

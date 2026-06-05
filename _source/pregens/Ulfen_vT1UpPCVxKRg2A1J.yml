@@ -76,6 +76,8 @@ system:
         vulnerability: ''
       name: Human
       img: icons/skills/social/diplomacy-handshake.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were part of a law enforcement organization. You learned how to
@@ -288,10 +290,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427776
-      modifiedTime: 1776203427776
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136405
+      modifiedTime: 1780588136405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,10 +334,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427777
-      modifiedTime: 1776203427777
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136405
+      modifiedTime: 1780588136405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -385,6 +387,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -399,12 +402,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427777
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136406
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427777
+      createdTime: 1780588136406
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -453,6 +456,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -463,12 +467,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427777
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136406
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427777
+      createdTime: 1780588136406
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -520,6 +524,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -530,12 +535,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427778
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427778
+      createdTime: 1780588136408
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -552,21 +557,23 @@ items:
       core: {}
     system:
       description: >-
-        You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.
+        <p>You protect your allies, intercepting blows that might otherwise be
+        directed towards your companions.</p>
       actions:
         - id: intercept
           condition: An enemy moves into or through your Engagement radius.
           description: >-
             <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediatly moving up to your
+            <strong>Engagement</strong> radius, immediately moving up to your
             <strong>Stride</strong> to interpose yourself and block their
             path.</p><p>If the enemy moves out of your Engagement radius or
             attacks any other creature during their turn, you may make a
-            <strong>Reactive Strike</strong> against them.</p>
+            @Action[default reactiveStrike] against them.</p><h3
+            class="divider">Playtest Notes</h3><p>The interruption of enemy
+            movement is not yet automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -588,6 +595,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -598,12 +606,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427778
-      createdTime: 1776203427778
+      modifiedTime: 1780588136408
+      createdTime: 1780588136408
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -693,6 +701,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: unarmed
@@ -706,12 +715,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427778
-      createdTime: 1776203427778
+      modifiedTime: 1780588136408
+      createdTime: 1780588136408
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -725,10 +734,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
-  createdTime: 1776203427775
-  modifiedTime: 1776203427775
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1780588136403
+  modifiedTime: 1780588136403
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

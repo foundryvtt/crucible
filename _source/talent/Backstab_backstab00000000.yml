@@ -14,8 +14,7 @@ system:
       condition: You are attacking a target with the Flanked condition.
       description: >-
         <p>You <strong>Strike</strong> with your weapon against a
-        <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
-        damage.</p>
+        @Condition[flanked] target, dealing <strong>Deadly</strong> damage.</p>
       tags:
         - finesse
         - flanking

@@ -5,11 +5,39 @@ img: icons/skills/ranged/person-archery-bow-attack-orange.webp
 system:
   description: >-
     <p>You are an expert at firing shots with ranged weaponry while evading
-    enemy attacks. After performing a ranged weapon attack, you gain half your
-    <strong>Stride</strong> in additional free movement.</p>
+    enemy attacks.</p>
   nodes:
     - dex3a
-  actions: []
+  actions:
+    - id: evasiveShot
+      name: Evasive Shot
+      img: icons/skills/ranged/person-archery-bow-attack-orange.webp
+      description: >-
+        <p>After performing a ranged weapon attack, you may move up to half your
+        <strong>Stride</strong> for free.</p>
+      condition: ''
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 0
+        self: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+      tags:
+        - movement
+      autoFavorite: false
   rune: ''
   gesture: ''
   inflection: ''
@@ -21,11 +49,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160131
-  modifiedTime: 1773514792572
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780501752118
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
