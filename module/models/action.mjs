@@ -2666,19 +2666,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( underground ) toAdd = burrowing;
     }
 
-    // Add the falling condition
+    // Otherwise add the falling condition, unless a climbing move ends adjacent to a climbable surface
     else {
       const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
       const surface = staysAirborne ? null : token._findSupportingSurface(destination);
-      if ( surface && (surface.elevation < destination.elevation) ) toAdd = falling;
+      if ( surface && (surface.elevation < destination.elevation) ) {
+        const isClimbing = isSelf && (finalWaypoint?.action === "climb");
+        if ( !(isClimbing && token._findClimbableSurface(destination)) ) toAdd = falling;
+      }
     }
 
-    // Add a derived status effect change, if applicable
+    // Add a derived status effect change
     const clearable = isSelf ? [burrowing.id, falling.id, flying.id] : [falling.id];
     if ( toAdd && !actor.statuses.has(toAdd.id) ) {
       const {_id, id, img, name} = toAdd;
       event.effects.push({_id, img, name: _loc(name), statuses: [id], showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS});
     }
+
+    // Clear prior movement status effects
     for ( const id of clearable ) {
       if ( (id !== toAdd?.id) && actor.statuses.has(id) ) {
         event.effects.push({_id: CONFIG.statusEffects[id]._id, _action: "delete"});
