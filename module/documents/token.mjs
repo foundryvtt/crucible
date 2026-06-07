@@ -235,19 +235,31 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
-   * Determine whether this token is hovering above a movement-restricting surface in the current scene. Returns false
-   * when the token is on the ground, over a void with no surface below it, or has a status that exempts it from
-   * falling, i.e. FLY/HOVER.
+   * Find the lowest movement-restricting surface at or above the given elevation that the token can cling to.
+   * Require adjacency rather than overlap, test this by padding out the token's footprint one grid space on all sides.
+   * Require elevation overlap of the region with the climb position.
    * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
-   * @returns {boolean}
+   * @returns {RegionSurface|null}
    * @internal
    */
-  _isHoveringAboveSurface(position=this._source) {
-    const { actor } = this;
-    if ( !actor ) return false;
-    const { BURROW, FLY } = CONFIG.specialStatusEffects;
-    if ( actor.statuses.has(BURROW) || actor.statuses.has(FLY) ) return false;
-    const surface = this._findSupportingSurface(position);
-    return !!surface && (surface.elevation < position.elevation);
+  _findClimbableSurface(position=this._source) {
+    const scene = this.parent;
+    if ( !scene ) return null;
+    const { elevation, level } = position;
+    const surfaces = scene.getSurfaces({ level, type: "move" });
+    if ( !surfaces.length ) return null;
+
+    // Pad the token footprint by one grid space per side so adjacent spaces register as overlap
+    const { sizeX, sizeY } = scene.grid;
+    const padded = {...position, x: position.x - sizeX, y: position.y - sizeY,
+      width: (position.width ?? this._source.width) + 2, height: (position.height ?? this._source.height) + 2};
+    const points = this.getContainmentTestPoints(padded);
+
+    // Search surfaces from lowest to highest, identifying the first which can be climbed.
+    for ( const surface of surfaces ) {
+      if ( (surface.elevation < elevation) || (surface.region.elevation.bottom > elevation) ) continue;
+      if ( points.some(p => surface.region.polygonTree.testPoint(p)) ) return surface;
+    }
+    return null;
   }
 }

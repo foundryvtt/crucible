@@ -2489,22 +2489,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
     const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
 
-    // Resting status: fly/burrow from a self-move action, else falling from the end position
+    // End flying or burrowing moves with a resting status effect that carries over between movements
     let toAdd;
     if ( isSelf && (finalWaypoint?.action === "fly") ) toAdd = flying;
     else if ( isSelf && (finalWaypoint?.action === "burrow") ) toAdd = burrowing;
+
+    // Other movements must end supported by a surface or during climbing
     else {
       const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
       const surface = staysAirborne ? null : token._findSupportingSurface(destination);
-      if ( surface && (surface.elevation < destination.elevation) ) toAdd = falling;
+      if ( surface && (surface.elevation < destination.elevation) ) {
+        const isClimbing = isSelf && (finalWaypoint?.action === "climb");
+        if ( !(isClimbing && token._findClimbableSurface(destination)) ) toAdd = falling;
+      }
     }
 
-    // Add a derived status effect change, if applicable
+    // Add a derived status effect change
     const clearable = isSelf ? [burrowing.id, falling.id, flying.id] : [falling.id];
     if ( toAdd && !actor.statuses.has(toAdd.id) ) {
       const {_id, id, img, name} = toAdd;
       event.effects.push({_id, img, name: _loc(name), statuses: [id], showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS});
     }
+
+    // Clear prior movement status effects
     for ( const id of clearable ) {
       if ( (id !== toAdd?.id) && actor.statuses.has(id) ) {
         event.effects.push({_id: CONFIG.statusEffects[id]._id, _action: "delete"});
