@@ -43,7 +43,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - str1a
+    - toustr1
   rune: ''
   gesture: ''
   inflection: ''
@@ -53,10 +53,10 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.9.5
   coreVersion: '14.363'
-  modifiedTime: 1779646718750
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780938098337
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

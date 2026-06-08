@@ -4,7 +4,7 @@ _id: berserkStrike000
 img: icons/skills/melee/strike-weapons-orange.webp
 system:
   nodes:
-    - str2a
+    - str3a
   description: >-
     <p>You channel your lust for combat into an adrenaline-fueled strike which
     increases in power as you become more wounded.</p>
@@ -60,11 +60,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.5
   createdTime: 1772307160127
-  modifiedTime: 1773514792560
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780938158188
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!berserkStrike000'

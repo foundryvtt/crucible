@@ -5,7 +5,7 @@ _id: deftgrip00000000
 img: icons/skills/melee/stabbing-knife.webp
 system:
   nodes:
-    - dex0a
+    - dex2a
   description: >-
     <p>Your grasp of your weaponry is fluid and precise. While wielding a
     two-handed weapon that scales with Dexterity you may cast spells which
@@ -34,6 +34,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.5
   createdTime: 1772713232009
-  modifiedTime: 1780932540260
+  modifiedTime: 1780937856390
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _key: '!items!deftgrip00000000'
