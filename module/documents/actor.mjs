@@ -344,11 +344,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Configure attack roll options contributed by the acting actor based on their status conditions.
    * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} target                  The target actor being attacked
    * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureAttackerRollData(action, target, rollData) {
+  _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -376,7 +375,6 @@ export default class CrucibleActor extends Actor {
 
     // Call attacker hooks
     this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
   }
 
   /* -------------------------------------------- */
@@ -384,11 +382,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Configure attack roll options contributed by the target actor based on their status conditions.
    * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} actor                   The actor performing the action
    * @param {AttackRollData} rollData       The mutable roll data for the attack
    * @internal
    */
-  _configureTargetRollData(action, actor=null, rollData) {
+  _configureTargetRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -408,9 +405,25 @@ export default class CrucibleActor extends Actor {
         boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
+  }
 
-    // Call defender hooks (skipped for hazards where there is no attacker)
-    if ( actor ) this.callActorHooks("defendAttack", action, actor, rollData);
+  /* -------------------------------------------- */
+
+  /**
+   * Configure attack roll options contributed by attacker & target based on status conditions & hooks.
+   * @param {CrucibleAction} action   The action being performed
+   * @param {CrucibleActor} actor     The actor performing the attack
+   * @param {CrucibleActor} target    The target actor being attacked
+   * @param {AttackRollData} rollData The mutable roll data for the attack
+   * @internal
+   */
+  static _configureRollData(action, actor, target, rollData) {
+    actor._configureAttackerRollData(action, rollData);
+    target._configureTargetRollData(action, rollData);
+
+    // Call attacker & defender hooks now that base rollData is populated
+    actor.callActorHooks("prepareAttack", action, target, rollData);
+    target.callActorHooks("defendAttack", action, actor, rollData);
   }
 
   /* -------------------------------------------- */
@@ -755,8 +768,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(spell, target, rollData);
-    target._configureTargetRollData(spell, this, rollData);
+    CrucibleActor._configureRollData(spell, this, target, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -823,8 +835,8 @@ export default class CrucibleActor extends Actor {
       multiplier: options.multiplier || 1
     };
 
-    // Target configuration and hooks (no attacker for hazards)
-    this._configureTargetRollData(action, null, rollData);
+    // Target configuration (no attacker/hooks for hazards)
+    this._configureTargetRollData(action, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -885,8 +897,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new AttackRoll(rollData);
@@ -949,8 +960,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
