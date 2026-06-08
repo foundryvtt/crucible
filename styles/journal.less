@@ -266,7 +266,7 @@ enriched-content.counterspell {
 
 /* ----------------------------------------- */
 
-enriched-content.condition {
+enriched-content.rule {
   font-size: 90%;
   color: var(--color-text-emphatic);
   border: 1px dashed var(--color-border);
@@ -282,28 +282,14 @@ enriched-content.condition {
     margin-right: 4px;
     font-size: 80%;
   }
-}
-
-/* ----------------------------------------- */
-
-enriched-content.action {
-  font-size: 90%;
-  color: var(--color-text-emphatic);
-  border: 1px dashed var(--color-border);
-  border-radius: 2px;
-  padding: 1px 4px;
-  margin: -1px 0;
-  cursor: var(--cursor-help, help);
-  &:before {
-    content: "\f0e7";
-    font-family: var(--font-awesome);
-    font-weight: 900;
-    opacity: 0.5;
-    margin-right: 4px;
-    font-size: 80%;
+  &.condition:before {
+    content: "\e54d"; // standard Foundry effect icon
+  }
+  &.action:before {
+    content: "\f0e7"; // lightning
   }
   &.spell:before {
-    content: "\f890";
+    content: "\f890"; // sparkles
   }
 }
 

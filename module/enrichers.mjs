@@ -572,7 +572,7 @@ function enrichCondition([match, conditionId]) {
   tag.innerHTML = _loc(cfg.name);
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
-  tag.classList.add("condition");
+  tag.classList.add("rule", "condition");
   return tag;
 }
 
@@ -597,7 +597,7 @@ function enrichAction([match, ownerUUID, actionId]) {
   }
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
-  tag.classList.add("action");
+  tag.classList.add("rule", "action");
   tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
@@ -623,7 +623,7 @@ function enrichSpell([match, spellId]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = spell.name;
   tag.dataset.spellId = spell.id;
-  tag.classList.add("action", "spell");
+  tag.classList.add("rule", "spell");
   tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
   return tag;
 }
