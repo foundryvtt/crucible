@@ -527,14 +527,15 @@ HOOKS.frostFlask = {
 
 /* -------------------------------------------- */
 
-HOOKS.fontOfLife = {
+HOOKS.fontOfLifeRegion = {
   postActivate() {
-    const amount = this.actor.abilities.wisdom.value;
-    for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
-      effectEvent.resources.push({resource: "health", delta: amount});
+    const delta = this.actor.abilities.wisdom.value;
+    for ( const [target] of this.targets ) {
+      this.recordEvent({
+        target,
+        statusText: [{text: this.name, fillColor: SYSTEM.RESOURCES.health.color.heal.css}],
+        resources: [{resource: "health", delta}]
+      });
     }
   }
 };
@@ -687,29 +688,23 @@ HOOKS.lastStand = {
 
 /* -------------------------------------------- */
 
-HOOKS.lifebloom = {
+HOOKS.lifebloom ={
+  prepare() {
+    this.usage.hasDice = false;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.lifebloomRegion = {
   postActivate() {
-    const wisdom = this.actor.system.abilities.wisdom.value;
-    const lifebloomEffect = {
-      _id: "lifebloom0000000",
-      name: this.name,
-      img: this.img,
-      origin: this.actor.uuid,
-      duration: {value: 6, units: "rounds", expiry: "turnEnd"},
-      system: {
-        dot: [{
-          amount: wisdom,
-          resource: "health",
-          restoration: true
-        }, {
-          amount: wisdom,
-          resource: "morale",
-          restoration: true
-        }]
-      }
-    };
-    for ( const target of this.eventsByActor.keys() ) {
-      this.recordEvent({type: "effect", target, effects: [lifebloomEffect]});
+    const delta = this.actor.system.abilities.wisdom.value;
+    for ( const [target] of this.targets ) {
+      this.recordEvent({
+        target,
+        statusText: [{text: this.name, fillColor: SYSTEM.ABILITIES.wisdom.color.css}],
+        resources: [{resource: "health", delta}, {resource: "morale", delta}]
+      });
     }
   }
 };

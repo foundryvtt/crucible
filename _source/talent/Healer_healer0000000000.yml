@@ -21,45 +21,43 @@ system:
         maximum: null
         weapon: false
       target:
-        type: pulse
+        type: aura
         number: 1
         scope: 2
         size: 20
         self: false
-      effects:
-        - name: Font of Life
-          scope: 2
-          result:
-            type: any
-            all: false
-          statuses: []
-          duration:
-            value: 3
-            units: rounds
-            expiry: turnEnd
-          system:
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            changes: []
-      tags:
-        - healing
-        - health
+      effects: []
+      tags: []
       name: Font of Life
       condition: ''
       description: >-
         <p>You bring forth an aura of life-giving magic. Immediately upon
-        activation and at the start of your turn for <strong>3 Rounds</strong>
-        every ally within 20 feet heals for an amount equal to your
-        <strong>Wisdom</strong> score.</p><p><strong>WIP: This action is
-        currently treated as an Area of Effect, granting healing-over-time
-        effects to those within the initial range. When auras are automated by
-        the system in Foundry VTT version 14, the mechanical implementation of
-        this action will match the description.</strong></p>
+        activation and for the next <strong>3 Rounds</strong>, whenever an ally
+        enters or starts their turn within 20 feet of you, they heal for an
+        amount equal to your <strong>Wisdom</strong> score.</p>
       summon:
         actorUuid: null
         permanent: true
+      regionBehavior:
+        name: Font of Life
+        system:
+          events:
+            - tokenEnter
+            - tokenTurnStart
+          oncePerRound: true
+          actionToPerform:
+            name: Font of Life
+            id: fontOfLifeRegion
+            description: >-
+              <p>Whenever an ally enters or starts their turn within 20 feet of
+              you, they heal for an amount equal to your <strong>Wisdom</strong>
+              score.</p>
+            tags:
+              - healing
+              - wisdom
+            img: icons/magic/life/heart-hand-gold-green-light.webp
+            effects: []
+      autoFavorite: false
   iconicSpells: 1
   rune: life
   nodes:
@@ -78,12 +76,12 @@ flags:
 _stats:
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.4
   createdTime: 1772307160134
-  modifiedTime: 1773514792583
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780934378844
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
 folder: fOYHlZJEWUukD7yr
 _id: healer0000000000
