@@ -272,6 +272,23 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Provide a tooltip that explains what training is required to use this weapon without skill penalty.
+   * @param {CrucibleActor} actor   The actor attempting to wield this weapon.
+   * @returns {string|null}         A localized tooltip naming the missing training, or null if the actor is trained.
+   * @internal
+   */
+  _getUntrainedTooltip(actor) {
+    const category = this.config.category;
+    if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
+    if ( actor.getSkillBonus(category.training) >= 0 ) return null;
+    const labels = category.training.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+    const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
+    return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
+  }
+
+  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 

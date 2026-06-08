@@ -508,6 +508,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.ACTIONS.Drop"});
     }
     config.section = config.equipped ? CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type] : "backpack";
+
+    // Flag an equipped weapon which the actor lacks the training to wield effectively
+    if ( (item.type === "weapon") && config.equipped ) {
+      const tooltip = item.system._getUntrainedTooltip(this.actor);
+      if ( tooltip ) config.tags.category = {label: config.tags.category, unmet: true, tooltip};
+    }
   }
 
   /* -------------------------------------------- */
