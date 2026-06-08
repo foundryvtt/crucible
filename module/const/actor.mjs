@@ -392,7 +392,8 @@ export const LANGUAGES = {
 
 /**
  * Define the actor preparation hooks which are supported for Talent configuration.
- * @enum {{group: string, argNames: string[], argLabels: string[]}}
+ * Hooks tagged as `throws` may raise an Error to abort the in-progress operation and surface the Error to the caller.
+ * @enum {{group: string, argNames: string[], argLabels: string[], throws?: boolean}}
  */
 export const HOOKS = Object.freeze({
 
@@ -405,12 +406,14 @@ export const HOOKS = Object.freeze({
   useAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"],
+    throws: true
   },
   preActivateAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction"],
+    throws: true
   },
   rollAction: {
     group: "TALENT.HOOKS.GroupAction",

@@ -289,6 +289,7 @@ export default class CrucibleActor extends Actor {
       try {
         fn.call(this, item, ...args);
       } catch(err) {
+        if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
         console.error(msg, err);
       }
