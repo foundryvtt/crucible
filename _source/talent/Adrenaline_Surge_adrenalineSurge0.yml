@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/movement/abstract-ribbons-red-orange.webp
 system:
   nodes:
-    - str2c
+    - str2b
   description: >-
     <p>You can draw upon exceptional reserves of physical strength to meet
     challenges imposed on your body.</p>
@@ -70,12 +70,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.5
   createdTime: 1772307160124
-  modifiedTime: 1773514792553
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780937991238
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: adrenalineSurge0
 sort: 0
 _key: '!items!adrenalineSurge0'

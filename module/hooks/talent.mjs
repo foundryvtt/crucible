@@ -341,10 +341,25 @@ HOOKS.conserveeffort00 = {
 /* -------------------------------------------- */
 
 HOOKS.deftgrip00000000 = {
+  prepareWeapons(_item, weapons) {
+    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("dexterity") ) {
+      weapons.spellHands = Math.max(weapons.spellHands, 2);
+    }
+  },
   prepareAction(_item, action) {
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isRanged = this.equipment.weapons.ranged;
-    if ( isTwoHanded && isRanged ) action.usage.availableHands += 1;
+    if ( action.id !== "equipItem" ) return;
+    const weapon = this.items.get(action.usage.actorUpdates.items?.[0]?._id);
+    if ( (weapon?.type !== "weapon") || !weapon.config.category.scaling.includes("dexterity") ) return;
+    if ( action.cost.action && this.system.hasFreeMove ) {
+      action.cost.action = 0;
+      action.usage.actorStatus.hasMoved = true;
+    }
+  },
+  defendAttack(item, action, _origin, rollData) {
+    const {twoHanded, mainhand} = this.equipment.weapons;
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("dexterity") ) {
+      rollData.banes.deftGrip = {label: item.name, number: 2};
+    }
   }
 };
 
@@ -988,16 +1003,19 @@ HOOKS.strikefirst00000 = {
 /* -------------------------------------------- */
 
 HOOKS.stronggrip000000 = {
-  prepareAction(_item, action) {
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isMelee = !this.equipment.weapons.ranged;
-    if ( isTwoHanded && isMelee ) action.usage.availableHands += 1;
+  configureEquipment(_item, equipment) {
+    equipment.weapons.heavyOffhand = true;
+  },
+  prepareWeapons(_item, weapons) {
+    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("strength") ) {
+      weapons.spellHands = Math.max(weapons.spellHands, 2);
+    }
   },
   defendAttack(item, action, _origin, rollData) {
-    const isDisarm = action.tags.has("disarm");
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isMelee = !this.equipment.weapons.ranged;
-    if ( isDisarm && isTwoHanded && isMelee ) rollData.banes.strongGrip = {label: item.name, number: 2};
+    const {twoHanded, mainhand} = this.equipment.weapons;
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("strength") ) {
+      rollData.banes.strongGrip = {label: item.name, number: 2};
+    }
   }
 };
 

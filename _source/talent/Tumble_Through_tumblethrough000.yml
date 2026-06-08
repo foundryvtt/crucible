@@ -43,7 +43,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - dex2c
+    - dextou1
   rune: ''
   gesture: ''
   inflection: ''
@@ -59,11 +59,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
   createdTime: 1772307160152
-  modifiedTime: 1773514792623
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780938381200
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.tumblethrough000
   duplicateSource: null
   exportSource: null
