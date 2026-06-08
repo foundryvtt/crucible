@@ -275,7 +275,7 @@ enriched-content.rule {
   margin: -1px 0;
   cursor: var(--cursor-help, help);
   &:before {
-    content: "\f02e";
+    content: "\f02e"; // bookmark (default)
     font-family: var(--font-awesome);
     font-weight: 900;
     opacity: 0.5;
@@ -290,6 +290,18 @@ enriched-content.rule {
   }
   &.spell:before {
     content: "\f890"; // sparkles
+  }
+  &.action-tag:before {
+    content: "\f02b"; // tag
+  }
+  &.weapon-property:before {
+    content: "\f2e4"; // knife
+  }
+  &.armor-property:before {
+    content: "\f132"; // shield
+  }
+  &.consumable-property:before {
+    content: "\f0c3"; // flask
   }
 }
 

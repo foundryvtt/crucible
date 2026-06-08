@@ -66,6 +66,26 @@ export function registerEnrichers() {
       enricher: enrichSpell
     },
     {
+      id: "crucibleActionTag",
+      pattern: /@ActionTag\[(\w+)]/g,
+      enricher: simpleRulesEnricher(SYSTEM.ACTION.TAGS, ["action-tag"])
+    },
+    {
+      id: "crucibleWeaponProperty",
+      pattern: /@WeaponProperty\[(\w+)]/g,
+      enricher: simpleRulesEnricher(SYSTEM.WEAPON.PROPERTIES, ["weapon-property"])
+    },
+    {
+      id: "crucibleArmorProperty",
+      pattern: /@ArmorProperty\[(\w+)]/g,
+      enricher: simpleRulesEnricher(SYSTEM.ARMOR.PROPERTIES, ["armor-property"])
+    },
+    {
+      id: "crucibleConsumableProperty",
+      pattern: /@ConsumableProperty\[(\w+)]/g,
+      enricher: simpleRulesEnricher(SYSTEM.CONSUMABLE.PROPERTIES, ["consumable-property"])
+    },
+    {
       id: "milestone",
       pattern: /\[\[\/milestone( \d+)?\]\]/g,
       enricher: enrichMilestone,
@@ -626,6 +646,34 @@ function enrichSpell([match, spellId]) {
   tag.classList.add("rule", "spell");
   tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
   return tag;
+}
+
+/* -------------------------------------------- */
+/*  Simple Rules Elements                                  */
+/* -------------------------------------------- */
+
+/**
+ * Produces an enricher function given a lookup dictionary and the classes to be added
+ * @param {Record<string, {label: string, tooltip: string}>} lookup
+ * @param {List<string>} classes
+ * @returns {function}
+ */
+function simpleRulesEnricher(lookup, classes=[]) {
+  /**
+   * Enrich an action tag reference into an interactive element displaying the tag name and tooltip.
+   * @param {RegExpMatchArray} matchArray
+   */
+  return ([match, tagId]) => {
+    const cfg = lookup[tagId];
+    if ( !cfg ) return new Text(match);
+    const tag = document.createElement("enriched-content");
+    tag.innerHTML = cfg.label;
+    tag.dataset.crucibleTooltip = "tag";
+    tag.dataset.crucibleTooltipText = cfg.tooltip;
+    tag.classList.add("inline-enriched");
+    tag.classList.add("rule", ...classes);
+    return tag;
+  };
 }
 
 
