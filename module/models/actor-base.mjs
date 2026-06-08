@@ -16,6 +16,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquippedWeapons
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
+ * @property {boolean} heavyOffhand   Whether a one-handed heavy weapon may be wielded in the off-hand
  * @property {number} freeHands
  * @property {number} spellHands
  * @property {boolean} unarmed
@@ -483,8 +484,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @protected
    */
   _prepareEquipment(items) {
+
+    // Prepare initial equipment eligibility data that hooks can override
     this.equipment.accessorySlots ??= 3;
     this.equipment.toolbeltSlots ??= 3;
+    this.equipment.weapons = {heavyOffhand: false};
+    this.parent.callActorHooks("configureEquipment", this.equipment);
 
     // Step 1: Armor
     const armor = this._prepareArmor(items.armor);
@@ -602,11 +607,22 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       console.warn(w);
     };
 
+    // The loadout object is seeded with capability flags by _prepareEquipment and configured by talents beforehand
+    const weapons = this.equipment.weapons;
+
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
     const slots = SYSTEM.WEAPON.SLOTS;
     for ( const w of weaponItems ) {
-      const {equipped, slot, properties} = w.system;
+      const ws = w.system;
+
+      // Weapon base data is prepared before the capability flags above exist, so re-derive the allowed slots now and
+      // honor a stored slot which those capabilities permit (e.g. Strong Grip wielding a heavy weapon in the off-hand)
+      ws.allowedSlots = ws.getAllowedEquipmentSlots();
+      if ( ws.allowedSlots.includes(ws._source.slot) ) ws.slot = ws._source.slot;
+      else if ( ws.allowedSlots.length && !ws.allowedSlots.includes(ws.slot) ) ws.slot = ws.allowedSlots[0];
+
+      const {equipped, slot, properties} = ws;
       if ( !equipped ) continue;
       if ( properties.has("natural") ) equippedWeapons.natural.unshift(w);
       else if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
@@ -617,7 +633,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     equippedWeapons.natural.sort((a, b) => b.system.damage.base - a.system.damage.base);
 
     // Assign weapons to equipment slots
-    const weapons = {natural: equippedWeapons.natural};
+    weapons.natural = equippedWeapons.natural;
     let mhOpen = true;
     let ohOpen = true;
 
@@ -673,7 +689,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Free Hand or Unarmed
     weapons.unarmed = (mhCategory?.id === "unarmed") && (ohCategory?.id === "unarmed");
     weapons.freeHands = weapons.spellHands = mhOpen + ohOpen;
-    if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
+
+    // Talismans contribute additional spellcasting hands
+    const mhTalisman = ["talisman1", "talisman2"].includes(mhCategory.id);
+    if ( mhTalisman ) {
       weapons.spellHands += mhCategory.hands;
       weapons.talisman = true;
     }
@@ -681,6 +700,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       weapons.spellHands += 1;
       weapons.talisman = true;
     }
+
+    // Two-handed weapons allow one hand free for spellcasting or single-hand actions
+    if ( weapons.twoHanded && !mhTalisman ) weapons.freeHands = weapons.spellHands = 1;
 
     // Multi weapon properties
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);

@@ -50,6 +50,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   actionBonuses;
 
   /**
+   * Equipment slots in which this weapon may be equipped, as values of SYSTEM.WEAPON.SLOTS.
+   * @type {number[]}
+   */
+  allowedSlots;
+
+  /**
    * Weapon Strike action cost.
    * @type {number}
    */
@@ -78,8 +84,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
     // Equipment Slot
     if ( this.dropped ) this.equipped = false;
-    const allowedSlots = this.getAllowedEquipmentSlots();
-    if ( !allowedSlots.includes(this.slot) ) this.slot = allowedSlots[0];
+    this.allowedSlots = this.getAllowedEquipmentSlots();
+    if ( !this.allowedSlots.includes(this.slot) ) this.slot = this.allowedSlots[0];
 
     // Weapon Damage
     this.damage = this.#prepareDamage();
@@ -235,13 +241,16 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const category = this.config.category;
     const slots = [];
     if ( this.properties.has("natural") ) return slots;
+    // A capability flag (e.g. granted by Strong Grip) may permit a one-handed heavy weapon in the off-hand
+    const heavyOffhand = this.parent?.actor?.system.equipment.weapons?.heavyOffhand;
+    const offhand = category.off || ((category.id === "heavy1") && !!heavyOffhand);
     if ( category.main ) {
       if ( category.hands === 2 ) return [SLOTS.TWOHAND];
-      if ( category.off ) slots.unshift(SLOTS.EITHER);
+      if ( offhand ) slots.unshift(SLOTS.EITHER);
       slots.push(SLOTS.MAINHAND);
       if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
     }
-    if ( category.off ) slots.push(SLOTS.OFFHAND);
+    if ( offhand ) slots.push(SLOTS.OFFHAND);
     return slots;
   }
 

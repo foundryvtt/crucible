@@ -509,6 +509,11 @@ export const HOOKS = Object.freeze({
   },
 
   // Equipment Preparation
+  configureEquipment: {
+    group: "TALENT.HOOKS.GroupEquipment",
+    argNames: ["equipment"],
+    argLabels: ["item: CrucibleItem", "equipment: object"]
+  },
   prepareArmor: {
     group: "TALENT.HOOKS.GroupEquipment",
     argNames: ["armor"],

@@ -2364,9 +2364,10 @@ export default class CrucibleActor extends Actor {
 
     // Identify the target equipment slot
     if ( slot === undefined ) {
+      const offhand = weapon.system.allowedSlots.includes(slots.OFFHAND);
       if ( category.hands === 2 ) slot = slots.TWOHAND;
-      else if ( category.main ) slot = mainhand?.id && category.off ? slots.OFFHAND : slots.MAINHAND;
-      else if ( category.off ) slot = slots.OFFHAND;
+      else if ( category.main ) slot = mainhand?.id && offhand ? slots.OFFHAND : slots.MAINHAND;
+      else if ( offhand ) slot = slots.OFFHAND;
     }
 
     // Confirm the target slot is available
