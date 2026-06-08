@@ -1134,19 +1134,27 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const r = this.resources[resource];
     if ( !r || !amount ) return {};
     const current = r.value + (allocation[resource] || 0);
+    const deltas = {};
     let delta;
-    if ( amount < 0 ) {
-      const loss = Math.min(Math.max(current, 0), -amount);
-      if ( loss <= 0 ) return {};
-      delta = -loss;
-    } else {
+
+    // Receive damage - a depleted primary pool absorbs no further damage
+    if ( amount < 0 ) delta = -Math.min(Math.max(current, 0), -amount);
+
+    // Receive healing
+    else {
       const gain = Math.min(amount, Math.max(r.max - current, 0));
       if ( gain <= 0 ) return {};
       delta = gain;
     }
-    allocation[resource] = (allocation[resource] || 0) + delta;
-    const deltas = {[resource]: delta};
+
+    // Allocate primary delta to the active resource
+    if ( delta !== 0 ) {
+      allocation[resource] = (allocation[resource] || 0) + delta;
+      deltas[resource] = delta;
+    }
     if ( (amount >= 0) || !this.usesReserveResources ) return deltas;
+
+    // Allocate remaining amount to the reserve pool
     const overflowName = {health: "wounds", morale: "madness"}[resource];
     const overflow = overflowName ? this.resources[overflowName] : null;
     if ( !overflow ) return deltas;
