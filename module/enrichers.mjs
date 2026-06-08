@@ -670,7 +670,6 @@ function simpleRulesEnricher(lookup, classes=[]) {
     tag.innerHTML = cfg.label;
     tag.dataset.crucibleTooltip = "tag";
     tag.dataset.crucibleTooltipText = cfg.tooltip;
-    tag.classList.add("inline-enriched");
     tag.classList.add("rule", ...classes);
     return tag;
   };
