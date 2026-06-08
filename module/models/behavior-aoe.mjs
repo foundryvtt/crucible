@@ -3,6 +3,10 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
   /** @override */
   static LOCALIZATION_PREFIXES = ["REGION_BEHAVIORS.PERSISTENT_AOE"];
 
+  // Track affected actors changes accumulated during a multi-event trigger
+  // TODO: Once minimum core version is 14.364, remove this
+  #dirtyAffectedActors = [];
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -19,13 +23,18 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
         id, name, img, description, effects, tags
       }, {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
-      affectedActors: new fields.TypedObjectField(new fields.NumberField({integer: true, nullable: false}), {
-        expandKeys: false,
-        validateKey: uuid => {
-          const {id, type} = foundry.utils.parseUuid(uuid);
-          if ( (type !== "Actor") || !foundry.data.validators.isValidId(id) ) return false;
-        }
-      }),
+      // TODO: Once minimum core version is 14.364, replace schema with commented version
+      affectedActors: new fields.ArrayField(new fields.SchemaField({
+        actor: new fields.StringField({required: true, nullable: false, blank: false}),
+        round: new fields.NumberField({integer: true, required: true, nullable: false})
+      })),
+      // affectedActors: new fields.TypedObjectField(new fields.NumberField({integer: true, nullable: false}), {
+      //   expandKeys: false,
+      //   validateKey: uuid => {
+      //     const {id, type} = foundry.utils.parseUuid(uuid);
+      //     if ( (type !== "Actor") || !foundry.data.validators.isValidId(id) ) return false;
+      //   }
+      // }),
       events: this._createEventsField({events: validEvents, initial: ["tokenEnter", "tokenTurnStart"]}),
       oncePerRound: new fields.BooleanField({initial: true, required: true, nullable: false})
     };
@@ -51,7 +60,9 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
     }
 
     // If once per round and already done this round, skip
-    if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;
+    // TODO: Once minimum core version is 14.364, replace next line with commented line
+    if ( this.oncePerRound && game.combat && (this.affectedActors.find(a => a.actor === actor.uuid)?.round === game.combat.round) ) return;
+    // if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;
 
     const action = new crucible.api.models.CrucibleAction(this.actionToPerform, {
       actor: sourceActor,
@@ -59,9 +70,23 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
     });
     action.use({dialog: false});
 
-    // TODO: Why isn't this update going through?
     if ( this.oncePerRound && game.combat ) {
-      await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat.round}});
+      // TODO: Once minimum core version is 14.364, replace next 2 lines with commented line
+      this.#dirtyAffectedActors.push({actor: actor.uuid, round: game.combat.round});
+      this.#debounceUpdateAffectedActors();
+      // await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat.round}});
     }
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update affected actors with multiple near-simultaneous event triggers
+   */
+  // TODO: Once minimum core version is 14.364, remove this
+  #debounceUpdateAffectedActors = foundry.utils.debounce(() => {
+    const newAffected = this.affectedActors.filter(a => ![this.#dirtyAffectedActors.some(({actor}) => actor === a.actor)]);
+    newAffected.push(...this.#dirtyAffectedActors);
+    this.parent.update({"system.affectedActors": newAffected});
+  }, 20);
 }
