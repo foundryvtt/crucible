@@ -589,6 +589,9 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.WEAPON.SLOTS);
   localizeConfigObject(SYSTEM.WEAPON.TRAINING);
 
+  // Rules
+  localizeConfigObject(SYSTEM.RULES, ["label", "tooltip"]);
+
   // CONFIG objects (not in SYSTEM)
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
   localizeConfigObject(crucible.CONFIG.knowledge);

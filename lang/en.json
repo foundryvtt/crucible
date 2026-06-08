@@ -1484,6 +1484,7 @@
       "many": "Banes",
       "other": "Banes"
     },
+    "BanesTooltip": "Each <strong>Bane</strong> applied to the check decrements the denomination of the last die in the pool by -2, to a minimum of <strong>d4</strong>. If a die is already a d4 due to other banes, the decrease is applied to the next die in the pool. In practical terms, banes downgrade dice making them smaller and less effective.",
     "Boons": {
       "zero": "Boons",
       "one": "Boon",
@@ -1492,6 +1493,7 @@
       "many": "Boons",
       "other": "Boons"
     },
+    "BoonsTooltip": "Each <strong>Boon</strong> applied to the check increments the denomination of the first die in the pool by +2, to a maximum of <strong>d12</strong>. If a die is already a d12 due to other boons, the increase is applied to the next die in the pool. In practical terms, boons upgrade dice making them bigger and more effective.",
     "CircumstanceBonus": "Circumstance Bonus",
     "Confirm": "Confirm",
     "Damage": "Damage",

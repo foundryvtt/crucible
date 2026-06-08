@@ -201,6 +201,17 @@ export const TIME = Object.freeze({
 
 /* -------------------------------------------- */
 
+export const RULES = {
+  boons: {
+    label: "DICE.Boons.many",
+    tooltip: "DICE.BoonsTooltip"
+  },
+  banes: {
+    label: "DICE.Banes.many",
+    tooltip: "DICE.BanesTooltip"
+  }
+};
+
 /**
  * Include all constant definitions within the SYSTEM global export.
  * Export removing submodule structure such that the entire system constant structure is a plain object.
@@ -232,5 +243,6 @@ export const SYSTEM = {
   TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
-  WEAPON: {...WEAPON}
+  WEAPON: {...WEAPON},
+  RULES
 };

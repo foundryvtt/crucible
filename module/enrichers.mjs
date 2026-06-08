@@ -86,6 +86,11 @@ export function registerEnrichers() {
       enricher: simpleRulesEnricher(SYSTEM.CONSUMABLE.PROPERTIES, ["consumable-property"])
     },
     {
+      id: "crucibleRule",
+      pattern: /@Rule\[(\w+)]/g,
+      enricher: simpleRulesEnricher(SYSTEM.RULES, [])
+    },
+    {
       id: "milestone",
       pattern: /\[\[\/milestone( \d+)?\]\]/g,
       enricher: enrichMilestone,
