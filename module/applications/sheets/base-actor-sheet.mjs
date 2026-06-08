@@ -857,6 +857,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _processSubmitData(event, form, submitData, options={}) {
+    const result = await super._processSubmitData(event, form, submitData, options);
+    // FIXME the extra caution around existence of result can be removed in 14.364+
+    // Re-render the currently active tab following a no-diff update
+    if ( result && !result.created && !result.updated && this.rendered ) this.render({parts: [this.tabGroups.sheet]});
+    return result;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Open the configuration sheet for an action owned by the actor.
    * @this {CrucibleBaseActorSheet}

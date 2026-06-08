@@ -102,7 +102,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     schema.resources = new fields.SchemaField(Object.values(SYSTEM.RESOURCES).reduce((obj, resource) => {
       const initial = resource.type === "active" ? 1 : 0; // Avoid starting as weakened, broken, etc...
       obj[resource.id] = new fields.SchemaField({
-        value: new fields.NumberField({...requiredInteger, initial, min: 0, max: resource.max})
+        value: new fields.NumberField({...requiredInteger, initial, min: 0})
       }, {label: resource.label});
       return obj;
     }, {}));
@@ -899,12 +899,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !this.abilities.wisdom.value ) resources.heroism.max = 0;
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
 
-    // Clamp resource values
-    for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
-
-    // Final status modifiers
+    // Final status modifiers, applied before clamping so reduced maximums constrain current values
     if ( this.isWeakened ) resources.action.max = Math.max(resources.action.max - 2, 0);
     if ( this.isIncapacitated ) resources.action.max = 0;
+
+    // Clamp resource values
+    for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
   }
 
   /* -------------------------------------------- */

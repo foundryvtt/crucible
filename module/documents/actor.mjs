@@ -2584,8 +2584,8 @@ export default class CrucibleActor extends Actor {
 
     // Simulate changes on a cloned actor?
     const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
+    let clone;
     if ( simulate ) {
-      let clone;
       try {
         clone = this.clone({}, {keepId: true, save: false});
         const simulateData = foundry.utils.mergeObject(data, {
@@ -2609,6 +2609,17 @@ export default class CrucibleActor extends Actor {
         const l = SYSTEM.ACTOR.LEVELS[clone.level];
         if ( adv1.level > adv0.level ) adv1.milestones = l.milestones.start;
         else if ( adv1.level < adv0.level ) adv1.milestones = l.milestones.next - 1;
+      }
+    }
+
+    // Clamp resource changes to the range allowed by their pool
+    const resourceUpdates = data.system?.resources;
+    if ( resourceUpdates ) {
+      const resources = (clone ?? this).resources;
+      for ( const [id, update] of Object.entries(resourceUpdates) ) {
+        if ( typeof update?.value !== "number" ) continue;
+        const max = resources[id]?.max;
+        if ( max !== undefined ) update.value = Math.clamp(update.value, 0, max);
       }
     }
   }
