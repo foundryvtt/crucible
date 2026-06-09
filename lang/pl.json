@@ -335,6 +335,8 @@
       "ReactionTooltip": "Ta akcja może zostać wykonana tylko podczas tury innego stworzenia, gdy spełniony jest warunek jej aktywacji.",
       "Reload": "Przeładowanie",
       "ReloadTooltip": "Ta akcja powoduje przeładowanie broni dystansowej, która wymaga przeładowania.",
+      "Rest": "Po odpoczynku",
+      "RestTooltip": "Akcja ta może zostać wykonana wyłącznie bezpośrednio po potwierdzeniu akcji odpoczynku, a po każdym odpoczynku może nastąpić tylko jedna taka akcja.",
       "Severe": "Ciężki",
       "SevereTooltip": "Jeśli cel tej akcji posiada zasoby Ran i Obłędu, akcja ta zadaje bezpośrednie obrażenia tym zasobom, niezależnie od jego Zdrowia lub Morale.",
       "Shield": "Tarcza",
@@ -407,22 +409,15 @@
     },
     "WARNINGS": {
       "SPECIFIC": {
-        "BODY_BLOCK": {
-          "AlreadyConfirmed": "Atak na Ciebie został już potwierdzony i nie można go już zablokować.",
-          "InvalidOutcome": "Z Bloku ciałem możesz skorzystać tylko wtedy, gdy atak skierowany przeciwko tobie został zablokowany przez Pancerz lub Draśnięcie.",
-          "MeleeOnly": "Ze zdolności Bloku ciałem można skorzystać wyłącznie w odpowiedzi na nadchodzący atak wręcz."
-        },
         "DELAY": {
           "AlreadyDelayed": "W tej rundzie walki nie możesz już więcej opóźniać swojej tury.",
           "WrongTurn": "Z akcji Opóźnienie można skorzystać wyłącznie w swojej turze podczas walki."
         },
-        "INTERPOSE": {
-          "AllyMustBeTarget": "Wybrany sojusznik musi być celem ostatniego ataku.",
-          "AttackMissed": "Możesz użyć Wtrącenia tylko w przypadku ataku, który trafił lub drasnął twojego sojusznika.",
-          "RequiresStrike": "Wtrącenie wymaga, aby ostatnią akcją było uderzenie bronią.",
-          "SingleTarget": "Wtrącenie może być użyte tylko przeciwko atakowi skierowanemu na pojedynczy cel."
+        "REVIVE": {
+          "RequiresDead": "Ożywienie wymaga martwego celu."
         }
       },
+      "AlreadyConfirmed": "Akcja przeciwko Tobie została już zatwierdzona i nie można już na nią zareagować.",
       "AuraNoToken": "Nie możesz wykonać akcji typu „Aura” bez posiadania tokenu na scenie!",
       "BadStatus": "Nie możesz wykonać {action} w trakcie trwania {status}.",
       "CannotAffordCost": "{name} nie ma wystarczających {resource}, aby wykonać {action}!",
@@ -454,10 +449,19 @@
       "MissingSummonEffect": "Aby śledzić tymczasowe przywołanie utworzone przez akcję „{action}”, należy zdefiniować dane ActiveEffect",
       "MovementTooFar": "Planowana trasa ruchu przekracza maksymalny zasięg dozwolony w ramach tej akcji.",
       "MovementTooShort": "Zaplanowana trasa ruchu nie spełnia minimalnych wymagań dotyczących zasięgu dla tej akcji.",
+      "MustFollowMainhandStrike": "Akcję {action} możesz wykonać dopiero po wykonaniu podstawowej akcji Ataku bronią w ręce głównej.",
+      "MustFollowMeleeDefense": "Akcję {action} możesz wykonać dopiero po obronie ataku wręcz za pomocą {defense}.",
+      "MustFollowMeleeKill": "Akcję {action} możesz wykonać dopiero po obezwładnieniu wroga atakiem wręcz.",
+      "MustFollowRanged": "Akcję {action} można wykonać wyłącznie po ataku bronią dystansową.",
+      "MustFollowRest": "Akcję {action} można wykonać wyłącznie bezpośrednio po odpoczynku.",
       "MustFollowStrike": "Akcję {action} można wykonać dopiero po wykonaniu podstawowej akcji Ataku",
+      "MustReactHit": "Akcję {action} można wykonać wyłącznie w odpowiedzi na atak, który trafił lub zadał draśnięcie.",
+      "MustReactSingleTarget": "Akcję {action} można wykonać wyłącznie w odpowiedzi na akcję, która miała tylko jeden cel.",
+      "MustReactStrike": "Akcję {action} można wykonać wyłącznie w odpowiedzi na atak bronią.",
       "MustReload": "Aby wykonać tę akcję, musisz przeładować broń.",
       "MustScaleDex": "Każda broń używana w tej akcji musi być skalowana na podstawie zręczności.",
       "MustScaleStrength": "Każda broń używana w tej akcji musi być skalowana na podstawie siły.",
+      "MustTargetTarget": "Akcja {action} może być zastosowana wyłącznie w odniesieniu do celu ostatniej akcji.",
       "NoAbility": "{actor} nie ma wartości {ability}, dlatego nie może wykonać {action}.",
       "NoConsumable": "Nie znaleziono żadnego materiału eksploatacyjnego dla akcji „{action}”",
       "NoConsumableUses": "Przedmiot eksploatacyjny „{item}” nie ma już żadnych pozostałych zastosowań dla akcji „{action}”",
@@ -465,6 +469,7 @@
       "NoReloadRequired": "Twoja broń nie wymaga przeładowania",
       "NotFlanked": "{action} wymaga oskrzydlenia celu. Cel „{target}” nie jest oskrzydlony.",
       "NoViewedScene": "Aby wykonać tę akcję, konieczne jest wyświetlenie sceny.",
+      "OncePerRound": "Akcję {action} można wykonać tylko raz na rundę.",
       "ReactionUnaware": "Nie możesz użyć reakcji, gdy jesteś Nieświadomy!",
       "RequiresMelee": "Aby wykonać tę akcję, musisz mieć wyposażoną broń do walki wręcz.",
       "RequiresNatural": "Ta akcja wymaga użycia broni naturalnej.",
@@ -513,6 +518,32 @@
     "TemplateTargets": "Cele szablonu",
     "Unconfirmed": "Niepotwierdzone",
     "UseAction": "Użyj akcji"
+  },
+  "ACTIONS": {
+    "AmplifyAffix": {
+      "Effect": "Wzmocnienie afiksu",
+      "Label": "Afiks do wzmocnienia",
+      "NoAffixes": "Nie masz żadnych wyposażonych afiksów, które można by wzmocnić.",
+      "Required": "Musisz wybrać afiks, który chcesz wzmocnić.",
+      "Title": "Wzmocnienie afiksu"
+    },
+    "FieldStudy": {
+      "Effect": "Badania terenowe: {knowledge}",
+      "Label": "Temat badań",
+      "Required": "Musisz wybrać dziedzinę wiedzy, którą chcesz studiować.",
+      "Title": "Badania terenowe"
+    },
+    "ImbueAffix": {
+      "AffixLabel": "Afiks",
+      "Incompatible": "Tego afiksu nie można zastosować do wybranego przedmiotu.",
+      "InvalidAffix": "Należy wybrać prawidłowy afiks do nasycenia.",
+      "InvalidItem": "Musisz wybrać przedmiot, który posiadasz i który można zakląć.",
+      "ItemLabel": "Przedmiot do nasycenia",
+      "NoCapacity": "Ten przedmiot nie ma wolnego miejsca na zaklinanie.",
+      "Required": "Musisz wybrać zarówno przedmiot, jak i afiks.",
+      "TierTooHigh": "Tego afiksu nie można nadać przy stopniu 1.",
+      "Title": "Nasycenie afiksu"
+    }
   },
   "ACTIVE_EFFECT": {
     "ACTIONS": {
@@ -601,7 +632,10 @@
         "Elite": "Elitarny",
         "Minion": "Sługus",
         "Normal": "Normalny"
-      }
+      },
+      "NoArchetype": "Brak archetypu",
+      "NoTaxonomy": "Brak taksonomii",
+      "ThreatLevelSpecific": "Poziom zagrożenia {threat}"
     },
     "CREATION": {
       "AbandonContent": "Zrezygnować z tworzenia postaci i zamknąć kreator?",
@@ -664,7 +698,7 @@
           "base": "Zaangażowanie podstawowe",
           "label": "Zaangażowanie",
           "labelShort": "Angaż",
-          "tooltip": "Liczba zaangażowanych wrogów<br>(Rozmiar - 2) + Premia zaangażowania"
+          "tooltip": "Liczba przeciwników, którzy są zaangażowani<br>(Rozmiar – 2) + Premia zaangażowania"
         },
         "engagementBonus": {
           "hint": "Dodatkowy modyfikator do podstawowego zaangażowania.",
@@ -1099,7 +1133,7 @@
     "RESULT_TYPES": {
       "Armor": "Pancerz",
       "Block": "Blok",
-      "CriticalHit": "Krytyczne trafienie",
+      "CriticalHit": "Krytyk!",
       "Dodge": "Unik",
       "Glance": "Draśnięcie",
       "Hit": "Trafienie",
@@ -1442,6 +1476,7 @@
     },
     "GROUP_CHECK": {
       "Title": "Grupowy test umiejętności",
+      "TitleSpecific": "Grupowy test umiejętności {skill}",
       "DialogTitle": "Test na {skill}: {name}",
       "NoUserForActor": "Nie znaleziono żadnego aktywnego użytkownika dla: {name}",
       "STATUSES": {
@@ -1463,6 +1498,7 @@
       "AnyActorHint": "Wybierz dowolnych aktorów ze świata.",
       "ChooseTarget": "Wybierz cel",
       "ClearRequest": "Wyczyść prośbę",
+      "GroupCheck": "Grupowy test",
       "Request": "Prośba",
       "RequestRolls": "Prośba o rzuty",
       "SpecificActors": "Konkretni aktorzy",
@@ -1540,6 +1576,10 @@
     "DefaultName": "Zagrożenie środowiskowe",
     "Falling": "Spadanie",
     "Hazard": "Zagrożenie",
+    "Parenthetical": "{label} ({tags})",
+    "Rank": "Zagrożenie {danger}",
+    "TooltipDamage": "{rank} kontra {defense} zadaje {damage} obrażeń do {resource}",
+    "TooltipRestoration": "{rank} kontra {defense} odzyskuje {resource}",
     "UseHazard": "Użycie zagrożenia",
     "WindowTitle": "Zagrożenie: {name}",
     "CONFIG": {
@@ -1567,14 +1607,17 @@
       "Create": "Utwórz przedmiot",
       "Delete": "Usuń przedmiot",
       "Drop": "Upuść broń",
+      "DropDetail": "Upuść {item}",
       "Edit": "Edytuj przedmiot",
       "Equip": "Wyposaż {typeLabel}",
       "EquipDetail": "Wyposaż w {item}",
+      "Read": "Przeczytaj {item}",
       "Recover": "Odzyskaj {typeLabel}",
       "RecoverAllContent": "Podnieść wszystkie przedmioty upuszczone przez {actor}?",
       "RecoverAllTitle": "Odzyskaj upuszczone przedmioty",
       "RecoverDetail": "Odzyskaj upuszczony {item}",
-      "UnEquip": "Zdejmij wyposażenie {typeLabel}"
+      "UnEquip": "Zdejmij wyposażenie {typeLabel}",
+      "UnEquipDetail": "Zdjęto {item}"
     },
     "COMPOSED_NAME": {
       "Prefix": "{name} {prefixes}",
@@ -1657,6 +1700,7 @@
       "Equipment": "Szczegóły wyposażenia",
       "EquipmentDrop": "Dodaj wyposażenie początkowe, przeciągając i upuszczając przedmioty w tym obszarze.",
       "EquipmentRemove": "Usuń wyposażenie",
+      "EquipmentScale": "Automatyczne dostosowywanie jakości do poziomu postaci",
       "ScaledPrice": "Przeliczona cena",
       "Spellcraft": "Czaroznastwo",
       "SpellDrop": "Dodaj ikoniczne zaklęcie, przeciągając i upuszczając przedmiot Zaklęcia w tym obszarze.",
@@ -1937,7 +1981,7 @@
     "EnableVFXHint": "Po zatwierdzeniu akcji wyświetl animacje efektów wizualnych na płótnie.",
     "EnableVFXName": "Włącz efekty wizualne akcji",
     "FlexibleAncestryAbilitiesHint": "Po włączeniu tej opcji bohaterowie mogą podczas tworzenia postaci przydzielić premie do głównych i dodatkowych atrybutów swoich pochodzeń na dowolne atrybuty. Pochodzenia nadal zapewniają te same premie początkowe w wysokości +2 i +1; elastyczność dotyczy jedynie wyboru atrybutów, na które są one przyznawane.",
-    "FlexibleAncestryAbilitiesName": "Elastyczne premie do atrybutów wynikające z pochodzenia"
+    "FlexibleAncestryAbilitiesName": "Elastyczne premie Atrybutów Pochodzenia"
   },
   "SKILL": {
     "CATEGORY": {
@@ -2215,6 +2259,8 @@
       "PurchaseNodeReverse": "Usunąć punkt wydany na pusty węzeł \"{node}\"?",
       "PurchaseNodeTitle": "Nabyć węzeł Talentu?",
       "PurchaseTitle": "Nabyty talent: {name}",
+      "Remove": "<p>Usunąć talent <strong>{name}</strong>, przywracając 1 Punkt Talentu?</p>",
+      "RemoveTitle": "Usuń talent: {name}",
       "Reset": "Resetuj"
     },
     "FIELDS": {
@@ -2320,10 +2366,14 @@
       "RequiresRuneGesture": "Aby użyć Gestu, musisz znać Runę magii.",
       "RequiresRuneInflection": "Aby użyć Fleksji, musisz znać Runę magii."
     },
+    "Banned": "Zakazany",
+    "Empty": "Pusty",
     "GrantsSpells": "<strong>Zaklęcia ikoniczne:</strong>: {name} przyznaje {spells} miejsc na zaklęcia ikoniczne.",
+    "Locked": "Zablokowany",
     "NodeSpecific": "Węzeł typu {nodeType}",
     "PointsAvailable": "Dostępne punkty",
-    "Prerequisites": "Wymagania wstępne"
+    "Prerequisites": "Wymagania wstępne",
+    "Tier": "Stopień {tier}"
   },
   "TAXONOMY": {
     "CATEGORIES": {
@@ -2362,6 +2412,10 @@
         "temperature.hint": "Temperatura ciała stworzeń należących do tej taksonomii. Jeśli pole pozostanie puste, domyślnie zostanie przyjęta temperatura wybranej kategorii stworzeń.",
         "temperature.label": "Temperatura ciała"
       },
+      "equipment": {
+        "hint": "Skonfiguruj wyposażenie, które automatycznie posiadają stworzenia z tej taksonomii.",
+        "label": "Przyznane wyposażenie"
+      },
       "identifier": {
         "hint": "Identyfikator ciągu znaków używany do jednoznacznego odwoływania się do tej taksonomii w tagach, akcjach lub innych elementach interfejsu użytkownika. Identyfikator ten musi być alfanumeryczny, bez spacji i znaków specjalnych.",
         "label": "Identyfikator"
@@ -2398,6 +2452,7 @@
       "TemperatureBlank": "Wartość domyślna ({temperature})"
     },
     "WARNINGS": {
+      "EquipmentNotNatural": "Taksonomia \"{name}\" nie może korzystać z ekwipunku, który nie posiada tagu \"naturalny\".",
       "InvalidAbilities": "Suma początkowych wartości atrybutów musi wynosić 12. Obecnie {sum}",
       "InvalidResistances": "Suma współczynników skalowania odporności musi wynosić zero. Obecnie {sum}"
     }
@@ -2627,6 +2682,7 @@
       "ReturningTooltip": "Ta broń została zaprojektowana w sposób magiczny lub mechaniczny tak, aby po rzuceniu powróciła do ręki użytkownika. Wykorzystanie akcji Rzucenie bronią z tą bronią nie powoduje jej Upuszczenia.",
       "Thrown": "Rzucana",
       "ThrownTooltip": "Broń ta została zaprojektowana tak, aby nadawała się do rzucania i nie podlega karze Zgub, która zazwyczaj jest nakładana na akcję rzucania bronią.",
+      "UntrainedTooltip": "Twoja postać nie posiada {training} w posługiwaniu się tą bronią i otrzymuje karę -4 do umiejętności podczas ataku tą bronią.",
       "Versatile": "Wszechstronna",
       "VersatileTooltip": "Broń tę można dzierżyć jedną lub dwiema rękami i przełączać się między tymi trybami bez ponoszenia kosztów Punktów Akcji. Podczas dzierżenia broni dwiema rękami zyskuje ona dodatkowe +2 do podstawowych obrażeń, ale atak kosztuje 1 dodatkowy Punkt Akcji."
     }
