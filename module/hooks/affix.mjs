@@ -1,7 +1,7 @@
 import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/skills.mjs";
-import {GESTURES, RUNES} from "../const/spellcraft.mjs";
+import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
 
@@ -73,6 +73,19 @@ for ( const gestureId of Object.keys(GESTURES) ) {
   HOOKS[id] = {
     prepareGrimoire(item, grimoire) {
       grimoire.gestureIds.push(gestureId);
+    }
+  };
+}
+
+/* -------------------------------------------- */
+/*  Inflection Knowledge Affixes                */
+/* -------------------------------------------- */
+
+for ( const inflectionId of Object.keys(INFLECTIONS) ) {
+  const id = `${inflectionId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.inflectionIds.push(inflectionId);
     }
   };
 }
