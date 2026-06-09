@@ -120,6 +120,32 @@ HOOKS.keen = {
 /* -------------------------------------------- */
 
 /**
+ * Vicious: a Strike that scores a Critical Hit with this physical weapon exploits the wound. Piercing and slashing
+ * weapons cause Bleeding; melee bludgeoning weapons leave the target Staggered.
+ */
+HOOKS.vicious = {
+  applyCriticalEffects(item, action) {
+    for ( const events of action.eventsByTarget.values() ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        if ( event.weaponItem?.id !== item.id ) continue;
+        const dt = event.weaponItem.system.damageType;
+        if ( (dt === "piercing") || (dt === "slashing") ) {
+          event.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
+          break;
+        }
+        else if ( (dt === "bludgeoning") && action.tags.has("melee") ) {
+          event.effects.push(SYSTEM.EFFECTS.staggered(this));
+          break;
+        }
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Tenacity: Increase Fortitude defense by the affix tier.
  */
 HOOKS.tenacity = {
