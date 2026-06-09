@@ -991,6 +991,36 @@ HOOKS.inexorableFlame0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.gatheringStorm00 = {
+  prepareSpells(_item, grimoire) {
+    const lightning = grimoire.runes.get("lightning");
+    if ( !lightning ) return;
+    grimoire.runes.set("lightning", lightning.clone({scaling: "wisdom"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flashFrost000000 = {
+  prepareSpells(_item, grimoire) {
+    const frost = grimoire.runes.get("frost");
+    if ( !frost ) return;
+    grimoire.runes.set("frost", frost.clone({scaling: "intellect"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.acridEarth000000 = {
+  prepareSpells(_item, grimoire) {
+    const earth = grimoire.runes.get("earth");
+    if ( !earth ) return;
+    grimoire.runes.set("earth", earth.clone({scaling: "intellect"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
     movement.engagementBonus += 1;
