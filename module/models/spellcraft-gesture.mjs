@@ -109,9 +109,9 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
     if ( this.range.maximum ) tags.push(_loc("ITEM.PROPERTIES.Range", {range: this.range.maximum}));
 
     // Cost
-    if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);
-    if ( this.cost.focus !== 0 ) tags.push(`${this.cost.focus}F`);
-    if ( this.cost.heroism !== 0 ) tags.push(`${this.cost.heroism}H`);
+    if ( this.cost.action !== 0 ) tags.push(_loc("ACTION.TAG.CostAction", {action: this.cost.action}));
+    if ( this.cost.focus !== 0 ) tags.push(_loc("ACTION.TAG.CostFocus", {focus: this.cost.focus}));
+    if ( this.cost.heroism !== 0 ) tags.push(_loc("ACTION.TAG.CostHeroism", {heroism: this.cost.heroism}));
     return tags;
   }
 }
