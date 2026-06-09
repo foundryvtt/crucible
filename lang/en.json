@@ -2650,6 +2650,13 @@
       "ReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
       "Returning": "Returning",
       "ReturningTooltip": "This weapon is magically or mechanically engineered to return to your hand after being thrown. Using the Throw Weapon action with this weapon does not result in it becoming Dropped.",
+      "TrainedTooltip": "This weapon uses {training} training and scales with {scaling}. This weapon needs {hands} to use.",
+      "TrainedTooltipHands": {
+        "one": "one hand",
+        "both": "both hands",
+        "main": "the main hand",
+        "offhand": "the offhand"
+      },
       "Thrown": "Thrown",
       "ThrownTooltip": "This weapon is designed to be suitable for throwing and does not suffer the Banes penalty that is usually applied to the Throw Weapon action.",
       "UntrainedTooltip": "Your character lacks {training} weapon training and suffers a -4 Skill penalty when attacking with this weapon.",

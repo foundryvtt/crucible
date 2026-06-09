@@ -513,6 +513,25 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( (item.type === "weapon") && config.equipped ) {
       const tooltip = item.system._getUntrainedTooltip(this.actor);
       if ( tooltip ) config.tags.category = {label: config.tags.category, unmet: true, tooltip};
+      else {
+        console.log(item);
+        const category = SYSTEM.WEAPON.CATEGORIES[item.system.category];
+        const trainingLabels = category.training.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+        const training = game.i18n.getListFormatter({type: "disjunction"}).format(trainingLabels);
+        const scalingLabels = category.scaling.split(".").map(s => _loc(SYSTEM.ABILITIES[s].label));
+        const scaling = game.i18n.getListFormatter({type: "conjunction"}).format(scalingLabels);
+        let hands;
+        if (category.hands === 2) {
+          hands = _loc("WEAPON.TAGS.TrainedTooltipHands.both");
+        } else if (category.main && category.off) {
+          hands = _loc("WEAPON.TAGS.TrainedTooltipHands.one");
+        } else if (category.main) {
+          hands = _loc("WEAPON.TAGS.TrainedTooltipHands.main");
+        } else {
+          hands = _loc("WEAPON.TAGS.TrainedTooltipHands.offhand");
+        }
+        config.tags.category = {label: config.tags.category, tooltip: _loc("WEAPON.TAGS.TrainedTooltip", {training, scaling, hands})};
+      }
     }
   }
 
