@@ -99,10 +99,11 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
    */
   get tags() {
     const tags = [];
-    if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);
-    if ( this.cost.focus !== 0 ) tags.push(`${this.cost.focus}F`);
-    if ( this.cost.heroism !== 0 ) tags.push(`${this.cost.heroism}H`);
-    if ( this.cost.hands !== 0 ) tags.push(`${this.cost.hands} Hands`);
+    const {action, focus, heroism, hands} = this.cost;
+    if ( action !== 0 ) tags.push(_loc("ACTION.TAG.CostAction", {action}));
+    if ( focus !== 0 ) tags.push(_loc("ACTION.TAG.CostFocus", {focus}));
+    if ( heroism !== 0 ) tags.push(_loc("ACTION.TAG.CostHeroism", {heroism}));
+    if ( hands !== 0 ) tags.push(_loc(`ACTION.TAG.CostHand.${game.i18n.pluralRules.select(hands)}`, {hands}));
     return tags;
   }
 }
