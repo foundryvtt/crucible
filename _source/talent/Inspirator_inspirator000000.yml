@@ -4,11 +4,12 @@ _id: inspirator000000
 img: icons/magic/light/explosion-star-glow-silhouette.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Soul. Spells which use this
-    Rune cause the @Condition[inspired] condition on Critical Hits.</p><p>The
-    Inspired effect lasts for <strong>1 Round</strong> and deals your
-    <strong>Presence</strong> score as additional <strong>Restoration</strong>
-    to <strong>Morale</strong>.</p>
+    <p>You are highly skilled in weaving the Rune of Soul. When you cast a Spell
+    or use an action that involves this Rune, your Critical Hits which restore
+    Morale cause the @Condition[inspired] condition.</p><p>The Inspired effect
+    lasts for <strong>1 Round</strong> and deals your <strong>Presence</strong>
+    score as additional <strong>Restoration</strong> to
+    <strong>Morale</strong>.</p>
   actions: []
   nodes:
     - pre3b

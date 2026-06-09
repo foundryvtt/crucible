@@ -4,17 +4,20 @@ img: icons/skills/targeting/target-strike-triple-blue.webp
 system:
   description: >-
     <p>You hold the battlefield in your sights, ready to punish any foe who acts
-    within your line of fire. A spellcaster who weaves magic before you risks not
-    only your shot, but the unraveling of their incantation.</p>
+    within your line of fire. A spellcaster who weaves magic before you risks
+    not only your shot, but the unraveling of their incantation.</p>
   actions:
     - id: coveringFire
       name: Covering Fire
-      condition: An enemy you can see casts a spell, or takes an action that targets a creature other than itself.
+      condition: >-
+        An enemy you can see casts a spell, or takes an action that targets a
+        creature other than itself.
       description: >-
-        <p>You may React to make a ranged Strike against that enemy. On a Critical
-        Hit against a caster, the spell is interrupted and the magic is lost. A
-        self-targeted action that is not a spell, such as Move or Defend, does not
-        trigger this Reaction, which may be used only once per Round.</p>
+        <p>You may React to make a ranged Strike against that enemy. On a
+        Critical Hit against a caster, the spell is interrupted and the magic is
+        lost. A self-targeted action that is not a spell, such as Move or
+        Defend, does not trigger this Reaction, which may be used only once per
+        Round.</p>
       tags:
         - reaction
         - ranged

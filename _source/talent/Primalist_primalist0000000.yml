@@ -1,0 +1,220 @@
+name: Primalist
+type: talent
+img: icons/magic/symbols/elements-air-earth-fire-water.webp
+system:
+  description: >-
+    <p>The potency of elemental Runes flows through you. By adopting an
+    elemental <strong>Stance</strong> you channel a Rune through your weapon
+    Strikes. You may enter a Stance for one of the elemental Runes that you
+    know:
+    </p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
+    Earth}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
+    Flame}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Rune:
+    Frost}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeLightning000]{Rune:
+    Lightning}</p></li></ul><p>You may enter or change your Stance once per
+    <strong>Turn</strong>, and your entered stance lasts until you change it or
+    until  Combat ends. While in a Stance, talents or features which apply
+    Critical Hit effects for actions that use that Rune apply to your weapon
+    Strikes as well.</p>
+  actions:
+    - id: stormStance
+      name: Storm Stance
+      condition: You know the Rune of Lightning.
+      description: >-
+        <p>You adopt the <strong>Storm Stance</strong>, channeling the Rune of
+        Lightning. While in this Stance your <strong>Stride</strong> is
+        increased by 2.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        scope: 1
+        number: 1
+        self: false
+      effects:
+        - name: Storm Stance
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            expiry: combatEnd
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/magic/lightning/bolt-strike-forked-blue.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+    - id: cinderStance
+      name: Cinder Stance
+      condition: You know the Rune of Flame.
+      description: >-
+        <p>You adopt the <strong>Cinder Stance</strong>, channeling the Rune of
+        Flame. While in this Stance your weapon Strikes deal 2 additional
+        <strong>Fire </strong>damage.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        scope: 1
+        number: 1
+        self: false
+      effects:
+        - name: Cinder Stance
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            expiry: combatEnd
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/magic/fire/projectile-smoke-swirl-red.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+    - id: waterStance
+      name: Water Stance
+      condition: You know the Rune of Frost.
+      description: >-
+        <p>You adopt the <strong>Water Stance</strong>, channeling the Rune of
+        Frost. While in this Stance you gain +1 to your <strong>Reflex</strong>,
+        <strong>Fortitude</strong>, and <strong>Willpower</strong> defenses.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        scope: 1
+        number: 1
+        self: false
+      effects:
+        - name: Water Stance
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            expiry: combatEnd
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/magic/water/orb-ice-web.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+    - id: stoneStance
+      name: Stone Stance
+      condition: You know the Rune of Earth.
+      description: >-
+        <p>You adopt the <strong>Stone Stance</strong>, channeling the Rune of
+        Earth. While in this Stance you gain +2 <strong>Resistance</strong> to
+        Bludgeoning, Piercing, and Slashing damage.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        scope: 1
+        number: 1
+        self: false
+      effects:
+        - name: Stone Stance
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            expiry: combatEnd
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/magic/earth/orb-stone-smoke-teal.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+  nodes:
+    - sig3.strength.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160160
+  modifiedTime: 1781021326501
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: primalist0000000
+folder: fOYHlZJEWUukD7yr
+sort: 3000000
+_key: '!items!primalist0000000'

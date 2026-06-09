@@ -134,6 +134,15 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
+ * A single resource change recorded on a {@link CrucibleActionEvent}.
+ * @typedef ActionResourceDelta
+ * @property {string} resource          The resource identifier in {@link SYSTEM.RESOURCES}
+ * @property {number} delta             The signed change to the resource pool (negative for damage or cost)
+ * @property {boolean} [restoration]    Whether this change is restorative (healing) rather than damage
+ * @property {string} [damageType]      The damage type responsible for this change, if any (see GH #1204)
+ */
+
+/**
  * @typedef {("activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"movement"|"other")
  *   } CrucibleActionEventType
  * The type of event in an action's timeline.
@@ -165,7 +174,7 @@ class CrucibleActionEvent {
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
    * @param {CrucibleItemSnapshot[]} [data.itemSnapshots]  Pre-action item state for reversal
-   * @param {object[]} [data.resources=[]]          Resource changes incurred or imposed by this event
+   * @param {ActionResourceDelta[]} [data.resources=[]]  Resource changes incurred or imposed by this event
    * @param {ActionEffect[]} [data.effects=[]]      Effect changes manifested by this event
    * @param {object[]} [data.statusText]            Status text to display above the target
    * @param {boolean} [data.isCriticalSuccess]      Did this event produce a critical hit?
@@ -776,6 +785,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.tags.has("undetectable") ) return false;
     if ( this.tags.has("spell") ) return true;
     return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Action involves a particular Rune, either as a cast Spell or an action annotated with a Rune.
+   * @param {string} runeId    The Rune identifier to test
+   * @returns {boolean}
+   */
+  usesRune(runeId) {
+    return (this.rune?.id === runeId) || (this.usage.rune === runeId);
   }
 
   /* -------------------------------------------- */
@@ -1715,14 +1735,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const {_id, name, duration, statuses: origStatuses, system={}} = effectData;
         const statuses = new Set(origStatuses);
 
-        // Prepare effect data, omitting blank-units durations which are invalid for the core ActiveEffect schema
+        // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema
+        const effectDuration = duration.units ? duration : (duration.expiry ? {expiry: duration.expiry} : undefined);
         const effect = {
           _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
           name: name || this.name,
           description: this.description,
           img: this.img,
           origin: this.actor.uuid,
-          duration: duration.units ? duration : undefined,
+          duration: effectDuration,
           system
         };
 
@@ -1858,17 +1879,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const resource = damage.resource ?? "health";
       const cfg = SYSTEM.RESOURCES[resource];
       const restoration = !!(damage.restoration ?? this.damage?.restoration);
+      const damageType = damage.type; // Annotate the resulting resource changes with their damage type, see GH #1204
       const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
 
       // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
       if ( amount === 0 ) {
-        event.resources.push({resource, delta: 0, restoration});
+        event.resources.push({resource, delta: 0, restoration, damageType});
         continue;
       }
 
       // Allocate without specific system target (in theory should not happen?)
       if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount, restoration});
+        event.resources.push({resource, delta: amount, restoration, damageType});
         continue;
       }
 
@@ -1876,8 +1898,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !allocations.has(event.target) ) allocations.set(event.target, {});
       const allocation = allocations.get(event.target);
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration});
-      else for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta, restoration});
+      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration, damageType});
+      else for ( const [r, delta] of Object.entries(deltas) ) {
+        event.resources.push({resource: r, delta, restoration, damageType});
+      }
     }
 
     // Expire an invisibility status

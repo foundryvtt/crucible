@@ -1817,5 +1817,31 @@ HOOKS.wildStrike = {
 };
 
 /* -------------------------------------------- */
+/*  Primalist Elemental Stances                 */
+/* -------------------------------------------- */
+
+// Thin shims keyed to each Stance's canonical Rune; validation and effect-stream logic live on the talent hook
+// (crucible.api.hooks.talent.primalist0000000)
+HOOKS.stormStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "lightning"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "lightning"); }
+};
+
+HOOKS.cinderStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "flame"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "flame"); }
+};
+
+HOOKS.waterStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "frost"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "frost"); }
+};
+
+HOOKS.stoneStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "earth"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "earth"); }
+};
+
+/* -------------------------------------------- */
 
 export default HOOKS;
