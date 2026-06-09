@@ -556,6 +556,11 @@
       "Enable": "Enable Effect",
       "New": "New Effect"
     },
+    "DURATION": {
+      "Combat": "Combat",
+      "Infinite": "∞",
+      "Rounds": "{value}R"
+    },
     "STATUSES": {
       "Asleep": "Asleep",
       "Bleeding": "Bleeding",

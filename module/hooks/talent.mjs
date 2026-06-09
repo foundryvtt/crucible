@@ -864,6 +864,7 @@ HOOKS.primalist0000000 = {
     const effectId = stances[rune];
     action.usage.actorStatus.primalStance = true;
     action.effects[0]._id = effectId;
+    action.effects[0].showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
     for ( const id of Object.values(stances) ) {
       if ( (id !== effectId) && action.actor.effects.has(id) ) {
         action.recordEvent({type: "effect", target: action.actor, effects: [{_id: id, _action: "delete"}]});

@@ -1732,7 +1732,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
         if ( regionEffectRequired && (target === this.actor) ) regionEffectRequired = false;
-        const {_id, name, duration, statuses: origStatuses, system={}} = effectData;
+        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = effectData;
         const statuses = new Set(origStatuses);
 
         // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema
@@ -1746,6 +1746,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           duration: effectDuration,
           system
         };
+        if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
         // Automatically configure damage-over-time statuses
         for ( const status of origStatuses ) {
@@ -2941,6 +2942,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Serialize the canonical event stream (roll.data.index was assigned above)
     actionData.events = this.#serializeEvents();
 
+    // Group per-target rolls + non-cost resource/effect changes into sections for the chat card
+    const sections = this.#prepareCardSections();
+    if ( sections.length ) actionData.sections = sections;
+
     // Derive target list for chat message rendering
     let targets;
     if ( this.target.type === "summon" ) {
@@ -2962,7 +2967,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       descriptionHTML,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
-      hasTargetTags: (targets.length === 1) || (targets.length && !this.eventsByTarget.values().some(e => e.roll)),
+      // Target pills only when there are no per-target outcome sections to name them (e.g. an all-confirm-time payload)
+      hasTargetTags: !!(targets.length && !sections.length),
       hasTargets: !["self", "none"].includes(this.target.type),
       tags,
       targets,
@@ -2986,6 +2992,75 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       rolls: rolls,
       flags: {crucible: actionData}
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Build per-target chat-card sections: each affected actor's roll indices, non-cost resource changes, and effects.
+   * The acting actor's own section, if present, is ordered first.
+   * @returns {{uuid: string, name: string, isSelf: boolean, hasSecondary: boolean,
+   *   rollIndices: number[], resources: object[], effects: object[]}[]}
+   */
+  #prepareCardSections() {
+    const activation = this.selfEvents.activation;
+    const sections = new Map();
+    const sectionFor = actor => {
+      if ( !sections.has(actor) ) sections.set(actor, {
+        uuid: actor.uuid, name: actor.name, isSelf: actor === this.actor,
+        rollIndices: [], resources: [], effects: []
+      });
+      return sections.get(actor);
+    };
+    for ( const event of this.events ) {
+      const target = event.target;
+      if ( !target ) continue;
+      const section = sectionFor(target);
+
+      // Dice roll for this target
+      if ( event.roll && Number.isInteger(event.roll.data.index) ) section.rollIndices.push(event.roll.data.index);
+
+      // Resource changes other than the primary cost and the action's primary damage
+      const primaryType = event.roll?.data?.damage?.type; // The roll's own damage, already shown in its breakdown
+      if ( event !== activation ) {
+        for ( const {resource, delta, damageType} of event.resources ) {
+          if ( !delta ) continue;
+          if ( event.roll && (damageType === primaryType) ) continue;
+          const resCfg = SYSTEM.RESOURCES[resource];
+          if ( !resCfg ) continue;
+          section.resources.push({
+            label: resCfg.label,
+            typeLabel: damageType ? (SYSTEM.DAMAGE_TYPES[damageType]?.label ?? null) : null,
+            magnitude: Math.abs(delta),
+            isHeal: Math.sign(delta) === ((resCfg.type === "active") ? 1 : -1)
+          });
+        }
+      }
+
+      // Effect changes (gained or removed)
+      for ( const effect of event.effects ) {
+        if ( effect._action === "delete" ) {
+          const existing = target.effects.get(effect._id);
+          const name = existing?.name ?? effect.name ?? effect._id;
+          section.effects.push({name, img: existing?.img ?? effect.img, gained: false});
+        }
+        else if ( !effect._action ) {
+          const d = effect.duration;
+          let duration;
+          if ( (d?.units === "rounds") && d.value ) duration = _loc("ACTIVE_EFFECT.DURATION.Rounds", {value: d.value});
+          else if ( d?.expiry === "combatEnd" ) duration = _loc("ACTIVE_EFFECT.DURATION.Combat");
+          else duration = _loc("ACTIVE_EFFECT.DURATION.Infinite");
+          section.effects.push({name: effect.name ?? effect._id, img: effect.img, gained: true, duration});
+        }
+      }
+    }
+
+    // Keep sections with content; flag secondary changes; order the acting actor's section first
+    const all = Array.from(sections.values())
+      .filter(s => s.rollIndices.length || s.resources.length || s.effects.length);
+    for ( const s of all ) s.hasSecondary = !!(s.resources.length || s.effects.length);
+    all.sort((a, b) => Number(b.isSelf) - Number(a.isSelf)); // Stable sort keeps appearance order; self floats to first
+    return all;
   }
 
   /* -------------------------------------------- */
