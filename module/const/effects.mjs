@@ -401,3 +401,20 @@ export function staggered(actor, {turns=1}={}) {
     statuses: ["staggered"]
   };
 }
+
+/**
+ * Generate a standardized stunned effect, applying the stunned status condition to the target.
+ * @param {Actor} actor
+ * @param {{turns?: number}} [options]
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function stunned(actor, {turns=1}={}) {
+  return {
+    _id: getEffectId("Stunned"),
+    name: _loc(CONFIG.statusEffects.stunned.name),
+    img: "icons/svg/daze.svg",
+    duration: {value: turns, units: "rounds", expiry: "turnEnd"},
+    origin: actor?.uuid,
+    statuses: ["stunned"]
+  };
+}

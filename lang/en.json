@@ -335,6 +335,8 @@
       "ReactionTooltip": "This action can only be performed during some other creature's turn when its activation condition is met.",
       "Reload": "Reload",
       "ReloadTooltip": "This action reloads a ranged weapon which requires reloading.",
+      "Rest": "After Rest",
+      "RestTooltip": "This action may only be performed immediately after you confirm a Rest action, and only one such action may follow each Rest.",
       "Severe": "Severe",
       "SevereTooltip": "If the target of this action has Wounds and Madness resources, this action damages those resources directly regardless of their Health or Morale.",
       "Shield": "Shield",
@@ -451,6 +453,7 @@
       "MustFollowMeleeDefense": "You may only perform the {action} action after defending a melee attack with a {defense}.",
       "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.",
       "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
+      "MustFollowRest": "You may only perform the {action} action immediately after a Rest.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
       "MustReactHit": "You may only perform the {action} action in response to an attack that hit or glanced.",
       "MustReactSingleTarget": "You may only perform the {action} action in response to an action that had a single target.",
@@ -466,6 +469,7 @@
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
+      "OncePerRound": "You may only perform the {action} action once per round.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
       "RequiresNatural": "This action requires use of a natural weapon.",
@@ -514,6 +518,32 @@
     "TemplateTargets": "Template Targets",
     "Unconfirmed": "Unconfirmed",
     "UseAction": "Use Action"
+  },
+  "ACTIONS": {
+    "AmplifyAffix": {
+      "Effect": "Amplify Affix",
+      "Label": "Affix to Amplify",
+      "NoAffixes": "You have no equipped affixes that can be amplified.",
+      "Required": "You must choose an affix to amplify.",
+      "Title": "Amplify Affix"
+    },
+    "FieldStudy": {
+      "Effect": "Field Study: {knowledge}",
+      "Label": "Topic of Study",
+      "Required": "You must choose a field of Knowledge to study.",
+      "Title": "Field Study"
+    },
+    "ImbueAffix": {
+      "AffixLabel": "Affix",
+      "Incompatible": "That affix cannot be applied to the chosen item.",
+      "InvalidAffix": "You must choose a valid affix to imbue.",
+      "InvalidItem": "You must choose a physical item that you own and that can bear an enchantment.",
+      "ItemLabel": "Item to Imbue",
+      "NoCapacity": "That item has no open affix slot for this enchantment.",
+      "Required": "You must choose both an item and an affix.",
+      "TierTooHigh": "That affix cannot be imbued at Tier 1.",
+      "Title": "Imbue Affix"
+    }
   },
   "ACTIVE_EFFECT": {
     "ACTIONS": {

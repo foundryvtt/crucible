@@ -1,0 +1,110 @@
+folder: fOYHlZJEWUukD7yr
+name: Artificer
+type: talent
+img: icons/skills/trades/smithing-anvil-silver-red.webp
+system:
+  description: >-
+    <p>You excel in applying the skills of<strong> Arcana</strong>,
+    <strong>Glyphweaving</strong>, and <strong>Enchanting</strong> to create
+    innovative and practical equipment. You can perform temporary modification
+    of equipment to apply affix enchantments or to deepen the strength of a
+    particular enchantment.</p>
+  actions:
+    - id: imbueAffix
+      name: Imbue Affix
+      condition: ''
+      description: >-
+        <p>Over the course of a During a @Action[default rest], you channel
+        arcane energy into your equipment, inscribing an <strong>Affix</strong>
+        as a temporary enchantment. Choose one physical item that has capacity
+        for enchantment and temporarily imbue it with a <strong>Tier 1</strong>
+        Affix of your choice. The imbued affix persists until you use Imbue
+        Affix again.</p><h3 class="divider">Playtest Notes</h3><p>You may
+        currently imbue any affix that the chosen item can bear. In a future
+        update this will be limited to affixes which you are able to
+        <strong>Enchant</strong>.</p>
+      tags:
+        - rest
+        - noncombat
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      img: icons/magic/symbols/rune-sigil-black-pink.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+    - id: amplifyAffix
+      name: Amplify Affix
+      condition: ''
+      description: >-
+        <p>Over the course of a @Action[default rest], you deepen the potency of
+        an <strong>Affix</strong> enchantment on one of your items. Choose one
+        Affix on a physical item you have equipped and increase the Tier of that
+        affix by one, up to its maximum. This amplification persists until you
+        use Amplify Affix again.</p>
+      tags:
+        - rest
+        - noncombat
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      img: icons/skills/movement/arrows-up-trio-red.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+  nodes:
+    - sig3.presence.intellect
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160132
+  modifiedTime: 1780959716862
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: artificer0000000
+sort: 55000
+_key: '!items!artificer0000000'

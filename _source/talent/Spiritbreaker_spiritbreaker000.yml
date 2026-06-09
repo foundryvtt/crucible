@@ -1,0 +1,42 @@
+folder: fOYHlZJEWUukD7yr
+name: Spiritbreaker
+type: talent
+img: icons/magic/control/fear-fright-shadow-monster-purple.webp
+system:
+  description: >-
+    <p>You wage war upon the mind itself, unraveling the resolve of your foes.
+    Your actions which directly attack <strong>Morale</strong> find the cracks
+    in a creature's will more easily, reducing your <strong>Critical
+    Threshold</strong> by 2.</p><p>When you cause a target to become
+    @Condition[broken], the shock to their psyche leaves the target
+    @Condition[stunned] until the end of its next turn.</p>
+  actions: []
+  nodes:
+    - sig3.intellect
+    - sig3.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 1
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160132
+  modifiedTime: 1780959961071
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: spiritbreaker000
+sort: 70000
+_key: '!items!spiritbreaker000'

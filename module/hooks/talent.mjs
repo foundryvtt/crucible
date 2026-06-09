@@ -88,6 +88,22 @@ HOOKS.armoredInstinct0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.artificer0000000 = {
+  prepareWeapons(item) {
+    // Raise the Amplify-marked affix one tier on its equipped bearer; prepareWeapons is just a per-prep anchor
+    const marker = this.effects.get(SYSTEM.EFFECTS.getEffectId("Amplify Affix"));
+    const target = marker?.getFlag("crucible", "amplify");
+    if ( !target ) return;
+    const bearer = this.items.get(target.itemId);
+    const affix = bearer?.system.affixes?.[target.affixId];
+    if ( !affix || !bearer.system.equipped ) return;
+    const tier = affix.system.tier;
+    tier.value = Math.min(tier.value + 1, tier.max, 3);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.assassin00000000 = {
   prepareAttack(item, action, target, rollData) {
     if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
@@ -890,6 +906,15 @@ HOOKS.saboteur00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.sage000000000000 = {
+  useAction(item, action) {
+    // Resting refreshes the free out-of-combat Flash of Brilliance (per-Rest flag, see issue #1196)
+    if ( action.id === "rest" ) action.usage.actorFlags.flashOfBrillianceRested = false;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.skirmisher000000 = {
   defendAttack(item, action, origin, rollData) {
     if ( action.id === "reactiveStrike" ) rollData.banes[item.skirmisher] = {label: item.name, number: 2};
@@ -976,6 +1001,33 @@ HOOKS.spellmute0000000 = {
       if ( action.tags.has("spell") ) delete actions[id];
     }
     delete actions.cast;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.spiritbreaker000 = {
+  prepareAttack(_item, action, _target, rollData) {
+    // Any action that attacks Morale finds the cracks in a foe's will, lowering its Critical Threshold
+    if ( rollData.resource === "morale" ) {
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - 2;
+    }
+  },
+  finalizeAction(_item, action) {
+    // Stun a target this action renders Broken (Morale to 0); at finalize so it serializes and reverses cleanly
+    for ( const [target, events] of action.eventsByTarget ) {
+      if ( target === this ) continue;
+      const morale = target.system?.resources?.morale;
+      if ( !morale || (morale.value <= 0) ) continue; // No Morale pool, or already Broken
+      let moraleDamage = 0;
+      let breakEvent = null;
+      for ( const event of events.roll ) {
+        if ( !event.damagesMorale ) continue;
+        moraleDamage += event.roll?.data?.damage?.total ?? 0;
+        breakEvent ??= event;
+      }
+      if ( breakEvent && (moraleDamage >= morale.value) ) breakEvent.effects.push(SYSTEM.EFFECTS.stunned(this));
+    }
   }
 };
 
@@ -1178,6 +1230,21 @@ HOOKS.vowofanimus00000 = {
 HOOKS.warmage000000000 = {
   prepareAction(item, action) {
     if ( action.id === "counterspell" ) action.usage.boons.warMage = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.wizard0000000000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("spell") ) return;
+    if ( this.status.wizardMomentum ) return; // The discount may apply at most once per turn
+
+    // Spellcasting momentum: a Spell cast immediately after another Spell this turn costs 1 less Focus
+    if ( this.status.hasCast && this.lastConfirmedAction?.tags.has("spell") ) {
+      action.cost.focus = Math.max(action.cost.focus - 1, 0);
+      action.usage.actorStatus.wizardMomentum = true;
+    }
   }
 };
 

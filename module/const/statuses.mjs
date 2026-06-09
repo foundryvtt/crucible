@@ -44,6 +44,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Stunned",
     img: "icons/svg/daze.svg",
     hud: nonGroupTypes,
+    generator: EFFECTS.stunned,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.stunned000000000"
   },
   prone: {
