@@ -348,7 +348,7 @@ export default class CrucibleTalentNode {
       }
       else if ( k === "advancement.level" ) {
         if ( v <= 1 ) return obj;
-        o.label = "Level";
+        o.label = _loc("ADVANCEMENT.Level");
       }
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
       else if ( k.startsWith("training.") ) o.label = SYSTEM.TALENT.TRAINING_TYPES[k.split(".")[1]].label;

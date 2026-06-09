@@ -2188,7 +2188,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const can = test.canUse.call(this);
         if ( can === false ) {
           blocked = true;
-          if ( test.label ) errorReason = `with tag ${test.label}`;
+          if ( test.label ) errorReason = _loc("ACTION.WARNINGS.CannotUseTagGeneric", {tag: test.label});
         }
       } catch(err) {
         blocked = true;
