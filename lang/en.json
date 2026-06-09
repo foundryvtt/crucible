@@ -436,6 +436,7 @@
       "CannotThrow": "You cannot throw this weapon.",
       "CannotUse": "{name} does not satisfy the prerequisites to use {action}.",
       "CannotUseReason": "{name} does not satisfy the prerequisites to use {action}: {reason}",
+      "CannotUseTagGeneric": "with tag {tag}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
@@ -501,6 +502,8 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
+    "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
+    "MaintainTitle": "Maintain Focus: {effect}",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",
     "PlanMovement": "Plan Movement",
@@ -627,6 +630,8 @@
       "IncreaseAbilitySpecific": "Increase {ability}",
       "LevelUp": "Level Up!",
       "ResetTalents": "Reset All Talents",
+      "ResetTalentsContent": "<p>Are you sure you wish to reset all Talents?</p>",
+      "ResetTalentsTitle": "Reset Talents: {actor}",
       "RollCheck": "Roll Check",
       "TalentTreeClose": "Close Talent Tree",
       "TalentTreeOpen": "Open Talent Tree",
@@ -1316,7 +1321,8 @@
       "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
     },
     "HeroismPct": "Heroism {pct}%",
-    "HeroismTooltip": "Progress to next Heroism point"
+    "HeroismTooltip": "Progress to next Heroism point",
+    "Escalation": "Escalation"
   },
   "CONSUMABLE": {
     "CATEGORIES": {

@@ -1309,9 +1309,9 @@ export default class CrucibleActor extends Actor {
         }
         const confirm = await DialogV2.confirm({
           window: {
-            title: `Maintain Focus: ${effect.name}`
+            title: _loc("ACTION.MaintainTitle", {effect: effect.name})
           },
-          content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
+          content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
         });
         if ( confirm ) {
           resourceChanges.focus.push({
@@ -1630,10 +1630,10 @@ export default class CrucibleActor extends Actor {
     if ( dialog ) {
       const confirm = await DialogV2.confirm({
         window: {
-          title: `Reset Talents: ${this.name}`,
+          title: _loc("ACTOR.ACTIONS.ResetTalentsTitle", {actor: this.name}),
           icon: "fa-solid fa-undo"
         },
-        content: "<p>Are you sure you wish to reset all Talents?</p>",
+        content: _loc("ACTOR.ACTIONS.ResetTalentsContent"),
         yes: {
           default: true
         }
