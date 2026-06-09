@@ -682,8 +682,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Weapon Set Metadata
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
     weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
-    weapons.melee = !(mhCategory.ranged && ohCategory.ranged);
-    weapons.ranged = mhCategory.ranged || ohCategory.ranged;
+    weapons.melee = !(mhCategory.ranged && ohCategory.ranged) || weapons.natural.some(w => !w.config.category.ranged);
+    weapons.ranged = mhCategory.ranged || ohCategory.ranged || weapons.natural.some(w => w.config.category.ranged);
     weapons.talisman = false;
 
     // Free Hand or Unarmed
