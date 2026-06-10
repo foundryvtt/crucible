@@ -535,7 +535,10 @@ class CrucibleActionTags extends Set {
  *   application, or as standalone "effect" events.
  * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
  *    - Action hooks called: `postActivate`
- * - `CrucibleAction##finalizeEvents` - Compute final resource deltas and critical flags.
+ * - `CrucibleAction##handleRollOutcomes` - Flag critical successes and failures from settled rolls.
+ *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
+ *      the action damages or heals another target.
+ * - `CrucibleAction##finalizeEvents` - Compute final resource deltas.
  * - Actor hooks called: `finalizeAction`
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
  *   and create the message. The action is now persisted but not yet applied.
@@ -562,7 +565,8 @@ class CrucibleActionTags extends Set {
  * - Use `roll` hooks to create attack/spell/check events, if standard tags are insufficient. See existing `roll` hooks
  *   in `const/action.mjs` for reference.
  * - Use `postActivate` hooks to inspect and modify the event stream after all rolls are complete. This is the
- *   right place to add, remove, or modify events based on action results.
+ *   right place to add, remove, or modify events based on action results, and the final phase permitted to mutate
+ *   roll data; later steps (critical effects, resource allocation) consume settled rolls.
  * - Use `confirm` hooks only for side effects that require the `reverse` parameter, such as committing or
  *   undoing movement. Most hooks belong in earlier lifecycle stages.
  * - If examining the effects for a specific actor, use {@linkcode CrucibleAction#eventsByActor},
@@ -1328,6 +1332,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.#finalizeSelfEvents();
     this.#recordEffectEvents();
     await this._post();
+    this.#handleRollOutcomes();
     this.#finalizeEvents();
     this.actor.callActorHooks("finalizeAction", this);
 
@@ -1891,8 +1896,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Finalize the event stream by recording per-roll resource deltas and critical flags, and deriving post-movement
-   * statuses. Called after all postActivate hooks have had a chance to modify roll data.
+   * Settle roll outcomes: flag critical results and dispatch applyCriticalEffects hooks for targeted damage or healing.
+   * Runs after postActivate, the final phase permitted to mutate roll data.
+   */
+  #handleRollOutcomes() {
+    let dealsDamage = false;
+    for ( const event of this.events ) {
+      if ( event.roll ) {
+        if ( event.roll.isCriticalSuccess ) event.isCriticalSuccess = true;
+        else if ( event.roll.isCriticalFailure ) event.isCriticalFailure = true;
+      }
+      dealsDamage ||= ((event.target !== this.actor) && (event.isDamage || event.isHealing));
+    }
+    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Finalize the event stream by recording per-roll resource deltas and deriving post-movement statuses.
    * Allocate resource changes using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to the
    * state of resource pools, allowing for accurate reversal.
    */
@@ -1904,8 +1926,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.type === "movement" ) this.#deriveMovementStatus(event);
 
       if ( !event.roll ) continue;
-      if ( event.roll.isCriticalSuccess ) event.isCriticalSuccess = true;
-      else if ( event.roll.isCriticalFailure ) event.isCriticalFailure = true;
 
       // Allocate resource changes
       const damage = event.roll.data.damage || {};
@@ -2351,11 +2371,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Additional Actor-specific consequences when the action deals damage to a target
-    if ( !isNegated && this.events.some(e => (e.target !== this.actor) && (e.isDamage || e.isHealing)) ) {
-      this.actor._onDealDamage(this);
-    }
-
     // Per-target confirmation hooks
     for ( const actor of this.eventsByActor.keys() ) actor.callActorHooks("confirmAction", this, {reverse});
 
@@ -2433,6 +2448,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !isNegated && event.effects.length ) batch.effects.push(...event.effects);
 
       // Accumulate actor updates
+      // TODO https://github.com/foundryvtt/crucible/issues/821
+      // Negation rework should skip actorUpdates so a negated critical cannot consume once-per-turn sentinels
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
 
       // Accumulate item snapshots

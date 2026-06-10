@@ -1176,17 +1176,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Additional steps taken when this Actor deals damage to other targets.
-   * @param {CrucibleAction} action                The action performed
-   * @internal
-   */
-  _onDealDamage(action) {
-    this.callActorHooks("applyCriticalEffects", action);
-  }
-
-  /* -------------------------------------------- */
   /*  Combat Encounters and Turn Order            */
   /* -------------------------------------------- */
 
