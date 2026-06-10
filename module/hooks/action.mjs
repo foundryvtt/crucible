@@ -576,6 +576,20 @@ HOOKS.fall = {
 
 /* -------------------------------------------- */
 
+HOOKS.fallGlide = {
+  canUse() {
+    if ( !this.actor.statuses.has("falling") ) return false;
+  },
+  acquireTargets(targets) {
+    if ( !this.movement ) return;
+    const origin = this.movement.origin?.elevation ?? 0;
+    const end = this.movement.waypoints?.at(-1)?.elevation ?? origin;
+    if ( end >= origin ) for ( const t of targets ) t.error = _loc("ACTIONS.Glide.MustDescend");
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);

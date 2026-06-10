@@ -2513,11 +2513,28 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Planned movement "destination" remains the origin until executed; the final waypoint is the true destination
     const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
     const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
-
-    // Resting status: fly/burrow from a self-move action, else falling from the end position
     let toAdd;
-    if ( isSelf && (finalWaypoint?.action === "fly") ) toAdd = flying;
-    else if ( isSelf && (finalWaypoint?.action === "burrow") ) toAdd = burrowing;
+    const restingAction = isSelf ? finalWaypoint?.action : null;
+
+    // End as flying if suspended above a supporting surface
+    if ( restingAction === "fly" ) {
+      const surface = token._findSupportingSurface(destination);
+      if ( surface && (surface.elevation < destination.elevation) ) toAdd = flying;
+    }
+
+    // End as burrowing if suspended above a deeper surface or below the level base if no surfaces are present
+    else if ( restingAction === "burrow" ) {
+      const surface = token._findSupportingSurface(destination);
+      let underground;
+      if ( surface ) underground = surface.elevation < destination.elevation;
+      else {
+        const base = token.parent?.levels.get(destination.level)?.elevation.base;
+        underground = (base !== undefined) && (destination.elevation < base);
+      }
+      if ( underground ) toAdd = burrowing;
+    }
+
+    // Add the falling condition
     else {
       const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
       const surface = staysAirborne ? null : token._findSupportingSurface(destination);

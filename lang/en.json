@@ -535,6 +535,9 @@
       "Required": "You must choose a field of Knowledge to study.",
       "Title": "Field Study"
     },
+    "Glide": {
+      "MustDescend": "A glide must end at a lower elevation than where it began."
+    },
     "ImbueAffix": {
       "AffixLabel": "Affix",
       "Incompatible": "That affix cannot be applied to the chosen item.",

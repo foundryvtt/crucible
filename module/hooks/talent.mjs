@@ -469,6 +469,23 @@ HOOKS.focusedanticipat = {
 
 /* -------------------------------------------- */
 
+HOOKS.glider0000000000 = {
+  prepareActions(_item, actions) {
+    if ( !actions.fallGlide ) return;
+    const canGlide = !this.system.isIncapacitated && !this.statuses.has("restrained");
+    if ( canGlide ) actions.fall = actions.fallGlide;
+    delete actions.fallGlide;
+  },
+  prepareMovement(_item, movement) {
+    if ( !this.statuses.has("falling") ) return;
+    movement.strideBonus += movement.baseStride;
+    // A hack to guarantee that the glide is treated as a free move
+    if ( this.system.status?.hasMoved ) this.system.status = {...this.system.status, hasMoved: false};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.healer0000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
