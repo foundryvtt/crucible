@@ -16,6 +16,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquippedWeapons
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
+ * @property {{mainhand: CrucibleItem|null, offhand: CrucibleItem|null}} dropped  Dropped weapons by prior slot
  * @property {boolean} heavyOffhand   Whether a one-handed heavy weapon may be wielded in the off-hand
  * @property {number} freeHands
  * @property {number} spellHands
@@ -613,6 +614,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
     const slots = SYSTEM.WEAPON.SLOTS;
+    weapons.dropped = {mainhand: null, offhand: null};
     for ( const w of weaponItems ) {
       const ws = w.system;
 
@@ -623,6 +625,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       else if ( ws.allowedSlots.length && !ws.allowedSlots.includes(ws.slot) ) ws.slot = ws.allowedSlots[0];
 
       const {equipped, slot, properties} = ws;
+
+      // Track dropped weapons (disarmed or thrown) by the slot they occupied, so follow-up actions can target the state
+      if ( ws.dropped ) {
+        if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) weapons.dropped.mainhand ??= w;
+        else if ( slot === slots.OFFHAND ) weapons.dropped.offhand ??= w;
+      }
       if ( !equipped ) continue;
       if ( properties.has("natural") ) equippedWeapons.natural.unshift(w);
       else if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);

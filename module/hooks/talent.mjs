@@ -1356,4 +1356,47 @@ HOOKS.wizard0000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.disarmingriposte = {
+  applyCriticalEffects(item, action) {
+    if ( action.id !== "counterRiposte" ) return;
+    for ( const event of action.events ) {
+      if ( (event.target === this) || !event.isCriticalSuccess ) continue;
+      const {mainhand} = event.target.equipment.weapons;
+      if ( !mainhand?.id ) continue;
+      action.recordEvent({
+        type: "actorUpdate",
+        target: event.target,
+        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+        itemSnapshots: [mainhand.snapshot()],
+        statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]
+      }, {index: action.events.indexOf(event) + 1});
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.duelist000000000 = {
+  _isDueling(actor) {
+    const w = actor.equipment.weapons;
+    const mh = w.mainhand;
+    const cat = mh?.config?.category;
+    return mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged
+      && !actor.statuses.has("flanked");
+  },
+  prepareDefenses(_item, defenses) {
+    if ( crucible.api.hooks.talent.duelist000000000._isDueling(this) ) defenses.parry.bonus += 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const T = roll.constructor.RESULT_TYPES;
+    if ( roll.data.result !== T.GLANCE ) return;
+    if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
+    roll.data.result = T.PARRY;
+    roll.data.damage = undefined;
+  }
+};
+
+/* -------------------------------------------- */
+
 export default HOOKS;

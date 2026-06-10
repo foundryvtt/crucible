@@ -289,6 +289,8 @@
       "HealingTooltip": "This action provides restoration by testing an ally's Wounds threshold.",
       "IconicSpell": "Iconic Spell",
       "IconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
+      "Keen": "Keen",
+      "KeenTooltip": "This action is precise, lowering its critical hit threshold by 2 and making a Critical Hit more likely.",
       "MainHand": "Main-Hand",
       "MainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
       "Maintained": "Maintained",
@@ -412,6 +414,9 @@
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round.",
           "WrongTurn": "You may only use the Delay action on your own turn in combat."
+        },
+        "ESTOCADE": {
+          "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
@@ -561,6 +566,9 @@
       "Edit": "Edit Effect",
       "Enable": "Enable Effect",
       "New": "New Effect"
+    },
+    "CHANGE_TYPES": {
+      "scaleResource": "Scale Resource"
     },
     "DURATION": {
       "Combat": "Combat",
