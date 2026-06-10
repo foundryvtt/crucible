@@ -17,10 +17,7 @@ system:
     every subsequent round.</p><h3 class="divider">Playtest Notes</h3><p>This
     talent is currently placed at a <strong>Tier 4</strong> node. It will
     eventually only be attainable at a higher level (probably Level 6 required).
-    It is currently available "early" for testing.</p><p>Emanation templates
-    which are linked to the Token and move when the Token moves are a feature
-    coming in Foundry VTT version 14. Automation of the Aura gesture will occur
-    once Crucible depends on Foundry VTT version 14.</p>
+    It is currently available "early" for testing.</p>
   actions: []
   rune: ''
   gesture: aura
@@ -39,12 +36,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.4
   createdTime: 1762792947816
-  modifiedTime: 1773514792578
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1780931906692
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: gestureAura00000
 sort: 0
 _key: '!items!gestureAura00000'

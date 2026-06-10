@@ -53,13 +53,14 @@ export default class CruciblePersistentAOERegionBehavior extends foundry.data.re
     // If once per round and already done this round, skip
     if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;
 
+    // Perform action
     const action = new crucible.api.models.CrucibleAction(this.actionToPerform, {
       actor: sourceActor,
       usage: {forcedTargets: [actor]}
     });
     action.use({dialog: false});
 
-    // TODO: Why isn't this update going through?
+    // If once per round, track that targeted actor has been affected this round
     if ( this.oncePerRound && game.combat ) {
       await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat.round}});
     }
