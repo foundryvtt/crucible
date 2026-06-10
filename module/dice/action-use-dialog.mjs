@@ -107,11 +107,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const requiresMovement = this.action.requiresMovement;
     const involvesRegion = requiresRegion || this.action.region;
     const involvesMovement = requiresMovement || this.action.movement;
+    const descriptionHTML = await CONFIG.ux.TextEditor.enrichHTML(this.action.description, {relativeTo: this.action});
 
     // Prepare dialog rendering context
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
+      descriptionHTML,
       tags,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
@@ -276,6 +278,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       try {
         this.action.acquireTargets({strict: true});
       } catch(err) {
+        ui.notifications.warn(err);
         return;
       }
     }
@@ -406,6 +409,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Acquire targets for the final region
     region.updateShapeConstraints();
     setNewTargets({action: this.action, document: region});
+
+    // If the placement produces an invalid target, discard the region and require the user to place again
+    const invalidRegion = this.#regionTargets && Array.from(this.#regionTargets.values()).find(t => t.error);
+    if ( invalidRegion ) {
+      ui.notifications.warn(invalidRegion.error);
+      delete this.action.region;
+      this.#regionTargets = null;
+      canvas.tokens.setTargets([]);
+      await this.render();
+      return;
+    }
 
     // Keep the placed region visible as a canvas preview for the remainder of the dialog
     this.#regionPreview = new foundry.canvas.placeables.Region(region);
@@ -641,6 +655,18 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Acquire targets from the planned movement path and highlight on canvas
     this.action.acquireTargets({strict: false});
+
+    // If the planned path produces an invalid target, discard the plan and require the user to plan again
+    const invalid = Array.from(this.action.targets.values()).find(t => t.error);
+    if ( invalid ) {
+      ui.notifications.warn(invalid.error);
+      delete this.action.movement;
+      this.action.prepare();
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      canvas.tokens.setTargets([]);
+      await this.render();
+      return;
+    }
     const targetTokenIds = Array.from(this.action.targets.values()).map(t => t.token?.id).filter(Boolean);
     canvas.tokens.setTargets(targetTokenIds);
     await this.render();

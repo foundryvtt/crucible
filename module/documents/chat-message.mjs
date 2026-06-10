@@ -137,13 +137,34 @@ export default class CrucibleChatMessage extends ChatMessage {
   async renderHTML(options) {
     const html = await super.renderHTML(options);
     if ( ["isInitiativeReport", "isTurnChangeSummary"].some(f => f in (this.flags.crucible ?? {})) ) return html;
-    if ( (this.rolls[0] instanceof StandardCheck) && !html.querySelector(".crucible.dice-roll") ) {
+    const content = html.querySelector(".message-content");
+    const sections = this.flags.crucible?.sections;
+
+    // Render data into per-target sections with a target header, rolls, and a table of secondary changes
+    if ( this.isContentVisible && sections?.length && content && !content.querySelector(".action-sections") ) {
+      const rendered = [];
+      for ( const section of sections ) {
+        const rollHTML = [];
+        for ( const i of section.rollIndices ) {
+          const roll = this.rolls[i];
+          if ( !roll ) continue;
+          roll.data.newTarget = false;
+          rollHTML.push(await roll.render({isPrivate: false, message: this, hideActor: true}));
+        }
+        rendered.push(await foundry.applications.handlebars.renderTemplate(
+          "systems/crucible/templates/dice/partials/action-target-section.hbs",
+          {section, rollsHTML: rollHTML.join("")}));
+      }
+      content.insertAdjacentHTML("beforeend", `<section class="action-sections">${rendered.join("")}</section>`);
+    }
+
+    // Fallback: non-action roll messages, or action cards this client cannot fully see (flat rolls, no outcomes)
+    else if ( (this.rolls[0] instanceof StandardCheck) && content && !content.querySelector(".crucible.dice-roll") ) {
       const rollHTML = [];
       for ( const roll of this.rolls ) {
         rollHTML.push(await roll.render({isPrivate: !this.isContentVisible, message: this}));
       }
-      const rolls = `<section class="dice-rolls">${rollHTML.join("")}</section>`;
-      html.querySelector(".message-content").insertAdjacentHTML("beforeend", rolls);
+      content.insertAdjacentHTML("beforeend", `<section class="dice-rolls">${rollHTML.join("")}</section>`);
     }
     return html;
   }
@@ -199,11 +220,9 @@ export default class CrucibleChatMessage extends ChatMessage {
     const groupCheck = flags[GroupCheck.FLAG_KEY];
     if ( groupCheck ) GroupCheck.onRenderGroupCheck(message, html, groupCheck);
 
-    // Target Hover
-    for ( const el of html.querySelectorAll(".target-link") ) {
-      el.addEventListener("pointerover", onChatTargetLinkHover);
-      el.addEventListener("pointerout", onChatTargetLinkHover);
-    }
+    // Handle target hover interactivity with a delegated listener bound to the message root
+    html.addEventListener("pointerover", onChatTargetLinkHover);
+    html.addEventListener("pointerout", onChatTargetLinkHover);
   }
 }
 
@@ -215,7 +234,8 @@ export default class CrucibleChatMessage extends ChatMessage {
  * @returns {Promise<void>}
  */
 async function onChatTargetLinkHover(event) {
-  const link = event.currentTarget;
+  const link = event.target.closest(".target-link");
+  if ( !link ) return;
   const isActive = event.type === "pointerover";
 
   // Get the target Token object;

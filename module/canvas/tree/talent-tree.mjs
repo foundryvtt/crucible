@@ -402,8 +402,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Deactivate UI
     this.wheel.deactivate();
-    this.hud.close();
-    this.controls.close();
+    this.hud.close({animate: false});
+    this.controls.close({animate: false});
 
     // Disable the talent tree canvas
     this.app.renderer.enabled = false;

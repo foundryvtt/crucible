@@ -193,6 +193,7 @@
       border-radius: 4px;
       font-family: var(--font-sans);
       font-size: var(--font-size-10);
+      line-height: initial;
       color: var(--color-light-4);
       white-space: nowrap;
       &.unmet {
@@ -210,6 +211,14 @@
   .tag-icon {
     flex: none;
     font-size: 10px;
+  }
+
+  // A full-width row pairing a leading tag-icon with a right-aligned .tags group (e.g. action target/context rows)
+  .full-tags {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   // Construction Block

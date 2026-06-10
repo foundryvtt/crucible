@@ -4,12 +4,44 @@ img: icons/creatures/birds/raptor-hawk-flying.webp
 system:
   nodes: []
   description: >-
-    <p>The @ref[actor.name]{creature} can control its movement while falling and
-    may perform the <strong>Move</strong> action up to a maximum distance of its
-    <strong>Stride</strong> for each 20 feet that it falls.</p><p>If it spends
-    Action to Move in this way, it does not suffer falling damage upon
-    landing.</p>
-  actions: []
+    <p>The @ref[actor.name]{creature} controls its descent while falling. Unless
+    it is Incapacitated or Restrained, a fall becomes a <strong>Glide</strong>: a
+    downward Fly movement instead of an impact, suffering no falling damage.</p>
+    <p>While gliding the creature's <strong>Stride</strong> is doubled and it is
+    granted a free move, so it can always glide at least a short distance. Its
+    glide must descend, and wherever the movement ends is where it comes to rest;
+    if it ends the glide still aloft it gains the @Condition[flying] condition.</p>
+  actions:
+    - id: fallGlide
+      name: Glide
+      img: icons/svg/wing.svg
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} glides rather than falls, flying
+        downward under control. The movement must descend and suffers no falling
+        damage. If the creature ends its glide while still aloft it gains the
+        @Condition[flying] condition.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - fly
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''

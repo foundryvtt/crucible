@@ -5,10 +5,11 @@ system:
   nodes:
     - pre3b
   description: >-
-    <p>You are highly skilled in weaving the Rune of Kinesis. Spells which use
-    this Rune cause the @Condition[bleeding] condition on Critical
-    Hits.</p><p>The Bleeding effect lasts for <strong>1 Round</strong> and deals
-    your <strong>Presence</strong> ability score as additional
+    <p>You are highly skilled in weaving the Rune of Kinesis. When you cast a
+    Spell or use an action that involves this Rune, your Critical Hits which
+    deal damage cause the @Condition[bleeding] condition.</p><p>The Bleeding
+    effect lasts for <strong>1 Round</strong> and deals your
+    <strong>Presence</strong> ability score as additional
     <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
   actions: []
   rune: ''
