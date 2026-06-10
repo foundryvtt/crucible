@@ -71,11 +71,6 @@ export function registerEnrichers() {
       enricher: ruleEnricher
     },
     {
-      id: "crucibleDefense",
-      pattern: /@Defense\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.DEFENSES], ["defense"])
-    },
-    {
       id: "milestone",
       pattern: /\[\[\/milestone( \d+)?\]\]/g,
       enricher: enrichMilestone,
@@ -655,26 +650,6 @@ function ruleEnricher([match, tagId, label]) {
   tag.dataset.crucibleTooltipText = _loc(cfg.tooltip) ?? `[WIP] no tooltip was provided for ${cfg.label}`;
   tag.classList.add("rule", tagId.split(".")[0]);
   return tag;
-}
-
-/* -------------------------------------------- */
-/*  Simple Rules Elements                       */
-/* -------------------------------------------- */
-
-/**
- * Produces an enricher function given a lookup dictionary and the classes to be added
- * @param {List<Record<string, {label: string, tooltip: string}>>} lookups
- * @param {List<string>} classes
- * @returns {function}
- */
-function simpleRulesEnricher(lookups, classes=[]) {
-  /**
-   * Enrich an action tag reference into an interactive element displaying the tag name and tooltip.
-   * @param {RegExpMatchArray} matchArray
-   */
-  return ([match, tagId]) => {
-    return new Text(match);
-  };
 }
 
 
