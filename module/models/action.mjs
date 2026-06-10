@@ -3,6 +3,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
+ * @import {DataModelConstructionContext} from "@common/abstract/_types.mjs"
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
  * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
@@ -384,6 +385,25 @@ class CrucibleActionEvent {
  */
 
 /**
+ * Action-specific properties added to the core data model construction context.
+ * @typedef _CrucibleActionContext
+ * @property {CrucibleActor} [actor]            A specific Actor to whom this Action is bound
+ * @property {CrucibleItem} [item]              A specific Item that provided this Action
+ * @property {RegionDocument} [region]          A RegionDocument associated with this Action
+ * @property {CrucibleTokenObject} [token]      A specific token performing this Action
+ * @property {CrucibleActionMovement} [movement]  Pre-resolved movement data attached to this Action
+ * @property {CrucibleChatMessage} [message]    The ChatMessage (if any) representing this Action
+ * @property {object} [metadata]                Arbitrary metadata persisted to the ChatMessage flags
+ * @property {ActionUsage} [usage]              Pre-configured action usage data
+ * @property {boolean} [autoFavorite]           Whether this action autopopulates the actor sheet favorites bar
+ */
+
+/**
+ * The construction context accepted by the {@link CrucibleAction} constructor and consumed by `_configure`.
+ * @typedef {DataModelConstructionContext & _CrucibleActionContext} CrucibleActionContext
+ */
+
+/**
  * A special Set that sorts action tags in priority order.
  */
 class CrucibleActionTags extends Set {
@@ -564,7 +584,7 @@ class CrucibleActionTags extends Set {
  * - {@link ActionUseDialog} - The dialog presented during the "Usage" phase. Brokers target selection and action
  *   configuration before execution proceeds.
  *
- * @mixes CrucibleActionData
+ * @extends {foundry.abstract.DataModel<CrucibleActionData, CrucibleActionContext>}
  */
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -626,8 +646,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         duration: aeDuration,
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
-      tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
-      autoFavorite: new fields.BooleanField({initial: false})
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
 
@@ -663,31 +682,44 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The specific Actor to whom this Action is bound. May be undefined if the Action is unbound.
    * @type {CrucibleActor}
    */
-  actor = this.actor; // Defined during constructor
+  actor = this.actor; // Defined during _configure
 
   /**
    * The Affix ActiveEffect that provides this Action. Null if the Action is defined directly on an Item.
    * @type {ActiveEffect|null}
    */
-  affix = this.affix; // Defined during constructor
+  affix = this.affix; // Defined during _configure
 
   /**
    * The specific Item which contributed this Action. May be undefined if the Action did not originate from an Item.
    * @type {CrucibleItem}
    */
-  item = this.item; // Defined during constructor
+  item = this.item; // Defined during _configure
 
   /**
    * The message representing this action, if applicable
    * @type {CrucibleChatMessage|null}
    */
-  message = this.message; // Defined during constructor
+  message = this.message; // Defined during _configure
 
   /**
    * A planned or realized token movement associated with this action, used for movement-tagged actions.
    * @type {CrucibleActionMovement|null}
    */
-  movement = this.movement; // Defined during constructor
+  movement = this.movement; // Defined during _configure
+
+  /**
+   * Whether this action is auto-added to the actor sheet favorites bar. Declared by default-action definitions.
+   * @type {boolean}
+   */
+  autoFavorite = this.autoFavorite; // Defined during _configure
+
+  /**
+   * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
+   * Hooks can write keys during the use phase (e.g., preActivate) and read them during confirm.
+   * @type {object}
+   */
+  metadata = this.metadata;
 
   /**
    * The Actors explicitly targeted by this Action, mapped to their target data. Null before targets are acquired.
@@ -925,15 +957,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * One-time configuration of the CrucibleAction as part of construction.
-   * @param {object} [options]                    Options passed to the constructor context
-   * @param {CrucibleActor} [options.actor]         A specific Actor to whom this Action is bound
-   * @param {CrucibleItem} [options.item]           A specific Item that provided this Action
-   * @param {RegionDocument} [options.region]       A RegionDocument associated with this Action
-   * @param {CrucibleTokenObject} [options.token]   A specific token performing this Action
-   * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
-   * @param {ActionUsage} [options.usage]           Pre-configured action usage data
-   * @inheritDoc */
-  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, metadata={}, usage={}, ...options}) {
+   * @param {CrucibleActionContext} [options]     Options passed to the constructor context
+   * @inheritDoc
+   */
+  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, metadata={}, usage={},
+    autoFavorite=false, ...options}) {
     super._configure(options);
     const AffixModel = crucible.api.models.CrucibleAffixActiveEffect;
     const affix = (this.parent instanceof AffixModel) ? this.parent.parent : null;
@@ -945,13 +973,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       region: {value: region, writable: false, configurable: true},
       movement: {value: movement, writable: false, configurable: true},
       message: {value: message, writable: false, configurable: true},
-
-      /**
-       * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
-       * Hooks can write keys during the use phase (e.g., preActivate) and read them during confirm.
-       * @type {object}
-       */
-      metadata: {value: metadata}
+      autoFavorite: {value: autoFavorite, writable: false, configurable: true},
+      metadata: {value: metadata, writable: false, configurable: true}
     });
 
     /**
@@ -992,6 +1015,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      */
     Object.defineProperty(this, "hooks", {
       value: CrucibleAction.#prepareHooks(this.id),
+      configurable: true
+    });
+
+    /**
+     * Is this action triggered programmatically (e.g. Fall, Glide) and therefore hidden from the actor sheet?
+     * @type {boolean}
+     */
+    Object.defineProperty(this, "suppressFromSheet", {
+      value: crucible.api.hooks.action[this.id]?.suppressFromSheet === true,
       configurable: true
     });
 
@@ -1106,6 +1138,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.region ??= this.region;
     context.movement ??= this.movement;
     context.message ??= this.message;
+    context.autoFavorite ??= this.autoFavorite;
     const clone = new this.constructor(actionData, context);
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
@@ -3286,7 +3319,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static getDefaultAction(actionId) {
     const ad = SYSTEM.ACTION.DEFAULT_ACTIONS.find(a => a.id === actionId);
     if ( !ad ) return null;
-    return new this(foundry.utils.deepClone(ad));
+    return new this(foundry.utils.deepClone(ad), {autoFavorite: ad.autoFavorite});
   }
 
   /* -------------------------------------------- */

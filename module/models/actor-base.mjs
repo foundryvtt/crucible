@@ -1116,7 +1116,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
 
       // Create the action
-      const action = new CrucibleAction(ad, {actor: this.parent});
+      const action = new CrucibleAction(ad, {actor: this.parent, autoFavorite: ad.autoFavorite});
       action._initialize({});
       this.actions[action.id] = action;
     }

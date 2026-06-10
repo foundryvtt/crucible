@@ -520,6 +520,7 @@ HOOKS.evasiveShot = {
 /* -------------------------------------------- */
 
 HOOKS.fall = {
+  suppressFromSheet: true,
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
     if ( Number.isFinite(this.usage.fallDistance) && (this.usage.fallDistance <= 0) ) return false;
@@ -577,6 +578,7 @@ HOOKS.fall = {
 /* -------------------------------------------- */
 
 HOOKS.fallGlide = {
+  suppressFromSheet: true,
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
   },

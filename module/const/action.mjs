@@ -1499,8 +1499,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    autoFavorite: true
+    tags: ["noncombat"]
   },
 
   // Recover

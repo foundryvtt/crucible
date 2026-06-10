@@ -536,6 +536,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Iterate over all Actions
     for ( const [actionId, action] of Object.entries(this.actor.actions) ) {
+      if ( action.suppressFromSheet ) continue; // Internal actions (e.g. Fall, Glide) are triggered programmatically
       const a = {
         id: actionId,
         name: action.name,
