@@ -43,6 +43,7 @@ export const SKILLS = defineEnum({
   // Exploration Skills
   athletics: {
     label: "SKILL.LABELS.athletics",
+    tooltip: "SKILL.TOOLTIPS.athletics",
     icon: "systems/crucible/icons/skills/athletics.jpg",
     category: "exp",
     abilities: ["strength", "dexterity"],
@@ -55,6 +56,7 @@ export const SKILLS = defineEnum({
   },
   awareness: {
     label: "SKILL.LABELS.awareness",
+    tooltip: "SKILL.TOOLTIPS.awareness",
     icon: "systems/crucible/icons/skills/awareness.jpg",
     category: "exp",
     abilities: ["intellect", "wisdom"],
@@ -67,6 +69,7 @@ export const SKILLS = defineEnum({
   },
   stealth: {
     label: "SKILL.LABELS.stealth",
+    tooltip: "SKILL.TOOLTIPS.stealth",
     icon: "systems/crucible/icons/skills/stealth.jpg",
     category: "exp",
     abilities: ["dexterity", "intellect"],
@@ -79,6 +82,7 @@ export const SKILLS = defineEnum({
   },
   wilderness: {
     label: "SKILL.LABELS.wilderness",
+    tooltip: "SKILL.TOOLTIPS.wilderness",
     icon: "systems/crucible/icons/skills/wilderness.jpg",
     category: "exp",
     abilities: ["toughness", "wisdom"],
@@ -93,6 +97,7 @@ export const SKILLS = defineEnum({
   // Knowledge Skills
   arcana: {
     label: "SKILL.LABELS.arcana",
+    tooltip: "SKILL.TOOLTIPS.arcana",
     icon: "systems/crucible/icons/skills/arcana.jpg",
     category: "kno",
     abilities: ["presence", "intellect"],
@@ -105,6 +110,7 @@ export const SKILLS = defineEnum({
   },
   medicine: {
     label: "SKILL.LABELS.medicine",
+    tooltip: "SKILL.TOOLTIPS.medicine",
     icon: "systems/crucible/icons/skills/medicine.jpg",
     category: "kno",
     abilities: ["wisdom", "intellect"],
@@ -117,6 +123,7 @@ export const SKILLS = defineEnum({
   },
   science: {
     label: "SKILL.LABELS.science",
+    tooltip: "SKILL.TOOLTIPS.science",
     icon: "systems/crucible/icons/skills/science.jpg",
     category: "kno",
     abilities: ["intellect", "wisdom"],
@@ -129,6 +136,7 @@ export const SKILLS = defineEnum({
   },
   society: {
     label: "SKILL.LABELS.society",
+    tooltip: "SKILL.TOOLTIPS.society",
     icon: "systems/crucible/icons/skills/society.jpg",
     category: "kno",
     abilities: ["wisdom", "presence"],
@@ -143,6 +151,7 @@ export const SKILLS = defineEnum({
   // Social Skills
   deception: {
     label: "SKILL.LABELS.deception",
+    tooltip: "SKILL.TOOLTIPS.deception",
     icon: "systems/crucible/icons/skills/deception.jpg",
     category: "soc",
     abilities: ["intellect", "presence"],
@@ -155,6 +164,7 @@ export const SKILLS = defineEnum({
   },
   diplomacy: {
     label: "SKILL.LABELS.diplomacy",
+    tooltip: "SKILL.TOOLTIPS.diplomacy",
     icon: "systems/crucible/icons/skills/diplomacy.jpg",
     category: "soc",
     abilities: ["wisdom", "presence"],
@@ -167,6 +177,7 @@ export const SKILLS = defineEnum({
   },
   intimidation: {
     label: "SKILL.LABELS.intimidation",
+    tooltip: "SKILL.TOOLTIPS.intimidation",
     icon: "systems/crucible/icons/skills/intimidation.jpg",
     category: "soc",
     abilities: ["presence", "toughness"],
@@ -179,6 +190,7 @@ export const SKILLS = defineEnum({
   },
   performance: {
     label: "SKILL.LABELS.performance",
+    tooltip: "SKILL.TOOLTIPS.performance",
     icon: "systems/crucible/icons/skills/performance.jpg",
     category: "soc",
     abilities: ["presence", "dexterity"],

@@ -68,27 +68,37 @@ export function registerEnrichers() {
     {
       id: "crucibleActionTag",
       pattern: /@ActionTag\[(\w+)]/g,
-      enricher: simpleRulesEnricher(SYSTEM.ACTION.TAGS, ["action-tag"])
+      enricher: simpleRulesEnricher([SYSTEM.ACTION.TAGS], ["action-tag"])
     },
     {
       id: "crucibleWeaponProperty",
       pattern: /@WeaponProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher(SYSTEM.WEAPON.PROPERTIES, ["weapon-property"])
+      enricher: simpleRulesEnricher([SYSTEM.WEAPON.PROPERTIES], ["weapon-property"])
     },
     {
       id: "crucibleArmorProperty",
       pattern: /@ArmorProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher(SYSTEM.ARMOR.PROPERTIES, ["armor-property"])
+      enricher: simpleRulesEnricher([SYSTEM.ARMOR.PROPERTIES], ["armor-property"])
     },
     {
       id: "crucibleConsumableProperty",
       pattern: /@ConsumableProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher(SYSTEM.CONSUMABLE.PROPERTIES, ["consumable-property"])
+      enricher: simpleRulesEnricher([SYSTEM.CONSUMABLE.PROPERTIES], ["consumable-property"])
     },
     {
       id: "crucibleRule",
       pattern: /@Rule\[(\w+)]/g,
-      enricher: simpleRulesEnricher(SYSTEM.RULES, [])
+      enricher: simpleRulesEnricher([SYSTEM.RULES.GENERAL], [])
+    },
+    {
+      id: "crucibleSkill",
+      pattern: /@Skill\[(\w+)]/g,
+      enricher: simpleRulesEnricher([SYSTEM.RULES.SKILL_CATEGORIES, SYSTEM.SKILL.SKILLS, SYSTEM.CRAFTING.TRAINING], ["skill"])
+    },
+    {
+      id: "crucibleDamageType",
+      pattern: /@DamageType\[(\w+)]/g,
+      enricher: simpleRulesEnricher([SYSTEM.DAMAGE_TYPES], ["damage-type"])
     },
     {
       id: "milestone",
@@ -659,22 +669,25 @@ function enrichSpell([match, spellId]) {
 
 /**
  * Produces an enricher function given a lookup dictionary and the classes to be added
- * @param {Record<string, {label: string, tooltip: string}>} lookup
+ * @param {List<Record<string, {label: string, tooltip?: string}>>} lookups
  * @param {List<string>} classes
  * @returns {function}
  */
-function simpleRulesEnricher(lookup, classes=[]) {
+function simpleRulesEnricher(lookups, classes=[]) {
   /**
    * Enrich an action tag reference into an interactive element displaying the tag name and tooltip.
    * @param {RegExpMatchArray} matchArray
    */
   return ([match, tagId]) => {
-    const cfg = lookup[tagId];
+    const cfg = lookups.map(lookup => lookup[tagId]).find(x => x);
     if ( !cfg ) return new Text(match);
     const tag = document.createElement("enriched-content");
     tag.innerHTML = cfg.label;
-    tag.dataset.crucibleTooltip = "tag";
-    tag.dataset.crucibleTooltipText = cfg.tooltip;
+    if (cfg.tooltip) {
+      tag.dataset.crucibleTooltip = "tag";
+      tag.dataset.crucibleTooltipText = cfg.tooltip;
+    }
+
     tag.classList.add("rule", ...classes);
     return tag;
   };

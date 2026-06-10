@@ -202,13 +202,33 @@ export const TIME = Object.freeze({
 /* -------------------------------------------- */
 
 export const RULES = {
-  boons: {
-    label: "DICE.Boons.many",
-    tooltip: "DICE.BoonsTooltip"
+  GENERAL: {
+    boons: {
+      label: "DICE.Boons.many",
+      tooltip: "DICE.BoonsTooltip"
+    },
+    banes: {
+      label: "DICE.Banes.many",
+      tooltip: "DICE.BanesTooltip"
+    }
   },
-  banes: {
-    label: "DICE.Banes.many",
-    tooltip: "DICE.BanesTooltip"
+  SKILL_CATEGORIES: {
+    tradecraft: {
+      label: "SKILL.CATEGORY.CRAFTING.label",
+      tooltip: "SKILL.CATEGORY.CRAFTING.hint"
+    },
+    exploration: {
+      label: "SKILL.CATEGORY.EXPLORATION.label",
+      tooltip: "SKILL.CATEGORY.EXPLORATION.hint"
+    },
+    knowledge: {
+      label: "SKILL.CATEGORY.KNOWLEDGE.label",
+      tooltip: "SKILL.CATEGORY.KNOWLEDGE.hint"
+    },
+    social: {
+      label: "SKILL.CATEGORY.SOCIAL.label",
+      tooltip: "SKILL.CATEGORY.SOCIAL.hint"
+    }
   }
 };
 

@@ -571,7 +571,7 @@ function preLocalizeConfig() {
 
   // Skill
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
-  localizeConfigObject(SYSTEM.SKILL.SKILLS);
+  localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label", "tooltip"]);
 
   // Spellcraft
   localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"]);
@@ -590,7 +590,8 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.WEAPON.TRAINING);
 
   // Rules
-  localizeConfigObject(SYSTEM.RULES, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.RULES.GENERAL, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.RULES.SKILL_CATEGORIES, ["label", "tooltip"]);
 
   // CONFIG objects (not in SYSTEM)
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
