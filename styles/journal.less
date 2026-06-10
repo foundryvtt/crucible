@@ -274,47 +274,48 @@ enriched-content.rule {
   padding: 1px 4px;
   margin: -1px 0;
   cursor: var(--cursor-help, help);
+  --rule-icon: "\f02e"; // bookmark (default)
   &:before {
-    content: "\f02e"; // bookmark (default)
+    content: var(--rule-icon);
     font-family: var(--font-awesome);
     font-weight: 900;
     opacity: 0.5;
     margin-right: 4px;
     font-size: 80%;
   }
-  &.condition:before {
-    content: "\e54d"; // standard Foundry effect icon
+  &.condition {
+    --rule-icon: "\e54d"; // standard Foundry effect icon
   }
-  &.action:before {
-    content: "\f0e7"; // lightning
+  &.action {
+    --rule-icon: "\f0e7"; // lightning
   }
-  &.spell:before {
-    content: "\f890"; // sparkles
+  &.spell {
+    --rule-icon: "\f890"; // sparkles
   }
   &.rule-enricher {
-    &.action:before {
-      content: "\f02b"; // tag
+    &.action {
+      --rule-icon: "\f02b"; // tag
     }
-    &.weapon:before {
-      content: "\f2e4"; // knife
+    &.weapon {
+      --rule-icon: "\f2e4"; // knife
     }
-    &.armor:before {
-      content: "\f6eb"; // helmet
+    &.armor {
+      --rule-icon: "\f6eb"; // helmet
     }
-    &.consumable:before {
-      content: "\f0c3"; // flask
+    &.consumable {
+      --rule-icon: "\f0c3"; // flask
     }
-    &.accessory:before {
-      content: "\e5ab"; // ring
+    &.accessory {
+      --rule-icon: "\e5ab"; // ring
     }
-    &.skill:before {
-      content: "\f648"; // bullseye arrow
+    &.skill {
+      --rule-icon: "\f648"; // bullseye arrow
     }
-    &.damage:before {
-      content: "\e4dc"; // burst
+    &.damage {
+      --rule-icon: "\e4dc"; // burst
     }
-    &.defense:before {
-      content: "\f132"; // shield
+    &.defense {
+      --rule-icon: "\f132"; // shield
     }
   }
 }
