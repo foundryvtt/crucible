@@ -1,0 +1,41 @@
+folder: fOYHlZJEWUukD7yr
+name: Wizard
+type: talent
+img: icons/magic/symbols/rune-sigil-horned-white-purple.webp
+system:
+  description: >-
+    <p>You are a consummate scholar of the arcane who can sustain fluidity and
+    momentum in your spellcraft. Once per Turn when you cast a
+    <strong>Spell</strong>, you can carry forward a portion of its magic to
+    reduce the <strong>Focus</strong> cost of an immediately subsequent Spell by
+    1.</p>
+  actions: []
+  nodes:
+    - sig3.intellect
+    - sig3.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 2
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160132
+  modifiedTime: 1780959082701
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: wizard0000000000
+sort: 50000
+_key: '!items!wizard0000000000'

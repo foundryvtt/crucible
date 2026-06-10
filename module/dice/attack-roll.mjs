@@ -96,8 +96,8 @@ export default class AttackRoll extends StandardCheck {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
-    const cardData = await super._prepareChatRenderContext({flavor, isPrivate});
+  async _prepareChatRenderContext({flavor, isPrivate=false, ...options}={}) {
+    const cardData = await super._prepareChatRenderContext({flavor, isPrivate, ...options});
     if ( isPrivate ) return cardData;
     cardData.cssClass += ` ${this.#getResultClass()}`;
 

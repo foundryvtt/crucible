@@ -1,0 +1,38 @@
+name: Flash Frost
+type: talent
+img: icons/magic/water/projectiles-ice-explosion.webp
+system:
+  nodes:
+    - int4a
+  description: >-
+    <p>You freeze with the speed of thought, cold striking in an instant rather
+    than creeping in slowly. Your usage of the <strong>Rune of Frost</strong>
+    scales with <strong>Intellect</strong> instead of
+    <strong>Wisdom</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: xhBPnxcjrC9F4AVL
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1765571304162
+  modifiedTime: 1781027689603
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: flashFrost000000
+sort: 0
+_key: '!items!flashFrost000000'

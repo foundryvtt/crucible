@@ -1,0 +1,42 @@
+<section class="action-target">
+    <header class="action-target-header target-tags full-tags">
+        <label class="tag-icon" data-tooltip="ACTION.TAGS.Target" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bullseye"></i>
+        </label>
+        <div class="tags" data-tag-type="targets">
+            <span class="target-link tag" data-uuid="{{section.uuid}}" data-tooltip="{{section.name}}">{{section.name}}</span>
+        </div>
+    </header>
+    {{{rollsHTML}}}
+    {{#if section.hasSecondary}}
+    <div class="action-summary">
+    <table class="report-table action-summary-table">
+        <tbody>
+            {{#each section.resources}}
+            <tr>
+                <td class="report-label">{{this.label}}</td>
+                {{#if this.isHeal}}
+                <td class="report-value increase"><i class="fa-solid fa-caret-up" inert></i> {{this.magnitude}}{{#if this.typeLabel}} {{this.typeLabel}}{{/if}}</td>
+                {{else}}
+                <td class="report-value decrease"><i class="fa-solid fa-caret-down" inert></i> {{this.magnitude}}{{#if this.typeLabel}} {{this.typeLabel}}{{/if}}</td>
+                {{/if}}
+            </tr>
+            {{/each}}
+            {{#each section.effects}}
+            <tr class="effect-row">
+                <td class="report-label">
+                    {{#if this.img}}<img class="effect-icon" src="{{this.img}}" alt="{{this.name}}">{{/if}}
+                    <span class="effect-name">{{this.name}}</span>
+                </td>
+                {{#if this.gained}}
+                <td class="report-value increase"><span class="tags"><i class="fa-solid fa-caret-up" inert></i><span class="tag">{{this.duration}}</span></span></td>
+                {{else}}
+                <td class="report-value decrease"><i class="fa-solid fa-caret-down" inert></i></td>
+                {{/if}}
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    </div>
+    {{/if}}
+</section>

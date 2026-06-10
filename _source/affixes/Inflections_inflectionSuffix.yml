@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: 6XKTYakZQeajGdau
+name: Inflections
+color: null
+sorting: a
+_id: inflectionSuffix
+description: ''
+sort: 300000
+flags: {}
+_stats:
+  coreVersion: '14.360'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1776200000000
+  modifiedTime: 1776200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!inflectionSuffix'

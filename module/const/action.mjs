@@ -401,6 +401,20 @@ export const TAGS = {
     }
   },
 
+  // Immediately follows a Rest
+  rest: {
+    tag: "rest",
+    label: "ACTION.TAG.Rest",
+    tooltip: "ACTION.TAG.RestTooltip",
+    category: "requirements",
+    propagate: ["noncombat"],
+    canUse() {
+      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
+      }
+    }
+  },
+
   // Requires the ability to speak
   vocal: {
     tag: "vocal",

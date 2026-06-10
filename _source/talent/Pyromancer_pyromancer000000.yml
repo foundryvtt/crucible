@@ -3,8 +3,9 @@ type: talent
 img: icons/magic/fire/projectile-smoke-swirl-red.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Flame. Spells which use
-    this Rune cause @Condition[burning] on Critical Hits.</p><p>The Burning
+    <p>You are highly skilled in weaving the Rune of Flame. When you cast a
+    Spell or use an action that involves this Rune, your Critical Hits which
+    deal damage cause the @Condition[burning] condition.</p><p>The Burning
     effect lasts for <strong>3 Rounds</strong> and deals half your
     <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
     <strong>Health</strong> and <strong>Morale</strong>.</p>

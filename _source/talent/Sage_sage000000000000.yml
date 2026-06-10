@@ -1,0 +1,134 @@
+folder: fOYHlZJEWUukD7yr
+name: Sage
+type: talent
+img: icons/sundries/scrolls/scroll-yellow-teal.webp
+system:
+  description: >-
+    <p>Your encyclopedic learning spans every field of study. Through
+    disciplined research and sudden flashes of insight you can call upon
+    <strong>Knowledge</strong> to aid you during key moments.</p>
+  actions:
+    - id: flashBrilliance
+      name: Flash of Brilliance
+      condition: ''
+      description: >-
+        <p>You expend <strong>Heroism</strong> and experience a sudden,
+        brilliant moment of total clarity. Until the end of your next turn you
+        are treated as possessing every form of <strong>Knowledge</strong>.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Flash of Brilliance
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/magic/light/explosion-star-glow-silhouette.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+    - id: fieldStudy
+      name: Field Study
+      condition: ''
+      description: >-
+        <p>During the process of a @Action[default rest], you devote yourself to
+        studying a chosen field of <strong>Knowledge</strong>. Upon the
+        completion of the Rest, you gain that Knowledge for the next 24 hours or
+        until you use this Action again.</p>
+      tags:
+        - rest
+        - noncombat
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Field Study
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 24
+            units: hours
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      img: icons/sundries/documents/document-letter-blue.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+  nodes:
+    - sig3.intellect
+    - sig3.wisdom
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 1
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160132
+  modifiedTime: 1780958952650
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: sage000000000000
+sort: 60000
+_key: '!items!sage000000000000'
