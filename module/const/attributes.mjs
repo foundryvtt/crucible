@@ -263,26 +263,31 @@ export const DEFENSES = {
   physical: {
     id: "physical",
     label: "DEFENSES.Physical",
+    tooltip: "DEFENSES.TOOLTIPS.Physical",
     type: "physical"
   },
   armor: {
     id: "armor",
     label: "DEFENSES.Armor",
+    tooltip: "DEFENSES.TOOLTIPS.Armor",
     type: "physical"
   },
   block: {
     id: "block",
     label: "DEFENSES.Block",
+    tooltip: "DEFENSES.TOOLTIPS.Block",
     type: "physical"
   },
   dodge: {
     id: "dodge",
     label: "DEFENSES.Dodge",
+    tooltip: "DEFENSES.TOOLTIPS.Dodge",
     type: "physical"
   },
   parry: {
     id: "parry",
     label: "DEFENSES.Parry",
+    tooltip: "DEFENSES.TOOLTIPS.Parry",
     type: "physical"
   },
   fortitude: {

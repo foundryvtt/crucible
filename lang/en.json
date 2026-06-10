@@ -1459,10 +1459,15 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
+      "Physical": "<p><strong>Physical Defense</strong> describes how difficult the creature is to hit with physical attacks.</p><p>Physical Defense = @Rule[defense.armor] + @Rule[defense.dodge] + @Rule[defense.parry] + @Rule[defense.block]</p><p>When an attack roll is less than or equal to the Physical Defense total, it is assigned a type of miss based on the proportional mixture of Physical Defense components.</p>",
+      "Armor": "<p>Protection offered by worn equipment or organic attributes like scales or chitin.</p><p>If the attack that failed because of <strong>Armor</strong> was not a Critical Failure, it results in a <strong>Glance</strong></p><p>If the attack was a Critical Failure, it is fully absorbed by the <strong>Armor</strong> and deals no damage.</p>",
+      "Dodge": "<p>Protection offered by physical quickness and agility.</p><p>Strikes which fail to hit and are defended by the Dodge defense assume the <strong>Dodged</strong> outcome and deal no damage.<p>",
+      "Parry": "<p>Protection offered by guarding against an attack using an equipped weapon.</p><p>Strikes which fail to hit and are defended by the Parry defense assume the <strong>Parried</strong> outcome and deal no damage.</p>",
+      "Block": "<p>Protection offered by guarding against an attack using an equipped shield or blocking weapon.</p><p>Strikes which fail to hit and are defended by the Block defense assume the <strong>Blocked </strong>outcome and deal no damage.</p>",
+      "Fortitude": "<p><strong>Fortitude Defense</strong> describes a character's ability to withstand bodily harm.</p></p>Fortitude Defense = {base} + ((Strength + Wisdom) / 4)</p>",
       "Madness": "{base} + (Madness / 10)",
-      "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
-      "Willpower": "{base} + ((Toughness + Presence) / 4)",
+      "Reflex": "<p><strong>Reflex Defense</strong> describes a character's ability to avoid harm that would otherwise occur in a specific area.</p><p>Reflex Defense = {base} + ((Dexterity + Intellect) / 4)</p>",
+      "Willpower": "<p><strong>Willpower Defense</strong> describes a character's ability to withstand mental or emotional attacks.</p><p>Willpower Defense = {base} + ((Toughness + Presence) / 4)</p>",
       "Wounds": "{base} + (Wounds / 10)"
     },
     "Armor": "Armor",
