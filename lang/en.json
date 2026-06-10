@@ -5,6 +5,14 @@
       "Resilience": "Resilience",
       "Speed": "Speed"
     },
+    "TOOLTIPS": {
+      "Dexterity": "Dexterity is a physical quickness attribute that reflects agility and precision of movement.",
+      "Intellect": "Intellect is a mental quickness attribute that reflects speed of thought and decisiveness of action.",
+      "Presence": "Presence is a mental resilience attribute describing a creature's force of personality, resolve, and self-belief.",
+      "Strength": "Strength is a physical power attribute describing a creature's potency, brawn and might.",
+      "Toughness": "Toughness is a physical resilience attribute describing physical hardiness and tenacity.",
+      "Wisdom": "Wisdom is a mental power attribute describing a creature's force of conviction, depth of knowledge, and patience."
+    },
     "Dexterity": "Dexterity",
     "DexterityAbbr": "Dex",
     "Intellect": "Intellect",

@@ -15,6 +15,7 @@ export const ABILITIES = Object.freeze({
   wisdom: {
     id: "wisdom",
     label: "ABILITIES.Wisdom",
+    tooltip: "ABILITIES.TOOLTIPS.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Power",
@@ -26,6 +27,7 @@ export const ABILITIES = Object.freeze({
   presence: {
     id: "presence",
     label: "ABILITIES.Presence",
+    tooltip: "ABILITIES.TOOLTIPS.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Resilience",
@@ -37,6 +39,7 @@ export const ABILITIES = Object.freeze({
   intellect: {
     id: "intellect",
     label: "ABILITIES.Intellect",
+    tooltip: "ABILITIES.TOOLTIPS.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Speed",
@@ -48,6 +51,7 @@ export const ABILITIES = Object.freeze({
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
+    tooltip: "ABILITIES.TOOLTIPS.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Power",
@@ -59,6 +63,7 @@ export const ABILITIES = Object.freeze({
   toughness: {
     id: "toughness",
     label: "ABILITIES.Toughness",
+    tooltip: "ABILITIES.TOOLTIPS.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Resilience",
@@ -70,6 +75,7 @@ export const ABILITIES = Object.freeze({
   dexterity: {
     id: "dexterity",
     label: "ABILITIES.Dexterity",
+    tooltip: "ABILITIES.TOOLTIPS.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Speed",
