@@ -73,22 +73,27 @@ export function registerEnrichers() {
     {
       id: "crucibleWeaponProperty",
       pattern: /@WeaponProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.WEAPON.PROPERTIES], ["weapon-property"])
+      enricher: simpleRulesEnricher([SYSTEM.WEAPON.PROPERTIES, SYSTEM.WEAPON.CATEGORIES], ["weapon-property"])
     },
     {
       id: "crucibleArmorProperty",
       pattern: /@ArmorProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.ARMOR.PROPERTIES], ["armor-property"])
+      enricher: simpleRulesEnricher([SYSTEM.ARMOR.PROPERTIES, SYSTEM.ARMOR.CATEGORIES], ["armor-property"])
     },
     {
       id: "crucibleConsumableProperty",
       pattern: /@ConsumableProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.CONSUMABLE.PROPERTIES], ["consumable-property"])
+      enricher: simpleRulesEnricher([SYSTEM.CONSUMABLE.PROPERTIES, SYSTEM.CONSUMABLE.CATEGORIES], ["consumable-property"])
+    },
+    {
+      id: "crucibleAccessoryProperty",
+      pattern: /@AccessoryProperty\[(\w+)]/g,
+      enricher: simpleRulesEnricher([SYSTEM.ACCESSORY.PROPERTIES, SYSTEM.ACCESSORY.CATEGORIES], ["accessory-property"])
     },
     {
       id: "crucibleRule",
       pattern: /@Rule\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.RULES.GENERAL], [])
+      enricher: simpleRulesEnricher([SYSTEM.RULES.GENERAL, SYSTEM.ABILITIES, SYSTEM.RESOURCES], [])
     },
     {
       id: "crucibleSkill",
@@ -99,6 +104,11 @@ export function registerEnrichers() {
       id: "crucibleDamage",
       pattern: /@Damage\[(\w+)]/g,
       enricher: simpleRulesEnricher([SYSTEM.DAMAGE_TYPES, SYSTEM.DAMAGE_CATEGORIES], ["damage"])
+    },
+    {
+      id: "crucibleDefense",
+      pattern: /@Defense\[(\w+)]/g,
+      enricher: simpleRulesEnricher([SYSTEM.DEFENSES], ["defense"])
     },
     {
       id: "milestone",
@@ -684,7 +694,7 @@ function simpleRulesEnricher(lookups, classes=[]) {
     const tag = document.createElement("enriched-content");
     tag.innerHTML = cfg.label;
     tag.dataset.crucibleTooltip = "tag";
-    tag.dataset.crucibleTooltipText = cfg.tooltip;
+    tag.dataset.crucibleTooltipText = cfg.tooltip ?? `[WIP] no tooltip was provided for ${cfg.label}`;
     tag.classList.add("rule", ...classes);
     return tag;
   };

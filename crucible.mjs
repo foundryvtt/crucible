@@ -527,11 +527,11 @@ function preLocalizeConfig() {
   };
 
   // Top-level system constants
-  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group"]);
+  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group", "tooltip"]);
   localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation", "tooltip"]);
-  localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel"]);
-  localizeConfigObject(SYSTEM.RESOURCES);
+  localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel", "tooltip"]);
+  localizeConfigObject(SYSTEM.RESOURCES, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.TEMPERATURE_TIERS);
   localizeConfigObject(SYSTEM.THREAT_RANKS);
 
@@ -559,7 +559,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES, ["label", "tooltip"]);
 
   // Crafting
-  localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
+  localizeConfigObject(SYSTEM.CRAFTING.TRAINING, ["label", "tooltip"]);
 
   // Item
   localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);
