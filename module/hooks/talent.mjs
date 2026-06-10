@@ -1378,21 +1378,22 @@ HOOKS.disarmingriposte = {
 /* -------------------------------------------- */
 
 HOOKS.duelist000000000 = {
-  prepareDefenses(_item, defenses) {
-    const w = this.equipment.weapons;
+  _isDueling(actor) {
+    const w = actor.equipment.weapons;
     const mh = w.mainhand;
     const cat = mh?.config?.category;
-
-    // Gate: a real one-handed melee weapon in the main hand and an empty off-hand
-    const dueling = mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged;
-    if ( !dueling ) return;
-
-    // While not surrounded: +2 Parry which also raises Physical Defense (the reward for forgoing a shield), plus a +2
-    // redirect which widens the Parry band without raising Physical Defense, turning glancing blows into parries
-    if ( !this.statuses.has("flanked") ) {
-      defenses.parry.total += 4;
-      defenses.physical.total += 2;
-    }
+    return mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged
+      && !actor.statuses.has("flanked");
+  },
+  prepareDefenses(_item, defenses) {
+    if ( crucible.api.hooks.talent.duelist000000000._isDueling(this) ) defenses.parry.bonus += 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const T = roll.constructor.RESULT_TYPES;
+    if ( roll.data.result !== T.GLANCE ) return;
+    if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
+    roll.data.result = T.PARRY;
+    roll.data.damage = undefined;
   }
 };
 

@@ -3,12 +3,14 @@ type: talent
 img: icons/skills/melee/sword-twirl-orange.webp
 system:
   description: >-
-    <p>You are a master of single combat, dueling with a one-handed weapon and a
-    free off-hand. While wielding a one-handed melee weapon with your other hand
-    empty, you gain a <strong>+2</strong> bonus to your <strong>Parry</strong>
-    defense as long as you are not @Condition[flanked]. Your trained guard also
-    turns more of the attacks you avoid into parries rather than glancing
-    blows.</p>
+    <p>You relish the thrill and skillful mastery of single combat, employing a
+    fighting style that uses a one-handed weapon while keeping your off-hand
+    unoccupied.</p><p>While wielding a one-handed melee weapon with your other
+    hand empty, you gain a <strong>+2</strong> bonus to your
+    <strong>Parry</strong> defense as long as you are not @Condition[flanked].
+    While meeting these criteria, any attack that results in a
+    <strong>Glance</strong> against your <strong>Armor</strong> becomes a
+    <strong>Parry</strong> instead.</p>
   actions:
     - id: estocade
       name: Estocade
@@ -67,7 +69,7 @@ _stats:
   systemVersion: 0.9.5
   coreVersion: '14.363'
   createdTime: 1772307160130
-  modifiedTime: 1781112916749
+  modifiedTime: 1781113519773
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
