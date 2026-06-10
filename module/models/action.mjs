@@ -134,6 +134,15 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
+ * A single resource change recorded on a {@link CrucibleActionEvent}.
+ * @typedef ActionResourceDelta
+ * @property {string} resource          The resource identifier in {@link SYSTEM.RESOURCES}
+ * @property {number} delta             The signed change to the resource pool (negative for damage or cost)
+ * @property {boolean} [restoration]    Whether this change is restorative (healing) rather than damage
+ * @property {string} [damageType]      The damage type responsible for this change, if any (see GH #1204)
+ */
+
+/**
  * @typedef {("activation"|"strike"|"spell"|"check"|"summon"|"effect"|"actorUpdate"|"movement"|"other")
  *   } CrucibleActionEventType
  * The type of event in an action's timeline.
@@ -165,7 +174,7 @@ class CrucibleActionEvent {
    * @param {ActionSummonConfiguration} [data.summon]  Summon configuration, present for summon-type events
    * @param {object} [data.actorUpdates]            Data updates to apply to the target actor
    * @param {CrucibleItemSnapshot[]} [data.itemSnapshots]  Pre-action item state for reversal
-   * @param {object[]} [data.resources=[]]          Resource changes incurred or imposed by this event
+   * @param {ActionResourceDelta[]} [data.resources=[]]  Resource changes incurred or imposed by this event
    * @param {ActionEffect[]} [data.effects=[]]      Effect changes manifested by this event
    * @param {object[]} [data.statusText]            Status text to display above the target
    * @param {boolean} [data.isCriticalSuccess]      Did this event produce a critical hit?
@@ -776,6 +785,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.tags.has("undetectable") ) return false;
     if ( this.tags.has("spell") ) return true;
     return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Action involves a particular Rune, either as a cast Spell or an action annotated with a Rune.
+   * @param {string} runeId    The Rune identifier to test
+   * @returns {boolean}
+   */
+  usesRune(runeId) {
+    return (this.rune?.id === runeId) || (this.usage.rune === runeId);
   }
 
   /* -------------------------------------------- */
@@ -1712,19 +1732,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
         if ( regionEffectRequired && (target === this.actor) ) regionEffectRequired = false;
-        const {_id, name, duration, statuses: origStatuses, system={}} = effectData;
+        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = effectData;
         const statuses = new Set(origStatuses);
 
-        // Prepare effect data, omitting blank-units durations which are invalid for the core ActiveEffect schema
+        // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema
+        const effectDuration = duration.units ? duration : (duration.expiry ? {expiry: duration.expiry} : undefined);
         const effect = {
           _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
           name: name || this.name,
           description: this.description,
           img: this.img,
           origin: this.actor.uuid,
-          duration: duration.units ? duration : undefined,
+          duration: effectDuration,
           system
         };
+        if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
         // Automatically configure damage-over-time statuses
         for ( const status of origStatuses ) {
@@ -1858,17 +1880,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const resource = damage.resource ?? "health";
       const cfg = SYSTEM.RESOURCES[resource];
       const restoration = !!(damage.restoration ?? this.damage?.restoration);
+      const damageType = damage.type; // Annotate the resulting resource changes with their damage type, see GH #1204
       const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
 
       // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
       if ( amount === 0 ) {
-        event.resources.push({resource, delta: 0, restoration});
+        event.resources.push({resource, delta: 0, restoration, damageType});
         continue;
       }
 
       // Allocate without specific system target (in theory should not happen?)
       if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount, restoration});
+        event.resources.push({resource, delta: amount, restoration, damageType});
         continue;
       }
 
@@ -1876,8 +1899,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !allocations.has(event.target) ) allocations.set(event.target, {});
       const allocation = allocations.get(event.target);
       const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration});
-      else for ( const [r, delta] of Object.entries(deltas) ) event.resources.push({resource: r, delta, restoration});
+      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration, damageType});
+      else for ( const [r, delta] of Object.entries(deltas) ) {
+        event.resources.push({resource: r, delta, restoration, damageType});
+      }
     }
 
     // Expire an invisibility status
@@ -2488,11 +2513,28 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Planned movement "destination" remains the origin until executed; the final waypoint is the true destination
     const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
     const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
-
-    // Resting status: fly/burrow from a self-move action, else falling from the end position
     let toAdd;
-    if ( isSelf && (finalWaypoint?.action === "fly") ) toAdd = flying;
-    else if ( isSelf && (finalWaypoint?.action === "burrow") ) toAdd = burrowing;
+    const restingAction = isSelf ? finalWaypoint?.action : null;
+
+    // End as flying if suspended above a supporting surface
+    if ( restingAction === "fly" ) {
+      const surface = token._findSupportingSurface(destination);
+      if ( surface && (surface.elevation < destination.elevation) ) toAdd = flying;
+    }
+
+    // End as burrowing if suspended above a deeper surface or below the level base if no surfaces are present
+    else if ( restingAction === "burrow" ) {
+      const surface = token._findSupportingSurface(destination);
+      let underground;
+      if ( surface ) underground = surface.elevation < destination.elevation;
+      else {
+        const base = token.parent?.levels.get(destination.level)?.elevation.base;
+        underground = (base !== undefined) && (destination.elevation < base);
+      }
+      if ( underground ) toAdd = burrowing;
+    }
+
+    // Add the falling condition
     else {
       const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
       const surface = staysAirborne ? null : token._findSupportingSurface(destination);
@@ -2917,6 +2959,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Serialize the canonical event stream (roll.data.index was assigned above)
     actionData.events = this.#serializeEvents();
 
+    // Group per-target rolls + non-cost resource/effect changes into sections for the chat card
+    const sections = this.#prepareCardSections();
+    if ( sections.length ) actionData.sections = sections;
+
     // Derive target list for chat message rendering
     let targets;
     if ( this.target.type === "summon" ) {
@@ -2938,7 +2984,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       descriptionHTML,
       hasActionTags: !tags.action.empty,
       hasContextTags: !tags.context.empty,
-      hasTargetTags: (targets.length === 1) || (targets.length && !this.eventsByTarget.values().some(e => e.roll)),
+      // Target pills only when there are no per-target outcome sections to name them (e.g. an all-confirm-time payload)
+      hasTargetTags: !!(targets.length && !sections.length),
       hasTargets: !["self", "none"].includes(this.target.type),
       tags,
       targets,
@@ -2962,6 +3009,75 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       rolls: rolls,
       flags: {crucible: actionData}
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Build per-target chat-card sections: each affected actor's roll indices, non-cost resource changes, and effects.
+   * The acting actor's own section, if present, is ordered first.
+   * @returns {{uuid: string, name: string, isSelf: boolean, hasSecondary: boolean,
+   *   rollIndices: number[], resources: object[], effects: object[]}[]}
+   */
+  #prepareCardSections() {
+    const activation = this.selfEvents.activation;
+    const sections = new Map();
+    const sectionFor = actor => {
+      if ( !sections.has(actor) ) sections.set(actor, {
+        uuid: actor.uuid, name: actor.name, isSelf: actor === this.actor,
+        rollIndices: [], resources: [], effects: []
+      });
+      return sections.get(actor);
+    };
+    for ( const event of this.events ) {
+      const target = event.target;
+      if ( !target ) continue;
+      const section = sectionFor(target);
+
+      // Dice roll for this target
+      if ( event.roll && Number.isInteger(event.roll.data.index) ) section.rollIndices.push(event.roll.data.index);
+
+      // Resource changes other than the primary cost and the action's primary damage
+      const primaryType = event.roll?.data?.damage?.type; // The roll's own damage, already shown in its breakdown
+      if ( event !== activation ) {
+        for ( const {resource, delta, damageType} of event.resources ) {
+          if ( !delta ) continue;
+          if ( event.roll && (damageType === primaryType) ) continue;
+          const resCfg = SYSTEM.RESOURCES[resource];
+          if ( !resCfg ) continue;
+          section.resources.push({
+            label: resCfg.label,
+            typeLabel: damageType ? (SYSTEM.DAMAGE_TYPES[damageType]?.label ?? null) : null,
+            magnitude: Math.abs(delta),
+            isHeal: Math.sign(delta) === ((resCfg.type === "active") ? 1 : -1)
+          });
+        }
+      }
+
+      // Effect changes (gained or removed)
+      for ( const effect of event.effects ) {
+        if ( effect._action === "delete" ) {
+          const existing = target.effects.get(effect._id);
+          const name = existing?.name ?? effect.name ?? effect._id;
+          section.effects.push({name, img: existing?.img ?? effect.img, gained: false});
+        }
+        else if ( !effect._action ) {
+          const d = effect.duration;
+          let duration;
+          if ( (d?.units === "rounds") && d.value ) duration = _loc("ACTIVE_EFFECT.DURATION.Rounds", {value: d.value});
+          else if ( d?.expiry === "combatEnd" ) duration = _loc("ACTIVE_EFFECT.DURATION.Combat");
+          else duration = _loc("ACTIVE_EFFECT.DURATION.Infinite");
+          section.effects.push({name: effect.name ?? effect._id, img: effect.img, gained: true, duration});
+        }
+      }
+    }
+
+    // Keep sections with content; flag secondary changes; order the acting actor's section first
+    const all = Array.from(sections.values())
+      .filter(s => s.rollIndices.length || s.resources.length || s.effects.length);
+    for ( const s of all ) s.hasSecondary = !!(s.resources.length || s.effects.length);
+    all.sort((a, b) => Number(b.isSelf) - Number(a.isSelf)); // Stable sort keeps appearance order; self floats to first
+    return all;
   }
 
   /* -------------------------------------------- */

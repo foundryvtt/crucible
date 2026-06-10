@@ -83,12 +83,12 @@
       text-align: right;
     }
 
-    // Boon/Bane indicators
-    .boons i {
+    // Directional Result Indicators
+    .boons i, .increase i {
       font-size: 10px;
       color: var(--color-result-verygood);
     }
-    .banes i {
+    .banes i, .decrease i {
       font-size: 10px;
       color: var(--color-result-verybad);
     }
@@ -114,6 +114,47 @@
       tr.combatant.secret {
         color: #8e80ff;
       }
+    }
+  }
+
+  // Action result per target
+  .action-target {
+
+    // Frame an action summary that follows a dice roll
+    .dice-roll + .action-summary {
+      margin-top: -1rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid var(--color-frame);
+    }
+    .dice-roll.expanded + .action-summary {
+      margin-top: 0;
+      border-top: 1px solid var(--color-frame);
+    }
+
+    // Target report for secondary resource and effects changes
+    .report-table {
+      margin-top: 0;
+
+      // Active effect rows
+      .effect-row {
+        .report-label {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+        .effect-icon {
+          flex: none;
+          width: 16px;
+          height: 16px;
+          border: none;
+          border-radius: 3px;
+          object-fit: cover;
+        }
+      }
+    }
+
+    &+.action-target {
+      margin-top: 1rem;
     }
   }
 

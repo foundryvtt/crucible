@@ -289,6 +289,7 @@ export default class CrucibleActor extends Actor {
       try {
         fn.call(this, item, ...args);
       } catch(err) {
+        if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
         console.error(msg, err);
       }
@@ -2363,9 +2364,10 @@ export default class CrucibleActor extends Actor {
 
     // Identify the target equipment slot
     if ( slot === undefined ) {
+      const offhand = weapon.system.allowedSlots.includes(slots.OFFHAND);
       if ( category.hands === 2 ) slot = slots.TWOHAND;
-      else if ( category.main ) slot = mainhand?.id && category.off ? slots.OFFHAND : slots.MAINHAND;
-      else if ( category.off ) slot = slots.OFFHAND;
+      else if ( category.main ) slot = mainhand?.id && offhand ? slots.OFFHAND : slots.MAINHAND;
+      else if ( offhand ) slot = slots.OFFHAND;
     }
 
     // Confirm the target slot is available
@@ -2584,8 +2586,8 @@ export default class CrucibleActor extends Actor {
 
     // Simulate changes on a cloned actor?
     const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
+    let clone;
     if ( simulate ) {
-      let clone;
       try {
         clone = this.clone({}, {keepId: true, save: false});
         const simulateData = foundry.utils.mergeObject(data, {
@@ -2609,6 +2611,17 @@ export default class CrucibleActor extends Actor {
         const l = SYSTEM.ACTOR.LEVELS[clone.level];
         if ( adv1.level > adv0.level ) adv1.milestones = l.milestones.start;
         else if ( adv1.level < adv0.level ) adv1.milestones = l.milestones.next - 1;
+      }
+    }
+
+    // Clamp resource changes to the range allowed by their pool
+    const resourceUpdates = data.system?.resources;
+    if ( resourceUpdates ) {
+      const resources = (clone ?? this).resources;
+      for ( const [id, update] of Object.entries(resourceUpdates) ) {
+        if ( typeof update?.value !== "number" ) continue;
+        const max = resources[id]?.max;
+        if ( max !== undefined ) update.value = Math.clamp(update.value, 0, max);
       }
     }
   }

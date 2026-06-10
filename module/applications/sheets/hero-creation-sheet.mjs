@@ -443,15 +443,24 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( filterCategory ) sourceItems = sourceItems.filter(e => e.item.system.category === filterCategory);
 
     // Build the available items list with affordability state
-    context.equipmentItems = sourceItems.map(({item, scaledPrice}) => ({
-      uuid: item.uuid,
-      name: item.name,
-      img: item.img,
-      tags: Object.values(item.system.getTags()),
-      scaledPrice,
-      quantity: equipment[item.uuid]?.quantity ?? 0,
-      unaffordable: scaledPrice > remaining && !(item.uuid in equipment)
-    }));
+    context.equipmentItems = sourceItems.map(({item, scaledPrice}) => {
+      const tags = item.system.getTags();
+
+      // Flag weapons which the hero lacks the training to wield effectively
+      if ( item.type === "weapon" ) {
+        const untrainedTooltip = item.system._getUntrainedTooltip(this._clone);
+        if ( untrainedTooltip ) tags.category = {label: tags.category, unmet: true, tooltip: untrainedTooltip};
+      }
+      return {
+        uuid: item.uuid,
+        name: item.name,
+        img: item.img,
+        tags: Object.values(tags),
+        scaledPrice,
+        quantity: equipment[item.uuid]?.quantity ?? 0,
+        unaffordable: scaledPrice > remaining && !(item.uuid in equipment)
+      };
+    });
 
     // Selected items for sidebar
     context.equipmentSelected = Object.values(equipment).map(({item, quantity, scaledPrice}) => ({

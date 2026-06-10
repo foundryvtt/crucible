@@ -4,12 +4,12 @@ _id: necromancer00000
 img: icons/magic/unholy/strike-beam-blood-red-purple.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Death. Spells which use
-    this Rune cause the @Condition[decaying] condition on Critical
-    Hits.</p><p>The Decaying effect lasts for <strong>3 Rounds</strong> and
-    deals half your <strong>Presence</strong> score as
-    <strong>Corruption</strong> damage to <strong>Health</strong> each
-    Round.</p>
+    <p>You are highly skilled in weaving the Rune of Death. When you cast a
+    Spell or use an action that involves this Rune, your Critical Hits which
+    deal damage cause the @Condition[decaying] condition.</p><p>The Decaying
+    effect lasts for <strong>3 Rounds</strong> and deals half your
+    <strong>Presence</strong> score as <strong>Corruption</strong> damage to
+    <strong>Health</strong> each Round.</p>
   actions: []
   nodes:
     - pre3b

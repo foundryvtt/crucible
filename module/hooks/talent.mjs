@@ -88,6 +88,22 @@ HOOKS.armoredInstinct0 = {
 
 /* -------------------------------------------- */
 
+HOOKS.artificer0000000 = {
+  prepareWeapons(item) {
+    // Raise the Amplify-marked affix one tier on its equipped bearer; prepareWeapons is just a per-prep anchor
+    const marker = this.effects.get(SYSTEM.EFFECTS.getEffectId("Amplify Affix"));
+    const target = marker?.getFlag("crucible", "amplify");
+    if ( !target ) return;
+    const bearer = this.items.get(target.itemId);
+    const affix = bearer?.system.affixes?.[target.affixId];
+    if ( !affix || !bearer.system.equipped ) return;
+    const tier = affix.system.tier;
+    tier.value = Math.min(tier.value + 1, tier.max, 3);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.assassin00000000 = {
   prepareAttack(item, action, target, rollData) {
     if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
@@ -341,10 +357,25 @@ HOOKS.conserveeffort00 = {
 /* -------------------------------------------- */
 
 HOOKS.deftgrip00000000 = {
+  prepareWeapons(_item, weapons) {
+    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("dexterity") ) {
+      weapons.spellHands = Math.max(weapons.spellHands, 2);
+    }
+  },
   prepareAction(_item, action) {
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isRanged = this.equipment.weapons.ranged;
-    if ( isTwoHanded && isRanged ) action.usage.availableHands += 1;
+    if ( action.id !== "equipItem" ) return;
+    const weapon = this.items.get(action.usage.actorUpdates.items?.[0]?._id);
+    if ( (weapon?.type !== "weapon") || !weapon.config.category.scaling.includes("dexterity") ) return;
+    if ( action.cost.action && this.system.hasFreeMove ) {
+      action.cost.action = 0;
+      action.usage.actorStatus.hasMoved = true;
+    }
+  },
+  defendAttack(item, action, _origin, rollData) {
+    const {twoHanded, mainhand} = this.equipment.weapons;
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("dexterity") ) {
+      rollData.banes.deftGrip = {label: item.name, number: 2};
+    }
   }
 };
 
@@ -385,10 +416,10 @@ HOOKS.distancerunner00 = {
 
 HOOKS.dustbinder000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "earth" ) return;
+    if ( !action.usesRune("earth") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.damagesHealth ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
           event.effects.push(SYSTEM.EFFECTS.corroding(this));
           break;
         }
@@ -433,6 +464,23 @@ HOOKS.focusedanticipat = {
     if ( turn > 0 ) return;
     resourceChanges.focus.push({label: item.name, amount: 1});
     statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.glider0000000000 = {
+  prepareActions(_item, actions) {
+    if ( !actions.fallGlide ) return;
+    const canGlide = !this.system.isIncapacitated && !this.statuses.has("restrained");
+    if ( canGlide ) actions.fall = actions.fallGlide;
+    delete actions.fallGlide;
+  },
+  prepareMovement(_item, movement) {
+    if ( !this.statuses.has("falling") ) return;
+    movement.strideBonus += movement.baseStride;
+    // A hack to guarantee that the glide is treated as a free move
+    if ( this.system.status?.hasMoved ) this.system.status = {...this.system.status, hasMoved: false};
   }
 };
 
@@ -502,7 +550,7 @@ HOOKS.impenetrableGuar = {
 
 HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "soul" ) return;
+    if ( !action.usesRune("soul") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.healsMorale ) {
@@ -569,7 +617,7 @@ HOOKS.justiciar0000000 = {
 
 HOOKS.kineturge0000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "kinesis" ) return;
+    if ( !action.usesRune("kinesis") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.isDamage ) continue;
@@ -596,7 +644,7 @@ HOOKS.lesserregenerati = {
 
 HOOKS.lightbringer0000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "illumination" ) return;
+    if ( !action.usesRune("illumination") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.isDamage ) {
@@ -612,7 +660,7 @@ HOOKS.lightbringer0000 = {
 
 HOOKS.mender0000000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "life" ) return;
+    if ( !action.usesRune("life") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.healsHealth ) {
@@ -639,10 +687,10 @@ HOOKS.mentalfortress00 = {
 
 HOOKS.mesmer0000000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "illusion" ) return;
+    if ( !action.usesRune("illusion") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.damagesMorale ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
           event.effects.push(SYSTEM.EFFECTS.confused(this));
           break;
         }
@@ -664,10 +712,10 @@ HOOKS.neverYield000000 = {
 
 HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "death" ) return;
+    if ( !action.usesRune("death") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.damagesHealth ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
           event.effects.push(SYSTEM.EFFECTS.decay(this));
           break;
         }
@@ -812,12 +860,71 @@ HOOKS.preternaturalins = {
 
 /* -------------------------------------------- */
 
-HOOKS.pyromancer000000 = {
-  applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "flame" ) return;
+HOOKS.primalist0000000 = {
+  _STANCES: {
+    flame: "stanceFlame00000",
+    frost: "stanceFrost00000",
+    earth: "stanceEarth00000",
+    lightning: "stanceLightning0"
+  },
+  _canUseStance(action, rune) {
+    const actor = action.actor;
+    if ( actor.effects.has(HOOKS.primalist0000000._STANCES[rune]) ) return false;
+    if ( !actor.grimoire.runes.has(rune) ) throw new Error(_loc("ACTION.WARNINGS.RequiresRune"));
+    if ( actor.inCombat && actor.system.status.primalStance ) {
+      throw new Error(_loc("ACTION.WARNINGS.OncePerTurn", {action: action.name}));
+    }
+    return true;
+  },
+  _activateStance(action, rune) {
+    const stances = HOOKS.primalist0000000._STANCES;
+    const effectId = stances[rune];
+    action.usage.actorStatus.primalStance = true;
+    action.effects[0]._id = effectId;
+    action.effects[0].showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    for ( const id of Object.values(stances) ) {
+      if ( (id !== effectId) && action.actor.effects.has(id) ) {
+        action.recordEvent({type: "effect", target: action.actor, effects: [{_id: id, _action: "delete"}]});
+      }
+    }
+  },
+  prepareMovement(_item, movement) {
+    if ( this.effects.has(HOOKS.primalist0000000._STANCES.lightning) ) movement.strideBonus += 2;
+  },
+  prepareDefenses(_item, defenses) {
+    if ( !this.effects.has(HOOKS.primalist0000000._STANCES.frost) ) return;
+    for ( const d of ["reflex", "fortitude", "willpower"] ) defenses[d].bonus += 1;
+  },
+  prepareResistances(_item, resistances) {
+    if ( !this.effects.has(HOOKS.primalist0000000._STANCES.earth) ) return;
+    for ( const dt of ["bludgeoning", "piercing", "slashing"] ) resistances[dt].base += 2;
+  },
+  prepareAttack(_item, action) {
+    if ( !action.tags.has("strike") ) return;
+    const stances = HOOKS.primalist0000000._STANCES;
+    action.usage.rune = Object.keys(stances).find(rune => this.effects.has(stances[rune]));
+  },
+  finalizeAction(_item, action) {
+    if ( !action.tags.has("strike") || !this.effects.has(HOOKS.primalist0000000._STANCES.flame) ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.damagesHealth ) {
+        if ( !event.isDamage ) continue;
+        const resource = event.roll?.data?.damage?.resource ?? "health";
+        const fire = Math.clamp(2 - target.getResistance(resource, "fire"), 0, 4);
+        if ( fire ) event.resources.push({resource, delta: -fire, damageType: "fire"});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.pyromancer000000 = {
+  applyCriticalEffects(_item, action) {
+    if ( !action.usesRune("flame") ) return;
+    for ( const [target, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
           event.effects.push(SYSTEM.EFFECTS.burning(this));
           break;
         }
@@ -838,10 +945,10 @@ HOOKS.resilient0000000 = {
 
 HOOKS.rimecaller000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "frost" ) return;
+    if ( !action.usesRune("frost") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.damagesHealth ) {
+        if ( event.isCriticalSuccess && event.isDamage ) {
           event.effects.push(SYSTEM.EFFECTS.freezing(this));
           break;
         }
@@ -875,6 +982,15 @@ HOOKS.saboteur00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.sage000000000000 = {
+  useAction(item, action) {
+    // Resting refreshes the free out-of-combat Flash of Brilliance (per-Rest flag, see issue #1196)
+    if ( action.id === "rest" ) action.usage.actorFlags.flashOfBrillianceRested = false;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.skirmisher000000 = {
   defendAttack(item, action, origin, rollData) {
     if ( action.id === "reactiveStrike" ) rollData.banes[item.skirmisher] = {label: item.name, number: 2};
@@ -888,6 +1004,36 @@ HOOKS.inexorableFlame0 = {
     const flame = grimoire.runes.get("flame");
     if ( !flame ) return;
     grimoire.runes.set("flame", flame.clone({scaling: "wisdom"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.gatheringStorm00 = {
+  prepareSpells(_item, grimoire) {
+    const lightning = grimoire.runes.get("lightning");
+    if ( !lightning ) return;
+    grimoire.runes.set("lightning", lightning.clone({scaling: "wisdom"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flashFrost000000 = {
+  prepareSpells(_item, grimoire) {
+    const frost = grimoire.runes.get("frost");
+    if ( !frost ) return;
+    grimoire.runes.set("frost", frost.clone({scaling: "intellect"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.acridEarth000000 = {
+  prepareSpells(_item, grimoire) {
+    const earth = grimoire.runes.get("earth");
+    if ( !earth ) return;
+    grimoire.runes.set("earth", earth.clone({scaling: "intellect"}, {once: true}));
   }
 };
 
@@ -966,6 +1112,33 @@ HOOKS.spellmute0000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.spiritbreaker000 = {
+  prepareAttack(_item, action, _target, rollData) {
+    // Any action that attacks Morale finds the cracks in a foe's will, lowering its Critical Threshold
+    if ( rollData.resource === "morale" ) {
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - 2;
+    }
+  },
+  finalizeAction(_item, action) {
+    // Stun a target this action renders Broken (Morale to 0); at finalize so it serializes and reverses cleanly
+    for ( const [target, events] of action.eventsByTarget ) {
+      if ( target === this ) continue;
+      const morale = target.system?.resources?.morale;
+      if ( !morale || (morale.value <= 0) ) continue; // No Morale pool, or already Broken
+      let moraleDamage = 0;
+      let breakEvent = null;
+      for ( const event of events.roll ) {
+        if ( !event.damagesMorale ) continue;
+        moraleDamage += event.roll?.data?.damage?.total ?? 0;
+        breakEvent ??= event;
+      }
+      if ( breakEvent && (moraleDamage >= morale.value) ) breakEvent.effects.push(SYSTEM.EFFECTS.stunned(this));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.stilllake0000000 = {
   defendAttack(item, action, _origin, rollData) {
     if ( !action.tags.has("skill") ) return;
@@ -988,16 +1161,19 @@ HOOKS.strikefirst00000 = {
 /* -------------------------------------------- */
 
 HOOKS.stronggrip000000 = {
-  prepareAction(_item, action) {
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isMelee = !this.equipment.weapons.ranged;
-    if ( isTwoHanded && isMelee ) action.usage.availableHands += 1;
+  configureEquipment(_item, equipment) {
+    equipment.weapons.heavyOffhand = true;
+  },
+  prepareWeapons(_item, weapons) {
+    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("strength") ) {
+      weapons.spellHands = Math.max(weapons.spellHands, 2);
+    }
   },
   defendAttack(item, action, _origin, rollData) {
-    const isDisarm = action.tags.has("disarm");
-    const isTwoHanded = this.equipment.weapons.twoHanded;
-    const isMelee = !this.equipment.weapons.ranged;
-    if ( isDisarm && isTwoHanded && isMelee ) rollData.banes.strongGrip = {label: item.name, number: 2};
+    const {twoHanded, mainhand} = this.equipment.weapons;
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("strength") ) {
+      rollData.banes.strongGrip = {label: item.name, number: 2};
+    }
   }
 };
 
@@ -1013,7 +1189,7 @@ HOOKS.subtleextricatio = {
 
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "lightning" ) return;
+    if ( !action.usesRune("lightning") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.isDamage ) {
@@ -1084,7 +1260,7 @@ HOOKS.thickskin0000000 = {
 
 HOOKS.thoughtbinder000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "control" ) return;
+    if ( !action.usesRune("control") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.isDamage ) {
@@ -1120,7 +1296,7 @@ HOOKS.unarmedblocking0 = {
 
 HOOKS.voidcaller000000 = {
   applyCriticalEffects(_item, action) {
-    if ( action.rune?.id !== "oblivion" ) return;
+    if ( !action.usesRune("oblivion") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.isDamage ) {
@@ -1160,6 +1336,21 @@ HOOKS.vowofanimus00000 = {
 HOOKS.warmage000000000 = {
   prepareAction(item, action) {
     if ( action.id === "counterspell" ) action.usage.boons.warMage = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.wizard0000000000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("spell") ) return;
+    if ( this.status.wizardMomentum ) return; // The discount may apply at most once per turn
+
+    // Spellcasting momentum: a Spell cast immediately after another Spell this turn costs 1 less Focus
+    if ( this.status.hasCast && this.lastConfirmedAction?.tags.has("spell") ) {
+      action.cost.focus = Math.max(action.cost.focus - 1, 0);
+      action.usage.actorStatus.wizardMomentum = true;
+    }
   }
 };
 

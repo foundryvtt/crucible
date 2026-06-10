@@ -4,12 +4,14 @@ _id: stronggrip000000
 img: icons/skills/melee/hand-grip-sword-orange.webp
 system:
   description: >-
-    Your grasp of your weaponry is firm and unyielding. You can perform Actions
-    which require a free hand while wielding a two-handed melee weapon. Attempts
-    to Disarm you are made with +2 Banes.
+    <p>Your grasp of your weaponry is firm and unyielding. While wielding a
+    two-handed weapon that scales with Strength you may cast spells which
+    require two hands, and attempts to Disarm you are made with +2 Banes.
+    </p><p>Additionally, you may wield a one-handed Heavy weapon in your
+    off-hand.</p>
   actions: []
   nodes:
-    - str0a
+    - str2c
   rune: ''
   gesture: ''
   inflection: ''
@@ -21,11 +23,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
   createdTime: 1772307160150
-  modifiedTime: 1773514792618
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780937954275
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

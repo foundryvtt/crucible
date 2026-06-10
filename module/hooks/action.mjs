@@ -18,6 +18,53 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.amplifyAffix = {
+  async preActivate() {
+    // Enumerate equipped affixes that are below their maximum tier
+    const choices = {};
+    for ( const item of this.actor.items ) {
+      if ( !item.system.equipped || !item.system.affixes ) continue;
+      for ( const [id, affix] of Object.entries(item.system.affixes) ) {
+        const t = affix.system.tier;
+        if ( t.value >= Math.min(t.max, 3) ) continue;
+        choices[`${item.id}.${id}`] = `${item.name}: ${affix.name} (${t.value} → ${t.value + 1})`;
+      }
+    }
+    if ( foundry.utils.isEmpty(choices) ) throw new Error(_loc("ACTIONS.AmplifyAffix.NoAffixes"));
+
+    // Prompt for the affix to amplify
+    const field = new foundry.data.fields.StringField({required: true, blank: false, choices,
+      label: _loc("ACTIONS.AmplifyAffix.Label")});
+    const target = await foundry.applications.api.DialogV2.prompt({
+      window: {title: _loc("ACTIONS.AmplifyAffix.Title"), icon: "fa-solid fa-arrow-up-right-dots"},
+      content: field.toFormGroup({}, {name: "target"}).outerHTML,
+      ok: {label: this.name, callback: (event, button) => button.form.elements.target.value},
+      rejectClose: false
+    });
+    if ( !target ) throw new Error(_loc("ACTIONS.AmplifyAffix.Required"));
+    this.metadata.amplify = target;
+  },
+  async confirm(reverse) {
+    const target = this.metadata.amplify;
+    if ( !target ) return;
+    const effectId = SYSTEM.EFFECTS.getEffectId("Amplify Affix");
+
+    // A single replaceable marker records which affix is amplified; the Artificer prepare hook reads it
+    if ( this.actor.effects.has(effectId) ) await this.actor.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+    if ( reverse ) return;
+    const dot = target.indexOf(".");
+    const amplify = {itemId: target.slice(0, dot), affixId: target.slice(dot + 1)};
+    await this.actor.createEmbeddedDocuments("ActiveEffect", [{
+      _id: effectId,
+      name: _loc("ACTIONS.AmplifyAffix.Effect"),
+      img: this.img,
+      flags: {crucible: {amplify}}
+    }], {keepId: true});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.antitoxin = {
   postActivate() {
     const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
@@ -253,6 +300,16 @@ HOOKS.clarifyIntent = {
 
 /* -------------------------------------------- */
 
+HOOKS.coldFocus = {
+  postActivate() {
+    const h = this.actor.system.resources.health;
+    const missing = h.max > 0 ? (1 - (h.value / h.max)) : 0;
+    this.selfEvents.activation.resources.push({resource: "focus", delta: Math.min(5, 1 + Math.floor(missing * 4))});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.conjureArmament = {
   canUse() {
     const boundArmamentId = this.actor.getFlag("crucible", this.id);
@@ -347,6 +404,19 @@ HOOKS.counterspell = {
     if ( !reverse ) await setNegated();
     await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
     if ( reverse ) await setNegated();
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.coveringFire = {
+  canUse() {
+    if ( this.actor.system.status.coveringFire ) {
+      throw new Error(_loc("ACTION.WARNINGS.OncePerRound", {action: this.name}));
+    }
+  },
+  prepare() {
+    this.usage.actorStatus.coveringFire = true;
   }
 };
 
@@ -506,6 +576,20 @@ HOOKS.fall = {
 
 /* -------------------------------------------- */
 
+HOOKS.fallGlide = {
+  canUse() {
+    if ( !this.actor.statuses.has("falling") ) return false;
+  },
+  acquireTargets(targets) {
+    if ( !this.movement ) return;
+    const origin = this.movement.origin?.elevation ?? 0;
+    const end = this.movement.waypoints?.at(-1)?.elevation ?? origin;
+    if ( end >= origin ) for ( const t of targets ) t.error = _loc("ACTIONS.Glide.MustDescend");
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);
@@ -534,6 +618,66 @@ HOOKS.feintingStrike = {
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.fieldStudy = {
+  async preActivate() {
+    const choices = Object.fromEntries(Object.entries(crucible.CONFIG.knowledge)
+      .map(([k, v]) => [k, _loc(v.label)]));
+    const field = new foundry.data.fields.StringField({
+      required: true, blank: false, choices, label: _loc("ACTIONS.FieldStudy.Label")
+    });
+    const content = field.toFormGroup({}, {name: "knowledge"}).outerHTML;
+    const knowledge = await foundry.applications.api.DialogV2.prompt({
+      window: {title: "ACTIONS.FieldStudy.Title"},
+      content,
+      ok: {label: this.name, callback: (event, button) => button.form.elements.knowledge.value},
+      rejectClose: false
+    });
+    if ( !knowledge ) throw new Error(_loc("ACTIONS.FieldStudy.Required"));
+    this.metadata.knowledge = knowledge;
+  },
+  postActivate() {
+    const k = this.metadata.knowledge;
+    if ( !k ) return;
+    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
+
+    // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
+    const effect = effectEvent.effects[0];
+    effect._id = SYSTEM.EFFECTS.getEffectId("Field Study");
+    effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
+    effect.system.changes = [
+      {key: "system.details.background.knowledge", type: "add", value: k},
+      {key: "system.details.knowledge", type: "add", value: k}
+    ];
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flashBrilliance = {
+  prepare() {
+    // Can be used once per rest outside of combat
+    if ( !this.actor.inCombat && !this.actor.flags.crucible?.flashOfBrillianceRested ) {
+      this.cost.heroism = 0;
+      this.usage.actorFlags.flashOfBrillianceRested = true;
+    }
+  },
+  postActivate() {
+    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
+
+    // Grant every Knowledge for the effect's duration
+    const changes = [];
+    for ( const k in crucible.CONFIG.knowledge ) {
+      changes.push({key: "system.details.background.knowledge", type: "add", value: k});
+      changes.push({key: "system.details.knowledge", type: "add", value: k});
+    }
+    effectEvent.effects[0].system.changes = changes;
   }
 };
 
@@ -640,6 +784,72 @@ HOOKS.horrificCritical = {
     if ( !lastAction?.tags.has("melee") || !lastAction?.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
       throw new Error(_loc("ACTION.WARNINGS.LastNotMeleeCrit", {action: this.name}));
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.imbueAffix = {
+  async preActivate() {
+    const fields = foundry.data.fields;
+    const itemField = new fields.DocumentUUIDField({type: "Item", required: true, blank: false,
+      label: _loc("ACTIONS.ImbueAffix.ItemLabel")});
+    const affixField = new fields.DocumentUUIDField({type: "ActiveEffect", required: true, blank: false,
+      label: _loc("ACTIONS.ImbueAffix.AffixLabel")});
+    const content = document.createElement("div");
+    content.append(
+      itemField.toFormGroup({}, {name: "itemUuid"}),
+      affixField.toFormGroup({}, {name: "affixUuid"})
+    );
+    const data = await foundry.applications.api.DialogV2.prompt({
+      window: {title: _loc("ACTIONS.ImbueAffix.Title"), icon: "fa-solid fa-wand-magic-sparkles"},
+      content,
+      ok: {label: this.name,
+        callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object},
+      rejectClose: false
+    });
+    if ( !data?.itemUuid || !data?.affixUuid ) throw new Error(_loc("ACTIONS.ImbueAffix.Required"));
+
+    // Validate the dropped item is an affixable physical item that this actor owns
+    const item = await fromUuid(data.itemUuid);
+    if ( (item?.actor !== this.actor) || !SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES.has(item.type) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.InvalidItem"));
+    }
+
+    // Validate the dropped affix can be applied at Tier 1 to this item type
+    const affix = await fromUuid(data.affixUuid);
+    if ( affix?.type !== "affix" ) throw new Error(_loc("ACTIONS.ImbueAffix.InvalidAffix"));
+    if ( affix.system.tier.min > 1 ) throw new Error(_loc("ACTIONS.ImbueAffix.TierTooHigh"));
+    if ( affix.system.itemTypes.size && !affix.system.itemTypes.has(item.type) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.Incompatible"));
+    }
+
+    // The item must have an open affix slot in the chosen affix's prefix/suffix category
+    if ( !(item.system.affixCapacity?.[affix.system.affixType]?.available >= 1) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.NoCapacity"));
+    }
+    this.metadata.imbue = {itemUuid: item.uuid, affixUuid: affix.uuid};
+  },
+  async confirm(reverse) {
+    const imbue = this.metadata.imbue;
+    if ( !imbue ) return;
+
+    // A single imbue persists at a time; clear any prior imbued affix across the actor's items
+    for ( const item of this.actor.items ) {
+      const prior = item.effects.find(e => e.getFlag("crucible", "imbued"));
+      if ( prior ) await item.deleteEmbeddedDocuments("ActiveEffect", [prior.id]);
+    }
+    if ( reverse ) return;
+
+    // Inscribe the chosen affix onto the target item at Tier 1
+    const item = await fromUuid(imbue.itemUuid);
+    const affix = await fromUuid(imbue.affixUuid);
+    if ( !item || !affix ) return;
+    const ae = affix.toObject();
+    delete ae._id;
+    ae.system.tier.value = 1;
+    foundry.utils.setProperty(ae, "flags.crucible.imbued", true);
+    await item.createEmbeddedDocuments("ActiveEffect", [ae]);
   }
 };
 
@@ -1618,6 +1828,32 @@ HOOKS.wildStrike = {
     }
     // TODO somehow require this to use a different weapon than the prior confirmed strike
   }
+};
+
+/* -------------------------------------------- */
+/*  Primalist Elemental Stances                 */
+/* -------------------------------------------- */
+
+// Thin shims keyed to each Stance's canonical Rune; validation and effect-stream logic live on the talent hook
+// (crucible.api.hooks.talent.primalist0000000)
+HOOKS.stormStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "lightning"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "lightning"); }
+};
+
+HOOKS.cinderStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "flame"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "flame"); }
+};
+
+HOOKS.waterStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "frost"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "frost"); }
+};
+
+HOOKS.stoneStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "earth"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "earth"); }
 };
 
 /* -------------------------------------------- */
