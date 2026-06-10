@@ -1356,4 +1356,46 @@ HOOKS.wizard0000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.disarmingriposte = {
+  applyCriticalEffects(item, action) {
+    if ( action.id !== "counterRiposte" ) return;
+    for ( const event of action.events ) {
+      if ( (event.target === this) || !event.isCriticalSuccess ) continue;
+      const {mainhand} = event.target.equipment.weapons;
+      if ( !mainhand?.id ) continue;
+      action.recordEvent({
+        type: "actorUpdate",
+        target: event.target,
+        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
+        itemSnapshots: [mainhand.snapshot()],
+        statusText: [{text: _loc("ACTOR.DisarmedStatus"), fontSize: 64}]
+      }, {index: action.events.indexOf(event) + 1});
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.duelist000000000 = {
+  prepareDefenses(_item, defenses) {
+    const w = this.equipment.weapons;
+    const mh = w.mainhand;
+    const cat = mh?.config?.category;
+
+    // Gate: a real one-handed melee weapon in the main hand and an empty off-hand
+    const dueling = mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged;
+    if ( !dueling ) return;
+
+    // While not surrounded: +2 Parry which also raises Physical Defense (the reward for forgoing a shield), plus a +2
+    // redirect which widens the Parry band without raising Physical Defense, turning glancing blows into parries
+    if ( !this.statuses.has("flanked") ) {
+      defenses.parry.total += 4;
+      defenses.physical.total += 2;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 export default HOOKS;

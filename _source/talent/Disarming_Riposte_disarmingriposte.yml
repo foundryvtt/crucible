@@ -1,0 +1,39 @@
+name: Disarming Riposte
+type: talent
+img: icons/skills/melee/hand-grip-staff-teal.webp
+system:
+  description: >-
+    <p>Your ripostes are precise enough to strip a weapon from your foe's grasp.
+    When your @UUID[Compendium.crucible.talent.Item.counterriposte00]{Counter
+    Riposte} achieves a <strong>Critical Hit</strong>, the target is disarmed,
+    dropping their main-hand weapon.</p>
+  actions: []
+  nodes:
+    - str4b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160130
+  modifiedTime: 1781112736118
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: disarmingriposte
+folder: iD0N4Q5xDZqsf354
+sort: 200000
+_key: '!items!disarmingriposte'

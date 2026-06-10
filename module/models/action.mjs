@@ -991,7 +991,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actorFlags: {},
       actorStatus: {},
       actorUpdates: {},
-      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
+      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, criticalSuccessThreshold: 0},
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
@@ -1108,7 +1108,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       skill: 0,
       enchantment: 0,
       damageBonus: 0,
-      multiplier: 1
+      multiplier: 1,
+      criticalSuccessThreshold: 0
     });
   }
 

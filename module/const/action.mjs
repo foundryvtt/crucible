@@ -1077,6 +1077,15 @@ export const TAGS = {
       this.usage.bonuses.damageBonus += 6;
     }
   },
+  keen: {
+    tag: "keen",
+    label: "ACTION.TAG.Keen",
+    tooltip: "ACTION.TAG.KeenTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.criticalSuccessThreshold -= 2;
+    }
+  },
   accurate: {
     tag: "accurate",
     label: "ACTION.TAG.Accurate",

@@ -12,6 +12,27 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /**
+   * Handler for the "scaleResource" change type registered in {@link CONFIG.ActiveEffect.changeTypes}.
+   * The change key targets a resource pool (e.g. "system.resources.morale") and the value is a multiplicative factor.
+   * Must be authored with `phase: "final"` so it scales the derived maximum rather than running pre-derivation.
+   * @param {CrucibleActor} actor                   The target actor whose resource is scaled.
+   * @param {EffectChangeData} change               The change being applied.
+   * @param {object} [options]
+   * @param {boolean} [options.modifyTarget=true]   Whether to mutate the target document.
+   */
+  static applyScaleResource(actor, change, {modifyTarget=true}={}) {
+    if ( !modifyTarget ) return;
+    const resource = foundry.utils.getProperty(actor, change.key);
+    if ( !resource || !("max" in resource) ) return;
+    const factor = Number(change.value);
+    if ( !Number.isFinite(factor) ) return;
+    resource.max = Math.max(Math.ceil(resource.max * factor), 0);
+    resource.value = Math.clamp(resource.value, 0, resource.max);
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   static async _fromStatusEffect(statusId, effectData, options) {
     const status = CONFIG.statusEffects[statusId];

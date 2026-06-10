@@ -519,6 +519,20 @@ HOOKS.evasiveShot = {
 
 /* -------------------------------------------- */
 
+HOOKS.estocade = {
+  acquireTargets(targets) {
+    for ( const t of targets ) {
+      const a = t.actor;
+      if ( !a ) continue;
+      const opened = ["exposed", "prone", "slowed", "staggered", "paralyzed"].some(s => a.statuses.has(s))
+        || !!a.equipment.weapons.dropped?.mainhand;
+      if ( !opened ) t.error ??= _loc("ACTION.WARNINGS.SPECIFIC.ESTOCADE.RequiresOpening");
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
   suppressFromSheet: true,
   canUse() {
