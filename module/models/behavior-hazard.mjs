@@ -57,6 +57,8 @@ export default class CrucibleHazardRegionBehavior extends foundry.data.regionBeh
       description: this.description
     };
     const action = crucible.api.models.CrucibleAction.createHazard(hazardData);
+
+    // Force the hazard onto the token that triggered the region event, not the GM's current targets
     action.usage.forcedTargets = [actor];
     await action.use({dialog: this.promptGM});
   }

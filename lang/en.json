@@ -1320,9 +1320,9 @@
     "WARNINGS": {
       "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
     },
+    "Escalation": "Escalation",
     "HeroismPct": "Heroism {pct}%",
-    "HeroismTooltip": "Progress to next Heroism point",
-    "Escalation": "Escalation"
+    "HeroismTooltip": "Progress to next Heroism point"
   },
   "CONSUMABLE": {
     "CATEGORIES": {

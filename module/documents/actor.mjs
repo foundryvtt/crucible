@@ -343,8 +343,8 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Configure attack roll options contributed by the acting actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
   _configureAttackerRollData(action, rollData) {
@@ -381,8 +381,8 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Configure attack roll options contributed by the target actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
   _configureTargetRollData(action, rollData) {
