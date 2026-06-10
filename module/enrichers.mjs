@@ -96,9 +96,9 @@ export function registerEnrichers() {
       enricher: simpleRulesEnricher([SYSTEM.RULES.SKILL_CATEGORIES, SYSTEM.SKILL.SKILLS, SYSTEM.CRAFTING.TRAINING], ["skill"])
     },
     {
-      id: "crucibleDamageType",
-      pattern: /@DamageType\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.DAMAGE_TYPES], ["damage-type"])
+      id: "crucibleDamage",
+      pattern: /@Damage\[(\w+)]/g,
+      enricher: simpleRulesEnricher([SYSTEM.DAMAGE_TYPES, SYSTEM.DAMAGE_CATEGORIES], ["damage"])
     },
     {
       id: "milestone",
@@ -669,7 +669,7 @@ function enrichSpell([match, spellId]) {
 
 /**
  * Produces an enricher function given a lookup dictionary and the classes to be added
- * @param {List<Record<string, {label: string, tooltip?: string}>>} lookups
+ * @param {List<Record<string, {label: string, tooltip: string}>>} lookups
  * @param {List<string>} classes
  * @returns {function}
  */
@@ -683,11 +683,8 @@ function simpleRulesEnricher(lookups, classes=[]) {
     if ( !cfg ) return new Text(match);
     const tag = document.createElement("enriched-content");
     tag.innerHTML = cfg.label;
-    if (cfg.tooltip) {
-      tag.dataset.crucibleTooltip = "tag";
-      tag.dataset.crucibleTooltipText = cfg.tooltip;
-    }
-
+    tag.dataset.crucibleTooltip = "tag";
+    tag.dataset.crucibleTooltipText = cfg.tooltip;
     tag.classList.add("rule", ...classes);
     return tag;
   };

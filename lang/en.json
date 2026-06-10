@@ -1425,6 +1425,23 @@
     }
   },
   "DAMAGE": {
+    "TOOLTIPS": {
+      "Acid": "Corrosive damage from things like acid vials",
+      "Bludgeoning": "Concussive damage from things like hammers",
+      "Cold": "Damage from extremely low temperature",
+      "Corruption": "Damage representing rot and decay",
+      "Electricity": "Damage from electrical current",
+      "Elemental": "@Damage[acid], @Damage[fire], @Damage[cold], or @Damage[electricity]",
+      "Fire": "Damage from extremely high temperature",
+      "Physical": "@Damage[bludgeoning], @Damage[piercing], @Damage[slashing], or @Damage[poison]",
+      "Piercing": "Damage from being pierced by things like rapiers and arrows",
+      "Poison": "Damage from poisons and venoms",
+      "Psychic": "Damage to the mind",
+      "Radiant": "Damage from extremely bright light",
+      "Slashing": "Damage from cutting wounds, such as from a knife or a sword",
+      "Spiritual": "@Damage[corruption], @Damage[psychic], @Damage[radiant], or @Damage[void]",
+      "Void": "Damage from otherwordly forces"
+    },
     "Acid": "Acid",
     "Bludgeoning": "Bludgeoning",
     "Cold": "Cold",

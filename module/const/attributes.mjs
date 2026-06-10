@@ -88,13 +88,16 @@ export const ABILITIES = Object.freeze({
  */
 export const DAMAGE_CATEGORIES = defineEnum({
   physical: {
-    label: "DAMAGE.Physical"
+    label: "DAMAGE.Physical",
+    tooltip: "DAMAGE.TOOLTIPS.Physical"
   },
   elemental: {
-    label: "DAMAGE.Elemental"
+    label: "DAMAGE.Elemental",
+    tooltip: "DAMAGE.TOOLTIPS.Elemental"
   },
   spiritual: {
-    label: "DAMAGE.Spiritual"
+    label: "DAMAGE.Spiritual",
+    tooltip: "DAMAGE.TOOLTIPS.Spiritual"
   }
 });
 
@@ -107,50 +110,62 @@ export const DAMAGE_CATEGORIES = defineEnum({
 export const DAMAGE_TYPES = defineEnum({
   bludgeoning: {
     label: "DAMAGE.Bludgeoning",
+    tooltip: "DAMAGE.TOOLTIPS.Bludgeoning",
     type: "physical"
   },
   corruption: {
     label: "DAMAGE.Corruption",
+    tooltip: "DAMAGE.TOOLTIPS.Corruption",
     type: "spiritual"
   },
   piercing: {
     label: "DAMAGE.Piercing",
+    tooltip: "DAMAGE.TOOLTIPS.Piercing",
     type: "physical"
   },
   slashing: {
     label: "DAMAGE.Slashing",
+    tooltip: "DAMAGE.TOOLTIPS.Slashing",
     type: "physical"
   },
   poison: {
     label: "DAMAGE.Poison",
+    tooltip: "DAMAGE.TOOLTIPS.Poison",
     type: "physical"
   },
   acid: {
     label: "DAMAGE.Acid",
+    tooltip: "DAMAGE.TOOLTIPS.Acid",
     type: "elemental"
   },
   fire: {
     label: "DAMAGE.Fire",
+    tooltip: "DAMAGE.TOOLTIPS.Fire",
     type: "elemental"
   },
   cold: {
     label: "DAMAGE.Cold",
+    tooltip: "DAMAGE.TOOLTIPS.Cold",
     type: "elemental"
   },
   electricity: {
     label: "DAMAGE.Electricity",
+    tooltip: "DAMAGE.TOOLTIPS.Electricity",
     type: "elemental"
   },
   psychic: {
     label: "DAMAGE.Psychic",
+    tooltip: "DAMAGE.TOOLTIPS.Psychic",
     type: "spiritual"
   },
   radiant: {
     label: "DAMAGE.Radiant",
+    tooltip: "DAMAGE.TOOLTIPS.Radiant",
     type: "spiritual"
   },
   void: {
     label: "DAMAGE.Void",
+    tooltip: "DAMAGE.TOOLTIPS.Void",
     type: "spiritual"
   }
 });
