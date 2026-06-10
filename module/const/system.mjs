@@ -237,7 +237,20 @@ export const RULES = {
   action: ACTION.TAGS,
   damage: {
     type: ATTRIBUTES.DAMAGE_TYPES,
-    category: ATTRIBUTES.DAMAGE_CATEGORIES
+    get category() {
+      const categories = {};
+      for (const {label: categoryLabel, id: categoryId} of Object.values(ATTRIBUTES.DAMAGE_CATEGORIES)) {
+        const damageTypes = [];
+        for (const {id: typeId, type: typeCategory} of Object.values(ATTRIBUTES.DAMAGE_TYPES)) {
+          if (typeCategory === categoryId) {
+            damageTypes.push(`@Rule[damage.type.${typeId}]`);
+          }
+        }
+        const tooltip = game.i18n.getListFormatter({type: "conjunction"}).format(damageTypes);
+        categories[categoryId] = {label: categoryLabel, tooltip};
+      }
+      return categories;
+    }
   },
   defense: ATTRIBUTES.DEFENSES,
   weapon: {

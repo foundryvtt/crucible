@@ -88,16 +88,13 @@ export const ABILITIES = Object.freeze({
  */
 export const DAMAGE_CATEGORIES = defineEnum({
   physical: {
-    label: "DAMAGE.Physical",
-    tooltip: "DAMAGE.TOOLTIPS.Physical"
+    label: "DAMAGE.Physical"
   },
   elemental: {
-    label: "DAMAGE.Elemental",
-    tooltip: "DAMAGE.TOOLTIPS.Elemental"
+    label: "DAMAGE.Elemental"
   },
   spiritual: {
-    label: "DAMAGE.Spiritual",
-    tooltip: "DAMAGE.TOOLTIPS.Spiritual"
+    label: "DAMAGE.Spiritual"
   }
 });
 
