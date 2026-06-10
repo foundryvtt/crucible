@@ -1,0 +1,44 @@
+name: Burning Limb
+type: weapon
+img: icons/magic/fire/flame-burning-fist-strike.webp
+effects: []
+folder: damageTypedLimbs
+flags: {}
+system:
+  category: simple1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} strikes with a limb of concentrated
+      flame.</p>
+    private: ''
+  damageType: fire
+  broken: false
+  identifier: burningLimb
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532810551
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: burningLimb00000
+sort: 2000000
+_key: '!items!burningLimb00000'

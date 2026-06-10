@@ -1,0 +1,29 @@
+<div class="equipment line-item {{cssClass}}" data-uuid="{{uuid}}">
+    {{#if showQuantity}}
+    <input type="number" class="quantity" name="system.equipment.{{equipmentIndex}}.quantity" value="{{quantity}}"
+           min="1" step="1" aria-label="{{localize 'ITEM.FIELDS.quantity.label'}}" data-tooltip>
+    {{/if}}
+    <img class="icon" src="{{img}}" alt="{{name}}">
+    <div class="title">
+        <h4>{{name}}</h4>
+        {{crucibleTags tags}}
+    </div>
+    {{#if showControls}}
+    <div class="controls">
+        {{#if showEquipped}}
+        <a class="button icon toggle fa-solid fa-shield {{#if equipped}}active{{/if}}" data-action="toggleEquipment"
+           data-toggle="equipped" aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></a>
+        {{/if}}
+        {{#if showScaled}}
+        <a class="button icon toggle fa-solid fa-arrow-up-right-dots {{#if scaled}}active{{/if}}"
+           data-action="toggleEquipment" data-toggle="autoScale"
+           aria-label="{{localize 'ITEM.SHEET.EquipmentScale'}}" data-tooltip></a>
+        {{/if}}
+        {{#if showRemove}}
+        <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
+           aria-label="{{localize 'ITEM.SHEET.EquipmentRemove'}}" data-tooltip></a>
+        {{/if}}
+    </div>
+    {{/if}}
+    <div class="description">{{{description}}}</div>
+</div>

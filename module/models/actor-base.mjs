@@ -16,6 +16,8 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquippedWeapons
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
+ * @property {{mainhand: CrucibleItem|null, offhand: CrucibleItem|null}} dropped  Dropped weapons by prior slot
+ * @property {boolean} heavyOffhand   Whether a one-handed heavy weapon may be wielded in the off-hand
  * @property {number} freeHands
  * @property {number} spellHands
  * @property {boolean} unarmed
@@ -102,7 +104,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     schema.resources = new fields.SchemaField(Object.values(SYSTEM.RESOURCES).reduce((obj, resource) => {
       const initial = resource.type === "active" ? 1 : 0; // Avoid starting as weakened, broken, etc...
       obj[resource.id] = new fields.SchemaField({
-        value: new fields.NumberField({...requiredInteger, initial, min: 0, max: resource.max})
+        value: new fields.NumberField({...requiredInteger, initial, min: 0})
       }, {label: resource.label});
       return obj;
     }, {}));
@@ -483,8 +485,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @protected
    */
   _prepareEquipment(items) {
+
+    // Prepare initial equipment eligibility data that hooks can override
     this.equipment.accessorySlots ??= 3;
     this.equipment.toolbeltSlots ??= 3;
+    this.equipment.weapons = {heavyOffhand: false};
+    this.parent.callActorHooks("configureEquipment", this.equipment);
 
     // Step 1: Armor
     const armor = this._prepareArmor(items.armor);
@@ -602,11 +608,29 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       console.warn(w);
     };
 
+    // The loadout object is seeded with capability flags by _prepareEquipment and configured by talents beforehand
+    const weapons = this.equipment.weapons;
+
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
     const slots = SYSTEM.WEAPON.SLOTS;
+    weapons.dropped = {mainhand: null, offhand: null};
     for ( const w of weaponItems ) {
-      const {equipped, slot, properties} = w.system;
+      const ws = w.system;
+
+      // Weapon base data is prepared before the capability flags above exist, so re-derive the allowed slots now and
+      // honor a stored slot which those capabilities permit (e.g. Strong Grip wielding a heavy weapon in the off-hand)
+      ws.allowedSlots = ws.getAllowedEquipmentSlots();
+      if ( ws.allowedSlots.includes(ws._source.slot) ) ws.slot = ws._source.slot;
+      else if ( ws.allowedSlots.length && !ws.allowedSlots.includes(ws.slot) ) ws.slot = ws.allowedSlots[0];
+
+      const {equipped, slot, properties} = ws;
+
+      // Track dropped weapons (disarmed or thrown) by the slot they occupied, so follow-up actions can target the state
+      if ( ws.dropped ) {
+        if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) weapons.dropped.mainhand ??= w;
+        else if ( slot === slots.OFFHAND ) weapons.dropped.offhand ??= w;
+      }
       if ( !equipped ) continue;
       if ( properties.has("natural") ) equippedWeapons.natural.unshift(w);
       else if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
@@ -617,7 +641,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     equippedWeapons.natural.sort((a, b) => b.system.damage.base - a.system.damage.base);
 
     // Assign weapons to equipment slots
-    const weapons = {natural: equippedWeapons.natural};
+    weapons.natural = equippedWeapons.natural;
     let mhOpen = true;
     let ohOpen = true;
 
@@ -666,14 +690,17 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Weapon Set Metadata
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
     weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
-    weapons.melee = !(mhCategory.ranged && ohCategory.ranged);
-    weapons.ranged = mhCategory.ranged || ohCategory.ranged;
+    weapons.melee = !(mhCategory.ranged && ohCategory.ranged) || weapons.natural.some(w => !w.config.category.ranged);
+    weapons.ranged = mhCategory.ranged || ohCategory.ranged || weapons.natural.some(w => w.config.category.ranged);
     weapons.talisman = false;
 
     // Free Hand or Unarmed
     weapons.unarmed = (mhCategory?.id === "unarmed") && (ohCategory?.id === "unarmed");
     weapons.freeHands = weapons.spellHands = mhOpen + ohOpen;
-    if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
+
+    // Talismans contribute additional spellcasting hands
+    const mhTalisman = ["talisman1", "talisman2"].includes(mhCategory.id);
+    if ( mhTalisman ) {
       weapons.spellHands += mhCategory.hands;
       weapons.talisman = true;
     }
@@ -681,6 +708,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       weapons.spellHands += 1;
       weapons.talisman = true;
     }
+
+    // Two-handed weapons allow one hand free for spellcasting or single-hand actions
+    if ( weapons.twoHanded && !mhTalisman ) weapons.freeHands = weapons.spellHands = 1;
 
     // Multi weapon properties
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
@@ -899,12 +929,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !this.abilities.wisdom.value ) resources.heroism.max = 0;
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
 
-    // Clamp resource values
-    for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
-
-    // Final status modifiers
+    // Final status modifiers, applied before clamping so reduced maximums constrain current values
     if ( this.isWeakened ) resources.action.max = Math.max(resources.action.max - 2, 0);
     if ( this.isIncapacitated ) resources.action.max = 0;
+
+    // Clamp resource values
+    for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
   }
 
   /* -------------------------------------------- */
@@ -1094,7 +1124,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
 
       // Create the action
-      const action = new CrucibleAction(ad, {actor: this.parent});
+      const action = new CrucibleAction(ad, {actor: this.parent, autoFavorite: ad.autoFavorite});
       action._initialize({});
       this.actions[action.id] = action;
     }
@@ -1134,19 +1164,27 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const r = this.resources[resource];
     if ( !r || !amount ) return {};
     const current = r.value + (allocation[resource] || 0);
+    const deltas = {};
     let delta;
-    if ( amount < 0 ) {
-      const loss = Math.min(Math.max(current, 0), -amount);
-      if ( loss <= 0 ) return {};
-      delta = -loss;
-    } else {
+
+    // Receive damage - a depleted primary pool absorbs no further damage
+    if ( amount < 0 ) delta = -Math.min(Math.max(current, 0), -amount);
+
+    // Receive healing
+    else {
       const gain = Math.min(amount, Math.max(r.max - current, 0));
       if ( gain <= 0 ) return {};
       delta = gain;
     }
-    allocation[resource] = (allocation[resource] || 0) + delta;
-    const deltas = {[resource]: delta};
+
+    // Allocate primary delta to the active resource
+    if ( delta !== 0 ) {
+      allocation[resource] = (allocation[resource] || 0) + delta;
+      deltas[resource] = delta;
+    }
     if ( (amount >= 0) || !this.usesReserveResources ) return deltas;
+
+    // Allocate remaining amount to the reserve pool
     const overflowName = {health: "wounds", morale: "madness"}[resource];
     const overflow = overflowName ? this.resources[overflowName] : null;
     if ( !overflow ) return deltas;

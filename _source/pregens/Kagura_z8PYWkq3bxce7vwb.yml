@@ -76,6 +76,8 @@ system:
         stride: 10
       name: Giantkin
       img: icons/environment/wilderness/tree-oak.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were a healer or medical professional of some variety. You have
@@ -286,10 +288,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427784
-      modifiedTime: 1776203427784
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136413
+      modifiedTime: 1780588136413
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -329,10 +331,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427784
-      modifiedTime: 1776203427784
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136414
+      modifiedTime: 1780588136414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -369,12 +371,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427784
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427784
+      createdTime: 1780588136414
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -430,6 +432,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: talisman
@@ -443,12 +446,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427785
-      createdTime: 1776203427785
+      modifiedTime: 1780588136414
+      createdTime: 1780588136414
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -482,12 +485,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427785
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427785
+      createdTime: 1780588136414
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -506,10 +509,10 @@ items:
         governs the fundamental procession of souls through life and death and
         relates to matters of sapience, personality, and mental
         health.</p><p>The Soul rune scales using <strong>Presence</strong> and
-        provides <strong>Restoration</strong> of <strong>Morale</strong> or
-        inflicts <strong>Psychic</strong> damage opposed by
-        <strong>Willpower</strong>. It is opposed by the chaotic rune of
-        <strong>Oblivion</strong>.</p>
+        provides <strong>Restoration</strong> of <strong>Morale</strong>. In
+        special circumstances it may be used to inflict <strong>Psychic</strong>
+        damage opposed by <strong>Willpower</strong>. It is opposed by the
+        chaotic rune of <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
           img: icons/magic/light/projectile-halo-teal.webp
@@ -552,6 +555,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: soul
       nodes:
         - pre0b
@@ -565,11 +569,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427785
-      modifiedTime: 1776203427785
+      systemVersion: 0.9.5
+      createdTime: 1780588136414
+      modifiedTime: 1780588136414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -633,6 +637,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: earth
       nodes:
         - wis0b
@@ -646,11 +651,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427785
-      modifiedTime: 1776203427785
+      systemVersion: 0.9.5
+      createdTime: 1780588136415
+      modifiedTime: 1780588136415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -669,9 +674,10 @@ items:
         <p>A chaotic force of creation, responsible for living matter. The Life
         rune governs health and matters relating to biological growth.</p><p>The
         Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong> or inflicts
-        <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It
-        is opposed by the orderly rune of <strong>Death</strong>.</p>
+        <strong>Restoration</strong> of <strong>Health</strong>. In special
+        circumstances it may be used to inflict <strong>Poison</strong> damage
+        opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune
+        of <strong>Death</strong>.</p>
       actions:
         - id: bloom
           name: Bloom
@@ -712,6 +718,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: life
       training:
         type: life
@@ -725,11 +732,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427786
-      modifiedTime: 1776203427786
+      systemVersion: 0.9.5
+      createdTime: 1780588136415
+      modifiedTime: 1780588136415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -747,10 +754,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
-  createdTime: 1776203427783
-  modifiedTime: 1776203427783
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1780588136413
+  modifiedTime: 1780588136413
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

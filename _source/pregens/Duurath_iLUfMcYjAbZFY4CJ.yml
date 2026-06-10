@@ -76,6 +76,8 @@ system:
         stride: 8
       name: Dwarven
       img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>You were part of a law enforcement organization. You learned how to
@@ -290,11 +292,11 @@ items:
       identifier: scaleMail
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438991
-      modifiedTime: 1776203438991
+      systemVersion: 0.9.5
+      createdTime: 1780588142941
+      modifiedTime: 1780588142941
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -345,6 +347,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -359,12 +362,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438992
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142941
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438992
+      createdTime: 1780588142941
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -386,8 +389,8 @@ items:
           name: Second Wind
           condition: ''
           description: >-
-            <p>You focus your energy and recover your Toughness score in
-            Health.</p>
+            <p>You focus your energy and recover your <strong>Toughness</strong>
+            score in <strong>Health</strong>.</p>
           tags:
             - healing
           cost:
@@ -410,6 +413,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -420,12 +424,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438992
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142942
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438992
+      createdTime: 1780588142942
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -463,12 +467,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438992
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142942
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438992
+      createdTime: 1780588142942
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -518,6 +522,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -528,12 +533,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438992
-      modifiedTime: 1776203438992
+      createdTime: 1780588142942
+      modifiedTime: 1780588142942
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -585,6 +590,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -595,12 +601,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438992
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142942
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438992
+      createdTime: 1780588142942
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -672,6 +678,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - sig3.presence
         - sig3.toughness
@@ -686,12 +693,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438993
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142943
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438993
+      createdTime: 1780588142943
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -762,6 +769,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -775,12 +783,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438993
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142943
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438993
+      createdTime: 1780588142943
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -813,12 +821,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438993
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142943
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438993
+      createdTime: 1780588142943
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -835,8 +843,8 @@ items:
     system:
       description: >-
         You are highly skilled in using shields to adopt a defensive posture.
-        You gain double the benefit of the <strong>Guarded</strong> condition
-        against <strong>Weapon Attacks</strong> while wielding a shield.
+        You gain double the benefit of the @Condition[guarded] condition against
+        <strong>Weapon Attacks</strong> while wielding a shield.
       actions: []
       iconicSpells: 0
       training:
@@ -850,12 +858,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438993
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142943
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438993
+      createdTime: 1780588142943
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -888,12 +896,12 @@ items:
     sort: 100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438993
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142943
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438993
+      createdTime: 1780588142943
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -929,12 +937,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438994
-      createdTime: 1776203438994
+      modifiedTime: 1780588142944
+      createdTime: 1780588142944
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -968,12 +976,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438994
-      createdTime: 1776203438994
+      modifiedTime: 1780588142944
+      createdTime: 1780588142944
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1060,6 +1068,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: unarmed
@@ -1073,12 +1082,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438994
-      createdTime: 1776203438994
+      modifiedTime: 1780588142944
+      createdTime: 1780588142944
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1094,21 +1103,23 @@ items:
       core: {}
     system:
       description: >-
-        You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.
+        <p>You protect your allies, intercepting blows that might otherwise be
+        directed towards your companions.</p>
       actions:
         - id: intercept
           condition: An enemy moves into or through your Engagement radius.
           description: >-
             <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediatly moving up to your
+            <strong>Engagement</strong> radius, immediately moving up to your
             <strong>Stride</strong> to interpose yourself and block their
             path.</p><p>If the enemy moves out of your Engagement radius or
             attacks any other creature during their turn, you may make a
-            <strong>Reactive Strike</strong> against them.</p>
+            @Action[default reactiveStrike] against them.</p><h3
+            class="divider">Playtest Notes</h3><p>The interruption of enemy
+            movement is not yet automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 0
             focus: 1
@@ -1130,6 +1141,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -1140,12 +1152,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438994
-      createdTime: 1776203438994
+      modifiedTime: 1780588142944
+      createdTime: 1780588142944
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1178,11 +1190,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438994
-      modifiedTime: 1776203438994
+      systemVersion: 0.9.5
+      createdTime: 1780588142945
+      modifiedTime: 1780588142945
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1233,6 +1245,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: heavy
@@ -1245,11 +1258,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438994
-      modifiedTime: 1776203438994
+      systemVersion: 0.9.5
+      createdTime: 1780588142945
+      modifiedTime: 1780588142945
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1286,11 +1299,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438995
-      modifiedTime: 1776203438995
+      systemVersion: 0.9.5
+      createdTime: 1780588142945
+      modifiedTime: 1780588142945
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1309,11 +1322,10 @@ items:
         - tou3a
       description: >-
         <p>You are expert in using your armor in combination with your shield to
-        create a defensive shell.</p><p>When you have the
-        <strong>Guarded</strong> condition and have a <strong>Heavy
-        Shield</strong> equipped, your base <strong>Armor</strong> defense is
-        reduced by half but your <strong>Block</strong> defense increases by a
-        corresponding amount.</p>
+        create a defensive shell.</p><p>When you have the @Condition[guarded]
+        condition and have a <strong>Heavy Shield</strong> equipped, your base
+        <strong>Armor</strong> defense is reduced by half but your
+        <strong>Block</strong> defense increases by a corresponding amount.</p>
       actions: []
       rune: ''
       gesture: ''
@@ -1325,11 +1337,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438995
-      modifiedTime: 1776203438995
+      systemVersion: 0.9.5
+      createdTime: 1780588142945
+      modifiedTime: 1780588142945
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1397,6 +1409,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: shield
@@ -1409,11 +1422,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438995
-      modifiedTime: 1776203438995
+      systemVersion: 0.9.5
+      createdTime: 1780588142946
+      modifiedTime: 1780588142946
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1445,11 +1458,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438995
-      modifiedTime: 1776203438995
+      systemVersion: 0.9.5
+      createdTime: 1780588142946
+      modifiedTime: 1780588142946
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1474,7 +1487,8 @@ items:
       enchantment: mundane
       equipped: true
       invested: false
-      properties: []
+      properties:
+        - stackable
       description:
         public: >-
           <p>A slightly curved bar of strong metal featuring a hook with a
@@ -1487,11 +1501,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438995
-      modifiedTime: 1776203438995
+      systemVersion: 0.9.5
+      createdTime: 1780588142946
+      modifiedTime: 1780588142946
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1516,7 +1530,8 @@ items:
       enchantment: mundane
       equipped: true
       invested: false
-      properties: []
+      properties:
+        - stackable
       description:
         public: >-
           <p>This potion contains a specialized alchemical formula to rapidly
@@ -1561,6 +1576,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       uses:
         value: 1
         max: 1
@@ -1571,11 +1587,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438996
-      modifiedTime: 1776203438996
+      systemVersion: 0.9.5
+      createdTime: 1780588142947
+      modifiedTime: 1780588142947
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1616,11 +1632,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438996
-      modifiedTime: 1776203438996
+      systemVersion: 0.9.5
+      createdTime: 1780588142947
+      modifiedTime: 1780588142947
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1692,6 +1708,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: kinesis
       nodes:
         - pre0b
@@ -1705,11 +1722,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438996
-      modifiedTime: 1776203438996
+      systemVersion: 0.9.5
+      createdTime: 1780588142947
+      modifiedTime: 1780588142947
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1746,11 +1763,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438996
-      modifiedTime: 1776203438996
+      systemVersion: 0.9.5
+      createdTime: 1780588142947
+      modifiedTime: 1780588142947
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1790,11 +1807,11 @@ items:
       dropped: false
       slot: 2
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438996
-      modifiedTime: 1776203438996
+      systemVersion: 0.9.5
+      createdTime: 1780588142947
+      modifiedTime: 1780588142947
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1834,11 +1851,11 @@ items:
       actions: []
       dropped: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438997
-      modifiedTime: 1776203438997
+      systemVersion: 0.9.5
+      createdTime: 1780588142948
+      modifiedTime: 1780588142948
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1875,14 +1892,14 @@ items:
       identifier: heavyCrossbow
       invested: false
       actions: []
-      dropped: true
+      dropped: false
       slot: 0
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438989
-      modifiedTime: 1776203438989
+      systemVersion: 0.9.5
+      createdTime: 1780588142948
+      modifiedTime: 1780588142948
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1899,11 +1916,11 @@ flags:
   crucible:
     actionHistory: []
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438989
-  modifiedTime: 1776203438989
+  systemVersion: 0.9.5
+  createdTime: 1780588142940
+  modifiedTime: 1780588142940
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

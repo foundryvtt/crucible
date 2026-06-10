@@ -13,7 +13,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   static DEFAULT_OPTIONS = {
     actions: {
       removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
-      toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
+      toggleEquipment: CrucibleActorDetailsItemSheet.#toggleEquipmentOption,
       removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent,
       removeSpell: CrucibleActorDetailsItemSheet.#onRemoveSpell
     }
@@ -47,7 +47,28 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.talents = await this._prepareTalents();
+    if ( this.options.item.includesEquipment ) context.equipment = await this._prepareEquipment();
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retrieve equipment and prepare for rendering.
+   * @returns {Promise<string[]>}
+   * @protected
+   */
+  async _prepareEquipment() {
+    const equipment = this.document.system.equipment;
+    const promises = [];
+    for ( const [equipmentIndex, {item: uuid, quantity, equipped, autoScale}] of equipment.entries() ) {
+      promises.push(fromUuid(uuid).then(item => {
+        item ||= new Item.implementation({type: "loot", name: "INVALID"});
+        return item.renderInline({showRemove: this.isEditable, showEquipped: this.isEditable,
+          showScaled: this.isEditable, equipmentIndex, quantity, equipped, scaled: autoScale, uuid});
+      }));
+    }
+    return Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -79,6 +100,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( !this.isEditable ) return;
     const dropZone = this.element.querySelector(".talent-drop");
     dropZone?.addEventListener("drop", this.#onDropTalent.bind(this));
+    const dropZoneEquipment = this.element.querySelector(".equipment-drop");
+    dropZoneEquipment?.addEventListener("drop", this.#onDropEquipment.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -142,6 +165,15 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
       }
       submitData.system.talents = updatedTalents;
     }
+
+    // Handle equipment quantity changes
+    if ( submitData.system.equipment ) {
+      const updatedEquipment = foundry.utils.deepClone(this.document.system._source.equipment);
+      for ( const [idx, changes] of Object.entries(submitData.system.equipment) ) {
+        foundry.utils.mergeObject(updatedEquipment[idx], changes);
+      }
+      submitData.system.equipment = updatedEquipment;
+    }
     return submitData;
   }
 
@@ -177,6 +209,48 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
+   * Handle drop events for an equipment item added to this sheet.
+   * @param {DragEvent} event
+   * @returns {Promise<*>}
+   */
+  async #onDropEquipment(event) {
+    const data = CONFIG.ux.TextEditor.getDragEventData(event);
+    const equipment = this.document.system.equipment;
+    if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
+    const item = await fromUuid(data.uuid);
+    try {
+      this._validateDroppedEquipment(item);
+    } catch(err) {
+      ui.notifications.error(err.message);
+      return;
+    }
+
+    // Update Actor detail or permanent Item
+    const updateItem = {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped};
+    const updateData = {system: {equipment: [...equipment, updateItem]}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether a dropped item is a valid equipment grant for this detail item type.
+   * @param {CrucibleItem|null} item    The dropped item
+   * @throws {Error}                    An error explaining why the dropped item is not allowed
+   * @protected
+   */
+  _validateDroppedEquipment(item) {
+    if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) {
+      throw new Error(_loc("ARCHETYPE.WARNINGS.NotEquipment"));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Remove a talent entry from the item's granted talents list.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
@@ -194,18 +268,17 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /**
-   * Toggle the equipped state of an equipment entry on the item.
+   * Toggle a boolean option of an equipment entry on the item, identified by the button's data-toggle attribute.
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
-  static async #toggleEquipped(event) {
-    const item = event.target.closest(".equipment");
+  static async #toggleEquipmentOption(event, target) {
+    const toggle = target.dataset.toggle;
+    const uuid = target.closest(".equipment").dataset.uuid;
     const equipment = this.document.system.equipment;
-    const uuid = item.dataset.uuid;
-    const existingItem = equipment.find(i => i.item === uuid);
-    existingItem.equipped = !existingItem.equipped;
-    const updateData = {system: {equipment}};
-    return this._processSubmitData(event, this.form, updateData);
+    const entry = equipment.find(i => i.item === uuid);
+    entry[toggle] = !entry[toggle];
+    return this._processSubmitData(event, this.form, {system: {equipment}});
   }
 
   /* -------------------------------------------- */

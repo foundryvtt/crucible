@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Natural Weapons
+color: '#861f13'
+sorting: a
+_id: naturalWeapons00
+description: ''
+sort: 100000
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532344865
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!naturalWeapons00'

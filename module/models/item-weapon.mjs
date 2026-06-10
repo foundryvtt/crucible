@@ -50,6 +50,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   actionBonuses;
 
   /**
+   * Equipment slots in which this weapon may be equipped, as values of SYSTEM.WEAPON.SLOTS.
+   * @type {number[]}
+   */
+  allowedSlots;
+
+  /**
    * Weapon Strike action cost.
    * @type {number}
    */
@@ -78,8 +84,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
     // Equipment Slot
     if ( this.dropped ) this.equipped = false;
-    const allowedSlots = this.getAllowedEquipmentSlots();
-    if ( !allowedSlots.includes(this.slot) ) this.slot = allowedSlots[0];
+    this.allowedSlots = this.getAllowedEquipmentSlots();
+    if ( !this.allowedSlots.includes(this.slot) ) this.slot = this.allowedSlots[0];
 
     // Weapon Damage
     this.damage = this.#prepareDamage();
@@ -235,13 +241,16 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const category = this.config.category;
     const slots = [];
     if ( this.properties.has("natural") ) return slots;
+    // A capability flag (e.g. granted by Strong Grip) may permit a one-handed heavy weapon in the off-hand
+    const heavyOffhand = this.parent?.actor?.system.equipment.weapons?.heavyOffhand;
+    const offhand = category.off || ((category.id === "heavy1") && !!heavyOffhand);
     if ( category.main ) {
       if ( category.hands === 2 ) return [SLOTS.TWOHAND];
-      if ( category.off ) slots.unshift(SLOTS.EITHER);
+      if ( offhand ) slots.unshift(SLOTS.EITHER);
       slots.push(SLOTS.MAINHAND);
       if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
     }
-    if ( category.off ) slots.push(SLOTS.OFFHAND);
+    if ( offhand ) slots.push(SLOTS.OFFHAND);
     return slots;
   }
 
@@ -272,20 +281,35 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Provide a tooltip that explains what training is required to use this weapon without skill penalty.
+   * @param {CrucibleActor} actor   The actor attempting to wield this weapon.
+   * @returns {string|null}         A localized tooltip naming the missing training, or null if the actor is trained.
+   * @internal
+   */
+  _getUntrainedTooltip(actor) {
+    const category = this.config.category;
+    if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
+    if ( actor.getSkillBonus(category.training) >= 0 ) return null;
+    const labels = category.training.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+    const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
+    return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
+  }
+
+  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
-
     /** @deprecated since 0.7.3 */
     if ( source.category === "natural" ) {
       source.category = "simple1";
       source.properties ||= [];
       source.properties.push("natural");
     }
-
     return source;
   }
 }

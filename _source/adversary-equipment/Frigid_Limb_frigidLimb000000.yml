@@ -1,0 +1,44 @@
+name: Frigid Limb
+type: weapon
+img: icons/magic/water/strike-ice-blade-axe.webp
+effects: []
+folder: damageTypedLimbs
+flags: {}
+system:
+  category: simple1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} swipes with an aqueous limb, frigid with
+      cold.</p>
+    private: ''
+  damageType: cold
+  broken: false
+  identifier: frigidLimb
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532587654
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: frigidLimb000000
+sort: 2100000
+_key: '!items!frigidLimb000000'

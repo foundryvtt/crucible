@@ -10,10 +10,13 @@ system:
     transformed you have the exact attributes and abilities of the chosen
     beast.</p><p>Your equipment is magically incorporated into the form that you
     take, however you gain no benefit from that equipment while
-    transformed.</p><p>If your bestial form becomes Incapacitated you revert
-    back to your normal form with any excess damage becoming Wounds. If your
-    Morale is Broken while in beast form your transformation ends and any excess
-    damage becomes Madness.</p>
+    transformed.</p><p>If your bestial form becomes @Condition[incapacitated]
+    you revert back to your normal form with any excess damage becoming
+    <strong>Wounds</strong>. If your <strong>Morale</strong> is
+    @Condition[broken] while in beast form your transformation ends and any
+    excess damage becomes <strong>Madness</strong>.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent and its associated actions
+    are not yet automated.</p>
   actions:
     - id: beastShape
       name: Beast Shape
@@ -103,11 +106,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160146
-  modifiedTime: 1773514792612
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780576071238
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
   exportSource: null

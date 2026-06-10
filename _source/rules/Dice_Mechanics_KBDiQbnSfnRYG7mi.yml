@@ -125,17 +125,17 @@ pages:
         captain, has his ship boarded by pirates. By fortunate circumstance, the
         fierce rocking of the ship has toppled one of the invaders over on the
         deck of his ship. Advancing towards the sprawling pirate, Albert draws
-        his blade and slashes down upon the unwelcome guest. Attacking a Prone
-        creature confers <strong>2 boons</strong> to Albert's attack
-        roll.</p><p>These two boons upgrade the first die in the
+        his blade and slashes down upon the unwelcome guest. Attacking a
+        @Condition[prone] creature confers <strong>2 boons</strong> to Albert's
+        attack roll.</p><p>These two boons upgrade the first die in the
         <strong>3d8</strong> dice pool twice, from a <strong>d8</strong> to a
         <strong>d12</strong>, resulting in a dice pool of <strong>1d12 + 1d8 +
         1d8</strong>.</p></section><p>Boons or banes resulting from
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleConditio]{Conditions}
-        like <strong>Prone</strong> will be handled automatically by layers of
-        automation in the Crucible software, but additional boons may always be
-        awarded by the Gamemaster prior to any roll as ways to reward players
-        for creative problem solving or inspirational roleplay.</p><section
+        like Prone will be handled automatically by layers of automation in the
+        Crucible software, but additional boons may always be awarded by the
+        Gamemaster prior to any roll as ways to reward players for creative
+        problem solving or inspirational roleplay.</p><section
         class="gameplay"><h4>Example: Both Boons and Banes</h4><p>Dariel is an
         intrepid outdoorswoman with the Journeyman rank in Survival with a
         Herbalist specialization. She wishes to identify a herb that may be used
@@ -161,10 +161,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.342'
+      coreVersion: '14.363'
       createdTime: 1684374120469
-      modifiedTime: 1684893796895
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780590272320
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: null
       duplicateSource: null
       exportSource: null

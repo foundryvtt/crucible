@@ -77,6 +77,8 @@ system:
         stride: 10
       name: Devilkin
       img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         You were a travelling entertainer. You learned to be comfortable
@@ -287,10 +289,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427788
-      modifiedTime: 1776203427788
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136417
+      modifiedTime: 1780588136417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -330,10 +332,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.1
-      coreVersion: '14.360'
-      createdTime: 1776203427788
-      modifiedTime: 1776203427788
+      systemVersion: 0.9.5
+      coreVersion: '14.363'
+      createdTime: 1780588136417
+      modifiedTime: 1780588136417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -401,6 +403,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - pre1a
       rune: ''
@@ -411,12 +414,12 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427788
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427788
+      createdTime: 1780588136417
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -452,12 +455,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203427788
+      systemVersion: 0.9.5
+      modifiedTime: 1780588136418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203427788
+      createdTime: 1780588136418
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -513,6 +516,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: light
@@ -526,12 +530,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427789
-      createdTime: 1776203427789
+      modifiedTime: 1780588136418
+      createdTime: 1780588136418
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -593,6 +597,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: oblivion
       nodes:
         - int0a
@@ -606,11 +611,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427789
-      modifiedTime: 1776203427789
+      systemVersion: 0.9.5
+      createdTime: 1780588136418
+      modifiedTime: 1780588136418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -672,6 +677,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: flame
       nodes:
         - int0a
@@ -685,12 +691,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203427790
-      createdTime: 1776203427790
+      modifiedTime: 1780588136419
+      createdTime: 1780588136419
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -726,11 +732,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203427790
-      modifiedTime: 1776203427790
+      systemVersion: 0.9.5
+      createdTime: 1780588136419
+      modifiedTime: 1780588136419
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -748,10 +754,10 @@ flags:
     lastSpell: spell.flame.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
-  createdTime: 1776203427786
-  modifiedTime: 1776203427786
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1780588136416
+  modifiedTime: 1780588136416
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

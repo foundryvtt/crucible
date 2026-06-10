@@ -1,0 +1,44 @@
+name: Caustic Limb
+type: weapon
+img: icons/magic/acid/dissolve-arm-flesh.webp
+effects: []
+folder: damageTypedLimbs
+flags: {}
+system:
+  category: simple1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} strikes with a dripping limb of
+      corrosive ichor.</p>
+    private: ''
+  damageType: acid
+  broken: false
+  identifier: causticLimb
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780529553862
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: causticLimb00000
+sort: 2300000
+_key: '!items!causticLimb00000'

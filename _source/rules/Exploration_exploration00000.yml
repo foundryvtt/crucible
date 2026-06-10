@@ -87,19 +87,31 @@ pages:
         feet</p></dt><dd><p>Creatures face a hazard that challenges their
         <strong>Reflex</strong> defense and deals <strong>Bludgeoning</strong>
         damage to <strong>Health</strong>. The hazard has a danger equal to the
-        distance fallen in feet. For example, for a 25 foot fall:</p><p>
-        [[/hazard 25 reflex health bludgeoning]]{Minor Fall}</p><p>Unless the
-        hazard is resisted, the creature also becomes
+        distance fallen in feet. For example, for a 25 foot
+        fall:</p><p>[[/hazard 25 reflex health bludgeoning]]{Minor
+        Fall}</p><p>Unless the hazard is resisted, the creature also becomes
         @Condition[prone].</p></dd></dl><dl><dt><p>31+
-        feet</p></dt><dd><p>Creatures face a  <strong>Severe</strong> hazard
-        against  their <strong>Fortitude</strong> defense that deals
+        feet</p></dt><dd><p>Creatures face a <strong>Severe</strong> hazard
+        against their <strong>Fortitude</strong> defense that deals
         <strong>Bludgeoning</strong> damage to <strong>Wounds</strong>. The
         danger of the hazard is equal to the distance fallen in feet. For
         example, for a 60 foot fall:</p><p>[[/hazard 60 fortitude
         severe]]{Serious Fall}</p><p>Unless the hazard is resisted, the creature
-        also becomes @Condition[prone].</p></dd></dl><h3
-        class="divider">Exposure</h3><p>Where Conditions like
-        @Condition[burning] and @Condition[freezing] apply to extreme, but
+        also becomes @Condition[prone].</p></dd></dl><section
+        class="foundryvtt"><h4>Automation</h4><p>Falling is automated during
+        token movement. A creature whose movement ends in mid-air with no
+        supporting surface beneath it gains the @Condition[falling] condition,
+        and a <strong>Fall</strong> action is automatically prompted. This
+        prompt is presented to the Gamemaster as the user who confirms the
+        original action which caused the fall. The Fall action measures the
+        distance to the surface below, applies the appropriate severity of
+        falling damage, drops the creature down to that surface, and applies the
+        @Condition[prone] condition. Falls of 10 feet or less are harmless and
+        deal no damage.</p><p>This automation applies both to a creature's own
+        movement and to Forced Movement which carries it over an edge. Creatures
+        which are @Condition[flying] or @Condition[burrowing] do not
+        fall.</p></section><h3 class="divider">Exposure</h3><p>Where Conditions
+        like @Condition[burning] and @Condition[freezing] apply to extreme, but
         acute, cases of exposure to drastic elemental damage, exposure hazards
         apply to more prolonged cases such as desert or arctic travel where the
         environment is so unforgiving that it poses a persistent drain to a
@@ -116,17 +128,18 @@ pages:
         discomfort is minor and surmountable.</p></dd></dl><dl><dt><p>3 tiers
         difference</p></dt><dd><p>If the environment Temperature is 3 tiers
         different from the creature's preferred body Temperature, they face one
-        of the following hazards based on the nature of the environment:
-        </p><ul><li><p>[[/hazard 6 fortitude cold morale]]{Extreme
+        of the following hazards based on the nature of the
+        environment:</p><ul><li><p>[[/hazard 6 fortitude cold morale]]{Extreme
         Cold}</p></li><li><p>[[/hazard 6 fortitude fire morale]]{Extreme
         Heat}</p></li></ul></dd></dl><dl><dt><p>4 tiers
         difference</p></dt><dd><p>If the environment Temperature is 4 tiers
         different from the creature's preferred body Temperature, they face one
-        of the following hazards based on the nature of the environment:
-        </p><ul><li><p>[[/hazard 12 fortitude cold health severe]]{Deadly
-        Cold}</p></li><li><p>[[/hazard 12 fortitude fire health severe]]{Deadly
-        Heat}</p></li></ul></dd></dl><p>These hazards must be faced once per 24
-        hour period at a time of the Gamemaster's choosing.</p>
+        of the following hazards based on the nature of the
+        environment:</p><ul><li><p>[[/hazard 12 fortitude cold health
+        severe]]{Deadly Cold}</p></li><li><p>[[/hazard 12 fortitude fire health
+        severe]]{Deadly Heat}</p></li></ul></dd></dl><p>These hazards must be
+        faced once per 24 hour period at a time of the Gamemaster's
+        choosing.</p>
     video:
       controls: true
       volume: 0.5
@@ -137,12 +150,12 @@ pages:
       WRGzDgYAt3ZuX6TU: 3
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.9.1
       createdTime: 1777767889927
-      modifiedTime: 1777774652918
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1780590575242
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: null
       duplicateSource: null
       exportSource: null

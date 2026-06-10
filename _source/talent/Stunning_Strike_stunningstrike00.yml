@@ -9,7 +9,7 @@ system:
   description: >-
     <p>A challenging unarmed technique which targets vital pressure points on
     the bodies of your adversaries. You unleash a debilitating strike which, if
-    successful, leaves your enemy Stunned.</p>
+    successful, leaves your enemy @Condition[stunned].</p>
   actions:
     - id: stunningStrike
       condition: ''

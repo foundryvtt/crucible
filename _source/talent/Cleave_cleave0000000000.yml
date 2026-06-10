@@ -41,7 +41,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - str2a
+    - str1a
   rune: ''
   gesture: ''
   inflection: ''
@@ -51,11 +51,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
   createdTime: 1772307160128
-  modifiedTime: 1773514792563
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780938129127
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
   exportSource: null

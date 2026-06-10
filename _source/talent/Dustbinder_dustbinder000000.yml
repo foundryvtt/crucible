@@ -3,10 +3,11 @@ type: talent
 img: icons/magic/earth/orb-stone-smoke-teal.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Earth. Spells which use
-    this Rune cause the @Condition[corroding] condition on Critical
-    Hits.</p><p>The Corroding effect lasts for <strong>3 Rounds</strong> and
-    deals your <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
+    <p>You are highly skilled in weaving the Rune of Earth. When you cast a
+    Spell or use an action that involves this Rune, your Critical Hits which
+    deal damage cause the @Condition[corroding] condition.</p><p>The Corroding
+    effect lasts for <strong>3 Rounds</strong> and deals half your
+    <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
     <strong>Health</strong> each Round.</p>
   actions: []
   nodes:
@@ -26,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.4
+  coreVersion: '14.363'
   createdTime: 1772307160131
-  modifiedTime: 1773514792572
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780502825544
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.dustbinder000000
   duplicateSource: null
   exportSource: null

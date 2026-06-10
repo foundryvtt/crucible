@@ -55,10 +55,10 @@ pages:
         Initiative themselves. Instead this process is automated that every
         character's initiative roll is automatically performed in order to
         maintain a satisfying pace to combat encounters.</p><h4>Incapacitated
-        Combatants</h4><p>Combatants who are <strong>Incapacitated</strong> or
-        <strong>Dead</strong> are automatically placed at Initiative 0 and their
+        Combatants</h4><p>Combatants who are @Condition[incapacitated] or
+        @Condition[dead] are automatically placed at Initiative 0 and their
         turns come last in each Round.</p><h4>Unaware
-        Combatants</h4><p>Combatants who are @Condition[Unaware] act at
+        Combatants</h4><p>Combatants who are @Condition[unaware] act at
         Initiative 1, last aside from Incapacitated creatures. Once a creature
         is no longer Unaware, it rolls Initiative and acts as normal for
         subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
@@ -80,8 +80,8 @@ pages:
         round, the combatant with the highest <strong>Initiative</strong> result
         gains additional Morale equal to the numbered <strong>Round</strong> of
         combat. The combatant with the lowest Initiative result (excluding
-        Incapacitated and Dead combatants) loses Morale equal to the numbered
-        Round of combat.</p>
+        @Condition[incapacitated] and @Condition[dead] combatants) loses Morale
+        equal to the numbered Round of combat.</p>
       markdown: ''
     _id: DPrsFbPo3tD7TJ5g
     image: {}
@@ -98,10 +98,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.346'
-      createdTime: null
-      modifiedTime: 1751122914999
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      coreVersion: '14.363'
+      createdTime: 1780583341772
+      modifiedTime: 1780584520341
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: JournalEntry.PJyL1BtYpx7ikDxT.JournalEntryPage.DPrsFbPo3tD7TJ5g
       duplicateSource: null
       exportSource: null
@@ -175,9 +175,9 @@ pages:
         Focus</strong> talents. Zenith rolls a <strong>29</strong> on a Strike
         attack against a terrible Swamp Troll with a <strong>19 Physical
         Defense</strong>. This attack results in a <strong>Critical Hit</strong>
-        and as a result the Swamp Troll is <strong>Staggered</strong> because of
-        the Concussive Blows talent and Zenith recovers <strong>+1
-        Focus</strong> because of the Battle Focus talent.</p></section>
+        and as a result the Swamp Troll is @Condition[staggered] because of the
+        Concussive Blows talent and Zenith recovers <strong>+1 Focus</strong>
+        because of the Battle Focus talent.</p></section>
       markdown: ''
     _id: lZfPVvBSsCEqlte4
     image: {}
@@ -194,10 +194,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.342'
-      createdTime: null
-      modifiedTime: 1686356373225
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      coreVersion: '14.363'
+      createdTime: 1780584488328
+      modifiedTime: 1780584488328
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: JournalEntry.rQ8H74v0bMnhu4xA.JournalEntryPage.lZfPVvBSsCEqlte4
       duplicateSource: null
       exportSource: null
@@ -241,7 +241,7 @@ pages:
         follows:</p><ol><li><p><strong>Distance</strong> is computed
         center-point to center-point, where the distance of diagonal movement is
         computed using the <strong>Exact √2</strong> diagonal measurement
-        mode.</p></li><li><p><strong>Effective Distance</strong> is compted by
+        mode.</p></li><li><p><strong>Effective Distance</strong> is computed by
         applying the following modifiers in order:</p><ol
         style="list-style-type:lower-alpha"><li><p><strong>Status
         Conditions</strong> are applied first, as described
@@ -256,16 +256,17 @@ pages:
         reduced by 1.</p></li></ol><h3 class="divider">Movement
         Conditions</h3><p>The following <strong>Status Conditions
         </strong>affect the measurement and cost of
-        movement.</p><h4>Slowed</h4><p>The <strong>Effective Distance</strong>
-        traveled by any movement is doubled.</p><h4>Hastened</h4><p>The
-        <strong>Effective Distance</strong> traveled by any movement is
-        halved.</p><h4>Restrained</h4><p>Movement is impossible.</p><h3
-        class="divider">Movement Types</h3><p>The following <strong>Movement
-        Types</strong> are supported:</p><h4>Walk</h4><p>No change to Effective
-        Distance.</p><h4>Step</h4><p>You move carefully, but your
-        <strong>Effective Distance</strong> traveled is
-        doubled.</p><h4>Crawl</h4><p>You move while <strong>Prone</strong> and
+        movement.</p><h4>@Condition[slowed]</h4><p>The <strong>Effective
+        Distance</strong> traveled by any movement is
+        doubled.</p><h4>@Condition[hastened]</h4><p>The <strong>Effective
+        Distance</strong> traveled by any movement is
+        halved.</p><h4>@Condition[restrained]</h4><p>Movement is
+        impossible.</p><h3 class="divider">Movement Types</h3><p>The following
+        <strong>Movement Types</strong> are supported:</p><h4>Walk</h4><p>No
+        change to Effective Distance.</p><h4>Step</h4><p>You move carefully, but
         your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Crawl</h4><p>You move while @Condition[prone] and your
+        <strong>Effective Distance</strong> traveled is
         doubled.</p><h4>Jump</h4><p>Your <strong>Effective Distance</strong>
         traveled is doubled, but required by certain actions or to surmount
         certain obstacles.</p><h4>Climb</h4><p>Used while scaling vertical
@@ -273,36 +274,80 @@ pages:
         doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
         water, your <strong>Effective Distance</strong> traveled is
         doubled.</p><h4>Fly</h4><p>Used by creatures which can fly or hover.
-        Movement while flying is faster than
-        walking.</p><h4>Blink</h4><p>Magical teleportation that ignores terrain
-        and movement cost entirely.</p><h2 class="divider">Free
-        Movement</h2><p>Each creature has the opportunity to perform one free
-        <strong>Movement</strong> action per round of Combat. This means that
-        the first Action performed each round which involves the Movement tag is
-        discounted at -1 Action cost. This will typically make the action free
-        to perform, but in some cases may simply reduce its overall
-        cost.</p><p>Free Movement is not available to creatures that are
-        @Condition[Weakened], @Condition[Prone], or @Condition[Slowed].
-        Creatures wearing <strong>Heavy</strong> armor also lose access to free
-        Movement unless they have the
+        Movement while flying is faster than walking. A creature which ends its
+        movement while flying gains the @Condition[flying]
+        condition.</p><h4>Blink</h4><p>Magical teleportation that ignores
+        terrain and movement cost entirely.</p><h4>Burrow</h4><p>Used by
+        creatures capable of tunneling through the earth. Your <strong>Effective
+        Distance</strong> traveled is doubled. Burrowing movement passes beneath
+        walls, obstacles, and other creatures on the surface above. A creature
+        which ends its movement while burrowing gains the @Condition[burrowing]
+        condition.</p><h2 class="divider">Free Movement</h2><p>Each creature has
+        the opportunity to perform one free <strong>Movement</strong> action per
+        round of Combat. This means that the first Action performed each round
+        which involves the Movement tag is discounted at -1 Action cost. This
+        will typically make the action free to perform, but in some cases may
+        simply reduce its overall cost.</p><p>Free Movement is not available to
+        creatures that are @Condition[weakened], @Condition[prone], or
+        @Condition[slowed]. Creatures wearing <strong>Heavy</strong> armor also
+        lose access to free Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
         Efficiency} talent.</p><h2 class="divider">Terrain</h2><p>Difficult
         terrain increases the cost of movement while traversing it. Difficult
         terrain can be defined using Foundry VTT Scene Regions with the
         <strong>Modify Movement Cost</strong> behavior, which is fully
         integrated with Crucible movement cost computation.</p><h2
-        class="divider">Forced Movement</h2><p>Sometimes, an Action produces a
-        side effect that requires a creature to move involuntarily. This is
-        referred to as <strong>Forced Movement</strong>, and represents
-        situations like being knocked aside by a powerful blow, falling off a
-        ledge, or being dragged along by captors. This type of movement does not
-        incur any Action cost, nor does it consume Free Movement.</p><section
-        class="foundryvtt"><h4>Forced Movement Toggle</h4><p>Gamemasters are
-        responsible for managing this type of special movement, and can do so by
-        enabling the Forced Movement toggle in the Scene Controls menu using the
-        <span class="ref"><i class="fa-solid fa-wind"></i></span>
-        icon.</p><p>Movement made while this toggle is enabled will incur no
-        cost and will be annotated as "Forced" in their Ruler measurement
+        class="divider">Creature Collision</h2><p>While in Combat, creatures
+        treat other creatures as obstacles which block movement. A creature may
+        not move through the space occupied by another creature, whether that
+        creature is an ally or an enemy. Dead creatures do not block movement,
+        nor do creatures at a different elevation, such as a flying creature
+        above the battlefield or a burrowing creature beneath it.</p><p>Blocked
+        movement does not mean that creatures must keep a respectful distance -
+        a creature can press into and partially overlap the edge of another
+        creature's space, but cannot push fully through it.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>Token collision happens
+        automatically whenever the moving Token belongs to an active Combat
+        encounter. Outside of Combat, Tokens move freely through one another.
+        When a moving Token bumps into another, its movement simply stops at the
+        point of contact, just as if it had hit a wall.</p></section><p>Certain
+        movement actions are exempt from this restriction. <strong>Jump</strong>
+        movement vaults over obstructing creatures, <strong>Burrow</strong>
+        movement tunnels beneath them, and <strong>Blink</strong> movement
+        teleports past them entirely. Certain Actions also allow movement
+        through otherwise obstructing creatures as part of their effect, for
+        example @UUID[Compendium.crucible.talent.Item.tumblethrough000]{Tumble
+        Through} or
+        @UUID[Compendium.crucible.talent.Item.shieldcharge0000]{Shield
+        Charge}.</p><p><strong>Forced Movement</strong> respects creature
+        obstacles in the same way: a creature which is pushed, pulled, or
+        knocked back stops its involuntary movement when it collides with
+        another creature.</p><section class="construction"><h4>Under
+        Construction</h4><p>Token Collision mechanics and the rules for handling
+        collision and overlap between creatures are still being developed and
+        are not yet final. Expect these rules to evolve in future
+        releases.</p></section><h2 class="divider">Forced
+        Movement</h2><p>Sometimes, an Action produces a side effect that
+        requires a creature to move involuntarily. This is referred to as
+        <strong>Forced Movement</strong>, and represents situations like being
+        knocked aside by a powerful blow, falling off a ledge, or being dragged
+        along by captors. This type of movement does not incur any Action cost,
+        nor does it consume Free Movement.</p><p>Forced Movement is usually
+        produced automatically by the Action which causes it. Effects which
+        push, pull, or knock a target back - such as the <strong>Push</strong>
+        and <strong>Pull</strong> spell Inflections - plan and execute this
+        secondary movement as part of resolving the Action, timed to coincide
+        with the moment of impact in the Action's animation. Forced Movement
+        cannot push a creature through walls or through other creatures, and a
+        creature carried over an edge will
+        @UUID[Compendium.crucible.rules.JournalEntry.exploration00000.JournalEntryPage.environmentalHaz]{Fall}.</p><section
+        class="foundryvtt"><h4>Forced Movement Toggle</h4><p>For situations
+        which are not automated by a specific Action - like being dragged along
+        by captors - the Gamemaster can move a Token manually as Forced Movement
+        by enabling the Forced Movement toggle in the Scene Controls menu using
+        the <span class="ref"><i class="fa-solid fa-wind"></i></span>
+        icon.</p><p>Movement made while this toggle is enabled incurs no cost
+        and is annotated as "Forced" in its Ruler measurement
         tooltip.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
         or obstacles can be counted as Cover - providing additional protection
         from incoming Spell or Weapon attacks. When a direct single-target
@@ -332,10 +377,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       createdTime: 1684374473225
-      modifiedTime: 1777850642905
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1780579467460
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -366,7 +411,7 @@ pages:
         compared to the Goblin's passive Intimidation score of
         <strong>14</strong>. This success results in <strong>17 Void
         Damage</strong> dealt to the Goblin's Morale, causing it to become
-        Broken and attempt to flee.</p></section>
+        @Condition[broken] and attempt to flee.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -379,10 +424,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.363'
       createdTime: 1684374509565
-      modifiedTime: 1763154338884
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1780583262801
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -406,8 +451,8 @@ pages:
         Reactions require spending Action or Focus points, and therefore cannot
         be performed if you do not have the required resources - even if the
         condition for the reaction is otherwise met.</p><p>A creature is unable
-        to perform Reactions if they are <strong>Unaware</strong> or
-        <strong>Incapacitated</strong>.</p>
+        to perform Reactions if they are @Condition[unaware] or
+        @Condition[incapacitated].</p>
     video:
       controls: true
       volume: 0.5
@@ -420,10 +465,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.6
-      coreVersion: '13.342'
+      coreVersion: '14.363'
       createdTime: 1684374521577
-      modifiedTime: 1686014633443
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780584243102
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -551,14 +596,15 @@ pages:
         style="width:30%"><p>Tag</p></th><th><p>Rules
         Effect</p></th></tr></thead><tbody><tr><td><p>Vocal</p></td><td><p>Requires
         the ability to speak. Cannot be used while
-        Silenced.</p></td></tr><tr><td><p>Auditory</p></td><td><p>Requires
-        targets to hear. Deafened targets are excluded from the
+        @Condition[silenced].</p></td></tr><tr><td><p>Auditory</p></td><td><p>Requires
+        targets to hear. @Condition[deafened] targets are excluded from the
         action.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
         performed on another creature's turn as a
         reaction.</p></td></tr><tr><td><p>Non-Combat</p></td><td><p>Can only be
         used outside of
         combat.</p></td></tr><tr><td><p>Flanking</p></td><td><p>Requires the
-        target to be Flanked.</p></td></tr></tbody></table><h3>Attack
+        target to be
+        @Condition[flanked].</p></td></tr></tbody></table><h3>Attack
         Tags</h3><table><thead><tr><th
         style="width:30%"><p>Tag</p></th><th><p>Rules
         Effect</p></th></tr></thead><tbody><tr><td><p>Melee</p></td><td><p>Requires
@@ -633,10 +679,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.6
-      coreVersion: '14.356'
+      coreVersion: '14.363'
       createdTime: 1684374854931
-      modifiedTime: 1773778941668
-      lastModifiedBy: 4uFKaoDjEQwkkXjq
+      modifiedTime: 1780583554345
+      lastModifiedBy: fzBjA63BB4hW4rQb
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -673,12 +719,12 @@ pages:
         class="divider">Flanking</h2><p>Flanking occurs when you and your allies
         team up to combat an opponent. When a creature is
         <strong>Engaged</strong> with a number of creatures greater than its
-        <strong>Engagement</strong> score it has the <strong>Flanked</strong>
+        <strong>Engagement</strong> score it has the @Condition[flanked]
         condition. The Flanked condition has multiple stages, and each stage of
         Flanked contributes +1 Boon to melee attack rolls made against that
         creature.</p><section class="formula"><p class="value">Flanked
         Stage</p><p class="equals">=</p><p class="equation">Number of Engaged
-        Enemies<br />- Engagement Score<br />- Engagement Bonus from Adjacent
+        Enemies<br>- Engagement Score<br>- Engagement Bonus from Adjacent
         Allies</p></section><section class="gameplay"><p>Krag, a heavily armored
         fighter, has an <strong>Engagement</strong> score of <strong>3</strong>,
         with bonuses from his <strong>True Grit</strong> talent and from his
@@ -709,7 +755,7 @@ pages:
         disengage from you in melee combat it becomes temporarily vulnerable,
         allowing you to perform a <strong>Reactive Strike</strong>, a weapon
         attack as a Reaction. You may not make a Reactive Strike if you are
-        @Condition[Unaware] or @Condition[Flanked] by other remaining
+        @Condition[unaware] or @Condition[flanked] by other remaining
         opponents.</p><section class="gameplay"><p>The Goblins in our previous
         example have decided that Krag is too tough and it is advisable to
         disengage in search of more vulnerable prey. Two of the four goblins may
@@ -729,12 +775,12 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.345'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1749694519485
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780583682384
+      lastModifiedBy: fzBjA63BB4hW4rQb
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.akwDfoFV3AWbOSI6'
@@ -757,14 +803,15 @@ pages:
         enemies is generally performed using an opposed
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000#exploration-skills]{Awareness}
         test or a passive Awareness check.</p><p>A character or adversary may be
-        <strong>Unaware</strong>, a status condition which render them more
+        @Condition[unaware], a status condition which render them more
         vulnerable to attacks. Creatures that are Unaware act at Initiative 1 in
-        Combat, last aside for Incapacitated creatures. Once a creature is no
-        longer Unaware, they roll Initiative and act as normal for subsequent
-        rounds of combat.</p><section class="construction"><p>Complete
-        mechanics, status conditions, and automation for stealth, concealment,
-        unaware opponents, and surprise will be developed and added in future
-        phases of development.</p></section>
+        Combat, last aside for @Condition[incapacitated] creatures. Once a
+        creature is no longer Unaware, they roll Initiative and act as normal
+        for subsequent rounds of combat.</p><section
+        class="construction"><p>Complete mechanics, status conditions, and
+        automation for stealth, concealment, unaware opponents, and surprise
+        will be developed and added in future phases of
+        development.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -776,12 +823,12 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726931005153
-      modifiedTime: 1763154584130
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1780584322768
+      lastModifiedBy: fzBjA63BB4hW4rQb
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.1fAJeBGIEaMnsi5A'

@@ -1,0 +1,42 @@
+name: Claws
+type: weapon
+img: icons/creatures/claws/claw-bear-paw-swipe-red.webp
+effects: []
+folder: creatureParts000
+flags: {}
+system:
+  category: light1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: <p>The @ref[actor.name]{creature} has elongated and sharpened claws.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: claws
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532676720
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: claws00000000000
+sort: 0
+_key: '!items!claws00000000000'

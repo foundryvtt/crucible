@@ -152,12 +152,12 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 }
 
 /**
- * Generate a standardized decay effect, dealing wisdom in corruption damage to Health.
+ * Generate a standardized decay effect, dealing half-Presence in corruption damage to Health.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function decay(actor, {ability="wisdom", amount, turns=3}={}) {
+export function decay(actor, {ability="presence", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
@@ -399,5 +399,22 @@ export function staggered(actor, {turns=1}={}) {
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
     statuses: ["staggered"]
+  };
+}
+
+/**
+ * Generate a standardized stunned effect, applying the stunned status condition to the target.
+ * @param {Actor} actor
+ * @param {{turns?: number}} [options]
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function stunned(actor, {turns=1}={}) {
+  return {
+    _id: getEffectId("Stunned"),
+    name: _loc(CONFIG.statusEffects.stunned.name),
+    img: "icons/svg/daze.svg",
+    duration: {value: turns, units: "rounds", expiry: "turnEnd"},
+    origin: actor?.uuid,
+    statuses: ["stunned"]
   };
 }

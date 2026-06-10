@@ -294,6 +294,8 @@
       "HealingTooltip": "This action provides restoration by testing an ally's Wounds threshold.",
       "IconicSpell": "Iconic Spell",
       "IconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
+      "Keen": "Keen",
+      "KeenTooltip": "This action is precise, lowering its critical hit threshold by 2 and making a Critical Hit more likely.",
       "MainHand": "Main-Hand",
       "MainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
       "Maintained": "Maintained",
@@ -340,6 +342,8 @@
       "ReactionTooltip": "This action can only be performed during some other creature's turn when its activation condition is met.",
       "Reload": "Reload",
       "ReloadTooltip": "This action reloads a ranged weapon which requires reloading.",
+      "Rest": "After Rest",
+      "RestTooltip": "This action may only be performed immediately after you confirm a Rest action, and only one such action may follow each Rest.",
       "Severe": "Severe",
       "SevereTooltip": "If the target of this action has Wounds and Madness resources, this action damages those resources directly regardless of their Health or Morale.",
       "Shield": "Shield",
@@ -412,25 +416,18 @@
     },
     "WARNINGS": {
       "SPECIFIC": {
-        "BODY_BLOCK": {
-          "AlreadyConfirmed": "The attack against you has already been confirmed and can no longer be blocked.",
-          "InvalidOutcome": "You may only use Body Block after an attack against you is defended by Armor or a Glance.",
-          "MeleeOnly": "You may only use Body Block against an incoming melee attack."
-        },
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round.",
           "WrongTurn": "You may only use the Delay action on your own turn in combat."
         },
-        "INTERPOSE": {
-          "AllyMustBeTarget": "The selected ally must be the target of the most recent Strike.",
-          "AttackMissed": "You may only Interpose against an attack that hit or glanced your ally.",
-          "RequiresStrike": "Interpose requires the most recent action to be a weapon Strike.",
-          "SingleTarget": "Interpose can only be used against a single-target Strike."
+        "ESTOCADE": {
+          "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
         }
       },
+      "AlreadyConfirmed": "The action against you has already been confirmed and can no longer be reacted to.",
       "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
@@ -449,6 +446,7 @@
       "CannotThrow": "You cannot throw this weapon.",
       "CannotUse": "{name} does not satisfy the prerequisites to use {action}.",
       "CannotUseReason": "{name} does not satisfy the prerequisites to use {action}: {reason}",
+      "CannotUseTagGeneric": "with tag {tag}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
@@ -464,11 +462,17 @@
       "MovementTooShort": "The planned movement path does not meet the minimum range required by this action.",
       "MustFollowMainhandStrike": "You may only perform the {action} action after a basic Strike action with your mainhand weapon.",
       "MustFollowMeleeDefense": "You may only perform the {action} action after defending a melee attack with a {defense}.",
-      "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.", 
+      "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.",
+      "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
+      "MustFollowRest": "You may only perform the {action} action immediately after a Rest.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
+      "MustReactHit": "You may only perform the {action} action in response to an attack that hit or glanced.",
+      "MustReactSingleTarget": "You may only perform the {action} action in response to an action that had a single target.",
+      "MustReactStrike": "You may only perform the {action} action in response to a weapon Strike.",
       "MustReload": "Your weapon requires reloading in order to use this action.",
       "MustScaleDex": "Every weapon used in this action must scale using dexterity.",
       "MustScaleStrength": "Every weapon used in this action must scale using strength.",
+      "MustTargetTarget": "The {action} action may only be used on the target of the most recent action.",
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
@@ -476,14 +480,16 @@
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
+      "OncePerRound": "You may only perform the {action} action once per round.",
+      "OncePerTurn": "You may only perform the {action} action once per turn.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
       "RequiresNatural": "This action requires use of a natural weapon.",
       "RequiresOffhand": "This action requires an offhand weapon equipped.",
       "RequiresRanged": "This action requires a ranged weapon equipped.",
+      "RequiresRune": "You must know the Rune required by this action.",
       "RequiresSlashingMelee": "{action} requires a melee weapon which deals slashing damage.",
       "RequiresTalisman": "{action} requires use of a Talisman weapon.",
-      "RequiresTargetWounded": "{action} requires a target that is wounded.",
       "RequiresTwoHanded": "This action requires a two-handed weapon equipped.",
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
       "Restrained": "You may not move while Restrained!",
@@ -506,6 +512,8 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
+    "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
+    "MaintainTitle": "Maintain Focus: {effect}",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",
     "PlanMovement": "Plan Movement",
@@ -526,6 +534,35 @@
     "Unconfirmed": "Unconfirmed",
     "UseAction": "Use Action"
   },
+  "ACTIONS": {
+    "AmplifyAffix": {
+      "Effect": "Amplify Affix",
+      "Label": "Affix to Amplify",
+      "NoAffixes": "You have no equipped affixes that can be amplified.",
+      "Required": "You must choose an affix to amplify.",
+      "Title": "Amplify Affix"
+    },
+    "FieldStudy": {
+      "Effect": "Field Study: {knowledge}",
+      "Label": "Topic of Study",
+      "Required": "You must choose a field of Knowledge to study.",
+      "Title": "Field Study"
+    },
+    "Glide": {
+      "MustDescend": "A glide must end at a lower elevation than where it began."
+    },
+    "ImbueAffix": {
+      "AffixLabel": "Affix",
+      "Incompatible": "That affix cannot be applied to the chosen item.",
+      "InvalidAffix": "You must choose a valid affix to imbue.",
+      "InvalidItem": "You must choose a physical item that you own and that can bear an enchantment.",
+      "ItemLabel": "Item to Imbue",
+      "NoCapacity": "That item has no open affix slot for this enchantment.",
+      "Required": "You must choose both an item and an affix.",
+      "TierTooHigh": "That affix cannot be imbued at Tier 1.",
+      "Title": "Imbue Affix"
+    }
+  },
   "ACTIVE_EFFECT": {
     "ACTIONS": {
       "Create": "Create Effect",
@@ -534,6 +571,14 @@
       "Edit": "Edit Effect",
       "Enable": "Enable Effect",
       "New": "New Effect"
+    },
+    "CHANGE_TYPES": {
+      "scaleResource": "Scale Resource"
+    },
+    "DURATION": {
+      "Combat": "Combat",
+      "Infinite": "∞",
+      "Rounds": "{value}R"
     },
     "STATUSES": {
       "Asleep": "Asleep",
@@ -598,6 +643,8 @@
       "IncreaseAbilitySpecific": "Increase {ability}",
       "LevelUp": "Level Up!",
       "ResetTalents": "Reset All Talents",
+      "ResetTalentsContent": "<p>Are you sure you wish to reset all Talents?</p>",
+      "ResetTalentsTitle": "Reset Talents: {actor}",
       "RollCheck": "Roll Check",
       "TalentTreeClose": "Close Talent Tree",
       "TalentTreeOpen": "Open Talent Tree",
@@ -1286,6 +1333,7 @@
     "WARNINGS": {
       "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
     },
+    "Escalation": "Escalation",
     "HeroismPct": "Heroism {pct}%",
     "HeroismTooltip": "Progress to next Heroism point"
   },
@@ -1593,6 +1641,7 @@
       "Edit": "Edit Item",
       "Equip": "Equip {typeLabel}",
       "EquipDetail": "Equip the {item}",
+      "Read": "Read {item}",
       "Recover": "Recover {typeLabel}",
       "RecoverAllContent": "Pick up all of {actor}'s dropped items?",
       "RecoverAllTitle": "Recover Dropped Items",
@@ -1681,6 +1730,7 @@
       "Equipment": "Equipment Details",
       "EquipmentDrop": "Add starting equipment by dragging and dropping items into this area.",
       "EquipmentRemove": "Remove Equipment",
+      "EquipmentScale": "Automatically scale quality with creature level",
       "ScaledPrice": "Scaled Price",
       "Spellcraft": "Spellcraft",
       "SpellDrop": "Add an iconic spell by dragging and dropping a Spell item into this area.",
@@ -2412,6 +2462,10 @@
         "temperature.hint": "The body temperature of creatures with this Taxonomy. If left blank, defaults to the temperature of the chosen creature category.",
         "temperature.label": "Body Temperature"
       },
+      "equipment": {
+        "hint": "Configure equipment which creatures of this Taxonomy possess automatically.",
+        "label": "Granted Equipment"
+      },
       "identifier": {
         "hint": "A string identifier used to uniquely reference this Taxonomy in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters.",
         "label": "Identifier"
@@ -2448,6 +2502,7 @@
       "TemperatureBlank": "Default ({temperature})"
     },
     "WARNINGS": {
+      "EquipmentNotNatural": "Taxonomy \"{name}\" cannot use equipment that does not have the natural tag.",
       "InvalidAbilities": "The sum of initial ability values must equal 12. Currently {sum}",
       "InvalidResistances": "The sum of resistance scaling values must equal zero. Currently {sum}"
     }
@@ -2678,6 +2733,7 @@
       "ReturningTooltip": "This weapon is magically or mechanically engineered to return to your hand after being thrown. Using the Throw Weapon action with this weapon does not result in it becoming Dropped.",
       "Thrown": "Thrown",
       "ThrownTooltip": "This weapon is designed to be suitable for throwing and does not suffer the Banes penalty that is usually applied to the Throw Weapon action.",
+      "UntrainedTooltip": "Your character lacks {training} weapon training and suffers a -4 Skill penalty when attacking with this weapon.",
       "Versatile": "Versatile",
       "VersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike."
     }

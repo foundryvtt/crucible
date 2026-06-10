@@ -34,31 +34,46 @@ pages:
         determines the number of
         @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.2U2k8WcnB1gbPLfd]{Action
         Points} that the Adversary has in combat. The Threat Categories in the
-        Crucible system are:</p><table><thead><tr><th>Threat
-        Category</th><th>Threat Multiplier</th><th>Action Points</th><th
-        style="width:50%">Description</th></tr></thead><tbody><tr><td>Minion</td><td>×
-        0.5</td><td>2</td><td>Weaker than average foes at a given level, minions
-        are less dangerous and more easily dispatched - but may be numerous in
-        quantity.</td></tr><tr><td><p>Normal</p></td><td>×
-        1</td><td>3</td><td>The standard level of difficulty and challenge for a
-        certain level.</td></tr><tr><td>Elite</td><td>×
-        1.5</td><td>4</td><td>Stronger than average foes at a given level,
-        elites are more dangerous and more difficult to dispatch. Elites are
-        more rarely encountered.</td></tr><tr><td>Boss</td><td>×
-        2</td><td>5</td><td>Especially dangerous enemies which represent the
-        ultimate degree of challenge at a certain level. Most encounters do not
-        contain a boss.</td></tr></tbody></table><h2 class="divider">Important
-        Adversaries</h2><p>Some Adversaries are recurring antagonists, named
-        villains, or other narratively significant figures who must withstand
-        damage sustained over the course of many encounters. The Gamemaster may
-        designate such an Adversary as <strong>Important</strong>.</p><p>An
-        Important Adversary tracks <strong>Wounds</strong> and
-        <strong>Madness</strong> meters in the same fashion as a Protagonist.
-        Health damage that would reduce the Adversary below zero Health
-        overflows into Wounds, and Morale damage that would reduce them below
-        zero Morale overflows into Madness. The Adversary becomes
-        @Condition[dead] when their Wounds meter reaches its maximum, and
-        @Condition[insane] when their Madness meter reaches its
+        Crucible system are:</p><table><thead><tr><th><p>Threat
+        Category</p></th><th><p>Threat Multiplier</p></th><th><p>Action
+        Points</p></th><th
+        style="width:50%"><p>Description</p></th></tr></thead><tbody><tr><td><p>Minion</p></td><td><p>×
+        0.5</p></td><td><p>2</p></td><td><p>Weaker than average foes at a given
+        level, minions are less dangerous and more easily dispatched - but may
+        be numerous in quantity.</p></td></tr><tr><td><p>Normal</p></td><td><p>×
+        1</p></td><td><p>3</p></td><td><p>The standard level of difficulty and
+        challenge for a certain
+        level.</p></td></tr><tr><td><p>Elite</p></td><td><p>×
+        1.5</p></td><td><p>4</p></td><td><p>Stronger than average foes at a
+        given level, elites are more dangerous and more difficult to dispatch.
+        Elites are more rarely
+        encountered.</p></td></tr><tr><td><p>Boss</p></td><td><p>×
+        2</p></td><td><p>5</p></td><td><p>Especially dangerous enemies which
+        represent the ultimate degree of challenge at a certain level. Most
+        encounters do not contain a boss.</p></td></tr></tbody></table><h2
+        class="divider">Defeating Adversaries</h2><p>Most Adversaries do not
+        have <strong>Wounds</strong> or <strong>Madness</strong> pools like
+        Protagonist characters; their ability to withstand harm is determined
+        entirely by <strong>Health</strong> and
+        <strong>Morale</strong>.</p><p>When an Adversary <strong>Health</strong>
+        pool reaches zero it becomes @Condition[dead] or, if preferred by the
+        Gamemaster for narrative reasons, @Condition[incapacitated], and takes
+        no further action during the encounter.</p><p>When Adversary
+        <strong>Morale</strong> reaches zero it becomes @Condition[broken]. A
+        Broken Adversary will attempt to flee the battlefield unless they lack
+        instincts of self-preservation or the possibility of escape seems
+        impossible - in which case they will continue to fight to the
+        death.</p><h2 class="divider">Important Adversaries</h2><p>Some
+        Adversaries are recurring antagonists, named villains, or other
+        narratively significant figures who must withstand damage sustained over
+        the course of many encounters. The Gamemaster may designate such an
+        Adversary as <strong>Important</strong>.</p><p>An Important Adversary
+        tracks <strong>Wounds</strong> and <strong>Madness</strong> meters in
+        the same fashion as a Protagonist. Health damage that would reduce the
+        Adversary below zero Health overflows into Wounds, and Morale damage
+        that would reduce them below zero Morale overflows into Madness. The
+        Adversary becomes @Condition[dead] when their Wounds meter reaches its
+        maximum, and @Condition[insane] when their Madness meter reaches its
         maximum.</p><p>The size of an Important Adversary's Wounds and Madness
         reservoirs scales with their Level and Size, but is independent of
         <strong>Threat Category</strong>. An Important Elite or Boss therefore
@@ -72,26 +87,61 @@ pages:
         @UUID[.qSeJNy28eK9axO7C]{Taxonomy} and
         @UUID[.O8IesdQo8SQpIKbo]{Archetype}, both of which define how the
         attributes of the Adversary progress as it increases in Threat
-        Level.</p><h2 class="divider">Adversary Talents</h2><p>Adversaries may
-        be assigned additional Talents in addition to those automatically
-        provided by their Archetype.</p><section
-        class="construction"><p>Eventually there may be some rules limiting the
-        number and tier of Talents that an Adversary may have, but for the time
-        being it is acceptable for Adversaries to have any talents that the
-        Gamemaster wishes to give them in addition to the Talents automatically
-        provided by their Archetype.</p></section><h2 class="divider">Defeating
-        Adversaries</h2><p>Most Adversaries do not have <strong>Wounds</strong>
-        or <strong>Madness</strong> pools like Protagonist characters; their
-        ability to withstand harm is determined entirely by
-        <strong>Health</strong> and <strong>Morale</strong>.</p><p>When an
-        Adversary <strong>Health</strong> pool reaches zero it becomes
-        @Condition[dead] or, if preferred by the Gamemaster for narrative
-        reasons, @Condition[incapacitated], and takes no further action during
-        the encounter.</p><p>When Adversary <strong>Morale</strong> reaches zero
-        it becomes @Condition[broken]. A Broken Adversary will attempt to flee
-        the battlefield unless they lack instincts of self-preservation or the
-        possibility of escape seems impossible - in which case they will
-        continue to fight to the death.</p>
+        Level.</p><h2 class="divider">Talent Progression</h2><p>An Adversary's
+        @UUID[.qSeJNy28eK9axO7C]{Taxonomy} and
+        @UUID[.O8IesdQo8SQpIKbo]{Archetype} each provide a set of Talents, and
+        each granted Talent is assigned a Level at which it is attained. As the
+        Adversary increases in Level it automatically acquires the Talents its
+        progression has unlocked, modeling how more dangerous foes exhibit more
+        formidable abilities.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>Granted Talents are added
+        automatically when the Adversary reaches the Level at which each is
+        attained, and are removed automatically if its Level is later reduced
+        below that threshold.</p></section><p>Adversaries may also be assigned
+        additional bespoke Talents beyond those provided by their Taxonomy and
+        Archetype at the Gamemaster's discretion.</p><h2 class="divider">Skill
+        Progression</h2><p>An Adversary's @UUID[.O8IesdQo8SQpIKbo]{Archetype}
+        designates the skills favored by its combat style. The Adversary's
+        training rank in each designated skill advances automatically as it
+        increases in Level, one rank every 6
+        levels:</p><table><thead><tr><th><p>Training
+        Rank</p></th><th><p>Level</p></th></tr></thead><tbody><tr><td><p>Trained</p></td><td><p>5
+        or lower</p></td></tr><tr><td><p>Proficient</p></td><td><p>6 to
+        11</p></td></tr><tr><td><p>Expert</p></td><td><p>12 to
+        17</p></td></tr><tr><td><p>Master</p></td><td><p>18+</p></td></tr></tbody></table><p>Automatic
+        skill progression establishes a minimum training rank; it never reduces
+        a higher rank which has been manually assigned. This same progression
+        advances the <strong>Natural</strong> weapon training of Adversaries
+        whose Taxonomy cannot use equipment.</p><h2 class="divider">Equipment
+        Progression</h2><p>An Adversary may be granted equipment by its
+        @UUID[.qSeJNy28eK9axO7C]{Taxonomy} or
+        @UUID[.O8IesdQo8SQpIKbo]{Archetype}, each item with a configured
+        quantity and equipped state. If the Taxonomy cannot use typical humanoid
+        equipment, granted equipment is limited to <strong>Natural
+        Weapons</strong> and <strong>Natural Armor</strong> - claws, fangs,
+        hides, chitin, and similar anatomical armaments. A selection of
+        prefabricated natural weapon and armor options is provided in the
+        <strong>Adversary Equipment</strong> compendium pack.</p><p>Granted
+        equipment may optionally scale automatically in <strong>Quality</strong>
+        as the Adversary increases in Level, representing the growing potency of
+        a more dangerous creature's armaments. Automatically scaled equipment
+        steps up one Quality tier every 6
+        levels:</p><table><thead><tr><th><p>Quality</p></th><th><p>Weapons</p></th><th><p>Armor</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>Level
+        ½ or lower</p></td><td><p>Level ⅓ or
+        lower</p></td></tr><tr><td><p>Standard</p></td><td><p>Level 1 to
+        4</p></td><td><p>Level ½ to
+        3</p></td></tr><tr><td><p>Fine</p></td><td><p>Level 5 to
+        10</p></td><td><p>Level 4 to
+        9</p></td></tr><tr><td><p>Superior</p></td><td><p>Level 11 to
+        16</p></td><td><p>Level 10 to
+        15</p></td></tr><tr><td><p>Masterwork</p></td><td><p>Level
+        17+</p></td><td><p>Level 16+</p></td></tr></tbody></table><section
+        class="foundryvtt"><h4>Automation</h4><p>Equipment granted by a Taxonomy
+        or Archetype is created automatically when that item is applied to an
+        Adversary. Automatically scaled equipment updates its Quality whenever
+        the Adversary's Level changes. Manually changing the Quality of an
+        automatically scaled item releases it from automatic scaling, leaving it
+        under your control thereafter.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -104,10 +154,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.363'
       createdTime: 1684375058270
-      modifiedTime: 1762099059542
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1780586748994
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -189,9 +239,13 @@ pages:
         taxonomy to:</p><ul><li><p>Refine scaling weights for
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}
         (above and beyond those defined by the Taxonomy), </p></li><li><p>Define
-        skill progression</p></li><li><p>Configure any automatic equipment
-        </p></li><li><p>Provides a set of automatically attained
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}</p></li></ul><section
+        automatic @UUID[.WH0YSVcYo09aHNZ2]{Skill
+        Progression}</p></li><li><p>Configure granted equipment which may
+        automatically scale in quality, as described under
+        @UUID[.WH0YSVcYo09aHNZ2]{Equipment Progression}</p></li><li><p>Provides
+        a set of automatically attained
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents},
+        each gated by the Level at which it is attained</p></li></ul><section
         class="gameplay"><h4>Example: Fighter Archetype</h4><p>Hardened melee
         combatants expert at wielding one-handed weaponry, shield, and heavy
         armor.</p><p>The Fighter Archetype defines scaling weights such that

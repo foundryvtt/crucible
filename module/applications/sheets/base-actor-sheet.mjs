@@ -508,6 +508,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "ITEM.ACTIONS.Drop"});
     }
     config.section = config.equipped ? CrucibleBaseActorSheet.#EQUIPMENT_SECTION_TYPES[item.type] : "backpack";
+
+    // Flag an equipped weapon which the actor lacks the training to wield effectively
+    if ( (item.type === "weapon") && config.equipped ) {
+      const tooltip = item.system._getUntrainedTooltip(this.actor);
+      if ( tooltip ) config.tags.category = {label: config.tags.category, unmet: true, tooltip};
+    }
   }
 
   /* -------------------------------------------- */
@@ -530,6 +536,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Iterate over all Actions
     for ( const [actionId, action] of Object.entries(this.actor.actions) ) {
+      if ( action.suppressFromSheet ) continue; // Internal actions (e.g. Fall, Glide) are triggered programmatically
       const a = {
         id: actionId,
         name: action.name,
@@ -853,6 +860,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       }
     }
     super._onChangeForm(formConfig, event);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _processSubmitData(event, form, submitData, options={}) {
+    const result = await super._processSubmitData(event, form, submitData, options);
+    // FIXME the extra caution around existence of result can be removed in 14.364+
+    // Re-render the currently active tab following a no-diff update
+    if ( result && !result.created && !result.updated && this.rendered ) this.render({parts: [this.tabGroups.sheet]});
+    return result;
   }
 
   /* -------------------------------------------- */

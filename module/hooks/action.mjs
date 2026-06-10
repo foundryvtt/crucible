@@ -18,6 +18,53 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.amplifyAffix = {
+  async preActivate() {
+    // Enumerate equipped affixes that are below their maximum tier
+    const choices = {};
+    for ( const item of this.actor.items ) {
+      if ( !item.system.equipped || !item.system.affixes ) continue;
+      for ( const [id, affix] of Object.entries(item.system.affixes) ) {
+        const t = affix.system.tier;
+        if ( t.value >= Math.min(t.max, 3) ) continue;
+        choices[`${item.id}.${id}`] = `${item.name}: ${affix.name} (${t.value} → ${t.value + 1})`;
+      }
+    }
+    if ( foundry.utils.isEmpty(choices) ) throw new Error(_loc("ACTIONS.AmplifyAffix.NoAffixes"));
+
+    // Prompt for the affix to amplify
+    const field = new foundry.data.fields.StringField({required: true, blank: false, choices,
+      label: _loc("ACTIONS.AmplifyAffix.Label")});
+    const target = await foundry.applications.api.DialogV2.prompt({
+      window: {title: _loc("ACTIONS.AmplifyAffix.Title"), icon: "fa-solid fa-arrow-up-right-dots"},
+      content: field.toFormGroup({}, {name: "target"}).outerHTML,
+      ok: {label: this.name, callback: (event, button) => button.form.elements.target.value},
+      rejectClose: false
+    });
+    if ( !target ) throw new Error(_loc("ACTIONS.AmplifyAffix.Required"));
+    this.metadata.amplify = target;
+  },
+  async confirm(reverse) {
+    const target = this.metadata.amplify;
+    if ( !target ) return;
+    const effectId = SYSTEM.EFFECTS.getEffectId("Amplify Affix");
+
+    // A single replaceable marker records which affix is amplified; the Artificer prepare hook reads it
+    if ( this.actor.effects.has(effectId) ) await this.actor.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+    if ( reverse ) return;
+    const dot = target.indexOf(".");
+    const amplify = {itemId: target.slice(0, dot), affixId: target.slice(dot + 1)};
+    await this.actor.createEmbeddedDocuments("ActiveEffect", [{
+      _id: effectId,
+      name: _loc("ACTIONS.AmplifyAffix.Effect"),
+      img: this.img,
+      flags: {crucible: {amplify}}
+    }], {keepId: true});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.antitoxin = {
   postActivate() {
     const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
@@ -147,22 +194,25 @@ HOOKS.blastFlask = {
 HOOKS.bodyBlock = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
+    if ( targetAction?.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
+    }
+    const {RESULT_TYPES, RESULT_TYPE_LABELS} = game.system.api.dice.AttackRoll;
+    const validResultTypes = [RESULT_TYPES.GLANCE, RESULT_TYPES.ARMOR];
+    const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "disjunction"});
+    const validDefenses = listFormatter.format(validResultTypes.map(r => _loc(RESULT_TYPE_LABELS[r])));
+    const invalidError = _loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: this.name, defense: validDefenses});
+    if ( !targetAction?.tags.has("melee") ) {
+      throw new Error(invalidError);
+    }
     const myEvents = targetAction.eventsByActor.get(this.actor);
-    if ( !myEvents ) return;
-    if ( !targetAction.tags.has("melee") ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.MeleeOnly"));
-    }
-    if ( targetAction.message.flags.crucible.confirmed ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.AlreadyConfirmed"));
-    }
-    const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
-    for ( const event of myEvents.roll ) {
-      if ( [results.ARMOR, results.GLANCE].includes(event.roll.data.result) ) {
+    for ( const event of myEvents?.roll ?? [] ) {
+      if ( validResultTypes.includes(event.roll.data.result) ) {
         this.usage.targetAction = targetAction.message.id;
         return true;
       }
     }
-    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BODY_BLOCK.InvalidOutcome"));
+    throw new Error(invalidError);
   }
 };
 
@@ -245,6 +295,16 @@ HOOKS.clarifyIntent = {
         {key: "system.rollBonuses.boons.clarifyIntent.label", type: "override", value: this.name}
       );
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.coldFocus = {
+  postActivate() {
+    const h = this.actor.system.resources.health;
+    const missing = h.max > 0 ? (1 - (h.value / h.max)) : 0;
+    this.selfEvents.activation.resources.push({resource: "focus", delta: Math.min(5, 1 + Math.floor(missing * 4))});
   }
 };
 
@@ -349,6 +409,19 @@ HOOKS.counterspell = {
 
 /* -------------------------------------------- */
 
+HOOKS.coveringFire = {
+  canUse() {
+    if ( this.actor.system.status.coveringFire ) {
+      throw new Error(_loc("ACTION.WARNINGS.OncePerRound", {action: this.name}));
+    }
+  },
+  prepare() {
+    this.usage.actorStatus.coveringFire = true;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.decisiveAction = {
   postActivate() {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
@@ -429,7 +502,39 @@ HOOKS.electrochargeAmpoule = {
 
 /* -------------------------------------------- */
 
+// TODO: Currently this will consume free movement. Determine how to make that not the case while still properly
+// showing 0 cost on the token ruler
+HOOKS.evasiveShot = {
+  prepare() {
+    this.range.maximum = Math.round(this.actor.system.movement.stride / 2);
+    this.cost.action = 0;
+  },
+  canUse() {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction?.tags.has("ranged") ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.estocade = {
+  acquireTargets(targets) {
+    for ( const t of targets ) {
+      const a = t.actor;
+      if ( !a ) continue;
+      const opened = ["exposed", "prone", "slowed", "staggered", "paralyzed"].some(s => a.statuses.has(s))
+        || !!a.equipment.weapons.dropped?.mainhand;
+      if ( !opened ) t.error ??= _loc("ACTION.WARNINGS.SPECIFIC.ESTOCADE.RequiresOpening");
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
+  suppressFromSheet: true,
   canUse() {
     if ( !this.actor.statuses.has("falling") ) return false;
     if ( Number.isFinite(this.usage.fallDistance) && (this.usage.fallDistance <= 0) ) return false;
@@ -486,6 +591,21 @@ HOOKS.fall = {
 
 /* -------------------------------------------- */
 
+HOOKS.fallGlide = {
+  suppressFromSheet: true,
+  canUse() {
+    if ( !this.actor.statuses.has("falling") ) return false;
+  },
+  acquireTargets(targets) {
+    if ( !this.movement ) return;
+    const origin = this.movement.origin?.elevation ?? 0;
+    const end = this.movement.waypoints?.at(-1)?.elevation ?? origin;
+    if ( end >= origin ) for ( const t of targets ) t.error = _loc("ACTIONS.Glide.MustDescend");
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);
@@ -514,6 +634,74 @@ HOOKS.feintingStrike = {
     this.events[feintIndex] = deceptionEvent;
     this.events[deceptionIndex] = strike;
     this._eventsDirty = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.fieldStudy = {
+  async preActivate() {
+    const choices = Object.fromEntries(Object.entries(crucible.CONFIG.knowledge)
+      .map(([k, v]) => [k, _loc(v.label)]));
+    const field = new foundry.data.fields.StringField({
+      required: true, blank: false, choices, label: _loc("ACTIONS.FieldStudy.Label")
+    });
+    const content = field.toFormGroup({}, {name: "knowledge"}).outerHTML;
+    const knowledge = await foundry.applications.api.DialogV2.prompt({
+      window: {title: "ACTIONS.FieldStudy.Title"},
+      content,
+      ok: {label: this.name, callback: (event, button) => button.form.elements.knowledge.value},
+      rejectClose: false
+    });
+    if ( !knowledge ) throw new Error(_loc("ACTIONS.FieldStudy.Required"));
+    this.metadata.knowledge = knowledge;
+  },
+  postActivate() {
+    const k = this.metadata.knowledge;
+    if ( !k ) return;
+    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
+
+    // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
+    const effect = effectEvent.effects[0];
+    effect._id = SYSTEM.EFFECTS.getEffectId("Field Study");
+    effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
+    effect.system.changes = [
+      {key: "system.details.background.knowledge", type: "add", value: k},
+      {key: "system.details.knowledge", type: "add", value: k}
+    ];
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flashBrilliance = {
+  prepare() {
+    // Can be used once per rest outside of combat
+    if ( !this.actor.inCombat && !this.actor.flags.crucible?.flashOfBrillianceRested ) {
+      this.cost.heroism = 0;
+      this.usage.actorFlags.flashOfBrillianceRested = true;
+    }
+  },
+  postActivate() {
+    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    if ( !effectEvent ) return;
+
+    // Grant every Knowledge for the effect's duration
+    const changes = [];
+    for ( const k in crucible.CONFIG.knowledge ) {
+      changes.push({key: "system.details.background.knowledge", type: "add", value: k});
+      changes.push({key: "system.details.knowledge", type: "add", value: k});
+    }
+    effectEvent.effects[0].system.changes = changes;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flyingKick = {
+  prepare() {
+    this.range.maximum = this.actor.system.movement.stride;
   }
 };
 
@@ -612,6 +800,72 @@ HOOKS.horrificCritical = {
     if ( !lastAction?.tags.has("melee") || !lastAction?.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
       throw new Error(_loc("ACTION.WARNINGS.LastNotMeleeCrit", {action: this.name}));
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.imbueAffix = {
+  async preActivate() {
+    const fields = foundry.data.fields;
+    const itemField = new fields.DocumentUUIDField({type: "Item", required: true, blank: false,
+      label: _loc("ACTIONS.ImbueAffix.ItemLabel")});
+    const affixField = new fields.DocumentUUIDField({type: "ActiveEffect", required: true, blank: false,
+      label: _loc("ACTIONS.ImbueAffix.AffixLabel")});
+    const content = document.createElement("div");
+    content.append(
+      itemField.toFormGroup({}, {name: "itemUuid"}),
+      affixField.toFormGroup({}, {name: "affixUuid"})
+    );
+    const data = await foundry.applications.api.DialogV2.prompt({
+      window: {title: _loc("ACTIONS.ImbueAffix.Title"), icon: "fa-solid fa-wand-magic-sparkles"},
+      content,
+      ok: {label: this.name,
+        callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object},
+      rejectClose: false
+    });
+    if ( !data?.itemUuid || !data?.affixUuid ) throw new Error(_loc("ACTIONS.ImbueAffix.Required"));
+
+    // Validate the dropped item is an affixable physical item that this actor owns
+    const item = await fromUuid(data.itemUuid);
+    if ( (item?.actor !== this.actor) || !SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES.has(item.type) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.InvalidItem"));
+    }
+
+    // Validate the dropped affix can be applied at Tier 1 to this item type
+    const affix = await fromUuid(data.affixUuid);
+    if ( affix?.type !== "affix" ) throw new Error(_loc("ACTIONS.ImbueAffix.InvalidAffix"));
+    if ( affix.system.tier.min > 1 ) throw new Error(_loc("ACTIONS.ImbueAffix.TierTooHigh"));
+    if ( affix.system.itemTypes.size && !affix.system.itemTypes.has(item.type) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.Incompatible"));
+    }
+
+    // The item must have an open affix slot in the chosen affix's prefix/suffix category
+    if ( !(item.system.affixCapacity?.[affix.system.affixType]?.available >= 1) ) {
+      throw new Error(_loc("ACTIONS.ImbueAffix.NoCapacity"));
+    }
+    this.metadata.imbue = {itemUuid: item.uuid, affixUuid: affix.uuid};
+  },
+  async confirm(reverse) {
+    const imbue = this.metadata.imbue;
+    if ( !imbue ) return;
+
+    // A single imbue persists at a time; clear any prior imbued affix across the actor's items
+    for ( const item of this.actor.items ) {
+      const prior = item.effects.find(e => e.getFlag("crucible", "imbued"));
+      if ( prior ) await item.deleteEmbeddedDocuments("ActiveEffect", [prior.id]);
+    }
+    if ( reverse ) return;
+
+    // Inscribe the chosen affix onto the target item at Tier 1
+    const item = await fromUuid(imbue.itemUuid);
+    const affix = await fromUuid(imbue.affixUuid);
+    if ( !item || !affix ) return;
+    const ae = affix.toObject();
+    delete ae._id;
+    ae.system.tier.value = 1;
+    foundry.utils.setProperty(ae, "flags.crucible.imbued", true);
+    await item.createEmbeddedDocuments("ActiveEffect", [ae]);
   }
 };
 
@@ -725,12 +979,13 @@ HOOKS.executionersStrike = {
     });
     this.effects[0] = foundry.utils.mergeObject(bleeding, this.effects[0]);
   },
-  acquireTargets(targets) {
-    for ( const target of targets ) {
-      const {health} = target.actor.resources;
-      if ( health.value < health.max ) continue;
-      target.error ??= _loc("ACTION.WARNINGS.RequiresTargetWounded", {action: this.name});
-    }
+  preActivate() {
+    const target = this.targets.keys().next().value;
+    const {health} = target.resources;
+    if ( health.value < (health.max / 2) ) return;
+    this.effects = [];
+    this.tags.delete("deadly");
+    this.usage.bonuses.multiplier -= 1;
   }
 };
 
@@ -807,27 +1062,29 @@ HOOKS.interpose = {
   canUse() {
     const targetAction = ChatMessage.implementation.getLastAction();
     if ( !targetAction?.tags.has("strike") ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.RequiresStrike"));
+      throw new Error(_loc("ACTION.WARNINGS.MustReactStrike", {action: this.name}));
+    }
+    const targetActors = [...targetAction.eventsByTarget.keys()];
+    if ( targetActors.length !== 1 ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustReactSingleTarget", {action: this.name}));
+    }
+    const targetEvents = targetAction.eventsByTarget.get(targetActors[0]);
+    const {RESULT_TYPES} = game.system.api.dice.AttackRoll;
+    const wasHit = targetEvents.roll?.some(e => e.roll?.data?.result >= RESULT_TYPES.GLANCE);
+    if ( !wasHit ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustReactHit", {action: this.name}));
     }
     this.usage.priorAction = targetAction;
   },
-  preActivate() {
+  acquireTargets(targets) {
     const targetAction = this.usage.priorAction;
-    const targetActors = [...targetAction.eventsByTarget.keys()];
-    if ( targetActors.length !== 1 ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.SingleTarget"));
+    const [target] = [...targetAction.eventsByTarget.keys()];
+    if ( targets.length && (targets[0]?.actor !== target) ) {
+      targets[0].error = _loc("ACTION.WARNINGS.MustTargetTarget", {action: this.name});
     }
-    const [ally] = this.targets.keys();
-    if ( targetActors[0] !== ally ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AllyMustBeTarget"));
-    }
-    const allyEvents = targetAction.eventsByActor.get(ally);
-    const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
-    const wasHit = allyEvents?.roll.some(e => e.roll?.data?.result >= RESULTS.GLANCE);
-    if ( !wasHit ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERPOSE.AttackMissed"));
-    }
-    this.metadata.targetMessageId = targetAction.message.id;
+  },
+  preActivate() {
+    this.metadata.targetMessageId = this.usage.priorAction.message.id;
   },
   async confirm(reverse) {
     const targetMessageId = this.metadata.targetMessageId;
@@ -1125,7 +1382,7 @@ HOOKS.reactiveStrike = {
 
 HOOKS.readScroll = {
   prepare() {
-    this.name = `Read ${this.item.name}`;
+    this.name = _loc("ITEM.ACTIONS.Read", {item: this.item.name});
   },
   canUse() {
     const {runes, gestures, inflections} = this.item.system.scroll;
@@ -1236,16 +1493,13 @@ HOOKS.reload = {
 /* -------------------------------------------- */
 
 HOOKS.repercussiveBlock = {
-  postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
-      if ( !events.allSuccess ) continue;
-      const {mainhand} = target.equipment.weapons; // TODO - react to the prior action?
-      if ( !mainhand?.id || mainhand.properties.has("natural") ) continue;
-      this.recordEvent({type: "actorUpdate", target,
-        actorUpdates: {items: [{_id: mainhand.id, system: {dropped: true, equipped: false}}]},
-        itemSnapshots: [mainhand.snapshot()],
-        statusText: [{text: "Disarmed!", fontSize: 64}]});
+  canUse() {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    if ( targetAction?.message.flags.crucible.confirmed ) {
+      throw new Error(_loc("ACTION.WARNINGS.AlreadyConfirmed"));
     }
+    _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.BLOCK});
+    this.usage.targetAction = targetAction.message.id;
   }
 };
 
@@ -1590,6 +1844,32 @@ HOOKS.wildStrike = {
     }
     // TODO somehow require this to use a different weapon than the prior confirmed strike
   }
+};
+
+/* -------------------------------------------- */
+/*  Primalist Elemental Stances                 */
+/* -------------------------------------------- */
+
+// Thin shims keyed to each Stance's canonical Rune; validation and effect-stream logic live on the talent hook
+// (crucible.api.hooks.talent.primalist0000000)
+HOOKS.stormStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "lightning"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "lightning"); }
+};
+
+HOOKS.cinderStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "flame"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "flame"); }
+};
+
+HOOKS.waterStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "frost"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "frost"); }
+};
+
+HOOKS.stoneStance = {
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "earth"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "earth"); }
 };
 
 /* -------------------------------------------- */

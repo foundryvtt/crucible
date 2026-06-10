@@ -289,6 +289,7 @@ export default class CrucibleActor extends Actor {
       try {
         fn.call(this, item, ...args);
       } catch(err) {
+        if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
         console.error(msg, err);
       }
@@ -342,12 +343,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Configure attack roll options contributed by the acting actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} target                  The target actor being attacked
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
-  _configureAttackerRollData(action, target, rollData) {
+  _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -375,19 +375,17 @@ export default class CrucibleActor extends Actor {
 
     // Call attacker hooks
     this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Configure attack roll options contributed by the target actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} actor                   The actor performing the action
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
-  _configureTargetRollData(action, actor=null, rollData) {
+  _configureTargetRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -407,9 +405,25 @@ export default class CrucibleActor extends Actor {
         boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
+  }
 
-    // Call defender hooks (skipped for hazards where there is no attacker)
-    if ( actor ) this.callActorHooks("defendAttack", action, actor, rollData);
+  /* -------------------------------------------- */
+
+  /**
+   * Configure attack roll options contributed by attacker & target based on status conditions & hooks.
+   * @param {CrucibleAction} action   The action being performed
+   * @param {CrucibleActor} actor     The actor performing the attack
+   * @param {CrucibleActor} target    The target actor being attacked
+   * @param {AttackRollData} rollData The mutable roll data for the attack
+   * @internal
+   */
+  static _configureRollData(action, actor, target, rollData) {
+    actor._configureAttackerRollData(action, rollData);
+    target._configureTargetRollData(action, rollData);
+
+    // Call attacker & defender hooks now that base rollData is populated
+    actor.callActorHooks("prepareAttack", action, target, rollData);
+    target.callActorHooks("defendAttack", action, actor, rollData);
   }
 
   /* -------------------------------------------- */
@@ -754,8 +768,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(spell, target, rollData);
-    target._configureTargetRollData(spell, this, rollData);
+    CrucibleActor._configureRollData(spell, this, target, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -822,8 +835,8 @@ export default class CrucibleActor extends Actor {
       multiplier: options.multiplier || 1
     };
 
-    // Target configuration and hooks (no attacker for hazards)
-    this._configureTargetRollData(action, null, rollData);
+    // Target configuration (no attacker/hooks for hazards)
+    this._configureTargetRollData(action, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -884,8 +897,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new AttackRoll(rollData);
@@ -939,7 +951,7 @@ export default class CrucibleActor extends Actor {
       banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: target.defenses[defenseType].total,
-      criticalSuccessThreshold: damage.criticalSuccessThreshold,
+      criticalSuccessThreshold: damage.criticalSuccessThreshold + (action.usage.bonuses.criticalSuccessThreshold ?? 0),
       criticalFailureThreshold: damage.criticalFailureThreshold,
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
@@ -948,8 +960,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -1165,17 +1176,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Additional steps taken when this Actor deals damage to other targets.
-   * @param {CrucibleAction} action                The action performed
-   * @internal
-   */
-  _onDealDamage(action) {
-    this.callActorHooks("applyCriticalEffects", action);
-  }
-
-  /* -------------------------------------------- */
   /*  Combat Encounters and Turn Order            */
   /* -------------------------------------------- */
 
@@ -1298,9 +1298,9 @@ export default class CrucibleActor extends Actor {
         }
         const confirm = await DialogV2.confirm({
           window: {
-            title: `Maintain Focus: ${effect.name}`
+            title: _loc("ACTION.MaintainTitle", {effect: effect.name})
           },
-          content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
+          content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
         });
         if ( confirm ) {
           resourceChanges.focus.push({
@@ -1619,10 +1619,10 @@ export default class CrucibleActor extends Actor {
     if ( dialog ) {
       const confirm = await DialogV2.confirm({
         window: {
-          title: `Reset Talents: ${this.name}`,
+          title: _loc("ACTOR.ACTIONS.ResetTalentsTitle", {actor: this.name}),
           icon: "fa-solid fa-undo"
         },
-        content: "<p>Are you sure you wish to reset all Talents?</p>",
+        content: _loc("ACTOR.ACTIONS.ResetTalentsContent"),
         yes: {
           default: true
         }
@@ -2062,12 +2062,16 @@ export default class CrucibleActor extends Actor {
       updateItems.push(...talentsToCreate);                     // Add new Talent
 
       // Grant Equipment
-      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) {
+      for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
         const item = await fromUuid(uuid);
         if ( !item ) continue;
         const itemData = this._cleanItemData(item);
         Object.assign(itemData.system, {quantity, equipped});
         if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        if ( autoScale ) {
+          itemData.system.quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+          foundry.utils.setProperty(itemData, "flags.crucible.autoScale", true);
+        }
         updateItems.push(itemData); // Always update equipment, even if already owned
       }
 
@@ -2359,9 +2363,10 @@ export default class CrucibleActor extends Actor {
 
     // Identify the target equipment slot
     if ( slot === undefined ) {
+      const offhand = weapon.system.allowedSlots.includes(slots.OFFHAND);
       if ( category.hands === 2 ) slot = slots.TWOHAND;
-      else if ( category.main ) slot = mainhand?.id && category.off ? slots.OFFHAND : slots.MAINHAND;
-      else if ( category.off ) slot = slots.OFFHAND;
+      else if ( category.main ) slot = mainhand?.id && offhand ? slots.OFFHAND : slots.MAINHAND;
+      else if ( offhand ) slot = slots.OFFHAND;
     }
 
     // Confirm the target slot is available
@@ -2580,8 +2585,8 @@ export default class CrucibleActor extends Actor {
 
     // Simulate changes on a cloned actor?
     const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
+    let clone;
     if ( simulate ) {
-      let clone;
       try {
         clone = this.clone({}, {keepId: true, save: false});
         const simulateData = foundry.utils.mergeObject(data, {
@@ -2607,6 +2612,17 @@ export default class CrucibleActor extends Actor {
         else if ( adv1.level < adv0.level ) adv1.milestones = l.milestones.next - 1;
       }
     }
+
+    // Clamp resource changes to the range allowed by their pool
+    const resourceUpdates = data.system?.resources;
+    if ( resourceUpdates ) {
+      const resources = (clone ?? this).resources;
+      for ( const [id, update] of Object.entries(resourceUpdates) ) {
+        if ( typeof update?.value !== "number" ) continue;
+        const max = resources[id]?.max;
+        if ( max !== undefined ) update.value = Math.clamp(update.value, 0, max);
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -2627,7 +2643,7 @@ export default class CrucibleActor extends Actor {
       this.#updateSize(data, options);
       this.#updatePace(data, options);
       this.#applyResourceStatuses(data);
-      this.#grantDetailTalents(data);
+      this.#syncGrantedItems(data);
     }
 
     // Update flanking
@@ -2908,11 +2924,12 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Ensure Talents granted by details items (Ancestry and Background for Heroes, Archetype and Taxonomy for
-   * Adversaries) are present if they should be, and not present if they should not be.
+   * Synchronize Items granted by details items when the Actor level changes.
+   * Talents are granted or removed according to their required level.
+   * Granted equipment adjusts its quality tier as level changes.
    * @param {object} data
    */
-  async #grantDetailTalents(data) {
+  async #syncGrantedItems(data) {
     if ( !("level" in (data.system?.advancement ?? {})) ) return;
     let deleteItemIds = new Set();
     const createItems = [];
@@ -2925,8 +2942,18 @@ export default class CrucibleActor extends Actor {
       // Ensure no duplicate talents from multiple detail items
       createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
     }
+
+    // Adjust the quality of automatically scaled equipment
+    const updateItems = [];
+    for ( const item of this.items ) {
+      if ( item.getFlag("crucible", "autoScale") !== true ) continue;
+      const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+      if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+    }
+
     const batchOperations = this.defineBatchOperations({}, {
       createItems: {changes: createItems, options: {keepId: true}},
+      updateItems: {changes: updateItems, options: {_crucibleAutoScale: true}},
       deleteItems: Array.from(deleteItemIds)
     });
     if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);

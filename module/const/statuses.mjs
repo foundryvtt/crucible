@@ -44,6 +44,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Stunned",
     img: "icons/svg/daze.svg",
     hud: nonGroupTypes,
+    generator: EFFECTS.stunned,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.stunned000000000"
   },
   prone: {
@@ -104,7 +105,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Flying",
     img: "icons/svg/wing.svg",
     hud: nonGroupTypes,
-    page: "" // TODO
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.flying0000000000"
   },
   deafened: {
     id: "deafened",

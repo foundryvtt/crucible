@@ -1,7 +1,7 @@
 import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/skills.mjs";
-import {GESTURES, RUNES} from "../const/spellcraft.mjs";
+import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
 
@@ -78,6 +78,19 @@ for ( const gestureId of Object.keys(GESTURES) ) {
 }
 
 /* -------------------------------------------- */
+/*  Inflection Knowledge Affixes                */
+/* -------------------------------------------- */
+
+for ( const inflectionId of Object.keys(INFLECTIONS) ) {
+  const id = `${inflectionId}Spellcraft`;
+  HOOKS[id] = {
+    prepareGrimoire(item, grimoire) {
+      grimoire.inflectionIds.push(inflectionId);
+    }
+  };
+}
+
+/* -------------------------------------------- */
 /*  Skill Enchantment Affixes                   */
 /* -------------------------------------------- */
 
@@ -94,13 +107,39 @@ for ( const skillId of Object.keys(SKILLS) ) {
 /* -------------------------------------------- */
 
 /**
- * Keen: Reduce the critical success threshold for attack rolls made with this weapon.
- * The threshold decreases by 1 per tier (default 6, tier 1 = 5, tier 2 = 4, tier 3 = 3).
+ * Keen: reduce the critical success threshold by 1 per tier for attacks with this weapon, stacking with other reducers.
  */
 HOOKS.keen = {
   prepareAttack(item, action, target, rollData) {
+    if ( rollData.itemId !== item.id ) return; // Only apply to the correct weapon
     const tier = item.system.affixes.keen.system.tier.value;
-    rollData.criticalSuccessThreshold = 6 - tier;
+    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - tier;
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Vicious: a Strike that scores a Critical Hit with this physical weapon exploits the wound. Piercing and slashing
+ * weapons cause Bleeding; melee bludgeoning weapons leave the target Staggered.
+ */
+HOOKS.vicious = {
+  applyCriticalEffects(item, action) {
+    for ( const events of action.eventsByTarget.values() ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        if ( event.weaponItem?.id !== item.id ) continue;
+        const dt = event.weaponItem.system.damageType;
+        if ( (dt === "piercing") || (dt === "slashing") ) {
+          event.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
+          break;
+        }
+        else if ( (dt === "bludgeoning") && action.tags.has("melee") ) {
+          event.effects.push(SYSTEM.EFFECTS.staggered(this));
+          break;
+        }
+      }
+    }
   }
 };
 

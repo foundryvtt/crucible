@@ -217,22 +217,19 @@ export const RESOURCES = defineEnum({
     label: "RESOURCES.Action",
     tooltip: "RESOURCES.TOOLTIPS.Action",
     type: "active",
-    color: Color.from("#FF9900"),
-    max: 12
+    color: Color.from("#FF9900")
   },
   focus: {
     label: "RESOURCES.Focus",
     tooltip: "RESOURCES.TOOLTIPS.Focus",
     type: "active",
-    color: Color.from("#3385ff"),
-    max: 24
+    color: Color.from("#3385ff")
   },
   heroism: {
     label: "RESOURCES.Heroism",
     tooltip: "RESOURCES.TOOLTIPS.Heroism",
     type: "active",
-    color: Color.from("#ff0059"),
-    max: 3
+    color: Color.from("#ff0059")
   }
 });
 

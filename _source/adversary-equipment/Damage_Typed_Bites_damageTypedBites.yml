@@ -1,0 +1,20 @@
+type: Item
+folder: naturalWeapons00
+name: Damage-Typed Bites
+color: '#4c110b'
+sorting: a
+_id: damageTypedBites
+description: ''
+sort: 100000
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532351240
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!damageTypedBites'

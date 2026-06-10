@@ -1,0 +1,44 @@
+name: Light Plating
+type: armor
+img: icons/tools/smithing/plate-steel-grey.webp
+effects: []
+folder: naturalArmor0000
+flags: {}
+system:
+  category: natural
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+    - noisy
+  description:
+    public: >-
+      <p>The @ref[actor.name]{construct} is protected by fitted armor
+      plating.</p>
+    private: ''
+  armor:
+    base: 10
+  broken: false
+  identifier: lightPlating
+  invested: false
+  actions: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.356'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780529553862
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: lightPlating0000
+sort: 1300000
+_key: '!items!lightPlating0000'

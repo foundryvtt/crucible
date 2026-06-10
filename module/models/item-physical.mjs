@@ -56,6 +56,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-physical.hbs";
 
   /**
+   * The template used to render this physical item inline.
+   * @type {string}
+   */
+  static INLINE_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/equipment-inline.hbs";
+
+  /**
    * Is this item type equipable?
    * @type {boolean}
    */
@@ -295,7 +301,9 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * The "standard" quality tier is the unmarked state and never contributes a prefix.
    * @param {string} baseName           The name of the base item being composed
    * @param {CrucibleItem[]} affixes    Affixes which belong to the item
-   * @param {string} quality            A quality tier id, applied when the item has no prefix affixes
+   * @param {string} quality            A quality tier id, applied when the item has no prefix affixes.
+   *                                    Pass a blank string for items which never display quality, such as
+   *                                    natural weapons and armor.
    * @returns {string}                  The composed item name
    */
   static composeItemName(baseName, affixes, quality) {
@@ -376,8 +384,47 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const item = this.parent;
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
       item,
+      descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(this.description.public, {relativeTo: item}),
       tags: preparedTags,
       actions: await item.prepareActionsContext()
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render this physical item as HTML for inline display.
+   * @param {object} [options]
+   * @param {boolean} [options.showRemove]     Whether to show a "Remove Equipment" button
+   * @param {boolean} [options.showEquipped]   Whether to show an "Equipped" toggle button
+   * @param {boolean} [options.showScaled]     Whether to show a "Scale Automatically" toggle button
+   * @param {number} [options.equipmentIndex]  Index in a granted equipment list, rendering a quantity input
+   * @param {number} [options.quantity]        A granted quantity which overrides the item's own quantity
+   * @param {boolean} [options.equipped]       A granted equipped state which overrides the item's own state
+   * @param {boolean} [options.scaled]         A granted automatic scaling state to display
+   * @param {string} [options.uuid]            Override the emitted data-uuid, e.g. for an invalid placeholder
+   * @returns {Promise<string>}
+   */
+  async renderInline({showRemove=false, showEquipped=false, showScaled=false, equipmentIndex, quantity, equipped,
+    scaled=false, uuid}={}) {
+    quantity ??= this.quantity;
+    equipped ??= this.equipped;
+    return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
+      uuid: uuid ?? this.parent.uuid,
+      name: this.parent.name,
+      img: this.parent.img,
+      cssClass: [this.parent.type, equipped ? "equipped" : ""].filterJoin(" "),
+      description: await CONFIG.ux.TextEditor.enrichHTML(this.description.public, {relativeTo: this.parent}),
+      tags: this.getTags(),
+      showControls: showRemove || showEquipped || showScaled,
+      showRemove,
+      showEquipped,
+      showScaled,
+      showQuantity: equipmentIndex !== undefined,
+      equipmentIndex,
+      quantity,
+      equipped,
+      scaled
     });
   }
 

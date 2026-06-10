@@ -143,6 +143,11 @@ Hooks.once("init", async function() {
     compendiumIndexFields: ["system.identifier", "system.affixType"],
     expiryAction: "delete"
   });
+  CONFIG.ActiveEffect.changeTypes.scaleResource = {
+    label: "ACTIVE_EFFECT.CHANGE_TYPES.scaleResource",
+    defaultPriority: 100,
+    handler: documents.CrucibleActiveEffect.applyScaleResource
+  };
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;

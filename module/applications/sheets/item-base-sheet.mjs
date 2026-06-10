@@ -31,6 +31,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       type: undefined, // Defined by subclass
       includesActions: false,
       includesAffixes: false,
+      includesEquipment: false,
       includesHooks: false,
       hasAdvancedDescription: false
     },
@@ -140,6 +141,17 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         scrollable: [""]
       };
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
+    }
+
+    // Includes Equipment
+    if ( item.includesEquipment ) {
+      this.PARTS.equipment = {
+        id: "equipment",
+        template: "systems/crucible/templates/sheets/item/item-equipment.hbs",
+        scrollable: [".equipment-list"]
+      };
+      this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase",
+        label: "ITEM.TABS.Equipment"});
     }
   }
 

@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/symbols/symbol-lightning-bolt.webp
 system:
   nodes:
-    - int2c
+    - int2b
   description: >-
     <p>Your sharpened mind thinks quickly amidst the maelstrom of combat,
     identifying and seizing opportunities that others might miss.</p>
@@ -54,12 +54,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.5
   createdTime: 1772307160129
-  modifiedTime: 1773514792568
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780938422495
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: decisiveAction00
 sort: 300000
 _key: '!items!decisiveAction00'

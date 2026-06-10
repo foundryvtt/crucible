@@ -1,0 +1,78 @@
+name: Duelist
+type: talent
+img: icons/skills/melee/sword-twirl-orange.webp
+system:
+  description: >-
+    <p>You are a master of single combat, dueling with a one-handed weapon and a
+    free off-hand. While wielding a one-handed melee weapon with your other hand
+    empty, you gain a <strong>+2</strong> bonus to your <strong>Parry</strong>
+    defense as long as you are not @Condition[flanked]. Your trained guard also
+    turns more of the attacks you avoid into parries rather than glancing
+    blows.</p>
+  actions:
+    - id: estocade
+      name: Estocade
+      img: icons/skills/melee/sword-twirl-orange.webp
+      condition: ''
+      description: >-
+        <p>You deliver a precise, decisive thrust against a foe you have caught
+        at a disadvantage. You make a <strong>Strike</strong> with your
+        main-hand weapon which is <strong>Empowered</strong> and
+        <strong>Keen</strong>.</p><p>You may only perform this attack against a
+        target who is @Condition[exposed], @Condition[prone],
+        @Condition[slowed], @Condition[staggered], @Condition[paralyzed] or who
+        has been disarmed of their main-hand weapon.</p>
+      tags:
+        - melee
+        - mainhand
+        - empowered
+        - keen
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.dexterity
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160130
+  modifiedTime: 1781112916749
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: duelist000000000
+folder: fOYHlZJEWUukD7yr
+sort: 2500000
+_key: '!items!duelist000000000'

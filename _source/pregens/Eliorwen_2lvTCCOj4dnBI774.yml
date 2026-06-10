@@ -76,6 +76,8 @@ system:
         stride: 10
       name: Elvish
       img: icons/magic/nature/leaf-rune-glow-green.webp
+      characteristics:
+        temperature: ''
     background:
       description: >-
         <p>Yours has been an itinerant life. You enjoy nothing more than the
@@ -263,49 +265,6 @@ prototypeToken:
   movementAction: null
   depth: 4
 items:
-  - _id: WYw63RWi2vcIPylm
-    name: Longbow
-    type: weapon
-    img: icons/weapons/bows/longbow-leather-green.webp
-    effects: []
-    folder: NNHjWBS5AM148J20
-    flags: {}
-    system:
-      category: projectile2
-      quantity: 1
-      weight: 3
-      price: 360
-      quality: standard
-      enchantment: mundane
-      equipped: true
-      properties: []
-      description:
-        public: >-
-          <p>A tall, self-bow often taller than the archer who draws it, the
-          longbow requires great strength and years of practice to master,
-          sending arrows with deadly force across the battlefield.</p>
-        private: ''
-      damageType: piercing
-      broken: false
-      slot: 3
-      actions: []
-      identifier: longbow
-      invested: false
-      dropped: false
-    _stats:
-      coreVersion: '14.360'
-      systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438970
-      modifiedTime: 1776203438970
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    sort: 50000
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.WYw63RWi2vcIPylm'
   - _id: CItsWhgzGd5hXOQD
     name: Scimitar
     type: weapon
@@ -336,11 +295,11 @@ items:
       invested: false
       dropped: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438971
-      modifiedTime: 1776203438971
+      systemVersion: 0.9.5
+      createdTime: 1780588142915
+      modifiedTime: 1780588142915
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -378,11 +337,11 @@ items:
       identifier: studdedLeatherArmor
       invested: false
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438971
-      modifiedTime: 1776203438971
+      systemVersion: 0.9.5
+      createdTime: 1780588142916
+      modifiedTime: 1780588142916
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -405,7 +364,7 @@ items:
           description: >-
             <p>You <strong>Strike</strong> from distance. The attack is
             <strong>Difficult</strong>, however if your target is it it becomes
-            <strong>Restrained</strong> until the end of their next Turn.</p>
+            @Condition[restrained] until the end of their next Turn.</p>
           tags:
             - ranged
             - difficult
@@ -448,6 +407,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex3a
       rune: ''
@@ -460,12 +420,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438971
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142916
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438971
+      createdTime: 1780588142916
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -501,12 +461,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438971
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142916
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438971
+      createdTime: 1780588142916
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -539,12 +499,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438972
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142916
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438972
+      createdTime: 1780588142916
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -564,7 +524,7 @@ items:
         - id: markPrey
           description: >-
             <p>You Strike using a special shot. If your attack is successful the
-            target is <strong>Exposed</strong> for the next 3 Turns.</p>
+            target is @Condition[exposed] for the next 3 Turns.</p>
           tags:
             - ranged
             - difficult
@@ -609,6 +569,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex2a
       rune: ''
@@ -622,12 +583,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438972
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142916
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438972
+      createdTime: 1780588142916
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -644,9 +605,37 @@ items:
     system:
       description: >-
         <p>You are an expert at firing shots with ranged weaponry while evading
-        enemy attacks. After performing a ranged weapon attack, you gain half
-        your <strong>Stride</strong> in additional free movement.</p>
-      actions: []
+        enemy attacks.</p>
+      actions:
+        - id: evasiveShot
+          name: Evasive Shot
+          img: icons/skills/ranged/person-archery-bow-attack-orange.webp
+          description: >-
+            <p>After performing a ranged weapon attack, you may move up to half
+            your <strong>Stride</strong> for free.</p>
+          condition: ''
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 0
+            self: false
+          summon:
+            actorUuid: null
+            permanent: true
+          effects: []
+          tags:
+            - movement
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -659,12 +648,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438973
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142917
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438973
+      createdTime: 1780588142917
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -699,12 +688,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438973
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142917
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438973
+      createdTime: 1780588142917
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -752,6 +741,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -762,12 +752,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      modifiedTime: 1776203438973
+      systemVersion: 0.9.5
+      modifiedTime: 1780588142917
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1776203438973
+      createdTime: 1780588142917
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -804,11 +794,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438974
-      modifiedTime: 1776203438974
+      systemVersion: 0.9.5
+      createdTime: 1780588142917
+      modifiedTime: 1780588142917
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -844,8 +834,8 @@ items:
             heroism: 0
             hands: 0
           range:
-            maximum: null
-            weapon: true
+            maximum: 40
+            weapon: false
             minimum: null
           target:
             type: cone
@@ -859,6 +849,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex3a
       rune: ''
@@ -869,11 +860,11 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438974
-      modifiedTime: 1776203438974
+      systemVersion: 0.9.5
+      createdTime: 1780588142917
+      modifiedTime: 1780588142917
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -894,10 +885,9 @@ items:
           tags:
             - projectile
             - ranged
-            - difficult
           cost:
             action: 1
-            focus: 0
+            focus: 1
             weapon: true
             heroism: 0
             hands: 0
@@ -912,9 +902,9 @@ items:
           img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
           condition: ''
           description: >-
-            <p>Using this <strong>Difficult</strong> technique, you fire two
-            projectiles at once making two <strong>Strike</strong> attacks
-            against the same target.</p>
+            <p>You concentrate to nock two projectiles at once making two
+            <strong>Strike</strong> simultaneous attacks against the same single
+            target.</p>
           range:
             maximum: null
             weapon: true
@@ -922,6 +912,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - dex1a
       rune: ''
@@ -934,11 +925,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438974
-      modifiedTime: 1776203438974
+      systemVersion: 0.9.5
+      createdTime: 1780588142918
+      modifiedTime: 1780588142918
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -970,11 +961,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438975
-      modifiedTime: 1776203438975
+      systemVersion: 0.9.5
+      createdTime: 1780588142918
+      modifiedTime: 1780588142918
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1014,11 +1005,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438975
-      modifiedTime: 1776203438975
+      systemVersion: 0.9.5
+      createdTime: 1780588142918
+      modifiedTime: 1780588142918
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1037,7 +1028,7 @@ items:
       description: >-
         <p>You are adept at entering and exiting the fray. When moving out of
         the <strong>Engagement</strong> radius of an enemy, that enemy has 2
-        Banes to any <strong>Reactive Strike</strong> against you.</p>
+        Banes to any @Action[default reactiveStrike] against you.</p>
       nodes:
         - dex3b
       actions: []
@@ -1051,11 +1042,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438975
-      modifiedTime: 1776203438975
+      systemVersion: 0.9.5
+      createdTime: 1780588142918
+      modifiedTime: 1780588142918
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1106,6 +1097,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       nodes:
         - int2a
       rune: ''
@@ -1118,11 +1110,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438976
-      modifiedTime: 1776203438976
+      systemVersion: 0.9.5
+      createdTime: 1780588142919
+      modifiedTime: 1780588142919
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1139,10 +1131,10 @@ items:
       description: >-
         <p>You are highly skilled in weaving the Rune of Lightning. Spells which
         use this Rune cause the @Condition[shocked] condition on Critical
-        Hits.</p><p>The Shocked effect lasts for <strong>1 Round</strong>, deals
-        half your <strong>Intellect</strong> score as <strong>Lightning</strong>
-        damage to <strong>Morale</strong>, and applies the @Condition[staggered]
-        condition.</p>
+        Hits.</p><p>The Shocked effect lasts for <strong>3 Rounds</strong>,
+        deals half your <strong>Intellect</strong> score as
+        <strong>Lightning</strong> damage to <strong>Morale</strong>, and
+        applies the @Condition[staggered] condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1157,11 +1149,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438976
-      modifiedTime: 1776203438976
+      systemVersion: 0.9.5
+      createdTime: 1780588142919
+      modifiedTime: 1780588142919
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1199,11 +1191,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438976
-      modifiedTime: 1776203438976
+      systemVersion: 0.9.5
+      createdTime: 1780588142919
+      modifiedTime: 1780588142919
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1273,6 +1265,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: illusion
       nodes:
         - int0a
@@ -1286,12 +1279,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
+      systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1776203438977
-      createdTime: 1776203438977
+      modifiedTime: 1780588142919
+      createdTime: 1780588142919
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1308,9 +1301,9 @@ items:
     system:
       description: >-
         <p>You understand how to move away from an opponent without exposing
-        yourself to the worst attacks in return. Any <strong>Disengagement
-        Attack</strong> against you is performed without the 2 Boons that would
-        ordinarily apply to such an attack.</p>
+        yourself to the worst attacks in return. Any <strong>Reactive
+        Strike</strong> against you is performed with <strong>+1
+        Bane</strong>.</p>
       actions: []
       nodes:
         - intdex2
@@ -1324,11 +1317,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438977
-      modifiedTime: 1776203438977
+      systemVersion: 0.9.5
+      createdTime: 1780588142920
+      modifiedTime: 1780588142920
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1360,11 +1353,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438977
-      modifiedTime: 1776203438977
+      systemVersion: 0.9.5
+      createdTime: 1780588142920
+      modifiedTime: 1780588142920
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1442,6 +1435,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       uses:
         value: 1
         max: 1
@@ -1458,11 +1452,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438978
-      modifiedTime: 1776203438978
+      systemVersion: 0.9.5
+      createdTime: 1780588142920
+      modifiedTime: 1780588142920
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1531,6 +1525,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       rune: lightning
       training:
         type: lightning
@@ -1544,11 +1539,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438978
-      modifiedTime: 1776203438978
+      systemVersion: 0.9.5
+      createdTime: 1780588142921
+      modifiedTime: 1780588142921
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1599,6 +1594,7 @@ items:
           summon:
             actorUuid: null
             permanent: true
+          autoFavorite: false
       iconicSpells: 0
       training:
         type: projectile
@@ -1611,11 +1607,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.363'
       systemId: crucible
-      systemVersion: 0.9.1
-      createdTime: 1776203438978
-      modifiedTime: 1776203438978
+      systemVersion: 0.9.5
+      createdTime: 1780588142921
+      modifiedTime: 1780588142921
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1626,21 +1622,64 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.projectileWeapon'
+  - name: Shortbow
+    type: weapon
+    img: icons/weapons/bows/shortbow-leather.webp
+    effects: []
+    flags: {}
+    system:
+      category: projectile2
+      quantity: 1
+      weight: 2
+      price: 240
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description:
+        public: >-
+          <p>Compact and quick to draw, the shortbow excels in rapid,
+          close-quarters archery and skirmishes, favored by scouts, hunters, and
+          swift-footed raiders.</p>
+        private: ''
+      damageType: piercing
+      broken: false
+      identifier: shortbow
+      invested: false
+      actions: []
+      dropped: false
+      slot: 3
+    _stats:
+      coreVersion: '14.363'
+      systemId: crucible
+      systemVersion: 0.9.5
+      createdTime: 1780588142914
+      modifiedTime: 1780588142914
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: f9YuKxp29iYf7PnA
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.f9YuKxp29iYf7PnA'
 effects: []
 flags:
   core: {}
   crucible:
     lastSpell: spell.illusion.arrow
     actionHistory:
-      - id: strike
-        messageId: loQBzEpRlYlyZHZu
+      - id: rest
+        messageId: ZN7uvsLwg0t6Okp0
         combat: null
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.1
-  createdTime: 1776203438969
-  modifiedTime: 1776203438969
+  systemVersion: 0.9.5
+  createdTime: 1780588142914
+  modifiedTime: 1780588142914
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

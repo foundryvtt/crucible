@@ -4,8 +4,9 @@ _id: mesmer0000000000
 img: icons/magic/air/air-burst-spiral-pink.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Illusion. Spells which use
-    this Rune cause @Condition[confused] on Critical Hits.</p><p>The Confused
+    <p>You are highly skilled in weaving the Rune of Illusion. When you cast a
+    Spell or use an action that involves this Rune, your Critical Hits which
+    deal damage cause the @Condition[confused] condition.</p><p>The Confused
     effect lasts for <strong>1 Round</strong>, deals half your
     <strong>Intellect</strong> score as <strong>Psychic</strong> damage to
     <strong>Morale</strong>, and applies the @Condition[disoriented]

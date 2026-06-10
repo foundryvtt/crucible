@@ -246,7 +246,7 @@ export default class CrucibleItem extends foundry.documents.Item {
 
     // Compose the item name
     itemData.name = name || crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixEffects,
-      itemData.system.quality) || baseItem.name;
+      baseItem.system.properties.has("natural") ? "" : itemData.system.quality) || baseItem.name;
 
     // Flag compendium source
     itemData._stats ??= {};
@@ -351,11 +351,20 @@ export default class CrucibleItem extends foundry.documents.Item {
       }
     }
 
-    // Procedurally rename the item when its quality tier changes
+    // Respond to a quality tier change
     const newQuality = data.system?.quality;
-    const isRenamed = ("name" in data) && (data.name !== this.name);
-    if ( newQuality && (newQuality !== this.system.quality) && !isRenamed && (await this.hasProceduralName()) ) {
-      data.name = await this.getProceduralName({quality: newQuality});
+    if ( newQuality && (newQuality !== this.system.quality) ) {
+
+      // Take manual control of an automatically scaled item, unless the change came from the scaling workflow
+      if ( !options._crucibleAutoScale && (this.getFlag("crucible", "autoScale") === true) ) {
+        foundry.utils.setProperty(data, "flags.crucible.autoScale", false);
+      }
+
+      // Procedurally rename the item, unless the update also explicitly renames it
+      const isRenamed = ("name" in data) && (data.name !== this.name);
+      if ( !isRenamed && (await this.hasProceduralName()) ) {
+        data.name = await this.getProceduralName({quality: newQuality});
+      }
     }
   }
 
@@ -745,7 +754,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     // Compose item name
     const composed = baseItem.system.constructor.composeItemName(baseItem.name, affixEffects.map(ae => ({
       name: ae.name, system: ae.system
-    })), chosen.quality.id);
+    })), baseItem.system.properties.has("natural") ? "" : chosen.quality.id);
     if ( composed ) itemData.name = composed;
 
     // Flag compendium source
@@ -811,6 +820,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     baseName ??= await this.#getBaseItemName();
     if ( !baseName ) return this.name;
     affixes ??= this.effects.filter(e => e.type === "affix");
+    if ( this.system.properties.has("natural") ) quality = ""; // Natural weapons and armor never display quality
     return this.system.constructor.composeItemName(baseName, affixes, quality);
   }
 
@@ -826,8 +836,9 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( !baseName ) return false;
     const affixes = this.effects.filter(e => e.type === "affix");
     const cls = this.system.constructor;
+    const natural = this.system.properties.has("natural");
     for ( const quality of Object.keys(crucible.CONST.ITEM.QUALITY_TIERS) ) {
-      if ( this.name === cls.composeItemName(baseName, affixes, quality) ) return true;
+      if ( this.name === cls.composeItemName(baseName, affixes, natural ? "" : quality) ) return true;
     }
     return false;
   }

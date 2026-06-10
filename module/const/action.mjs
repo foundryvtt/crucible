@@ -401,6 +401,20 @@ export const TAGS = {
     }
   },
 
+  // Immediately follows a Rest
+  rest: {
+    tag: "rest",
+    label: "ACTION.TAG.Rest",
+    tooltip: "ACTION.TAG.RestTooltip",
+    category: "requirements",
+    propagate: ["noncombat"],
+    canUse() {
+      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
+      }
+    }
+  },
+
   // Requires the ability to speak
   vocal: {
     tag: "vocal",
@@ -1063,6 +1077,15 @@ export const TAGS = {
       this.usage.bonuses.damageBonus += 6;
     }
   },
+  keen: {
+    tag: "keen",
+    label: "ACTION.TAG.Keen",
+    tooltip: "ACTION.TAG.KeenTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.criticalSuccessThreshold -= 2;
+    }
+  },
   accurate: {
     tag: "accurate",
     label: "ACTION.TAG.Accurate",
@@ -1485,8 +1508,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    autoFavorite: true
+    tags: ["noncombat"]
   },
 
   // Recover

@@ -1,0 +1,44 @@
+name: Venomous Bite
+type: weapon
+img: icons/creatures/abilities/fang-tooth-venomous.webp
+effects: []
+folder: damageTypedBites
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has a bite that injects potent
+      venom.</p>
+    private: ''
+  damageType: poison
+  broken: false
+  identifier: venomousBite
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.4
+  createdTime: 1780529553862
+  modifiedTime: 1780532539173
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: venomousBite0000
+sort: 2900000
+_key: '!items!venomousBite0000'
