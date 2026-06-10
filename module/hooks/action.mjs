@@ -1836,6 +1836,33 @@ HOOKS.vampiricBite = {
 
 /* -------------------------------------------- */
 
+HOOKS.vaultingSweep = {
+  prepare() {
+    const reach = this.actor.equipment.weapons.mainhand?.system.range ?? 1;
+    this.range.maximum = this.actor.system.movement.stride + reach;
+    this.target.size = Math.ceil(this.actor.size / 2) + reach;
+  },
+  async preActivate() {
+    const center = this.region?.shapes[0];
+    if ( !this.token || !center ) return;
+    const gridSize = canvas.grid.size;
+    const waypoint = {
+      x: center.x - ((this.token.width * gridSize) / 2),
+      y: center.y - ((this.token.height * gridSize) / 2),
+      action: "jump"
+    };
+    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
+      {constrainOptions: {crucible: {ignoreTokens: true}}});
+    if ( !plan ) return;
+    plan.cost = 0;
+    // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id
+    const {x, y, elevation} = plan.origin;
+    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.wildStrike = {
   acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;

@@ -2,6 +2,15 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.acrobat000000000 = {
+  defendAttack(item, action, _attacker, rollData) {
+    if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
+    if ( action.tags.has("ranged") ) rollData.banes.acrobat = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.adrenalineSurge0 = {
   useAction(item, action) {
     if ( !this.effects.has(item.id) || !action.scaling?.includes("strength") ) return;
