@@ -144,6 +144,10 @@
           --input-background-color: var(--color-cool-5-50);
           --input-text-color: var(--color-text-primary);
         }
+        &.increased-contrast {
+          background: var(--color-frame-bg);
+          border: 1px solid var(--input-border-color);
+        }
       }
     }
     .metadata {
@@ -315,6 +319,17 @@
         --min-height: 32px;
       }
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Region Behaviors                            */
+  /* -------------------------------------------- */
+  &.region-behavior-config .sheet-body.scrollable {
+    flex: 1;
+    height: 0;
+    margin-right: 0.25rem;
+    padding-right: 0.25rem;
+    scrollbar-gutter: stable;
   }
 }
 

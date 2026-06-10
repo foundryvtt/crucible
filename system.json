@@ -262,7 +262,8 @@
     "RegionBehavior": {
       "crucible.hazard": {
         "htmlFields": ["description"]
-      }
+      },
+      "crucible.persistentAOE": {}
     }
   },
   "grid": {

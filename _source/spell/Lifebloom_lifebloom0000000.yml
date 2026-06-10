@@ -23,12 +23,7 @@ system:
         Morale of all allies within 30 feet of you. Each round, allies who start
         their turn within this aura recover your <strong>Wisdom</strong> in both
         <strong>Health</strong> and <strong>Morale</strong>. The spell must be
-        maintained.</p><p><strong>WIP: This spell is currently treated as an
-        Area of Effect, granting healing-over-time effects to those within
-        initial range. Removal of these effects if the spell ceases being
-        maintained must be done manually for now. When auras are automated by
-        the system in Foundry VTT version 14, the mechanical implementation of
-        this spell will match the description.</strong></p>
+        maintained.</p>
       cost:
         action: 6
         focus: 2
@@ -40,28 +35,12 @@ system:
         maximum: null
         weapon: false
       target:
-        type: pulse
+        type: aura
         number: 1
         scope: 2
-        self: true
+        self: false
         size: 30
-      effects:
-        - name: Lifebloom
-          scope: 1
-          result:
-            type: any
-            all: false
-          statuses: []
-          duration:
-            value: 6
-            units: rounds
-            expiry: turnEnd
-          system:
-            changes: []
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
+      effects: []
       tags:
         - spell
         - iconicSpell
@@ -74,6 +53,26 @@ system:
       rune: life
       gesture: aura
       inflection: extend
+      regionBehavior:
+        name: Lifebloom
+        system:
+          events:
+            - tokenTurnStart
+          oncePerRound: true
+          actionToPerform:
+            name: Lifebloom
+            id: lifebloomRegion
+            description: >-
+              <p>Each round, allies start their turn within this aura recover
+              your <strong>Wisdom</strong> in both <strong>Health</strong> and
+              <strong>Morale</strong>.</p>
+            tags:
+              - healing
+              - rallying
+              - wisdom
+            img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
+            effects: []
+      autoFavorite: false
   runes:
     - life
     - soul
@@ -91,12 +90,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.363'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.4
   createdTime: 1772307159357
-  modifiedTime: 1773514792468
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1780933975792
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: lifebloom0000000
 sort: 100000
 _key: '!items!lifebloom0000000'
