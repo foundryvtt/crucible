@@ -202,7 +202,7 @@ export const TIME = Object.freeze({
 /* -------------------------------------------- */
 
 export const RULES = {
-  GENERAL: {
+  general: {
     boons: {
       label: "DICE.Boons.many",
       tooltip: "DICE.BoonsTooltip"
@@ -212,24 +212,52 @@ export const RULES = {
       tooltip: "DICE.BanesTooltip"
     }
   },
-  SKILL_CATEGORIES: {
-    tradecraft: {
-      label: "SKILL.CATEGORY.CRAFTING.label",
-      tooltip: "SKILL.CATEGORY.CRAFTING.hint"
+  skill: {
+    category: {
+      tradecraft: {
+        label: "SKILL.CATEGORY.CRAFTING.label",
+        tooltip: "SKILL.CATEGORY.CRAFTING.hint"
+      },
+      exploration: {
+        label: "SKILL.CATEGORY.EXPLORATION.label",
+        tooltip: "SKILL.CATEGORY.EXPLORATION.hint"
+      },
+      knowledge: {
+        label: "SKILL.CATEGORY.KNOWLEDGE.label",
+        tooltip: "SKILL.CATEGORY.KNOWLEDGE.hint"
+      },
+      social: {
+        label: "SKILL.CATEGORY.SOCIAL.label",
+        tooltip: "SKILL.CATEGORY.SOCIAL.hint"
+      }
     },
-    exploration: {
-      label: "SKILL.CATEGORY.EXPLORATION.label",
-      tooltip: "SKILL.CATEGORY.EXPLORATION.hint"
-    },
-    knowledge: {
-      label: "SKILL.CATEGORY.KNOWLEDGE.label",
-      tooltip: "SKILL.CATEGORY.KNOWLEDGE.hint"
-    },
-    social: {
-      label: "SKILL.CATEGORY.SOCIAL.label",
-      tooltip: "SKILL.CATEGORY.SOCIAL.hint"
-    }
-  }
+    skill: SKILL.SKILLS,
+    crafting: CRAFTING.TRAINING
+  },
+  action: ACTION.TAGS,
+  damage: {
+    type: ATTRIBUTES.DAMAGE_TYPES,
+    category: ATTRIBUTES.DAMAGE_CATEGORIES
+  },
+  defense: ATTRIBUTES.DEFENSES,
+  weapon: {
+    property: WEAPON.PROPERTIES,
+    category: WEAPON.CATEGORIES
+  },
+  armor: {
+    property: ARMOR.PROPERTIES,
+    category: ARMOR.CATEGORIES
+  },
+  accessory: {
+    property: ACCESSORY.PROPERTIES,
+    category: ACCESSORY.CATEGORIES
+  },
+  consumable: {
+    property: CONSUMABLE.PROPERTIES,
+    category: CONSUMABLE.CATEGORIES
+  },
+  resource: ATTRIBUTES.RESOURCES,
+  ability: ATTRIBUTES.ABILITIES
 };
 
 /**

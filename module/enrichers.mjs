@@ -66,44 +66,9 @@ export function registerEnrichers() {
       enricher: enrichSpell
     },
     {
-      id: "crucibleActionTag",
-      pattern: /@ActionTag\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.ACTION.TAGS], ["action-tag"])
-    },
-    {
-      id: "crucibleWeaponProperty",
-      pattern: /@WeaponProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.WEAPON.PROPERTIES, SYSTEM.WEAPON.CATEGORIES], ["weapon-property"])
-    },
-    {
-      id: "crucibleArmorProperty",
-      pattern: /@ArmorProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.ARMOR.PROPERTIES, SYSTEM.ARMOR.CATEGORIES], ["armor-property"])
-    },
-    {
-      id: "crucibleConsumableProperty",
-      pattern: /@ConsumableProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.CONSUMABLE.PROPERTIES, SYSTEM.CONSUMABLE.CATEGORIES], ["consumable-property"])
-    },
-    {
-      id: "crucibleAccessoryProperty",
-      pattern: /@AccessoryProperty\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.ACCESSORY.PROPERTIES, SYSTEM.ACCESSORY.CATEGORIES], ["accessory-property"])
-    },
-    {
       id: "crucibleRule",
-      pattern: /@Rule\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.RULES.GENERAL, SYSTEM.ABILITIES, SYSTEM.RESOURCES], [])
-    },
-    {
-      id: "crucibleSkill",
-      pattern: /@Skill\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.RULES.SKILL_CATEGORIES, SYSTEM.SKILL.SKILLS, SYSTEM.CRAFTING.TRAINING], ["skill"])
-    },
-    {
-      id: "crucibleDamage",
-      pattern: /@Damage\[(\w+)]/g,
-      enricher: simpleRulesEnricher([SYSTEM.DAMAGE_TYPES, SYSTEM.DAMAGE_CATEGORIES], ["damage"])
+      pattern: /@Rule\[([\w-.]+)](?:{([^}]+)})?/g,
+      enricher: ruleEnricher
     },
     {
       id: "crucibleDefense",
@@ -674,7 +639,26 @@ function enrichSpell([match, spellId]) {
 }
 
 /* -------------------------------------------- */
-/*  Simple Rules Elements                                  */
+/*  Rules                                       */
+/* -------------------------------------------- */
+
+/**
+ * Enrich an rule reference into a hoverable element displaying the tag name and tooltip.
+ * @param {RegExpMatchArray} matchArray
+ */
+function ruleEnricher([match, tagId, label]) {
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, tagId.replaceAll("-", "_"));
+  if ( !cfg ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = label ?? _loc(cfg.label);
+  tag.dataset.crucibleTooltip = "tag";
+  tag.dataset.crucibleTooltipText = _loc(cfg.tooltip) ?? `[WIP] no tooltip was provided for ${cfg.label}`;
+  tag.classList.add("rule", tagId.split(".")[0]);
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Simple Rules Elements                       */
 /* -------------------------------------------- */
 
 /**
@@ -689,14 +673,7 @@ function simpleRulesEnricher(lookups, classes=[]) {
    * @param {RegExpMatchArray} matchArray
    */
   return ([match, tagId]) => {
-    const cfg = lookups.map(lookup => lookup[tagId]).find(x => x);
-    if ( !cfg ) return new Text(match);
-    const tag = document.createElement("enriched-content");
-    tag.innerHTML = cfg.label;
-    tag.dataset.crucibleTooltip = "tag";
-    tag.dataset.crucibleTooltipText = cfg.tooltip ?? `[WIP] no tooltip was provided for ${cfg.label}`;
-    tag.classList.add("rule", ...classes);
-    return tag;
+    return new Text(match);
   };
 }
 
