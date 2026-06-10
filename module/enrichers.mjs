@@ -648,7 +648,7 @@ function ruleEnricher([match, tagId, label]) {
   tag.innerHTML = label ?? _loc(cfg.label);
   tag.dataset.crucibleTooltip = "tag";
   tag.dataset.crucibleTooltipText = _loc(cfg.tooltip) ?? `[WIP] no tooltip was provided for ${cfg.label}`;
-  tag.classList.add("rule", tagId.split(".")[0]);
+  tag.classList.add("rule", "rule-enricher", tagId.split(".")[0]);
   return tag;
 }
 
