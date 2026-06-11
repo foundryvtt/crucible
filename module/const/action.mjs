@@ -1259,16 +1259,20 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = id;
       }
       status.hasMoved = true;
-    },
-    async confirm(reverse) {
-      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
-      if ( reverse ) return;
 
-      // Remove the prone condition on confirmation if not explicitly crawling
-      if ( this.actor.statuses.has("prone") ) {
-        const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
-        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
+      // Voluntarily stand up from prone when performing your own movement
+      if ( this.actor.statuses.has("prone") && this.movement?.waypoints?.some(w => w.action !== "crawl") ) {
+        for ( const effect of this.actor.effects ) {
+          if ( !effect.statuses.has("prone") ) continue;
+          const change = effect.isStatusOnly("prone")
+            ? {_id: effect.id, _action: "delete"}
+            : {_id: effect.id, _action: "update", statuses: [...effect.statuses].filter(s => s !== "prone")};
+          this.recordEvent({type: "effect", target: this.actor, effects: [change]});
+        }
       }
+    },
+    confirm() {
+      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
     }
   }
 };

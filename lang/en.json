@@ -546,6 +546,11 @@
     "Glide": {
       "MustDescend": "A glide must end at a lower elevation than where it began."
     },
+    "Grapple": {
+      "AlreadyGrappled": "{name} is already Grappled by another creature.",
+      "AlreadyGrappling": "You are already Grappling another creature.",
+      "TooLarge": "{name} is too large for you to Grapple."
+    },
     "ImbueAffix": {
       "AffixLabel": "Affix",
       "Incompatible": "That affix cannot be applied to the chosen item.",
@@ -556,6 +561,9 @@
       "Required": "You must choose both an item and an affix.",
       "TierTooHigh": "That affix cannot be imbued at Tier 1.",
       "Title": "Imbue Affix"
+    },
+    "Throw": {
+      "NotGrappling": "You may only Throw a creature you are Grappling."
     }
   },
   "ACTIVE_EFFECT": {

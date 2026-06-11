@@ -58,6 +58,9 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
  * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
  *                                          action used would otherwise enforce it
+ * @property {string[]} [excludeTokens]     Specific token ids exempt from this action's movement collision
+ * @property {(token: Token) => boolean} [excludeTokenTest]  A predicate marking tokens exempt from this action's
+ *                                          movement collision, evaluated lazily on near-path candidates (e.g. by Size)
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
@@ -2457,7 +2460,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.itemSnapshots ) batch.itemSnapshots.push(...event.itemSnapshots);
 
       // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
-      if ( event.type === "movement" ) {
+      if ( (event.type === "movement") && event.movement ) {
         batch.movementId = event.movement.id;
         if ( reverse && (event.movement.id === actor.system.status?.freeMovementId) ) {
           foundry.utils.setProperty(batch.actorUpdates, "system.status.hasMoved", false);
@@ -2553,6 +2556,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {burrowing, falling, flying} = CONFIG.statusEffects;
     const {BURROW, FLY} = CONFIG.specialStatusEffects;
     const actor = event.target;
+
+    // A grappled target cannot be moved except by the grappler
+    const grapple = crucible.api.hooks.action.grapple;
+    const grappled = actor.effects.get(grapple._GRAPPLED_EFFECT_ID);
+    if ( grappled && (grappled.origin !== this.actor.uuid) ) {
+      event.movement = null;
+      return;
+    }
+
+    // A grappler who voluntarily or involuntarily moves breaks the grapple
+    const grappling = actor.effects.get(grapple._GRAPPLING_EFFECT_ID);
+    if ( grappling ) {
+      event.effects.push({_id: grapple._GRAPPLING_EFFECT_ID, _action: "delete"});
+      const captive = grappling.origin ? fromUuidSync(grappling.origin) : null;
+      if ( captive ) this.recordEvent({type: "effect", target: captive,
+        effects: [{_id: grapple._GRAPPLED_EFFECT_ID, _action: "delete"}]});
+    }
 
     // Resolve the moved token and its planned movement, matched by movement id
     const isSelf = actor === this.actor;

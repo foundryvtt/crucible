@@ -351,6 +351,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( options.crucible?.ignoreTokens ) tokenCollision = false;
     if ( segment.actionConfig?.tokenCollision === false ) tokenCollision = false;
     config.tokenCollision = tokenCollision;
+    if ( options.crucible?.excludeTokens ) config.excludeTokens = options.crucible.excludeTokens;
+    // A collision predicate cannot ride the serialized constrainOptions, so it is stashed locally for the duration of
+    // interactive planning (see CrucibleActionUseDialog#onPlanMovement) and read here on the moving client only
+    if ( this._movementExcludeTest ) config.excludeTokenTest = this._movementExcludeTest;
     return config;
   }
 

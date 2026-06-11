@@ -495,6 +495,14 @@ HOOKS.glider0000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.wrestler00000000 = {
+  prepareMovement(_item, movement) {
+    movement.grappleBonus += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.healer0000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
@@ -507,6 +515,18 @@ HOOKS.healer0000000000 = {
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
     if ( this.equipment.weapons.shield ) movement.engagementBonus += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.hulkingphysique0 = {
+  prepareMovement(_item, movement) {
+    movement.sizeBonus += 1;
+    movement.strideBonus -= 2;
+  },
+  prepareDefenses(_item, defenses) {
+    defenses.dodge.bonus -= 2;
   }
 };
 
@@ -599,6 +619,19 @@ HOOKS.irrepressiblespi = {
     if ( this.system.isBroken ) return;
     resourceChanges.morale.push({label: item.name, amount: 1});
     statusText.push({text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.heal.css});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.juggernaut000000 = {
+  prepareMovement(_item, movement) {
+    movement.grappleBonus += 1;
+  },
+  prepareAction(_item, action) {
+    if ( action.id !== "grapple" ) return;
+    const selfEffect = action.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF);
+    if ( selfEffect?.statuses ) selfEffect.statuses = selfEffect.statuses.filter(s => s !== "restrained");
   }
 };
 

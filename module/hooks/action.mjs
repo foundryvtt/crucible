@@ -764,6 +764,51 @@ HOOKS.gemOfConjuredFlame = {
 
 /* -------------------------------------------- */
 
+HOOKS.grapple = {
+  _GRAPPLED_EFFECT_ID: "grappled00000000",
+  _GRAPPLING_EFFECT_ID: "grappling0000000",
+  _canGrapple(actor, target) {
+    return (actor.size + actor.system.movement.grappleBonus) >= (target.size + target.system.movement.grappleBonus);
+  },
+  prepare() {
+    for ( const effect of this.effects ) {
+      if ( effect.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF ) effect._id = HOOKS.grapple._GRAPPLING_EFFECT_ID;
+      else effect._id = HOOKS.grapple._GRAPPLED_EFFECT_ID;
+    }
+  },
+  acquireTargets(targets) {
+    const grappling = this.actor.effects.get(HOOKS.grapple._GRAPPLING_EFFECT_ID);
+    for ( const target of targets ) {
+      const grappled = target.actor.effects.get(HOOKS.grapple._GRAPPLED_EFFECT_ID);
+      const grappledByMe = grappled?.origin === this.actor.uuid;
+      if ( grappled && !grappledByMe ) {
+        target.error ??= _loc("ACTIONS.Grapple.AlreadyGrappled", {name: target.actor.name});
+        continue;
+      }
+      if ( grappling && !grappledByMe ) {
+        target.error ??= _loc("ACTIONS.Grapple.AlreadyGrappling");
+        continue;
+      }
+      if ( !HOOKS.grapple._canGrapple(this.actor, target.actor) ) {
+        target.error ??= _loc("ACTIONS.Grapple.TooLarge", {name: target.actor.name});
+      }
+    }
+  },
+  postActivate() {
+    const captive = this.targets.keys().next().value;
+    if ( !captive ) return;
+    for ( const event of this.events ) {
+      const grappling = event.effects.find(e => e._id === HOOKS.grapple._GRAPPLING_EFFECT_ID);
+      if ( grappling ) {
+        grappling.origin = captive.uuid;
+        return;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.healingElixir = {
   postActivate() {
     const quality = this.usage.consumable.config.quality;
@@ -1296,6 +1341,28 @@ HOOKS.omniglotDecoction = {
 
 /* -------------------------------------------- */
 
+HOOKS.overrun = {
+  prepare() {
+    this.target.size = this.actor.size;
+    this.range.maximum = this.actor.system.movement.stride * 2;
+    // You bowl through any creature you could Grapple; exempt them from collision so your charge halts at the first
+    // creature too massive to overpower. Evaluated lazily on the polygon's near-path candidates, not the whole scene.
+    this.usage.movement.excludeTokenTest = t => HOOKS.grapple._canGrapple(this.actor, t.actor);
+  },
+  postActivate() {
+    // Only creatures you could Grapple are bowled over; one too massive to overpower halts you and is unaffected
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( (target === this.actor) || HOOKS.grapple._canGrapple(this.actor, target) ) continue;
+      for ( const event of events.all ) {
+        event.effects.length = 0;
+        if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.paralyticIngest = {
   preActivate() {
     const poison = this.effects[0];
@@ -1748,6 +1815,63 @@ HOOKS.steelJawTrigger = {
   prepare() {
     const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
     this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.throw = {
+  _getCaptive() {
+    const grappling = this.actor.effects.get(HOOKS.grapple._GRAPPLING_EFFECT_ID);
+    const captive = grappling?.origin ? fromUuidSync(grappling.origin) : null;
+    return captive?.getActiveTokens(true, true)[0] ?? null;
+  },
+  prepare() {
+    const captive = HOOKS.throw._getCaptive.call(this);
+    if ( captive ) this.target.size = Math.ceil(captive.actor.size / 2);
+    this.range.maximum = (this.actor.abilities.strength.value * 2) + Math.ceil(this.actor.size / 2);
+  },
+  canUse() {
+    if ( !HOOKS.throw._getCaptive.call(this) ) throw new Error(_loc("ACTIONS.Throw.NotGrappling"));
+  },
+  acquireTargets(targets) {
+    targets.length = 0; // Target the grapple captive, not who was inside the blast
+    const captive = HOOKS.throw._getCaptive.call(this);
+    if ( captive ) targets.push({token: captive, actor: captive.actor, uuid: captive.actor.uuid,
+      name: captive.name});
+  },
+  async postActivate() {
+    const grapple = HOOKS.grapple;
+    const captive = this.targets.keys().next().value;
+    if ( captive ) {
+      this.recordEvent({type: "effect", target: captive,
+        effects: [{_id: grapple._GRAPPLED_EFFECT_ID, _action: "delete"}]});
+      this.recordEvent({type: "effect", target: this.actor,
+        effects: [{_id: grapple._GRAPPLING_EFFECT_ID, _action: "delete"}]});
+    }
+
+    // Hurl the target to the placed blast center, only on a successful throw
+    const center = this.region?.shapes[0];
+    if ( !center ) return;
+    const {movement} = crucible.api.canvas;
+    const excludeTokens = this.token ? [this.token.id] : undefined;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( (target === this.actor) || !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken ) continue;
+      const ray = new foundry.canvas.geometry.Ray(targetToken.center, center);
+      const plan = await movement.planForcedMovement(targetToken.document, ray,
+        {excludeTokens, animationSpeedMultiplier: 2});
+      if ( plan ) {
+        if ( !plan.collided ) {
+          for ( const event of events.all ) {
+            if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+          }
+        }
+        const {x, y, elevation} = plan.origin;
+        this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+      }
+    }
   }
 };
 

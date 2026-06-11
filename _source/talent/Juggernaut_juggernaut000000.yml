@@ -1,0 +1,159 @@
+name: Juggernaut
+type: talent
+img: icons/magic/control/buff-strength-muscle-damage-orange.webp
+system:
+  description: >-
+    <p>You thrive on physical contest, using your extraordinary brawn and grit
+    to overpower creatures whose bulk outstrips even your own. When you
+    @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple] a
+    creature, you are not @Condition[restrained] yourself. The
+    <strong>Size</strong> of creature that you can Grapple and be Grappled by
+    increases by +1.</p>
+  actions:
+    - id: throw
+      name: Throw
+      img: icons/magic/control/buff-strength-muscle-damage-orange.webp
+      condition: You have a creature Grappled.
+      description: >-
+        <p>You heave the target of your
+        @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple]
+        through the air towards a target point up to a distance of two times
+        your <strong>Strength</strong> score.</p><p>You make an
+        <strong>Athletics</strong> skill attack against the
+        <strong>Reflex</strong> defense of your grappled target. On a success
+        the target is thrown, leaving it @Condition[prone]. If its movement is
+        stopped short by a wall or another creature, it slams into the obstacle
+        and suffers <strong>Bludgeoning</strong> damage from the attack. A
+        creature hurled into open space takes no damage from the throw itself,
+        although it may @Action[default fall].</p><p>Regardless of the outcome,
+        your Grapple is released as part of this action.</p>
+      tags:
+        - reflex
+        - bludgeoning
+        - skill
+        - athletics
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 3
+        size: 1
+        self: false
+      range:
+        minimum: null
+        maximum: 10
+        weapon: false
+      effects:
+        - name: Throw
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - prone
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: overrun
+      name: Overrun
+      img: icons/magic/sonic/explosion-impact-shock-wave.webp
+      condition: ''
+      description: >-
+        <p>You lower your shoulder and charge in a straight line, bowling over
+        those who stand in your way.</p><p>Move up to twice your
+        <strong>Stride</strong> in a straight line, passing through the space of
+        any creature that you could
+        @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple]. You
+        make an <strong>Athletics</strong> skill attack against the
+        <strong>Reflex</strong> defense of each target, on a success dealing
+        <strong>Bludgeoning</strong> damage and knocking the creature
+        @Condition[prone].</p><p>Your charge is halted by any creature too
+        massive for you to Grapple, which is unaffected by the attack.</p>
+      tags:
+        - reflex
+        - bludgeoning
+        - movement
+        - skill
+        - athletics
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: movement
+        number: 1
+        scope: 3
+        self: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      effects:
+        - name: Overrun
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - prone
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.toughness.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781200000000
+  modifiedTime: 1781181932998
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: juggernaut000000
+folder: fOYHlZJEWUukD7yr
+sort: 2700000
+_key: '!items!juggernaut000000'

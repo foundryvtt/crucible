@@ -623,17 +623,24 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the user designating a movement plan, including crucible-specific movement constraint options
-    const plan = await token.object.planMovement({
-      allowedActions: movementUsage.action ? [movementUsage.action] : null,
-      minCost: this.action.range?.minimum ?? undefined,
-      maxCost: this.action.range?.maximum ?? undefined,
-      direct: movementUsage.direct ?? true,
-      constrainOptions: {
-        ...(movementUsage.constrainOptions ?? {}),
-        crucible: {ignoreTokens: movementUsage.ignoreTokens ?? false}
-      }
-    });
+    // Await the user designating a movement plan, including crucible-specific movement constraint options. A collision
+    // predicate cannot be serialized through constrainOptions, so stash it on the token for the planning session only.
+    token.object._movementExcludeTest = movementUsage.excludeTokenTest ?? null;
+    let plan;
+    try {
+      plan = await token.object.planMovement({
+        allowedActions: movementUsage.action ? [movementUsage.action] : null,
+        minCost: this.action.range?.minimum ?? undefined,
+        maxCost: this.action.range?.maximum ?? undefined,
+        direct: movementUsage.direct ?? true,
+        constrainOptions: {
+          ...(movementUsage.constrainOptions ?? {}),
+          crucible: {ignoreTokens: movementUsage.ignoreTokens ?? false, excludeTokens: movementUsage.excludeTokens}
+        }
+      });
+    } finally {
+      token.object._movementExcludeTest = null;
+    }
     this.#previewMovementAction = null;
 
     // Restore minimized windows
