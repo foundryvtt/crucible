@@ -538,11 +538,13 @@ class CrucibleActionTags extends Set {
  *   application, or as standalone "effect" events.
  * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
  *    - Action hooks called: `postActivate`
- * - `CrucibleAction##handleRollOutcomes` - Flag critical successes and failures from settled rolls.
+ * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - `CrucibleAction##finalizeEvents` - Compute final resource deltas.
+ * - `CrucibleAction##allocateResources` - Compute final resource deltas from roll damage.
  * - Actor hooks called: `finalizeAction`
+ * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, and
+ *      effect-change snapshots for reversal.
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
  *   and create the message. The action is now persisted but not yet applied.
  *
@@ -1336,9 +1338,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.#finalizeSelfEvents();
     this.#recordEffectEvents();
     await this._post();
-    this.#handleRollOutcomes();
-    this.#finalizeEvents();
+    const dealsDamage = this.#settleRollOutcomes();
+    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+    this.#allocateResources();
     this.actor.callActorHooks("finalizeAction", this);
+    this.#finalizeEvents();
 
     // Create the RegionDocument, visible to GMs and the placing user
     if ( this.region ) {
@@ -1900,10 +1904,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Settle roll outcomes: flag critical results and dispatch applyCriticalEffects hooks for targeted damage or healing.
+   * Settle roll outcomes by flagging critical results, and report whether the action dealt damage or healing.
    * Runs after postActivate, the final phase permitted to mutate roll data.
+   * @returns {boolean}    Whether this action dealt damage or healing to a target other than the actor.
    */
-  #handleRollOutcomes() {
+  #settleRollOutcomes() {
     let dealsDamage = false;
     for ( const event of this.events ) {
       if ( event.roll ) {
@@ -1912,23 +1917,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       dealsDamage ||= ((event.target !== this.actor) && (event.isDamage || event.isHealing));
     }
-    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+    return dealsDamage;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Finalize the event stream by recording per-roll resource deltas and deriving post-movement statuses.
-   * Allocate resource changes using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to the
-   * state of resource pools, allowing for accurate reversal.
+   * Allocate per-roll resource deltas using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to
+   * the state of resource pools so that reversal is accurate.
    */
-  #finalizeEvents() {
+  #allocateResources() {
     const allocations = new Map();
     for ( const event of this.events ) {
-
-      // Derive the resting movement status (flying/burrowing/falling) for the moved actor as a finalization sub-step
-      if ( event.type === "movement" ) this.#deriveMovementStatus(event);
-
       if ( !event.roll ) continue;
 
       // Allocate resource changes
@@ -1961,9 +1961,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         event.resources.push({resource: r, delta, restoration, damageType});
       }
     }
+  }
 
-    // Expire an invisibility status
+  /* -------------------------------------------- */
+
+  /**
+   * The final authority over the event stream before persistence. Stage the last system-level effect changes
+   * (break invisibility, derive post-movement statuses incl. grapple breaks), then snapshot the pre-action state of
+   * every deleted/updated effect so the change can be reversed.
+   * @see https://github.com/foundryvtt/crucible/issues/1228
+   */
+  #finalizeEvents() {
     this.#expireInvisibility();
+    for ( const event of this.events ) {
+      if ( event.type === "movement" ) this.#deriveMovementStatus(event);
+    }
+
+    // Snapshot deleted/updated effects last, so changes staged above are captured too
+    for ( const event of this.events ) {
+      for ( const effect of event.effects ) {
+        if ( (effect._action !== "delete") && (effect._action !== "update") ) continue;
+        const live = event.target?.effects.get(effect._id);
+        if ( live ) effect._snapshot = live.toObject();
+      }
+    }
   }
 
   /* -------------------------------------------- */

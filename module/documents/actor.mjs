@@ -1160,12 +1160,24 @@ export default class CrucibleActor extends Actor {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
-      const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
-      const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
       if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
-      if ( shouldUpdate ) toUpdate.push(effectData);
-      else if ( shouldDelete ) toDelete.push(effectData._id);
-      else if ( !reverse ) toCreate.push(effectData);
+
+      // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it
+      if ( reverse ) {
+        if ( forceUpdate ) {
+          if ( effectData._snapshot ) (existing ? toUpdate : toCreate).push(effectData._snapshot);
+        }
+        else if ( forceDelete ) {
+          if ( effectData._snapshot && !existing ) toCreate.push(effectData._snapshot);
+        }
+        else if ( existing ) toDelete.push(effectData._id);
+        continue;
+      }
+
+      // Forward
+      if ( existing && !forceDelete ) toUpdate.push(effectData);
+      else if ( existing && forceDelete ) toDelete.push(effectData._id);
+      else toCreate.push(effectData);
     }
     const batchOperations = this.defineBatchOperations({}, {
       createEffects: {changes: toCreate, options: {keepId: true}},
