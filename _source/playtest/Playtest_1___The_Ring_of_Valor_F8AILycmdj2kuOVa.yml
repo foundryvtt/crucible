@@ -30805,7 +30805,7 @@ scenes:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       modifiedTime: null
       lastModifiedBy: null
       compendiumSource: null
@@ -30868,7 +30868,6 @@ scenes:
           alphaThreshold: 0.75
         fog:
           src: null
-          tint: '#ffffff'
         textures:
           anchorX: 0.5
           anchorY: 0.5
@@ -31131,7 +31130,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.6
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   modifiedTime: 1780588125539
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null

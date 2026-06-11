@@ -1,0 +1,37 @@
+name: Corrosive Strikes
+type: talent
+_id: corrosiveStrikes
+img: icons/magic/acid/dissolve-vomit-green-brown.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature}'s caustic body sears whatever it strikes.
+    When it scores a <strong>Critical Hit</strong> with a melee attack that
+    deals damage to Health, the target becomes @Condition[corroding] for 3
+    rounds.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: XbUSvcKVfxu5qw7T
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781027705369
+  modifiedTime: 1781027705369
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!corrosiveStrikes'

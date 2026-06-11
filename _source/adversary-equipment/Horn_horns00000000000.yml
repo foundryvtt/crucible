@@ -1,6 +1,6 @@
-name: Horns
+name: Horn
 type: weapon
-img: icons/commodities/bones/horns-pointed-grey.webp
+img: icons/commodities/bones/horn-worn-white.webp
 effects: []
 folder: creatureParts000
 flags: {}
@@ -16,8 +16,8 @@ system:
     - natural
   description:
     public: >-
-      <p>The @ref[actor.name]{creature} has stout, curved horns used for
-      goring.</p>
+      <p>The @ref[actor.name]{creature} has a stout and wicked central horn with
+      which it can gore its target.</p>
     private: ''
   damageType: piercing
   broken: false
@@ -30,11 +30,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.9.5
   createdTime: 1780529553862
-  modifiedTime: 1780532697562
+  modifiedTime: 1781218540141
   lastModifiedBy: QvBFYpRRXHRBcOfP
 ownership:
   default: 0

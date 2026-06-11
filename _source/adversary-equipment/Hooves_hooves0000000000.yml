@@ -1,6 +1,6 @@
 name: Hooves
 type: weapon
-img: icons/commodities/bones/hooves-cloven-brown.webp
+img: icons/commodities/bones/hooves-cloven-grey.webp
 effects: []
 folder: creatureParts000
 flags: {}
@@ -30,11 +30,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.4
   createdTime: 1780529553862
-  modifiedTime: 1780532696595
+  modifiedTime: 1781218595478
   lastModifiedBy: QvBFYpRRXHRBcOfP
 ownership:
   default: 0

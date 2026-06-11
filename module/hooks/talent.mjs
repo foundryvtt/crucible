@@ -1160,6 +1160,42 @@ HOOKS.acridEarth000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.livingBoulder000 = {
+  prepareSpells(_item, grimoire) {
+    const earth = grimoire.runes.get("earth");
+    if ( !earth ) return;
+    grimoire.runes.set("earth", earth.clone({scaling: "toughness"}, {once: true}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.bloodless0000000 = {
+  defendAttack(_item, action, _origin, rollData) {
+    if ( action.tags.has("strike") ) rollData.criticalSuccessThreshold += 2;
+  },
+  prepareDefenses() {
+    this.statuses.delete("bleeding");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.corrosiveStrikes = {
+  applyCriticalEffects(_item, action) {
+    if ( !action.tags.has("melee") ) return;
+    for ( const [, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        event.effects.push(SYSTEM.EFFECTS.corroding(this, {ability: "toughness"}));
+        break;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.seasonedveteran0 = {
   prepareMovement(_item, movement) {
     movement.engagementBonus += 1;
