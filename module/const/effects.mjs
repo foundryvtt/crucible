@@ -418,3 +418,20 @@ export function stunned(actor, {turns=1}={}) {
     statuses: ["stunned"]
   };
 }
+
+/**
+ * Generate a standardized slowed effect, applying the slowed status condition to the target.
+ * @param {Actor} actor
+ * @param {{turns?: number}} [options]
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function slowed(actor, {turns=1}={}) {
+  return {
+    _id: getEffectId("Slowed"),
+    name: _loc(CONFIG.statusEffects.slowed.name),
+    img: "systems/crucible/icons/statuses/slowed.svg",
+    duration: {value: turns, units: "rounds", expiry: "turnEnd"},
+    origin: actor?.uuid,
+    statuses: ["slowed"]
+  };
+}

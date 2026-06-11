@@ -260,6 +260,26 @@ HOOKS.causticPhial = {
 
 /* -------------------------------------------- */
 
+HOOKS.challenge = {
+  postActivate() {
+    // Begin a fresh duel: reset any Dominance accumulated against a prior rival
+    foundry.utils.mergeObject(this.selfUpdateEvent.actorUpdates, {flags: {crucible: {championDominance: 0}}});
+
+    // Enforce a single rival: release the Challenged mark from any previously challenged foe
+    const effectId = SYSTEM.EFFECTS.getEffectId("challenge");
+    const [newRival] = this.targets.keys();
+    for ( const combatant of (game.combat?.combatants ?? []) ) {
+      const prior = combatant.actor;
+      if ( !prior || (prior === newRival) ) continue;
+      if ( prior.effects.get(effectId)?.origin === this.actor.uuid ) {
+        this.recordEvent({type: "effect", target: prior, effects: [{_id: effectId, _action: "delete"}]});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.chokingAmpoule = {
   preActivate() {
     const damage = {shoddy: 2, standard: 6, fine: 12, superior: 20, masterwork: 30};
@@ -1436,11 +1456,33 @@ HOOKS.rallyingTonic = {
 
 HOOKS.reactiveStrike = {
   canUse() {
+    const actor = this.actor;
+
+    // A Champion punishing their own Challenged rival is never too beset to strike: bypass the Flanked restriction
+    const target = [...game.user.targets][0]?.actor;
+    const championBypass = actor.talentIds.has("champion00000000")
+      && (target?.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"))?.origin === actor.uuid);
+
     for ( const s of ["unaware", "flanked"] ) {
-      if ( this.actor.statuses.has(s) ) {
+      if ( (s === "flanked") && championBypass ) continue;
+      if ( actor.statuses.has(s) ) {
         const statusLabel = _loc(CONFIG.statusEffects[s]?.name ?? s);
         throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
       }
+    }
+  },
+  configure() {
+    const actor = this.actor;
+    if ( !actor.talentIds.has("champion00000000") ) return;
+    const [target] = this.targets.keys();
+    const isRival = target?.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"))?.origin === actor.uuid;
+
+    // Champion vs rival: trade the Action cost for 1 Focus. configure() runs after the strike tag's prepare()
+    // has folded in the weapon AP, so an absolute cost.action = 0 cancels the full W-1 cost; weapon stays true
+    // so the Strike still wields a weapon
+    if ( isRival && (actor.resources.focus.value >= 1) ) {
+      this.cost.action = 0;
+      this.cost.focus = 1;
     }
   }
 };

@@ -311,6 +311,56 @@ HOOKS.carefree00000000 = {
 
 /* -------------------------------------------- */
 
+/**
+ * Identify the Actor currently bound as a Champion's Challenged rival, if any.
+ * @param {CrucibleActor} actor   The Champion whose rival is sought.
+ * @returns {CrucibleActor|null}  The challenged rival, or null when no duel is active.
+ */
+function getChampionRival(actor) {
+  if ( !game.combat ) return null;
+  const effectId = SYSTEM.EFFECTS.getEffectId("challenge");
+  for ( const combatant of game.combat.combatants ) {
+    const rival = combatant.actor;
+    if ( rival?.effects.get(effectId)?.origin === actor.uuid ) return rival;
+  }
+  return null;
+}
+
+HOOKS.champion00000000 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( !action.tags.has("melee") ) return;
+    const effect = target.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"));
+    if ( effect?.origin !== this.uuid ) return; // Only your own Challenged rival
+    const dominance = this.flags.crucible?.championDominance || 0;
+    if ( dominance > 0 ) rollData.damageBonus += dominance;
+  },
+  finalizeAction(item, action) {
+    if ( !action.tags.has("strike") || !this.flags.crucible?.championDominance ) return;
+    const challengeId = SYSTEM.EFFECTS.getEffectId("challenge");
+    const struckOther = Array.from(action.targets.keys()).some(t => t.effects.get(challengeId)?.origin !== this.uuid);
+    if ( struckOther ) foundry.utils.mergeObject(action.selfUpdateEvent.actorUpdates, {flags: {crucible: {championDominance: 0}}});
+  },
+  startTurn(item, {actorUpdates}) {
+    const rival = getChampionRival(this);
+    const current = this.flags.crucible?.championDominance || 0;
+
+    // No active duel: clear any lingering Dominance
+    if ( !rival ) {
+      if ( current ) foundry.utils.setProperty(actorUpdates, "flags.crucible.championDominance", 0);
+      return;
+    }
+
+    // Dominance grows only while the rival remains the sole enemy you are engaged with
+    const enemies = this.getActiveTokens()[0]?.engagement?.enemies;
+    const rivalToken = rival.getActiveTokens()[0];
+    const isolated = rivalToken && enemies && (enemies.size === 1) && enemies.has(rivalToken);
+    const dominance = isolated ? Math.min(current + 1, this.abilities.presence.value) : 0;
+    foundry.utils.setProperty(actorUpdates, "flags.crucible.championDominance", dominance);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.chirurgeon000000 = {
   prepareAction(item, action) {
     if ( action.tags.has("medicine") && this.inCombat ) {
@@ -1028,6 +1078,21 @@ HOOKS.sage000000000000 = {
   useAction(item, action) {
     // Resting refreshes the free out-of-combat Flash of Brilliance (per-Rest flag, see issue #1196)
     if ( action.id === "rest" ) action.usage.actorFlags.flashOfBrillianceRested = false;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.sentinel00000000 = {
+  applyCriticalEffects(_item, action) {
+    if ( action.id !== "reactiveStrike" ) return;
+    for ( const events of action.eventsByTarget.values() ) {
+      for ( const event of events.roll ) {
+        if ( !event.isDamage ) continue;
+        event.effects.push(SYSTEM.EFFECTS.slowed(this));
+        break; // Slow each struck target at most once
+      }
+    }
   }
 };
 
