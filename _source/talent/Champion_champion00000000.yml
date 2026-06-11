@@ -25,7 +25,7 @@ system:
         defeated, or until you Challenge a different foe. You may have only one
         Challenged rival at a time.</p><p>While your Challenged rival is the
         only enemy you are engaged with, your immersion in the duel deepens: at
-        the start of each of your turns you gain stacking +1 <strong>Bonus
+        the end of each of your turns you gain stacking +1 <strong>Bonus
         Damage</strong> to your melee <strong>Strikes</strong> against that
         rival, to a maximum equal to your <strong>Presence</strong>. This bonus
         resets to zero if the duel is broken, which happens if another enemy
@@ -47,8 +47,8 @@ system:
         scope: 3
         self: false
       effects:
-        - name: Challenged
-          scope: 3
+        - name: Dominance
+          scope: 1
           statuses: []
           duration:
             expiry: combatEnd

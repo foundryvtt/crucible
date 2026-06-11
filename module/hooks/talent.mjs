@@ -311,51 +311,65 @@ HOOKS.carefree00000000 = {
 
 /* -------------------------------------------- */
 
-/**
- * Identify the Actor currently bound as a Champion's Challenged rival, if any.
- * @param {CrucibleActor} actor   The Champion whose rival is sought.
- * @returns {CrucibleActor|null}  The challenged rival, or null when no duel is active.
- */
-function getChampionRival(actor) {
-  if ( !game.combat ) return null;
-  const effectId = SYSTEM.EFFECTS.getEffectId("challenge");
-  for ( const combatant of game.combat.combatants ) {
-    const rival = combatant.actor;
-    if ( rival?.effects.get(effectId)?.origin === actor.uuid ) return rival;
-  }
-  return null;
-}
-
 HOOKS.champion00000000 = {
+  _DOMINANCE_ID: "championDominanc",
+  _getRival(actor) {
+    const origin = actor.effects.get(HOOKS.champion00000000._DOMINANCE_ID)?.origin;
+    return origin ? fromUuidSync(origin) : null;
+  },
   prepareAttack(item, action, target, rollData) {
     if ( !action.tags.has("melee") ) return;
-    const effect = target.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"));
-    if ( effect?.origin !== this.uuid ) return; // Only your own Challenged rival
-    const dominance = this.flags.crucible?.championDominance || 0;
-    if ( dominance > 0 ) rollData.damageBonus += dominance;
+    const dominance = this.effects.get(HOOKS.champion00000000._DOMINANCE_ID);
+    if ( dominance?.origin !== target.uuid ) return;
+    const stage = dominance.getFlag("crucible", "dominance")?.stage || 0;
+    if ( stage > 0 ) rollData.damageBonus += stage;
   },
   finalizeAction(item, action) {
-    if ( !action.tags.has("strike") || !this.flags.crucible?.championDominance ) return;
-    const challengeId = SYSTEM.EFFECTS.getEffectId("challenge");
-    const struckOther = Array.from(action.targets.keys()).some(t => t.effects.get(challengeId)?.origin !== this.uuid);
-    if ( struckOther ) foundry.utils.mergeObject(action.selfUpdateEvent.actorUpdates, {flags: {crucible: {championDominance: 0}}});
+    if ( !action.tags.has("strike") ) return;
+    const dominance = this.effects.get(HOOKS.champion00000000._DOMINANCE_ID);
+    if ( !(dominance?.getFlag("crucible", "dominance")?.stage) ) return;
+    const struckOther = Array.from(action.targets.keys()).some(t => t.uuid !== dominance.origin);
+    if ( struckOther ) action.recordEvent({type: "effect", target: this, effects: [{
+      _id: HOOKS.champion00000000._DOMINANCE_ID, _action: "update",
+      name: _loc("ACTIONS.Challenge.Dominance"),
+      flags: {crucible: {dominance: {round: game.combat?.round ?? 0, stage: 0}}}
+    }]});
   },
-  startTurn(item, {actorUpdates}) {
-    const rival = getChampionRival(this);
-    const current = this.flags.crucible?.championDominance || 0;
+  endTurn(item, {effectChanges}, {round}) {
+    const id = HOOKS.champion00000000._DOMINANCE_ID;
+    const current = this.effects.get(id);
+    if ( !current ) return;
+    const dominance = current.getFlag("crucible", "dominance") || {round: 0, stage: 0};
 
-    // No active duel: clear any lingering Dominance
-    if ( !rival ) {
-      if ( current ) foundry.utils.setProperty(actorUpdates, "flags.crucible.championDominance", 0);
+    // The duel ends if your rival is gone or defeated
+    const rival = HOOKS.champion00000000._getRival(this);
+    if ( !rival || rival.isIncapacitated ) {
+      effectChanges.toDelete.push(id);
       return;
     }
 
-    // Dominance grows only while the rival remains the sole enemy you are engaged with
+    // Dominance grows only if you end your turn alone with your rival
     const enemies = this.getActiveTokens()[0]?.engagement?.enemies;
     const rivalToken = rival.getActiveTokens()[0];
-    const isolated = rivalToken && enemies && (enemies.size === 1) && enemies.has(rivalToken);
-    const dominance = isolated ? Math.min(current + 1, this.abilities.presence.value) : 0;
-    foundry.utils.setProperty(actorUpdates, "flags.crucible.championDominance", dominance);
+    const intact = !!(rivalToken && enemies && (enemies.size === 1) && enemies.has(rivalToken));
+
+    // Duel broken: reset the stage but keep the rival designation
+    if ( !intact ) {
+      if ( dominance.stage > 0 ) effectChanges.toUpdate.push({
+        _id: id, name: _loc("ACTIONS.Challenge.Dominance"),
+        flags: {crucible: {dominance: {round: dominance.round, stage: 0}}}
+      });
+      return;
+    }
+
+    // Ramp at most once per round; the stored round dedupes a GM turn rewind and re-advance
+    if ( round <= dominance.round ) return;
+    const stage = Math.min(dominance.stage + 1, this.abilities.presence.value);
+    if ( stage === dominance.stage ) return;
+    effectChanges.toUpdate.push({
+      _id: id, name: `${_loc("ACTIONS.Challenge.Dominance")} (+${stage})`,
+      flags: {crucible: {dominance: {round, stage}}}
+    });
   }
 };
 

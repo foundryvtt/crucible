@@ -537,6 +537,9 @@
       "Required": "You must choose an affix to amplify.",
       "Title": "Amplify Affix"
     },
+    "Challenge": {
+      "Dominance": "Dominance"
+    },
     "FieldStudy": {
       "Effect": "Field Study: {knowledge}",
       "Label": "Topic of Study",

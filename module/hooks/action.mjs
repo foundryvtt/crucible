@@ -262,19 +262,13 @@ HOOKS.causticPhial = {
 
 HOOKS.challenge = {
   postActivate() {
-    // Begin a fresh duel: reset any Dominance accumulated against a prior rival
-    foundry.utils.mergeObject(this.selfUpdateEvent.actorUpdates, {flags: {crucible: {championDominance: 0}}});
-
-    // Enforce a single rival: release the Challenged mark from any previously challenged foe
-    const effectId = SYSTEM.EFFECTS.getEffectId("challenge");
-    const [newRival] = this.targets.keys();
-    for ( const combatant of (game.combat?.combatants ?? []) ) {
-      const prior = combatant.actor;
-      if ( !prior || (prior === newRival) ) continue;
-      if ( prior.effects.get(effectId)?.origin === this.actor.uuid ) {
-        this.recordEvent({type: "effect", target: prior, effects: [{_id: effectId, _action: "delete"}]});
-      }
-    }
+    const [rival] = this.targets.keys();
+    const effect = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
+    if ( !rival || !effect ) return;
+    effect._id = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    effect.origin = rival.uuid;
+    effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    foundry.utils.setProperty(effect, "flags.crucible.dominance", {round: 0, stage: 0});
   }
 };
 
@@ -1458,10 +1452,11 @@ HOOKS.reactiveStrike = {
   canUse() {
     const actor = this.actor;
 
-    // A Champion punishing their own Challenged rival is never too beset to strike: bypass the Flanked restriction
+    // A Champion may strike their Challenged rival even while Flanked
     const target = [...game.user.targets][0]?.actor;
+    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
     const championBypass = actor.talentIds.has("champion00000000")
-      && (target?.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"))?.origin === actor.uuid);
+      && (actor.effects.get(dominanceId)?.origin === target?.uuid);
 
     for ( const s of ["unaware", "flanked"] ) {
       if ( (s === "flanked") && championBypass ) continue;
@@ -1471,15 +1466,15 @@ HOOKS.reactiveStrike = {
       }
     }
   },
-  configure() {
+  prepare() {
     const actor = this.actor;
     if ( !actor.talentIds.has("champion00000000") ) return;
-    const [target] = this.targets.keys();
-    const isRival = target?.effects.get(SYSTEM.EFFECTS.getEffectId("challenge"))?.origin === actor.uuid;
+    const target = [...game.user.targets][0]?.actor;
+    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    const isRival = actor.effects.get(dominanceId)?.origin === target?.uuid;
 
-    // Champion vs rival: trade the Action cost for 1 Focus. configure() runs after the strike tag's prepare()
-    // has folded in the weapon AP, so an absolute cost.action = 0 cancels the full W-1 cost; weapon stays true
-    // so the Strike still wields a weapon
+    // Champion vs rival: trade Action for 1 Focus. Done in prepare (after the strike tag folds in weapon AP) so the
+    // discounted cost precedes _canUse's affordability gate, which would otherwise reject on the full weapon AP.
     if ( isRival && (actor.resources.focus.value >= 1) ) {
       this.cost.action = 0;
       this.cost.focus = 1;
