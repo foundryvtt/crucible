@@ -1284,7 +1284,18 @@
     }
   },
   "BASE_EFFECT": {
+    "Difficulty": "Difficulty {dc}",
+    "Magical": "Magical",
+    "Suspended": "Suspended",
+    "SECTIONS": {
+      "Removal": "Removal",
+      "General": "General"
+    },
     "FIELDS": {
+      "dc": {
+        "hint": "The difficulty of removing this effect, e.g. by dispelling magic. Leave blank for an effect that cannot be removed.",
+        "label": "Removal DC"
+      },
       "dot": {
         "element": {
           "amount": {
@@ -1416,6 +1427,7 @@
       "Archetype": "Crucible Archetype Sheet",
       "Armor": "Crucible Armor Sheet",
       "Background": "Crucible Background Sheet",
+      "Effect": "Crucible Effect Sheet",
       "Group": "Crucible Group Sheet",
       "Hero": "Crucible Hero Sheet",
       "HeroCreation": "Crucible Hero Creation Sheet",

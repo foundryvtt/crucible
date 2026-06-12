@@ -1988,8 +1988,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           if ( live ) effect._snapshot = live.toObject();
         }
         else {
+          const d = event.roll?.data;
           effect.system ??= {};
           effect.system.magical ??= (this.tags.has("spell") || this.tags.has("iconicSpell"));
+          // Removal difficulty: an explicit value wins, else the caster's passive from the roll, else level-scaled
+          effect.system.dc ??= d
+            ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
+            : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
         }
       }
     }
@@ -3312,7 +3317,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const actionId = actionData.id;
     const actionContext = {parent: item?.system, actor, item, token, region, movement, message, metadata, lazy: true};
     let action;
-    if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
+    // An unprepared actor has no `actions` map (e.g. getLastAction called during data prep); reconstruct from the
+    // serialized action data instead
+    if ( actor?.actions && (actionId in actor.actions) ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {
       action = new game.system.api.models.CrucibleSpellAction(actionData, actionContext);
     }

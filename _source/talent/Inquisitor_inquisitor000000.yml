@@ -17,9 +17,11 @@ system:
       condition: ''
       description: >-
         <p>You exert your trained will against hostile sorcery, unraveling its
-        hold over you and your nearby allies. You and each ally within 12 feet
-        are freed from every magical condition inflicted upon them by an
-        enemy.</p>
+        hold over you and your nearby allies. For yourself and each ally within
+        12 feet suffering a magical condition inflicted by an enemy, make an
+        <strong>Arcana</strong> check against the lowest <strong>Removal
+        DC</strong> among their afflicting conditions. Every such condition
+        whose Removal DC your result exceeds is removed.</p>
       tags:
         - harmless
       cost:

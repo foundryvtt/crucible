@@ -1,12 +1,25 @@
 @import "variables.less";
 
 /* ----------------------------------------- */
+/*  Active Effect Sheet                       */
+/* ----------------------------------------- */
+
+.crucible.effect {
+  // The retained core Duration/Changes tabs lack .sheet-body; match the padded body of the custom tabs
+  .tab:not(.sheet-body) {
+    padding: var(--sheet-body-gap);
+    gap: var(--sheet-body-gap);
+  }
+}
+
+/* ----------------------------------------- */
 /*  All Items                                */
 /* ----------------------------------------- */
 
 .crucible.item,
 .crucible.action,
-.crucible.affix {
+.crucible.affix,
+.crucible.effect {
 
   /** Scrollable Tabs */
   .sheet-body.scrollable {
