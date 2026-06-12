@@ -536,7 +536,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Iterate over all Actions
     for ( const [actionId, action] of Object.entries(this.actor.actions) ) {
-      if ( action.suppressFromSheet ) continue; // Internal actions (e.g. Fall, Glide) are triggered programmatically
       const a = {
         id: actionId,
         name: action.name,
@@ -546,6 +545,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "ACTION.ACTIONS.RemoveFavorite"}
           : {icon: "fa-regular fa-star", tooltip: "ACTION.ACTIONS.AddFavorite"}
       };
+
+      // Favorite actions which can currently be used appear in the sidebar, even when suppressed from the main panel
+      if ( (action.isFavorite || action.autoFavorite) && action._displayOnSheet() ) favorites.push(a);
+
+      // Suppressed actions (e.g. Fall, Glide, Escape) surface only via the sidebar, never in the main actions panel
+      if ( action.suppressFromSheet ) continue;
 
       // Classify actions
       let section = "general";
@@ -565,9 +570,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         }
       }
       sections[section].actions.push(a);
-
-      // Favorite actions which are able to be currently used
-      if ( (action.isFavorite || action.autoFavorite) && action._displayOnSheet() ) favorites.push(a);
     }
 
     // Sort each section

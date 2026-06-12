@@ -323,6 +323,8 @@ export default class StandardCheck extends Roll {
     const {outcome, classes} = this.prepareOutcome();
     const dc = this.data.dc;
     const defenseType = this.constructor.DEFENSE_TYPE;
+    const damage = this.prepareRenderedDamage();
+    if ( damage?.display ) classes.push("damage");
     if ( targetLabel === undefined ) {
       const skill = SYSTEM.SKILLS[this.data.type];
       const label = skill?.label ?? defenseType;
@@ -335,7 +337,7 @@ export default class StandardCheck extends Roll {
       data: this.data,
       pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
-      damage: this.prepareRenderedDamage(),
+      damage,
       dc,
       defenseType,
       formula: this.formula,

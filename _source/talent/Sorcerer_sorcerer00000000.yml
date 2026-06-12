@@ -3,7 +3,7 @@ type: talent
 img: icons/magic/lightning/projectile-tendrils-red.webp
 system:
   nodes:
-    - sig3.wisdom.presence
+    - sig3.presence.intellect
   description: >-
     <p>Your magic is deeply instinctual and your practice of spellcraft defies
     traditional academic understanding.</p><p>You cannot cast <strong>Iconic

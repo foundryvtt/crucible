@@ -1,11 +1,11 @@
-name: Pestilent Limb
+name: Obsidian Thorns
 type: weapon
-img: icons/magic/death/hand-undead-skeleton-fire-green.webp
+img: icons/creatures/tentacles/tentacle-earth-green.webp
 effects: []
-folder: damageTypedLimbs
+folder: creatureParts000
 flags: {}
 system:
-  category: balanced1
+  category: light1
   quantity: 1
   weight: 0
   price: 0
@@ -16,12 +16,12 @@ system:
     - natural
   description:
     public: >-
-      <p>The @ref[actor.name]{creature} strikes with a rotting limb that seeps
-      blight.</p>
+      <p>The @ref[actor.name]{creature} lashes out with a thorned length of
+      razor-sharp black glass.</p>
     private: ''
-  damageType: corruption
+  damageType: piercing
   broken: false
-  identifier: pestilentLimb
+  identifier: obsidianThorns
   invested: false
   actions: []
   dropped: false
@@ -30,15 +30,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.4
-  createdTime: 1780529553862
-  modifiedTime: 1780529553862
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781218465590
   lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: pestilentLimb000
-sort: 2500000
-_key: '!items!pestilentLimb000'
+_id: obsidianThorns00
+sort: 2900000
+_key: '!items!obsidianThorns00'

@@ -46,6 +46,10 @@
         "Description": "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and one less than your current Initiative. You will act at this new Initiative value, and if other combatants share that value you will act before them. You may only delay your turn once per round.",
         "Name": "Delay"
       },
+      "Escape": {
+        "Description": "Struggle free of an effect which causes you to be @Condition[restrained]. You perform an <strong>Athletics</strong> check and remove the Restrained condition from each effect where your roll exceeds its Removal Difficulty.",
+        "Name": "Escape"
+      },
       "Fall": {
         "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
         "Name": "Fall",

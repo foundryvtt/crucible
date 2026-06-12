@@ -1,0 +1,91 @@
+name: Telekinetic
+type: talent
+img: icons/magic/movement/pinwheel-turning-blue.webp
+system:
+  description: >-
+    <p>You wield kinetic force with practiced ease, bending the paths of objects
+    and creatures to your will.</p><ul><li><p>Once per turn, when you apply the
+    <strong>Push</strong> or <strong>Pull</strong> inflection to a Spell which
+    uses the <strong>Kinesis</strong> rune, you ignore the inflection's
+    <strong>Focus</strong> cost.</p></li><li><p>You double the distance at which
+    you can Pull, Flick, or Suspend using the <strong>Propel</strong> action of
+    the Kinesis rune.</p></li><li><p>You unlock the <strong>Telekinetic
+    Flight</strong> action, suspending yourself aloft to fly and hover.</p></li></ul>
+  actions:
+    - id: telekineticFlight
+      name: Telekinetic Flight
+      img: icons/magic/control/debuff-energy-hold-levitate-blue-yellow.webp
+      condition: ''
+      description: >-
+        <p>You suspend yourself aloft on currents of kinetic force, gaining the
+        @Condition[flying] condition to fly and hover. You sustain the effect
+        with <strong>Focus</strong> each round; it ends if you become
+        @Condition[incapacitated].</p>
+      tags:
+        - maintained
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        weapon: false
+        hands: 0
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      effects:
+        - name: Telekinetic Flight
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses:
+            - flying
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      summon:
+        actorUuid: null
+        permanent: true
+  iconicSpells: 2
+  nodes:
+    - sig3.wisdom.presence
+  rune: ''
+  gesture: ''
+  inflection: ''
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: telekinetic00000
+sort: 0
+_key: '!items!telekinetic00000'

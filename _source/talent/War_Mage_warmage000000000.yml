@@ -8,9 +8,9 @@ system:
     countering an enemy spell, even if you do not recognize the spell being
     cast. You gain +2 Boons to any Counterspell attempt.</p>
   actions: []
-  iconicSpells: 2
+  iconicSpells: 0
   nodes:
-    - sig3.presence.intellect
+    - preint4
   rune: ''
   gesture: ''
   inflection: ''

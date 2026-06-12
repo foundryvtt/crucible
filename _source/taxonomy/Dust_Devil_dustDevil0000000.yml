@@ -1,0 +1,90 @@
+folder: GwintA6OSvHfTTC5
+name: Dust Devil
+type: taxonomy
+img: icons/magic/earth/barrier-stone-brown-green.webp
+system:
+  description: >-
+    <p>Elemental embodiments of swirling dust and grit. The smallest, a Dust
+    Mote, is among the weakest of all elementals; greater specimens grow into
+    devils, whirlwinds, and roaring dust storms.</p>
+  category: elementalEarth
+  abilities:
+    wisdom: 1
+    presence: 0
+    intellect: 1
+    strength: 2
+    toughness: 3
+    dexterity: 5
+  resistances:
+    bludgeoning:
+      value: 1
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 1
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  characteristics:
+    spells: false
+    equipment: false
+    temperature: ''
+  movement:
+    size: 2
+    stride: 12
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      level: null
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.fists00000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  identifier: dustDevil
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
+  createdTime: 1781218465590
+_id: dustDevil0000000
+sort: 700000
+_key: '!items!dustDevil0000000'

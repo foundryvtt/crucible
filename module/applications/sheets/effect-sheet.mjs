@@ -1,4 +1,4 @@
-const {sheets} = foundry.applications;
+const {api, sheets} = foundry.applications;
 
 /**
  * The default sheet for Crucible ActiveEffects.
@@ -72,6 +72,14 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
         break;
     }
     return partContext;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _attachFrameListeners() {
+    // Deliberately skip ActiveEffectConfig#_attachFrameListeners which strips the editor's inline Save button
+    api.DocumentSheetV2.prototype._attachFrameListeners.call(this);
   }
 
   /* -------------------------------------------- */

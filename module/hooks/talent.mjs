@@ -1429,6 +1429,30 @@ HOOKS.swarm00000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.telekinetic00000 = {
+  prepareAction(item, action) {
+    // Double the reach of the Kinesis Propel action's telekinetic manipulations
+    if ( action.id === "propel" ) {
+      action.description = action.description
+        .replace("within 15 feet", "within 30 feet")
+        .replace("up to 30 feet away", "up to 60 feet away")
+        .replace("up to 20 feet", "up to 40 feet");
+      return;
+    }
+
+    // A composed Kinesis spell carrying the Push or Pull inflection, once per turn
+    if ( !action.tags.has("composed") ) return;
+    if ( (action.rune?.id !== "kinesis") || !["pull", "push"].includes(action.inflection?.id) ) return;
+    if ( this.status.telekinetic ) return;
+
+    // Waive the inflection's Focus cost and consume the per-turn use
+    action.cost.focus = Math.max(0, action.cost.focus - action.inflection.cost.focus);
+    action.usage.actorStatus.telekinetic = true;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.testudo000000000 = {
   defendAttack(item, action, _origin, rollData) {
     if ( action.tags.has("strike") && this.statuses.has("guarded") && this.equipment.weapons.shield ) {

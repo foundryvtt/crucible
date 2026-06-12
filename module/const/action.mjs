@@ -1459,6 +1459,23 @@ export const DEFAULT_ACTIONS = Object.freeze([
     }
   },
 
+  // Escape
+  {
+    id: "escape",
+    name: "ACTION.DEFAULT_ACTIONS.Escape.Name",
+    img: "icons/skills/movement/figure-running-gray.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Escape.Description",
+    target: {
+      type: "self",
+      scope: 1
+    },
+    cost: {
+      action: 2
+    },
+    tags: ["skill", "athletics", "harmless"],
+    autoFavorite: true
+  },
+
   // Reactive Strike
   {
     id: "reactiveStrike",

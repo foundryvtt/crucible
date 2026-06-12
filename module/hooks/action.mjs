@@ -612,6 +612,56 @@ HOOKS.estocade = {
 
 /* -------------------------------------------- */
 
+HOOKS.escape = {
+  suppressFromSheet: true,
+  _restraints(actor) {
+    const restraints = [];
+    for ( const effect of actor.effects ) {
+      if ( effect.statuses.has("restrained") && Number.isFinite(effect.system.dc) ) restraints.push(effect);
+    }
+    return restraints;
+  },
+  canUse() {
+    if ( !HOOKS.escape._restraints(this.actor).length ) return false;
+  },
+  prepare() {
+    const restraints = HOOKS.escape._restraints(this.actor);
+    if ( restraints.length ) this.usage.dc = Math.min(...restraints.map(e => e.system.dc));
+  },
+  roll(target) {
+    const check = this.events.find(e => (e.type === "check") && (e.target === target));
+    if ( !check?.roll ) return;
+    const total = check.roll.total;
+    const grapple = HOOKS.grapple;
+    const grapplePair = {
+      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+    };
+    for ( const effect of HOOKS.escape._restraints(target) ) {
+      if ( total <= effect.system.dc ) continue;
+
+      // Remove a status-only restraint entirely, otherwise keep the effect but prune the restrained status
+      if ( effect.isStatusOnly("restrained") ) {
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
+      } else {
+        const statuses = Array.from(effect.statuses).filter(s => s !== "restrained");
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "update", statuses}]});
+      }
+
+      // Special case for ending the other side of a symmetric grapple
+      const pairedId = grapplePair[effect.id];
+      if ( pairedId ) {
+        const partner = effect.origin ? fromUuidSync(effect.origin) : null;
+        if ( partner?.effects.has(pairedId) ) {
+          this.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
+        }
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
   suppressFromSheet: true,
   canUse() {
