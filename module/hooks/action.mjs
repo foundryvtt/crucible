@@ -2,6 +2,27 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.abjure = {
+  postActivate() {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const selfToken = this.actor.getActiveTokens(true, true)[0];
+    const myDisposition = selfToken?.disposition ?? this.actor.prototypeToken.disposition;
+    const enemyDispositions = myDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+    for ( const [target] of this.targets ) {
+      for ( const effect of target.effects ) {
+        // Strip only spell-caused conditions inflicted by an enemy, leaving allied buffs intact
+        if ( !effect.system?.magical ) continue;
+        const origin = effect.origin ? fromUuidSync(effect.origin) : null;
+        const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
+        if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
+        this.recordEvent({target, effects: [{_id: effect.id, _action: "delete"}]});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.alchemistsFire = {
   preActivate() {
     const tiers = {

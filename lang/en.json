@@ -1304,6 +1304,10 @@
         },
         "label": "Damage Over Time"
       },
+      "magical": {
+        "hint": "Is this effect magical in nature?",
+        "label": "Magical"
+      },
       "maintenance": {
         "cost": {
           "label": "Maintenance Cost"

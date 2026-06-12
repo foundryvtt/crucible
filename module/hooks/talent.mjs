@@ -641,6 +641,48 @@ HOOKS.impenetrableGuar = {
 
 /* -------------------------------------------- */
 
+HOOKS.inquisitor000000 = {
+  // The Inquisitor's Reactive Strike always trades an extra Action for 1 Focus
+  prepareActions(_item, actions) {
+    const rs = actions.reactiveStrike;
+    if ( !rs ) return;
+    rs.cost.action -= 1;
+    rs.cost.focus = 1;
+  },
+  // Steal a Focus point from a caster struck in reaction to their spell, refunding this strike's own Focus
+  finalizeAction(_item, action) {
+    if ( action.id !== "reactiveStrike" ) return;
+    const prior = ChatMessage.implementation.getLastAction();
+    if ( !prior?.tags.has("spell") ) return;
+    action.metadata.inquisitorTargetMessageId = prior.message.id;
+    const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    for ( const [target, events] of action.eventsByTarget ) {
+      if ( target === this ) continue;
+      const success = events.roll?.some(e => e.roll?.data?.result >= HIT);
+      if ( !success || (target.resources.focus.value < 1) ) continue;
+      action.recordEvent({target, resources: [{resource: "focus", delta: -1}]});
+      action.recordEvent({target: this, resources: [{resource: "focus", delta: 1}]});
+    }
+  },
+  // On a Critical Hit against the caster, interrupt their spell - modeled on Counterspell
+  async confirmAction(_item, action, {reverse}) {
+    if ( (action.id !== "reactiveStrike") || !action.metadata.inquisitorTargetMessageId ) return;
+    const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    const critHit = action.events.some(e =>
+      (e.target !== this) && (e.roll?.data?.result >= HIT) && e.roll?.isCriticalSuccess);
+    if ( !critHit ) return;
+    const targetMessage = game.messages.get(action.metadata.inquisitorTargetMessageId);
+    if ( !targetMessage || (targetMessage.getFlag("crucible", "confirmed") !== reverse) ) return;
+    // Interrupt the caster's spell, modeled on Counterspell
+    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
+    if ( !reverse ) await setNegated();
+    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) await setNegated();
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action) {
     if ( !action.usesRune("soul") ) return;

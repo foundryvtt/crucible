@@ -428,7 +428,8 @@ export const HOOKS = Object.freeze({
   confirmAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "options"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"],
+    async: true
   },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GroupAction",

@@ -274,12 +274,39 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Call all actor hooks registered for a certain event name.
-   * Each registered function is called in sequence.
-   * @param {string} hook     The hook name to call.
+   * Call all synchronous actor hooks registered for a certain event name, in registration order.
+   * @param {string} hook     The hook name to call
    * @param {...*} args       Arguments passed to the hooked function
+   * @throws {Error}          If the hook type is async; call {@link CrucibleActor#callActorHooksAsync} instead
    */
   callActorHooks(hook, ...args) {
+    if ( !("actorHooks" in this.system) ) return;
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
+    if ( hookConfig.async ) throw new Error(`Actor hook "${hook}" is async; use callActorHooksAsync`);
+    const hooks = this.system.actorHooks[hook] ||= [];
+    for ( const {item, fn} of hooks ) {
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
+      try {
+        fn.call(this, item, ...args);
+      } catch(err) {
+        if ( hookConfig.throws ) throw err;
+        const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
+        console.error(msg, err);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call all actor hooks registered for a certain event name, awaiting each in registration order so async hooks
+   * resolve deterministically and may build upon one another.
+   * @param {string} hook     The hook name to call
+   * @param {...*} args       Arguments passed to the hooked function
+   * @returns {Promise<void>}
+   */
+  async callActorHooksAsync(hook, ...args) {
     if ( !("actorHooks" in this.system) ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
@@ -287,7 +314,7 @@ export default class CrucibleActor extends Actor {
     for ( const {item, fn} of hooks ) {
       if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
-        fn.call(this, item, ...args);
+        await fn.call(this, item, ...args);
       } catch(err) {
         if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;

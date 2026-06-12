@@ -543,8 +543,8 @@ class CrucibleActionTags extends Set {
  *      the action damages or heals another target.
  * - `CrucibleAction##allocateResources` - Compute final resource deltas from roll damage.
  * - Actor hooks called: `finalizeAction`
- * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, and
- *      effect-change snapshots for reversal.
+ * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
+ *      provenance on new effects, and effect-change snapshots for reversal.
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
  *   and create the message. The action is now persisted but not yet applied.
  *
@@ -1969,20 +1969,28 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The final authority over the event stream before persistence. Stage the last system-level effect changes
    * (break invisibility, derive post-movement statuses incl. grapple breaks), then snapshot the pre-action state of
    * every deleted/updated effect so the change can be reversed.
-   * @see https://github.com/foundryvtt/crucible/issues/1228
    */
   #finalizeEvents() {
+
+    // Remove an invisibility effect if this action breaks it
     this.#expireInvisibility();
+
+    // Attach derived movement-based statuses
     for ( const event of this.events ) {
       if ( event.type === "movement" ) this.#deriveMovementStatus(event);
     }
 
-    // Snapshot deleted/updated effects last, so changes staged above are captured too
+    // Finalize effect data last, including snapshots of prior state for effects that are deleted or updated
     for ( const event of this.events ) {
       for ( const effect of event.effects ) {
-        if ( (effect._action !== "delete") && (effect._action !== "update") ) continue;
-        const live = event.target?.effects.get(effect._id);
-        if ( live ) effect._snapshot = live.toObject();
+        if ( (effect._action === "delete") || (effect._action === "update") ) {
+          const live = event.target?.effects.get(effect._id);
+          if ( live ) effect._snapshot = live.toObject();
+        }
+        else {
+          effect.system ??= {};
+          effect.system.magical ??= (this.tags.has("spell") || this.tags.has("iconicSpell"));
+        }
       }
     }
   }
@@ -2396,8 +2404,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Per-target confirmation hooks
-    for ( const actor of this.eventsByActor.keys() ) actor.callActorHooks("confirmAction", this, {reverse});
+    // Per-target confirmation hooks; awaited in turn so async hooks (e.g. spell interrupts) resolve before events apply
+    for ( const actor of this.eventsByActor.keys() ) {
+      await actor.callActorHooksAsync("confirmAction", this, {reverse});
+    }
 
     // Apply action events
     await this.#applyEvents({reverse, isNegated});
@@ -2457,8 +2467,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
-        // When negated, only preserve self-costs from activation events
-        if ( isNegated ) {
+        if ( isNegated ) { // Only preserve self-costs
           if ( (event.type === "activation") && isSelf ) {
             batch.resources[resource] ??= 0;
             batch.resources[resource] += delta;
