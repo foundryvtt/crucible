@@ -345,8 +345,9 @@ pages:
       content: >-
         <p>When a creature is <strong>Enraged</strong>, it behaves recklessly
         and is less able to defend itself. An <strong>Enraged</strong>
-        creature's Block and Parry defenses become zero and that creature cannot
-        expend Focus.</p>
+        creature's <strong>Block</strong> and <strong>Parry</strong> defenses
+        become zero and that creature cannot expend <strong>Focus</strong> on
+        any non-<strong>Strike</strong> actions.</p>
     video:
       controls: true
       volume: 0.5
@@ -359,12 +360,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751303064320
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1781300289120
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!crucibleConditio.enraged000000000'
   - sort: 1100000
     name: Exposed
