@@ -647,7 +647,9 @@ export default class StandardCheckDialog extends DialogV2 {
         this.#selectedSkills.set(currentSkill, null);
       }
     }
-    await this.render({window: {title: this.title}});
+    const remInPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const offset = (this.customizeSkills ? -1 : 1) * (remInPx + 240);
+    await this.render({window: {title: this.title}, position: {left: this.position.left + offset}});
   }
 
   /* -------------------------------------------- */

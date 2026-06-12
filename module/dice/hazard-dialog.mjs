@@ -241,7 +241,9 @@ export default class HazardDialog extends ActionUseDialog {
    */
   static async #onHazardConfigToggle(_event) {
     this.#configureHazard = !this.#configureHazard;
-    await this.render({window: {title: this.title}});
+    const remInPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const offset = (this.#configureHazard ? -1 : 1) * (remInPx + 240);
+    await this.render({window: {title: this.title}, position: {left: this.position.left + offset}});
   }
 
   /* -------------------------------------------- */

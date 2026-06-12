@@ -8,6 +8,7 @@
   .standard-check {
     padding: 1rem;
     gap: 1rem;
+    width: calc(360px + 2rem);
     .roll-form {
       width: 360px;
     }
@@ -20,6 +21,7 @@
   .standard-check.select-targets {
     flex-direction: row;
     flex-wrap: wrap;
+    width: calc(600px + 3rem);
     .roll-form {
       flex: none;
     }
@@ -29,11 +31,17 @@
     }
   }
 
+  .standard-check.roll-request.customize-skills,
+  .standard-check.configure-hazard.select-targets {
+    width: calc(840px + 4rem);
+  }
+
   /** Side panel shared layout */
   .standard-check .request-form,
   .standard-check .skills-form,
   .standard-check .hazard-config-form,
   .standard-check .hazard-targets-form {
+    width: 240px;
     flex: 0 0 240px;
     h3.divider {
       margin: 0 0 -0.5rem 0;
