@@ -39,6 +39,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( status?.generator ) {
       const generated = status.generator();
       delete generated._id; // Preserve toggled _id
+      delete generated.img; // Preserve toggled icon to avoid confusion
       foundry.utils.mergeObject(effectData, generated, {overwrite: true});
       effectData.duration = {}; // Toggled effects have unlimited duration
     }
