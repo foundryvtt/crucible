@@ -186,10 +186,12 @@ Hooks.once("init", async function() {
 
   // Region Behavior document configuration
   Object.assign(CONFIG.RegionBehavior.dataModels, {
-    "crucible.hazard": models.CrucibleHazardRegionBehavior
+    "crucible.hazard": models.CrucibleHazardRegionBehavior,
+    "crucible.persistentAOE": models.CruciblePersistentAOERegionBehavior
   });
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
-    "crucible.hazard": "fa-solid fa-triangle-exclamation"
+    "crucible.hazard": "fa-solid fa-triangle-exclamation",
+    "crucible.persistentAOE": "fa-solid fa-burst"
   });
 
   // Configure dynamic constants
@@ -245,6 +247,14 @@ Hooks.once("init", async function() {
   sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleAffixEffectSheet, {types: ["affix"], label: "CRUCIBLE.SHEETS.Affix", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+
+  sheets.unregisterSheet(RegionBehavior, "core", foundry.applications.sheets.RegionBehaviorConfig, {
+    types: ["crucible.persistentAOE"]
+  });
+  sheets.registerSheet(RegionBehavior, "crucible", applications.CruciblePersistentAOEConfig, {
+    types: ["crucible.persistentAOE"],
+    label: "CRUCIBLE.SHEETS.PersistentAOE"
+  });
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;

@@ -31,6 +31,7 @@
       "AddFavorite": "Add Favorite",
       "Delete": "Delete Action: {name}",
       "DeleteConfirm": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
+      "EditRegionBehavior": "Edit Region Behavior",
       "RemoveFavorite": "Remove Favorite"
     },
     "DEFAULT_ACTIONS": {
@@ -176,6 +177,10 @@
           "hint": "The range of this action is defined by the effective range of the used weapon.",
           "label": "Use Weapon Range"
         }
+      },
+      "regionBehavior": {
+        "hint": "The region behavior which controls how the region persisted by this action behaves.",
+        "label": "Region Behavior"
       },
       "summon": {
         "actorUuid": {
@@ -1420,6 +1425,7 @@
       "Hero": "Crucible Hero Sheet",
       "HeroCreation": "Crucible Hero Creation Sheet",
       "Journal": "Crucible Journal Sheet",
+      "PersistentAOE": "Crucible Persistent AoE Sheet",
       "Schematic": "Crucible Schematic Sheet",
       "Skill": "Crucible Skill Sheet",
       "Spell": "Crucible Spell Sheet",
@@ -1873,6 +1879,26 @@
         "promptGM": {
           "hint": "If true, the GM will receive a roll dialog, otherwise the hazard will automatically roll.",
           "label": "Prompt GM"
+        }
+      }
+    },
+    "PERSISTENT_AOE": {
+      "FIELDS": {
+        "actionIdentifier": {
+          "hint": "The ID of the action responsible for the creation of this behavior. If provided, will determine which tokens should actually trigger an Action.",
+          "label": "Origin Action ID"
+        },
+        "actionToPerform": {
+          "hint": "The action to potentially perform on any token who triggers an event on this behavior.",
+          "label": "Triggered Action"
+        },
+        "actor": {
+          "hint": "The actor responsible for the creation of this behavior. This actor will roll any triggered actions.",
+          "label": "Origin Actor"
+        },
+        "oncePerRound": {
+          "hint": "This effect should only apply to targets once per round.",
+          "label": "Once per Round"
         }
       }
     }
@@ -2617,7 +2643,8 @@
       "skill": "Crucible Skill"
     },
     "RegionBehavior": {
-      "crucible.hazard": "Crucible Hazard"
+      "crucible.hazard": "Crucible Hazard",
+      "crucible.persistentAOE": "Persistent Area of Effect"
     }
   },
   "WALKTHROUGH": {

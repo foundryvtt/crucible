@@ -63,6 +63,9 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
+  },
+  prepare() {
+    this.usage.hasDice = false;
   }
 };
 
@@ -144,6 +147,7 @@ HOOKS.sense = {
   prepare() {
     this.usage.hasDice = false;
     this.usage.region.wallRestriction = false;
+    this.regionBehavior.system.events = [];
   },
   postActivate() {
     this.recordEvent({type: "effect", effects: [{
