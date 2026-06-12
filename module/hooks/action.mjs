@@ -12,7 +12,7 @@ HOOKS.abjure = {
     const cleansable = [];
     for ( const effect of target.effects ) {
       // Only magical effects with a finite DC are candidates; an Infinity DC means the effect cannot be removed
-      if ( !effect.system?.magical || !Number.isFinite(effect.system.dc) ) continue;
+      if ( !effect.system?.properties?.has("magical") || !Number.isFinite(effect.system.dc) ) continue;
       const origin = effect.origin ? fromUuidSync(effect.origin) : null;
       const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
       if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
@@ -464,6 +464,38 @@ HOOKS.coveringFire = {
   },
   prepare() {
     this.usage.actorStatus.coveringFire = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.crushingLeap = {
+  initialize() {
+    // Generic attack scaling on the leaper's greater physical ability, dealing Bludgeoning to Health
+    this.usage.bonuses.ability = this.actor.getAbilityBonus(["strength", "toughness"], {type: "best"});
+    this.usage.damageType = "bludgeoning";
+    this.usage.resource = "health";
+  },
+  prepare() {
+    // The crash extends outward from the leaper's footprint: half its base size plus a fixed margin
+    this.target.size = Math.ceil(this.actor.size / 2) + 5;
+  },
+  async preActivate() {
+    // Leap to the placed blast center; the recorded movement event is what enacts the relocation at confirm
+    const center = this.region?.shapes[0];
+    if ( !this.token || !center ) return;
+    const gridSize = canvas.grid.size;
+    const waypoint = {
+      x: center.x - ((this.token.width * gridSize) / 2),
+      y: center.y - ((this.token.height * gridSize) / 2),
+      action: "jump"
+    };
+    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
+      {constrainOptions: {crucible: {ignoreTokens: true}}});
+    if ( !plan ) return;
+    plan.cost = 0;
+    const {x, y, elevation} = plan.origin;
+    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
   }
 };
 

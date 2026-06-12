@@ -15,10 +15,10 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
         resource: new fields.StringField({required: true, choices: SYSTEM.RESOURCES, nullable: false}),
         restoration: new fields.BooleanField()
       }), {nullable: false, initial: []}),
-      magical: new fields.BooleanField(),
       maintenance: new fields.SchemaField({
         cost: new fields.NumberField({required: true, integer: true, nullable: false})
       }, {nullable: true, initial: null}),
+      properties: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.EFFECTS.PROPERTIES})),
       regions: new fields.SetField(new fields.DocumentUUIDField({type: "Region", nullable: false})),
       summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false}))
     });
@@ -45,10 +45,17 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
     const effect = this.parent;
     const tags = {};
     const origin = effect.origin ? fromUuidSync(effect.origin) : null;
-    if ( origin ) tags.origin = origin.name;
+    if ( origin && (origin !== effect.parent) ) tags.origin = origin.name;
     if ( effect.disabled ) tags.suspended = _loc("BASE_EFFECT.Suspended");
-    if ( effect.isTemporary ) tags.duration = effect.duration.label;
-    if ( this.magical ) tags.magical = _loc("BASE_EFFECT.Magical");
+    if ( effect.isTemporary ) tags.duration = Number.isFinite(effect.duration.value) ? effect.duration.label : "∞";
+    for ( const s of effect.statuses ) {
+      tags[s] = {label: _loc(CONFIG.statusEffects[s]?.name ?? s), tooltipType: "condition", dataset: {condition: s}};
+    }
+    this.dot.forEach((d, i) => {
+      const label = d.damageType ? SYSTEM.DAMAGE_TYPES[d.damageType]?.label : SYSTEM.RESOURCES[d.resource]?.label;
+      tags[`dot${i}`] = `${d.restoration ? "+" : ""}${d.amount} ${label}`;
+    });
+    for ( const p of this.properties ) tags[p] = SYSTEM.EFFECTS.PROPERTIES[p]?.label ?? p;
     if ( Number.isFinite(this.dc) ) tags.difficulty = _loc("BASE_EFFECT.Difficulty", {dc: this.dc});
     return tags;
   }

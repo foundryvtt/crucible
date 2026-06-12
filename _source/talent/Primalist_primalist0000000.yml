@@ -47,8 +47,11 @@ system:
             expiry: combatEnd
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties:
+              - magical
             regions: []
             summons: []
       img: icons/magic/lightning/bolt-strike-forked-blue.webp
@@ -90,8 +93,11 @@ system:
             expiry: combatEnd
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties:
+              - magical
             regions: []
             summons: []
       img: icons/magic/fire/projectile-smoke-swirl-red.webp
@@ -133,8 +139,11 @@ system:
             expiry: combatEnd
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties:
+              - magical
             regions: []
             summons: []
       img: icons/magic/water/orb-ice-web.webp
@@ -176,8 +185,11 @@ system:
             expiry: combatEnd
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties:
+              - magical
             regions: []
             summons: []
       img: icons/magic/earth/orb-stone-smoke-teal.webp

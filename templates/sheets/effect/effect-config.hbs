@@ -13,9 +13,13 @@
         {{formGroup fields.showIcon value=source.showIcon options=showIconOptions rootId=rootId}}
     </fieldset>
 
+    <fieldset class="item-properties" {{fieldDisabled}}>
+        <legend>{{systemFields.properties.label}}</legend>
+        {{formGroup systemFields.properties value=source.system.properties widget=propertiesWidget}}
+    </fieldset>
+
     <fieldset>
         <legend>{{localize "BASE_EFFECT.SECTIONS.Removal"}}</legend>
         {{formGroup systemFields.dc value=source.system.dc rootId=rootId classes="slim" placeholder="∞"}}
-        {{formGroup systemFields.magical value=source.system.magical rootId=rootId}}
     </fieldset>
 </section>

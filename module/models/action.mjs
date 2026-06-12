@@ -1990,11 +1990,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         else {
           const d = event.roll?.data;
           effect.system ??= {};
-          effect.system.magical ??= (this.tags.has("spell") || this.tags.has("iconicSpell"));
-          // Removal difficulty: an explicit value wins, else the caster's passive from the roll, else level-scaled
-          effect.system.dc ??= d
-            ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
-            : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
+          // Spell-applied effects gain the magical property
+          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
+            const properties = new Set(effect.system.properties);
+            properties.add("magical");
+            effect.system.properties = Array.from(properties);
+          }
+          // Removal difficulty: authored value wins (null = unremovable); auto-populate only an undefined DC
+          if ( effect.system.dc === undefined ) {
+            effect.system.dc = d
+              ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
+              : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
+          }
         }
       }
     }

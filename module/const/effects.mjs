@@ -1,3 +1,13 @@
+import {defineEnum} from "./enum.mjs";
+
+/**
+ * The properties which an Active Effect may have.
+ * @type {Readonly<Record<string, {id: string, label: string, tooltip: string}>>}
+ */
+export const PROPERTIES = defineEnum({
+  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"}
+});
+
 /**
  * @typedef CrucibleDoTConfig
  * @property {string} [ability]

@@ -1285,8 +1285,11 @@
   },
   "BASE_EFFECT": {
     "Difficulty": "Difficulty {dc}",
-    "Magical": "Magical",
     "Suspended": "Suspended",
+    "PROPERTIES": {
+      "Magical": "Magical",
+      "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities."
+    },
     "SECTIONS": {
       "Removal": "Removal",
       "General": "General"
@@ -1315,9 +1318,9 @@
         },
         "label": "Damage Over Time"
       },
-      "magical": {
-        "hint": "Is this effect magical in nature?",
-        "label": "Magical"
+      "properties": {
+        "hint": "Traits describing the nature of this effect.",
+        "label": "Properties"
       },
       "maintenance": {
         "cost": {

@@ -595,25 +595,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Categorize and prepare effects
     for ( const effect of this.actor.allApplicableEffects() ) {
-      const tags = effect.getTags();
+      // The document tags supply section categorization and sort key; the system tags supply the displayed pills
+      const {context} = effect.getTags();
 
       // Add effect to section
       const e = {
         id: effect.id,
         icon: effect.img,
         name: effect.name,
-        tags: tags,
+        tags: effect.system.getTags?.() ?? {},
+        seconds: context.t,
         uuid: effect.uuid,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.ACTIONS.Enable"}
           : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.Disable"}
       };
-      sections[tags.context.section].effects.push(e);
+      sections[context.section].effects.push(e);
     }
 
     // Sort
     for ( const [k, section] of Object.entries(sections) ) {
       if ( !section.effects.length ) delete sections[k];
-      else section.effects.sort((a, b) => (a.tags.context.t - b.tags.context.t) || (a.name.localeCompare(b.name)));
+      else section.effects.sort((a, b) => (a.seconds - b.seconds) || (a.name.localeCompare(b.name)));
     }
     return sections;
   }
