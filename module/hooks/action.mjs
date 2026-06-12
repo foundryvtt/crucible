@@ -253,7 +253,8 @@ HOOKS.bodyBlock = {
 
 HOOKS.bullrush = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -491,7 +492,7 @@ HOOKS.crushingLeap = {
       action: "jump"
     };
     const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {ignoreTokens: true}}});
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
     if ( !plan ) return;
     plan.cost = 0;
     const {x, y, elevation} = plan.origin;
@@ -888,6 +889,30 @@ HOOKS.gemOfConjuredFlame = {
       duration: {rounds: 6},
       system: {}
     });
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.getBehindMe = {
+  async postActivate() {
+    const selfToken = this.token?.object;
+    const [target] = this.targets.keys();
+    const allyToken = this.targets.get(target)?.token?.object;
+    if ( !selfToken || !allyToken ) return;
+
+    // Drag the target behind your own token - using your angle of facing
+    const behind = Math.toRadians(this.token.rotation - 90);
+    const dist = ((this.token.width / 2) + 0.5) * canvas.grid.size;
+    const c = selfToken.center;
+    const ray = new foundry.canvas.geometry.Ray(allyToken.center,
+      {x: c.x + (Math.cos(behind) * dist), y: c.y + (Math.sin(behind) * dist)});
+    const plan = await crucible.api.canvas.movement.planForcedMovement(allyToken.document, ray,
+      {excludeTokens: [this.token.id]});
+    if ( plan ) {
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
   }
 };
 
@@ -1863,9 +1888,23 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.submergingWithdrawal = {
+  canUse() {
+    // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
+    const blocked = ["staggered", "stunned", "slowed", "paralyzed"].find(s => this.actor.statuses.has(s));
+    if ( blocked ) {
+      const status = CONFIG.statusEffects.find(s => s.id === blocked);
+      throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: _loc(status?.name ?? blocked)}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.shieldCharge = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -2033,7 +2072,8 @@ HOOKS.tramplingCharge = {
   prepare() {
     this.target.size = this.actor.size;
     this.range.maximum = this.actor.system.movement.stride * 2;
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   },
   postActivate() {
     const halfSize = Math.ceil(this.actor.size / 2);
@@ -2049,7 +2089,8 @@ HOOKS.tramplingCharge = {
 
 HOOKS.tumble = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -2128,7 +2169,7 @@ HOOKS.vaultingSweep = {
       action: "jump"
     };
     const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {ignoreTokens: true}}});
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
     if ( !plan ) return;
     plan.cost = 0;
     // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id

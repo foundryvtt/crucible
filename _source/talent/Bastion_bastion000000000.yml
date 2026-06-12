@@ -1,0 +1,95 @@
+name: Bastion
+type: talent
+img: icons/skills/melee/shield-block-fire-orange.webp
+system:
+  description: >-
+    <p>You have mastered the art of the defensive stand, becoming an unbreakable
+    wall. While you have the @Condition[guarded] condition, you have the
+    following benefits:</p><ul><li><p>You cannot be moved against your will or
+    rendered @Condition[prone].</p></li><li><p>Your space cannot be crossed by
+    enemies, even when using abilities that would normally move through a
+    creature.</p></li><li><p>Your <strong>Engagement</strong> increases by +1,
+    holding more foes at bay.</p></li><li><p>Your <strong>Reflex</strong>
+    defense is treated as the sum of your <strong>Armor</strong> and
+    <strong>Block </strong>defenses, if greater, as you endure attacks rather
+    than avoiding them.</p></li></ul>
+  actions:
+    - id: getBehindMe
+      name: Get Behind Me
+      condition: ''
+      description: >-
+        <p>Choose an ally adjacent to you and reposition them to be directly
+        behind you, based on your direction of facing at the time this action is
+        used, interposing yourself between that ally and their
+        attackers.</p><p>This movement does not provoke reactions for
+        Disengagement and the protected ally gains the @Condition[guarded]
+        condition until the start of their next turn.</p>
+      tags: []
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      target:
+        type: single
+        scope: 2
+        number: 1
+        self: false
+      effects:
+        - name: Guarded
+          scope: 2
+          result:
+            type: success
+            all: false
+          statuses:
+            - guarded
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnStart
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      img: icons/skills/melee/shield-block-fire-orange.webp
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.toughness.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1772307160160
+  modifiedTime: 1781301170152
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+_id: bastion000000000
+folder: fOYHlZJEWUukD7yr
+sort: 3100000
+_key: '!items!bastion000000000'

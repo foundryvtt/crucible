@@ -449,6 +449,7 @@
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
+      "InvalidTargetScope": "That creature is not a valid target for {action}.",
       "InvalidTargetsGeneric": "Invalid targets for this action!",
       "LastCriticallyMissed": "You may only perform {action} after a basic Strike which did not critically miss.",
       "LastNotMeleeCrit": "You may only perform {action} immediately after a melee Strike which critically succeeded.",

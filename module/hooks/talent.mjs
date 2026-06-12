@@ -136,6 +136,17 @@ HOOKS.bard000000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.bastion000000000 = {
+  defendAttack(_item, _action, _actor, rollData) {
+    // Unyielding: while Guarded, weather a Reflex-resisted attack with Armor + Block rather than dodging or parrying
+    if ( !this.statuses.has("guarded") || (rollData.defenseType !== "reflex") ) return;
+    rollData.defenseType = "armorBlock";
+    rollData.dc = this.system.defenses.armorBlock.total;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.battleWorn000000 = {
   finalizeAction(_item, action) {
     if ( action.id !== "rest" ) return;
@@ -1431,21 +1442,8 @@ HOOKS.swarm00000000000 = {
 
 HOOKS.telekinetic00000 = {
   prepareAction(item, action) {
-    // Double the reach of the Kinesis Propel action's telekinetic manipulations
-    if ( action.id === "propel" ) {
-      action.description = action.description
-        .replace("within 15 feet", "within 30 feet")
-        .replace("up to 30 feet away", "up to 60 feet away")
-        .replace("up to 20 feet", "up to 40 feet");
-      return;
-    }
-
-    // A composed Kinesis spell carrying the Push or Pull inflection, once per turn
-    if ( !action.tags.has("composed") ) return;
-    if ( (action.rune?.id !== "kinesis") || !["pull", "push"].includes(action.inflection?.id) ) return;
+    if ( !action.tags.has("composed") || !["pull", "push"].includes(action.inflection?.id) ) return;
     if ( this.status.telekinetic ) return;
-
-    // Waive the inflection's Focus cost and consume the per-turn use
     action.cost.focus = Math.max(0, action.cost.focus - action.inflection.cost.focus);
     action.usage.actorStatus.telekinetic = true;
   }

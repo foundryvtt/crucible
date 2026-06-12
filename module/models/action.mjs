@@ -56,11 +56,11 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
- * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
- *                                          action used would otherwise enforce it
  * @property {string[]} [excludeTokens]     Specific token ids exempt from this action's movement collision
  * @property {(token: Token) => boolean} [excludeTokenTest]  A predicate marking tokens exempt from this action's
  *                                          movement collision, evaluated lazily on near-path candidates (e.g. by Size)
+ * @property {number} [strength]            This movement's strength from {@link MOVEMENT_STRENGTHS}; it passes through
+ *                                          any blocker whose blockerStrength it strictly exceeds (default NONE)
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
@@ -1618,6 +1618,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #acquireSingleTargets(strict) {
     const tokens = game.user.targets;
+    const targetDispositions = this.#getTargetDispositions();
     let errorAll;
 
     // Too few targets
@@ -1646,8 +1647,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( (token === this.token) && !this.damage?.restoration ) {
+      // `token` is a placeable from game.user.targets while this.token is a TokenDocument, so compare by id
+      if ( (token.id === this.token.id) && !this.damage?.restoration ) {
         t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
+        continue;
+      }
+      // Enforce the action's target scope by disposition (an empty set means scope NONE/SELF, which is unrestricted here)
+      if ( targetDispositions.length && !targetDispositions.includes(token.document.disposition) ) {
+        t.error ||= _loc("ACTION.WARNINGS.InvalidTargetScope", {action: this.name});
         continue;
       }
       const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);

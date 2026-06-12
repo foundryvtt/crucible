@@ -624,8 +624,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Await the user designating a movement plan, including crucible-specific movement constraint options. A collision
-    // predicate cannot be serialized through constrainOptions, so stash it on the token for the planning session only.
+    // predicate cannot be serialized through constrainOptions, so it is stashed on the token for the planning session
+    // and ALSO baked into a static excludeTokens id list, which (unlike the predicate) survives to the execution phase.
     token.object._movementExcludeTest = movementUsage.excludeTokenTest ?? null;
+    let excludeTokens = movementUsage.excludeTokens;
+    if ( movementUsage.excludeTokenTest ) {
+      const tested = canvas.tokens.placeables.filter(t => t.actor && movementUsage.excludeTokenTest(t)).map(t => t.id);
+      excludeTokens = excludeTokens ? [...excludeTokens, ...tested] : tested;
+    }
     let plan;
     try {
       plan = await token.object.planMovement({
@@ -635,7 +641,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
         direct: movementUsage.direct ?? true,
         constrainOptions: {
           ...(movementUsage.constrainOptions ?? {}),
-          crucible: {ignoreTokens: movementUsage.ignoreTokens ?? false, excludeTokens: movementUsage.excludeTokens}
+          crucible: {
+            excludeTokens,
+            movementStrength: movementUsage.strength
+          }
         }
       });
     } finally {
