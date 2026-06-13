@@ -7,7 +7,7 @@ system:
     Spell or use an action that involves this Rune, your Critical Hits which
     deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
     effect lasts for <strong>3 Rounds</strong>, deals half your
-    <strong>Intellect</strong> score as <strong>Lightning</strong> damage to
+    <strong>Intellect</strong> score as <strong>Electricity</strong> damage to
     <strong>Morale</strong>, and applies the @Condition[staggered]
     condition.</p>
   actions: []
