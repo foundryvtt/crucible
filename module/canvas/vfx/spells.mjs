@@ -1,6 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
+import {computeAttackOffset, pickRandom, pushActorScrollingText, pushTargetScrollingText,
+  tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-component.mjs";
@@ -70,57 +71,6 @@ export function configureSpellVFXEffect(action, vfxConfig) {
     return null;
   }
   return vfxConfig;
-}
-
-/* -------------------------------------------- */
-
-/**
- * Push per-target scrolling-text entries onto a component's `scrollingText` array. Composes the
- * target's text events from its event slice and stages each at impact time, staggered 200ms apart
- * to avoid overlap when a single hit produces multiple text rows (resource + status).
- * @param {object[]} scrollingText      The component's scrollingText array (mutated).
- * @param {CrucibleSpellAction} action
- * @param {CrucibleActor} targetActor
- * @param {object[]} targetEvents       The target's slice of the action event stream.
- * @param {string} meshRef              Reference key of the target's mesh in the VFX references map.
- * @param {number} impactStart          Component-timeline ms at which this target is struck.
- */
-function _pushTargetScrollingText(scrollingText, action, targetActor, targetEvents, meshRef, impactStart) {
-  const events = action.constructor.composeTextEvents(targetActor, targetEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
-  events.forEach((evt, i) => scrollingText.push({
-    target: {reference: meshRef},
-    text: evt.text,
-    time: impactStart + (i * 200),
-    fontSize: evt.fontSize ?? 32,
-    fillColor: evt.fillColor ?? "#ffffff"
-  }));
-}
-
-/* -------------------------------------------- */
-
-/**
- * Push the caster's selfEvents (activation cost, heroism, etc.) onto a component's scrollingText
- * array. Skipped when the caster is also a target, since {@link _pushTargetScrollingText} already
- * surfaces those events from the target loop.
- * @param {object[]} scrollingText      The component's scrollingText array (mutated).
- * @param {CrucibleSpellAction} action
- * @param {string} meshRef              Reference key of the caster's mesh.
- * @param {number} [time=0]             Component-timeline ms at which the caster text fires.
- */
-function _pushCasterScrollingText(scrollingText, action, meshRef, time=0) {
-  if ( action.eventsByTarget.has(action.actor) ) return;
-  const selfEvents = action.selfEvents?.all ?? [];
-  if ( !selfEvents.length ) return;
-  const events = action.constructor.composeTextEvents(action.actor, selfEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
-  events.forEach((evt, i) => scrollingText.push({
-    target: {reference: meshRef},
-    text: evt.text,
-    time: time + (i * 200),
-    fontSize: evt.fontSize ?? 32,
-    fillColor: evt.fillColor ?? "#ffffff"
-  }));
 }
 
 /* -------------------------------------------- */
@@ -418,7 +368,7 @@ function configureArrowVFXEffect(action) {
     }
 
     const arrowScrollingText = [];
-    _pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
+    pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
       CHARGE_DURATION + flightMS);
 
     components[`arrow_${j}`] = {
@@ -449,7 +399,7 @@ function configureArrowVFXEffect(action) {
   }
 
   if ( !timeline.length ) return null;
-  if ( components.arrow_1 ) _pushCasterScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
+  if ( components.arrow_1 ) pushActorScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
   return _finalizeSpellVFX(components, timeline, references, forcedMovements);
 }
 
@@ -531,11 +481,11 @@ function configureFanVFXEffect(action) {
     targetMeshRefs.push({reference: meshRef});
     impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
       elevation: particleElevation, impactType, forcedMovements}));
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   const deliverySound = runeProps.deliverySoundType
     ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
@@ -622,11 +572,11 @@ function configureRayVFXEffect(action) {
     const start = timingFn(tokenCenter(token), timingCtx);
     impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
       elevation: beamElevation, impactType, forcedMovements}));
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   // Build VFXEffect configuration
   const buildContext = {textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,
@@ -709,12 +659,12 @@ function configureContactVFXEffect(action) {
       : {};
     impacts.push(_buildTargetImpact({action, group, token, result, start: impactStart, tokenRef, runeProps,
       textures, elevation: targetElevation, forcedMovements, treatmentCtx}));
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
     j++;
   }
 
   if ( !impacts.length ) return null;
-  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   // Influence sustains the charge into a melee channel: the hand keeps channeling while the element crusts onto
   // the target and a tinted glow saturates it, lingering past the climax. Touch leaves delivery empty.
@@ -887,11 +837,11 @@ function configureBlastVFXEffect(action) {
     const start = timingFn(tokenCenter(token), timingCtx);
     impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
       elevation: particleElevation, impactType, forcedMovements}));
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  _pushCasterScrollingText(scrollingText,
+  pushActorScrollingText(scrollingText,
     action, projectileComponent ? "fireballManifest" : "tokenMesh");
 
   const buildCtx = {action, textures, origin, radius, particleElevation, casterElevation,

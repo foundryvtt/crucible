@@ -15,6 +15,8 @@
  * @property {(this: CrucibleVFXComponent, phase: object, params: object) => void} [tearDown]
  */
 
+/* -------------------------------------------- */
+
 /**
  * Fade the projectile container's alpha 0 -> 1 over the charge phase.
  * @type {CrucibleVFXComponentAnimation}
@@ -32,7 +34,43 @@ const chargeProjectileFadeIn = {
 /* -------------------------------------------- */
 
 /**
- * Animate delivery of a single projectile along its configured flight path.
+ * Rearward anchor-x offset applied to a projectile sprite while drawn back, relative to its configured anchor.
+ * @type {number}
+ */
+const DRAW_BACK_ANCHOR = 0.75;
+
+/**
+ * Draw a charged projectile back before release: the sprite anchor slides rearward from its configured value by
+ * {@link DRAW_BACK_ANCHOR} with an outBack overshoot while fading in. Pairs with {@link deliveryProjectileFlight}
+ * `returnAnchor`, which settles the anchor back to its configured value across the flight.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const chargeDrawBack = {
+  setup(phase, params) {
+    params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "outBack", params.easingParams ?? 0.8);
+    const container = this.state.delivery?.container;
+    if ( !container ) return;
+    container.alpha = 1.0;
+    const mesh = container.getChildByName?.("mesh");
+    if ( !mesh ) return;
+    params.mesh = mesh;
+    params.baseAnchorX = mesh.anchor.x;
+    this.state.drawBackAnchorX = mesh.anchor.x;
+  },
+  animate(t, phase, params) {
+    const mesh = params.mesh;
+    if ( !mesh ) return;
+    mesh.anchor.x = Math.mix(params.baseAnchorX, params.baseAnchorX + DRAW_BACK_ANCHOR, params.ease(t));
+    mesh.alpha = Math.min(t * 4, 1);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Animate delivery of a single projectile along its configured flight path. When `params.returnAnchor` is set, the
+ * sprite anchor settles from the drawn-back offset back to its configured value across the flight, releasing a
+ * {@link chargeDrawBack} draw.
  * @type {CrucibleVFXComponentAnimation}
  */
 const deliveryProjectileFlight = {
@@ -51,6 +89,11 @@ const deliveryProjectileFlight = {
     target.rotation = point.rotation;
     target.elevation = point.elevation;
     target.sort = point.sort;
+    if ( params.returnAnchor ) {
+      const base = this.state.drawBackAnchorX;
+      const mesh = target.getChildByName?.("mesh");
+      if ( mesh && (base != null) ) mesh.anchor.x = Math.mix(base + DRAW_BACK_ANCHOR, base, w);
+    }
   }
 };
 
@@ -83,16 +126,14 @@ function impactRecoilAnimation(defaultOscillations) {
       if ( rp >= 1 ) return; // Recoil settled; tearDown restores the resting anchor
       const offset = (params.distance ?? 12) * _recoilMagnitude(rp, params.oscillations ?? defaultOscillations);
 
-      // Anchor offsets live in the mesh's local (rotated) frame, so counter-rotate the world-space
-      // origin->destination direction by the target's rotation; else a facing-rotated token recoils off-axis
+      // Rotate the anchor offset for the direction of the impact
       const r = target.rotation || 0;
       const cos = Math.cos(r);
       const sin = Math.sin(r);
       const localDx = (params._dx * cos) + (params._dy * sin);
       const localDy = (params._dy * cos) - (params._dx * sin);
 
-      // Convert px displacement to a normalized anchor delta over the mesh display size; anchor offsets the sprite
-      // opposite to its sign, so subtract to recoil along origin->destination
+      // Convert px displacement to an anchor delta, normalized for mesh size, animate the anchor
       const w = (Math.abs(target.scale.x) * tex.width) || 1;
       const h = (Math.abs(target.scale.y) * tex.height) || 1;
       target.anchor.set(
@@ -101,7 +142,7 @@ function impactRecoilAnimation(defaultOscillations) {
       );
     },
     tearDown(phase, params) {
-      // Restore the resting anchor; safe to set absolutely because nothing else animates the mesh anchor
+      // Restore the resting anchor
       const target = params._target;
       if ( params._baseAnchor && target && !target.destroyed ) {
         target.anchor.set(params._baseAnchor.x, params._baseAnchor.y);
@@ -261,6 +302,7 @@ const impactSpriteGlow = {
  */
 export const SPRITE_ANIMATIONS = {
   chargeProjectileFadeIn,
+  chargeDrawBack,
   deliveryProjectileFlight,
   impactSpriteBurst,
   impactSpriteRecoil,
