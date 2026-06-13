@@ -195,14 +195,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Whether this actor is an immovable Bastion: bearing the Bastion talent while Guarded. Gates all Bastion benefits.
-   * @returns {boolean}
-   */
-  get isImmovableWall() {
-    return this.talentIds.has("bastion000000000") && this.statuses.has("guarded");
-  }
-
-  /**
    * The tracked action history for this Actor.
    * The array is ordered with most-recent first.
    * @returns {CrucibleActionHistoryEntry[]}
@@ -1195,10 +1187,6 @@ export default class CrucibleActor extends Actor {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
-      // An immovable Bastion cannot be knocked Prone
-      if ( !reverse && this.isImmovableWall && effectData.statuses?.includes("prone") ) {
-        effectData.statuses = effectData.statuses.filter(s => s !== "prone");
-      }
       if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
 
       // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it

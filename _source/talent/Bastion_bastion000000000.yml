@@ -6,13 +6,15 @@ system:
     <p>You have mastered the art of the defensive stand, becoming an unbreakable
     wall. While you have the @Condition[guarded] condition, you have the
     following benefits:</p><ul><li><p>You cannot be moved against your will or
-    rendered @Condition[prone].</p></li><li><p>Your space cannot be crossed by
+    knocked @Condition[prone].</p></li><li><p>Your space cannot be crossed by
     enemies, even when using abilities that would normally move through a
     creature.</p></li><li><p>Your <strong>Engagement</strong> increases by +1,
     holding more foes at bay.</p></li><li><p>Your <strong>Reflex</strong>
     defense is treated as the sum of your <strong>Armor</strong> and
     <strong>Block </strong>defenses, if greater, as you endure attacks rather
-    than avoiding them.</p></li></ul>
+    than avoiding them. An attack against your <strong>Reflex</strong> which you
+    resist is treated as having been defended by
+    <strong>Block</strong>.</p></li></ul>
   actions:
     - id: getBehindMe
       name: Get Behind Me

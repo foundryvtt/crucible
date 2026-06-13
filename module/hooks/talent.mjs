@@ -137,11 +137,21 @@ HOOKS.bard000000000000 = {
 /* -------------------------------------------- */
 
 HOOKS.bastion000000000 = {
-  defendAttack(_item, _action, _actor, rollData) {
-    // Unyielding: while Guarded, weather a Reflex-resisted attack with Armor + Block rather than dodging or parrying
-    if ( !this.statuses.has("guarded") || (rollData.defenseType !== "reflex") ) return;
-    rollData.defenseType = "armorBlock";
-    rollData.dc = this.system.defenses.armorBlock.total;
+  prepareMovement(_item, movement) {
+    if ( !this.statuses.has("guarded") ) return;
+    movement.engagementBonus += 1;
+    movement.blockerStrength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE;
+  },
+  prepareDefenses(_item, defenses) {
+    if ( !this.statuses.has("guarded") ) return;
+    const reflex = defenses.reflex.base + defenses.reflex.bonus;
+    const armorBlock = defenses.armor.base + defenses.armor.bonus + defenses.block.base + defenses.block.bonus;
+    if ( armorBlock > reflex ) defenses.reflex.bonus += armorBlock - reflex;
+  },
+  receiveAttack(_item, _action, roll) {
+    if ( !this.statuses.has("guarded") ) return;
+    const T = roll.constructor.RESULT_TYPES;
+    if ( (roll.data.defenseType === "reflex") && (roll.data.result === T.RESIST) ) roll.data.result = T.BLOCK;
   }
 };
 
@@ -1417,7 +1427,6 @@ HOOKS.swarm00000000000 = {
   prepareResources(_item, resources) {
     resources.health.bonus += resources.health.base;
   },
-
   prepareMovement(_item, movement) {
     const minSize = 2;
     const fullSize = movement.baseSize + movement.sizeBonus;
@@ -1428,7 +1437,6 @@ HOOKS.swarm00000000000 = {
     const newSize = Math.round(Math.mix(minSize, fullSize, ratio));
     movement.sizeBonus = newSize - movement.baseSize;
   },
-
   receiveAttack(_item, action, roll) {
     if ( action.target?.type !== "single" ) return;
     const dmg = roll.data.damage;

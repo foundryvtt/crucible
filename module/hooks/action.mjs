@@ -901,9 +901,12 @@ HOOKS.getBehindMe = {
     const allyToken = this.targets.get(target)?.token?.object;
     if ( !selfToken || !allyToken ) return;
 
-    // Drag the target behind your own token - using your angle of facing
+    // Drag the target behind your own token - using your angle of facing. The distance clears both footprints (your
+    // half-extent plus the ally's half-extent) so they end edge-adjacent rather than overlapping.
     const behind = Math.toRadians(this.token.rotation - 90);
-    const dist = ((this.token.width / 2) + 0.5) * canvas.grid.size;
+    const selfReach = Math.max(this.token.width, this.token.height) / 2;
+    const allyReach = Math.max(allyToken.document.width, allyToken.document.height) / 2;
+    const dist = (selfReach + allyReach) * canvas.grid.size;
     const c = selfToken.center;
     const ray = new foundry.canvas.geometry.Ray(allyToken.center,
       {x: c.x + (Math.cos(behind) * dist), y: c.y + (Math.sin(behind) * dist)});

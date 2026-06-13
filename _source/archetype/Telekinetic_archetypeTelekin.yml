@@ -1,12 +1,12 @@
-name: Kineturge
+name: Telekinetic
 type: archetype
-img: icons/skills/ranged/bullets-triple-ball-yellow.webp
+img: icons/magic/earth/projectiles-stone-salvo.webp
 system:
   description: >-
     <p>Telekinetic mages who weave the Rune of Kinesis to hurl, drag, and crush
     their foes with raw kinetic force, dominating the battlefield through
     relentless Push and Pull.</p>
-  identifier: kineturge
+  identifier: telekinetic
   abilities:
     wisdom: 3
     presence: 4
@@ -18,20 +18,22 @@ system:
     - item: Compendium.crucible.talent.Item.runeKinesis00000
       level: null
     - item: Compendium.crucible.talent.Item.inflectionpull00
-      level: null
-    - item: Compendium.crucible.talent.Item.inflectionpush00
-      level: null
-    - item: Compendium.crucible.talent.Item.gesturearrow0000
-      level: null
-    - item: Compendium.crucible.talent.Item.gestureBlast0000
       level: 2
+    - item: Compendium.crucible.talent.Item.inflectionpush00
+      level: 2
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gestureBlast0000
+      level: 5
     - item: Compendium.crucible.talent.Item.kineturge0000000
       level: 3
     - item: Compendium.crucible.talent.Item.telekinetic00000
       level: 4
+    - item: Compendium.crucible.talent.Item.inflectionReshap
+      level: 6
   skills:
-    - arcana
     - awareness
+    - arcana
     - intimidation
   spells: []
   equipment: []
@@ -49,8 +51,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.5
   createdTime: 1781218465590
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
-_id: archetypeKinetur
+  modifiedTime: 1781312856633
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: archetypeTelekin
 sort: 2800000
-_key: '!items!archetypeKinetur'
+_key: '!items!archetypeTelekin'

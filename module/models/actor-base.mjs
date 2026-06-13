@@ -862,11 +862,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const {mainhand, offhand} = this.parent.equipment.weapons;
     if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
     if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;
-    // A Guarded Bastion anchors the line and becomes an unstoppable wall
-    if ( this.parent.isImmovableWall ) {
-      m.engagementBonus += 2;
-      m.blockerStrength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE;
-    }
     m.engagement = m.baseEngagement + m.engagementBonus;
   }
 
@@ -1043,9 +1038,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     defenses.physical = {
       total: defenses.armor.total + defenses.dodge.total + defenses.parry.total + defenses.block.total
     };
-
-    // The heavy-defense composite (Armor + Block, excluding the agile Dodge/Parry), used by Bastion's Unyielding
-    defenses.armorBlock = {total: defenses.armor.total + defenses.block.total};
   }
 
   /* -------------------------------------------- */

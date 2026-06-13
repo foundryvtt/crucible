@@ -1987,23 +1987,35 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.type === "movement" ) this.#deriveMovementStatus(event);
     }
 
-    // Finalize effect data last, including snapshots of prior state for effects that are deleted or updated
+    // Finalize effect data
     for ( const event of this.events ) {
       for ( const effect of event.effects ) {
+
+        // An UNSTOPPABLE movement-blocker cannot be knocked Prone
+        if ( effect.statuses?.length && (effect._action !== "delete")
+          && (event.target?.system.movement.blockerStrength >= SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE) ) {
+          effect.statuses = effect.statuses.filter(s => s !== "prone");
+        }
+
+        // Snapshot current state for deletions and updates so reversal is possible
         if ( (effect._action === "delete") || (effect._action === "update") ) {
           const live = event.target?.effects.get(effect._id);
           if ( live ) effect._snapshot = live.toObject();
         }
+
+        // Annotate effects
         else {
           const d = event.roll?.data;
           effect.system ??= {};
+
           // Spell-applied effects gain the magical property
           if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
             const properties = new Set(effect.system.properties);
             properties.add("magical");
             effect.system.properties = Array.from(properties);
           }
-          // Removal difficulty: authored value wins (null = unremovable); auto-populate only an undefined DC
+
+          // Populate effect removal difficulty
           if ( effect.system.dc === undefined ) {
             effect.system.dc = d
               ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
@@ -2022,9 +2034,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #expireInvisibility() {
     if ( !this.actor?.statuses.has("invisible") ) return;
     if ( !this.breaksInvisibility ) return;
+    const activation = this.selfEvents.activation;
     for ( const effect of this.actor.effects ) {
       if ( !effect.statuses.has("invisible") ) continue;
-      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: effect.id, _action: "delete"}]});
+      activation.effects.push({_id: effect.id, _action: "delete"});
     }
   }
 
