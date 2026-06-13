@@ -95,6 +95,16 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   /**
+   * Is the talent tree canvas currently open and rendering? Reflects the dedicated PIXI ticker state.
+   * @type {boolean}
+   */
+  get rendering() {
+    return this.app.ticker.started;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Initialize the secondary canvas used for the talent tree.
    */
   #initialize() {
@@ -108,6 +118,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Create the PIXI Application
     Object.defineProperty(this, "app", {value: new PIXI.Application({
       view: this.canvas,
+      autoStart: false, // The ticker is started in open() and stopped in close() so the tree renders only while open
       width: window.innerWidth,
       height: window.innerHeight,
       transparent: false,
@@ -378,8 +389,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.pan(resetView ? {x: 0, y: 0, scale: 1.0} : {});
     this.refresh();
 
-    // Enable the talent tree canvas
-    this.app.renderer.enabled = true;
+    // Start rendering and enable the talent tree canvas
+    this.app.start();
     canvas.stage.eventMode = "none";
     this.stage.eventMode = "static";
     this.stage.interactiveChildren = true;
@@ -400,13 +411,15 @@ export default class CrucibleTalentTree extends PIXI.Container {
     await actor?.sheet.render(false);
     actor.sheet.maximize();
 
-    // Deactivate UI
+    // Deactivate UI, clearing any active node so the background blur filter is never left enabled
+    this.active = null;
     this.wheel.deactivate();
+    this.darkenBackground(false);
     this.hud.close({animate: false});
     this.controls.close({animate: false});
 
-    // Disable the talent tree canvas
-    this.app.renderer.enabled = false;
+    // Stop rendering the talent tree canvas
+    this.app.stop();
     this.canvas.hidden = true;
     this.stage.eventMode = "none";
     this.stage.interactiveChildren = false;

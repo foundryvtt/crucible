@@ -131,7 +131,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    */
   _onPointerOver(event) {
     const tree = crucible.tree;
-    if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
+    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.activate(this);
     const s = (this.config.size + 8) / this.config.size;
     this.scale.set(s, s);
@@ -150,7 +150,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    */
   _onPointerOut(event) {
     const tree = game.system.tree;
-    if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
+    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
