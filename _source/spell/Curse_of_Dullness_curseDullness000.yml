@@ -57,11 +57,11 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      rune: lightning
+      rune: storm
       gesture: aspect
       inflection: negate
   runes:
-    - lightning
+    - storm
   gestures:
     - aspect
   inflections:

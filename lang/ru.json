@@ -2139,12 +2139,12 @@
       "KinesisAdj": "Кинетический",
       "Life": "Жизнь",
       "LifeAdj": "Живой",
-      "Lightning": "Молния",
-      "LightningAdj": "Молниеносный",
       "Oblivion": "Забвение",
       "OblivionAdj": "Уничтожающий",
       "Soul": "Душа",
-      "SoulAdj": "Душевный"
+      "SoulAdj": "Душевный",
+      "Storm": "Молния",
+      "StormAdj": "Молниеносный"
     },
     "SHEET": {
       "Knowledge": "Требуемое знание"

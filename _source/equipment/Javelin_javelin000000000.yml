@@ -17,9 +17,9 @@ system:
   description:
     public: >-
       <p>With a sharp metal head mounted atop a long pole, the javelin is light
-      enough to be thrown but sturdy enough to remain useful in close
-      quarters. Balanced for flight, it can be hurled up to <strong>60
-      feet</strong> when used for thrown attacks.</p>
+      enough to be thrown but sturdy enough to remain useful in close quarters.
+      Balanced for flight, it can be hurled up to <strong>60 feet</strong> when
+      used for thrown attacks.</p>
     private: ''
   actions: []
   damageType: piercing

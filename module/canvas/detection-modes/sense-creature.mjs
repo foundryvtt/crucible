@@ -24,9 +24,9 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
     illusion: "#e21036",
     kinesis: "#d7d7d7",
     life: "#ff7190",
-    lightning: "#ffb96c",
     oblivion: "#7a0b16",
-    soul: "#00faff"
+    soul: "#00faff",
+    storm: "#ffb96c"
   });
 
   /**

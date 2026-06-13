@@ -2321,8 +2321,8 @@ HOOKS.wildStrike = {
 // Thin shims keyed to each Stance's canonical Rune; validation and effect-stream logic live on the talent hook
 // (crucible.api.hooks.talent.primalist0000000)
 HOOKS.stormStance = {
-  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "lightning"); },
-  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "lightning"); }
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "storm"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "storm"); }
 };
 
 HOOKS.cinderStance = {

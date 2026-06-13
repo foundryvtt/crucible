@@ -2269,12 +2269,12 @@
       "KinesisAdj": "Kinetyczny",
       "Life": "Życie",
       "LifeAdj": "Witalny",
-      "Lightning": "Błyskawicy",
-      "LightningAdj": "Naelektryzowany",
       "Oblivion": "Nicości",
       "OblivionAdj": "Niszczący",
       "Soul": "Dusza",
-      "SoulAdj": "Uduchowiony"
+      "SoulAdj": "Uduchowiony",
+      "Storm": "Błyskawicy",
+      "StormAdj": "Naelektryzowany"
     },
     "SHEET": {
       "Knowledge": "Wymagana wiedza"

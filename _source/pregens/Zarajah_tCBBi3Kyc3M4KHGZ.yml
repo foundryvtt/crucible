@@ -291,11 +291,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142901
-      modifiedTime: 1780588142901
+      createdTime: 1781382739631
+      modifiedTime: 1781382739631
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -334,11 +334,11 @@ items:
       identifier: ringMail
       invested: false
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142901
-      modifiedTime: 1780588142901
+      createdTime: 1781382739631
+      modifiedTime: 1781382739631
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -399,6 +399,8 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
+                dc: null
+                properties: []
           range:
             maximum: null
             weapon: false
@@ -406,7 +408,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       nodes:
         - pre1a
       rune: ''
@@ -417,12 +418,12 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142902
+      modifiedTime: 1781382739631
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142902
+      createdTime: 1781382739631
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -458,12 +459,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142902
+      modifiedTime: 1781382739632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142902
+      createdTime: 1781382739632
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -480,15 +481,17 @@ items:
       description: >-
         <p>Your spellcraft is honed as a weapon of war to thwart the
         incantations of other magi. You may ask the Gamemaster if you know a
-        Rune capable of countering an enemy spell, even if you do not recognize
-        the spell being cast. You gain +2 Boons to any Counterspell attempt.</p>
+        <strong>Rune</strong> capable of countering an enemy spell, even if you
+        do not recognize the spell being cast. You gain +2 Boons to any
+        @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell]
+        attempt.</p>
       actions: []
-      iconicSpells: 2
+      iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - sig3.presence.intellect
+        - preint4
       rune: ''
       gesture: ''
       inflection: ''
@@ -496,12 +499,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142902
+      modifiedTime: 1781382739632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142902
+      createdTime: 1781382739632
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -537,12 +540,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142902
+      modifiedTime: 1781382739632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142902
+      createdTime: 1781382739632
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -576,12 +579,12 @@ items:
     sort: -75000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142902
+      modifiedTime: 1781382739633
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142902
+      createdTime: 1781382739633
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -612,12 +615,12 @@ items:
     sort: 300000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142903
+      modifiedTime: 1781382739633
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142903
+      createdTime: 1781382739633
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -629,8 +632,9 @@ items:
     img: icons/magic/fire/projectile-smoke-swirl-red.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Flame. Spells which use
-        this Rune cause @Condition[burning] on Critical Hits.</p><p>The Burning
+        <p>You are highly skilled in weaving the Rune of Flame. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        deal damage cause the @Condition[burning] condition.</p><p>The Burning
         effect lasts for <strong>3 Rounds</strong> and deals half your
         <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
         <strong>Health</strong> and <strong>Morale</strong>.</p>
@@ -648,12 +652,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142903
+      modifiedTime: 1781382739633
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142903
+      createdTime: 1781382739633
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -694,12 +698,12 @@ items:
     sort: 1000000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142903
+      modifiedTime: 1781382739633
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142903
+      createdTime: 1781382739633
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -752,7 +756,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: light
@@ -766,12 +769,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142903
-      createdTime: 1780588142903
+      modifiedTime: 1781382739633
+      createdTime: 1781382739633
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -811,11 +814,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142903
-      modifiedTime: 1780588142903
+      createdTime: 1781382739634
+      modifiedTime: 1781382739634
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -851,11 +854,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739634
+      modifiedTime: 1781382739634
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -871,9 +874,10 @@ items:
     img: icons/magic/light/beams-rays-orange-purple-large.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Illumination. Spells
-        which use this Rune cause the @Condition[irradiated] condition on
-        Critical Hits.</p><p>The Irradiated effect lasts for <strong>1
+        <p>You are highly skilled in weaving the Rune of Illumination. When you
+        cast a Spell or use an action that involves this Rune, your Critical
+        Hits which deal damage cause the @Condition[irradiated]
+        condition.</p><p>The Irradiated effect lasts for <strong>1
         Round</strong> and deals your <strong>Presence</strong> score as
         <strong>Radiant</strong> damage to both <strong>Health</strong> and
         <strong>Morale</strong>.</p>
@@ -891,11 +895,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739634
+      modifiedTime: 1781382739634
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -933,11 +937,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739634
+      modifiedTime: 1781382739634
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -974,11 +978,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739634
+      modifiedTime: 1781382739634
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1043,7 +1047,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: oblivion
       nodes:
         - int0a
@@ -1057,11 +1060,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739635
+      modifiedTime: 1781382739635
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1094,11 +1097,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142904
-      modifiedTime: 1780588142904
+      createdTime: 1781382739635
+      modifiedTime: 1781382739635
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1160,14 +1163,13 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          rune: lightning
+          rune: storm
           gesture: touch
           composition: 1
           summon:
             actorUuid: null
             permanent: true
           inflection: ''
-          autoFavorite: false
       nodes:
         - preint1
       rune: ''
@@ -1181,11 +1183,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142905
-      modifiedTime: 1780588142905
+      createdTime: 1781382739635
+      modifiedTime: 1781382739635
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1247,7 +1249,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: flame
       nodes:
         - int0a
@@ -1261,12 +1262,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142905
-      createdTime: 1780588142905
+      modifiedTime: 1781382739635
+      createdTime: 1781382739635
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1301,11 +1302,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142905
-      modifiedTime: 1780588142905
+      createdTime: 1781382739635
+      modifiedTime: 1781382739635
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1376,7 +1377,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: kinesis
       nodes:
         - pre0b
@@ -1390,11 +1390,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142905
-      modifiedTime: 1780588142905
+      createdTime: 1781382739636
+      modifiedTime: 1781382739636
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1434,11 +1434,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142905
-      modifiedTime: 1780588142905
+      createdTime: 1781382739636
+      modifiedTime: 1781382739636
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1464,11 +1464,11 @@ flags:
           combatantId: IVxZ7pdZO88zAAQ7
           tokenId: L62zbZZ3PjGIAKO5
 _stats:
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.5
-  createdTime: 1780588142900
-  modifiedTime: 1780588142900
+  createdTime: 1781382739630
+  modifiedTime: 1781382739630
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

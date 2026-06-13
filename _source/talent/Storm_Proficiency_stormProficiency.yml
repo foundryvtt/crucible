@@ -1,22 +1,22 @@
-name: Lightning Proficiency
+name: Storm Proficiency
 type: talent
 img: icons/magic/lightning/bolt-strike-blue.webp
 system:
   nodes:
     - int4b
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Lightning. You
-    gain a <strong>+1 Skill Bonus</strong> for spells cast using this
-    Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the <strong>Energize </strong>action,
-    expanding its effectiveness or including new options for how to use it.</p>
+    <p>You have fluency in weaving spellcraft using the Rune of Storm. You gain
+    a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
+    class="divider">Playtest Notes</h3><p>This talent will eventually also
+    provide an upgrade to the <strong>Energize </strong>action, expanding its
+    effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
   gesture: ''
   inflection: ''
   iconicSpells: 0
   training:
-    type: lightning
+    type: storm
     rank: 2
 effects: []
 folder: meNcaEyQoLucHy0I
@@ -34,6 +34,6 @@ _stats:
   createdTime: 1763163898743
   modifiedTime: 1773514792552
   lastModifiedBy: vke929uLgNzbrY41
-_id: lightningProfici
+_id: stormProficiency
 sort: 500000
-_key: '!items!lightningProfici'
+_key: '!items!stormProficiency'

@@ -289,9 +289,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136410
-      modifiedTime: 1780588136410
+      coreVersion: '14.364'
+      createdTime: 1781382731981
+      modifiedTime: 1781382731981
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,9 +332,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136410
-      modifiedTime: 1780588136410
+      coreVersion: '14.364'
+      createdTime: 1781382731981
+      modifiedTime: 1781382731981
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -351,14 +351,14 @@ items:
         <p>You are drilled in performing sequences of melee attacks with
         rhythmic precision. When you <strong>Strike</strong> multiple times in
         sequence using a one-handed melee weapon you gain a stacking <strong>+1
-        Boon</strong> for each successive attack.</p><p></p>
+        Boon</strong> for each successive attack.</p>
       actions: []
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str2c
+        - str2a
       rune: ''
       gesture: ''
       inflection: ''
@@ -366,12 +366,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136411
+      modifiedTime: 1781382731981
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136411
+      createdTime: 1781382731981
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -409,12 +409,12 @@ items:
     sort: 40000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781382731981
+      createdTime: 1781382731981
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -448,12 +448,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781382731982
+      createdTime: 1781382731982
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -502,7 +502,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: heavy
@@ -516,12 +515,12 @@ items:
     sort: 150000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781382731982
+      createdTime: 1781382731982
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -555,11 +554,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136412
-      modifiedTime: 1780588136412
+      createdTime: 1781382731982
+      modifiedTime: 1781382731982
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -621,7 +620,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: flame
       nodes:
         - int0a
@@ -635,11 +633,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136412
-      modifiedTime: 1780588136412
+      createdTime: 1781382731982
+      modifiedTime: 1781382731982
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -658,9 +656,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136409
-  modifiedTime: 1780588136409
+  coreVersion: '14.364'
+  createdTime: 1781382731980
+  modifiedTime: 1781382731980
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

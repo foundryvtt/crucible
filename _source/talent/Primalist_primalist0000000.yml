@@ -10,8 +10,8 @@ system:
     </p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
     Earth}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
     Flame}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Rune:
-    Frost}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeLightning000]{Rune:
-    Lightning}</p></li></ul><p>You may enter or change your Stance once per
+    Frost}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeStorm0000000]{Rune:
+    Storm}</p></li></ul><p>You may enter or change your Stance once per
     <strong>Turn</strong>, and your entered stance lasts until you change it or
     until  Combat ends. While in a Stance, talents or features which apply
     Critical Hit effects for actions that use that Rune apply to your weapon
@@ -19,11 +19,11 @@ system:
   actions:
     - id: stormStance
       name: Storm Stance
-      condition: You know the Rune of Lightning.
+      condition: You know the Rune of Storm.
       description: >-
         <p>You adopt the <strong>Storm Stance</strong>, channeling the Rune of
-        Lightning. While in this Stance your <strong>Stride</strong> is
-        increased by 2.</p>
+        Storm. While in this Stance your <strong>Stride</strong> is increased by
+        2.</p>
       tags: []
       cost:
         action: 0

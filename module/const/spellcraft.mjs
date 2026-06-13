@@ -37,7 +37,7 @@ export const RUNES = {
     img: "icons/magic/earth/projectile-boulder-debris.webp",
     resource: "health",
     damageType: "acid",
-    opposed: "lightning",
+    opposed: "storm",
     defense: "reflex",
     scaling: "wisdom",
     nameFormat: NAME_FORMATS.ADJ
@@ -109,17 +109,6 @@ export const RUNES = {
     scaling: "wisdom",
     nameFormat: NAME_FORMATS.NOUN
   },
-  lightning: {
-    id: "lightning",
-    name: "SPELL.RUNES.Lightning",
-    img: "icons/magic/lightning/bolt-strike-blue.webp",
-    resource: "health",
-    damageType: "electricity",
-    opposed: "earth",
-    defense: "reflex",
-    scaling: "intellect",
-    nameFormat: NAME_FORMATS.ADJ
-  },
   oblivion: {
     id: "oblivion",
     name: "SPELL.RUNES.Oblivion",
@@ -142,6 +131,17 @@ export const RUNES = {
     defense: "willpower",
     scaling: "presence",
     nameFormat: NAME_FORMATS.NOUN
+  },
+  storm: {
+    id: "storm",
+    name: "SPELL.RUNES.Storm",
+    img: "icons/magic/lightning/bolt-strike-blue.webp",
+    resource: "health",
+    damageType: "electricity",
+    opposed: "earth",
+    defense: "reflex",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.ADJ
   }
 };
 
@@ -558,14 +558,14 @@ export const GESTURE_SUMMONS = {
     earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
     flame: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI",
     frost: "Compendium.crucible.summons.Actor.me5glbOshiijlVUH",
-    lightning: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
+    storm: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
     fallback: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI" // FIXME flame
   },
   conjure: {
     earth: "Compendium.crucible.summons.Actor.ugQYiiEmj9idwvqW",
     flame: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd",
     frost: "Compendium.crucible.summons.Actor.mMBMYzpipJdqVf7k",
-    lightning: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
+    storm: "Compendium.crucible.summons.Actor.c5B0l3VQPNMSw0MQ",
     fallback: "Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd" // FIXME flame
   }
 };
@@ -591,7 +591,7 @@ export const COMPOSED_SPELL_NAMES = {
     slashing: "SPELL.NAMES.CurseLaceration"
   },
   "spell.life.aspect.negate": "SPELL.NAMES.CurseToxicity",
-  "spell.lightning.aspect.negate": "SPELL.NAMES.CurseConductivity",
   "spell.oblivion.aspect.negate": "SPELL.NAMES.CurseNullification",
-  "spell.soul.aspect.negate": "SPELL.NAMES.CurseCowardice"
+  "spell.soul.aspect.negate": "SPELL.NAMES.CurseCowardice",
+  "spell.storm.aspect.negate": "SPELL.NAMES.CurseConductivity"
 };
