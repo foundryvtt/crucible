@@ -15,8 +15,8 @@ system:
         <strong>Fortitude</strong> defense of an adjacent enemy. If your
         <strong>Initiative</strong> is superior to that of your target, you gain
         <strong>+1 Boon</strong> to this attack.</p><p>The attack is
-        <strong>Difficult</strong> and only deals @Condition[weakened] damage,
-        but if successful it inflicts the @Condition[staggered] for one
+        <strong>Difficult</strong> and only deals <strong>Weakened</strong>
+        damage, but if successful it inflicts the @Condition[staggered] for one
         round.</p><p>This action always uses an Unarmed weapon, even if your
         weapon slots are otherwise occupied.</p>
       cost:
@@ -53,6 +53,8 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - melee
         - difficult
@@ -77,12 +79,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.9.5
   createdTime: 1776117265442
-  modifiedTime: 1776117522179
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781395064389
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
