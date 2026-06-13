@@ -1981,6 +1981,33 @@ HOOKS.tailSweep = {
 
 /* -------------------------------------------- */
 
+HOOKS.ensnare = {
+  async postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( target === this.actor ) continue;
+
+      // Obey the same eligibility rules as grapple
+      if ( !HOOKS.grapple._canGrapple(this.actor, target) ) {
+        for ( const event of events.all ) event.effects.length = 0;
+        continue;
+      }
+
+      // On a hit, reel the ensnared prey back toward the constrictor, stopping adjacent
+      if ( !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken || !this.token?.object ) continue;
+      const minGap = ((this.token.width + targetToken.document.width) / 2) * canvas.grid.size;
+      const plan = await crucible.api.canvas.movement.planPushMovement(this.token.object.center, targetToken, -1000,
+        {minGap});
+      if ( !plan ) continue;
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.thrash = {
   acquireTargets(targets) {
     for ( const target of targets ) {
