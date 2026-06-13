@@ -149,7 +149,8 @@ const impactSpriteBurst = {
   schedule(phase, params) {
     if ( !params.texture ) return;
     const {origin, destination} = this.state;
-    const container = this.addManagedDisplayObject(this._createSprite(params.texture, params.size ?? 3, destination));
+    const container = this.addManagedDisplayObject(
+      this._createSprite(params.texture, params.size ?? 3, destination, {useTextureAnchor: true}));
     container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x);
 
     // A quick arrival pop, then a gradual settle + fade-out over the remainder of the hold.

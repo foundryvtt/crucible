@@ -943,6 +943,26 @@ HOOKS.patientdeflectio = {
 
 /* -------------------------------------------- */
 
+HOOKS.peltast000000000 = {
+  prepareAction(item, action) {
+    // A weapon built for throwing reaches +10 ft in a Peltast's hands; improvised throws keep the base range
+    if ( !action.tags.has("thrown") ) return;
+    const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
+    if ( weapon?.system.properties.has("thrown") ) action.range.maximum = (action.range.maximum ?? 10) + 10;
+  },
+  preActivateAction(item, action) {
+    if ( !action.tags.has("thrown") ) return;
+    // Throw anything: arcane guidance steadies even weapons not built for throwing, removing the improvised penalty
+    delete action.usage.banes[action.id];
+    // Returning: the weapon is recalled rather than dropped, so it stays in the Peltast's grasp
+    for ( const update of action.selfUpdateEvent.actorUpdates.items ?? [] ) {
+      if ( update.system?.dropped ) Object.assign(update.system, {dropped: false, equipped: true});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.planneddefense00 = {
   defendAttack(item, action, origin, rollData) {
     if ( !["spell", "strike"].some(tag => action.tags.has(tag)) ) return;
@@ -1001,8 +1021,9 @@ HOOKS.powerfulphysique = {
 
 HOOKS.powerfulThrow000 = {
   prepareAction(item, action) {
+    // Additive +10 (not x2) so thrown-range bonuses stack deterministically regardless of hook order
     if ( action.tags.has("thrown") || (action.item?.config?.category.id === "bomb") ) {
-      action.range.maximum *= 2;
+      action.range.maximum += 10;
     }
   }
 };

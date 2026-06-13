@@ -593,6 +593,99 @@ function configureRayVFXEffect(action) {
 /* -------------------------------------------- */
 
 /**
+ * Configure the VFX for a Touch gesture composed spell as a single {@link CrucibleTouchComponent}: a small
+ * charge gathered at the caster's hand, then an impact on the single adjacent target. Touch has
+ * `target.type: "single"` and no region shape, so the geometry is the caster and target token centers.
+ * Per-rune visuals come from {@link TOUCH_VFX_PROPS}.
+ * @param {CrucibleSpellAction} action
+ * @returns {SpellVFXData|null}
+ */
+function configureTouchVFXEffect(action) {
+  if ( action.target.type !== "single" ) return null;
+  const runeProps = SPELL_VFX_GESTURES.touch.runes?.[action.rune.id];
+  if ( !runeProps ) return null;
+  const {textures, particleElevation} = resolveSpellVFXContext(action);
+
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const gridSize = canvas.dimensions.size;
+  const casterToken = action.token;
+  const casterElevation = casterToken.elevation ?? 0;
+  const casterRadiusPx = (casterToken.width * gridSize) / 2;
+  const chargeDuration = runeProps.chargeDuration ?? 450;
+  const deliveryDuration = runeProps.deliveryDuration ?? 100;
+  const impactStart = chargeDuration + deliveryDuration;
+
+  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
+  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
+
+  // Charge gathers at the caster's palm (halfway out toward the target) so the origin reads as the caster
+  const references = {tokenMesh: "^token.object.mesh"};
+  const chargeCtx = {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation};
+  const chargeParticles = _resolveChargeLayers(runeProps, chargeCtx, {anchor: "palm", duration: chargeDuration});
+
+  const impacts = [];
+  const targetMeshRefs = [];
+  const scrollingText = [];
+  const forcedMovements = [];
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result ?? null;
+    if ( !result ) continue;
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
+    const tokenRef = `touchTarget_${j}_token`;
+    const meshRef = `touchTarget_${j}_tokenMesh`;
+    references[tokenRef] = `@${token.uuid}`;
+    references[meshRef] = `^${tokenRef}.object.mesh`;
+    targetMeshRefs.push({reference: meshRef});
+
+    if ( isHit ) {
+      const treatment = _resolveHitTreatment(action, {textures, elevation: (token.elevation ?? 0) + 1}, runeProps);
+      // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
+      const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, impactStart);
+      impacts.push({result, id: token.id, start: impactStart,
+        sound: sound(getVFXSound(action.rune.id, "impact")),
+        animations: knockback ? [] : treatment.animations, particles: treatment.particles});
+    }
+    else {
+      // Resisting target: a softer flashless puff and a distinct miss sound
+      impacts.push({result, id: token.id, start: impactStart,
+        sound: sound(getVFXSound(action.rune.id, "miss")),
+        animations: ((result === T.RESIST) && textures.air.length)
+          ? [{function: "impactSpriteBurst",
+            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
+          : [], particles: []});
+    }
+    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
+    j++;
+  }
+
+  if ( !impacts.length ) return null;
+  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+
+  const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(action.rune.id, "charge")) : null;
+  const components = {
+    touch: {
+      type: "crucibleTouch",
+      casterRadiusPx,
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: targetMeshRefs,
+      charge: {duration: chargeDuration, sound: chargeSound, animations: [], particles: chargeParticles},
+      delivery: {duration: deliveryDuration, animations: [], particles: []},
+      impacts,
+      scrollingText
+    }
+  };
+  const timeline = [{component: "touch", position: 0}];
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
+  return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
  * Per-target impact timing strategies for Blast spells. Each function returns an absolute timeline
  * ms for a single impact. Strategies are referenced by name from a rune's `impactTiming` field; the
  * configurator dispatches via {@link BLAST_IMPACT_TIMINGS} and bakes the result into each impact
@@ -934,9 +1027,9 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
 
 /**
  * Resolve the per-target hit treatment for ray and fan impacts from the runeProps declarative toggles
- * (`impactSprite`, `recoil`, default true) and opt-in fields (`impactParticles`, `impactGlow`).
- * Computed once and reused across all hit targets. A rune that wants a "soft" restorative arrival
- * just disables the burst and recoil and supplies its own particle spec.
+ * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet), and the
+ * opt-in fields (`impactParticles`, `impactGlow`). Computed once and reused across all hit targets. A rune
+ * that wants a "soft" restorative arrival just disables the burst and recoil and supplies its own particle spec.
  * @param {CrucibleSpellAction} action
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
@@ -955,7 +1048,8 @@ function _resolveHitTreatment(action, ctx, runeProps) {
   }
   if ( runeProps?.impactSprite !== false ) {
     animations.push({function: "impactSpriteBurst",
-      params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}});
+      params: {texture: pickRandom(textures.impact), size: runeProps?.impactSpriteSize ?? 2,
+        duration: 800, flash: true}});
   }
   if ( runeProps?.impactParticles ) {
     particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
@@ -1855,6 +1949,55 @@ const FAN_VFX_PROPS = {
 };
 
 /* -------------------------------------------- */
+
+/**
+ * Per-rune VFX overrides for the Touch gesture. Touch uses a small single-layer charge gathered at the
+ * caster's hand (the `forward` anchor) plus the shared per-rune impact treatment. The charge field shape
+ * is documented on {@link ARROW_VFX_PROPS}; the impact field shape on {@link _resolveHitTreatment}.
+ * @type {Record<string, object>}
+ */
+const TOUCH_VFX_PROPS = {
+
+  // Touch+Frost: frost motes swirl around the caster and collapse inward, then a frost burst on contact
+  frost: {
+    ..._IMPACT_FROST,
+    impactSpriteSize: 2.5,
+    chargeDuration: 450,
+    chargeBehavior: "circleParticleVortex",
+    chargeLayers: [
+      {categories: ["spray"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 400, max: 700}, spawnRate: 220, alpha: {min: 0.5, max: 1.0},
+          scale: {min: 0.4, max: 0.8}}}
+    ]
+  },
+
+  // Touch+Flame: an ember vortex swirls around the caster and collapses inward, then a flame burst on contact
+  flame: {
+    ..._IMPACT_FLAME,
+    impactSpriteSize: 2.5,
+    chargeDuration: 450,
+    chargeBehavior: "circleParticleVortex",
+    chargeLayers: [
+      {categories: ["spray"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 300, max: 500}, spawnRate: 260, alpha: {min: 0.4, max: 0.9},
+          scale: {min: 0.5, max: 1.0}, blend: PIXI.BLEND_MODES.ADD}}
+    ]
+  },
+
+  // Touch+Life: life motes gather inward to the caster over a longer channel, then a restorative bloom on contact
+  life: {
+    ..._IMPACT_LIFE,
+    chargeDuration: 800,
+    chargeBehavior: "circleParticleGather",
+    chargeLayers: [
+      {frames: ["SprayLeaf", "SprayBubble"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 350, max: 600}, spawnRate: 160, alpha: {min: 0.4, max: 0.85},
+          scale: {min: 0.4, max: 0.8}, blend: PIXI.BLEND_MODES.NORMAL}}
+    ]
+  }
+};
+
+/* -------------------------------------------- */
 /*  Gesture Registry                            */
 /* -------------------------------------------- */
 
@@ -1885,6 +2028,6 @@ const SPELL_VFX_GESTURES = {
   step: {},
   strike: {},
   surge: {},
-  touch: {},
+  touch: {configure: configureTouchVFXEffect, runes: TOUCH_VFX_PROPS},
   ward: {}
 };

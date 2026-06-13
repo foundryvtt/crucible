@@ -1855,6 +1855,69 @@ HOOKS.revive = {
 
 /* -------------------------------------------- */
 
+HOOKS.ricochet = {
+  async roll(target) {
+    const actor = this.actor;
+    const intellect = actor.system.abilities.intellect.value;
+    const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
+    let currentToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
+    if ( !weapon || !currentToken ) return;
+
+    // Bounces capped at half intellect
+    let remaining = Math.ceil(intellect / 2);
+    if ( remaining <= 0 ) return;
+
+    // Enemy dispositions, matching the action's ENEMIES target scope
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
+    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+
+    // Carom until no targets remain
+    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
+    const hopRadius = intellect; // Hop radius in feet
+    const level = currentToken.scene?.levels.get(currentToken.document._source.level);
+    const visited = new Set([target]);
+    let hop = 1; // Accumulating damage falloff: the second target takes -1, the third -2, and so on
+    while ( remaining > 0 ) {
+
+      // Gather unvisited enemy tokens within the hop radius of the current token
+      const candidates = [];
+      for ( const t of canvas.tokens.placeables ) {
+        if ( !t.actor || (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated ) continue;
+        if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
+        const distance = grid.getLinearRangeCost(currentToken, t);
+        if ( distance > hopRadius ) continue;
+        candidates.push({token: t, distance});
+      }
+      candidates.sort((a, b) => a.distance - b.distance);
+
+      // Choose the nearest candidate to which a direct move ray is unobstructed by walls
+      const origin = {x: currentToken.center.x, y: currentToken.center.y, elevation: currentToken.document.elevation};
+      let next = null;
+      for ( const c of candidates ) {
+        const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
+        const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
+          {type: "move", mode: "any", level, excludeToken: currentToken, tokenCollision: false});
+        if ( !blocked ) {
+          next = c.token;
+          break;
+        }
+      }
+      if ( !next ) break;
+
+      // Strike the next foe with accumulating damage falloff, then carom onward from it
+      const roll = await actor.weaponAttack(this, weapon, next.actor, {damageBonus: -hop});
+      this.recordEvent({type: "strike", target: next.actor, roll, weapon: weapon.snapshot()});
+      visited.add(next.actor);
+      currentToken = next;
+      hop++;
+      remaining--;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;

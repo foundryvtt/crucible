@@ -452,10 +452,13 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @param {string} texture   The texture path.
    * @param {number} size      Sprite size in feet (fit to the larger dimension).
    * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
+   * @param {object} [options]
+   * @param {boolean} [options.useTextureAnchor=false]   Pivot on the frame's defaultAnchor (the artist's
+   *   directional contact point) instead of the center; for directional impact frames.
    * @returns {VFXCanvasContainer}
    * @internal
    */
-  _createSprite(texture, size, point) {
+  _createSprite(texture, size, point, {useTextureAnchor=false}={}) {
     const container = new foundry.canvas.vfx.VFXCanvasContainer();
     container.position.set(point.x, point.y);
     container.elevation = point.elevation;
@@ -466,7 +469,8 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     if ( !tex ) return container;
     const mesh = new foundry.canvas.primary.PrimarySpriteMesh(tex);
     mesh.name = "mesh";
-    mesh.anchor.set(0.5, 0.5);
+    const anchor = (useTextureAnchor && tex.defaultAnchor) ? tex.defaultAnchor : {x: 0.5, y: 0.5};
+    mesh.anchor.set(anchor.x, anchor.y);
     if ( Number.isNumeric(size) ) {
       if ( mesh.width >= mesh.height ) {
         mesh.width = size * canvas.dimensions.distancePixels;
