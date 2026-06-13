@@ -1228,24 +1228,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Invoke the configure Action hook for each tag, allowing tags to customize the action based on targets.
-   * This method is tolerant, it captures errors in hooks and allows the rest of the action workflow to proceed.
-   */
-  #configure() {
-    for ( const test of this._tests() ) {
-      if ( test.configure instanceof Function ) {
-        try {
-          test.configure.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Execute an Action.
    * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {CrucibleActionUsageOptions} [options]    Options which modify action usage
@@ -1298,7 +1280,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Acquire initial targets and configure the action
     this.acquireTargets({strict: false});
-    this.#configure();
+    this._callActionHooks("configure");
 
     // Prompt for action configuration
     if ( dialog ) {
@@ -1310,7 +1292,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         ui.notifications.warn(err);
         return null;
       }
-      this.#configure();
+      this._callActionHooks("configure");
     }
 
     // Initialize self events before pre-activation hooks
@@ -1451,9 +1433,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Call acquireTargets action hook
-    for ( const test of this._tests() ) {
-      if ( test.acquireTargets instanceof Function ) test.acquireTargets.call(this, targets);
-    }
+    this._callActionHooks("acquireTargets", targets);
 
     // Throw an error if any target had an error
     for ( const target of targets ) {
@@ -2138,6 +2118,58 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Synchronously invoke an action hook across all tag handlers and this action's own hooks, bound to the action.
+   * @param {string} hookName     The hook name in {@link SYSTEM.ACTION_HOOKS}
+   * @param {...*} args           Arguments forwarded to each handler
+   * @throws {Error}              If the hook is async, or a handler throws and the hook's metadata sets throws.
+   * @protected
+   */
+  _callActionHooks(hookName, ...args) {
+    const cfg = SYSTEM.ACTION_HOOKS[hookName];
+    if ( !cfg ) throw new Error(`Invalid Action hook "${hookName}"`);
+    if ( cfg.async ) throw new Error(`Action hook "${hookName}" is async; use _callActionHooksAsync`);
+    for ( const test of this._tests() ) {
+      const fn = test[hookName];
+      if ( !(fn instanceof Function) ) continue;
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling "${hookName}" action hook for Action "${this.id}"`);
+      try {
+        fn.call(this, ...args);
+      } catch(err) {
+        if ( cfg.throws ) throw err;
+        console.error(new Error(`The "${hookName}" action hook failed for Action "${this.id}"`, {cause: err}));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Asynchronously invoke an action hook across all tag handlers and this action's own hooks, awaiting each in order.
+   * @param {string} hookName     The hook name in {@link SYSTEM.ACTION_HOOKS}
+   * @param {...*} args           Arguments forwarded to each handler
+   * @returns {Promise<void>}
+   * @throws {Error}              If a handler throws and the hook's metadata sets throws.
+   * @protected
+   */
+  async _callActionHooksAsync(hookName, ...args) {
+    const cfg = SYSTEM.ACTION_HOOKS[hookName];
+    if ( !cfg ) throw new Error(`Invalid Action hook "${hookName}"`);
+    for ( const test of this._tests() ) {
+      const fn = test[hookName];
+      if ( !(fn instanceof Function) ) continue;
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling "${hookName}" action hook for Action "${this.id}"`);
+      try {
+        await fn.call(this, ...args);
+      } catch(err) {
+        if ( cfg.throws ) throw err;
+        console.error(new Error(`The "${hookName}" action hook failed for Action "${this.id}"`, {cause: err}));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Configure aspects of action usage before the action is prepared.
    * @protected
    */
@@ -2159,15 +2191,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training);
 
     // Call configuration hooks
-    for ( const test of this._tests() ) {
-      if ( test.initialize instanceof Function ) {
-        try {
-          test.initialize.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed initialize hook for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
+    this._callActionHooks("initialize");
 
     // Build the weapon choice set now so requirement tags can filter it during the later prepare pass
     this.usage.weaponChoices = this._prepareWeaponChoices();
@@ -2185,15 +2209,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
 
     // Action-specific preparation
-    for ( const test of this._tests() ) {
-      if ( test.prepare instanceof Function ) {
-        try {
-          test.prepare.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed prepare hook for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
+    this._callActionHooks("prepare");
     this.actor?.callActorHooks("prepareAction", this);
 
     // Dedupe ability scaling
@@ -2357,9 +2373,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _preActivate() {
-    for ( const test of this._tests() ) {
-      if ( test.preActivate instanceof Function ) await test.preActivate.call(this);
-    }
+    await this._callActionHooksAsync("preActivate");
     this.actor.callActorHooks("preActivateAction", this);
     this._canUse();
   }
@@ -2374,11 +2388,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _roll(target, token) {
-    for ( const test of this._tests() ) {
-      if ( test.roll instanceof Function ) {
-        await test.roll.call(this, target, token);
-      }
-    }
+    await this._callActionHooksAsync("roll", target, token);
     await this.actor.callActorHooksAsync("rollAction", this, target, token);
   }
 
@@ -2391,11 +2401,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _post() {
-    for ( const test of this._tests() ) {
-      if ( test.postActivate instanceof Function ) {
-        await test.postActivate.call(this);
-      }
-    }
+    await this._callActionHooksAsync("postActivate");
   }
 
   /* -------------------------------------------- */
@@ -2461,14 +2467,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Post-confirm hooks after #applyEvents has completed and committed changes. Useful for chaining actions.
-    for ( const test of this._tests() ) {
-      if ( typeof test.postConfirm !== "function" ) continue;
-      try {
-        await test.postConfirm.call(this, reverse);
-      } catch ( cause ) {
-        console.error(new Error(`"${this.id}" postConfirm failed`, { cause }));
-      }
-    }
+    await this._callActionHooksAsync("postConfirm", reverse);
 
     // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
     if ( !reverse && !isNegated ) await this.#settleMovement();
@@ -2869,9 +2868,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Pass 3 - delegate to tag-defined resolveVFX hooks for computing reference values
-    for ( const test of this._tests() ) {
-      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
-    }
+    this._callActionHooks("resolveVFX", vfxEffect, references);
 
     // Resolve VFXReferenceField values using the now-complete references map
     // FIXME: restore the line below and delete #resolveVFXReferences once the minimum core build exceeds 14.363
@@ -2881,9 +2878,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
     // References are frozen to enforce the contract that finalizeVFX must not modify them.
     Object.freeze(references);
-    for ( const test of this._tests() ) {
-      if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
-    }
+    this._callActionHooks("finalizeVFX", vfxEffect, references);
 
     // Play the effect. Sound is orchestrated by positionalSound components within the timeline,
     // so preload and playback are handled internally by VFXEffect#play alongside the visuals.
