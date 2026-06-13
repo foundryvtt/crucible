@@ -203,6 +203,10 @@ export const TIME = Object.freeze({
   restSeconds: 60 * 60 * 10
 });
 
+export const RULES = {
+  action: ACTION.TAGS
+};
+
 /* -------------------------------------------- */
 
 /**
@@ -229,6 +233,7 @@ export const SYSTEM = {
   ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,
+  RULES,
   SKILL: {...SKILL},
   SKILLS: SKILL.SKILLS,
   SPELL: {...SPELL},
