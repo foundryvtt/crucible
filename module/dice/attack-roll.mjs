@@ -44,7 +44,11 @@ export default class AttackRoll extends StandardCheck {
     result: undefined,
     damage: undefined,
     index: undefined,
-    newTarget: false  // TODO it would be good to handle this a different way
+    newTarget: false,  // TODO it would be good to handle this a different way
+    multiplier: 1,
+    damageBonus: 0,
+    resource: "health",
+    damageType: undefined
   });
 
   /**
@@ -89,6 +93,38 @@ export default class AttackRoll extends StandardCheck {
    */
   get overflow() {
     return this.total - this.data.dc;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve this attack roll against a target's defense, structuring the resulting damage.
+   * @param {CrucibleActor} actor                The attacking actor
+   * @param {CrucibleActor} target               The defending actor
+   * @param {object} [params]                    Damage resolution parameters supplied by the caller
+   * @param {number} [params.multiplier=1]       Overflow multiplier
+   * @param {number} [params.base=0]             Base damage before overflow
+   * @param {number} [params.bonus=0]            Additive damage bonus
+   * @param {string} [params.resource="health"]  The resource damaged
+   * @param {string} [params.damageType]         The damage type dealt
+   * @param {boolean} [params.restoration=false] Resolve the result as restoration rather than damage?
+   * @returns {number}                           The resolved result type in {@link AttackRoll.RESULT_TYPES}
+   */
+  resolveDamage(actor, target, {multiplier=1, base=0, bonus=0, resource="health", damageType, restoration=false}={}) {
+    const result = this.data.result = target.testDefense(this.data.defenseType, this);
+    if ( result < AttackRoll.RESULT_TYPES.GLANCE ) {
+      delete this.data.damage;
+      return result;
+    }
+    this.data.damage = {
+      overflow: this.overflow,
+      multiplier, base, bonus,
+      resistance: target.getResistance(resource, damageType, restoration),
+      resource,
+      type: damageType
+    };
+    this.data.damage.total = crucible.api.models.CrucibleAction.computeDamage(this.data.damage);
+    return result;
   }
 
   /* -------------------------------------------- */

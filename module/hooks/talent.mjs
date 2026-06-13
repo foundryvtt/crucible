@@ -563,6 +563,103 @@ HOOKS.focusedanticipat = {
 
 /* -------------------------------------------- */
 
+HOOKS.gambit0000000000 = {
+  _CHARGES_ID: "gambitCharges000",
+  _chargeCount(actor) {
+    return actor.effects.get(HOOKS.gambit0000000000._CHARGES_ID)?.getFlag("crucible", "gambitCharges") || 0;
+  },
+  _chargesEffect(actor, count) {
+    return {
+      _id: HOOKS.gambit0000000000._CHARGES_ID,
+      name: _loc("ACTIONS.Gambit.Charges", {count}),
+      img: "icons/sundries/gaming/dice-pair-white-green.webp",
+      description: `<p>${_loc("ACTIONS.Gambit.ChargeDescription")}</p>`,
+      origin: actor.uuid,
+      duration: {expiry: "combatEnd"},
+      showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER,
+      system: {dc: null},
+      flags: {crucible: {gambitCharges: count}}
+    };
+  },
+  prepareDefenses(_item, defenses) {
+    const int = this.abilities.intellect.value;
+    const dex = this.abilities.dexterity.value;
+    if ( int <= dex ) return;
+    const scaling = this.equipment.armor.system.dodge.scaling;
+    defenses.dodge.bonus += Math.max(int - scaling, 0) - Math.max(dex - scaling, 0);
+  },
+  async rollAction(item, action, target) {
+    const rolls = action.eventsByTarget.get(target)?.roll;
+    if ( !rolls?.length ) return;
+    const G = HOOKS.gambit0000000000;
+
+    // All-In: the primed attack or check achieves its maximum result on every die
+    if ( this.status?.gambitAllIn ) {
+      for ( const event of rolls ) {
+        if ( !event.roll?.dice?.length ) continue;
+        G._maximizeRoll(event.roll);
+        G._reresolve(event.roll, this, target, event.weaponItem);
+      }
+      action.usage.actorStatus.gambitAllIn = false;
+      action.recordEvent({target: this, statusText: [{
+        text: _loc("ACTIONS.AllIn.Marker"), fillColor: SYSTEM.RESOURCES.heroism.color.css
+      }]});
+      return;
+    }
+
+    // Loaded Dice: reroll the round's first natural 1, gated once per round via the per-turn status sentinel
+    if ( this.status?.loadedDice || action.usage.actorStatus.loadedDice ) return;
+    for ( const event of rolls ) {
+      const die = event.roll?.dice?.find(d => d.results.some(r => r.active && (r.result === 1)));
+      if ( !die ) continue;
+      await die.reroll("r1");
+      G._reresolve(event.roll, this, target, event.weaponItem);
+      action.usage.actorStatus.loadedDice = true;
+      action.recordEvent({target: this, statusText: [{
+        text: _loc("ACTIONS.Gambit.LoadedDice"), fillColor: SYSTEM.RESOURCES.heroism.color.css
+      }]});
+      return;
+    }
+  },
+  finalizeAction(item, action) {
+    if ( !action.tags.has("strike") || !this.inCombat ) return;
+    const ante = action.usage.banes.special?.number || 0;
+    if ( ante <= 0 ) return;
+    if ( !action.events.some(e => (e.target !== this) && e.isDamage) ) return;
+    const G = HOOKS.gambit0000000000;
+    const count = G._chargeCount(this) + ante;
+    const effect = this.effects.has(G._CHARGES_ID)
+      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count}),
+        flags: {crucible: {gambitCharges: count}}}
+      : G._chargesEffect(this, count);
+    action.recordEvent({type: "effect", target: this, effects: [effect], statusText: [{
+      text: _loc("ACTIONS.Gambit.AnteWon", {count: ante}), fillColor: SYSTEM.RESOURCES.heroism.color.css
+    }]});
+  },
+  _maximizeRoll(roll) {
+    for ( const die of roll.dice ) {
+      for ( const result of die.results ) {
+        if ( result.active ) result.result = die.faces;
+      }
+    }
+  },
+
+  // Recompute the cached total after a dice mutation, then re-derive weapon-attack damage via the roll's own API
+  _reresolve(roll, actor, target, weapon) {
+    roll._total = roll._evaluateTotal();
+    if ( !weapon || !roll.resolveDamage ) return; // Non-attack rolls derive their outcome live from the total
+    roll.resolveDamage(actor, target, {
+      multiplier: roll.data.multiplier,
+      base: weapon.system.damage.weapon,
+      bonus: weapon.system.damage.bonus + roll.data.damageBonus,
+      resource: roll.data.resource,
+      damageType: roll.data.damageType
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.glider0000000000 = {
   prepareActions(_item, actions) {
     if ( !actions.fallGlide ) return;

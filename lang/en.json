@@ -535,6 +535,10 @@
     "UseAction": "Use Action"
   },
   "ACTIONS": {
+    "AllIn": {
+      "CannotAfford": "{name} must spend 1 Heroism or 6 Gambit Charges to go All-In.",
+      "Marker": "All-In"
+    },
     "AmplifyAffix": {
       "Effect": "Amplify Affix",
       "Label": "Affix to Amplify",
@@ -550,6 +554,12 @@
       "Label": "Topic of Study",
       "Required": "You must choose a field of Knowledge to study.",
       "Title": "Field Study"
+    },
+    "Gambit": {
+      "AnteWon": "Gambit (+{count})",
+      "Charges": "Gambit ({count})",
+      "ChargeDescription": "A number of Gambit charges that can be spent instead of <strong>Heroism</strong> to perform your \"All In\" action.",
+      "LoadedDice": "Loaded Dice"
     },
     "Glide": {
       "MustDescend": "A glide must end at a lower elevation than where it began."

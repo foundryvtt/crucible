@@ -83,13 +83,21 @@ function impactRecoilAnimation(defaultOscillations) {
       if ( rp >= 1 ) return; // Recoil settled; tearDown restores the resting anchor
       const offset = (params.distance ?? 12) * _recoilMagnitude(rp, params.oscillations ?? defaultOscillations);
 
+      // Anchor offsets live in the mesh's local (rotated) frame, so counter-rotate the world-space
+      // origin->destination direction by the target's rotation; else a facing-rotated token recoils off-axis
+      const r = target.rotation || 0;
+      const cos = Math.cos(r);
+      const sin = Math.sin(r);
+      const localDx = (params._dx * cos) + (params._dy * sin);
+      const localDy = (params._dy * cos) - (params._dx * sin);
+
       // Convert px displacement to a normalized anchor delta over the mesh display size; anchor offsets the sprite
       // opposite to its sign, so subtract to recoil along origin->destination
       const w = (Math.abs(target.scale.x) * tex.width) || 1;
       const h = (Math.abs(target.scale.y) * tex.height) || 1;
       target.anchor.set(
-        params._baseAnchor.x - ((params._dx * offset) / w),
-        params._baseAnchor.y - ((params._dy * offset) / h)
+        params._baseAnchor.x - ((localDx * offset) / w),
+        params._baseAnchor.y - ((localDy * offset) / h)
       );
     },
     tearDown(phase, params) {
@@ -183,8 +191,9 @@ const impactSpriteBurst = {
 /* -------------------------------------------- */
 
 /**
- * Apply a short-lived {@link foundry.canvas.rendering.filters.GlowOverlayFilter} to the target mesh
- * as soft impact feedback. Often used as an alternative to recoil for restoration actions.
+ * Apply a {@link foundry.canvas.rendering.filters.GlowOverlayFilter} to the target mesh as impact feedback. The
+ * glow strength ramps gradually to peak over `dur - fadeOut`, then eases back down over `fadeOut`, so the target
+ * is progressively overtaken rather than flashed at full intensity. An alternative to recoil for restoration.
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteGlow = {
@@ -200,7 +209,7 @@ const impactSpriteGlow = {
     const {
       padding = 6, innerStrength = 3, outerStrength = 3,
       distance = 10, glowColor = 0xffffff, quality = 0.5, knockout = false,
-      alpha = 1, duration, fadeIn = 150, fadeOut = 300
+      alpha = 1, duration, fadeOut = 300
     } = params;
     const dur = duration ?? phase.duration ?? 1000;
     const color = Array.isArray(glowColor) ? glowColor : [
@@ -210,14 +219,14 @@ const impactSpriteGlow = {
       1
     ];
 
-    const filter = FilterClass.create({distance, glowColor: color, quality, knockout, alpha: 0});
+    const filter = FilterClass.create({distance, glowColor: color, quality, knockout, alpha});
     filter.padding = padding;
-    filter.innerStrength = innerStrength;
-    filter.outerStrength = outerStrength;
+    filter.innerStrength = 0;
+    filter.outerStrength = 0;
     filter.animated = false;
 
     // Defer attachment to phase.start. Attaching the filter at draw-time runs its shader against the
-    // mesh for the entire spell preamble even at alpha 0 (the shader does not fully zero out), so the
+    // mesh for the entire spell preamble even at zero strength (the shader does not fully zero out), so the
     // filter must be joined to the mesh only at the impact moment and detached when the glow ends.
     const start = phase.start;
     this.timeline.call(() => {
@@ -225,9 +234,11 @@ const impactSpriteGlow = {
       target.filters = target.filters ? [...target.filters, filter] : [filter];
     }, start);
 
+    // Gradually build glow intensity by ramping the strength uniforms to peak, then ease them back down on fade-out
+    const buildDur = Math.max(0, dur - fadeOut);
     this.timeline
-      .add(filter.uniforms, {alpha: {from: 0, to: alpha, duration: fadeIn}}, start)
-      .add(filter.uniforms, {alpha: {to: 0, duration: fadeOut}}, (start + dur) - fadeOut);
+      .add(filter, {outerStrength: {to: outerStrength}, innerStrength: {to: innerStrength}, duration: buildDur}, start)
+      .add(filter, {outerStrength: {to: 0}, innerStrength: {to: 0}, duration: fadeOut}, start + buildDur);
 
     this.timeline.call(() => {
       if ( target.destroyed ) return;

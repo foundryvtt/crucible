@@ -989,26 +989,19 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(action, this, target, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Structure damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    const result = roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: weapon.system.damage.weapon,
       bonus: weapon.system.damage.bonus + rollData.damageBonus,
-      resistance: target.getResistance(rollData.resource, rollData.damageType, false),
       resource: rollData.resource,
-      type: rollData.damageType
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      damageType: rollData.damageType
+    });
 
-    // Finalize the attack and return
-    target.callActorHooks("receiveAttack", action, roll);
+    // Finalize the attack and return; offensive reactions fire only on a connecting hit
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 

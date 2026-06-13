@@ -2379,7 +2379,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         await test.roll.call(this, target, token);
       }
     }
-    this.actor.callActorHooks("rollAction", this, target, token);
+    await this.actor.callActorHooksAsync("rollAction", this, target, token);
   }
 
   /* -------------------------------------------- */

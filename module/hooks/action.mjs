@@ -51,6 +51,37 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.gambitAllIn = {
+  get _gambit() {
+    return crucible.api.hooks.talent.gambit0000000000;
+  },
+  prepare() {
+    if ( HOOKS.gambitAllIn._gambit._chargeCount(this.actor) >= 6 ) this.cost.heroism = 0; // Prefer charges
+  },
+  canUse() {
+    const actor = this.actor;
+    const charges = HOOKS.gambitAllIn._gambit._chargeCount(actor);
+    if ( (charges < 6) && (actor.resources.heroism.value < 1) ) {
+      throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
+    }
+  },
+  preActivate() {
+    this.usage.actorStatus.gambitAllIn = true;
+  },
+  postActivate() {
+    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
+    const G = HOOKS.gambitAllIn._gambit;
+    const remaining = G._chargeCount(this.actor) - 6;
+    const change = remaining > 0
+      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
+        flags: {crucible: {gambitCharges: remaining}}}
+      : {_id: G._CHARGES_ID, _action: "delete"};
+    this.recordEvent({type: "effect", target: this.actor, effects: [change]});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.amplifyAffix = {
   async preActivate() {
     // Enumerate equipped affixes that are below their maximum tier
