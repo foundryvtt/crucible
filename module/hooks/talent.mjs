@@ -1152,7 +1152,7 @@ HOOKS.primalist0000000 = {
     flame: "stanceFlame00000",
     frost: "stanceFrost00000",
     earth: "stanceEarth00000",
-    lightning: "stanceLightning0"
+    storm: "stanceLightning0"
   },
   _canUseStance(action, rune) {
     const actor = action.actor;
@@ -1176,7 +1176,7 @@ HOOKS.primalist0000000 = {
     }
   },
   prepareMovement(_item, movement) {
-    if ( this.effects.has(HOOKS.primalist0000000._STANCES.lightning) ) movement.strideBonus += 2;
+    if ( this.effects.has(HOOKS.primalist0000000._STANCES.storm) ) movement.strideBonus += 2;
   },
   prepareDefenses(_item, defenses) {
     if ( !this.effects.has(HOOKS.primalist0000000._STANCES.frost) ) return;
@@ -1313,9 +1313,9 @@ HOOKS.inexorableFlame0 = {
 
 HOOKS.gatheringStorm00 = {
   prepareSpells(_item, grimoire) {
-    const lightning = grimoire.runes.get("lightning");
-    if ( !lightning ) return;
-    grimoire.runes.set("lightning", lightning.clone({scaling: "wisdom"}, {once: true}));
+    const storm = grimoire.runes.get("storm");
+    if ( !storm ) return;
+    grimoire.runes.set("storm", storm.clone({scaling: "wisdom"}, {once: true}));
   }
 };
 
@@ -1527,7 +1527,7 @@ HOOKS.subtleextricatio = {
 
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("lightning") ) return;
+    if ( !action.usesRune("storm") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( event.isCriticalSuccess && event.isDamage ) {

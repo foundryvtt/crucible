@@ -2279,12 +2279,12 @@
       "KinesisAdj": "Kinetic",
       "Life": "Life",
       "LifeAdj": "Vital",
-      "Lightning": "Lightning",
-      "LightningAdj": "Voltaic",
       "Oblivion": "Oblivion",
       "OblivionAdj": "Annihilating",
       "Soul": "Soul",
-      "SoulAdj": "Soulful"
+      "SoulAdj": "Soulful",
+      "Storm": "Storm",
+      "StormAdj": "Voltaic"
     },
     "SHEET": {
       "Knowledge": "Required Knowledge"
@@ -2433,7 +2433,9 @@
       "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
       "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
       "RequiresRuneGesture": "You must know a spellcraft Rune in order to utilize a Gesture.",
-      "RequiresRuneInflection": "You must know a spellcraft Rune in order to utilize an Inflection."
+      "RequiresRuneInflection": "You must know a spellcraft Rune in order to utilize an Inflection.",
+      "SignatureLimit": "You have acquired the maximum of {max} Signature Talents permitted at character level {level}.",
+      "SignatureLimitNext": "You have acquired the maximum of {max} Signature Talents permitted at character level {level}. You may acquire another upon reaching level {next}."
     },
     "Banned": "Banned",
     "Empty": "Empty",
@@ -2442,6 +2444,8 @@
     "NodeSpecific": "{nodeType} Node",
     "PointsAvailable": "Points Available",
     "Prerequisites": "Prerequisites",
+    "SignatureLimit": "Signature Limit Reached",
+    "SignatureNext": "Next at Level {level}",
     "Tier": "Tier {tier}"
   },
   "TAXONOMY": {
