@@ -1,20 +1,22 @@
 name: Telekinetic
 type: talent
-img: icons/magic/movement/pinwheel-turning-blue.webp
+img: icons/magic/earth/projectiles-stone-salvo.webp
 system:
   description: >-
     <p>You wield kinetic force with practiced ease, bending the paths of objects
-    and creatures to your will.</p><ul><li><p>Once per turn, when you apply the
-    <strong>Push</strong> or <strong>Pull</strong> inflection to a Spell which
-    uses the <strong>Kinesis</strong> rune, you ignore the inflection's
-    <strong>Focus</strong> cost.</p></li><li><p>You double the distance at which
-    you can Pull, Flick, or Suspend using the <strong>Propel</strong> action of
-    the Kinesis rune.</p></li><li><p>You unlock the <strong>Telekinetic
-    Flight</strong> action, suspending yourself aloft to fly and hover.</p></li></ul>
+    and creatures to your will.</p><ul><li><p>Once per turn, when you apply
+    @UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection: Push} or
+    @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection: Pull}
+    toH a Spell, you ignore the inflection's <strong>Focus</strong>
+    cost.</p></li><li><p>You double the distance at which you can Pull, Flick,
+    or Suspend using the
+    @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
+    action.</p></li><li><p>You unlock the <strong>Telekinetic Flight</strong>
+    action, suspending yourself aloft to fly and hover.</p></li></ul>
   actions:
     - id: telekineticFlight
       name: Telekinetic Flight
-      img: icons/magic/control/debuff-energy-hold-levitate-blue-yellow.webp
+      img: icons/magic/control/debuff-energy-hold-levitate-yellow.webp
       condition: ''
       description: >-
         <p>You suspend yourself aloft on currents of kinetic force, gaining the
@@ -57,6 +59,8 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       summon:
         actorUuid: null
         permanent: true
@@ -84,8 +88,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.9.5
   createdTime: 1781218465590
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1781295525434
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: telekinetic00000
 sort: 0
 _key: '!items!telekinetic00000'

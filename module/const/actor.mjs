@@ -222,6 +222,18 @@ LEVELS[18].milestones.next = Infinity;
 foundry.utils.deepFreeze(LEVELS);
 
 /**
+ * Relative movement strengths governing whether a moving token passes through a blocking token, or displaces it.
+ * A movement overcomes a blocker when its strength strictly exceeds the blocker's; ties favor the blocker.
+ * @enum {number}
+ */
+export const MOVEMENT_STRENGTHS = Object.freeze({
+  WEAK: -1,        // A flimsy blocker that even ordinary movement passes through
+  NONE: 0,         // The default for both movement and blocking; ordinary tokens block one another
+  POWERFUL: 1,     // Forceful movement (Overrun, Bull Rush, Tumble) that passes through ordinary blockers
+  UNSTOPPABLE: 2   // An absolute blocker that even forceful movement cannot pass or displace
+});
+
+/**
  * The token movement actions supported by the Crucible system.
  * This constant is the shared source of truth used both to populate CONFIG.Token.movement.actions
  * and to register the corresponding action tags.
@@ -418,7 +430,8 @@ export const HOOKS = Object.freeze({
   rollAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "target", "token"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "token: CrucibleToken"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "token: CrucibleToken"],
+    async: true
   },
   finalizeAction: {
     group: "TALENT.HOOKS.GroupAction",

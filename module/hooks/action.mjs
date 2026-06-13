@@ -51,6 +51,37 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.gambitAllIn = {
+  get _gambit() {
+    return crucible.api.hooks.talent.gambit0000000000;
+  },
+  prepare() {
+    if ( HOOKS.gambitAllIn._gambit._chargeCount(this.actor) >= 6 ) this.cost.heroism = 0; // Prefer charges
+  },
+  canUse() {
+    const actor = this.actor;
+    const charges = HOOKS.gambitAllIn._gambit._chargeCount(actor);
+    if ( (charges < 6) && (actor.resources.heroism.value < 1) ) {
+      throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
+    }
+  },
+  preActivate() {
+    this.usage.actorStatus.gambitAllIn = true;
+  },
+  postActivate() {
+    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
+    const G = HOOKS.gambitAllIn._gambit;
+    const remaining = G._chargeCount(this.actor) - 6;
+    const change = remaining > 0
+      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
+        flags: {crucible: {gambitCharges: remaining}}}
+      : {_id: G._CHARGES_ID, _action: "delete"};
+    this.recordEvent({type: "effect", target: this.actor, effects: [change]});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.amplifyAffix = {
   async preActivate() {
     // Enumerate equipped affixes that are below their maximum tier
@@ -253,7 +284,8 @@ HOOKS.bodyBlock = {
 
 HOOKS.bullrush = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -491,7 +523,7 @@ HOOKS.crushingLeap = {
       action: "jump"
     };
     const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {ignoreTokens: true}}});
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
     if ( !plan ) return;
     plan.cost = 0;
     const {x, y, elevation} = plan.origin;
@@ -888,6 +920,33 @@ HOOKS.gemOfConjuredFlame = {
       duration: {rounds: 6},
       system: {}
     });
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.getBehindMe = {
+  async postActivate() {
+    const selfToken = this.token?.object;
+    const [target] = this.targets.keys();
+    const allyToken = this.targets.get(target)?.token?.object;
+    if ( !selfToken || !allyToken ) return;
+
+    // Drag the target behind your own token - using your angle of facing. The distance clears both footprints (your
+    // half-extent plus the ally's half-extent) so they end edge-adjacent rather than overlapping.
+    const behind = Math.toRadians(this.token.rotation - 90);
+    const selfReach = Math.max(this.token.width, this.token.height) / 2;
+    const allyReach = Math.max(allyToken.document.width, allyToken.document.height) / 2;
+    const dist = (selfReach + allyReach) * canvas.grid.size;
+    const c = selfToken.center;
+    const ray = new foundry.canvas.geometry.Ray(allyToken.center,
+      {x: c.x + (Math.cos(behind) * dist), y: c.y + (Math.sin(behind) * dist)});
+    const plan = await crucible.api.canvas.movement.planForcedMovement(allyToken.document, ray,
+      {excludeTokens: [this.token.id]});
+    if ( plan ) {
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
   }
 };
 
@@ -1827,6 +1886,69 @@ HOOKS.revive = {
 
 /* -------------------------------------------- */
 
+HOOKS.ricochet = {
+  async roll(target) {
+    const actor = this.actor;
+    const intellect = actor.system.abilities.intellect.value;
+    const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
+    let currentToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
+    if ( !weapon || !currentToken ) return;
+
+    // Bounces capped at half intellect
+    let remaining = Math.ceil(intellect / 2);
+    if ( remaining <= 0 ) return;
+
+    // Enemy dispositions, matching the action's ENEMIES target scope
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
+    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+
+    // Carom until no targets remain
+    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
+    const hopRadius = intellect; // Hop radius in feet
+    const level = currentToken.scene?.levels.get(currentToken.document._source.level);
+    const visited = new Set([target]);
+    let hop = 1; // Accumulating damage falloff: the second target takes -1, the third -2, and so on
+    while ( remaining > 0 ) {
+
+      // Gather unvisited enemy tokens within the hop radius of the current token
+      const candidates = [];
+      for ( const t of canvas.tokens.placeables ) {
+        if ( !t.actor || (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated ) continue;
+        if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
+        const distance = grid.getLinearRangeCost(currentToken, t);
+        if ( distance > hopRadius ) continue;
+        candidates.push({token: t, distance});
+      }
+      candidates.sort((a, b) => a.distance - b.distance);
+
+      // Choose the nearest candidate to which a direct move ray is unobstructed by walls
+      const origin = {x: currentToken.center.x, y: currentToken.center.y, elevation: currentToken.document.elevation};
+      let next = null;
+      for ( const c of candidates ) {
+        const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
+        const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
+          {type: "move", mode: "any", level, excludeToken: currentToken, tokenCollision: false});
+        if ( !blocked ) {
+          next = c.token;
+          break;
+        }
+      }
+      if ( !next ) break;
+
+      // Strike the next foe with accumulating damage falloff, then carom onward from it
+      const roll = await actor.weaponAttack(this, weapon, next.actor, {damageBonus: -hop});
+      this.recordEvent({type: "strike", target: next.actor, roll, weapon: weapon.snapshot()});
+      visited.add(next.actor);
+      currentToken = next;
+      hop++;
+      remaining--;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;
@@ -1863,9 +1985,23 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.submergingWithdrawal = {
+  canUse() {
+    // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
+    const blocked = ["staggered", "stunned", "slowed", "paralyzed"].find(s => this.actor.statuses.has(s));
+    if ( blocked ) {
+      const status = CONFIG.statusEffects.find(s => s.id === blocked);
+      throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: _loc(status?.name ?? blocked)}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.shieldCharge = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -1934,6 +2070,33 @@ HOOKS.tailSweep = {
   },
   initialize() {
     this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "tail");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.ensnare = {
+  async postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( target === this.actor ) continue;
+
+      // Obey the same eligibility rules as grapple
+      if ( !HOOKS.grapple._canGrapple(this.actor, target) ) {
+        for ( const event of events.all ) event.effects.length = 0;
+        continue;
+      }
+
+      // On a hit, reel the ensnared prey back toward the constrictor, stopping adjacent
+      if ( !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken || !this.token?.object ) continue;
+      const minGap = ((this.token.width + targetToken.document.width) / 2) * canvas.grid.size;
+      const plan = await crucible.api.canvas.movement.planPushMovement(this.token.object.center, targetToken, -1000,
+        {minGap});
+      if ( !plan ) continue;
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
   }
 };
 
@@ -2033,7 +2196,8 @@ HOOKS.tramplingCharge = {
   prepare() {
     this.target.size = this.actor.size;
     this.range.maximum = this.actor.system.movement.stride * 2;
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   },
   postActivate() {
     const halfSize = Math.ceil(this.actor.size / 2);
@@ -2049,7 +2213,8 @@ HOOKS.tramplingCharge = {
 
 HOOKS.tumble = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -2128,7 +2293,7 @@ HOOKS.vaultingSweep = {
       action: "jump"
     };
     const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {ignoreTokens: true}}});
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
     if ( !plan ) return;
     plan.cost = 0;
     // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id

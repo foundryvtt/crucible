@@ -136,6 +136,27 @@ HOOKS.bard000000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.bastion000000000 = {
+  prepareMovement(_item, movement) {
+    if ( !this.statuses.has("guarded") ) return;
+    movement.engagementBonus += 1;
+    movement.blockerStrength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE;
+  },
+  prepareDefenses(_item, defenses) {
+    if ( !this.statuses.has("guarded") ) return;
+    const reflex = defenses.reflex.base + defenses.reflex.bonus;
+    const armorBlock = defenses.armor.base + defenses.armor.bonus + defenses.block.base + defenses.block.bonus;
+    if ( armorBlock > reflex ) defenses.reflex.bonus += armorBlock - reflex;
+  },
+  receiveAttack(_item, _action, roll) {
+    if ( !this.statuses.has("guarded") ) return;
+    const T = roll.constructor.RESULT_TYPES;
+    if ( (roll.data.defenseType === "reflex") && (roll.data.result === T.RESIST) ) roll.data.result = T.BLOCK;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.battleWorn000000 = {
   finalizeAction(_item, action) {
     if ( action.id !== "rest" ) return;
@@ -542,6 +563,103 @@ HOOKS.focusedanticipat = {
 
 /* -------------------------------------------- */
 
+HOOKS.gambit0000000000 = {
+  _CHARGES_ID: "gambitCharges000",
+  _chargeCount(actor) {
+    return actor.effects.get(HOOKS.gambit0000000000._CHARGES_ID)?.getFlag("crucible", "gambitCharges") || 0;
+  },
+  _chargesEffect(actor, count) {
+    return {
+      _id: HOOKS.gambit0000000000._CHARGES_ID,
+      name: _loc("ACTIONS.Gambit.Charges", {count}),
+      img: "icons/sundries/gaming/dice-pair-white-green.webp",
+      description: `<p>${_loc("ACTIONS.Gambit.ChargeDescription")}</p>`,
+      origin: actor.uuid,
+      duration: {expiry: "combatEnd"},
+      showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER,
+      system: {dc: null},
+      flags: {crucible: {gambitCharges: count}}
+    };
+  },
+  prepareDefenses(_item, defenses) {
+    const int = this.abilities.intellect.value;
+    const dex = this.abilities.dexterity.value;
+    if ( int <= dex ) return;
+    const scaling = this.equipment.armor.system.dodge.scaling;
+    defenses.dodge.bonus += Math.max(int - scaling, 0) - Math.max(dex - scaling, 0);
+  },
+  async rollAction(item, action, target) {
+    const rolls = action.eventsByTarget.get(target)?.roll;
+    if ( !rolls?.length ) return;
+    const G = HOOKS.gambit0000000000;
+
+    // All-In: the primed attack or check achieves its maximum result on every die
+    if ( this.status?.gambitAllIn ) {
+      for ( const event of rolls ) {
+        if ( !event.roll?.dice?.length ) continue;
+        G._maximizeRoll(event.roll);
+        G._reresolve(event.roll, this, target, event.weaponItem);
+      }
+      action.usage.actorStatus.gambitAllIn = false;
+      action.recordEvent({target: this, statusText: [{
+        text: _loc("ACTIONS.AllIn.Marker"), fillColor: SYSTEM.RESOURCES.heroism.color.css
+      }]});
+      return;
+    }
+
+    // Loaded Dice: reroll the round's first natural 1, gated once per round via the per-turn status sentinel
+    if ( this.status?.loadedDice || action.usage.actorStatus.loadedDice ) return;
+    for ( const event of rolls ) {
+      const die = event.roll?.dice?.find(d => d.results.some(r => r.active && (r.result === 1)));
+      if ( !die ) continue;
+      await die.reroll("r1");
+      G._reresolve(event.roll, this, target, event.weaponItem);
+      action.usage.actorStatus.loadedDice = true;
+      action.recordEvent({target: this, statusText: [{
+        text: _loc("ACTIONS.Gambit.LoadedDice"), fillColor: SYSTEM.RESOURCES.heroism.color.css
+      }]});
+      return;
+    }
+  },
+  finalizeAction(item, action) {
+    if ( !action.tags.has("strike") || !this.inCombat ) return;
+    const ante = action.usage.banes.special?.number || 0;
+    if ( ante <= 0 ) return;
+    if ( !action.events.some(e => (e.target !== this) && e.isDamage) ) return;
+    const G = HOOKS.gambit0000000000;
+    const count = G._chargeCount(this) + ante;
+    const effect = this.effects.has(G._CHARGES_ID)
+      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count}),
+        flags: {crucible: {gambitCharges: count}}}
+      : G._chargesEffect(this, count);
+    action.recordEvent({type: "effect", target: this, effects: [effect], statusText: [{
+      text: _loc("ACTIONS.Gambit.AnteWon", {count: ante}), fillColor: SYSTEM.RESOURCES.heroism.color.css
+    }]});
+  },
+  _maximizeRoll(roll) {
+    for ( const die of roll.dice ) {
+      for ( const result of die.results ) {
+        if ( result.active ) result.result = die.faces;
+      }
+    }
+  },
+
+  // Recompute the cached total after a dice mutation, then re-derive weapon-attack damage via the roll's own API
+  _reresolve(roll, actor, target, weapon) {
+    roll._total = roll._evaluateTotal();
+    if ( !weapon || !roll.resolveDamage ) return; // Non-attack rolls derive their outcome live from the total
+    roll.resolveDamage(actor, target, {
+      multiplier: roll.data.multiplier,
+      base: weapon.system.damage.weapon,
+      bonus: weapon.system.damage.bonus + roll.data.damageBonus,
+      resource: roll.data.resource,
+      damageType: roll.data.damageType
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.glider0000000000 = {
   prepareActions(_item, actions) {
     if ( !actions.fallGlide ) return;
@@ -922,6 +1040,26 @@ HOOKS.patientdeflectio = {
 
 /* -------------------------------------------- */
 
+HOOKS.peltast000000000 = {
+  prepareAction(item, action) {
+    // A weapon built for throwing reaches +10 ft in a Peltast's hands; improvised throws keep the base range
+    if ( !action.tags.has("thrown") ) return;
+    const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
+    if ( weapon?.system.properties.has("thrown") ) action.range.maximum = (action.range.maximum ?? 10) + 10;
+  },
+  preActivateAction(item, action) {
+    if ( !action.tags.has("thrown") ) return;
+    // Throw anything: arcane guidance steadies even weapons not built for throwing, removing the improvised penalty
+    delete action.usage.banes[action.id];
+    // Returning: the weapon is recalled rather than dropped, so it stays in the Peltast's grasp
+    for ( const update of action.selfUpdateEvent.actorUpdates.items ?? [] ) {
+      if ( update.system?.dropped ) Object.assign(update.system, {dropped: false, equipped: true});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.planneddefense00 = {
   defendAttack(item, action, origin, rollData) {
     if ( !["spell", "strike"].some(tag => action.tags.has(tag)) ) return;
@@ -980,8 +1118,9 @@ HOOKS.powerfulphysique = {
 
 HOOKS.powerfulThrow000 = {
   prepareAction(item, action) {
+    // Additive +10 (not x2) so thrown-range bonuses stack deterministically regardless of hook order
     if ( action.tags.has("thrown") || (action.item?.config?.category.id === "bomb") ) {
-      action.range.maximum *= 2;
+      action.range.maximum += 10;
     }
   }
 };
@@ -1406,7 +1545,6 @@ HOOKS.swarm00000000000 = {
   prepareResources(_item, resources) {
     resources.health.bonus += resources.health.base;
   },
-
   prepareMovement(_item, movement) {
     const minSize = 2;
     const fullSize = movement.baseSize + movement.sizeBonus;
@@ -1417,7 +1555,6 @@ HOOKS.swarm00000000000 = {
     const newSize = Math.round(Math.mix(minSize, fullSize, ratio));
     movement.sizeBonus = newSize - movement.baseSize;
   },
-
   receiveAttack(_item, action, roll) {
     if ( action.target?.type !== "single" ) return;
     const dmg = roll.data.damage;
@@ -1431,21 +1568,8 @@ HOOKS.swarm00000000000 = {
 
 HOOKS.telekinetic00000 = {
   prepareAction(item, action) {
-    // Double the reach of the Kinesis Propel action's telekinetic manipulations
-    if ( action.id === "propel" ) {
-      action.description = action.description
-        .replace("within 15 feet", "within 30 feet")
-        .replace("up to 30 feet away", "up to 60 feet away")
-        .replace("up to 20 feet", "up to 40 feet");
-      return;
-    }
-
-    // A composed Kinesis spell carrying the Push or Pull inflection, once per turn
-    if ( !action.tags.has("composed") ) return;
-    if ( (action.rune?.id !== "kinesis") || !["pull", "push"].includes(action.inflection?.id) ) return;
+    if ( !action.tags.has("composed") || !["pull", "push"].includes(action.inflection?.id) ) return;
     if ( this.status.telekinetic ) return;
-
-    // Waive the inflection's Focus cost and consume the per-turn use
     action.cost.focus = Math.max(0, action.cost.focus - action.inflection.cost.focus);
     action.usage.actorStatus.telekinetic = true;
   }

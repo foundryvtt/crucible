@@ -5,12 +5,13 @@ img: icons/magic/holy/projectiles-blades-salvo-yellow.webp
 system:
   description: >-
     <p>You are an expert in combat against magic users, trained to conserve your
-    energy and strike at the precise moment to thwart an incantation.</p><p>The cost
-    of your @Action[default reactiveStrike] is reduced by an additional 1 
-    <strong>Action</strong> but always costs 1 <strong>Focus</strong>. When you Strike an enemy in reaction to 
-    them casting a spell, a successful hit drains <strong>1 Focus</strong> from that
-    enemy and refunds your own; on a <strong>Critical Hit</strong> their spell is
-    interrupted and the magic is lost.</p>
+    energy and strike at the precise moment to thwart an incantation.</p><p>The
+    cost of your @Action[default reactiveStrike] is reduced by an additional 1 
+    <strong>Action</strong> but always costs 1 <strong>Focus</strong>. When you
+    Strike an enemy in reaction to them casting a spell, a successful hit drains
+    <strong>1 Focus</strong> from that enemy and refunds your own; on a
+    <strong>Critical Hit</strong> their spell is interrupted and the magic is
+    lost.</p>
   actions:
     - id: abjure
       name: Abjure

@@ -1,0 +1,93 @@
+name: Ensnare
+type: talent
+img: icons/magic/nature/root-vine-entangle-foot-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} lashes out with a grasping tendril, coil,
+    or limb to seize prey at range and drag it into a crushing hold.</p>
+  actions:
+    - id: ensnare
+      name: Ensnare
+      img: icons/creatures/tentacles/tentacle-earth-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} reaches out to seize a single target
+        within range, attacking its <strong>Reflex</strong>. On a success the
+        target is dragged back into reach and becomes @Condition[restrained].
+        This action may only be used on creatures which are eligible targets for
+        @Action[Compendium.crucible.talent.Item.unarmedCombatTra
+        grapple].</p><p>The hold is maintained until the
+        @ref[actor.name]{creature} releases it, the target escapes, or a
+        different creature is targeted with Ensnare.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: 15
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Ensnared
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - restrained
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      tags:
+        - generic
+        - reflex
+        - bludgeoning
+        - health
+        - strength
+      summon:
+        actorUuid: null
+        permanent: true
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: 9uAW3eV4LNZ2lQ0V
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781314706969
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: ensnare000000000
+sort: 100000
+_key: '!items!ensnare000000000'

@@ -6,35 +6,48 @@
   margin: 0;
 
   .standard-check {
+    --dialog-width: 360px;
+    --panel-width: 240px;
     padding: 1rem;
     gap: 1rem;
     .roll-form {
-      width: 360px;
+      width: var(--dialog-width);
     }
   }
 
-  /** Side panel shared styles - any tray-open class flips the form into a row layout with footer wrapping */
+  // Advanced roll dialogs use grid layout
   .standard-check.roll-request,
   .standard-check.customize-skills,
   .standard-check.configure-hazard,
   .standard-check.select-targets {
-    flex-direction: row;
-    flex-wrap: wrap;
-    .roll-form {
-      flex: none;
-    }
-    .form-footer {
-      flex: 0 0 100%;
-      width: 0;
-    }
+    display: grid;
+    .roll-form { grid-area: main; }
+    .skills-form,
+    .hazard-config-form { grid-area: left; }
+    .request-form,
+    .hazard-targets-form { grid-area: right; }
+    .form-footer { grid-area: footer; }
+  }
+  .standard-check.customize-skills:not(.roll-request),
+  .standard-check.configure-hazard:not(.select-targets) {
+    grid-template-columns: var(--panel-width) var(--dialog-width);
+    grid-template-areas: "left main" "footer footer";
+  }
+  .standard-check.roll-request:not(.customize-skills),
+  .standard-check.select-targets:not(.configure-hazard) {
+    grid-template-columns: var(--dialog-width) var(--panel-width);
+    grid-template-areas:"main right" "footer footer";
+  }
+  .standard-check.roll-request.customize-skills,
+  .standard-check.configure-hazard.select-targets {
+    grid-template-columns: var(--panel-width) var(--dialog-width) var(--panel-width);
+    grid-template-areas: "left main right" "footer footer footer";
   }
 
-  /** Side panel shared layout */
   .standard-check .request-form,
   .standard-check .skills-form,
   .standard-check .hazard-config-form,
   .standard-check .hazard-targets-form {
-    flex: 0 0 240px;
     h3.divider {
       margin: 0 0 -0.5rem 0;
       font-size: var(--font-size-16);
@@ -58,16 +71,14 @@
     height: 280px;
     cursor: var(--cursor-pointer);
   }
+
+  .standard-check .request-form .crucible-rank-pips {
+    flex-wrap: nowrap;
+  }
   .standard-check .hazard-targets-form .hazard-targets {
     flex: 1;
     min-height: 200px;
     max-height: 360px;
-  }
-
-  /** Left-side trays */
-  .standard-check .skills-form,
-  .standard-check .hazard-config-form {
-    order: -1;
   }
 
   /** Customize Skills (left panel - skill-specific) */

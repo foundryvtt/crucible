@@ -39,6 +39,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( status?.generator ) {
       const generated = status.generator();
       delete generated._id; // Preserve toggled _id
+      delete generated.img; // Preserve toggled icon to avoid confusion
       foundry.utils.mergeObject(effectData, generated, {overwrite: true});
       effectData.duration = {}; // Toggled effects have unlimited duration
     }
@@ -148,12 +149,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
     // Affix effects specifically
     if ( this.type === "affix" ) {
-      if ( ("system" in changes) && ("identifier" in changes.system)
+      if ( "duration" in changes ) changes.duration = {value: null};
+
+      // Disallow changing identifier for embedded affixes
+      if ( this.parent && ("system" in changes) && ("identifier" in changes.system)
         && (changes.system.identifier !== this.system.identifier) ) {
         console.warn("The identifier of an existing affix cannot be changed.");
         return false;
       }
-      if ( "duration" in changes ) changes.duration = {value: null};
     }
   }
 

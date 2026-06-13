@@ -54,3 +54,52 @@ export function pickRandom(arr) {
   if ( !arr?.length ) return null;
   return arr[Math.floor(Math.random() * arr.length)];
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Push per-target scrolling-text entries onto a component's `scrollingText` array, composing the target's text events
+ * from its event slice and staggering each 200ms to avoid overlap when a hit produces multiple rows.
+ * @param {object[]} scrollingText   The component's scrollingText array (mutated).
+ * @param {CrucibleAction} action
+ * @param {CrucibleActor} targetActor
+ * @param {object[]} targetEvents    The target's slice of the action event stream.
+ * @param {string} meshRef           Reference key of the target's mesh in the VFX references map.
+ * @param {number} impactStart       Component-timeline ms at which this target is struck.
+ */
+export function pushTargetScrollingText(scrollingText, action, targetActor, targetEvents, meshRef, impactStart) {
+  const events = action.constructor.composeTextEvents(targetActor, targetEvents,
+    {reverse: false, isNegated: false, selfActor: action.actor});
+  events.forEach((evt, i) => scrollingText.push({
+    target: {reference: meshRef},
+    text: evt.text,
+    time: impactStart + (i * 200),
+    fontSize: evt.fontSize ?? 32,
+    fillColor: evt.fillColor ?? "#ffffff"
+  }));
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Push the acting actor's selfEvents (activation cost, heroism, etc.) onto a component's scrollingText array. Skipped
+ * when that actor is also a target, since {@link pushTargetScrollingText} already surfaces those events.
+ * @param {object[]} scrollingText   The component's scrollingText array (mutated).
+ * @param {CrucibleAction} action
+ * @param {string} meshRef           Reference key of the acting actor's mesh.
+ * @param {number} [time=0]          Component-timeline ms at which the actor text fires.
+ */
+export function pushActorScrollingText(scrollingText, action, meshRef, time=0) {
+  if ( action.eventsByTarget.has(action.actor) ) return;
+  const selfEvents = action.selfEvents?.all ?? [];
+  if ( !selfEvents.length ) return;
+  const events = action.constructor.composeTextEvents(action.actor, selfEvents,
+    {reverse: false, isNegated: false, selfActor: action.actor});
+  events.forEach((evt, i) => scrollingText.push({
+    target: {reference: meshRef},
+    text: evt.text,
+    time: time + (i * 200),
+    fontSize: evt.fontSize ?? 32,
+    fillColor: evt.fillColor ?? "#ffffff"
+  }));
+}

@@ -56,11 +56,11 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
- * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
- *                                          action used would otherwise enforce it
  * @property {string[]} [excludeTokens]     Specific token ids exempt from this action's movement collision
  * @property {(token: Token) => boolean} [excludeTokenTest]  A predicate marking tokens exempt from this action's
  *                                          movement collision, evaluated lazily on near-path candidates (e.g. by Size)
+ * @property {number} [strength]            This movement's strength from {@link MOVEMENT_STRENGTHS}; it passes through
+ *                                          any blocker whose blockerStrength it strictly exceeds (default NONE)
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
@@ -1618,6 +1618,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #acquireSingleTargets(strict) {
     const tokens = game.user.targets;
+    const targetDispositions = this.#getTargetDispositions();
     let errorAll;
 
     // Too few targets
@@ -1646,8 +1647,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( (token === this.token) && !this.damage?.restoration ) {
+      // `token` is a placeable from game.user.targets while this.token is a TokenDocument, so compare by id
+      if ( (token.id === this.token.id) && !this.damage?.restoration ) {
         t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
+        continue;
+      }
+      // Enforce the action's target scope by disposition (an empty set means scope NONE/SELF, which is unrestricted here)
+      if ( targetDispositions.length && !targetDispositions.includes(token.document.disposition) ) {
+        t.error ||= _loc("ACTION.WARNINGS.InvalidTargetScope", {action: this.name});
         continue;
       }
       const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);
@@ -1980,23 +1987,35 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.type === "movement" ) this.#deriveMovementStatus(event);
     }
 
-    // Finalize effect data last, including snapshots of prior state for effects that are deleted or updated
+    // Finalize effect data
     for ( const event of this.events ) {
       for ( const effect of event.effects ) {
+
+        // An UNSTOPPABLE movement-blocker cannot be knocked Prone
+        if ( effect.statuses?.length && (effect._action !== "delete")
+          && (event.target?.system.movement.blockerStrength >= SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE) ) {
+          effect.statuses = effect.statuses.filter(s => s !== "prone");
+        }
+
+        // Snapshot current state for deletions and updates so reversal is possible
         if ( (effect._action === "delete") || (effect._action === "update") ) {
           const live = event.target?.effects.get(effect._id);
           if ( live ) effect._snapshot = live.toObject();
         }
+
+        // Annotate effects
         else {
           const d = event.roll?.data;
           effect.system ??= {};
+
           // Spell-applied effects gain the magical property
           if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
             const properties = new Set(effect.system.properties);
             properties.add("magical");
             effect.system.properties = Array.from(properties);
           }
-          // Removal difficulty: authored value wins (null = unremovable); auto-populate only an undefined DC
+
+          // Populate effect removal difficulty
           if ( effect.system.dc === undefined ) {
             effect.system.dc = d
               ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
@@ -2015,9 +2034,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #expireInvisibility() {
     if ( !this.actor?.statuses.has("invisible") ) return;
     if ( !this.breaksInvisibility ) return;
+    const activation = this.selfEvents.activation;
     for ( const effect of this.actor.effects ) {
       if ( !effect.statuses.has("invisible") ) continue;
-      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: effect.id, _action: "delete"}]});
+      activation.effects.push({_id: effect.id, _action: "delete"});
     }
   }
 
@@ -2359,7 +2379,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         await test.roll.call(this, target, token);
       }
     }
-    this.actor.callActorHooks("rollAction", this, target, token);
+    await this.actor.callActorHooksAsync("rollAction", this, target, token);
   }
 
   /* -------------------------------------------- */
