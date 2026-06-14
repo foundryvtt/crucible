@@ -1746,4 +1746,29 @@ HOOKS.duelist000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.warchanter000000 = {
+  _CHANT_IDS: new Set([
+    "songMight0000000", "songAlacrity0000", "songEndurance000",
+    "dirgeFeebleness0", "dirgeLethargy000", "dirgeFragility00"
+  ]),
+  finalizeAction(_item, action) {
+    if ( !action.tags.has("melee") ) return;
+    const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    const landedHit = action.events.some(e => (e.target !== this) && (e.roll?.data?.result >= HIT));
+    if ( !landedHit ) return;
+    const chants = this.effects.filter(e => HOOKS.warchanter000000._CHANT_IDS.has(e.id));
+    if ( !chants.length ) return;
+
+    // Lowest remaining duration is renewed first; ties favor the more recently started Chant
+    chants.sort((a, b) => (a.duration.remaining - b.duration.remaining)
+      || ((b._stats?.createdTime ?? 0) - (a._stats?.createdTime ?? 0)));
+    const chant = chants[0];
+    action.recordEvent({type: "effect", target: this, effects: [{
+      _id: chant.id, _action: "update", duration: {value: (chant.duration.value ?? 0) + 1}
+    }]});
+  }
+};
+
+/* -------------------------------------------- */
+
 export default HOOKS;
