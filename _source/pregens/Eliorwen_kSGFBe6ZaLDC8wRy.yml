@@ -292,10 +292,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382731997
-      modifiedTime: 1781382731997
+      createdTime: 1781446975437
+      modifiedTime: 1781446975437
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -334,10 +334,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382731998
-      modifiedTime: 1781382731998
+      createdTime: 1781446975438
+      modifiedTime: 1781446975438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -372,10 +372,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382731998
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382731998
+      createdTime: 1781446975438
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -438,9 +438,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       nodes:
         - dex3a
       rune: ''
@@ -455,10 +453,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382731998
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382731998
+      createdTime: 1781446975438
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -497,9 +495,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382731999
-      modifiedTime: 1781382731999
+      systemVersion: 0.10.0
+      createdTime: 1781446975439
+      modifiedTime: 1781446975439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -566,9 +564,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: illusion
       nodes:
         - int0a
@@ -584,10 +580,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382731999
-      createdTime: 1781382731999
+      modifiedTime: 1781446975439
+      createdTime: 1781446975439
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -634,9 +630,7 @@ items:
             - projectile
             - ranged
             - difficult
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: projectile
@@ -651,9 +645,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382731999
-      modifiedTime: 1781382731999
+      systemVersion: 0.10.0
+      createdTime: 1781446975439
+      modifiedTime: 1781446975439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -699,9 +693,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       nodes:
         - dex1a
       rune: ''
@@ -714,10 +706,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382731999
-      createdTime: 1781382731999
+      modifiedTime: 1781446975439
+      createdTime: 1781446975439
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -756,9 +748,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382732000
-      modifiedTime: 1781382732000
+      systemVersion: 0.10.0
+      createdTime: 1781446975440
+      modifiedTime: 1781446975440
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -775,10 +767,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
-  createdTime: 1781382731996
-  modifiedTime: 1781382731996
+  createdTime: 1781446975436
+  modifiedTime: 1781446975436
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

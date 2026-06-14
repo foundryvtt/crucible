@@ -293,10 +293,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732005
-      modifiedTime: 1781382732005
+      createdTime: 1781446975444
+      modifiedTime: 1781446975444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,10 +339,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732006
-      modifiedTime: 1781382732006
+      createdTime: 1781446975444
+      modifiedTime: 1781446975444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -381,10 +381,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732006
-      modifiedTime: 1781382732006
+      createdTime: 1781446975445
+      modifiedTime: 1781446975445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -431,9 +431,7 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -450,10 +448,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732006
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732006
+      createdTime: 1781446975445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -496,9 +494,7 @@ items:
             maximum: 1
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -514,10 +510,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732006
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732006
+      createdTime: 1781446975445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -569,9 +565,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -584,10 +578,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732007
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732007
+      createdTime: 1781446975445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -639,9 +633,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -654,10 +646,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732007
-      createdTime: 1781382732007
+      modifiedTime: 1781446975445
+      createdTime: 1781446975445
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -699,10 +691,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732007
-      createdTime: 1781382732007
+      modifiedTime: 1781446975446
+      createdTime: 1781446975446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -739,10 +731,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732007
-      createdTime: 1781382732007
+      modifiedTime: 1781446975446
+      createdTime: 1781446975446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -792,9 +784,7 @@ items:
             - finesse
             - melee
             - difficult
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: light
@@ -810,10 +800,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732008
-      createdTime: 1781382732008
+      modifiedTime: 1781446975446
+      createdTime: 1781446975446
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -827,10 +817,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
-  createdTime: 1781382732004
-  modifiedTime: 1781382732004
+  createdTime: 1781446975444
+  modifiedTime: 1781446975444
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

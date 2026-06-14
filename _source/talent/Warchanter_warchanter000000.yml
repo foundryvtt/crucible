@@ -1,0 +1,345 @@
+name: Warchanter
+type: talent
+img: icons/magic/sonic/explosion-shock-sound-wave.webp
+system:
+  description: >-
+    <p>You are a battle-singer who turns the clamor of war into power, your
+    chants carried on the rhythm of your own blows. You know six
+    <strong>Chants</strong>; three <strong>Songs</strong> that strengthen your
+    allies and three <strong>Dirges</strong> that sap your foes. You may weave
+    multiple Chants together to craft an evolving chorus of battle, but you
+    require the continued strikes of your weapon to fuel their
+    song.</p><p>Beginning a chant creates an aura around you that affects other
+    creatures on their respective turns and lasts for one Round. Whenever you
+    successfully hit with a <strong>Melee</strong> attack, your Chant that is
+    nearest to expiring is extended by one <strong>Round</strong>.</p>
+  actions:
+    - id: songOfMight
+      name: Song of the Titan's Might
+      img: icons/magic/control/buff-strength-muscle-damage-orange.webp
+      condition: ''
+      description: >-
+        <p>You raise a thunderous anthem to the <strong>Titan</strong>, whose
+        strength once toppled leviathans. You and allied creatures within
+        <strong>15 feet</strong> gain <strong>+1 Strength</strong> and
+        <strong>+1 Wisdom</strong>.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 2
+        size: 15
+        self: true
+      effects:
+        - name: Song of the Titan's Might
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: songOfAlacrity
+      name: Song of the Hunter's Alacrity
+      img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+      condition: ''
+      description: >-
+        <p>You loose a soaring melody to the <strong>Hunter</strong>, swift of
+        foot and unerring of eye. You and allied creatures within <strong>15
+        feet</strong> gain <strong>+1 Dexterity</strong> and <strong>+1
+        Intellect</strong>.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 2
+        size: 15
+        self: true
+      effects:
+        - name: Song of the Hunter's Alacrity
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: songOfEndurance
+      name: Song of the Mountain's Endurance
+      img: icons/magic/defensive/shield-barrier-glowing-triangle-blue.webp
+      condition: ''
+      description: >-
+        <p>You intone a rooted hymn to the <strong>Mountain</strong>, who
+        weathered every age unbroken. You and allied creatures within <strong>15
+        feet</strong> gain <strong>+1 Toughness</strong> and <strong>+1
+        Presence</strong>.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 2
+        size: 15
+        self: true
+      effects:
+        - name: Song of the Mountain's Endurance
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: dirgeOfFeebleness
+      name: Dirge of the Worm's Feebleness
+      img: icons/magic/unholy/strike-hand-glow-pink.webp
+      condition: ''
+      description: >-
+        <p>You hum a mocking lament that names your enemies the crawling
+        <strong>Worm</strong>, fit only to grovel. Enemy creatures within
+        <strong>15 feet</strong> suffer <strong>1 Bane</strong> to all of their
+        actions.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 3
+        size: 15
+        self: false
+      effects:
+        - name: Dirge of the Worm's Feebleness
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: dirgeOfLethargy
+      name: Dirge of the Glutton's Lethargy
+      img: icons/magic/control/sleep-bubble-purple.webp
+      condition: ''
+      description: >-
+        <p>You drone a dragging requiem to the <strong>Glutton</strong>, too
+        bloated and idle to stir. Enemy creatures within <strong>15
+        feet</strong> gain lose <strong>Free</strong> <strong>Movement</strong>
+        and reduce their <strong>Stride</strong> by 2.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 3
+        size: 15
+        self: false
+      effects:
+        - name: Dirge of the Glutton's Lethargy
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+    - id: dirgeOfFragility
+      name: Dirge of the Husk's Fragility
+      img: icons/magic/death/skull-energy-light-white.webp
+      condition: ''
+      description: >-
+        <p>You keen a brittle threnody for the <strong>Husk</strong>, hollow and
+        ready to crumble. Enemy creatures within <strong>15 feet</strong> suffer
+        <strong>Vulnerability </strong>of 2 to all damage types.</p>
+      tags:
+        - vocal
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: aura
+        number: 1
+        scope: 3
+        size: 15
+        self: false
+      effects:
+        - name: Dirge of the Husk's Fragility
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.presence
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.10.0
+  createdTime: 1781203463310
+  modifiedTime: 1781399804166
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: warchanter000000
+sort: 2700000
+_key: '!items!warchanter000000'
