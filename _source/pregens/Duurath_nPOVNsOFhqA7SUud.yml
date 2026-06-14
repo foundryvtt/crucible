@@ -284,10 +284,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732010
-      modifiedTime: 1781382732010
+      createdTime: 1781446975448
+      modifiedTime: 1781446975448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -328,10 +328,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732011
-      modifiedTime: 1781382732011
+      createdTime: 1781446975448
+      modifiedTime: 1781446975448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -371,10 +371,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382732011
-      modifiedTime: 1781382732011
+      createdTime: 1781446975449
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -422,9 +422,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -441,10 +439,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732011
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732011
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -508,9 +506,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -526,10 +522,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732011
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732011
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -575,9 +571,7 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -590,10 +584,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732012
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732012
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -634,10 +628,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732012
-      createdTime: 1781382732012
+      modifiedTime: 1781446975449
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -673,10 +667,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732012
-      createdTime: 1781382732012
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -764,9 +758,7 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: unarmed
@@ -782,10 +774,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732013
-      createdTime: 1781382732013
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -836,9 +828,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -851,10 +841,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382732013
-      createdTime: 1781382732013
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -889,10 +879,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382732013
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975451
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382732013
+      createdTime: 1781446975451
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -908,10 +898,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
-  createdTime: 1781382732009
-  modifiedTime: 1781382732009
+  createdTime: 1781446975447
+  modifiedTime: 1781446975447
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

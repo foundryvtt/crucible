@@ -294,9 +294,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739639
-      modifiedTime: 1781382739639
+      systemVersion: 0.10.0
+      createdTime: 1781446982310
+      modifiedTime: 1781446982310
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,9 +339,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739639
-      modifiedTime: 1781382739639
+      systemVersion: 0.10.0
+      createdTime: 1781446982311
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,9 +382,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739639
-      modifiedTime: 1781382739639
+      systemVersion: 0.10.0
+      createdTime: 1781446982311
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -433,9 +433,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -450,10 +448,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739639
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739639
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -490,10 +488,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739639
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739639
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -536,10 +534,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -574,10 +572,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -611,10 +609,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -652,10 +650,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -690,10 +688,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -758,9 +756,7 @@ items:
           rune: storm
           gesture: touch
           composition: 1
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
           inflection: ''
       iconicSpells: 0
       training:
@@ -777,10 +773,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382739640
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382739640
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -825,9 +821,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       nodes:
         - sig3.presence.intellect
       rune: ''
@@ -842,9 +836,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739641
-      modifiedTime: 1781382739641
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -899,9 +893,7 @@ items:
           effects: []
           tags:
             - noncombat
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: ''
       gesture: ''
       inflection: ''
@@ -914,9 +906,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739641
-      modifiedTime: 1781382739641
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -984,9 +976,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: illusion
       nodes:
         - int0a
@@ -1002,9 +992,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739641
-      modifiedTime: 1781382739641
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1024,8 +1014,8 @@ items:
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
         effect lasts for <strong>3 Rounds</strong>, deals half your
-        <strong>Intellect</strong> score as <strong>Lightning</strong> damage to
-        <strong>Morale</strong>, and applies the @Condition[staggered]
+        <strong>Intellect</strong> score as <strong>Electricity</strong> damage
+        to <strong>Morale</strong>, and applies the @Condition[staggered]
         condition.</p>
       actions: []
       nodes:
@@ -1043,9 +1033,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739642
-      modifiedTime: 1781382739642
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1084,9 +1074,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739642
-      modifiedTime: 1781382739642
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1154,9 +1144,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: kinesis
       nodes:
         - pre0b
@@ -1172,9 +1160,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739642
-      modifiedTime: 1781382739642
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1237,9 +1225,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: frost
       nodes:
         - wis0b
@@ -1255,9 +1241,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739643
-      modifiedTime: 1781382739643
+      systemVersion: 0.10.0
+      createdTime: 1781446982315
+      modifiedTime: 1781446982315
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1310,9 +1296,7 @@ items:
             - talisman
             - harmless
             - rallying
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: talisman
@@ -1327,9 +1311,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739643
-      modifiedTime: 1781382739643
+      systemVersion: 0.10.0
+      createdTime: 1781446982315
+      modifiedTime: 1781446982315
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1375,9 +1359,7 @@ items:
           effects: []
           tags:
             - reload
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: mechanical
@@ -1392,10 +1374,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382739643
-      createdTime: 1781382739643
+      modifiedTime: 1781446982315
+      createdTime: 1781446982315
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1441,9 +1423,7 @@ items:
             self: false
           effects: []
           tags: []
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: ''
       gesture: ''
       inflection: ''
@@ -1456,9 +1436,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739644
-      modifiedTime: 1781382739644
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1505,9 +1485,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739644
-      modifiedTime: 1781382739644
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1549,9 +1529,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739644
-      modifiedTime: 1781382739644
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1616,9 +1596,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: storm
       training:
         type: storm
@@ -1634,9 +1612,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382739644
-      modifiedTime: 1781382739644
+      systemVersion: 0.10.0
+      createdTime: 1781446982317
+      modifiedTime: 1781446982317
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1737,9 +1715,9 @@ flags:
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
-  createdTime: 1781382739637
-  modifiedTime: 1781382739637
+  systemVersion: 0.10.0
+  createdTime: 1781446982310
+  modifiedTime: 1781446982310
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

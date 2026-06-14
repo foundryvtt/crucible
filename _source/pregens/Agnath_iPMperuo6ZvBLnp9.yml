@@ -288,10 +288,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382731981
-      modifiedTime: 1781382731981
+      createdTime: 1781446975426
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -331,10 +331,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       coreVersion: '14.364'
-      createdTime: 1781382731981
-      modifiedTime: 1781382731981
+      createdTime: 1781446975426
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -368,10 +368,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1781382731981
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781382731981
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -411,10 +411,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382731981
-      createdTime: 1781382731981
+      modifiedTime: 1781446975426
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -450,10 +450,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382731982
-      createdTime: 1781382731982
+      modifiedTime: 1781446975426
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -499,9 +499,7 @@ items:
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
             <strong>Empowered</strong> to deliver additional damage.</p>
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       iconicSpells: 0
       training:
         type: heavy
@@ -517,10 +515,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781382731982
-      createdTime: 1781382731982
+      modifiedTime: 1781446975427
+      createdTime: 1781446975427
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -556,9 +554,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382731982
-      modifiedTime: 1781382731982
+      systemVersion: 0.10.0
+      createdTime: 1781446975427
+      modifiedTime: 1781446975427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -617,9 +615,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
       rune: flame
       nodes:
         - int0a
@@ -635,9 +631,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1781382731982
-      modifiedTime: 1781382731982
+      systemVersion: 0.10.0
+      createdTime: 1781446975427
+      modifiedTime: 1781446975427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -655,10 +651,10 @@ flags:
     lastSpell: spell.death.touch
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
-  createdTime: 1781382731980
-  modifiedTime: 1781382731980
+  createdTime: 1781446975425
+  modifiedTime: 1781446975425
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
