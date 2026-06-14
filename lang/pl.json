@@ -186,6 +186,10 @@
           "hint": "Który konkretny aktor powinien zostać przywołany w ramach tej akcji?",
           "label": "Przywołany aktor"
         },
+        "combatant": {
+          "hint": "Czy przywołaną istotę należy dodać do trwającej potyczki?",
+          "label": "Dołączanie do walki"
+        },
         "label": "Akcja przywołania",
         "permanent": {
           "hint": "Czy to przywołanie powinno trwać do momentu zabicia?",
@@ -535,6 +539,10 @@
     "UseAction": "Użyj akcji"
   },
   "ACTIONS": {
+    "AllIn": {
+      "CannotAfford": "{name} musi wydać 1 punkt Heroizmu lub 6 punktów Gambitu, aby postawić wszystko na jedną kartę.",
+      "Marker": "Wszystko na jedną kartę"
+    },
     "AmplifyAffix": {
       "Effect": "Wzmocnienie afiksu",
       "Label": "Afiks do wzmocnienia",
@@ -550,6 +558,12 @@
       "Label": "Temat badań",
       "Required": "Musisz wybrać dziedzinę wiedzy, którą chcesz studiować.",
       "Title": "Badania terenowe"
+    },
+    "Gambit": {
+      "AnteWon": "Gambit (+{count})",
+      "Charges": "Gambit ({count})",
+      "ChargeDescription": "Liczba punktów Gambitu, które można wykorzystać zamiast <strong>Heroizmu</strong> do wykonania akcji \"Wszystko na jedną kartę\".",
+      "LoadedDice": "Podrobione kości"
     },
     "Glide": {
       "MustDescend": "Szybowanie musi zakończyć się na niższym poziomie niż ten, na którym się rozpoczął."
@@ -1486,7 +1500,7 @@
     "Piercing": "Kłutych obr.",
     "Poison": "Trucizna",
     "Psychic": "Psychiczne",
-    "Radiant": "Świetlistych obr.",
+    "Radiant": "Świetliste",
     "Restoration": "Przywrócenie",
     "Slashing": "Cięte",
     "Spiritual": "Duchowe",
@@ -2273,7 +2287,7 @@
       "OblivionAdj": "Niszczący",
       "Soul": "Dusza",
       "SoulAdj": "Uduchowiony",
-      "Storm": "Błyskawicy",
+      "Storm": "Burza",
       "StormAdj": "Naelektryzowany"
     },
     "SHEET": {
@@ -2394,13 +2408,13 @@
       "Magic": "Magia",
       "Melee": "Walka wręcz",
       "Move": "Ruch",
-      "Origin": "Źródło",
+      "Origin": "Geneza",
       "Ranged": "Dystansowy",
       "Signature": "Popisowe",
       "Skill": "Umiejętność",
       "Spell": "Czaroznastwo",
-      "Training": "Szkolenie",
-      "Utility": "Narzędzie"
+      "Training": "Wytrenowanie",
+      "Utility": "Użytkowe"
     },
     "RANKS": {
       "Expert": "Ekspercki",
@@ -2423,7 +2437,9 @@
       "Inaccessible": "Nie możesz zdobyć \"{name}\", ponieważ nie odblokowałeś tego węzła drzewka talentów.",
       "Locked": "Nie spełniasz wymagań niezbędnych do uzyskania \"{name}\", które wymagają {requires} {requirement}.",
       "RequiresRuneGesture": "Aby użyć Gestu, musisz znać Runę magii.",
-      "RequiresRuneInflection": "Aby użyć Fleksji, musisz znać Runę magii."
+      "RequiresRuneInflection": "Aby użyć Fleksji, musisz znać Runę magii.",
+      "SignatureLimit": "Zdobyłeś maksymalną liczbę {max} talentów popisowych dostępnych na poziomie postaci {level}.",
+      "SignatureLimitNext": "Zdobyłeś już maksymalną liczbę {max} talentów popisowych dostępnych na poziomie postaci {level}. Kolejny talent będziesz mógł zdobyć po osiągnięciu poziomu {next}."
     },
     "Banned": "Zakazany",
     "Empty": "Pusty",
@@ -2432,6 +2448,8 @@
     "NodeSpecific": "Węzeł typu {nodeType}",
     "PointsAvailable": "Dostępne punkty",
     "Prerequisites": "Wymagania wstępne",
+    "SignatureLimit": "Osiągnięto limit popisowych talentów",
+    "SignatureNext": "Następny na poziomie {level}",
     "Tier": "Stopień {tier}"
   },
   "TAXONOMY": {
