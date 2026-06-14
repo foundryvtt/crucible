@@ -265,18 +265,18 @@ prototypeToken:
     disposition: false
   movementAction: null
 items:
-  - name: Incorporeal Form
+  - name: Ancestral Manifestation
     type: talent
-    _id: incorporealForm0
+    _id: ancestralForm000
     img: icons/magic/nature/tree-spirit-green.webp
     system:
       nodes: []
       description: >-
-        <p>This creature is an incorporeal spirit. It cannot be harmed, moved
-        against its will, or broken, and other creatures may pass freely through
-        its space. Its overwhelming presence on the battlefield causes it to
-        count as <strong>three creatures</strong> when determining whether an
-        enemy is Flanked.</p>
+        <p>The Ancestral Guardian is an incorporeal manifestation of watchful
+        spirits. It cannot be harmed, moved against its will, or broken, and
+        other creatures may pass freely through its space. Its overwhelming
+        presence on the battlefield causes it to count as <strong>three
+        creatures</strong> when determining whether an enemy is Flanked.</p>
       actions: []
       rune: ''
       gesture: ''
@@ -301,7 +301,7 @@ items:
       duplicateSource: null
       exportSource: null
     folder: null
-    _key: '!actors.items!ancestralGuard00.incorporealForm0'
+    _key: '!actors.items!ancestralGuard00.ancestralForm000'
 effects: []
 flags:
   core: {}

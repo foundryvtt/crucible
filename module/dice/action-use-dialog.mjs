@@ -379,18 +379,25 @@ export default class ActionUseDialog extends StandardCheckDialog {
               shape.updateSource({rotation: snappedAngle});
             }
             return false; // Prevent core handling
-          case "vertex":
+          case "vertex": {
             const maxDistance = range.maximum ?? 0;
             if ( maxDistance === 0 ) Object.assign(position, origin);
             else {
               origin.elevation ??= 0;
               const elevation = Math.clamp(origin.elevation, document.elevation.bottom, document.elevation.top);
               const d = canvas.grid.measurePath([origin, {elevation, ...position}]).distance;
-              if ( d <= maxDistance ) return;
-              const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
-              Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
+              if ( d > maxDistance ) {
+                const rawAngle = Math.toDegrees(Math.atan2(position.y - origin.y, position.x - origin.x));
+                Object.assign(position, canvas.grid.getTranslatedPoint(origin, rawAngle, maxDistance));
+              }
             }
-            break; // Allow core handling
+            // Enforce vertex snapping
+            if ( snap ) {
+              Object.assign(position, canvas.grid.getSnappedPoint(position, {mode: CONST.GRID_SNAPPING_MODES.VERTEX}));
+            }
+            shape.move(position, {snap: false});
+            return false; // Bypass core default snapping
+          }
         }
       };
 

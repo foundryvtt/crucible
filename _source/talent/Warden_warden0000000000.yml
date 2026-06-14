@@ -3,8 +3,8 @@ type: talent
 img: icons/magic/nature/barrier-shield-wood-vines.webp
 system:
   description: >-
-    <p>You are a keeper of the old ways, a battle-druid who calls the spirits of
-    your ancestors to shelter those under your protection.</p><p>You use
+    <p>You are a keeper of the old ways, a battle-druid who calls upon ancestral
+    spirits of nature to shelter those under your protection.</p><p>You use
     @Action[Compendium.crucible.talent.Item.warden0000000000 ancestralGrove] to
     call forth an area of natural protection originating from the spiritual
     projection of an Ancestral Guardian.</p><h3
