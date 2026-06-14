@@ -15,6 +15,7 @@ export const ABILITIES = Object.freeze({
   wisdom: {
     id: "wisdom",
     label: "ABILITIES.Wisdom",
+    tooltip: "ABILITIES.TOOLTIPS.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Power",
@@ -26,6 +27,7 @@ export const ABILITIES = Object.freeze({
   presence: {
     id: "presence",
     label: "ABILITIES.Presence",
+    tooltip: "ABILITIES.TOOLTIPS.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Resilience",
@@ -37,6 +39,7 @@ export const ABILITIES = Object.freeze({
   intellect: {
     id: "intellect",
     label: "ABILITIES.Intellect",
+    tooltip: "ABILITIES.TOOLTIPS.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
     type: "mental",
     group: "ABILITIES.GROUPS.Speed",
@@ -48,6 +51,7 @@ export const ABILITIES = Object.freeze({
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
+    tooltip: "ABILITIES.TOOLTIPS.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Power",
@@ -59,6 +63,7 @@ export const ABILITIES = Object.freeze({
   toughness: {
     id: "toughness",
     label: "ABILITIES.Toughness",
+    tooltip: "ABILITIES.TOOLTIPS.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Resilience",
@@ -70,6 +75,7 @@ export const ABILITIES = Object.freeze({
   dexterity: {
     id: "dexterity",
     label: "ABILITIES.Dexterity",
+    tooltip: "ABILITIES.TOOLTIPS.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
     type: "physical",
     group: "ABILITIES.GROUPS.Speed",
@@ -107,50 +113,62 @@ export const DAMAGE_CATEGORIES = defineEnum({
 export const DAMAGE_TYPES = defineEnum({
   bludgeoning: {
     label: "DAMAGE.Bludgeoning",
+    tooltip: "DAMAGE.TOOLTIPS.Bludgeoning",
     type: "physical"
   },
   corruption: {
     label: "DAMAGE.Corruption",
+    tooltip: "DAMAGE.TOOLTIPS.Corruption",
     type: "spiritual"
   },
   piercing: {
     label: "DAMAGE.Piercing",
+    tooltip: "DAMAGE.TOOLTIPS.Piercing",
     type: "physical"
   },
   slashing: {
     label: "DAMAGE.Slashing",
+    tooltip: "DAMAGE.TOOLTIPS.Slashing",
     type: "physical"
   },
   poison: {
     label: "DAMAGE.Poison",
+    tooltip: "DAMAGE.TOOLTIPS.Poison",
     type: "physical"
   },
   acid: {
     label: "DAMAGE.Acid",
+    tooltip: "DAMAGE.TOOLTIPS.Acid",
     type: "elemental"
   },
   fire: {
     label: "DAMAGE.Fire",
+    tooltip: "DAMAGE.TOOLTIPS.Fire",
     type: "elemental"
   },
   cold: {
     label: "DAMAGE.Cold",
+    tooltip: "DAMAGE.TOOLTIPS.Cold",
     type: "elemental"
   },
   electricity: {
     label: "DAMAGE.Electricity",
+    tooltip: "DAMAGE.TOOLTIPS.Electricity",
     type: "elemental"
   },
   psychic: {
     label: "DAMAGE.Psychic",
+    tooltip: "DAMAGE.TOOLTIPS.Psychic",
     type: "spiritual"
   },
   radiant: {
     label: "DAMAGE.Radiant",
+    tooltip: "DAMAGE.TOOLTIPS.Radiant",
     type: "spiritual"
   },
   void: {
     label: "DAMAGE.Void",
+    tooltip: "DAMAGE.TOOLTIPS.Void",
     type: "spiritual"
   }
 });
@@ -251,26 +269,31 @@ export const DEFENSES = {
   physical: {
     id: "physical",
     label: "DEFENSES.Physical",
+    tooltip: "DEFENSES.TOOLTIPS.Physical",
     type: "physical"
   },
   armor: {
     id: "armor",
     label: "DEFENSES.Armor",
+    tooltip: "DEFENSES.TOOLTIPS.Armor",
     type: "physical"
   },
   block: {
     id: "block",
     label: "DEFENSES.Block",
+    tooltip: "DEFENSES.TOOLTIPS.Block",
     type: "physical"
   },
   dodge: {
     id: "dodge",
     label: "DEFENSES.Dodge",
+    tooltip: "DEFENSES.TOOLTIPS.Dodge",
     type: "physical"
   },
   parry: {
     id: "parry",
     label: "DEFENSES.Parry",
+    tooltip: "DEFENSES.TOOLTIPS.Parry",
     type: "physical"
   },
   fortitude: {

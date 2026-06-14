@@ -205,6 +205,78 @@ export const TIME = Object.freeze({
 
 /* -------------------------------------------- */
 
+export const RULES = {
+  general: {
+    boons: {
+      label: "DICE.Boons.many",
+      tooltip: "DICE.BoonsTooltip"
+    },
+    banes: {
+      label: "DICE.Banes.many",
+      tooltip: "DICE.BanesTooltip"
+    }
+  },
+  skill: {
+    category: {
+      tradecraft: {
+        label: "SKILL.CATEGORY.CRAFTING.label",
+        tooltip: "SKILL.CATEGORY.CRAFTING.hint"
+      },
+      exploration: {
+        label: "SKILL.CATEGORY.EXPLORATION.label",
+        tooltip: "SKILL.CATEGORY.EXPLORATION.hint"
+      },
+      knowledge: {
+        label: "SKILL.CATEGORY.KNOWLEDGE.label",
+        tooltip: "SKILL.CATEGORY.KNOWLEDGE.hint"
+      },
+      social: {
+        label: "SKILL.CATEGORY.SOCIAL.label",
+        tooltip: "SKILL.CATEGORY.SOCIAL.hint"
+      }
+    },
+    skill: SKILL.SKILLS,
+    crafting: CRAFTING.TRAINING
+  },
+  action: ACTION.TAGS,
+  damage: {
+    type: ATTRIBUTES.DAMAGE_TYPES,
+    get category() {
+      const categories = {};
+      for (const {label: categoryLabel, id: categoryId} of Object.values(ATTRIBUTES.DAMAGE_CATEGORIES)) {
+        const damageTypes = [];
+        for (const {id: typeId, type: typeCategory} of Object.values(ATTRIBUTES.DAMAGE_TYPES)) {
+          if (typeCategory === categoryId) {
+            damageTypes.push(`@Rule[damage.type.${typeId}]`);
+          }
+        }
+        const tooltip = game.i18n.getListFormatter({type: "conjunction"}).format(damageTypes);
+        categories[categoryId] = {label: categoryLabel, tooltip};
+      }
+      return categories;
+    }
+  },
+  defense: ATTRIBUTES.DEFENSES,
+  weapon: {
+    property: WEAPON.PROPERTIES,
+    category: WEAPON.CATEGORIES
+  },
+  armor: {
+    property: ARMOR.PROPERTIES,
+    category: ARMOR.CATEGORIES
+  },
+  accessory: {
+    property: ACCESSORY.PROPERTIES,
+    category: ACCESSORY.CATEGORIES
+  },
+  consumable: {
+    property: CONSUMABLE.PROPERTIES,
+    category: CONSUMABLE.CATEGORIES
+  },
+  resource: ATTRIBUTES.RESOURCES,
+  ability: ATTRIBUTES.ABILITIES
+};
+
 /**
  * Include all constant definitions within the SYSTEM global export.
  * Export removing submodule structure such that the entire system constant structure is a plain object.
@@ -236,5 +308,6 @@ export const SYSTEM = {
   TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
-  WEAPON: {...WEAPON}
+  WEAPON: {...WEAPON},
+  RULES
 };

@@ -322,11 +322,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type === "physical" ) continue;
       const d = foundry.utils.mergeObject(defense, data[id], {inplace: false});
-      d.tooltip = _loc(d.tooltip, {base: SYSTEM.PASSIVE_BASE});
+      d.tooltip = _loc(d.tooltip, {passiveBase: SYSTEM.PASSIVE_BASE});
       d.id = id;
       if ( d.bonus !== 0 ) {
         const sign = d.bonus > 0 ? "+" : "-";
-        d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
+        d.tooltip += `${_loc("CRUCIBLE.Bonus")} = ${sign} ${Math.abs(d.bonus)}`;
       }
       if ( ["wounds", "madness"].includes(id) ) d.tooltip = `${d.label}<br>${d.tooltip}`;
       defenses[id] = d;

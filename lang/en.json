@@ -5,6 +5,14 @@
       "Resilience": "Resilience",
       "Speed": "Speed"
     },
+    "TOOLTIPS": {
+      "Dexterity": "Dexterity is a physical quickness attribute that reflects agility and precision of movement.",
+      "Intellect": "Intellect is a mental quickness attribute that reflects speed of thought and decisiveness of action.",
+      "Presence": "Presence is a mental resilience attribute describing a creature's force of personality, resolve, and self-belief.",
+      "Strength": "Strength is a physical power attribute describing a creature's potency, brawn and might.",
+      "Toughness": "Toughness is a physical resilience attribute describing physical hardiness and tenacity.",
+      "Wisdom": "Wisdom is a mental power attribute describing a creature's force of conviction, depth of knowledge, and patience."
+    },
     "Dexterity": "Dexterity",
     "DexterityAbbr": "Dex",
     "Intellect": "Intellect",
@@ -1484,6 +1492,20 @@
     }
   },
   "DAMAGE": {
+    "TOOLTIPS": {
+      "Acid": "Corrosive damage from things like acid vials",
+      "Bludgeoning": "Concussive damage from things like hammers",
+      "Cold": "Damage from extremely low temperature",
+      "Corruption": "Damage representing rot and decay",
+      "Electricity": "Damage from electrical current",
+      "Fire": "Damage from extremely high temperature",
+      "Piercing": "Damage from being pierced by things like rapiers and arrows",
+      "Poison": "Damage from poisons and venoms",
+      "Psychic": "Damage to the mind",
+      "Radiant": "Damage from extremely bright light",
+      "Slashing": "Damage from cutting wounds, such as from a knife or a sword",
+      "Void": "Damage from otherwordly forces"
+    },
     "Acid": "Acid",
     "Bludgeoning": "Bludgeoning",
     "Cold": "Cold",
@@ -1504,11 +1526,16 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
-      "Madness": "{base} + (Madness / 10)",
-      "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
-      "Willpower": "{base} + ((Toughness + Presence) / 4)",
-      "Wounds": "{base} + (Wounds / 10)"
+      "Physical": "<p><strong>Physical Defense</strong> describes how difficult the creature is to hit with physical attacks.</p><p>Physical Defense = @Rule[defense.armor] + @Rule[defense.dodge] + @Rule[defense.parry] + @Rule[defense.block]</p><p>When an attack roll is less than or equal to the Physical Defense total, it is assigned a type of miss based on the proportional mixture of Physical Defense components.</p>",
+      "Armor": "<p>Protection offered by worn equipment or organic attributes like scales or chitin.</p><p>If the attack that failed because of <strong>Armor</strong> was not a Critical Failure, it results in a <strong>Glance</strong></p><p>If the attack was a Critical Failure, it is fully absorbed by the <strong>Armor</strong> and deals no damage.</p>",
+      "Dodge": "<p>Protection offered by physical quickness and agility.</p><p>Strikes which fail to hit and are defended by the Dodge defense assume the <strong>Dodged</strong> outcome and deal no damage.<p>",
+      "Parry": "<p>Protection offered by guarding against an attack using an equipped weapon.</p><p>Strikes which fail to hit and are defended by the Parry defense assume the <strong>Parried</strong> outcome and deal no damage.</p>",
+      "Block": "<p>Protection offered by guarding against an attack using an equipped shield or blocking weapon.</p><p>Strikes which fail to hit and are defended by the Block defense assume the <strong>Blocked </strong>outcome and deal no damage.</p>",
+      "Fortitude": "<p><strong>Fortitude Defense</strong> describes a character's ability to withstand bodily harm.</p><p>Fortitude Defense = {passiveBase} + ((Strength + Wisdom) / 4) + Bonus</p>",
+      "Madness": "{passiveBase} + (Madness / 10) + Bonus",
+      "Reflex": "<p><strong>Reflex Defense</strong> describes a character's ability to avoid harm that would otherwise occur in a specific area.</p><p>Reflex Defense = {passiveBase} + ((Dexterity + Intellect) / 4) + Bonus</p>",
+      "Willpower": "<p><strong>Willpower Defense</strong> describes a character's ability to withstand mental or emotional attacks.</p><p>Willpower Defense = {passiveBase} + ((Toughness + Presence) / 4) + Bonus</p>",
+      "Wounds": "{passiveBase} + (Wounds / 10) + Bonus"
     },
     "Armor": "Armor",
     "Block": "Block",
@@ -1583,6 +1610,7 @@
       "many": "Banes",
       "other": "Banes"
     },
+    "BanesTooltip": "Each <strong>Bane</strong> applied to the check decrements the denomination of the last die in the pool by -2, to a minimum of <strong>d4</strong>. If a die is already a d4 due to other banes, the decrease is applied to the next die in the pool. In practical terms, banes downgrade dice making them smaller and less effective.",
     "Boons": {
       "zero": "Boons",
       "one": "Boon",
@@ -1591,6 +1619,7 @@
       "many": "Boons",
       "other": "Boons"
     },
+    "BoonsTooltip": "Each <strong>Boon</strong> applied to the check increments the denomination of the first die in the pool by +2, to a maximum of <strong>d12</strong>. If a die is already a d12 due to other boons, the increase is applied to the next die in the pool. In practical terms, boons upgrade dice making them bigger and more effective.",
     "CircumstanceBonus": "Circumstance Bonus",
     "Confirm": "Confirm",
     "Damage": "Damage",
@@ -2092,6 +2121,28 @@
       "stealth": "Stealth",
       "tailoring": "Tailoring",
       "wilderness": "Wilderness"
+    },
+    "TOOLTIPS": {
+      "alchemy": "<strong>Alchemy</strong> is the scientific practice of combining ingredients such as botanicals and minerals in order to produce consumable medicines, poisons, and explosives through zymurgy, distillation, or homogenization.",
+      "arcana": "Whether the focus of the education is magical or religious in nature, <strong>Arcana</strong> encompasses the study of esoteric knowledge. Students of Arcana learn fundamental principles of metaphysics, study spiritual beings and deities, runic theory and ritual, the nature of chaos and order, and the history of how magical and spiritual forces impact societies and cultures.",
+      "athletics": "The <strong>Athletics</strong> skill represents the ability to undertake and surmount physical challenges. These could involve traversal of difficult terrain like climbing, running, or swimming, or could involve feats of strength, endurance, or flexibility.",
+      "awareness": "<strong>Awareness</strong> is a measure of your skill in translating sensory input into useful information. A character with high Awareness is able to notice and interpret details that others might miss, and is able to quickly identify and react to threats.",
+      "cooking": "<strong>Cooking</strong> is the tradecraft of combining commonly available ingredients in order to prepare a consumable meal for sustenance. Well trained cooks can prepare hearty meals that bolster party performance and aid in the recovery of morale.",
+      "deception": "<strong>Deception</strong> most commonly comes into play when a character is attempting to lie or mislead others, forge documents, or pierce the veil of lies others construct. Those who pursue an education in Deception are often politicians, diplomats, spies, thieves, or other professions for whom flexibility in the truth is a necessity.",
+      "diplomacy": "<strong>Diplomacy</strong> is rolled most often to persuade others to see things your way. A skill most commonly found in the politically savvy or influential orators, Diplomacy allows for the use of rhetoric and emotional appeals to inspire and convince others. Diplomats focus their efforts on the use of words, rather than deeds, to change opinions and inspire emotional reactions.",
+      "enchanting": "<strong>Enchanting</strong> is the art of combining existing Glyphs (created by @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweavers}) with equipment created by other crafters (such as @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smiths}, @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailors}, and @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcrafters}) in order to imbue those items with permanent magical properties. The process of enchanting an item typically involves some additional sympathetic material components which are used in a ritual to bind the magical effect to a non-magical item, typically one of at least Fine quality.",
+      "fletching": "<strong>Fletching</strong> is the skill of combining commonly available components such as wood, leather, plant fibers and feathers to create bows and ammunition. A Fletcher is capable of crafting and repairing bows, and ensuring that they don't run out of suitable supply of arrows.",
+      "glyphweaving": "<strong>Glyphweaving</strong> is the arcane science of inscribing physical manifestations of metaphysical @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes} to create Glyphs. Glyphs can be used to imbue magical properties into non-magical materials or as a component to aid ritual magic.",
+      "intimidation": "<strong>Intimidation</strong> is used to force others to do your bidding, whether through displays of aggression or threats of violence. Those trained in the art of intimidation are capable of using their words and actions to inspire fear in others, to demonstrate dominance or press others into subservience. Those who train their skill in intimidation need not necessarily be physically imposing in terms of stature, for words and deeds can be equally capable of inspiring fear.",
+      "jewelcraft": "<strong>Jewelcrafting</strong> is the art of combining decorative metals and rare crystalized minerals to compose rings, bracelets, and necklaces as well as the insetting of decorative (and potentially magical) gems into these and other pieces of equipment.",
+      "medicine": "The study of <strong>Medicine</strong> is a practical one, with a focus on studying the mechanical, biological components that make up living creatures, the ailments that can afflict them, and the ways to best treat injury and illness alike.",
+      "performance": "Those who study <strong>Performance</strong> learn, above all else, how to use their talents to inspire and entertain others whether through music, dance, storytelling, or other forms of artistic expression.. Performers learn verse and music, use of pigment and light, poetry and story, dance and even physical feats to evoke emotional reactions in others.",
+      "science": "<strong>Science</strong> is concerned with physical phenomena and examining the world through the lens of logic, reason, mathematics, and the use of structured observation. A student of science learns to posit and confirm theories, analyze the construction of physical objects and machines, and apply mathematical thinking.",
+      "smithing": "<strong>Smithing</strong> is the skill of working to combine base metals and alloys in the production of tools, armor, and weapons as well as the repair and maintenance of metal-crafted items and equipment.",
+      "society": "The <strong>Society</strong> skill is most often used for the purposes of research or understanding into the nuanced aspects of a social situation. Those educated in the workings of Society study the factors which contribute to social structures. Knowledge of Society is used to establish historical or socio-political context, to identify the social rank of particular individuals, or to otherwise draw connections between a person or place and its most likely contributors.",
+      "stealth": "<strong>Stealth</strong> covers the ability to hide effectively, to move without making a sound, to disguise oneself, and to otherwise use your environment to hide your presence. Those trained in Stealth focus on finding ways to remain unnoticed, whether sneaking in solitude through a dark alley at night, or blending in at a celebration at a crowded ballroom.",
+      "tailoring": "<strong>Tailoring</strong> is the art of working to combine fabrics, furs and leathers in the production of clothing and armor as well as the repair and maintenance of items and equipment crafted from natural fibers and skins.",
+      "wilderness": "Those skilled in <strong>Wilderness</strong> learn to create shelter where there is none, identify which water is safe to drink and which is not, and locate sources of food in even the most inhospitable places, and to otherwise survive in harsh environments."
     },
     "RANKS": {
       "ADEPT": {
