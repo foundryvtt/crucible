@@ -842,7 +842,8 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Unaware</strong> acts in combat at
-        Initiative 1 and cannot perform Reactions.</p>
+        Initiative 1 and cannot perform Reactions. The Unaware condition is
+        automatically removed at the start of the creature's turn.</p>
     video:
       controls: true
       volume: 0.5

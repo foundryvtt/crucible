@@ -1304,6 +1304,7 @@ export default class CrucibleActor extends Actor {
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
    * Damage-over-time effects are identified.
    * Effects which core will expire are identified.
+   * Unaware effect is primed for deletion.
    * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
    * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
    * @param {CombatTurnEventContext} context
@@ -1319,6 +1320,12 @@ export default class CrucibleActor extends Actor {
       if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnStart", context) ) {
         effectChanges.toExpire.push(effect.id);
         continue; // No need to maintain an effect which is about to expire naturally
+      }
+
+      // Remove unaware
+      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) {
+        effectChanges.toDelete.push(effect.id);
+        continue;
       }
 
       // Identify maintained effects
@@ -1419,7 +1426,6 @@ export default class CrucibleActor extends Actor {
    * Identify changes that should occur as part of a turn end workflow.
    * Delay flag is reset.
    * Effects which core will expire are identified.
-   * Unaware effect is primed for deletion.
    * @param {CrucibleTurnChangeConfig} turnEndConfig
    * @param {CombatTurnEventContext} context
    */
@@ -1433,9 +1439,6 @@ export default class CrucibleActor extends Actor {
         effectChanges.toExpire.push(effect.id);
         continue; // No need to manually delete an effect which is about to expire naturally
       }
-
-      // Remove unaware
-      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) effectChanges.toDelete.push(effect.id);
     }
   }
 
