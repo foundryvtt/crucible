@@ -66,6 +66,11 @@ export function registerEnrichers() {
       enricher: enrichSpell
     },
     {
+      id: "crucibleRule",
+      pattern: /@Rule\[([\w-.]+)](?:{([^}]+)})?/g,
+      enricher: ruleEnricher
+    },
+    {
       id: "milestone",
       pattern: /\[\[\/milestone( \d+)?\]\]/g,
       enricher: enrichMilestone,
@@ -572,7 +577,7 @@ function enrichCondition([match, conditionId]) {
   tag.innerHTML = _loc(cfg.name);
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
-  tag.classList.add("condition");
+  tag.classList.add("rule", "condition");
   return tag;
 }
 
@@ -597,7 +602,7 @@ function enrichAction([match, ownerUUID, actionId]) {
   }
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
-  tag.classList.add("action");
+  tag.classList.add("rule", "action");
   tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
@@ -623,8 +628,27 @@ function enrichSpell([match, spellId]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = spell.name;
   tag.dataset.spellId = spell.id;
-  tag.classList.add("action", "spell");
+  tag.classList.add("rule", "spell");
   tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Rules                                       */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a rule reference into an interactive element displaying the rule name and tooltip.
+ * @param {RegExpMatchArray} matchArray
+ */
+function ruleEnricher([match, tagId, label]) {
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, tagId.replaceAll("-", "_"));
+  if ( !cfg ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = label ?? _loc(cfg.label);
+  tag.dataset.crucibleTooltip = "tag";
+  tag.dataset.crucibleTooltipText = _loc(cfg.tooltip, {passiveBase: SYSTEM.PASSIVE_BASE}) ?? `[WIP] no tooltip was provided for ${cfg.label}`;
+  tag.classList.add("rule", "basic-rule", tagId.split(".")[0]);
   return tag;
 }
 
