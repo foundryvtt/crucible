@@ -114,10 +114,13 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     const reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites);
 
     // Banned Signature
-    if ( talent.system.isSignature ) {
+    if ( talent.system.isSignature && !actor.talentIds.has(talent.id) ) {
       for ( const node of talent.system.nodes ) {
         const state = game.system.tree.state.get(node);
-        if ( state.banned && !state.purchased ) reqs.signature = {tag: _loc("TALENT.SignatureLimit"), met: false};
+        if ( state.banned ) {
+          reqs.signature = {tag: _loc("TALENT.SignatureLimit"), met: false};
+          break;
+        }
       }
     }
 
