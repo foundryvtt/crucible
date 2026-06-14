@@ -356,6 +356,8 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       source.nodes = source.node ? [source.node] : [];
       delete source.node;
     }
+    if ( source.rune === "lightning" ) source.rune = "storm";
+    if ( source.training?.type === "lightning" ) source.training.type = "storm";
     return source;
   }
 }

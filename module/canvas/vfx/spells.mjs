@@ -265,6 +265,8 @@ function _buildTargetImpact({action, group, token, result, start, tokenRef, rune
  */
 function configureArrowVFXEffect(action) {
   if ( action.target.type !== "single" ) return null;
+  const runeProps = SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id];
+  if ( !runeProps ) return null; // No arrow-gesture config for this rune; skip VFX
   const {textures, particleElevation} = resolveSpellVFXContext(action);
   const components = {};
   const timeline = [];
@@ -276,7 +278,6 @@ function configureArrowVFXEffect(action) {
   const {elevation: casterElevation, radiusPx: casterRadiusPx,
     center: {x: casterCenterX, y: casterCenterY}, meshSort: casterMeshSort} = _resolveCasterGeometry(action);
 
-  const runeProps = SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id] ?? {};
   const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
   const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
   const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;

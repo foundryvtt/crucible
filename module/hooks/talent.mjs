@@ -1152,7 +1152,7 @@ HOOKS.primalist0000000 = {
     flame: "stanceFlame00000",
     frost: "stanceFrost00000",
     earth: "stanceEarth00000",
-    storm: "stanceLightning0"
+    storm: "stanceStorm00000"
   },
   _canUseStance(action, rune) {
     const actor = action.actor;

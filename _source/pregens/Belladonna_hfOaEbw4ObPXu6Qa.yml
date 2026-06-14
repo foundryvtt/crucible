@@ -294,9 +294,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136428
-      modifiedTime: 1780588136428
+      coreVersion: '14.364'
+      createdTime: 1781382732005
+      modifiedTime: 1781382732005
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -340,9 +340,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136429
-      modifiedTime: 1780588136429
+      coreVersion: '14.364'
+      createdTime: 1781382732006
+      modifiedTime: 1781382732006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,9 +382,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136429
-      modifiedTime: 1780588136429
+      coreVersion: '14.364'
+      createdTime: 1781382732006
+      modifiedTime: 1781382732006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -434,7 +434,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -449,12 +448,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136429
+      modifiedTime: 1781382732006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136429
+      createdTime: 1781382732006
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -500,7 +499,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -514,12 +512,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136429
+      modifiedTime: 1781382732006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136429
+      createdTime: 1781382732006
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -574,7 +572,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -585,12 +582,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136430
+      modifiedTime: 1781382732007
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136430
+      createdTime: 1781382732007
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -645,7 +642,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -656,12 +652,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781382732007
+      createdTime: 1781382732007
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -701,12 +697,12 @@ items:
     sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781382732007
+      createdTime: 1781382732007
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -741,12 +737,12 @@ items:
     sort: 120000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781382732007
+      createdTime: 1781382732007
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -799,7 +795,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: light
@@ -813,12 +808,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781382732008
+      createdTime: 1781382732008
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -833,9 +828,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136428
-  modifiedTime: 1780588136428
+  coreVersion: '14.364'
+  createdTime: 1781382732004
+  modifiedTime: 1781382732004
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

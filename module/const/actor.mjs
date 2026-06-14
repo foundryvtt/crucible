@@ -24,7 +24,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "science",
     knowledge: "machines",
     temperature: "neutral",
-    sense: "lightning"
+    sense: "storm"
   },
   dragon: {
     label: "TAXONOMY.CATEGORIES.Dragon",
@@ -65,7 +65,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "elementals",
     temperature: "cool",
-    sense: "lightning"
+    sense: "storm"
   },
   fey: {
     label: "TAXONOMY.CATEGORIES.Fey",

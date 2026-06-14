@@ -289,9 +289,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136413
-      modifiedTime: 1780588136413
+      coreVersion: '14.364'
+      createdTime: 1781382731988
+      modifiedTime: 1781382731988
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,9 +332,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136414
-      modifiedTime: 1780588136414
+      coreVersion: '14.364'
+      createdTime: 1781382731989
+      modifiedTime: 1781382731989
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -371,12 +371,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136414
+      modifiedTime: 1781382731989
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136414
+      createdTime: 1781382731989
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -432,7 +432,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: talisman
@@ -446,12 +445,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136414
-      createdTime: 1780588136414
+      modifiedTime: 1781382731989
+      createdTime: 1781382731989
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -485,12 +484,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136414
+      modifiedTime: 1781382731989
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136414
+      createdTime: 1781382731989
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -555,7 +554,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: soul
       nodes:
         - pre0b
@@ -569,11 +567,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136414
-      modifiedTime: 1780588136414
+      createdTime: 1781382731990
+      modifiedTime: 1781382731990
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -594,7 +592,7 @@ items:
         physical compounds.</p><p>The Earth rune scales using
         <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
         <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Lightning</strong>.</p>
+        by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
           name: Mould
@@ -637,7 +635,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: earth
       nodes:
         - wis0b
@@ -651,11 +648,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136415
-      modifiedTime: 1780588136415
+      createdTime: 1781382731990
+      modifiedTime: 1781382731990
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -718,7 +715,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: life
       training:
         type: life
@@ -732,11 +728,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136415
-      modifiedTime: 1780588136415
+      createdTime: 1781382731990
+      modifiedTime: 1781382731990
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -755,9 +751,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136413
-  modifiedTime: 1780588136413
+  coreVersion: '14.364'
+  createdTime: 1781382731983
+  modifiedTime: 1781382731983
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

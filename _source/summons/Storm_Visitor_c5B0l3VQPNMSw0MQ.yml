@@ -125,7 +125,7 @@ system:
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
       spells: []
     taxonomy:
-      description: <p>Elemental creatures corresponding to the element of Lightning.</p>
+      description: <p>Elemental creatures corresponding to the element of Storm.</p>
       category: elemental
       abilities:
         wisdom: 3
@@ -178,7 +178,7 @@ system:
         size: 4
         stride: 10
       talents:
-        - item: Compendium.crucible.talent.Item.runelightning000
+        - item: Compendium.crucible.talent.Item.runeStorm0000000
           level: null
         - item: Compendium.crucible.adversary-talents.Item.electricityAbsor
           level: null
@@ -270,20 +270,20 @@ prototypeToken:
   prependAdjective: false
   depth: 4
 items:
-  - name: 'Rune: Lightning'
+  - name: 'Rune: Storm'
     type: talent
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       description: >-
-        <p>The chaotic force of raw, electrical energy. The Lightning rune
-        governs sources of electrical energy and electrical discharge. It is
-        opposed by the orderly rune of Earth.</p>
+        <p>The chaotic force of raw, electrical energy. The Storm rune governs
+        sources of electrical energy and electrical discharge. It is opposed by
+        the orderly rune of Earth.</p>
 
-        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <p>The Storm rune scales using <strong>Intellect</strong>, targets
         <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
         <strong>Health</strong>.</p>
       actions: []
-      rune: lightning
+      rune: storm
       nodes:
         - int0a
       gesture: ''
@@ -305,12 +305,12 @@ items:
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       createdTime: 1772307159598
       modifiedTime: 1772307159598
-    _id: runelightning000
+    _id: runeStorm0000000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!c5B0l3VQPNMSw0MQ.runelightning000'
+    _key: '!actors.items!c5B0l3VQPNMSw0MQ.runeStorm0000000'
   - name: Electricity Absorption
     type: talent
     _id: electricityAbsor

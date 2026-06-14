@@ -49,7 +49,7 @@ system:
         minimum: null
         maximum: 30
         weapon: false
-      rune: lightning
+      rune: storm
       gesture: touch
       composition: 1
       summon:

@@ -1,10 +1,10 @@
-name: 'Rune: Lightning'
+name: 'Rune: Storm'
 type: talent
 img: icons/magic/lightning/bolt-strike-blue.webp
 system:
   description: >-
-    <p>The chaotic force of raw electrical energy. The Lightning rune governs
-    sources of electrical charge and discharge.</p><p>The Lightning rune scales
+    <p>The chaotic force of raw electrical energy. The Storm rune governs
+    sources of electrical charge and discharge.</p><p>The Storm rune scales
     using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
     <strong>Electrical</strong> damage to <strong>Health</strong>. It is opposed
     by the orderly rune of <strong>Earth</strong>.</p>
@@ -14,8 +14,8 @@ system:
       img: icons/magic/lightning/bolt-strike-blue.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Lightning allows you to conduct the flow
-        of both air and electricity, manipulating charge and aerodynamics to
+        <p>Your command of the Rune of Storm allows you to conduct the flow of
+        both air and electricity, manipulating charge and aerodynamics to
         produce one of the following effects:</p><ul><li><p>Instill an
         electromagnetic charge into a metallic object that you touch no larger
         than a one-foot cube, causing it to strongly adhere to other metals.
@@ -53,9 +53,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: lightning
+  rune: storm
   training:
-    type: lightning
+    type: storm
     rank: 1
   nodes:
     - int0a
@@ -79,6 +79,6 @@ folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: runeLightning000
+_id: runeStorm0000000
 sort: 0
-_key: '!items!runeLightning000'
+_key: '!items!runeStorm0000000'

@@ -12,7 +12,17 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p><strong>Conditions</strong> are temporary status effects which apply to a character. These conditions modify what actions the character can take, its resource pools, or the way that certain rules are applied to that character. This page separates Conditions into two categories; Statuses which describe the character's state of being and Damage-Over-Time which are detrimental or ameliorating effects which apply at the beginning of the character's <strong>Turn</strong> in Combat.</p><p></p><h2 class="divider">Damage Over Time</h2><p>Some types of damage deal additional delayed damage. These conditions cause damage (or healing) that occurs at the start of a character's turn.</p>
+      content: >-
+        <p><strong>Conditions</strong> are temporary status effects which apply
+        to a character. These conditions modify what actions the character can
+        take, its resource pools, or the way that certain rules are applied to
+        that character. This page separates Conditions into two categories;
+        Statuses which describe the character's state of being and
+        Damage-Over-Time which are detrimental or ameliorating effects which
+        apply at the beginning of the character's <strong>Turn</strong> in
+        Combat.</p><p></p><h2 class="divider">Damage Over Time</h2><p>Some types
+        of damage deal additional delayed damage. These conditions cause damage
+        (or healing) that occurs at the start of a character's turn.</p>
     video:
       controls: true
       volume: 0.5
@@ -45,7 +55,12 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Weakened</strong> is vulnerable to taking deadly wounds. Heroes become Weakened when they reach zero Health. Any further damage to Health taken while Weakened increases Wounds.</p><p>While a creature is Weakened, it suffers -2 to maximum Action and loses access to a free Movement action.</p>
+      content: >-
+        <p>A creature that is <strong>Weakened</strong> is vulnerable to taking
+        deadly wounds. Heroes become Weakened when they reach zero Health. Any
+        further damage to Health taken while Weakened increases
+        Wounds.</p><p>While a creature is Weakened, it suffers -2 to maximum
+        Action and loses access to a free Movement action.</p>
     video:
       controls: true
       volume: 0.5
@@ -77,7 +92,12 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>When a hero's Wounds reach their maximum value, or when an adversary's Health reaches zero, that character is <strong>Dead</strong>. A creature which is Dead is also treated as @Condition[incapacitated], can no longer Rest, and cannot be revived except by magical means.</p>
+      content: >-
+        <p>When a hero's Wounds reach their maximum value, or when an
+        adversary's Health reaches zero, that character is
+        <strong>Dead</strong>. A creature which is Dead is also treated as
+        @Condition[incapacitated], can no longer Rest, and cannot be revived
+        except by magical means.</p>
     video:
       controls: true
       volume: 0.5
@@ -109,7 +129,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Diseased</strong> cannot recover Health or heal Wounds for the duration of the Diseased effect.</p>
+      content: >-
+        <p>A creature that is <strong>Diseased</strong> cannot recover Health or
+        heal Wounds for the duration of the Diseased effect.</p>
     video:
       controls: true
       volume: 0.5
@@ -141,7 +163,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Invulnerable</strong> is temporarily immune to Health or Wounds damage.</p>
+      content: >-
+        <p>A creature that is <strong>Invulnerable</strong> is temporarily
+        immune to Health or Wounds damage.</p>
     video:
       controls: true
       volume: 0.5
@@ -173,7 +197,16 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Broken</strong> is vulnerable to psychological trauma. Heroes become Broken when they reach zero Morale. Any further damage to Morale taken while Broken increases Madness.</p><p>While a creature is Broken it cannot expend <strong>Focus</strong> and actions it takes suffer from <strong>+2 Banes</strong>.</p><p>Creatures which are Broken cannot contribute towards Flanking. Non-player Adversaries which become Broken will attempt to flee the battle unless they lack instincts of self-preservation or escape seems impossible.</p>
+      content: >-
+        <p>A creature that is <strong>Broken</strong> is vulnerable to
+        psychological trauma. Heroes become Broken when they reach zero Morale.
+        Any further damage to Morale taken while Broken increases
+        Madness.</p><p>While a creature is Broken it cannot expend
+        <strong>Focus</strong> and actions it takes suffer from <strong>+2
+        Banes</strong>.</p><p>Creatures which are Broken cannot contribute
+        towards Flanking. Non-player Adversaries which become Broken will
+        attempt to flee the battle unless they lack instincts of
+        self-preservation or escape seems impossible.</p>
     video:
       controls: true
       volume: 0.5
@@ -205,7 +238,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>When a hero's Madness reaches its maximum value, that character is <strong>Insane</strong>. A character which is Insane may no longer be controlled by its player and is controlled by the Gamemaster. This condition cannot be healed or cured except by magical means.</p>
+      content: >-
+        <p>When a hero's Madness reaches its maximum value, that character is
+        <strong>Insane</strong>. A character which is Insane may no longer be
+        controlled by its player and is controlled by the Gamemaster. This
+        condition cannot be healed or cured except by magical means.</p>
     video:
       controls: true
       volume: 0.5
@@ -237,7 +274,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Frightened</strong> cannot recover Morale or heal Madness for the duration of the Frightened effect.</p>
+      content: >-
+        <p>A creature that is <strong>Frightened</strong> cannot recover Morale
+        or heal Madness for the duration of the Frightened effect.</p>
     video:
       controls: true
       volume: 0.5
@@ -269,7 +308,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature which is <strong>Resolute</strong> is temporarily immune to Morale or Madness damage.</p>
+      content: >-
+        <p>A creature which is <strong>Resolute</strong> is temporarily immune
+        to Morale or Madness damage.</p>
     video:
       controls: true
       volume: 0.5
@@ -338,7 +379,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>Some attacks can leave an enemy temporarily vulnerable. When a creature is <strong>Exposed</strong> its base <strong>Armor</strong> defense suffers a -2 penalty.</p>
+      content: >-
+        <p>Some attacks can leave an enemy temporarily vulnerable. When a
+        creature is <strong>Exposed</strong> its base <strong>Armor</strong>
+        defense suffers a -2 penalty.</p>
     video:
       controls: true
       volume: 0.5
@@ -370,7 +414,17 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>When a creature is simultaneously <strong>Engaged</strong> by a number of creatures greater than its <strong>Engagement</strong> score, it has the <strong>Flanked</strong> condition. The Flanked condition has multiple integer stages, starting at Flanked 1, where each stage of Flanked contributes <strong>+1 Boon</strong> to melee attack rolls made against that creature.</p><p>While having more Engaged enemies increases your Flanked condition, having adjacent allies who are supporting you can nullify flanking. Allies contribute their own Engagement as a bonus to yours if you share enemies in common that you are both Engaged with.</p>
+      content: >-
+        <p>When a creature is simultaneously <strong>Engaged</strong> by a
+        number of creatures greater than its <strong>Engagement</strong> score,
+        it has the <strong>Flanked</strong> condition. The Flanked condition has
+        multiple integer stages, starting at Flanked 1, where each stage of
+        Flanked contributes <strong>+1 Boon</strong> to melee attack rolls made
+        against that creature.</p><p>While having more Engaged enemies increases
+        your Flanked condition, having adjacent allies who are supporting you
+        can nullify flanking. Allies contribute their own Engagement as a bonus
+        to yours if you share enemies in common that you are both Engaged
+        with.</p>
     video:
       controls: true
       volume: 0.5
@@ -402,7 +456,14 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>When a creature is entirely unable to act, it is <strong>Incapacitated</strong>. When a target is Incapacitated, its <strong>Dodge, Block, </strong>and<strong> Parry</strong> defenses become zero and it no longer benefits from <strong>Ability Score</strong> bonuses to <strong>Fortitude, Willpower, </strong>or Reflex defense. It cannot contribute to Flanking or otherwise aid allies.</p>
+      content: >-
+        <p>When a creature is entirely unable to act, it is
+        <strong>Incapacitated</strong>. When a target is Incapacitated, its
+        <strong>Dodge, Block, </strong>and<strong> Parry</strong> defenses
+        become zero and it no longer benefits from <strong>Ability
+        Score</strong> bonuses to <strong>Fortitude, Willpower, </strong>or
+        Reflex defense. It cannot contribute to Flanking or otherwise aid
+        allies.</p>
     video:
       controls: true
       volume: 0.5
@@ -434,7 +495,15 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that has been knocked to the ground, or has voluntarily thrown itself to the ground is considered <strong>Prone</strong>. While Prone, melee attacks against the target benefit from +1 <strong>Boon</strong> while ranged attacks against the target suffer from +1 <strong>Bane</strong>. Additionally, any attacks made by a Prone creature suffer +1 <strong>Bane</strong>, and the creature cannot benefit from a free Move. Returning to your feet from a Prone position requires the use of a Movement action.</p>
+      content: >-
+        <p>A creature that has been knocked to the ground, or has voluntarily
+        thrown itself to the ground is considered <strong>Prone</strong>. While
+        Prone, melee attacks against the target benefit from +1
+        <strong>Boon</strong> while ranged attacks against the target suffer
+        from +1 <strong>Bane</strong>. Additionally, any attacks made by a Prone
+        creature suffer +1 <strong>Bane</strong>, and the creature cannot
+        benefit from a free Move. Returning to your feet from a Prone position
+        requires the use of a Movement action.</p>
     video:
       controls: true
       volume: 0.5
@@ -466,7 +535,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Staggered</strong> has their maximum <strong>Action</strong> reduced by 2.</p>
+      content: >-
+        <p>A creature that is <strong>Staggered</strong> has their maximum
+        <strong>Action</strong> reduced by 2.</p>
     video:
       controls: true
       volume: 0.5
@@ -498,7 +569,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Stunned</strong> has their maximum <strong>Action</strong> reduced by 4.</p>
+      content: >-
+        <p>A creature that is <strong>Stunned</strong> has their maximum
+        <strong>Action</strong> reduced by 4.</p>
     video:
       controls: true
       volume: 0.5
@@ -530,7 +603,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Paralyzed</strong> is unable to perform Actions until the paralysis is ended. During this time the target is @Condition[incapacitated].</p>
+      content: >-
+        <p>A creature that is <strong>Paralyzed</strong> is unable to perform
+        Actions until the paralysis is ended. During this time the target is
+        @Condition[incapacitated].</p>
     video:
       controls: true
       volume: 0.5
@@ -562,7 +638,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Slowed</strong> treats distance as doubled for the purposes of determining the cost of the <strong>Move</strong> action. Additionally, a Slowed creature cannot benefit from a free Move.</p>
+      content: >-
+        <p>A creature that is <strong>Slowed</strong> treats distance as doubled
+        for the purposes of determining the cost of the <strong>Move</strong>
+        action. Additionally, a Slowed creature cannot benefit from a free
+        Move.</p>
     video:
       controls: true
       volume: 0.5
@@ -594,7 +674,34 @@ pages:
     image: {}
     text:
       format: 1
-      content: '<p>Conditions and other Active Effects usually end when their duration expires. Some, however, can be ended early - and how hard that is to do is set by the effect''s <strong>Removal DC</strong>.</p><h2>Removal DC</h2><p>An effect that can be removed bears a numeric <strong>Removal DC</strong>. To end it before its duration runs out, a creature - or an ally acting on its behalf - makes the appropriate skill check, and the effect is removed only if the result <em>exceeds</em> the Removal DC. An effect with no Removal DC cannot be shed by these means and must simply be endured until it expires.</p><p>When an effect is applied by an action, its Removal DC reflects the power of whoever imposed it: typically 12 plus the relevant ability and skill behind the effect, or 12 plus the originator''s level. Effects inflicted by mightier foes are correspondingly harder to escape.</p><h2>Effect Properties</h2><p>An Active Effect may carry one or more <strong>Properties</strong> describing its nature and governing which abilities can act upon it:</p><ul><li><p><strong>Magical.</strong> The effect is sustained by magic. All spell-applied effects are Magical, and only anti-magic - a dispel, a cleanse, or the like - can strip a Magical effect, by overcoming its Removal DC. Effects that are not Magical are immune to anti-magic.</p></li></ul><h2>The Escape Action</h2><p>The most familiar Removal DC is the one checked when breaking free of restraint. A creature suffering the @Condition[restrained] condition may take the <strong>Escape</strong> action, spending 2 Action Points to make an <strong>Athletics</strong> check against the lowest Removal DC among the effects restraining it. Each restraining effect whose Removal DC the result exceeds is ended; if an effect grants other benefits beyond Restrained, only the Restrained condition is stripped from it.</p>'
+      content: >-
+        <p>Conditions and other Active Effects usually end when their duration
+        expires. Some, however, can be ended early - and how hard that is to do
+        is set by the effect's <strong>Removal DC</strong>.</p><h2>Removal
+        DC</h2><p>An effect that can be removed bears a numeric <strong>Removal
+        DC</strong>. To end it before its duration runs out, a creature - or an
+        ally acting on its behalf - makes the appropriate skill check, and the
+        effect is removed only if the result <em>exceeds</em> the Removal DC. An
+        effect with no Removal DC cannot be shed by these means and must simply
+        be endured until it expires.</p><p>When an effect is applied by an
+        action, its Removal DC reflects the power of whoever imposed it:
+        typically 12 plus the relevant ability and skill behind the effect, or
+        12 plus the originator's level. Effects inflicted by mightier foes are
+        correspondingly harder to escape.</p><h2>Effect Properties</h2><p>An
+        Active Effect may carry one or more <strong>Properties</strong>
+        describing its nature and governing which abilities can act upon
+        it:</p><ul><li><p><strong>Magical.</strong> The effect is sustained by
+        magic. All spell-applied effects are Magical, and only anti-magic - a
+        dispel, a cleanse, or the like - can strip a Magical effect, by
+        overcoming its Removal DC. Effects that are not Magical are immune to
+        anti-magic.</p></li></ul><h2>The Escape Action</h2><p>The most familiar
+        Removal DC is the one checked when breaking free of restraint. A
+        creature suffering the @Condition[restrained] condition may take the
+        <strong>Escape</strong> action, spending 2 Action Points to make an
+        <strong>Athletics</strong> check against the lowest Removal DC among the
+        effects restraining it. Each restraining effect whose Removal DC the
+        result exceeds is ended; if an effect grants other benefits beyond
+        Restrained, only the Restrained condition is stripped from it.</p>
     video:
       controls: true
       volume: 0.5
@@ -626,7 +733,13 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Restrained</strong> is unable to perform any Action which involves <strong>Movement</strong> and suffers <strong>+2 Banes</strong> to attack rolls.</p> <p>A Restrained creature may take the <strong>Escape</strong> action to break free, making an <strong>Athletics</strong> check against the effect's <strong>Removal DC</strong>.</p>
+      content: >-
+        <p>A creature that is <strong>Restrained</strong> is unable to perform
+        any Action which involves <strong>Movement</strong> and suffers
+        <strong>+2 Banes</strong> to attack rolls.</p> <p>A Restrained creature
+        may take the <strong>Escape</strong> action to break free, making an
+        <strong>Athletics</strong> check against the effect's <strong>Removal
+        DC</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -658,7 +771,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Disoriented </strong>incurs a +1 Focus cost to all Actions which require Focus.</p>
+      content: >-
+        <p>A creature that is <strong>Disoriented </strong>incurs a +1 Focus
+        cost to all Actions which require Focus.</p>
     video:
       controls: true
       volume: 0.5
@@ -690,7 +805,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>Some terrain or abilities may temporarily harden a creature's defenses. When a creature is <strong>Guarded </strong>attacks against it suffer +1 Banes.</p>
+      content: >-
+        <p>Some terrain or abilities may temporarily harden a creature's
+        defenses. When a creature is <strong>Guarded </strong>attacks against it
+        suffer +1 Banes.</p>
     video:
       controls: true
       volume: 0.5
@@ -722,7 +840,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Unaware</strong> acts in combat at Initiative 1 and cannot perform Reactions.</p>
+      content: >-
+        <p>A creature that is <strong>Unaware</strong> acts in combat at
+        Initiative 1 and cannot perform Reactions.</p>
     video:
       controls: true
       volume: 0.5
@@ -754,7 +874,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Bleeding </strong>creature suffers additional Piercing or Slashing damage, depending on the triggering damage type, to <strong>Health</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Bleeding </strong>creature suffers additional Piercing or
+        Slashing damage, depending on the triggering damage type, to
+        <strong>Health</strong> at the start of its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -786,7 +909,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Poisoned</strong> creature suffers additional Poison damage to <strong>Health</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Poisoned</strong> creature suffers additional Poison damage
+        to <strong>Health</strong> at the start of its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -818,7 +943,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Corroding</strong> creature suffers additional Acid damage to <strong>Health</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Corroding</strong> creature suffers additional Acid damage
+        to <strong>Health</strong> at the start of its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -850,7 +977,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Burning</strong> creature suffers additional Fire damage to both <strong>Health</strong> and <strong>Morale</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Burning</strong> creature suffers additional Fire damage to
+        both <strong>Health</strong> and <strong>Morale</strong> at the start of
+        its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -882,7 +1012,9 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Freezing</strong> creature suffers additional Cold damage to <strong>Health</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Freezing</strong> creature suffers additional Cold damage
+        to <strong>Health</strong> at the start of its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -914,7 +1046,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>An <strong>Irradiated</strong> creature suffers additional Radiant damage to both <strong>Health</strong> and <strong>Morale</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>An <strong>Irradiated</strong> creature suffers additional Radiant
+        damage to both <strong>Health</strong> and <strong>Morale</strong> at
+        the start of its subsequent turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -946,7 +1081,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Decaying </strong>creature suffers additional Corruption damage to <strong>Health</strong> at the start of its subsequent turns.</p>
+      content: >-
+        <p>A <strong>Decaying </strong>creature suffers additional Corruption
+        damage to <strong>Health</strong> at the start of its subsequent
+        turns.</p>
     video:
       controls: true
       volume: 0.5
@@ -978,7 +1116,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Hastened </strong>treats distance as halved for the purposes of determining the cost of the <strong>Move</strong> action. Additionally, a creature that is Hastened has +1 maximum <strong>Action</strong> available each turn.</p>
+      content: >-
+        <p>A creature that is <strong>Hastened </strong>treats distance as
+        halved for the purposes of determining the cost of the
+        <strong>Move</strong> action. Additionally, a creature that is Hastened
+        has +1 maximum <strong>Action</strong> available each turn.</p>
     video:
       controls: true
       volume: 0.5
@@ -1010,7 +1152,12 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Blinded</strong> may not see using light-based perception and cannot use any Action which requires the target to be seen. A Blinded creature's attacks suffer +2 <strong>Banes</strong>, while attacks against it gain +2 <strong>Boons</strong>.</p>
+      content: >-
+        <p>A creature that is <strong>Blinded</strong> may not see using
+        light-based perception and cannot use any Action which requires the
+        target to be seen. A Blinded creature's attacks suffer +2
+        <strong>Banes</strong>, while attacks against it gain +2
+        <strong>Boons</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -1042,7 +1189,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature which is <strong>Deafened</strong> is unable to utilize any sound-based perception and cannot be affected by any action with the <strong>Auditory</strong> tag.</p>
+      content: >-
+        <p>A creature which is <strong>Deafened</strong> is unable to utilize
+        any sound-based perception and cannot be affected by any action with the
+        <strong>Auditory</strong> tag.</p>
     video:
       controls: true
       volume: 0.5
@@ -1074,7 +1224,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature which is <strong>Silenced</strong> is unable to perform any action with the <strong>Vocal</strong> tag or to cast a Spell which includes a metamagic <strong>Inflection</strong>.</p>
+      content: >-
+        <p>A creature which is <strong>Silenced</strong> is unable to perform
+        any action with the <strong>Vocal</strong> tag or to cast a Spell which
+        includes a metamagic <strong>Inflection</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -1106,7 +1259,21 @@ pages:
     image: {}
     text:
       format: 1
-      content: '<p>A creature which is <strong>Invisible</strong> cannot be detected using sight-based perception. Special detection modes such as <strong>Thermal Vision</strong>, <strong>Sense Creature</strong>, or <strong>Echolocation</strong> may still detect an Invisible creature.</p><h3>Expiration</h3><p>Invisibility expires when its duration elapses, when the Invisible status is removed, or when the Invisible creature performs an action that reveals their presence.</p><p>An action reveals the actor''s presence if any of the following are true:</p><ul><li><p>The action is a <strong>Spell</strong>.</p></li><li><p>The action targets another creature (anything other than <strong>Self</strong>-scope or <strong>None</strong>-scope).</p></li></ul><p>An action with the <strong>Undetectable</strong> tag is an exception: regardless of its target scope or spellcraft, it preserves Invisibility.</p>'
+      content: >-
+        <p>A creature which is <strong>Invisible</strong> cannot be detected
+        using sight-based perception. Special detection modes such as
+        <strong>Thermal Vision</strong>, <strong>Sense Creature</strong>, or
+        <strong>Echolocation</strong> may still detect an Invisible
+        creature.</p><h3>Expiration</h3><p>Invisibility expires when its
+        duration elapses, when the Invisible status is removed, or when the
+        Invisible creature performs an action that reveals their
+        presence.</p><p>An action reveals the actor's presence if any of the
+        following are true:</p><ul><li><p>The action is a
+        <strong>Spell</strong>.</p></li><li><p>The action targets another
+        creature (anything other than <strong>Self</strong>-scope or
+        <strong>None</strong>-scope).</p></li></ul><p>An action with the
+        <strong>Undetectable</strong> tag is an exception: regardless of its
+        target scope or spellcraft, it preserves Invisibility.</p>
     video:
       controls: true
       volume: 0.5
@@ -1138,7 +1305,12 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Asleep</strong> is treated as @Condition[incapacitated]. Any damage to <strong>Health</strong> or <strong>Wounds</strong> causes it to immediately awaken. The creature is immune to <strong>Morale</strong> damage while sleeping unless otherwise stated.</p>
+      content: >-
+        <p>A creature that is <strong>Asleep</strong> is treated as
+        @Condition[incapacitated]. Any damage to <strong>Health</strong> or
+        <strong>Wounds</strong> causes it to immediately awaken. The creature is
+        immune to <strong>Morale</strong> damage while sleeping unless otherwise
+        stated.</p>
     video:
       controls: true
       volume: 0.5
@@ -1170,7 +1342,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Shocked</strong> creature suffers <strong>Electricity</strong> damage to <strong>Morale</strong> at the start of each turn.</p>
+      content: >-
+        <p>A <strong>Shocked</strong> creature suffers
+        <strong>Electricity</strong> damage to <strong>Morale</strong> at the
+        start of each turn.</p>
     video:
       controls: true
       volume: 0.5
@@ -1202,7 +1377,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Exhausted</strong> can no longer actively defend itself. It's <strong>Dodge</strong> and <strong>Reflex </strong>defenses are reduced by half.</p>
+      content: >-
+        <p>A creature that is <strong>Exhausted</strong> can no longer actively
+        defend itself. It's <strong>Dodge</strong> and <strong>Reflex
+        </strong>defenses are reduced by half.</p>
     video:
       controls: true
       volume: 0.5
@@ -1234,7 +1412,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Mending</strong> will gradually recover <strong>Health</strong> at the start of each of its turns. The amount of Health recovered is defined by a corresponding value of the Mending effect.</p>
+      content: >-
+        <p>A creature that is <strong>Mending</strong> will gradually recover
+        <strong>Health</strong> at the start of each of its turns. The amount of
+        Health recovered is defined by a corresponding value of the Mending
+        effect.</p>
     video:
       controls: true
       volume: 0.5
@@ -1266,7 +1448,11 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is <strong>Inspired </strong>will gradually recover <strong>Morale </strong>at the start of each of its turns. The amount of Morale recovered is defined by a corresponding value of the Inspired effect.</p>
+      content: >-
+        <p>A creature that is <strong>Inspired </strong>will gradually recover
+        <strong>Morale </strong>at the start of each of its turns. The amount of
+        Morale recovered is defined by a corresponding value of the Inspired
+        effect.</p>
     video:
       controls: true
       volume: 0.5
@@ -1296,7 +1482,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Confused</strong> creature suffers <strong>Psychic</strong> damage to <strong>Morale</strong> at the start of each turn, and is also treated as @Condition[disoriented].</p>
+      content: >-
+        <p>A <strong>Confused</strong> creature suffers <strong>Psychic</strong>
+        damage to <strong>Morale</strong> at the start of each turn, and is also
+        treated as @Condition[disoriented].</p>
     video:
       controls: true
       volume: 0.5
@@ -1328,7 +1517,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature afflicted with <strong>Entropy</strong> suffers <strong>Void</strong> damage to <strong>Health</strong> at the start of each turn, and is also treated as @Condition[frightened].</p>
+      content: >-
+        <p>A creature afflicted with <strong>Entropy</strong> suffers
+        <strong>Void</strong> damage to <strong>Health</strong> at the start of
+        each turn, and is also treated as @Condition[frightened].</p>
     video:
       controls: true
       volume: 0.5
@@ -1360,7 +1552,15 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature that is submerged entirely within the ground is <strong>Burrowing</strong>. While Burrowing, a creature cannot see or be seen using light-based perception.</p><section class="foundryvtt"><h4>Automation</h4><p>The Burrowing condition is applied automatically when a creature ends its own movement using the <strong>Burrow</strong> movement action, and is removed automatically when that creature later ends a movement using any other movement action.</p></section>
+      content: >-
+        <p>A creature that is submerged entirely within the ground is
+        <strong>Burrowing</strong>. While Burrowing, a creature cannot see or be
+        seen using light-based perception.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>The Burrowing condition is
+        applied automatically when a creature ends its own movement using the
+        <strong>Burrow</strong> movement action, and is removed automatically
+        when that creature later ends a movement using any other movement
+        action.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -1392,7 +1592,17 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A creature which is aloft in the air with no supporting surface beneath it is <strong>Flying</strong>. A Flying creature does not fall, and Forced Movement cannot knock it from the air; a Flying creature which is pushed, pulled, or knocked back is displaced through the air without falling.</p><section class="foundryvtt"><h4>Automation</h4><p>The Flying condition is applied automatically when a creature ends its own movement using the <strong>Fly</strong> movement action, and is removed automatically when that creature later ends a movement using any other movement action.</p></section>
+      content: >-
+        <p>A creature which is aloft in the air with no supporting surface
+        beneath it is <strong>Flying</strong>. A Flying creature does not fall,
+        and Forced Movement cannot knock it from the air; a Flying creature
+        which is pushed, pulled, or knocked back is displaced through the air
+        without falling.</p><section
+        class="foundryvtt"><h4>Automation</h4><p>The Flying condition is applied
+        automatically when a creature ends its own movement using the
+        <strong>Fly</strong> movement action, and is removed automatically when
+        that creature later ends a movement using any other movement
+        action.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -1426,7 +1636,12 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Suffocating</strong> creature suffers <strong>Void</strong> damage to both <strong>Wounds</strong> and <strong>Madness</strong> at the start of each turn, representing physical lung trauma and panic from being deprived of breathable air. While Suffocating, a creature is also @Condition[silenced].</p>
+      content: >-
+        <p>A <strong>Suffocating</strong> creature suffers <strong>Void</strong>
+        damage to both <strong>Wounds</strong> and <strong>Madness</strong> at
+        the start of each turn, representing physical lung trauma and panic from
+        being deprived of breathable air. While Suffocating, a creature is also
+        @Condition[silenced].</p>
     video:
       controls: true
       volume: 0.5
@@ -1458,7 +1673,10 @@ pages:
     image: {}
     text:
       format: 1
-      content: <p>A <strong>Limitless</strong> creature pays no Action, Focus, or Heroism cost when using any Action. This condition is primarily used for system testing and is not intended for typical gameplay.</p>
+      content: >-
+        <p>A <strong>Limitless</strong> creature pays no Action, Focus, or
+        Heroism cost when using any Action. This condition is primarily used for
+        system testing and is not intended for typical gameplay.</p>
     video:
       controls: true
       volume: 0.5
