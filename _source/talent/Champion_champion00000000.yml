@@ -1,0 +1,99 @@
+name: Champion
+type: talent
+_id: champion00000000
+img: icons/skills/melee/weapons-crossed-swords-yellow.webp
+system:
+  description: >-
+    <p>You relish the thrill of single combat, aspiring to become a peerless
+    challenger who dominates rivals through overwhelming might and unyielding
+    force of will. You can issue a <strong>Challenge</strong>, marking a rival
+    creature as your <strong>Challenged</strong> target, and gaining bonus
+    damage to attacks against it.</p><p>So intense is your focus that no rival
+    may flee your grasp. You may make a @Action[default reactiveStrike] against
+    your <strong>Challenged</strong> rival even while you are
+    @Condition[flanked], and so long as you have Focus to spend it costs only
+    <strong>1 Focus</strong> instead of an Action.</p>
+  actions:
+    - id: challenge
+      name: Challenge
+      img: icons/skills/melee/weapons-crossed-swords-yellow.webp
+      condition: ''
+      description: >-
+        <p>You single out a worthy foe, binding them to a duel through the sheer
+        force of your presence. The target becomes your
+        <strong>Challenged</strong> rival until Combat ends, until they are
+        defeated, or until you Challenge a different foe. You may have only one
+        Challenged rival at a time.</p><p>While your Challenged rival is the
+        only enemy you are engaged with, your immersion in the duel deepens: at
+        the end of each of your turns you gain stacking +1 <strong>Bonus
+        Damage</strong> to your melee <strong>Strikes</strong> against that
+        rival, to a maximum equal to your <strong>Presence</strong>. This bonus
+        resets to zero if the duel is broken, which happens if another enemy
+        engages you, if your rival escapes your <strong>Engagement</strong>, or
+        if you Strike any other creature.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Dominance
+          scope: 1
+          statuses: []
+          duration:
+            expiry: combatEnd
+            value: null
+            units: ''
+            expired: false
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+      tags:
+        - vocal
+        - harmless
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.presence
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+folder: fOYHlZJEWUukD7yr
+sort: 2600000
+ownership:
+  default: 0
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781203463310
+  modifiedTime: 1781203962699
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!champion00000000'

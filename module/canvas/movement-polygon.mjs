@@ -8,6 +8,10 @@
  * @typedef CrucibleMovementPolygonConfig
  * @property {boolean} [tokenCollision]    Is token collision enforced?
  * @property {Token} [excludeToken]        An acting token who should be excluded from collision tests
+ * @property {string[]} [excludeTokens]  Additional token ids exempt from collision (e.g. the source of a throw)
+ * @property {(token: Token) => boolean} [excludeTokenTest]  A predicate marking further tokens exempt from collision,
+ *                                       evaluated lazily on near-path candidates (e.g. creatures small enough to bowl
+ *                                       through)
  */
 
 /**
@@ -55,10 +59,17 @@ export default class CrucibleMovementPolygon extends foundry.canvas.geometry.Clo
     const levelId = moverDoc._source.level;
 
     // Helper function to determine whether a token is an active blocker
+    const {excludeTokens, excludeTokenTest, movementStrength=SYSTEM.ACTOR.MOVEMENT_STRENGTHS.NONE} = this.config;
     const isBlocker = token => {
-      if ( (token === mover) || !token.actor || token.actor.system.isDead ) return false;
+      if ( (token === mover) || excludeTokens?.includes(token.id) ) return false;
+      if ( !token.actor || token.actor.system.isDead ) return false;
       if ( token.movementAnimationPromise ) return false; // A token mid-movement-animation is not a collider
       if ( token.document._source.level !== levelId ) return false;
+      if ( excludeTokenTest?.(token) ) return false; // Caller predicate, e.g. creatures small enough to bowl through
+      // Forceful movement passes through a weaker blocker; ties favor the blocker
+      if ( movementStrength > (token.actor.system.movement.blockerStrength ?? SYSTEM.ACTOR.MOVEMENT_STRENGTHS.NONE) ) {
+        return false;
+      }
       if ( (token.document.disposition === CONST.TOKEN_DISPOSITIONS.SECRET) && !game.user.isGM ) return false;
       const bottom = token.document.elevation;
       const top = bottom + (token.document.depth * distance);

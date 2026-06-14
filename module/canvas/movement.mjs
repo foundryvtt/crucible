@@ -17,6 +17,7 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * @property {TokenPosition} origin       The movement origin
  * @property {TokenPosition} destination  The canonical movement destination
  * @property {TokenMovementWaypoint[]} waypoints  The planned path steps, not including the origin
+ * @property {boolean} [collided]         True if a forced movement was truncated short of its target by a collision
  */
 
 /* -------------------------------------------- */
@@ -32,6 +33,8 @@ import CrucibleMovementPolygon from "./movement-polygon.mjs";
  * @param {object} [options]                   Additional options forwarded to `TokenDocument#move`.
  * @param {object} [options.constrainOptions]  Constrain options carried through to actualization; the `crucible`
  *                                             namespace propagates intent to the token's collision-test override.
+ * @param {object} [options.animation]         Animation options forwarded to the move (e.g. `{speedMultiplier}`),
+ *                                             captured on the plan and reused when it is actualized.
  * @returns {Promise<CrucibleMovementPlan|null>}  The canonical planned movement, or null on invalid input or if the
  *                                             move settled without planning.
  */
@@ -63,6 +66,20 @@ export function createMovementPlan(token, waypoints, options={}) {
 /* -------------------------------------------- */
 
 /**
+ * Determine whether a movement of a given strength overcomes a blocking token, passing through or displacing it.
+ * The movement overcomes the blocker only when its strength strictly exceeds the blocker's; ties favor the blocker.
+ * @param {number} movementStrength   The strength of the movement, from {@link MOVEMENT_STRENGTHS}
+ * @param {Token} [blocker]           The potentially-blocking token placeable
+ * @returns {boolean}                 True if the movement overcomes the blocker
+ */
+export function compareMovementStrength(movementStrength, blocker) {
+  const blockerStrength = blocker?.actor?.system.movement.blockerStrength ?? SYSTEM.ACTOR.MOVEMENT_STRENGTHS.NONE;
+  return movementStrength > blockerStrength;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Force a token to move along a defined Ray vector, clamped by walls and snapped in 3D with walk-back safety.
  * Ray endpoints may include elevation; a 2D ray defaults to the token's current elevation.
  * @param {TokenDocument} token             The token being forcibly moved
@@ -72,21 +89,32 @@ export function createMovementPlan(token, waypoints, options={}) {
  * @param {boolean} [options.snap=true]        Snap the destination to the grid (with walk-back safety)
  * @param {string} [options.action="push"]     Movement-action label applied to the resulting waypoint
  * @param {boolean} [options.tokenCollision]   Treat other tokens as obstacles; defaults to the mover's combat state
- * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
+ * @param {string[]} [options.excludeTokens]  Token ids exempt from collision (e.g. the source of a throw)
+ * @param {boolean} [options.deferAnimation=false]  Suppress the core movement animation so a VFX impact beat can
+ *                                             take over the displacement; defaults to normal core animation
+ * @param {number} [options.animationSpeedMultiplier=1]  Scale the core movement animation speed (2 = twice as fast)
+ * @param {number} [options.strength]  The displacing strength; a target whose blocker strength meets or exceeds it
+ *                                     is not moved. Defaults to {@link MOVEMENT_STRENGTHS.POWERFUL}.
  * @returns {Promise<CrucibleMovementPlan|null>}   The planned movement, or null if no displacement was possible
  */
 export async function planForcedMovement(token, ray,
-  {collision=true, snap=true, action="push", tokenCollision, ignoreTokens=false}={}) {
+  {collision=true, snap=true, action="push", tokenCollision, excludeTokens,
+    deferAnimation=false, animationSpeedMultiplier=1, strength=SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}={}) {
   if ( !token || !ray ) return null;
   if ( (ray.dx === 0) && (ray.dy === 0) ) return null;
   const tokenObject = token.object;
   if ( !tokenObject ) return null;
-  const effectiveTokenCollision = (tokenCollision ?? tokenObject.inCombat) && !ignoreTokens;
-  const waypoint = _resolveForcedDestination(tokenObject, ray, {collision, snap, action,
-    tokenCollision: effectiveTokenCollision});
-  if ( !waypoint ) return null;
-  // Tag as an action-driven secondary movement: receiving clients with VFX enabled may take over its animation
-  return createMovementPlan(token, [waypoint], {constrainOptions: {crucible: {ignoreTokens, deferAnimation: true}}});
+  // An immovable target resists displacement that does not exceed its blocker strength
+  if ( !compareMovementStrength(strength, tokenObject) ) return null;
+  const effectiveTokenCollision = tokenCollision ?? tokenObject.inCombat;
+  const resolved = _resolveForcedDestination(tokenObject, ray, {collision, snap, action,
+    tokenCollision: effectiveTokenCollision, excludeTokens});
+  if ( !resolved ) return null;
+  const planOptions = {constrainOptions: {crucible: {excludeTokens, deferAnimation}}};
+  if ( animationSpeedMultiplier !== 1 ) planOptions.animation = {speedMultiplier: animationSpeedMultiplier};
+  const plan = await createMovementPlan(token, [resolved.waypoint], planOptions);
+  if ( plan ) plan.collided = resolved.collided;
+  return plan;
 }
 
 /* -------------------------------------------- */
@@ -100,11 +128,10 @@ export async function planForcedMovement(token, ray,
  * @param {object} [options]
  * @param {number} [options.minGap=0]     Minimum center-to-center distance from the origin to preserve when pulling
  * @param {boolean} [options.tokenCollision]  Treat other tokens as obstacles; defaults to the mover's combat state
- * @param {boolean} [options.ignoreTokens=false]  Suppress token-to-token collision regardless of combat state
  * @returns {Promise<CrucibleMovementPlan|null>} The canonical planned movement, or null if no displacement was possible
  */
 export async function planPushMovement(fromPoint, targetToken, distanceFeet,
-  {minGap=0, tokenCollision, ignoreTokens=false}={}) {
+  {minGap=0, tokenCollision}={}) {
   if ( !targetToken || !distanceFeet ) return null;
   const r0 = new foundry.canvas.geometry.Ray(fromPoint, targetToken.center);
   if ( r0.distance === 0 ) return null;
@@ -114,7 +141,7 @@ export async function planPushMovement(fromPoint, targetToken, distanceFeet,
     if ( distancePx >= 0 ) return null;
   }
   const ray = new foundry.canvas.geometry.Ray(targetToken.center, r0.project(1 + (distancePx / r0.distance)));
-  return planForcedMovement(targetToken.document, ray, {tokenCollision, ignoreTokens});
+  return planForcedMovement(targetToken.document, ray, {tokenCollision});
 }
 
 /* -------------------------------------------- */
@@ -126,9 +153,9 @@ export async function planPushMovement(fromPoint, targetToken, distanceFeet,
  * @param {Token} tokenObject
  * @param {Ray} ray
  * @param {{collision: boolean, snap: boolean, action: string, tokenCollision: boolean}} options
- * @returns {TokenMovementWaypoint|null}
+ * @returns {{waypoint: TokenMovementWaypoint, collided: boolean}|null}
  */
-function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, tokenCollision}) {
+function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, tokenCollision, excludeTokens}) {
   const gridSize = canvas.grid.size;
   const halfW = (tokenObject.document.width * gridSize) / 2;
   const halfH = (tokenObject.document.height * gridSize) / 2;
@@ -137,14 +164,18 @@ function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, t
 
   // Constrain center to the first wall or token collision along the ray when requested
   const destinationCenter = _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation,
-    collision, tokenCollision);
+    collision, tokenCollision, excludeTokens);
   if ( !destinationCenter ) return null;
+
+  // A center short of the ray endpoint means the path was truncated by a collision
+  const collided = collision && ((destinationCenter.x !== ray.B.x) || (destinationCenter.y !== ray.B.y));
 
   // Convert center -> top-left (preserving elevation), then snap in 3D with walk-back safety if requested
   let topLeft = {x: destinationCenter.x - halfW, y: destinationCenter.y - halfH,
     elevation: destinationCenter.elevation};
   if ( snap ) {
-    topLeft = _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision);
+    topLeft = _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision,
+      excludeTokens);
     if ( !topLeft ) return null;
   }
 
@@ -155,7 +186,7 @@ function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, t
 
   const waypoint = {x: topLeft.x, y: topLeft.y, elevation: topLeft.elevation, action};
   if ( snap ) waypoint.snapped = true;
-  return waypoint;
+  return {waypoint, collided};
 }
 
 /* -------------------------------------------- */
@@ -168,9 +199,11 @@ function _resolveForcedDestination(tokenObject, ray, {collision, snap, action, t
  * @param {number} destinationElevation
  * @param {boolean} collision
  * @param {boolean} tokenCollision
+ * @param {string[]} [excludeTokens]   Token ids exempt from collision
  * @returns {ElevatedPoint|null} Constrained destination center, or null on zero-length ray
  */
-function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation, collision, tokenCollision) {
+function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationElevation, collision, tokenCollision,
+  excludeTokens) {
   const destination = {x: ray.B.x, y: ray.B.y, elevation: destinationElevation};
   if ( !collision ) return destination;
   const len = Math.hypot(ray.dx, ray.dy);
@@ -178,7 +211,7 @@ function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationE
   const origin = {x: ray.A.x, y: ray.A.y, elevation: originElevation};
   const level = tokenObject.scene.levels.get(tokenObject.document._source.level);
   const collisionVertex = CrucibleMovementPolygon.testCollision(origin, destination,
-    {type: "move", mode: "closest", level, excludeToken: tokenObject, tokenCollision});
+    {type: "move", mode: "closest", level, excludeToken: tokenObject, excludeTokens, tokenCollision});
   if ( !collisionVertex ) return destination;
   const dist = Math.hypot(collisionVertex.x - ray.A.x, collisionVertex.y - ray.A.y);
   const safeDist = Math.max(0, dist - 1);
@@ -202,9 +235,11 @@ function _constrainCenterToWalls(tokenObject, ray, originElevation, destinationE
  * @param {number} originElevation
  * @param {boolean} collision
  * @param {boolean} tokenCollision
+ * @param {string[]} [excludeTokens]   Token ids exempt from collision
  * @returns {ElevatedPoint|null}  Snapped top-left, or null if no safe cell was found
  */
-function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision) {
+function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originElevation, collision, tokenCollision,
+  excludeTokens) {
   const gridSize = canvas.grid.size;
   const SNAP_MODE = CONST.GRID_SNAPPING_MODES.TOP_LEFT_VERTEX;
   let snapped = canvas.grid.getSnappedPoint(topLeft, {mode: SNAP_MODE});
@@ -219,7 +254,7 @@ function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originEleva
 
   while ( CrucibleMovementPolygon.testCollision(origin,
     {x: snapped.x + halfW, y: snapped.y + halfH, elevation: snapped.elevation},
-    {type: "move", mode: "any", level, excludeToken: tokenObject, tokenCollision}) ) {
+    {type: "move", mode: "any", level, excludeToken: tokenObject, excludeTokens, tokenCollision}) ) {
     const stepped = {x: snapped.x - (ux * gridSize), y: snapped.y - (uy * gridSize), elevation: snapped.elevation};
     snapped = canvas.grid.getSnappedPoint(stepped, {mode: SNAP_MODE});
     const distFromOrigin = Math.hypot((snapped.x + halfW) - ray.A.x, (snapped.y + halfH) - ray.A.y);

@@ -1187,6 +1187,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
+    creationData.prototypeToken.name = this._state.name;
     delete creationData.ownership;
     for ( const item of creationData.items ) delete item.ownership;
     creationData.flags.core.sheetClass = "";

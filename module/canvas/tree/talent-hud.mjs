@@ -69,7 +69,13 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
     // Node tags
     const nodeTags = [{label: _loc("TALENT.Tier", {tier: node.tier})}, {label: node.id}];
-    if ( state.banned ) nodeTags.push({label: _loc("TALENT.Banned"), class: "unmet"});
+    if ( state.banned ) {
+      nodeTags.push({label: _loc("TALENT.SignatureLimit"), class: "unmet"});
+      const max = CrucibleTalentNode.getSignatureAllowance(actor.system.advancement.level);
+      if ( max < SYSTEM.TALENT.SIGNATURE_MAX ) {
+        nodeTags.push({label: _loc("TALENT.SignatureNext", {level: (max + 1) * SYSTEM.TALENT.SIGNATURE_LEVEL_INTERVAL})});
+      }
+    }
     else if ( !state.unlocked ) nodeTags.push({label: _loc("TALENT.Locked"), class: "unmet"});
     if ( !node.talents.size ) nodeTags.push({label: _loc("TALENT.Empty"), class: "unmet"});
     const nodeType = _loc(`TALENT.NODES.${node.type.capitalize()}`);
@@ -111,7 +117,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     if ( talent.system.isSignature ) {
       for ( const node of talent.system.nodes ) {
         const state = game.system.tree.state.get(node);
-        if ( state.banned && !state.purchased ) reqs.signature = {tag: "Banned", met: false};
+        if ( state.banned && !state.purchased ) reqs.signature = {tag: _loc("TALENT.SignatureLimit"), met: false};
       }
     }
 

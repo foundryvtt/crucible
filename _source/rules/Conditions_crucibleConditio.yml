@@ -96,8 +96,8 @@ pages:
         <p>When a hero's Wounds reach their maximum value, or when an
         adversary's Health reaches zero, that character is
         <strong>Dead</strong>. A creature which is Dead is also treated as
-        <strong>Incapacitated</strong>, can no longer Rest, and cannot be
-        revived except by magical means.</p>
+        @Condition[incapacitated], can no longer Rest, and cannot be revived
+        except by magical means.</p>
     video:
       controls: true
       volume: 0.5
@@ -110,12 +110,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1751302896661
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1780589800425
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.dead000000000000'
   - sort: 300000
     name: Diseased
@@ -345,8 +345,9 @@ pages:
       content: >-
         <p>When a creature is <strong>Enraged</strong>, it behaves recklessly
         and is less able to defend itself. An <strong>Enraged</strong>
-        creature's Block and Parry defenses become zero and that creature cannot
-        expend Focus.</p>
+        creature's <strong>Block</strong> and <strong>Parry</strong> defenses
+        become zero and that creature cannot expend <strong>Focus</strong> on
+        any non-<strong>Strike</strong> actions.</p>
     video:
       controls: true
       volume: 0.5
@@ -359,12 +360,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751303064320
-      modifiedTime: 1751303576609
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1781300289120
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!crucibleConditio.enraged000000000'
   - sort: 1100000
     name: Exposed
@@ -605,7 +606,7 @@ pages:
       content: >-
         <p>A creature that is <strong>Paralyzed</strong> is unable to perform
         Actions until the paralysis is ended. During this time the target is
-        <strong>Incapacitated</strong>.</p>
+        @Condition[incapacitated].</p>
     video:
       controls: true
       volume: 0.5
@@ -618,12 +619,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751303164623
-      modifiedTime: 1751303584292
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1780589825954
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.paralyzed0000000'
   - sort: 1475000
     name: Slowed
@@ -661,6 +662,65 @@ pages:
       modifiedTime: 1751304899440
       lastModifiedBy: QvBFYpRRXHRBcOfP
     _key: '!journal.pages!crucibleConditio.slowed0000000000'
+  - sort: 50000
+    name: Removing Effects
+    type: text
+    category: BuMJalJaEUNCX29d
+    _id: removingEffects0
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Conditions and other Active Effects usually end when their duration
+        expires. Some, however, can be ended early - and how hard that is to do
+        is set by the effect's <strong>Removal DC</strong>.</p><h2>Removal
+        DC</h2><p>An effect that can be removed bears a numeric <strong>Removal
+        DC</strong>. To end it before its duration runs out, a creature - or an
+        ally acting on its behalf - makes the appropriate skill check, and the
+        effect is removed only if the result <em>exceeds</em> the Removal DC. An
+        effect with no Removal DC cannot be shed by these means and must simply
+        be endured until it expires.</p><p>When an effect is applied by an
+        action, its Removal DC reflects the power of whoever imposed it:
+        typically 12 plus the relevant ability and skill behind the effect, or
+        12 plus the originator's level. Effects inflicted by mightier foes are
+        correspondingly harder to escape.</p><h2>Effect Properties</h2><p>An
+        Active Effect may carry one or more <strong>Properties</strong>
+        describing its nature and governing which abilities can act upon
+        it:</p><ul><li><p><strong>Magical.</strong> The effect is sustained by
+        magic. All spell-applied effects are Magical, and only anti-magic - a
+        dispel, a cleanse, or the like - can strip a Magical effect, by
+        overcoming its Removal DC. Effects that are not Magical are immune to
+        anti-magic.</p></li></ul><h2>The Escape Action</h2><p>The most familiar
+        Removal DC is the one checked when breaking free of restraint. A
+        creature suffering the @Condition[restrained] condition may take the
+        <strong>Escape</strong> action, spending 2 Action Points to make an
+        <strong>Athletics</strong> check against the lowest Removal DC among the
+        effects restraining it. Each restraining effect whose Removal DC the
+        result exceeds is ended; if an effect grants other benefits beyond
+        Restrained, only the Restrained condition is stripped from it.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.351'
+      systemId: crucible
+      systemVersion: 0.8.6
+      createdTime: 1751303541755
+      modifiedTime: 1770322030122
+      lastModifiedBy: ifaQA7jTJsr3UWFE
+    _key: '!journal.pages!crucibleConditio.removingEffects0'
   - sort: 1468750
     name: Restrained
     type: text
@@ -676,7 +736,10 @@ pages:
       content: >-
         <p>A creature that is <strong>Restrained</strong> is unable to perform
         any Action which involves <strong>Movement</strong> and suffers
-        <strong>+2 Banes</strong> to attack rolls.</p>
+        <strong>+2 Banes</strong> to attack rolls.</p> <p>A Restrained creature
+        may take the <strong>Escape</strong> action to break free, making an
+        <strong>Athletics</strong> check against the effect's <strong>Removal
+        DC</strong>.</p>
     video:
       controls: true
       volume: 0.5
@@ -1244,7 +1307,7 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Asleep</strong> is treated as
-        incapacitated. Any damage to <strong>Health</strong> or
+        @Condition[incapacitated]. Any damage to <strong>Health</strong> or
         <strong>Wounds</strong> causes it to immediately awaken. The creature is
         immune to <strong>Morale</strong> damage while sleeping unless otherwise
         stated.</p>
@@ -1260,12 +1323,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751305675265
-      modifiedTime: 1770322038858
-      lastModifiedBy: ifaQA7jTJsr3UWFE
+      modifiedTime: 1780589816547
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.asleep0000000000'
   - sort: 2200000
     name: Shocked
@@ -1422,7 +1485,7 @@ pages:
       content: >-
         <p>A <strong>Confused</strong> creature suffers <strong>Psychic</strong>
         damage to <strong>Morale</strong> at the start of each turn, and is also
-        treated as <strong>Disoriented</strong>.</p>
+        treated as @Condition[disoriented].</p>
     video:
       controls: true
       volume: 0.5
@@ -1437,12 +1500,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.7
       createdTime: 1770321310582
-      modifiedTime: 1770321403442
-      lastModifiedBy: ifaQA7jTJsr3UWFE
+      modifiedTime: 1780589890650
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.confused00000000'
   - _id: entropy000000000
     name: Entropy
@@ -1457,7 +1520,7 @@ pages:
       content: >-
         <p>A creature afflicted with <strong>Entropy</strong> suffers
         <strong>Void</strong> damage to <strong>Health</strong> at the start of
-        each turn, and is also treated as <strong>Frightened</strong>.</p>
+        each turn, and is also treated as @Condition[frightened].</p>
     video:
       controls: true
       volume: 0.5
@@ -1472,12 +1535,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.8.7
       createdTime: 1770321470501
-      modifiedTime: 1770321558439
-      lastModifiedBy: ifaQA7jTJsr3UWFE
+      modifiedTime: 1780589863205
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.entropy000000000'
   - _id: burrowing0000000
     name: Burrowing

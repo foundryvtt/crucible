@@ -1,0 +1,55 @@
+name: Juggernaut
+type: archetype
+img: icons/magic/control/buff-strength-muscle-damage-orange.webp
+system:
+  description: >-
+    <p>Relentless brawlers who close the distance, seize their foes in
+    unbreakable holds, and overpower them through sheer brawn and resilience.
+    They fight bare-handed, turning their own bulk into both weapon and
+    shield.</p>
+  identifier: juggernaut
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 4
+    toughness: 4
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+      level: null
+    - item: Compendium.crucible.talent.Item.unarmedblocking0
+      level: 1
+    - item: Compendium.crucible.talent.Item.thickskin0000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.wrestler00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.juggernaut000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.unarmedCombatPro
+      level: 5
+  skills:
+    - athletics
+    - intimidation
+    - wilderness
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
+  createdTime: 1781218465590
+_id: archetypeJuggern
+sort: 2700000
+_key: '!items!archetypeJuggern'

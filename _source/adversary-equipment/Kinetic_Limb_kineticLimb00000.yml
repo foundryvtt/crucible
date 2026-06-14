@@ -1,0 +1,44 @@
+name: Kinetic Limb
+type: weapon
+img: icons/magic/movement/pinwheel-turning-blue.webp
+effects: []
+folder: damageTypedLimbs
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} strikes with unseen limbs of raw kinetic
+      force.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: kineticLimb
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: kineticLimb00000
+sort: 2800000
+_key: '!items!kineticLimb00000'

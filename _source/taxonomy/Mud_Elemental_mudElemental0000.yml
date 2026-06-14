@@ -1,0 +1,97 @@
+folder: GwintA6OSvHfTTC5
+name: Mud Elemental
+type: taxonomy
+img: icons/creatures/slimes/slime-movement-splashing-yellow.webp
+system:
+  description: >-
+    <p>Shapeless elementals of caustic mud and sludge: soft, mindless, and
+    corrosive. They engulf and dissolve what they cannot crush.</p>
+  category: elementalEarth
+  abilities:
+    wisdom: 1
+    presence: 0
+    intellect: 1
+    strength: 5
+    toughness: 3
+    dexterity: 2
+  resistances:
+    bludgeoning:
+      value: 1
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 1
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: -1
+      immune: false
+    acid:
+      value: 0
+      immune: true
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: -1
+      immune: false
+  characteristics:
+    spells: false
+    equipment: false
+    temperature: ''
+  movement:
+    size: 4
+    stride: 10
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.slipperyForm0000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.burrower00000000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.corrosiveStrikes
+      level: 4
+    - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
+      level: 6
+  identifier: mudElemental
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.pseudopod0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  modifiedTime: 1781218634258
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  createdTime: 1781027705369
+_id: mudElemental0000
+sort: 600000
+_key: '!items!mudElemental0000'

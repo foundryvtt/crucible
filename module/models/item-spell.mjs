@@ -209,4 +209,15 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     if ( config.values.includes("centered") ) container.firstElementChild.classList.add("centered");
     return container;
   }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    if ( Array.isArray(source.runes) ) source.runes = source.runes.map(r => r === "lightning" ? "storm" : r);
+    return source;
+  }
 }

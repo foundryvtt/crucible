@@ -107,13 +107,13 @@ for ( const skillId of Object.keys(SKILLS) ) {
 /* -------------------------------------------- */
 
 /**
- * Keen: Reduce the critical success threshold for attack rolls made with this weapon.
- * The threshold decreases by 1 per tier (default 6, tier 1 = 5, tier 2 = 4, tier 3 = 3).
+ * Keen: reduce the critical success threshold by 1 per tier for attacks with this weapon, stacking with other reducers.
  */
 HOOKS.keen = {
   prepareAttack(item, action, target, rollData) {
+    if ( rollData.itemId !== item.id ) return; // Only apply to the correct weapon
     const tier = item.system.affixes.keen.system.tier.value;
-    rollData.criticalSuccessThreshold = 6 - tier;
+    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - tier;
   }
 };
 

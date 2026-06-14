@@ -5,7 +5,7 @@ effects: []
 folder: damageTypedLimbs
 flags: {}
 system:
-  category: simple1
+  category: balanced1
   quantity: 1
   weight: 0
   price: 0

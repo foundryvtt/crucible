@@ -141,8 +141,8 @@ export default class CrucibleCombat extends foundry.documents.Combat {
 
     // Morale Escalation
     if ( this.round > 6 ) {
-      await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: "Escalation"}]});
-      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: "Escalation"}]});
+      await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: _loc("COMBAT.Escalation")}]});
+      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: _loc("COMBAT.Escalation")}]});
     }
   }
 

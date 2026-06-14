@@ -3,6 +3,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 /**
+ * @import {DataModelConstructionContext} from "@common/abstract/_types.mjs"
  * @import {CrucibleItemSnapshot} from "../documents/item.mjs"
  * @import {ScrollingTextEvent} from "../documents/actor.mjs"
  */
@@ -55,8 +56,11 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef ActionMovementUsage
  * @property {string} [action]              Force all waypoints in the planned path to use a specific movement action
- * @property {boolean} [ignoreTokens]       Exempt this action's movement from token collision even when the movement
- *                                          action used would otherwise enforce it
+ * @property {string[]} [excludeTokens]     Specific token ids exempt from this action's movement collision
+ * @property {(token: Token) => boolean} [excludeTokenTest]  A predicate marking tokens exempt from this action's
+ *                                          movement collision, evaluated lazily on near-path candidates (e.g. by Size)
+ * @property {number} [strength]            This movement's strength from {@link MOVEMENT_STRENGTHS}; it passes through
+ *                                          any blocker whose blockerStrength it strictly exceeds (default NONE)
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
@@ -384,6 +388,25 @@ class CrucibleActionEvent {
  */
 
 /**
+ * Action-specific properties added to the core data model construction context.
+ * @typedef _CrucibleActionContext
+ * @property {CrucibleActor} [actor]            A specific Actor to whom this Action is bound
+ * @property {CrucibleItem} [item]              A specific Item that provided this Action
+ * @property {RegionDocument} [region]          A RegionDocument associated with this Action
+ * @property {CrucibleTokenObject} [token]      A specific token performing this Action
+ * @property {CrucibleActionMovement} [movement]  Pre-resolved movement data attached to this Action
+ * @property {CrucibleChatMessage} [message]    The ChatMessage (if any) representing this Action
+ * @property {object} [metadata]                Arbitrary metadata persisted to the ChatMessage flags
+ * @property {ActionUsage} [usage]              Pre-configured action usage data
+ * @property {boolean} [autoFavorite]           Whether this action autopopulates the actor sheet favorites bar
+ */
+
+/**
+ * The construction context accepted by the {@link CrucibleAction} constructor and consumed by `_configure`.
+ * @typedef {DataModelConstructionContext & _CrucibleActionContext} CrucibleActionContext
+ */
+
+/**
  * A special Set that sorts action tags in priority order.
  */
 class CrucibleActionTags extends Set {
@@ -515,8 +538,13 @@ class CrucibleActionTags extends Set {
  *   application, or as standalone "effect" events.
  * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
  *    - Action hooks called: `postActivate`
- * - `CrucibleAction##finalizeEvents` - Compute final resource deltas and critical flags.
+ * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
+ *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
+ *      the action damages or heals another target.
+ * - `CrucibleAction##allocateResources` - Compute final resource deltas from roll damage.
  * - Actor hooks called: `finalizeAction`
+ * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
+ *      provenance on new effects, and effect-change snapshots for reversal.
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
  *   and create the message. The action is now persisted but not yet applied.
  *
@@ -542,7 +570,8 @@ class CrucibleActionTags extends Set {
  * - Use `roll` hooks to create attack/spell/check events, if standard tags are insufficient. See existing `roll` hooks
  *   in `const/action.mjs` for reference.
  * - Use `postActivate` hooks to inspect and modify the event stream after all rolls are complete. This is the
- *   right place to add, remove, or modify events based on action results.
+ *   right place to add, remove, or modify events based on action results, and the final phase permitted to mutate
+ *   roll data; later steps (critical effects, resource allocation) consume settled rolls.
  * - Use `confirm` hooks only for side effects that require the `reverse` parameter, such as committing or
  *   undoing movement. Most hooks belong in earlier lifecycle stages.
  * - If examining the effects for a specific actor, use {@linkcode CrucibleAction#eventsByActor},
@@ -564,7 +593,7 @@ class CrucibleActionTags extends Set {
  * - {@link ActionUseDialog} - The dialog presented during the "Usage" phase. Brokers target selection and action
  *   configuration before execution proceeds.
  *
- * @mixes CrucibleActionData
+ * @extends {foundry.abstract.DataModel<CrucibleActionData, CrucibleActionContext>}
  */
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -626,8 +655,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         duration: aeDuration,
         system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
       })),
-      tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
-      autoFavorite: new fields.BooleanField({initial: false})
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
 
@@ -663,31 +691,44 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The specific Actor to whom this Action is bound. May be undefined if the Action is unbound.
    * @type {CrucibleActor}
    */
-  actor = this.actor; // Defined during constructor
+  actor = this.actor; // Defined during _configure
 
   /**
    * The Affix ActiveEffect that provides this Action. Null if the Action is defined directly on an Item.
    * @type {ActiveEffect|null}
    */
-  affix = this.affix; // Defined during constructor
+  affix = this.affix; // Defined during _configure
 
   /**
    * The specific Item which contributed this Action. May be undefined if the Action did not originate from an Item.
    * @type {CrucibleItem}
    */
-  item = this.item; // Defined during constructor
+  item = this.item; // Defined during _configure
 
   /**
    * The message representing this action, if applicable
    * @type {CrucibleChatMessage|null}
    */
-  message = this.message; // Defined during constructor
+  message = this.message; // Defined during _configure
 
   /**
    * A planned or realized token movement associated with this action, used for movement-tagged actions.
    * @type {CrucibleActionMovement|null}
    */
-  movement = this.movement; // Defined during constructor
+  movement = this.movement; // Defined during _configure
+
+  /**
+   * Whether this action is auto-added to the actor sheet favorites bar. Declared by default-action definitions.
+   * @type {boolean}
+   */
+  autoFavorite = this.autoFavorite; // Defined during _configure
+
+  /**
+   * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
+   * Hooks can write keys during the use phase (e.g., preActivate) and read them during confirm.
+   * @type {object}
+   */
+  metadata = this.metadata;
 
   /**
    * The Actors explicitly targeted by this Action, mapped to their target data. Null before targets are acquired.
@@ -925,15 +966,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * One-time configuration of the CrucibleAction as part of construction.
-   * @param {object} [options]                    Options passed to the constructor context
-   * @param {CrucibleActor} [options.actor]         A specific Actor to whom this Action is bound
-   * @param {CrucibleItem} [options.item]           A specific Item that provided this Action
-   * @param {RegionDocument} [options.region]       A RegionDocument associated with this Action
-   * @param {CrucibleTokenObject} [options.token]   A specific token performing this Action
-   * @param {CrucibleChatMessage} [options.message] The specific ChatMessage (if any) representing this Action
-   * @param {ActionUsage} [options.usage]           Pre-configured action usage data
-   * @inheritDoc */
-  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, metadata={}, usage={}, ...options}) {
+   * @param {CrucibleActionContext} [options]     Options passed to the constructor context
+   * @inheritDoc
+   */
+  _configure({actor=null, item=null, region=null, movement=null, token=null, message=null, metadata={}, usage={},
+    autoFavorite=false, ...options}) {
     super._configure(options);
     const AffixModel = crucible.api.models.CrucibleAffixActiveEffect;
     const affix = (this.parent instanceof AffixModel) ? this.parent.parent : null;
@@ -945,13 +982,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       region: {value: region, writable: false, configurable: true},
       movement: {value: movement, writable: false, configurable: true},
       message: {value: message, writable: false, configurable: true},
-
-      /**
-       * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
-       * Hooks can write keys during the use phase (e.g., preActivate) and read them during confirm.
-       * @type {object}
-       */
-      metadata: {value: metadata}
+      autoFavorite: {value: autoFavorite, writable: false, configurable: true},
+      metadata: {value: metadata, writable: false, configurable: true}
     });
 
     /**
@@ -964,7 +996,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actorFlags: {},
       actorStatus: {},
       actorUpdates: {},
-      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
+      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, criticalSuccessThreshold: 0},
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
@@ -992,6 +1024,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      */
     Object.defineProperty(this, "hooks", {
       value: CrucibleAction.#prepareHooks(this.id),
+      configurable: true
+    });
+
+    /**
+     * Is this action triggered programmatically (e.g. Fall, Glide) and therefore hidden from the actor sheet?
+     * @type {boolean}
+     */
+    Object.defineProperty(this, "suppressFromSheet", {
+      value: crucible.api.hooks.action[this.id]?.suppressFromSheet === true,
       configurable: true
     });
 
@@ -1072,7 +1113,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       skill: 0,
       enchantment: 0,
       damageBonus: 0,
-      multiplier: 1
+      multiplier: 1,
+      criticalSuccessThreshold: 0
     });
   }
 
@@ -1106,6 +1148,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.region ??= this.region;
     context.movement ??= this.movement;
     context.message ??= this.message;
+    context.autoFavorite ??= this.autoFavorite;
     const clone = new this.constructor(actionData, context);
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
@@ -1185,24 +1228,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Invoke the configure Action hook for each tag, allowing tags to customize the action based on targets.
-   * This method is tolerant, it captures errors in hooks and allows the rest of the action workflow to proceed.
-   */
-  #configure() {
-    for ( const test of this._tests() ) {
-      if ( test.configure instanceof Function ) {
-        try {
-          test.configure.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Execute an Action.
    * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {CrucibleActionUsageOptions} [options]    Options which modify action usage
@@ -1255,7 +1280,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Acquire initial targets and configure the action
     this.acquireTargets({strict: false});
-    this.#configure();
+    this._callActionHooks("configure");
 
     // Prompt for action configuration
     if ( dialog ) {
@@ -1267,7 +1292,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         ui.notifications.warn(err);
         return null;
       }
-      this.#configure();
+      this._callActionHooks("configure");
     }
 
     // Initialize self events before pre-activation hooks
@@ -1295,8 +1320,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.#finalizeSelfEvents();
     this.#recordEffectEvents();
     await this._post();
-    this.#finalizeEvents();
+    const dealsDamage = this.#settleRollOutcomes();
+    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+    this.#allocateResources();
     this.actor.callActorHooks("finalizeAction", this);
+    this.#finalizeEvents();
 
     // Create the RegionDocument, visible to GMs and the placing user
     if ( this.region ) {
@@ -1405,9 +1433,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Call acquireTargets action hook
-    for ( const test of this._tests() ) {
-      if ( test.acquireTargets instanceof Function ) test.acquireTargets.call(this, targets);
-    }
+    this._callActionHooks("acquireTargets", targets);
 
     // Throw an error if any target had an error
     for ( const target of targets ) {
@@ -1572,6 +1598,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #acquireSingleTargets(strict) {
     const tokens = game.user.targets;
+    const targetDispositions = this.#getTargetDispositions();
     let errorAll;
 
     // Too few targets
@@ -1600,8 +1627,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( (token === this.token) && !this.damage?.restoration ) {
+      // `token` is a placeable from game.user.targets while this.token is a TokenDocument, so compare by id
+      if ( (token.id === this.token.id) && !this.damage?.restoration ) {
         t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
+        continue;
+      }
+      // Enforce the action's target scope by disposition (an empty set means scope NONE/SELF, which is unrestricted here)
+      if ( targetDispositions.length && !targetDispositions.includes(token.document.disposition) ) {
+        t.error ||= _loc("ACTION.WARNINGS.InvalidTargetScope", {action: this.name});
         continue;
       }
       const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);
@@ -1858,21 +1891,32 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Finalize the event stream by recording per-roll resource deltas and critical flags, and deriving post-movement
-   * statuses. Called after all postActivate hooks have had a chance to modify roll data.
-   * Allocate resource changes using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to the
-   * state of resource pools, allowing for accurate reversal.
+   * Settle roll outcomes by flagging critical results, and report whether the action dealt damage or healing.
+   * Runs after postActivate, the final phase permitted to mutate roll data.
+   * @returns {boolean}    Whether this action dealt damage or healing to a target other than the actor.
    */
-  #finalizeEvents() {
+  #settleRollOutcomes() {
+    let dealsDamage = false;
+    for ( const event of this.events ) {
+      if ( event.roll ) {
+        if ( event.roll.isCriticalSuccess ) event.isCriticalSuccess = true;
+        else if ( event.roll.isCriticalFailure ) event.isCriticalFailure = true;
+      }
+      dealsDamage ||= ((event.target !== this.actor) && (event.isDamage || event.isHealing));
+    }
+    return dealsDamage;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Allocate per-roll resource deltas using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to
+   * the state of resource pools so that reversal is accurate.
+   */
+  #allocateResources() {
     const allocations = new Map();
     for ( const event of this.events ) {
-
-      // Derive the resting movement status (flying/burrowing/falling) for the moved actor as a finalization sub-step
-      if ( event.type === "movement" ) this.#deriveMovementStatus(event);
-
       if ( !event.roll ) continue;
-      if ( event.roll.isCriticalSuccess ) event.isCriticalSuccess = true;
-      else if ( event.roll.isCriticalFailure ) event.isCriticalFailure = true;
 
       // Allocate resource changes
       const damage = event.roll.data.damage || {};
@@ -1904,9 +1948,62 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         event.resources.push({resource: r, delta, restoration, damageType});
       }
     }
+  }
 
-    // Expire an invisibility status
+  /* -------------------------------------------- */
+
+  /**
+   * The final authority over the event stream before persistence. Stage the last system-level effect changes
+   * (break invisibility, derive post-movement statuses incl. grapple breaks), then snapshot the pre-action state of
+   * every deleted/updated effect so the change can be reversed.
+   */
+  #finalizeEvents() {
+
+    // Remove an invisibility effect if this action breaks it
     this.#expireInvisibility();
+
+    // Attach derived movement-based statuses
+    for ( const event of this.events ) {
+      if ( event.type === "movement" ) this.#deriveMovementStatus(event);
+    }
+
+    // Finalize effect data
+    for ( const event of this.events ) {
+      for ( const effect of event.effects ) {
+
+        // An UNSTOPPABLE movement-blocker cannot be knocked Prone
+        if ( effect.statuses?.length && (effect._action !== "delete")
+          && (event.target?.system.movement.blockerStrength >= SYSTEM.ACTOR.MOVEMENT_STRENGTHS.UNSTOPPABLE) ) {
+          effect.statuses = effect.statuses.filter(s => s !== "prone");
+        }
+
+        // Snapshot current state for deletions and updates so reversal is possible
+        if ( (effect._action === "delete") || (effect._action === "update") ) {
+          const live = event.target?.effects.get(effect._id);
+          if ( live ) effect._snapshot = live.toObject();
+        }
+
+        // Annotate effects
+        else {
+          const d = event.roll?.data;
+          effect.system ??= {};
+
+          // Spell-applied effects gain the magical property
+          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
+            const properties = new Set(effect.system.properties);
+            properties.add("magical");
+            effect.system.properties = Array.from(properties);
+          }
+
+          // Populate effect removal difficulty
+          if ( effect.system.dc === undefined ) {
+            effect.system.dc = d
+              ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
+              : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
+          }
+        }
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -1917,9 +2014,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #expireInvisibility() {
     if ( !this.actor?.statuses.has("invisible") ) return;
     if ( !this.breaksInvisibility ) return;
+    const activation = this.selfEvents.activation;
     for ( const effect of this.actor.effects ) {
       if ( !effect.statuses.has("invisible") ) continue;
-      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: effect.id, _action: "delete"}]});
+      activation.effects.push({_id: effect.id, _action: "delete"});
     }
   }
 
@@ -2020,6 +2118,58 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Synchronously invoke an action hook across all tag handlers and this action's own hooks, bound to the action.
+   * @param {string} hookName     The hook name in {@link SYSTEM.ACTION_HOOKS}
+   * @param {...*} args           Arguments forwarded to each handler
+   * @throws {Error}              If the hook is async, or a handler throws and the hook's metadata sets throws.
+   * @protected
+   */
+  _callActionHooks(hookName, ...args) {
+    const cfg = SYSTEM.ACTION_HOOKS[hookName];
+    if ( !cfg ) throw new Error(`Invalid Action hook "${hookName}"`);
+    if ( cfg.async ) throw new Error(`Action hook "${hookName}" is async; use _callActionHooksAsync`);
+    for ( const test of this._tests() ) {
+      const fn = test[hookName];
+      if ( !(fn instanceof Function) ) continue;
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling "${hookName}" action hook for Action "${this.id}"`);
+      try {
+        fn.call(this, ...args);
+      } catch(err) {
+        if ( cfg.throws ) throw err;
+        console.error(new Error(`The "${hookName}" action hook failed for Action "${this.id}"`, {cause: err}));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Asynchronously invoke an action hook across all tag handlers and this action's own hooks, awaiting each in order.
+   * @param {string} hookName     The hook name in {@link SYSTEM.ACTION_HOOKS}
+   * @param {...*} args           Arguments forwarded to each handler
+   * @returns {Promise<void>}
+   * @throws {Error}              If a handler throws and the hook's metadata sets throws.
+   * @protected
+   */
+  async _callActionHooksAsync(hookName, ...args) {
+    const cfg = SYSTEM.ACTION_HOOKS[hookName];
+    if ( !cfg ) throw new Error(`Invalid Action hook "${hookName}"`);
+    for ( const test of this._tests() ) {
+      const fn = test[hookName];
+      if ( !(fn instanceof Function) ) continue;
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling "${hookName}" action hook for Action "${this.id}"`);
+      try {
+        await fn.call(this, ...args);
+      } catch(err) {
+        if ( cfg.throws ) throw err;
+        console.error(new Error(`The "${hookName}" action hook failed for Action "${this.id}"`, {cause: err}));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Configure aspects of action usage before the action is prepared.
    * @protected
    */
@@ -2041,15 +2191,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training);
 
     // Call configuration hooks
-    for ( const test of this._tests() ) {
-      if ( test.initialize instanceof Function ) {
-        try {
-          test.initialize.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed initialize hook for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
+    this._callActionHooks("initialize");
 
     // Build the weapon choice set now so requirement tags can filter it during the later prepare pass
     this.usage.weaponChoices = this._prepareWeaponChoices();
@@ -2067,15 +2209,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
 
     // Action-specific preparation
-    for ( const test of this._tests() ) {
-      if ( test.prepare instanceof Function ) {
-        try {
-          test.prepare.call(this);
-        } catch(err) {
-          console.error(new Error(`Failed prepare hook for Action "${this.id}"`, {cause: err}));
-        }
-      }
-    }
+    this._callActionHooks("prepare");
     this.actor?.callActorHooks("prepareAction", this);
 
     // Dedupe ability scaling
@@ -2189,7 +2323,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const can = test.canUse.call(this);
         if ( can === false ) {
           blocked = true;
-          if ( test.label ) errorReason = `with tag ${test.label}`;
+          if ( test.label ) errorReason = _loc("ACTION.WARNINGS.CannotUseTagGeneric", {tag: test.label});
         }
       } catch(err) {
         blocked = true;
@@ -2239,9 +2373,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _preActivate() {
-    for ( const test of this._tests() ) {
-      if ( test.preActivate instanceof Function ) await test.preActivate.call(this);
-    }
+    await this._callActionHooksAsync("preActivate");
     this.actor.callActorHooks("preActivateAction", this);
     this._canUse();
   }
@@ -2256,12 +2388,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _roll(target, token) {
-    for ( const test of this._tests() ) {
-      if ( test.roll instanceof Function ) {
-        await test.roll.call(this, target, token);
-      }
-    }
-    this.actor.callActorHooks("rollAction", this, target, token);
+    await this._callActionHooksAsync("roll", target, token);
+    await this.actor.callActorHooksAsync("rollAction", this, target, token);
   }
 
   /* -------------------------------------------- */
@@ -2273,11 +2401,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _post() {
-    for ( const test of this._tests() ) {
-      if ( test.postActivate instanceof Function ) {
-        await test.postActivate.call(this);
-      }
-    }
+    await this._callActionHooksAsync("postActivate");
   }
 
   /* -------------------------------------------- */
@@ -2318,13 +2442,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Additional Actor-specific consequences when the action deals damage to a target
-    if ( !isNegated && this.events.some(e => (e.target !== this.actor) && (e.isDamage || e.isHealing)) ) {
-      this.actor._onDealDamage(this);
+    // Per-target confirmation hooks; awaited in turn so async hooks (e.g. spell interrupts) resolve before events apply
+    for ( const actor of this.eventsByActor.keys() ) {
+      await actor.callActorHooksAsync("confirmAction", this, {reverse});
     }
-
-    // Per-target confirmation hooks
-    for ( const actor of this.eventsByActor.keys() ) actor.callActorHooks("confirmAction", this, {reverse});
 
     // Apply action events
     await this.#applyEvents({reverse, isNegated});
@@ -2346,14 +2467,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Post-confirm hooks after #applyEvents has completed and committed changes. Useful for chaining actions.
-    for ( const test of this._tests() ) {
-      if ( typeof test.postConfirm !== "function" ) continue;
-      try {
-        await test.postConfirm.call(this, reverse);
-      } catch ( cause ) {
-        console.error(new Error(`"${this.id}" postConfirm failed`, { cause }));
-      }
-    }
+    await this._callActionHooksAsync("postConfirm", reverse);
 
     // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
     if ( !reverse && !isNegated ) await this.#settleMovement();
@@ -2384,8 +2498,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
-        // When negated, only preserve self-costs from activation events
-        if ( isNegated ) {
+        if ( isNegated ) { // Only preserve self-costs
           if ( (event.type === "activation") && isSelf ) {
             batch.resources[resource] ??= 0;
             batch.resources[resource] += delta;
@@ -2400,13 +2513,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !isNegated && event.effects.length ) batch.effects.push(...event.effects);
 
       // Accumulate actor updates
+      // TODO https://github.com/foundryvtt/crucible/issues/821
+      // Negation rework should skip actorUpdates so a negated critical cannot consume once-per-turn sentinels
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
 
       // Accumulate item snapshots
       if ( event.itemSnapshots ) batch.itemSnapshots.push(...event.itemSnapshots);
 
       // Stage planned movement; on reverse, also clear free-move bookkeeping if this consumed it
-      if ( event.type === "movement" ) {
+      if ( (event.type === "movement") && event.movement ) {
         batch.movementId = event.movement.id;
         if ( reverse && (event.movement.id === actor.system.status?.freeMovementId) ) {
           foundry.utils.setProperty(batch.actorUpdates, "system.status.hasMoved", false);
@@ -2502,6 +2617,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {burrowing, falling, flying} = CONFIG.statusEffects;
     const {BURROW, FLY} = CONFIG.specialStatusEffects;
     const actor = event.target;
+
+    // A grappled target cannot be moved except by the grappler
+    const grapple = crucible.api.hooks.action.grapple;
+    const grappled = actor.effects.get(grapple._GRAPPLED_EFFECT_ID);
+    if ( grappled && (grappled.origin !== this.actor.uuid) ) {
+      event.movement = null;
+      return;
+    }
+
+    // A grappler who voluntarily or involuntarily moves breaks the grapple
+    const grappling = actor.effects.get(grapple._GRAPPLING_EFFECT_ID);
+    if ( grappling ) {
+      event.effects.push({_id: grapple._GRAPPLING_EFFECT_ID, _action: "delete"});
+      const captive = grappling.origin ? fromUuidSync(grappling.origin) : null;
+      if ( captive ) this.recordEvent({type: "effect", target: captive,
+        effects: [{_id: grapple._GRAPPLED_EFFECT_ID, _action: "delete"}]});
+    }
 
     // Resolve the moved token and its planned movement, matched by movement id
     const isSelf = actor === this.actor;
@@ -2736,9 +2868,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Pass 3 - delegate to tag-defined resolveVFX hooks for computing reference values
-    for ( const test of this._tests() ) {
-      if ( test.resolveVFX instanceof Function ) test.resolveVFX.call(this, vfxEffect, references);
-    }
+    this._callActionHooks("resolveVFX", vfxEffect, references);
 
     // Resolve VFXReferenceField values using the now-complete references map
     // FIXME: restore the line below and delete #resolveVFXReferences once the minimum core build exceeds 14.363
@@ -2748,9 +2878,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
     // References are frozen to enforce the contract that finalizeVFX must not modify them.
     Object.freeze(references);
-    for ( const test of this._tests() ) {
-      if ( test.finalizeVFX instanceof Function ) test.finalizeVFX.call(this, vfxEffect, references);
-    }
+    this._callActionHooks("finalizeVFX", vfxEffect, references);
 
     // Play the effect. Sound is orchestrated by positionalSound components within the timeline,
     // so preload and playback are handled internally by VFXEffect#play alongside the visuals.
@@ -3211,7 +3339,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const actionId = actionData.id;
     const actionContext = {parent: item?.system, actor, item, token, region, movement, message, metadata, lazy: true};
     let action;
-    if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
+    // An unprepared actor has no `actions` map (e.g. getLastAction called during data prep); reconstruct from the
+    // serialized action data instead
+    if ( actor?.actions && (actionId in actor.actions) ) action = actor.actions[actionId].clone({}, actionContext);
     else if ( actionId.startsWith("spell.") ) {
       action = new game.system.api.models.CrucibleSpellAction(actionData, actionContext);
     }
@@ -3286,7 +3416,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static getDefaultAction(actionId) {
     const ad = SYSTEM.ACTION.DEFAULT_ACTIONS.find(a => a.id === actionId);
     if ( !ad ) return null;
-    return new this(foundry.utils.deepClone(ad));
+    return new this(foundry.utils.deepClone(ad), {autoFavorite: ad.autoFavorite});
   }
 
   /* -------------------------------------------- */

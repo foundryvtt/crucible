@@ -12,16 +12,52 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /**
+   * Handler for the "scaleResource" change type registered in {@link CONFIG.ActiveEffect.changeTypes}.
+   * The change key targets a resource pool (e.g. "system.resources.morale") and the value is a multiplicative factor.
+   * Must be authored with `phase: "final"` so it scales the derived maximum rather than running pre-derivation.
+   * @param {CrucibleActor} actor                   The target actor whose resource is scaled.
+   * @param {EffectChangeData} change               The change being applied.
+   * @param {object} [options]
+   * @param {boolean} [options.modifyTarget=true]   Whether to mutate the target document.
+   */
+  static applyScaleResource(actor, change, {modifyTarget=true}={}) {
+    if ( !modifyTarget ) return;
+    const resource = foundry.utils.getProperty(actor, change.key);
+    if ( !resource || !("max" in resource) ) return;
+    const factor = Number(change.value);
+    if ( !Number.isFinite(factor) ) return;
+    resource.max = Math.max(Math.ceil(resource.max * factor), 0);
+    resource.value = Math.clamp(resource.value, 0, resource.max);
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   static async _fromStatusEffect(statusId, effectData, options) {
     const status = CONFIG.statusEffects[statusId];
     if ( status?.generator ) {
       const generated = status.generator();
       delete generated._id; // Preserve toggled _id
+      delete generated.img; // Preserve toggled icon to avoid confusion
       foundry.utils.mergeObject(effectData, generated, {overwrite: true});
       effectData.duration = {}; // Toggled effects have unlimited duration
     }
     return super._fromStatusEffect(statusId, effectData, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this effect bears only the given status condition and no other mechanical content.
+   * Distinguishes effects safe to delete outright from compound effects that should only have the status expired.
+   * @param {string} statusId   The status condition to test for sole ownership
+   * @returns {boolean}         True if this status is the effect's sole status, and it carries no other content
+   */
+  isStatusOnly(statusId) {
+    if ( !((this.statuses.size === 1) && this.statuses.has(statusId)) ) return false;
+    const {changes, dot, summons, regions, maintenance} = this.system;
+    return !(changes?.length || dot?.length || summons?.length || regions?.length || maintenance);
   }
 
   /* -------------------------------------------- */
@@ -113,12 +149,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
     // Affix effects specifically
     if ( this.type === "affix" ) {
-      if ( ("system" in changes) && ("identifier" in changes.system)
+      if ( "duration" in changes ) changes.duration = {value: null};
+
+      // Disallow changing identifier for embedded affixes
+      if ( this.parent && ("system" in changes) && ("identifier" in changes.system)
         && (changes.system.identifier !== this.system.identifier) ) {
         console.warn("The identifier of an existing affix cannot be changed.");
         return false;
       }
-      if ( "duration" in changes ) changes.duration = {value: null};
     }
   }
 

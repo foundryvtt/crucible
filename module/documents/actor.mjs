@@ -274,12 +274,39 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Call all actor hooks registered for a certain event name.
-   * Each registered function is called in sequence.
-   * @param {string} hook     The hook name to call.
+   * Call all synchronous actor hooks registered for a certain event name, in registration order.
+   * @param {string} hook     The hook name to call
    * @param {...*} args       Arguments passed to the hooked function
+   * @throws {Error}          If the hook type is async; call {@link CrucibleActor#callActorHooksAsync} instead
    */
   callActorHooks(hook, ...args) {
+    if ( !("actorHooks" in this.system) ) return;
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
+    if ( hookConfig.async ) throw new Error(`Actor hook "${hook}" is async; use callActorHooksAsync`);
+    const hooks = this.system.actorHooks[hook] ||= [];
+    for ( const {item, fn} of hooks ) {
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
+      try {
+        fn.call(this, item, ...args);
+      } catch(err) {
+        if ( hookConfig.throws ) throw err;
+        const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
+        console.error(msg, err);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call all actor hooks registered for a certain event name, awaiting each in registration order so async hooks
+   * resolve deterministically and may build upon one another.
+   * @param {string} hook     The hook name to call
+   * @param {...*} args       Arguments passed to the hooked function
+   * @returns {Promise<void>}
+   */
+  async callActorHooksAsync(hook, ...args) {
     if ( !("actorHooks" in this.system) ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
@@ -287,7 +314,7 @@ export default class CrucibleActor extends Actor {
     for ( const {item, fn} of hooks ) {
       if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
-        fn.call(this, item, ...args);
+        await fn.call(this, item, ...args);
       } catch(err) {
         if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
@@ -343,12 +370,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Configure attack roll options contributed by the acting actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} target                  The target actor being attacked
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
-  _configureAttackerRollData(action, target, rollData) {
+  _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -376,19 +402,17 @@ export default class CrucibleActor extends Actor {
 
     // Call attacker hooks
     this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareAttack", action, target, rollData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Configure attack roll options contributed by the target actor based on their status conditions.
-   * @param {CrucibleAction} action                 The action being performed
-   * @param {CrucibleActor} actor                   The actor performing the action
-   * @param {AttackRollData} rollData       The mutable roll data for the attack
+   * @param {CrucibleAction} action    The action being performed
+   * @param {AttackRollData} rollData  The mutable roll data for the attack
    * @internal
    */
-  _configureTargetRollData(action, actor=null, rollData) {
+  _configureTargetRollData(action, rollData) {
     const {boons, banes} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
@@ -408,9 +432,25 @@ export default class CrucibleActor extends Actor {
         boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
       }
     }
+  }
 
-    // Call defender hooks (skipped for hazards where there is no attacker)
-    if ( actor ) this.callActorHooks("defendAttack", action, actor, rollData);
+  /* -------------------------------------------- */
+
+  /**
+   * Configure attack roll options contributed by attacker & target based on status conditions & hooks.
+   * @param {CrucibleAction} action   The action being performed
+   * @param {CrucibleActor} actor     The actor performing the attack
+   * @param {CrucibleActor} target    The target actor being attacked
+   * @param {AttackRollData} rollData The mutable roll data for the attack
+   * @internal
+   */
+  static _configureRollData(action, actor, target, rollData) {
+    actor._configureAttackerRollData(action, rollData);
+    target._configureTargetRollData(action, rollData);
+
+    // Call attacker & defender hooks now that base rollData is populated
+    actor.callActorHooks("prepareAttack", action, target, rollData);
+    target.callActorHooks("defendAttack", action, actor, rollData);
   }
 
   /* -------------------------------------------- */
@@ -755,8 +795,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(spell, target, rollData);
-    target._configureTargetRollData(spell, this, rollData);
+    CrucibleActor._configureRollData(spell, this, target, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -823,8 +862,8 @@ export default class CrucibleActor extends Actor {
       multiplier: options.multiplier || 1
     };
 
-    // Target configuration and hooks (no attacker for hazards)
-    this._configureTargetRollData(action, null, rollData);
+    // Target configuration (no attacker/hooks for hazards)
+    this._configureTargetRollData(action, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -885,8 +924,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new AttackRoll(rollData);
@@ -940,7 +978,7 @@ export default class CrucibleActor extends Actor {
       banes: {...action.usage.banes, ...options.banes},
       defenseType,
       dc: target.defenses[defenseType].total,
-      criticalSuccessThreshold: damage.criticalSuccessThreshold,
+      criticalSuccessThreshold: damage.criticalSuccessThreshold + (action.usage.bonuses.criticalSuccessThreshold ?? 0),
       criticalFailureThreshold: damage.criticalFailureThreshold,
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
@@ -949,29 +987,21 @@ export default class CrucibleActor extends Actor {
     };
 
     // Actor configuration and hooks
-    this._configureAttackerRollData(action, target, rollData);
-    target._configureTargetRollData(action, this, rollData);
+    CrucibleActor._configureRollData(action, this, target, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Structure damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    const result = roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: weapon.system.damage.weapon,
       bonus: weapon.system.damage.bonus + rollData.damageBonus,
-      resistance: target.getResistance(rollData.resource, rollData.damageType, false),
       resource: rollData.resource,
-      type: rollData.damageType
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      damageType: rollData.damageType
+    });
 
-    // Finalize the attack and return
-    target.callActorHooks("receiveAttack", action, roll);
+    // Finalize the attack and return; offensive reactions fire only on a connecting hit
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
@@ -1150,12 +1180,24 @@ export default class CrucibleActor extends Actor {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
-      const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
-      const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
       if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
-      if ( shouldUpdate ) toUpdate.push(effectData);
-      else if ( shouldDelete ) toDelete.push(effectData._id);
-      else if ( !reverse ) toCreate.push(effectData);
+
+      // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it
+      if ( reverse ) {
+        if ( forceUpdate ) {
+          if ( effectData._snapshot ) (existing ? toUpdate : toCreate).push(effectData._snapshot);
+        }
+        else if ( forceDelete ) {
+          if ( effectData._snapshot && !existing ) toCreate.push(effectData._snapshot);
+        }
+        else if ( existing ) toDelete.push(effectData._id);
+        continue;
+      }
+
+      // Forward
+      if ( existing && !forceDelete ) toUpdate.push(effectData);
+      else if ( existing && forceDelete ) toDelete.push(effectData._id);
+      else toCreate.push(effectData);
     }
     const batchOperations = this.defineBatchOperations({}, {
       createEffects: {changes: toCreate, options: {keepId: true}},
@@ -1163,17 +1205,6 @@ export default class CrucibleActor extends Actor {
       deleteEffects: toDelete
     });
     if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Additional steps taken when this Actor deals damage to other targets.
-   * @param {CrucibleAction} action                The action performed
-   * @internal
-   */
-  _onDealDamage(action) {
-    this.callActorHooks("applyCriticalEffects", action);
   }
 
   /* -------------------------------------------- */
@@ -1299,9 +1330,9 @@ export default class CrucibleActor extends Actor {
         }
         const confirm = await DialogV2.confirm({
           window: {
-            title: `Maintain Focus: ${effect.name}`
+            title: _loc("ACTION.MaintainTitle", {effect: effect.name})
           },
-          content: `<p>Spend ${maintainedCost} Focus to maintain ${effect.name}?</p>`
+          content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
         });
         if ( confirm ) {
           resourceChanges.focus.push({
@@ -1620,10 +1651,10 @@ export default class CrucibleActor extends Actor {
     if ( dialog ) {
       const confirm = await DialogV2.confirm({
         window: {
-          title: `Reset Talents: ${this.name}`,
+          title: _loc("ACTOR.ACTIONS.ResetTalentsTitle", {actor: this.name}),
           icon: "fa-solid fa-undo"
         },
-        content: "<p>Are you sure you wish to reset all Talents?</p>",
+        content: _loc("ACTOR.ACTIONS.ResetTalentsContent"),
         yes: {
           default: true
         }

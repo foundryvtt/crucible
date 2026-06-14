@@ -1,4 +1,4 @@
-name: Lightning Potency
+name: Storm Potency
 type: affix
 duration:
   value: null
@@ -6,8 +6,8 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Lightning Potency
-  identifier: lightningPotency
+  adjective: Storm Potency
+  identifier: stormPotency
   changes: []
   affixType: suffix
   tier:
@@ -16,13 +16,13 @@ system:
     value: 1
   itemTypes:
     - weapon
-_id: lightningPtcy000
+_id: stormPotency0000
 img: icons/magic/lightning/bolt-strike-blue.webp
 disabled: false
 start: null
 description: >-
   <p>Increase the <strong>Enchantment Bonus</strong> for spells using the
-  <strong>Lightning</strong> rune by 1 for each <strong>Tier</strong> of this
+  <strong>Storm</strong> rune by 1 for each <strong>Tier</strong> of this
   suffix.</p>
 origin: null
 tint: '#ffffff'
@@ -42,4 +42,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!effects!lightningPtcy000'
+_key: '!effects!stormPotency0000'

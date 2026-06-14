@@ -623,17 +623,33 @@ export default class ActionUseDialog extends StandardCheckDialog {
       this.#previewMovementAction = this.action.clone({}, {lazy: true});
     }
 
-    // Await the user designating a movement plan, including crucible-specific movement constraint options
-    const plan = await token.object.planMovement({
-      allowedActions: movementUsage.action ? [movementUsage.action] : null,
-      minCost: this.action.range?.minimum ?? undefined,
-      maxCost: this.action.range?.maximum ?? undefined,
-      direct: movementUsage.direct ?? true,
-      constrainOptions: {
-        ...(movementUsage.constrainOptions ?? {}),
-        crucible: {ignoreTokens: movementUsage.ignoreTokens ?? false}
-      }
-    });
+    // Await the user designating a movement plan, including crucible-specific movement constraint options. A collision
+    // predicate cannot be serialized through constrainOptions, so it is stashed on the token for the planning session
+    // and ALSO baked into a static excludeTokens id list, which (unlike the predicate) survives to the execution phase.
+    token.object._movementExcludeTest = movementUsage.excludeTokenTest ?? null;
+    let excludeTokens = movementUsage.excludeTokens;
+    if ( movementUsage.excludeTokenTest ) {
+      const tested = canvas.tokens.placeables.filter(t => t.actor && movementUsage.excludeTokenTest(t)).map(t => t.id);
+      excludeTokens = excludeTokens ? [...excludeTokens, ...tested] : tested;
+    }
+    let plan;
+    try {
+      plan = await token.object.planMovement({
+        allowedActions: movementUsage.action ? [movementUsage.action] : null,
+        minCost: this.action.range?.minimum ?? undefined,
+        maxCost: this.action.range?.maximum ?? undefined,
+        direct: movementUsage.direct ?? true,
+        constrainOptions: {
+          ...(movementUsage.constrainOptions ?? {}),
+          crucible: {
+            excludeTokens,
+            movementStrength: movementUsage.strength
+          }
+        }
+      });
+    } finally {
+      token.object._movementExcludeTest = null;
+    }
     this.#previewMovementAction = null;
 
     // Restore minimized windows

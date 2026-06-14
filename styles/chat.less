@@ -122,9 +122,12 @@
 
     // Frame an action summary that follows a dice roll
     .dice-roll + .action-summary {
-      margin-top: -1rem;
+      margin-top: -0.5rem;
       padding: 0.25rem 0;
       border-bottom: 1px solid var(--color-frame);
+    }
+    .dice-roll.damage + .action-summary {
+      margin-top: -1rem;
     }
     .dice-roll.expanded + .action-summary {
       margin-top: 0;

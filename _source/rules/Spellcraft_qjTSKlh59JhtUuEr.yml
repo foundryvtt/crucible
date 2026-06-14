@@ -50,8 +50,8 @@ pages:
         class="gameplay"><h4>Example: Zarajah the Pyromancer</h4><p>Zarajah is
         an ambitious Level 6 sorcerer who strives to master the arts of
         elemental magic. Zarajah knows the runes for <strong>Flame</strong>,
-        <strong>Kinesis</strong>, and <strong>Lightning</strong> as well as
-        gestures for <strong>Touch</strong> (automatically learned),
+        <strong>Kinesis</strong>, and <strong>Storm</strong> as well as gestures
+        for <strong>Touch</strong> (automatically learned),
         <strong>Influence</strong>, and <strong>Arrow</strong>. Additionally,
         Zarajah has also learned the <strong>Quicken</strong> inflection. Using
         these components, Zarajah has access to 18 different combinations which
@@ -126,13 +126,13 @@ pages:
         system.</p><table><tbody><tr><th><p>Intellect
         Runes</p></th><th><p>Axiom</p></th><th><p>Damage
         Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Flame</p></td><td><p>Chaotic</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>Illusion</p></td><td><p>Chaotic</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Illumination</p></td></tr><tr><td><p>Lightning</p></td><td><p>Chaotic</p></td><td><p>Electricity</p></td><td><p>Fortitude</p></td><td><p>Earth</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Chaotic</p></td><td><p>Void</p></td><td><p>Willpower</p></td><td><p>Soul</p></td></tr><tr><th><p>Presence
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Flame</p></td><td><p>Chaotic</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>Illusion</p></td><td><p>Chaotic</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Illumination</p></td></tr><tr><td><p>Storm</p></td><td><p>Chaotic</p></td><td><p>Electricity</p></td><td><p>Fortitude</p></td><td><p>Earth</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Chaotic</p></td><td><p>Void</p></td><td><p>Willpower</p></td><td><p>Soul</p></td></tr><tr><th><p>Presence
         Runes</p></th><th><p>Axiom</p></th><th><p>Damage
         Type</p></th><th><p>Target
         Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Death</p></td><td><p>Orderly</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>Illumination</p></td><td><p>Orderly</p></td><td><p>Radiant</p></td><td><p>Reflex</p></td><td><p>Illusion</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Chaotic</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Control</p></td></tr><tr><td><p>Soul</p></td><td><p>Orderly</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Oblivion</p></td></tr><tr><th><p>Wisdom
         Runes</p></th><th><p>Axiom</p></th><th><p>Damage
         Type</p></th><th><p>Target
-        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Control</p></td><td><p>Orderly</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td></tr><tr><td><p>Earth</p></td><td><p>Orderly</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>Frost</p></td><td><p>Orderly</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>Life</p></td><td><p>Chaotic</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr></tbody><tfoot><tr><td
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>Control</p></td><td><p>Orderly</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td></tr><tr><td><p>Earth</p></td><td><p>Orderly</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Storm</p></td></tr><tr><td><p>Frost</p></td><td><p>Orderly</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>Life</p></td><td><p>Chaotic</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr></tbody><tfoot><tr><td
         colspan="5">* - Rune is used primarily for Restoration rather than for
         Damage.</td></tr></tfoot></table><p>The choice of Rune used in the
         casting of a spell affects or determines a variety of aspects of the
@@ -159,7 +159,7 @@ pages:
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeIllusion0000
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeKinesis00000
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeLife00000000
-        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeLightning000
+        inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeStorm0000000
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeOblivion0000
         inline]</p><p>@Embed[Compendium.crucible.talent.Item.runeSoul00000000
         inline]</p><h2 class="divider">Creature Types</h2><p>Certain magical
@@ -170,8 +170,8 @@ pages:
         Elementals</p></td></tr><tr><td><p>Flame</p></td><td><p>Dragons and Fire
         Elementals</p></td></tr><tr><td><p>Frost</p></td><td><p>Giants and Frost
         Elementals</p></td></tr><tr><td><p>Illumination</p></td><td><p>Celestials</p></td></tr><tr><td><p>Illusion</p></td><td><p>Fey</p></td></tr><tr><td><p>Kinesis</p></td><td><p>Monstrosities</p></td></tr><tr><td><p>Life</p></td><td><p>Plants
-        and Beasts</p></td></tr><tr><td><p>Lightning</p></td><td><p>Constructs
-        and Storm
+        and Beasts</p></td></tr><tr><td><p>Storm</p></td><td><p>Constructs and
+        Storm
         Elementals</p></td></tr><tr><td><p>Oblivion</p></td><td><p>Outsiders</p></td></tr><tr><td><p>Soul</p></td><td><p>Humanoids</p></td></tr></tbody></table>
       markdown: ''
     video:

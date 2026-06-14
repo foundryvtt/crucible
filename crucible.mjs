@@ -143,6 +143,11 @@ Hooks.once("init", async function() {
     compendiumIndexFields: ["system.identifier", "system.affixType"],
     expiryAction: "delete"
   });
+  CONFIG.ActiveEffect.changeTypes.scaleResource = {
+    label: "ACTIVE_EFFECT.CHANGE_TYPES.scaleResource",
+    defaultPriority: 100,
+    handler: documents.CrucibleActiveEffect.applyScaleResource
+  };
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -238,6 +243,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
   sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleAffixEffectSheet, {types: ["affix"], label: "CRUCIBLE.SHEETS.Affix", makeDefault: true});
+  sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleActiveEffectSheet, {types: ["base"], label: "CRUCIBLE.SHEETS.Effect", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
@@ -269,7 +275,10 @@ Hooks.once("init", async function() {
         const label = foundry.utils.escapeHTML(tag.label ?? tag);
         const styleString = tag.color ? ` style="--tag-color: ${tag.color.css}"` : "";
         const tooltipString = tag.tooltip ? ` data-crucible-tooltip-text="${tag.tooltip}"` : "";
-        return `<span class="${classes}" data-crucible-tooltip="tag" data-tag="${id}"${styleString}${tooltipString}>${label}</span>`;
+        const tooltipType = tag.tooltipType ?? "tag";
+        let datasetString = "";
+        for ( const [k, v] of Object.entries(tag.dataset ?? {}) ) datasetString += ` data-${k}="${foundry.utils.escapeHTML(v)}"`;
+        return `<span class="${classes}" data-crucible-tooltip="${tooltipType}" data-tag="${id}"${styleString}${tooltipString}${datasetString}>${label}</span>`;
       });
       if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
       const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`;
@@ -560,6 +569,9 @@ function preLocalizeConfig() {
 
   // Crafting
   localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
+
+  // Effects
+  localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
 
   // Item
   localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);

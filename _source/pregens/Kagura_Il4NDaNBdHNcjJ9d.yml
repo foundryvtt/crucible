@@ -289,11 +289,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142924
-      modifiedTime: 1780588142924
+      createdTime: 1781382739656
+      modifiedTime: 1781382739656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -332,11 +332,11 @@ items:
       identifier: scaleMail
       invested: false
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142924
-      modifiedTime: 1780588142924
+      createdTime: 1781382739656
+      modifiedTime: 1781382739656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -373,12 +373,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142924
+      modifiedTime: 1781382739656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142924
+      createdTime: 1781382739656
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -414,12 +414,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142925
+      modifiedTime: 1781382739656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142925
+      createdTime: 1781382739656
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -451,12 +451,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142925
+      modifiedTime: 1781382739657
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142925
+      createdTime: 1781382739657
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -512,6 +512,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
           tags:
             - healing
             - health
@@ -530,7 +532,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 1
       rune: life
       nodes:
@@ -544,12 +545,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142925
+      modifiedTime: 1781382739657
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142925
+      createdTime: 1781382739657
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -582,12 +583,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142925
+      modifiedTime: 1781382739657
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142925
+      createdTime: 1781382739657
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -619,12 +620,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142925
+      modifiedTime: 1781382739657
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142925
+      createdTime: 1781382739657
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -639,11 +640,12 @@ items:
     img: icons/magic/earth/orb-stone-smoke-teal.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Earth. Spells which use
-        this Rune cause the @Condition[corroding] condition on Critical
-        Hits.</p><p>The Corroding effect lasts for <strong>3 Rounds</strong> and
-        deals half your <strong>Wisdom</strong> score as <strong>Acid</strong>
-        damage to <strong>Health</strong> each Round.</p>
+        <p>You are highly skilled in weaving the Rune of Earth. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        deal damage cause the @Condition[corroding] condition.</p><p>The
+        Corroding effect lasts for <strong>3 Rounds</strong> and deals half your
+        <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
+        <strong>Health</strong> each Round.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -658,12 +660,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142926
+      modifiedTime: 1781382739658
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142926
+      createdTime: 1781382739658
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -719,7 +721,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: talisman
@@ -733,12 +734,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142926
-      createdTime: 1780588142926
+      modifiedTime: 1781382739658
+      createdTime: 1781382739658
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -772,12 +773,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588142926
+      modifiedTime: 1781382739658
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142926
+      createdTime: 1781382739658
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -835,7 +836,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: ''
       gesture: ''
       inflection: ''
@@ -846,11 +846,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142926
-      modifiedTime: 1780588142926
+      createdTime: 1781382739658
+      modifiedTime: 1781382739658
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -902,11 +902,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142927
-      modifiedTime: 1780588142927
+      createdTime: 1781382739658
+      modifiedTime: 1781382739658
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -958,11 +958,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142927
-      modifiedTime: 1780588142927
+      createdTime: 1781382739659
+      modifiedTime: 1781382739659
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1000,11 +1000,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142927
-      modifiedTime: 1780588142927
+      createdTime: 1781382739659
+      modifiedTime: 1781382739659
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1057,7 +1057,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       nodes:
         - pre2a
       rune: ''
@@ -1070,11 +1069,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142927
-      modifiedTime: 1780588142927
+      createdTime: 1781382739659
+      modifiedTime: 1781382739659
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1113,11 +1112,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142927
-      modifiedTime: 1780588142927
+      createdTime: 1781382739659
+      modifiedTime: 1781382739659
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1133,10 +1132,11 @@ items:
     img: icons/magic/light/explosion-star-glow-silhouette.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Soul. Spells which use
-        this Rune cause the @Condition[inspired] condition on Critical
-        Hits.</p><p>The Inspired effect lasts for <strong>1 Round</strong> and
-        deals your <strong>Presence</strong> score as additional
+        <p>You are highly skilled in weaving the Rune of Soul. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        restore Morale cause the @Condition[inspired] condition.</p><p>The
+        Inspired effect lasts for <strong>1 Round</strong> and deals your
+        <strong>Presence</strong> score as additional
         <strong>Restoration</strong> to <strong>Morale</strong>.</p>
       actions: []
       nodes:
@@ -1151,11 +1151,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142928
-      modifiedTime: 1780588142928
+      createdTime: 1781382739659
+      modifiedTime: 1781382739659
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1171,11 +1171,12 @@ items:
     img: icons/magic/life/cross-beam-green.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Life. Spells which use
-        this Rune cause the @Condition[mending] condition on Critical
-        Hits.</p><p>The Mending effect lasts for <strong>1 Round</strong> and
-        deals your <strong>Wisdom</strong> score as additional
-        <strong>Restoration</strong> to <strong>Health</strong>.</p>
+        <p>You are highly skilled in weaving the Rune of Life. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        restore Health cause the @Condition[mending] condition.</p><p>The
+        Mending effect lasts for <strong>1 Round</strong> and deals your
+        <strong>Wisdom</strong> score as additional <strong>Restoration</strong>
+        to <strong>Health</strong>.</p>
       actions: []
       nodes:
         - wis3b
@@ -1189,11 +1190,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142928
-      modifiedTime: 1780588142928
+      createdTime: 1781382739660
+      modifiedTime: 1781382739660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1235,11 +1236,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142928
-      modifiedTime: 1780588142928
+      createdTime: 1781382739660
+      modifiedTime: 1781382739660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1304,7 +1305,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: soul
       nodes:
         - pre0b
@@ -1318,11 +1318,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142928
-      modifiedTime: 1780588142928
+      createdTime: 1781382739660
+      modifiedTime: 1781382739660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1355,11 +1355,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142928
-      modifiedTime: 1780588142928
+      createdTime: 1781382739660
+      modifiedTime: 1781382739660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1392,11 +1392,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142929
-      modifiedTime: 1780588142929
+      createdTime: 1781382739660
+      modifiedTime: 1781382739660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1416,7 +1416,7 @@ items:
         physical compounds.</p><p>The Earth rune scales using
         <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
         <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Lightning</strong>.</p>
+        by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
           name: Mould
@@ -1459,7 +1459,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: earth
       nodes:
         - wis0b
@@ -1473,11 +1472,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142929
-      modifiedTime: 1780588142929
+      createdTime: 1781382739661
+      modifiedTime: 1781382739661
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1540,7 +1539,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: life
       training:
         type: life
@@ -1554,11 +1552,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588142929
-      modifiedTime: 1780588142929
+      createdTime: 1781382739661
+      modifiedTime: 1781382739661
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1660,11 +1658,11 @@ flags:
         messageId: OhEmh4Wf2BjFDsk2
         combat: null
 _stats:
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.5
-  createdTime: 1780588142923
-  modifiedTime: 1780588142923
+  createdTime: 1781382739655
+  modifiedTime: 1781382739655
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

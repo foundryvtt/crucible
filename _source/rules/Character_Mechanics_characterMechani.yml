@@ -149,19 +149,18 @@ pages:
         resource which begins full and is decreased when a character sustains
         damage in combat. <strong>Wounds</strong> are a permanent resource which
         increase when a character suffers grievous injury.</p><p>If the Health
-        pool is reduced to zero, the character becomes
-        <strong>Incapacitated</strong> and begins to suffer Wounds. If the
-        Wounds meter reaches its maximum, the character becomes
-        <strong>Dead</strong>.</p></dd><dt><p>Morale and
+        pool is reduced to zero, the character becomes @Condition[weakened] and
+        begins to suffer Wounds. If the Wounds meter reaches its maximum, the
+        character becomes @Condition[dead].</p></dd><dt><p>Morale and
         Madness</p></dt><dd><p>The mental health of a character is similarly
         modeled using two resource pools. <strong>Morale</strong> is a temporary
         resource which begins full and is decreased as the character suffers
         stress or trauma. <strong>Madness</strong> is a permanent resource which
-        increases when a character suffers grievous mental strain.</p></dd><p>If
-        the Morale pool is reduced to zero, the character becomes
-        <strong>Broken</strong> and begins to suffer Madness. If the Madness
-        meter reaches its maximum, the character becomes
-        <strong>Insane</strong>.</p></dl><h2 class="divider">Capacity for
+        increases when a character suffers grievous mental
+        strain.</p></dd></dl><p>If the Morale pool is reduced to zero, the
+        character becomes @Condition[broken] and begins to suffer Madness. If
+        the Madness meter reaches its maximum, the character becomes
+        @Condition[insane].</p><h2 class="divider">Capacity for
         Action</h2><p>Two resource pools define a character's ability to take
         action during game
         situations.</p><dl><dt><p>Action</p></dt><dd><p><strong>Action
@@ -204,12 +203,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.363'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697210522
-      modifiedTime: 1762036065810
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1780586345014
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!characterMechani.Resources0000000'
   - _id: Resistances00000
     name: Resistances and Vulnerability
@@ -524,7 +523,14 @@ pages:
         them, and are mirrored across two ability scores. Taking a Signature
         Talent forms a bridge to its paired ability score, allowing you to
         continue your path of progression into that sextant regardless of
-        whether you have already purchased lower-tier Talents.</p>
+        whether you have already purchased lower-tier Talents.</p><p>The number
+        of Signature Talents you may acquire is determined by your character
+        level. You acquire your first Signature Talent at level 3, and one
+        additional Signature Talent at every third level thereafter, to a
+        maximum of six Signature Talents at level 18. Within this limit there
+        are no further restrictions: you may acquire multiple Signature Talents
+        from the same node, or from nodes which share the same tier or ability
+        scores.</p>
     video:
       controls: true
       volume: 0.5

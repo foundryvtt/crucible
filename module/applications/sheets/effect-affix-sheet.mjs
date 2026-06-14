@@ -114,6 +114,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         context.fields = effect.system.schema.fields;
         context.isEditable = this.isEditable;
         context.fieldDisabled = this.isEditable ? "" : "disabled";
+        context.identifierLocked = !!this.document.parent;
         context.itemTypeOptions = Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES).map(t => ({
           value: t, label: _loc(CONFIG.Item.typeLabels[t] ?? t)
         }));

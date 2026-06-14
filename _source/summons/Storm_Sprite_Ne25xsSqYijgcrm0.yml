@@ -61,7 +61,7 @@ system:
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
       spells: []
     taxonomy:
-      description: <p>Elemental creatures corresponding to the element of Lightning.</p>
+      description: <p>Elemental creatures corresponding to the element of Storm.</p>
       category: elemental
       abilities:
         wisdom: 3
@@ -114,7 +114,7 @@ system:
         size: 4
         stride: 10
       talents:
-        - item: Compendium.crucible.talent.Item.runelightning000
+        - item: Compendium.crucible.talent.Item.runeStorm0000000
           level: null
         - item: Compendium.crucible.adversary-talents.Item.electricityAbsor
           level: null
@@ -396,17 +396,17 @@ items:
     folder: null
     sort: 6100000
     _key: '!actors.items!Ne25xsSqYijgcrm0.gesturearrow0000'
-  - name: 'Rune: Lightning'
+  - name: 'Rune: Storm'
     type: talent
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
       node: int0
       description: >-
-        You learn Rune of Lightning, allowing you to control volatile arcane
-        surges of electricity.
+        You learn Rune of Storm, allowing you to control volatile arcane surges
+        of electricity.
       actions: []
       requirements: {}
-      rune: lightning
+      rune: storm
       nodes: []
       gesture: ''
       inflection: ''
@@ -424,16 +424,16 @@ items:
       createdTime: 1772307159602
       modifiedTime: 1772307159602
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.runelightning000
+      compendiumSource: Compendium.crucible.talent.runeStorm0000000
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
-    _id: runelightning000
+    _id: runeStorm0000000
     folder: null
     sort: 10700000
-    _key: '!actors.items!Ne25xsSqYijgcrm0.runelightning000'
+    _key: '!actors.items!Ne25xsSqYijgcrm0.runeStorm0000000'
   - name: Electricity Absorption
     type: talent
     _id: electricityAbsor

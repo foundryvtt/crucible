@@ -293,9 +293,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136421
-      modifiedTime: 1780588136421
+      coreVersion: '14.364'
+      createdTime: 1781382731997
+      modifiedTime: 1781382731997
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -335,9 +335,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136421
-      modifiedTime: 1780588136421
+      coreVersion: '14.364'
+      createdTime: 1781382731998
+      modifiedTime: 1781382731998
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -370,12 +370,12 @@ items:
     sort: -275000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136421
+      modifiedTime: 1781382731998
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136421
+      createdTime: 1781382731998
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -430,6 +430,8 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
+                dc: null
+                properties: []
           name: Pinning Shot
           img: icons/skills/ranged/arrow-strike-glowing-teal.webp
           range:
@@ -439,7 +441,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       nodes:
         - dex3a
       rune: ''
@@ -452,12 +453,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      modifiedTime: 1780588136421
+      modifiedTime: 1781382731998
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136421
+      createdTime: 1781382731998
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -494,11 +495,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136421
-      modifiedTime: 1780588136421
+      createdTime: 1781382731999
+      modifiedTime: 1781382731999
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -568,7 +569,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       rune: illusion
       nodes:
         - int0a
@@ -582,12 +582,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136422
-      createdTime: 1780588136422
+      modifiedTime: 1781382731999
+      createdTime: 1781382731999
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -637,7 +637,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: projectile
@@ -650,11 +649,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136422
-      modifiedTime: 1780588136422
+      createdTime: 1781382731999
+      modifiedTime: 1781382731999
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -703,7 +702,6 @@ items:
           summon:
             actorUuid: null
             permanent: true
-          autoFavorite: false
       nodes:
         - dex1a
       rune: ''
@@ -714,12 +712,12 @@ items:
         type: ''
         rank: null
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136422
-      createdTime: 1780588136422
+      modifiedTime: 1781382731999
+      createdTime: 1781382731999
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -756,11 +754,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.9.5
-      createdTime: 1780588136420
-      modifiedTime: 1780588136420
+      createdTime: 1781382732000
+      modifiedTime: 1781382732000
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -778,9 +776,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136420
-  modifiedTime: 1780588136420
+  coreVersion: '14.364'
+  createdTime: 1781382731996
+  modifiedTime: 1781382731996
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

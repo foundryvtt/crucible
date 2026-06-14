@@ -1,0 +1,44 @@
+name: Obsidian Thorns
+type: weapon
+img: icons/creatures/tentacles/tentacle-earth-green.webp
+effects: []
+folder: creatureParts000
+flags: {}
+system:
+  category: light1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} lashes out with a thorned length of
+      razor-sharp black glass.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: obsidianThorns
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: obsidianThorns00
+sort: 2900000
+_key: '!items!obsidianThorns00'

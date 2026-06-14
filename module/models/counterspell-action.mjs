@@ -20,7 +20,7 @@ export default class CrucibleCounterspellAction extends CrucibleSpellAction {
     if ( actorRunes?.size && !actorRunes.has(this.rune) ) {
       this.rune = actorRunes.keys().next().value;
     }
-    else this.rune ??= "lightning";
+    else this.rune ??= "storm";
     this.gesture ??= "touch";
     super._prepareData();
     Object.assign(this, {name, img, target, description, range, cost}); // Undo upstream changes

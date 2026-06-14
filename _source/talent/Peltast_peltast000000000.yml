@@ -1,0 +1,81 @@
+name: Peltast
+type: talent
+img: icons/skills/ranged/arrows-flying-triple-gray.webp
+system:
+  description: >-
+    <p>To you, a thrown weapon is not released - it is directed. Weapons that
+    depart your hand are guided by an arcane discipline which bends its path to
+    your will, lending your throws a reach and precision that no unaided arm
+    could match. Weapons you throw are returned unerringly back to your grasp.
+    You gain the following benefits:</p><ul><li><p>You can @Action[default
+    throwWeapon] using any melee weapon or shield with full effectiveness, even
+    those not designed to be thrown.</p></li><li><p>A weapon designed for
+    throwing with the <strong>Thrown</strong> property gains +10 feet of range
+    in your hands, reaching 20 feet.</p></li><li><p>Weapons you throw
+    automatically and immediately return to your hand.</p></li></ul>
+  actions:
+    - id: ricochet
+      name: Ricochet
+      condition: ''
+      description: >-
+        <p>Make a <strong>Thrown</strong> weapon attack at an enemy within
+        range. Guided by your arcane instinct, your weapon ricochets onward to
+        the closest enemy within a maximum distance equal to your
+        <strong>Intellect</strong> where wall blocks its path.</p><p>The weapon
+        will continue caroming from foe to foe, hitting each only once, until it
+        has struck a maximum number of enemies equal to half your
+        <strong>Intellect</strong>.</p><p>Resolve a separate attack against each
+        enemy struck. Each target after the first suffers a cumulative -1
+        <strong>Damage</strong> as the throw sheds momentum.</p>
+      tags:
+        - melee
+        - thrown
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      target:
+        type: single
+        scope: 3
+        number: 1
+        self: false
+      effects: []
+      img: icons/skills/ranged/arrows-flying-triple-gray.webp
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.intellect
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781400000000
+  modifiedTime: 1781319309682
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+_id: peltast000000000
+folder: fOYHlZJEWUukD7yr
+sort: 3200000
+_key: '!items!peltast000000000'

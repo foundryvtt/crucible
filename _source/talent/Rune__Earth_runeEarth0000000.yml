@@ -8,7 +8,7 @@ system:
     compounds.</p><p>The Earth rune scales using <strong>Wisdom</strong>,
     targets <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
     <strong>Health</strong>. It is opposed by the chaotic rune of
-    <strong>Lightning</strong>.</p>
+    <strong>Storm</strong>.</p>
   actions:
     - id: mould
       name: Mould

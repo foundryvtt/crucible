@@ -1,0 +1,45 @@
+name: Bo Staff
+type: weapon
+img: icons/weapons/staves/staff-ornate.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: balanced2
+  quantity: 1
+  weight: 3
+  price: 380
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - parrying
+  description:
+    public: >-
+      <p>A balanced hardwood staff favored by martial artists, lighter and
+      quicker in the hand than a common quarterstaff. Its even weighting rewards
+      a deft wielder, weaving constant parries between flurrying strikes.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: boStaff
+  invested: false
+  actions: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1772307160130
+  modifiedTime: 1781118769785
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: boStaff000000000
+sort: 350000
+_key: '!items!boStaff000000000'

@@ -43,6 +43,40 @@ system:
       summon:
         actorUuid: null
         permanent: true
+    - id: submergingWithdrawal
+      name: Submerging Withdrawal
+      img: icons/skills/movement/arrow-down-pink.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} retracts beneath the surface using a
+        <strong>Burrow</strong> movement, relocating away from its current
+        position. Ending this movement underground grants the
+        @Condition[burrowing] condition, beneath which it cannot be seen by
+        light-based perception.</p><p>This action cannot be used while
+        @Condition[staggered], @Condition[stunned], @Condition[slowed], or
+        @Condition[paralyzed].</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: movement
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - movement
+        - burrow
+      summon:
+        actorUuid: null
+        permanent: true
   rune: ''
   gesture: ''
   inflection: ''
