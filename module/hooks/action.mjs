@@ -2342,4 +2342,35 @@ HOOKS.stoneStance = {
 
 /* -------------------------------------------- */
 
+HOOKS.ancestralGrove = {
+  // Once the Guardian token exists, reshape the provisional placement region into the Grove centered on it, then retain
+  // it on the grove effect, which marks it persistent and ties teardown to the effect. Behavior awaits the framework.
+  async confirm(reverse) {
+    if ( reverse || !this.region ) return;
+    const groveEffect = this.events.find(e => (e.target === this.actor) && e.effects.length)?.effects[0];
+    const tokenUuid = groveEffect?.system.summons?.[0];
+    const token = tokenUuid ? fromUuidSync(tokenUuid) : null;
+    if ( !token ) return;
+
+    // Reshape the provisional placement region into a token-attached emanation, mirroring RegionDocument#createTokenEmanation.
+    // The base must exactly equal the token _source geometry so core attachment tracking keeps the aura locked to the Guardian.
+    const {x, y, width, height, shape, level, elevation, depth} = token._source;
+    const {distance, distancePixels} = token.parent.dimensions;
+    const range = 20; // Grove reach: 20 ft beyond the Guardian's footprint (tunable)
+    await this.region.update({
+      name: "Grove of the Ancestors",
+      restriction: {enabled: false, type: "move"},
+      shapes: [{type: "emanation", base: {type: "token", x, y, width, height, shape}, radius: range * distancePixels}],
+      elevation: {bottom: elevation - range, top: elevation + (depth * distance) + range},
+      attachment: {token: token.id},
+      levels: [level]
+    });
+
+    // Retain the region on the grove effect; confirmation persists it and _onDelete tears down summon + grove together
+    groveEffect.system.regions = [...(groveEffect.system.regions ?? []), this.region.uuid];
+  }
+};
+
+/* -------------------------------------------- */
+
 export default HOOKS;

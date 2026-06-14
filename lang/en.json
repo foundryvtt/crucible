@@ -186,6 +186,10 @@
           "hint": "Which specific actor should be summoned by this action?",
           "label": "Summoned Actor"
         },
+        "combatant": {
+          "hint": "Should the summoned creature be added to the active Combat encounter?",
+          "label": "Joins Combat"
+        },
         "label": "Action Summon",
         "permanent": {
           "hint": "Should this summon persist until killed?",

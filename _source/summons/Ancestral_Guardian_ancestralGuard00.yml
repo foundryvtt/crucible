@@ -1,0 +1,323 @@
+folder: 2skc7mrBZTMxbMKl
+name: Ancestral Guardian
+type: adversary
+img: icons/svg/aura.svg
+system:
+  abilities:
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+    intellect:
+      bonus: 0
+    presence:
+      bonus: 0
+    wisdom:
+      bonus: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    reflex:
+      bonus: 0
+    willpower:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    archetype:
+      description: <p>A watchful spirit that anchors a protective grove.</p>
+      identifier: ancestralWard
+      abilities:
+        wisdom: 4
+        presence: 1
+        intellect: 2
+        strength: 2
+        toughness: 1
+        dexterity: 2
+      talents: []
+      skills: []
+      equipment: []
+      spells: []
+      name: Ancestral Ward
+      img: icons/magic/nature/tree-spirit-green.webp
+    taxonomy:
+      description: >-
+        <p>An incorporeal manifestation of ancestral spirits, summoned to watch
+        over the living. It has no corporeal body to wound and no will to
+        break.</p>
+      category: fey
+      abilities:
+        wisdom: 6
+        presence: 0
+        intellect: 2
+        strength: 2
+        toughness: 0
+        dexterity: 2
+      resistances:
+        bludgeoning:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        acid:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      characteristics:
+        spells: false
+        equipment: false
+      movement:
+        size: 6
+        stride: 0
+      talents: []
+      identifier: ancestralSpirit
+      name: Ancestral Spirit
+      img: icons/magic/nature/tree-spirit-green.webp
+    biography:
+      public: >-
+        <p>The Ancestral Guardian is less a creature than a presence: the
+        gathered spirits of those who came before, called into the world by a
+        @UUID[Compendium.crucible.talent.Item.warden0000000000]{Warden} through
+        the Ancestral Grove. It cannot be commanded or reasoned with and offers
+        no speech. It simply keeps watch over the living for as long as the
+        Warden's communion endures.</p>
+      private: ''
+      appearance: >-
+        <p>A translucent figure woven of shifting bark, leaf, and root, lit from
+        within by a soft green glow. It holds no fixed form, drifting between
+        the silhouettes of ancestors half-remembered, and casts neither shadow
+        nor weight upon the ground it guards.</p>
+    languages: []
+  resistances:
+    bludgeoning:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    acid:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 0
+    morale:
+      value: 0
+    action:
+      value: 0
+    focus:
+      value: 0
+    heroism:
+      value: 0
+  status: null
+  movement:
+    sizeBonus: 0
+    strideBonus: 0
+    engagementBonus: 0
+  advancement:
+    level: 3
+    rank: minion
+  favorites: []
+  currency: 0
+prototypeToken:
+  name: Ancestral Guardian
+  displayName: 30
+  actorLink: false
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: icons/svg/aura.svg
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 6
+  height: 6
+  lockRotation: false
+  rotation: 0
+  alpha: 0.85
+  disposition: 1
+  displayBars: 0
+  bar1:
+    attribute: null
+  bar2:
+    attribute: null
+  sight:
+    enabled: false
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  flags: {}
+  randomImg: false
+  depth: 1
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+items:
+  - name: Incorporeal Form
+    type: talent
+    _id: incorporealForm0
+    img: icons/magic/nature/tree-spirit-green.webp
+    system:
+      nodes: []
+      description: >-
+        <p>This creature is an incorporeal spirit. It cannot be harmed, moved
+        against its will, or broken, and other creatures may pass freely through
+        its space. Its overwhelming presence on the battlefield causes it to
+        count as <strong>three creatures</strong> when determining whether an
+        enemy is Flanked.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    ownership:
+      default: 0
+    sort: 0
+    _stats:
+      coreVersion: '14.364'
+      systemId: null
+      systemVersion: null
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    _key: '!actors.items!ancestralGuard00.incorporealForm0'
+effects: []
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781203463310
+  modifiedTime: 1781448969763
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: ancestralGuard00
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!ancestralGuard00'

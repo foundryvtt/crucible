@@ -589,11 +589,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   static computeFlanking(engagement) {
     engagement.allyBonus = 0;
 
-    // Count the number of enemies who can flank
+    // Count flankers; an adversary's flankingStrength lets it count as more than one
     let flankers = 0;
     for ( const enemy of engagement.enemies ) {
       const {isBroken, isIncapacitated} = enemy.actor.system;
-      if ( !(isBroken || isIncapacitated) ) flankers++;
+      if ( !(isBroken || isIncapacitated) ) flankers += enemy.actor.system.movement?.flankingStrength ?? 1;
     }
     engagement.flankers = flankers;
 

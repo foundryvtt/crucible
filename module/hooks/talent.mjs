@@ -1771,4 +1771,86 @@ HOOKS.warchanter000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.incorporealForm0 = {
+  // An incorporeal guardian spirit never blocks movement, yet looms over the field as three flankers
+  prepareMovement(_item, movement) {
+    movement.blockerStrength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.WEAK;
+    movement.flankingStrength = 3;
+
+    // Rooted in place: zero out Stride, overriding the taxonomy schema's enforced minimum Stride of 1
+    movement.baseStride = movement.strideBonus = 0;
+
+    // A looming three-body presence: +1 brings Engagement to 3 (1 base + 1 from Size 6), matching its flanking weight
+    movement.engagementBonus = 1;
+  },
+  // The grove's anchor is a fixture, not an actor: zeroing base+bonus drives max to 0 in #prepareFinalResources
+  prepareResources(_item, resources) {
+    for ( const r of ["action", "focus", "heroism"] ) {
+      resources[r].base = 0;
+      resources[r].bonus = 0;
+    }
+  },
+  // It has no corporeal body to wound: damage of every type passes harmlessly through
+  prepareResistances(_item, resistances) {
+    for ( const r of Object.values(resistances) ) r.immune = true;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.warden0000000000 = {
+  _GROVE_EFFECT_ID: "ancestralGrove00",
+  _GROVE_RADIUS: 20,
+  _groveDistance(guardian, token) {
+    const dx = guardian.center.x - token.center.x;
+    const dy = guardian.center.y - token.center.y;
+    return (Math.hypot(dx, dy) / canvas.grid.size) * canvas.grid.distance;
+  },
+  // Any weapon Hit turns the Cycle of Life and Death: each struck foe in the grove feeds the frailest ally within it
+  finalizeAction(_item, action) {
+    if ( !action.tags.has("strike") ) return;
+    const amount = Math.floor(this.system.abilities.wisdom.value / 2);
+    if ( amount <= 0 ) return;
+    const W = HOOKS.warden0000000000;
+
+    // The Cycle only flows while an Ancestral Guardian anchors the grove
+    const summons = this.effects.get(W._GROVE_EFFECT_ID)?.system.summons;
+    const guardian = summons?.size ? fromUuidSync([...summons][0])?.object : null;
+    if ( !guardian ) return;
+
+    // Enemy actors struck (Hit or better) by this attack are eligible to be drained
+    const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
+    const struck = new Set();
+    for ( const event of action.events ) {
+      if ( (event.target !== this) && (event.roll?.data?.result >= HIT) ) struck.add(event.target);
+    }
+    if ( !struck.size ) return;
+
+    // Within the grove, drain each struck foe and find the frailest standing ally to mend (by absolute Health)
+    const friendly = guardian.document.disposition;
+    const drained = [];
+    let weakest = null;
+    for ( const token of canvas.tokens.placeables ) {
+      const actor = token.actor;
+      if ( !actor || (token === guardian) ) continue;
+      if ( W._groveDistance(guardian, token) > W._GROVE_RADIUS ) continue;
+      if ( token.document.disposition === friendly ) {
+        const health = actor.system.resources.health;
+        if ( actor.system.isIncapacitated || !health.max ) continue;
+        if ( !weakest || (health.value < weakest.system.resources.health.value) ) weakest = actor;
+      }
+      else if ( struck.has(actor) ) drained.push(actor);
+    }
+    if ( !drained.length || !weakest ) return;
+
+    // Each drained foe suffers half-Wisdom Poison, returned as restoration of Health to the frailest ally
+    for ( const enemy of drained ) {
+      action.recordEvent({target: enemy, resources: [{resource: "health", delta: -amount, damageType: "poison"}]});
+    }
+    action.recordEvent({target: weakest, resources: [{resource: "health", delta: amount * drained.length}]});
+  }
+};
+
+/* -------------------------------------------- */
+
 export default HOOKS;

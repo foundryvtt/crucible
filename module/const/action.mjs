@@ -649,8 +649,8 @@ export const TAGS = {
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 
-        // Create a Combatant
-        if ( this.actor.inCombat ) {
+        // Create a Combatant, unless opted-out
+        if ( this.actor.inCombat && (event.summon.combatant !== false) ) {
           await game.combat.createEmbeddedDocuments("Combatant", [{
             tokenId: token.id,
             sceneId: canvas.scene.id,

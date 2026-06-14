@@ -639,11 +639,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
-      // TODO: Consider which fields make sense to have configurable via UI
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
-        permanent: new fields.BooleanField({initial: true})
-      }),
+        permanent: new fields.BooleanField({initial: true}),
+        combatant: new fields.BooleanField({initial: true})
+      }, {nullable: true, initial: null}),
       effects: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: ""}),
         scope: new fields.NumberField({choices: effectScopes}),
@@ -1105,7 +1105,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Prepare Summons
-    this.usage.summons = this.summon.actorUuid ? [{...this.summon}] : [];
+    this.usage.summons = this.summon?.actorUuid ? [{...this.summon}] : [];
 
     // Reset bonuses
     Object.assign(this.usage.bonuses, {
@@ -2185,6 +2185,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Configure tags
     if ( this.target.type === "movement" ) this.tags.add("movement");
+    if ( this.target.type === "summon" ) this.tags.add("summon");
 
     // Configure bonuses
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
@@ -2430,16 +2431,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     const isNegated = this.message?.getFlag("crucible", "isNegated");
 
-    // Update or remove the placed region on confirmation
+    // On confirmation a placed region persists only while an active effect retains a reference to it; otherwise the
+    // region was ephemeral to this action and is deleted now.
     if ( this.region ) {
-      const isEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
-      if ( isEphemeral ) await this.region.delete();
-      else if ( !isNegated ) {
-        const regionEffect = this.selfEvents.all.find(e => e.effects.length).effects[0];
-        regionEffect.system.regions ??= [];
-        regionEffect.system.regions.push(this.region.uuid);
-        await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+      // Non-ephemeral target types retain their region by default, recording it on a self-effect
+      if ( !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral && !isNegated ) {
+        const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects[0];
+        if ( regionEffect ) {
+          regionEffect.system.regions ??= [];
+          regionEffect.system.regions.push(this.region.uuid);
+        }
       }
+      // The effect reference is the source of truth for persistence: keep the region iff an effect retains it
+      const retained = this.events.some(e => e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
+      if ( retained ) await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
+      else await this.region.delete();
     }
 
     // Per-target confirmation hooks; awaited in turn so async hooks (e.g. spell interrupts) resolve before events apply
@@ -3433,6 +3439,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const effect of source.effects ?? [] ) {
       foundry.documents.ActiveEffect.migrateData(effect);
     }
+    if ( source.summon && !source.summon.actorUuid ) source.summon = null; // Slim unused summon configs to null
     return source;
   }
 }
