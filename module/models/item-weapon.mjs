@@ -291,8 +291,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   _getUntrainedTooltip(actor) {
     const category = this.config.category;
     if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
-    if ( actor.getSkillBonus(category.training) >= 0 ) return null;
-    const labels = category.training.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+    const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
+    if ( actor.getSkillBonus(trainingTypes) >= 0 ) return null;
+    const labels = trainingTypes.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
     const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
     return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
   }
