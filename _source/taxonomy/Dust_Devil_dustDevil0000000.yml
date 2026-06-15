@@ -65,7 +65,7 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
       level: null
   equipment:
-    - item: Compendium.crucible.adversary-equipment.Item.fists00000000000
+    - item: Compendium.crucible.adversary-equipment.Item.kineticLimb00000
       quantity: 1
       equipped: true
       autoScale: true
@@ -80,9 +80,9 @@ _stats:
   duplicateSource: null
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.10.0
+  modifiedTime: 1781536608540
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   createdTime: 1781218465590
 _id: dustDevil0000000
