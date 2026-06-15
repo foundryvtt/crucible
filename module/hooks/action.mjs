@@ -1869,6 +1869,63 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
+HOOKS.swallow = {
+  _SWALLOWING_EFFECT_ID: "swallowing000000",
+  _isHelpless(actor) {
+    return actor.isIncapacitated || ["restrained", "stunned", "incapacitated"].some(s => actor.statuses.has(s));
+  },
+  prepare() {
+    // Pin the YAML-defined self "Swallowing" effect to a known id and keep it visible on the predator
+    const swallowing = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF);
+    if ( swallowing ) {
+      swallowing._id = HOOKS.swallow._SWALLOWING_EFFECT_ID;
+      swallowing.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
+    }
+  },
+  acquireTargets(targets) {
+    const swallowing = this.actor.effects.has(HOOKS.swallow._SWALLOWING_EFFECT_ID);
+    for ( const target of targets ) {
+      const prey = target.actor;
+      if ( !prey ) continue;
+
+      // The predator must be at least two feet of size larger than its prey
+      if ( this.actor.size < (prey.size + 2) ) {
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
+        continue;
+      }
+
+      // Only one creature may be swallowed at a time, unless the new prey is a quarter of the predator's size or less
+      if ( swallowing && (prey.size > (this.actor.size / 4)) ) {
+        target.error ??= _loc("ACTIONS.Swallow.AlreadySwallowing");
+      }
+    }
+  },
+  configure() {
+    // The YAML `difficult` tag imposes a bane by default; helpless prey are easy to swallow, so drop the tag and its
+    // bane (the tag's own prepare already applied the bane before this hook runs, so remove it explicitly)
+    const prey = this.targets.keys().next().value;
+    if ( prey && HOOKS.swallow._isHelpless(prey) ) {
+      this.tags.delete("difficult");
+      delete this.usage.banes.difficult;
+    }
+  },
+  postActivate() {
+    // The self "Swallowing" marker is recorded only on a successful swallow; point it at the prey it captured
+    const prey = this.targets.keys().next().value;
+    if ( !prey ) return;
+    const marker = this.events.flatMap(e => e.effects).find(e => e._id === HOOKS.swallow._SWALLOWING_EFFECT_ID);
+    if ( marker ) marker.origin = prey.uuid;
+  },
+  async confirm(reverse) {
+    // Swallow is single-target: hide the one targeted token on a successful swallow and reveal it on reversal
+    const target = this.targets.values().next().value;
+    if ( !target?.token || !this.eventsByTarget.get(target.actor)?.isSuccess ) return;
+    await target.token.update({hidden: !reverse});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {

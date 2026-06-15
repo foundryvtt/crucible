@@ -498,6 +498,7 @@
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
       "Restrained": "You may not move while Restrained!",
       "Silenced": "You cannot use this action while Silenced.",
+      "TargetTooLarge": "Target \"{target}\" is too large for {action}.",
       "UnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
       "WrongMovementToken": "You must move the token performing this action."
     },
@@ -583,6 +584,9 @@
       "Required": "You must choose both an item and an affix.",
       "TierTooHigh": "That affix cannot be imbued at Tier 1.",
       "Title": "Imbue Affix"
+    },
+    "Swallow": {
+      "AlreadySwallowing": "You are already Swallowing another creature."
     },
     "Throw": {
       "NotGrappling": "You may only Throw a creature you are Grappling."

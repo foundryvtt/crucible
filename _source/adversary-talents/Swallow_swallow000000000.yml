@@ -58,6 +58,25 @@ system:
             units: ''
             expiry: null
             expired: false
+        - name: Swallowing
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
       tags:
         - melee
         - natural
