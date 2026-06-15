@@ -708,7 +708,7 @@ HOOKS.fall = {
   acquireTargets(targets) {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
-    this.usage.fall = {distance, elevation: surface?.elevation};
+    this.usage.fall = {distance, elevation: surface?.elevation, level: surface?.level?.id};
     if ( (distance <= 0) || !surface ) return;
     this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
     this.usage.bonuses.ability = distance;
@@ -732,10 +732,11 @@ HOOKS.fall = {
     }
   },
   async postActivate() {
-    const {distance, elevation} = this.usage.fall;
+    const {distance, elevation, level} = this.usage.fall;
     if ( !distance ) return;
-    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [{action: "fall", elevation}],
-      {animate: false});
+    const waypoint = {action: "fall", elevation};
+    if ( level && (level !== this.token._source.level) ) waypoint.level = level;
+    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint], {animate: false});
     if ( !movement ) return;
     Object.defineProperty(this, "movement", { value: movement, configurable: true });
     const {origin} = movement;
