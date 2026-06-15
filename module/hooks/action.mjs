@@ -1870,39 +1870,40 @@ HOOKS.restrainingChomp = {
 /* -------------------------------------------- */
 
 HOOKS.swallow = {
-  _SWALLOWING_EFFECT_ID: "swallowing000000",
+  _SWALLOWED_EFFECT_ID: "swallowed00000000",
   _isHelpless(actor) {
     return actor.isIncapacitated || ["restrained", "stunned", "incapacitated"].some(s => actor.statuses.has(s));
   },
+  _swallowedMarkers(actor) {
+    return actor.effects.filter(e => e.getFlag("crucible", "swallowing"));
+  },
   prepare() {
-    // Pin the YAML-defined self "Swallowing" effect to a known id and keep it visible on the predator
-    const swallowing = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF);
-    if ( swallowing ) {
-      swallowing._id = HOOKS.swallow._SWALLOWING_EFFECT_ID;
-      swallowing.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
-    }
+    const swallowed = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.ENEMIES);
+    if ( swallowed ) swallowed._id = HOOKS.swallow._SWALLOWED_EFFECT_ID;
   },
   acquireTargets(targets) {
-    const swallowing = this.actor.effects.has(HOOKS.swallow._SWALLOWING_EFFECT_ID);
+    const isLarge = size => size > (this.actor.size / 4);
+    const holdsLarge = HOOKS.swallow._swallowedMarkers(this.actor).some(m => {
+      const held = m.origin ? fromUuidSync(m.origin) : null;
+      return isLarge(held?.actor?.size ?? 0);
+    });
     for ( const target of targets ) {
       const prey = target.actor;
       if ( !prey ) continue;
 
-      // The predator must be at least two feet of size larger than its prey
+      // The predator must be at least two feet of Size larger than its prey
       if ( this.actor.size < (prey.size + 2) ) {
         target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
         continue;
       }
 
-      // Only one creature may be swallowed at a time, unless the new prey is a quarter of the predator's size or less
-      if ( swallowing && (prey.size > (this.actor.size / 4)) ) {
+      // Only one large prey may be held at a time; smaller prey never occupy the slot
+      if ( holdsLarge && isLarge(prey.size) ) {
         target.error ??= _loc("ACTIONS.Swallow.AlreadySwallowing");
       }
     }
   },
   configure() {
-    // The YAML `difficult` tag imposes a bane by default; helpless prey are easy to swallow, so drop the tag and its
-    // bane (the tag's own prepare already applied the bane before this hook runs, so remove it explicitly)
     const prey = this.targets.keys().next().value;
     if ( prey && HOOKS.swallow._isHelpless(prey) ) {
       this.tags.delete("difficult");
@@ -1910,17 +1911,47 @@ HOOKS.swallow = {
     }
   },
   postActivate() {
-    // The self "Swallowing" marker is recorded only on a successful swallow; point it at the prey it captured
     const prey = this.targets.keys().next().value;
     if ( !prey ) return;
-    const marker = this.events.flatMap(e => e.effects).find(e => e._id === HOOKS.swallow._SWALLOWING_EFFECT_ID);
-    if ( marker ) marker.origin = prey.uuid;
+    const marker = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
+    if ( !marker ) return;
+    const token = this.targets.get(prey)?.token;
+    marker._id = SYSTEM.EFFECTS.getEffectId("swallow", {suffix: token?.id ?? prey.id});
+    marker.origin = token?.uuid ?? prey.uuid;
+    marker.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    foundry.utils.setProperty(marker, "flags.crucible.swallowing", true);
   },
   async confirm(reverse) {
-    // Swallow is single-target: hide the one targeted token on a successful swallow and reveal it on reversal
     const target = this.targets.values().next().value;
     if ( !target?.token || !this.eventsByTarget.get(target.actor)?.isSuccess ) return;
     await target.token.update({hidden: !reverse});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.regurgitate = {
+  canUse() {
+    if ( !HOOKS.swallow._swallowedMarkers(this.actor).length ) return false;
+  },
+  postActivate() {
+    const released = [];
+    for ( const marker of HOOKS.swallow._swallowedMarkers(this.actor) ) {
+      const prey = marker.origin ? fromUuidSync(marker.origin)?.actor : null;
+      if ( prey?.effects.has(HOOKS.swallow._SWALLOWED_EFFECT_ID) ) {
+        this.recordEvent({type: "effect", target: prey,
+          effects: [{_id: HOOKS.swallow._SWALLOWED_EFFECT_ID, _action: "delete"}]});
+      }
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: marker.id, _action: "delete"}]});
+      if ( marker.origin ) released.push(marker.origin);
+    }
+    this.metadata.released = released;
+  },
+  async confirm(reverse) {
+    for ( const tokenUuid of (this.metadata.released ?? []) ) {
+      const token = fromUuidSync(tokenUuid);
+      if ( token ) await token.update({hidden: reverse});
+    }
   }
 };
 

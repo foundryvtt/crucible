@@ -1851,15 +1851,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // When this actor rolled, the effect gates on those rolls
     if ( events?.roll.length ) return CrucibleAction.#testEventResult(events.roll, resultType, resultAll);
 
-    // A SELF effect whose actor never rolled (its strikes are recorded against the targets) instead gates on the
-    // targets' rolls. The no-rolls fallback below applies only when the action produced no rolls at all (a self-buff).
+    // A SELF effect whose actor never rolled (its strikes are recorded against the targets) instead conditions on the
+    // targets' rolls. Return true so the effect applies to SELF as a separate event.
     if ( (scope === scopes.SELF) && events && !events.isTarget ) {
       let actionHasRolls = false;
       for ( const [actor, otherEvents] of eventsByActor ) {
         if ( (actor === target) || !otherEvents.roll.length ) continue;
         actionHasRolls = true;
-        const otherResult = CrucibleAction.#testEventResult(otherEvents.roll, resultType, resultAll);
-        if ( otherResult ) return otherResult;
+        if ( CrucibleAction.#testEventResult(otherEvents.roll, resultType, resultAll) ) return true;
       }
       if ( actionHasRolls ) return false; // Other targets rolled but none qualified
     }

@@ -5,9 +5,10 @@ img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
 system:
   nodes: []
   description: >-
-    <p>@Ref[actor.name]{This creature} has the capability of swallowing
-    creatures smaller than them whole, though only one creature may be affected
-    by this action at a time.</p>
+    <p>@Ref[actor.name]{This creature} can swallow whole a creature whose Size
+    is at least 2 less than its own. Only one creature may be swallowed at a
+    time, unless an additional creature is one-quarter of this creature's Size
+    or less.</p>
   actions:
     - id: swallow
       name: Swallow
@@ -15,9 +16,9 @@ system:
       description: >-
         <p>You swallow a target enemy, effectively removing that foe from
         combat. The swallowed target is @Condition[blinded] and
-        @Condition[restrained] until released.</p><p>If you becomes
+        @Condition[restrained] until released.</p><p>If you become
         @Condition[stunned], @Condition[incapacitated], or @Condition[weakened],
-        you regurgitate the swallowed creature.</p>
+        you regurgitate every swallowed creature.</p>
       condition: ''
       cost:
         action: 4
@@ -44,7 +45,6 @@ system:
           statuses:
             - restrained
             - blinded
-            - corroding
           system:
             changes: []
             dot: []
@@ -82,6 +82,33 @@ system:
         - natural
         - strength
         - difficult
+    - id: regurgitate
+      name: Regurgitate
+      img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
+      description: >-
+        <p>You expel every creature you have swallowed, returning them to the
+        space around you and ending the @Condition[blinded] and
+        @Condition[restrained] conditions imposed by your gullet.</p>
+      condition: ''
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: true
+      summon: null
+      effects: []
+      tags:
+        - harmless
   rune: ''
   gesture: ''
   inflection: ''
