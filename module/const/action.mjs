@@ -1547,7 +1547,10 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"],
-    autoFavorite: true
+    autoFavorite: action => {
+      const r = action.actor.system.resources;
+      return (r.health.value < r.health.max) || (r.morale.value < r.morale.max) || (r.focus.value < r.focus.max);
+    }
   },
 
   // Reload
@@ -1566,7 +1569,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     autoFavorite: true
   },
 
-  // Rest
+  // Rest (never auto-favorited; rests are managed through the party UI)
   {
     id: "rest",
     name: "ACTION.DEFAULT_ACTIONS.Rest.Name",
@@ -1580,8 +1583,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    autoFavorite: true
+    tags: ["noncombat"]
   },
 
   // Basic Strike

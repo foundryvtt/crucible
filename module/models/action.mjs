@@ -398,7 +398,7 @@ class CrucibleActionEvent {
  * @property {CrucibleChatMessage} [message]    The ChatMessage (if any) representing this Action
  * @property {object} [metadata]                Arbitrary metadata persisted to the ChatMessage flags
  * @property {ActionUsage} [usage]              Pre-configured action usage data
- * @property {boolean} [autoFavorite]           Whether this action autopopulates the actor sheet favorites bar
+ * @property {boolean|Function} [autoFavorite]  Auto-populate the favorites bar; boolean or `(action) => boolean`
  */
 
 /**
@@ -718,10 +718,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   movement = this.movement; // Defined during _configure
 
   /**
-   * Whether this action is auto-added to the actor sheet favorites bar. Declared by default-action definitions.
-   * @type {boolean}
+   * The declared auto-favorite rule, a boolean or condition function. Read via the {@link autoFavorite} getter.
+   * @type {boolean|Function}
    */
-  autoFavorite = this.autoFavorite; // Defined during _configure
+  _autoFavorite = this._autoFavorite; // Defined during _configure
 
   /**
    * Arbitrary metadata that persists to the ChatMessage flags for use during confirmation.
@@ -783,6 +783,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @internal
    */
   _prepared = this._prepared ?? false;
+
+  /**
+   * Whether this action auto-populates the actor sheet favorites bar, resolving any condition function against itself.
+   * @type {boolean}
+   */
+  get autoFavorite() {
+    if ( this._autoFavorite instanceof Function ) return this._autoFavorite(this) === true;
+    return this._autoFavorite === true;
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Is this Action a favorite of the Actor which owns it?
@@ -982,7 +993,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       region: {value: region, writable: false, configurable: true},
       movement: {value: movement, writable: false, configurable: true},
       message: {value: message, writable: false, configurable: true},
-      autoFavorite: {value: autoFavorite, writable: false, configurable: true},
+      _autoFavorite: {value: autoFavorite, writable: false, configurable: true},
       metadata: {value: metadata, writable: false, configurable: true}
     });
 
@@ -1148,7 +1159,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.region ??= this.region;
     context.movement ??= this.movement;
     context.message ??= this.message;
-    context.autoFavorite ??= this.autoFavorite;
+    context.autoFavorite ??= this._autoFavorite;
     const clone = new this.constructor(actionData, context);
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
