@@ -6,9 +6,10 @@ system:
     <p>You are highly skilled in weaving the Rune of Frost. When you cast a
     Spell or use an action that involves this Rune, your Critical Hits which
     deal damage cause the @Condition[freezing] condition.</p><p>The Freezing
-    effect lasts for <strong>1 Round</strong>, deals half your
-    <strong>Wisdom</strong> score as <strong>Frost</strong> damage to
-    <strong>Health</strong>, and applies the @Condition[slowed] condition.</p>
+    effect lasts for <strong>1 Round</strong>, deals half the ability score your
+    <strong>Rune of Frost</strong> scales with as <strong>Frost</strong> damage
+    to <strong>Health</strong>, and applies the @Condition[slowed]
+    condition.</p>
   actions: []
   nodes:
     - wis3b

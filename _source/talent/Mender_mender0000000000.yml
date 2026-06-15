@@ -7,9 +7,9 @@ system:
     <p>You are highly skilled in weaving the Rune of Life. When you cast a Spell
     or use an action that involves this Rune, your Critical Hits which restore
     Health cause the @Condition[mending] condition.</p><p>The Mending effect
-    lasts for <strong>1 Round</strong> and deals your <strong>Wisdom</strong>
-    score as additional <strong>Restoration</strong> to
-    <strong>Health</strong>.</p>
+    lasts for <strong>1 Round</strong> and deals the ability score your
+    <strong>Rune of Life</strong> scales with as additional
+    <strong>Restoration</strong> to <strong>Health</strong>.</p>
   actions: []
   nodes:
     - wis3b

@@ -7,9 +7,9 @@ system:
     <p>You are highly skilled in weaving the Rune of Oblivion. When you cast a
     Spell or use an action that involves this Rune, your Critical Hits which
     deal damage cause the @Condition[entropy] condition.</p><p>The Entropy
-    effect lasts for <strong>1 Round</strong>, deals half your
-    <strong>Presence</strong> score as <strong>Void</strong> damage to
-    <strong>Health</strong>, and applies the @Condition[frightened]
+    effect lasts for <strong>1 Round</strong>, deals half the ability score your
+    <strong>Rune of Oblivion</strong> scales with as <strong>Void</strong>
+    damage to <strong>Health</strong>, and applies the @Condition[frightened]
     condition.</p>
   actions: []
   nodes:

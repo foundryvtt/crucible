@@ -2,6 +2,31 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+/**
+ * Apply a critical-hit rider effect scaled on a Rune's current scaling ability.
+ * @param {CrucibleActor} actor                          The acting Actor.
+ * @param {CrucibleAction} action                        The resolved Action.
+ * @param {string} runeId                                The Rune whose use triggers the rider.
+ * @param {(ability: string) => object} effectFactory    Builds the effect data for the resolved scaling ability.
+ * @param {object} [options]
+ * @param {(event: object) => boolean} [options.condition]  Predicate selecting the triggering event per target.
+ */
+function applyRuneCritEffect(actor, action, runeId, effectFactory, {condition}={}) {
+  if ( !action.usesRune(runeId) ) return;
+  const ability = actor.grimoire.runes.get(runeId)?.scaling ?? SYSTEM.SPELL.RUNES[runeId].scaling;
+  condition ??= event => event.isCriticalSuccess && event.isDamage;
+  for ( const [, events] of action.eventsByTarget ) {
+    for ( const event of events.roll ) {
+      if ( condition(event) ) {
+        event.effects.push(effectFactory(ability));
+        break;
+      }
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.acrobat000000000 = {
   defendAttack(item, action, _attacker, rollData) {
     if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
@@ -510,15 +535,7 @@ HOOKS.distancerunner00 = {
 
 HOOKS.dustbinder000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("earth") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.corroding(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "earth", ability => SYSTEM.EFFECTS.corroding(this, {ability}));
   }
 };
 
@@ -803,15 +820,8 @@ HOOKS.inquisitor000000 = {
 
 HOOKS.inspirator000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("soul") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.healsMorale ) {
-          event.effects.push(SYSTEM.EFFECTS.inspired(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "soul", ability => SYSTEM.EFFECTS.inspired(this, {ability}),
+      {condition: event => event.isCriticalSuccess && event.healsMorale});
   }
 };
 
@@ -883,16 +893,11 @@ HOOKS.justiciar0000000 = {
 
 HOOKS.kineturge0000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("kinesis") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( !event.isCriticalSuccess || !event.isDamage ) continue;
-        const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability: "presence"});
-        bleeding.duration = {value: 1, units: "rounds", expiry: "turnStart"};
-        event.effects.push(bleeding);
-        break;
-      }
-    }
+    applyRuneCritEffect(this, action, "kinesis", ability => {
+      const bleeding = SYSTEM.EFFECTS.bleeding(this, {ability});
+      bleeding.duration = {value: 1, units: "rounds", expiry: "turnStart"};
+      return bleeding;
+    });
   }
 };
 
@@ -910,15 +915,7 @@ HOOKS.lesserregenerati = {
 
 HOOKS.lightbringer0000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("illumination") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.irradiated(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "illumination", ability => SYSTEM.EFFECTS.irradiated(this, {ability}));
   }
 };
 
@@ -926,15 +923,8 @@ HOOKS.lightbringer0000 = {
 
 HOOKS.mender0000000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("life") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.healsHealth ) {
-          event.effects.push(SYSTEM.EFFECTS.mending(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "life", ability => SYSTEM.EFFECTS.mending(this, {ability}),
+      {condition: event => event.isCriticalSuccess && event.healsHealth});
   }
 };
 
@@ -953,15 +943,7 @@ HOOKS.mentalfortress00 = {
 
 HOOKS.mesmer0000000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("illusion") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.confused(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "illusion", ability => SYSTEM.EFFECTS.confused(this, {ability}));
   }
 };
 
@@ -978,15 +960,7 @@ HOOKS.neverYield000000 = {
 
 HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("death") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.decay(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "death", ability => SYSTEM.EFFECTS.decay(this, {ability}));
   }
 };
 
@@ -1209,15 +1183,7 @@ HOOKS.primalist0000000 = {
 
 HOOKS.pyromancer000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("flame") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.burning(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "flame", ability => SYSTEM.EFFECTS.burning(this, {ability}));
   }
 };
 
@@ -1233,15 +1199,7 @@ HOOKS.resilient0000000 = {
 
 HOOKS.rimecaller000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("frost") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.freezing(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "frost", ability => SYSTEM.EFFECTS.freezing(this, {ability}));
   }
 };
 
@@ -1528,15 +1486,7 @@ HOOKS.subtleextricatio = {
 
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("storm") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.shocked(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "storm", ability => SYSTEM.EFFECTS.shocked(this, {ability}));
   }
 };
 
@@ -1608,15 +1558,7 @@ HOOKS.thickskin0000000 = {
 
 HOOKS.thoughtbinder000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("control") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.dominated(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "control", ability => SYSTEM.EFFECTS.dominated(this, {ability}));
   }
 };
 
@@ -1645,15 +1587,7 @@ HOOKS.unarmedblocking0 = {
 
 HOOKS.voidcaller000000 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.usesRune("oblivion") ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
-      for ( const event of events.roll ) {
-        if ( event.isCriticalSuccess && event.isDamage ) {
-          event.effects.push(SYSTEM.EFFECTS.entropy(this));
-          break;
-        }
-      }
-    }
+    applyRuneCritEffect(this, action, "oblivion", ability => SYSTEM.EFFECTS.entropy(this, {ability}));
   }
 };
 
