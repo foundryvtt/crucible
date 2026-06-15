@@ -1030,11 +1030,12 @@ HOOKS.packhunter000000 = {
 
 HOOKS.patientdeflectio = {
   prepareDefenses(_item, defenses) {
-    const weapons = this.equipment.weapons;
-    if ( weapons.unarmed ) {
-      const wisdom = this.system.abilities.wisdom.value;
-      defenses.parry.bonus += Math.ceil(wisdom / 2);
-    }
+    const {mainhand, offhand} = this.equipment.weapons;
+    const armed = (mainhand && (mainhand.config.category.id !== "unarmed"))
+      || (offhand && (offhand.config.category.id !== "unarmed"));
+    if ( armed ) return;
+    const wisdom = this.system.abilities.wisdom.value;
+    defenses.parry.bonus += Math.ceil(wisdom / 2);
   }
 };
 
@@ -1631,11 +1632,12 @@ HOOKS.truegrit00000000 = {
 
 HOOKS.unarmedblocking0 = {
   prepareDefenses(_item, defenses) {
-    const weapons = this.equipment.weapons;
-    if ( weapons.unarmed ) {
-      const toughness = this.system.abilities.toughness.value;
-      defenses.block.bonus += Math.ceil(toughness / 2);
-    }
+    const {mainhand, offhand} = this.equipment.weapons;
+    const armed = (mainhand && (mainhand.config.category.id !== "unarmed"))
+      || (offhand && (offhand.config.category.id !== "unarmed"));
+    if ( armed ) return;
+    const toughness = this.system.abilities.toughness.value;
+    defenses.block.bonus += Math.ceil(toughness / 2);
   }
 };
 
