@@ -647,7 +647,7 @@ function ruleEnricher([match, tagId, label]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = label ?? _loc(cfg.label);
   tag.dataset.crucibleTooltip = "tag";
-  tag.dataset.crucibleTooltipText = _loc(cfg.tooltip, {passiveBase: SYSTEM.PASSIVE_BASE}) ?? `[WIP] no tooltip was provided for ${cfg.label}`;
+  tag.dataset.crucibleTooltipText = cfg.tooltip ?? `[WIP] no tooltip was provided for ${cfg.label}`;
   tag.classList.add("rule", "basic-rule", tagId.split(".")[0]);
   return tag;
 }
