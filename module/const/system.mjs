@@ -203,6 +203,13 @@ export const TIME = Object.freeze({
   restSeconds: 60 * 60 * 10
 });
 
+/* -------------------------------------------- */
+
+/**
+ * @typedef {Record<string, {label: string, tooltip: string}|RulesRecord>} RulesRecord
+ * Define rules objects used by the `@Rule` enricher.
+ * @type {RulesRecord}
+ */
 export const RULES = {
   action: ACTION.TAGS
 };
