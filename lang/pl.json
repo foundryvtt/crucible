@@ -220,7 +220,7 @@
         },
         "self": {
           "hint": "W razie potrzeby automatycznie wybierz siebie jako cel, jeśli jest to odpowiednie dla skonfigurowanego zakresu i typu celu akcji.",
-          "label": "Cel osobisty"
+          "label": "Cel na siebie"
         },
         "size": {
           "hint": "Niektóre typy celów są dodatkowo modyfikowane przez rozmiar w stopach.",
@@ -401,7 +401,7 @@
       "Allies": "Sojusznicy",
       "Enemies": "Wrogowie",
       "None": "Brak",
-      "Self": "Osobisty"
+      "Self": "Na siebie"
     },
     "TARGET_TYPES": {
       "Aura": "Aury",
@@ -412,7 +412,7 @@
       "None": "Brak",
       "Pulse": "Impulsu",
       "Ray": "Promienia",
-      "Self": "Osobisty",
+      "Self": "Na siebie",
       "Single": "Pojedynczy",
       "Summon": "Przywołany",
       "Wall": "Ściana"
@@ -498,11 +498,12 @@
       "RequireTemplate": "Musisz umieścić szablon pomiarowy, aby wskazać obszar działania {action}.",
       "Restrained": "Nie możesz się ruszać, gdy jesteś Unieruchomiony!",
       "Silenced": "Nie możesz użyć tej akcji, gdy jesteś Wyciszony.",
+      "TargetTooLarge": "Cel „{target}” jest zbyt duży dla {action}.",
       "UnimplementedTarget": "Automatyzacja dla typu celu {type} dla akcji {name} nie jest jeszcze obsługiwana, należy ręcznie wybrać odpowiednie tokeny.",
       "WrongMovementToken": "Aby wykonać tę akcję, musisz przesunąć token."
     },
     "Action": "Akcja",
-    "AffectsScope": "Wpływa na {scope}",
+    "AffectsScope": "Wpływa na: {scope}",
     "AllResult": "{existing} (Wszystko)",
     "ChooseWeaponLabel": "Broń",
     "ChooseWeaponHint": "Możesz wybrać broń, której użyjesz do wykonania tej akcji.",
@@ -582,7 +583,10 @@
       "NoCapacity": "Ten przedmiot nie ma wolnego miejsca na zaklinanie.",
       "Required": "Musisz wybrać zarówno przedmiot, jak i afiks.",
       "TierTooHigh": "Tego afiksu nie można nadać przy stopniu 1.",
-      "Title": "Nasycenie afiksu"
+      "Title": "Nasycenie afiksem"
+    },
+    "Swallow": {
+      "AlreadySwallowing": "Właśnie połknąłeś inną istotę."
     },
     "Throw": {
       "NotGrappling": "Możesz rzucić tylko stworzeniem, którego przytrzymujesz."
@@ -881,7 +885,7 @@
         "header": "Akcesoria"
       },
       "ACTIVE": {
-        "header": "Aktywne atrybuty"
+        "header": "Aktywne zdolności"
       },
       "ARMOR": {
         "empty": "Wyposaż się w pancerz z Plecaka, przełączając ikonę tarczy.",
@@ -1636,7 +1640,7 @@
     }
   },
   "HOOKS": {
-    "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułów.",
+    "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułu.",
     "ToggleSource": "Zmień źródło",
     "WARNINGS": {
       "GemConjuredFlameShoddy": "Klejnot wywołanego płomienia tandetnej jakości nie pozwala przywołać żadnego żywiołaka.",
@@ -1768,7 +1772,7 @@
       "NoAffixCapacityTitle": "Zaklinanie niemożliwe",
       "NoAffixes": "Przeciągnij afiks z kompendium afiksów, aby go zastosować.",
       "UniqueItemTitle": "Unikatowy przedmiot",
-      "UniqueItemNoAffixes": "Ten przedmiot jest unikalny i nie można go wzbogacić o afiksy. Jego właściwości magiczne są określane przez uchwyty modułów.",
+      "UniqueItemNoAffixes": "Ten przedmiot jest unikalny i nie można go wzbogacić o afiksy. Jego właściwości magiczne są określane przez uchwyty modułu.",
       "EnchantmentDerivedHint": "Stopień zaklinania wynika z łącznego stopnia zastosowanych afiksów.",
       "Equipment": "Szczegóły wyposażenia",
       "EquipmentDrop": "Dodaj wyposażenie początkowe, przeciągając i upuszczając przedmioty w tym obszarze.",
