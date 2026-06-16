@@ -5,10 +5,10 @@ img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
 system:
   nodes: []
   description: >-
-    <p>@Ref[actor.name]{This creature} can swallow whole a creature whose Size
-    is at least 2 less than its own. Only one creature may be swallowed at a
-    time, unless an additional creature is one-quarter of this creature's Size
-    or less.</p>
+    <p>The @ref[actor.name]{creature} can swallow whole a creature whose Size is
+    at least 2 less than its own. Only one creature may be swallowed at a time,
+    unless an additional creature is one-quarter of this creature's Size or
+    less.</p>
   actions:
     - id: swallow
       name: Swallow
@@ -45,43 +45,43 @@ system:
           statuses:
             - restrained
             - blinded
-          system:
-            changes: []
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            dc: null
-            properties: []
           duration:
             value: null
             units: ''
             expiry: null
             expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance: null
+            properties: []
+            regions: []
+            summons: []
         - name: Swallowing
           scope: 1
           result:
             type: success
             all: false
           statuses: []
-          system:
-            changes: []
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            dc: null
-            properties: []
           duration:
             value: null
             units: ''
             expiry: null
             expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance: null
+            properties: []
+            regions: []
+            summons: []
       tags:
         - melee
         - natural
-        - strength
         - difficult
+        - strength
     - id: regurgitate
       name: Regurgitate
       img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
@@ -129,7 +129,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1774708342875
-  modifiedTime: 1781554498000
+  modifiedTime: 1781567840388
   lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   compendiumSource: null
