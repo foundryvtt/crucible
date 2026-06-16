@@ -712,7 +712,7 @@ export default class CrucibleActor extends Actor {
       if ( r <= parry ) return results.PARRY;
 
       // Block
-      const block = dodge + d.block.total;
+      const block = parry + d.block.total;
       if ( r <= block ) return results.BLOCK;
 
       // Armor
