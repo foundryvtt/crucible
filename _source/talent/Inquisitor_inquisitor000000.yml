@@ -4,31 +4,39 @@ _id: inquisitor000000
 img: icons/magic/holy/projectiles-blades-salvo-yellow.webp
 system:
   description: >-
-    <p>You are an expert in combat against magic users. You know how to conserve
-    energy and strike at the precise moment to thwart their incantation.</p>
+    <p>You are an expert in combat against magic users, trained to conserve your
+    energy and strike at the precise moment to thwart an incantation.</p><p>The
+    cost of your @Action[default reactiveStrike] is reduced by an additional 1 
+    <strong>Action</strong> but always costs 1 <strong>Focus</strong>. When you
+    Strike an enemy in reaction to them casting a spell, a successful hit drains
+    <strong>1 Focus</strong> from that enemy and refunds your own; on a
+    <strong>Critical Hit</strong> their spell is interrupted and the magic is
+    lost.</p>
   actions:
-    - id: inquisitorsStrike
-      name: Inquisitor's Strike
-      condition: Your target is casting a spell.
+    - id: abjure
+      name: Abjure
+      condition: ''
       description: >-
-        When an enemy within your Engagement radius whom you can see casts a
-        spell, you may react to Strike that target. On a Critical Hit the
-        target's spell is interrupted and the magic is lost.
+        <p>You exert your trained will against hostile sorcery, unraveling its
+        hold over you and your nearby allies. For yourself and each ally within
+        12 feet suffering a magical condition inflicted by an enemy, make an
+        <strong>Arcana</strong> check against the lowest <strong>Removal
+        DC</strong> among their afflicting conditions. Every such condition
+        whose Removal DC your result exceeds is removed.</p>
       tags:
-        - reaction
-        - melee
-        - mainhand
+        - harmless
       cost:
-        action: 0
+        action: 1
         focus: 1
         heroism: 0
         hands: 0
         weapon: false
       target:
-        type: single
+        type: pulse
         number: 1
-        scope: 0
-        self: false
+        scope: 2
+        self: true
+        size: 12
       effects: []
       img: null
       range:

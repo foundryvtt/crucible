@@ -1,0 +1,37 @@
+name: Bloodless
+type: talent
+_id: bloodless0000000
+img: icons/magic/earth/construct-stone.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} has no blood, vital organs, or exploitable
+    weak points. It is immune to the @Condition[bleeding] condition, and the
+    critical hit threshold for <strong>Strikes</strong> against it is increased
+    by 2.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: 9Ej4QwUt1yVpv4Wn
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781027705369
+  modifiedTime: 1781027705369
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!bloodless0000000'

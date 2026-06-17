@@ -597,7 +597,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
 
       // Ability Step
-      if ( step.id === "abilities" ) {
+      if ( step.id === "background" ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
@@ -1187,6 +1187,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
+    creationData.prototypeToken.name = this._state.name;
     delete creationData.ownership;
     for ( const item of creationData.items ) delete item.ownership;
     creationData.flags.core.sheetClass = "";

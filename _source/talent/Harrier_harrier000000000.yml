@@ -1,0 +1,36 @@
+name: Harrier
+type: talent
+_id: harrier000000000
+img: icons/skills/melee/spear-tips-three-purple.webp
+system:
+  description: >-
+    <p>You hound enemies who would rather fight you from afar. You may make a
+    @Action[default reactiveStrike] against an enemy engaged with you whenever
+    they make an attack that is not tagged as <strong>Melee</strong>.</p>
+  actions: []
+  nodes:
+    - dextou2
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+folder: aB808IWOdgwmFCIF
+sort: 150000
+ownership:
+  default: 0
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781203114033
+  modifiedTime: 1781203205451
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!harrier000000000'

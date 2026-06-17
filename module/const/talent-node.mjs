@@ -246,7 +246,7 @@ export default class CrucibleTalentNode {
    * This method only verifies node state independent of other nodes.
    * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
-   * @param {Record<number,Set<CrucibleTalentItem>>} [signatures]
+   * @param {Set<CrucibleTalentItem>} [signatures]
    * @returns {CrucibleTalentNodeState}
    */
   getState(actor, signatures) {
@@ -273,17 +273,14 @@ export default class CrucibleTalentNode {
   /* -------------------------------------------- */
 
   /**
-   * Is a signature node banned because the user has selected some other Signature node which shares an ability score.
-   * Nodes which have been purchased have already been categorized as purchased.
+   * Is this signature node unavailable because the Actor has reached their Signature Talent limit for their level?
    * @param {CrucibleActor} actor
-   * @param {Record<number,Set<CrucibleTalentItem>>} signatures
+   * @param {Set<CrucibleTalentItem>} signatures    The Signature Talents the Actor has already acquired
    * @returns {boolean}
    */
   #isBanned(actor, signatures) {
-    if ( this.type !== "signature" ) return false;  // Only signature talents get banned
-    const purchased = signatures[this.tier];
-    if ( purchased.size >= 2 ) return true;         // Already purchased 2 signatures at this tier
-    return false;
+    if ( this.type !== "signature" ) return false;  // Only signature nodes can be banned
+    return signatures.size >= CrucibleTalentNode.getSignatureAllowance(actor.system.advancement.level);
   }
 
   /* -------------------------------------------- */
@@ -301,17 +298,30 @@ export default class CrucibleTalentNode {
 
   /* -------------------------------------------- */
 
+  /**
+   * Get the set of Signature Talents which an Actor has acquired across all signature nodes.
+   * @param {CrucibleActor} actor
+   * @returns {Set<CrucibleTalentItem>}
+   */
   static getSignatureTalents(actor) {
-    const tiers = {};
+    const talents = new Set();
     for ( const node of CrucibleTalentNode.#signature ) {
-      tiers[node.tier] ||= new Set();
       for ( const t of node.talents ) {
-        if ( actor.talentIds.has(t.id) ) {
-          tiers[node.tier].add(t);
-        }
+        if ( actor.talentIds.has(t.id) ) talents.add(t);
       }
     }
-    return tiers;
+    return talents;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The maximum number of Signature Talents a hero may have acquired at their character level.
+   * @param {number} level    The character's advancement level
+   * @returns {number}
+   */
+  static getSignatureAllowance(level) {
+    return Math.min(SYSTEM.TALENT.SIGNATURE_MAX, Math.floor(level / SYSTEM.TALENT.SIGNATURE_LEVEL_INTERVAL));
   }
 
   /* -------------------------------------------- */

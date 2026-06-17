@@ -218,7 +218,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       if ( s.banned && (state.banned !== false) ) state.banned = true;
     }
     if ( state.banned ) {
-      if ( strict ) throw new Error(_loc("TALENT.WARNINGS.Banned"));
+      if ( strict ) {
+        const level = actor.system.advancement.level;
+        const max = CrucibleTalentNode.getSignatureAllowance(level);
+        const next = max < SYSTEM.TALENT.SIGNATURE_MAX ? (max + 1) * SYSTEM.TALENT.SIGNATURE_LEVEL_INTERVAL : null;
+        throw new Error(next
+          ? _loc("TALENT.WARNINGS.SignatureLimitNext", {max, level, next})
+          : _loc("TALENT.WARNINGS.SignatureLimit", {max, level}));
+      }
       return false;
     }
     if ( !state.accessible ) {
@@ -349,6 +356,8 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       source.nodes = source.node ? [source.node] : [];
       delete source.node;
     }
+    if ( source.rune === "lightning" ) source.rune = "storm";
+    if ( source.training?.type === "lightning" ) source.training.type = "storm";
     return source;
   }
 }

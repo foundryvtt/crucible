@@ -15,7 +15,7 @@ system:
         - melee
         - twohand
       cost:
-        action: 2
+        action: 1
         focus: 0
         weapon: true
         heroism: 0

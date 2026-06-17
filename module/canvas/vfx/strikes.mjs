@@ -1,6 +1,6 @@
 import {getRandomSound} from "./sounds.mjs";
 import {getRandomSprite} from "./sprites.mjs";
-import {computeAttackOffset} from "./helpers.mjs";
+import {computeAttackOffset, pushActorScrollingText, pushTargetScrollingText, tokenCenter} from "./helpers.mjs";
 
 /**
  * Configure the data for a VFXEffect
@@ -13,9 +13,13 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   const components = {};
   const timeline = [];
   const references = {tokenMesh: "^token.object.mesh"};
+  const casterCenter = action.token ? tokenCenter(action.token) : null;
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const PROJECTILE_SPEED = 150; // Feet-per-second
+  const CHARGE_DURATION = 1000;
+  const STICK_DURATION = 2000; // Milliseconds a landed projectile lingers in the target before fading
 
-  // Prepare each weapon strike
-  let j=1; // Target
+  let j = 1; // Target
   for ( const [actor, group] of action.eventsByTarget ) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
@@ -25,54 +29,83 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
       [targetTokenReference]: `@${token.uuid}`,
       [targetMeshReference]: `^${targetTokenReference}.object.mesh`
     });
-    let i=1; // Roll
+
+    // Schedule impact for when the projectile lands
+    const targetCenter = tokenCenter(token);
+    const distPx = casterCenter ? Math.hypot(targetCenter.x - casterCenter.x, targetCenter.y - casterCenter.y) : 0;
+    const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
+    const impactStart = CHARGE_DURATION + flightMS;
+
+    let i = 1; // Roll
+    let textComponent = null;
     for ( const event of group.roll ) {
       const roll = event.roll;
       const weapon = action.usage.strikes[roll.data.strike];
       if ( !["projectile1", "projectile2"].includes(weapon?.category) ) continue;
 
-      // Identify impact location
+      // Configure impact
       const impact = configureImpact(token, roll, targetMeshReference);
-
-      // Add the arrow projectile
       const projectileName = `arrowProjectile_${j}_${i}`;
+      const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
+      const stick = isHit ? STICK_DURATION : 0;
+      const impactAnimations = [];
+      if ( impact.texture ) {
+        impactAnimations.push({function: "impactSpriteBurst",
+          params: {texture: impact.texture, size: 3, duration: stick || 1000}});
+      }
+      if ( isHit ) impactAnimations.push({function: roll.isCriticalSuccess ? "impactSpriteShake" : "impactSpriteRecoil"});
+
+      // Register the component
       components[projectileName] = {
-        type: "singleAttack",
+        type: "crucibleProjectile",
+        originMesh: {reference: "tokenMesh"},
+        targetMeshes: [{reference: targetMeshReference}],
         path: [{reference: "tokenMesh", deltas: {sort: 1}}, impact.position],
+        pathType: {type: "linear", params: {}},
         charge: {
-          duration: 1000,
-          animations: [{function: "drawBack"}],
-          sound: {
-            src: getRandomSound("bow", "draw"),
-            align: 2
-          }
+          duration: CHARGE_DURATION,
+          animations: [{function: "chargeDrawBack"}],
+          sound: {src: getRandomSound("bow", "draw"), align: 2}
         },
-        projectile: {
+        delivery: {
           texture: getRandomSprite("projectiles", "arrow"),
-          animations: [{function: "followPath"}],
-          size: 3, // Feet
-          speed: 150 // Feet-per-second
+          size: 3,
+          speed: PROJECTILE_SPEED,
+          animations: [{function: "deliveryProjectileFlight", params: {returnAnchor: true}}]
         },
-        impact: {
-          texture: impact.texture,
-          duration: 2000,
-          sound: impact.sound ? {src: impact.sound, align: 1} : null
-        }
+        impacts: [{
+          result: roll.data.result,
+          id: token.id,
+          stick,
+          sound: impact.sound ? {src: impact.sound, align: 1} : null,
+          animations: impactAnimations
+        }],
+        scrollingText: []
       };
       timeline.push({component: projectileName, position: 0});
+      textComponent ??= components[projectileName];
       i++;
+    }
+
+    // Schedule scrolling text for the impact timing
+    if ( textComponent ) {
+      pushTargetScrollingText(textComponent.scrollingText, action, actor, group.all, targetMeshReference, impactStart);
     }
     j++;
   }
   if ( !timeline.length ) return null;
 
-  // Validate that the effect data parses correctly
+  // Caster activation-cost text rides the first projectile at the start of the sequence
+  const firstComponent = components[timeline[0].component];
+  if ( firstComponent ) pushActorScrollingText(firstComponent.scrollingText, action, "tokenMesh");
+
+  // Validate the constructed effect and return its configuration
   try {
     const effect = new foundry.canvas.vfx.VFXEffect({name: action.id, components, timeline});
-    vfxConfig = effect.toObject(); // TODO replace for now, rather than merge
+    vfxConfig = effect.toObject();
     vfxConfig.references = references;
   } catch(cause) {
-    console.error(new Error(`Strike VFX configuration failed for Action "${this.id}"`, {cause}));
+    console.error(new Error(`Strike VFX configuration failed for Action "${action.id}"`, {cause}));
   }
   return vfxConfig;
 }

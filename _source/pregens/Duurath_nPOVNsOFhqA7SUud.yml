@@ -284,10 +284,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136432
-      modifiedTime: 1780588136432
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975448
+      modifiedTime: 1781446975448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -328,10 +328,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136433
-      modifiedTime: 1780588136433
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975448
+      modifiedTime: 1781446975448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -371,10 +371,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136433
-      modifiedTime: 1780588136433
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975449
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -422,10 +422,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -440,12 +437,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136433
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136433
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -501,16 +498,15 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
           name: Shield Bash
           img: icons/skills/melee/shield-block-bash-blue.webp
           range:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -524,12 +520,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136434
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136434
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -575,10 +571,7 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -589,12 +582,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136434
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136434
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -633,12 +626,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136434
-      createdTime: 1780588136434
+      modifiedTime: 1781446975449
+      createdTime: 1781446975449
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -672,12 +665,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136435
-      createdTime: 1780588136435
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -731,6 +724,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
             - name: Grappling
               scope: 1
               result:
@@ -749,6 +744,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
           tags:
             - difficult
             - harmless
@@ -761,10 +758,7 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: unarmed
@@ -778,12 +772,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136435
-      createdTime: 1780588136435
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -834,10 +828,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -848,12 +839,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136435
-      createdTime: 1780588136435
+      modifiedTime: 1781446975450
+      createdTime: 1781446975450
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -886,12 +877,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136435
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975451
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136435
+      createdTime: 1781446975451
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -907,10 +898,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136432
-  modifiedTime: 1780588136432
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781446975447
+  modifiedTime: 1781446975447
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -6,11 +6,27 @@ export default class CrucibleScene extends Scene {
   useMicrogrid = false;
 
   /**
-   * Cached microgrid assessment populated on first prepareBaseData.
-   * @type {{shouldUse: boolean, canUse: boolean, warning: string|undefined}}
+   * Cached microgrid assessment populated on first prepareBaseData, plus memoized Crucible scene parameters.
+   * @type {{shouldUse: boolean, canUse: boolean, warning: string|undefined, usesSurfaces: boolean|undefined}}
    * @internal
    */
   _microgrid;
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this scene defines any movement surface. When true, surfaces are the only floors (surface mode); when
+   * false, the base of every level is an implied floor (level mode).
+   * @type {boolean}
+   */
+  get usesSurfaces() {
+    if ( this._microgrid.usesSurfaces === undefined ) {
+      this._microgrid.usesSurfaces = this.getSurfaces({type: "move"}).length > 0;
+    }
+    return this._microgrid.usesSurfaces;
+  }
+
+  /* -------------------------------------------- */
 
   /** @inheritDoc */
   prepareBaseData() {
@@ -23,6 +39,15 @@ export default class CrucibleScene extends Scene {
       }
     }
     super.prepareBaseData();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _invalidateSurfaces() {
+    super._invalidateSurfaces();
+    // The usesSurfaces flag derives from getSurfaces, whose canonical invalidation is this hook
+    if ( this._microgrid ) this._microgrid.usesSurfaces = undefined;
   }
 
   /* -------------------------------------------- */

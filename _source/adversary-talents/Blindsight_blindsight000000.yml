@@ -1,0 +1,37 @@
+name: Blindsight
+type: talent
+img: icons/magic/perception/eye-ringed-glow-angry-small-red.webp
+system:
+  nodes: []
+  description: >-
+    <p>@ref[actor.name]{This creature} perceives its surroundings without the
+    use of sight, sensing the precise location of creatures and objects within
+    60 feet. It is unaffected by @Condition[blinded], darkness, or invisibility,
+    and any creature it detects this way is treated as visible to it.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781218465590
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: blindsight000000
+sort: 0
+_key: '!items!blindsight000000'

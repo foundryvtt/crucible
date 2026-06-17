@@ -649,8 +649,8 @@ export const TAGS = {
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 
-        // Create a Combatant
-        if ( this.actor.inCombat ) {
+        // Create a Combatant, unless opted-out
+        if ( this.actor.inCombat && (event.summon.combatant !== false) ) {
           await game.combat.createEmbeddedDocuments("Combatant", [{
             tokenId: token.id,
             sceneId: canvas.scene.id,
@@ -1259,16 +1259,20 @@ export const TAGS = {
         if ( freeMove ) status.freeMovementId = id;
       }
       status.hasMoved = true;
-    },
-    async confirm(reverse) {
-      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
-      if ( reverse ) return;
 
-      // Remove the prone condition on confirmation if not explicitly crawling
-      if ( this.actor.statuses.has("prone") ) {
-        const isNonCrawlMovement = this.movement?.waypoints?.some(w => w.action !== "crawl");
-        if ( isNonCrawlMovement ) await this.actor.toggleStatusEffect("prone", {active: false});
+      // Voluntarily stand up from prone when performing your own movement
+      if ( this.actor.statuses.has("prone") && this.movement?.waypoints?.some(w => w.action !== "crawl") ) {
+        for ( const effect of this.actor.effects ) {
+          if ( !effect.statuses.has("prone") ) continue;
+          const change = effect.isStatusOnly("prone")
+            ? {_id: effect.id, _action: "delete"}
+            : {_id: effect.id, _action: "update", statuses: [...effect.statuses].filter(s => s !== "prone")};
+          this.recordEvent({type: "effect", target: this.actor, effects: [change]});
+        }
       }
+    },
+    confirm() {
+      if ( !this.token ) throw new Error("We cannot confirm a movement action without a TokenDocument");
     }
   }
 };
@@ -1455,6 +1459,23 @@ export const DEFAULT_ACTIONS = Object.freeze([
     }
   },
 
+  // Escape
+  {
+    id: "escape",
+    name: "ACTION.DEFAULT_ACTIONS.Escape.Name",
+    img: "icons/skills/movement/figure-running-gray.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Escape.Description",
+    target: {
+      type: "self",
+      scope: 1
+    },
+    cost: {
+      action: 2
+    },
+    tags: ["skill", "athletics", "harmless"],
+    autoFavorite: true
+  },
+
   // Reactive Strike
   {
     id: "reactiveStrike",
@@ -1526,7 +1547,10 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"],
-    autoFavorite: true
+    autoFavorite: action => {
+      const r = action.actor.system.resources;
+      return (r.health.value < r.health.max) || (r.morale.value < r.morale.max) || (r.focus.value < r.focus.max);
+    }
   },
 
   // Reload
@@ -1545,7 +1569,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     autoFavorite: true
   },
 
-  // Rest
+  // Rest (never auto-favorited; rests are managed through the party UI)
   {
     id: "rest",
     name: "ACTION.DEFAULT_ACTIONS.Rest.Name",
@@ -1559,8 +1583,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    autoFavorite: true
+    tags: ["noncombat"]
   },
 
   // Basic Strike

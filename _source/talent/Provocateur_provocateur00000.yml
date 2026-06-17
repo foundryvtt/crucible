@@ -35,7 +35,7 @@ system:
         self: false
       effects:
         - name: ''
-          scope: 1
+          scope: 3
           result:
             type: success
             all: false

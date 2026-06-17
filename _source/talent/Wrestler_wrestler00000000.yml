@@ -1,0 +1,38 @@
+name: Wrestler
+type: talent
+_id: wrestler00000000
+img: icons/magic/control/buff-strength-muscle-damage.webp
+system:
+  description: >-
+    <p>Through leverage and technique you seize and hold creatures far larger
+    than yourself. The Size of creature you can
+    @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple], and be
+    Grappled by, increases by 1.</p>
+  actions: []
+  nodes:
+    - str2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1781200000000
+  modifiedTime: 1781200000000
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!wrestler00000000'

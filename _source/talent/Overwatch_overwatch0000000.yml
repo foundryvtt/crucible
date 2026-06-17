@@ -42,8 +42,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - sig3.dexterity
-    - sig3.intellect
+    - sig3.intellect.dexterity
   rune: ''
   gesture: ''
   inflection: ''
@@ -59,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
   createdTime: 1772307160140
-  modifiedTime: 1773514792600
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781115310317
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.overwatch0000000
   duplicateSource: null
   exportSource: null

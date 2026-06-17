@@ -113,7 +113,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     schema.movement = new fields.SchemaField({
       sizeBonus: new fields.NumberField({...requiredInteger, initial: 0}),
       strideBonus: new fields.NumberField({...requiredInteger, initial: 0}),
-      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0})
+      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0}),
+      grappleBonus: new fields.NumberField({...requiredInteger, initial: 0, persisted: false}),
+      blockerStrength: new fields.NumberField({...requiredInteger, initial: 0, persisted: false})
     });
 
     // Currency

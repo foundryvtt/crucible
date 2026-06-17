@@ -75,7 +75,7 @@ export const QUALITY_TIERS = defineEnum({
  * Item types with a positive offset degrade to shoddy quality once (level + offset) is zero or lower.
  */
 export const QUALITY_SCALING = {
-  offsets: {armor: 2, weapon: 1},
+  offsets: {armor: 1, weapon: 2},
   tiers: ["shoddy", "standard", "fine", "superior", "masterwork"],
   getQuality(level, type) {
     const offset = this.offsets[type] ?? 0;

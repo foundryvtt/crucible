@@ -293,10 +293,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136428
-      modifiedTime: 1780588136428
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781451948377
+      modifiedTime: 1781451948377
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,10 +339,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136429
-      modifiedTime: 1780588136429
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781451948378
+      modifiedTime: 1781451948378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -381,10 +381,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136429
-      modifiedTime: 1780588136429
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781451948378
+      modifiedTime: 1781451948378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -431,10 +431,7 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -449,86 +446,18 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136429
+      systemVersion: 0.10.0
+      modifiedTime: 1781451948378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136429
+      createdTime: 1781451948378
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.diversionist0000'
-  - name: Dual Wield
-    type: talent
-    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-    system:
-      description: >-
-        <p>You are adept at fighting with two weapons simultaneously. You can
-        weave attacks together to strike more rapidly than possible with a
-        single weapon.</p>
-      actions:
-        - id: offhandStrike
-          name: Offhand Strike
-          description: >-
-            <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
-            with your <strong>offhand</strong> weapon.</p>
-          tags:
-            - afterStrike
-            - offhand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-          condition: ''
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.363'
-      systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136429
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136429
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: dualwield0000000
-    folder: cW6bwHXBB9pMcwva
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!hfOaEbw4ObPXu6Qa.dualwield0000000'
   - _id: flurry0000000000
     name: Flurry
     type: talent
@@ -571,10 +500,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -585,12 +511,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136430
+      systemVersion: 0.10.0
+      modifiedTime: 1781451948378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136430
+      createdTime: 1781451948378
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -642,10 +568,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -656,12 +579,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781451948379
+      createdTime: 1781451948379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -701,12 +624,12 @@ items:
     sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781451948379
+      createdTime: 1781451948379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -741,12 +664,12 @@ items:
     sort: 120000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781451948379
+      createdTime: 1781451948379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -796,10 +719,7 @@ items:
             - finesse
             - melee
             - difficult
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: light
@@ -813,12 +733,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136430
-      createdTime: 1780588136430
+      modifiedTime: 1781451948379
+      createdTime: 1781451948379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -826,16 +746,81 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.lightWeaponTrain'
+  - name: Dual Wield
+    type: talent
+    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+    system:
+      description: >-
+        <p>You are adept at fighting with two weapons simultaneously. You can
+        weave attacks together to strike more rapidly than possible with a
+        single weapon.</p>
+      actions:
+        - id: offhandStrike
+          name: Offhand Strike
+          description: >-
+            <p>Immediately after you perform a basic Strike with your mainhand
+            weapon, you make a reduced-cost follow-up <strong>Strike</strong>
+            with your <strong>offhand</strong> weapon.</p>
+          tags:
+            - afterStrike
+            - offhand
+          cost:
+            action: -1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+          condition: ''
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+      nodes:
+        - dex1b
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.364'
+      systemId: crucible
+      systemVersion: 0.10.0
+      createdTime: 1781451948377
+      modifiedTime: 1781451948377
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: dualWield0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.dualWield0000000'
 effects: []
 flags:
   core: {}
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136428
-  modifiedTime: 1780588136428
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781451948377
+  modifiedTime: 1781451948377
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

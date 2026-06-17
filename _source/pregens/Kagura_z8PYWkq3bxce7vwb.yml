@@ -288,10 +288,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136413
-      modifiedTime: 1780588136413
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975429
+      modifiedTime: 1781446975429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -331,10 +331,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136414
-      modifiedTime: 1780588136414
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975429
+      modifiedTime: 1781446975429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -371,12 +371,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136414
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136414
+      createdTime: 1781446975429
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -429,10 +429,7 @@ items:
             - talisman
             - harmless
             - rallying
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: talisman
@@ -446,12 +443,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136414
-      createdTime: 1780588136414
+      modifiedTime: 1781446975429
+      createdTime: 1781446975429
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -485,12 +482,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136414
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136414
+      createdTime: 1781446975429
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -552,10 +549,7 @@ items:
             another creature which you can physically touch. You may attempt
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: soul
       nodes:
         - pre0b
@@ -569,11 +563,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588136414
-      modifiedTime: 1780588136414
+      systemVersion: 0.10.0
+      createdTime: 1781446975430
+      modifiedTime: 1781446975430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -594,7 +588,7 @@ items:
         physical compounds.</p><p>The Earth rune scales using
         <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
         <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Lightning</strong>.</p>
+        by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
           name: Mould
@@ -634,10 +628,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: earth
       nodes:
         - wis0b
@@ -651,11 +642,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588136415
-      modifiedTime: 1780588136415
+      systemVersion: 0.10.0
+      createdTime: 1781446975430
+      modifiedTime: 1781446975430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -715,10 +706,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: life
       training:
         type: life
@@ -732,11 +720,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588136415
-      modifiedTime: 1780588136415
+      systemVersion: 0.10.0
+      createdTime: 1781446975430
+      modifiedTime: 1781446975430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -754,10 +742,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136413
-  modifiedTime: 1780588136413
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781446975428
+  modifiedTime: 1781446975428
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

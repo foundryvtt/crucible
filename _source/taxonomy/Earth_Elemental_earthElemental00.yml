@@ -6,11 +6,11 @@ system:
   description: <p>Elemental creatures corresponding to the element of Earth.</p>
   category: elementalEarth
   abilities:
-    wisdom: 1
+    wisdom: 2
     presence: 1
     intellect: 1
     strength: 3
-    toughness: 5
+    toughness: 4
     dexterity: 1
   resistances:
     bludgeoning:
@@ -61,6 +61,15 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
       level: null
   identifier: earthElemental
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.causticLimb00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.stoneSkin0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 ownership:
   default: 0
@@ -69,11 +78,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
-  modifiedTime: 1773514792638
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.10.0
+  modifiedTime: 1781539560461
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   createdTime: 1772307170599
 _id: earthElemental00

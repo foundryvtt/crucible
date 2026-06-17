@@ -288,10 +288,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136410
-      modifiedTime: 1780588136410
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975426
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -331,10 +331,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136410
-      modifiedTime: 1780588136410
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975426
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -351,14 +351,14 @@ items:
         <p>You are drilled in performing sequences of melee attacks with
         rhythmic precision. When you <strong>Strike</strong> multiple times in
         sequence using a one-handed melee weapon you gain a stacking <strong>+1
-        Boon</strong> for each successive attack.</p><p></p>
+        Boon</strong> for each successive attack.</p>
       actions: []
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str2c
+        - str2a
       rune: ''
       gesture: ''
       inflection: ''
@@ -366,12 +366,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136411
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136411
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -409,12 +409,12 @@ items:
     sort: 40000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781446975426
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -448,12 +448,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781446975426
+      createdTime: 1781446975426
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -499,10 +499,7 @@ items:
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
             <strong>Empowered</strong> to deliver additional damage.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: heavy
@@ -516,12 +513,12 @@ items:
     sort: 150000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136411
-      createdTime: 1780588136411
+      modifiedTime: 1781446975427
+      createdTime: 1781446975427
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -555,11 +552,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588136412
-      modifiedTime: 1780588136412
+      systemVersion: 0.10.0
+      createdTime: 1781446975427
+      modifiedTime: 1781446975427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -618,10 +615,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: flame
       nodes:
         - int0a
@@ -635,11 +629,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588136412
-      modifiedTime: 1780588136412
+      systemVersion: 0.10.0
+      createdTime: 1781446975427
+      modifiedTime: 1781446975427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -657,10 +651,10 @@ flags:
     lastSpell: spell.death.touch
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136409
-  modifiedTime: 1780588136409
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781446975425
+  modifiedTime: 1781446975425
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

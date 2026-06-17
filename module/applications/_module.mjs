@@ -16,6 +16,7 @@ export {default as HeroSheet} from "./sheets/hero-sheet.mjs";
 export {default as CrucibleHeroCreationSheet} from "./sheets/hero-creation-sheet.mjs";
 
 // Effect Sheets
+export {default as CrucibleActiveEffectSheet} from "./sheets/effect-sheet.mjs";
 export {default as CrucibleAffixEffectSheet} from "./sheets/effect-affix-sheet.mjs";
 
 // Item Sheets

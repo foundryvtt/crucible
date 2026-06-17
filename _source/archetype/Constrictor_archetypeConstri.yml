@@ -1,0 +1,49 @@
+name: Constrictor
+type: archetype
+img: icons/creatures/tentacles/tentacle-earth-green.webp
+system:
+  description: >-
+    <p>Predators that seize prey in coils, tendrils, or jaws, drag it into
+    reach, and crush the life from it while it struggles to break free.</p>
+  identifier: constrictor
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 4
+    toughness: 3
+    dexterity: 2
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.ensnare000000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.thrash0000000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.wrestler00000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.swallow000000000
+      level: 4
+  skills:
+    - athletics
+    - wilderness
+    - intimidation
+  spells: []
+  equipment: []
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781218465590
+  modifiedTime: 1781314867183
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: archetypeConstri
+sort: 800000
+_key: '!items!archetypeConstri'

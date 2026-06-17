@@ -13,7 +13,7 @@ system:
     importance of quick-thinking and quick-action.</p>
   identifier: gnome
   talents:
-    - item: Compendium.crucible.talent.Item.runeLightning000
+    - item: Compendium.crucible.talent.Item.runeStorm0000000
       level: null
   ui:
     color: '#afa2c3'

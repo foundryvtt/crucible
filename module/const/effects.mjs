@@ -1,3 +1,13 @@
+import {defineEnum} from "./enum.mjs";
+
+/**
+ * The properties which an Active Effect may have.
+ * @type {Readonly<Record<string, {id: string, label: string, tooltip: string}>>}
+ */
+export const PROPERTIES = defineEnum({
+  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"}
+});
+
 /**
  * @typedef CrucibleDoTConfig
  * @property {string} [ability]
@@ -416,5 +426,22 @@ export function stunned(actor, {turns=1}={}) {
     duration: {value: turns, units: "rounds", expiry: "turnEnd"},
     origin: actor?.uuid,
     statuses: ["stunned"]
+  };
+}
+
+/**
+ * Generate a standardized slowed effect, applying the slowed status condition to the target.
+ * @param {Actor} actor
+ * @param {{turns?: number}} [options]
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function slowed(actor, {turns=1}={}) {
+  return {
+    _id: getEffectId("Slowed"),
+    name: _loc(CONFIG.statusEffects.slowed.name),
+    img: "systems/crucible/icons/statuses/slowed.svg",
+    duration: {value: turns, units: "rounds", expiry: "turnEnd"},
+    origin: actor?.uuid,
+    statuses: ["slowed"]
   };
 }

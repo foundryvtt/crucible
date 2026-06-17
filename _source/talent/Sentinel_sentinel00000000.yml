@@ -1,0 +1,36 @@
+name: Sentinel
+type: talent
+_id: sentinel00000000
+img: icons/skills/melee/strike-chain-whip-blue.webp
+system:
+  description: >-
+    <p>You punish those who try to slip past your guard. When you damage an
+    enemy with a @Action[default reactiveStrike], that creature becomes
+    @Condition[slowed] until the end of its next turn.</p>
+  actions: []
+  nodes:
+    - toustr4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags: {}
+folder: 8Vb0F5R7DMUrvhfw
+sort: 400000
+ownership:
+  default: 0
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781203318348
+  modifiedTime: 1781203341174
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!sentinel00000000'

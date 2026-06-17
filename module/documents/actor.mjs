@@ -274,12 +274,39 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Call all actor hooks registered for a certain event name.
-   * Each registered function is called in sequence.
-   * @param {string} hook     The hook name to call.
+   * Call all synchronous actor hooks registered for a certain event name, in registration order.
+   * @param {string} hook     The hook name to call
    * @param {...*} args       Arguments passed to the hooked function
+   * @throws {Error}          If the hook type is async; call {@link CrucibleActor#callActorHooksAsync} instead
    */
   callActorHooks(hook, ...args) {
+    if ( !("actorHooks" in this.system) ) return;
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
+    if ( hookConfig.async ) throw new Error(`Actor hook "${hook}" is async; use callActorHooksAsync`);
+    const hooks = this.system.actorHooks[hook] ||= [];
+    for ( const {item, fn} of hooks ) {
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
+      try {
+        fn.call(this, item, ...args);
+      } catch(err) {
+        if ( hookConfig.throws ) throw err;
+        const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
+        console.error(msg, err);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call all actor hooks registered for a certain event name, awaiting each in registration order so async hooks
+   * resolve deterministically and may build upon one another.
+   * @param {string} hook     The hook name to call
+   * @param {...*} args       Arguments passed to the hooked function
+   * @returns {Promise<void>}
+   */
+  async callActorHooksAsync(hook, ...args) {
     if ( !("actorHooks" in this.system) ) return;
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
@@ -287,7 +314,7 @@ export default class CrucibleActor extends Actor {
     for ( const {item, fn} of hooks ) {
       if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
-        fn.call(this, item, ...args);
+        await fn.call(this, item, ...args);
       } catch(err) {
         if ( hookConfig.throws ) throw err;
         const msg = `The "${hook}" hook defined by Item "${item.uuid}" failed evaluation in Actor [${this.id}]`;
@@ -685,7 +712,7 @@ export default class CrucibleActor extends Actor {
       if ( r <= parry ) return results.PARRY;
 
       // Block
-      const block = dodge + d.block.total;
+      const block = parry + d.block.total;
       if ( r <= block ) return results.BLOCK;
 
       // Armor
@@ -962,26 +989,19 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(action, this, target, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Structure damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    const result = roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: weapon.system.damage.weapon,
       bonus: weapon.system.damage.bonus + rollData.damageBonus,
-      resistance: target.getResistance(rollData.resource, rollData.damageType, false),
       resource: rollData.resource,
-      type: rollData.damageType
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      damageType: rollData.damageType
+    });
 
-    // Finalize the attack and return
-    target.callActorHooks("receiveAttack", action, roll);
+    // Finalize the attack and return; offensive reactions fire only on a connecting hit
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
@@ -1160,12 +1180,24 @@ export default class CrucibleActor extends Actor {
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";
-      const shouldUpdate = existing && (reverse ? forceUpdate : !forceDelete);
-      const shouldDelete = existing && (reverse ? !forceUpdate : forceDelete);
       if ( effectData.statuses?.length ) effectData.showIcon ??= CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
-      if ( shouldUpdate ) toUpdate.push(effectData);
-      else if ( shouldDelete ) toDelete.push(effectData._id);
-      else if ( !reverse ) toCreate.push(effectData);
+
+      // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it
+      if ( reverse ) {
+        if ( forceUpdate ) {
+          if ( effectData._snapshot ) (existing ? toUpdate : toCreate).push(effectData._snapshot);
+        }
+        else if ( forceDelete ) {
+          if ( effectData._snapshot && !existing ) toCreate.push(effectData._snapshot);
+        }
+        else if ( existing ) toDelete.push(effectData._id);
+        continue;
+      }
+
+      // Forward
+      if ( existing && !forceDelete ) toUpdate.push(effectData);
+      else if ( existing && forceDelete ) toDelete.push(effectData._id);
+      else toCreate.push(effectData);
     }
     const batchOperations = this.defineBatchOperations({}, {
       createEffects: {changes: toCreate, options: {keepId: true}},
@@ -1272,6 +1304,7 @@ export default class CrucibleActor extends Actor {
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
    * Damage-over-time effects are identified.
    * Effects which core will expire are identified.
+   * Unaware effect is primed for deletion.
    * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
    * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
    * @param {CombatTurnEventContext} context
@@ -1287,6 +1320,12 @@ export default class CrucibleActor extends Actor {
       if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnStart", context) ) {
         effectChanges.toExpire.push(effect.id);
         continue; // No need to maintain an effect which is about to expire naturally
+      }
+
+      // Remove unaware
+      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) {
+        effectChanges.toDelete.push(effect.id);
+        continue;
       }
 
       // Identify maintained effects
@@ -1387,7 +1426,6 @@ export default class CrucibleActor extends Actor {
    * Identify changes that should occur as part of a turn end workflow.
    * Delay flag is reset.
    * Effects which core will expire are identified.
-   * Unaware effect is primed for deletion.
    * @param {CrucibleTurnChangeConfig} turnEndConfig
    * @param {CombatTurnEventContext} context
    */
@@ -1401,9 +1439,6 @@ export default class CrucibleActor extends Actor {
         effectChanges.toExpire.push(effect.id);
         continue; // No need to manually delete an effect which is about to expire naturally
       }
-
-      // Remove unaware
-      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) effectChanges.toDelete.push(effect.id);
     }
   }
 

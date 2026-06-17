@@ -6,9 +6,10 @@ system:
     <p>You are highly skilled in weaving the Rune of Illumination. When you cast
     a Spell or use an action that involves this Rune, your Critical Hits which
     deal damage cause the @Condition[irradiated] condition.</p><p>The Irradiated
-    effect lasts for <strong>1 Round</strong> and deals your
-    <strong>Presence</strong> score as <strong>Radiant</strong> damage to both
-    <strong>Health</strong> and <strong>Morale</strong>.</p>
+    effect lasts for <strong>1 Round</strong> and deals the ability score your
+    <strong>Rune of Illumination</strong> scales with as
+    <strong>Radiant</strong> damage to both <strong>Health</strong> and
+    <strong>Morale</strong>.</p>
   actions: []
   nodes:
     - pre3b

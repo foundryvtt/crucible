@@ -1,4 +1,4 @@
-name: Lightning Spellcraft
+name: Storm Spellcraft
 type: affix
 duration:
   value: null
@@ -6,8 +6,8 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Lightning-Runic
-  identifier: lightningSpellcraft
+  adjective: Storm-Runic
+  identifier: stormSpellcraft
   changes: []
   affixType: prefix
   tier:
@@ -15,14 +15,14 @@ system:
     max: 1
     value: 1
   itemTypes: []
-_id: lightningSpellcr
+_id: stormSpellcraft0
 img: icons/magic/lightning/bolt-strike-blue.webp
 disabled: false
 start: null
 description: >-
-  <p>This item is imbued with the essence of <strong>Lightning</strong>
-  spellcraft. While equipped, the bearer instinctively gains knowledge of the
-  <strong>Lightning</strong> rune, allowing them to compose spells using it even
+  <p>This item is imbued with the essence of <strong>Storm</strong> spellcraft.
+  While equipped, the bearer instinctively gains knowledge of the
+  <strong>Storm</strong> rune, allowing them to compose spells using it even
   without having learned the rune through a talent.</p>
 origin: null
 tint: '#ffffff'
@@ -42,4 +42,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!effects!lightningSpellcr'
+_key: '!effects!stormSpellcraft0'

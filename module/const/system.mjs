@@ -110,7 +110,7 @@ export const THREAT_RANKS = defineEnum({
 
 /**
  * Define the Action life-cycle hooks which are supported for an Action.
- * @enum {Readonly<Record<string, {argNames: string[], argLabels: string[]}>>}
+ * @enum {Readonly<Record<string, {argNames: string[], argLabels: string[], async?: boolean, throws?: boolean}>>}
  */
 export const ACTION_HOOKS = Object.freeze({
   initialize: {
@@ -136,22 +136,26 @@ export const ACTION_HOOKS = Object.freeze({
   },
   acquireTargets: {
     argNames: ["targets"],
-    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"]
+    argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"],
+    throws: true
   },
   preActivate: {
     argNames: ["targets"],
     argLabels: ["this: CrucibleAction", "targets: ActionUseTarget[]"],
-    async: true
+    async: true,
+    throws: true
   },
   roll: {
     argNames: ["target", "token"],
     argLabels: ["this: CrucibleAction", "target: CrucibleActor", "token: CrucibleTokenObject"],
-    async: true
+    async: true,
+    throws: true
   },
   postActivate: {
     argNames: [],
     argLabels: ["this: CrucibleAction"],
-    async: true
+    async: true,
+    throws: true
   },
   prepareMessage: {
     argNames: ["element"],

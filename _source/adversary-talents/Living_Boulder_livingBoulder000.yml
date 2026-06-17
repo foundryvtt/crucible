@@ -1,0 +1,37 @@
+name: Living Boulder
+type: talent
+_id: livingBoulder000
+img: icons/magic/earth/barrier-stone-brown-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} channels earth through its own physical
+    mass rather than its mind. Its usage of the <strong>Rune of Earth</strong>
+    scales with <strong>Toughness</strong> instead of
+    <strong>Wisdom</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: 9Ej4QwUt1yVpv4Wn
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.363'
+  systemId: crucible
+  systemVersion: 0.9.5
+  createdTime: 1781027705369
+  modifiedTime: 1781027705369
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!livingBoulder000'

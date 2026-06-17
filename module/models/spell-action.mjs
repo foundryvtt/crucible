@@ -454,4 +454,15 @@ export default class CrucibleSpellAction extends CrucibleAction {
     }
     return tags;
   }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    if ( source.rune === "lightning" ) source.rune = "storm";
+    return source;
+  }
 }

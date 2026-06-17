@@ -46,6 +46,10 @@
         "Description": "Możesz opóźnić swoją akcję do późniejszego momentu rundy walki. Wybierz wartość inicjatywy z przedziału od 1 do wartości o jeden mniejszą od twojej aktualnej inicjatywy. Będziesz działać zgodnie z tą nową wartością inicjatywy, a jeśli inni uczestnicy walki mają taką samą wartość, będziesz działać przed nimi. Możesz opóźnić swoją turę tylko raz na rundę.",
         "Name": "Opóźnienie"
       },
+      "Escape": {
+        "Description": "Uwolnij się od efektu, który powoduje, że znajdujesz się w stanie @Condition[restrained]. Wykonujesz test <strong>Atletyki</strong> i usuwasz stan Unieruchomiony z każdego efektu, w przypadku którego wynik rzutu przewyższa poziom trudności usunięcia.",
+        "Name": "Ucieczka"
+      },
       "Fall": {
         "Description": "Spadasz na powierzchnię znajdującą się pod tobą. Upadki z wysokości od 11 do 30 stóp wymagają rzutu na Refleks i zadają obrażenia obuchowe. Upadki z wysokości powyżej 30 stóp stanowią ciężkie zagrożenie wymagające rzutu na Wytrwałość. Jeśli rzut nie powiedzie się, postać staje się przewrócona.",
         "Name": "Upadek",
@@ -182,6 +186,10 @@
           "hint": "Który konkretny aktor powinien zostać przywołany w ramach tej akcji?",
           "label": "Przywołany aktor"
         },
+        "combatant": {
+          "hint": "Czy przywołaną istotę należy dodać do trwającej potyczki?",
+          "label": "Dołączanie do walki"
+        },
         "label": "Akcja przywołania",
         "permanent": {
           "hint": "Czy to przywołanie powinno trwać do momentu zabicia?",
@@ -212,7 +220,7 @@
         },
         "self": {
           "hint": "W razie potrzeby automatycznie wybierz siebie jako cel, jeśli jest to odpowiednie dla skonfigurowanego zakresu i typu celu akcji.",
-          "label": "Cel osobisty"
+          "label": "Cel na siebie"
         },
         "size": {
           "hint": "Niektóre typy celów są dodatkowo modyfikowane przez rozmiar w stopach.",
@@ -289,6 +297,8 @@
       "HealingTooltip": "Ta akcja zapewnia regenerację poprzez sprawdzenie progu Ran sojusznika.",
       "IconicSpell": "Zaklęcie ikoniczne",
       "IconicSpellTooltip": "Ta akcja jest zaklęciem ikoniczym, którego naukę zdobywa się poprzez opanowanie jego składników.",
+      "Keen": "Ostrości",
+      "KeenTooltip": "Ta akcja jest precyzyjna, obniża próg trafienia krytycznego o 2 i zwiększa prawdopodobieństwo zadania trafienia krytycznego.",
       "MainHand": "Główna ręka",
       "MainHandTooltip": "Ta akcja wykorzystuje broń w ręce głównej do wykonania ataku.",
       "Maintained": "Podtrzymywany",
@@ -391,7 +401,7 @@
       "Allies": "Sojusznicy",
       "Enemies": "Wrogowie",
       "None": "Brak",
-      "Self": "Osobisty"
+      "Self": "Na siebie"
     },
     "TARGET_TYPES": {
       "Aura": "Aury",
@@ -402,7 +412,7 @@
       "None": "Brak",
       "Pulse": "Impulsu",
       "Ray": "Promienia",
-      "Self": "Osobisty",
+      "Self": "Na siebie",
       "Single": "Pojedynczy",
       "Summon": "Przywołany",
       "Wall": "Ściana"
@@ -412,6 +422,9 @@
         "DELAY": {
           "AlreadyDelayed": "W tej rundzie walki nie możesz już więcej opóźniać swojej tury.",
           "WrongTurn": "Z akcji Opóźnienie można skorzystać wyłącznie w swojej turze podczas walki."
+        },
+        "ESTOCADE": {
+          "RequiresOpening": "Sztych wymaga, aby cel był Odsłonięty, Przewrócony, Spowolniony, Chwiejny, Sparaliżowany lub Rozbrojony."
         },
         "REVIVE": {
           "RequiresDead": "Ożywienie wymaga martwego celu."
@@ -436,11 +449,13 @@
       "CannotThrow": "Nie możesz rzucać tą bronią.",
       "CannotUse": "{name} nie spełnia warunków wstępnych wymaganych do wykonania {action}.",
       "CannotUseReason": "{name} nie spełnia warunków koniecznych do skorzystania z {action}: {reason}",
+      "CannotUseTagGeneric": "z tagiem {tag}",
       "DirectMovementOnly": "Ta akcja wymaga bezpośredniej ścieżki ruchu bez punktów pośrednich.",
       "IncorrectTargets": "Możesz wyznaczyć maksymalnie {number} celów {type} dla {action}!",
       "InvalidTarget": "Musisz wyznaczyć co najmniej jeden cel {type} dla {action}!",
+      "InvalidTargetScope": "To stworzenie nie jest prawidłowym celem dla akcji {action}.",
       "InvalidTargetsGeneric": "Nieprawidłowe cele dla tej akcji!",
-      "LastCriticallyMissed": "Możesz wykonać {action} tylko po podstawowym Ataku, który nie zakończył się krytyczną porażką.",
+      "LastCriticallyMissed": "Możesz wykonać {action} tylko po podstawowym uderzeniu, które nie zakończyło się krytyczną porażką.",
       "LastNotMeleeCrit": "Możesz wykonać {action} wyłącznie bezpośrednio po ataku wręcz, który zakończył się trafieniem krytycznym.",
       "MaximumRange": "Wybrany cel znajduje się dalej niż maksymalny zasięg {max} stóp.",
       "MinimumRange": "Wybrany cel znajduje się bliżej niż minimalny zasięg {min} stóp.",
@@ -449,12 +464,12 @@
       "MissingSummonEffect": "Aby śledzić tymczasowe przywołanie utworzone przez akcję „{action}”, należy zdefiniować dane ActiveEffect",
       "MovementTooFar": "Planowana trasa ruchu przekracza maksymalny zasięg dozwolony w ramach tej akcji.",
       "MovementTooShort": "Zaplanowana trasa ruchu nie spełnia minimalnych wymagań dotyczących zasięgu dla tej akcji.",
-      "MustFollowMainhandStrike": "Akcję {action} możesz wykonać dopiero po wykonaniu podstawowej akcji Ataku bronią w ręce głównej.",
+      "MustFollowMainhandStrike": "Akcję {action} możesz wykonać dopiero po wykonaniu podstawowej akcji Uderzenia bronią w ręce głównej.",
       "MustFollowMeleeDefense": "Akcję {action} możesz wykonać dopiero po obronie ataku wręcz za pomocą {defense}.",
       "MustFollowMeleeKill": "Akcję {action} możesz wykonać dopiero po obezwładnieniu wroga atakiem wręcz.",
       "MustFollowRanged": "Akcję {action} można wykonać wyłącznie po ataku bronią dystansową.",
       "MustFollowRest": "Akcję {action} można wykonać wyłącznie bezpośrednio po odpoczynku.",
-      "MustFollowStrike": "Akcję {action} można wykonać dopiero po wykonaniu podstawowej akcji Ataku",
+      "MustFollowStrike": "Akcję {action} można wykonać dopiero po wykonaniu podstawowej akcji Uderzenia",
       "MustReactHit": "Akcję {action} można wykonać wyłącznie w odpowiedzi na atak, który trafił lub zadał draśnięcie.",
       "MustReactSingleTarget": "Akcję {action} można wykonać wyłącznie w odpowiedzi na akcję, która miała tylko jeden cel.",
       "MustReactStrike": "Akcję {action} można wykonać wyłącznie w odpowiedzi na atak bronią.",
@@ -470,22 +485,25 @@
       "NotFlanked": "{action} wymaga oskrzydlenia celu. Cel „{target}” nie jest oskrzydlony.",
       "NoViewedScene": "Aby wykonać tę akcję, konieczne jest wyświetlenie sceny.",
       "OncePerRound": "Akcję {action} można wykonać tylko raz na rundę.",
+      "OncePerTurn": "Akcję {action} można wykonać tylko raz na turę.",
       "ReactionUnaware": "Nie możesz użyć reakcji, gdy jesteś Nieświadomy!",
       "RequiresMelee": "Aby wykonać tę akcję, musisz mieć wyposażoną broń do walki wręcz.",
       "RequiresNatural": "Ta akcja wymaga użycia broni naturalnej.",
       "RequiresOffhand": "Aby wykonać tę akcję, musisz mieć wyposażoną broń w drugiej ręce.",
       "RequiresRanged": "Aby wykonać tę akcję, musisz mieć wyposażoną broń dystansową.",
+      "RequiresRune": "Musisz znać runę wymaganą dla tej akcji.",
       "RequiresSlashingMelee": "{action} wymaga broni do walki wręcz, która zadaje obrażenia cięte.",
       "RequiresTalisman": "{action} wymaga użycia broni typu Talisman.",
       "RequiresTwoHanded": "Aby wykonać tę akcję, musisz mieć wyposażoną broń dwuręczną.",
       "RequireTemplate": "Musisz umieścić szablon pomiarowy, aby wskazać obszar działania {action}.",
-      "Restrained": "Nie możesz się ruszać, gdy jesteś Wstrzymany!",
+      "Restrained": "Nie możesz się ruszać, gdy jesteś Unieruchomiony!",
       "Silenced": "Nie możesz użyć tej akcji, gdy jesteś Wyciszony.",
+      "TargetTooLarge": "Cel „{target}” jest zbyt duży dla {action}.",
       "UnimplementedTarget": "Automatyzacja dla typu celu {type} dla akcji {name} nie jest jeszcze obsługiwana, należy ręcznie wybrać odpowiednie tokeny.",
       "WrongMovementToken": "Aby wykonać tę akcję, musisz przesunąć token."
     },
     "Action": "Akcja",
-    "AffectsScope": "Wpływa na {scope}",
+    "AffectsScope": "Wpływa na: {scope}",
     "AllResult": "{existing} (Wszystko)",
     "ChooseWeaponLabel": "Broń",
     "ChooseWeaponHint": "Możesz wybrać broń, której użyjesz do wykonania tej akcji.",
@@ -499,6 +517,8 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Do zakończenia",
     "EffectSpecific": "Efekt: {effect}",
+    "MaintainContent": "<p>Wydać {cost} punktów Skupienia, aby utrzymać {effect}?</p>",
+    "MaintainTitle": "Podtrzymanie skupienia: {effect}",
     "NoTargets": "Brak celów",
     "Overview": "Przegląd akcji",
     "PlanMovement": "Plan ruchu",
@@ -520,6 +540,10 @@
     "UseAction": "Użyj akcji"
   },
   "ACTIONS": {
+    "AllIn": {
+      "CannotAfford": "{name} musi wydać 1 punkt Heroizmu lub 6 punktów Gambitu, aby postawić wszystko na jedną kartę.",
+      "Marker": "Wszystko na jedną kartę"
+    },
     "AmplifyAffix": {
       "Effect": "Wzmocnienie afiksu",
       "Label": "Afiks do wzmocnienia",
@@ -527,11 +551,28 @@
       "Required": "Musisz wybrać afiks, który chcesz wzmocnić.",
       "Title": "Wzmocnienie afiksu"
     },
+    "Challenge": {
+      "Dominance": "Dominacja"
+    },
     "FieldStudy": {
       "Effect": "Badania terenowe: {knowledge}",
       "Label": "Temat badań",
       "Required": "Musisz wybrać dziedzinę wiedzy, którą chcesz studiować.",
       "Title": "Badania terenowe"
+    },
+    "Gambit": {
+      "AnteWon": "Gambit (+{count})",
+      "Charges": "Gambit ({count})",
+      "ChargeDescription": "Liczba punktów Gambitu, które można wykorzystać zamiast <strong>Heroizmu</strong> do wykonania akcji \"Wszystko na jedną kartę\".",
+      "LoadedDice": "Podrobione kości"
+    },
+    "Glide": {
+      "MustDescend": "Szybowanie musi zakończyć się na niższym poziomie niż ten, na którym się rozpoczął."
+    },
+    "Grapple": {
+      "AlreadyGrappled": "{name} jest już przytrzymywany przez inną istotę.",
+      "AlreadyGrappling": "Już jesteś przytrzymywany przez inną istotę.",
+      "TooLarge": "{name} jest zbyt duży, byś mógł go pochwycić."
     },
     "ImbueAffix": {
       "AffixLabel": "Afiks",
@@ -542,7 +583,13 @@
       "NoCapacity": "Ten przedmiot nie ma wolnego miejsca na zaklinanie.",
       "Required": "Musisz wybrać zarówno przedmiot, jak i afiks.",
       "TierTooHigh": "Tego afiksu nie można nadać przy stopniu 1.",
-      "Title": "Nasycenie afiksu"
+      "Title": "Nasycenie afiksem"
+    },
+    "Swallow": {
+      "AlreadySwallowing": "Właśnie połknąłeś inną istotę."
+    },
+    "Throw": {
+      "NotGrappling": "Możesz rzucić tylko stworzeniem, którego przytrzymujesz."
     }
   },
   "ACTIVE_EFFECT": {
@@ -553,6 +600,14 @@
       "Edit": "Edytuj efekt",
       "Enable": "Włącz efekt",
       "New": "Nowy efekt"
+    },
+    "CHANGE_TYPES": {
+      "scaleResource": "Skalowanie zasobów"
+    },
+    "DURATION": {
+      "Combat": "Walka",
+      "Infinite": "∞",
+      "Rounds": "{value}R"
     },
     "STATUSES": {
       "Asleep": "Uśpiony",
@@ -594,7 +649,7 @@
       "Poisoned": "Zatruty",
       "Prone": "Przewrócony",
       "Resolute": "Stanowczy",
-      "Restrained": "Wstrzymany",
+      "Restrained": "Unieruchomiony",
       "Shocked": "Porażony",
       "Slowed": "Spowolniony",
       "Staggered": "Chwiejny",
@@ -617,6 +672,8 @@
       "IncreaseAbilitySpecific": "Zwiększenie {ability}",
       "LevelUp": "Wzrost poziomu!",
       "ResetTalents": "Zresetuj wszystkie talenty",
+      "ResetTalentsContent": "<p>Czy na pewno chcesz zresetować wszystkie talenty?</p>",
+      "ResetTalentsTitle": "Zresetuj talenty: {actor}",
       "RollCheck": "Rzut testu",
       "TalentTreeClose": "Zamknij drzewko talentów",
       "TalentTreeOpen": "Otwórz drzewko talentów",
@@ -1250,7 +1307,21 @@
     }
   },
   "BASE_EFFECT": {
+    "Difficulty": "Trudność {dc}",
+    "Suspended": "Wstrzymane",
+    "PROPERTIES": {
+      "Magical": "Magiczny",
+      "MagicalTooltip": "Ten efekt ma charakter magiczny i może zostać zniesiony przez zdolności przeciwdziałające magii."
+    },
+    "SECTIONS": {
+      "Removal": "Usunięcie",
+      "General": "Ogólne"
+    },
     "FIELDS": {
+      "dc": {
+        "hint": "Trudność w usunięciu tego efektu, np. poprzez rozproszenie magii. Pozostaw puste pole, jeśli efekt nie może zostać usunięty.",
+        "label": "ST usunięcia"
+      },
       "dot": {
         "element": {
           "amount": {
@@ -1269,6 +1340,10 @@
           }
         },
         "label": "Obrażenia w czasie"
+      },
+      "properties": {
+        "hint": "Cechy charakteryzujące ten efekt.",
+        "label": "Właściwości"
       },
       "maintenance": {
         "cost": {
@@ -1305,6 +1380,7 @@
     "WARNINGS": {
       "CannotChangeRound": "Tylko Mistrz gry może zmienić rundę walki."
     },
+    "Escalation": "Eskalacja",
     "HeroismPct": "Heroizm {pct}%",
     "HeroismTooltip": "Postęp do kolejnego punktu Heroizmu"
   },
@@ -1377,6 +1453,7 @@
       "Archetype": "Karta archetypu Crucible",
       "Armor": "Karta pancerza Crucible",
       "Background": "Karta przeszłości Crucible",
+      "Effect": "Karta efektów Crucible",
       "Group": "Karta grupy Crucible",
       "Hero": "Karta bohatera Crucible",
       "HeroCreation": "Karta tworzenia bohatera Crucible",
@@ -1427,7 +1504,7 @@
     "Piercing": "Kłutych obr.",
     "Poison": "Trucizna",
     "Psychic": "Psychiczne",
-    "Radiant": "Świetlistych obr.",
+    "Radiant": "Świetliste",
     "Restoration": "Przywrócenie",
     "Slashing": "Cięte",
     "Spiritual": "Duchowe",
@@ -1563,7 +1640,7 @@
     }
   },
   "HOOKS": {
-    "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułów.",
+    "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułu.",
     "ToggleSource": "Zmień źródło",
     "WARNINGS": {
       "GemConjuredFlameShoddy": "Klejnot wywołanego płomienia tandetnej jakości nie pozwala przywołać żadnego żywiołaka.",
@@ -1695,7 +1772,7 @@
       "NoAffixCapacityTitle": "Zaklinanie niemożliwe",
       "NoAffixes": "Przeciągnij afiks z kompendium afiksów, aby go zastosować.",
       "UniqueItemTitle": "Unikatowy przedmiot",
-      "UniqueItemNoAffixes": "Ten przedmiot jest unikalny i nie można go wzbogacić o afiksy. Jego właściwości magiczne są określane przez uchwyty modułów.",
+      "UniqueItemNoAffixes": "Ten przedmiot jest unikalny i nie można go wzbogacić o afiksy. Jego właściwości magiczne są określane przez uchwyty modułu.",
       "EnchantmentDerivedHint": "Stopień zaklinania wynika z łącznego stopnia zastosowanych afiksów.",
       "Equipment": "Szczegóły wyposażenia",
       "EquipmentDrop": "Dodaj wyposażenie początkowe, przeciągając i upuszczając przedmioty w tym obszarze.",
@@ -2166,7 +2243,7 @@
       "NegateAdj": "Zaprzeczający",
       "Pull": "Przyciąganie",
       "PullAdj": "Przyciągający",
-      "Push": "Odepchnięcie",
+      "Push": "Pchnięcie",
       "PushAdj": "Odpychający",
       "Quicken": "Przyspieszanie",
       "QuickenAdj": "Przyspieszający",
@@ -2210,12 +2287,12 @@
       "KinesisAdj": "Kinetyczny",
       "Life": "Życie",
       "LifeAdj": "Witalny",
-      "Lightning": "Błyskawicy",
-      "LightningAdj": "Naelektryzowany",
       "Oblivion": "Nicości",
       "OblivionAdj": "Niszczący",
       "Soul": "Dusza",
-      "SoulAdj": "Uduchowiony"
+      "SoulAdj": "Uduchowiony",
+      "Storm": "Burza",
+      "StormAdj": "Naelektryzowany"
     },
     "SHEET": {
       "Knowledge": "Wymagana wiedza"
@@ -2325,7 +2402,7 @@
         "two": "Talenty",
         "few": "Talenty",
         "many": "Talentów",
-        "other": "Talentów"
+        "other": "Talenty"
       }
     },
     "NODES": {
@@ -2335,13 +2412,13 @@
       "Magic": "Magia",
       "Melee": "Walka wręcz",
       "Move": "Ruch",
-      "Origin": "Źródło",
+      "Origin": "Geneza",
       "Ranged": "Dystansowy",
       "Signature": "Popisowe",
       "Skill": "Umiejętność",
       "Spell": "Czaroznastwo",
-      "Training": "Szkolenie",
-      "Utility": "Narzędzie"
+      "Training": "Wytrenowanie",
+      "Utility": "Użytkowe"
     },
     "RANKS": {
       "Expert": "Ekspercki",
@@ -2364,7 +2441,9 @@
       "Inaccessible": "Nie możesz zdobyć \"{name}\", ponieważ nie odblokowałeś tego węzła drzewka talentów.",
       "Locked": "Nie spełniasz wymagań niezbędnych do uzyskania \"{name}\", które wymagają {requires} {requirement}.",
       "RequiresRuneGesture": "Aby użyć Gestu, musisz znać Runę magii.",
-      "RequiresRuneInflection": "Aby użyć Fleksji, musisz znać Runę magii."
+      "RequiresRuneInflection": "Aby użyć Fleksji, musisz znać Runę magii.",
+      "SignatureLimit": "Zdobyłeś maksymalną liczbę {max} talentów popisowych dostępnych na poziomie postaci {level}.",
+      "SignatureLimitNext": "Zdobyłeś już maksymalną liczbę {max} talentów popisowych dostępnych na poziomie postaci {level}. Kolejny talent będziesz mógł zdobyć po osiągnięciu poziomu {next}."
     },
     "Banned": "Zakazany",
     "Empty": "Pusty",
@@ -2373,6 +2452,8 @@
     "NodeSpecific": "Węzeł typu {nodeType}",
     "PointsAvailable": "Dostępne punkty",
     "Prerequisites": "Wymagania wstępne",
+    "SignatureLimit": "Osiągnięto limit popisowych talentów",
+    "SignatureNext": "Następny na poziomie {level}",
     "Tier": "Stopień {tier}"
   },
   "TAXONOMY": {
@@ -2506,7 +2587,7 @@
         },
         "push": {
           "description": "Wymuszone przemieszczenie spowodowane czynnikiem zewnętrznym, np. odrzutem. Koszt ruchu wynosi zawsze zero.",
-          "label": "Odepchnięcie"
+          "label": "Pchnięcie"
         },
         "slow": {
           "label": "Ostrożny"
@@ -2673,7 +2754,7 @@
       "Parrying": "Odparowywanie",
       "ParryingTooltip": "Ta broń zapewnia premię do obrony Parowania.",
       "Reach": "Zasięg",
-      "ReachTooltip": "Ta broń zapewnia większy niż normalnie zasięg skuteczny. Możesz wykonywać podstawowe ataki uderzeniowe z dwukrotnie większej od normalnej odległości.",
+      "ReachTooltip": "Ta broń zapewnia większy niż normalnie zasięg skuteczny. Możesz wykonywać podstawowe uderzenie z dwukrotnie większej od normalnej odległości.",
       "Reliable": "Niezawodności",
       "ReliableTooltip": "Ta broń jest niezawodna i prawie nigdy nie powoduje spektakularnych niepowodzeń. Próg krytycznej porażki tej broni jest zmniejszony o 2, co sprawia, że nieudane ataki rzadziej kończą się krytycznym chybieniem.",
       "Reload": "Przeładowanie",
@@ -2684,7 +2765,7 @@
       "ThrownTooltip": "Broń ta została zaprojektowana tak, aby nadawała się do rzucania i nie podlega karze Zgub, która zazwyczaj jest nakładana na akcję rzucania bronią.",
       "UntrainedTooltip": "Twoja postać nie posiada {training} w posługiwaniu się tą bronią i otrzymuje karę -4 do umiejętności podczas ataku tą bronią.",
       "Versatile": "Wszechstronna",
-      "VersatileTooltip": "Broń tę można dzierżyć jedną lub dwiema rękami i przełączać się między tymi trybami bez ponoszenia kosztów Punktów Akcji. Podczas dzierżenia broni dwiema rękami zyskuje ona dodatkowe +2 do podstawowych obrażeń, ale atak kosztuje 1 dodatkowy Punkt Akcji."
+      "VersatileTooltip": "Broń tę można dzierżyć jedną lub dwiema rękami i przełączać się między tymi trybami bez ponoszenia kosztów Punktów Akcji. Podczas dzierżenia broni dwiema rękami zyskuje ona dodatkowe +2 do podstawowych obrażeń, ale uderzenie kosztuje 1 dodatkowy Punkt Akcji."
     }
   }
 }

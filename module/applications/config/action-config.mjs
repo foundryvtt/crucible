@@ -137,7 +137,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         if ( !tag.internal ) acc[tagId] = tag;
         return acc;
       }, {}),
-      isSummon: action.tags.includes("summon"),
+      isSummon: action.target.type === "summon",
       tabs: this.#prepareTabs().sheet,
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,

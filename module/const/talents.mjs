@@ -52,6 +52,18 @@ export const NODE_TIERS = Object.freeze({
 });
 
 /**
+ * The maximum number of Signature Talents a hero may acquire (reached at character level 18).
+ * @type {number}
+ */
+export const SIGNATURE_MAX = 6;
+
+/**
+ * The character level interval at which a hero gains capacity for an additional Signature Talent (first at level 3).
+ * @type {number}
+ */
+export const SIGNATURE_LEVEL_INTERVAL = 3;
+
+/**
  * The types of training which are available in the system.
  * @type {Readonly<Record<string, {id: string, group: string, label: string}>>}
  */
@@ -141,7 +153,7 @@ export const TALENT_ID_MIGRATIONS = {
   runefrost0000000: "Compendium.crucible.talent.Item.runeFrost0000000",
   runekinesis00000: "Compendium.crucible.talent.Item.runeKinesis00000",
   runelife00000000: "Compendium.crucible.talent.Item.runeLife00000000",
-  runelightning000: "Compendium.crucible.talent.Item.runeLightning000",
+  runelightning000: "Compendium.crucible.talent.Item.runeStorm0000000",
   runemind00000000: "Compendium.crucible.talent.Item.runeControl00000",
   runeradiance0000: "Compendium.crucible.talent.Item.runeIllumination",
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
@@ -169,7 +181,11 @@ export const TALENT_ID_MIGRATIONS = {
   IllusionProficie: "Compendium.crucible.talent.Item.illusionProficie",
   KinesisProficien: "Compendium.crucible.talent.Item.kinesisProficien",
   LifeProficiency0: "Compendium.crucible.talent.Item.lifeProficiency0",
-  LightningProfici: "Compendium.crucible.talent.Item.lightningProfici",
+  LightningProfici: "Compendium.crucible.talent.Item.stormProficiency",
   OblivionProficie: "Compendium.crucible.talent.Item.oblivionProficie",
-  SoulProficiency0: "Compendium.crucible.talent.Item.soulProficiency0"
+  SoulProficiency0: "Compendium.crucible.talent.Item.soulProficiency0",
+
+  // Lightning to Storm Rune Rename
+  runeLightning000: "Compendium.crucible.talent.Item.runeStorm0000000",
+  lightningProfici: "Compendium.crucible.talent.Item.stormProficiency"
 };

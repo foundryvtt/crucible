@@ -41,6 +41,12 @@ Hooks.once("init", async function() {
   CrucibleTalentNode.defineTree();
   crucible.developmentMode = game.data.options.debug;
 
+  /**
+   * The effective world migration version cached at setup; see {@link _getMigrationVersion}.
+   * @type {string|null}
+   */
+  crucible._migrationVersion = null;
+
   // Expose the system API
   crucible.api = {
     applications,
@@ -245,6 +251,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, "crucible", applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
   sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleAffixEffectSheet, {types: ["affix"], label: "CRUCIBLE.SHEETS.Affix", makeDefault: true});
+  sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleActiveEffectSheet, {types: ["base"], label: "CRUCIBLE.SHEETS.Effect", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
@@ -284,7 +291,10 @@ Hooks.once("init", async function() {
         const label = foundry.utils.escapeHTML(tag.label ?? tag);
         const styleString = tag.color ? ` style="--tag-color: ${tag.color.css}"` : "";
         const tooltipString = tag.tooltip ? ` data-crucible-tooltip-text="${tag.tooltip}"` : "";
-        return `<span class="${classes}" data-crucible-tooltip="tag" data-tag="${id}"${styleString}${tooltipString}>${label}</span>`;
+        const tooltipType = tag.tooltipType ?? "tag";
+        let datasetString = "";
+        for ( const [k, v] of Object.entries(tag.dataset ?? {}) ) datasetString += ` data-${k}="${foundry.utils.escapeHTML(v)}"`;
+        return `<span class="${classes}" data-crucible-tooltip="${tooltipType}" data-tag="${id}"${styleString}${tooltipString}${datasetString}>${label}</span>`;
       });
       if ( !enclosed) return new Handlebars.SafeString(tagSpans.join(""));
       const enclosingClasses = `tags${additionalClasses ? ` ${foundry.utils.escapeHTML(additionalClasses)}` : ""}`;
@@ -576,6 +586,9 @@ function preLocalizeConfig() {
   // Crafting
   localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
 
+  // Effects
+  localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
+
   // Item
   localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);
   localizeConfigObject(SYSTEM.ITEM.LOOT_CATEGORIES);
@@ -623,8 +636,10 @@ Hooks.once("setup", function() {
   // Apply compatibility patches for Ember module hooks
   applyEmberPatches();
 
+  // Resolve and cache the effective migration version (inferred for quickstart worlds)
+  const mv = crucible._migrationVersion = _getMigrationVersion();
+
   // Cull deprecated item properties that have been fully migrated
-  const mv = game.settings.get("crucible", "migrationVersion");
   for ( const model of Object.values(CONFIG.Item.dataModels) ) {
     const properties = model.ITEM_PROPERTIES;
     if ( !properties ) continue;
@@ -675,10 +690,8 @@ Hooks.once("ready", async function() {
 
   // Perform World Migrations
   if ( game.users.activeGM?.isSelf ) {
-    const mv = game.settings.get("crucible", "migrationVersion");
-    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) {
-      await _performMigrations(mv);
-    }
+    const mv = crucible._migrationVersion;
+    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) await _performMigrations(mv);
   }
 
   // Display Welcome Journal
@@ -713,6 +726,27 @@ async function _performMigrations(priorVersion) {
   await syncOwnedItems({equipment: true, force: true, reload: false});
   await game.settings.set("crucible", "migrationVersion", crucible.version);
   foundry.utils.debouncedReload();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the effective world migration version, inferring a baseline for quickstart worlds whose setting is 0.0.0.
+ * @returns {string} The resolved migration version.
+ */
+function _getMigrationVersion() {
+  const mv = game.settings.get("crucible", "migrationVersion");
+  if ( mv !== "0.0.0" ) return mv;
+
+  // A quickstart world reports 0.0.0 despite holding content from a later vintage; recover the oldest such vintage
+  // from the recorded adventure imports.
+  const imports = game.settings.get("core", "adventureImports");
+  let baseline = null;
+  for ( const data of Object.values(imports) ) {
+    if ( !data.quickstart?.quickstarted || !data.systemVersion ) continue;
+    if ( !baseline || foundry.utils.isNewerVersion(baseline, data.systemVersion) ) baseline = data.systemVersion;
+  }
+  return baseline ?? mv;
 }
 
 /* -------------------------------------------- */

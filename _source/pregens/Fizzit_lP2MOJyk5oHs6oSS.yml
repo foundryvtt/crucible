@@ -61,7 +61,7 @@ system:
         importance of quick-thinking and quick-action.</p>
       identifier: gnome
       talents:
-        - item: Compendium.crucible.talent.Item.runeLightning000
+        - item: Compendium.crucible.talent.Item.runeStorm0000000
           level: null
       ui:
         color: '#afa2c3'
@@ -292,11 +292,11 @@ items:
       identifier: ringMail
       invested: false
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142907
-      modifiedTime: 1780588142907
+      systemVersion: 0.10.0
+      createdTime: 1781446982310
+      modifiedTime: 1781446982310
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -337,11 +337,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142908
-      modifiedTime: 1780588142908
+      systemVersion: 0.10.0
+      createdTime: 1781446982311
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -380,11 +380,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142908
-      modifiedTime: 1780588142908
+      systemVersion: 0.10.0
+      createdTime: 1781446982311
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -433,10 +433,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -449,12 +446,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142908
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142908
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -489,12 +486,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142908
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142908
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -535,12 +532,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142908
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142908
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -573,12 +570,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142909
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982311
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142909
+      createdTime: 1781446982311
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -610,12 +607,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142909
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142909
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -630,11 +627,12 @@ items:
     img: icons/magic/water/orb-ice-web.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Frost. Spells which use
-        this Rune cause the @Condition[freezing] condition on Critical
-        Hits.</p><p>The Freezing effect lasts for <strong>1 Round</strong>,
-        deals half your <strong>Wisdom</strong> score as <strong>Frost</strong>
-        damage to <strong>Health</strong>, and applies the @Condition[slowed]
+        <p>You are highly skilled in weaving the Rune of Frost. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        deal damage cause the @Condition[freezing] condition.</p><p>The Freezing
+        effect lasts for <strong>1 Round</strong>, deals half your
+        <strong>Wisdom</strong> score as <strong>Frost</strong> damage to
+        <strong>Health</strong>, and applies the @Condition[slowed]
         condition.</p>
       actions: []
       iconicSpells: 0
@@ -650,12 +648,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142909
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142909
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -688,12 +686,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142909
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142909
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -755,14 +753,11 @@ items:
             minimum: null
             maximum: 30
             weapon: false
-          rune: lightning
+          rune: storm
           gesture: touch
           composition: 1
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
           inflection: ''
-          autoFavorite: false
       iconicSpells: 0
       training:
         type: ''
@@ -776,12 +771,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142910
+      systemVersion: 0.10.0
+      modifiedTime: 1781446982312
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142910
+      createdTime: 1781446982312
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -826,10 +821,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       nodes:
         - sig3.presence.intellect
       rune: ''
@@ -842,11 +834,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142910
-      modifiedTime: 1780588142910
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -901,10 +893,7 @@ items:
           effects: []
           tags:
             - noncombat
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: ''
       gesture: ''
       inflection: ''
@@ -915,11 +904,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142910
-      modifiedTime: 1780588142910
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -987,10 +976,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: illusion
       nodes:
         - int0a
@@ -1004,11 +990,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142911
-      modifiedTime: 1780588142911
+      systemVersion: 0.10.0
+      createdTime: 1781446982313
+      modifiedTime: 1781446982313
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1024,12 +1010,13 @@ items:
     img: icons/magic/lightning/bolt-strike-forked-blue.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Lightning. Spells which
-        use this Rune cause the @Condition[shocked] condition on Critical
-        Hits.</p><p>The Shocked effect lasts for <strong>3 Rounds</strong>,
-        deals half your <strong>Intellect</strong> score as
-        <strong>Lightning</strong> damage to <strong>Morale</strong>, and
-        applies the @Condition[staggered] condition.</p>
+        <p>You are highly skilled in weaving the Rune of Storm. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
+        effect lasts for <strong>3 Rounds</strong>, deals half your
+        <strong>Intellect</strong> score as <strong>Electricity</strong> damage
+        to <strong>Morale</strong>, and applies the @Condition[staggered]
+        condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1044,11 +1031,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142911
-      modifiedTime: 1780588142911
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1065,8 +1052,9 @@ items:
     img: icons/magic/air/air-burst-spiral-pink.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Illusion. Spells which
-        use this Rune cause @Condition[confused] on Critical Hits.</p><p>The
+        <p>You are highly skilled in weaving the Rune of Illusion. When you cast
+        a Spell or use an action that involves this Rune, your Critical Hits
+        which deal damage cause the @Condition[confused] condition.</p><p>The
         Confused effect lasts for <strong>1 Round</strong>, deals half your
         <strong>Intellect</strong> score as <strong>Psychic</strong> damage to
         <strong>Morale</strong>, and applies the @Condition[disoriented]
@@ -1084,11 +1072,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142911
-      modifiedTime: 1780588142911
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1098,93 +1086,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.mesmer0000000000'
-  - name: 'Rune: Lightning'
-    type: talent
-    img: icons/magic/lightning/bolt-strike-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of raw electrical energy. The Lightning rune
-        governs sources of electrical charge and discharge.</p><p>The Lightning
-        rune scales using <strong>Intellect</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Earth</strong>.</p>
-      actions:
-        - id: energize
-          name: Energize
-          img: icons/magic/lightning/bolt-strike-blue.webp
-          condition: ''
-          description: >-
-            <p>Your command of the Rune of Lightning allows you to conduct the
-            flow of both air and electricity, manipulating charge and
-            aerodynamics to produce one of the following
-            effects:</p><ul><li><p>Instill an electromagnetic charge into a
-            metallic object that you touch no larger than a one-foot cube,
-            causing it to strongly adhere to other metals. Only one object can
-            be charged in this way at a given time, casting this spell on a
-            different object causes the prior object to lose its magnetic
-            effect.</p></li><li><p>Gather a squall of wind at your current
-            location in a six-foot radius which blows either as a gust in a
-            single controlled direction or as a cyclone with centripetal force
-            in all directions. Airborne effects in the immediate area are
-            dispersed and unsecured objects with weight less than 1 are flung in
-            the direction of the gust.</p></li><li><p>Produce the concussive
-            sound of a thunderclap at a location you can see within 15 feet of
-            your current position.</p></li></ul><p>Energize may only affect a
-            creature or object you can physically touch. You may attempt other
-            uses similar those above, the effectiveness of which is decided by
-            the Gamemaster.</p>
-          cost:
-            action: 3
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - spell
-            - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
-      rune: lightning
-      training:
-        type: lightning
-        rank: 1
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.363'
-      systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142911
-      modifiedTime: 1780588142911
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: runeLightning000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeLightning000'
   - name: 'Rune: Kinesis'
     type: talent
     img: icons/magic/movement/pinwheel-turning-blue.webp
@@ -1243,10 +1144,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: kinesis
       nodes:
         - pre0b
@@ -1260,11 +1158,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142912
-      modifiedTime: 1780588142912
+      systemVersion: 0.10.0
+      createdTime: 1781446982314
+      modifiedTime: 1781446982314
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1327,10 +1225,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: frost
       nodes:
         - wis0b
@@ -1344,11 +1239,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142912
-      modifiedTime: 1780588142912
+      systemVersion: 0.10.0
+      createdTime: 1781446982315
+      modifiedTime: 1781446982315
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1401,10 +1296,7 @@ items:
             - talisman
             - harmless
             - rallying
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: talisman
@@ -1417,11 +1309,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142912
-      modifiedTime: 1780588142912
+      systemVersion: 0.10.0
+      createdTime: 1781446982315
+      modifiedTime: 1781446982315
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1467,10 +1359,7 @@ items:
           effects: []
           tags:
             - reload
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: mechanical
@@ -1483,12 +1372,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142912
-      createdTime: 1780588142912
+      modifiedTime: 1781446982315
+      createdTime: 1781446982315
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1534,10 +1423,7 @@ items:
             self: false
           effects: []
           tags: []
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: ''
       gesture: ''
       inflection: ''
@@ -1548,11 +1434,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142913
-      modifiedTime: 1780588142913
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1597,11 +1483,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142913
-      modifiedTime: 1780588142913
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1641,11 +1527,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142913
-      modifiedTime: 1780588142913
+      systemVersion: 0.10.0
+      createdTime: 1781446982316
+      modifiedTime: 1781446982316
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1656,6 +1542,89 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.Lo3qsvBe64PplA10'
+  - name: 'Rune: Storm'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw electrical energy. The Storm rune governs
+        sources of electrical charge and discharge.</p><p>The Storm rune scales
+        using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and
+        deals <strong>Electrical</strong> damage to <strong>Health</strong>. It
+        is opposed by the orderly rune of <strong>Earth</strong>.</p>
+      actions:
+        - id: energize
+          name: Energize
+          img: icons/magic/lightning/bolt-strike-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Storm allows you to conduct the flow
+            of both air and electricity, manipulating charge and aerodynamics to
+            produce one of the following effects:</p><ul><li><p>Instill an
+            electromagnetic charge into a metallic object that you touch no
+            larger than a one-foot cube, causing it to strongly adhere to other
+            metals. Only one object can be charged in this way at a given time,
+            casting this spell on a different object causes the prior object to
+            lose its magnetic effect.</p></li><li><p>Gather a squall of wind at
+            your current location in a six-foot radius which blows either as a
+            gust in a single controlled direction or as a cyclone with
+            centripetal force in all directions. Airborne effects in the
+            immediate area are dispersed and unsecured objects with weight less
+            than 1 are flung in the direction of the
+            gust.</p></li><li><p>Produce the concussive sound of a thunderclap
+            at a location you can see within 15 feet of your current
+            position.</p></li></ul><p>Energize may only affect a creature or
+            object you can physically touch. You may attempt other uses similar
+            those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      rune: storm
+      training:
+        type: storm
+        rank: 1
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.364'
+      systemId: crucible
+      systemVersion: 0.10.0
+      createdTime: 1781446982317
+      modifiedTime: 1781446982317
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runeStorm0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeStorm0000000'
 effects: []
 flags:
   core: {}
@@ -1744,11 +1713,11 @@ flags:
         messageId: t3WM9HAg9PzUI3c7
         combat: null
 _stats:
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
-  createdTime: 1780588142907
-  modifiedTime: 1780588142907
+  systemVersion: 0.10.0
+  createdTime: 1781446982310
+  modifiedTime: 1781446982310
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -11,6 +11,16 @@ export const weapon = {
     preActivateAction(...args) {
       crucible.api.hooks.affix.returning.preActivateAction(...args);
     }
+  },
+  javelin: {
+    prepareAction(item, action) {
+      if ( !action.tags.has("thrown") ) return;
+      // Only the javelin actually being thrown earns the bonus, not another thrown weapon held alongside it
+      const thrownWeapon = action.usage.weapon ?? action.usage.strikes?.[0];
+      if ( thrownWeapon?.id !== item.id ) return;
+      // Additive (not assignment) so the bonus composes with Peltast / Powerful Throw regardless of hook order
+      action.range.maximum += 50;
+    }
   }
 };
 export const armor = {};

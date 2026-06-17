@@ -1,0 +1,106 @@
+folder: GwintA6OSvHfTTC5
+name: Stone Elemental
+type: taxonomy
+img: icons/magic/earth/construct-stone-long-arms.webp
+system:
+  description: >-
+    <p>Towering elementals of solid living rock: ponderous, immovable, and
+    enduring. They channel the raw might of the earth through their own immense
+    mass.</p>
+  category: elementalEarth
+  abilities:
+    wisdom: 2
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 4
+    dexterity: 1
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: -1
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: -1
+      immune: false
+    acid:
+      value: 0
+      immune: true
+    fire:
+      value: 1
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: -2
+      immune: false
+  characteristics:
+    spells: true
+    equipment: false
+    temperature: ''
+  movement:
+    size: 4
+    stride: 10
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.livingBoulder000
+      level: null
+    - item: Compendium.crucible.talent.Item.runeEarth0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.immuntableForm00
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.burrower00000000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.gloomSight000000
+      level: 4
+    - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
+      level: 6
+  identifier: stoneElemental
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.stoneSkin0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.causticLimb00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.10.0
+  modifiedTime: 1781568138276
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  createdTime: 1781027705369
+_id: stoneElemental00
+sort: 500000
+_key: '!items!stoneElemental00'

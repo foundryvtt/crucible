@@ -2,6 +2,39 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.abjure = {
+  async roll(target) {
+    // Identify spell-caused conditions on this ally that an enemy inflicted, leaving allied buffs intact
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const selfToken = this.actor.getActiveTokens(true, true)[0];
+    const myDisposition = selfToken?.disposition ?? this.actor.prototypeToken.disposition;
+    const enemyDispositions = myDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+    const cleansable = [];
+    for ( const effect of target.effects ) {
+      // Only magical effects with a finite DC are candidates; an Infinity DC means the effect cannot be removed
+      if ( !effect.system?.properties?.has("magical") || !Number.isFinite(effect.system.dc) ) continue;
+      const origin = effect.origin ? fromUuidSync(effect.origin) : null;
+      const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
+      if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
+      cleansable.push(effect);
+    }
+    if ( !cleansable.length ) return;
+
+    // Roll Arcana against the easiest condition; purge every condition whose DC the roll exceeds
+    const minDC = Math.min(...cleansable.map(e => e.system.dc));
+    const roll = this.actor.getSkillCheck("arcana", {dc: minDC});
+    await roll.evaluate();
+    this.recordEvent({type: "skill", target, roll});
+    for ( const effect of cleansable ) {
+      if ( roll.total > effect.system.dc ) {
+        this.recordEvent({target, effects: [{_id: effect.id, _action: "delete"}]});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.alchemistsFire = {
   preActivate() {
     const tiers = {
@@ -13,6 +46,37 @@ HOOKS.alchemistsFire = {
     };
     const burning = SYSTEM.EFFECTS.burning(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], burning);
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.gambitAllIn = {
+  get _gambit() {
+    return crucible.api.hooks.talent.gambit0000000000;
+  },
+  prepare() {
+    if ( HOOKS.gambitAllIn._gambit._chargeCount(this.actor) >= 6 ) this.cost.heroism = 0; // Prefer charges
+  },
+  canUse() {
+    const actor = this.actor;
+    const charges = HOOKS.gambitAllIn._gambit._chargeCount(actor);
+    if ( (charges < 6) && (actor.resources.heroism.value < 1) ) {
+      throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
+    }
+  },
+  preActivate() {
+    this.usage.actorStatus.gambitAllIn = true;
+  },
+  postActivate() {
+    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
+    const G = HOOKS.gambitAllIn._gambit;
+    const remaining = G._chargeCount(this.actor) - 6;
+    const change = remaining > 0
+      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
+        flags: {crucible: {gambitCharges: remaining}}}
+      : {_id: G._CHARGES_ID, _action: "delete"};
+    this.recordEvent({type: "effect", target: this.actor, effects: [change]});
   }
 };
 
@@ -220,7 +284,8 @@ HOOKS.bodyBlock = {
 
 HOOKS.bullrush = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -255,6 +320,20 @@ HOOKS.causticPhial = {
     };
     const corroding = SYSTEM.EFFECTS.corroding(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], corroding);
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.challenge = {
+  postActivate() {
+    const [rival] = this.targets.keys();
+    const effect = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
+    if ( !rival || !effect ) return;
+    effect._id = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    effect.origin = rival.uuid;
+    effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    foundry.utils.setProperty(effect, "flags.crucible.dominance", {round: 0, stage: 0});
   }
 };
 
@@ -422,6 +501,38 @@ HOOKS.coveringFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.crushingLeap = {
+  initialize() {
+    // Generic attack scaling on the leaper's greater physical ability, dealing Bludgeoning to Health
+    this.usage.bonuses.ability = this.actor.getAbilityBonus(["strength", "toughness"], {type: "best"});
+    this.usage.damageType = "bludgeoning";
+    this.usage.resource = "health";
+  },
+  prepare() {
+    // The crash extends outward from the leaper's footprint: half its base size plus a fixed margin
+    this.target.size = Math.ceil(this.actor.size / 2) + 5;
+  },
+  async preActivate() {
+    // Leap to the placed blast center; the recorded movement event is what enacts the relocation at confirm
+    const center = this.region?.shapes[0];
+    if ( !this.token || !center ) return;
+    const gridSize = canvas.grid.size;
+    const waypoint = {
+      x: center.x - ((this.token.width * gridSize) / 2),
+      y: center.y - ((this.token.height * gridSize) / 2),
+      action: "jump"
+    };
+    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
+    if ( !plan ) return;
+    plan.cost = 0;
+    const {x, y, elevation} = plan.origin;
+    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.decisiveAction = {
   postActivate() {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
@@ -533,6 +644,56 @@ HOOKS.estocade = {
 
 /* -------------------------------------------- */
 
+HOOKS.escape = {
+  suppressFromSheet: true,
+  _restraints(actor) {
+    const restraints = [];
+    for ( const effect of actor.effects ) {
+      if ( effect.statuses.has("restrained") && Number.isFinite(effect.system.dc) ) restraints.push(effect);
+    }
+    return restraints;
+  },
+  canUse() {
+    if ( !HOOKS.escape._restraints(this.actor).length ) return false;
+  },
+  prepare() {
+    const restraints = HOOKS.escape._restraints(this.actor);
+    if ( restraints.length ) this.usage.dc = Math.min(...restraints.map(e => e.system.dc));
+  },
+  roll(target) {
+    const check = this.events.find(e => (e.type === "check") && (e.target === target));
+    if ( !check?.roll ) return;
+    const total = check.roll.total;
+    const grapple = HOOKS.grapple;
+    const grapplePair = {
+      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+    };
+    for ( const effect of HOOKS.escape._restraints(target) ) {
+      if ( total <= effect.system.dc ) continue;
+
+      // Remove a status-only restraint entirely, otherwise keep the effect but prune the restrained status
+      if ( effect.isStatusOnly("restrained") ) {
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
+      } else {
+        const statuses = Array.from(effect.statuses).filter(s => s !== "restrained");
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "update", statuses}]});
+      }
+
+      // Special case for ending the other side of a symmetric grapple
+      const pairedId = grapplePair[effect.id];
+      if ( pairedId ) {
+        const partner = effect.origin ? fromUuidSync(effect.origin) : null;
+        if ( partner?.effects.has(pairedId) ) {
+          this.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
+        }
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fall = {
   suppressFromSheet: true,
   canUse() {
@@ -547,7 +708,7 @@ HOOKS.fall = {
   acquireTargets(targets) {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
-    this.usage.fall = {distance, elevation: surface?.elevation};
+    this.usage.fall = {distance, elevation: surface?.elevation, level: surface?.level?.id};
     if ( (distance <= 0) || !surface ) return;
     this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
     this.usage.bonuses.ability = distance;
@@ -571,10 +732,11 @@ HOOKS.fall = {
     }
   },
   async postActivate() {
-    const {distance, elevation} = this.usage.fall;
+    const {distance, elevation, level} = this.usage.fall;
     if ( !distance ) return;
-    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [{action: "fall", elevation}],
-      {animate: false});
+    const waypoint = {action: "fall", elevation};
+    if ( level && (level !== this.token._source.level) ) waypoint.level = level;
+    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint], {animate: false});
     if ( !movement ) return;
     Object.defineProperty(this, "movement", { value: movement, configurable: true });
     const {origin} = movement;
@@ -759,6 +921,78 @@ HOOKS.gemOfConjuredFlame = {
       duration: {rounds: 6},
       system: {}
     });
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.getBehindMe = {
+  async postActivate() {
+    const selfToken = this.token?.object;
+    const [target] = this.targets.keys();
+    const allyToken = this.targets.get(target)?.token?.object;
+    if ( !selfToken || !allyToken ) return;
+
+    // Drag the target behind your own token - using your angle of facing. The distance clears both footprints (your
+    // half-extent plus the ally's half-extent) so they end edge-adjacent rather than overlapping.
+    const behind = Math.toRadians(this.token.rotation - 90);
+    const selfReach = Math.max(this.token.width, this.token.height) / 2;
+    const allyReach = Math.max(allyToken.document.width, allyToken.document.height) / 2;
+    const dist = (selfReach + allyReach) * canvas.grid.size;
+    const c = selfToken.center;
+    const ray = new foundry.canvas.geometry.Ray(allyToken.center,
+      {x: c.x + (Math.cos(behind) * dist), y: c.y + (Math.sin(behind) * dist)});
+    const plan = await crucible.api.canvas.movement.planForcedMovement(allyToken.document, ray,
+      {excludeTokens: [this.token.id]});
+    if ( plan ) {
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.grapple = {
+  _GRAPPLED_EFFECT_ID: "grappled00000000",
+  _GRAPPLING_EFFECT_ID: "grappling0000000",
+  _canGrapple(actor, target) {
+    return (actor.size + actor.system.movement.grappleBonus) >= (target.size + target.system.movement.grappleBonus);
+  },
+  prepare() {
+    for ( const effect of this.effects ) {
+      if ( effect.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF ) effect._id = HOOKS.grapple._GRAPPLING_EFFECT_ID;
+      else effect._id = HOOKS.grapple._GRAPPLED_EFFECT_ID;
+    }
+  },
+  acquireTargets(targets) {
+    const grappling = this.actor.effects.get(HOOKS.grapple._GRAPPLING_EFFECT_ID);
+    for ( const target of targets ) {
+      const grappled = target.actor.effects.get(HOOKS.grapple._GRAPPLED_EFFECT_ID);
+      const grappledByMe = grappled?.origin === this.actor.uuid;
+      if ( grappled && !grappledByMe ) {
+        target.error ??= _loc("ACTIONS.Grapple.AlreadyGrappled", {name: target.actor.name});
+        continue;
+      }
+      if ( grappling && !grappledByMe ) {
+        target.error ??= _loc("ACTIONS.Grapple.AlreadyGrappling");
+        continue;
+      }
+      if ( !HOOKS.grapple._canGrapple(this.actor, target.actor) ) {
+        target.error ??= _loc("ACTIONS.Grapple.TooLarge", {name: target.actor.name});
+      }
+    }
+  },
+  postActivate() {
+    const captive = this.targets.keys().next().value;
+    if ( !captive ) return;
+    for ( const event of this.events ) {
+      const grappling = event.effects.find(e => e._id === HOOKS.grapple._GRAPPLING_EFFECT_ID);
+      if ( grappling ) {
+        grappling.origin = captive.uuid;
+        return;
+      }
+    }
   }
 };
 
@@ -1296,6 +1530,28 @@ HOOKS.omniglotDecoction = {
 
 /* -------------------------------------------- */
 
+HOOKS.overrun = {
+  prepare() {
+    this.target.size = this.actor.size;
+    this.range.maximum = this.actor.system.movement.stride * 2;
+    // You bowl through any creature you could Grapple; exempt them from collision so your charge halts at the first
+    // creature too massive to overpower. Evaluated lazily on the polygon's near-path candidates, not the whole scene.
+    this.usage.movement.excludeTokenTest = t => HOOKS.grapple._canGrapple(this.actor, t.actor);
+  },
+  postActivate() {
+    // Only creatures you could Grapple are bowled over; one too massive to overpower halts you and is unaffected
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( (target === this.actor) || HOOKS.grapple._canGrapple(this.actor, target) ) continue;
+      for ( const event of events.all ) {
+        event.effects.length = 0;
+        if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.paralyticIngest = {
   preActivate() {
     const poison = this.effects[0];
@@ -1369,11 +1625,34 @@ HOOKS.rallyingTonic = {
 
 HOOKS.reactiveStrike = {
   canUse() {
+    const actor = this.actor;
+
+    // A Champion may strike their Challenged rival even while Flanked
+    const target = [...game.user.targets][0]?.actor;
+    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    const championBypass = actor.talentIds.has("champion00000000")
+      && (actor.effects.get(dominanceId)?.origin === target?.uuid);
+
     for ( const s of ["unaware", "flanked"] ) {
-      if ( this.actor.statuses.has(s) ) {
+      if ( (s === "flanked") && championBypass ) continue;
+      if ( actor.statuses.has(s) ) {
         const statusLabel = _loc(CONFIG.statusEffects[s]?.name ?? s);
         throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
       }
+    }
+  },
+  prepare() {
+    const actor = this.actor;
+    if ( !actor.talentIds.has("champion00000000") ) return;
+    const target = [...game.user.targets][0]?.actor;
+    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    const isRival = actor.effects.get(dominanceId)?.origin === target?.uuid;
+
+    // Champion vs rival: trade Action for 1 Focus. Done in prepare (after the strike tag folds in weapon AP) so the
+    // discounted cost precedes _canUse's affordability gate, which would otherwise reject on the full weapon AP.
+    if ( isRival && (actor.resources.focus.value >= 1) ) {
+      this.cost.action = 0;
+      this.cost.focus = 1;
     }
   }
 };
@@ -1590,6 +1869,94 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
+HOOKS.swallow = {
+  _SWALLOWED_EFFECT_ID: "swallowed00000000",
+  _isHelpless(actor) {
+    return actor.isIncapacitated || ["restrained", "stunned", "incapacitated"].some(s => actor.statuses.has(s));
+  },
+  _swallowedMarkers(actor) {
+    return actor.effects.filter(e => e.getFlag("crucible", "swallowing"));
+  },
+  prepare() {
+    const swallowed = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.ENEMIES);
+    if ( swallowed ) swallowed._id = HOOKS.swallow._SWALLOWED_EFFECT_ID;
+  },
+  acquireTargets(targets) {
+    const isLarge = size => size > (this.actor.size / 4);
+    const holdsLarge = HOOKS.swallow._swallowedMarkers(this.actor).some(m => {
+      const held = m.origin ? fromUuidSync(m.origin) : null;
+      return isLarge(held?.actor?.size ?? 0);
+    });
+    for ( const target of targets ) {
+      const prey = target.actor;
+      if ( !prey ) continue;
+
+      // The predator must be at least two feet of Size larger than its prey
+      if ( this.actor.size < (prey.size + 2) ) {
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
+        continue;
+      }
+
+      // Only one large prey may be held at a time; smaller prey never occupy the slot
+      if ( holdsLarge && isLarge(prey.size) ) {
+        target.error ??= _loc("ACTIONS.Swallow.AlreadySwallowing");
+      }
+    }
+  },
+  configure() {
+    const prey = this.targets.keys().next().value;
+    if ( prey && HOOKS.swallow._isHelpless(prey) ) {
+      this.tags.delete("difficult");
+      delete this.usage.banes.difficult;
+    }
+  },
+  postActivate() {
+    const prey = this.targets.keys().next().value;
+    if ( !prey ) return;
+    const marker = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
+    if ( !marker ) return;
+    const token = this.targets.get(prey)?.token;
+    marker._id = SYSTEM.EFFECTS.getEffectId("swallow", {suffix: token?.id ?? prey.id});
+    marker.origin = token?.uuid ?? prey.uuid;
+    marker.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    foundry.utils.setProperty(marker, "flags.crucible.swallowing", true);
+  },
+  async confirm(reverse) {
+    const target = this.targets.values().next().value;
+    if ( !target?.token || !this.eventsByTarget.get(target.actor)?.isSuccess ) return;
+    await target.token.update({hidden: !reverse});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.regurgitate = {
+  canUse() {
+    if ( !HOOKS.swallow._swallowedMarkers(this.actor).length ) return false;
+  },
+  postActivate() {
+    const released = [];
+    for ( const marker of HOOKS.swallow._swallowedMarkers(this.actor) ) {
+      const prey = marker.origin ? fromUuidSync(marker.origin)?.actor : null;
+      if ( prey?.effects.has(HOOKS.swallow._SWALLOWED_EFFECT_ID) ) {
+        this.recordEvent({type: "effect", target: prey,
+          effects: [{_id: HOOKS.swallow._SWALLOWED_EFFECT_ID, _action: "delete"}]});
+      }
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: marker.id, _action: "delete"}]});
+      if ( marker.origin ) released.push(marker.origin);
+    }
+    this.metadata.released = released;
+  },
+  async confirm(reverse) {
+    for ( const tokenUuid of (this.metadata.released ?? []) ) {
+      const token = fromUuidSync(tokenUuid);
+      if ( token ) await token.update({hidden: reverse});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {
@@ -1602,6 +1969,69 @@ HOOKS.revive = {
       if ( !rollEvent?.roll.isSuccess ) continue;
       SYSTEM.ACTION.TAGS.harmless.postActivate.call(this);
       this.recordEvent({target, resources: [{resource: "wounds", delta: -this.actor.system.abilities.wisdom.value}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.ricochet = {
+  async roll(target) {
+    const actor = this.actor;
+    const intellect = actor.system.abilities.intellect.value;
+    const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
+    let currentToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
+    if ( !weapon || !currentToken ) return;
+
+    // Bounces capped at half intellect
+    let remaining = Math.ceil(intellect / 2);
+    if ( remaining <= 0 ) return;
+
+    // Enemy dispositions, matching the action's ENEMIES target scope
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
+    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+
+    // Carom until no targets remain
+    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
+    const hopRadius = intellect; // Hop radius in feet
+    const level = currentToken.scene?.levels.get(currentToken.document._source.level);
+    const visited = new Set([target]);
+    let hop = 1; // Accumulating damage falloff: the second target takes -1, the third -2, and so on
+    while ( remaining > 0 ) {
+
+      // Gather unvisited enemy tokens within the hop radius of the current token
+      const candidates = [];
+      for ( const t of canvas.tokens.placeables ) {
+        if ( !t.actor || (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated ) continue;
+        if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
+        const distance = grid.getLinearRangeCost(currentToken, t);
+        if ( distance > hopRadius ) continue;
+        candidates.push({token: t, distance});
+      }
+      candidates.sort((a, b) => a.distance - b.distance);
+
+      // Choose the nearest candidate to which a direct move ray is unobstructed by walls
+      const origin = {x: currentToken.center.x, y: currentToken.center.y, elevation: currentToken.document.elevation};
+      let next = null;
+      for ( const c of candidates ) {
+        const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
+        const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
+          {type: "move", mode: "any", level, excludeToken: currentToken, tokenCollision: false});
+        if ( !blocked ) {
+          next = c.token;
+          break;
+        }
+      }
+      if ( !next ) break;
+
+      // Strike the next foe with accumulating damage falloff, then carom onward from it
+      const roll = await actor.weaponAttack(this, weapon, next.actor, {damageBonus: -hop});
+      this.recordEvent({type: "strike", target: next.actor, roll, weapon: weapon.snapshot()});
+      visited.add(next.actor);
+      currentToken = next;
+      hop++;
+      remaining--;
     }
   }
 };
@@ -1644,9 +2074,23 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.submergingWithdrawal = {
+  canUse() {
+    // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
+    const blocked = ["staggered", "stunned", "slowed", "paralyzed"].find(s => this.actor.statuses.has(s));
+    if ( blocked ) {
+      const status = CONFIG.statusEffects.find(s => s.id === blocked);
+      throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: _loc(status?.name ?? blocked)}));
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.shieldCharge = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -1720,6 +2164,33 @@ HOOKS.tailSweep = {
 
 /* -------------------------------------------- */
 
+HOOKS.ensnare = {
+  async postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( target === this.actor ) continue;
+
+      // Obey the same eligibility rules as grapple
+      if ( !HOOKS.grapple._canGrapple(this.actor, target) ) {
+        for ( const event of events.all ) event.effects.length = 0;
+        continue;
+      }
+
+      // On a hit, reel the ensnared prey back toward the constrictor, stopping adjacent
+      if ( !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken || !this.token?.object ) continue;
+      const minGap = ((this.token.width + targetToken.document.width) / 2) * canvas.grid.size;
+      const plan = await crucible.api.canvas.movement.planPushMovement(this.token.object.center, targetToken, -1000,
+        {minGap});
+      if ( !plan ) continue;
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.thrash = {
   acquireTargets(targets) {
     for ( const target of targets ) {
@@ -1753,11 +2224,69 @@ HOOKS.steelJawTrigger = {
 
 /* -------------------------------------------- */
 
+HOOKS.throw = {
+  _getCaptive() {
+    const grappling = this.actor.effects.get(HOOKS.grapple._GRAPPLING_EFFECT_ID);
+    const captive = grappling?.origin ? fromUuidSync(grappling.origin) : null;
+    return captive?.getActiveTokens(true, true)[0] ?? null;
+  },
+  prepare() {
+    const captive = HOOKS.throw._getCaptive.call(this);
+    if ( captive ) this.target.size = Math.ceil(captive.actor.size / 2);
+    this.range.maximum = (this.actor.abilities.strength.value * 2) + Math.ceil(this.actor.size / 2);
+  },
+  canUse() {
+    if ( !HOOKS.throw._getCaptive.call(this) ) throw new Error(_loc("ACTIONS.Throw.NotGrappling"));
+  },
+  acquireTargets(targets) {
+    targets.length = 0; // Target the grapple captive, not who was inside the blast
+    const captive = HOOKS.throw._getCaptive.call(this);
+    if ( captive ) targets.push({token: captive, actor: captive.actor, uuid: captive.actor.uuid,
+      name: captive.name});
+  },
+  async postActivate() {
+    const grapple = HOOKS.grapple;
+    const captive = this.targets.keys().next().value;
+    if ( captive ) {
+      this.recordEvent({type: "effect", target: captive,
+        effects: [{_id: grapple._GRAPPLED_EFFECT_ID, _action: "delete"}]});
+      this.recordEvent({type: "effect", target: this.actor,
+        effects: [{_id: grapple._GRAPPLING_EFFECT_ID, _action: "delete"}]});
+    }
+
+    // Hurl the target to the placed blast center, only on a successful throw
+    const center = this.region?.shapes[0];
+    if ( !center ) return;
+    const {movement} = crucible.api.canvas;
+    const excludeTokens = this.token ? [this.token.id] : undefined;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( (target === this.actor) || !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken ) continue;
+      const ray = new foundry.canvas.geometry.Ray(targetToken.center, center);
+      const plan = await movement.planForcedMovement(targetToken.document, ray,
+        {excludeTokens, animationSpeedMultiplier: 2});
+      if ( plan ) {
+        if ( !plan.collided ) {
+          for ( const event of events.all ) {
+            if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+          }
+        }
+        const {x, y, elevation} = plan.origin;
+        this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.tramplingCharge = {
   prepare() {
     this.target.size = this.actor.size;
     this.range.maximum = this.actor.system.movement.stride * 2;
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   },
   postActivate() {
     const halfSize = Math.ceil(this.actor.size / 2);
@@ -1773,7 +2302,8 @@ HOOKS.tramplingCharge = {
 
 HOOKS.tumble = {
   prepare() {
-    this.usage.movement.ignoreTokens = true;
+    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
   }
 };
 
@@ -1836,6 +2366,33 @@ HOOKS.vampiricBite = {
 
 /* -------------------------------------------- */
 
+HOOKS.vaultingSweep = {
+  prepare() {
+    const reach = this.actor.equipment.weapons.mainhand?.system.range ?? 1;
+    this.range.maximum = this.actor.system.movement.stride + reach;
+    this.target.size = Math.ceil(this.actor.size / 2) + reach;
+  },
+  async preActivate() {
+    const center = this.region?.shapes[0];
+    if ( !this.token || !center ) return;
+    const gridSize = canvas.grid.size;
+    const waypoint = {
+      x: center.x - ((this.token.width * gridSize) / 2),
+      y: center.y - ((this.token.height * gridSize) / 2),
+      action: "jump"
+    };
+    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
+      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
+    if ( !plan ) return;
+    plan.cost = 0;
+    // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id
+    const {x, y, elevation} = plan.origin;
+    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.wildStrike = {
   acquireTargets(targets) {
     const lastAction = this.actor.lastConfirmedAction;
@@ -1853,8 +2410,8 @@ HOOKS.wildStrike = {
 // Thin shims keyed to each Stance's canonical Rune; validation and effect-stream logic live on the talent hook
 // (crucible.api.hooks.talent.primalist0000000)
 HOOKS.stormStance = {
-  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "lightning"); },
-  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "lightning"); }
+  canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "storm"); },
+  preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "storm"); }
 };
 
 HOOKS.cinderStance = {
@@ -1870,6 +2427,34 @@ HOOKS.waterStance = {
 HOOKS.stoneStance = {
   canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "earth"); },
   preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "earth"); }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.ancestralGrove = {
+  async confirm(reverse) {
+    if ( reverse || !this.region ) return;
+    const groveEffect = this.events.find(e => (e.target === this.actor) && e.effects.length)?.effects[0];
+    const tokenUuid = groveEffect?.system.summons?.[0];
+    const token = tokenUuid ? fromUuidSync(tokenUuid) : null;
+    if ( !token ) return;
+
+    // Sync region position with token placement
+    const {x, y, width, height, shape, level, elevation, depth} = token._source;
+    const {distance, distancePixels} = token.parent.dimensions;
+    const range = 20; // Grove reach: 20 ft beyond the Guardian's footprint (tunable)
+    await this.region.update({
+      name: "Grove of the Ancestors",
+      restriction: {enabled: false, type: "move"},
+      shapes: [{type: "emanation", base: {type: "token", x, y, width, height, shape}, radius: range * distancePixels}],
+      elevation: {bottom: elevation - range, top: elevation + (depth * distance) + range},
+      attachment: {token: token.id},
+      levels: [level]
+    });
+
+    // Register the region placement on the active effect
+    groveEffect.system.regions = [...(groveEffect.system.regions ?? []), this.region.uuid];
+  }
 };
 
 /* -------------------------------------------- */

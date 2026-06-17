@@ -139,7 +139,7 @@ export const CATEGORIES = defineEnum({
     off: false,
     scaling: "strength",
     damage: 8,
-    actionCost: 4,
+    actionCost: 3,
     range: 3,
     training: ["heavy"]
   },

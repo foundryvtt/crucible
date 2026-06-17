@@ -2011,12 +2011,12 @@
       "KinesisAdj": "Kinetisch",
       "Life": "Leben",
       "LifeAdj": "Vital",
-      "Lightning": "Blitz",
-      "LightningAdj": "Voltaisch",
       "Oblivion": "Vergessenheit",
       "OblivionAdj": "Vernichtend",
       "Soul": "Seele",
-      "SoulAdj": "Seelenvoll"
+      "SoulAdj": "Seelenvoll",
+      "Storm": "Blitz",
+      "StormAdj": "Voltaisch"
     },
     "SHEET": {
       "Knowledge": "Erforderliches Wissen"

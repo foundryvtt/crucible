@@ -1,0 +1,79 @@
+name: Gambit
+type: talent
+_id: gambit0000000000
+img: icons/sundries/gaming/dice-pair-white-green.webp
+system:
+  description: >-
+    <p>Some fight by the book, you fight by the odds. Every exchange is a wager:
+    you read your opponent's intent, make risky bets to goad them into
+    overcommitting, then stake everything on a game-changing payout. You trust
+    your gut, wits, and some arcane chicanery to tilt the odds in your favor,
+    gaining the following benefits:</p><ul><li><p><em>The Tell.</em> You see a
+    blow before it is thrown. Your <strong>Dodge</strong> defense is calculated
+    using your <strong>Intellect</strong> instead of <strong>Dexterity</strong>,
+    if it is higher.</p></li><li><p><em>Loaded Dice.</em> Fortune bends to those
+    who help it along. Once per round, the first time you roll a 1 on any die,
+    that die is rerolled and you keep the new result.</p></li><li><p><em>Ante
+    Up.</em> When you make a @Action[default strike], you can choose to
+    intentionally add <strong>Banes</strong> to it. If the Strike hits, a
+    special <strong>Gambit</strong> effect increments according to the number of
+    Banes you wagered. These charges last until the end of Combat or until
+    spent.</p></li></ul>
+  actions:
+    - id: gambitAllIn
+      name: All-In
+      img: icons/sundries/gaming/dice-pair-white-green.webp
+      condition: ''
+      description: >-
+        <p>Every gamble you have made comes due, and you collect all at once.
+        The next single attack or check rolls the maximum possible result on all
+        of its dice. You can activate this action by spending either 6
+        <strong>Gambit</strong> charges, or 1 <strong>Heroism</strong>.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags: []
+      summon:
+        actorUuid: null
+        permanent: true
+  nodes:
+    - sig3.intellect
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+flags:
+  core: {}
+folder: fOYHlZJEWUukD7yr
+sort: 3300000
+ownership:
+  default: 0
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.364'
+  createdTime: 1781400000000
+  modifiedTime: 1781366663838
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!gambit0000000000'

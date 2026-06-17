@@ -290,10 +290,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136405
-      modifiedTime: 1780588136405
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975422
+      modifiedTime: 1781446975422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -334,10 +334,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.9.5
-      coreVersion: '14.363'
-      createdTime: 1780588136405
-      modifiedTime: 1780588136405
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781446975422
+      modifiedTime: 1781446975422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -384,10 +384,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -402,12 +399,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136406
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136406
+      createdTime: 1781446975422
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -438,7 +435,7 @@ items:
             - melee
             - twohand
           cost:
-            action: -2
+            action: -1
             focus: 0
             weapon: true
             heroism: 0
@@ -453,10 +450,7 @@ items:
             maximum: null
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -467,12 +461,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136406
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975423
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136406
+      createdTime: 1781446975423
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -521,26 +515,23 @@ items:
             maximum: 1
             weapon: true
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str2a
+        - str1a
       rune: ''
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588136408
+      systemVersion: 0.10.0
+      modifiedTime: 1781446975423
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588136408
+      createdTime: 1781446975423
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -592,10 +583,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -606,12 +594,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136408
-      createdTime: 1780588136408
+      modifiedTime: 1781446975423
+      createdTime: 1781446975423
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -668,6 +656,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
             - name: Grappling
               scope: 1
               result:
@@ -686,6 +676,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
           tags:
             - difficult
             - harmless
@@ -698,10 +690,7 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: unarmed
@@ -715,12 +704,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588136408
-      createdTime: 1780588136408
+      modifiedTime: 1781446975423
+      createdTime: 1781446975423
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -734,10 +723,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  createdTime: 1780588136403
-  modifiedTime: 1780588136403
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  createdTime: 1781446975421
+  modifiedTime: 1781446975421
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

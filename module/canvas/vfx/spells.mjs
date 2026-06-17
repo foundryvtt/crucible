@@ -1,6 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {computeAttackOffset, pickRandom, tokenCenter} from "./helpers.mjs";
+import {computeAttackOffset, pickRandom, pushActorScrollingText, pushTargetScrollingText,
+  tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-component.mjs";
@@ -75,57 +76,6 @@ export function configureSpellVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
- * Push per-target scrolling-text entries onto a component's `scrollingText` array. Composes the
- * target's text events from its event slice and stages each at impact time, staggered 200ms apart
- * to avoid overlap when a single hit produces multiple text rows (resource + status).
- * @param {object[]} scrollingText      The component's scrollingText array (mutated).
- * @param {CrucibleSpellAction} action
- * @param {CrucibleActor} targetActor
- * @param {object[]} targetEvents       The target's slice of the action event stream.
- * @param {string} meshRef              Reference key of the target's mesh in the VFX references map.
- * @param {number} impactStart          Component-timeline ms at which this target is struck.
- */
-function _pushTargetScrollingText(scrollingText, action, targetActor, targetEvents, meshRef, impactStart) {
-  const events = action.constructor.composeTextEvents(targetActor, targetEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
-  events.forEach((evt, i) => scrollingText.push({
-    target: {reference: meshRef},
-    text: evt.text,
-    time: impactStart + (i * 200),
-    fontSize: evt.fontSize ?? 32,
-    fillColor: evt.fillColor ?? "#ffffff"
-  }));
-}
-
-/* -------------------------------------------- */
-
-/**
- * Push the caster's selfEvents (activation cost, heroism, etc.) onto a component's scrollingText
- * array. Skipped when the caster is also a target, since {@link _pushTargetScrollingText} already
- * surfaces those events from the target loop.
- * @param {object[]} scrollingText      The component's scrollingText array (mutated).
- * @param {CrucibleSpellAction} action
- * @param {string} meshRef              Reference key of the caster's mesh.
- * @param {number} [time=0]             Component-timeline ms at which the caster text fires.
- */
-function _pushCasterScrollingText(scrollingText, action, meshRef, time=0) {
-  if ( action.eventsByTarget.has(action.actor) ) return;
-  const selfEvents = action.selfEvents?.all ?? [];
-  if ( !selfEvents.length ) return;
-  const events = action.constructor.composeTextEvents(action.actor, selfEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
-  events.forEach((evt, i) => scrollingText.push({
-    target: {reference: meshRef},
-    text: evt.text,
-    time: time + (i * 200),
-    fontSize: evt.fontSize ?? 32,
-    fillColor: evt.fillColor ?? "#ffffff"
-  }));
-}
-
-/* -------------------------------------------- */
-
-/**
  * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
  * serialization (e.g., callback functions). Called on every client at play time, after the
  * VFXEffect has been constructed from deserialized config but before it plays.
@@ -168,6 +118,141 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
 }
 
 /* -------------------------------------------- */
+/*  Shared Configurator Helpers                 */
+/* -------------------------------------------- */
+
+/**
+ * Build a positional sound descriptor for a spell phase from a {@link getVFXSound} result.
+ * @param {{src: string, loop?: boolean}|null} d   A rune sound entry, or null.
+ * @returns {object|null}   A phase sound descriptor, or null when no source was provided.
+ */
+function _spellSound(d) {
+  if ( !d ) return null;
+  const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
+  return {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the standard resisting-target impact: a soft, flashless air puff that dissipates. Empty when the
+ * rune has no air textures.
+ * @param {SpellVFXTextures} textures
+ * @returns {object[]}
+ */
+function _buildResistPuff(textures) {
+  if ( !textures.air.length ) return [];
+  return [{function: "impactSpriteBurst",
+    params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}];
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Register a target's TokenDocument and token-mesh references under a gesture-specific prefix.
+ * @param {Record<string, string>} references   The references map, mutated in place.
+ * @param {string} prefix   Gesture ref prefix (e.g. "rayTarget").
+ * @param {number} j        1-based target index.
+ * @param {TokenDocument} token
+ * @returns {{tokenRef: string, meshRef: string}}
+ */
+function _registerTargetRefs(references, prefix, j, token) {
+  const tokenRef = `${prefix}_${j}_token`;
+  const meshRef = `${prefix}_${j}_tokenMesh`;
+  references[tokenRef] = `@${token.uuid}`;
+  references[meshRef] = `^${tokenRef}.object.mesh`;
+  return {tokenRef, meshRef};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Attach accumulated forced movements to a built components/timeline pair and return the {@link SpellVFXData}.
+ * The shared tail of every gesture configurator.
+ * @param {Record<string, object>} components
+ * @param {object[]} timeline
+ * @param {Record<string, string>} references
+ * @param {object[]} forcedMovements
+ * @returns {SpellVFXData}
+ */
+function _finalizeSpellVFX(components, timeline, references, forcedMovements) {
+  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
+  return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the caster's token geometry, prepared once for every gesture configurator.
+ * @param {CrucibleSpellAction} action
+ * @returns {{gridSize: number, token: TokenDocument, elevation: number, radiusPx: number,
+ *   center: {x: number, y: number}, meshSort: number}}
+ */
+function _resolveCasterGeometry(action) {
+  const gridSize = canvas.dimensions.size;
+  const token = action.token;
+  return {
+    gridSize, token,
+    elevation: token.elevation ?? 0,
+    radiusPx: (token.width * gridSize) / 2,
+    center: tokenCenter(token),
+    meshSort: token.object?.mesh?.sort ?? 0
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the charge-resolution context shared by {@link _resolveChargeLayers} and a rune's `buildCharge`.
+ * @param {CrucibleSpellAction} action
+ * @param {object} geom
+ * @param {SpellVFXTextures} geom.textures
+ * @param {number} geom.casterRadiusPx
+ * @param {number} geom.casterElevation
+ * @param {number} geom.particleElevation
+ * @returns {object}
+ */
+function _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}) {
+  return {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a single target's impact entry for the standard `{start, sound, animations, particles}` shape shared by
+ * the region and contact gestures. A hit resolves the shared {@link _resolveHitTreatment} (crit- and
+ * knockback-aware); a RESIST shows the standard dissipating puff; other non-hits show nothing.
+ * @param {object} opts
+ * @param {CrucibleSpellAction} opts.action
+ * @param {object} opts.group             The target's event group.
+ * @param {TokenDocument} opts.token
+ * @param {number} opts.result            The target's {@link AttackRoll} result type.
+ * @param {number} opts.start             Component-timeline ms of the impact beat.
+ * @param {string} opts.tokenRef          Reference key of the target's TokenDocument (for knockback).
+ * @param {object} opts.runeProps
+ * @param {SpellVFXTextures} opts.textures
+ * @param {number} opts.elevation         Particle elevation for the hit treatment.
+ * @param {string} [opts.impactType]      RUNE_SOUNDS key for the hit sound (default "impact").
+ * @param {object[]} opts.forcedMovements
+ * @param {object} [opts.treatmentCtx]    Per-spell overrides forwarded to {@link _resolveHitTreatment}.
+ * @returns {object}
+ */
+function _buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures, elevation,
+  impactType="impact", forcedMovements, treatmentCtx={}}) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const isHit = (result === T.HIT) || (result === T.GLANCE);
+  if ( isHit ) {
+    const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
+    const crit = !!group.roll[0]?.roll?.isCriticalSuccess;
+    const treatment = _resolveHitTreatment(action, {textures, elevation, crit, knockback, ...treatmentCtx}, runeProps);
+    return {result, id: token.id, start, sound: _spellSound(getVFXSound(action.rune.id, impactType)),
+      animations: treatment.animations, particles: treatment.particles};
+  }
+  return {result, id: token.id, start, sound: _spellSound(getVFXSound(action.rune.id, "miss")),
+    animations: (result === T.RESIST) ? _buildResistPuff(textures) : [], particles: []};
+}
+
+/* -------------------------------------------- */
 /*  Gesture Configurators                       */
 /* -------------------------------------------- */
 
@@ -180,6 +265,8 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
  */
 function configureArrowVFXEffect(action) {
   if ( action.target.type !== "single" ) return null;
+  const runeProps = SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id];
+  if ( !runeProps ) return null; // No arrow-gesture config for this rune; skip VFX
   const {textures, particleElevation} = resolveSpellVFXContext(action);
   const components = {};
   const timeline = [];
@@ -188,21 +275,15 @@ function configureArrowVFXEffect(action) {
 
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-  const gridSize = canvas.dimensions.size;
-  const casterToken = action.token;
-  const {x: casterCenterX, y: casterCenterY} = tokenCenter(casterToken);
-  const casterRadiusPx = (casterToken.width * gridSize) / 2;
-  const casterElevation = casterToken.elevation ?? 0;
-  const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
+  const {elevation: casterElevation, radiusPx: casterRadiusPx,
+    center: {x: casterCenterX, y: casterCenterY}, meshSort: casterMeshSort} = _resolveCasterGeometry(action);
 
-  const runeProps = SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id] ?? {};
   const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
   const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
   const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;
 
   // Resolve sound choices and configure their playback
-  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
-  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
+  const sound = _spellSound;
   const chargeSound = sound(getVFXSound(action.rune.id, "charge"));
   let flightSound;
   if ( runeProps.flightSound ) {
@@ -224,12 +305,7 @@ function configureArrowVFXEffect(action) {
     const result = roll?.data.result;
     if ( !result ) continue;
 
-    const targetTokenRef = `target_${j}_token`;
-    const targetMeshRef = `target_${j}_tokenMesh`;
-    Object.assign(references, {
-      [targetTokenRef]: `@${token.uuid}`,
-      [targetMeshRef]: `^${targetTokenRef}.object.mesh`
-    });
+    const {tokenRef: targetTokenRef, meshRef: targetMeshRef} = _registerTargetRefs(references, "target", j, token);
 
     // Manifest point: one caster radius forward toward the target, so the projectile materializes
     // in front of the caster rather than at their center.
@@ -261,34 +337,20 @@ function configureArrowVFXEffect(action) {
     const particles = [];
     if ( isHit ) {
       impactSound = sound(getVFXSound(action.rune.id, "impact"));
-      if ( runeProps.impactSprite !== false ) {
-        const burstTexture = pickRandom(textures.impact) ?? getRandomSprite("impacts", "blood");
-        animations.push({function: "impactSpriteBurst",
-          params: {texture: burstTexture, size: 3, duration: stickDuration || 1000}});
-      }
-      if ( (runeProps.recoil !== false) && !knockback ) {
-        animations.push(roll?.isCriticalSuccess
-          ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
-          : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
-      }
-      if ( runeProps.impactParticles ) {
-        particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
-          {anchor: "destination", elevation: (token.elevation ?? 0) + 1, textures}));
-      }
-      if ( runeProps.impactGlow ) {
-        animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
-      }
+      const treatment = _resolveHitTreatment(action, {textures, elevation: (token.elevation ?? 0) + 1,
+        crit: !!roll?.isCriticalSuccess, knockback, burstSize: 3, burstDuration: stickDuration || 1000}, runeProps);
+      animations.push(...treatment.animations);
+      particles.push(...treatment.particles);
     }
     else {
       impactSound = sound(getVFXSound(action.rune.id, "miss"));
       if ( (result === T.RESIST) && (runeProps.impactSprite !== false) ) {
-        animations.push({function: "impactSpriteBurst",
-          params: {texture: pickRandom(textures.air), size: 4, duration: 1500, flash: false}});
+        animations.push(..._buildResistPuff(textures));
       }
     }
 
     const chargeParticles = _resolveChargeLayers(runeProps,
-      {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation},
+      _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}),
       {duration: CHARGE_EMIT_DURATION});
 
     // Optional per-rune flight trail (follows the projectile). `trail` is `true` for the default
@@ -307,7 +369,7 @@ function configureArrowVFXEffect(action) {
     }
 
     const arrowScrollingText = [];
-    _pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
+    pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
       CHARGE_DURATION + flightMS);
 
     components[`arrow_${j}`] = {
@@ -338,9 +400,8 @@ function configureArrowVFXEffect(action) {
   }
 
   if ( !timeline.length ) return null;
-  if ( components.arrow_1 ) _pushCasterScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
-  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
-  return {components, timeline, references};
+  if ( components.arrow_1 ) pushActorScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
 }
 
 /* -------------------------------------------- */
@@ -364,10 +425,7 @@ function configureFanVFXEffect(action) {
   const origin = {x, y};
   const rotRad = Math.toRadians(rotation);
   const halfAngleRad = Math.toRadians(angle / 2);
-  const gridSize = canvas.dimensions.size;
-  const casterToken = action.token;
-  const casterElevation = casterToken.elevation ?? 0;
-  const casterRadiusPx = (casterToken.width * gridSize) / 2;
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
   const chargeDuration = runeProps.chargeDuration ?? 0;
   const sweepDuration = runeProps.sweepDuration ?? 400;
   const oscillate = !!runeProps.oscillate;
@@ -378,8 +436,7 @@ function configureFanVFXEffect(action) {
     halfAngleRad);
   const sweepRangeRad = endAngleRad - startAngleRad;
 
-  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
-  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
+  const sound = _spellSound;
 
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -388,7 +445,7 @@ function configureFanVFXEffect(action) {
 
   let chargeParticles = [];
   if ( chargeDuration > 0 ) {
-    const chargeCtx = {action, textures, casterRadiusPx, casterElevation, particleElevation};
+    const chargeCtx = _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation});
     chargeParticles = runeProps.buildCharge?.(chargeCtx)
       ?? _resolveChargeLayers(runeProps, chargeCtx, {duration: chargeDuration});
   }
@@ -410,6 +467,7 @@ function configureFanVFXEffect(action) {
     if ( !token ) continue;
     const result = group.roll[0]?.roll?.data.result ?? null;
     const isHit = (result === T.HIT) || (result === T.GLANCE);
+    if ( !isHit && (result !== T.RESIST) ) continue; // Fan only marks targets the sweep hits or that resist
     const cx = token.x + ((token.width * gridSize) / 2);
     const cy = token.y + ((token.height * gridSize) / 2);
     const bearing = Math.atan2(cy - origin.y, cx - origin.x);
@@ -420,38 +478,15 @@ function configureFanVFXEffect(action) {
     const defaultStart = chargeDuration + Math.round(tFrac * sweepDuration);
     const start = runeProps.impactStart?.({chargeDuration, sweepDuration, tFrac, token,
       defaultStart}) ?? defaultStart;
-    const tokenRef = `fanTarget_${j}_token`;
-    const meshRef = `fanTarget_${j}_tokenMesh`;
-    if ( isHit ) {
-      const treatment = _resolveHitTreatment(action, {textures, elevation: particleElevation}, runeProps);
-      references[tokenRef] = `@${token.uuid}`;
-      references[meshRef] = `^${tokenRef}.object.mesh`;
-      targetMeshRefs.push({reference: meshRef});
-
-      // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
-      const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
-      impacts.push({result, id: token.id, start,
-        sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: knockback ? [] : treatment.animations, particles: treatment.particles});
-      _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
-      j++;
-    }
-    else if ( result === T.RESIST ) {
-      references[tokenRef] = `@${token.uuid}`;
-      references[meshRef] = `^${tokenRef}.object.mesh`;
-      targetMeshRefs.push({reference: meshRef});
-      impacts.push({result, id: token.id, start,
-        sound: sound(getVFXSound(action.rune.id, "miss")),
-        animations: textures.air.length
-          ? [{function: "impactSpriteBurst",
-            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
-          : [], particles: []});
-      _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
-      j++;
-    }
+    const {tokenRef, meshRef} = _registerTargetRefs(references, "fanTarget", j, token);
+    targetMeshRefs.push({reference: meshRef});
+    impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
+      elevation: particleElevation, impactType, forcedMovements}));
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    j++;
   }
 
-  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   const deliverySound = runeProps.deliverySoundType
     ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
@@ -475,8 +510,7 @@ function configureFanVFXEffect(action) {
     }
   };
   const timeline = [{component: "fan", position: 0}];
-  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
-  return {components, timeline, references};
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
 }
 
 /* -------------------------------------------- */
@@ -499,17 +533,13 @@ function configureRayVFXEffect(action) {
   const shapeData = regionShape.toObject();
   const {x, y, length, width, rotation} = shapeData;
   const rotRad = Math.toRadians(rotation);
-  const gridSize = canvas.dimensions.size;
-  const casterToken = action.token;
-  const casterElevation = casterToken.elevation ?? 0;
+  const {elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
   const beamElevation = casterElevation + 1;
-  const casterRadiusPx = (casterToken.width * gridSize) / 2;
   const chargeDistance = casterRadiusPx;       // Half the caster token width: pulls the charge to the token's front edge
   const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
   const CHARGE_DURATION = 700;
-  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
-  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1} : null;
+  const sound = _spellSound;
 
   // Declare necessary references to resolve at play-time
   const references = {
@@ -526,45 +556,28 @@ function configureRayVFXEffect(action) {
   // Schedule impact for each target when the beam progression reaches it
   const timingCtx = {origin: chargeOrigin, beamSpeed: effectiveBeamSpeed, gridScale,
     deliveryStart: CHARGE_DURATION, deliveryDuration: runeProps.deliveryDuration};
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
   const forcedMovements = [];
   const timingFn = RAY_IMPACT_TIMINGS[runeProps.impactTiming] ?? RAY_IMPACT_TIMINGS.beamFront;
   const impactType = runeProps.impactSound ?? "impact";
-  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: beamElevation}, runeProps);
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const isHit = (result === T.HIT) || (result === T.GLANCE);
-    const tokenRef = `rayTarget_${j}_token`;
-    const meshRef = `rayTarget_${j}_tokenMesh`;
-    references[tokenRef] = `@${token.uuid}`;
-    references[meshRef] = `^${tokenRef}.object.mesh`;
+    const {tokenRef, meshRef} = _registerTargetRefs(references, "rayTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
-    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
-    impacts.push(isHit
-      ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: knockback ? [] : hitTreatment.animations, particles: hitTreatment.particles}
-      : {
-        // Resisting target: a softer, flashless dissipating puff and a distinct sound
-        result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, "miss")),
-        animations: textures.air.length
-          ? [{function: "impactSpriteBurst",
-            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
-          : [],
-        particles: []
-      });
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
+      elevation: beamElevation, impactType, forcedMovements}));
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  _pushCasterScrollingText(scrollingText, action, "tokenMesh");
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   // Build VFXEffect configuration
   const buildContext = {textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,
@@ -586,8 +599,102 @@ function configureRayVFXEffect(action) {
     }
   };
   const timeline = [{component: "ray", position: 0}];
-  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
-  return {components, timeline, references};
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Configure the VFX for a contact gesture (Touch or Influence) as a single {@link CrucibleTouchComponent}: a
+ * small charge gathered at the caster's hand, then an impact on the single adjacent target. Both gestures have
+ * `target.type: "single"` and no region shape, so the geometry is the caster and target token centers. Per-rune
+ * visuals come from the gesture's `runes` table. An optional gesture `channel` descriptor turns the brief
+ * charge-then-pop into a sustained melee channel (Influence): the hand keeps channeling through a long delivery
+ * while the element crusts onto the target under a saturating glow that lingers past a modest climax.
+ * @param {CrucibleSpellAction} action
+ * @returns {SpellVFXData|null}
+ */
+function configureContactVFXEffect(action) {
+  if ( action.target.type !== "single" ) return null;
+  const gesture = SPELL_VFX_GESTURES[action.gesture.id];
+  const runeProps = gesture.runes?.[action.rune.id];
+  if ( !runeProps ) return null;
+  const channel = gesture.channel ?? null;
+  const {textures, particleElevation} = resolveSpellVFXContext(action);
+
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
+  const chargeDuration = channel?.chargeDuration ?? runeProps.chargeDuration ?? 450;
+  const deliveryDuration = channel?.deliveryDuration ?? runeProps.deliveryDuration ?? 100;
+  const lingerDuration = channel?.lingerDuration ?? 0;
+  const impactStart = chargeDuration + deliveryDuration;
+
+  const sound = _spellSound;
+
+  // Charge gathers at the caster's palm (halfway out toward the target) so the origin reads as the caster
+  const references = {tokenMesh: "^token.object.mesh"};
+  const chargeCtx = _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation});
+  const chargeParticles = _resolveChargeLayers(runeProps, chargeCtx, {anchor: "palm", duration: chargeDuration});
+
+  const impacts = [];
+  const targetMeshRefs = [];
+  const scrollingText = [];
+  const forcedMovements = [];
+  let channelTarget = null;
+  let j = 1;
+  for ( const [actor, group] of action.eventsByTarget ) {
+    if ( !group.hasRoll ) continue;
+    const token = action.targets.get(actor)?.token;
+    if ( !token ) continue;
+    const result = group.roll[0]?.roll?.data.result ?? null;
+    if ( !result ) continue;
+    const isHit = (result === T.HIT) || (result === T.GLANCE);
+    const targetElevation = (token.elevation ?? 0) + 1;
+    const {tokenRef, meshRef} = _registerTargetRefs(references, "contactTarget", j, token);
+    targetMeshRefs.push({reference: meshRef});
+    channelTarget ??= {hit: isHit, radiusPx: (token.width * gridSize) / 2, elevation: targetElevation};
+
+    // A channel keeps its glow on the delivery phase (suppressGlow) and lingers its burst over the linger window
+    const treatmentCtx = channel
+      ? {burstSize: channel.burstSize ?? 3, burstDuration: lingerDuration, flashDuration: 200, suppressGlow: true}
+      : {};
+    impacts.push(_buildTargetImpact({action, group, token, result, start: impactStart, tokenRef, runeProps,
+      textures, elevation: targetElevation, forcedMovements, treatmentCtx}));
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
+    j++;
+  }
+
+  if ( !impacts.length ) return null;
+  pushActorScrollingText(scrollingText, action, "tokenMesh");
+
+  // Influence sustains the charge into a melee channel: the hand keeps channeling while the element crusts onto
+  // the target and a tinted glow saturates it, lingering past the climax. Touch leaves delivery empty.
+  let deliverySound = null;
+  let deliveryAnimations = [];
+  let deliveryParticles = [];
+  if ( channel ) {
+    deliverySound = sound(getVFXSound(action.rune.id, "damage"));
+    if ( deliverySound ) Object.assign(deliverySound, {loop: true, fade: 250, volume: 0.8});
+    ({animations: deliveryAnimations, particles: deliveryParticles} = _buildChannelDelivery(action, runeProps,
+      chargeCtx, {channel, deliveryDuration, lingerDuration, target: channelTarget}));
+  }
+
+  const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(action.rune.id, "charge")) : null;
+  const components = {
+    contact: {
+      type: "crucibleTouch",
+      casterRadiusPx,
+      originMesh: {reference: "tokenMesh"},
+      targetMeshes: targetMeshRefs,
+      charge: {duration: chargeDuration, sound: chargeSound, animations: [], particles: chargeParticles},
+      delivery: {duration: deliveryDuration, sound: deliverySound, animations: deliveryAnimations,
+        particles: deliveryParticles},
+      impacts,
+      scrollingText
+    }
+  };
+  const timeline = [{component: "contact", position: 0}];
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
 }
 
 /* -------------------------------------------- */
@@ -634,17 +741,14 @@ function configureBlastVFXEffect(action) {
   const shapeData = regionShape.toObject();
   const {x, y, radius} = shapeData;
   const origin = {x, y};
-  const casterToken = action.token;
-  const gridSize = canvas.dimensions.size;
-  const casterRadiusPx = (casterToken.width * gridSize) / 2;
-  const casterElevation = casterToken.elevation ?? 0;
+  const {elevation: casterElevation, radiusPx: casterRadiusPx,
+    center: casterCenter, meshSort: casterMeshSort} = _resolveCasterGeometry(action);
   const particleElevation = (action.region?.elevation?.top ?? casterElevation) + 1;
   const CHARGE_DURATION = runeProps.chargeDuration ?? 0;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const distancePixels = canvas.dimensions.distancePixels;
 
-  const START = foundry.canvas.vfx.constants.SOUND_ALIGNMENT.START;
-  const sound = d => d ? {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false} : null;
+  const sound = _spellSound;
 
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
@@ -660,11 +764,10 @@ function configureBlastVFXEffect(action) {
   let blastChargeSound = null;
 
   if ( projectileSpec ) {
-    const {x: casterCx, y: casterCy} = tokenCenter(casterToken);
+    const {x: casterCx, y: casterCy} = casterCenter;
     const dirDist = Math.max(1, Math.hypot(origin.x - casterCx, origin.y - casterCy));
     const manifestX = casterCx + (((origin.x - casterCx) / dirDist) * casterRadiusPx);
     const manifestY = casterCy + (((origin.y - casterCy) / dirDist) * casterRadiusPx);
-    const casterMeshSort = casterToken.object?.mesh?.sort ?? 0;
     const manifestRef = "fireballManifest";
     const blastCenterRef = "fireballTarget";
     references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
@@ -679,8 +782,7 @@ function configureBlastVFXEffect(action) {
       ? getVFXTexturePath(projectileSpec.frame)
       : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
 
-    const projectileChargeCtx = {runeId: action.rune.id, textures, casterRadiusPx,
-      casterElevation, particleElevation};
+    const projectileChargeCtx = _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation});
     const projectileChargeLayers = runeProps.buildCharge?.(projectileChargeCtx)
       ?? _resolveChargeLayers(runeProps, projectileChargeCtx, {duration: CHARGE_DURATION});
     const projectileChargeSound = ((CHARGE_DURATION > 0) && (runeProps.chargeSound !== false))
@@ -709,7 +811,7 @@ function configureBlastVFXEffect(action) {
     blastChargeDuration = 0;
   }
   else if ( CHARGE_DURATION > 0 ) {
-    const chargeCtx = {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation};
+    const chargeCtx = _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation});
     blastChargeParticles = runeProps.buildCharge?.(chargeCtx)
       ?? _resolveChargeLayers(runeProps, chargeCtx, {duration: CHARGE_DURATION});
     if ( runeProps.chargeSound !== false ) {
@@ -720,9 +822,7 @@ function configureBlastVFXEffect(action) {
   const timingFn = BLAST_IMPACT_TIMINGS[runeProps.impactTiming] ?? BLAST_IMPACT_TIMINGS.fromCenter;
   const timingCtx = {origin, radius, deliveryStart: blastChargeDuration,
     deliveryDuration: runeProps.deliveryDuration};
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const impactType = runeProps.impactSound ?? "impact";
-  const hitTreatment = _resolveHitTreatment(action, {textures, elevation: particleElevation}, runeProps);
   const impacts = [];
   const targetMeshRefs = [];
   const scrollingText = [];
@@ -733,28 +833,16 @@ function configureBlastVFXEffect(action) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const isHit = (result === T.HIT) || (result === T.GLANCE);
-    const tokenRef = `blastTarget_${j}_token`;
-    const meshRef = `blastTarget_${j}_tokenMesh`;
-    references[tokenRef] = `@${token.uuid}`;
-    references[meshRef] = `^${tokenRef}.object.mesh`;
+    const {tokenRef, meshRef} = _registerTargetRefs(references, "blastTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
-    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
-    impacts.push(isHit
-      ? {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, impactType)),
-        animations: knockback ? [] : hitTreatment.animations, particles: hitTreatment.particles}
-      : {result, id: token.id, start, sound: sound(getVFXSound(action.rune.id, "miss")),
-        animations: textures.air.length
-          ? [{function: "impactSpriteBurst",
-            params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}]
-          : [],
-        particles: []});
-    _pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
+      elevation: particleElevation, impactType, forcedMovements}));
+    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  _pushCasterScrollingText(scrollingText,
+  pushActorScrollingText(scrollingText,
     action, projectileComponent ? "fireballManifest" : "tokenMesh");
 
   const buildCtx = {action, textures, origin, radius, particleElevation, casterElevation,
@@ -762,7 +850,7 @@ function configureBlastVFXEffect(action) {
   const deliveryParticles = runeProps.buildDelivery(buildCtx);
   const sustainedLayers = (runeProps.sustainedChargeAnchor && !projectileComponent)
     ? _resolveChargeLayers(runeProps,
-      {runeId: action.rune.id, textures, casterRadiusPx, casterElevation, particleElevation},
+      _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}),
       {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration})
     : [];
   const deliverySound = runeProps.deliverySoundType
@@ -793,8 +881,7 @@ function configureBlastVFXEffect(action) {
     components.fireball = projectileComponent;
     timeline.unshift({component: "fireball", position: 0});
   }
-  CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
-  return {components, timeline, references};
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
 }
 
 /* -------------------------------------------- */
@@ -933,37 +1020,89 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
 /* -------------------------------------------- */
 
 /**
- * Resolve the per-target hit treatment for ray and fan impacts from the runeProps declarative toggles
- * (`impactSprite`, `recoil`, default true) and opt-in fields (`impactParticles`, `impactGlow`).
- * Computed once and reused across all hit targets. A rune that wants a "soft" restorative arrival
- * just disables the burst and recoil and supplies its own particle spec.
+ * Resolve the shared per-target hit treatment for every gesture from the runeProps declarative toggles
+ * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet), and the opt-in
+ * fields (`impactParticles`, `impactGlow`). A critical hit rocks harder via `impactSpriteShake`; a force-moved
+ * target keeps the burst/glow but drops the recoil (the knockback glide replaces it). A rune that wants a "soft"
+ * restorative arrival just disables the burst and recoil and supplies its own particle spec.
  * @param {CrucibleSpellAction} action
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
  * @param {number} ctx.elevation
+ * @param {boolean} [ctx.crit=false]          Critical hit: heavier shake instead of recoil.
+ * @param {boolean} [ctx.knockback=false]     Target is force-moved: suppress the recoil (glide replaces it).
+ * @param {number} [ctx.burstSize]            Override the burst sprite size (feet).
+ * @param {number} [ctx.burstDuration=800]    Override the burst hold (ms).
+ * @param {number} [ctx.flashDuration=150]    Override the burst ADD-blend flash window (ms).
+ * @param {boolean} [ctx.suppressGlow=false]  Skip the rune's impact glow (e.g. when the gesture glows elsewhere).
  * @param {object} runeProps
  * @returns {{animations: object[], particles: object[]}}
  */
 function _resolveHitTreatment(action, ctx, runeProps) {
-  const {textures, elevation} = ctx;
+  const {textures, elevation, crit=false, knockback=false, burstSize, burstDuration=800,
+    flashDuration=150, suppressGlow=false} = ctx;
   const gridSize = canvas.dimensions.size;
   const animations = [];
   const particles = [];
-  if ( runeProps?.recoil !== false ) {
-    animations.push({function: "impactSpriteRecoil",
-      params: {distance: Math.round(gridSize * 0.12), duration: 320}});
+  if ( !knockback && (runeProps?.recoil !== false) ) {
+    animations.push(crit
+      ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
+      : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
   }
-  if ( runeProps?.impactSprite !== false ) {
+  if ( (runeProps?.impactSprite !== false) && textures.impact.length ) {
     animations.push({function: "impactSpriteBurst",
-      params: {texture: pickRandom(textures.impact), size: 2, duration: 800, flash: true}});
+      params: {texture: pickRandom(textures.impact), size: burstSize ?? runeProps?.impactSpriteSize ?? 2,
+        duration: burstDuration, flash: true, flashDuration}});
   }
   if ( runeProps?.impactParticles ) {
     particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
       {anchor: "destination", elevation, textures}));
   }
-  if ( runeProps?.impactGlow ) {
+  if ( runeProps?.impactGlow && !suppressGlow ) {
     animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
   }
+  return {animations, particles};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the sustained-channel delivery for an Influence contact gesture: the rune's charge swirl held at the
+ * caster's palm for the full channel, and (on a hit) the element crusting onto the target via lingering bloom
+ * motes under a saturating tinted glow that builds through the channel and fades over the linger.
+ * @param {CrucibleSpellAction} action
+ * @param {object} runeProps
+ * @param {object} chargeCtx               The charge resolution context (see {@link _resolveChargeLayers}).
+ * @param {object} opts
+ * @param {object} opts.channel            The gesture's channel descriptor.
+ * @param {number} opts.deliveryDuration   Channel length (ms).
+ * @param {number} opts.lingerDuration     Post-climax glow/coat fade (ms).
+ * @param {{hit: boolean, radiusPx: number, elevation: number}|null} opts.target
+ * @returns {{animations: object[], particles: object[]}}
+ */
+function _buildChannelDelivery(action, runeProps, chargeCtx, {channel, deliveryDuration, lingerDuration, target}) {
+  const runeId = action.rune.id;
+  const animations = [];
+  const particles = _resolveChargeLayers(runeProps, chargeCtx, {anchor: "palm", duration: deliveryDuration});
+  if ( !target?.hit ) return {animations, particles};
+
+  // The element crusts onto the target and holds (bloom motes that appear in place and linger)
+  const coatTextures = getVFXTexturePaths(runeId, "spray");
+  if ( coatTextures.length ) {
+    particles.push({
+      animation: "circleParticleBloom", anchor: "destination", textures: coatTextures, duration: deliveryDuration,
+      params: {chargeRadius: Math.round(target.radiusPx * (channel.coatRadiusFactor ?? 1.1)), growFraction: 0.5,
+        lifetime: {min: 1000, max: 1700}, spawnRate: 70, alpha: {min: 0.5, max: 0.95}, scale: {min: 0.5, max: 1.1},
+        elevation: target.elevation, fade: {in: 0.2, out: 0.45}}
+    });
+  }
+
+  // A tinted glow gradually overtakes the target, its strength building across the channel to a peak at the
+  // climax then easing out over the linger
+  animations.push({function: "impactSpriteGlow",
+    params: {glowColor: channel.glow?.[runeId] ?? 0xffffff, duration: deliveryDuration + lingerDuration,
+      fadeOut: lingerDuration, outerStrength: 5, innerStrength: 2,
+      distance: 12, padding: 14, quality: 0.5, alpha: 0.9}});
   return {animations, particles};
 }
 
@@ -982,8 +1121,8 @@ function _resolveHitTreatment(action, ctx, runeProps) {
 function _buildRayChargeAndDelivery(action, ctx) {
   const runeProps = SPELL_VFX_GESTURES.ray.runes?.[action.rune.id];
   if ( !runeProps ) return null;
-  const chargeCtx = {runeId: action.rune.id, textures: ctx.textures, casterRadiusPx: ctx.casterRadiusPx,
-    casterElevation: ctx.casterElevation, particleElevation: ctx.beamElevation};
+  const chargeCtx = _chargeContext(action, {textures: ctx.textures, casterRadiusPx: ctx.casterRadiusPx,
+    casterElevation: ctx.casterElevation, particleElevation: ctx.beamElevation});
   const chargeEmitDuration = ctx.CHARGE_DURATION + (runeProps.chargeTail ?? 0);
   const chargeParticles = _resolveChargeLayers(runeProps, chargeCtx,
     {anchor: runeProps.chargeAnchor, duration: chargeEmitDuration});
@@ -1094,7 +1233,7 @@ const _IMPACT_LIFE = {
   impactSprite: false, recoil: false,
   impactGlow: {
     glowColor: 0xff5dc0, outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
-    knockout: false, alpha: 1.0, duration: 1500, fadeIn: 100, fadeOut: 1100
+    knockout: false, alpha: 1.0, duration: 1500, fadeOut: 1100
   },
   impactParticles: [
     {frames: ["SprayLeaf", "SprayBubble"]},
@@ -1715,11 +1854,11 @@ const FAN_VFX_PROPS = {
     deliverySoundType: "damage",
     deliverySound: {fade: 500, offset: -200, release: 1500},
     buildCharge(ctx) {
-      const {action, particleElevation} = ctx;
+      const {runeId, particleElevation} = ctx;
       return [
         { // SprayFlame gather condensing at the muzzle just before the jet erupts
           animation: "circleParticleGather", anchor: "forward",
-          textures: getVFXFrames(action.rune.id, "SprayFlame"),
+          textures: getVFXFrames(runeId, "SprayFlame"),
           duration: 200,
           params: {chargeRadius: 25, lifetime: 180, spawnRate: 600,
             alpha: {min: 0.75, max: 1.0}, scale: {min: 0.5, max: 0.9},
@@ -1791,10 +1930,10 @@ const FAN_VFX_PROPS = {
     deliverySound: {fade: 400, offset: -200, release: 1200},
     impactStart: ({chargeDuration, sweepDuration}) => chargeDuration + Math.round(sweepDuration / 2),
     buildCharge(ctx) {
-      const {action, casterRadiusPx, casterElevation} = ctx;
+      const {runeId, casterRadiusPx, casterElevation} = ctx;
       return [{
         animation: "circleParticleVortex", anchor: "source",
-        textures: getVFXFrames(action.rune.id, "SprayBubble", "SprayLeaf"),
+        textures: getVFXFrames(runeId, "SprayBubble", "SprayLeaf"),
         duration: 900,
         params: {chargeRadius: casterRadiusPx * 2.0, swirlSpeed: 4, spinSpeed: 4,
           lifetime: 700, spawnRate: 360,
@@ -1855,6 +1994,55 @@ const FAN_VFX_PROPS = {
 };
 
 /* -------------------------------------------- */
+
+/**
+ * Per-rune VFX overrides for the contact gestures, shared by Touch and (scaled up) by Influence. A small
+ * single-layer charge gathered at the caster's hand plus the shared per-rune impact treatment. The charge
+ * field shape is documented on {@link ARROW_VFX_PROPS}; the impact field shape on {@link _resolveHitTreatment}.
+ * @type {Record<string, object>}
+ */
+const TOUCH_VFX_PROPS = {
+
+  // Touch+Frost: frost motes swirl around the caster and collapse inward, then a frost burst on contact
+  frost: {
+    ..._IMPACT_FROST,
+    impactSpriteSize: 2.5,
+    chargeDuration: 450,
+    chargeBehavior: "circleParticleVortex",
+    chargeLayers: [
+      {categories: ["spray"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 400, max: 700}, spawnRate: 220, alpha: {min: 0.5, max: 1.0},
+          scale: {min: 0.4, max: 0.8}}}
+    ]
+  },
+
+  // Touch+Flame: an ember vortex swirls around the caster and collapses inward, then a flame burst on contact
+  flame: {
+    ..._IMPACT_FLAME,
+    impactSpriteSize: 2.5,
+    chargeDuration: 450,
+    chargeBehavior: "circleParticleVortex",
+    chargeLayers: [
+      {categories: ["spray"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 300, max: 500}, spawnRate: 260, alpha: {min: 0.4, max: 0.9},
+          scale: {min: 0.5, max: 1.0}, blend: PIXI.BLEND_MODES.ADD}}
+    ]
+  },
+
+  // Touch+Life: life motes gather inward to the caster over a longer channel, then a restorative bloom on contact
+  life: {
+    ..._IMPACT_LIFE,
+    chargeDuration: 800,
+    chargeBehavior: "circleParticleGather",
+    chargeLayers: [
+      {frames: ["SprayLeaf", "SprayBubble"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 350, max: 600}, spawnRate: 160, alpha: {min: 0.4, max: 0.85},
+          scale: {min: 0.4, max: 0.8}, blend: PIXI.BLEND_MODES.NORMAL}}
+    ]
+  }
+};
+
+/* -------------------------------------------- */
 /*  Gesture Registry                            */
 /* -------------------------------------------- */
 
@@ -1866,8 +2054,10 @@ const FAN_VFX_PROPS = {
  * - `resolve` - called at play-time to compute reference values before VFXReferenceField resolution.
  * - `finalize` - called at play-time after resolution to inject runtime callbacks.
  * - `runes` - per-rune VFX overrides for this gesture (see {@link ARROW_VFX_PROPS} / {@link RAY_VFX_PROPS}).
+ * - `channel` - optional sustained-channel descriptor consumed by {@link configureContactVFXEffect} to turn a
+ *   contact gesture into a lingering melee channel (Influence). See {@link _buildChannelDelivery}.
  * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function,
- *   finalize?: function, runes?: Record<string, object>}>}
+ *   finalize?: function, runes?: Record<string, object>, channel?: object}>}
  */
 const SPELL_VFX_GESTURES = {
   arrow: {configure: configureArrowVFXEffect, runes: ARROW_VFX_PROPS},
@@ -1878,13 +2068,16 @@ const SPELL_VFX_GESTURES = {
   conjure: {},
   create: {},
   fan: {configure: configureFanVFXEffect, runes: FAN_VFX_PROPS},
-  influence: {},
+  influence: {configure: configureContactVFXEffect, runes: TOUCH_VFX_PROPS, channel: {
+    chargeDuration: 550, deliveryDuration: 1800, lingerDuration: 900, coatRadiusFactor: 1.1, burstSize: 3.5,
+    glow: {frost: 0x8FE3FF, flame: 0xFF7A2A, life: 0xFF5DC0}
+  }},
   pulse: {},
   ray: {configure: configureRayVFXEffect, runes: RAY_VFX_PROPS},
   sense: {},
   step: {},
   strike: {},
   surge: {},
-  touch: {},
+  touch: {configure: configureContactVFXEffect, runes: TOUCH_VFX_PROPS},
   ward: {}
 };

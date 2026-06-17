@@ -1,0 +1,74 @@
+name: Acrobat
+type: talent
+img: icons/magic/control/debuff-energy-hold-levitate-blue-yellow.webp
+system:
+  description: >-
+    <p>You fight with the fluid grace of an acrobat, treating your weapon as a
+    vaulting pole as readily as an armament. While wielding a <strong>Balanced
+    2H </strong>weapon, your movement does not provoke Disengagement. Your
+    whirling weapon also bats aside incoming missiles, imposing <strong>+2
+    Banes</strong> on ranged attacks made against you.</p>
+  actions:
+    - id: vaultingSweep
+      name: Vaulting Sweep
+      img: icons/magic/control/debuff-energy-hold-levitate-blue-yellow.webp
+      condition: ''
+      description: >-
+        <p>You vault into the air and crash down amid your foes, your weapon
+        whirling in a dazzling arc. Choose a point within your
+        <strong>Stride</strong> and leap to it, then make a
+        <strong>Strike</strong> against every creature within your weapon's
+        reach of where you land.</p>
+      tags:
+        - melee
+        - twohand
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        size: 4
+        self: false
+      range:
+        minimum: null
+        maximum: 10
+        weapon: false
+      summon:
+        actorUuid: null
+        permanent: true
+      effects: []
+  nodes:
+    - sig3.dexterity
+    - sig3.strength
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1772307160130
+  modifiedTime: 1781118973430
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: acrobat000000000
+folder: fOYHlZJEWUukD7yr
+sort: 2600000
+_key: '!items!acrobat000000000'

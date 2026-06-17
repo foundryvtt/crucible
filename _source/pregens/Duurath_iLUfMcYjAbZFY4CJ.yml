@@ -292,11 +292,11 @@ items:
       identifier: scaleMail
       invested: false
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142941
-      modifiedTime: 1780588142941
+      systemVersion: 0.10.0
+      createdTime: 1781451953963
+      modifiedTime: 1781451953963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -344,10 +344,7 @@ items:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -362,12 +359,12 @@ items:
     sort: -100000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142941
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142941
+      createdTime: 1781451953963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -410,10 +407,7 @@ items:
             maximum: null
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -424,12 +418,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142942
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953963
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142942
+      createdTime: 1781451953963
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -467,12 +461,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142942
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142942
+      createdTime: 1781451953964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -482,71 +476,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.gestureward00000'
-  - _id: bodyblock0000000
-    name: Body Block
-    type: talent
-    img: icons/skills/melee/shield-block-gray-orange.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        You lean into an attack which was otherwise defended with your Armor,
-        converting its result into a Block instead.
-      actions:
-        - id: bodyBlock
-          condition: You defend against a melee attack with your Armor or as a Glance.
-          description: >-
-            <p>An attack which otherwise is defended by your Armor or produced a
-            Glancing blow is converted to a Block and deals no damage.</p>
-          tags:
-            - reaction
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            hands: 0
-            weapon: false
-          target:
-            type: self
-            scope: 0
-            number: 1
-            self: false
-          effects: []
-          name: Body Block
-          img: icons/skills/melee/shield-block-gray-orange.webp
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - toustr2
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '14.363'
-      systemId: crucible
-      systemVersion: 0.9.5
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142942
-      modifiedTime: 1780588142942
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: 8Vb0F5R7DMUrvhfw
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.bodyblock0000000'
   - name: Counter Strike
     type: talent
     img: icons/skills/melee/shield-block-bash-yellow.webp
@@ -587,10 +516,7 @@ items:
             weapon: true
             minimum: null
             maximum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -601,12 +527,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142942
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142942
+      createdTime: 1781451953964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -669,16 +595,15 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
+                dc: null
+                properties: []
           img: icons/magic/death/skull-horned-worn-fire-blue.webp
           condition: ''
           range:
             minimum: null
             maximum: null
             weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       nodes:
         - sig3.presence
         - sig3.toughness
@@ -693,12 +618,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142943
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142943
+      createdTime: 1781451953964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -708,96 +633,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.dreadlord0000000'
-  - name: Rallying Cry
-    type: talent
-    img: icons/creatures/abilities/mouth-teeth-human.webp
-    system:
-      description: >-
-        You are a battlefield leader, using your presence and voice to harden
-        the resolve of your allies.
-      actions:
-        - id: rallyingCry
-          description: >-
-            <p>You emit a courageous bellow that inspires Allies within 12 feet
-            of you to remain stalwart in the face of danger. You perform an
-            <strong>Intimidation</strong> skill test against the Madness
-            threshold of your allies. On a success, affected allies become
-            @Condition[resolute] for one Round.</p>
-          tags:
-            - harmless
-            - rallying
-            - skill
-            - intimidation
-          cost:
-            action: 1
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 0
-          target:
-            type: pulse
-            number: 1
-            scope: 2
-            self: false
-            size: 12
-          effects:
-            - name: Rallying Cry
-              scope: 2
-              result:
-                type: success
-                all: false
-              statuses:
-                - resolute
-              duration:
-                value: 1
-                units: rounds
-                expiry: null
-                expired: false
-              system:
-                dot: []
-                maintenance: null
-                regions: []
-                summons: []
-                changes: []
-          name: Rallying Cry
-          img: icons/creatures/abilities/mouth-teeth-human.webp
-          condition: ''
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre2c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.363'
-      systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142943
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142943
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: rallyingcry00000
-    folder: 2MFixpDJ379KOogE
-    sort: -75000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.rallyingcry00000'
   - name: Bulwark
     type: talent
     img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
@@ -821,12 +656,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142943
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142943
+      createdTime: 1781451953964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -858,12 +693,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142943
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953964
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142943
+      createdTime: 1781451953964
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -896,12 +731,12 @@ items:
     sort: 100000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      modifiedTime: 1780588142943
+      systemVersion: 0.10.0
+      modifiedTime: 1781451953965
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1780588142943
+      createdTime: 1781451953965
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -937,12 +772,12 @@ items:
     sort: 80000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142944
-      createdTime: 1780588142944
+      modifiedTime: 1781451953965
+      createdTime: 1781451953965
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -976,12 +811,12 @@ items:
     sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142944
-      createdTime: 1780588142944
+      modifiedTime: 1781451953965
+      createdTime: 1781451953965
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1035,6 +870,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
             - name: Grappling
               scope: 1
               result:
@@ -1053,6 +890,8 @@ items:
                 regions: []
                 summons: []
                 changes: []
+                dc: null
+                properties: []
           tags:
             - difficult
             - harmless
@@ -1065,10 +904,7 @@ items:
             a <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
             @Condition[restrained] for 1 Round.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: unarmed
@@ -1082,12 +918,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142944
-      createdTime: 1780588142944
+      modifiedTime: 1781451953965
+      createdTime: 1781451953965
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1138,10 +974,7 @@ items:
             maximum: 4
             weapon: false
             minimum: null
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: ''
@@ -1152,12 +985,12 @@ items:
       gesture: ''
       inflection: ''
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
+      systemVersion: 0.10.0
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1780588142944
-      createdTime: 1780588142944
+      modifiedTime: 1781451953965
+      createdTime: 1781451953965
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1190,11 +1023,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142945
-      modifiedTime: 1780588142945
+      systemVersion: 0.10.0
+      createdTime: 1781451953965
+      modifiedTime: 1781451953965
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1242,10 +1075,7 @@ items:
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
             <strong>Empowered</strong> to deliver additional damage.</p>
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: heavy
@@ -1258,11 +1088,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142945
-      modifiedTime: 1780588142945
+      systemVersion: 0.10.0
+      createdTime: 1781451953966
+      modifiedTime: 1781451953966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1299,11 +1129,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142945
-      modifiedTime: 1780588142945
+      systemVersion: 0.10.0
+      createdTime: 1781451953966
+      modifiedTime: 1781451953966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1337,11 +1167,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142945
-      modifiedTime: 1780588142945
+      systemVersion: 0.10.0
+      createdTime: 1781451953966
+      modifiedTime: 1781451953966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1402,14 +1232,13 @@ items:
                 maintenance: null
                 regions: []
                 summons: []
+                dc: null
+                properties: []
           tags:
             - shield
             - afterStrike
             - offhand
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       iconicSpells: 0
       training:
         type: shield
@@ -1422,11 +1251,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142946
-      modifiedTime: 1780588142946
+      systemVersion: 0.10.0
+      createdTime: 1781451953966
+      modifiedTime: 1781451953966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1458,11 +1287,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142946
-      modifiedTime: 1780588142946
+      systemVersion: 0.10.0
+      createdTime: 1781451953966
+      modifiedTime: 1781451953966
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1501,11 +1330,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142946
-      modifiedTime: 1780588142946
+      systemVersion: 0.10.0
+      createdTime: 1781451953967
+      modifiedTime: 1781451953967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1573,10 +1402,7 @@ items:
           tags:
             - consume
             - healing
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       uses:
         value: 1
         max: 1
@@ -1587,11 +1413,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142947
-      modifiedTime: 1780588142947
+      systemVersion: 0.10.0
+      createdTime: 1781451953967
+      modifiedTime: 1781451953967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1632,11 +1458,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142947
-      modifiedTime: 1780588142947
+      systemVersion: 0.10.0
+      createdTime: 1781451953967
+      modifiedTime: 1781451953967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1705,10 +1531,7 @@ items:
           tags:
             - spell
             - harmless
-          summon:
-            actorUuid: null
-            permanent: true
-          autoFavorite: false
+          summon: null
       rune: kinesis
       nodes:
         - pre0b
@@ -1722,11 +1545,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142947
-      modifiedTime: 1780588142947
+      systemVersion: 0.10.0
+      createdTime: 1781451953967
+      modifiedTime: 1781451953967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1763,11 +1586,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142947
-      modifiedTime: 1780588142947
+      systemVersion: 0.10.0
+      createdTime: 1781451953967
+      modifiedTime: 1781451953967
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1807,11 +1630,11 @@ items:
       dropped: false
       slot: 2
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142947
-      modifiedTime: 1780588142947
+      systemVersion: 0.10.0
+      createdTime: 1781451953968
+      modifiedTime: 1781451953968
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1851,11 +1674,11 @@ items:
       actions: []
       dropped: false
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142948
-      modifiedTime: 1780588142948
+      systemVersion: 0.10.0
+      createdTime: 1781451953968
+      modifiedTime: 1781451953968
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1895,11 +1718,11 @@ items:
       dropped: false
       slot: 0
     _stats:
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.5
-      createdTime: 1780588142948
-      modifiedTime: 1780588142948
+      systemVersion: 0.10.0
+      createdTime: 1781451953968
+      modifiedTime: 1781451953968
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1910,17 +1733,140 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.XrgZjJdgcrxGgrHQ'
+  - name: Mental Fortress
+    type: talent
+    img: icons/magic/holy/barrier-shield-winged-blue.webp
+    system:
+      description: >-
+        <p>Your strong will makes you exceedingly difficult to influence. You
+        gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
+        <strong>Psychic</strong> damage.</p>
+      actions: []
+      nodes:
+        - pre3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.0
+      coreVersion: '14.364'
+      createdTime: 1781451953962
+      modifiedTime: 1781451953962
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: mentalfortress00
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.mentalfortress00'
+  - name: Rallying Cry
+    type: talent
+    img: icons/creatures/abilities/mouth-teeth-human.webp
+    system:
+      description: >-
+        <p>Your presence as a battlefield leader fortifies and restores the
+        morale of your allies.</p>
+      actions:
+        - id: rallyingCry
+          description: >-
+            <p>You emit a courageous bellow that inspires allies within 12 feet
+            of you to remain stalwart in the face of peril. All allies within
+            range immediately recover your <strong>Presence</strong> score in
+            <strong>Morale</strong> and become @Condition[resolute] for 3
+            Rounds.</p>
+          tags:
+            - rallying
+          cost:
+            action: 1
+            focus: 0
+            heroism: 1
+            weapon: false
+            hands: 0
+          target:
+            type: pulse
+            number: 1
+            scope: 2
+            self: true
+            size: 12
+          effects:
+            - name: Rallying Cry
+              scope: 4
+              result:
+                type: success
+                all: false
+              statuses:
+                - resolute
+              duration:
+                value: 3
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance: null
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+          name: Rallying Cry
+          img: icons/creatures/abilities/mouth-teeth-human.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
+      nodes:
+        - pre2b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.364'
+      systemId: crucible
+      systemVersion: 0.10.0
+      createdTime: 1781451953962
+      modifiedTime: 1781451953962
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: rallyingCry00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.rallyingCry00000'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory: []
 _stats:
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
-  createdTime: 1780588142940
-  modifiedTime: 1780588142940
+  systemVersion: 0.10.0
+  createdTime: 1781451953962
+  modifiedTime: 1781451953962
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

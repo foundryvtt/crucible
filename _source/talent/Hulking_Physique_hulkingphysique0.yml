@@ -1,0 +1,37 @@
+name: Hulking Physique
+type: talent
+_id: hulkingphysique0
+img: icons/magic/earth/strike-fist-stone-gray.webp
+system:
+  description: >-
+    <p>Your hulking frame swells with raw mass. Your <strong>Size</strong>
+    increases by 1, but your bulk slows you: your <strong>Stride</strong> and
+    <strong>Dodge</strong> defense each decrease by 2.</p>
+  actions: []
+  nodes:
+    - str4a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.9.5
+  coreVersion: '14.363'
+  createdTime: 1781200000000
+  modifiedTime: 1781200000000
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!hulkingphysique0'

@@ -24,7 +24,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "science",
     knowledge: "machines",
     temperature: "neutral",
-    sense: "lightning"
+    sense: "storm"
   },
   dragon: {
     label: "TAXONOMY.CATEGORIES.Dragon",
@@ -65,7 +65,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "elementals",
     temperature: "cool",
-    sense: "lightning"
+    sense: "storm"
   },
   fey: {
     label: "TAXONOMY.CATEGORIES.Fey",
@@ -220,6 +220,18 @@ for ( const l of Object.values(LEVELS) ) {
 }
 LEVELS[18].milestones.next = Infinity;
 foundry.utils.deepFreeze(LEVELS);
+
+/**
+ * Relative movement strengths governing whether a moving token passes through a blocking token, or displaces it.
+ * A movement overcomes a blocker when its strength strictly exceeds the blocker's; ties favor the blocker.
+ * @enum {number}
+ */
+export const MOVEMENT_STRENGTHS = Object.freeze({
+  WEAK: -1,        // A flimsy blocker that even ordinary movement passes through
+  NONE: 0,         // The default for both movement and blocking; ordinary tokens block one another
+  POWERFUL: 1,     // Forceful movement (Overrun, Bull Rush, Tumble) that passes through ordinary blockers
+  UNSTOPPABLE: 2   // An absolute blocker that even forceful movement cannot pass or displace
+});
 
 /**
  * The token movement actions supported by the Crucible system.
@@ -418,7 +430,8 @@ export const HOOKS = Object.freeze({
   rollAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "target", "token"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "token: CrucibleToken"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "token: CrucibleToken"],
+    async: true
   },
   finalizeAction: {
     group: "TALENT.HOOKS.GroupAction",
@@ -428,7 +441,8 @@ export const HOOKS = Object.freeze({
   confirmAction: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "options"],
-    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"]
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"],
+    async: true
   },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GroupAction",

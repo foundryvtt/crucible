@@ -523,7 +523,14 @@ pages:
         them, and are mirrored across two ability scores. Taking a Signature
         Talent forms a bridge to its paired ability score, allowing you to
         continue your path of progression into that sextant regardless of
-        whether you have already purchased lower-tier Talents.</p>
+        whether you have already purchased lower-tier Talents.</p><p>The number
+        of Signature Talents you may acquire is determined by your character
+        level. You acquire your first Signature Talent at level 3, and one
+        additional Signature Talent at every third level thereafter, to a
+        maximum of six Signature Talents at level 18. Within this limit there
+        are no further restrictions: you may acquire multiple Signature Talents
+        from the same node, or from nodes which share the same tier or ability
+        scores.</p>
     video:
       controls: true
       volume: 0.5
