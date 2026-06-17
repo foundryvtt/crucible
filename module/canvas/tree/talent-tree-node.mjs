@@ -116,7 +116,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // If a talent's description is locked, unlock it & pseudo-hover rather than (de)activating node
     if ( tree.hud.target?.isLocked ) {
-      tree.hud.target.toggleLock(false);
+      tree.hud.target.toggleLock();
       this._onPointerOver(event);
       return;
     }
