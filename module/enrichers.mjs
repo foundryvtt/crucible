@@ -68,7 +68,7 @@ export function registerEnrichers() {
     {
       id: "crucibleRule",
       pattern: /@Rule\[([\w-.]+)](?:{([^}]+)})?/g,
-      enricher: ruleEnricher
+      enricher: enrichRule
     },
     {
       id: "milestone",
@@ -641,7 +641,7 @@ function enrichSpell([match, spellId]) {
  * Enrich a rule reference into an interactive element displaying the rule name and tooltip.
  * @param {RegExpMatchArray} matchArray
  */
-async function ruleEnricher([match, tagId, label]) {
+async function enrichRule([match, tagId, label]) {
   const cfg = foundry.utils.getProperty(SYSTEM.RULES, tagId.replaceAll("-", "_"));
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
