@@ -204,15 +204,17 @@ async function displayCondition(event) {
 async function displayTagTooltip(event) {
   const element = event.target;
   let tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
-  if (!tooltip && element.dataset.ruleId) {
-    const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
-    tooltip = cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content;
+  let name = element.innerText;
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
+  if (cfg) {
+    tooltip ??= cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content;
+    name = _loc(cfg.label) ?? _loc(cfg.name);
   }
   if ( !tooltip ) return;
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
-  const html = `<h3 class="tooltip-title divider">${element.innerText}</h3>${tooltip}`;
+  const html = `<h3 class="tooltip-title divider">${name}</h3>${tooltip}`;
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
