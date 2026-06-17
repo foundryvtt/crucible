@@ -647,7 +647,8 @@ async function enrichRule([match, tagId, label]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = label ?? _loc(cfg.label) ?? _loc(cfg.name);
   tag.dataset.crucibleTooltip = "tag";
-  tag.dataset.crucibleTooltipText = cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content ?? `[WIP] no tooltip was provided for ${tag.innerHTML}`;
+  if (cfg.tooltip) tag.dataset.crucibleTooltipText = cfg.tooltip;
+  if (cfg.page) tag.dataset.page = cfg.page;
   tag.classList.add("rule", "basic-rule", tagId.split(".")[0]);
   return tag;
 }

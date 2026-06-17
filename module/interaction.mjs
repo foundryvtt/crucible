@@ -203,7 +203,9 @@ async function displayCondition(event) {
  */
 async function displayTagTooltip(event) {
   const element = event.target;
-  const tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  const tooltip = element.dataset.crucibleTooltipText
+    ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip
+    ?? (await fromUuid(element.dataset.page))?.text.content;
   if ( !tooltip ) return;
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
