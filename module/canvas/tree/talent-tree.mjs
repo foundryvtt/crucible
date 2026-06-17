@@ -612,12 +612,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   /**
-   * Handle left-click events on the talent tree
+   * Handle left-click events on the talent tree, unlocking a locked talent description or deactivating the active node
    * @param {PIXI.FederatedEvent}   event
    */
   #onClickLeft(event) {
     event.stopPropagation();
-    this.deactivateNode({event});
+    if ( this.hud.target?.isLocked ) this.hud.target.toggleLock();
+    else this.deactivateNode({event});
   }
 
   /* -------------------------------------------- */
