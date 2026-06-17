@@ -148,7 +148,7 @@ export default class AttackRoll extends StandardCheck {
     const defense = SYSTEM.DEFENSES[dt];
     if ( defense ) cardData.defenseType = defense.shortLabel ?? defense.label;
     else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
-    else cardData.defenseType = "DC";
+    else cardData.defenseType = _loc("DICE.DC");
     if ( game.user.isGM ) cardData.targetLabel = `${cardData.defenseType} ${cardData.dc}`;
 
     // Roll result
