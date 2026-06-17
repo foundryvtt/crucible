@@ -121,7 +121,8 @@ export default class AttackRoll extends StandardCheck {
       multiplier, base, bonus,
       resistance: target.getResistance(resource, damageType, restoration),
       resource,
-      type: damageType
+      type: damageType,
+      restoration
     };
     this.data.damage.total = crucible.api.models.CrucibleAction.computeDamage(this.data.damage);
     return result;

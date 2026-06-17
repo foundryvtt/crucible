@@ -797,25 +797,18 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(spell, this, target, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Structure damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    const result = roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: spell.damage.base,
       bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
-      resistance: target.getResistance(rollData.resource, rollData.damageType, spell.damage.restoration),
       resource: rollData.resource,
-      type: rollData.damageType,
+      damageType: rollData.damageType,
       restoration: spell.damage.restoration
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    target.callActorHooks("receiveAttack", spell, roll);
+    });
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", spell, roll);
     return roll;
   }
 
@@ -926,25 +919,17 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(action, this, target, rollData);
 
-    // Create and evaluate the skill attack roll
+    // Create and evaluate the skill attack roll, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Create resulting damage
-    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: rollData.multiplier,
-        base: bonuses.base ?? 0,
-        bonus: rollData.damageBonus,
-        resistance: target.getResistance(rollData.resource, rollData.damageType, restoration),
-        type: rollData.damageType,
-        resource: rollData.resource,
-        restoration
-      };
-      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    }
+    roll.resolveDamage(this, target, {
+      multiplier: rollData.multiplier,
+      base: bonuses.base ?? 0,
+      bonus: rollData.damageBonus,
+      resource: rollData.resource,
+      damageType: rollData.damageType,
+      restoration
+    });
     target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
