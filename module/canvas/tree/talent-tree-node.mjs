@@ -113,10 +113,17 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     event.stopPropagation();
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
-    const ownedTalents = tree.actor.system.talentNodes[this.node.id] || [];
-    const nodeTalents = new Set([...this.node.talents, ...ownedTalents]);
+
+    // If a talent's description is locked, unlock it & pseudo-hover rather than (de)activating node
+    if ( tree.hud.target?.isLocked ) {
+      tree.hud.target.toggleLock();
+      this._onPointerOver(event);
+      return;
+    }
 
     // Toggle node active state
+    const ownedTalents = tree.actor.system.talentNodes[this.node.id] || [];
+    const nodeTalents = new Set([...this.node.talents, ...ownedTalents]);
     if ( !nodeTalents.size ) return this.#onToggleEmptyNode();
     if ( this.isActive ) tree.deactivateNode({event, hover: false});
     else tree.activateNode(this, {event});
@@ -131,7 +138,9 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    */
   _onPointerOver(event) {
     const tree = crucible.tree;
-    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) ) return;
+
+    // Ignore pointerOver if tree not rendered, event not over tree, or a talent's description is locked
+    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) || tree.hud.target?.isLocked ) return;
     tree.hud.activate(this);
     const s = (this.config.size + 8) / this.config.size;
     this.scale.set(s, s);
@@ -150,7 +159,9 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    */
   _onPointerOut(event) {
     const tree = game.system.tree;
-    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) ) return;
+
+    // Ignore pointerOut if tree not rendered, event not over tree, or a talent's description is locked
+    if ( !tree.rendering || (event.nativeEvent.target !== tree.canvas) || tree.hud.target?.isLocked ) return;
     tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
