@@ -100,10 +100,12 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
-   * The defense type label used when rendering this check.
+   * The localized defense type label used when rendering this check.
    * @type {string}
    */
-  static DEFENSE_TYPE = "DC";
+  static get DEFENSE_TYPE() {
+    return _loc("DICE.DC");
+  }
 
   /* -------------------------------------------- */
 
