@@ -597,7 +597,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
 
       // Ability Step
-      if ( step.id === "abilities" ) {
+      if ( step.id === "background" ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
