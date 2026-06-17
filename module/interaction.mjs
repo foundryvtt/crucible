@@ -205,7 +205,7 @@ async function displayTagTooltip(event) {
   const element = event.target;
   let tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
   if (!tooltip && element.dataset.ruleId) {
-    const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId.replaceAll("-", "_"));
+    const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
     tooltip = cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content;
   }
   if ( !tooltip ) return;
