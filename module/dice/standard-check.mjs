@@ -100,16 +100,6 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
-   * The localized defense type label used when rendering this check.
-   * @type {string}
-   */
-  static get DEFENSE_TYPE() {
-    return _loc("DICE.DC");
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Default timeout for remote roll requests.
    * @type {number}
    */
@@ -324,7 +314,7 @@ export default class StandardCheck extends Roll {
   prepareDiceResultContext({targetLabel}={}) {
     const {outcome, classes} = this.prepareOutcome();
     const dc = this.data.dc;
-    const defenseType = this.constructor.DEFENSE_TYPE;
+    const defenseType = _loc("DICE.DC");
     const damage = this.prepareRenderedDamage();
     if ( damage?.display ) classes.push("damage");
     if ( targetLabel === undefined ) {
