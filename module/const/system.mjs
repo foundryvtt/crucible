@@ -13,6 +13,7 @@ import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
 import {defineEnum} from "./enum.mjs";
+import {statusEffects} from "./statuses.mjs";
 
 /* -------------------------------------------- */
 
@@ -211,7 +212,8 @@ export const TIME = Object.freeze({
  * @type {RulesRecord}
  */
 export const RULES = {
-  action: ACTION.TAGS
+  action: ACTION.TAGS,
+  condition: statusEffects
 };
 
 /* -------------------------------------------- */

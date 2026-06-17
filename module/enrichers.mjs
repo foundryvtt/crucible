@@ -641,13 +641,13 @@ function enrichSpell([match, spellId]) {
  * Enrich a rule reference into an interactive element displaying the rule name and tooltip.
  * @param {RegExpMatchArray} matchArray
  */
-function ruleEnricher([match, tagId, label]) {
+async function ruleEnricher([match, tagId, label]) {
   const cfg = foundry.utils.getProperty(SYSTEM.RULES, tagId.replaceAll("-", "_"));
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
-  tag.innerHTML = label ?? _loc(cfg.label);
+  tag.innerHTML = label ?? _loc(cfg.label) ?? _loc(cfg.name);
   tag.dataset.crucibleTooltip = "tag";
-  tag.dataset.crucibleTooltipText = cfg.tooltip ?? `[WIP] no tooltip was provided for ${cfg.label}`;
+  tag.dataset.crucibleTooltipText = cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content ?? `[WIP] no tooltip was provided for ${tag.innerHTML}`;
   tag.classList.add("rule", "basic-rule", tagId.split(".")[0]);
   return tag;
 }
