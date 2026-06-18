@@ -1157,16 +1157,12 @@ export default class CrucibleActor extends Actor {
       const uncapped = resource.value + delta;
       const overflow = Math.min(uncapped, 0);
 
-      // Health overflows into Wounds
-      if ( (resourceName === "health") && (overflow !== 0) && (this.system.usesReserveResources) ) {
-        changes.wounds ||= {value: r.wounds.value};
-        changes.wounds.value -= overflow;
-      }
-
-      // Morale overflows into Madness
-      else if ( (resourceName === "morale") && (overflow !== 0) && (this.system.usesReserveResources) ) {
-        changes.madness ||= {value: r.madness.value};
-        changes.madness.value -= overflow;
+      // An active pool overflows its deficit into its reserve sibling (Health -> Wounds, Morale -> Madness)
+      const cfg = SYSTEM.RESOURCES[resourceName];
+      const reserveName = (cfg.type === "active") ? cfg.sibling : null;
+      if ( reserveName && (overflow !== 0) && this.system.usesReserveResources ) {
+        changes[reserveName] ||= {value: r[reserveName].value};
+        changes[reserveName].value -= overflow;
       }
 
       // Regular updates

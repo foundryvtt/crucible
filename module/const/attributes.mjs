@@ -164,6 +164,7 @@ export const DAMAGE_TYPES = defineEnum({
  * @property {string} label               The localized full label for the resource
  * @property {string} abbreviation        The localized abbreviation for the resource
  * @property {string} type                The type of resource, "active" or "reserve"
+ * @property {string} [sibling]           The paired pool: an active pool's reserve, or a reserve pool's active
  * @property {string} tooltip             The tooltip formula for the resource
  * @property {{high: number, low: number, heal: number}} color  Displayed colors for the resource
  */
@@ -176,6 +177,7 @@ export const RESOURCES = defineEnum({
   health: {
     label: "RESOURCES.Health",
     type: "active",
+    sibling: "wounds",
     tooltip: "RESOURCES.TOOLTIPS.Health",
     color: {
       high: Color.from("#d72828"),
@@ -186,6 +188,7 @@ export const RESOURCES = defineEnum({
   wounds: {
     label: "RESOURCES.Wounds",
     type: "reserve",
+    sibling: "health",
     tooltip: "RESOURCES.TOOLTIPS.Wounds",
     color: {
       high: Color.from("#d72828"),
@@ -196,6 +199,7 @@ export const RESOURCES = defineEnum({
   morale: {
     label: "RESOURCES.Morale",
     type: "active",
+    sibling: "madness",
     tooltip: "RESOURCES.TOOLTIPS.Morale",
     color: {
       high: Color.from("#7550ff"),
@@ -207,6 +211,7 @@ export const RESOURCES = defineEnum({
     label: "RESOURCES.Madness",
     tooltip: "RESOURCES.TOOLTIPS.Madness",
     type: "reserve",
+    sibling: "morale",
     color: {
       high: Color.from("#7550ff"),
       low: Color.from("#3c037e"),
@@ -231,6 +236,19 @@ export const RESOURCES = defineEnum({
     type: "active",
     color: Color.from("#ff0059")
   }
+});
+
+/* -------------------------------------------- */
+
+/**
+ * Directional limits on a resource change, honored during action event-stream resolution. The value's sign is the
+ * permitted direction of change; a delta opposing it is dropped to zero.
+ * @enum {number}
+ */
+export const RESOURCE_CONSTRAINTS = Object.freeze({
+  NO_DECREASE: 1,
+  NO_CHANGE: 0,
+  NO_INCREASE: -1
 });
 
 /* -------------------------------------------- */

@@ -49,6 +49,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {CrucibleItem} [weapon]        A specific weapon item being used
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
+ * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
+ *   honored during event-stream resolution (a delta opposing the sign is dropped)
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {CrucibleAction} [targetAction]  An action being "responded" to by this action
  */
@@ -541,7 +543,8 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - `CrucibleAction##allocateResources` - Compute final resource deltas from roll damage.
+ * - `CrucibleAction##resolveEventStream` - Simulate the stream on an actor clone to compute final resource deltas
+ *      (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
  * - Actor hooks called: `finalizeAction`
  * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
  *      provenance on new effects, and effect-change snapshots for reversal.
@@ -1218,6 +1221,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Constrain the directions the acting actor's own resources may change during this action's resolution.
+   * @param {Record<string, -1|0|1>} constraints   Per-resource directional limits (see RESOURCE_CONSTRAINTS)
+   */
+  constrainResources(constraints) {
+    Object.assign(this.usage.resourceConstraints ??= {}, constraints);
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -1333,7 +1346,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this._post();
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
-    this.#allocateResources();
+    await this.#resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     this.#finalizeEvents();
 
@@ -1912,43 +1925,65 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Allocate per-roll resource deltas using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to
-   * the state of resource pools so that reversal is accurate.
+   * Resolve the event stream against an ephemeral simulation of each affected actor. Each event's intended resource
+   * deltas are applied to the actor's clone in chronological order - honoring pool overflow, clamps, status- and
+   * action-scoped constraints, and statuses applied by earlier events - and the realized change is written back so the
+   * recorded stream is exact and reverses accurately. Subsumes per-roll allocation. See GH #820, #1271.
    */
-  #allocateResources() {
-    const allocations = new Map();
+  async #resolveEventStream() {
+    const clones = new Map();
+    const cloneFor = actor => {
+      if ( !clones.has(actor) ) clones.set(actor, actor.clone({}, {keepId: true}));
+      return clones.get(actor);
+    };
+
     for ( const event of this.events ) {
-      if ( !event.roll ) continue;
+      const actor = event.target;
 
-      // Allocate resource changes
-      const damage = event.roll.data.damage || {};
-      if ( damage.harmless ) continue;
-      const resource = damage.resource ?? "health";
-      const cfg = SYSTEM.RESOURCES[resource];
-      const restoration = !!(damage.restoration ?? this.damage?.restoration);
-      const damageType = damage.type; // Annotate the resulting resource changes with their damage type, see GH #1204
-      const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
+      // Gather this event's intended resource deltas and their damage annotations
+      const intended = {};
+      const annotations = {};
+      if ( event.roll ) {
+        const damage = event.roll.data.damage || {};
+        if ( !damage.harmless ) {
+          const resource = damage.resource ?? "health";
+          const cfg = SYSTEM.RESOURCES[resource];
+          const restoration = !!(damage.restoration ?? this.damage?.restoration);
+          intended[resource] = (intended[resource] ?? 0) + ((damage.total ?? 0) * (restoration ? 1 : -1)
+            * (cfg.type === "reserve" ? -1 : 1));
+          annotations[resource] = {damageType: damage.type, restoration}; // Damage type annotation, see GH #1204
+        }
+      }
+      for ( const entry of event.resources ) {
+        intended[entry.resource] = (intended[entry.resource] ?? 0) + entry.delta;
+        annotations[entry.resource] ??= {damageType: entry.damageType, restoration: entry.restoration};
+      }
 
-      // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
-      if ( amount === 0 ) {
-        event.resources.push({resource, delta: 0, restoration, damageType});
+      // Targets without a simulable Actor keep their raw deltas (e.g. the transient Environment actor)
+      if ( !actor?.system ) {
+        event.resources = Object.entries(intended).map(([resource, delta]) => ({resource, delta,
+          damageType: annotations[resource]?.damageType, restoration: annotations[resource]?.restoration}));
         continue;
       }
 
-      // Allocate without specific system target (in theory should not happen?)
-      if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount, restoration, damageType});
-        continue;
-      }
+      // Apply the intended resource changes to the simulation, diffing the prior state against the mutated clone
+      const clone = cloneFor(actor);
+      const constraints = (actor === this.actor) ? this.usage.resourceConstraints : undefined;
+      const before = foundry.utils.deepClone(clone.system.resources);
+      if ( !foundry.utils.isEmpty(intended) ) await clone.alterResources(intended, {}, {commit: false, constraints});
+      const after = clone.system.resources;
 
-      // Allocate resource changes to a specific Actor
-      if ( !allocations.has(event.target) ) allocations.set(event.target, {});
-      const allocation = allocations.get(event.target);
-      const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration, damageType});
-      else for ( const [r, delta] of Object.entries(deltas) ) {
-        event.resources.push({resource: r, delta, restoration, damageType});
-      }
+      // Write realized per-resource deltas back (intended pools always recorded; overflowed reserve pools added)
+      const resources = new Set(Object.keys(intended));
+      for ( const k in after ) if ( after[k].value !== before[k].value ) resources.add(k);
+      event.resources = Array.from(resources, resource => {
+        const ann = annotations[resource] ?? annotations[SYSTEM.RESOURCES[resource]?.sibling] ?? {};
+        return {resource, delta: after[resource].value - before[resource].value,
+          damageType: ann.damageType, restoration: ann.restoration};
+      });
+
+      // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
+      if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
     }
   }
 

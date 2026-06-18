@@ -276,13 +276,7 @@ HOOKS.bloodmagic000000 = {
     if ( !action.tags.has("spell") ) return;
     action.cost.health = action.cost.focus * 10;
     action.cost.focus = 0;
-  },
-  finalizeAction(_item, action) {
-    const selfHealth = action.events.reduce((total, e) => {
-      return total + ((e.target === this) ? (e.resourceTotals.health ?? 0) : 0);
-    }, 0);
-    const minCost = -action.cost.health;
-    if ( selfHealth > minCost ) action.recordEvent({resources: [{resource: "health", delta: minCost - selfHealth}]});
+    action.constrainResources({health: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
   }
 };
 
