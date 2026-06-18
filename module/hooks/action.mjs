@@ -61,12 +61,14 @@ HOOKS.gambitAllIn = {
       throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
     }
   },
-  preActivate() {
-    this.usage.actorStatus.gambitAllIn = true;
-  },
   postActivate() {
-    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
     const G = HOOKS.gambitAllIn._gambit;
+
+    // Prime the All-In effect, which the gambit talent consumes on the actor's next roll
+    this.recordEvent({type: "effect", target: this.actor, effects: [G._allInEffect(this.actor, this)]});
+
+    // Consume Gambit charges if Heroism wasn't spent
+    if ( this.cost.heroism !== 0 ) return;
     const remaining = G._chargeCount(this.actor) - 6;
     const change = remaining > 0
       ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
