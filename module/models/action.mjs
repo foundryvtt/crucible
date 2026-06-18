@@ -2624,7 +2624,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const T = AttackRollCls.RESULT_TYPES;
 
     for ( const event of events ) {
-      if ( event.statusText?.length ) textEvents.push(...event.statusText);
+      if ( event.statusText?.length ) {
+        if ( reverse ) textEvents.push(...event.statusText.map(st => ({...st, text: `-(${st.text})`})));
+        else textEvents.push(...event.statusText);
+      }
       const includeResources = !isNegated || ((event.type === "activation") && isSelf);
       if ( !includeResources ) continue;
 
