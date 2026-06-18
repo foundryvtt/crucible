@@ -1106,9 +1106,15 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.scrollingText=true]           When false, fully suppress scrolling text display
    *                                                          for this update. Used when a VFXEffect (or other
    *                                                          orchestrator) will dispatch the text itself.
-   * @returns {Promise<CrucibleActor>}                     The updated Actor document
+   * @param {Record<string, -1|0|1>} [options.constraints]  Per-resource directional limit. A delta not matching the
+   *                                                          sign is zeroed (not forced): -1 may not increase, +1 may
+   *                                                          not decrease, 0 may not change.
+   * @param {boolean} [options.commit=true]                 When false, apply to the source in-memory via updateSource
+   *                                                          (no persistence/scrolling text), for simulation.
+   * @returns {Promise<CrucibleActor>}                     The updated Actor (or this, mutated, when commit is false)
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true, constraints,
+    commit=true}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1143,6 +1149,10 @@ export default class CrucibleActor extends Actor {
           if ( this.statuses.has("frightened") ) delta = Math.min(delta, 0);
       }
 
+      // Enforce directional resource change constraints
+      const constraint = constraints?.[resourceName];
+      if ( (constraint !== undefined) && (Math.sign(delta) !== Math.sign(constraint)) ) delta = 0;
+
       // Handle overflow
       const uncapped = resource.value + delta;
       const overflow = Math.min(uncapped, 0);
@@ -1168,6 +1178,10 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
+    if ( !commit ) {
+      this.updateSource(updates);
+      return this;
+    }
     return this.update(updates, {statusText, textEvents, scrollingText});
   }
 
@@ -1192,11 +1206,14 @@ export default class CrucibleActor extends Actor {
   /**
    * Apply or reverse ActiveEffect changes from an action's event stream.
    * @param {ActionEffect[]} effects            The effect data array to apply
-   * @param {boolean} [reverse=false]           Reverse the effects instead of applying them?
+   * @param {object} [options]                  Options which configure how the effects are applied
+   * @param {boolean} [options.reverse=false]     Reverse the effects instead of applying them?
+   * @param {boolean} [options.commit=true]       When false, apply to this document's source in-memory and re-derive,
+   *                                              without persistence, for ephemeral simulation.
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyActionEffects(effects, reverse=false) {
+  async _applyActionEffects(effects, {reverse=false, commit=true}={}) {
     if ( !effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
@@ -1224,6 +1241,17 @@ export default class CrucibleActor extends Actor {
       else if ( existing && forceDelete ) toDelete.push(effectData._id);
       else toCreate.push(effectData);
     }
+
+    // Simulate application without persistence
+    if ( !commit ) {
+      for ( const data of toCreate ) this.effects.set(data._id, this.effects.createDocument(data));
+      for ( const data of toUpdate ) this.effects.get(data._id)?.updateSource(data);
+      for ( const id of toDelete ) this.effects.delete(id);
+      this.reset();
+      return;
+    }
+
+    // Persist effect changes
     const batchOperations = this.defineBatchOperations({}, {
       createEffects: {changes: toCreate, options: {keepId: true}},
       updateEffects: toUpdate,

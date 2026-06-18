@@ -2549,7 +2549,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
-      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
+      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
     }
   }
 
