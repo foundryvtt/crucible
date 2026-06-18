@@ -166,7 +166,6 @@ HOOKS.armorCrusher = {
     for ( const event of events.roll ) {
       if ( event.roll?.data?.result !== RESULTS.GLANCE ) continue;
       const dmg = event.roll.data.damage;
-      if ( !dmg ) continue;
       dmg.bonus += this.actor.system.abilities.toughness.value;
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
       event.resources.push({resource: "focus", delta: -1});
@@ -595,7 +594,7 @@ HOOKS.delay = {
 HOOKS.distract = {
   postActivate() {
     for ( const event of this.events ) {
-      if ( !event.roll?.isSuccess || !event.roll.data.damage ) continue;
+      if ( !event.roll?.isSuccess ) continue;
       event.roll.data.damage.multiplier = 0;
       event.roll.data.damage.base = event.roll.data.damage.total = 1;
       event.roll.data.damage.resource = "focus";
@@ -779,7 +778,7 @@ HOOKS.feintingStrike = {
 
     // Remove the deception roll's damage
     const deception = deceptionEvent?.roll;
-    if ( deception?.data.damage ) deception.data.damage.total = 0;
+    if ( deception?.hasDamage ) deception.data.damage.total = 0;
 
     // Follow-up offhand attack with bonuses if deception succeeded
     const options = {defenseType: "physical"};
@@ -1544,7 +1543,7 @@ HOOKS.overrun = {
       if ( (target === this.actor) || HOOKS.grapple._canGrapple(this.actor, target) ) continue;
       for ( const event of events.all ) {
         event.effects.length = 0;
-        if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+        if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
       }
     }
   }
@@ -2269,7 +2268,7 @@ HOOKS.throw = {
       if ( plan ) {
         if ( !plan.collided ) {
           for ( const event of events.all ) {
-            if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+            if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
           }
         }
         const {x, y, elevation} = plan.origin;

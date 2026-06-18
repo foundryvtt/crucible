@@ -240,7 +240,7 @@ class CrucibleActionEvent {
    */
   get damagesHealth() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration && ((d.resource ?? "health") === "health");
+    if ( this.roll?.hasDamage ) return !d.restoration && ((d.resource ?? "health") === "health");
     return this.resources.some(r => (r.resource === "health") && (r.delta < 0));
   }
 
@@ -250,7 +250,7 @@ class CrucibleActionEvent {
    */
   get damagesMorale() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration && ((d.resource ?? "health") === "morale");
+    if ( this.roll?.hasDamage ) return !d.restoration && ((d.resource ?? "health") === "morale");
     return this.resources.some(r => (r.resource === "morale") && (r.delta < 0));
   }
 
@@ -260,7 +260,7 @@ class CrucibleActionEvent {
    */
   get isDamage() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration;
+    if ( this.roll?.hasDamage ) return !d.restoration;
     return this.resources.some(r => ((r.resource === "health") || (r.resource === "morale")) && (r.delta < 0));
   }
 
@@ -270,7 +270,7 @@ class CrucibleActionEvent {
    */
   get healsHealth() {
     const d = this.roll?.data.damage;
-    if ( d ) return d.restoration && ((d.resource ?? "health") === "health");
+    if ( this.roll?.hasDamage ) return d.restoration && ((d.resource ?? "health") === "health");
     return this.resources.some(r => (r.resource === "health") && (r.delta > 0));
   }
 
@@ -280,7 +280,7 @@ class CrucibleActionEvent {
    */
   get healsMorale() {
     const d = this.roll?.data.damage;
-    if ( d ) return d.restoration && ((d.resource ?? "health") === "morale");
+    if ( this.roll?.hasDamage ) return d.restoration && ((d.resource ?? "health") === "morale");
     return this.resources.some(r => (r.resource === "morale") && (r.delta > 0));
   }
 
@@ -290,7 +290,7 @@ class CrucibleActionEvent {
    */
   get isHealing() {
     const d = this.roll?.data.damage;
-    if ( d ) return !!d.restoration;
+    if ( this.roll?.hasDamage ) return !!d.restoration;
     return this.resources.some(r => ((r.resource === "health") || (r.resource === "morale")) && (r.delta > 0));
   }
 

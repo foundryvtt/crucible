@@ -169,6 +169,16 @@ export default class StandardCheck extends Roll {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Did this roll produce a structured damage result? Always false for a generic check; overridden by attack rolls.
+   * @returns {boolean}
+   */
+  get hasDamage() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
   /*  Roll Configuration                          */
   /* -------------------------------------------- */
 
@@ -259,7 +269,7 @@ export default class StandardCheck extends Roll {
    * @returns {object|undefined}
    */
   prepareRenderedDamage() {
-    if ( !this.data.damage ) return;
+    if ( !this.hasDamage ) return;
     const damage = foundry.utils.deepClone(this.data.damage);
     damage.display = Number.isNumeric(damage.total) && !damage.harmless;
     if ( !damage.display ) return damage;

@@ -1102,7 +1102,7 @@ export const TAGS = {
     category: "modifiers",
     postActivate() {
       for ( const event of this.events ) {
-        if ( event.roll?.data.damage ) {
+        if ( event.roll?.hasDamage ) {
           event.roll.data.damage.base = event.roll.data.damage.total = 0;
           event.roll.data.damage.harmless = true;
         }
@@ -1132,7 +1132,7 @@ export const TAGS = {
     category: "modifiers",
     postActivate() {
       for ( const event of this.events ) {
-        if ( !event.roll?.data.damage ) continue;
+        if ( !event.roll?.hasDamage ) continue;
         const targetResources = event.target?.system?.resources;
         if ( !targetResources ) continue;
         const resource = event.roll.data.damage.resource ?? "health";

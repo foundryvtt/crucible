@@ -97,6 +97,13 @@ export default class AttackRoll extends StandardCheck {
 
   /* -------------------------------------------- */
 
+  /** @override */
+  get hasDamage() {
+    return this.data.result >= AttackRoll.RESULT_TYPES.GLANCE;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Resolve this attack roll against a target's defense, structuring the resulting damage.
    * @param {CrucibleActor} actor                The attacking actor

@@ -113,8 +113,8 @@ HOOKS.armoredShell0000 = {
 
 HOOKS.armoredInstinct0 = {
   receiveAttack(_item, _action, roll) {
+    if ( roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE ) return;
     const dmg = roll.data.damage;
-    if ( !dmg || (roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE) ) return;
     dmg.resistance += 1;
     dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
   }
@@ -325,8 +325,9 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
       resistances[damageType].base *= 2;
     },
     receiveAttack(_item, _action, roll) {
+      if ( !roll.hasDamage ) return;
       const dmg = roll.data.damage;
-      if ( (dmg?.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
+      if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
       const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
       dmg.restoration = true;
       dmg.total = dmg.resistance - unmitigatedTotal;
@@ -1509,7 +1510,7 @@ HOOKS.swarm00000000000 = {
   receiveAttack(_item, action, roll) {
     if ( action.target?.type !== "single" ) return;
     const dmg = roll.data.damage;
-    if ( !dmg || (dmg.total <= 0) ) return;
+    if ( !roll.hasDamage || (dmg.total <= 0) ) return;
     dmg.resistance += this.abilities.toughness.value;
     dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
   }
