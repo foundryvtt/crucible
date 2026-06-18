@@ -955,6 +955,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
+   * Does this action have any negated events (e.g. a countered or interposed action)?
+   * @type {boolean}
+   */
+  get isNegated() {
+    return this.events.some(event => event.negated);
+  }
+
+  /**
    * The actorUpdate event for the actor performing this action.
    * Available after #initializeSelfEvents has run, before any preActivate or postActivate hooks.
    * @type {CrucibleActionEvent}
@@ -1262,6 +1270,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const event of negated ) event.negated = true;
     this._eventsDirty = true; // Rebuild aggregate caches to exclude the newly negated events
     return negated;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear negation from every event in the stream, the inverse of {@link CrucibleAction#negate}.
+   * @returns {CrucibleActionEvent[]}   The events whose negation was cleared
+   */
+  clearNegation() {
+    const cleared = this.events.filter(event => event.negated);
+    for ( const event of cleared ) event.negated = false;
+    if ( cleared.length ) this._eventsDirty = true;
+    return cleared;
   }
 
   /* -------------------------------------------- */
@@ -2501,21 +2522,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         return false;
       }
     }
-    const isNegated = this.message?.getFlag("crucible", "isNegated");
 
     // On confirmation a placed region persists only while an active effect retains a reference to it; otherwise the
     // region was ephemeral to this action and is deleted now.
     if ( this.region ) {
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
-      if ( !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral && !isNegated ) {
+      if ( !SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral ) {
         const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects[0];
         if ( regionEffect ) {
           regionEffect.system.regions ??= [];
           regionEffect.system.regions.push(this.region.uuid);
         }
       }
-      // The effect reference is the source of truth for persistence: keep the region iff an effect retains it
-      const retained = this.events.some(e => e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
+      // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
+      const retained = this.events.some(e =>
+        !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
       if ( retained ) await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
       else await this.region.delete();
     }
@@ -2526,7 +2547,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Apply action events
-    await this.#applyEvents({reverse, isNegated});
+    await this.#applyEvents({reverse});
 
     // Record heroism
     try {
@@ -2548,7 +2569,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this._callActionHooksAsync("postConfirm", reverse);
 
     // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
-    if ( !reverse && !isNegated ) await this.#settleMovement();
+    if ( !reverse ) await this.#settleMovement();
     return true;
   }
 
@@ -2559,9 +2580,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Iterates events once, staging per-actor batches, then commits each batch in a single operation.
    * @param {object} options
    * @param {boolean} options.reverse         Reverse the action instead of applying it?
-   * @param {boolean} options.isNegated       Was the action negated (e.g. by counterspell)?
    */
-  async #applyEvents({reverse, isNegated}) {
+  async #applyEvents({reverse}) {
 
     // Stage per-actor batches from the event stream
     const batches = new Map();
@@ -2572,28 +2592,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         events: [], resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], movementId: null
       });
       const batch = batches.get(actor);
-      const isSelf = actor === this.actor;
       batch.events.push(event);
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
-        if ( isNegated ) { // Only preserve self-costs
-          if ( (event.type === "activation") && isSelf ) {
-            batch.resources[resource] ??= 0;
-            batch.resources[resource] += delta;
-          }
-          continue;
-        }
         batch.resources[resource] ??= 0;
         batch.resources[resource] += delta;
       }
 
-      // Accumulate effects (skip if negated)
-      if ( !isNegated && event.effects.length ) batch.effects.push(...event.effects);
+      // Accumulate effects
+      if ( event.effects.length ) batch.effects.push(...event.effects);
 
       // Accumulate actor updates
-      // TODO https://github.com/foundryvtt/crucible/issues/821
-      // Negation rework should skip actorUpdates so a negated critical cannot consume once-per-turn sentinels
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
 
       // Accumulate item snapshots
@@ -2617,7 +2627,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
+      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
@@ -2632,12 +2642,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleActionEvent[]} events     Events targeting this actor, in stream order
    * @param {object} options
    * @param {boolean} options.reverse            Reverse direction of change?
-   * @param {boolean} options.isNegated          Action was negated (e.g. by counterspell)?
    * @returns {ScrollingTextEvent[]}
    */
-  #composeTextEvents(actor, events, {reverse, isNegated}) {
-    return this.constructor.composeTextEvents(actor, events,
-      {reverse, isNegated, selfActor: this.actor});
+  #composeTextEvents(actor, events, {reverse}) {
+    return this.constructor.composeTextEvents(actor, events, {reverse});
   }
 
   /* -------------------------------------------- */
@@ -2647,12 +2655,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Public for use by VFX configurators that bake per-target text into a VFXEffect.
    * @param {CrucibleActor} actor
    * @param {object[]} events
-   * @param {{reverse: boolean, isNegated: boolean, selfActor: CrucibleActor}} options
+   * @param {{reverse: boolean}} options
    * @returns {ScrollingTextEvent[]}
    */
-  static composeTextEvents(actor, events, {reverse, isNegated, selfActor}) {
+  static composeTextEvents(actor, events, {reverse}) {
     const textEvents = [];
-    const isSelf = actor === selfActor;
     const sign = reverse ? -1 : 1;
     const resources = actor.system.resources;
     const ActorCls = crucible.api.documents.CrucibleActor;
@@ -2665,9 +2672,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( reverse ) textEvents.push(...event.statusText.map(st => ({...st, text: `-(${st.text})`})));
         else textEvents.push(...event.statusText);
       }
-      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
-      if ( !includeResources ) continue;
-
       const result = event.roll?.data?.result;
       const isAttackResult = (typeof result === "number") && (result in AttackRollCls.RESULT_TYPE_LABELS);
       const isHit = (result === T.HIT) || (result === T.GLANCE);
@@ -3335,6 +3339,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   async toMessage(options={}) {
     const messageData = await this._prepareMessage(options);
     return ChatMessage.create(messageData, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Persist in-place changes to this action's event stream back onto its ChatMessage by re-serializing the events.
+   * Roll indices, dropped when an action is reconstructed, are re-assigned from event order (which the caller must
+   * preserve); intended for edits such as negation where the message's roll set is unchanged.
+   * @returns {Promise<ChatMessage|void>}   The updated message, if this action has one
+   */
+  async updateMessage() {
+    if ( !this.message ) return;
+    let index = 0;
+    for ( const event of this.events ) {
+      if ( event.roll ) event.roll.data.index = index++;
+    }
+    return this.message.update({flags: {crucible: {events: this.#serializeEvents()}}});
   }
 
   /* -------------------------------------------- */

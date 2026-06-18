@@ -68,8 +68,7 @@ export function pickRandom(arr) {
  * @param {number} impactStart       Component-timeline ms at which this target is struck.
  */
 export function pushTargetScrollingText(scrollingText, action, targetActor, targetEvents, meshRef, impactStart) {
-  const events = action.constructor.composeTextEvents(targetActor, targetEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
+  const events = action.constructor.composeTextEvents(targetActor, targetEvents, {reverse: false});
   events.forEach((evt, i) => scrollingText.push({
     target: {reference: meshRef},
     text: evt.text,
@@ -93,8 +92,7 @@ export function pushActorScrollingText(scrollingText, action, meshRef, time=0) {
   if ( action.eventsByTarget.has(action.actor) ) return;
   const selfEvents = action.selfEvents?.all ?? [];
   if ( !selfEvents.length ) return;
-  const events = action.constructor.composeTextEvents(action.actor, selfEvents,
-    {reverse: false, isNegated: false, selfActor: action.actor});
+  const events = action.constructor.composeTextEvents(action.actor, selfEvents, {reverse: false});
   events.forEach((evt, i) => scrollingText.push({
     target: {reference: meshRef},
     text: evt.text,

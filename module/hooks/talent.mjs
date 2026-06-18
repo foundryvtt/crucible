@@ -807,11 +807,20 @@ HOOKS.inquisitor000000 = {
     if ( !critHit ) return;
     const targetMessage = game.messages.get(action.metadata.inquisitorTargetMessageId);
     if ( !targetMessage || (targetMessage.getFlag("crucible", "confirmed") !== reverse) ) return;
-    // Interrupt the caster's spell, modeled on Counterspell
-    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
-    if ( !reverse ) await setNegated();
-    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setNegated();
+
+    // Interrupt the caster's spell after its activation cost
+    const CrucibleAction = action.constructor;
+    if ( !reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.negate(target.selfEvents.activation);
+      await target.updateMessage();
+    }
+    await CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.clearNegation();
+      await target.updateMessage();
+    }
   }
 };
 

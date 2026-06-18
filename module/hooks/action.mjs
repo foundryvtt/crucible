@@ -476,10 +476,20 @@ HOOKS.counterspell = {
       ui.notifications.warn(errorText);
       throw new Error(errorText);
     }
-    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
-    if ( !reverse ) await setNegated();
-    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setNegated();
+
+    // Negate the countered spell, retaining its activation cost
+    const CrucibleAction = this.constructor;
+    if ( !reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.negate(target.selfEvents.activation);
+      await target.updateMessage();
+    }
+    await CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.clearNegation();
+      await target.updateMessage();
+    }
   }
 };
 
@@ -1333,15 +1343,16 @@ HOOKS.interpose = {
    * @internal
    */
   async _rewrite(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
 
-    // Negate and reverse the original action
+    // Fully reverse the original action if it was applied, then mark it negated (superseded by the rewrite)
     const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
-    await targetMessage.setFlag("crucible", "isNegated", true);
     if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
-
-    // Reconstruct original action and clone it for the rewrite
     const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.negate();
+    await originalAction.updateMessage();
+
+    // Clone the original for the rewrite
     const rewrittenAction = originalAction.clone({}, {message: null, lazy: true});
     const interposer = this.actor;
     rewrittenAction.targets = new Map([[interposer, {
@@ -1415,13 +1426,15 @@ HOOKS.interpose = {
    * @internal
    */
   async _reverse(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
     const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
     const rewrittenMessage = game.messages.get(rewrittenMessageId);
     if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
       await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
     }
-    await targetMessage.setFlag("crucible", "isNegated", false);
+    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.clearNegation();
+    await originalAction.updateMessage();
   }
 };
 
