@@ -975,21 +975,15 @@ export const TAGS = {
       });
       await roll.evaluate();
 
-      // Compute the final result against defenses
-      const r = roll.data.result = target.testDefense(defenseType, roll);
-      if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
-        roll.data.damage = {
-          overflow: roll.overflow,
-          multiplier: bonuses.multiplier ?? 1,
-          base: bonuses.base ?? 0,
-          bonus: bonuses.damageBonus ?? 0,
-          resistance: target.getResistance(resource, damageType),
-          type: damageType,
-          resource: resource,
-          restoration: this.usage.restoration ?? false
-        };
-        roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-      }
+      // Resolve the outcome and structured damage against the target's defenses
+      roll.resolveDamage(this.actor, target, {
+        multiplier: bonuses.multiplier ?? 1,
+        base: bonuses.base ?? 0,
+        bonus: bonuses.damageBonus ?? 0,
+        resource,
+        damageType,
+        restoration: this.usage.restoration ?? false
+      });
       this.recordEvent({type: "strike", target, roll});
     }
   },

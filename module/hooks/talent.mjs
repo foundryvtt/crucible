@@ -1677,7 +1677,7 @@ HOOKS.duelist000000000 = {
     if ( roll.data.result !== T.GLANCE ) return;
     if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
     roll.data.result = T.PARRY;
-    roll.data.damage = undefined;
+    roll.data.damage.total = 0;
   }
 };
 

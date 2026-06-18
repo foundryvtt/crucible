@@ -24,6 +24,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {number} bonus                   An additive damage bonus
  * @property {number} resistance              A subtracted resistance threshold
  * @property {string} type                    The type of damage
+ * @property {number} total                   The resolved damage total; zero when the attack did not connect
  * @property {number} [resource]              The resource targeted
  * @property {boolean} [restoration]          Is this damage applied as restoration?
  */
@@ -106,32 +107,42 @@ export default class AttackRoll extends StandardCheck {
 
   /**
    * Resolve this attack roll against a target's defense, structuring the resulting damage.
+   * The damage record is always retained (with a zero total when the attack does not connect) so that the roll carries
+   * the configuration needed to re-derive its outcome. Call again with no config to re-resolve after mutating the dice.
    * @param {CrucibleActor} actor                The attacking actor
    * @param {CrucibleActor} target               The defending actor
-   * @param {object} [params]                    Damage resolution parameters supplied by the caller
-   * @param {number} [params.multiplier=1]       Overflow multiplier
-   * @param {number} [params.base=0]             Base damage before overflow
-   * @param {number} [params.bonus=0]            Additive damage bonus
-   * @param {string} [params.resource="health"]  The resource damaged
-   * @param {string} [params.damageType]         The damage type dealt
-   * @param {boolean} [params.restoration=false] Resolve the result as restoration rather than damage?
+   * @param {object} [config]                    Damage resolution parameters; omitted when re-deriving an existing roll
+   * @param {number} [config.multiplier=1]       Overflow multiplier
+   * @param {number} [config.base=0]             Base damage before overflow
+   * @param {number} [config.bonus=0]            Additive damage bonus
+   * @param {string} [config.resource="health"]  The resource damaged
+   * @param {string} [config.damageType]         The damage type dealt
+   * @param {boolean} [config.restoration=false] Resolve the result as restoration rather than damage?
    * @returns {number}                           The resolved result type in {@link AttackRoll.RESULT_TYPES}
    */
-  resolveDamage(actor, target, {multiplier=1, base=0, bonus=0, resource="health", damageType, restoration=false}={}) {
+  resolveDamage(actor, target, config) {
+    // Recompute the cached total so this method may be re-run after the dice have been mutated
+    this._total = this._evaluateTotal();
+
+    // First resolution supplies a config; a re-derivation reuses the configuration retained on the damage record
+    const d = config ?? this.data.damage ?? {};
+    const {multiplier=1, base=0, bonus=0, resource="health", restoration=false} = d;
+    const damageType = d.damageType ?? d.type;
+
+    // Test the defense and structure the damage; a non-connecting attack retains its configuration with a zero total
     const result = this.data.result = target.testDefense(this.data.defenseType, this);
-    if ( result < AttackRoll.RESULT_TYPES.GLANCE ) {
-      delete this.data.damage;
-      return result;
-    }
     this.data.damage = {
       overflow: this.overflow,
       multiplier, base, bonus,
       resistance: target.getResistance(resource, damageType, restoration),
       resource,
       type: damageType,
-      restoration
+      restoration,
+      total: 0
     };
-    this.data.damage.total = crucible.api.models.CrucibleAction.computeDamage(this.data.damage);
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) {
+      this.data.damage.total = crucible.api.models.CrucibleAction.computeDamage(this.data.damage);
+    }
     return result;
   }
 

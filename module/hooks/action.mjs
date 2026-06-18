@@ -1398,15 +1398,14 @@ HOOKS.interpose = {
     roll.data.dc = interposer.system.defenses.physical.total;
     roll.data.result = interposer.testDefense("physical", roll);
 
-    // Recompute damage for hits and glances, or clear damage if the interposer's defense causes a miss
-    if ( (roll.data.result >= RESULTS.GLANCE) && roll.data.damage ) {
-      const dmg = roll.data.damage;
+    // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer
+    const dmg = roll.data.damage;
+    if ( roll.data.result >= RESULTS.GLANCE ) {
       dmg.overflow = roll.overflow;
       dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
       dmg.total = CrucibleAction.computeDamage(dmg);
-    } else {
-      roll.data.damage = undefined;
     }
+    else dmg.total = 0;
     interposer.callActorHooks("receiveAttack", action, roll);
     action.recordEvent({type: "strike", target: interposer, roll, weapon});
   },

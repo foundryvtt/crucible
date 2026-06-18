@@ -862,20 +862,15 @@ export default class CrucibleActor extends Actor {
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
 
-    // Structure damage result
-    const r = roll.data.result = this.testDefense(rollData.defenseType, roll);
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    // Resolve the attack outcome and structured damage
+    roll.resolveDamage(null, this, {
       multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
       bonus: rollData.damageBonus,
-      resistance: this.getResistance(rollData.resource, rollData.damageType, restoration),
-      type: rollData.damageType,
       resource: rollData.resource,
+      damageType: rollData.damageType,
       restoration: !!restoration
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+    });
     return roll;
   }
 
