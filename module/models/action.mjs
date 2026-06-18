@@ -185,6 +185,7 @@ class CrucibleActionEvent {
    * @param {object[]} [data.statusText]            Status text to display above the target
    * @param {boolean} [data.isCriticalSuccess]      Did this event produce a critical hit?
    * @param {boolean} [data.isCriticalFailure]      Did this event produce a critical miss?
+   * @param {boolean} [data.negated=false]          Is this event negated (skipped at resolution/application)?
    * @param {CrucibleAction} action                 The parent action that owns this event
    */
   constructor(data, action) {
@@ -193,6 +194,7 @@ class CrucibleActionEvent {
     this.roll = data.roll ?? null;
     this.resources = data.resources ?? [];
     this.effects = data.effects ?? [];
+    this.negated = data.negated ?? false;
     if ( data.weapon ) this.weapon = data.weapon;
     if ( data.movement ) this.movement = data.movement;
     if ( data.summon ) this.summon = data.summon;
@@ -225,6 +227,7 @@ class CrucibleActionEvent {
    * @type {Record<string, number>}
    */
   get resourceTotals() {
+    if ( this.negated ) return {};
     return this.resources.reduce((totals, {resource, delta}) => {
       totals[resource] ??= 0;
       totals[resource] += delta;
@@ -331,6 +334,7 @@ class CrucibleActionEvent {
     if ( this.statusText ) obj.statusText = this.statusText;
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
+    if ( this.negated ) obj.negated = true;
     for ( const effect of obj.effects ) {
       if ( !effect.system ) continue;
       for ( const setKey of ["regions", "summons"] ) {
@@ -884,6 +888,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !this._eventsDirty && this.#eventsByActor ) return this.#eventsByActor;
     const eventsByActor = new Map();
     for ( const event of this.events ) {
+      if ( event.negated ) continue; // Negated events are excluded from aggregates (they remain in the stream)
       let events = eventsByActor.get(event.target);
       if ( !events ) {
         events = {
@@ -1228,6 +1233,35 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   constrainResources(constraints) {
     Object.assign(this.usage.resourceConstraints ??= {}, constraints);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Negate a span of the event stream so the negated events are skipped during resolution and application but retained
+   * for auditability. See GH #821.
+   * @param {CrucibleActionEvent} [afterEvent]   The last event to keep; negation begins after it. Omit to negate from
+   *                                             the start (the whole action: it occurred but was fully stopped).
+   * @param {CrucibleActionEvent} [toEvent]      The last event to negate (inclusive). Omit to negate through the end.
+   * @returns {CrucibleActionEvent[]}            The events that were negated
+   */
+  negate(afterEvent, toEvent) {
+    let from = 0;
+    if ( afterEvent ) {
+      const index = this.events.indexOf(afterEvent);
+      if ( index < 0 ) return [];
+      from = index + 1;
+    }
+    let to = this.events.length;
+    if ( toEvent ) {
+      const index = this.events.indexOf(toEvent);
+      if ( index < 0 ) return [];
+      to = index + 1;
+    }
+    const negated = this.events.slice(from, to);
+    for ( const event of negated ) event.negated = true;
+    this._eventsDirty = true; // Rebuild aggregate caches to exclude the newly negated events
+    return negated;
   }
 
   /* -------------------------------------------- */
@@ -1938,6 +1972,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     };
 
     for ( const event of this.events ) {
+      if ( event.negated ) continue; // Negated events contribute nothing to the simulated state
       const actor = event.target;
 
       // Gather this event's intended resource deltas and their damage annotations
@@ -2531,6 +2566,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Stage per-actor batches from the event stream
     const batches = new Map();
     for ( const event of this.events ) {
+      if ( event.negated ) continue;
       const actor = event.target;
       if ( !batches.has(actor) ) batches.set(actor, {
         events: [], resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], movementId: null
@@ -2624,6 +2660,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const T = AttackRollCls.RESULT_TYPES;
 
     for ( const event of events ) {
+      if ( event.negated ) continue;
       if ( event.statusText?.length ) {
         if ( reverse ) textEvents.push(...event.statusText.map(st => ({...st, text: `-(${st.text})`})));
         else textEvents.push(...event.statusText);
