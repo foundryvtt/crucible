@@ -5,17 +5,13 @@ const HOOKS = {};
 HOOKS.abjure = {
   async roll(target) {
     // Identify spell-caused conditions on this ally that an enemy inflicted, leaving allied buffs intact
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfToken = this.actor.getActiveTokens(true, true)[0];
-    const myDisposition = selfToken?.disposition ?? this.actor.prototypeToken.disposition;
-    const enemyDispositions = myDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
     const cleansable = [];
     for ( const effect of target.effects ) {
       // Only magical effects with a finite DC are candidates; an Infinity DC means the effect cannot be removed
       if ( !effect.system?.properties?.has("magical") || !Number.isFinite(effect.system.dc) ) continue;
       const origin = effect.origin ? fromUuidSync(effect.origin) : null;
-      const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
-      if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
+      if ( !(origin instanceof Actor) ) continue;
+      if ( this.actor.getDispositionTowards(origin) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) continue;
       cleansable.push(effect);
     }
     if ( !cleansable.length ) return;
@@ -1986,9 +1982,7 @@ HOOKS.ricochet = {
     if ( remaining <= 0 ) return;
 
     // Enemy dispositions, matching the action's ENEMIES target scope
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
-    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
 
     // Carom until no targets remain
     const {CrucibleMovementPolygon, grid} = crucible.api.canvas;

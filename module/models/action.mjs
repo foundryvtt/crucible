@@ -1685,30 +1685,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Classify Token dispositions into allied and enemy groups.
-   * @returns {{ally: number[], enemy: number[]}}
+   * Determine the Token dispositions which this action's target scope permits.
+   * @returns {number[]}
    */
   #getTargetDispositions() {
     const D = CONST.TOKEN_DISPOSITIONS;
     const S = SYSTEM.ACTION.TARGET_SCOPES;
     const scope = this.target.scope;
-
-    // Some dispositions are universal
     if ( [S.NONE, S.SELF].includes(scope) ) return [];
     if ( S.ALL === scope ) return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
-
-    // Determine the Actor's disposition
-    const disposition = this.actor.getActiveTokens(true, true)[0]?.disposition ?? this.actor.prototypeToken.disposition;
-
-    // Hostile actors
-    if ( disposition === D.HOSTILE ) {
-      if ( S.ALLIES === scope ) return [D.HOSTILE];
-      else return [D.FRIENDLY, D.NEUTRAL];
-    }
-
-    // Non-hostile actors
-    if ( S.ALLIES === scope ) return [D.NEUTRAL, D.FRIENDLY];
-    else return [D.HOSTILE];
+    const groups = crucible.api.documents.CrucibleActor.getDispositionGroups(this.actor.getDisposition());
+    return S.ALLIES === scope ? groups.ally : groups.enemy;
   }
 
   /* -------------------------------------------- */

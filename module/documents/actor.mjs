@@ -729,6 +729,51 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Classify token dispositions relative to a reference disposition into allied and enemy groups.
+   * @param {number} disposition   A value in CONST.TOKEN_DISPOSITIONS
+   * @returns {{ally: number[], enemy: number[]}}
+   */
+  static getDispositionGroups(disposition) {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    switch ( disposition ) {
+      case D.HOSTILE: return {ally: [D.HOSTILE], enemy: [D.NEUTRAL, D.FRIENDLY]};
+      case D.NEUTRAL:
+      case D.FRIENDLY: return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
+      default: return {ally: [], enemy: []}; // SECRET or unset dispositions have no allegiances
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The effective token disposition of this Actor: its first active token, or the prototype token as a fallback.
+   * @returns {number}
+   */
+  getDisposition() {
+    return this.getActiveTokens(true, true)[0]?.disposition ?? this.prototypeToken.disposition;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine this Actor's allegiance toward another Actor based on their token dispositions.
+   * The returned value is a CONST.TOKEN_DISPOSITIONS code expressing the relationship: HOSTILE toward an enemy,
+   * FRIENDLY toward an ally, or NEUTRAL when there is no allegiance (e.g. a secret disposition is involved).
+   * @param {CrucibleActor} other   The other Actor
+   * @returns {number}              A CONST.TOKEN_DISPOSITIONS value: HOSTILE, FRIENDLY, or NEUTRAL
+   */
+  getDispositionTowards(other) {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const {ally, enemy} = CrucibleActor.getDispositionGroups(this.getDisposition());
+    const od = other.getDisposition();
+    if ( enemy.includes(od) ) return D.HOSTILE;
+    if ( ally.includes(od) ) return D.FRIENDLY;
+    return D.NEUTRAL;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Use an available Action.
    * @param {string} actionId     The action to use
    * @param {object} [options]    Options which configure action usage
