@@ -209,7 +209,7 @@ async function displayTagTooltip(event) {
   if (cfg) {
     const page = cfg.page ? await fromUuid(cfg.page) : null;
     tooltip ??= cfg.tooltip ?? page?.text.content;
-    name = _loc(cfg.label) ?? _loc(cfg.name) ?? page.name;
+    name = _loc(cfg.name) ?? _loc(cfg.label) ?? page?.name;
   }
   if ( !tooltip ) return;
   event.stopImmediatePropagation();

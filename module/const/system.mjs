@@ -207,7 +207,7 @@ export const TIME = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * @typedef {({label: string}|{name: string})&({tooltip:string}|{page:string})} RuleItem
+ * @typedef {{name?: string, label?: string, tooltip?: string, page?: string}} RuleItem
  * @typedef {Record<string, RuleItem|RulesRecord>} RulesRecord
  * Define rules objects used by the `@Rule` enricher.
  * @type {RulesRecord}
