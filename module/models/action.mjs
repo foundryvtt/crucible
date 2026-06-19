@@ -2144,14 +2144,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @property {CrucibleItem} item    The candidate weapon Item
    * @property {string} id            The choice identifier: the weapon id, or "mainhandUnarmed"/"offhandUnarmed"
    * @property {string} label         A display label including the equipment slot
-   * @property {boolean} viable       Whether the weapon satisfies the action's requirement tags
-   * @property {boolean} [valid]      Whether the weapon is currently affordable; annotated by getValidWeaponChoices
+   * @property {boolean} viable       Whether the weapon is VALID for this action (passes requirement tags)
    */
 
   /**
-   * Enumerate the equipped weapons structurally eligible for this action, before requirement tags filter viability.
-   * Only weapon state (reload) is considered here; requirement tags (melee, ranged, brute, ...) further restrict the
-   * returned choices during prepare.
+   * Enumerate the VALID weapons for this action - structurally usable, regardless of their current availability.
+   * Requirement tags further restrict viability during action preparation.
+   * Load state, range, cost, and dropped status are availability concerns (_getWeaponAvailability).
+   * An exception for `reload` actions: only reloadable weapons which currently unloaded are valid.
    * @returns {CrucibleActionWeaponChoice[]|null}  The candidate weapons, or null when no choice is presented
    * @protected
    */
@@ -2159,41 +2159,77 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const isWeaponAction = this.tags.has("strike") || this.tags.has("reload");
     const isForced = ["mainhand", "offhand", "twohand"].some(t => this.tags.has(t));
     if ( !isWeaponAction || isForced ) return null;
-    const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+    const w = this.actor.equipment.weapons;
     const isReload = this.tags.has("reload");
 
-    // Add a weapon as a choice if its reload state qualifies: unloaded for a reload action, loaded for any other;
-    // non-reloadable weapons are never a choice for a reload action
     const choices = [];
     const addChoice = (weapon, id, slotLabel) => {
-      if ( weapon.config.category.reload ) {
-        if ( isReload ? !weapon.system.needsReload : weapon.system.needsReload ) return;
-      } else if ( isReload ) return;
+      if ( !weapon ) return;
+      if ( isReload && (!weapon.config.category.reload || !weapon.system.needsReload) ) return;
       choices.push({item: weapon, id, label: `${weapon.name} (${slotLabel})`, viable: true});
     };
-    if ( mh ) addChoice(mh, mh.id || "mainhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.MAINHAND);
-    if ( oh ) addChoice(oh, oh.id || "offhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.OFFHAND);
-    for ( const n of natural ) addChoice(n, n.id, SYSTEM.WEAPON.PROPERTIES.natural.label);
+    addChoice(w.mainhand, w.mainhand?.id || "mainhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.MAINHAND);
+    addChoice(w.offhand, w.offhand?.id || "offhandUnarmed", SYSTEM.WEAPON.SLOTS.labels.OFFHAND);
+    for ( const n of w.natural ) addChoice(n, n.id, SYSTEM.WEAPON.PROPERTIES.natural.label);
+
+    // Dropped weapons remain valid choices (but unavailable) so the player is reminded their weapon is dropped
+    if ( !isReload ) {
+      addChoice(w.dropped.mainhand, w.dropped.mainhand?.id, SYSTEM.WEAPON.SLOTS.labels.MAINHAND);
+      addChoice(w.dropped.offhand, w.dropped.offhand?.id, SYSTEM.WEAPON.SLOTS.labels.OFFHAND);
+    }
     return choices;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Get the prepared viable weapon choices, annotating each with affordability against an action point budget.
-   * @param {object} [options]              Additional options
-   * @param {boolean} [options.strict]      Whether to drop unaffordable choices rather than only marking them
-   * @param {number} [options.maxCost]      An action point budget; weapons exceeding it get valid=false
+   * Get the VALID weapon choices for this action (those which pass requirement tags). Availability is evaluated
+   * separately via {@link _getWeaponAvailability}.
    * @returns {CrucibleActionWeaponChoice[]}
    */
-  getValidWeaponChoices({strict=false, maxCost=Infinity}={}) {
-    const choices = (this.usage.weaponChoices ?? []).filter(c => c.viable);
-    const base = this.usage.baseActionCost ?? this.cost.action;
-    for ( const choice of choices ) {
-      const cost = this.cost.weapon ? (base + (choice.item.system.actionCost || 0)) : this.cost.action;
-      choice.valid = cost <= maxCost;
+  getValidWeaponChoices() {
+    return (this.usage.weaponChoices ?? []).filter(c => c.viable);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Evaluate whether a VALID weapon can currently be used for this action against an optional target.
+   * Checks run in a fixed priority order (range, cost, load, dropped) - unavailability is explained by the first
+   * failed check, while the availability rank is defined by the number of checks passed.
+   * @param {CrucibleItem} weapon                     The candidate weapon
+   * @param {object} [options]
+   * @param {CrucibleTokenObject} [options.target]    The target token object, used for the range check
+   * @returns {{available: boolean, reason: string|null, rank: number}}
+   * @internal
+   */
+  _getWeaponAvailability(weapon, {target}={}) {
+    let rank = 0;
+
+    // Out of range (skipped when range is indeterminate: no target or no rendered canvas)
+    if ( target && this.token?.object && canvas.ready ) {
+      const dist = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, target);
+      const max = this.range.weapon ? ((this._source.range.maximum ?? 0) + (weapon.system.range ?? 0))
+        : (this.range.maximum ?? 0);
+      const min = this._source.range.minimum ?? 0;
+      if ( (max && (dist > max)) || (min && (dist < min)) ) return {available: false, reason: "outOfRange", rank};
     }
-    return strict ? choices.filter(c => c.valid) : choices;
+    rank++;
+
+    // Unaffordable
+    const base = this.usage.baseActionCost ?? this.cost.action;
+    const cost = this.cost.weapon ? (base + (weapon.system.actionCost || 0)) : this.cost.action;
+    if ( cost > this.actor.resources.action.value ) return {available: false, reason: "unaffordable", rank};
+    rank++;
+
+    // Not loaded
+    if ( weapon.system.needsReload ) return {available: false, reason: "notLoaded", rank};
+    rank++;
+
+    // Dropped
+    if ( weapon.system.dropped ) return {available: false, reason: "dropped", rank};
+    rank++;
+    return {available: true, reason: null, rank};
   }
 
   /* -------------------------------------------- */

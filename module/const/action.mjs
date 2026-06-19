@@ -3,7 +3,6 @@ import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import {defineEnum, defineIntEnum} from "./enum.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
-import CrucibleAction from "../models/action.mjs";
 
 /**
  * The different required conditions under which an Active Effect can be applied from an Action.
@@ -683,20 +682,22 @@ export const TAGS = {
     initialize() {
       this.usage.strikes = []; // Reset strike sequence
     },
-    canUse() {
-      if ( this.usage.strikes.some(w => w.system.needsReload && !this.tags.has("reload")) ) {
-        throw new Error(_loc("ACTION.WARNINGS.MustReload"));
-      }
-    },
     prepare() {
       // Capture the non-weapon cost before weapon cost is added, so candidate affordability can be measured against it
       this.usage.baseActionCost = this.cost.action;
 
-      // Determine eligible weapon if multiple choices are allowed. Discard a prior choice that is no longer viable
+      // Resolve a specific weapon when a choice is allowed. Honor explicit user selection as usage.weaponChoice.
+      // Otherwise, pick the best available weapon for the current target.
       if ( this.usage.weaponChoices ) {
-        const choices = this.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
-        if ( this.usage.weapon && !choices.some(c => c.item === this.usage.weapon) ) this.usage.weapon = undefined;
-        this.usage.weapon ??= (choices.find(c => c.valid) ?? choices[0])?.item;
+        const choices = this.getValidWeaponChoices();
+        const locked = this.usage.weaponChoice ? choices.find(c => c.id === this.usage.weaponChoice)?.item : null;
+        const target = (canvas.ready && this.token?.object && game.user.targets.size)
+          ? game.user.targets.values().next().value : null;
+        this.usage.weapon = locked ?? choices.reduce((best, c) => {
+          let rank = this._getWeaponAvailability(c.item, {target});
+          if ( c.item.system.properties.has("natural") ) rank -= 0.5; // Prefer equipped > natural at same rank
+          return (!best || (rank > best.rank)) ? {item: c.item, rank} : best;
+        }, null)?.item;
       }
       const strikes = this.usage.strikes;
 
@@ -761,11 +762,14 @@ export const TAGS = {
         }
       }
     },
-    async roll(target) {
-      for ( const [i, weapon] of this.usage.strikes.entries() ) {
-        const roll = await this.actor.weaponAttack(this, weapon, target);
-        roll.data.strike = i;
-        this.recordEvent({type: "strike", target, roll, weapon: weapon.snapshot()});
+    acquireTargets(targets) {
+      const weapon = this.usage.strikes[0];
+      if ( !weapon ) return;
+      for ( const t of targets ) {
+        if ( t.error || !t.token?.object ) continue;
+        const {reason} = this._getWeaponAvailability(weapon, {target: t.token.object});
+        if ( reason === "notLoaded" ) t.error = _loc("ACTION.WARNINGS.MustReload");
+        else if ( reason === "dropped" ) t.error = _loc("ACTION.WARNINGS.WeaponDropped");
       }
     },
     preActivate() {
@@ -775,6 +779,13 @@ export const TAGS = {
         if ( w.config.category.reload ) {
           updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
+      }
+    },
+    async roll(target) {
+      for ( const [i, weapon] of this.usage.strikes.entries() ) {
+        const roll = await this.actor.weaponAttack(this, weapon, target);
+        roll.data.strike = i;
+        this.recordEvent({type: "strike", target, roll, weapon: weapon.snapshot()});
       }
     },
     configureVFX(vfxConfig) {

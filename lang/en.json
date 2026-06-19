@@ -500,6 +500,7 @@
       "Silenced": "You cannot use this action while Silenced.",
       "TargetTooLarge": "Target \"{target}\" is too large for {action}.",
       "UnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
+      "WeaponDropped": "Your weapon has been dropped and must be retrieved in order to use this action.",
       "WrongMovementToken": "You must move the token performing this action."
     },
     "Action": "Action",

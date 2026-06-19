@@ -10,7 +10,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.action = action;
     this.actor = actor;
     this.targets = targets;
-    this.#weaponChoice = action.usage.weapon?.id || "";
+    const choice = action.getValidWeaponChoices().find(c => c.item === action.usage.weapon);
+    this.#weaponChoice = choice?.id ?? (action.usage.weapon?.id || "");
   }
 
   /** @inheritDoc */
@@ -150,6 +151,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
     const invalid = targets.some(t => t.error) || ((this.action.target.type === "single") && !targets.length);
     if ( invalid ) return {disabled: true, tooltip: _loc("ACTION.WARNINGS.InvalidTargetsGeneric")};
+
+    // Restrict action affordability by disabling submission
+    if ( this.action.cost.action > this.actor.resources.action.value ) {
+      return {disabled: true, tooltip: _loc("ACTION.WARNINGS.CannotAffordCost", {
+        name: this.actor.name, resource: SYSTEM.RESOURCES.action.label, action: this.action.name})};
+    }
     return {disabled: false, tooltip: ""};
   }
 
@@ -161,9 +168,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #prepareWeaponChoice() {
     if ( !this.action.allowWeaponChoice ) return null;
-    const choices = this.action.getValidWeaponChoices({maxCost: this.actor.resources.action.value});
+    const choices = this.action.getValidWeaponChoices();
     if ( choices.length <= 1 ) return null;
-    for ( const c of choices ) c.disabled = !c.valid; // Disable unaffordable
+
+    // Every VALID weapon is selectable, even if UNAVAILABLE. The player can select it and see the reason.
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
       label: _loc("ACTION.ChooseWeaponLabel"), hint: _loc("ACTION.ChooseWeaponHint")});
     weapon.name = "weapon";
@@ -239,13 +247,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     if ( event.target.name === "weapon" ) {
-      const weapons = this.action.actor.equipment.weapons;
-      const c = this.#weaponChoice = event.target.value;
-      let weapon;
-      if ( c === "mainhandUnarmed" ) weapon = weapons.mainhand;
-      else if ( c === "offhandUnarmed" ) weapon = weapons.offhand;
-      else weapon = this.action.actor.items.get(c);
-      this.action.usage.weapon = weapon;
+      // Lock in the explicit choice; the strike tag's prepare resolves it to a weapon and honors it over the default
+      this.#weaponChoice = this.action.usage.weaponChoice = event.target.value;
       this.action.reset();
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       this.render();
