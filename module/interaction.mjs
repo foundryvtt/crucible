@@ -207,8 +207,9 @@ async function displayTagTooltip(event) {
   let name = element.innerText;
   const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
   if (cfg) {
-    tooltip ??= cfg.tooltip ?? (await fromUuid(cfg.page))?.text.content;
-    name = _loc(cfg.label) ?? _loc(cfg.name);
+    const page = cfg.page ? await fromUuid(cfg.page) : null;
+    tooltip ??= cfg.tooltip ?? page?.text.content;
+    name = _loc(cfg.label) ?? _loc(cfg.name) ?? page.name;
   }
   if ( !tooltip ) return;
   event.stopImmediatePropagation();
