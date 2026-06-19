@@ -2973,6 +2973,11 @@ export default class CrucibleActor extends Actor {
    * @param {object} options
    */
   async #updateSize(data, options) {
+    console.log("CRUCIBLE updateSize entry " + JSON.stringify({
+      name: this.name, type: this.type, isToken: this.isToken, size: this.size,
+      proto: this.prototypeToken?.width, tokenWidth: this.token?.width ?? null,
+      related: !!options?._crucibleRelatedUpdate
+    }));
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
     const size = this.size;
     const dimensions = {width: size, height: size, depth: size};
@@ -2994,6 +2999,7 @@ export default class CrucibleActor extends Actor {
       sceneUpdates[token.parent.id] ||= [];
       sceneUpdates[token.parent.id].push({_id: token.id, ...dimensions});
     }
+    console.log("CRUCIBLE updateSize placed " + JSON.stringify({name: this.name, dimensions, sceneUpdates}));
     for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
       const scene = game.scenes.get(sceneId);
       if ( scene ) await scene.updateEmbeddedDocuments("Token", updates, {_crucibleRelatedUpdate: true});

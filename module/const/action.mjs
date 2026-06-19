@@ -601,6 +601,10 @@ export const TAGS = {
         event.summon.tokenData ||= {};
         event.summon.tokenData.x ??= position.x;
         event.summon.tokenData.y ??= position.y;
+        if ( this.token ) {
+          event.summon.tokenData.elevation ??= this.token.elevation;
+          event.summon.tokenData.level ??= this.token.level;
+        }
         if ( (event.summon.permanent === false) && !effectEvents.length ) {
           throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
         }
