@@ -1540,7 +1540,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from the actor's planned movement path.
-   * A token is targeted if the movement path intersects with its hitbox OR if base-to-base with the final position.
+   * A token is targeted if the movement path intersects with its hitbox OR if within range of the terminal waypoint.
    * Targets are returned in path-traversal order and capped to the action's defined maximum targets.
    * @returns {ActionUseTarget[]}
    */
@@ -1560,9 +1560,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       originSpaces.add(`${i},${j},${k}`);
     }
 
+    // Reach in feet for detecting targets at the terminal waypoint
+    let reachFeet = 1;
+    if ( this.range.weapon ) reachFeet = Math.max(reachFeet, this.usage.weaponRange ?? 0);
+    const reachPad = reachFeet * (canvas.dimensions.size / canvas.dimensions.distance);
+    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], reachPad);
+
     // Determine the superset of candidate targets filtered by disposition and visibility
-    const adjacencyPad = canvas.dimensions.size / canvas.dimensions.distance; // Pixels per one foot of distance
-    const broadBounds = this.#getMovementFootprintRect(waypoints, adjacencyPad);
+    const broadBounds = this.#getMovementFootprintRect(waypoints, reachPad);
     const targetDispositions = this.#getTargetDispositions();
     const candidates = canvas.tokens.quadtree.getObjects(broadBounds, {collisionTest: o => {
       const tokenDoc = o.t.document;
@@ -1571,10 +1576,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return !tokenDoc.hidden;
     }});
 
-    // Padded footprint of the final position used to detect base-to-base adjacency
-    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], adjacencyPad);
-
-    // Walk the path in order, recording the first step at which each candidate is intersected or in base-to-base
+    // Walk the path in order, recording the first step at which each candidate is targeted
     const encounterStep = new Map();
     for ( let w = 0; w < waypoints.length; w++ ) {
       const isFinal = w === (waypoints.length - 1);
@@ -1587,8 +1589,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( encounterStep.has(token) ) continue;
         const footprint = token.document.getOccupiedGridSpaceOffsets(token.document._source);
         const intersects = footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
-        const adjacent = isFinal && finalRect.overlaps(token.bounds);
-        if ( intersects || adjacent ) encounterStep.set(token, w);
+        const withinReach = isFinal && finalRect.overlaps(token.bounds);
+        if ( intersects || withinReach ) encounterStep.set(token, w);
       }
     }
 

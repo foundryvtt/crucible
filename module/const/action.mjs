@@ -750,8 +750,11 @@ export const TAGS = {
 
       // Configure action range
       if ( this.range.weapon ) {
-        const baseMaximum = this._source.range.maximum ?? 0;
-        this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
+        this.usage.weaponRange = weaponRange;
+        if ( this.target.type !== "movement" ) { // Movement uses weapon range at the terminal waypoint
+          const baseMaximum = this._source.range.maximum ?? 0;
+          this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
+        }
       }
     },
     async roll(target) {
