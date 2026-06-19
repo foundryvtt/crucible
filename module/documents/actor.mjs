@@ -2090,33 +2090,12 @@ export default class CrucibleActor extends Actor {
       if ( !canClear ) throw new Error(`You are not allowed to clear the ${type} item from Actor ${this.name}`);
     }
 
-    // Remove existing talents
+    // Remove items granted by the detail being replaced, preserving those granted elsewhere
     const existing = this.system.details[type];
-    let deleteItemIds = new Set();
-    for ( const {item: uuid} of (existing?.talents || []) ) {
-      const talentId = foundry.utils.parseUuid(uuid)?.documentId;
-      if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
-    }
-
-    // Remove existing equipment
-    for ( const {item: uuid} of (existing?.equipment || []) ) {
-      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
-      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
-    }
-
-    // Remove existing spells
-    for ( const {item: uuid} of (existing?.spells || []) ) {
-      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
-      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
-    }
-
-    // Remove skill talents
-    if ( skillTalents ) {
-      for ( const skillId of (existing?.skills || []) ) {
-        const uuid = SYSTEM.SKILLS[skillId]?.talents[1];
-        const talentId = foundry.utils.parseUuid(uuid)?.documentId;
-        if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
-      }
+    const deleteItemIds = this.#detailGrantedItemIds(existing, skillTalents);
+    for ( const [otherType, otherDetail] of Object.entries(this.system.details) ) {
+      if ( otherType === type ) continue;
+      for ( const id of this.#detailGrantedItemIds(otherDetail, skillTalents) ) deleteItemIds.delete(id);
     }
 
     // Clear the detail data
@@ -2142,8 +2121,8 @@ export default class CrucibleActor extends Actor {
           level: 0})) : [])
       ];
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
-      deleteItemIds = deleteItemIds.difference(talentsToKeep);  // Talent already owned
-      updateItems.push(...talentsToCreate);                     // Add new Talent
+      for ( const id of talentsToKeep ) deleteItemIds.delete(id); // Talent already owned
+      updateItems.push(...talentsToCreate);                       // Add new Talent
 
       // Grant Equipment
       for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
@@ -2185,6 +2164,28 @@ export default class CrucibleActor extends Actor {
     await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
     await this.update(updateData, {keepEmbeddedIds: true});
     if ( message && notify ) ui.notifications.info(message);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify the IDs of currently owned items granted by a detail's data (talents, equipment, spells, skill talents).
+   * @param {object} detail               The detail data, e.g. system.details.ancestry
+   * @param {boolean} [skillTalents=true] Include the talents granted by the detail's trained skills?
+   * @returns {Set<string>}               Granted item IDs provided by the detail item
+   */
+  #detailGrantedItemIds(detail, skillTalents=true) {
+    const grantedIds = new Set();
+    if ( !detail ) return grantedIds;
+    const add = uuid => {
+      const id = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( id && this.items.has(id) ) grantedIds.add(id);
+    };
+    for ( const {item} of (detail.talents || []) ) add(item);
+    for ( const {item} of (detail.equipment || []) ) add(item);
+    for ( const {item} of (detail.spells || []) ) add(item);
+    if ( skillTalents ) for ( const skillId of (detail.skills || []) ) add(SYSTEM.SKILLS[skillId]?.talents[1]);
+    return grantedIds;
   }
 
   /* -------------------------------------------- */
@@ -3061,17 +3062,22 @@ export default class CrucibleActor extends Actor {
    */
   async #syncGrantedItems(data) {
     if ( !("level" in (data.system?.advancement ?? {})) ) return;
-    let deleteItemIds = new Set();
+    const deleteItemIds = new Set();
+    const keepItemIds = new Set();
     const createItems = [];
     for ( const itemType of ["ancestry", "archetype", "background", "taxonomy"] ) {
       const detail = this.system.details[itemType];
       if ( !detail ) continue;
-      const {toDelete, toCreate} = await this.#prepareGrantedDetailTalents(detail.talents);
-      deleteItemIds = deleteItemIds.union(toDelete);
+      const {toDelete, toKeep, toCreate} = await this.#prepareGrantedDetailTalents(detail.talents);
+      for ( const id of toDelete ) deleteItemIds.add(id);
+      for ( const id of toKeep ) keepItemIds.add(id);
 
       // Ensure no duplicate talents from multiple detail items
       createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
     }
+
+    // Don't delete a talent that another detail still grants at an allowed level (see issue crucible#1279)
+    for ( const id of keepItemIds ) deleteItemIds.delete(id);
 
     // Adjust the quality of automatically scaled equipment
     const updateItems = [];
