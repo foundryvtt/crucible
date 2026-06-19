@@ -2,6 +2,10 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 import {SYSTEM} from "../const/system.mjs";
 
 /**
+ * @import {WeaponCategory} from "../const/weapon.mjs";
+ */
+
+/**
  * Data schema, attributes, and methods specific to Weapon type Items.
  */
 export default class CrucibleWeaponItem extends CruciblePhysicalItem {
@@ -76,16 +80,57 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /* -------------------------------------------- */
 
   /**
+   * The weapon category whose statistics currently apply.
+   * A Versatile weapon wielded in its alternate grip adopts the statistics of its sibling category.
+   * @type {WeaponCategory}
+   */
+  get activeCategory() {
+    const category = this.config.category;
+    if ( !this.properties.has("versatile") ) return category;
+    const sibling = SYSTEM.WEAPON.CATEGORIES[category.sibling];
+    if ( !sibling ) return category;
+    const is2h = this.slot === SYSTEM.WEAPON.SLOTS.TWOHAND;
+    return (is2h === (category.hands === 2)) ? category : sibling;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this weapon be thrown?
+   * @type {boolean}
+   */
+  get canThrow() {
+    const category = this.config.category;
+    if ( (category.id === "unarmed") || category.ranged || this.properties.has("natural") ) return false;
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this weapon require reloading before it can be used?
+   * @type {boolean}
+   */
+  get needsReload() {
+    return this.config.category.reload && !this.loaded;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare derived data specific to the weapon type.
    */
   prepareBaseData() {
     super.prepareBaseData();
-    const {category, enchantment} = this.config;
+    const {enchantment} = this.config;
 
     // Equipment Slot
     if ( this.dropped ) this.equipped = false;
     this.allowedSlots = this.getAllowedEquipmentSlots();
     if ( !this.allowedSlots.includes(this.slot) ) this.slot = this.allowedSlots[0];
+
+    // Weapon stats derive from the active category, which Versatile swaps for the sibling in the alternate grip
+    const category = this.activeCategory;
 
     // Weapon Damage
     this.damage = this.#prepareDamage();
@@ -99,12 +144,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     // Weapon Bonuses
     this.actionBonuses = {ability: 0, skill: -4, enchantment: enchantment.bonus};
     this.actionCost = category.actionCost;
-
-    // Versatile Two-Handed
-    if ( this.properties.has("versatile") && this.slot === SYSTEM.WEAPON.SLOTS.TWOHAND ) {
-      this.damage.base += 2;
-      this.actionCost += 1;
-    }
   }
 
   /* -------------------------------------------- */
@@ -125,7 +164,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    * Finalize equipped weapons by preparing data which depends on prepared talents or other Actor data.
    */
   prepareEquippedData() {
-    const category = this.config.category;
+    const category = this.activeCategory;
     const actor = this.parent.actor;
 
     // Ability Bonus
@@ -154,7 +193,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    * @returns {{weapon: number, base: number, quality: number}}
    */
   #prepareDamage() {
-    const {category, quality} = this.config;
+    const category = this.activeCategory;
+    const {quality} = this.config;
     const damage = {
       base: category.damage,
       bonus: 0,
@@ -181,7 +221,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( this.broken ) return {block: 0, parry: 0};
 
     // Base defense for the category
-    const category = this.config.category;
+    const category = this.activeCategory;
     const defense = {
       block: category.defense?.block ?? 0,
       parry: category.defense?.parry ?? 0
@@ -200,7 +240,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    * @returns {number}
    */
   #prepareRange() {
-    const category = this.config.category;
+    const category = this.activeCategory;
     let range = category.range;
     if ( this.properties.has("ambush") ) range = Math.max(range - (category.ranged ? 10 : 1), 1);
     return range;
@@ -211,44 +251,41 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /* -------------------------------------------- */
 
   /**
-   * Can this weapon be thrown?
-   * @type {boolean}
-   */
-  get canThrow() {
-    const category = this.config.category;
-    if ( (category.id === "unarmed") || category.ranged || this.properties.has("natural") ) return false;
-    return true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Does this weapon require reloading before it can be used?
-   * @type {boolean}
-   */
-  get needsReload() {
-    return this.config.category.reload && !this.loaded;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Identify which equipment slots are allowed for a certain weapon.
+   * Identify which equipment slots are allowed for this weapon.
    * @returns {number[]}
    */
   getAllowedEquipmentSlots() {
-    const SLOTS = SYSTEM.WEAPON.SLOTS;
     const category = this.config.category;
+    if ( this.properties.has("natural") ) return [];
+    const slots = this.#getCategoryEquipmentSlots(category);
+
+    // A Versatile weapon may additionally be wielded in the grips of its sibling category
+    const sibling = SYSTEM.WEAPON.CATEGORIES[category.sibling];
+    if ( sibling && this.properties.has("versatile") ) {
+      for ( const slot of this.#getCategoryEquipmentSlots(sibling) ) {
+        if ( !slots.includes(slot) ) slots.push(slot);
+      }
+    }
+    return slots;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify the equipment slots that a particular weapon category may occupy.
+   * @param {WeaponCategory} category   The weapon category being evaluated
+   * @returns {number[]}
+   */
+  #getCategoryEquipmentSlots(category) {
+    const SLOTS = SYSTEM.WEAPON.SLOTS;
     const slots = [];
-    if ( this.properties.has("natural") ) return slots;
     // A capability flag (e.g. granted by Strong Grip) may permit a one-handed heavy weapon in the off-hand
     const heavyOffhand = this.parent?.actor?.system.equipment.weapons?.heavyOffhand;
     const offhand = category.off || ((category.id === "heavy1") && !!heavyOffhand);
     if ( category.main ) {
       if ( category.hands === 2 ) return [SLOTS.TWOHAND];
-      if ( offhand ) slots.unshift(SLOTS.EITHER);
+      if ( offhand ) slots.push(SLOTS.EITHER);
       slots.push(SLOTS.MAINHAND);
-      if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
     }
     if ( offhand ) slots.push(SLOTS.OFFHAND);
     return slots;
@@ -291,8 +328,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   _getUntrainedTooltip(actor) {
     const category = this.config.category;
     if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
-    if ( actor.getSkillBonus(category.training) >= 0 ) return null;
-    const labels = category.training.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+    const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
+    if ( actor.getSkillBonus(trainingTypes) >= 0 ) return null;
+    const labels = trainingTypes.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
     const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
     return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
   }

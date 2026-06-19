@@ -7,8 +7,8 @@ flags:
 system:
   description: >-
     Your expertise with martial arts allows you to dodge or deflect blows as
-    effectively as a heavily armored fighter. While unarmed, half your Wisdom
-    score contributes to your Parry defense.
+    effectively as a heavily armored fighter. While unarmed or wielding only
+    natural weapons, half your Wisdom score contributes to your Parry defense.
   actions: []
   nodes:
     - wis3a

@@ -649,8 +649,8 @@ export const TAGS = {
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 
-        // Create a Combatant
-        if ( this.actor.inCombat ) {
+        // Create a Combatant, unless opted-out
+        if ( this.actor.inCombat && (event.summon.combatant !== false) ) {
           await game.combat.createEmbeddedDocuments("Combatant", [{
             tokenId: token.id,
             sceneId: canvas.scene.id,
@@ -750,8 +750,11 @@ export const TAGS = {
 
       // Configure action range
       if ( this.range.weapon ) {
-        const baseMaximum = this._source.range.maximum ?? 0;
-        this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
+        this.usage.weaponRange = weaponRange;
+        if ( this.target.type !== "movement" ) { // Movement uses weapon range at the terminal waypoint
+          const baseMaximum = this._source.range.maximum ?? 0;
+          this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
+        }
       }
     },
     async roll(target) {
@@ -975,21 +978,15 @@ export const TAGS = {
       });
       await roll.evaluate();
 
-      // Compute the final result against defenses
-      const r = roll.data.result = target.testDefense(defenseType, roll);
-      if ( r >= AttackRoll.RESULT_TYPES.GLANCE ) {
-        roll.data.damage = {
-          overflow: roll.overflow,
-          multiplier: bonuses.multiplier ?? 1,
-          base: bonuses.base ?? 0,
-          bonus: bonuses.damageBonus ?? 0,
-          resistance: target.getResistance(resource, damageType),
-          type: damageType,
-          resource: resource,
-          restoration: this.usage.restoration ?? false
-        };
-        roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-      }
+      // Resolve the outcome and structured damage against the target's defenses
+      roll.resolveDamage(this.actor, target, {
+        multiplier: bonuses.multiplier ?? 1,
+        base: bonuses.base ?? 0,
+        bonus: bonuses.damageBonus ?? 0,
+        resource,
+        damageType,
+        restoration: this.usage.restoration ?? false
+      });
       this.recordEvent({type: "strike", target, roll});
     }
   },
@@ -1102,7 +1099,7 @@ export const TAGS = {
     category: "modifiers",
     postActivate() {
       for ( const event of this.events ) {
-        if ( event.roll?.data.damage ) {
+        if ( event.roll?.hasDamage ) {
           event.roll.data.damage.base = event.roll.data.damage.total = 0;
           event.roll.data.damage.harmless = true;
         }
@@ -1132,7 +1129,7 @@ export const TAGS = {
     category: "modifiers",
     postActivate() {
       for ( const event of this.events ) {
-        if ( !event.roll?.data.damage ) continue;
+        if ( !event.roll?.hasDamage ) continue;
         const targetResources = event.target?.system?.resources;
         if ( !targetResources ) continue;
         const resource = event.roll.data.damage.resource ?? "health";
@@ -1547,7 +1544,10 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"],
-    autoFavorite: true
+    autoFavorite: action => {
+      const r = action.actor.system.resources;
+      return (r.health.value < r.health.max) || (r.morale.value < r.morale.max) || (r.focus.value < r.focus.max);
+    }
   },
 
   // Reload
@@ -1566,7 +1566,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     autoFavorite: true
   },
 
-  // Rest
+  // Rest (never auto-favorited; rests are managed through the party UI)
   {
     id: "rest",
     name: "ACTION.DEFAULT_ACTIONS.Rest.Name",
@@ -1580,8 +1580,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    autoFavorite: true
+    tags: ["noncombat"]
   },
 
   // Basic Strike

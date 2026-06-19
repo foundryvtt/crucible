@@ -519,17 +519,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {{ally: number[], enemy: number[]}}
    */
   #getDispositions() {
-    const D = CONST.TOKEN_DISPOSITIONS;
-    switch ( this.document.disposition ) {
-      case D.SECRET:
-        return {ally: [], enemy: []};
-      case D.HOSTILE:
-        return {ally: [D.HOSTILE], enemy: [D.NEUTRAL, D.FRIENDLY]};
-      case D.NEUTRAL:
-        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
-      case D.FRIENDLY:
-        return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
-    }
+    return crucible.api.documents.CrucibleActor.getDispositionGroups(this.document.disposition);
   }
 
   /* -------------------------------------------- */
@@ -589,11 +579,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   static computeFlanking(engagement) {
     engagement.allyBonus = 0;
 
-    // Count the number of enemies who can flank
+    // Count flankers; an adversary's flankingStrength lets it count as more than one
     let flankers = 0;
     for ( const enemy of engagement.enemies ) {
       const {isBroken, isIncapacitated} = enemy.actor.system;
-      if ( !(isBroken || isIncapacitated) ) flankers++;
+      if ( !(isBroken || isIncapacitated) ) flankers += enemy.actor.system.movement?.flankingStrength ?? 1;
     }
     engagement.flankers = flankers;
 

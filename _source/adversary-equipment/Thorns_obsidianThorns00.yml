@@ -1,11 +1,11 @@
-name: Obsidian Thorns
+name: Thorns
 type: weapon
-img: icons/creatures/tentacles/tentacle-earth-green.webp
+img: icons/magic/nature/root-vine-spiral-thorns-teal.webp
 effects: []
 folder: creatureParts000
 flags: {}
 system:
-  category: light1
+  category: balanced1
   quantity: 1
   weight: 0
   price: 0
@@ -16,12 +16,12 @@ system:
     - natural
   description:
     public: >-
-      <p>The @ref[actor.name]{creature} lashes out with a thorned length of
-      razor-sharp black glass.</p>
+      <p>The @ref[actor.name]{creature} lashes out with a thorn-covered vine,
+      limb, or tendril.</p>
     private: ''
   damageType: piercing
   broken: false
-  identifier: obsidianThorns
+  identifier: thorns
   invested: false
   actions: []
   dropped: false
@@ -32,10 +32,10 @@ _stats:
   exportSource: null
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1781218465590
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1781553538193
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

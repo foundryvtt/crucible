@@ -11,6 +11,28 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
+  /**
+   * Whether this talent's description should be locked
+   * @type {boolean}
+   */
+  #locked = false;
+
+  /**
+   * Whether this talent's description would be displayed if not locked
+   * @type {boolean}
+   */
+  #showIfUnlocked = false;
+
+  /**
+   * Whether this talent's description is locked
+   * @type {boolean}
+   */
+  get isLocked() {
+    return this.#locked;
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   _configure({active, accessible, ...config}={}) {
     config = super._configure(config);
@@ -77,14 +99,46 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
+  /**
+   * Toggle description lock state. If unlocking & not still hovered, act as if hovered out
+   */
+  toggleLock() {
+    this.#locked = !this.#locked;
+    crucible.tree.hud.classList.toggle("locked", this.#locked);
+    if ( !this.#locked && !this.#showIfUnlocked ) {
+      this.scale.set(1.0, 1.0);
+      crucible.tree.hud.clear();
+    }
+  }
+
+  /* -------------------------------------------- */
+
   #activateInteraction() {
     this.removeAllListeners();
     this.on("pointerover", this.#onPointerOver.bind(this));
     this.on("pointerout", this.#onPointerOut.bind(this));
-    this.on("pointerdown", this.#onClickLeft.bind(this));
+    this.on("pointerdown", this.#onPointerDown.bind(this));
     this.on("rightdown", this.#onClickRight.bind(this));
     this.eventMode = "static";
     this.cursor = "pointer";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle left-click or middle-click events on a Talent icon to lock description or add talent to Actor.
+   * @param {PIXI.InteractionEvent} event
+   */
+  async #onPointerDown(event) {
+    event.stopPropagation();
+    switch ( event.data.originalEvent.button ) {
+      case 0:
+        this.#onClickLeft(event);
+        break;
+      case 1:
+        if ( crucible.tree.hud.target === this ) this.toggleLock();
+        break;
+    }
   }
 
   /* -------------------------------------------- */
@@ -95,9 +149,15 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
    * @returns {Promise<void>}
    */
   async #onClickLeft(event) {
-    event.stopPropagation();
-    if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
+
+    // If a talent description is locked, unlock it, and do nothing more if that talent isn't the clicked one
+    if ( tree.hud.target?.isLocked ) {
+      const lockedTalent = tree.hud.target;
+      lockedTalent.toggleLock();
+      this.#onPointerOver(event);
+      if ( lockedTalent !== this ) return;
+    }
     const actor = tree.actor;
     if ( !actor ) return;
     if ( !actor || actor.talentIds.has(this.talent.id) ) return;
@@ -129,8 +189,10 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
    */
   #onPointerOver(event) {
     const tree = crucible.tree;
-    if ( event.nativeEvent.target !== tree.canvas ) return;
+    if ( (event.nativeEvent.target !== tree.canvas) ) return;
+    if ( tree.hud.target?.isLocked ) return;
     event.stopPropagation();
+    this.#showIfUnlocked = true;
     this.scale.set(1.2, 1.2);
     tree.hud.activate(this);
   }
@@ -143,6 +205,8 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
    */
   #onPointerOut(event) {
     event.stopPropagation();
+    this.#showIfUnlocked = false;
+    if ( crucible.tree.hud.target?.isLocked ) return;
     this.scale.set(1.0, 1.0);
     game.system.tree.hud.clear();
   }

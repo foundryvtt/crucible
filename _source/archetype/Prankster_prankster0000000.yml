@@ -1,0 +1,56 @@
+name: Prankster
+type: archetype
+_id: prankster0000000
+img: icons/magic/sonic/bell-alarm-red-purple.webp
+system:
+  description: >-
+    <p>Humanoid creatures who thrive on nuisance, annoyance, trickery, and
+    deception.</p>
+  identifier: prankster
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 3
+    strength: 1
+    toughness: 2
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: null
+    - item: Compendium.crucible.talent.Item.dirtytricks00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.provocateur00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.diversionist0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.feintingstrike00
+      level: 1
+    - item: Compendium.crucible.talent.Item.tumblethrough000
+      level: 1
+  skills:
+    - stealth
+    - deception
+    - diplomacy
+    - performance
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.10.0
+  createdTime: 1781568871424
+  modifiedTime: 1781568871424
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  exportSource: null
+  compendiumSource: null
+  duplicateSource: null
+sort: 0
+_key: '!items!prankster0000000'

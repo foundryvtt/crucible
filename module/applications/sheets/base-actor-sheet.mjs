@@ -555,8 +555,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       // Classify actions
       let section = "general";
       const tagMapping = {
-        strike: "attack",
         reaction: "reaction",
+        strike: "attack",
         spell: "spell",
         iconicSpell: "spell",
         movement: "movement",

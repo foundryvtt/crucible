@@ -41,6 +41,12 @@ Hooks.once("init", async function() {
   CrucibleTalentNode.defineTree();
   crucible.developmentMode = game.data.options.debug;
 
+  /**
+   * The effective world migration version cached at setup; see {@link _getMigrationVersion}.
+   * @type {string|null}
+   */
+  crucible._migrationVersion = null;
+
   // Expose the system API
   crucible.api = {
     applications,
@@ -620,8 +626,10 @@ Hooks.once("setup", function() {
   // Apply compatibility patches for Ember module hooks
   applyEmberPatches();
 
+  // Resolve and cache the effective migration version (inferred for quickstart worlds)
+  const mv = crucible._migrationVersion = _getMigrationVersion();
+
   // Cull deprecated item properties that have been fully migrated
-  const mv = game.settings.get("crucible", "migrationVersion");
   for ( const model of Object.values(CONFIG.Item.dataModels) ) {
     const properties = model.ITEM_PROPERTIES;
     if ( !properties ) continue;
@@ -672,10 +680,8 @@ Hooks.once("ready", async function() {
 
   // Perform World Migrations
   if ( game.users.activeGM?.isSelf ) {
-    const mv = game.settings.get("crucible", "migrationVersion");
-    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) {
-      await _performMigrations(mv);
-    }
+    const mv = crucible._migrationVersion;
+    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) await _performMigrations(mv);
   }
 
   // Display Welcome Journal
@@ -710,6 +716,27 @@ async function _performMigrations(priorVersion) {
   await syncOwnedItems({equipment: true, force: true, reload: false});
   await game.settings.set("crucible", "migrationVersion", crucible.version);
   foundry.utils.debouncedReload();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the effective world migration version, inferring a baseline for quickstart worlds whose setting is 0.0.0.
+ * @returns {string} The resolved migration version.
+ */
+function _getMigrationVersion() {
+  const mv = game.settings.get("crucible", "migrationVersion");
+  if ( mv !== "0.0.0" ) return mv;
+
+  // A quickstart world reports 0.0.0 despite holding content from a later vintage; recover the oldest such vintage
+  // from the recorded adventure imports.
+  const imports = game.settings.get("core", "adventureImports");
+  let baseline = null;
+  for ( const data of Object.values(imports) ) {
+    if ( !data.quickstart?.quickstarted || !data.systemVersion ) continue;
+    if ( !baseline || foundry.utils.isNewerVersion(baseline, data.systemVersion) ) baseline = data.systemVersion;
+  }
+  return baseline ?? mv;
 }
 
 /* -------------------------------------------- */
