@@ -241,11 +241,11 @@
       "ItemDivested": "Divested"
     },
     "TABS": {
-      "Description": "Description",
-      "Effects": "Effects",
-      "Hooks": "Hooks",
-      "Target": "Target",
-      "Usage": "Usage"
+      "description": "Description",
+      "effects": "Effects",
+      "hooks": "Hooks",
+      "target": "Target",
+      "usage": "Usage"
     },
     "TAG": {
       "Accurate": "Accurate",
@@ -943,14 +943,14 @@
       "Resources": "Resources"
     },
     "TABS": {
-      "Actions": "Actions",
-      "Attributes": "Attributes",
-      "Biography": "Biography",
-      "Effects": "Effects",
-      "Inventory": "Inventory",
-      "Skills": "Skills",
-      "Spells": "Spells",
-      "Talents": "Talents"
+      "actions": "Actions",
+      "attributes": "Attributes",
+      "biography": "Biography",
+      "effects": "Effects",
+      "inventory": "Inventory",
+      "skills": "Skills",
+      "spells": "Spells",
+      "talents": "Talents"
     },
     "WARNINGS": {
       "InsufficientCurrency": "Insufficient currency to deduct {delta} {denom}",
@@ -1789,15 +1789,15 @@
       "Type": "Equipment Type"
     },
     "TABS": {
-      "Actions": "Actions",
-      "Affixes": "Affixes",
-      "Configuration": "Configuration",
-      "Description": "Description",
-      "Equipment": "Equipment",
-      "Hooks": "Hooks",
-      "Secrets": "Secrets",
-      "Spells": "Spells",
-      "Talents": "Talents"
+      "actions": "Actions",
+      "affixes": "Affixes",
+      "config": "Configuration",
+      "description": "Description",
+      "equipment": "Equipment",
+      "hooks": "Hooks",
+      "secrets": "Secrets",
+      "spells": "Spells",
+      "talents": "Talents"
     },
     "WARNINGS": {
       "CombineDifferent": "{item} cannot be combined with {target} because the items are not identical.",

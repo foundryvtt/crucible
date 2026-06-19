@@ -97,21 +97,22 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     }
   };
 
-  /**
-   * Define the structure of tabs used by this Item Sheet.
-   * @type {Record<string, Record<string, ApplicationTab>>}
-   */
+  /** @override */
   static TABS = {
-    sheet: [
-      {id: "attributes", group: "sheet", label: "ACTOR.TABS.Attributes"},
-      {id: "actions", group: "sheet", label: "ACTOR.TABS.Actions"},
-      {id: "inventory", group: "sheet", label: "ACTOR.TABS.Inventory"},
-      {id: "talents", group: "sheet", label: "ACTOR.TABS.Talents"},
-      {id: "skills", group: "sheet", label: "ACTOR.TABS.Skills"},
-      {id: "spells", group: "sheet", label: "ACTOR.TABS.Spells"},
-      {id: "effects", group: "sheet", label: "ACTOR.TABS.Effects"},
-      {id: "biography", group: "sheet", label: "ACTOR.TABS.Biography"}
-    ]
+    sheet: {
+      tabs: [
+        {id: "attributes", icon: "systems/crucible/ui/tabs/attributes.webp"},
+        {id: "actions", icon: "systems/crucible/ui/tabs/actions.webp"},
+        {id: "inventory", icon: "systems/crucible/ui/tabs/inventory.webp"},
+        {id: "talents", icon: "systems/crucible/ui/tabs/talents.webp"},
+        {id: "skills", icon: "systems/crucible/ui/tabs/skills.webp"},
+        {id: "spells", icon: "systems/crucible/ui/tabs/spells.webp"},
+        {id: "effects", icon: "systems/crucible/ui/tabs/effects.webp"},
+        {id: "biography", icon: "systems/crucible/ui/tabs/biography.webp"}
+      ],
+      initial: "attributes",
+      labelPrefix: "ACTOR.TABS"
+    }
   };
 
   /**
@@ -124,11 +125,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     accessory: "accessory",
     consumable: "toolbelt",
     tool: "toolbelt"
-  };
-
-  /** @override */
-  tabGroups = {
-    sheet: "attributes"
   };
 
   /**
@@ -163,7 +159,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @override */
   async _prepareContext(options) {
-    const tabGroups = this.#getTabs();
     const {inventory, talents, iconicSpells} = this.#prepareItems();
     const {sections: actions, favorites: favoriteActions} = this.#prepareActions();
     return {
@@ -190,8 +185,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       skillCategories: this.#prepareSkills(),
       source: this.document.toObject(),
       spells: this.#prepareSpells(iconicSpells),
-      tabGroups,
-      tabs: tabGroups.sheet,
+      tabs: this._prepareTabs("sheet"),
       talents
     };
   }
@@ -202,26 +196,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   _attachFrameListeners() {
     super._attachFrameListeners();
     this.element.addEventListener("focusin", this.#onFocusIn.bind(this));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Configure the tabs used by this sheet.
-   * @returns {Record<string, Record<string, ApplicationTab>>}
-   */
-  #getTabs() {
-    const tabs = {};
-    for ( const [groupId, config] of Object.entries(this.constructor.TABS) ) {
-      const group = {};
-      for ( const t of config ) {
-        const active = this.tabGroups[t.group] === t.id;
-        const icon = `systems/crucible/ui/tabs/${t.id}.webp`;
-        group[t.id] = Object.assign({active, cssClass: active ? "active" : "", icon}, t);
-      }
-      tabs[groupId] = group;
-    }
-    return tabs;
   }
 
   /* -------------------------------------------- */

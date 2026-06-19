@@ -219,11 +219,11 @@
       "Title": "Aktion"
     },
     "TABS": {
-      "Description": "Beschreibung",
-      "Effects": "Effekte",
-      "Hooks": "Hooks",
-      "Target": "Ziel",
-      "Usage": "Verwendung"
+      "description": "Beschreibung",
+      "effects": "Effekte",
+      "hooks": "Hooks",
+      "target": "Ziel",
+      "usage": "Verwendung"
     },
     "TAG": {
       "Accurate": "Präzise",
@@ -807,14 +807,14 @@
       "Resources": "Ressourcen"
     },
     "TABS": {
-      "Actions": "Aktionen",
-      "Attributes": "Attribute",
-      "Biography": "Biografie",
-      "Effects": "Effekte",
-      "Inventory": "Inventar",
-      "Skills": "Fertigkeiten",
-      "Spells": "Zauber",
-      "Talents": "Talente"
+      "actions": "Aktionen",
+      "attributes": "Attribute",
+      "biography": "Biografie",
+      "effects": "Effekte",
+      "inventory": "Inventar",
+      "skills": "Fertigkeiten",
+      "spells": "Zauber",
+      "talents": "Talente"
     },
     "WARNINGS": {
       "InsufficientCurrency": "Nicht genügend Währung, um {delta} {denom} abzuziehen.",
@@ -1554,15 +1554,15 @@
       "Type": "Ausrüstungstyp"
     },
     "TABS": {
-      "Actions": "Aktionen",
-      "Affixes": "Affixe",
-      "Configuration": "Konfiguration",
-      "Description": "Beschreibung",
-      "Equipment": "Ausrüstung",
-      "Hooks": "Hooks",
-      "Secrets": "Geheimnisse",
-      "Spells": "Zauber",
-      "Talents": "Talente"
+      "actions": "Aktionen",
+      "affixes": "Affixe",
+      "config": "Konfiguration",
+      "description": "Beschreibung",
+      "equipment": "Ausrüstung",
+      "hooks": "Hooks",
+      "secrets": "Geheimnisse",
+      "spells": "Zauber",
+      "talents": "Talente"
     },
     "WARNINGS": {
       "HookAlreadyExists": "{item} deklariert bereits eine Funktion für den Hook \"{hook}\".",

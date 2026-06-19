@@ -72,12 +72,13 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
   static TABS = {
     sheet: {
       tabs: [
-        {id: "description", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
-        {id: "config", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"},
-        {id: "actions", icon: "fa-solid fa-bolt", label: "ITEM.TABS.Actions"},
-        {id: "hooks", icon: "fa-solid fa-code", label: "ITEM.TABS.Hooks"}
+        {id: "description", icon: "fa-solid fa-book"},
+        {id: "config", icon: "fa-solid fa-cogs"},
+        {id: "actions", icon: "fa-solid fa-bolt"},
+        {id: "hooks", icon: "fa-solid fa-code"}
       ],
-      initial: "description"
+      initial: "description",
+      labelPrefix: "ITEM.TABS"
     }
   };
 

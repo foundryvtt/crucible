@@ -22,9 +22,9 @@ export default class CrucibleSpellItemSheet extends CrucibleBaseItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _getTabs() {
-    const tabs = super._getTabs();
-    if ( !this.document.system.isConfigured ) delete tabs.sheet.actions;
+  _prepareTabs(group) {
+    const tabs = super._prepareTabs(group);
+    if ( !this.document.system.isConfigured ) delete tabs.actions;
     return tabs;
   }
 
