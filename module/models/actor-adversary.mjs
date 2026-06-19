@@ -17,6 +17,11 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const requiredInteger = {required: true, nullable: false, integer: true};
     const schema = super.defineSchema();
 
+    // Adversaries may possess supernatural presence on the battlefield, counting as more than one flanker
+    schema.movement.extendFields({
+      flankingStrength: new fields.NumberField({...requiredInteger, initial: 1, persisted: false})
+    });
+
     // Advancement
     schema.advancement = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 1, min: -5, max: 24, label: "ADVANCEMENT.Level"}),

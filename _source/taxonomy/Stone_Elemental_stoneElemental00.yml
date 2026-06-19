@@ -9,11 +9,11 @@ system:
     mass.</p>
   category: elementalEarth
   abilities:
-    wisdom: 1
+    wisdom: 2
     presence: 1
     intellect: 1
     strength: 3
-    toughness: 5
+    toughness: 4
     dexterity: 1
   resistances:
     bludgeoning:
@@ -78,11 +78,11 @@ system:
       level: 6
   identifier: stoneElemental
   equipment:
-    - item: Compendium.crucible.adversary-equipment.Item.elementalArmor00
+    - item: Compendium.crucible.adversary-equipment.Item.stoneSkin0000000
       quantity: 1
       equipped: true
       autoScale: true
-    - item: Compendium.crucible.adversary-equipment.Item.fists00000000000
+    - item: Compendium.crucible.adversary-equipment.Item.causticLimb00000
       quantity: 1
       equipped: true
       autoScale: true
@@ -96,8 +96,8 @@ _stats:
   duplicateSource: null
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
-  modifiedTime: 1781218465590
+  systemVersion: 0.10.0
+  modifiedTime: 1781568138276
   lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   createdTime: 1781027705369

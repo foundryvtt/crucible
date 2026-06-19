@@ -19,14 +19,14 @@ system:
         <strong>Stride </strong>and <strong>Strike</strong> another foe that you
         pass next to or end your movement adjacent to.</p>
       cost:
-        action: -1
+        action: -2
         focus: 1
         weapon: true
         heroism: 0
         hands: 0
       range:
         maximum: null
-        weapon: false
+        weapon: true
         minimum: null
       target:
         type: movement
@@ -38,10 +38,7 @@ system:
       tags:
         - melee
         - movement
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - toustr1
   rune: ''
@@ -53,10 +50,10 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
-  modifiedTime: 1780938098337
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
+  modifiedTime: 1781880953267
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

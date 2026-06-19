@@ -7,9 +7,9 @@ system:
     <p>You are highly skilled in weaving the Rune of Illusion. When you cast a
     Spell or use an action that involves this Rune, your Critical Hits which
     deal damage cause the @Condition[confused] condition.</p><p>The Confused
-    effect lasts for <strong>1 Round</strong>, deals half your
-    <strong>Intellect</strong> score as <strong>Psychic</strong> damage to
-    <strong>Morale</strong>, and applies the @Condition[disoriented]
+    effect lasts for <strong>1 Round</strong>, deals half the ability score your
+    <strong>Rune of Illusion</strong> scales with as <strong>Psychic</strong>
+    damage to <strong>Morale</strong>, and applies the @Condition[disoriented]
     condition.</p>
   actions: []
   nodes:

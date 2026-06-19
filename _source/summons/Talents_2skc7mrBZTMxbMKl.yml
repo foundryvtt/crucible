@@ -1,0 +1,20 @@
+type: Actor
+folder: null
+name: Talents
+color: null
+sorting: a
+_id: 2skc7mrBZTMxbMKl
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.364'
+  systemId: crucible
+  systemVersion: 0.10.0
+  createdTime: 1781448829148
+  modifiedTime: 1781448829148
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!2skc7mrBZTMxbMKl'

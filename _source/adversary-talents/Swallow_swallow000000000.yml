@@ -5,9 +5,10 @@ img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
 system:
   nodes: []
   description: >-
-    <p>@Ref[actor.name]{This creature} has the capability of swallowing
-    creatures smaller than them whole, though only one creature may be affected
-    by this action at a time.</p>
+    <p>The @ref[actor.name]{creature} can swallow whole a creature whose Size is
+    at least 2 less than its own. Only one creature may be swallowed at a time,
+    unless an additional creature is one-quarter of this creature's Size or
+    less.</p>
   actions:
     - id: swallow
       name: Swallow
@@ -15,14 +16,13 @@ system:
       description: >-
         <p>You swallow a target enemy, effectively removing that foe from
         combat. The swallowed target is @Condition[blinded] and
-        @Condition[restrained] until released.</p><p>If you take
-        <strong>Severe</strong> damage, are <strong>Wounded</strong>, or are
-        rendered @Condition[incapacitated] you regurgitate the swallowed
-        creature.</p>
+        @Condition[restrained] until released.</p><p>If you become
+        @Condition[stunned], @Condition[incapacitated], or @Condition[weakened],
+        you regurgitate every swallowed creature.</p>
       condition: ''
       cost:
         action: 4
-        focus: 1
+        focus: 0
         heroism: 0
         hands: 0
         weapon: false
@@ -35,9 +35,7 @@ system:
         number: 1
         scope: 4
         self: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       effects:
         - name: ''
           scope: 3
@@ -47,17 +45,70 @@ system:
           statuses:
             - restrained
             - blinded
-            - corroding
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties: []
+            regions: []
+            summons: []
+        - name: Swallowing
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance: null
+            properties: []
             regions: []
             summons: []
       tags:
         - melee
         - natural
+        - difficult
         - strength
+    - id: regurgitate
+      name: Regurgitate
+      img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
+      description: >-
+        <p>You expel every creature you have swallowed, returning them to the
+        space around you and ending the @Condition[blinded] and
+        @Condition[restrained] conditions imposed by your gullet.</p>
+      condition: ''
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: true
+      summon: null
+      effects: []
+      tags:
+        - harmless
   rune: ''
   gesture: ''
   inflection: ''
@@ -74,11 +125,11 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.357'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1774708342875
-  modifiedTime: 1774708365850
+  modifiedTime: 1781567840388
   lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   compendiumSource: null

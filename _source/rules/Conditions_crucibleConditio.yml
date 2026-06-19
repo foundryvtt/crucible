@@ -736,8 +736,8 @@ pages:
       content: >-
         <p>A creature that is <strong>Restrained</strong> is unable to perform
         any Action which involves <strong>Movement</strong> and suffers
-        <strong>+2 Banes</strong> to attack rolls.</p> <p>A Restrained creature
-        may take the <strong>Escape</strong> action to break free, making an
+        <strong>+2 Banes</strong> to attack rolls.</p><p>A Restrained creature
+        may take the @Action[default escape] action to break free, making an
         <strong>Athletics</strong> check against the effect's <strong>Removal
         DC</strong>.</p>
     video:
@@ -752,12 +752,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.351'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1751303541755
-      modifiedTime: 1770322030122
-      lastModifiedBy: ifaQA7jTJsr3UWFE
+      modifiedTime: 1781790073844
+      lastModifiedBy: QvBFYpRRXHRBcOfP
     _key: '!journal.pages!crucibleConditio.restrained000000'
   - sort: 1450000
     name: Disoriented
@@ -842,7 +842,8 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Unaware</strong> acts in combat at
-        Initiative 1 and cannot perform Reactions.</p>
+        Initiative 1 and cannot perform Reactions. The Unaware condition is
+        automatically removed at the start of the creature's turn.</p>
     video:
       controls: true
       volume: 0.5

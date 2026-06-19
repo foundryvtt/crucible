@@ -5,8 +5,9 @@ img: icons/magic/earth/strike-fist-stone-light.webp
 system:
   description: >-
     Your honed reflexes and physical toughness allow you to block enemy blows
-    using your bare arms. While <strong>Unarmed</strong>, half your Toughness
-    score contributes to your <strong>Block</strong> defense.
+    using your bare limbs. While <strong>Unarmed</strong> or wielding only
+    natural weapons, half your Toughness score contributes to your
+    <strong>Block</strong> defense.
   actions: []
   nodes:
     - tou1a

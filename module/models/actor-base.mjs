@@ -1149,60 +1149,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
-  /*  Resource Allocation                         */
-  /* -------------------------------------------- */
-
-  /**
-   * Allocate an integer resource change against this actor, constraining it using the actor's current resource pools
-   * and an accumulating record of ongoing allocated changes.
-   * A negative `amount` is damage, a positive `amount` is restoration.
-   * @param {number} amount                         The magnitude of change; negative for damage, positive for
-   *                                                restoration
-   * @param {string} resource                       The primary resource being modified
-   * @param {Record<string, number>} allocation     Accumulating allocation over the course of multiple events
-   * @returns {Record<string, number>}              The diff of resource changes applied by this allocation call
-   */
-  allocateResourceChange(amount, resource, allocation) {
-    const r = this.resources[resource];
-    if ( !r || !amount ) return {};
-    const current = r.value + (allocation[resource] || 0);
-    const deltas = {};
-    let delta;
-
-    // Receive damage - a depleted primary pool absorbs no further damage
-    if ( amount < 0 ) delta = -Math.min(Math.max(current, 0), -amount);
-
-    // Receive healing
-    else {
-      const gain = Math.min(amount, Math.max(r.max - current, 0));
-      if ( gain <= 0 ) return {};
-      delta = gain;
-    }
-
-    // Allocate primary delta to the active resource
-    if ( delta !== 0 ) {
-      allocation[resource] = (allocation[resource] || 0) + delta;
-      deltas[resource] = delta;
-    }
-    if ( (amount >= 0) || !this.usesReserveResources ) return deltas;
-
-    // Allocate remaining amount to the reserve pool
-    const overflowName = {health: "wounds", morale: "madness"}[resource];
-    const overflow = overflowName ? this.resources[overflowName] : null;
-    if ( !overflow ) return deltas;
-    const primaryLoss = -(deltas[resource] || 0);
-    const remaining = -amount - primaryLoss;
-    if ( remaining <= 0 ) return deltas;
-    const overflowValue = Math.max(overflow.value + (allocation[overflowName] || 0), 0);
-    const gain = Math.min(overflow.max - overflowValue, remaining);
-    if ( gain > 0 ) {
-      deltas[overflowName] = gain;
-      allocation[overflowName] = (allocation[overflowName] || 0) + gain;
-    }
-    return deltas;
-  }
-
-  /* -------------------------------------------- */
   /*  Actor Hooks                                 */
   /* -------------------------------------------- */
 

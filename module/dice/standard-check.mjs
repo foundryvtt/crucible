@@ -100,14 +100,6 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
-   * The defense type label used when rendering this check.
-   * @type {string}
-   */
-  static DEFENSE_TYPE = "DC";
-
-  /* -------------------------------------------- */
-
-  /**
    * Default timeout for remote roll requests.
    * @type {number}
    */
@@ -174,6 +166,16 @@ export default class StandardCheck extends Roll {
   get isCriticalFailure() {
     if ( !this._evaluated ) return undefined;
     return this.total <= (this.data.dc - (this.data.criticalFailureThreshold ?? 6));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Did this roll produce a structured damage result? Always false for a generic check; overridden by attack rolls.
+   * @returns {boolean}
+   */
+  get hasDamage() {
+    return false;
   }
 
   /* -------------------------------------------- */
@@ -267,7 +269,7 @@ export default class StandardCheck extends Roll {
    * @returns {object|undefined}
    */
   prepareRenderedDamage() {
-    if ( !this.data.damage ) return;
+    if ( !this.hasDamage ) return;
     const damage = foundry.utils.deepClone(this.data.damage);
     damage.display = Number.isNumeric(damage.total) && !damage.harmless;
     if ( !damage.display ) return damage;
@@ -322,7 +324,7 @@ export default class StandardCheck extends Roll {
   prepareDiceResultContext({targetLabel}={}) {
     const {outcome, classes} = this.prepareOutcome();
     const dc = this.data.dc;
-    const defenseType = this.constructor.DEFENSE_TYPE;
+    const defenseType = _loc("DICE.DC");
     const damage = this.prepareRenderedDamage();
     if ( damage?.display ) classes.push("damage");
     if ( targetLabel === undefined ) {

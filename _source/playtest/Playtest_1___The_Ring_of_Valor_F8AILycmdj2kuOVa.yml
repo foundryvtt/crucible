@@ -62,12 +62,15 @@ actors:
           talents:
             - item: Compendium.crucible.adversary-talents.Item.tuskCharge000000
               level: null
-          name: Tusker
-          img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: aAIr4NTH1x
-          skills: []
+          skills:
+            - athletics
+            - awareness
+            - wilderness
+          identifier: tusker
           spells: []
           equipment: []
+          name: Tusker
+          img: icons/creatures/abilities/fang-tooth-blood-red.webp
         taxonomy:
           description: >-
             <p>Mammals with thick hide, dangerous tusks, and a powerful
@@ -125,10 +128,10 @@ actors:
             equipment: false
             spells: false
             temperature: ''
+          identifier: boar
+          equipment: []
           name: Boar
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: nl9nEPZIob
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -511,12 +514,15 @@ actors:
           talents:
             - item: Compendium.crucible.adversary-talents.Item.packhunter000000
               level: null
-          name: Pack Member
-          img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: 9KSjtNvpxL
-          skills: []
+          skills:
+            - awareness
+            - stealth
+            - wilderness
+          identifier: packMember
           spells: []
           equipment: []
+          name: Pack Member
+          img: icons/creatures/abilities/paw-glowing-yellow.webp
         taxonomy:
           description: >-
             Mammals from the hyena family. Hyenas are carnivorous pack hunters
@@ -574,10 +580,10 @@ actors:
             equipment: false
             spells: false
             temperature: ''
+          identifier: hyena
+          equipment: []
           name: Hyena
           img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: dC6iedO7ET
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -914,18 +920,21 @@ actors:
           talents:
             - item: Compendium.crucible.talent.Item.powerfulphysique
               level: null
-            - item: Compendium.crucible.talent.Item.unarmedCombatTra
-              level: null
             - item: Compendium.crucible.talent.Item.legsweep00000000
               level: null
             - item: Compendium.crucible.talent.Item.concussiveblows0
               level: null
-          name: Grappler
-          img: icons/magic/control/buff-strength-muscle-damage.webp
-          identifier: vqPMvQPM7c
-          skills: []
+            - item: Compendium.crucible.talent.Item.unarmedCombatTra
+              level: null
+          identifier: grappler
+          skills:
+            - athletics
+            - intimidation
+            - performance
           spells: []
           equipment: []
+          name: Grappler
+          img: icons/magic/control/buff-strength-muscle-damage.webp
         taxonomy:
           description: >-
             <p>Hulking giantkin which are reknowned for their brute strength and
@@ -983,10 +992,10 @@ actors:
             size: 6
             stride: 10
           talents: []
+          identifier: ogre
+          equipment: []
           name: Ogre
           img: icons/creatures/unholy/demon-fire-horned-mask.webp
-          identifier: qU3qOPexEi
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -1728,18 +1737,22 @@ actors:
             toughness: 3
             dexterity: 4
           talents:
-            - item: Compendium.crucible.talent.Item.dualwield0000000
-              level: null
             - item: Compendium.crucible.talent.Item.flurry0000000000
               level: null
             - item: Compendium.crucible.talent.Item.skirmisher000000
               level: null
-          name: Skirmisher
-          img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
-          identifier: WIshgRvMvf
+            - item: Compendium.crucible.talent.Item.lightWeaponTrain
+              level: null
+            - item: Compendium.crucible.talent.Item.dualWield0000000
+              level: null
+            - item: Compendium.crucible.talent.Item.defensiveroll000
+              level: null
+          identifier: skirmisher
           skills: []
           spells: []
           equipment: []
+          name: Skirmisher
+          img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
         taxonomy:
           description: >-
             <p>Your birth was marked by the stars and traditions of a proud and
@@ -1747,6 +1760,7 @@ actors:
             propensity for toughness has origins amid a people exposed to the
             relentless struggle of a harsh northern clime. Your people are known
             for their strength and resilience above all else.</p>
+          identifier: orcish
           category: humanoid
           abilities:
             wisdom: 1
@@ -1802,10 +1816,9 @@ actors:
           movement:
             size: 4
             stride: 10
+          equipment: []
           name: Orcish
           img: icons/creatures/magical/construct-iron-stomping-yellow.webp
-          identifier: sJqvhrohGb
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -2406,6 +2419,138 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Light Weapon Training
+        type: talent
+        img: icons/weapons/swords/sword-simple-white.webp
+        system:
+          description: >-
+            <p>You know how to wield light weapons fluidly with a high degree of
+            maneuverability and grace in combat. You are
+            <strong>Trained</strong> with all weapons in the
+            <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
+          actions:
+            - id: lunge
+              name: Lunge
+              img: icons/skills/melee/strike-polearm-light-orange.webp
+              condition: ''
+              description: >-
+                <p>You dart forward nimbly, making a strike with sudden and
+                unexpected swiftness to perform a <strong>Strike </strong>with a
+                weapon which scales using <strong>Dexterity</strong> against a
+                single target, with an increased range of <strong>+2
+                feet</strong>.</p><p>The attack is <strong>Difficult</strong>,
+                but you do not move from your current position nor does this
+                attack provoke Disengagement.</p>
+              cost:
+                action: 0
+                focus: 0
+                heroism: 0
+                hands: 0
+                weapon: true
+              range:
+                minimum: null
+                maximum: 2
+                weapon: true
+              target:
+                type: single
+                number: 1
+                scope: 3
+                self: false
+              effects: []
+              tags:
+                - finesse
+                - melee
+                - difficult
+              summon: null
+          iconicSpells: 0
+          training:
+            type: light
+            rank: 1
+          nodes:
+            - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: lightWeaponTrain
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - _id: defensiveroll000
+        name: Defensive Roll
+        type: talent
+        img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+        effects: []
+        flags:
+          core: {}
+        system:
+          description: >-
+            <p>You are a nimble skirmisher, always in movement to stay one step
+            ahead of your enemies in combat.</p>
+          actions:
+            - id: defensiveRoll
+              name: Defensive Roll
+              img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+              condition: You Dodge an incoming melee Strike.
+              description: >-
+                <p>When you <strong>Dodge</strong> a melee attack you can expend
+                <strong>Focus</strong> to leap into a defensive roll, moving up
+                to your <strong>Size</strong> in any direction.</p>
+              tags:
+                - reaction
+                - movement
+              cost:
+                action: 0
+                focus: 1
+                weapon: false
+                heroism: 0
+                hands: 0
+              target:
+                type: self
+                number: 1
+                scope: 0
+                self: false
+              effects: []
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              summon: null
+          nodes:
+            - dex2a
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        _stats:
+          systemId: crucible
+          systemVersion: 0.10.0
+          coreVersion: '14.364'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.defensiveroll000
+          duplicateSource: null
+          exportSource: null
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: yhNxctruag3MRzdB
     sort: 200000
@@ -2478,8 +2623,6 @@ actors:
             toughness: 2
             dexterity: 0
           talents:
-            - item: Compendium.crucible.talent.Item.runeDeath0000000
-              level: null
             - item: Compendium.crucible.talent.Item.gestureinfluence
               level: null
             - item: Compendium.crucible.talent.Item.gestureray000000
@@ -2488,12 +2631,16 @@ actors:
               level: null
             - item: Compendium.crucible.talent.Item.runeSoul00000000
               level: null
+            - item: Compendium.crucible.talent.Item.talismanWeaponTr
+              level: null
+            - item: Compendium.crucible.talent.Item.runeDeath0000000
+              level: null
           identifier: occultist
           skills: []
+          spells: []
           equipment: []
           name: Occultist
           img: icons/magic/death/skull-cattle-totem-glow-red.webp
-          spells: []
         taxonomy:
           description: >-
             <p>Found amid countless conditions and far-flung places, you were
@@ -2501,6 +2648,7 @@ actors:
             rotund, your physical appearance is nothing if not varied. Humans
             are most known for a genetic predisposition toward determination,
             with traditions that drive a stubborn will to survive.</p>
+          identifier: human
           category: humanoid
           abilities:
             wisdom: 1
@@ -2556,10 +2704,9 @@ actors:
           movement:
             size: 4
             stride: 10
+          equipment: []
           name: Human
           img: icons/skills/social/diplomacy-handshake.webp
-          identifier: ZvLPrEoR9i
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -3564,35 +3711,40 @@ actors:
             toughness: 2
             dexterity: 4
           talents:
-            - item: Compendium.crucible.talent.Item.archerytraining0
-              level: null
             - item: Compendium.crucible.talent.Item.precisionshot000
               level: null
             - item: Compendium.crucible.talent.Item.evasiveshot00000
               level: null
-          name: Archer
-          img: icons/weapons/bows/shortbow-white.webp
-          identifier: ZYnogOZ7Va
+            - item: Compendium.crucible.talent.Item.projectileWeapon
+              level: null
+          identifier: archer
           skills: []
           spells: []
           equipment: []
+          name: Archer
+          img: icons/weapons/bows/shortbow-white.webp
         taxonomy:
-          description: <p>Undeathly denizens fashioned of bone and sinew.</p>
+          description: >-
+            <p>Malevolent undying creatures brought to life by necromancy,
+            created from the skeletal remains of long-dead humanoids. Driven by
+            unholy forces beyond their control, @ref[name] rarely exist of their
+            own accord, and are often encountered as the minions of evil
+            spellcasters and greater undead.</p>
           category: undead
           abilities:
             wisdom: 1
-            presence: 0
+            presence: 1
             intellect: 1
-            strength: 4
-            toughness: 4
-            dexterity: 2
+            strength: 3
+            toughness: 3
+            dexterity: 3
           resistances:
             bludgeoning:
               value: -2
               immune: false
             corruption:
+              immune: true
               value: 0
-              immune: false
             piercing:
               value: 1
               immune: false
@@ -3600,16 +3752,16 @@ actors:
               value: 1
               immune: false
             poison:
-              value: 2
+              value: 1
               immune: false
             acid:
-              value: 0
+              value: -1
               immune: false
             fire:
               value: 0
               immune: false
             cold:
-              value: 0
+              value: -1
               immune: false
             electricity:
               value: 0
@@ -3621,7 +3773,7 @@ actors:
               value: -2
               immune: false
             void:
-              value: 0
+              value: -1
               immune: false
           characteristics:
             equipment: true
@@ -3630,11 +3782,13 @@ actors:
           movement:
             size: 4
             stride: 8
-          talents: []
+          talents:
+            - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
+              level: null
+          identifier: skeleton
+          equipment: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: gGxzxyWtST
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -3679,13 +3833,13 @@ actors:
           immune: false
       resources:
         health:
-          value: 23
+          value: 16
         morale:
-          value: 0
+          value: 6
         action:
           value: 4
         focus:
-          value: 1
+          value: 2
         heroism:
           value: 0
         wounds:
@@ -4051,6 +4205,51 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Restless Dead
+        type: talent
+        img: icons/magic/death/hand-undead-skeleton-fire-pink.webp
+        system:
+          nodes: []
+          description: >-
+            <p>The @ref[actor.name]{creature}'s life is sustained by necromantic
+            magic or otherworldly forces. When it would be considered
+            @Condition[dead]  it is instead
+            @Condition[incapacitated].</p><p>After the conclusion of combat, the
+            @ref[actor.name]{creature} may begin to perform the Recover action,
+            regaining consciousness after the recovery is complete. Recovery in
+            this fashion may be prevented in one of the following
+            ways:</p><ul><li><p>The creature was incapacitated by a type of
+            damage for which it is
+            <strong>Vulnerable</strong>.</p></li><li><p>The magical forces which
+            caused it to rise as undead are disrupted, countered, or otherwise
+            dispelled.</p></li><li><p>The creature's body is destroyed to a
+            degree that it can no longer maintain its physical
+            form.</p></li></ul>
+          actions: []
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.adversary-talents.Item.restlessDead0000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: restlessDead0000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: N3M2uruVXSupKCH5
     flags:
@@ -4119,37 +4318,45 @@ actors:
             toughness: 3
             dexterity: 3
           talents:
-            - item: Compendium.crucible.talent.Item.martialweapontra
-              level: null
-            - item: Compendium.crucible.talent.Item.bulwark000000000
-              level: null
             - item: Compendium.crucible.talent.Item.armoredefficienc
               level: null
             - item: Compendium.crucible.talent.Item.legsweep00000000
               level: null
-          name: Fighter
-          img: icons/skills/melee/sword-shield-stylized-white.webp
-          identifier: jzYxrol5dL
-          skills: []
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+              level: null
+            - item: Compendium.crucible.talent.Item.bulwark000000000
+              level: null
+          identifier: fighter
+          skills:
+            - athletics
+            - intimidation
+            - awareness
           spells: []
           equipment: []
+          name: Fighter
+          img: icons/skills/melee/sword-shield-stylized-white.webp
         taxonomy:
-          description: <p>Undeathly denizens fashioned of bone and sinew.</p>
+          description: >-
+            <p>Malevolent undying creatures brought to life by necromancy,
+            created from the skeletal remains of long-dead humanoids. Driven by
+            unholy forces beyond their control, @ref[name] rarely exist of their
+            own accord, and are often encountered as the minions of evil
+            spellcasters and greater undead.</p>
           category: undead
           abilities:
             wisdom: 1
-            presence: 0
+            presence: 1
             intellect: 1
-            strength: 4
-            toughness: 4
-            dexterity: 2
+            strength: 3
+            toughness: 3
+            dexterity: 3
           resistances:
             bludgeoning:
               value: -2
               immune: false
             corruption:
+              immune: true
               value: 0
-              immune: false
             piercing:
               value: 1
               immune: false
@@ -4157,16 +4364,16 @@ actors:
               value: 1
               immune: false
             poison:
-              value: 2
+              value: 1
               immune: false
             acid:
-              value: 0
+              value: -1
               immune: false
             fire:
               value: 0
               immune: false
             cold:
-              value: 0
+              value: -1
               immune: false
             electricity:
               value: 0
@@ -4178,7 +4385,7 @@ actors:
               value: -2
               immune: false
             void:
-              value: 0
+              value: -1
               immune: false
           characteristics:
             equipment: true
@@ -4187,11 +4394,13 @@ actors:
           movement:
             size: 4
             stride: 8
-          talents: []
+          talents:
+            - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
+              level: null
+          identifier: skeleton
+          equipment: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: eFCMBCjhYc
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -4236,13 +4445,13 @@ actors:
           immune: false
       resources:
         health:
-          value: 25
+          value: 18
         morale:
-          value: 0
+          value: 6
         action:
           value: 4
         focus:
-          value: 1
+          value: 2
         heroism:
           value: 0
         wounds:
@@ -4655,6 +4864,116 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Restless Dead
+        type: talent
+        img: icons/magic/death/hand-undead-skeleton-fire-pink.webp
+        system:
+          nodes: []
+          description: >-
+            <p>The @ref[actor.name]{creature}'s life is sustained by necromantic
+            magic or otherworldly forces. When it would be considered
+            @Condition[dead]  it is instead
+            @Condition[incapacitated].</p><p>After the conclusion of combat, the
+            @ref[actor.name]{creature} may begin to perform the Recover action,
+            regaining consciousness after the recovery is complete. Recovery in
+            this fashion may be prevented in one of the following
+            ways:</p><ul><li><p>The creature was incapacitated by a type of
+            damage for which it is
+            <strong>Vulnerable</strong>.</p></li><li><p>The magical forces which
+            caused it to rise as undead are disrupted, countered, or otherwise
+            dispelled.</p></li><li><p>The creature's body is destroyed to a
+            degree that it can no longer maintain its physical
+            form.</p></li></ul>
+          actions: []
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.adversary-talents.Item.restlessDead0000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: restlessDead0000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Heavy Weapon Training
+        type: talent
+        img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+        system:
+          description: >-
+            <p>You know how to use a heavy weapon to deliver punishing blows,
+            putting your entire strength behind every swing. You are
+            <strong>Trained</strong> with all weapons in the
+            <strong>Heavy</strong> and <strong>Balanced</strong> categories.</p>
+          actions:
+            - id: heavyStrike
+              img: icons/skills/melee/strike-hammer-destructive-blue.webp
+              cost:
+                action: 1
+                focus: 0
+                heroism: 0
+                hands: 0
+                weapon: true
+              range:
+                minimum: null
+                maximum: null
+                weapon: true
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              tags:
+                - melee
+                - mainhand
+                - empowered
+              name: Heavy Strike
+              condition: ''
+              description: >-
+                <p>You unleash a powerful <strong>Strike</strong> with your
+                mainhand weapon. The attack is slower to execute, but is
+                <strong>Empowered</strong> to deliver additional damage.</p>
+              summon: null
+          iconicSpells: 0
+          training:
+            type: heavy
+            rank: 1
+          nodes:
+            - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: heavyWeaponTrain
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: N3M2uruVXSupKCH5
     flags:
@@ -4724,18 +5043,18 @@ actors:
             toughness: 4
             dexterity: 2
           talents:
-            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
-              level: null
             - item: Compendium.crucible.talent.Item.thickskin0000000
               level: null
             - item: Compendium.crucible.talent.Item.berserker0000000
               level: null
-          name: Berserker
-          img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-          identifier: hnlT4wxRht
+            - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+              level: null
+          identifier: berserker
           skills: []
           spells: []
           equipment: []
+          name: Berserker
+          img: icons/magic/unholy/silhouette-evil-horned-giant.webp
         taxonomy:
           description: >-
             <p>Lycanthropic shapeshifters who walk as men but take wolven
@@ -4796,9 +5115,9 @@ actors:
             spells: false
             temperature: ''
           identifier: werewolf
+          equipment: []
           name: Werewolf
           img: icons/creatures/mammals/wolf-shadow-black.webp
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -5875,12 +6194,15 @@ actors:
             toughness: 2
             dexterity: 2
           talents: []
-          name: Plaguebearer
-          img: icons/magic/acid/dissolve-vomit-green-brown.webp
-          identifier: 1QgjGd7EGA
-          skills: []
+          identifier: harbingerPlaguebearer
+          skills:
+            - athletics
+            - medicine
+            - society
           spells: []
           equipment: []
+          name: Plaguebearer
+          img: icons/magic/acid/dissolve-vomit-green-brown.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
           category: outsider
@@ -5936,10 +6258,10 @@ actors:
           movement:
             size: 5
             stride: 10
+          identifier: harbinger
+          equipment: []
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: FQ6IZ0tIVC
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -6649,12 +6971,15 @@ actors:
             toughness: 2
             dexterity: 2
           talents: []
-          name: Fearmonger
-          img: icons/magic/death/skull-energy-light-purple.webp
-          identifier: sVKPT5qUgJ
-          skills: []
+          identifier: harbingerFearmonger
+          skills:
+            - deception
+            - intimidation
+            - awareness
           spells: []
           equipment: []
+          name: Fearmonger
+          img: icons/magic/death/skull-energy-light-purple.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
           category: outsider
@@ -6710,10 +7035,10 @@ actors:
           movement:
             size: 5
             stride: 10
+          identifier: harbinger
+          equipment: []
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: FUPtPbqJJj
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -7159,12 +7484,15 @@ actors:
             toughness: 2
             dexterity: 2
           talents: []
-          name: Mindwarper
-          img: icons/magic/unholy/strike-body-explode-disintegrate.webp
-          identifier: VWODyD4vz7
-          skills: []
+          identifier: harbingerMindwarper
+          skills:
+            - deception
+            - intimidation
+            - arcana
           spells: []
           equipment: []
+          name: Mindwarper
+          img: icons/magic/unholy/strike-body-explode-disintegrate.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
           category: outsider
@@ -7220,10 +7548,10 @@ actors:
           movement:
             size: 5
             stride: 10
+          identifier: harbinger
+          equipment: []
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: 6pYMdwdKU9
-          equipment: []
         biography:
           public: ''
           private: ''
@@ -11600,71 +11928,6 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Dual Wield
-        type: talent
-        img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-        system:
-          description: >-
-            <p>You are adept at fighting with two weapons simultaneously. You
-            can weave attacks together to strike more rapidly than possible with
-            a single weapon.</p>
-          actions:
-            - id: offhandStrike
-              name: Offhand Strike
-              description: >-
-                <p>Immediately after you perform a basic Strike with your
-                mainhand weapon, you make a reduced-cost follow-up
-                <strong>Strike</strong> with your <strong>offhand</strong>
-                weapon.</p>
-              tags:
-                - afterStrike
-                - offhand
-              cost:
-                action: -1
-                focus: 0
-                weapon: true
-                heroism: 0
-                hands: 0
-              target:
-                type: single
-                number: 1
-                scope: 4
-                self: false
-              effects: []
-              img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-              condition: ''
-              range:
-                maximum: null
-                weapon: true
-                minimum: null
-              summon: null
-          nodes:
-            - dex1b
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-          rune: ''
-          gesture: ''
-          inflection: ''
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.dualWield0000000
-          duplicateSource: null
-          exportSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-        _id: dualWield0000000
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
       - name: Backstab
         type: talent
         img: icons/skills/melee/strike-dagger-white-orange.webp
@@ -11727,6 +11990,71 @@ actors:
           duplicateSource: null
           exportSource: null
         _id: backstab00000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Dual Wield
+        type: talent
+        img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+        system:
+          description: >-
+            <p>You are adept at fighting with two weapons simultaneously. You
+            can weave attacks together to strike more rapidly than possible with
+            a single weapon.</p>
+          actions:
+            - id: offhandStrike
+              name: Offhand Strike
+              description: >-
+                <p>Immediately after you perform a basic Strike with your
+                mainhand weapon, you make a reduced-cost follow-up
+                <strong>Strike</strong> with your <strong>offhand</strong>
+                weapon.</p>
+              tags:
+                - afterStrike
+                - offhand
+              cost:
+                action: -1
+                focus: 0
+                weapon: true
+                heroism: 0
+                hands: 0
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+              condition: ''
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+              summon: null
+          nodes:
+            - dex1b
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          rune: ''
+          gesture: ''
+          inflection: ''
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.dualWield0000000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: dualWield0000000
         folder: null
         sort: 0
         ownership:
@@ -12227,70 +12555,6 @@ actors:
         sort: 900000
         ownership:
           default: 0
-      - _id: bodyblock0000000
-        name: Body Block
-        type: talent
-        img: icons/skills/melee/shield-block-gray-orange.webp
-        effects: []
-        flags:
-          core: {}
-        system:
-          description: >-
-            You lean into an attack which was otherwise defended with your
-            Armor, converting its result into a Block instead.
-          actions:
-            - id: bodyBlock
-              condition: >-
-                You defend against a melee attack with your Armor or as a
-                Glance.
-              description: >-
-                <p>An attack which otherwise is defended by your Armor or
-                produced a Glancing blow is converted to a Block and deals no
-                damage.</p>
-              tags:
-                - reaction
-              cost:
-                action: 0
-                focus: 1
-                heroism: 0
-                hands: 0
-                weapon: false
-              target:
-                type: self
-                scope: 0
-                number: 1
-                self: false
-              effects: []
-              name: Body Block
-              img: icons/skills/melee/shield-block-gray-orange.webp
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              summon: null
-          nodes:
-            - toustr2
-          rune: ''
-          gesture: ''
-          inflection: ''
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.bodyblock0000000
-          duplicateSource: null
-          exportSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          lastModifiedBy: null
-          createdTime: null
-          modifiedTime: null
-        folder: 8Vb0F5R7DMUrvhfw
-        sort: 100000
-        ownership:
-          default: 0
       - name: Counter Strike
         type: talent
         img: icons/skills/melee/shield-block-bash-yellow.webp
@@ -12444,94 +12708,6 @@ actors:
         _id: dreadlord0000000
         folder: fOYHlZJEWUukD7yr
         sort: 350000
-        ownership:
-          default: 0
-      - name: Rallying Cry
-        type: talent
-        img: icons/creatures/abilities/mouth-teeth-human.webp
-        system:
-          description: >-
-            You are a battlefield leader, using your presence and voice to
-            harden the resolve of your allies.
-          actions:
-            - id: rallyingCry
-              description: >-
-                <p>You emit a courageous bellow that inspires Allies within 12
-                feet of you to remain stalwart in the face of danger. You
-                perform an <strong>Intimidation</strong> skill test against the
-                Madness threshold of your allies. On a success, affected allies
-                become @Condition[resolute] for one Round.</p>
-              tags:
-                - harmless
-                - rallying
-                - skill
-                - intimidation
-              cost:
-                action: 1
-                focus: 1
-                heroism: 0
-                weapon: false
-                hands: 0
-              target:
-                type: pulse
-                number: 1
-                scope: 2
-                self: false
-                size: 12
-              effects:
-                - name: Rallying Cry
-                  scope: 2
-                  result:
-                    type: success
-                    all: false
-                  statuses:
-                    - resolute
-                  duration:
-                    value: 1
-                    units: rounds
-                    expiry: null
-                    expired: false
-                  system:
-                    dot: []
-                    maintenance: null
-                    regions: []
-                    summons: []
-                    changes: []
-                    dc: null
-                    properties: []
-              name: Rallying Cry
-              img: icons/creatures/abilities/mouth-teeth-human.webp
-              condition: ''
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              summon: null
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-          nodes:
-            - pre2c
-          rune: ''
-          gesture: ''
-          inflection: ''
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: null
-          duplicateSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          modifiedTime: null
-          lastModifiedBy: null
-          exportSource: null
-          createdTime: null
-        _id: rallyingcry00000
-        folder: 2MFixpDJ379KOogE
-        sort: -75000
         ownership:
           default: 0
       - name: Bulwark
@@ -13620,6 +13796,127 @@ actors:
           modifiedTime: null
           lastModifiedBy: null
         _id: XrgZjJdgcrxGgrHQ
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Mental Fortress
+        type: talent
+        img: icons/magic/holy/barrier-shield-winged-blue.webp
+        system:
+          description: >-
+            <p>Your strong will makes you exceedingly difficult to influence.
+            You gain +1 to your <strong>Willpower</strong> defense and +5
+            resistance to <strong>Psychic</strong> damage.</p>
+          actions: []
+          nodes:
+            - pre3a
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.10.0
+          coreVersion: '14.364'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.mentalfortress00
+          duplicateSource: null
+          exportSource: null
+        _id: mentalfortress00
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Rallying Cry
+        type: talent
+        img: icons/creatures/abilities/mouth-teeth-human.webp
+        system:
+          description: >-
+            <p>Your presence as a battlefield leader fortifies and restores the
+            morale of your allies.</p>
+          actions:
+            - id: rallyingCry
+              description: >-
+                <p>You emit a courageous bellow that inspires allies within 12
+                feet of you to remain stalwart in the face of peril. All allies
+                within range immediately recover your <strong>Presence</strong>
+                score in <strong>Morale</strong> and become @Condition[resolute]
+                for 3 Rounds.</p>
+              tags:
+                - rallying
+              cost:
+                action: 1
+                focus: 0
+                heroism: 1
+                weapon: false
+                hands: 0
+              target:
+                type: pulse
+                number: 1
+                scope: 2
+                self: true
+                size: 12
+              effects:
+                - name: Rallying Cry
+                  scope: 4
+                  result:
+                    type: success
+                    all: false
+                  statuses:
+                    - resolute
+                  duration:
+                    value: 3
+                    units: rounds
+                    expiry: turnStart
+                    expired: false
+                  system:
+                    changes: []
+                    dot: []
+                    maintenance: null
+                    regions: []
+                    summons: []
+                    dc: null
+                    properties: []
+              name: Rallying Cry
+              img: icons/creatures/abilities/mouth-teeth-human.webp
+              condition: ''
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              summon: null
+          nodes:
+            - pre2b
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.rallyingCry00000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: rallyingCry00000
         folder: null
         sort: 0
         ownership:
@@ -22870,71 +23167,6 @@ actors:
           createdTime: null
         ownership:
           default: 0
-      - name: Dual Wield
-        type: talent
-        img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-        system:
-          description: >-
-            <p>You are adept at fighting with two weapons simultaneously. You
-            can weave attacks together to strike more rapidly than possible with
-            a single weapon.</p>
-          actions:
-            - id: offhandStrike
-              name: Offhand Strike
-              description: >-
-                <p>Immediately after you perform a basic Strike with your
-                mainhand weapon, you make a reduced-cost fullow-up
-                <strong>Strike</strong> with your <strong>offhand</strong>
-                weapon.</p>
-              tags:
-                - afterStrike
-                - offhand
-              cost:
-                action: -1
-                focus: 0
-                weapon: true
-                heroism: 0
-                hands: 0
-              target:
-                type: single
-                number: 1
-                scope: 0
-                self: false
-              effects: []
-              img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-              condition: ''
-              range:
-                maximum: 1
-                weapon: true
-                minimum: null
-              summon: null
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-          nodes:
-            - dex1b
-          rune: ''
-          gesture: ''
-          inflection: ''
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: null
-          duplicateSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          modifiedTime: null
-          lastModifiedBy: null
-          exportSource: null
-          createdTime: null
-        _id: dualwield0000000
-        folder: cW6bwHXBB9pMcwva
-        sort: 100000
-        ownership:
-          default: 0
       - _id: flurry0000000000
         name: Flurry
         type: talent
@@ -23218,6 +23450,71 @@ actors:
           modifiedTime: null
           createdTime: null
         _id: lightWeaponTrain
+        ownership:
+          default: 0
+      - name: Dual Wield
+        type: talent
+        img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+        system:
+          description: >-
+            <p>You are adept at fighting with two weapons simultaneously. You
+            can weave attacks together to strike more rapidly than possible with
+            a single weapon.</p>
+          actions:
+            - id: offhandStrike
+              name: Offhand Strike
+              description: >-
+                <p>Immediately after you perform a basic Strike with your
+                mainhand weapon, you make a reduced-cost follow-up
+                <strong>Strike</strong> with your <strong>offhand</strong>
+                weapon.</p>
+              tags:
+                - afterStrike
+                - offhand
+              cost:
+                action: -1
+                focus: 0
+                weapon: true
+                heroism: 0
+                hands: 0
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+              condition: ''
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+              summon: null
+          nodes:
+            - dex1b
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          rune: ''
+          gesture: ''
+          inflection: ''
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.dualWield0000000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: dualWield0000000
+        folder: null
+        sort: 0
         ownership:
           default: 0
     effects: []
@@ -30783,7 +31080,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.364'
-  modifiedTime: 1781446964767
+  modifiedTime: 1781451933240
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

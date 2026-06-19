@@ -5,17 +5,13 @@ const HOOKS = {};
 HOOKS.abjure = {
   async roll(target) {
     // Identify spell-caused conditions on this ally that an enemy inflicted, leaving allied buffs intact
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfToken = this.actor.getActiveTokens(true, true)[0];
-    const myDisposition = selfToken?.disposition ?? this.actor.prototypeToken.disposition;
-    const enemyDispositions = myDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
     const cleansable = [];
     for ( const effect of target.effects ) {
       // Only magical effects with a finite DC are candidates; an Infinity DC means the effect cannot be removed
       if ( !effect.system?.properties?.has("magical") || !Number.isFinite(effect.system.dc) ) continue;
       const origin = effect.origin ? fromUuidSync(effect.origin) : null;
-      const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
-      if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
+      if ( !(origin instanceof Actor) ) continue;
+      if ( this.actor.getDispositionTowards(origin) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) continue;
       cleansable.push(effect);
     }
     if ( !cleansable.length ) return;
@@ -65,12 +61,14 @@ HOOKS.gambitAllIn = {
       throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
     }
   },
-  preActivate() {
-    this.usage.actorStatus.gambitAllIn = true;
-  },
   postActivate() {
-    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
     const G = HOOKS.gambitAllIn._gambit;
+
+    // Prime the All-In effect, which the gambit talent consumes on the actor's next roll
+    this.recordEvent({type: "effect", target: this.actor, effects: [G._allInEffect(this.actor, this)]});
+
+    // Consume Gambit charges if Heroism wasn't spent
+    if ( this.cost.heroism !== 0 ) return;
     const remaining = G._chargeCount(this.actor) - 6;
     const change = remaining > 0
       ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
@@ -166,7 +164,6 @@ HOOKS.armorCrusher = {
     for ( const event of events.roll ) {
       if ( event.roll?.data?.result !== RESULTS.GLANCE ) continue;
       const dmg = event.roll.data.damage;
-      if ( !dmg ) continue;
       dmg.bonus += this.actor.system.abilities.toughness.value;
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
       event.resources.push({resource: "focus", delta: -1});
@@ -479,10 +476,20 @@ HOOKS.counterspell = {
       ui.notifications.warn(errorText);
       throw new Error(errorText);
     }
-    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
-    if ( !reverse ) await setNegated();
-    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setNegated();
+
+    // Negate the countered spell, retaining its activation cost
+    const CrucibleAction = this.constructor;
+    if ( !reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.negate(target.selfEvents.activation);
+      await target.updateMessage();
+    }
+    await CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.clearNegation();
+      await target.updateMessage();
+    }
   }
 };
 
@@ -595,7 +602,7 @@ HOOKS.delay = {
 HOOKS.distract = {
   postActivate() {
     for ( const event of this.events ) {
-      if ( !event.roll?.isSuccess || !event.roll.data.damage ) continue;
+      if ( !event.roll?.isSuccess ) continue;
       event.roll.data.damage.multiplier = 0;
       event.roll.data.damage.base = event.roll.data.damage.total = 1;
       event.roll.data.damage.resource = "focus";
@@ -708,7 +715,7 @@ HOOKS.fall = {
   acquireTargets(targets) {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
-    this.usage.fall = {distance, elevation: surface?.elevation};
+    this.usage.fall = {distance, elevation: surface?.elevation, level: surface?.level?.id};
     if ( (distance <= 0) || !surface ) return;
     this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
     this.usage.bonuses.ability = distance;
@@ -732,10 +739,11 @@ HOOKS.fall = {
     }
   },
   async postActivate() {
-    const {distance, elevation} = this.usage.fall;
+    const {distance, elevation, level} = this.usage.fall;
     if ( !distance ) return;
-    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [{action: "fall", elevation}],
-      {animate: false});
+    const waypoint = {action: "fall", elevation};
+    if ( level && (level !== this.token._source.level) ) waypoint.level = level;
+    const movement = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint], {animate: false});
     if ( !movement ) return;
     Object.defineProperty(this, "movement", { value: movement, configurable: true });
     const {origin} = movement;
@@ -778,7 +786,7 @@ HOOKS.feintingStrike = {
 
     // Remove the deception roll's damage
     const deception = deceptionEvent?.roll;
-    if ( deception?.data.damage ) deception.data.damage.total = 0;
+    if ( deception?.hasDamage ) deception.data.damage.total = 0;
 
     // Follow-up offhand attack with bonuses if deception succeeded
     const options = {defenseType: "physical"};
@@ -1335,15 +1343,16 @@ HOOKS.interpose = {
    * @internal
    */
   async _rewrite(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
 
-    // Negate and reverse the original action
+    // Fully reverse the original action if it was applied, then mark it negated (superseded by the rewrite)
     const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
-    await targetMessage.setFlag("crucible", "isNegated", true);
     if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
-
-    // Reconstruct original action and clone it for the rewrite
     const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.negate();
+    await originalAction.updateMessage();
+
+    // Clone the original for the rewrite
     const rewrittenAction = originalAction.clone({}, {message: null, lazy: true});
     const interposer = this.actor;
     rewrittenAction.targets = new Map([[interposer, {
@@ -1398,15 +1407,14 @@ HOOKS.interpose = {
     roll.data.dc = interposer.system.defenses.physical.total;
     roll.data.result = interposer.testDefense("physical", roll);
 
-    // Recompute damage for hits and glances, or clear damage if the interposer's defense causes a miss
-    if ( (roll.data.result >= RESULTS.GLANCE) && roll.data.damage ) {
-      const dmg = roll.data.damage;
+    // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer
+    const dmg = roll.data.damage;
+    if ( roll.data.result >= RESULTS.GLANCE ) {
       dmg.overflow = roll.overflow;
       dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
       dmg.total = CrucibleAction.computeDamage(dmg);
-    } else {
-      roll.data.damage = undefined;
     }
+    else dmg.total = 0;
     interposer.callActorHooks("receiveAttack", action, roll);
     action.recordEvent({type: "strike", target: interposer, roll, weapon});
   },
@@ -1418,13 +1426,15 @@ HOOKS.interpose = {
    * @internal
    */
   async _reverse(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
     const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
     const rewrittenMessage = game.messages.get(rewrittenMessageId);
     if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
       await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
     }
-    await targetMessage.setFlag("crucible", "isNegated", false);
+    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.clearNegation();
+    await originalAction.updateMessage();
   }
 };
 
@@ -1543,7 +1553,7 @@ HOOKS.overrun = {
       if ( (target === this.actor) || HOOKS.grapple._canGrapple(this.actor, target) ) continue;
       for ( const event of events.all ) {
         event.effects.length = 0;
-        if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+        if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
       }
     }
   }
@@ -1868,6 +1878,94 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
+HOOKS.swallow = {
+  _SWALLOWED_EFFECT_ID: "swallowed00000000",
+  _isHelpless(actor) {
+    return actor.isIncapacitated || ["restrained", "stunned", "incapacitated"].some(s => actor.statuses.has(s));
+  },
+  _swallowedMarkers(actor) {
+    return actor.effects.filter(e => e.getFlag("crucible", "swallowing"));
+  },
+  prepare() {
+    const swallowed = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.ENEMIES);
+    if ( swallowed ) swallowed._id = HOOKS.swallow._SWALLOWED_EFFECT_ID;
+  },
+  acquireTargets(targets) {
+    const isLarge = size => size > (this.actor.size / 4);
+    const holdsLarge = HOOKS.swallow._swallowedMarkers(this.actor).some(m => {
+      const held = m.origin ? fromUuidSync(m.origin) : null;
+      return isLarge(held?.actor?.size ?? 0);
+    });
+    for ( const target of targets ) {
+      const prey = target.actor;
+      if ( !prey ) continue;
+
+      // The predator must be at least two feet of Size larger than its prey
+      if ( this.actor.size < (prey.size + 2) ) {
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
+        continue;
+      }
+
+      // Only one large prey may be held at a time; smaller prey never occupy the slot
+      if ( holdsLarge && isLarge(prey.size) ) {
+        target.error ??= _loc("ACTIONS.Swallow.AlreadySwallowing");
+      }
+    }
+  },
+  configure() {
+    const prey = this.targets.keys().next().value;
+    if ( prey && HOOKS.swallow._isHelpless(prey) ) {
+      this.tags.delete("difficult");
+      delete this.usage.banes.difficult;
+    }
+  },
+  postActivate() {
+    const prey = this.targets.keys().next().value;
+    if ( !prey ) return;
+    const marker = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
+    if ( !marker ) return;
+    const token = this.targets.get(prey)?.token;
+    marker._id = SYSTEM.EFFECTS.getEffectId("swallow", {suffix: token?.id ?? prey.id});
+    marker.origin = token?.uuid ?? prey.uuid;
+    marker.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
+    foundry.utils.setProperty(marker, "flags.crucible.swallowing", true);
+  },
+  async confirm(reverse) {
+    const target = this.targets.values().next().value;
+    if ( !target?.token || !this.eventsByTarget.get(target.actor)?.isSuccess ) return;
+    await target.token.update({hidden: !reverse});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.regurgitate = {
+  canUse() {
+    if ( !HOOKS.swallow._swallowedMarkers(this.actor).length ) return false;
+  },
+  postActivate() {
+    const released = [];
+    for ( const marker of HOOKS.swallow._swallowedMarkers(this.actor) ) {
+      const prey = marker.origin ? fromUuidSync(marker.origin)?.actor : null;
+      if ( prey?.effects.has(HOOKS.swallow._SWALLOWED_EFFECT_ID) ) {
+        this.recordEvent({type: "effect", target: prey,
+          effects: [{_id: HOOKS.swallow._SWALLOWED_EFFECT_ID, _action: "delete"}]});
+      }
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: marker.id, _action: "delete"}]});
+      if ( marker.origin ) released.push(marker.origin);
+    }
+    this.metadata.released = released;
+  },
+  async confirm(reverse) {
+    for ( const tokenUuid of (this.metadata.released ?? []) ) {
+      const token = fromUuidSync(tokenUuid);
+      if ( token ) await token.update({hidden: reverse});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {
@@ -1899,9 +1997,7 @@ HOOKS.ricochet = {
     if ( remaining <= 0 ) return;
 
     // Enemy dispositions, matching the action's ENEMIES target scope
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
-    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
 
     // Carom until no targets remain
     const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
@@ -2180,7 +2276,7 @@ HOOKS.throw = {
       if ( plan ) {
         if ( !plan.collided ) {
           for ( const event of events.all ) {
-            if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+            if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
           }
         }
         const {x, y, elevation} = plan.origin;
@@ -2338,6 +2434,34 @@ HOOKS.waterStance = {
 HOOKS.stoneStance = {
   canUse() { return crucible.api.hooks.talent.primalist0000000._canUseStance(this, "earth"); },
   preActivate() { crucible.api.hooks.talent.primalist0000000._activateStance(this, "earth"); }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.ancestralGrove = {
+  async confirm(reverse) {
+    if ( reverse || !this.region ) return;
+    const groveEffect = this.events.find(e => (e.target === this.actor) && e.effects.length)?.effects[0];
+    const tokenUuid = groveEffect?.system.summons?.[0];
+    const token = tokenUuid ? fromUuidSync(tokenUuid) : null;
+    if ( !token ) return;
+
+    // Sync region position with token placement
+    const {x, y, width, height, shape, level, elevation, depth} = token._source;
+    const {distance, distancePixels} = token.parent.dimensions;
+    const range = 20; // Grove reach: 20 ft beyond the Guardian's footprint (tunable)
+    await this.region.update({
+      name: "Grove of the Ancestors",
+      restriction: {enabled: false, type: "move"},
+      shapes: [{type: "emanation", base: {type: "token", x, y, width, height, shape}, radius: range * distancePixels}],
+      elevation: {bottom: elevation - range, top: elevation + (depth * distance) + range},
+      attachment: {token: token.id},
+      levels: [level]
+    });
+
+    // Register the region placement on the active effect
+    groveEffect.system.regions = [...(groveEffect.system.regions ?? []), this.region.uuid];
+  }
 };
 
 /* -------------------------------------------- */

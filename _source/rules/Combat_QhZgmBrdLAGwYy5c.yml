@@ -59,9 +59,10 @@ pages:
         @Condition[dead] are automatically placed at Initiative 0 and their
         turns come last in each Round.</p><h4>Unaware
         Combatants</h4><p>Combatants who are @Condition[unaware] act at
-        Initiative 1, last aside from Incapacitated creatures. Once a creature
-        is no longer Unaware, it rolls Initiative and acts as normal for
-        subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
+        Initiative 1, last aside from Incapacitated creatures. The Unaware
+        condition is removed at the start of the creature's turn; once a
+        creature is no longer Unaware, it rolls Initiative and acts as normal
+        for subsequent rounds.</p><h4>Tiebreaking Procedures</h4><p>Ties in
         initiative are resolved by applying the following tiebreaking criteria
         in order:</p><ol><li><p>A combatant who used the <strong>Delay</strong>
         action this round to act at this Initiative acts before any combatant
@@ -416,10 +417,10 @@ pages:
         displacement: a creature may be pushed, pulled, or thrown only if the
         strength of the effect moving it exceeds its Blocker Strength. An
         Unstoppable creature therefore cannot be shoved from its
-        position.</p><h2>Exceptions</h2><p>Two kinds of movement disregard
-        Blocker Strength entirely, because they do not pass <em>through</em> a
-        creature at all:</p><ul><li><p><strong>Jump.</strong> A leaping creature
-        clears the top of anyone in its path and is never
+        position.</p><h2 class="divider">Exceptions</h2><p>Two kinds of movement
+        disregard Blocker Strength entirely, because they do not pass
+        <em>through</em> a creature at all:</p><ul><li><p><strong>Jump.</strong>
+        A leaping creature clears the top of anyone in its path and is never
         blocked.</p></li><li><p><strong>Blink.</strong> Teleporting movement -
         such as the <strong>Step</strong> spell gesture - reappears at its
         destination and is likewise unobstructed.</p></li></ul>
@@ -435,9 +436,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       createdTime: 1684374473225
-      modifiedTime: 1780579467460
+      modifiedTime: 1781790011336
       lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
