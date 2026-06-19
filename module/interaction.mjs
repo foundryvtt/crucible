@@ -8,8 +8,6 @@ export function onPointerEnter(event) {
   switch ( event.target.dataset.crucibleTooltip ) {
     case "action":
       return displayActionTooltip(event);
-    case "condition":
-      return displayCondition(event);
     case "equipment":
     case "accessory":
     case "activeEffect":
@@ -167,29 +165,6 @@ async function displayLanguageCheck(event) {
   const check = async (group, actor) => ({success: actor.system.details.languages.has(languageId)});
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
   element.dataset.tooltipClass = "crucible crucible-tooltip wide";
-  const pointerover = new event.constructor(event.type, event);
-  element.dispatchEvent(pointerover);
-}
-
-/* -------------------------------------------- */
-
-/**
- * Display condition tooltip descriptions.
- * @param {PointerEvent} event
- * @returns {Promise<void>}
- */
-async function displayCondition(event) {
-  const element = event.target;
-  const cfg = CONFIG.statusEffects[element.dataset.condition];
-  if ( !cfg ) return;
-  event.stopImmediatePropagation();
-  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
-
-  const page = await fromUuid(cfg.page);
-  if ( !page ) return;
-  const html = `<h3 class="tooltip-title divider">${page.name}</h3>${page.text.content}`;
-  element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
-  element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }

@@ -571,14 +571,7 @@ async function onClickHazard(event) {
  * @param {RegExpMatchArray} matchArray
  */
 function enrichCondition([match, conditionId]) {
-  const cfg = CONFIG.statusEffects[conditionId];
-  if ( !cfg ) return new Text(match);
-  const tag = document.createElement("enriched-content");
-  tag.innerHTML = _loc(cfg.name);
-  tag.dataset.crucibleTooltip = "condition";
-  tag.dataset.condition = conditionId;
-  tag.classList.add("rule", "condition");
-  return tag;
+  return enrichRule([match, `condition.${conditionId}`]);
 }
 
 /* -------------------------------------------- */
