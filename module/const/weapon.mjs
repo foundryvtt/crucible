@@ -16,6 +16,7 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
  * @property {number} damage                  Base damage for the weapon category
  * @property {number} actionCost              The action point cost to strike with this weapon
  * @property {WeaponTrainingTypes[]} training Training categories which apply skill bonuses to this weapon category
+ * @property {string} [sibling]               The category a Versatile weapon adopts when wielded in its alternate grip
  */
 
 /**
@@ -84,6 +85,7 @@ export const CATEGORIES = defineEnum({
     damage: 4,
     actionCost: 2,
     range: 1,
+    sibling: "simple2",
     training: ["heavy"]
   },
   balanced1: {
@@ -95,6 +97,7 @@ export const CATEGORIES = defineEnum({
     damage: 5,
     actionCost: 2,
     range: 2,
+    sibling: "balanced2",
     training: ["heavy", "light"]
   },
   heavy1: {
@@ -106,6 +109,7 @@ export const CATEGORIES = defineEnum({
     damage: 6,
     actionCost: 3,
     range: 2,
+    sibling: "heavy2",
     training: ["heavy"]
   },
 
@@ -119,6 +123,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 3,
     damage: 6,
     range: 2,
+    sibling: "simple1",
     training: ["heavy"]
   },
   balanced2: {
@@ -130,6 +135,7 @@ export const CATEGORIES = defineEnum({
     damage: 7,
     actionCost: 3,
     range: 3,
+    sibling: "balanced1",
     training: ["light", "heavy"]
   },
   heavy2: {
@@ -141,6 +147,7 @@ export const CATEGORIES = defineEnum({
     damage: 8,
     actionCost: 3,
     range: 3,
+    sibling: "heavy1",
     training: ["heavy"]
   },
 
@@ -155,6 +162,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 2,
     damage: 4,
     range: 60,
+    sibling: "projectile2",
     training: ["projectile"]
   },
   talisman1: {
@@ -167,6 +175,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 2,
     damage: 2,
     range: 30,
+    sibling: "talisman2",
     training: ["talisman"]
   },
   mechanical1: {
@@ -180,6 +189,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 2,
     damage: 4,
     range: 60,
+    sibling: "mechanical2",
     training: ["mechanical"]
   },
 
@@ -194,6 +204,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 3,
     damage: 6,
     range: 120,
+    sibling: "projectile1",
     training: ["projectile"]
   },
   talisman2: {
@@ -206,6 +217,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 3,
     damage: 3,
     range: 30,
+    sibling: "talisman1",
     training: ["talisman"]
   },
   mechanical2: {
@@ -219,6 +231,7 @@ export const CATEGORIES = defineEnum({
     actionCost: 2,
     damage: 6,
     range: 120,
+    sibling: "mechanical1",
     training: ["mechanical"]
   },
 

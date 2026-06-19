@@ -113,8 +113,8 @@ HOOKS.armoredShell0000 = {
 
 HOOKS.armoredInstinct0 = {
   receiveAttack(_item, _action, roll) {
+    if ( roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE ) return;
     const dmg = roll.data.damage;
-    if ( !dmg || (roll.data.result !== roll.constructor.RESULT_TYPES.GLANCE) ) return;
     dmg.resistance += 1;
     dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
   }
@@ -276,13 +276,7 @@ HOOKS.bloodmagic000000 = {
     if ( !action.tags.has("spell") ) return;
     action.cost.health = action.cost.focus * 10;
     action.cost.focus = 0;
-  },
-  finalizeAction(_item, action) {
-    const selfHealth = action.events.reduce((total, e) => {
-      return total + ((e.target === this) ? (e.resourceTotals.health ?? 0) : 0);
-    }, 0);
-    const minCost = -action.cost.health;
-    if ( selfHealth > minCost ) action.recordEvent({resources: [{resource: "health", delta: minCost - selfHealth}]});
+    action.constrainResources({health: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
   }
 };
 
@@ -325,8 +319,9 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
       resistances[damageType].base *= 2;
     },
     receiveAttack(_item, _action, roll) {
+      if ( !roll.hasDamage ) return;
       const dmg = roll.data.damage;
-      if ( (dmg?.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
+      if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
       const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
       dmg.restoration = true;
       dmg.total = dmg.resistance - unmitigatedTotal;
@@ -582,6 +577,7 @@ HOOKS.focusedanticipat = {
 
 HOOKS.gambit0000000000 = {
   _CHARGES_ID: "gambitCharges000",
+  _ALLIN_ID: "gambitAllIn00000",
   _chargeCount(actor) {
     return actor.effects.get(HOOKS.gambit0000000000._CHARGES_ID)?.getFlag("crucible", "gambitCharges") || 0;
   },
@@ -598,6 +594,18 @@ HOOKS.gambit0000000000 = {
       flags: {crucible: {gambitCharges: count}}
     };
   },
+  _allInEffect(actor, action) {
+    return {
+      _id: HOOKS.gambit0000000000._ALLIN_ID,
+      name: action.name,
+      img: action.img,
+      description: action.description,
+      origin: actor.uuid,
+      duration: {value: 1, units: "rounds", expiry: "turnEnd"}, // End of THIS turn
+      showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
+      system: {dc: null}
+    };
+  },
   prepareDefenses(_item, defenses) {
     const int = this.abilities.intellect.value;
     const dex = this.abilities.dexterity.value;
@@ -610,18 +618,17 @@ HOOKS.gambit0000000000 = {
     if ( !rolls?.length ) return;
     const G = HOOKS.gambit0000000000;
 
-    // All-In: the primed attack or check achieves its maximum result on every die
-    if ( this.status?.gambitAllIn ) {
-      for ( const event of rolls ) {
-        if ( !event.roll?.dice?.length ) continue;
+    // All-In: the first roll of the primed action achieves its maximum result on every die, consuming the effect
+    if ( this.effects.has(G._ALLIN_ID) && !action.usage.gambitAllIn ) {
+      const event = rolls.find(e => e.roll?.dice?.length);
+      if ( event ) {
+        action.usage.gambitAllIn = true;
         G._maximizeRoll(event.roll);
-        G._reresolve(event.roll, this, target, event.weaponItem);
+        G._reresolve(event.roll, this, target);
+        action.recordEvent({type: "effect", target: this, effects: [{_id: G._ALLIN_ID, _action: "delete"}],
+          statusText: [{text: _loc("ACTIONS.AllIn.Marker"), fillColor: SYSTEM.RESOURCES.heroism.color.css}]});
+        return;
       }
-      action.usage.actorStatus.gambitAllIn = false;
-      action.recordEvent({target: this, statusText: [{
-        text: _loc("ACTIONS.AllIn.Marker"), fillColor: SYSTEM.RESOURCES.heroism.color.css
-      }]});
-      return;
     }
 
     // Loaded Dice: reroll the round's first natural 1, gated once per round via the per-turn status sentinel
@@ -630,7 +637,7 @@ HOOKS.gambit0000000000 = {
       const die = event.roll?.dice?.find(d => d.results.some(r => r.active && (r.result === 1)));
       if ( !die ) continue;
       await die.reroll("r1");
-      G._reresolve(event.roll, this, target, event.weaponItem);
+      G._reresolve(event.roll, this, target);
       action.usage.actorStatus.loadedDice = true;
       action.recordEvent({target: this, statusText: [{
         text: _loc("ACTIONS.Gambit.LoadedDice"), fillColor: SYSTEM.RESOURCES.heroism.color.css
@@ -639,10 +646,11 @@ HOOKS.gambit0000000000 = {
     }
   },
   finalizeAction(item, action) {
-    if ( !action.tags.has("strike") || !this.inCombat ) return;
+    if ( !action.tags.has("strike") ) return;
     const ante = action.usage.banes.special?.number || 0;
     if ( ante <= 0 ) return;
-    if ( !action.events.some(e => (e.target !== this) && e.isDamage) ) return;
+    if ( !action.events.some(e => (e.target !== this) && e.isDamage
+      && (this.getDispositionTowards(e.target) === CONST.TOKEN_DISPOSITIONS.HOSTILE)) ) return;
     const G = HOOKS.gambit0000000000;
     const count = G._chargeCount(this) + ante;
     const effect = this.effects.has(G._CHARGES_ID)
@@ -660,18 +668,9 @@ HOOKS.gambit0000000000 = {
       }
     }
   },
-
-  // Recompute the cached total after a dice mutation, then re-derive weapon-attack damage via the roll's own API
-  _reresolve(roll, actor, target, weapon) {
-    roll._total = roll._evaluateTotal();
-    if ( !weapon || !roll.resolveDamage ) return; // Non-attack rolls derive their outcome live from the total
-    roll.resolveDamage(actor, target, {
-      multiplier: roll.data.multiplier,
-      base: weapon.system.damage.weapon,
-      bonus: weapon.system.damage.bonus + roll.data.damageBonus,
-      resource: roll.data.resource,
-      damageType: roll.data.damageType
-    });
+  _reresolve(roll, actor, target) {
+    if ( roll.resolveDamage ) roll.resolveDamage(actor, target);
+    else roll._total = roll._evaluateTotal();
   }
 };
 
@@ -808,11 +807,20 @@ HOOKS.inquisitor000000 = {
     if ( !critHit ) return;
     const targetMessage = game.messages.get(action.metadata.inquisitorTargetMessageId);
     if ( !targetMessage || (targetMessage.getFlag("crucible", "confirmed") !== reverse) ) return;
-    // Interrupt the caster's spell, modeled on Counterspell
-    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
-    if ( !reverse ) await setNegated();
-    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setNegated();
+
+    // Interrupt the caster's spell after its activation cost
+    const CrucibleAction = action.constructor;
+    if ( !reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.negate(target.selfEvents.activation);
+      await target.updateMessage();
+    }
+    await CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.clearNegation();
+      await target.updateMessage();
+    }
   }
 };
 
@@ -1509,7 +1517,7 @@ HOOKS.swarm00000000000 = {
   receiveAttack(_item, action, roll) {
     if ( action.target?.type !== "single" ) return;
     const dmg = roll.data.damage;
-    if ( !dmg || (dmg.total <= 0) ) return;
+    if ( !roll.hasDamage || (dmg.total <= 0) ) return;
     dmg.resistance += this.abilities.toughness.value;
     dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
   }
@@ -1676,7 +1684,7 @@ HOOKS.duelist000000000 = {
     if ( roll.data.result !== T.GLANCE ) return;
     if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
     roll.data.result = T.PARRY;
-    roll.data.damage = undefined;
+    roll.data.damage.total = 0;
   }
 };
 

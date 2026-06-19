@@ -11,14 +11,14 @@ system:
     gaining the following benefits:</p><ul><li><p><em>The Tell.</em> You see a
     blow before it is thrown. Your <strong>Dodge</strong> defense is calculated
     using your <strong>Intellect</strong> instead of <strong>Dexterity</strong>,
-    if it is higher.</p></li><li><p><em>Loaded Dice.</em> Fortune bends to those
-    who help it along. Once per round, the first time you roll a 1 on any die,
-    that die is rerolled and you keep the new result.</p></li><li><p><em>Ante
-    Up.</em> When you make a @Action[default strike], you can choose to
-    intentionally add <strong>Banes</strong> to it. If the Strike hits, a
-    special <strong>Gambit</strong> effect increments according to the number of
-    Banes you wagered. These charges last until the end of Combat or until
-    spent.</p></li></ul>
+    if your <strong>Intellect</strong> is higher.</p></li><li><p><em>Loaded
+    Dice.</em> Fortune bends to those who help it along. Once per round, the
+    first time you roll a 1 on any die, that die is rerolled and you keep the
+    new result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
+    strike], you can choose to wager additional <strong>Banes</strong> against
+    yourself. If the Strike hits an enemy, you gain <strong>Gambit</strong>
+    charges equal to the number of Banes you wagered. These charges accumulate
+    until the end of Combat or until spent.</p></li></ul>
   actions:
     - id: gambitAllIn
       name: All-In
@@ -26,9 +26,11 @@ system:
       condition: ''
       description: >-
         <p>Every gamble you have made comes due, and you collect all at once.
-        The next single attack or check rolls the maximum possible result on all
-        of its dice. You can activate this action by spending either 6
-        <strong>Gambit</strong> charges, or 1 <strong>Heroism</strong>.</p>
+        The next attack or check you make this turn rolls the maximum possible
+        result on every die in its pool. If that action makes more than one
+        roll, only the first is maximized. You can activate this action by
+        spending either 6 <strong>Gambit</strong> charges or 1
+        <strong>Heroism</strong>.</p>
       cost:
         action: 0
         focus: 0

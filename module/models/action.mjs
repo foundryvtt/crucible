@@ -49,6 +49,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {CrucibleItem} [weapon]        A specific weapon item being used
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
+ * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
+ *   honored during event-stream resolution (a delta opposing the sign is dropped)
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {CrucibleAction} [targetAction]  An action being "responded" to by this action
  */
@@ -183,6 +185,7 @@ class CrucibleActionEvent {
    * @param {object[]} [data.statusText]            Status text to display above the target
    * @param {boolean} [data.isCriticalSuccess]      Did this event produce a critical hit?
    * @param {boolean} [data.isCriticalFailure]      Did this event produce a critical miss?
+   * @param {boolean} [data.negated=false]          Is this event negated (skipped at resolution/application)?
    * @param {CrucibleAction} action                 The parent action that owns this event
    */
   constructor(data, action) {
@@ -191,6 +194,7 @@ class CrucibleActionEvent {
     this.roll = data.roll ?? null;
     this.resources = data.resources ?? [];
     this.effects = data.effects ?? [];
+    this.negated = data.negated ?? false;
     if ( data.weapon ) this.weapon = data.weapon;
     if ( data.movement ) this.movement = data.movement;
     if ( data.summon ) this.summon = data.summon;
@@ -223,6 +227,7 @@ class CrucibleActionEvent {
    * @type {Record<string, number>}
    */
   get resourceTotals() {
+    if ( this.negated ) return {};
     return this.resources.reduce((totals, {resource, delta}) => {
       totals[resource] ??= 0;
       totals[resource] += delta;
@@ -240,7 +245,7 @@ class CrucibleActionEvent {
    */
   get damagesHealth() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration && ((d.resource ?? "health") === "health");
+    if ( this.roll?.hasDamage ) return !d.restoration && ((d.resource ?? "health") === "health");
     return this.resources.some(r => (r.resource === "health") && (r.delta < 0));
   }
 
@@ -250,7 +255,7 @@ class CrucibleActionEvent {
    */
   get damagesMorale() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration && ((d.resource ?? "health") === "morale");
+    if ( this.roll?.hasDamage ) return !d.restoration && ((d.resource ?? "health") === "morale");
     return this.resources.some(r => (r.resource === "morale") && (r.delta < 0));
   }
 
@@ -260,7 +265,7 @@ class CrucibleActionEvent {
    */
   get isDamage() {
     const d = this.roll?.data.damage;
-    if ( d ) return !d.restoration;
+    if ( this.roll?.hasDamage ) return !d.restoration;
     return this.resources.some(r => ((r.resource === "health") || (r.resource === "morale")) && (r.delta < 0));
   }
 
@@ -270,7 +275,7 @@ class CrucibleActionEvent {
    */
   get healsHealth() {
     const d = this.roll?.data.damage;
-    if ( d ) return d.restoration && ((d.resource ?? "health") === "health");
+    if ( this.roll?.hasDamage ) return d.restoration && ((d.resource ?? "health") === "health");
     return this.resources.some(r => (r.resource === "health") && (r.delta > 0));
   }
 
@@ -280,7 +285,7 @@ class CrucibleActionEvent {
    */
   get healsMorale() {
     const d = this.roll?.data.damage;
-    if ( d ) return d.restoration && ((d.resource ?? "health") === "morale");
+    if ( this.roll?.hasDamage ) return d.restoration && ((d.resource ?? "health") === "morale");
     return this.resources.some(r => (r.resource === "morale") && (r.delta > 0));
   }
 
@@ -290,7 +295,7 @@ class CrucibleActionEvent {
    */
   get isHealing() {
     const d = this.roll?.data.damage;
-    if ( d ) return !!d.restoration;
+    if ( this.roll?.hasDamage ) return !!d.restoration;
     return this.resources.some(r => ((r.resource === "health") || (r.resource === "morale")) && (r.delta > 0));
   }
 
@@ -329,6 +334,7 @@ class CrucibleActionEvent {
     if ( this.statusText ) obj.statusText = this.statusText;
     if ( this.isCriticalSuccess ) obj.isCriticalSuccess = this.isCriticalSuccess;
     if ( this.isCriticalFailure ) obj.isCriticalFailure = this.isCriticalFailure;
+    if ( this.negated ) obj.negated = true;
     for ( const effect of obj.effects ) {
       if ( !effect.system ) continue;
       for ( const setKey of ["regions", "summons"] ) {
@@ -541,7 +547,8 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - `CrucibleAction##allocateResources` - Compute final resource deltas from roll damage.
+ * - `CrucibleAction##resolveEventStream` - Simulate the stream on an actor clone to compute final resource deltas
+ *      (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
  * - Actor hooks called: `finalizeAction`
  * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
  *      provenance on new effects, and effect-change snapshots for reversal.
@@ -913,6 +920,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !this._eventsDirty && this.#eventsByActor ) return this.#eventsByActor;
     const eventsByActor = new Map();
     for ( const event of this.events ) {
+      if ( event.negated ) continue; // Negated events are excluded from aggregates (they remain in the stream)
       let events = eventsByActor.get(event.target);
       if ( !events ) {
         events = {
@@ -976,6 +984,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get selfEvents() {
     return this.eventsByActor.get(this.actor);
+  }
+
+  /**
+   * Does this action have any negated events (e.g. a countered or interposed action)?
+   * @type {boolean}
+   */
+  get isNegated() {
+    return this.events.some(event => event.negated);
   }
 
   /**
@@ -1250,6 +1266,58 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Constrain the directions the acting actor's own resources may change during this action's resolution.
+   * @param {Record<string, -1|0|1>} constraints   Per-resource directional limits (see RESOURCE_CONSTRAINTS)
+   */
+  constrainResources(constraints) {
+    Object.assign(this.usage.resourceConstraints ??= {}, constraints);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Negate a span of the event stream so the negated events are skipped during resolution and application but retained
+   * for auditability. See GH #821.
+   * @param {CrucibleActionEvent} [afterEvent]   The last event to keep; negation begins after it. Omit to negate from
+   *                                             the start (the whole action: it occurred but was fully stopped).
+   * @param {CrucibleActionEvent} [toEvent]      The last event to negate (inclusive). Omit to negate through the end.
+   * @returns {CrucibleActionEvent[]}            The events that were negated
+   */
+  negate(afterEvent, toEvent) {
+    let from = 0;
+    if ( afterEvent ) {
+      const index = this.events.indexOf(afterEvent);
+      if ( index < 0 ) return [];
+      from = index + 1;
+    }
+    let to = this.events.length;
+    if ( toEvent ) {
+      const index = this.events.indexOf(toEvent);
+      if ( index < 0 ) return [];
+      to = index + 1;
+    }
+    const negated = this.events.slice(from, to);
+    for ( const event of negated ) event.negated = true;
+    this._eventsDirty = true; // Rebuild aggregate caches to exclude the newly negated events
+    return negated;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear negation from every event in the stream, the inverse of {@link CrucibleAction#negate}.
+   * @returns {CrucibleActionEvent[]}   The events whose negation was cleared
+   */
+  clearNegation() {
+    const cleared = this.events.filter(event => event.negated);
+    for ( const event of cleared ) event.negated = false;
+    if ( cleared.length ) this._eventsDirty = true;
+    return cleared;
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -1365,7 +1433,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this._post();
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
-    this.#allocateResources();
+    await this.#resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     this.#finalizeEvents();
 
@@ -1527,7 +1595,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from the actor's planned movement path.
-   * A token is targeted if the movement path intersects with its hitbox OR if base-to-base with the final position.
+   * A token is targeted if the movement path intersects with its hitbox OR if within range of the terminal waypoint.
    * Targets are returned in path-traversal order and capped to the action's defined maximum targets.
    * @returns {ActionUseTarget[]}
    */
@@ -1547,9 +1615,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       originSpaces.add(`${i},${j},${k}`);
     }
 
+    // Reach in feet for detecting targets at the terminal waypoint
+    let reachFeet = 1;
+    if ( this.range.weapon ) reachFeet = Math.max(reachFeet, this.usage.weaponRange ?? 0);
+    const reachPad = reachFeet * (canvas.dimensions.size / canvas.dimensions.distance);
+    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], reachPad);
+
     // Determine the superset of candidate targets filtered by disposition and visibility
-    const adjacencyPad = canvas.dimensions.size / canvas.dimensions.distance; // Pixels per one foot of distance
-    const broadBounds = this.#getMovementFootprintRect(waypoints, adjacencyPad);
+    const broadBounds = this.#getMovementFootprintRect(waypoints, reachPad);
     const targetDispositions = this.#getTargetDispositions();
     const candidates = canvas.tokens.quadtree.getObjects(broadBounds, {collisionTest: o => {
       const tokenDoc = o.t.document;
@@ -1558,10 +1631,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return !tokenDoc.hidden;
     }});
 
-    // Padded footprint of the final position used to detect base-to-base adjacency
-    const finalRect = this.#getMovementFootprintRect([waypoints.at(-1)], adjacencyPad);
-
-    // Walk the path in order, recording the first step at which each candidate is intersected or in base-to-base
+    // Walk the path in order, recording the first step at which each candidate is targeted
     const encounterStep = new Map();
     for ( let w = 0; w < waypoints.length; w++ ) {
       const isFinal = w === (waypoints.length - 1);
@@ -1574,8 +1644,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( encounterStep.has(token) ) continue;
         const footprint = token.document.getOccupiedGridSpaceOffsets(token.document._source);
         const intersects = footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
-        const adjacent = isFinal && finalRect.overlaps(token.bounds);
-        if ( intersects || adjacent ) encounterStep.set(token, w);
+        const withinReach = isFinal && finalRect.overlaps(token.bounds);
+        if ( intersects || withinReach ) encounterStep.set(token, w);
       }
     }
 
@@ -1740,30 +1810,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Classify Token dispositions into allied and enemy groups.
-   * @returns {{ally: number[], enemy: number[]}}
+   * Determine the Token dispositions which this action's target scope permits.
+   * @returns {number[]}
    */
   #getTargetDispositions() {
     const D = CONST.TOKEN_DISPOSITIONS;
     const S = SYSTEM.ACTION.TARGET_SCOPES;
     const scope = this.target.scope;
-
-    // Some dispositions are universal
     if ( [S.NONE, S.SELF].includes(scope) ) return [];
     if ( S.ALL === scope ) return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
-
-    // Determine the Actor's disposition
-    const disposition = this.actor.getActiveTokens(true, true)[0]?.disposition ?? this.actor.prototypeToken.disposition;
-
-    // Hostile actors
-    if ( disposition === D.HOSTILE ) {
-      if ( S.ALLIES === scope ) return [D.HOSTILE];
-      else return [D.FRIENDLY, D.NEUTRAL];
-    }
-
-    // Non-hostile actors
-    if ( S.ALLIES === scope ) return [D.NEUTRAL, D.FRIENDLY];
-    else return [D.HOSTILE];
+    const groups = crucible.api.documents.CrucibleActor.getDispositionGroups(this.actor.getDisposition());
+    return S.ALLIES === scope ? groups.ally : groups.enemy;
   }
 
   /* -------------------------------------------- */
@@ -1979,43 +2036,66 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Allocate per-roll resource deltas using {@link CrucibleBaseActor#allocateResourceChange}, constraining damage to
-   * the state of resource pools so that reversal is accurate.
+   * Resolve the event stream against an ephemeral simulation of each affected actor. Each event's intended resource
+   * deltas are applied to the actor's clone in chronological order - honoring pool overflow, clamps, status- and
+   * action-scoped constraints, and statuses applied by earlier events - and the realized change is written back so the
+   * recorded stream is exact and reverses accurately. Subsumes per-roll allocation. See GH #820, #1271.
    */
-  #allocateResources() {
-    const allocations = new Map();
+  async #resolveEventStream() {
+    const clones = new Map();
+    const cloneFor = actor => {
+      if ( !clones.has(actor) ) clones.set(actor, actor.clone({}, {keepId: true}));
+      return clones.get(actor);
+    };
+
     for ( const event of this.events ) {
-      if ( !event.roll ) continue;
+      if ( event.negated ) continue; // Negated events contribute nothing to the simulated state
+      const actor = event.target;
 
-      // Allocate resource changes
-      const damage = event.roll.data.damage || {};
-      if ( damage.harmless ) continue;
-      const resource = damage.resource ?? "health";
-      const cfg = SYSTEM.RESOURCES[resource];
-      const restoration = !!(damage.restoration ?? this.damage?.restoration);
-      const damageType = damage.type; // Annotate the resulting resource changes with their damage type, see GH #1204
-      const amount = (damage.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
+      // Gather this event's intended resource deltas and their damage annotations
+      const intended = {};
+      const annotations = {};
+      if ( event.roll ) {
+        const damage = event.roll.data.damage || {};
+        if ( !damage.harmless ) {
+          const resource = damage.resource ?? "health";
+          const cfg = SYSTEM.RESOURCES[resource];
+          const restoration = !!(damage.restoration ?? this.damage?.restoration);
+          intended[resource] = (intended[resource] ?? 0) + ((damage.total ?? 0) * (restoration ? 1 : -1)
+            * (cfg.type === "reserve" ? -1 : 1));
+          annotations[resource] = {damageType: damage.type, restoration}; // Damage type annotation, see GH #1204
+        }
+      }
+      for ( const entry of event.resources ) {
+        intended[entry.resource] = (intended[entry.resource] ?? 0) + entry.delta;
+        annotations[entry.resource] ??= {damageType: entry.damageType, restoration: entry.restoration};
+      }
 
-      // Zero-damage hits still record a resource entry so downstream effects and scrolling text can be detected
-      if ( amount === 0 ) {
-        event.resources.push({resource, delta: 0, restoration, damageType});
+      // Targets without a simulable Actor keep their raw deltas (e.g. the transient Environment actor)
+      if ( !actor?.system ) {
+        event.resources = Object.entries(intended).map(([resource, delta]) => ({resource, delta,
+          damageType: annotations[resource]?.damageType, restoration: annotations[resource]?.restoration}));
         continue;
       }
 
-      // Allocate without specific system target (in theory should not happen?)
-      if ( !event.target?.system ) {
-        event.resources.push({resource, delta: amount, restoration, damageType});
-        continue;
-      }
+      // Apply the intended resource changes to the simulation, diffing the prior state against the mutated clone
+      const clone = cloneFor(actor);
+      const constraints = (actor === this.actor) ? this.usage.resourceConstraints : undefined;
+      const before = foundry.utils.deepClone(clone.system.resources);
+      if ( !foundry.utils.isEmpty(intended) ) await clone.alterResources(intended, {}, {commit: false, constraints});
+      const after = clone.system.resources;
 
-      // Allocate resource changes to a specific Actor
-      if ( !allocations.has(event.target) ) allocations.set(event.target, {});
-      const allocation = allocations.get(event.target);
-      const deltas = event.target.system.allocateResourceChange(amount, resource, allocation);
-      if ( foundry.utils.isEmpty(deltas) ) event.resources.push({resource, delta: 0, restoration, damageType});
-      else for ( const [r, delta] of Object.entries(deltas) ) {
-        event.resources.push({resource: r, delta, restoration, damageType});
-      }
+      // Write realized per-resource deltas back (intended pools always recorded; overflowed reserve pools added)
+      const resources = new Set(Object.keys(intended));
+      for ( const k in after ) if ( after[k].value !== before[k].value ) resources.add(k);
+      event.resources = Array.from(resources, resource => {
+        const ann = annotations[resource] ?? annotations[SYSTEM.RESOURCES[resource]?.sibling] ?? {};
+        return {resource, delta: after[resource].value - before[resource].value,
+          damageType: ann.damageType, restoration: ann.restoration};
+      });
+
+      // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
+      if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
     }
   }
 
@@ -2498,21 +2578,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         return false;
       }
     }
-    const isNegated = this.message?.getFlag("crucible", "isNegated");
 
     // On confirmation a placed region persists only while an active effect retains a reference to it; otherwise the
     // region was ephemeral to this action and is deleted now.
     if ( this.region ) {
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
-      if ( this.hasPersistentRegion && !isNegated ) {
+      if ( this.hasPersistentRegion ) {
         const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects[0];
         if ( regionEffect ) {
           regionEffect.system.regions ??= [];
           regionEffect.system.regions.push(this.region.uuid);
         }
       }
-      // The effect reference is the source of truth for persistence: keep the region iff an effect retains it
-      const retained = this.events.some(e => e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
+      // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
+      const retained = this.events.some(e =>
+        !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
       if ( retained ) {
         const aoeBehavior = this.region.behaviors.find(b => b.type === "crucible.persistentAOE");
         await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
@@ -2527,7 +2607,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Apply action events
-    await this.#applyEvents({reverse, isNegated});
+    await this.#applyEvents({reverse});
 
     // Record heroism
     try {
@@ -2549,7 +2629,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this._callActionHooksAsync("postConfirm", reverse);
 
     // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
-    if ( !reverse && !isNegated ) await this.#settleMovement();
+    if ( !reverse ) await this.#settleMovement();
     return true;
   }
 
@@ -2560,40 +2640,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Iterates events once, staging per-actor batches, then commits each batch in a single operation.
    * @param {object} options
    * @param {boolean} options.reverse         Reverse the action instead of applying it?
-   * @param {boolean} options.isNegated       Was the action negated (e.g. by counterspell)?
    */
-  async #applyEvents({reverse, isNegated}) {
+  async #applyEvents({reverse}) {
 
     // Stage per-actor batches from the event stream
     const batches = new Map();
     for ( const event of this.events ) {
+      if ( event.negated ) continue;
       const actor = event.target;
       if ( !batches.has(actor) ) batches.set(actor, {
         events: [], resources: {}, effects: [], actorUpdates: {}, itemSnapshots: [], movementId: null
       });
       const batch = batches.get(actor);
-      const isSelf = actor === this.actor;
       batch.events.push(event);
 
       // Accumulate resources
       for ( const {resource, delta} of event.resources ) {
-        if ( isNegated ) { // Only preserve self-costs
-          if ( (event.type === "activation") && isSelf ) {
-            batch.resources[resource] ??= 0;
-            batch.resources[resource] += delta;
-          }
-          continue;
-        }
         batch.resources[resource] ??= 0;
         batch.resources[resource] += delta;
       }
 
-      // Accumulate effects (skip if negated)
-      if ( !isNegated && event.effects.length ) batch.effects.push(...event.effects);
+      // Accumulate effects
+      if ( event.effects.length ) batch.effects.push(...event.effects);
 
       // Accumulate actor updates
-      // TODO https://github.com/foundryvtt/crucible/issues/821
-      // Negation rework should skip actorUpdates so a negated critical cannot consume once-per-turn sentinels
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
 
       // Accumulate item snapshots
@@ -2617,10 +2687,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
-      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse, isNegated});
+      const textEvents = this.#composeTextEvents(actor, batch.events, {reverse});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
-      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, reverse);
+      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
     }
   }
 
@@ -2632,12 +2702,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleActionEvent[]} events     Events targeting this actor, in stream order
    * @param {object} options
    * @param {boolean} options.reverse            Reverse direction of change?
-   * @param {boolean} options.isNegated          Action was negated (e.g. by counterspell)?
    * @returns {ScrollingTextEvent[]}
    */
-  #composeTextEvents(actor, events, {reverse, isNegated}) {
-    return this.constructor.composeTextEvents(actor, events,
-      {reverse, isNegated, selfActor: this.actor});
+  #composeTextEvents(actor, events, {reverse}) {
+    return this.constructor.composeTextEvents(actor, events, {reverse});
   }
 
   /* -------------------------------------------- */
@@ -2647,12 +2715,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Public for use by VFX configurators that bake per-target text into a VFXEffect.
    * @param {CrucibleActor} actor
    * @param {object[]} events
-   * @param {{reverse: boolean, isNegated: boolean, selfActor: CrucibleActor}} options
+   * @param {{reverse: boolean}} options
    * @returns {ScrollingTextEvent[]}
    */
-  static composeTextEvents(actor, events, {reverse, isNegated, selfActor}) {
+  static composeTextEvents(actor, events, {reverse}) {
     const textEvents = [];
-    const isSelf = actor === selfActor;
     const sign = reverse ? -1 : 1;
     const resources = actor.system.resources;
     const ActorCls = crucible.api.documents.CrucibleActor;
@@ -2660,10 +2727,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const T = AttackRollCls.RESULT_TYPES;
 
     for ( const event of events ) {
-      if ( event.statusText?.length ) textEvents.push(...event.statusText);
-      const includeResources = !isNegated || ((event.type === "activation") && isSelf);
-      if ( !includeResources ) continue;
-
+      if ( event.negated ) continue;
+      if ( event.statusText?.length ) {
+        if ( reverse ) textEvents.push(...event.statusText.map(st => ({...st, text: `-(${st.text})`})));
+        else textEvents.push(...event.statusText);
+      }
       const result = event.roll?.data?.result;
       const isAttackResult = (typeof result === "number") && (result in AttackRollCls.RESULT_TYPE_LABELS);
       const isHit = (result === T.HIT) || (result === T.GLANCE);
@@ -3331,6 +3399,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   async toMessage(options={}) {
     const messageData = await this._prepareMessage(options);
     return ChatMessage.create(messageData, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Persist in-place changes to this action's event stream back onto its ChatMessage by re-serializing the events.
+   * Roll indices, dropped when an action is reconstructed, are re-assigned from event order (which the caller must
+   * preserve); intended for edits such as negation where the message's roll set is unchanged.
+   * @returns {Promise<ChatMessage|void>}   The updated message, if this action has one
+   */
+  async updateMessage() {
+    if ( !this.message ) return;
+    let index = 0;
+    for ( const event of this.events ) {
+      if ( event.roll ) event.roll.data.index = index++;
+    }
+    return this.message.update({flags: {crucible: {events: this.#serializeEvents()}}});
   }
 
   /* -------------------------------------------- */

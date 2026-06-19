@@ -643,8 +643,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
     try {
       plan = await token.object.planMovement({
         allowedActions: movementUsage.action ? [movementUsage.action] : null,
-        minCost: this.action.range?.minimum ?? undefined,
-        maxCost: this.action.range?.maximum ?? undefined,
+        // Constrain by raw distance, not cost: a movement action's range is authored in feet, so cost multipliers
+        // (e.g. jump's 2x) must not shrink the reachable distance. Cost still feeds the action's AP cost.
+        minDistance: this.action.range?.minimum ?? undefined,
+        maxDistance: this.action.range?.maximum ?? undefined,
         direct: movementUsage.direct ?? true,
         constrainOptions: {
           ...(movementUsage.constrainOptions ?? {}),

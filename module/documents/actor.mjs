@@ -729,6 +729,51 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Classify token dispositions relative to a reference disposition into allied and enemy groups.
+   * @param {number} disposition   A value in CONST.TOKEN_DISPOSITIONS
+   * @returns {{ally: number[], enemy: number[]}}
+   */
+  static getDispositionGroups(disposition) {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    switch ( disposition ) {
+      case D.HOSTILE: return {ally: [D.HOSTILE], enemy: [D.NEUTRAL, D.FRIENDLY]};
+      case D.NEUTRAL:
+      case D.FRIENDLY: return {ally: [D.NEUTRAL, D.FRIENDLY], enemy: [D.HOSTILE]};
+      default: return {ally: [], enemy: []}; // SECRET or unset dispositions have no allegiances
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The effective token disposition of this Actor: its first active token, or the prototype token as a fallback.
+   * @returns {number}
+   */
+  getDisposition() {
+    return this.getActiveTokens(true, true)[0]?.disposition ?? this.prototypeToken.disposition;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine this Actor's allegiance toward another Actor based on their token dispositions.
+   * The returned value is a CONST.TOKEN_DISPOSITIONS code expressing the relationship: HOSTILE toward an enemy,
+   * FRIENDLY toward an ally, or NEUTRAL when there is no allegiance (e.g. a secret disposition is involved).
+   * @param {CrucibleActor} other   The other Actor
+   * @returns {number}              A CONST.TOKEN_DISPOSITIONS value: HOSTILE, FRIENDLY, or NEUTRAL
+   */
+  getDispositionTowards(other) {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const {ally, enemy} = CrucibleActor.getDispositionGroups(this.getDisposition());
+    const od = other.getDisposition();
+    if ( enemy.includes(od) ) return D.HOSTILE;
+    if ( ally.includes(od) ) return D.FRIENDLY;
+    return D.NEUTRAL;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Use an available Action.
    * @param {string} actionId     The action to use
    * @param {object} [options]    Options which configure action usage
@@ -797,25 +842,18 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(spell, this, target, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const r = roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Structure damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    const result = roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: spell.damage.base,
       bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
-      resistance: target.getResistance(rollData.resource, rollData.damageType, spell.damage.restoration),
       resource: rollData.resource,
-      type: rollData.damageType,
+      damageType: rollData.damageType,
       restoration: spell.damage.restoration
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    target.callActorHooks("receiveAttack", spell, roll);
+    });
+    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", spell, roll);
     return roll;
   }
 
@@ -869,20 +907,15 @@ export default class CrucibleActor extends Actor {
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
 
-    // Structure damage result
-    const r = roll.data.result = this.testDefense(rollData.defenseType, roll);
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
+    // Resolve the attack outcome and structured damage
+    roll.resolveDamage(null, this, {
       multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,
       bonus: rollData.damageBonus,
-      resistance: this.getResistance(rollData.resource, rollData.damageType, restoration),
-      type: rollData.damageType,
       resource: rollData.resource,
+      damageType: rollData.damageType,
       restoration: !!restoration
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+    });
     return roll;
   }
 
@@ -926,25 +959,17 @@ export default class CrucibleActor extends Actor {
     // Actor configuration and hooks
     CrucibleActor._configureRollData(action, this, target, rollData);
 
-    // Create and evaluate the skill attack roll
+    // Create and evaluate the skill attack roll, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(rollData.defenseType, roll);
-
-    // Create resulting damage
-    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: rollData.multiplier,
-        base: bonuses.base ?? 0,
-        bonus: rollData.damageBonus,
-        resistance: target.getResistance(rollData.resource, rollData.damageType, restoration),
-        type: rollData.damageType,
-        resource: rollData.resource,
-        restoration
-      };
-      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    }
+    roll.resolveDamage(this, target, {
+      multiplier: rollData.multiplier,
+      base: bonuses.base ?? 0,
+      bonus: rollData.damageBonus,
+      resource: rollData.resource,
+      damageType: rollData.damageType,
+      restoration
+    });
     target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
@@ -1081,9 +1106,15 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.scrollingText=true]           When false, fully suppress scrolling text display
    *                                                          for this update. Used when a VFXEffect (or other
    *                                                          orchestrator) will dispatch the text itself.
-   * @returns {Promise<CrucibleActor>}                     The updated Actor document
+   * @param {Record<string, -1|0|1>} [options.constraints]  Per-resource directional limit. A delta not matching the
+   *                                                          sign is zeroed (not forced): -1 may not increase, +1 may
+   *                                                          not decrease, 0 may not change.
+   * @param {boolean} [options.commit=true]                 When false, apply to the source in-memory via updateSource
+   *                                                          (no persistence/scrolling text), for simulation.
+   * @returns {Promise<CrucibleActor>}                     The updated Actor (or this, mutated, when commit is false)
    */
-  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText, textEvents, scrollingText=true, constraints,
+    commit=true}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -1118,20 +1149,20 @@ export default class CrucibleActor extends Actor {
           if ( this.statuses.has("frightened") ) delta = Math.min(delta, 0);
       }
 
+      // Enforce directional resource change constraints
+      const constraint = constraints?.[resourceName];
+      if ( (constraint !== undefined) && (Math.sign(delta) !== Math.sign(constraint)) ) delta = 0;
+
       // Handle overflow
       const uncapped = resource.value + delta;
       const overflow = Math.min(uncapped, 0);
 
-      // Health overflows into Wounds
-      if ( (resourceName === "health") && (overflow !== 0) && (this.system.usesReserveResources) ) {
-        changes.wounds ||= {value: r.wounds.value};
-        changes.wounds.value -= overflow;
-      }
-
-      // Morale overflows into Madness
-      else if ( (resourceName === "morale") && (overflow !== 0) && (this.system.usesReserveResources) ) {
-        changes.madness ||= {value: r.madness.value};
-        changes.madness.value -= overflow;
+      // An active pool overflows its deficit into its reserve sibling (Health -> Wounds, Morale -> Madness)
+      const cfg = SYSTEM.RESOURCES[resourceName];
+      const reserveName = (cfg.type === "active") ? cfg.sibling : null;
+      if ( reserveName && (overflow !== 0) && this.system.usesReserveResources ) {
+        changes[reserveName] ||= {value: r[reserveName].value};
+        changes[reserveName].value -= overflow;
       }
 
       // Regular updates
@@ -1143,6 +1174,10 @@ export default class CrucibleActor extends Actor {
       obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
+    if ( !commit ) {
+      this.updateSource(updates);
+      return this;
+    }
     return this.update(updates, {statusText, textEvents, scrollingText});
   }
 
@@ -1167,11 +1202,14 @@ export default class CrucibleActor extends Actor {
   /**
    * Apply or reverse ActiveEffect changes from an action's event stream.
    * @param {ActionEffect[]} effects            The effect data array to apply
-   * @param {boolean} [reverse=false]           Reverse the effects instead of applying them?
+   * @param {object} [options]                  Options which configure how the effects are applied
+   * @param {boolean} [options.reverse=false]     Reverse the effects instead of applying them?
+   * @param {boolean} [options.commit=true]       When false, apply to this document's source in-memory and re-derive,
+   *                                              without persistence, for ephemeral simulation.
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyActionEffects(effects, reverse=false) {
+  async _applyActionEffects(effects, {reverse=false, commit=true}={}) {
     if ( !effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
@@ -1199,6 +1237,17 @@ export default class CrucibleActor extends Actor {
       else if ( existing && forceDelete ) toDelete.push(effectData._id);
       else toCreate.push(effectData);
     }
+
+    // Simulate application without persistence
+    if ( !commit ) {
+      for ( const data of toCreate ) this.effects.set(data._id, this.effects.createDocument(data));
+      for ( const data of toUpdate ) this.effects.get(data._id)?.updateSource(data);
+      for ( const id of toDelete ) this.effects.delete(id);
+      this.reset();
+      return;
+    }
+
+    // Persist effect changes
     const batchOperations = this.defineBatchOperations({}, {
       createEffects: {changes: toCreate, options: {keepId: true}},
       updateEffects: toUpdate,
@@ -2706,19 +2755,35 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onCreateDescendantDocuments(...args) {
-    super._onCreateDescendantDocuments(...args);
-    const tree = game.system.tree;
-    if ( tree.actor === this ) tree.refresh();
+  _onCreateDescendantDocuments(parent, collection, documents, data, options, userId) {
+    super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
+    this.#onModifyDescendantDocuments(collection, options, userId);
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onDeleteDescendantDocuments(...args) {
-    super._onDeleteDescendantDocuments(...args);
+  _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
+    super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+    this.#onModifyDescendantDocuments(collection, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Shared follow-up to creating or deleting embedded documents.
+   * @param {EmbeddedDocumentCollection} collection
+   * @param {object} options
+   * @param {string} userId
+   */
+  #onModifyDescendantDocuments(collection, options, userId) {
+
+    // Re-render the talent tree
     const tree = game.system.tree;
     if ( tree.actor === this ) tree.refresh();
+
+    // Reconcile actor -> token properties if necessary
+    if ( game.userId === userId ) this.#updateSize({}, options);
   }
 
   /* -------------------------------------------- */

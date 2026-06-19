@@ -5,17 +5,13 @@ const HOOKS = {};
 HOOKS.abjure = {
   async roll(target) {
     // Identify spell-caused conditions on this ally that an enemy inflicted, leaving allied buffs intact
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfToken = this.actor.getActiveTokens(true, true)[0];
-    const myDisposition = selfToken?.disposition ?? this.actor.prototypeToken.disposition;
-    const enemyDispositions = myDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
     const cleansable = [];
     for ( const effect of target.effects ) {
       // Only magical effects with a finite DC are candidates; an Infinity DC means the effect cannot be removed
       if ( !effect.system?.properties?.has("magical") || !Number.isFinite(effect.system.dc) ) continue;
       const origin = effect.origin ? fromUuidSync(effect.origin) : null;
-      const od = origin?.getActiveTokens(true, true)[0]?.disposition ?? origin?.prototypeToken?.disposition;
-      if ( (od === undefined) || !enemyDispositions.includes(od) ) continue;
+      if ( !(origin instanceof Actor) ) continue;
+      if ( this.actor.getDispositionTowards(origin) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) continue;
       cleansable.push(effect);
     }
     if ( !cleansable.length ) return;
@@ -65,12 +61,14 @@ HOOKS.gambitAllIn = {
       throw new Error(_loc("ACTIONS.AllIn.CannotAfford", {name: actor.name}));
     }
   },
-  preActivate() {
-    this.usage.actorStatus.gambitAllIn = true;
-  },
   postActivate() {
-    if ( this.cost.heroism !== 0 ) return; // Consume charges if Heroism wasn't spent
     const G = HOOKS.gambitAllIn._gambit;
+
+    // Prime the All-In effect, which the gambit talent consumes on the actor's next roll
+    this.recordEvent({type: "effect", target: this.actor, effects: [G._allInEffect(this.actor, this)]});
+
+    // Consume Gambit charges if Heroism wasn't spent
+    if ( this.cost.heroism !== 0 ) return;
     const remaining = G._chargeCount(this.actor) - 6;
     const change = remaining > 0
       ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
@@ -166,7 +164,6 @@ HOOKS.armorCrusher = {
     for ( const event of events.roll ) {
       if ( event.roll?.data?.result !== RESULTS.GLANCE ) continue;
       const dmg = event.roll.data.damage;
-      if ( !dmg ) continue;
       dmg.bonus += this.actor.system.abilities.toughness.value;
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
       event.resources.push({resource: "focus", delta: -1});
@@ -479,10 +476,20 @@ HOOKS.counterspell = {
       ui.notifications.warn(errorText);
       throw new Error(errorText);
     }
-    const setNegated = () => targetMessage.setFlag("crucible", "isNegated", !reverse);
-    if ( !reverse ) await setNegated();
-    await crucible.api.models.CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) await setNegated();
+
+    // Negate the countered spell, retaining its activation cost
+    const CrucibleAction = this.constructor;
+    if ( !reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.negate(target.selfEvents.activation);
+      await target.updateMessage();
+    }
+    await CrucibleAction.confirmMessage(targetMessage, {reverse});
+    if ( reverse ) {
+      const target = CrucibleAction.fromChatMessage(targetMessage);
+      target.clearNegation();
+      await target.updateMessage();
+    }
   }
 };
 
@@ -595,7 +602,7 @@ HOOKS.delay = {
 HOOKS.distract = {
   postActivate() {
     for ( const event of this.events ) {
-      if ( !event.roll?.isSuccess || !event.roll.data.damage ) continue;
+      if ( !event.roll?.isSuccess ) continue;
       event.roll.data.damage.multiplier = 0;
       event.roll.data.damage.base = event.roll.data.damage.total = 1;
       event.roll.data.damage.resource = "focus";
@@ -779,7 +786,7 @@ HOOKS.feintingStrike = {
 
     // Remove the deception roll's damage
     const deception = deceptionEvent?.roll;
-    if ( deception?.data.damage ) deception.data.damage.total = 0;
+    if ( deception?.hasDamage ) deception.data.damage.total = 0;
 
     // Follow-up offhand attack with bonuses if deception succeeded
     const options = {defenseType: "physical"};
@@ -1336,15 +1343,16 @@ HOOKS.interpose = {
    * @internal
    */
   async _rewrite(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
 
-    // Negate and reverse the original action
+    // Fully reverse the original action if it was applied, then mark it negated (superseded by the rewrite)
     const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
-    await targetMessage.setFlag("crucible", "isNegated", true);
     if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
-
-    // Reconstruct original action and clone it for the rewrite
     const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.negate();
+    await originalAction.updateMessage();
+
+    // Clone the original for the rewrite
     const rewrittenAction = originalAction.clone({}, {message: null, lazy: true});
     const interposer = this.actor;
     rewrittenAction.targets = new Map([[interposer, {
@@ -1399,15 +1407,14 @@ HOOKS.interpose = {
     roll.data.dc = interposer.system.defenses.physical.total;
     roll.data.result = interposer.testDefense("physical", roll);
 
-    // Recompute damage for hits and glances, or clear damage if the interposer's defense causes a miss
-    if ( (roll.data.result >= RESULTS.GLANCE) && roll.data.damage ) {
-      const dmg = roll.data.damage;
+    // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer
+    const dmg = roll.data.damage;
+    if ( roll.data.result >= RESULTS.GLANCE ) {
       dmg.overflow = roll.overflow;
       dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
       dmg.total = CrucibleAction.computeDamage(dmg);
-    } else {
-      roll.data.damage = undefined;
     }
+    else dmg.total = 0;
     interposer.callActorHooks("receiveAttack", action, roll);
     action.recordEvent({type: "strike", target: interposer, roll, weapon});
   },
@@ -1419,13 +1426,15 @@ HOOKS.interpose = {
    * @internal
    */
   async _reverse(targetMessage) {
-    const CrucibleAction = crucible.api.models.CrucibleAction;
+    const CrucibleAction = this.constructor;
     const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
     const rewrittenMessage = game.messages.get(rewrittenMessageId);
     if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
       await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
     }
-    await targetMessage.setFlag("crucible", "isNegated", false);
+    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
+    originalAction.clearNegation();
+    await originalAction.updateMessage();
   }
 };
 
@@ -1544,7 +1553,7 @@ HOOKS.overrun = {
       if ( (target === this.actor) || HOOKS.grapple._canGrapple(this.actor, target) ) continue;
       for ( const event of events.all ) {
         event.effects.length = 0;
-        if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+        if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
       }
     }
   }
@@ -1988,9 +1997,7 @@ HOOKS.ricochet = {
     if ( remaining <= 0 ) return;
 
     // Enemy dispositions, matching the action's ENEMIES target scope
-    const D = CONST.TOKEN_DISPOSITIONS;
-    const selfDisposition = actor.getActiveTokens(true, true)[0]?.disposition ?? actor.prototypeToken.disposition;
-    const enemyDispositions = selfDisposition === D.HOSTILE ? [D.FRIENDLY, D.NEUTRAL] : [D.HOSTILE];
+    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
 
     // Carom until no targets remain
     const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
@@ -2269,7 +2276,7 @@ HOOKS.throw = {
       if ( plan ) {
         if ( !plan.collided ) {
           for ( const event of events.all ) {
-            if ( event.roll?.data.damage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
+            if ( event.roll?.hasDamage ) event.roll.data.damage.base = event.roll.data.damage.total = 0;
           }
         }
         const {x, y, elevation} = plan.origin;
