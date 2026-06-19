@@ -29,14 +29,11 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     }
   };
 
-  /**
-   * Define the structure of tabs used by this Item Sheet.
-   * @type {Record<string, Array<Record<string, ApplicationTab>>>}
-   */
+  /** @override */
   static TABS = foundry.utils.deepClone(super.TABS);
 
   static {
-    this.TABS.sheet.push({id: "talents", group: "sheet", icon: "fa-solid fa-bookmark", label: "ITEM.TABS.Talents"});
+    this.TABS.sheet.tabs.push({id: "talents", icon: "fa-solid fa-bookmark"});
   }
 
   /* -------------------------------------------- */

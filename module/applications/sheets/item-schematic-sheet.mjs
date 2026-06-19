@@ -37,9 +37,8 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       template: "systems/crucible/templates/sheets/item/schematic-components.hbs",
       templates: [this.INPUT_PARTIAL, this.OUTPUT_PARTIAL]
     };
-    this.TABS.sheet.push({
+    this.TABS.sheet.tabs.push({
       id: "components",
-      group: "sheet",
       icon: "fa-solid fa-list-ol",
       label: "SCHEMATIC.SHEET.Components"
     });

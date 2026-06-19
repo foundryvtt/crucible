@@ -228,11 +228,11 @@
       "ItemDivested": "Изъят"
     },
     "TABS": {
-      "Description": "Описание",
-      "Effects": "Эффекты",
-      "Hooks": "Хуки",
-      "Target": "Цель",
-      "Usage": "использование"
+      "description": "Описание",
+      "effects": "Эффекты",
+      "hooks": "Хуки",
+      "target": "Цель",
+      "usage": "использование"
     },
     "TAG": {
       "Accurate": "Точный",
@@ -842,14 +842,14 @@
       "Resources": "Ресурсы"
     },
     "TABS": {
-      "Actions": "Действия",
-      "Attributes": "Атрибуты",
-      "Biography": "Биография",
-      "Effects": "Эффекты",
-      "Inventory": "Инвентарь",
-      "Skills": "Навыки",
-      "Spells": "Заклинания",
-      "Talents": "Таланты"
+      "actions": "Действия",
+      "attributes": "Атрибуты",
+      "biography": "Биография",
+      "effects": "Эффекты",
+      "inventory": "Инвентарь",
+      "skills": "Навыки",
+      "spells": "Заклинания",
+      "talents": "Таланты"
     },
     "WARNINGS": {
       "InsufficientCurrency": "Недостаточно валюты для вычета {delta} {denom}",
@@ -1648,15 +1648,15 @@
       "Type": "Тип снаряжения"
     },
     "TABS": {
-      "Actions": "Действия",
-      "Affixes": "Аффиксы",
-      "Configuration": "Конфигурация",
-      "Description": "Описание",
-      "Equipment": "Снаряжение",
-      "Hooks": "Хуки",
-      "Secrets": "Секреты",
-      "Spells": "Заклинания",
-      "Talents": "Таланты"
+      "actions": "Действия",
+      "affixes": "Аффиксы",
+      "config": "Конфигурация",
+      "description": "Описание",
+      "equipment": "Снаряжение",
+      "hooks": "Хуки",
+      "secrets": "Секреты",
+      "spells": "Заклинания",
+      "talents": "Таланты"
     },
     "WARNINGS": {
       "HookAlreadyExists": "{item} уже объявляет функцию для хука \"{hook}\".",

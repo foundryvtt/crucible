@@ -241,11 +241,11 @@
       "ItemDivested": "Zbycie"
     },
     "TABS": {
-      "Description": "Opis",
-      "Effects": "Efekty",
-      "Hooks": "Uchwyty",
-      "Target": "Cel",
-      "Usage": "Użycie"
+      "description": "Opis",
+      "effects": "Efekty",
+      "hooks": "Uchwyty",
+      "target": "Cel",
+      "usage": "Użycie"
     },
     "TAG": {
       "Accurate": "Dokładny",
@@ -943,14 +943,14 @@
       "Resources": "Zasoby"
     },
     "TABS": {
-      "Actions": "Akcje",
-      "Attributes": "Atrybuty",
-      "Biography": "Biografia",
-      "Effects": "Efekty",
-      "Inventory": "Wyposażenie",
-      "Skills": "Umiejętności",
-      "Spells": "Zaklęcia",
-      "Talents": "Talenty"
+      "actions": "Akcje",
+      "attributes": "Atrybuty",
+      "biography": "Biografia",
+      "effects": "Efekty",
+      "inventory": "Wyposażenie",
+      "skills": "Umiejętności",
+      "spells": "Zaklęcia",
+      "talents": "Talenty"
     },
     "WARNINGS": {
       "InsufficientCurrency": "Brak wystarczającej kwoty do obciążenia {delta} {denom}",
@@ -1789,15 +1789,15 @@
       "Type": "Typ wyposażenia"
     },
     "TABS": {
-      "Actions": "Akcje",
-      "Affixes": "Afiksy",
-      "Configuration": "Konfiguracja",
-      "Description": "Opis",
-      "Equipment": "Wyposażenie",
-      "Hooks": "Uchwyty",
-      "Secrets": "Sekrety",
-      "Spells": "Zaklęcia",
-      "Talents": "Talenty"
+      "actions": "Akcje",
+      "affixes": "Afiksy",
+      "config": "Konfiguracja",
+      "description": "Opis",
+      "equipment": "Wyposażenie",
+      "hooks": "Uchwyty",
+      "secrets": "Sekrety",
+      "spells": "Zaklęcia",
+      "talents": "Talenty"
     },
     "WARNINGS": {
       "CombineDifferent": "{item} nie można połączyć z {target}, ponieważ przedmioty te nie są identyczne.",

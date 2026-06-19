@@ -81,23 +81,19 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     }
   };
 
-  /**
-   * Define the structure of tabs used by this Action Sheet.
-   * @type {Record<string, Array<Record<string, ApplicationTab>>>}
-   */
-  static TABS = {
-    sheet: [
-      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ACTION.TABS.Description"},
-      {id: "usage", group: "sheet", icon: "fa-solid fa-cogs", label: "ACTION.TABS.Usage"},
-      {id: "target", group: "sheet", icon: "fa-solid fa-bullseye", label: "ACTION.TABS.Target"},
-      {id: "effects", group: "sheet", icon: "fa-solid fa-hourglass-clock", label: "ACTION.TABS.Effects"},
-      {id: "hooks", group: "sheet", icon: "fa-solid fa-code", label: "ACTION.TABS.Hooks"}
-    ]
-  };
-
   /** @override */
-  tabGroups = {
-    sheet: "description"
+  static TABS = {
+    sheet: {
+      tabs: [
+        {id: "description", icon: "fa-solid fa-book"},
+        {id: "usage", icon: "fa-solid fa-cogs"},
+        {id: "target", icon: "fa-solid fa-bullseye"},
+        {id: "effects", icon: "fa-solid fa-hourglass-clock"},
+        {id: "hooks", icon: "fa-solid fa-code"}
+      ],
+      initial: "description",
+      labelPrefix: "ACTION.TABS"
+    }
   };
 
   /**
@@ -136,7 +132,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         return acc;
       }, {}),
       isSummon: action.target.type === "summon",
-      tabs: this.#prepareTabs().sheet,
+      tabs: this._prepareTabs("sheet"),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
@@ -160,25 +156,6 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       effect.fieldPath = `effects.${i}`;
     }
     return effects;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Configure the tabs used by this sheet.
-   * @returns {Record<string, Record<string, ApplicationTab>>}
-   */
-  #prepareTabs() {
-    const tabs = {};
-    for ( const [groupId, config] of Object.entries(this.constructor.TABS) ) {
-      const group = {};
-      for ( const t of config ) {
-        const active = this.tabGroups[t.group] === t.id;
-        group[t.id] = Object.assign({active, cssClass: active ? "active" : ""}, t);
-      }
-      tabs[groupId] = group;
-    }
-    return tabs;
   }
 
   /* -------------------------------------------- */

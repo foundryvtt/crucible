@@ -29,12 +29,13 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
   static TABS = {
     sheet: {
       tabs: [
-        {id: "description", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
-        {id: "config", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"},
-        {id: "duration", icon: "fa-solid fa-clock", label: "EFFECT.TABS.duration"},
-        {id: "changes", icon: "fa-solid fa-gears", label: "EFFECT.TABS.changes"}
+        {id: "description", icon: "fa-solid fa-book", label: "ITEM.TABS.description"},
+        {id: "config", icon: "fa-solid fa-cogs", label: "ITEM.TABS.config"},
+        {id: "duration", icon: "fa-solid fa-clock"},
+        {id: "changes", icon: "fa-solid fa-gears"}
       ],
-      initial: "description"
+      initial: "description",
+      labelPrefix: "EFFECT.TABS"
     }
   };
 

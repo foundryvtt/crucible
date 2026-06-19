@@ -72,20 +72,16 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     }
   };
 
-  /**
-   * Define the structure of tabs used by this Item Sheet.
-   * @type {Record<string, Array<Record<string, ApplicationTab>>>}
-   */
-  static TABS = {
-    sheet: [
-      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.Description"},
-      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Configuration"}
-    ]
-  };
-
   /** @override */
-  tabGroups = {
-    sheet: "description"
+  static TABS = {
+    sheet: {
+      tabs: [
+        {id: "description", icon: "fa-solid fa-book"},
+        {id: "config", icon: "fa-solid fa-cogs"}
+      ],
+      initial: "description",
+      labelPrefix: "ITEM.TABS"
+    }
   };
 
   /**
@@ -117,8 +113,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         templates: [this.AFFIX_PARTIAL],
         scrollable: [""]
       };
-      this.TABS.sheet.push({id: "affixes", group: "sheet", icon: "fa-solid fa-sparkles",
-        label: "ITEM.TABS.Affixes"});
+      this.TABS.sheet.tabs.push({id: "affixes", icon: "fa-solid fa-sparkles"});
     }
 
     // Includes Actions
@@ -129,7 +124,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         templates: [this.ACTION_PARTIAL],
         scrollable: [""]
       };
-      this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.Actions"});
+      this.TABS.sheet.tabs.push({id: "actions", icon: "fa-solid fa-bullseye"});
     }
 
     // Includes Hooks
@@ -140,7 +135,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         templates: [HOOK_PARTIAL],
         scrollable: [""]
       };
-      this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.Hooks"});
+      this.TABS.sheet.tabs.push({id: "hooks", icon: "fa-solid fa-cogs"});
     }
 
     // Includes Equipment
@@ -150,8 +145,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         template: "systems/crucible/templates/sheets/item/item-equipment.hbs",
         scrollable: [".equipment-list"]
       };
-      this.TABS.sheet.push({id: "equipment", group: "sheet", icon: "fa-solid fa-suitcase",
-        label: "ITEM.TABS.Equipment"});
+      this.TABS.sheet.tabs.push({id: "equipment", icon: "fa-solid fa-suitcase"});
     }
   }
 
@@ -166,7 +160,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /** @override */
   async _prepareContext(options) {
-    const tabGroups = this._getTabs();
     const source = this.document.toObject();
     const context = {
       item: this.document,
@@ -176,8 +169,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       fieldDisabled: this.isEditable ? "" : "disabled",
       fields: this.document.system.schema.fields,
       hasAdvancedDescription: this.options.item.hasAdvancedDescription,
-      tabGroups,
-      tabs: tabGroups.sheet,
+      tabs: this._prepareTabs("sheet"),
       tabsPartial: this.constructor.PARTS.tabs.template,
       tags: this.document.getTags()
     };
@@ -398,33 +390,21 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /* -------------------------------------------- */
 
-  /**
-   * Configure the tabs used by this sheet.
-   * @returns {Record<string, Record<string, ApplicationTab>>}
-   * @protected
-   */
-  _getTabs() {
-    const tabs = {};
-    for ( const [groupId, config] of Object.entries(this.constructor.TABS) ) {
-      const group = {};
-      for ( const t of config ) {
-        const active = this.tabGroups[t.group] === t.id;
-        group[t.id] = Object.assign({active, cssClass: active ? "active" : ""}, t);
-      }
-      tabs[groupId] = group;
-    }
+  /** @inheritDoc */
+  _prepareTabs(group) {
+    const tabs = super._prepareTabs(group);
 
     // Description style
     const adv = this.options.item.hasAdvancedDescription;
-    tabs.sheet.description.cssClass = [
-      tabs.sheet.description.cssClass,
+    tabs.description.cssClass = [
+      tabs.description.cssClass,
       "biography",
       "description",
       adv ? "description-advanced" : ""
     ].filterJoin(" ");
 
     // Restrict access to hooks
-    if ( !game.user.isGM ) delete tabs.sheet.hooks;
+    if ( !game.user.isGM ) delete tabs.hooks;
     return tabs;
   }
 
