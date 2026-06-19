@@ -13,6 +13,7 @@ import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
 import {defineEnum} from "./enum.mjs";
+import {statusEffects} from "./statuses.mjs";
 
 /* -------------------------------------------- */
 
@@ -206,6 +207,19 @@ export const TIME = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * @typedef {{name?: string, label?: string, tooltip?: string, page?: string}} RuleItem
+ * @typedef {Record<string, RuleItem|RulesRecord>} RulesRecord
+ * Define rules objects used by the `@Rule` enricher.
+ * @type {RulesRecord}
+ */
+export const RULES = {
+  action: ACTION.TAGS,
+  condition: statusEffects
+};
+
+/* -------------------------------------------- */
+
+/**
  * Include all constant definitions within the SYSTEM global export.
  * Export removing submodule structure such that the entire system constant structure is a plain object.
  * @type {object}
@@ -229,6 +243,7 @@ export const SYSTEM = {
   ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,
+  RULES,
   RESOURCE_CONSTRAINTS: ATTRIBUTES.RESOURCE_CONSTRAINTS,
   SKILL: {...SKILL},
   SKILLS: SKILL.SKILLS,

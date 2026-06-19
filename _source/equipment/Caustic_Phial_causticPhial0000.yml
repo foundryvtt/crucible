@@ -26,7 +26,7 @@ system:
       img: icons/consumables/potions/bottle-conical-fumes-green.webp
       condition: ''
       description: >-
-        <p>You fling the @ref[name], dealing <strong>Weakened</strong> immediate
+        <p>You fling the @ref[name], dealing @Rule[action.weakened] immediate
         damage but causing the @Condition[corroding] condition to all enemies in
         a 4 foot radius <strong>Blast</strong> who fail to avoid the
         attack.</p><p>The amount of burning damage and its duration is dependent

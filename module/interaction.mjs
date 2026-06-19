@@ -8,8 +8,6 @@ export function onPointerEnter(event) {
   switch ( event.target.dataset.crucibleTooltip ) {
     case "action":
       return displayActionTooltip(event);
-    case "condition":
-      return displayCondition(event);
     case "equipment":
     case "accessory":
     case "activeEffect":
@@ -174,41 +172,25 @@ async function displayLanguageCheck(event) {
 /* -------------------------------------------- */
 
 /**
- * Display condition tooltip descriptions.
- * @param {PointerEvent} event
- * @returns {Promise<void>}
- */
-async function displayCondition(event) {
-  const element = event.target;
-  const cfg = CONFIG.statusEffects[element.dataset.condition];
-  if ( !cfg ) return;
-  event.stopImmediatePropagation();
-  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
-
-  const page = await fromUuid(cfg.page);
-  if ( !page ) return;
-  const html = `<h3 class="tooltip-title divider">${page.name}</h3>${page.text.content}`;
-  element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
-  element.dataset.tooltipClass = "crucible crucible-tooltip";
-  const pointerover = new event.constructor(event.type, event);
-  element.dispatchEvent(pointerover);
-}
-
-/* -------------------------------------------- */
-
-/**
  * Display tag tooltip descriptions.
  * @param {PointerEvent} event
  * @returns {Promise<void>}
  */
 async function displayTagTooltip(event) {
   const element = event.target;
-  const tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  let tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  let name = element.innerText;
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
+  if (cfg) {
+    const page = cfg.page ? await fromUuid(cfg.page) : null;
+    tooltip ??= cfg.tooltip ?? page?.text.content;
+    name = _loc(cfg.name) ?? _loc(cfg.label) ?? page?.name;
+  }
   if ( !tooltip ) return;
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
-  const html = `<h3 class="tooltip-title divider">${element.innerText}</h3>${tooltip}`;
+  const html = `<h3 class="tooltip-title divider">${name}</h3>${tooltip}`;
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);

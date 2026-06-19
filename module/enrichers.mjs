@@ -66,6 +66,11 @@ export function registerEnrichers() {
       enricher: enrichSpell
     },
     {
+      id: "crucibleRule",
+      pattern: /@Rule\[([\w.]+)](?:{([^}]+)})?/g,
+      enricher: enrichRule
+    },
+    {
       id: "milestone",
       pattern: /\[\[\/milestone( \d+)?\]\]/g,
       enricher: enrichMilestone,
@@ -566,14 +571,7 @@ async function onClickHazard(event) {
  * @param {RegExpMatchArray} matchArray
  */
 function enrichCondition([match, conditionId]) {
-  const cfg = CONFIG.statusEffects[conditionId];
-  if ( !cfg ) return new Text(match);
-  const tag = document.createElement("enriched-content");
-  tag.innerHTML = _loc(cfg.name);
-  tag.dataset.crucibleTooltip = "condition";
-  tag.dataset.condition = conditionId;
-  tag.classList.add("condition");
-  return tag;
+  return enrichRule([match, `condition.${conditionId}`]);
 }
 
 /* -------------------------------------------- */
@@ -597,7 +595,7 @@ function enrichAction([match, ownerUUID, actionId]) {
   }
   if ( !action ) return match;
   const tag = document.createElement("enriched-content");
-  tag.classList.add("action");
+  tag.classList.add("rule", "action");
   tag.dataset.uuid = ownerUUID;
   tag.dataset.actionId = actionId;
   tag.dataset.crucibleTooltip = "action";
@@ -623,8 +621,27 @@ function enrichSpell([match, spellId]) {
   const tag = document.createElement("enriched-content");
   tag.innerHTML = spell.name;
   tag.dataset.spellId = spell.id;
-  tag.classList.add("action", "spell");
+  tag.classList.add("rule", "spell");
   tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Rules                                       */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a rule reference into an interactive element displaying the rule name and tooltip.
+ * @param {RegExpMatchArray} matchArray
+ */
+async function enrichRule([match, ruleId, label]) {
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
+  if ( !cfg ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = label ?? _loc(cfg.label) ?? _loc(cfg.name);
+  tag.dataset.crucibleTooltip = "tag";
+  tag.dataset.ruleId = ruleId;
+  tag.classList.add("rule", "basic-rule", ruleId.split(".")[0]);
   return tag;
 }
 
