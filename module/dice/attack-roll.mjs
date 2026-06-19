@@ -100,7 +100,7 @@ export default class AttackRoll extends StandardCheck {
 
   /** @override */
   get hasDamage() {
-    return this.data.result >= AttackRoll.RESULT_TYPES.GLANCE;
+    return (this.data.result >= AttackRoll.RESULT_TYPES.GLANCE) && !this.data.damage?.harmless;
   }
 
   /* -------------------------------------------- */
