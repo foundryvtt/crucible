@@ -650,14 +650,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const grid = canvas?.grid;
     const cache = this.#hbCache;
 
-    // Verify local ID and parent ID to know if the hitbox data must be recomputed
+    // Verify transform IDs and Token size to know if the hitbox data must be recomputed. Size is included because the
+    // hitbox geometry depends on it, and a resize need not change the transform the IDs track.
     const trLocalID = this.transform._localID;
     const trParentID = this.transform._parentID;
-    const dirty = (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID);
+    const s = this.actor?.system?.movement?.size ?? this.document?.width ?? 4;
+    const dirty = (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID) || (s !== cache.sizeUnits);
     if ( (dirty === false) || !stage || !grid ) return this.#hbCache;
 
     cache.gridSize = grid.size || 100;
-    const s = cache.sizeUnits = this.actor?.system?.movement?.size ?? this.document?.width ?? 4;
+    cache.sizeUnits = s;
     const uneven = (s % 2 > 0);
 
     const M = CONST.GRID_SNAPPING_MODES;

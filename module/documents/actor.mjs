@@ -2966,18 +2966,13 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Update the size of Tokens for this Actor.
-   * If the Actor is an unlinked ActorDelta, we only update it's specific Token.
-   * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
+   * Update the size of Tokens for this Actor. If the Actor is an unlinked ActorDelta, we only update it's specific
+   * Token. Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
+   * Resize through the Scene#moveTokens pipeline so that size updates are handled rigorously.
    * @param {object} data
    * @param {object} options
    */
   async #updateSize(data, options) {
-    console.log("CRUCIBLE updateSize entry " + JSON.stringify({
-      name: this.name, type: this.type, isToken: this.isToken, size: this.size,
-      proto: this.prototypeToken?.width, tokenWidth: this.token?.width ?? null,
-      related: !!options?._crucibleRelatedUpdate
-    }));
     if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
     const size = this.size;
     const dimensions = {width: size, height: size, depth: size};
@@ -2985,7 +2980,8 @@ export default class CrucibleActor extends Actor {
     // Unlinked Token Actor
     if ( this.isToken ) {
       if ( this.token.width === size ) return;
-      await this.token.update(dimensions, {_crucibleRelatedUpdate: true});
+      const waypoint = {...dimensions, ...this.#resolveResizePosition(this.token, size)};
+      await this.token.parent.moveTokens({[this.token.id]: {waypoints: [waypoint]}}, {_crucibleRelatedUpdate: true});
       return;
     }
 
@@ -2993,17 +2989,45 @@ export default class CrucibleActor extends Actor {
     if ( this.prototypeToken.width === size ) return;
     await this.update({prototypeToken: dimensions}, {_crucibleRelatedUpdate: true});
 
-    // Update placed Tokens
-    const sceneUpdates = {};
+    // Resize all placed Tokens, batched using the Scene#moveTokens API
+    const scenes = {};
     for ( const token of this.getDependentTokens() ) {
-      sceneUpdates[token.parent.id] ||= [];
-      sceneUpdates[token.parent.id].push({_id: token.id, ...dimensions});
+      // FIXME: Actor#getDependentTokens can return stale/deleted tokens no longer present in the Scene collection.
+      //   Remove this guard once core stops returning dead references from Actor#_dependentTokens.
+      if ( !token.parent?.tokens.has(token.id) ) continue;
+      const waypoint = {...dimensions, ...this.#resolveResizePosition(token, size)};
+      (scenes[token.parent.id] ||= {})[token.id] = {waypoints: [waypoint]};
     }
-    console.log("CRUCIBLE updateSize placed " + JSON.stringify({name: this.name, dimensions, sceneUpdates}));
-    for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
+    for ( const [sceneId, updates] of Object.entries(scenes) ) {
       const scene = game.scenes.get(sceneId);
-      if ( scene ) await scene.updateEmbeddedDocuments("Token", updates, {_crucibleRelatedUpdate: true});
+      if ( scene ) await scene.moveTokens(updates, {_crucibleRelatedUpdate: true});
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the center-preserving, grid-snapped destination for a Token resized to a new square size.
+   * @param {CrucibleToken} token   The Token being resized
+   * @param {number} size           The new width and height in feet
+   * @returns {{x: number, y: number, snapped: boolean}}
+   */
+  #resolveResizePosition(token, size) {
+    const src = token._source;
+    const dims = {width: size, height: size, shape: src.shape};
+    const center = token.getCenterPoint(src);
+    const pivot = token.getCenterPoint({x: 0, y: 0, elevation: 0, ...dims});
+    const unsnapped = {x: Math.round(center.x - pivot.x), y: Math.round(center.y - pivot.y), snapped: false};
+    const snapped = token.getSnappedPosition({x: unsnapped.x, y: unsnapped.y, width: size, height: size});
+    const snappedCenter = token.getCenterPoint({x: snapped.x, y: snapped.y, ...dims});
+
+    // Re-snap to a grid position as long as the repositioning does not collide with a movement-blocking wall
+    const shifted = (center.x !== snappedCenter.x) || (center.y !== snappedCenter.y);
+    if ( shifted && canvas.ready && (token.parent === canvas.scene)
+      && CONFIG.Canvas.polygonBackends.move.testCollision(center, snappedCenter, {type: "move", mode: "any"}) ) {
+      return unsnapped;
+    }
+    return {x: snapped.x, y: snapped.y, snapped: true};
   }
 
   /* -------------------------------------------- */
