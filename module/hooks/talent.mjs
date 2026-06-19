@@ -848,8 +848,7 @@ HOOKS.intellectualsupe = {
 
 HOOKS.iramancer0000000 = {
   prepareAttack(_item, action, _target, rollData) {
-    if ( !["spell"].some(t => action.tags.has(t)) || !this.statuses.has("enraged") ) return;
-    rollData.damageBonus += 2;
+    if ( action.tags.has("spell") && this.statuses.has("enraged") ) rollData.damageBonus += 2;    
   }
 };
 
