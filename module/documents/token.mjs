@@ -66,6 +66,22 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    if ( (await super._preCreate(data, options, user)) === false ) return false;
+
+    // Enforce Token size as prepared Actor size
+    const actor = this.actor ?? this.baseActor;
+    if ( actor && (actor.type !== "group") ) {
+      const size = actor.size;
+      if ( Number.isInteger(size) && (this.width !== size) ) {
+        this.updateSource({width: size, height: size, depth: size});
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _onUpdate(change, options, userId) {
     super._onUpdate(change, options, userId);
     if ( this.isGroup && ("movementAction" in change) && (game.userId === userId) && !options._crucibleRelatedUpdate ) {

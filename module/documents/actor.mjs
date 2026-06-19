@@ -2755,19 +2755,35 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onCreateDescendantDocuments(...args) {
-    super._onCreateDescendantDocuments(...args);
-    const tree = game.system.tree;
-    if ( tree.actor === this ) tree.refresh();
+  _onCreateDescendantDocuments(parent, collection, documents, data, options, userId) {
+    super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
+    this.#onModifyDescendantDocuments(collection, options, userId);
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onDeleteDescendantDocuments(...args) {
-    super._onDeleteDescendantDocuments(...args);
+  _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
+    super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+    this.#onModifyDescendantDocuments(collection, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Shared follow-up to creating or deleting embedded documents.
+   * @param {EmbeddedDocumentCollection} collection
+   * @param {object} options
+   * @param {string} userId
+   */
+  #onModifyDescendantDocuments(collection, options, userId) {
+
+    // Re-render the talent tree
     const tree = game.system.tree;
     if ( tree.actor === this ) tree.refresh();
+
+    // Reconcile actor -> token properties if necessary
+    if ( game.userId === userId ) this.#updateSize({}, options);
   }
 
   /* -------------------------------------------- */
