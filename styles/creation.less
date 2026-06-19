@@ -533,6 +533,9 @@
 
     .equipment-sidebar {
       gap: 1rem;
+      .equipment-selected {
+        flex: 1 1 0; // Bound height so .scrollable engages; mirrors .equipment-list
+      }
       .budget-display {
         flex: none;
         padding: 1rem 1.5rem;
