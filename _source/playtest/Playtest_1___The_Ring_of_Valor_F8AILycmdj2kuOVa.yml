@@ -7798,8 +7798,9 @@ actors:
             - id: devourThoughts
               description: >-
                 <p>Lash onto a single enemy with multiple tendrils, dealing
-                Weakened Psychic damage and inflicting the Stunned condition on
-                a success.</p>
+                @Rule[action.weakened] <strong>Psychic</strong> damage and
+                inflicting the @Rule[condition.stunned] condition on a
+                success.</p>
               tags:
                 - melee
                 - natural
@@ -7827,17 +7828,17 @@ actors:
                     - stunned
                   duration:
                     value: 1
-                    units: turns
+                    units: ''
                     expiry: null
                     expired: false
                   system:
-                    dot: []
-                    maintenance: null
-                    regions: []
-                    summons: []
                     changes: []
                     dc: null
+                    dot: []
+                    maintenance: null
                     properties: []
+                    regions: []
+                    summons: []
               name: Devour Thoughts
               img: icons/creatures/magical/spirit-fear-energy-pink.webp
               condition: ''
@@ -7963,7 +7964,7 @@ actors:
       modifiedTime: null
       lastModifiedBy: null
       compendiumSource: null
-      duplicateSource: null
+      duplicateSource: Actor.CTpEm0WlmFAAosBD
       exportSource: null
     ownership:
       default: 0
@@ -10010,7 +10011,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
+            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -15488,7 +15489,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
+            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -17130,7 +17131,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
+            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -25934,7 +25935,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
+            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -31080,8 +31081,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.364'
-  modifiedTime: 1781451933240
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781990217998
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null
