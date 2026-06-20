@@ -8,8 +8,9 @@ system:
     <p>You have fluency in weaving spellcraft using the Rune of Frost. You gain
     a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
     class="divider">Playtest Notes</h3><p>This talent will eventually also
-    provide an upgrade to the <strong>Condense </strong>action, expanding its
-    effectiveness or including new options for how to use it.</p>
+    provide an upgrade to the
+    @Action[Compendium.crucible.talent.Item.runeFrost0000000 condense] action,
+    expanding its effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -28,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1763163886659
-  modifiedTime: 1773514792550
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1781971445091
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: frostProficiency
 sort: 1100000
 _key: '!items!frostProficiency'
