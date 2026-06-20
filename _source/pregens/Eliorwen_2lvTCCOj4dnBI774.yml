@@ -1283,8 +1283,8 @@ items:
     system:
       description: >-
         <p>You understand how to move away from an opponent without exposing
-        yourself to the worst attacks in return. Any <strong>Reactive
-        Strike</strong> against you is performed with <strong>+1
+        yourself to the worst attacks in return. Any @Action[default
+        reactiveStrike] against you is performed with <strong>+1
         Bane</strong>.</p>
       actions: []
       nodes:

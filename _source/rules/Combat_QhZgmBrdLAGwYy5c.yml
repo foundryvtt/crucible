@@ -820,8 +820,8 @@ pages:
         disengage in search of more vulnerable prey. Two of the four goblins may
         move away from Krag without reciprocity, because Krag is otherwise
         <strong>Fully Engaged</strong> and therefore cannot retaliate. When the
-        third goblin moves away, however, Krag performs a <strong>Reactive
-        Strike</strong>, burying his battle axe in the back of the retreating
+        third goblin moves away, however, Krag performs a @Action[default
+        reactiveStrike], burying his battle axe in the back of the retreating
         evildoer!</p></section>
     video:
       controls: true
@@ -838,7 +838,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1781993300418
+      modifiedTime: 1781993712288
       lastModifiedBy: fzBjA63BB4hW4rQb
       exportSource: null
     category: null
