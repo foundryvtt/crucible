@@ -1463,7 +1463,7 @@
       "Hero": "Crucible Hero Sheet",
       "HeroCreation": "Crucible Hero Creation Sheet",
       "Journal": "Crucible Journal Sheet",
-      "PersistentAOE": "Crucible Persistent AoE Sheet",
+      "ActionBehavior": "Crucible Action Behavior Sheet",
       "Schematic": "Crucible Schematic Sheet",
       "Skill": "Crucible Skill Sheet",
       "Spell": "Crucible Spell Sheet",
@@ -1920,7 +1920,7 @@
         }
       }
     },
-    "PERSISTENT_AOE": {
+    "ACTION": {
       "FIELDS": {
         "actionIdentifier": {
           "hint": "The ID of the action responsible for the creation of this behavior. If provided, will determine which tokens should actually trigger an Action.",
@@ -2686,7 +2686,7 @@
     },
     "RegionBehavior": {
       "crucible.hazard": "Crucible Hazard",
-      "crucible.persistentAOE": "Persistent Area of Effect"
+      "crucible.action": "Crucible Action"
     }
   },
   "WALKTHROUGH": {

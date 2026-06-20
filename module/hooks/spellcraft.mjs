@@ -66,6 +66,15 @@ HOOKS.aura = {
   },
   prepare() {
     this.usage.hasDice = false;
+
+    // TODO: Appropriate tag(s) which will always cause region to have dice & roll
+    const tags = [...this.scaling, "generic"];
+    if ( this.rune.restoration ) {
+      tags.push((this.rune.resource === "health") ? "healing" : "rallying");
+    } else {
+      tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
+    }
+    this.regionBehavior.system.actionToPerform.tags = tags;
   }
 };
 

@@ -346,7 +346,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       }
     };
     Object.assign(behaviorData, {
-      type: "crucible.persistentAOE",
+      type: "crucible.action",
       "flags.crucible.itemUuid": this.document.uuid
     });
     Object.assign(behaviorData.system, {

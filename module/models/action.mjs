@@ -1444,24 +1444,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
       if ( this.hasPersistentRegion ) {
-        const existing = regionData.behaviors.find(b => b.type === "crucible.persistentAOE");
+        const existing = regionData.behaviors.find(b => b.type === "crucible.action");
         if ( !existing ) {
           const behavior = {
-            name: this.name,
             disabled: true,
-            type: "crucible.persistentAOE",
+            type: "crucible.action",
             system: {
               actionIdentifier: this.id,
-              actor: this.actor.uuid,
-              actionToPerform: {
-                id: `${this.id}Region`,
-                name: this.name,
-                img: this.img,
-                description: this.description
-              }
+              actor: this.actor.uuid
             }
           };
-          if ( this.regionBehavior ) foundry.utils.mergeObject(behavior, this.regionBehavior);
+          foundry.utils.mergeObject(behavior, this.regionBehavior);
           regionData.behaviors.push(behavior);
         }
       }
@@ -2358,6 +2351,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Global preparation rules
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
 
+    // Persistent-region-specific preparation
+    if ( this.hasPersistentRegion ) {
+      const defaultBehavior = {
+        name: this.name,
+        system: {
+          actionToPerform: {
+            id: crucible.api.methods.generateId(`${this.id}Region`),
+            name: this.name,
+            img: this.img,
+            description: this.description
+          }
+        }
+      };
+      this.regionBehavior = foundry.utils.mergeObject(defaultBehavior, this.regionBehavior ?? {});
+    }
+
     // Action-specific preparation
     this._callActionHooks("prepare");
     this.actor?.callActorHooks("prepareAction", this);
@@ -2594,9 +2603,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const retained = this.events.some(e =>
         !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
       if ( retained ) {
-        const aoeBehavior = this.region.behaviors.find(b => b.type === "crucible.persistentAOE");
+        const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
         await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
-        await aoeBehavior?.update({disabled: reverse});
+        await actionBehavior?.update({disabled: reverse});
       }
       else await this.region.delete();
     }

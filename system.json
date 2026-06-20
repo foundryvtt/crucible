@@ -263,7 +263,7 @@
       "crucible.hazard": {
         "htmlFields": ["description"]
       },
-      "crucible.persistentAOE": {}
+      "crucible.action": {}
     }
   },
   "grid": {

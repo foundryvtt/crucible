@@ -12,13 +12,13 @@
     {{/if}}
     {{/each}}
     <fieldset>
-        <legend>{{localize "TYPES.RegionBehavior.crucible.persistentAOE"}}</legend>
+        <legend>{{localize "TYPES.RegionBehavior.crucible.action"}}</legend>
         {{formGroup systemFields.actionIdentifier value=source.system.actionIdentifier disabled=isSynthetic}}
         {{formGroup systemFields.actor value=source.system.actor disabled=isSynthetic}}
         {{formGroup systemFields.oncePerRound value=source.system.oncePerRound}}
         <fieldset>
-            <legend>{{localize "REGION_BEHAVIORS.PERSISTENT_AOE.FIELDS.actionToPerform.label"}}</legend>
-            <p class="hint">{{localize "REGION_BEHAVIORS.PERSISTENT_AOE.FIELDS.actionToPerform.hint"}}</p>
+            <legend>{{localize "REGION_BEHAVIORS.ACTION.FIELDS.actionToPerform.label"}}</legend>
+            <p class="hint">{{localize "REGION_BEHAVIORS.ACTION.FIELDS.actionToPerform.hint"}}</p>
             <header class="sheet-header flexrow">
                 <img class="profile" src="{{source.system.actionToPerform.img}}" alt="{{source.system.actionToPerform.name}}"
                     data-action="editImage" data-edit="system.actionToPerform.img">
@@ -31,7 +31,7 @@
             {{formGroup systemFields.actionToPerform.fields.description value=source.system.actionToPerform.description
                 height=150 label=(localize "ACTION.FIELDS.description.label") hint=(localize "ACTION.FIELDS.description.hint")}}
             {{formGroup systemFields.actionToPerform.fields.tags value=source.system.actionToPerform.tags options=tags
-                label="" hint=(localize "ACTION.FIELDS.tags.hint")}}
+                label=(localize "ACTION.FIELDS.tags.label") hint=(localize "ACTION.FIELDS.tags.hint")}}
             <button type="button" class="frame-brown" data-action="addEffect">
                 <i class="fa-solid fa-plus"></i>
                 <span>{{localize "ACTION.EFFECTS.Add"}}</span>

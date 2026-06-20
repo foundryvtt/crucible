@@ -1,15 +1,15 @@
 /**
  * The Region Behavior configuration application specific to Persistent Area of Effect behaviors.
  */
-export default class CruciblePersistentAOEConfig extends foundry.applications.sheets.RegionBehaviorConfig {
+export default class CrucibleActionBehaviorConfig extends foundry.applications.sheets.RegionBehaviorConfig {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     actions: {
-      addEffect: CruciblePersistentAOEConfig.#onAddEffect,
-      deleteEffect: CruciblePersistentAOEConfig.#onDeleteEffect
+      addEffect: CrucibleActionBehaviorConfig.#onAddEffect,
+      deleteEffect: CrucibleActionBehaviorConfig.#onDeleteEffect
     },
-    classes: ["crucible", "persistent-aoe"],
+    classes: ["crucible", "action-behavior"],
     form: {
       submitOnChange: true,
       closeOnSubmit: false
@@ -25,8 +25,8 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
   /** @override */
   static PARTS = {
     form: {
-      template: "systems/crucible/templates/sheets/region-behavior/persistent-aoe-config.hbs",
-      templates: [CruciblePersistentAOEConfig.ACTIVE_EFFECT_PARTIAL],
+      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-config.hbs",
+      templates: [CrucibleActionBehaviorConfig.ACTIVE_EFFECT_PARTIAL],
       scrollable: [""]
     }
   };
@@ -123,7 +123,7 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
 
   /**
    * Add an effect to this behavior's Action.
-   * @this {CruciblePersistentAOEConfig}
+   * @this {CrucibleActionBehaviorConfig}
    * @param {PointerEvent} _event
    * @param {HTMLElement} _target
    * @returns {Promise<void>}
@@ -149,7 +149,7 @@ export default class CruciblePersistentAOEConfig extends foundry.applications.sh
 
   /**
    * Delete a status effect from this behavior's Action.
-   * @this {CruciblePersistentAOEConfig}
+   * @this {CrucibleActionBehaviorConfig}
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
    * @returns {Promise<void>}

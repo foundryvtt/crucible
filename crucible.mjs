@@ -193,11 +193,11 @@ Hooks.once("init", async function() {
   // Region Behavior document configuration
   Object.assign(CONFIG.RegionBehavior.dataModels, {
     "crucible.hazard": models.CrucibleHazardRegionBehavior,
-    "crucible.persistentAOE": models.CruciblePersistentAOERegionBehavior
+    "crucible.action": models.CrucibleActionRegionBehavior
   });
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
     "crucible.hazard": "fa-solid fa-triangle-exclamation",
-    "crucible.persistentAOE": "fa-solid fa-burst"
+    "crucible.action": "fa-solid fa-burst"
   });
 
   // Configure dynamic constants
@@ -256,11 +256,11 @@ Hooks.once("init", async function() {
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
   sheets.unregisterSheet(RegionBehavior, "core", foundry.applications.sheets.RegionBehaviorConfig, {
-    types: ["crucible.persistentAOE"]
+    types: ["crucible.action"]
   });
-  sheets.registerSheet(RegionBehavior, "crucible", applications.CruciblePersistentAOEConfig, {
-    types: ["crucible.persistentAOE"],
-    label: "CRUCIBLE.SHEETS.PersistentAOE"
+  sheets.registerSheet(RegionBehavior, "crucible", applications.CrucibleActionBehaviorConfig, {
+    types: ["crucible.action"],
+    label: "CRUCIBLE.SHEETS.Action"
   });
 
   // Core Application Overrides
@@ -906,7 +906,7 @@ async function packageCompendium(documentName, packName, folder) {
  * @returns {string}          A standardized camel-case ID
  */
 function generateId(title, length) {
-  const id = title.split(" ").map((w, i) => {
+  const id = title.split(" ").flatMap(w => w.split(".")).map((w, i) => {
     const p = w.slugify({replacement: "", lowercase: false, strict: true});
     return i ? p.titleCase() : (p.charAt(0).toLowerCase() + p.slice(1));
   }).join("");

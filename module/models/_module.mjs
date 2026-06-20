@@ -40,7 +40,7 @@ export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
 
 // Region Behavior
 export {default as CrucibleHazardRegionBehavior} from "./behavior-hazard.mjs";
-export {default as CruciblePersistentAOERegionBehavior} from "./behavior-aoe.mjs";
+export {default as CrucibleActionRegionBehavior} from "./behavior-action.mjs";
 
 // Spellcraft
 export {default as CrucibleSpellcraftRune} from "./spellcraft-rune.mjs";
