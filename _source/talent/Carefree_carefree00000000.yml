@@ -7,7 +7,7 @@ system:
     <p>You are able to compartmentalize and brush off setbacks, providing a
     remarkable ability to recover from damage to your Morale.</p>
 
-    <p>Your <strong>Madness Threshold</strong> is reduced by 1, making you
+    <p>Your <strong>Rallying Threshold</strong> is reduced by 1, making you
     easier to heal.</p>
   actions: []
   nodes:

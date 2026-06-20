@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
-        <strong>Medicine Check</strong> against the target's Wounds Threshold.
+        <strong>Medicine Check</strong> against the target's Healing Threshold.
         Your ally's Health is increased by the amount of the Roll in excess of
         the threshold.</p>
       tags:

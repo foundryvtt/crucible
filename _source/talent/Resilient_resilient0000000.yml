@@ -7,7 +7,7 @@ system:
     <p>Your body responds eagerly to healing, demonstrating a remarkable ability
     to recover from wounds.</p>
 
-    <p>Your <strong>Wounds Threshold</strong> is reduced by 1, making you easier
+    <p>Your <strong>Healing Threshold</strong> is reduced by 1, making you easier
     to heal.</p>
   actions: []
   nodes:
