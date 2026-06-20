@@ -7964,7 +7964,7 @@ actors:
       modifiedTime: null
       lastModifiedBy: null
       compendiumSource: null
-      duplicateSource: Actor.CTpEm0WlmFAAosBD
+      duplicateSource: null
       exportSource: null
     ownership:
       default: 0
@@ -20382,66 +20382,6 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Penetrating Throw
-        type: talent
-        img: icons/skills/ranged/shuriken-thrown-yellow.webp
-        system:
-          nodes:
-            - str3b
-          description: >-
-            <p>You can hurl your weapon with such ferocity that it strikes all
-            targets in a direct line.</p>
-          actions:
-            - id: penetratingThrow
-              name: Penetrating Throw
-              img: icons/skills/ranged/shuriken-thrown-yellow.webp
-              condition: ''
-              description: >-
-                <p>You perform a <strong>Throw</strong> weapon strike which
-                penetrates to hit all enemies in a straight line.</p>
-              cost:
-                action: 1
-                focus: 1
-                heroism: 0
-                weapon: true
-                hands: 0
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              target:
-                type: ray
-                number: 1
-                scope: 4
-                self: false
-              effects: []
-              tags:
-                - thrown
-              summon: null
-          rune: ''
-          gesture: ''
-          inflection: ''
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-        effects: []
-        flags: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
-          duplicateSource: null
-          exportSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-        _id: penetratingThrow
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
       - name: Stiletto
         type: weapon
         img: icons/weapons/daggers/dagger-straight-thin-black.webp
@@ -20563,6 +20503,67 @@ actors:
           modifiedTime: null
           lastModifiedBy: null
         _id: adrenalineSurge0
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Penetrating Throw
+        type: talent
+        img: icons/skills/ranged/shuriken-thrown-yellow.webp
+        system:
+          nodes:
+            - str3b
+          description: >-
+            <p>You can hurl your weapon with such ferocity that it strikes all
+            targets in a direct line.</p>
+          actions:
+            - id: penetratingThrow
+              name: Penetrating Throw
+              img: icons/skills/ranged/shuriken-thrown-yellow.webp
+              condition: ''
+              description: >-
+                <p>You perform a @Rule[action.thrown] weapon strike which
+                penetrates to hit all enemies in a straight line.</p>
+              cost:
+                action: 1
+                focus: 1
+                heroism: 0
+                weapon: true
+                hands: 0
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              target:
+                type: ray
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              tags:
+                - melee
+                - thrown
+              summon: null
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: penetratingThrow
         folder: null
         sort: 0
         ownership:
@@ -31081,7 +31082,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.364'
-  modifiedTime: 1781990217998
+  modifiedTime: 1781991026111
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

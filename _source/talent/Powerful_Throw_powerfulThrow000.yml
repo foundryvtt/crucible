@@ -5,8 +5,8 @@ system:
   nodes:
     - str3b
   description: >-
-    <p>The maximum range of actions with the <strong>Throw</strong> tag or
-    actions from <strong>Bomb</strong> consumables are doubled</p>
+    <p>The maximum range of actions with the @Rule[action.thrown] tag or actions
+    from <strong>Bomb</strong> consumables are doubled</p>
   actions: []
   rune: ''
   gesture: ''
@@ -25,12 +25,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1749329319147
-  modifiedTime: 1773514792603
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1781990827898
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: powerfulThrow000
 sort: 400000
 _key: '!items!powerfulThrow000'

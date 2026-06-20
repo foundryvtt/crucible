@@ -1449,8 +1449,8 @@ items:
           img: icons/skills/ranged/shuriken-thrown-yellow.webp
           condition: ''
           description: >-
-            <p>You perform a <strong>Throw</strong> weapon strike which
-            penetrates to hit all enemies in a straight line.</p>
+            <p>You perform a @Rule[action.thrown] weapon strike which penetrates
+            to hit all enemies in a straight line.</p>
           cost:
             action: 1
             focus: 1

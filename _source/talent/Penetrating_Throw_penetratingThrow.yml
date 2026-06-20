@@ -13,8 +13,8 @@ system:
       img: icons/skills/ranged/shuriken-thrown-yellow.webp
       condition: ''
       description: >-
-        <p>You perform a <strong>Throw</strong> weapon strike which penetrates
-        to hit all enemies in a straight line.</p>
+        <p>You perform a @Rule[action.thrown] weapon strike which penetrates to
+        hit all enemies in a straight line.</p>
       cost:
         action: 1
         focus: 1
@@ -32,10 +32,9 @@ system:
         self: false
       effects: []
       tags:
+        - melee
         - thrown
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -53,12 +52,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160140
-  modifiedTime: 1773514792600
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781990887072
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: penetratingThrow
 sort: 200000
 _key: '!items!penetratingThrow'
