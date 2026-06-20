@@ -6,8 +6,8 @@ system:
     <p>The chaotic force of raw electrical energy. The Storm rune governs
     sources of electrical charge and discharge.</p><p>The Storm rune scales
     using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-    <strong>Electrical</strong> damage to <strong>Health</strong>. It is opposed
-    by the orderly rune of <strong>Earth</strong>.</p>
+    <strong>Electricity</strong> damage to <strong>Health</strong>. It is
+    opposed by the orderly rune of <strong>Earth</strong>.</p>
   actions:
     - id: energize
       name: Energize
