@@ -861,7 +861,7 @@ items:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
         yourself and others.</p><p>Once per Turn while you have a Shield
-        equipped, you may use the <strong>Defend</strong> action at a reduced
+        equipped, you may use the @Action[default defend] action at a reduced
         cost of 1 Action Point.</p>
       actions: []
       iconicSpells: 0
