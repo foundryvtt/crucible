@@ -812,7 +812,7 @@ pages:
         against the Flanked creature.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,
-        allowing you to perform a <strong>Reactive Strike</strong>, a weapon
+        allowing you to perform a @Action[default reactiveStrike], a weapon
         attack as a Reaction. You may not make a Reactive Strike if you are
         @Condition[unaware] or @Condition[flanked] by other remaining
         opponents.</p><section class="gameplay"><p>The Goblins in our previous
@@ -834,11 +834,11 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1780583682384
+      modifiedTime: 1781993300418
       lastModifiedBy: fzBjA63BB4hW4rQb
       exportSource: null
     category: null
