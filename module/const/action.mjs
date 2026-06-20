@@ -694,7 +694,7 @@ export const TAGS = {
         const target = (canvas.ready && this.token?.object && game.user.targets.size)
           ? game.user.targets.values().next().value : null;
         this.usage.weapon = locked ?? choices.reduce((best, c) => {
-          let rank = this._getWeaponAvailability(c.item, {target});
+          let {rank} = this._getWeaponAvailability(c.item, {target});
           if ( c.item.system.properties.has("natural") ) rank -= 0.5; // Prefer equipped > natural at same rank
           return (!best || (rank > best.rank)) ? {item: c.item, rank} : best;
         }, null)?.item;

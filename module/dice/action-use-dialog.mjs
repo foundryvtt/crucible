@@ -752,6 +752,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _onClose(options) {
     this.#clearMovementPlan();
     this.#clearRegionPreview();
+    this.action.usage.weaponChoice = null;
     super._onClose(options);
   }
 }
