@@ -26,8 +26,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const fields = foundry.data.fields;
     const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
     return {
-      actionIdentifier: new fields.StringField({initial: null, required: true, nullable: true}),
-      actionToPerform: new fields.SchemaField({
+      action: new fields.SchemaField({
         id, name, img, description, effects, tags
       }, {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
@@ -43,7 +42,10 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]}),
 
       // Whether this should apply to a given actor only once per round, or any number of times
-      oncePerRound: new fields.BooleanField({initial: true, required: true, nullable: false})
+      oncePerRound: new fields.BooleanField({initial: true, required: true, nullable: false}),
+
+      // The effect tracking the existence of the parent region (or null, if not action-created)
+      origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
     };
   }
 
@@ -52,16 +54,15 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   /** @override */
   async _handleRegionEvent(event) {
     const sourceActor = await fromUuid(this.actor);
-    if ( !game.user.isActiveGM || !sourceActor || !this.actionToPerform ) return;
+    if ( !game.user.isActiveGM || !sourceActor || !this.action ) return;
     const {token} = event.data;
     const actor = token.actor;
 
     // Skip invalid targets
     const actionContext = {actor: sourceActor, region: this.parent.parent};
-    if ( this.actionIdentifier?.length ) {
-      const originAction = this.actionIdentifier.startsWith("spell.")
-        ? crucible.api.models.CrucibleSpellAction.fromId(this.actionIdentifier, actionContext)
-        : sourceActor.actions[this.actionIdentifier]?.clone({}, actionContext);
+    const originEffect = await fromUuid(this.origin);
+    if ( originEffect ) {
+      const originAction = originEffect?.system.getOriginAction({actionContext});
       const validTargets = new Set(originAction?.acquireTargets().keys() ?? []);
       if ( !validTargets.has(actor) ) return;
     }
@@ -70,7 +71,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;
 
     // Perform action
-    const action = new crucible.api.models.CrucibleAction(this.actionToPerform, {
+    const action = new crucible.api.models.CrucibleAction(this.action, {
       actor: sourceActor,
       usage: {forcedTargets: [actor]}
     });

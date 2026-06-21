@@ -74,7 +74,7 @@ HOOKS.aura = {
     } else {
       tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
     }
-    this.regionBehavior.system.actionToPerform.tags = tags;
+    this.regionBehavior.system.action.tags = tags;
   }
 };
 

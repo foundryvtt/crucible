@@ -620,7 +620,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
       delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
 
-      // Must manually set label, as these'll exist both under effects and regionBehavior.system.actionToPerform.effects
+      // Must manually set label, as these'll exist both under effects and regionBehavior.system.action.effects
       const labelPrefix = "ACTION.FIELDS.effects.element";
       return new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: "", label: _loc(`${labelPrefix}.name.label`)}),
@@ -667,7 +667,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       regionBehavior: new fields.SchemaField({
         name: new fields.StringField(),
         system: new fields.SchemaField({
-          actionToPerform: new fields.SchemaField({
+          action: new fields.SchemaField({
             id: new fields.StringField({required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")}),
             name: new fields.StringField(),
             img: new fields.FilePathField({categories: ["IMAGE"]}),
@@ -1450,7 +1450,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
             disabled: true,
             type: "crucible.action",
             system: {
-              actionIdentifier: this.id,
               actor: this.actor.uuid
             }
           };
@@ -2356,7 +2355,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const defaultBehavior = {
         name: this.name,
         system: {
-          actionToPerform: {
+          action: {
             id: crucible.api.methods.generateId(`${this.id}Region`),
             name: this.name,
             img: this.img,
@@ -2588,26 +2587,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // On confirmation a placed region persists only while an active effect retains a reference to it; otherwise the
-    // region was ephemeral to this action and is deleted now.
+    // On confirmation a placed region persists only while an active effect retains a reference to it; ensure that in
+    // such cases that a region should persist, there is an active effect tracking its existence.
+    let regionRetainingEvent;
     if ( this.region ) {
+      regionRetainingEvent = this.events.find(e =>
+        !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid))
+      );
+
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
-      if ( this.hasPersistentRegion ) {
-        const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects[0];
-        if ( regionEffect ) {
-          regionEffect.system.regions ??= [];
-          regionEffect.system.regions.push(this.region.uuid);
+      if ( this.hasPersistentRegion && !regionRetainingEvent ) {
+        regionRetainingEvent = this.selfEvents.all.find(e => e.effects.length);
+        if ( regionRetainingEvent ) {
+          regionRetainingEvent.effects[0].system.regions ??= [];
+          regionRetainingEvent.effects[0].system.regions.push(this.region.uuid);
         }
       }
-      // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
-      const retained = this.events.some(e =>
-        !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
-      if ( retained ) {
-        const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
-        await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
-        await actionBehavior?.update({disabled: reverse});
-      }
-      else await this.region.delete();
     }
 
     // Per-target confirmation hooks; awaited in turn so async hooks (e.g. spell interrupts) resolve before events apply
@@ -2617,6 +2612,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Apply action events
     await this.#applyEvents({reverse});
+
+    // A persistent region with an associated active effect should be enabled, while a region ephemeral to this action
+    // is deleted now. (Takes place after creation of event-borne effects so that the origin of any "action behavior"
+    // points to a live active effect).
+    if ( this.region && !reverse ) {
+      // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
+      if ( regionRetainingEvent ) {
+        const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
+        await this.region.update({visibility: CONST.REGION_VISIBILITY.ALWAYS});
+        const effect = regionRetainingEvent.effects.find(e => e.system?.regions?.includes(this.region.uuid));
+        await actionBehavior?.update({
+          disabled: false,
+          system: {
+            origin: foundry.utils.buildUuid({
+              id: effect._id,
+              documentName: "ActiveEffect",
+              parent: regionRetainingEvent.target
+            })
+          }
+        });
+      }
+      else await this.region.delete();
+    }
 
     // Record heroism
     try {
@@ -2699,7 +2717,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
-      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
+      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse, originAction: this});
     }
   }
 

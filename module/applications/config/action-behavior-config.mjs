@@ -92,9 +92,9 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
    * @returns {object[]}
    */
   #prepareEffects() {
-    const effects = this.document.system.toObject().actionToPerform.effects;
+    const effects = this.document.system.toObject().action.effects;
     for ( const [i, effect] of effects.entries() ) {
-      effect.fieldPath = `system.actionToPerform.effects.${i}`;
+      effect.fieldPath = `system.action.effects.${i}`;
     }
     return effects;
   }
@@ -111,7 +111,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
       if ( t.internal ) continue;
       const cat = SYSTEM.ACTION.TAG_CATEGORIES[t.category];
       const group = cat?.label;
-      const selected = this.document.system.actionToPerform.tags.has(t.tag);
+      const selected = this.document.system.action.tags.has(t.tag);
       tags.push({value: t.tag, label: t.label, group, selected});
     }
     return tags;
@@ -129,7 +129,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
    * @returns {Promise<void>}
    */
   static async #onAddEffect(_event, _target) {
-    const effects = this.document.system.toObject().actionToPerform.effects;
+    const effects = this.document.system.toObject().action.effects;
     effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       duration: {
@@ -138,9 +138,9 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
         expiry: "turnEnd"
       }
     });
-    this.document.updateSource({"system.actionToPerform.effects": effects});
+    this.document.updateSource({"system.action.effects": effects});
     await this.render();
-    this.document.updateSource({"system.actionToPerform.effects": effects.slice(0, -1)});
+    this.document.updateSource({"system.action.effects": effects.slice(0, -1)});
     const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
   }
@@ -168,7 +168,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
   /** @override */
   _processFormData(event, form, formData) {
     const data = foundry.utils.expandObject(formData.object);
-    data.system.actionToPerform.effects = Object.values(data.system.actionToPerform.effects || {});
+    data.system.action.effects = Object.values(data.system.action.effects || {});
     return data;
   }
 
@@ -182,10 +182,10 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
     let action;
     if ( this.document.system.actor ) {
       const actor = await fromUuid(this.document.system.actor);
-      action = actor?.actions[this.document.system.actionIdentifier];
-    } else if ( this.document.getFlag("crucible", "itemUuid") ) {
-      const item = await fromUuid(this.document.flags.crucible.itemUuid);
-      action = item?.system.actions.find(a => a.id === this.document.system.actionIdentifier);
+      action = actor?.actions[this.document.getFlag("crucible", "actionId")];
+    } else {
+      const item = await fromUuid(this.document.getFlag("crucible", "itemUuid"));
+      action = item?.system.actions.find(a => a.id === this.document.getFlag("crucible", "actionId"));
     }
     if ( !action?.item ) return;
     const itemActions = action.item.system.toObject().actions;

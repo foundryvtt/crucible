@@ -263,7 +263,9 @@
       "crucible.hazard": {
         "htmlFields": ["description"]
       },
-      "crucible.action": {}
+      "crucible.action": {
+        "htmlFields": ["action.description"]
+      }
     }
   },
   "grid": {

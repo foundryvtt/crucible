@@ -906,7 +906,7 @@ async function packageCompendium(documentName, packName, folder) {
  * @returns {string}          A standardized camel-case ID
  */
 function generateId(title, length) {
-  const id = title.split(" ").flatMap(w => w.split(".")).map((w, i) => {
+  const id = title.split(" ").map((w, i) => {
     const p = w.slugify({replacement: "", lowercase: false, strict: true});
     return i ? p.titleCase() : (p.charAt(0).toLowerCase() + p.slice(1));
   }).join("");

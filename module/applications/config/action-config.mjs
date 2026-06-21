@@ -335,7 +335,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     const behaviorData = foundry.utils.deepClone(this.action.regionBehavior) ?? {
       name: this.action.name,
       system: {
-        actionToPerform: {
+        action: {
           id: `${this.action.id}Region`,
           name: this.action.name,
           img: this.action.img,
@@ -345,13 +345,17 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         }
       }
     };
-    Object.assign(behaviorData, {
+    foundry.utils.mergeObject(behaviorData, {
       type: "crucible.action",
-      "flags.crucible.itemUuid": this.document.uuid
-    });
-    Object.assign(behaviorData.system, {
-      actionIdentifier: this.action.id,
-      actor: this.action.actor?.uuid
+      flags: {
+        crucible: {
+          itemUuid: this.document.uuid,
+          actionId: this.action.id
+        }
+      },
+      system: {
+        actor: this.action.actor?.uuid
+      }
     });
     const tempBehavior = new RegionBehavior.implementation(behaviorData);
     tempBehavior.sheet.render(true);

@@ -1922,11 +1922,7 @@
     },
     "ACTION": {
       "FIELDS": {
-        "actionIdentifier": {
-          "hint": "The ID of the action responsible for the creation of this behavior. If provided, will determine which tokens should actually trigger an Action.",
-          "label": "Origin Action ID"
-        },
-        "actionToPerform": {
+        "action": {
           "hint": "The action to potentially perform on any token who triggers an event on this behavior.",
           "label": "Triggered Action"
         },
@@ -1937,6 +1933,10 @@
         "oncePerRound": {
           "hint": "This effect should only apply to targets once per round.",
           "label": "Once per Round"
+        },
+        "origin": {
+          "hint": "The effect responsible for tracking the existence of this behavior. If present determines which tokens should actually trigger an Action based on the originating action's targeting.",
+          "label": "Origin"
         }
       }
     }
