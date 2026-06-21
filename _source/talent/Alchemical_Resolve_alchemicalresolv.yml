@@ -11,7 +11,7 @@ system:
       description: >-
         <p>You rapidly bolster the Morale of an ally within 4 feet by applying
         vapours. Perform a <strong>Medicine</strong> check against the target's
-        <strong>Madness Threshold</strong>. Successful checks restore
+        <strong>Rallying Threshold</strong>. Successful checks restore
         <strong>Morale</strong>.</p>
       tags:
         - rallying

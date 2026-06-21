@@ -8,7 +8,8 @@ system:
     <p>You have fluency in weaving spellcraft using the Rune of Control. You
     gain a <strong>+1 Skill Bonus</strong> for spells cast using this
     Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the <strong>Motivate </strong>action,
+    eventually also provide an upgrade to the
+    @Action[Compendium.crucible.talent.Item.runeControl00000 motivate] action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
   rune: ''
@@ -28,12 +29,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1763163877936
-  modifiedTime: 1773514792549
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1781971062882
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: controlProficien
 sort: 800000
 _key: '!items!controlProficien'

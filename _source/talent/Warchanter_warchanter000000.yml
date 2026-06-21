@@ -221,8 +221,8 @@ system:
       description: >-
         <p>You drone a dragging requiem to the <strong>Glutton</strong>, too
         bloated and idle to stir. Enemy creatures within <strong>15
-        feet</strong> gain lose <strong>Free</strong> <strong>Movement</strong>
-        and reduce their <strong>Stride</strong> by 2.</p>
+        feet</strong> lose <strong>Free Movement</strong> and reduce their
+        <strong>Stride</strong> by 2.</p>
       tags:
         - vocal
       cost:

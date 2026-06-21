@@ -13,7 +13,8 @@ system:
     has a base cost of <strong>4 Action</strong> and <strong>1
     Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all Runes
     have a Sprite actor defined yet. Runes that do not yet have a defined
-    Creation will — for now — manifest a <strong>Flame Sprite</strong>.</p>
+    Creation will — for now — manifest
+    a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
   actions: []
   gesture: create
   nodes:
@@ -29,11 +30,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792580
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781974541170
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturecreate000
   duplicateSource: null
   exportSource: null

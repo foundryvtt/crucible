@@ -5,8 +5,8 @@ img: icons/magic/air/wind-stream-blue-gray.webp
 system:
   description: >-
     <p>You understand how to move away from an opponent without exposing
-    yourself to the worst attacks in return. Any <strong>Reactive
-    Strike</strong> against you is performed with <strong>+1 Bane</strong>.</p>
+    yourself to the worst attacks in return. Any @Action[default reactiveStrike]
+    against you is performed with <strong>+1 Bane</strong>.</p>
   actions: []
   nodes:
     - intdex2
@@ -26,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160150
-  modifiedTime: 1780501015695
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1781993430935
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

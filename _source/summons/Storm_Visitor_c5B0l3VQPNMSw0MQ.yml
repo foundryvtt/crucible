@@ -280,8 +280,8 @@ items:
         the orderly rune of Earth.</p>
 
         <p>The Storm rune scales using <strong>Intellect</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
-        <strong>Health</strong>.</p>
+        <strong>Reflex</strong>, and deals <strong>Electricity</strong> damage
+        to <strong>Health</strong>.</p>
       actions: []
       rune: storm
       nodes:

@@ -812,7 +812,7 @@ pages:
         against the Flanked creature.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,
-        allowing you to perform a <strong>Reactive Strike</strong>, a weapon
+        allowing you to perform a @Action[default reactiveStrike], a weapon
         attack as a Reaction. You may not make a Reactive Strike if you are
         @Condition[unaware] or @Condition[flanked] by other remaining
         opponents.</p><section class="gameplay"><p>The Goblins in our previous
@@ -820,8 +820,8 @@ pages:
         disengage in search of more vulnerable prey. Two of the four goblins may
         move away from Krag without reciprocity, because Krag is otherwise
         <strong>Fully Engaged</strong> and therefore cannot retaliate. When the
-        third goblin moves away, however, Krag performs a <strong>Reactive
-        Strike</strong>, burying his battle axe in the back of the retreating
+        third goblin moves away, however, Krag performs a @Action[default
+        reactiveStrike], burying his battle axe in the back of the retreating
         evildoer!</p></section>
     video:
       controls: true
@@ -834,11 +834,11 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.363'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1780583682384
+      modifiedTime: 1781993712288
       lastModifiedBy: fzBjA63BB4hW4rQb
       exportSource: null
     category: null
@@ -909,34 +909,34 @@ pages:
         resource that allows combatants to perform legendary or iconic feats of
         power or resilience.</p><p>Heroism is accumulated by any Action which
         applies healing, damage, or effects to some other character. Actions
-        which only target yourself, like <strong>Move</strong> or
-        <strong>Defend</strong> do not contribute towards Heroism. The actions
-        of both allies and adversaries count towards Heroism accumulation. The
-        amount of Heroism accumulated by each Action is equal to its<strong>
-        Action</strong> cost.</p><section class="foundryvtt"><p>The progress of
-        Heroism accumulation is visualized at the top of the Combat Tracker. A
-        customizable game setting exists to configure whether this progress bar
-        is visible to all players or only to Gamemasters. If you are new to the
-        Crucible system, we encourage you to allow this progress bar to be
-        visible to everyone, but once you are used to the rules of the system
-        concealing it from players can help reduce metagaming that may occur
-        from players trying to precisely anticipate the award of their next
-        Heroism point.</p></section><p>The number of <strong>Action
-        Points</strong> that need to be spent in order to yield a
+        which only target yourself, like @Action[default move]<strong>
+        </strong>or @Action[default defend] do not contribute towards Heroism.
+        The actions of both allies and adversaries count towards Heroism
+        accumulation. The amount of Heroism accumulated by each Action is equal
+        to its<strong> Action</strong> cost.</p><section
+        class="foundryvtt"><p>The progress of Heroism accumulation is visualized
+        at the top of the Combat Tracker. A customizable game setting exists to
+        configure whether this progress bar is visible to all players or only to
+        Gamemasters. If you are new to the Crucible system, we encourage you to
+        allow this progress bar to be visible to everyone, but once you are used
+        to the rules of the system concealing it from players can help reduce
+        metagaming that may occur from players trying to precisely anticipate
+        the award of their next Heroism point.</p></section><p>The number of
+        <strong>Action Points</strong> that need to be spent in order to yield a
         <strong>Heroism Point</strong> depends on the number of Hero characters
         in the Combat encounter:</p><section class="formula"><p
         class="value">Action per Heroism</p><p class="equals">=</p><p
         class="equation">Number of Heroes × 12</p></section><section
         class="gameplay"><h4>Example: Ray of Life</h4><p>Suppose Kagura, a
-        powerful Healer, casts a spell <strong>Composed Ray of Life</strong>
-        which heals two of her allies and costs <strong>5 Action</strong> to
-        cast. Since this spell heals other characters, this action contributes 5
-        Action towards Heroism accumulation. If this accumulation were enough to
-        fill the Heroism meter, then Kagura and each of her allies would
-        immediately gain <strong>+1 Heroism</strong>.</p><p>With her remaining
-        Action for the turn, Kagura uses <strong>Defend</strong> which
-        costs<strong> 1 Action</strong>. Since this Action only affects herself,
-        it does not contribute towards Heroism accumulation.</p></section>
+        powerful Healer, casts a spell @Spell[life.ray.compose] which heals two
+        of her allies and costs <strong>5 Action</strong> to cast. Since this
+        spell heals other characters, this action contributes 5 Action towards
+        Heroism accumulation. If this accumulation were enough to fill the
+        Heroism meter, then Kagura and each of her allies would immediately gain
+        <strong>+1 Heroism</strong>.</p><p>With her remaining Action for the
+        turn, Kagura uses @Action[default defend] which costs<strong> 1
+        Action</strong>. Since this Action only affects herself, it does not
+        contribute towards Heroism accumulation.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -950,12 +950,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '14.364'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1749693502753
-      modifiedTime: 1753540966957
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1781973085207
+      lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.4rapfbyanVHveRme'
   - sort: 900000
     name: Balance and Difficulty

@@ -4642,7 +4642,7 @@ actors:
           description: >-
             <p>You have expertise in using a <strong>Shield</strong> to defend
             yourself and others.</p><p>Once per Turn while you have a Shield
-            equipped, you may use the <strong>Defend</strong> action at a
+            equipped, you may use the @Action[default defend] action at a
             reduced cost of 1 Action Point.</p>
           nodes:
             - tou0a
@@ -7798,8 +7798,9 @@ actors:
             - id: devourThoughts
               description: >-
                 <p>Lash onto a single enemy with multiple tendrils, dealing
-                Weakened Psychic damage and inflicting the Stunned condition on
-                a success.</p>
+                @Rule[action.weakened] <strong>Psychic</strong> damage and
+                inflicting the @Rule[condition.stunned] condition on a
+                success.</p>
               tags:
                 - melee
                 - natural
@@ -7827,17 +7828,17 @@ actors:
                     - stunned
                   duration:
                     value: 1
-                    units: turns
+                    units: ''
                     expiry: null
                     expired: false
                   system:
-                    dot: []
-                    maintenance: null
-                    regions: []
-                    summons: []
                     changes: []
                     dc: null
+                    dot: []
+                    maintenance: null
                     properties: []
+                    regions: []
+                    summons: []
               name: Devour Thoughts
               img: icons/creatures/magical/spirit-fear-energy-pink.webp
               condition: ''
@@ -12717,7 +12718,7 @@ actors:
           description: >-
             <p>You have expertise in using a <strong>Shield</strong> to defend
             yourself and others.</p><p>Once per Turn while you have a Shield
-            equipped, you may use the <strong>Defend</strong> action at a
+            equipped, you may use the @Action[default defend] action at a
             reduced cost of 1 Action Point.</p>
           nodes:
             - tou0a
@@ -15215,8 +15216,8 @@ actors:
         system:
           description: >-
             <p>You understand how to move away from an opponent without exposing
-            yourself to the worst attacks in return. Any <strong>Reactive
-            Strike</strong> against you is performed with <strong>+1
+            yourself to the worst attacks in return. Any @Action[default
+            reactiveStrike] against you is performed with <strong>+1
             Bane</strong>.</p>
           actions: []
           nodes:
@@ -20381,66 +20382,6 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Penetrating Throw
-        type: talent
-        img: icons/skills/ranged/shuriken-thrown-yellow.webp
-        system:
-          nodes:
-            - str3b
-          description: >-
-            <p>You can hurl your weapon with such ferocity that it strikes all
-            targets in a direct line.</p>
-          actions:
-            - id: penetratingThrow
-              name: Penetrating Throw
-              img: icons/skills/ranged/shuriken-thrown-yellow.webp
-              condition: ''
-              description: >-
-                <p>You perform a <strong>Throw</strong> weapon strike which
-                penetrates to hit all enemies in a straight line.</p>
-              cost:
-                action: 1
-                focus: 1
-                heroism: 0
-                weapon: true
-                hands: 0
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              target:
-                type: ray
-                number: 1
-                scope: 4
-                self: false
-              effects: []
-              tags:
-                - thrown
-              summon: null
-          rune: ''
-          gesture: ''
-          inflection: ''
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-        effects: []
-        flags: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
-          duplicateSource: null
-          exportSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-        _id: penetratingThrow
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
       - name: Stiletto
         type: weapon
         img: icons/weapons/daggers/dagger-straight-thin-black.webp
@@ -20562,6 +20503,67 @@ actors:
           modifiedTime: null
           lastModifiedBy: null
         _id: adrenalineSurge0
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Penetrating Throw
+        type: talent
+        img: icons/skills/ranged/shuriken-thrown-yellow.webp
+        system:
+          nodes:
+            - str3b
+          description: >-
+            <p>You can hurl your weapon with such ferocity that it strikes all
+            targets in a direct line.</p>
+          actions:
+            - id: penetratingThrow
+              name: Penetrating Throw
+              img: icons/skills/ranged/shuriken-thrown-yellow.webp
+              condition: ''
+              description: >-
+                <p>You perform a @Rule[action.thrown] weapon strike which
+                penetrates to hit all enemies in a straight line.</p>
+              cost:
+                action: 1
+                focus: 1
+                heroism: 0
+                weapon: true
+                hands: 0
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              target:
+                type: ray
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              tags:
+                - melee
+                - thrown
+              summon: null
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.0
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: penetratingThrow
         folder: null
         sort: 0
         ownership:
@@ -24393,7 +24395,7 @@ actors:
           description: >-
             <p>You have expertise in using a <strong>Shield</strong> to defend
             yourself and others.</p><p>Once per Turn while you have a Shield
-            equipped, you may use the <strong>Defend</strong> action at a
+            equipped, you may use the @Action[default defend] action at a
             reduced cost of 1 Action Point.</p>
           nodes:
             - tou0a
@@ -31080,8 +31082,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.364'
-  modifiedTime: 1781451933240
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1781991026111
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

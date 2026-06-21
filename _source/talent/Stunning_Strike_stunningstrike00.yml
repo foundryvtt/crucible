@@ -14,10 +14,12 @@ system:
     - id: stunningStrike
       condition: ''
       description: >-
-        <p>You <strong>Strike</strong> a vital pressure point, inflicting
-        <strong>Stun</strong> on your enemy for 1 Round if successful.</p>
+        <p>You <strong>Strike</strong> a vital pressure point, inflicting the
+        @Rule[condition.stunned] condition on your enemy for 1 Round if
+        successful.</p>
       tags:
         - unarmed
+        - melee
         - mainhand
         - difficult
         - fortitude
@@ -41,6 +43,7 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
@@ -50,15 +53,15 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Stunning Strike
       img: icons/magic/lightning/fist-unarmed-strike-blue.webp
       range:
         maximum: 1
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - strwis1
   rune: ''
@@ -70,11 +73,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160150
-  modifiedTime: 1779907081391
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1781990371948
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
   exportSource: null
