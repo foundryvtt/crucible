@@ -2589,18 +2589,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // On confirmation a placed region persists only while an active effect retains a reference to it; ensure that in
     // such cases that a region should persist, there is an active effect tracking its existence.
-    let regionRetainingEvent;
     if ( this.region ) {
-      regionRetainingEvent = this.events.find(e =>
+      const retained = this.events.some(e =>
         !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid))
       );
 
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
-      if ( this.hasPersistentRegion && !regionRetainingEvent ) {
-        regionRetainingEvent = this.selfEvents.all.find(e => e.effects.length);
-        if ( regionRetainingEvent ) {
-          regionRetainingEvent.effects[0].system.regions ??= [];
-          regionRetainingEvent.effects[0].system.regions.push(this.region.uuid);
+      if ( this.hasPersistentRegion && !retained ) {
+        const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects?.[0];
+        if ( regionEffect ) {
+          regionEffect.system.regions ??= [];
+          regionEffect.system.regions.push(this.region.uuid);
         }
       }
     }
@@ -2618,18 +2617,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // points to a live active effect).
     if ( this.region && !reverse ) {
       // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
-      if ( regionRetainingEvent ) {
+      const allActors = Array.from(this.targets.keys());
+      if ( !this.targets.has(this.actor) ) allActors.push(this.actor);
+      const retainedEffect = allActors.flatMap(a => [...a.effects]).find(e => e.system?.regions?.has(this.region.uuid));
+      if ( this.hasPersistentRegion && retainedEffect ) {
         const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
         await this.region.update({visibility: CONST.REGION_VISIBILITY.ALWAYS});
-        const effect = regionRetainingEvent.effects.find(e => e.system?.regions?.includes(this.region.uuid));
         await actionBehavior?.update({
           disabled: false,
           system: {
-            origin: foundry.utils.buildUuid({
-              id: effect._id,
-              documentName: "ActiveEffect",
-              parent: regionRetainingEvent.target
-            })
+            origin: retainedEffect?.uuid ?? null
           }
         });
       }
