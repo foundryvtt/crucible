@@ -6,9 +6,10 @@ flags:
   core: {}
 system:
   description: >-
-    Your expertise with martial arts allows you to dodge or deflect blows as
+    <p>Your expertise with martial arts allows you to dodge or deflect blows as
     effectively as a heavily armored fighter. While unarmed or wielding only
-    natural weapons, half your Wisdom score contributes to your Parry defense.
+    natural weapons, half your <strong>Wisdom</strong> score contributes to your
+    <strong>Parry</strong> defense.</p>
   actions: []
   nodes:
     - wis3a
@@ -21,11 +22,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160140
-  modifiedTime: 1773514792600
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782136933643
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

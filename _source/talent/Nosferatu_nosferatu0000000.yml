@@ -5,10 +5,12 @@ img: icons/magic/death/mouth-bite-fangs-vampire.webp
 system:
   description: >-
     <p>You are afflicted with a rare blood mutation which allows your wounds to
-    rapidly heal through hematophagy.</p><p>You can restore your Health by
-    biting a living target. This attack is made with a Superior Natural weapon
-    which scales using Strength and deals Piercing damage.</p><p>Your
-    vulnerability to Radiant damage increases by 10.</p>
+    rapidly heal through hematophagy.</p><p>You can restore your
+    <strong>Health</strong> by biting a living target. This attack is made with
+    a <strong>Superior</strong> <strong>Natural</strong> weapon which scales
+    using <strong>Strength</strong> and deals <strong>Piercing</strong>
+    damage.</p><p>Your vulnerability to <strong>Radiant</strong> damage
+    increases by 10.</p>
   actions:
     - id: vampiricBite
       name: Vampiric Bite
@@ -58,11 +60,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160140
-  modifiedTime: 1779894201478
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782136899416
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null
