@@ -27,10 +27,10 @@ system:
       name: Summon Flame Elemental
       img: icons/commodities/gems/gem-rough-cushion-orange-red.webp
       description: >-
-        <p>The @ref[name] shatters in a burst of flame, leaving in its place a
-        fiery elemental. Elementals summoned by this gem remain for 6 Rounds (1
-        minute).</p><ul><li><p><strong>Shoddy - </strong>No elemental is
-        summoned</p></li><li><p><strong>Standard </strong>-
+        <p>The @ref[item.name] shatters in a burst of flame, leaving in its
+        place a fiery elemental. Elementals summoned by this gem remain for 6
+        Rounds (1 minute).</p><ul><li><p><strong>Shoddy - </strong>No elemental
+        is summoned</p></li><li><p><strong>Standard </strong>-
         Mote</p></li><li><p><strong>Fine</strong> -
         Sprite</p></li><li><p><strong>Superior</strong> -
         Visitor</p></li><li><p><strong>Masterwork -
@@ -52,9 +52,7 @@ system:
         scope: 4
         self: false
         size: 4
-      summon:
-        actorUuid: null
-        permanent: false
+      summon: null
       effects: []
       tags:
         - consume
@@ -76,12 +74,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1776980906656
-  modifiedTime: 1776980906656
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782155983356
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
   duplicateSource: null

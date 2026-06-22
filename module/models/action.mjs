@@ -1004,7 +1004,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     Object.defineProperties(this, {
       actor: {value: actor, writable: false, configurable: true},
       affix: {value: affix, writable: false, configurable: true},
-      item: {value: item ?? this.parent?.parent, writable: false, configurable: true},
+      item: {value: item ?? (affix ? affix.item : this.parent?.parent), writable: false, configurable: true},
       token: {value: token, writable: false, configurable: true},
       region: {value: region, writable: false, configurable: true},
       movement: {value: movement, writable: false, configurable: true},

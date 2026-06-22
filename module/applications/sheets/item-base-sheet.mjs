@@ -272,10 +272,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    */
   async #prepareActionGroups() {
     const editorCls = CONFIG.ux.TextEditor;
-    const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
     const enrichAction = async action => ({
       id: action.id, name: action.name, img: action.img, condition: action.condition,
-      description: await editorCls.enrichHTML(action.description, editorOptions),
+      description: await editorCls.enrichHTML(action.description, {relativeTo: action, secrets: this.document.isOwner}),
       tags: action.getTags(), effects: action.effects
     });
 
@@ -340,7 +339,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    */
   async #prepareAffixes() {
     const editorCls = CONFIG.ux.TextEditor;
-    const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
     const prefixes = [];
     const suffixes = [];
     for ( const affix of Object.values(this.document.system.affixes) ) {
@@ -349,7 +347,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         id: affix.id,
         name: affix.name,
         img: affix.img,
-        description: await editorCls.enrichHTML(affix.description, editorOptions),
+        description: await editorCls.enrichHTML(affix.description, {relativeTo: affix, secrets: this.document.isOwner}),
         tier: tierValue,
         tierRoman: ["", "I", "II", "III"][tierValue] ?? tierValue
       };
