@@ -10,10 +10,11 @@ system:
     - id: formidablePresence
       name: Formidable Presence
       description: >-
-        <p>You make an Intimidation skill attack against the Willpower defense
-        of enemies within 12 feet, dealing Void damage to Morale and causing the
-        Frightened condition for 1 Round to those whose defense you
-        overcome.</p>
+        <p>You make an <strong>Intimidation</strong> skill attack against the
+        <strong>Willpower</strong> defense of enemies within 12 feet, dealing
+        <strong>Void</strong> damage to <strong>Morale</strong> and causing the
+        @Condition[frightened] condition for <strong>1 Round</strong> to those
+        whose defense you overcome.</p>
       tags:
         - willpower
         - void
@@ -41,6 +42,7 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           result:
             type: success
             all: false
@@ -50,15 +52,15 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       img: icons/magic/death/skull-horned-worn-fire-blue.webp
       condition: ''
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.presence
     - sig3.toughness
@@ -77,11 +79,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1773514792571
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782142414821
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.dreadlord0000000
   duplicateSource: null
   exportSource: null

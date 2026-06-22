@@ -4,8 +4,9 @@ _id: gladiator0000000
 img: icons/skills/melee/spear-tips-triple-orange.webp
 system:
   description: >-
-    <p>Once per Round, you can make a Reaction which incorporates a Strike
-    attack without spending any Focus.</p>
+    <p>Once per <strong>Round</strong>, you can make a Reaction which
+    incorporates a <strong>Strike</strong> attack without spending any
+    <strong>Focus</strong>.</p>
   actions: []
   nodes:
     - sig3.dexterity.toughness
@@ -20,11 +21,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792581
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782142906377
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

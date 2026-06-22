@@ -34,7 +34,7 @@ system:
         restoration to yourself or an ally within the grove who currently has
         the lowest <strong>Health</strong>.</p><p><strong>The Guardian</strong>
         remains until <strong>Combat</strong> ends, or until the Warden uses
-        this Action again.</p><p></p>
+        this <strong>Action</strong> again.</p><p></p>
       tags:
         - summon
       cost:
@@ -96,7 +96,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1781203463310
-  modifiedTime: 1782138676574
+  modifiedTime: 1782143735872
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: fOYHlZJEWUukD7yr
 ownership:

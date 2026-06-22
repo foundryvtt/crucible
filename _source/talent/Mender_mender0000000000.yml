@@ -4,10 +4,11 @@ _id: mender0000000000
 img: icons/magic/life/cross-beam-green.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Life. When you cast a Spell
-    or use an action that involves this Rune, your Critical Hits which restore
-    Health cause the @Condition[mending] condition.</p><p>The Mending effect
-    lasts for <strong>1 Round</strong> and deals the ability score your
+    <p>You are highly skilled in weaving the <strong>Rune of Life</strong>. When
+    you cast a Spell or use an action that involves this <strong>Rune</strong>,
+    your <strong>Critical Hits</strong> which restore <strong>Health</strong>
+    cause the @Condition[mending] condition.</p><p>The <strong>Mending</strong>
+    effect lasts for <strong>1 Round</strong> and deals the ability score your
     <strong>Rune of Life</strong> scales with as additional
     <strong>Restoration</strong> to <strong>Health</strong>.</p>
   actions: []
@@ -29,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1773514792596
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782143203504
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null
