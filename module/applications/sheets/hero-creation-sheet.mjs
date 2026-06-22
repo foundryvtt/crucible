@@ -597,7 +597,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
 
       // Ability Step
-      if ( step.id === "abilities" ) {
+      if ( step.id === "background" ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
@@ -1199,22 +1199,17 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 merged this can just be `delete itemData._id`
+      delete itemData._id
       itemData._id = foundry.utils.randomID();
       if ( itemData.system.properties.includes("stackable") ) {
         itemData.system.quantity = quantity;
         creationData.items.push(itemData);
       }
       else {
-        // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 is merged this can just be `.fill(itemData)`
         // NOTE: Each unit must be a deep clone (not a shallow spread) so that per-unit mutations - such as
         // auto-equipping only one of several identical purchased copies - do not leak across sibling units via a
         // shared "system" object reference.
-        const units = Array.from({length: quantity}, () => {
-          const unitData = foundry.utils.deepClone(itemData);
-          unitData._id = foundry.utils.randomID();
-          return unitData;
-        });
+        const units = Array.from({length: quantity}, () => foundry.utils.deepClone(itemData));
         creationData.items.push(...units);
 
         // Each individually equippable unit of a purchased Weapon or Armor is a candidate for auto-equip
@@ -1227,21 +1222,19 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
 
     // Automatically equip the highest-value purchased Weapons and Armor that fit available equipment slots
-    this.constructor._autoEquipPurchasedItems(autoEquipCandidates);
+    this._autoEquipPurchasedItems(autoEquipCandidates);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Automatically equip purchased Weapon and Armor items into available equipment slots, preferring the
-   * highest-value (price) options first. Only one Armor item may be equipped, and Weapons are greedily assigned
-   * to the Mainhand, Offhand, and Twohand slots as their category and remaining slot availability allow.
-   * @param {{itemData: object, sourceItem: CrucibleItem, scaledPrice: number}[]} candidates  Individually
-   *  equippable units of purchased Weapon or Armor items, paired with the source Item document used to determine
-   *  their equipment category and the price used to rank them.
+   * Auto-equips purchased Weapons and Armor, favoring higher-value items.
+   * Armor occupies a single slot; Weapons are assigned to available hand slots
+   * according to their category.
+   * @param {{itemData: object, sourceItem: CrucibleItem, scaledPrice: number}[]} candidates
    * @protected
    */
-  static _autoEquipPurchasedItems(candidates) {
+   _autoEquipPurchasedItems(candidates) {
     const SLOTS = SYSTEM.WEAPON.SLOTS;
     const byHighestValue = (a, b) => (b.scaledPrice - a.scaledPrice) || a.sourceItem.name.localeCompare(b.sourceItem.name);
 
@@ -1268,6 +1261,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         if ( !(mainhandFree && offhandFree) ) continue;
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.TWOHAND;
+        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         mainhandFree = offhandFree = false;
       }
 
@@ -1275,15 +1269,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       else if ( category.main && mainhandFree ) {
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.MAINHAND;
+        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         mainhandFree = false;
       }
       else if ( category.off && offhandFree ) {
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.OFFHAND;
+        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         offhandFree = false;
       }
-      else continue;
-      if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
     }
   }
 
