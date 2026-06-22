@@ -6,8 +6,8 @@ flags:
   core: {}
 system:
   description: >-
-    Your knowledge and skill in Medicine covers the rapid triage, diagnosis, and
-    treatment of wounds.
+    <p>Your knowledge and skill in <strong>Medicine</strong> covers the rapid
+    triage, diagnosis, and treatment of wounds.</p>
   actions:
     - id: combatMedicine
       condition: ''
@@ -54,7 +54,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1782141968935
+  modifiedTime: 1782163886604
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

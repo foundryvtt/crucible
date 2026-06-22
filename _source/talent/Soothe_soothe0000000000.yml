@@ -4,8 +4,8 @@ _id: soothe0000000000
 img: icons/magic/life/heart-cross-strong-blue.webp
 system:
   description: >-
-    You administer a soothing Performance which rallies your allies, restoring
-    Morale.
+    <p>You administer a soothing <strong>Performance</strong> which rallies your
+    allies, restoring <strong>Morale</strong>.</p>
   actions:
     - id: soothe
       description: >-
@@ -55,7 +55,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160148
-  modifiedTime: 1782143673190
+  modifiedTime: 1782163978198
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

@@ -11,8 +11,8 @@ system:
       name: Intimidate
       description: >-
         <p>You physically intimidate an enemy that is within your engagement
-        range, performing an Intimidation skill attack against your target. On a
-        success they sustain <strong>Void</strong> damage to
+        range, performing an <strong>Intimidation</strong> skill attack against
+        your target. On a success they sustain <strong>Void</strong> damage to
         <strong>Morale</strong>.</p>
       tags:
         - void
@@ -59,7 +59,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160137
-  modifiedTime: 1782143086588
+  modifiedTime: 1782163909045
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
