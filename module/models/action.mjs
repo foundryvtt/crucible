@@ -3066,6 +3066,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {{type: "crucible.action", macroData: object}}
    */
   toMacroDragData() {
+    const amendedId = this.item?.type === "consumable" ? `${this.id}.${this.item.id}` : this.id;
     return {
       type: "crucible.action",
       macroData: {
@@ -3073,7 +3074,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         scope: "actor",
         name: this.name,
         img: this.img,
-        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.id}");`
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${amendedId}");`
       }
     };
   }
