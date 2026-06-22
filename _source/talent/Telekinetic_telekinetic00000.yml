@@ -6,8 +6,8 @@ system:
     <p>You wield kinetic force with practiced ease, bending the paths of objects
     and creatures to your will.</p><ul><li><p>Once per turn, when you apply
     @UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection: Push} or
-    @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection: Pull}
-    toH a Spell, you ignore the inflection's <strong>Focus</strong>
+    @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection: Pull} to
+    a <strong>Spell</strong>, you ignore the inflection's <strong>Focus</strong>
     cost.</p></li><li><p>You double the distance at which you can
     <strong>Pull</strong>, <strong>Flick</strong>, or <strong>Suspend</strong>
     using the @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
@@ -88,7 +88,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1781218465590
-  modifiedTime: 1782162935348
+  modifiedTime: 1782171214677
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: telekinetic00000
 sort: 0
