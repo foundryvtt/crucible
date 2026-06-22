@@ -8,9 +8,9 @@ system:
     the basic <strong>Touch</strong> gesture.</p><p>The
     <strong>Influence</strong> gesture scales using <strong>Presence</strong>
     and targets a single adjacent creature. It deals <strong>10 Base
-    Damage</strong> to targets which fail to Resist the spell. This gesture
-    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3
-    Action</strong> and <strong>1 Focus</strong>.</p>
+    Damage</strong> to targets which fail to <strong>Resist</strong> the spell.
+    This gesture requires <strong>1 Hand</strong> to cast and has a base cost of
+    <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: influence
   nodes:
@@ -29,7 +29,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1782163521210
+  modifiedTime: 1782164990677
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gestureinfluence
   duplicateSource: null
