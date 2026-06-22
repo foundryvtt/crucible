@@ -10,14 +10,15 @@ system:
     - id: bullrush
       description: >-
         <p>Make an <strong>Athletics </strong>skill Attack against an adjacent
-        enemy contested by your target's Fortitude defense. On a success you may
-        move up to your <strong>Stride</strong> directly through the enemy's
-        space. Your enemy is knocked @Condition[prone] and may not make any
-        attack of opportunity against you. On a failure your movement is blocked
-        and your remain in your current position.</p>
+        enemy contested by your target's <strong>Fortitude</strong> defense. On
+        a success you may move up to your <strong>Stride</strong> directly
+        through the enemy's space. Your enemy is knocked @Condition[prone] and
+        may not make any attack of opportunity against you. On a failure your
+        movement is blocked and your remain in your current position.</p>
       tags:
         - harmless
         - fortitude
+        - skill
         - athletics
       cost:
         action: 3
@@ -44,6 +45,13 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
       name: Bull Rush
       img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
       condition: ''
@@ -51,9 +59,7 @@ system:
         maximum: 10
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - toustr1
   rune: ''
@@ -72,11 +78,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1773514792562
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782164748380
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

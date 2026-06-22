@@ -4,12 +4,13 @@ img: icons/magic/fire/flame-burning-eye.webp
 system:
   description: >-
     <p>You take a moment to observe a creature which you can see and develop
-    intuition about its areas of strength.</p>
-
-    <p>Perform a <strong>Knowledge Test</strong> using a Skill chosen by the
-    Gamemaster. On a success, you learn which Defense type of Physical,
-    Fortutude, Willpower, or Reflex is highest for the creature. On a Critical
-    Success you learn the two highest defense types.</p>
+    intuition about its areas of strength.</p><p>Perform a <strong>Knowledge
+    Test</strong> using a <strong>Skill</strong> chosen by the
+    <strong>Gamemaster</strong>. On a success, you learn which <strong>Defense
+    Type</strong> of <strong>Physical</strong>, <strong>Fortutude</strong>,
+    <strong>Willpower</strong>, or <strong>Reflex</strong> is highest for the
+    creature. On a <strong>Critical Success</strong> you learn the two highest
+    <strong>Defense Types</strong>.</p>
   actions:
     - id: assessStrength
       description: >-
@@ -56,11 +57,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
-  modifiedTime: 1773514792556
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.10.0
+  modifiedTime: 1782164678067
+  lastModifiedBy: fzBjA63BB4hW4rQb
   createdTime: 1772307160126
 ownership:
   default: 0
