@@ -6,10 +6,10 @@ system:
     rank: 1
     type: enchanting
   description: >-
-    <p>You have received training in the fundamentals of Enchantment and are
-    capable of working with most common charms and enchantments.</p><p>You still
-    need to reference recipes and books to identify sympathetic materials and
-    their properties.</p>
+    <p>You have received training in the fundamentals of
+    <strong>Enchantment</strong> and are capable of working with most common
+    charms and enchantments.</p><p>You still need to reference recipes and books
+    to identify sympathetic materials and their properties.</p>
   actions: []
   iconicSpells: 0
   nodes:
@@ -28,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160131
-  modifiedTime: 1773514792572
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782164139945
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: enchantingNovice
 _key: '!items!enchantingNovice'
