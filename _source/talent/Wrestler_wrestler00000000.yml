@@ -5,9 +5,9 @@ img: icons/magic/control/buff-strength-muscle-damage.webp
 system:
   description: >-
     <p>Through leverage and technique you seize and hold creatures far larger
-    than yourself. The Size of creature you can
+    than yourself. The <strong>Size</strong> of creature you can
     @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple], and be
-    Grappled by, increases by 1.</p>
+    <strong>Grappled</strong> by, increases by 1.</p>
   actions: []
   nodes:
     - str2c
@@ -27,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1781200000000
-  modifiedTime: 1781200000000
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782092560896
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null
