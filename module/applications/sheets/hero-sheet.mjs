@@ -19,6 +19,16 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
   static {
     this._initializeActorSheetClass();
+
+    // TODO: Remove once Ember is updated to account for TABS change
+    Object.assign(this.TABS.sheet, {
+      findIndex(...args) {
+        return HeroSheet.TABS.sheet.tabs.findIndex(...args);
+      },
+      splice(...args) {
+        return HeroSheet.TABS.sheet.tabs.splice(...args);
+      }
+    });
   }
 
   /* -------------------------------------------- */
