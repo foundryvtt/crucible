@@ -1021,7 +1021,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Compute defense totals
     for ( const defense of Object.values(defenses) ) {
-      defense.total = defense.base + defense.bonus;
+      defense.total = Math.max(0, defense.base + defense.bonus);
     }
 
     // Cannot parry or block while enraged

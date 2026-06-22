@@ -254,6 +254,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const data = this.document.system.defenses;
 
     // Physical defenses
+    const safeTotal = Math.max(data.physical.total, 1);
     const defenses = {
       physical: {
         value: data.physical.total,
@@ -263,28 +264,28 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           armor: {
             value: data.armor.total,
             label: SYSTEM.DEFENSES.armor.label,
-            pct: Math.round(data.armor.total * 100 / data.physical.total),
+            pct: Math.round(data.armor.total * 100 / safeTotal),
             cssClass: data.armor.total > 0 ? "active" : "inactive",
             separator: "="
           },
           dodge: {
             value: data.dodge.total,
             label: SYSTEM.DEFENSES.dodge.label,
-            pct: Math.round(data.dodge.total * 100 / data.physical.total),
+            pct: Math.round(data.dodge.total * 100 / safeTotal),
             cssClass: data.dodge.total > 0 ? "active" : "inactive",
             separator: "+"
           },
           parry: {
             value: data.parry.total,
             label: SYSTEM.DEFENSES.parry.label,
-            pct: Math.round(data.parry.total * 100 / data.physical.total),
+            pct: Math.round(data.parry.total * 100 / safeTotal),
             cssClass: data.parry.total > 0 ? "active" : "inactive",
             separator: "+"
           },
           block: {
             value: data.block.total,
             label: SYSTEM.DEFENSES.block.label,
-            pct: Math.round(data.block.total * 100 / data.physical.total),
+            pct: Math.round(data.block.total * 100 / safeTotal),
             cssClass: data.block.total > 0 ? "active" : "inactive",
             separator: "+"
           }
