@@ -8,10 +8,11 @@ system:
     gesture scales using <strong>Toughness</strong> and provides <strong>+6
     Resistance</strong> against the damage type of the <strong>Rune</strong>
     used in the spell. This resistance lasts for <strong>1 Round</strong> and
-    you may only have a single Ward at a time. Casting another spell using the
-    <strong>Ward</strong> gesture replaces your prior <strong>Ward</strong>.
-    This gesture requires <strong>1 Hand</strong> to cast and has a base cost of
-    <strong>2 Action</strong> and <strong>1 Focus</strong>.</p>
+    you may only have a single <strong>Ward</strong> at a time. Casting another
+    spell using the <strong>Ward</strong> gesture replaces your prior
+    <strong>Ward</strong>. This gesture requires <strong>1 Hand</strong> to cast
+    and has a base cost of <strong>2 Action</strong> and <strong>1
+    Focus</strong>.</p>
   actions: []
   gesture: ward
   nodes:
@@ -33,7 +34,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1782163637990
+  modifiedTime: 1782166415944
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.gestureward00000
   duplicateSource: null

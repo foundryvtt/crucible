@@ -11,8 +11,8 @@ system:
     <strong>Visitor</strong> which appears within 30 feet and joins
     <strong>Combat</strong> at <strong>Initiative</strong> 1. Your
     <strong>Visitor</strong> is a <strong>Minion</strong> equal to your own
-    <strong>Level</strong>.</p><p>The Conjure gesture scales with
-    <strong>Wisdom</strong> and the Visitor survives for <strong>12
+    <strong>Level</strong>.</p><p>The <strong>Conjure</strong> gesture scales
+    with <strong>Wisdom</strong> and the Visitor survives for <strong>12
     Rounds</strong>. You may only have one active <strong>Visitor</strong>.
     Casting another spell using the <strong>Conjure</strong> gesture replaces
     your previous <strong>Visitor</strong>. This gesture requires <strong>2
@@ -46,6 +46,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1762718477065
-  modifiedTime: 1782163728505
+  modifiedTime: 1782166370079
   lastModifiedBy: fzBjA63BB4hW4rQb
 _key: '!items!gestureConjure00'

@@ -7,10 +7,10 @@ system:
     spirits of nature to shelter those under your protection.</p><p>You use
     @Action[Compendium.crucible.talent.Item.warden0000000000 ancestralGrove] to
     call forth an area of natural protection originating from the spiritual
-    projection of an Ancestral Guardian.</p><h3
-    class="divider">Playtesting</h3><p>The passive Resistance aura radiated by
-    the Ancestral Guardian is not yet fully automated, pending further Aura and
-    Region improvements.</p>
+    projection of an <strong>Ancestral Guardian</strong>.</p><h3
+    class="divider">Playtesting</h3><p>The passive <strong>Resistance</strong>
+    aura radiated by the <strong>Ancestral Guardian</strong> is not yet fully
+    automated, pending further Aura and Region improvements.</p>
   actions:
     - id: ancestralGrove
       name: Ancestral Grove
@@ -26,15 +26,16 @@ system:
         @Condition[flanked].</p><p><strong>The Guardian</strong> emanates an
         aura with a 20 foot radius that increases the
         <strong>Resistance</strong> of allies to all damage types by
-        +2.</p><p>So long as the Guardian endures, your weapon attacks against
-        enemies within this aura cause a transfer of life-force from your
-        enemies to your allies. Your target suffers additional
+        +2.</p><p>So long as the <strong>Guardian</strong> endures, your weapon
+        attacks against enemies within this aura cause a transfer of life-force
+        from your enemies to your allies. Your target suffers additional
         <strong>Poison</strong> damage equal to half your
         <strong>Wisdom</strong>, which is transferred as <strong>Health</strong>
         restoration to yourself or an ally within the grove who currently has
         the lowest <strong>Health</strong>.</p><p><strong>The Guardian</strong>
-        remains until <strong>Combat</strong> ends, or until the Warden uses
-        this <strong>Action</strong> again.</p><p></p>
+        remains until <strong>Combat</strong> ends, or until the
+        <strong>Warden</strong> uses this <strong>Action</strong>
+        again.</p><p></p>
       tags:
         - summon
       cost:
@@ -96,7 +97,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1781203463310
-  modifiedTime: 1782143735872
+  modifiedTime: 1782166554680
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: fOYHlZJEWUukD7yr
 ownership:

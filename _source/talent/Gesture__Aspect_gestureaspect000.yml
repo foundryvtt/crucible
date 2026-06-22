@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You infuse the essence of a <strong>Rune</strong> into your body,
     empowering your own physical form or psyche.</p><p>When you assume a certain
-    Aspect, you become more closely attuned to the damage type of the
-    <strong>Rune</strong> used in your spell. You gain <strong>+2
+    <strong>Aspect</strong>, you become more closely attuned to the damage type
+    of the <strong>Rune</strong> used in your spell. You gain <strong>+2
     Resistance</strong> to that damage type, and deal an additional <strong>+2
     Damage</strong> whenever dealing damage of that type.</p><p>Your Aspect
     lasts for <strong>6 Rounds</strong>. You may only have one active
@@ -32,7 +32,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1782163401632
+  modifiedTime: 1782166322913
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gestureaspect000
   duplicateSource: null

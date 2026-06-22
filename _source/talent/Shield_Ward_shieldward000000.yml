@@ -6,8 +6,8 @@ system:
   description: >-
     <p>You have mastered a specialized technique to incorporate a physical
     shield into the <strong>Ward</strong> gesture. You may ignore the free-hand
-    requirement for spells using the Ward gesture while you have a
-    <strong>Shield</strong> equipped.</p>
+    requirement for spells using the <strong>Ward</strong> gesture while you
+    have a <strong>Shield</strong> equipped.</p>
   actions: []
   nodes:
     - tou2b
@@ -27,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160146
-  modifiedTime: 1773514792613
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782166460525
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null
