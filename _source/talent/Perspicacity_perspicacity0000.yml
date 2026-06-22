@@ -5,8 +5,8 @@ img: icons/magic/sonic/bell-alarm-red-purple.webp
 system:
   description: >-
     <p>You have heightened insight into aspects of your surroundings. You gain
-    +2 Boons to any <strong>Awareness</strong> skill test which does not rely
-    upon eyesight.</p>
+    +2 <strong>Boons</strong> to any <strong>Awareness</strong> skill test which
+    does not rely upon eyesight.</p>
   actions: []
   nodes:
     - int1b
@@ -26,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160141
-  modifiedTime: 1773514792602
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782169563061
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

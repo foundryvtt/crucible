@@ -25,7 +25,8 @@ system:
       <p>This item is presented as an example of a Fine Amulet with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.nimbleness000000]{Nimbleness}
       suffix.</p><p>This affix can be applied to any armor or accessory and this
-      amulet could be further enchanted with a Tier 1 prefix.</p>
+      amulet could be further enchanted with a <strong>Tier</strong> 1
+      <strong>Prefix</strong>.</p>
   actions: []
 effects:
   - name: Nimbleness
@@ -82,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1759603295903
-  modifiedTime: 1775482776250
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168109792
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: amuletOfNimblene
 sort: 100000
 _key: '!items!amuletOfNimblene'

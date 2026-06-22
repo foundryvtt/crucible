@@ -15,7 +15,7 @@ system:
       description: >-
         <p>Following a basic @Action[default strike] with your mainhand weapon,
         you <strong>Strike</strong> with your shield, causing the
-        @Condition[staggered] condition for one Round.</p>
+        @Condition[staggered] condition for 1 <strong>Round</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -76,7 +76,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160146
-  modifiedTime: 1782162702265
+  modifiedTime: 1782169940361
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

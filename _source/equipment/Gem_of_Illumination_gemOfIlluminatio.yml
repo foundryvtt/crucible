@@ -25,7 +25,8 @@ system:
       <p>This item is presented as an example of a Fine Gem with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.luminous00000000]{Luminous}
       prefix.</p><p>This affix can be applied to any accessory and this gem
-      could be further enchanted with a Tier 1 suffix.</p>
+      could be further enchanted with a <strong>Tier</strong> 1
+      <strong>Suffix</strong>.</p>
   actions: []
 effects:
   - name: Luminous
@@ -131,12 +132,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1776981020859
-  modifiedTime: 1777771497185
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168264404
+  lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
   compendiumSource: null
   duplicateSource: null

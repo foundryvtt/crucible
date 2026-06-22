@@ -12,7 +12,7 @@ system:
         you to remain stalwart in the face of peril. All allies within range
         immediately recover your <strong>Presence</strong> score in
         <strong>Morale</strong> and become @Condition[resolute] for 3
-        Rounds.</p>
+        <strong>Rounds</strong>.</p>
       tags:
         - rallying
       cost:
@@ -39,12 +39,15 @@ system:
             value: 3
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Rallying Cry
       img: icons/creatures/abilities/mouth-teeth-human.webp
       condition: ''
@@ -52,9 +55,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - pre2b
   rune: ''
@@ -71,12 +72,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1772307160142
-  modifiedTime: 1780938447871
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782169853190
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: kvXzGhvDAbUcQsXM
 ownership:
   default: 0

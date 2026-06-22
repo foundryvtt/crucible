@@ -8,7 +8,8 @@ system:
     <p>This @ref[actor.name]{creature} is especially elusive while in flight,
     able to swoop in and out of combat without provoking any
     <strong>Disengagement</strong>. It can be engaged if it lands upon the
-    ground and Disengagement may apply if it attempts to return to flight.</p>
+    ground and <strong>Disengagement</strong> may apply if it attempts to return
+    to flight.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -27,11 +28,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1751480506797
-  modifiedTime: 1773514792180
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782167735215
+  lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 700000
 _key: '!items!elusiveFlight000'

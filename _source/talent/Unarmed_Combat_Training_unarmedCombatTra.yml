@@ -38,12 +38,15 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
         - name: Grappling
           scope: 1
           result:
@@ -55,12 +58,15 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
       tags:
         - difficult
         - harmless
@@ -72,10 +78,8 @@ system:
         <p>You attempt to physically restrain or subdue an opponent. Perform a
         <strong>Athletics</strong> skill attack against an adjacent target. If
         successful, both you and your target are @Condition[restrained] for 1
-        Round.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        <strong>Round</strong>.</p>
+      summon: null
   iconicSpells: 0
   training:
     type: unarmed
@@ -95,7 +99,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160153
-  modifiedTime: 1782137217552
+  modifiedTime: 1782170791385
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

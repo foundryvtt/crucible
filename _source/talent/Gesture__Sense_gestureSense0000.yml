@@ -5,11 +5,11 @@ system:
   nodes:
     - pre1b
   description: >-
-    <p>You attune your mind to the arcane power of a Rune to sense nearby
-    sources of energy.</p><p>The <strong>Sense</strong> gesture scales with
-    <strong>Presence</strong> and produces an emanation with 30 feet radius and
-    position that remains centered upon the spellcaster. This gesture requires
-    <strong>1 Hand</strong> to cast and has a base cost of <strong>3
+    <p>You attune your mind to the arcane power of a <strong>Rune</strong> to
+    sense nearby sources of energy.</p><p>The <strong>Sense</strong> gesture
+    scales with <strong>Presence</strong> and produces an emanation with 30 feet
+    radius and position that remains centered upon the spellcaster. This gesture
+    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3
     Action</strong> and <strong>1 Focus</strong>. It may optionally be
     <strong>Maintained</strong> at the additional cost of <strong>1
     Focus</strong> every subsequent round.</p><p>This spell allows the caster to
@@ -50,7 +50,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1762828633395
-  modifiedTime: 1782166404945
+  modifiedTime: 1782169082959
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: gestureSense0000
 sort: 0

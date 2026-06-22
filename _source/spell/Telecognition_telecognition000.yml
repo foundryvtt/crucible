@@ -18,12 +18,12 @@ system:
         <strong>Giant</strong> creature, attempting to penetrate their
         <strong>Willpower</strong> defense to understand their thoughts and
         motives. The target of this spell is aware of the intrusion, even if
-        they cannot perceive you.</p><p>If successful, the Gamemaster (in the
-        case of an Adversary target) or Player (in the case of a Hero target)
-        must describe to you in 3 words or less what idea or sentiment is at the
-        forefront of their thoughts in the current moment.</p><p>Upon a Critical
-        Success, this description may use up to 10 words to convey deeper
-        understanding.</p>
+        they cannot perceive you.</p><p>If successful, the
+        <strong>Gamemaster</strong> (in the case of an Adversary target) or
+        Player (in the case of a Hero target) must describe to you in 3 words or
+        less what idea or sentiment is at the forefront of their thoughts in the
+        current moment.</p><p>Upon a <strong>Critical Success</strong>, this
+        description may use up to 10 words to convey deeper understanding.</p>
       cost:
         action: 3
         focus: 2
@@ -43,13 +43,9 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - harmless
         - willpower
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       rune: control
       gesture: sense
       inflection: pull
@@ -70,12 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307159357
-  modifiedTime: 1773514792469
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170251177
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: telecognition000
 sort: 100000
 _key: '!items!telecognition000'

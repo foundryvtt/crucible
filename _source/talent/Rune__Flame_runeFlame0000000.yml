@@ -27,7 +27,7 @@ system:
         light and shadow.</p></li></ul><p>Enkindle may only affect a creature or
         object you can physically touch. You may attempt other uses similar
         those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -68,7 +68,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782165814324
+  modifiedTime: 1782170664760
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

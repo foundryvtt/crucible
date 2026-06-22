@@ -13,8 +13,8 @@ system:
         <strong>Health</strong>, the <strong>Strike</strong> is
         <strong>Deadly</strong>, and the opponent suffers the
         @Condition[bleeding] condition for <strong>3 Rounds</strong>, taking
-        additional damage each Round equal to your <strong>Strength</strong>
-        score.</p>
+        additional damage each <strong>Round</strong> equal to your
+        <strong>Strength</strong> score.</p>
       tags:
         - melee
         - twohand
@@ -73,7 +73,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1782145757072
+  modifiedTime: 1782168917907
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

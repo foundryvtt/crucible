@@ -11,7 +11,7 @@ system:
     <strong>Decaying</strong> effect lasts for <strong>3 Rounds</strong> and
     deals half the ability score your <strong>Rune of Death</strong> scales with
     as <strong>Corruption</strong> damage to <strong>Health</strong> each
-    Round.</p>
+    <strong>Round</strong>.</p>
   actions: []
   nodes:
     - pre3b
@@ -34,7 +34,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1782145381605
+  modifiedTime: 1782169482607
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

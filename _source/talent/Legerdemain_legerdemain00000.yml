@@ -3,8 +3,9 @@ type: talent
 img: icons/magic/light/hand-sparks-smoke-green.webp
 system:
   description: >-
-    <p>You can silently alter your spellcraft. You can apply Inflections of
-    talent tier 2 using only your hands without the need for vocalization.</p>
+    <p>You can silently alter your spellcraft. You can apply
+    <strong>Inflections</strong> of talent tier 2 using only your hands without
+    the need for vocalization.</p>
   actions: []
   nodes:
     - dex2b
@@ -20,11 +21,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160137
-  modifiedTime: 1780503577030
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782169411552
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.legerdemain00000
   duplicateSource: null
   exportSource: null

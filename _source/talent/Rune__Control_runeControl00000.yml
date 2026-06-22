@@ -44,11 +44,11 @@ system:
         are able to intuit their immediate goals expressed in the form of a
         single verb.</p></li><li><p>Intensely focus on your current objective
         and the means of achieving it. You receive a brief hint or reminder from
-        the Gamemaster about that objective containing only information which
-        you have previously learned.</p></li></ul><p>Motivate may only affect a
-        creature or object which you can physically touch. You may attempt other
-        uses similar those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        the <strong>Gamemaster</strong> about that objective containing only
+        information which you have previously learned.</p></li></ul><p>Motivate
+        may only affect a creature or object which you can physically touch. You
+        may attempt other uses similar those above, the effectiveness of which
+        is decided by the <strong>Gamemaster</strong>.</p>
       summon: null
   rune: control
   nodes:
@@ -70,7 +70,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782165775096
+  modifiedTime: 1782170625546
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

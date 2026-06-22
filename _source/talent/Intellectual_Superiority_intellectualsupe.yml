@@ -6,8 +6,8 @@ system:
   description: >-
     <p>It is sometimes a marvel how slowly others around you think. You gain
     <strong>+1 Boon</strong> on any <strong>Strike</strong> or
-    <strong>Spell</strong> attack against an enemy lower than you in Initiative
-    order.</p>
+    <strong>Spell</strong> attack against an enemy lower than you in
+    <strong>Initiative</strong> order.</p>
   actions: []
   nodes:
     - int4d
@@ -30,7 +30,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160136
-  modifiedTime: 1782148451813
+  modifiedTime: 1782169175654
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

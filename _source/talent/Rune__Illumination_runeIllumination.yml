@@ -34,7 +34,7 @@ system:
         at a given time.</p></li></ul><p>Reveal may only affect a creature or
         object you can physically touch. You may attempt other uses similar
         those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -75,7 +75,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782165840008
+  modifiedTime: 1782170678936
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:

@@ -6,7 +6,7 @@ system:
     <p>The potency of elemental <strong>Runes</strong> flows through you. By
     adopting an elemental <strong>Stance</strong> you channel a
     <strong>Rune</strong> through your weapon <strong>Strikes</strong>. You may
-    enter a Stance for one of the elemental Runes that you
+    enter a Stance for one of the elemental <strong>Runes</strong> that you
     know:</p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
     Earth}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
     Flame}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Rune:
@@ -15,8 +15,8 @@ system:
     <strong>Turn</strong>, and your entered stance lasts until you change it or
     until <strong>Combat</strong> ends. While in a <strong>Stance</strong>,
     talents or features which apply <strong>Critical Hit</strong> effects for
-    actions that use that Rune apply to your weapon <strong>Strikes</strong> as
-    well.</p>
+    actions that use that <strong>Rune</strong> apply to your weapon
+    <strong>Strikes</strong> as well.</p>
   actions:
     - id: stormStance
       name: Storm Stance
@@ -218,7 +218,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160160
-  modifiedTime: 1782162578023
+  modifiedTime: 1782170527341
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

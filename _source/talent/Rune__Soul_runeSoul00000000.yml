@@ -48,7 +48,8 @@ system:
         an idea which can be expressed as a single word.</p></li></ul><p>Uses of
         Evoke may only affect yourself or another creature which you can
         physically touch. You may attempt other uses similar those above, the
-        effectiveness of which is decided by the Gamemaster.</p>
+        effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       summon: null
   rune: soul
   nodes:
@@ -70,7 +71,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160144
-  modifiedTime: 1782165874773
+  modifiedTime: 1782170708072
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

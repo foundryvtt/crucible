@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You can interpret the arcane incantations of others to discern the nature
     of their spellcraft. When an enemy within 40 feet that you can see and hear
-    begins casting a spell, you can identify its Rune if you also know that
-    <strong>Rune</strong>.</p>
+    begins casting a spell, you can identify its <strong>Rune</strong> if you
+    also know that <strong>Rune</strong>.</p>
   actions: []
   nodes:
     - int2b
@@ -28,7 +28,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160142
-  modifiedTime: 1782141497832
+  modifiedTime: 1782169894916
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.recognizespellcr
   duplicateSource: null

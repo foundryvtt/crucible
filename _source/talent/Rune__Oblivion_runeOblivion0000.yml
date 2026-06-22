@@ -29,7 +29,7 @@ system:
         dampened in this way at a given time.</p></li></ul><p>Erase may only
         affect a creature or object you can physically touch. You may attempt
         other uses similar those above, the effectiveness of which is decided by
-        the Gamemaster.</p>
+        the <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -70,7 +70,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160144
-  modifiedTime: 1782165867339
+  modifiedTime: 1782170701120
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:

@@ -8,7 +8,8 @@ system:
     <strong>Bludgeoning</strong> damage can cause the @Condition[staggered]
     condition on <strong>Critical Hits</strong> which deal damage to
     <strong>Health</strong>.</p><p>The @Condition[staggered] effect lasts for 1
-    round and reduces your target's maximum <strong>Action</strong> by 2.</p>
+    <strong>Round</strong> and reduces your target's maximum
+    <strong>Action</strong> by 2.</p>
   actions: []
   nodes:
     - str4a
@@ -31,7 +32,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1782092503514
+  modifiedTime: 1782169957137
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

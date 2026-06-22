@@ -26,7 +26,8 @@ system:
       <p>This item is presented as an example of a Fine Pearl with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Focusing}
       prefix.</p><p>This affix can be applied to any accessory and this pearl
-      could be further enchanted with a Tier 1 suffix.</p>
+      could be further enchanted with a <strong>Tier</strong> 1
+      <strong>Suffix</strong>.</p>
   actions: []
 effects:
   - name: Focusing
@@ -114,12 +115,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1776981024107
-  modifiedTime: 1776981024107
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782168252706
+  lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
   compendiumSource: null
   duplicateSource: null

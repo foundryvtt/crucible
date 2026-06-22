@@ -23,8 +23,8 @@ start: null
 description: >-
   <p>Gain boons to <strong>Composed</strong> actions that include an
   <strong>Inflection</strong>. The number of boons gained equals the
-  <strong>Tier</strong> of this prefix. Only one Affix can provide this
-  benefit.</p>
+  <strong>Tier</strong> of this prefix. Only one <strong>Affix</strong> can
+  provide this benefit.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
@@ -34,12 +34,12 @@ folder: Lfe77b1HM54lVOtn
 sort: 100000
 flags: {}
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1776171413560
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168057961
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

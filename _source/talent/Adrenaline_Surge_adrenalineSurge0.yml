@@ -15,9 +15,9 @@ system:
       description: >-
         <p>You expend <strong>Heroism</strong> and benefit from <strong>+2
         Boons</strong> to any action which scales using
-        <strong>Strength</strong> for 3 Rounds. You may perform this action
-        outside of your turn in <strong>Combat</strong> before making a
-        <strong>Reaction</strong>.</p>
+        <strong>Strength</strong> for 3 <strong>Rounds</strong>. You may perform
+        this action outside of your turn in <strong>Combat</strong> before
+        making a <strong>Reaction</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -76,7 +76,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160124
-  modifiedTime: 1782136677747
+  modifiedTime: 1782168381188
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: adrenalineSurge0
 sort: 0

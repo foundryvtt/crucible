@@ -17,9 +17,9 @@ system:
     new result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
     strike], you can choose to wager additional <strong>Banes</strong> against
     yourself. If the <strong>Strike</strong> hits an enemy, you gain
-    <strong>Gambit</strong> charges equal to the number of Banes you wagered.
-    These charges accumulate until the end of Combat or until
-    spent.</p></li></ul>
+    <strong>Gambit</strong> charges equal to the number of
+    <strong>Banes</strong> you wagered. These charges accumulate until the end
+    of <strong>Combat</strong> or until spent.</p></li></ul>
   actions:
     - id: gambitAllIn
       name: All-In
@@ -74,7 +74,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1781400000000
-  modifiedTime: 1782146498359
+  modifiedTime: 1782169013860
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

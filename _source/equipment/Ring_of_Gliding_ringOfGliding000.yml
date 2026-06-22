@@ -23,7 +23,8 @@ system:
       <p>This item is presented as an example of a Fine Ring with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.gliding000000000]{Gliding}
       prefix.</p><p>This affix can be applied to any accessory and this ring
-      could be further enchanted with a Tier 1 suffix.</p>
+      could be further enchanted with a <strong>Tier</strong> 1
+      <strong>Suffix</strong>.</p>
   actions: []
 effects:
   - name: Gliding
@@ -118,12 +119,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157776
-  modifiedTime: 1775502000000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168216255
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: ringOfGliding000
 sort: 400000
 _key: '!items!ringOfGliding000'

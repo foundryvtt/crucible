@@ -7,8 +7,8 @@ system:
     to overpower creatures whose bulk outstrips even your own. When you
     @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple] a
     creature, you are not @Condition[restrained] yourself. The
-    <strong>Size</strong> of creature that you can Grapple and be Grappled by
-    increases by +1.</p>
+    <strong>Size</strong> of creature that you can <strong>Grapple</strong> and
+    be <strong>Grappled</strong> by increases by +1.</p>
   actions:
     - id: throw
       name: Throw
@@ -26,7 +26,7 @@ system:
         and suffers <strong>Bludgeoning</strong> damage from the attack. A
         creature hurled into open space takes no damage from the throw itself,
         although it may @Action[default fall].</p><p>Regardless of the outcome,
-        your Grapple is released as part of this action.</p>
+        your <strong>Grapple</strong> is released as part of this action.</p>
       tags:
         - reflex
         - bludgeoning
@@ -62,14 +62,14 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
           duration:
             value: null
             units: ''
             expiry: null
             expired: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
     - id: overrun
       name: Overrun
       img: icons/magic/sonic/explosion-impact-shock-wave.webp
@@ -120,14 +120,14 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
           duration:
             value: null
             units: ''
             expiry: null
             expired: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.toughness.strength
   rune: ''
@@ -145,11 +145,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1781200000000
-  modifiedTime: 1781181932998
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782169327577
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

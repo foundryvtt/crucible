@@ -14,15 +14,15 @@ system:
       name: Imbue Affix
       condition: ''
       description: >-
-        <p>Over the course of a During a @Action[default rest], you channel
+        <p>Over the course of a during a @Action[default rest], you channel
         arcane energy into your equipment, inscribing an <strong>Affix</strong>
         as a temporary enchantment. Choose one physical item that has capacity
         for enchantment and temporarily imbue it with a <strong>Tier 1</strong>
-        Affix of your choice. The imbued affix persists until you use Imbue
-        Affix again.</p><h3 class="divider">Playtest Notes</h3><p>You may
-        currently imbue any affix that the chosen item can bear. In a future
-        update this will be limited to affixes which you are able to
-        <strong>Enchant</strong>.</p>
+        <strong>Affix</strong> of your choice. The imbued <strong>Affix</strong>
+        persists until you use <strong>Imbue Affix</strong> again.</p><h3
+        class="divider">Playtest Notes</h3><p>You may currently imbue any affix
+        that the chosen item can bear. In a future update this will be limited
+        to affixes which you are able to <strong>Enchant</strong>.</p>
       tags:
         - rest
         - noncombat
@@ -43,19 +43,17 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
     - id: amplifyAffix
       name: Amplify Affix
       condition: ''
       description: >-
         <p>Over the course of a @Action[default rest], you deepen the potency of
         an <strong>Affix</strong> enchantment on one of your items. Choose one
-        Affix on a physical item you have equipped and increase the Tier of that
-        affix by one, up to its maximum. This amplification persists until you
-        use Amplify Affix again.</p>
+        <strong>Affix</strong> on a physical item you have equipped and increase
+        the <strong>Tier</strong> of that affix by one, up to its maximum. This
+        amplification persists until you use <strong>Amplify Affix</strong>
+        again.</p>
       tags:
         - rest
         - noncombat
@@ -76,10 +74,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - sig3.presence.intellect
   rune: ''
@@ -97,11 +92,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160132
-  modifiedTime: 1780959716862
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782168464955
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

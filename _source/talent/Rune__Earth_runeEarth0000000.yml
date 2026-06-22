@@ -28,7 +28,7 @@ system:
         subject completely cleaned or purified in moments.</p></li></ul><p>Mould
         may only affect a creature or object you can physically touch. You may
         attempt other uses similar those above, the effectiveness of which is
-        decided by the Gamemaster.</p>
+        decided by the <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -69,7 +69,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782165805842
+  modifiedTime: 1782170635948
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

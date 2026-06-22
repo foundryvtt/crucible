@@ -4,8 +4,9 @@ img: icons/equipment/chest/breastplate-helmet-metal.webp
 system:
   description: >-
     <p>You are trained in wearing the heaviest types of armor while still
-    retaining mobility. You are able to use a free Movement action once per Turn
-    while wearing Heavy armor.</p>
+    retaining mobility. You are able to use a free @Action[default move] action
+    once per <strong>Turn</strong> while wearing <strong>Heavy</strong>
+    armor.</p>
   actions: []
   nodes:
     - str0b
@@ -24,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160126
-  modifiedTime: 1773514792555
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782167164483
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.armoredefficienc
   duplicateSource: null
   exportSource: null

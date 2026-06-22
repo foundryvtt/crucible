@@ -10,7 +10,7 @@ system:
     source of damage, the swarm gains additional <strong>Resistance</strong>
     equal to its <strong>Toughness</strong>.</p></li><li><p>The swarm's
     <strong>Size</strong> decreases as its <strong>Health</strong> is depleted
-    until reaching a minimum Size of 2.</p></li></ul>
+    until reaching a minimum <strong>Size</strong> of 2.</p></li></ul>
   actions: []
   rune: ''
   gesture: ''
@@ -33,7 +33,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1776980101863
-  modifiedTime: 1782140461223
+  modifiedTime: 1782168015442
   lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
   compendiumSource: null

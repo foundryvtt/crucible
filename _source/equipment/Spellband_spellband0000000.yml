@@ -26,7 +26,8 @@ system:
       <p>This item is presented as an example of a Fine Ring with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Reserved
       Focus} prefix.</p><p>This affix can be applied to any accessory and this
-      ring could be further enchanted with a Tier 1 suffix.</p>
+      ring could be further enchanted with a <strong>Tier</strong> 1
+      <strong>Suffix</strong>.</p>
   actions: []
 effects:
   - name: Focusing
@@ -114,12 +115,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157779
-  modifiedTime: 1781035691208
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782168241005
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: spellband0000000
 sort: 500000
 _key: '!items!spellband0000000'
