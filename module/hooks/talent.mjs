@@ -1700,8 +1700,8 @@ HOOKS.duelist000000000 = {
 
 HOOKS.warchanter000000 = {
   _CHANT_IDS: new Set([
-    "songMight0000000", "songAlacrity0000", "songEndurance000",
-    "dirgeFeebleness0", "dirgeLethargy000", "dirgeFragility00"
+    "songOfMight00000", "songOfAlacrity00", "songOfEndurance0",
+    "dirgeOfFeeblenes", "dirgeOfLethargy0", "dirgeOfFragility"
   ]),
   finalizeAction(_item, action) {
     if ( !action.tags.has("melee") ) return;
