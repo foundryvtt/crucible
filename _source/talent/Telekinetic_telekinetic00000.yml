@@ -8,9 +8,9 @@ system:
     @UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection: Push} or
     @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection: Pull}
     toH a Spell, you ignore the inflection's <strong>Focus</strong>
-    cost.</p></li><li><p>You double the distance at which you can Pull, Flick,
-    or Suspend using the
-    @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
+    cost.</p></li><li><p>You double the distance at which you can
+    <strong>Pull</strong>, <strong>Flick</strong>, or <strong>Suspend</strong>
+    using the @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
     action.</p></li><li><p>You unlock the <strong>Telekinetic Flight</strong>
     action, suspending yourself aloft to fly and hover.</p></li></ul>
   actions:
@@ -86,10 +86,10 @@ _stats:
   exportSource: null
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1781218465590
-  modifiedTime: 1781295525434
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782162935348
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: telekinetic00000
 sort: 0
 _key: '!items!telekinetic00000'

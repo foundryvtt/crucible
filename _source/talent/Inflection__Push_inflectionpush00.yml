@@ -5,9 +5,9 @@ system:
   description: >-
     <p>Empower a spell to repel affected creatures away from the caster.
     Creatures affected by a spell with the <strong>Push</strong> inflection are
-    forcibly moved a distance away from the spellcaster equal to the Ability
-    Bonus that applied to the Spell, potentially colliding with walls or other
-    movement-blocking obstacles.</p>
+    forcibly moved a distance away from the spellcaster equal to the
+    <strong>Ability Bonus</strong> that applied to the <strong>Spell</strong>,
+    potentially colliding with walls or other movement-blocking obstacles.</p>
   actions: []
   inflection: push
   iconicSpells: 1
@@ -23,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160136
-  modifiedTime: 1779733772191
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782162478740
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.inflectionpush00
   duplicateSource: null
   exportSource: null

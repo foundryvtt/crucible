@@ -22,9 +22,9 @@ system:
       name: Storm Stance
       condition: You know the Rune of Storm.
       description: >-
-        <p>You adopt the <strong>Storm Stance</strong>, channeling the Rune of
-        Storm. While in this Stance your <strong>Stride</strong> is increased by
-        2.</p>
+        <p>You adopt the <strong>Storm Stance</strong>, channeling the
+        <strong>Rune of Storm</strong>. While in this <strong>Stance</strong>
+        your <strong>Stride</strong> is increased by 2.</p>
       tags: []
       cost:
         action: 0
@@ -45,14 +45,16 @@ system:
             all: false
           statuses: []
           duration:
+            value: null
+            units: ''
             expiry: combatEnd
+            expired: false
           system:
             changes: []
             dc: null
             dot: []
             maintenance: null
-            properties:
-              - magical
+            properties: []
             regions: []
             summons: []
       img: icons/magic/lightning/bolt-strike-forked-blue.webp
@@ -60,17 +62,15 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
     - id: cinderStance
       name: Cinder Stance
       condition: You know the Rune of Flame.
       description: >-
-        <p>You adopt the <strong>Cinder Stance</strong>, channeling the Rune of
-        Flame. While in this Stance your weapon Strikes deal 2 additional
-        <strong>Fire </strong>damage.</p>
+        <p>You adopt the <strong>Cinder Stance</strong>, channeling the
+        <strong>Rune of Flame</strong>. While in this <strong>Stance</strong>
+        your weapon <strong>Strikes</strong> deal 2 additional <strong>Fire
+        </strong>damage.</p>
       tags: []
       cost:
         action: 0
@@ -91,14 +91,16 @@ system:
             all: false
           statuses: []
           duration:
+            value: null
+            units: ''
             expiry: combatEnd
+            expired: false
           system:
             changes: []
             dc: null
             dot: []
             maintenance: null
-            properties:
-              - magical
+            properties: []
             regions: []
             summons: []
       img: icons/magic/fire/projectile-smoke-swirl-red.webp
@@ -106,17 +108,15 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
     - id: waterStance
       name: Water Stance
       condition: You know the Rune of Frost.
       description: >-
-        <p>You adopt the <strong>Water Stance</strong>, channeling the Rune of
-        Frost. While in this Stance you gain +1 to your <strong>Reflex</strong>,
-        <strong>Fortitude</strong>, and <strong>Willpower</strong> defenses.</p>
+        <p>You adopt the <strong>Water Stance</strong>, channeling the
+        <strong>Rune of Frost</strong>. While in this <strong>Stance</strong>
+        you gain +1 to your <strong>Reflex</strong>, <strong>Fortitude</strong>,
+        and <strong>Willpower</strong> defenses.</p>
       tags: []
       cost:
         action: 0
@@ -137,14 +137,16 @@ system:
             all: false
           statuses: []
           duration:
+            value: null
+            units: ''
             expiry: combatEnd
+            expired: false
           system:
             changes: []
             dc: null
             dot: []
             maintenance: null
-            properties:
-              - magical
+            properties: []
             regions: []
             summons: []
       img: icons/magic/water/orb-ice-web.webp
@@ -152,17 +154,15 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
     - id: stoneStance
       name: Stone Stance
       condition: You know the Rune of Earth.
       description: >-
-        <p>You adopt the <strong>Stone Stance</strong>, channeling the Rune of
-        Earth. While in this Stance you gain +2 <strong>Resistance</strong> to
-        Bludgeoning, Piercing, and Slashing damage.</p>
+        <p>You adopt the <strong>Stone Stance</strong>, channeling the
+        <strong>Rune of Earth</strong>. While in this <strong>Stance</strong>
+        you gain +2 <strong>Resistance</strong> to <strong>Bludgeoning</strong>,
+        <strong>Piercing</strong>, and <strong>Slashing</strong> damage.</p>
       tags: []
       cost:
         action: 0
@@ -183,14 +183,16 @@ system:
             all: false
           statuses: []
           duration:
+            value: null
+            units: ''
             expiry: combatEnd
+            expired: false
           system:
             changes: []
             dc: null
             dot: []
             maintenance: null
-            properties:
-              - magical
+            properties: []
             regions: []
             summons: []
       img: icons/magic/earth/orb-stone-smoke-teal.webp
@@ -198,10 +200,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - sig3.strength.wisdom
   rune: ''
@@ -219,7 +218,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160160
-  modifiedTime: 1782150359331
+  modifiedTime: 1782162578023
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

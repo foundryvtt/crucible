@@ -18,9 +18,10 @@ system:
         some <strong>Focus</strong>. You perform a <strong>Harmless</strong>
         <strong>Strike</strong> against your own <strong>Rallying</strong>
         threshold.</p><p>On a success you recover <strong>+1 Focus</strong> if
-        using a one-handed Talisman and <strong>+2 Focus</strong> if using a
-        two-handed <strong>Talisman</strong>. On a critical success the amount
-        of <strong>Focus</strong> recovered increases by an additional +1.</p>
+        using a one-handed <strong>Talisman</strong> and <strong>+2
+        Focus</strong> if using a two-handed <strong>Talisman</strong>. On a
+        critical success the amount of <strong>Focus</strong> recovered
+        increases by an additional +1.</p>
       cost:
         action: 0
         focus: 0
@@ -61,7 +62,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160151
-  modifiedTime: 1782143713565
+  modifiedTime: 1782162899610
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

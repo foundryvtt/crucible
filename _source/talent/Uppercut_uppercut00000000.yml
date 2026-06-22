@@ -6,8 +6,8 @@ flags:
   core: {}
 system:
   description: >-
-    A two-handed weapon technique where you swing your weapon upwards, making a
-    second Strike with the backswing of your weapon.
+    <p>A two-handed weapon technique where you swing your weapon upwards, making
+    a second <strong>Strike</strong> with the backswing of your weapon.</p>
   actions:
     - id: uppercut
       name: Uppercut
@@ -56,7 +56,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160153
-  modifiedTime: 1782146608063
+  modifiedTime: 1782163019172
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: yQPNpmhq761VzMZe
 ownership:
