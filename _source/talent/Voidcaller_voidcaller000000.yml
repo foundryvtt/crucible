@@ -4,9 +4,10 @@ _id: voidcaller000000
 img: icons/magic/unholy/orb-swirling-teal.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Oblivion. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[entropy] condition.</p><p>The Entropy
+    <p>You are highly skilled in weaving the <strong>Rune of Oblivion</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[entropy] condition.</p><p>The <strong>Entropy</strong>
     effect lasts for <strong>1 Round</strong>, deals half the ability score your
     <strong>Rune of Oblivion</strong> scales with as <strong>Void</strong>
     damage to <strong>Health</strong>, and applies the @Condition[frightened]
@@ -30,11 +31,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160153
-  modifiedTime: 1780503033522
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782145469318
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

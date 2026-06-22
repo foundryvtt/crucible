@@ -14,7 +14,8 @@ system:
       name: Poison Blades
       description: >-
         <p>You nimbly lather your blades in toxic alchemical oils which apply
-        the @Condition[poisoned] condition on Critical Strikes.</p>
+        the @Condition[poisoned] condition on <strong>Critical
+        Strikes</strong>.</p>
       tags: []
       cost:
         action: 2
@@ -35,6 +36,7 @@ system:
             value: 60
             units: rounds
             expiry: turnStart
+            expired: false
           result:
             type: success
             all: false
@@ -44,15 +46,15 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       img: icons/skills/melee/strike-dagger-poison-green.webp
       condition: ''
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.intellect
     - sig3.toughness
@@ -74,7 +76,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160141
-  modifiedTime: 1782143361783
+  modifiedTime: 1782149228095
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.poisoner00000000
   duplicateSource: null

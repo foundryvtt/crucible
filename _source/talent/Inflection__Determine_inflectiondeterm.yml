@@ -6,7 +6,8 @@ img: icons/magic/symbols/runes-triangle-orange-purple.webp
 system:
   description: >-
     <p>Enhance a spell to make it more difficult to counter. Any attempt to
-    Counter-Spell this spell is made with +2 Banes.</p>
+    @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell] this
+    spell is made with <strong>+2 Banes</strong>.</p>
   actions: []
   inflection: determine
   iconicSpells: 1
@@ -25,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160135
-  modifiedTime: 1773514792585
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782146926665
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

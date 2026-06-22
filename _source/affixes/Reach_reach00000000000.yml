@@ -1,9 +1,9 @@
 name: Reach
 type: affix
 description: >-
-  <p>Extends the effective range of this weapon. Melee weapons gain <strong>+1
-  range per Tier</strong>. Ranged weapons gain <strong>+10 range per
-  Tier</strong>.</p>
+  <p>Extends the effective range of this weapon. <strong>Melee</strong> weapons
+  gain <strong>+1 range per Tier</strong>. <strong>Ranged</strong> weapons gain
+  <strong>+10 range per Tier</strong>.</p>
 duration:
   value: null
   units: seconds
@@ -33,12 +33,12 @@ folder: X7jf6k3zU0CiCktv
 sort: 200000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1775500000000
-  modifiedTime: 1775442256754
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782144251325
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

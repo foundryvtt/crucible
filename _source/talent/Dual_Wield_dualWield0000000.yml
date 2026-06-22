@@ -10,9 +10,9 @@ system:
     - id: offhandStrike
       name: Offhand Strike
       description: >-
-        <p>Immediately after you perform a basic Strike with your mainhand
-        weapon, you make a reduced-cost follow-up <strong>Strike</strong> with
-        your <strong>offhand</strong> weapon.</p>
+        <p>Immediately after you perform a basic @Action[default strike] with
+        your mainhand weapon, you make a reduced-cost follow-up
+        <strong>Strike</strong> with your <strong>offhand</strong> weapon.</p>
       tags:
         - afterStrike
         - offhand
@@ -34,10 +34,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - dex1b
   iconicSpells: 0
@@ -54,12 +51,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.10.0
   createdTime: 1772307160131
-  modifiedTime: 1779905382305
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782146560954
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: cW6bwHXBB9pMcwva
 ownership:
   default: 0

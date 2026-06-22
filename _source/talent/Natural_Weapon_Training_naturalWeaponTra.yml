@@ -34,13 +34,11 @@ system:
       name: Wild Strike
       condition: ''
       description: >-
-        <p>Immediately after you perform a basic Strike, you perform a
-        reduced-cost follow-up <strong>Strike</strong> against the same target
-        using a different <strong>Natural</strong> weapon that you have access
-        to.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        <p>Immediately after you perform a basic @Action[default strike], you
+        perform a reduced-cost follow-up <strong>Strike</strong> against the
+        same target using a different <strong>Natural</strong> weapon that you
+        have access to.</p>
+      summon: null
   iconicSpells: 0
   training:
     type: natural
@@ -59,12 +57,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160139
-  modifiedTime: 1773514792598
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782148609783
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: naturalWeaponTra
 sort: 0
 _key: '!items!naturalWeaponTra'

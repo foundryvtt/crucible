@@ -3,9 +3,10 @@ type: talent
 img: icons/magic/lightning/bolt-strike-forked-blue.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Storm. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
+    <p>You are highly skilled in weaving the <strong>Rune of Storm</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[shocked] condition.</p><p>The <strong>Shocked</strong>
     effect lasts for <strong>3 Rounds</strong>, deals half the ability score
     your <strong>Rune of Storm</strong> scales with as
     <strong>Electricity</strong> damage to <strong>Morale</strong>, and applies
@@ -28,11 +29,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160150
-  modifiedTime: 1780502951987
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782145432136
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.surgeweaver00000
   duplicateSource: null
   exportSource: null

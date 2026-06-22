@@ -7,8 +7,8 @@ system:
   description: >-
     <p>Enhance a spell to make it more difficult for an enemy to retaliate
     against its casting. This spell does not provide any opportunity to make
-    reactions that involve Strike attacks, regardless of the results of the
-    spell.</p>
+    reactions that involve <strong>Strike</strong> attacks, regardless of the
+    results of the spell.</p>
   actions: []
   inflection: eluding
   iconicSpells: 1
@@ -27,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160135
-  modifiedTime: 1773514792585
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782146960376
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

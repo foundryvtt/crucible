@@ -3,9 +3,10 @@ type: talent
 img: icons/magic/fire/projectile-smoke-swirl-red.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Flame. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[burning] condition.</p><p>The Burning
+    <p>You are highly skilled in weaving the <strong>Rune of Flame</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[burning] condition.</p><p>The <strong>Burning</strong>
     effect lasts for <strong>3 Rounds</strong> and deals half the ability score
     your <strong>Rune of Flame</strong> scales with as <strong>Fire</strong>
     damage to both <strong>Health</strong> and <strong>Morale</strong>.</p>
@@ -27,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160142
-  modifiedTime: 1780502923009
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782145399238
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.pyromancer000000
   duplicateSource: null
   exportSource: null

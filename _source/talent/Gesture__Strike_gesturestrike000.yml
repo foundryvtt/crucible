@@ -4,11 +4,12 @@ img: icons/magic/fire/dagger-rune-enchant-flame-red.webp
 system:
   description: >-
     <p>You empower a direct close-range attack with the arcane essence of a
-    Rune, performing a Strike with your equipped weapon.</p><p>The Strike
-    gesture scales using <strong>Strength</strong> and deal damage based on your
-    used weapon but with the damage type of the incorporated Rune. This gesture
-    does not require any free hand and has a base cost of <strong>1
-    Focus</strong> in addition to the cost of your weapon Strike.</p>
+    Rune, performing a <strong>Strike</strong> with your equipped
+    weapon.</p><p>The <strong>Strike</strong> gesture scales using
+    <strong>Strength</strong> and deal damage based on your used weapon but with
+    the damage type of the incorporated <strong>Rune</strong>. This gesture does
+    not require any free hand and has a base cost of <strong>1 Focus</strong> in
+    addition to the cost of your weapon <strong>Strike</strong>.</p>
   actions: []
   gesture: strike
   nodes:
@@ -24,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792581
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782146702491
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturearrowcopy
   duplicateSource: null
   exportSource: null

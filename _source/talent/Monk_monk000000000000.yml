@@ -5,13 +5,16 @@ img: icons/magic/earth/strike-fist-stone-gray.webp
 system:
   description: >-
     <p>You balance monastic discipline with expertise in martial arts, balancing
-    attack and defense in harmony.</p><p>While Unarmored, you gain a +2 bonus to
-    your Reflex and Willpower defenses.</p><p>While Unarmed you can use the
-    Double Punch action.</p>
+    attack and defense in harmony.</p><p>While <strong>Unarmored</strong>, you
+    gain a +2 bonus to your <strong>Reflex</strong> and
+    <strong>Willpower</strong> defenses.</p><p>While <strong>Unarmed</strong>
+    you can use the Double Punch action.</p>
   actions:
     - id: doublePunch
       name: Double Punch
-      description: <p>You Strike twice in the blink of an eye, punching with both arms.</p>
+      description: >-
+        <p>You <strong>Strike</strong> twice in the blink of an eye, punching
+        with both arms.</p>
       tags:
         - unarmed
         - melee
@@ -35,9 +38,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.dexterity
     - sig3.wisdom
@@ -52,11 +53,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1773514792597
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782148578061
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

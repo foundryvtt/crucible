@@ -7,10 +7,10 @@ system:
     <p>You are highly skilled in weaving the <strong>Rune of Soul</strong>. When
     you cast a <strong>Spell</strong> or use an action that involves this Rune,
     your <strong>Critical Hits</strong> which restore <strong>Morale</strong>
-    cause the @Condition[inspired] condition.</p><p>The Inspired effect lasts
-    for <strong>1 Round</strong> and deals the ability score your <strong>Rune
-    of Soul</strong> scales with as additional <strong>Restoration</strong> to
-    <strong>Morale</strong>.</p>
+    cause the @Condition[inspired] condition.</p><p>The
+    <strong>Inspired</strong> effect lasts for <strong>1 Round</strong> and
+    deals the ability score your <strong>Rune of Soul</strong> scales with as
+    additional <strong>Restoration</strong> to <strong>Morale</strong>.</p>
   actions: []
   nodes:
     - pre3b
@@ -33,7 +33,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160136
-  modifiedTime: 1782143010541
+  modifiedTime: 1782145288076
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

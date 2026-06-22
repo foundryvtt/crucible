@@ -5,12 +5,13 @@ system:
   nodes:
     - wis3b
   description: >-
-    <p>You are highly skilled in weaving the Rune of Control. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[dominated] condition.</p><p>The Dominated
-    effect lasts for <strong>3 Rounds</strong> and deals the ability score your
-    <strong>Rune of Control</strong> scales with as additional
-    <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
+    <p>You are highly skilled in weaving the <strong>Rune of Control</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[dominated] condition.</p><p>The
+    <strong>Dominated</strong> effect lasts for <strong>3 Rounds</strong> and
+    deals the ability score your <strong>Rune of Control</strong> scales with as
+    additional <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -29,12 +30,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.10.0
   createdTime: 1762832897720
-  modifiedTime: 1780502985149
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782145450685
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: thoughtbinder000
 sort: 125000
 _key: '!items!thoughtbinder000'

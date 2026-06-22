@@ -10,10 +10,11 @@ system:
       description: >-
         <p>You deliver a <strong>Strike</strong> with a two-handed weapon. If
         your attack is successful and your opponent is under half their maximum
-        <strong>Health</strong>, the Strike is <strong>Deadly</strong>, and the
-        opponent suffers the @Condition[bleeding] condition for <strong>3
-        Rounds</strong>, taking additional damage each Round equal to your
-        <strong>Strength</strong> score.</p>
+        <strong>Health</strong>, the <strong>Strike</strong> is
+        <strong>Deadly</strong>, and the opponent suffers the
+        @Condition[bleeding] condition for <strong>3 Rounds</strong>, taking
+        additional damage each Round equal to your <strong>Strength</strong>
+        score.</p>
       tags:
         - melee
         - twohand
@@ -72,7 +73,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1782136825978
+  modifiedTime: 1782145757072
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

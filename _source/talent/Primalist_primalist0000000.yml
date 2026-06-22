@@ -3,19 +3,20 @@ type: talent
 img: icons/magic/symbols/elements-air-earth-fire-water.webp
 system:
   description: >-
-    <p>The potency of elemental Runes flows through you. By adopting an
-    elemental <strong>Stance</strong> you channel a Rune through your weapon
-    Strikes. You may enter a Stance for one of the elemental Runes that you
-    know:
-    </p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
+    <p>The potency of elemental <strong>Runes</strong> flows through you. By
+    adopting an elemental <strong>Stance</strong> you channel a
+    <strong>Rune</strong> through your weapon <strong>Strikes</strong>. You may
+    enter a Stance for one of the elemental Runes that you
+    know:</p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
     Earth}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
     Flame}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFrost0000000]{Rune:
     Frost}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeStorm0000000]{Rune:
     Storm}</p></li></ul><p>You may enter or change your Stance once per
     <strong>Turn</strong>, and your entered stance lasts until you change it or
-    until  Combat ends. While in a Stance, talents or features which apply
-    Critical Hit effects for actions that use that Rune apply to your weapon
-    Strikes as well.</p>
+    until <strong>Combat</strong> ends. While in a <strong>Stance</strong>,
+    talents or features which apply <strong>Critical Hit</strong> effects for
+    actions that use that Rune apply to your weapon <strong>Strikes</strong> as
+    well.</p>
   actions:
     - id: stormStance
       name: Storm Stance
@@ -215,11 +216,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160160
-  modifiedTime: 1781021326501
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782150359331
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

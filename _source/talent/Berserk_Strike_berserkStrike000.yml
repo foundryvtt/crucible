@@ -17,10 +17,11 @@ system:
         <p>You imbue your strike with momentum and intensity, increasing the
         <strong>Damage Bonus</strong> of your strike according to your missing
         <strong>Health</strong>.</p><ul><li><p>If your <strong>Health</strong>
-        is below 75%, your Strike deals <strong>+1
+        is below 75%, your <strong>Strike</strong> deals <strong>+1
         Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
-        50%, your Strike deals <strong>+2 Damage</strong></p></li><li><p>If your
-        <strong>Health</strong> is below 25%, your Strike deals <strong>+3
+        50%, your <strong>Strike</strong> deals <strong>+2
+        Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
+        25%, your <strong>Strike</strong> deals <strong>+3
         Damage</strong></p></li></ul><p>This damage bonus is doubled if you are
         using a <strong>Two-Handed</strong> weapon.</p>
       cost:
@@ -63,7 +64,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160127
-  modifiedTime: 1782141653494
+  modifiedTime: 1782144869773
   lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 0
 _key: '!items!berserkStrike000'

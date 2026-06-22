@@ -4,9 +4,11 @@ _id: eyeofthestorm000
 img: icons/magic/water/wave-water-explosion.webp
 system:
   description: >-
-    <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
-    against an enemy that you allowed to act before you that Round.</p><p>TODO:
-    Needs automation. For now apply boons manually.</p>
+    <p>After you @Action[default delay] your <strong>Turn</strong>, gain
+    <strong>+2 Boons</strong> on any <strong>Strike</strong> or
+    <strong>Spell</strong> attack against an enemy that you allowed to act
+    before you that <strong>Round</strong>.</p><p>TODO: Needs automation. For
+    now apply boons manually.</p>
   actions: []
   nodes:
     - wis1a
@@ -21,11 +23,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1773514792573
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782145856339
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

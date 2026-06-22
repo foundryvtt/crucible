@@ -5,8 +5,8 @@ img: icons/equipment/shield/buckler-iron-cross-gray.webp
 system:
   description: >-
     <p>You are a calm anchor in the swirling sea of combat. When you have a
-    Shield equipped, your <strong>Engagement</strong> increases by +1, allowing
-    you to simultaneously engage more adjacent foes.</p>
+    <strong>Shield</strong> equipped, your <strong>Engagement</strong> increases
+    by +1, allowing you to simultaneously engage more adjacent foes.</p>
   actions: []
   nodes:
     - tou3a
@@ -26,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792583
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782146808886
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

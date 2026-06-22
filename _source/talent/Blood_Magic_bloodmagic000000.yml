@@ -5,10 +5,11 @@ img: icons/skills/wounds/blood-drip-droplet-red.webp
 system:
   description: >-
     <p>You rely upon occult techniques to transform physical pain into arcane
-    potential.</p><p>You cast spells by spending <strong>Health</strong> instead
-    of <strong>Focus</strong>. When casting a spell each point of
-    <strong>Focus</strong> costs 10 points of <strong>Health</strong> instead.
-    Spells you cast cannot restore your own <strong>Health</strong>.</p>
+    potential.</p><p>You cast <strong>Spells</strong> by spending
+    <strong>Health</strong> instead of <strong>Focus</strong>. When casting a
+    <strong>Spell</strong> each point of <strong>Focus</strong> costs 10 points
+    of <strong>Health</strong> instead. <strong>Spells</strong> you cast cannot
+    restore your own <strong>Health</strong>.</p>
   actions: []
   nodes:
     - str2b
@@ -26,7 +27,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160127
-  modifiedTime: 1782141731125
+  modifiedTime: 1782144957862
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

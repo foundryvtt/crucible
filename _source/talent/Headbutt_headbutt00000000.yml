@@ -17,8 +17,8 @@ system:
         <strong>+1 Boon</strong> to this attack.</p><p>The attack is
         <strong>Difficult</strong> and only deals @Rule[action.weakened] damage,
         but if successful it inflicts the @Condition[staggered] for one
-        round.</p><p>This action always uses an Unarmed weapon, even if your
-        weapon slots are otherwise occupied.</p>
+        round.</p><p>This action always uses an <strong>Unarmed</strong> weapon,
+        even if your weapon slots are otherwise occupied.</p>
       cost:
         action: 2
         focus: 0
@@ -61,9 +61,7 @@ system:
         - weakened
         - fortitude
       condition: ''
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - toustr1
   rune: ''
@@ -81,9 +79,9 @@ _stats:
   exportSource: null
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1776117265442
-  modifiedTime: 1781395064389
+  modifiedTime: 1782146789635
   lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0

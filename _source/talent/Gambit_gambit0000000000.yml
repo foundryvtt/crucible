@@ -16,9 +16,10 @@ system:
     first time you roll a 1 on any die, that die is rerolled and you keep the
     new result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
     strike], you can choose to wager additional <strong>Banes</strong> against
-    yourself. If the Strike hits an enemy, you gain <strong>Gambit</strong>
-    charges equal to the number of Banes you wagered. These charges accumulate
-    until the end of Combat or until spent.</p></li></ul>
+    yourself. If the <strong>Strike</strong> hits an enemy, you gain
+    <strong>Gambit</strong> charges equal to the number of Banes you wagered.
+    These charges accumulate until the end of Combat or until
+    spent.</p></li></ul>
   actions:
     - id: gambitAllIn
       name: All-In
@@ -70,11 +71,11 @@ ownership:
   default: 0
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1781400000000
-  modifiedTime: 1781366663838
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782146498359
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

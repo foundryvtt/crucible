@@ -4,8 +4,8 @@ _id: gladiator0000000
 img: icons/skills/melee/spear-tips-triple-orange.webp
 system:
   description: >-
-    <p>Once per <strong>Round</strong>, you can make a Reaction which
-    incorporates a <strong>Strike</strong> attack without spending any
+    <p>Once per <strong>Round</strong>, you can make a <strong>Reaction</strong>
+    which incorporates a <strong>Strike</strong> attack without spending any
     <strong>Focus</strong>.</p>
   actions: []
   nodes:
@@ -24,7 +24,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1782142906377
+  modifiedTime: 1782146734718
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

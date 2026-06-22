@@ -5,12 +5,12 @@ img: icons/magic/life/cross-beam-green.webp
 system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Life</strong>. When
-    you cast a Spell or use an action that involves this <strong>Rune</strong>,
-    your <strong>Critical Hits</strong> which restore <strong>Health</strong>
-    cause the @Condition[mending] condition.</p><p>The <strong>Mending</strong>
-    effect lasts for <strong>1 Round</strong> and deals the ability score your
-    <strong>Rune of Life</strong> scales with as additional
-    <strong>Restoration</strong> to <strong>Health</strong>.</p>
+    you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which restore
+    <strong>Health</strong> cause the @Condition[mending] condition.</p><p>The
+    <strong>Mending</strong> effect lasts for <strong>1 Round</strong> and deals
+    the ability score your <strong>Rune of Life</strong> scales with as
+    additional <strong>Restoration</strong> to <strong>Health</strong>.</p>
   actions: []
   nodes:
     - wis3b
@@ -33,7 +33,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1782143203504
+  modifiedTime: 1782145329271
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
