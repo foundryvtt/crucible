@@ -1200,7 +1200,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
       delete itemData._id
-      itemData._id = foundry.utils.randomID();
       if ( itemData.system.properties.includes("stackable") ) {
         itemData.system.quantity = quantity;
         creationData.items.push(itemData);
